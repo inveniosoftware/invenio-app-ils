@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2018 CERN.
+#
+# invenio-app-ils is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
+set -e
+
+# Clean redis
+invenio shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
+invenio db destroy --yes-i-know
+invenio db init create
+invenio index destroy --force --yes-i-know
+invenio index init --force
+invenio index queue init purge
+
+# Create admin role to rectict access
+invenio roles create admin
+invenio access allow superuser-access role admin
