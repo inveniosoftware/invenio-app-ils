@@ -1,0 +1,97 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2018 CERN.
+#
+# invenio-app-ils is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
+version: '2.3'
+services:
+  # Load balancer
+  lb:
+    extends:
+      file: docker-services.yml
+      service: lb
+    links:
+      - frontend
+  # Frontend
+  frontend:
+    extends:
+      file: docker-services.yml
+      service: frontend
+    volumes:
+      - static_data:/opt/invenio_app_ils/var/instance/static
+    links:
+      - web-ui
+      - web-api
+  # UI Application
+  web-ui:
+    extends:
+      file: docker-services.yml
+      service: app
+    command: uwsgi /opt/invenio_app_ils/var/instance/uwsgi_ui.ini
+    image: invenio_app_ils-web-ui
+    ports:
+      - "5000"
+    volumes:
+      - static_data:/opt/invenio_app_ils/var/instance/static
+    links:
+      - cache
+      - es
+      - mq
+      - db
+  # API Rest Application
+  web-api:
+    extends:
+      file: docker-services.yml
+      service: app
+    command: uwsgi /opt/invenio_app_ils/var/instance/uwsgi_rest.ini
+    image: invenio_app_ils-web-api
+    ports:
+      - "5001"
+    volumes:
+      - static_data:/opt/invenio_app_ils/var/instance/static
+    links:
+      - cache
+      - es
+      - mq
+      - db
+  # Worker
+  worker:
+    extends:
+      file: docker-services.yml
+      service: app
+    restart: "always"
+    command: "celery worker -A invenio_app.celery --loglevel=INFO"
+    image: invenio_app_ils-worker
+    links:
+      - cache
+      - es
+      - mq
+      - db
+  # Monitoring
+  flower:
+    extends:
+      file: docker-services.yml
+      service: flower
+    links:
+      - mq
+  # Base services
+  cache:
+    extends:
+      file: docker-services.yml
+      service: cache
+  db:
+    extends:
+      file: docker-services.yml
+      service: db
+  mq:
+    extends:
+      file: docker-services.yml
+      service: mq
+  es:
+    extends:
+      file: docker-services.yml
+      service: es
+volumes:
+  static_data:

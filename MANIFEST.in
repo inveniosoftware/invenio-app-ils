@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2018 CERN.
+#
+# invenio-app-ils is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
+# TODO: Generate this manifest file by running the following commands:
+#
+#  git init
+#  git add -A
+#  pip install -e .[all]
+#  check-manifest -u
+
+# Check manifest will not automatically add these two files:
+include .dockerignore
+include .editorconfig
+include .tx/config
+include docker/haproxy/Dockerfile
+include docker/nginx/Dockerfile
+include docker/postgres/Dockerfile
+include Dockerfile
+include scripts/bootstrap
+include scripts/console
+include scripts/server
+include scripts/setup
+include scripts/update
+prune docs/_build
+recursive-include invenio_app_ils *.po *.pot *.mo
+recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh

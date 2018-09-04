@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2018 CERN.
+#
+# invenio-app-ils is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
+set -e
+
+pip install -r requirements.txt
+pip install -e .[all]
+
+npm update && npm install --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0
+
+CWD=`pwd`
+invenio npm
+static_folder=$(invenio shell --no-term-title -c "print(app.static_folder)")
+cd $static_folder
+npm install
+cd ${CWD}
+invenio collect -v
+invenio assets build
