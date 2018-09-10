@@ -11,13 +11,13 @@ set -e
 pip install -r requirements.txt
 pip install -e .[all]
 
-npm update && npm install --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0
+npm update && npm install -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0
 
 CWD=`pwd`
-invenio npm
+ils npm
 static_folder=$(invenio shell --no-term-title -c "print(app.static_folder)")
 cd $static_folder
 npm install
 cd ${CWD}
-invenio collect -v
-invenio assets build
+ils collect -v
+ils assets build

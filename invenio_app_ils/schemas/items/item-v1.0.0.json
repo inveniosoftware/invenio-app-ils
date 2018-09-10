@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Item",
+  "type": "object",
+  "properties": {
+    "document_pid": {
+      "type": "string",
+      "description": ""
+    },
+    "location_pid": {
+      "type": "string",
+      "description": ""
+    },
+    "title": {
+      "type": "string",
+      "description": ""
+    }
+  }
+}

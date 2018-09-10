@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Document",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": ""
+    },
+    "authors": {
+      "type": "string",
+      "description": ""
+    },
+    "description": {
+      "type": "string",
+      "description": ""
+    },
+    "items": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+
+  }
+}

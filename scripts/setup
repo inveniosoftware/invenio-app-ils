@@ -9,13 +9,24 @@
 set -e
 
 # Clean redis
-invenio shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
-invenio db destroy --yes-i-know
-invenio db init create
-invenio index destroy --force --yes-i-know
-invenio index init --force
-invenio index queue init purge
+ils shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
+ils db destroy --yes-i-know
+ils db init create
+ils index destroy --force --yes-i-know
+ils index init --force
+ils index queue init purge
 
-# Create admin role to rectict access
-invenio roles create admin
-invenio access allow superuser-access role admin
+# Create roles to rectict access
+ils roles create admin
+ils roles create librarian
+ils roles create patron
+
+# create users
+ils users create admin@test.ch -a --password=123456
+ils users create librarian@test.ch -a --password=123456
+ils users create patron@test.ch -a --password=123456
+
+ils roles add admin@test.ch admin
+ils roles add librarian@test.ch librarian
+ils roles add patron@test.ch patron
+ils access allow superuser-access role admin
