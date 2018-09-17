@@ -73,6 +73,9 @@ setup(
     platforms="any",
     entry_points={
         "console_scripts": ["ils = invenio_app.cli:cli"],
+        'flask.commands': [
+            'demo = invenio_app_ils.cli:demo',
+        ],
         "invenio_base.apps": [
             "invenio_app_ils = invenio_app_ils.ext:InvenioAppIls"
         ],

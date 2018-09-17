@@ -16,6 +16,9 @@ ils index destroy --force --yes-i-know
 ils index init --force
 ils index queue init purge
 
+# Create demo data
+ils demo data
+
 # Create roles to rectict access
 ils roles create admin
 ils roles create librarian

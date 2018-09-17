@@ -13,7 +13,7 @@
         "authors": {
           "type": "keyword"
         },
-        "description": {
+        "abstracts": {
           "type": "keyword"
         },
         "items": {

@@ -11,8 +11,11 @@
       "type": "string",
       "description": ""
     },
-    "description": {
-      "type": "string",
+    "abstracts": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
       "description": ""
     },
     "items": {
