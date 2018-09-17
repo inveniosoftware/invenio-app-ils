@@ -11,27 +11,31 @@ from __future__ import absolute_import, print_function
 
 from invenio_jsonschemas import current_jsonschemas
 from invenio_pidstore.models import PersistentIdentifier
+from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
-
-from .config import _DOCUMENT_PID_TYPE, _ITEM_PID_TYPE, _LOCATION_PID_TYPE
 
 
 class IlsRecord(Record):
     """Ils record class."""
 
     @classmethod
-    def get_record_by_pid(cls, pid_value):
-        """Return the record given a pid value."""
-        pid = PersistentIdentifier.get(
-            pid_type=cls._pid_type, pid_value=pid_value
+    def get_record_by_pid(cls, pid, with_deleted=False):
+        """Get ils record by pid value."""
+        from .config import _DOCUMENT_PID_TYPE
+
+        resolver = Resolver(
+            pid_type=cls._pid_type,
+            object_type="rec",
+            getter=cls.get_record,
         )
-        return cls.get_record(pid.object_uuid)
+        persistent_identifier, record = resolver.resolve(str(pid))
+        return record
 
 
 class Document(IlsRecord):
     """Document record class."""
 
-    _pid_type = _DOCUMENT_PID_TYPE
+    _pid_type = 'docid'
     _schema = "documents/document-v1.0.0.json"
 
     def __init__(self, data, model=None):
@@ -48,7 +52,7 @@ class Document(IlsRecord):
 class Item(IlsRecord):
     """Item record class."""
 
-    _pid_type = _ITEM_PID_TYPE
+    _pid_type = 'itemid'
     _schema = "items/item-v1.0.0.json"
 
     def __init__(self, data, model=None):
@@ -65,7 +69,7 @@ class Item(IlsRecord):
 class Location(IlsRecord):
     """Location record class."""
 
-    _pid_type = _LOCATION_PID_TYPE
+    _pid_type = 'locid'
     _schema = "locations/location-v1.0.0.json"
 
     def __init__(self, data, model=None):

@@ -73,8 +73,11 @@ setup(
     platforms="any",
     entry_points={
         "console_scripts": ["ils = invenio_app.cli:cli"],
-        "invenio_base.blueprints": [
-            "invenio_app_ils = invenio_app_ils.views:blueprint"
+        "invenio_base.apps": [
+            "invenio_app_ils = invenio_app_ils.ext:InvenioAppIls"
+        ],
+        "invenio_base.api_blueprints": [
+            "ils_requests = invenio_app_ils.views:blueprint"
         ],
         "invenio_config.module": ["invenio_app_ils = invenio_app_ils.config"],
         "invenio_i18n.translations": ["messages = invenio_app_ils"],
@@ -97,11 +100,8 @@ setup(
             "location_pid_minter = invenio_app_ils.pid.minters:location_pid_minter",
         ],
         "invenio_access.actions": [
-            # Action with parameter
-            "object_read_action_all"
-            " = mymodule.permissions:object_read_action_all",
-            # Action without parameter
-            "view_index_action" " = mymodule.permissions:view_index_action",
+            "ils_librarian_access"
+            " = invenio_app_ils.permissions:action_librarian_access"
         ],
     },
     extras_require=extras_require,

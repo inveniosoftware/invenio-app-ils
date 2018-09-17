@@ -16,6 +16,9 @@
         "location_pid": {
           "type": "keyword"
         },
+        "status": {
+          "type": "keyword"
+        },
         "_created": {
           "type": "date"
         },

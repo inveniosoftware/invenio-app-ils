@@ -8,3 +8,16 @@
 """Ils permissions."""
 
 from __future__ import absolute_import, print_function
+
+from invenio_access import action_factory
+from invenio_access.permissions import DynamicPermission
+
+action_librarian_access = action_factory('ils-librarian-access')
+
+def librarian_permission_factory():
+    """."""
+    return DynamicPermission(action_librarian_access)
+
+def has_librarian_permission(loan):
+    """."""
+    return librarian_permission_factory()

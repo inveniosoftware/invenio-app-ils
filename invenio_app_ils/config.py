@@ -19,6 +19,21 @@ import os
 from datetime import timedelta
 
 from invenio_indexer.api import RecordIndexer
+from invenio_circulation.config import (
+    CIRCULATION_POLICIES,
+    CIRCULATION_LOAN_TRANSITIONS,
+)
+from invenio_circulation.transitions.transitions import (
+    CreatedToItemOnLoan,
+    CreatedToPending,
+    ItemAtDeskToItemOnLoan,
+    ItemInTransitHouseToItemReturned,
+    ItemOnLoanToItemInTransitHouse,
+    ItemOnLoanToItemOnLoan,
+    ItemOnLoanToItemReturned,
+    PendingToItemAtDesk,
+    PendingToItemInTransitPickup,
+)
 from invenio_records_rest.utils import allow_all
 
 from .api import Document, Item, Location
@@ -30,6 +45,7 @@ from .circulation.utils import (
     circulation_items_retriever,
     circulation_patron_exists,
 )
+from .permissions import has_librarian_permission
 from .search import DocumentSearch, ItemSearch, LocationSearch
 
 
@@ -191,7 +207,6 @@ RECORDS_REST_ENDPOINTS = dict(
         list_route="/documents/",
         item_route="/documents/<{0}:pid_value>".format(_DOCUMENT_PID),
         default_media_type="application/json",
-        indexer_class=RecordIndexer,
         max_result_window=10000,
         error_handlers=dict(),
         create_permission_factory_imp=allow_all,
@@ -217,7 +232,6 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route="/items/<{0}:pid_value>".format(_ITEM_PID),
         default_media_type="application/json",
         max_result_window=10000,
-        indexer_class=RecordIndexer,
         error_handlers=dict(),
         create_permission_factory_imp=allow_all,
         delete_permission_factory_imp=allow_all,
@@ -242,7 +256,6 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route="/locations/<{0}:pid_value>".format(_LOCATION_PID),
         default_media_type="application/json",
         max_result_window=10000,
-        indexer_class=RecordIndexer,
         error_handlers=dict(),
         create_permission_factory_imp=allow_all,
     ),
@@ -296,10 +309,105 @@ SEARCH_UI_SEARCH_INDEX = "documents"
 # CIRCULATION
 # ===========
 CIRCULATION_ITEMS_RETRIEVER_FROM_DOCUMENT = circulation_items_retriever
+
 CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = circulation_document_retriever
+
 CIRCULATION_PATRON_EXISTS = circulation_patron_exists
+
 CIRCULATION_ITEM_EXISTS = circulation_item_exists
+
 CIRCULATION_ITEM_LOCATION_RETRIEVER = circulation_item_location_retriever
+
 CIRCULATION_POLICIES["checkout"][
     "item_available"
 ] = circulation_is_item_available
+
+CIRCULATION_REST_PERMISSION_FACTORIES = {
+    "loanid": {"create_permission_factory_imp": allow_all}
+}
+
+CIRCULATION_LOAN_TRANSITIONS = {
+    "CREATED": [
+        dict(dest="PENDING", trigger="request", transition=CreatedToPending),
+        dict(
+            dest="ITEM_ON_LOAN",
+            trigger="checkout",
+            transition=CreatedToItemOnLoan,
+            permission_factory=has_librarian_permission,
+        ),
+    ],
+    "PENDING": [
+        dict(
+            dest="ITEM_AT_DESK",
+            transition=PendingToItemAtDesk,
+            permission_factory=has_librarian_permission,
+        ),
+        dict(
+            dest="ITEM_IN_TRANSIT_FOR_PICKUP",
+            transition=PendingToItemInTransitPickup,
+            permission_factory=has_librarian_permission,
+        ),
+        dict(
+            dest="CANCELLED",
+            trigger="cancel",
+            permission_factory=has_librarian_permission,
+        ),
+    ],
+    "ITEM_AT_DESK": [
+        dict(
+            dest="ITEM_ON_LOAN",
+            transition=ItemAtDeskToItemOnLoan,
+            permission_factory=has_librarian_permission,
+        ),
+        dict(
+            dest="CANCELLED",
+            trigger="cancel",
+            permission_factory=has_librarian_permission,
+        ),
+    ],
+    "ITEM_IN_TRANSIT_FOR_PICKUP": [
+        dict(dest="ITEM_AT_DESK", permission_factory=has_librarian_permission),
+        dict(
+            dest="CANCELLED",
+            trigger="cancel",
+            permission_factory=has_librarian_permission,
+        ),
+    ],
+    "ITEM_ON_LOAN": [
+        dict(
+            dest="ITEM_RETURNED",
+            transition=ItemOnLoanToItemReturned,
+            permission_factory=has_librarian_permission,
+        ),
+        dict(
+            dest="ITEM_IN_TRANSIT_TO_HOUSE",
+            transition=ItemOnLoanToItemInTransitHouse,
+            permission_factory=has_librarian_permission,
+        ),
+        dict(
+            dest="ITEM_ON_LOAN",
+            transition=ItemOnLoanToItemOnLoan,
+            trigger="extend",
+            permission_factory=has_librarian_permission,
+        ),
+        dict(
+            dest="CANCELLED",
+            trigger="cancel",
+            permission_factory=has_librarian_permission,
+        ),
+    ],
+    "ITEM_IN_TRANSIT_TO_HOUSE": [
+        dict(
+            dest="ITEM_RETURNED",
+            transition=ItemInTransitHouseToItemReturned,
+            permission_factory=has_librarian_permission,
+        ),
+        dict(
+            dest="CANCELLED",
+            trigger="cancel",
+            permission_factory=has_librarian_permission,
+        ),
+    ],
+    "ITEM_RETURNED": [],
+    "CANCELLED": [],
+}
