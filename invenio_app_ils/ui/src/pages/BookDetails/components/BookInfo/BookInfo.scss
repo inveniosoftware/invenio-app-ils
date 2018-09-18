@@ -1,0 +1,18 @@
+$padding-40: 40px;
+$margin-30: 30px;
+$color-author: #b1b2ac;
+
+.book-details-info {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 $padding-40;
+}
+
+.book-details-author {
+  color: $color-author;
+}
+
+.book-details-abstract {
+  margin-top: $margin-30;
+}

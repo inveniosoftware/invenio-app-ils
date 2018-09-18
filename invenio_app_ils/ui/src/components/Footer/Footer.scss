@@ -1,0 +1,20 @@
+$footer-height: 180px;
+$black: #000;
+$white: #fff;
+
+.footer {
+  display: flex;
+
+  height: $footer-height;
+
+  color: $white;
+  background-color: $black;
+
+  align-items: center;
+  justify-content: space-evenly;
+
+  .footer-list {
+    display: flex;
+    flex-direction: column;
+  }
+}

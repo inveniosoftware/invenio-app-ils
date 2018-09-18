@@ -1,0 +1,22 @@
+$margin-10: 10px;
+$margin-20: 30px;
+
+$color-author: #b1b2ac;
+
+.book-list {
+  display: flex;
+  flex-direction: column;
+
+  .book-list-header {
+    display: flex;
+    margin: $margin-20 $margin-10 $margin-10;
+    color: $color-author;
+    font-weight: 300;
+    font-size: 2rem;
+  }
+
+  .book-list-content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

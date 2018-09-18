@@ -1,0 +1,39 @@
+{
+  "agency_code": "SzGeCERN",
+  "acquisition_source": {
+    "datetime": "1994-05-16"
+  },
+  "number_of_pages": 295,
+  "languages": ["en"],
+  "titles": [
+    {
+      "subtitle": "a study of DNA, RNA, and protein synthesis in bacteria",
+      "title": "Control of macromolecular synthesis"
+    }
+  ],
+  "recid": 263420,
+  "_access": {
+    "read": []
+  },
+  "authors": [
+    {
+      "full_name": "Kjeldgaard, Niels Ole"
+    },
+    {
+      "full_name": "Maal\u00f8e, Ole"
+    }
+  ],
+  "abstracts": ["This is an abstract"],
+  "$schema": {
+    "$ref": "records/books/book/book-v.0.0.1.json"
+  },
+  "document_type": ["BOOK"],
+  "imprints": [
+    {
+      "date": "1966",
+      "publisher": "Benjamin",
+      "place": "New York, NY"
+    }
+  ],
+  "coverUrl": "https://picsum.photos/300/420?image=123"
+}

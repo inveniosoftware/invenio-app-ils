@@ -1,0 +1,61 @@
+{
+  "agency_code": "SzGeCERN",
+  "acquisition_source": {
+    "datetime": "1994-08-29"
+  },
+  "public_notes": ["Includes exercises"],
+  "number_of_pages": 415,
+  "languages": ["en"],
+  "_access": {
+    "read": []
+  },
+  "abstracts": ["This is an abstract"],
+  "titles": [
+    {
+      "title": "Introduction to cosmology"
+    }
+  ],
+  "recid": 262176,
+  "isbns": [
+    {
+      "value": "0521412501"
+    },
+    {
+      "value": "052142352X"
+    },
+    {
+      "value": "9780521412506"
+    },
+    {
+      "value": "9780521423526"
+    }
+  ],
+  "authors": [
+    {
+      "full_name": "Narlikar, Jayant Vishnu"
+    }
+  ],
+  "keywords": [
+    {
+      "source": "CERN",
+      "name": "galaxies"
+    },
+    {
+      "source": "CERN",
+      "name": "textbook, university level"
+    }
+  ],
+  "editions": ["2nd ed."],
+  "$schema": {
+    "$ref": "records/books/book/book-v.0.0.1.json"
+  },
+  "document_type": ["BOOK"],
+  "imprints": [
+    {
+      "date": "1993",
+      "publisher": "Cambridge Univ. Press",
+      "place": "Cambridge"
+    }
+  ],
+  "coverUrl": "https://picsum.photos/300/420?image=117"
+}

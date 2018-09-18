@@ -14,7 +14,8 @@ this file.
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, current_app, request
+from flask import Blueprint, current_app, request, render_template, url_for
+from flask_login import login_required
 
 from invenio_circulation.api import Loan
 from invenio_circulation.errors import (
@@ -41,10 +42,11 @@ blueprint = Blueprint(
 )
 
 
-@blueprint.route("/ping", methods=["HEAD", "GET"])
-def ping():
-    """Load balancer ping view."""
-    return "OK"
+@blueprint.route("/<path:path>", methods=["GET"])
+@login_required
+def index(path):
+    """UI base view."""
+    return render_template('invenio_app_ils/index.html')
 
 
 def build_loan_request_blueprint(app, blueprint):

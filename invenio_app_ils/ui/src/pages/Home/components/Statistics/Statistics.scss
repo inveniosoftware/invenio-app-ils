@@ -1,0 +1,20 @@
+$stats-height: 80px;
+$stats-margin-tp: 40px;
+
+$color-stats: #888;
+$bg-color-stats: #f3f3f3;
+
+.home-stats {
+  font-size: 1.2rem;
+
+  display: flex;
+
+  height: $stats-height;
+  margin-top: $stats-margin-tp;
+
+  color: $color-stats;
+  background-color: $bg-color-stats;
+
+  justify-content: space-evenly;
+  align-items: center;
+}

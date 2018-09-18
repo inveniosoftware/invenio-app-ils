@@ -1,0 +1,50 @@
+{
+  "report_numbers": [
+    {
+      "value": "ESA-SP-1117"
+    },
+    {
+      "value": "SP-1117"
+    }
+  ],
+  "agency_code": "SzGeCERN",
+  "acquisition_source": {
+    "datetime": "1989-09-25"
+  },
+  "number_of_pages": 152,
+  "languages": ["en"],
+  "titles": [
+    {
+      "subtitle": "report of the Mars exploration study team",
+      "title": "Mission to Mars"
+    }
+  ],
+  "recid": 200852,
+  "_access": {
+    "read": []
+  },
+  "abstracts": ["This is an abstract"],
+  "authors": [
+    {
+      "full_name": "Chicarro, A F"
+    },
+    {
+      "full_name": "Scoon, G E N"
+    },
+    {
+      "full_name": "Coradini, M"
+    }
+  ],
+  "$schema": {
+    "$ref": "records/books/book/book-v.0.0.1.json"
+  },
+  "document_type": ["REPORT", "BOOK"],
+  "imprints": [
+    {
+      "date": "1989",
+      "publisher": "Eur. Space Agency",
+      "place": "Noordwijk"
+    }
+  ],
+  "coverUrl": "https://picsum.photos/300/420?image=112"
+}
