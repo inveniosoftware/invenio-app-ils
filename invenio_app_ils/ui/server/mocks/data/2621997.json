@@ -1,0 +1,43 @@
+{
+  "agency_code": "SzGeCERN",
+  "acquisition_source": {
+    "datetime": "2018-06-04"
+  },
+  "number_of_pages": 424,
+  "languages": ["en"],
+  "_access": {
+    "read": []
+  },
+  "titles": [
+    {
+      "title": "Speed of dark"
+    }
+  ],
+  "recid": 2621997,
+  "isbns": [
+    {
+      "medium": "print version, paperback",
+      "value": "9781841491417"
+    }
+  ],
+  "authors": [
+    {
+      "full_name": "Moon, Elizabeth"
+    }
+  ],
+  "$schema": {
+    "$ref": "records/books/book/book-v.0.0.1.json"
+  },
+  "document_type": ["BOOK"],
+  "abstracts": [
+    "SPEED OF DARK tells the powerful story of an autistic young man working for a bioinformatics company, who is offered an experimental \u2018cure\u2019 for autism by the company he works for, but he\u2019s not sure he wants to take it. Elizabeth was inspired to write\u00a0SPEED OF DARK\u00a0by her own autistic son, Michael, and\u00a0the story\u00a0won the Nebula Award for Best Novel in 2003, as well as being shortlisted for an Arthur C. Clarke award."
+  ],
+  "imprints": [
+    {
+      "date": "2002",
+      "publisher": "Orbit",
+      "place": "London"
+    }
+  ],
+  "coverUrl": "https://picsum.photos/300/420?image=130"
+}

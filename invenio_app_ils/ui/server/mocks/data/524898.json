@@ -1,0 +1,43 @@
+{
+  "corporate_authors": ["Principal Metals"],
+  "agency_code": "SzGeCERN",
+  "acquisition_source": {
+    "datetime": "2000-12-25"
+  },
+  "languages": ["en"],
+  "titles": [
+    {
+      "subtitle": "property data",
+      "title": "Principal metals online"
+    }
+  ],
+  "recid": 524898,
+  "_access": {
+    "read": []
+  },
+  "keywords": [
+    {
+      "source": "CERN",
+      "name": "metals"
+    },
+    {
+      "source": "CERN",
+      "name": "properties"
+    }
+  ],
+  "$schema": {
+    "$ref": "records/books/book/book-v.0.0.1.json"
+  },
+  "document_type": ["BOOK"],
+  "abstracts": [
+    "Principal Metals is a leading supplier of specialty metals. This database contains complete materials property data on more than 5000 ferrous and non-ferrous materials (chemistry, mechanicals, general description, applications, welding, machining, an"
+  ],
+  "imprints": [
+    {
+      "date": "2002-",
+      "publisher": "Principal Metals",
+      "place": "Boston, MA"
+    }
+  ],
+  "coverUrl": "https://picsum.photos/300/420?image=124"
+}

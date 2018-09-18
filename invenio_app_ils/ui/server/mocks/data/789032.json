@@ -1,0 +1,40 @@
+{
+  "corporate_authors": [
+    "British Standards Institution. London",
+    "International Organization for Standardization. Geneva"
+  ],
+  "agency_code": "SzGeCERN",
+  "acquisition_source": {
+    "datetime": "1999-08-30"
+  },
+  "number_of_pages": 17,
+  "languages": ["en"],
+  "titles": [
+    {
+      "title": "Brazing - Procedure approval"
+    }
+  ],
+  "recid": 789032,
+  "_access": {
+    "read": []
+  },
+  "abstracts": ["This is an abstract"],
+  "standard_numbers": [
+    {
+      "hidden": false,
+      "value": "BS-EN-13134"
+    }
+  ],
+  "$schema": {
+    "$ref": "records/books/book/book-v.0.0.1.json"
+  },
+  "document_type": ["BOOK"],
+  "imprints": [
+    {
+      "date": "2000",
+      "publisher": "BSI",
+      "place": "London"
+    }
+  ],
+  "coverUrl": "https://picsum.photos/300/420?image=129"
+}

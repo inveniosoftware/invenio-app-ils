@@ -1,0 +1,46 @@
+{
+  "corporate_authors": ["Deltronix Enterprises"],
+  "agency_code": "SzGeCERN",
+  "acquisition_source": {
+    "datetime": "2000-12-25"
+  },
+  "languages": ["en"],
+  "titles": [
+    {
+      "title": "Worldwide composites search engine"
+    }
+  ],
+  "recid": 525750,
+  "_access": {
+    "read": []
+  },
+  "keywords": [
+    {
+      "source": "CERN",
+      "name": "composite materials"
+    },
+    {
+      "source": "CERN",
+      "name": "composite structures"
+    },
+    {
+      "source": "CERN",
+      "name": "composites"
+    }
+  ],
+  "$schema": {
+    "$ref": "records/books/book/book-v.0.0.1.json"
+  },
+  "document_type": ["BOOK"],
+  "abstracts": [
+    "The largest database of composite industry related web sites on the internet."
+  ],
+  "imprints": [
+    {
+      "date": "2002-",
+      "publisher": "Deltronix Enterprises",
+      "place": "Mission Viejo, CA"
+    }
+  ],
+  "coverUrl": "https://picsum.photos/300/420?image=126"
+}

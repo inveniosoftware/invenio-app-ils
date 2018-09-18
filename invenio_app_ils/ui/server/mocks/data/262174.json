@@ -1,0 +1,64 @@
+{
+  "agency_code": "SzGeCERN",
+  "acquisition_source": {
+    "datetime": "2003-05-12"
+  },
+  "public_notes": ["Includes exercises"],
+  "number_of_pages": 278,
+  "languages": ["en"],
+  "_access": {
+    "read": []
+  },
+  "abstracts": ["This is an abstract"],
+  "titles": [
+    {
+      "title": "Fundamentals of nuclear physics"
+    }
+  ],
+  "recid": 262174,
+  "isbns": [
+    {
+      "value": "0521264472"
+    },
+    {
+      "value": "0521269946"
+    },
+    {
+      "value": "9780521264471"
+    },
+    {
+      "value": "9780521269940"
+    }
+  ],
+  "authors": [
+    {
+      "full_name": "Jelley, Nicholas Alfred"
+    }
+  ],
+  "keywords": [
+    {
+      "source": "CERN",
+      "name": "nuclear models"
+    },
+    {
+      "source": "CERN",
+      "name": "radioactivity"
+    },
+    {
+      "source": "CERN",
+      "name": "textbook, undergraduate level"
+    }
+  ],
+  "$schema": {
+    "$ref": "records/books/book/book-v.0.0.1.json"
+  },
+  "document_type": ["BOOK"],
+  "imprints": [
+    {
+      "date": "1990",
+      "publisher": "Cambridge Univ. Press",
+      "place": "Cambridge"
+    }
+  ],
+  "coverUrl": "https://picsum.photos/300/420?image=116"
+}

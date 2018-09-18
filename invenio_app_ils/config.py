@@ -92,7 +92,7 @@ THEME_FRONTPAGE = True
 #: Frontpage title.
 THEME_FRONTPAGE_TITLE = _("invenio-app-ils")
 #: Frontpage template.
-THEME_FRONTPAGE_TEMPLATE = "invenio_app_ils/frontpage.html"
+THEME_FRONTPAGE_TEMPLATE = "invenio_app_ils/index.html"
 
 # Email configuration
 # ===================
@@ -162,18 +162,18 @@ SESSION_COOKIE_SECURE = True
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
 APP_ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-
+# Disable content security headers
+APP_DEFAULT_SECURE_HEADERS = {"content_security_policy": {}}
+# APP_DEFAULT_SECURE_HEADERS['content_security_policy'] = {}
 # OAI-PMH
 # =======
 OAISERVER_ID_PREFIX = "oai:invenio_app_ils.com:"
 
+###############################################################################
 # Debug
-# =====
-# Flask-DebugToolbar is by default enabled when the application is running in
-# debug mode. More configuration options are available at
-# https://flask-debugtoolbar.readthedocs.io/en/latest/#configuration
-
-#: Switches off incept of redirects by Flask-DebugToolbar.
+###############################################################################
+DEBUG = False
+DEBUG_TB_ENABLED = True
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 # PID
@@ -260,6 +260,9 @@ RECORDS_REST_ENDPOINTS = dict(
         create_permission_factory_imp=allow_all,
     ),
 )
+
+# Allow all GET requests
+RECORDS_REST_DEFAULT_READ_PERMISSION_FACTORY = allow_all
 
 # RECORDS UI
 # ==========

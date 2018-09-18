@@ -1,0 +1,49 @@
+{
+  "agency_code": "SzGeCERN",
+  "acquisition_source": {
+    "datetime": "1994-10-31"
+  },
+  "number_of_pages": 196,
+  "_access": {
+    "read": []
+  },
+  "titles": [
+    {
+      "subtitle": "algorithmes et applications",
+      "title": "Les ondelettes"
+    }
+  ],
+  "recid": 262464,
+  "isbns": [
+    {
+      "value": "2200214537"
+    },
+    {
+      "value": "9782200214531"
+    }
+  ],
+  "abstracts": ["This is an abstract"],
+  "authors": [
+    {
+      "full_name": "Meyer, Yves"
+    }
+  ],
+  "keywords": [
+    {
+      "source": "CERN",
+      "name": "transformations, mathematics"
+    }
+  ],
+  "$schema": {
+    "$ref": "records/books/book/book-v.0.0.1.json"
+  },
+  "document_type": ["BOOK"],
+  "imprints": [
+    {
+      "date": "1993",
+      "publisher": "Colin",
+      "place": "Paris"
+    }
+  ],
+  "coverUrl": "https://picsum.photos/300/420?image=121"
+}

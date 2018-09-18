@@ -1,0 +1,69 @@
+{
+  "corporate_authors": ["Lawrence Berkeley Nat. Laboratory. Berkeley"],
+  "agency_code": "SzGeCERN",
+  "acquisition_source": {
+    "datetime": "1986-12-29"
+  },
+  "number_of_pages": 160,
+  "translations": [
+    {
+      "language": "fr",
+      "title": {
+        "title": "50th anniversary"
+      }
+    }
+  ],
+  "languages": ["en"],
+  "titles": [
+    {
+      "title": "Festschrift LBL 50th anniversary, 1931-1981"
+    }
+  ],
+  "recid": 175164,
+  "_access": {
+    "read": []
+  },
+  "abstracts": ["This is an abstract"],
+  "keywords": [
+    {
+      "source": "CERN",
+      "name": "Adams"
+    },
+    {
+      "source": "CERN",
+      "name": "CERN"
+    },
+    {
+      "source": "CERN",
+      "name": "asteroids"
+    },
+    {
+      "source": "CERN",
+      "name": "extinctions"
+    },
+    {
+      "source": "CERN",
+      "name": "history"
+    },
+    {
+      "source": "CERN",
+      "name": "pl=Berkeley"
+    },
+    {
+      "source": "CERN",
+      "name": "science"
+    }
+  ],
+  "$schema": {
+    "$ref": "records/books/book/book-v.0.0.1.json"
+  },
+  "document_type": ["BOOK"],
+  "imprints": [
+    {
+      "date": "1981",
+      "publisher": "Lawrence Berkeley Nat. Lab.",
+      "place": "Livermore, CA"
+    }
+  ],
+  "coverUrl": "https://picsum.photos/300/420?image=111"
+}

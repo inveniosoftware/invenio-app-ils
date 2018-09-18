@@ -1,0 +1,551 @@
+[
+  {
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "1985-03-04" },
+    "number_of_pages": 355,
+    "languages": ["en"],
+    "titles": [{ "title": "Introduction to partial differential equations" }],
+    "recid": 104834,
+    "_access": { "read": [] },
+    "abstracts": ["This is an abstract"],
+    "authors": [{ "full_name": "Folland, Gerald B" }],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "imprints": [
+      {
+        "date": "1976",
+        "publisher": "Princeton Univ. Press",
+        "place": "Princeton, NJ"
+      }
+    ],
+    "coverUrl": "https://picsum.photos/300/420?image=110"
+  },
+  {
+    "corporate_authors": ["Lawrence Berkeley Nat. Laboratory. Berkeley"],
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "1986-12-29" },
+    "number_of_pages": 160,
+    "translations": [
+      { "language": "fr", "title": { "title": "50th anniversary" } }
+    ],
+    "languages": ["en"],
+    "titles": [{ "title": "Festschrift LBL 50th anniversary, 1931-1981" }],
+    "recid": 175164,
+    "_access": { "read": [] },
+    "abstracts": ["This is an abstract"],
+    "keywords": [
+      { "source": "CERN", "name": "Adams" },
+      { "source": "CERN", "name": "CERN" },
+      { "source": "CERN", "name": "asteroids" },
+      { "source": "CERN", "name": "extinctions" },
+      { "source": "CERN", "name": "history" },
+      { "source": "CERN", "name": "pl=Berkeley" },
+      { "source": "CERN", "name": "science" }
+    ],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "imprints": [
+      {
+        "date": "1981",
+        "publisher": "Lawrence Berkeley Nat. Lab.",
+        "place": "Livermore, CA"
+      }
+    ],
+    "coverUrl": "https://picsum.photos/300/420?image=111"
+  },
+  {
+    "report_numbers": [{ "value": "ESA-SP-1117" }, { "value": "SP-1117" }],
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "1989-09-25" },
+    "number_of_pages": 152,
+    "languages": ["en"],
+    "titles": [
+      {
+        "subtitle": "report of the Mars exploration study team",
+        "title": "Mission to Mars"
+      }
+    ],
+    "recid": 200852,
+    "_access": { "read": [] },
+    "abstracts": ["This is an abstract"],
+    "authors": [
+      { "full_name": "Chicarro, A F" },
+      { "full_name": "Scoon, G E N" },
+      { "full_name": "Coradini, M" }
+    ],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["REPORT", "BOOK"],
+    "imprints": [
+      { "date": "1989", "publisher": "Eur. Space Agency", "place": "Noordwijk" }
+    ],
+    "coverUrl": "https://picsum.photos/300/420?image=112"
+  },
+  {
+    "corporate_authors": [
+      "International Organization for Standardization. Geneva"
+    ],
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "1990-05-14" },
+    "number_of_pages": 628,
+    "languages": ["en"],
+    "_access": { "read": [] },
+    "abstracts": ["This is an abstract"],
+    "titles": [
+      {
+        "title": "Terminology and symbols; plastics in general; reinforced plastics"
+      }
+    ],
+    "recid": 209569,
+    "isbns": [{ "value": "9267101579" }, { "value": "9789267101576" }],
+    "keywords": [
+      { "source": "CERN", "name": "dictionary" },
+      { "source": "CERN", "name": "glossary" },
+      { "source": "CERN", "name": "mechanical" },
+      { "source": "CERN", "name": "physical" },
+      { "source": "CERN", "name": "properties" },
+      { "source": "CERN", "name": "testing" },
+      { "source": "CERN", "name": "vocabulary" }
+    ],
+    "editions": ["2nd ed."],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "imprints": [{ "date": "1990", "publisher": "ISO", "place": "Geneva" }],
+    "coverUrl": "https://picsum.photos/300/420?image=113"
+  },
+  {
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "1990-07-09" },
+    "languages": ["en"],
+    "titles": [{ "title": "Classical theory of particles and fields, v.1-3" }],
+    "recid": 209588,
+    "_access": { "read": [] },
+    "abstracts": ["This is an abstract"],
+    "authors": [{ "full_name": "Ruei, K H" }],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "imprints": [
+      {
+        "date": "1971-1972",
+        "publisher": "Taipei Univ. Press",
+        "place": "Taipei"
+      }
+    ],
+    "coverUrl": "https://picsum.photos/300/420?image=114"
+  },
+  {
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "1991-08-05" },
+    "number_of_pages": 295,
+    "titles": [
+      {
+        "subtitle": "concepts de base pour la programmation des circulaires numériques, maîtrise d'informatique",
+        "title": "Informatique générale"
+      }
+    ],
+    "recid": 223479,
+    "_access": { "read": [] },
+    "abstracts": ["This is an abstract"],
+    "authors": [
+      { "full_name": "Bazerque, Georges" },
+      { "full_name": "Trullen, Claude" }
+    ],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "imprints": [{ "date": "1971", "publisher": "Dunod", "place": "Paris" }],
+    "coverUrl": "https://picsum.photos/300/420?image=115"
+  },
+  {
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "2003-05-12" },
+    "public_notes": ["Includes exercises"],
+    "number_of_pages": 278,
+    "languages": ["en"],
+    "_access": { "read": [] },
+    "abstracts": ["This is an abstract"],
+    "titles": [{ "title": "Fundamentals of nuclear physics" }],
+    "recid": 262174,
+    "isbns": [
+      { "value": "0521264472" },
+      { "value": "0521269946" },
+      { "value": "9780521264471" },
+      { "value": "9780521269940" }
+    ],
+    "authors": [{ "full_name": "Jelley, Nicholas Alfred" }],
+    "keywords": [
+      { "source": "CERN", "name": "nuclear models" },
+      { "source": "CERN", "name": "radioactivity" },
+      { "source": "CERN", "name": "textbook, undergraduate level" }
+    ],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "imprints": [
+      {
+        "date": "1990",
+        "publisher": "Cambridge Univ. Press",
+        "place": "Cambridge"
+      }
+    ],
+    "coverUrl": "https://picsum.photos/300/420?image=116"
+  },
+  {
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "1994-08-29" },
+    "public_notes": ["Includes exercises"],
+    "number_of_pages": 415,
+    "languages": ["en"],
+    "_access": { "read": [] },
+    "abstracts": ["This is an abstract"],
+    "titles": [{ "title": "Introduction to cosmology" }],
+    "recid": 262176,
+    "isbns": [
+      { "value": "0521412501" },
+      { "value": "052142352X" },
+      { "value": "9780521412506" },
+      { "value": "9780521423526" }
+    ],
+    "authors": [{ "full_name": "Narlikar, Jayant Vishnu" }],
+    "keywords": [
+      { "source": "CERN", "name": "galaxies" },
+      { "source": "CERN", "name": "textbook, university level" }
+    ],
+    "editions": ["2nd ed."],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "imprints": [
+      {
+        "date": "1993",
+        "publisher": "Cambridge Univ. Press",
+        "place": "Cambridge"
+      }
+    ],
+    "coverUrl": "https://picsum.photos/300/420?image=117"
+  },
+  {
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "2018-06-04" },
+    "number_of_pages": 424,
+    "languages": ["en"],
+    "_access": { "read": [] },
+    "titles": [{ "title": "Speed of dark" }],
+    "recid": 2621997,
+    "isbns": [
+      { "medium": "print version, paperback", "value": "9781841491417" }
+    ],
+    "authors": [{ "full_name": "Moon, Elizabeth" }],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "abstracts": [
+      "SPEED OF DARK tells the powerful story of an autistic young man working for a bioinformatics company, who is offered an experimental ‘cure’ for autism by the company he works for, but he’s not sure he wants to take it. Elizabeth was inspired to write SPEED OF DARK by her own autistic son, Michael, and the story won the Nebula Award for Best Novel in 2003, as well as being shortlisted for an Arthur C. Clarke award."
+    ],
+    "imprints": [{ "date": "2002", "publisher": "Orbit", "place": "London" }],
+    "coverUrl": "https://picsum.photos/300/420?image=130"
+  },
+  {
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "2018-06-04" },
+    "number_of_pages": 471,
+    "languages": ["en"],
+    "_access": { "read": [] },
+    "titles": [{ "title": "Two kinds of truth" }],
+    "recid": 2622002,
+    "isbns": [
+      { "medium": "print version, paperback", "value": "9781409147596" }
+    ],
+    "authors": [{ "full_name": "Connelly, Michael" }],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "abstracts": [
+      "Harry Bosch works cold cases, helping out the under-funded San Fernando police department. When a double murder at a local pharmacy is called in, Bosch is the most seasoned detective on the scene. But with experience, come the ghosts of long-forgotten crimes. A death row inmate claims Bosch framed him, and that new DNA evidence proves it.  The LAPD investigators say the case is watertight, leaving Bosch out in the wilderness to clear his name and keep a sadistic killer behind bars. There's only one person he can trust to help prove his innocence: Mickey Haller, The Lincoln Lawyer... As both cases tangle around him, Bosch learns there are two kinds of truth: the kind that won't die and the kind that kills."
+    ],
+    "imprints": [{ "date": "2018", "publisher": "Orion", "place": "London" }],
+    "coverUrl": "https://picsum.photos/300/420?image=131"
+  },
+  {
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "1992-03-09" },
+    "number_of_pages": 412,
+    "_access": { "read": [] },
+    "abstracts": ["This is an abstract"],
+    "titles": [
+      {
+        "subtitle": "Leere und Fülle im Universum",
+        "title": "Die Entdeckung des Nichts"
+      }
+    ],
+    "recid": 262325,
+    "isbns": [{ "value": "3446165096" }, { "value": "9783446165090" }],
+    "authors": [{ "full_name": "Genz, Henning" }],
+    "keywords": [
+      { "source": "CERN", "name": "history" },
+      { "source": "CERN", "name": "metaphysics" },
+      { "source": "CERN", "name": "philosophy" }
+    ],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "imprints": [{ "date": "1994", "publisher": "Hanser", "place": "Munich" }],
+    "coverUrl": "https://picsum.photos/300/420?image=118"
+  },
+  {
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "1994-09-26" },
+    "number_of_pages": 230,
+    "languages": ["en"],
+    "_access": { "read": [] },
+    "abstracts": ["This is an abstract"],
+    "titles": [
+      {
+        "subtitle": "order from chaos",
+        "title": "Vortex structures in a stratified fluid"
+      }
+    ],
+    "recid": 262350,
+    "isbns": [
+      { "value": "0412405601" },
+      { "value": "9780412405600" },
+      { "medium": "electronic version", "value": "9781489928597" }
+    ],
+    "authors": [
+      { "full_name": "Voropayev, Sergey I" },
+      { "full_name": "Afanasiev, Yakov D" }
+    ],
+    "keywords": [
+      { "source": "CERN", "name": "Vortex motion" },
+      { "source": "CERN", "name": "fluid dynamics" }
+    ],
+    "_private_notes": [{ "value": "SPRlink deleted" }],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "imprints": [
+      { "date": "1994", "publisher": "Chapman and Hall", "place": "London" }
+    ],
+    "coverUrl": "https://picsum.photos/300/420?image=119"
+  },
+  {
+    "corporate_authors": ["United States. Department of Energy"],
+    "report_numbers": [{ "value": "DOE-S-0108" }],
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "1994-07-04" },
+    "number_of_pages": 37,
+    "languages": ["en"],
+    "titles": [
+      { "subtitle": "strategic plan", "title": "Fueling a competitive economy" }
+    ],
+    "recid": 262431,
+    "_access": { "read": [] },
+    "abstracts": ["This is an abstract"],
+    "authors": [{ "role": "editor", "full_name": "O'Leary, Hazel R" }],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["REPORT", "BOOK"],
+    "imprints": [
+      {
+        "date": "1994",
+        "publisher": "US. Dept. Energy. Office Adm. Serv.",
+        "place": "Washington, DC"
+      }
+    ],
+    "coverUrl": "https://picsum.photos/300/420?image=120"
+  },
+  {
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "1994-10-31" },
+    "number_of_pages": 196,
+    "_access": { "read": [] },
+    "titles": [
+      { "subtitle": "algorithmes et applications", "title": "Les ondelettes" }
+    ],
+    "recid": 262464,
+    "isbns": [{ "value": "2200214537" }, { "value": "9782200214531" }],
+    "abstracts": ["This is an abstract"],
+    "authors": [{ "full_name": "Meyer, Yves" }],
+    "keywords": [{ "source": "CERN", "name": "transformations, mathematics" }],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "imprints": [{ "date": "1993", "publisher": "Colin", "place": "Paris" }],
+    "coverUrl": "https://picsum.photos/300/420?image=121"
+  },
+  {
+    "corporate_authors": ["European Space Agency. Paris"],
+    "report_numbers": [{ "value": "ESA-WPP-069" }],
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "1994-05-16" },
+    "number_of_pages": 541,
+    "languages": ["en"],
+    "titles": [
+      { "subtitle": "the European retrievable carrier", "title": "EURECA" }
+    ],
+    "recid": 262797,
+    "_access": { "read": [] },
+    "abstracts": ["This is an abstract"],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["REPORT", "BOOK"],
+    "imprints": [
+      { "date": "1994", "publisher": "Eur. Space Agency", "place": "Noordwijk" }
+    ],
+    "coverUrl": "https://picsum.photos/300/420?image=122"
+  },
+  {
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "1994-05-16" },
+    "number_of_pages": 295,
+    "languages": ["en"],
+    "titles": [
+      {
+        "subtitle": "a study of DNA, RNA, and protein synthesis in bacteria",
+        "title": "Control of macromolecular synthesis"
+      }
+    ],
+    "recid": 263420,
+    "_access": { "read": [] },
+    "authors": [
+      { "full_name": "Kjeldgaard, Niels Ole" },
+      { "full_name": "Maaløe, Ole" }
+    ],
+    "abstracts": ["This is an abstract"],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "imprints": [
+      { "date": "1966", "publisher": "Benjamin", "place": "New York, NY" }
+    ],
+    "coverUrl": "https://picsum.photos/300/420?image=123"
+  },
+  {
+    "corporate_authors": ["Principal Metals"],
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "2000-12-25" },
+    "languages": ["en"],
+    "titles": [
+      { "subtitle": "property data", "title": "Principal metals online" }
+    ],
+    "recid": 524898,
+    "_access": { "read": [] },
+    "keywords": [
+      { "source": "CERN", "name": "metals" },
+      { "source": "CERN", "name": "properties" }
+    ],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "abstracts": [
+      "Principal Metals is a leading supplier of specialty metals. This database contains complete materials property data on more than 5000 ferrous and non-ferrous materials (chemistry, mechanicals, general description, applications, welding, machining, an"
+    ],
+    "imprints": [
+      {
+        "date": "2002-",
+        "publisher": "Principal Metals",
+        "place": "Boston, MA"
+      }
+    ],
+    "coverUrl": "https://picsum.photos/300/420?image=124"
+  },
+  {
+    "corporate_authors": ["Copper Development Association"],
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "2000-12-25" },
+    "languages": ["en"],
+    "titles": [{ "title": "The Copper Data Center database" }],
+    "recid": 524905,
+    "_access": { "read": [] },
+    "keywords": [{ "source": "CERN", "name": "copper" }],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "abstracts": [
+      "The Copper Development Association provides access to its Copper Data Center database free of charge in an effort to increase knowledge and awareness of copper, related technologies, and the role of copper in the environment. From 1965-"
+    ],
+    "imprints": [
+      {
+        "date": "2002-",
+        "publisher": "Copper Develop. Ass.",
+        "place": "Bethesda, MD"
+      }
+    ],
+    "coverUrl": "https://picsum.photos/300/420?image=125"
+  },
+  {
+    "corporate_authors": ["Deltronix Enterprises"],
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "2000-12-25" },
+    "languages": ["en"],
+    "titles": [{ "title": "Worldwide composites search engine" }],
+    "recid": 525750,
+    "_access": { "read": [] },
+    "keywords": [
+      { "source": "CERN", "name": "composite materials" },
+      { "source": "CERN", "name": "composite structures" },
+      { "source": "CERN", "name": "composites" }
+    ],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "abstracts": [
+      "The largest database of composite industry related web sites on the internet."
+    ],
+    "imprints": [
+      {
+        "date": "2002-",
+        "publisher": "Deltronix Enterprises",
+        "place": "Mission Viejo, CA"
+      }
+    ],
+    "coverUrl": "https://picsum.photos/300/420?image=126"
+  },
+  {
+    "corporate_authors": ["Deutsches Institut für Normung. Berlin"],
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "2004-05-10" },
+    "number_of_pages": 33,
+    "titles": [
+      {
+        "title": "Vergußmassen zur Verwendung in Kabelgarnituren; Gießharzmassen und -formstoffe [VDE-Bestimmung]"
+      }
+    ],
+    "recid": 788762,
+    "_access": { "read": [] },
+    "abstracts": ["This is an abstract"],
+    "standard_numbers": [
+      { "hidden": false, "value": "DIN 57291-2" },
+      { "hidden": false, "value": "VDE 0291-2" }
+    ],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "imprints": [{ "date": "1979", "publisher": "DIN", "place": "Berlin" }],
+    "coverUrl": "https://picsum.photos/300/420?image=127"
+  },
+  {
+    "corporate_authors": ["British Standards Institution. London"],
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "2018-03-26" },
+    "number_of_pages": 16,
+    "languages": ["en"],
+    "titles": [
+      {
+        "subtitle": "part 3 : calibration of reference blocks",
+        "title": "Metallic materials - Vickers hardness test"
+      }
+    ],
+    "recid": 789020,
+    "_access": { "read": [] },
+    "abstracts": ["This is an abstract"],
+    "standard_numbers": [{ "hidden": false, "value": "BS-EN-ISO-6507-3" }],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "imprints": [{ "date": "2005", "publisher": "BSI", "place": "London" }],
+    "coverUrl": "https://picsum.photos/300/420?image=128"
+  },
+  {
+    "corporate_authors": [
+      "British Standards Institution. London",
+      "International Organization for Standardization. Geneva"
+    ],
+    "agency_code": "SzGeCERN",
+    "acquisition_source": { "datetime": "1999-08-30" },
+    "number_of_pages": 17,
+    "languages": ["en"],
+    "titles": [{ "title": "Brazing - Procedure approval" }],
+    "recid": 789032,
+    "_access": { "read": [] },
+    "abstracts": ["This is an abstract"],
+    "standard_numbers": [{ "hidden": false, "value": "BS-EN-13134" }],
+    "$schema": { "$ref": "records/books/book/book-v.0.0.1.json" },
+    "document_type": ["BOOK"],
+    "imprints": [{ "date": "2000", "publisher": "BSI", "place": "London" }],
+    "coverUrl": "https://picsum.photos/300/420?image=129"
+  }
+]

@@ -1,0 +1,43 @@
+{
+  "corporate_authors": ["United States. Department of Energy"],
+  "report_numbers": [
+    {
+      "value": "DOE-S-0108"
+    }
+  ],
+  "agency_code": "SzGeCERN",
+  "acquisition_source": {
+    "datetime": "1994-07-04"
+  },
+  "number_of_pages": 37,
+  "languages": ["en"],
+  "titles": [
+    {
+      "subtitle": "strategic plan",
+      "title": "Fueling a competitive economy"
+    }
+  ],
+  "recid": 262431,
+  "_access": {
+    "read": []
+  },
+  "abstracts": ["This is an abstract"],
+  "authors": [
+    {
+      "role": "editor",
+      "full_name": "O'Leary, Hazel R"
+    }
+  ],
+  "$schema": {
+    "$ref": "records/books/book/book-v.0.0.1.json"
+  },
+  "document_type": ["REPORT", "BOOK"],
+  "imprints": [
+    {
+      "date": "1994",
+      "publisher": "US. Dept. Energy. Office Adm. Serv.",
+      "place": "Washington, DC"
+    }
+  ],
+  "coverUrl": "https://picsum.photos/300/420?image=120"
+}

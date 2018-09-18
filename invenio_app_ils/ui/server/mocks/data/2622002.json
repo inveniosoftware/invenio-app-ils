@@ -1,0 +1,43 @@
+{
+  "agency_code": "SzGeCERN",
+  "acquisition_source": {
+    "datetime": "2018-06-04"
+  },
+  "number_of_pages": 471,
+  "languages": ["en"],
+  "_access": {
+    "read": []
+  },
+  "titles": [
+    {
+      "title": "Two kinds of truth"
+    }
+  ],
+  "recid": 2622002,
+  "isbns": [
+    {
+      "medium": "print version, paperback",
+      "value": "9781409147596"
+    }
+  ],
+  "authors": [
+    {
+      "full_name": "Connelly, Michael"
+    }
+  ],
+  "$schema": {
+    "$ref": "records/books/book/book-v.0.0.1.json"
+  },
+  "document_type": ["BOOK"],
+  "abstracts": [
+    "Harry Bosch works cold cases, helping out the under-funded San Fernando police department. When a double murder at a local pharmacy is called in, Bosch is the most seasoned detective on the scene. But with experience, come the ghosts of long-forgotten crimes. A death row inmate claims Bosch framed him, and that new DNA evidence proves it.  The LAPD investigators say the case is watertight, leaving Bosch out in the wilderness to clear his name and keep a sadistic killer behind bars. There's only one person he can trust to help prove his innocence: Mickey Haller, The Lincoln Lawyer... As both cases tangle around him, Bosch learns there are two kinds of truth: the kind that won't die and the kind that kills."
+  ],
+  "imprints": [
+    {
+      "date": "2018",
+      "publisher": "Orion",
+      "place": "London"
+    }
+  ],
+  "coverUrl": "https://picsum.photos/300/420?image=131"
+}
