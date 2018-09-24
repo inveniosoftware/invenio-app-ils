@@ -13,10 +13,6 @@ from setuptools import find_packages, setup
 
 readme = open("README.rst").read()
 
-DATABASE = "postgresql"
-ELASTICSEARCH = "elasticsearch6"
-INVENIO_VERSION = "3.0.0"
-
 tests_require = [
     "check-manifest>=0.35",
     "coverage>=4.4.1",
@@ -43,9 +39,8 @@ setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
 install_requires = [
     "Flask-BabelEx>=0.9.3",
     "Flask-Debugtoolbar>=0.10.1",
-    "invenio[{db},{es},base,auth,metadata]~={version}".format(
-        db=DATABASE, es=ELASTICSEARCH, version=INVENIO_VERSION
-    ),
+    "invenio[postgresql,elasticsearch6,base,auth,metadata]~=3.0.0",
+    "invenio-app>=1.0.1",
 ]
 
 packages = find_packages()
@@ -73,9 +68,7 @@ setup(
     platforms="any",
     entry_points={
         "console_scripts": ["ils = invenio_app.cli:cli"],
-        'flask.commands': [
-            'demo = invenio_app_ils.cli:demo',
-        ],
+        "flask.commands": ["demo = invenio_app_ils.cli:demo"],
         "invenio_base.apps": [
             "invenio_app_ils = invenio_app_ils.ext:InvenioAppIls"
         ],
@@ -83,9 +76,9 @@ setup(
             "ils_requests = invenio_app_ils.views:blueprint"
         ],
         "invenio_config.module": ["invenio_app_ils = invenio_app_ils.config"],
-        'invenio_assets.bundles': [
-            'invenio_app_ils_js = invenio_app_ils.bundles:js',
-            'invenio_app_ils_css = invenio_app_ils.bundles:css',
+        "invenio_assets.bundles": [
+            "invenio_app_ils_js = invenio_app_ils.bundles:js",
+            "invenio_app_ils_css = invenio_app_ils.bundles:css",
         ],
         "invenio_i18n.translations": ["messages = invenio_app_ils"],
         "invenio_jsonschemas.schemas": [

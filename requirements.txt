@@ -4,43 +4,7 @@
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
-# This file will include pinned versions of packages
-# TODO: Generate this file by running the following commands:
-#
-# pip install -e .
-# pip install pip-tools
-# pip-compile
-#
-# You can read more about pip-compile command here:
-# https://github.com/jazzband/pip-tools#example-usage-for-pip-compile
 
--e git+https://github.com/inveniosoftware/invenio-access#egg=invenio-access
--e git+https://github.com/inveniosoftware/invenio-accounts#egg=invenio-accounts
--e git+https://github.com/inveniosoftware/invenio-admin#egg=invenio-admin
--e git+https://github.com/inveniosoftware/invenio-app#egg=invenio-app
--e git+https://github.com/inveniosoftware/invenio-assets#egg=invenio-assets
--e git+https://github.com/inveniosoftware/invenio-base#egg=invenio-base
--e git+https://github.com/inveniosoftware/invenio-cache#egg=invenio-cache
--e git+https://github.com/inveniosoftware/invenio-celery#egg=invenio-celery
+# TODO: remove this when invenio-circulation is published
+
 -e git+https://github.com/inveniosoftware/invenio-circulation#egg=invenio-circulation
--e git+https://github.com/inveniosoftware/invenio-config#egg=invenio-config
--e git+https://github.com/inveniosoftware/invenio-db#egg=invenio-db
--e git+https://github.com/inveniosoftware/invenio-formatter#egg=invenio-formatter
--e git+https://github.com/inveniosoftware/invenio-i18n#egg=invenio-i18n
--e git+https://github.com/inveniosoftware/invenio-indexer#egg=invenio-indexer
--e git+https://github.com/inveniosoftware/invenio-jsonschemas#egg=invenio-jsonschemas
--e git+https://github.com/inveniosoftware/invenio-logging#egg=invenio-logging
--e git+https://github.com/inveniosoftware/invenio-mail#egg=invenio-mail
--e git+https://github.com/inveniosoftware/invenio-oaiserver#egg=invenio-oaiserver
--e git+https://github.com/inveniosoftware/invenio-oauth2server#egg=invenio-oauth2server
--e git+https://github.com/inveniosoftware/invenio-oauthclient#egg=invenio-oauthclient
--e git+https://github.com/inveniosoftware/invenio-pidstore#egg=invenio-pidstore
--e git+https://github.com/inveniosoftware/invenio-records-rest#egg=invenio-records-rest
--e git+https://github.com/inveniosoftware/invenio-records-ui#egg=invenio-records-ui
--e git+https://github.com/inveniosoftware/invenio-records#egg=invenio-records
--e git+https://github.com/inveniosoftware/invenio-rest#egg=invenio-rest
--e git+https://github.com/inveniosoftware/invenio-search-ui#egg=invenio-search-ui
--e git+https://github.com/inveniosoftware/invenio-search#egg=invenio-search
--e git+https://github.com/inveniosoftware/invenio-theme#egg=invenio-theme
--e git+https://github.com/inveniosoftware/invenio-userprofiles#egg=invenio-userprofiles
--e git+https://github.com/inveniosoftware/invenio#egg=invenio
