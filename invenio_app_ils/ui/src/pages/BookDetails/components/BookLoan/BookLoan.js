@@ -11,10 +11,12 @@ class BookLoan extends Component {
   }
 
   async loanBook() {
+    // You should replace that with your own access token generated from invenio
+    let bearer = 'tEIJtQuNUmB3AyZGFqLsqHxQPbNBgThrMiQi17vYROaZPJJPNMgKqqKSx1Ie';
     var config = {
       headers: {
         Authorization:
-          'bearer tEIJtQuNUmB3AyZGFqLsqHxQPbNBgThrMiQi17vYROaZPJJPNMgKqqKSx1Ie',
+          `bearer ${bearer}`,
         withCredentials: true,
       },
     };
@@ -27,11 +29,7 @@ class BookLoan extends Component {
       pickup_location_pid: '2',
       request_expire_date: '2018-08-23',
     };
-    let loanRequest = await axios.post(
-      `https:localhost:5000/api/loan_request`,
-      payload,
-      config
-    );
+    let loanRequest = await axios.post(`/api/loan_request`, payload, config);
     console.log(loanRequest);
   }
 

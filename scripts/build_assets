@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2018 CERN.
+#
+# invenio-app-ils is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
+CWD=`pwd`
+UI_FOLDER="${CWD}/invenio_app_ils/ui/"
+cd $UI_FOLDER
+npm install
+npm run build
+ils npm
+static_folder=$(invenio shell --no-term-title -c "print(app.static_folder)")
+cd $static_folder
+npm install
+cd ${CWD}
+ils collect -v
+ils assets build

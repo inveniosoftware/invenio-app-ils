@@ -15,7 +15,7 @@
     flex-direction: column;
     height: 256px;
     margin: 0 10px;
-    background-image: url("/images/home.jpg");
+    background-image: url("/static/images/home.jpg");
     background-position: center;
     justify-content: center;
     align-items: center; }
