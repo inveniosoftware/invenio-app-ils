@@ -14,11 +14,4 @@ pip install -e .[all]
 npm update && npm install -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0
 
 CWD=`pwd`
-bash "${CWD}/scripts/build_ui"
-ils npm
-static_folder=$(invenio shell --no-term-title -c "print(app.static_folder)")
-cd $static_folder
-npm install
-cd ${CWD}
-ils collect -v
-ils assets build
+bash "${CWD}/scripts/build_assets"

@@ -39,7 +39,6 @@ class BookItem extends Component {
 
   render() {
     const { title, coverUrl, authors } = this.props;
-    console.log(this.props.authors);
     return (
       <div className="book-item">
         <BookCover {...this.cover} coverUrl={coverUrl} />

@@ -10,7 +10,7 @@ js = NpmBundle(
 
 css = Bundle(
     Bundle(
-        "css/invenio_app_ils//main.css",
+        "css/invenio_app_ils/main.css",
         filters='cleancssurl',
     ),
     output='gen/invenio_app_ils.%(version)s.css'
