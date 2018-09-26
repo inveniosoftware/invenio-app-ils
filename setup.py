@@ -72,9 +72,11 @@ setup(
         "invenio_base.apps": [
             "invenio_app_ils = invenio_app_ils.ext:InvenioAppIls"
         ],
+        "invenio_base.api_apps": [
+            "invenio_app_ils_rest = invenio_app_ils.ext:InvenioAppIlsRest"
+        ],
         "invenio_base.api_blueprints": [
-            "ils_main_blueprint = invenio_app_ils.views:main_blueprint",
-            "ils_backoffice_blueprint = invenio_app_ils.views:backoffice_blueprint",
+            "ils_requests = invenio_app_ils.views:blueprint"
         ],
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config"

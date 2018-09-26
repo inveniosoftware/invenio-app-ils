@@ -45,6 +45,7 @@ from .circulation.utils import (
     circulation_items_retriever,
     circulation_patron_exists,
 )
+from .circulation.search import IlsLoansSearch
 from .permissions import has_librarian_permission
 from .search import DocumentSearch, ItemSearch, LocationSearch
 
@@ -325,8 +326,12 @@ CIRCULATION_POLICIES["checkout"][
     "item_available"
 ] = circulation_is_item_available
 
+# FIXME: improve name? or update circulation rest config directly
 CIRCULATION_REST_PERMISSION_FACTORIES = {
-    "loanid": {"create_permission_factory_imp": allow_all}
+    "loanid": {
+        "create_permission_factory_imp": allow_all,
+        "search_class": IlsLoansSearch,
+    }
 }
 
 CIRCULATION_LOAN_TRANSITIONS = {
