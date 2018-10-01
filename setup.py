@@ -75,7 +75,9 @@ setup(
         "invenio_base.api_blueprints": [
             "ils_requests = invenio_app_ils.views:blueprint"
         ],
-        "invenio_config.module": ["invenio_app_ils = invenio_app_ils.config"],
+        "invenio_config.module": [
+            "00_invenio_app_ils = invenio_app_ils.config"
+        ],
         "invenio_assets.bundles": [
             "invenio_app_ils_js = invenio_app_ils.bundles:js",
             "invenio_app_ils_css = invenio_app_ils.bundles:css",
@@ -90,18 +92,23 @@ setup(
             "locations = invenio_app_ils.mappings",
         ],
         "invenio_pidstore.fetchers": [
-            "document_pid_fetcher = invenio_app_ils.pid.fetchers:document_pid_fetcher",
-            "item_pid_fetcher = invenio_app_ils.pid.fetchers:item_pid_fetcher",
-            "location_pid_fetcher = invenio_app_ils.pid.fetchers:location_pid_fetcher",
+            "document_pid_fetcher = "
+            "invenio_app_ils.pid.fetchers:document_pid_fetcher",
+            "item_pid_fetcher = "
+            "invenio_app_ils.pid.fetchers:item_pid_fetcher",
+            "location_pid_fetcher = "
+            "invenio_app_ils.pid.fetchers:location_pid_fetcher",
         ],
         "invenio_pidstore.minters": [
-            "document_pid_minter = invenio_app_ils.pid.minters:document_pid_minter",
+            "document_pid_minter = "
+            "invenio_app_ils.pid.minters:document_pid_minter",
             "item_pid_minter = invenio_app_ils.pid.minters:item_pid_minter",
-            "location_pid_minter = invenio_app_ils.pid.minters:location_pid_minter",
+            "location_pid_minter = "
+            "invenio_app_ils.pid.minters:location_pid_minter",
         ],
         "invenio_access.actions": [
-            "ils_librarian_access"
-            " = invenio_app_ils.permissions:action_librarian_access"
+            "ils_librarian_access = "
+            "invenio_app_ils.permissions:action_librarian_access"
         ],
     },
     extras_require=extras_require,
