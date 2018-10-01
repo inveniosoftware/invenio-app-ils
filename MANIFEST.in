@@ -5,14 +5,13 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-# TODO: Generate this manifest file by running the following commands:
+# Generate this manifest file by running the following commands:
 #
 #  git init
 #  git add -A
 #  pip install -e .[all]
 #  check-manifest -u
 
-# Check manifest will not automatically add these two files:
 include .dockerignore
 include .editorconfig
 include .tx/config
@@ -21,6 +20,7 @@ include docker/nginx/Dockerfile
 include docker/postgres/Dockerfile
 include Dockerfile
 include scripts/bootstrap
+include scripts/build_assets
 include scripts/console
 include scripts/server
 include scripts/setup
@@ -28,3 +28,36 @@ include scripts/update
 prune docs/_build
 recursive-include invenio_app_ils *.po *.pot *.mo
 recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
+
+# added by check_manifest.py
+include *.json
+include *.rst
+include *.sh
+include *.txt
+include *.yml
+include LICENSE
+include babel.ini
+include pytest.ini
+recursive-include docs *.bat
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs *.txt
+recursive-include docs Makefile
+recursive-include invenio_app_ils *.css
+recursive-include invenio_app_ils *.eot
+recursive-include invenio_app_ils *.eslintrc
+recursive-include invenio_app_ils *.gitkeep
+recursive-include invenio_app_ils *.html
+recursive-include invenio_app_ils *.ico
+recursive-include invenio_app_ils *.jpg
+recursive-include invenio_app_ils *.js
+recursive-include invenio_app_ils *.json
+recursive-include invenio_app_ils *.map
+recursive-include invenio_app_ils *.png
+recursive-include invenio_app_ils *.prettierrc
+recursive-include invenio_app_ils *.scss
+recursive-include invenio_app_ils *.svg
+recursive-include invenio_app_ils *.ttf
+recursive-include invenio_app_ils *.woff
+recursive-include invenio_app_ils *.woff2
+recursive-include tests *.py
