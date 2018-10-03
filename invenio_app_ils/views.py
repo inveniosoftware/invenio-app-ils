@@ -33,8 +33,8 @@ from invenio_db import db
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_rest import ContentNegotiatedMethodView
 
-blueprint = Blueprint(
-    "invenio_app_ils",
+main_blueprint = Blueprint(
+    "invenio_app_ils_main_ui",
     __name__,
     template_folder="templates",
     static_folder="static",
@@ -42,11 +42,10 @@ blueprint = Blueprint(
 )
 
 
-@blueprint.route("/<path:path>", methods=["GET"])
-@login_required
+@main_blueprint.route("/<path:path>", methods=["GET"])
 def index(path):
     """UI base view."""
-    return render_template('invenio_app_ils/index.html')
+    return render_template("invenio_app_ils/main.html")
 
 
 def build_loan_request_blueprint(app, blueprint):
@@ -113,3 +112,19 @@ class LoanRequestResource(IlsResource):
         return self.make_response(
             pid, loan, 202, links_factory=self.links_factory
         )
+
+
+backoffice_blueprint = Blueprint(
+    "invenio_app_ils_backoffice_ui",
+    __name__,
+    template_folder="templates",
+    static_folder="static",
+    url_prefix="/backoffice",
+)
+
+
+@backoffice_blueprint.route("/", methods=["GET"])
+@login_required
+def backoffice():
+    """UI base view."""
+    return render_template("invenio_app_ils/backoffice.html")

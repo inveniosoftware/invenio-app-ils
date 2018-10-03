@@ -18,7 +18,11 @@ from werkzeug.utils import cached_property
 from invenio_records_rest.utils import allow_all
 
 from . import config
-from .views import blueprint, build_loan_request_blueprint
+from .views import (
+    backoffice_blueprint,
+    main_blueprint,
+    build_loan_request_blueprint,
+)
 
 
 class InvenioAppIls(object):
@@ -32,12 +36,13 @@ class InvenioAppIls(object):
     def init_app(self, app):
         """Flask application initialization."""
         self.init_config(app)
-        _blueprint = build_loan_request_blueprint(app, blueprint)
+        _blueprint = build_loan_request_blueprint(app, main_blueprint)
         app.register_blueprint(_blueprint)
-        app.extensions['invenio-app-ils'] = self
+        app.register_blueprint(backoffice_blueprint)
+        app.extensions["invenio-app-ils"] = self
 
     def init_config(self, app):
         """Initialize configuration."""
         for k in dir(config):
-            if k.startswith('ILS_'):
+            if k.startswith("ILS_"):
                 app.config.setdefault(k, getattr(config, k))
