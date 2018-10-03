@@ -1,0 +1,71 @@
+[
+  {
+    "itemid": "itemid-1",
+    "title": "The Gulf: The Making of An American Sea - Item 1",
+    "document_pid": "docid-1",
+    "location_pid": "locid-1",
+    "status": "MISSING"
+  },
+  {
+    "itemid": "itemid-2",
+    "title": "The Gulf: The Making of An American Sea - Item 2",
+    "document_pid": "docid-1",
+    "location_pid": "locid-1",
+    "status": "LOANABLE"
+  },
+  {
+    "itemid": "itemid-3",
+    "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
+    "document_pid": "docid-2",
+    "location_pid": "1"
+  },
+  {
+    "itemid": "itemid-4",
+    "title": "Half-light: Collected Poems 1965-2016",
+    "document_pid": "docid-3",
+    "location_pid": "locid-1",
+    "status": "LOANABLE"
+  },
+  {
+    "itemid": "itemid-5",
+    "title": "Half-light: Collected Poems 1965-2016",
+    "document_pid": "docid-3",
+    "location_pid": "locid-1",
+    "status": "LOANABLE"
+  },
+  {
+    "itemid": "itemid-6",
+    "title": "Half-light: Collected Poems 1965-2016",
+    "document_pid": "docid-3",
+    "location_pid": "locid-1",
+    "status": "LOANABLE"
+  },
+  {
+    "itemid": "itemid-7",
+    "title": "Less: A Novel",
+    "document_pid": "docid-5",
+    "location_pid": "locid-1",
+    "status": "ON_BINDING"
+  },
+  {
+    "itemid": "itemid-8",
+    "title": "Less: A Novel",
+    "document_pid": "docid-5",
+    "location_pid": "locid-1",
+    "status": "MISSING"
+  },
+  {
+    "itemid": "itemid-9",
+    "title": "Less: A Novel",
+    "document_pid": "docid-5",
+    "location_pid": "locid-1",
+    "status": "LOANABLE"
+  },
+  {
+    "itemid": "itemid-10",
+    "title": "Less: A Novel",
+    "document_pid": "docid-5",
+    "location_pid": "locid-1",
+    "status": "LOANABLE"
+  }
+]
