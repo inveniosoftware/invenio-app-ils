@@ -10,7 +10,6 @@
 from __future__ import absolute_import, print_function
 
 from invenio_jsonschemas import current_jsonschemas
-from invenio_pidstore.models import PersistentIdentifier
 from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
 
@@ -21,8 +20,6 @@ class IlsRecord(Record):
     @classmethod
     def get_record_by_pid(cls, pid, with_deleted=False):
         """Get ils record by pid value."""
-        from .config import _DOCUMENT_PID_TYPE
-
         resolver = Resolver(
             pid_type=cls._pid_type,
             object_type="rec",

@@ -56,6 +56,7 @@ api_blueprint = Blueprint(
     url_prefix="",
 )
 
+
 def build_loan_request_blueprint(app, blueprint):
     """."""
     create_error_handlers(blueprint)

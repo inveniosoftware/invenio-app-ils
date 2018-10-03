@@ -7,7 +7,6 @@
 
 """Search utilities."""
 
-from elasticsearch_dsl.query import Bool, Q
 from invenio_search.api import RecordsSearch
 
 
@@ -20,6 +19,7 @@ class DocumentSearch(RecordsSearch):
         index = 'documents'
         doc_types = None
 
+
 class ItemSearch(RecordsSearch):
     """RecordsSearch for items."""
 
@@ -28,6 +28,7 @@ class ItemSearch(RecordsSearch):
 
         index = 'items'
         doc_types = None
+
 
 class LocationSearch(RecordsSearch):
     """RecordsSearch for locations."""

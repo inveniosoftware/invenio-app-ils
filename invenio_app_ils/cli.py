@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2018 CERN.
+#
+# invenio-app-ils is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
+"""CLI for Invenio App ILS."""
+
 import click
 from flask.cli import with_appcontext
 
@@ -5,7 +14,6 @@ from invenio_circulation.api import Loan
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-from invenio_records.api import Record
 
 from invenio_app_ils.api import Document, Item, Location
 
@@ -134,9 +142,9 @@ LOANS = [
         "patron_pid": "1",
         "state": "PENDING",
         "transaction_date": "2018-06-29",
-        "transaction_location_pid": "loc_pid",
+        "transaction_location_pid": "locid-1",
         "transaction_user_pid": "user_pid",
-        "pickup_location_pid": "pickup_location_pid",
+        "pickup_location_pid": "locid-1",
         "request_expire_date": "2018-07-28",
     },
     {
@@ -145,9 +153,9 @@ LOANS = [
         "patron_pid": "1",
         "state": "PENDING",
         "transaction_date": "2018-06-29",
-        "transaction_location_pid": "loc_pid",
+        "transaction_location_pid": "locid-1",
         "transaction_user_pid": "user_pid",
-        "pickup_location_pid": "pickup_location_pid",
+        "pickup_location_pid": "locid-1",
         "request_expire_date": "2018-07-28",
     },
     {
@@ -156,9 +164,9 @@ LOANS = [
         "patron_pid": "2",
         "state": "PENDING",
         "transaction_date": "2018-06-29",
-        "transaction_location_pid": "loc_pid",
+        "transaction_location_pid": "locid-1",
         "transaction_user_pid": "user_pid",
-        "pickup_location_pid": "pickup_location_pid",
+        "pickup_location_pid": "locid-1",
         "request_expire_date": "2018-07-28",
     },
     {
@@ -167,9 +175,9 @@ LOANS = [
         "patron_pid": "2",
         "state": "PENDING",
         "transaction_date": "2018-06-29",
-        "transaction_location_pid": "loc_pid",
+        "transaction_location_pid": "locid-1",
         "transaction_user_pid": "user_pid",
-        "pickup_location_pid": "pickup_location_pid",
+        "pickup_location_pid": "locid-1",
         "request_expire_date": "2018-07-28",
     },
 ]

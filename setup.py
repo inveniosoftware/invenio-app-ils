@@ -41,6 +41,7 @@ install_requires = [
     "Flask-Debugtoolbar>=0.10.1",
     "invenio[postgresql,elasticsearch6,base,auth,metadata]~=3.0.0",
     "invenio-app>=1.0.1",
+    "invenio-config>=1.0.1",
 ]
 
 packages = find_packages()
@@ -70,10 +71,16 @@ setup(
         "console_scripts": ["ils = invenio_app.cli:cli"],
         "flask.commands": ["demo = invenio_app_ils.cli:demo"],
         "invenio_base.apps": [
-            "invenio_app_ils = invenio_app_ils.ext:InvenioAppIls"
+            "invenio_app_ils_ui = invenio_app_ils.ext:InvenioAppIlsUI"
         ],
         "invenio_base.api_apps": [
-            "invenio_app_ils_rest = invenio_app_ils.ext:InvenioAppIlsRest"
+            "invenio_app_ils_rest = invenio_app_ils.ext:InvenioAppIlsREST"
+        ],
+        "invenio_base.blueprints": [
+            "invenio_app_ils_ui = invenio_app_ils.views:blueprint"
+        ],
+        "invenio_base.api_blueprints": [
+            "invenio_app_ils_rest = invenio_app_ils.views:api_blueprint"
         ],
         "invenio_base.api_blueprints": [
             "ils_requests = invenio_app_ils.views:blueprint"
@@ -113,7 +120,7 @@ setup(
         ],
         "invenio_access.actions": [
             "ils_librarian_access = "
-            "invenio_app_ils.permissions:action_librarian_access"
+            "invenio_app_ils.permissions:librarian_access"
         ],
     },
     extras_require=extras_require,
