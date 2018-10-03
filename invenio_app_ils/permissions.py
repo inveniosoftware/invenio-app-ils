@@ -9,15 +9,35 @@
 
 from __future__ import absolute_import, print_function
 
+from flask import g
+from flask_login import current_user
+
 from invenio_access import action_factory
-from invenio_access.permissions import DynamicPermission
+from invenio_access.permissions import Permission
 
-action_librarian_access = action_factory('ils-librarian-access')
+librarian_access = action_factory('ils-librarian-access')
 
-def librarian_permission_factory():
-    """."""
-    return DynamicPermission(action_librarian_access)
 
-def has_librarian_permission(loan):
-    """."""
-    return librarian_permission_factory()
+def allow_librarians(*args, **kwargs):
+    """Return permission to allow only librarians and admins."""
+    return Permission(librarian_access)
+
+
+def loan_owner(record, *args, **kwargs):
+    """Return an object that evaluates if the current user owns the loan."""
+    def can(self):
+        """Return True if user owns the loan."""
+        return allow_librarians(record, *args, **kwargs).can() or \
+            record['patron_pid'] == str(g.identity.id)
+
+    return type('LoanOwner', (), {'can': can})()
+
+
+def login_required(*args, **kwargs):
+    """Return an object that evaluates if the current user is authenticated."""
+
+    def can(self):
+        """Return True if user is authenticated."""
+        return current_user.is_authenticated
+
+    return type('LoginRequired', (), {'can': can})()

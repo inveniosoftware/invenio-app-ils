@@ -5,7 +5,7 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-version: '2.3'
+version: "2.3"
 services:
   app:
     build:
@@ -50,9 +50,9 @@ services:
     image: postgres:9.6
     restart: "always"
     environment:
-      - "POSTGRES_USER=invenio_app_ils"
-      - "POSTGRES_PASSWORD=invenio_app_ils"
-      - "POSTGRES_DB=invenio_app_ils"
+      - "POSTGRES_USER=test"
+      - "POSTGRES_PASSWORD=psw"
+      - "POSTGRES_DB=ils"
     ports:
       - "5432:5432"
   mq:
@@ -80,7 +80,7 @@ services:
     environment:
       - "ELASTICSEARCH_URL=http://es:9200"
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ports: ['5601:5601']
+    ports: ["5601:5601"]
   flower:
     image: mher/flower
     command: --broker=amqp://guest:guest@mq:5672/ --broker_api=http://guest:guest@mq:15672/api/

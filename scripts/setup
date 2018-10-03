@@ -19,16 +19,19 @@ ils index queue init purge
 # Create demo data
 ils demo data
 
-# Create roles to rectict access
+# Create roles to restrict access
 ils roles create admin
 ils roles create librarian
 
 # create users
+ils users create patron1@test.ch -a --password=123456 # ID 1
+ils users create patron2@test.ch -a --password=123456 # ID 2
 ils users create admin@test.ch -a --password=123456
 ils users create librarian@test.ch -a --password=123456
-ils users create patron@test.ch -a --password=123456
 
+# assign roles
 ils roles add admin@test.ch admin
 ils roles add librarian@test.ch librarian
+# assign actions
 ils access allow superuser-access role admin
 ils access allow ils-librarian-access role librarian
