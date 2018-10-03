@@ -9,13 +9,15 @@
 """Search utilities."""
 
 import re
+
+from elasticsearch_dsl.query import Q
 from flask import abort, current_app, g, request
 
-from elasticsearch_dsl.query import Bool, Q
-
 from invenio_circulation.search import LoansSearch
+from invenio_records_rest.errors import InvalidQueryRESTError
+from invenio_search.api import DefaultFilter
+
 from invenio_app_ils.permissions import allow_librarians
-from invenio_search.api import RecordsSearch, DefaultFilter
 
 
 def loan_permission_filter():
@@ -53,34 +55,25 @@ def circulation_search_factory(self, search, query_parser=None):
             return Q('query_string', query=qstr)
         return Q()
 
-    def _(query_patron_pid):
-        """."""
-        if query_patron_pid == str(g.identity):
-            only_patron_loans = 'patron_pid:{}'.format(g.identity.id)
-            return Q('query_string', query=only_patron_loans)
-        else:
-            raise UnauthorizedSearch()
-
     from invenio_records_rest.facets import default_facets_factory
     from invenio_records_rest.sorter import default_sorter_factory
 
     query_string = request.values.get('q', '')
+    query = _default_parser(qstr=query_string)
 
-    # check the rights of the current user logged in
-    if allow_librarians().allows(g.identity):
-        # admin/librarian can search anything
-        query = _default_parser(query_string)
-    else:
+    # if the logged in user in not librarian or admin, validate the query
+    if not allow_librarians().allows(g.identity):
         # patron can find only his loans
         try:
-            match = re.match(r"patron_pid:(?P<patron_pid>\d)", query_string)
-            if match:
-                query = _(match.group('patron_pid'))
-            elif not query_string:
-                # search by current logged in user
-                query = _(str(g.identity.id))
+            if not query_string:
+                # force query to be patron_pid:<logged in user>
+                only_patron_loans = 'patron_pid:{}'.format(g.identity.id)
+                query = _default_parser(qstr=only_patron_loans)
             else:
-                raise UnauthorizedSearch()
+                # check for patron_pid query value
+                match = re.match(r"patron_pid:(?P<pid>\d)", query_string)
+                if match and match.group('pid') != str(g.identity.id):
+                    raise UnauthorizedSearch()
         except UnauthorizedSearch:
             current_app.logger.debug(
                 "Search for `{0}` not allowed by `patron_pid:{1}`".format(

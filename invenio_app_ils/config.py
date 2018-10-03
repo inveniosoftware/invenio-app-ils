@@ -18,10 +18,8 @@ from __future__ import absolute_import, print_function
 import os
 from datetime import timedelta
 
-from invenio_indexer.api import RecordIndexer
 from invenio_circulation.config import (
     CIRCULATION_POLICIES,
-    CIRCULATION_LOAN_TRANSITIONS,
     _CIRCULATION_LOAN_PID_TYPE,
     _CIRCULATION_LOAN_MINTER,
     _CIRCULATION_LOAN_FETCHER,
@@ -420,7 +418,8 @@ CIRCULATION_REST_ENDPOINTS = dict(
         pid_minter=_CIRCULATION_LOAN_MINTER,
         pid_fetcher=_CIRCULATION_LOAN_FETCHER,
         search_class='invenio_app_ils.circulation.search:IlsLoansSearch',
-        search_factory_imp='invenio_app_ils.circulation.search:circulation_search_factory',
+        search_factory_imp='invenio_app_ils.circulation.search'
+                           ':circulation_search_factory',
         record_class='invenio_circulation.api:Loan',
         record_serializers={
             'application/json': ('invenio_records_rest.serializers'

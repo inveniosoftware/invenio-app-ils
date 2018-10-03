@@ -10,19 +10,11 @@
 
 from __future__ import absolute_import, print_function
 
-from copy import deepcopy
-
-from flask import current_app
-from werkzeug.utils import cached_property
-
-from invenio_records_rest.utils import allow_all
-
 from . import config
-from .views import api_blueprint, blueprint, build_loan_request_blueprint
 
 
-class InvenioAppIls(object):
-    """Invenio-Circulation extension."""
+class InvenioAppIlsUI(object):
+    """Invenio App ILS UI app."""
 
     def __init__(self, app=None):
         """Extension initialization."""
@@ -32,7 +24,6 @@ class InvenioAppIls(object):
     def init_app(self, app):
         """Flask application initialization."""
         self.init_config(app)
-        app.register_blueprint(blueprint)
         app.extensions['invenio-app-ils'] = self
 
     def init_config(self, app):
@@ -42,8 +33,8 @@ class InvenioAppIls(object):
                 app.config.setdefault(k, getattr(config, k))
 
 
-class InvenioAppIlsRest(object):
-    """Invenio-Circulation extension."""
+class InvenioAppIlsREST(object):
+    """Invenio App ILS REST API app."""
 
     def __init__(self, app=None):
         """Extension initialization."""

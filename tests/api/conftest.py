@@ -16,9 +16,8 @@ import pytest
 from invenio_app.factory import create_api
 from invenio_access.models import ActionRoles
 from invenio_access.permissions import superuser_access
-from invenio_accounts.models import Role, User
+from invenio_accounts.models import Role
 from invenio_circulation.api import Loan
-from invenio_db import db
 from invenio_indexer.api import RecordIndexer
 
 from invenio_app_ils.api import Document, Item, Location
@@ -30,7 +29,6 @@ from .helpers import mint_record_pid
 @pytest.fixture(scope="module")
 def app_config(app_config):
     """Flask application fixture."""
-    app_config['APP_DEFAULT_SECURE_HEADERS']['session_cookie_secure'] = False
     app_config['APP_DEFAULT_SECURE_HEADERS']['content_security_policy'] = {
         'default-src': []
     }
@@ -59,13 +57,13 @@ def users(app, db):
                                       password='123456', active=True)
         # Give role to admin
         admin_role = Role(name='admin')
-        db.session.add(ActionRoles(
-            action=superuser_access.value, role=admin_role))
+        db.session.add(ActionRoles(action=superuser_access.value,
+                                   role=admin_role))
         datastore.add_role_to_user(admin, admin_role)
         # Give role to librarian
         librarian_role = Role(name='librarian')
-        db.session.add(ActionRoles(
-            action=librarian_access.value, role=librarian_role))
+        db.session.add(ActionRoles(action=librarian_access.value,
+                                   role=librarian_role))
         datastore.add_role_to_user(librarian, librarian_role)
     db.session.commit()
 
@@ -81,6 +79,13 @@ def users(app, db):
 def json_headers(app):
     """JSON headers."""
     return [('Content-Type', 'application/json'),
+            ('Accept', 'application/json')]
+
+
+@pytest.fixture()
+def json_patch_headers(app):
+    """JSON headers for Invenio Records REST PATCH api calls."""
+    return [('Content-Type', 'application/json-patch+json'),
             ('Accept', 'application/json')]
 
 
@@ -119,8 +124,9 @@ def loans(datadir):
 
 
 @pytest.fixture()
-def testdata(app, db, documents, items, locations, loans):
-    """Insert and return test data."""
+def testdata(app, db, es_clear, documents, items, locations, loans):
+    """Create, index and return test data."""
+
     indexer = RecordIndexer()
     for location in locations:
         record = Location.create(location)
