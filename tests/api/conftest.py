@@ -13,12 +13,13 @@ import json
 import os
 
 import pytest
-from invenio_app.factory import create_api
 from invenio_access.models import ActionRoles
 from invenio_access.permissions import superuser_access
 from invenio_accounts.models import Role
+from invenio_app.factory import create_api
 from invenio_circulation.api import Loan
 from invenio_indexer.api import RecordIndexer
+from invenio_search import current_search
 
 from invenio_app_ils.api import Document, Item, Location
 from invenio_app_ils.permissions import librarian_access
@@ -126,7 +127,6 @@ def loans(datadir):
 @pytest.fixture()
 def testdata(app, db, es_clear, documents, items, locations, loans):
     """Create, index and return test data."""
-
     indexer = RecordIndexer()
     for location in locations:
         record = Location.create(location)
@@ -155,6 +155,9 @@ def testdata(app, db, es_clear, documents, items, locations, loans):
         record.commit()
         db.session.commit()
         indexer.index(record)
+
+    # flush all indices after indexing, otherwise ES won't be ready for tests
+    current_search.flush_and_refresh(index=None)
 
     return {
         'locations': locations,

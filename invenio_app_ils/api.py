@@ -41,7 +41,7 @@ class Document(IlsRecord):
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
-        """Create Document record"""
+        """Create Document record."""
         data["$schema"] = current_jsonschemas.path_to_url(cls._schema)
         return super(Document, cls).create(data, id_=id_, **kwargs)
 
@@ -58,7 +58,7 @@ class Item(IlsRecord):
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
-        """Create Item record"""
+        """Create Item record."""
         data["$schema"] = current_jsonschemas.path_to_url(cls._schema)
         return super(Item, cls).create(data, id_=id_, **kwargs)
 
@@ -75,6 +75,6 @@ class Location(IlsRecord):
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
-        """Create Location record"""
+        """Create Location record."""
         data["$schema"] = current_jsonschemas.path_to_url(cls._schema)
         return super(Location, cls).create(data, id_=id_, **kwargs)

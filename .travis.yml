@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2018 CERN.
-# Copyright (C) 2018 RERO.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -21,15 +20,11 @@ cache:
 
 env:
   global:
-    - ES5_DOWNLOAD_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.4.tar.gz"
     - ES6_DOWNLOAD_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.0.tar.gz"
     - ES_HOST=127.0.0.1
   matrix:
-    - REQUIREMENTS=lowest EXTRAS=all,sqlite,elasticsearch5 ES_URL=$ES5_DOWNLOAD_URL
     - REQUIREMENTS=lowest EXTRAS=all,sqlite,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
-    - REQUIREMENTS=release EXTRAS=all,sqlite,elasticsearch5 ES_URL=$ES5_DOWNLOAD_URL
     - REQUIREMENTS=release EXTRAS=all,sqlite,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL DEPLOY=true
-    - REQUIREMENTS=devel EXTRAS=all,sqlite,elasticsearch5 ES_URL=$ES5_DOWNLOAD_URL
     - REQUIREMENTS=devel EXTRAS=all,sqlite,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
 
 python:
@@ -37,6 +32,8 @@ python:
   - "3.6"
 
 before_install:
+  - "npm update"
+  - "npm install -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0"
   - "mkdir /tmp/elasticsearch"
   - "wget -O - $ES_URL | tar xz --directory=/tmp/elasticsearch --strip-components=1"
   - "/tmp/elasticsearch/bin/elasticsearch &"
@@ -49,8 +46,11 @@ before_install:
   - "requirements-builder -e $EXTRAS --level=dev --req requirements-devel.txt setup.py > .travis-devel-requirements.txt"
 
 install:
+  # TODO: delete this line when circulation released
+  - "travis_retry pip install -e git+https://github.com/inveniosoftware/invenio-circulation#egg=invenio-circulation"
   - "travis_retry pip install -r .travis-${REQUIREMENTS}-requirements.txt"
   - "travis_retry pip install -e .[$EXTRAS]"
+  - "./scripts/build_assets"
 
 script:
   - "./run-tests.sh"

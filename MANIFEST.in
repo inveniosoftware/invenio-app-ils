@@ -53,6 +53,7 @@ recursive-include invenio_app_ils *.jpg
 recursive-include invenio_app_ils *.js
 recursive-include invenio_app_ils *.json
 recursive-include invenio_app_ils *.map
+recursive-include invenio_app_ils *.md
 recursive-include invenio_app_ils *.png
 recursive-include invenio_app_ils *.prettierrc
 recursive-include invenio_app_ils *.scss
@@ -61,3 +62,4 @@ recursive-include invenio_app_ils *.ttf
 recursive-include invenio_app_ils *.woff
 recursive-include invenio_app_ils *.woff2
 recursive-include tests *.py
+recursive-include tests *.json

@@ -17,3 +17,15 @@ def test_ping(client):
     resp = client.get(url_for('invenio_app_ils.ping'))
     assert resp.status_code == 200
     assert resp.get_data(as_text=True) == 'OK'
+
+
+def test_homepage_view(client):
+    """Test the home view."""
+    resp = client.get(url_for('invenio_app_ils_main_ui.index'))
+    assert resp.status_code == 200
+
+
+def test_backoffice_view_as_anonymous(client):
+    """Test the backoffice view."""
+    resp = client.get(url_for('invenio_app_ils_backoffice_ui.index'))
+    assert resp.status_code == 401

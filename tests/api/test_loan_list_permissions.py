@@ -9,12 +9,11 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import url_for
 import json
 
+from flask import url_for
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
-
 
 NEW_LOAN = {
     "item_pid": "200",
@@ -67,10 +66,6 @@ def test_patrons_can_search_their_own_loans(app, json_headers, users,
         for hit in hits['hits']['hits']:
             assert hit['metadata']['patron_pid'] == str(user.id)
 
-    # TODO: remove me, apparently ES is slow to refresh the data between tests
-    import time
-    time.sleep(1)
-
     for user in [users['patron1'], users['patron2']]:
         # search with no params
         res = _search_loans(app, json_headers, user=user)
@@ -85,11 +80,6 @@ def test_patrons_can_search_their_own_loans(app, json_headers, users,
 
 def test_patrons_cannot_search_other_loans(app, json_headers, users, testdata):
     """Test that patrons cannot search for loans of other patrons."""
-
-    # TODO: remove me, apparently ES is slow to refresh the data between tests
-    import time
-    time.sleep(1)
-
     res = _search_loans(app, json_headers, user=users['patron1'],
                         state='PENDING',  # test extra query
                         q="patron_pid:{}".format(str(users['patron2'].id)))

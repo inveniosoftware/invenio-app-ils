@@ -5,4 +5,4 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Invenio app ILS circulation module."""
+"""Invenio App ILS circulation module."""

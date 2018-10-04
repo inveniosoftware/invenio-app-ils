@@ -18,14 +18,19 @@ from __future__ import absolute_import, print_function
 import os
 from datetime import timedelta
 
-from invenio_circulation.config import (
-    CIRCULATION_POLICIES,
-    _CIRCULATION_LOAN_PID_TYPE,
-    _CIRCULATION_LOAN_MINTER,
+from invenio_records_rest.utils import allow_all
+
+from .api import Document, Item, Location
+from .search import DocumentSearch, ItemSearch, LocationSearch
+
+from invenio_circulation.config import (  # isort:skip
     _CIRCULATION_LOAN_FETCHER,
+    _CIRCULATION_LOAN_MINTER,
+    _CIRCULATION_LOAN_PID_TYPE,
+    CIRCULATION_POLICIES,
     _Loan_PID
 )
-from invenio_circulation.transitions.transitions import (
+from invenio_circulation.transitions.transitions import (  # isort:skip
     CreatedToItemOnLoan,
     CreatedToPending,
     ItemAtDeskToItemOnLoan,
@@ -34,22 +39,23 @@ from invenio_circulation.transitions.transitions import (
     ItemOnLoanToItemOnLoan,
     ItemOnLoanToItemReturned,
     PendingToItemAtDesk,
-    PendingToItemInTransitPickup,
+    PendingToItemInTransitPickup
 )
-from invenio_records_rest.utils import allow_all
 
-from .api import Document, Item, Location
-from .circulation.utils import (
+from .circulation.utils import (  # isort:skip
     circulation_document_retriever,
     circulation_is_item_available,
     circulation_item_exists,
     circulation_item_location_retriever,
     circulation_items_retriever,
-    circulation_patron_exists,
+    circulation_patron_exists
 )
-from .permissions import allow_librarians, loan_owner, \
-    login_required
-from .search import DocumentSearch, ItemSearch, LocationSearch
+from .permissions import (  # isort:skip
+    allow_librarians,
+    loan_owner,
+    login_required,
+    views_permissions_factory
+)
 
 
 def _(x):
@@ -165,6 +171,10 @@ SESSION_COOKIE_SECURE = True
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
 APP_ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+# TODO: uncomment when this PR:
+# https://github.com/inveniosoftware/invenio-app/pull/32
+# is merged and released and if u want to work on UI
+# APP_DEFAULT_SECURE_HEADERS = {"content_security_policy": {}}
 # OAI-PMH
 # =======
 OAISERVER_ID_PREFIX = "oai:invenio_app_ils.com:"
@@ -328,7 +338,12 @@ CIRCULATION_POLICIES["checkout"][
 
 CIRCULATION_LOAN_TRANSITIONS = {
     "CREATED": [
-        dict(dest="PENDING", trigger="request", transition=CreatedToPending),
+        dict(
+            dest="PENDING",
+            trigger="request",
+            transition=CreatedToPending,
+            permission_factory=login_required,
+        ),
         dict(
             dest="ITEM_ON_LOAN",
             trigger="checkout",
@@ -442,3 +457,8 @@ CIRCULATION_REST_ENDPOINTS = dict(
         list_permission_factory_imp=login_required,
     ),
 )
+
+# ILS
+# ===
+ILS_VIEWS_PERMISSIONS_FACTORY = views_permissions_factory
+"""Permissions factory for ILS views to handle all ILS actions."""

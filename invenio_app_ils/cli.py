@@ -9,14 +9,12 @@
 
 import click
 from flask.cli import with_appcontext
-
 from invenio_circulation.api import Loan
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
-from invenio_app_ils.api import Document, Item, Location
-
+from .api import Document, Item, Location
 
 LOCATIONS = [
     {

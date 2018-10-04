@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2018 CERN.
-# Copyright (C) 2018 RERO.
 #
 # Invenio-Circulation is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
@@ -12,7 +11,6 @@ import re
 
 from elasticsearch_dsl.query import Q
 from flask import abort, current_app, g, request
-
 from invenio_circulation.search import LoansSearch
 from invenio_records_rest.errors import InvalidQueryRESTError
 from invenio_search.api import DefaultFilter
@@ -33,6 +31,8 @@ class IlsLoansSearch(LoansSearch):
     """LoanSearch to filter loans."""
 
     class Meta:
+        """Define permissions filter."""
+
         index = "loans"
         doc_types = None
         default_filter = DefaultFilter(loan_permission_filter)
@@ -77,8 +77,8 @@ def circulation_search_factory(self, search, query_parser=None):
         except UnauthorizedSearch:
             current_app.logger.debug(
                 "Search for `{0}` not allowed by `patron_pid:{1}`".format(
-                    query_string, str(g.identity.id)
-            ))
+                    query_string, str(g.identity.id))
+            )
             abort(403)
 
     try:
