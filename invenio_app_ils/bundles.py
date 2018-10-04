@@ -10,6 +10,7 @@
 from __future__ import absolute_import, division, print_function
 
 import os
+
 from flask_assets import Bundle
 from invenio_assets import NpmBundle
 

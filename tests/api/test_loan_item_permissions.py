@@ -9,12 +9,11 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import url_for
 import json
 
+from flask import url_for
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
-
 
 NEW_LOAN = {
     "item_pid": "200",

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2018 CERN.
-# Copyright (C) 2018 RERO.
 #
 # Invenio-Circulation is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
@@ -11,6 +10,7 @@
 from __future__ import absolute_import, print_function
 
 from . import config
+from .circulation.views import add_circulation_views, circulation_blueprint
 
 
 class InvenioAppIlsUI(object):
@@ -19,14 +19,14 @@ class InvenioAppIlsUI(object):
     def __init__(self, app=None):
         """Extension initialization."""
         if app:
-            self.init_app(app)
+            self._init_app(app)
 
-    def init_app(self, app):
+    def _init_app(self, app):
         """Flask application initialization."""
-        self.init_config(app)
+        self._init_config(app)
         app.extensions['invenio-app-ils'] = self
 
-    def init_config(self, app):
+    def _init_config(self, app):
         """Initialize configuration."""
         for k in dir(config):
             if k.startswith('ILS_'):
@@ -39,17 +39,16 @@ class InvenioAppIlsREST(object):
     def __init__(self, app=None):
         """Extension initialization."""
         if app:
-            self.init_app(app)
+            self._init_app(app)
 
-    def init_app(self, app):
+    def _init_app(self, app):
         """Flask application initialization."""
-        self.init_config(app)
-        _blueprint = build_loan_request_blueprint(app, api_blueprint)
+        self._init_config(app)
+        _blueprint = add_circulation_views(circulation_blueprint)
         app.register_blueprint(_blueprint)
-        app.register_blueprint(backoffice_blueprint)
         app.extensions["invenio-app-ils"] = self
 
-    def init_config(self, app):
+    def _init_config(self, app):
         """Initialize configuration."""
         for k in dir(config):
             if k.startswith("ILS_"):
