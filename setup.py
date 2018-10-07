@@ -73,14 +73,17 @@ setup(
             "invenio_app_ils = invenio_app_ils.ext:InvenioAppIls"
         ],
         "invenio_base.api_blueprints": [
-            "ils_requests = invenio_app_ils.views:blueprint"
+            "ils_main_blueprint = invenio_app_ils.views:main_blueprint",
+            "ils_backoffice_blueprint = invenio_app_ils.views:backoffice_blueprint",
         ],
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config"
         ],
         "invenio_assets.bundles": [
-            "invenio_app_ils_js = invenio_app_ils.bundles:js",
-            "invenio_app_ils_css = invenio_app_ils.bundles:css",
+            "invenio_app_ils_main_js = invenio_app_ils.bundles:main_js",
+            "invenio_app_ils_main_css = invenio_app_ils.bundles:main_css",
+            "invenio_app_ils_backoffice_js = invenio_app_ils.bundles:backoffice_js",
+            "invenio_app_ils_backoffice_css = invenio_app_ils.bundles:backoffice_css",
         ],
         "invenio_i18n.translations": ["messages = invenio_app_ils"],
         "invenio_jsonschemas.schemas": [

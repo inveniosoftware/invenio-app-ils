@@ -1,2 +1,8 @@
 **/node_modules
 **/build
+**/static/css/invenio_app_ils/main
+**/static/css/invenio_app_ils/backoffice
+**/static/js/invenio_app_ils/main
+**/static/js/invenio_app_ils/backoffice
+**/static/images
+**/static/media

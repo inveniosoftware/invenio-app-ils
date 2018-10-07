@@ -92,7 +92,7 @@ THEME_FRONTPAGE = True
 #: Frontpage title.
 THEME_FRONTPAGE_TITLE = _("invenio-app-ils")
 #: Frontpage template.
-THEME_FRONTPAGE_TEMPLATE = "invenio_app_ils/index.html"
+THEME_FRONTPAGE_TEMPLATE = "invenio_app_ils/main.html"
 
 # Email configuration
 # ===================

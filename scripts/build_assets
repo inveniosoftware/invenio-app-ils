@@ -12,7 +12,7 @@ cd $UI_FOLDER
 npm install
 npm run build
 ils npm
-static_folder=$(invenio shell --no-term-title -c "print(app.static_folder)")
+static_folder=$(ils shell --no-term-title -c "print(app.static_folder)")
 cd $static_folder
 npm install
 cd ${CWD}
