@@ -28,7 +28,7 @@ from invenio_circulation.config import (  # isort:skip
     _CIRCULATION_LOAN_MINTER,
     _CIRCULATION_LOAN_PID_TYPE,
     CIRCULATION_POLICIES,
-    _Loan_PID
+    _Loan_PID,
 )
 from invenio_circulation.transitions.transitions import (  # isort:skip
     CreatedToItemOnLoan,
@@ -39,7 +39,7 @@ from invenio_circulation.transitions.transitions import (  # isort:skip
     ItemOnLoanToItemOnLoan,
     ItemOnLoanToItemReturned,
     PendingToItemAtDesk,
-    PendingToItemInTransitPickup
+    PendingToItemInTransitPickup,
 )
 
 from .circulation.utils import (  # isort:skip
@@ -48,13 +48,13 @@ from .circulation.utils import (  # isort:skip
     circulation_item_exists,
     circulation_item_location_retriever,
     circulation_items_retriever,
-    circulation_patron_exists
+    circulation_patron_exists,
 )
 from .permissions import (  # isort:skip
     allow_librarians,
     loan_owner,
     login_required,
-    views_permissions_factory
+    views_permissions_factory,
 )
 
 
@@ -171,10 +171,7 @@ SESSION_COOKIE_SECURE = True
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
 APP_ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-# TODO: uncomment when this PR:
-# https://github.com/inveniosoftware/invenio-app/pull/32
-# is merged and released and if u want to work on UI
-# APP_DEFAULT_SECURE_HEADERS = {"content_security_policy": {}}
+
 # OAI-PMH
 # =======
 OAISERVER_ID_PREFIX = "oai:invenio_app_ils.com:"
@@ -432,22 +429,24 @@ CIRCULATION_REST_ENDPOINTS = dict(
         pid_type=_CIRCULATION_LOAN_PID_TYPE,
         pid_minter=_CIRCULATION_LOAN_MINTER,
         pid_fetcher=_CIRCULATION_LOAN_FETCHER,
-        search_class='invenio_app_ils.circulation.search:IlsLoansSearch',
-        search_factory_imp='invenio_app_ils.circulation.search'
-                           ':circulation_search_factory',
-        record_class='invenio_circulation.api:Loan',
+        search_class="invenio_app_ils.circulation.search:IlsLoansSearch",
+        search_factory_imp="invenio_app_ils.circulation.search"
+        ":circulation_search_factory",
+        record_class="invenio_circulation.api:Loan",
         record_serializers={
-            'application/json': ('invenio_records_rest.serializers'
-                                 ':json_v1_response'),
+            "application/json": (
+                "invenio_records_rest.serializers" ":json_v1_response"
+            )
         },
         search_serializers={
-            'application/json': ('invenio_records_rest.serializers'
-                                 ':json_v1_search'),
+            "application/json": (
+                "invenio_records_rest.serializers" ":json_v1_search"
+            )
         },
-        list_route='/circulation/loans/',
-        item_route='/circulation/loans/<{0}:pid_value>'.format(_Loan_PID),
-        default_media_type='application/json',
-        links_factory_imp='invenio_circulation.links:loan_links_factory',
+        list_route="/circulation/loans/",
+        item_route="/circulation/loans/<{0}:pid_value>".format(_Loan_PID),
+        default_media_type="application/json",
+        links_factory_imp="invenio_circulation.links:loan_links_factory",
         max_result_window=10000,
         error_handlers=dict(),
         read_permission_factory_imp=loan_owner,
@@ -455,7 +454,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         update_permission_factory_imp=allow_librarians,
         delete_permission_factory_imp=allow_librarians,
         list_permission_factory_imp=login_required,
-    ),
+    )
 )
 
 # ILS
