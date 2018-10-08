@@ -40,7 +40,7 @@ install_requires = [
     "Flask-BabelEx>=0.9.3",
     "Flask-Debugtoolbar>=0.10.1",
     "invenio[postgresql,elasticsearch6,base,auth,metadata]~=3.0.0",
-    "invenio-app>=1.0.1",
+    "invenio-app>=1.0.3",
     "invenio-config>=1.0.1",
     "invenio-circulation==0.1.0.dev20180000",  # TODO: add a version here
     # when released, need for Travis and isort
@@ -82,7 +82,7 @@ setup(
             "invenio_app_ils_main_ui"
             " = invenio_app_ils.views:main_blueprint",
             "invenio_app_ils_backoffice_ui"
-            "= invenio_app_ils.views:backoffice_blueprint"
+            "= invenio_app_ils.views:backoffice_blueprint",
         ],
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config"

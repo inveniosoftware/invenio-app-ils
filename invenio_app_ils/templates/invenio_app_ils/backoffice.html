@@ -1,30 +1,25 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2018 CERN.
-#
-# invenio-app-ils is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+{# -*- coding: utf-8 -*-
+
+    Copyright (C) 2018 CERN.
+
+    invenio-app-ils is free software; you can redistribute it and/or modify it
+    under the terms of the MIT License; see LICENSE file for more details.
+#}
 
 {%- extends "invenio_app_ils/base.html" %}
 
 {%- block css %}
-
-{% assets "invenio_app_ils_backoffice_css" %}
-<link href="{{ ASSET_URL }}" rel="stylesheet">
-{% endassets %}
-
+    {% assets "invenio_app_ils_backoffice_css" %}
+    <link href="{{ ASSET_URL }}" rel="stylesheet">
+    {% endassets %}
 {%- endblock %}
 
 {%- block page_body %}
-
-<div id="backoffice"></div>
-
+    <div id="backoffice"></div>
 {%- endblock %}
 
 {%- block javascript %}
-
-{% assets "invenio_app_ils_backoffice_js" %}
-<script src="{{ ASSET_URL }}"></script>
-{% endassets %}
-
+    {% assets "invenio_app_ils_backoffice_js" %}
+    <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
 {%- endblock %}

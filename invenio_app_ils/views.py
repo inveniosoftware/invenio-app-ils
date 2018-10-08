@@ -27,14 +27,17 @@ def need_permissions(action):
 
     :param action: The action needed.
     """
+
     def decorator_builder(f):
         @wraps(f)
         def decorate(*args, **kwargs):
             check_permission(
-                current_app.config['ILS_VIEWS_PERMISSIONS_FACTORY'](action)
+                current_app.config["ILS_VIEWS_PERMISSIONS_FACTORY"](action)
             )
             return f(*args, **kwargs)
+
         return decorate
+
     return decorator_builder
 
 
@@ -62,8 +65,8 @@ backoffice_blueprint = Blueprint(
 )
 
 
-@backoffice_blueprint.route("/", methods=["GET"])
-@login_required
-def backoffice():
+@backoffice_blueprint.route("/<path:path>", methods=["GET"])
+@need_permissions("ils-backoffice-view")
+def backoffice(path):
     """UI base view."""
     return render_template("invenio_app_ils/backoffice.html")

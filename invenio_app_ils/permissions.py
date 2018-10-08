@@ -15,7 +15,7 @@ from invenio_access import action_factory
 from invenio_access.permissions import Permission
 from invenio_records_rest.utils import deny_all
 
-librarian_access = action_factory('ils-librarian-access')
+librarian_access = action_factory("ils-librarian-access")
 
 
 def check_permission(permission):
@@ -25,7 +25,7 @@ def check_permission(permission):
     """
     if permission is not None and not permission.can():
         if current_user.is_authenticated:
-            abort(403, 'You do not have a permission for this action')
+            abort(403, "You do not have a permission for this action")
         abort(401)
 
 
@@ -36,26 +36,31 @@ def allow_librarians(*args, **kwargs):
 
 def loan_owner(record, *args, **kwargs):
     """Return an object that evaluates if the current user owns the loan."""
+
     def can(self):
         """Return True if user owns the loan."""
-        return allow_librarians(record, *args, **kwargs).can() or \
-            record['patron_pid'] == str(g.identity.id)
+        return allow_librarians(record, *args, **kwargs).can() or record[
+            "patron_pid"
+        ] == str(g.identity.id)
 
-    return type('LoanOwner', (), {'can': can})()
+    return type("LoanOwner", (), {"can": can})()
 
 
 def login_required(*args, **kwargs):
     """Return an object that evaluates if the current user is authenticated."""
+
     def can(self):
         """Return True if user is authenticated."""
         return current_user.is_authenticated
 
-    return type('LoginRequired', (), {'can': can})()
+    return type("LoginRequired", (), {"can": can})()
 
 
 def views_permissions_factory(action):
     """Default ILS views permissions factory."""
-    if action == 'circulation-loan-request':
+    if action == "circulation-loan-request":
         return login_required()
+    elif action == "ils-backoffice-view":
+        return allow_librarians()
     else:
         return deny_all()
