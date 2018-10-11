@@ -14,24 +14,32 @@ this file.
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, current_app, request, render_template, url_for
+from functools import wraps
+
+from flask import Blueprint, current_app, render_template
 from flask_login import login_required
 
-from invenio_circulation.api import Loan
-from invenio_circulation.errors import (
-    InvalidCirculationPermission,
-    ItemNotAvailable,
-    LoanActionError,
-    NoValidTransitionAvailable,
-)
-from invenio_circulation.links import loan_links_factory
+from invenio_app_ils.permissions import check_permission
 
-from invenio_circulation.views import create_error_handlers
-from invenio_circulation.pid.minters import loan_pid_minter
-from invenio_circulation.proxies import current_circulation
-from invenio_db import db
-from invenio_records_rest.utils import obj_or_import_string
-from invenio_rest import ContentNegotiatedMethodView
+
+def need_permissions(action):
+    """View decorator to check permissions for the given action or abort.
+
+    :param action: The action needed.
+    """
+
+    def decorator_builder(f):
+        @wraps(f)
+        def decorate(*args, **kwargs):
+            check_permission(
+                current_app.config["ILS_VIEWS_PERMISSIONS_FACTORY"](action)
+            )
+            return f(*args, **kwargs)
+
+        return decorate
+
+    return decorator_builder
+
 
 main_blueprint = Blueprint(
     "invenio_app_ils_main_ui",
@@ -48,72 +56,6 @@ def index(path):
     return render_template("invenio_app_ils/main.html")
 
 
-def build_loan_request_blueprint(app, blueprint):
-    """."""
-    create_error_handlers(blueprint)
-
-    rec_serializers = {
-        "application/json": (
-            "invenio_records_rest.serializers" ":json_v1_response"
-        )
-    }
-    serializers = {
-        mime: obj_or_import_string(func)
-        for mime, func in rec_serializers.items()
-    }
-
-    loan_request = LoanRequestResource.as_view(
-        LoanRequestResource.view_name,
-        serializers=serializers,
-        ctx=dict(links_factory=loan_links_factory),
-    )
-
-    blueprint.add_url_rule(
-        "/loan_request", view_func=loan_request, methods=["POST"]
-    )
-    return blueprint
-
-
-class IlsResource(ContentNegotiatedMethodView):
-    """ILS resource."""
-
-    view_name = "ils_resource"
-
-    def __init__(self, serializers, ctx, *args, **kwargs):
-        """Constructor."""
-        super(IlsResource, self).__init__(serializers, *args, **kwargs)
-        for key, value in ctx.items():
-            setattr(self, key, value)
-
-
-class LoanRequestResource(IlsResource):
-    """Loan action resource."""
-
-    view_name = "loan_request"
-
-    def post(self, **kwargs):
-        """Loan request view."""
-        loan = Loan.create({})
-        pid = loan_pid_minter(loan.id, loan)
-        params = request.get_json()
-        try:
-            loan = current_circulation.circulation.trigger(
-                loan, **dict(params, trigger="request")
-            )
-            db.session.commit()
-        except (
-            ItemNotAvailable,
-            InvalidCirculationPermission,
-            NoValidTransitionAvailable,
-        ) as ex:
-            current_app.logger.exception(ex.msg)
-            raise LoanActionError(ex)
-
-        return self.make_response(
-            pid, loan, 202, links_factory=self.links_factory
-        )
-
-
 backoffice_blueprint = Blueprint(
     "invenio_app_ils_backoffice_ui",
     __name__,
@@ -123,8 +65,8 @@ backoffice_blueprint = Blueprint(
 )
 
 
-@backoffice_blueprint.route("/", methods=["GET"])
-@login_required
-def backoffice():
+@backoffice_blueprint.route("/<path:path>", methods=["GET"])
+@need_permissions("ils-backoffice-view")
+def backoffice(path):
     """UI base view."""
     return render_template("invenio_app_ils/backoffice.html")

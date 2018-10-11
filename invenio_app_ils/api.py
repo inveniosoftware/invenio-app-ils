@@ -10,7 +10,6 @@
 from __future__ import absolute_import, print_function
 
 from invenio_jsonschemas import current_jsonschemas
-from invenio_pidstore.models import PersistentIdentifier
 from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
 
@@ -21,8 +20,6 @@ class IlsRecord(Record):
     @classmethod
     def get_record_by_pid(cls, pid, with_deleted=False):
         """Get ils record by pid value."""
-        from .config import _DOCUMENT_PID_TYPE
-
         resolver = Resolver(
             pid_type=cls._pid_type,
             object_type="rec",
@@ -44,7 +41,7 @@ class Document(IlsRecord):
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
-        """Create Document record"""
+        """Create Document record."""
         data["$schema"] = current_jsonschemas.path_to_url(cls._schema)
         return super(Document, cls).create(data, id_=id_, **kwargs)
 
@@ -61,7 +58,7 @@ class Item(IlsRecord):
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
-        """Create Item record"""
+        """Create Item record."""
         data["$schema"] = current_jsonschemas.path_to_url(cls._schema)
         return super(Item, cls).create(data, id_=id_, **kwargs)
 
@@ -78,6 +75,6 @@ class Location(IlsRecord):
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
-        """Create Location record"""
+        """Create Location record."""
         data["$schema"] = current_jsonschemas.path_to_url(cls._schema)
         return super(Location, cls).create(data, id_=id_, **kwargs)

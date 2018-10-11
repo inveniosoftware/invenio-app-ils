@@ -18,12 +18,19 @@ from __future__ import absolute_import, print_function
 import os
 from datetime import timedelta
 
-from invenio_indexer.api import RecordIndexer
-from invenio_circulation.config import (
+from invenio_records_rest.utils import allow_all
+
+from .api import Document, Item, Location
+from .search import DocumentSearch, ItemSearch, LocationSearch
+
+from invenio_circulation.config import (  # isort:skip
+    _CIRCULATION_LOAN_FETCHER,
+    _CIRCULATION_LOAN_MINTER,
+    _CIRCULATION_LOAN_PID_TYPE,
     CIRCULATION_POLICIES,
-    CIRCULATION_LOAN_TRANSITIONS,
+    _Loan_PID,
 )
-from invenio_circulation.transitions.transitions import (
+from invenio_circulation.transitions.transitions import (  # isort:skip
     CreatedToItemOnLoan,
     CreatedToPending,
     ItemAtDeskToItemOnLoan,
@@ -34,10 +41,8 @@ from invenio_circulation.transitions.transitions import (
     PendingToItemAtDesk,
     PendingToItemInTransitPickup,
 )
-from invenio_records_rest.utils import allow_all
 
-from .api import Document, Item, Location
-from .circulation.utils import (
+from .circulation.utils import (  # isort:skip
     circulation_document_retriever,
     circulation_is_item_available,
     circulation_item_exists,
@@ -45,8 +50,12 @@ from .circulation.utils import (
     circulation_items_retriever,
     circulation_patron_exists,
 )
-from .permissions import has_librarian_permission
-from .search import DocumentSearch, ItemSearch, LocationSearch
+from .permissions import (  # isort:skip
+    allow_librarians,
+    loan_owner,
+    login_required,
+    views_permissions_factory,
+)
 
 
 def _(x):
@@ -138,7 +147,7 @@ CELERY_BEAT_SCHEDULE = {
 # Database
 # ========
 #: Database URI including user and password
-SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://invenio_app_ils:invenio_app_ils@localhost/invenio_app_ils"
+SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://test:psw@localhost/ils"
 
 # JSONSchemas
 # ===========
@@ -162,9 +171,7 @@ SESSION_COOKIE_SECURE = True
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
 APP_ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-# Disable content security headers
-APP_DEFAULT_SECURE_HEADERS = {"content_security_policy": {}}
-# APP_DEFAULT_SECURE_HEADERS['content_security_policy'] = {}
+
 # OAI-PMH
 # =======
 OAISERVER_ID_PREFIX = "oai:invenio_app_ils.com:"
@@ -172,7 +179,7 @@ OAISERVER_ID_PREFIX = "oai:invenio_app_ils.com:"
 ###############################################################################
 # Debug
 ###############################################################################
-DEBUG = False
+DEBUG = True
 DEBUG_TB_ENABLED = True
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
@@ -185,6 +192,7 @@ _LOCATION_PID_TYPE = "locid"
 _DOCUMENT_PID = 'pid(docid, record_class="invenio_app_ils.api:Document")'
 _ITEM_PID = 'pid(itemid, record_class="invenio_app_ils.api:Item")'
 _LOCATION_PID = 'pid(locid, record_class="invenio_app_ils.api:Location")'
+
 # RECORDS REST
 # ============
 RECORDS_REST_ENDPOINTS = dict(
@@ -325,92 +333,131 @@ CIRCULATION_POLICIES["checkout"][
     "item_available"
 ] = circulation_is_item_available
 
-CIRCULATION_REST_PERMISSION_FACTORIES = {
-    "loanid": {"create_permission_factory_imp": allow_all}
-}
-
 CIRCULATION_LOAN_TRANSITIONS = {
     "CREATED": [
-        dict(dest="PENDING", trigger="request", transition=CreatedToPending),
+        dict(
+            dest="PENDING",
+            trigger="request",
+            transition=CreatedToPending,
+            permission_factory=login_required,
+        ),
         dict(
             dest="ITEM_ON_LOAN",
             trigger="checkout",
             transition=CreatedToItemOnLoan,
-            permission_factory=has_librarian_permission,
+            permission_factory=allow_librarians,
         ),
     ],
     "PENDING": [
         dict(
             dest="ITEM_AT_DESK",
             transition=PendingToItemAtDesk,
-            permission_factory=has_librarian_permission,
+            permission_factory=allow_librarians,
         ),
         dict(
             dest="ITEM_IN_TRANSIT_FOR_PICKUP",
             transition=PendingToItemInTransitPickup,
-            permission_factory=has_librarian_permission,
+            permission_factory=allow_librarians,
         ),
         dict(
             dest="CANCELLED",
             trigger="cancel",
-            permission_factory=has_librarian_permission,
+            permission_factory=allow_librarians,
         ),
     ],
     "ITEM_AT_DESK": [
         dict(
             dest="ITEM_ON_LOAN",
             transition=ItemAtDeskToItemOnLoan,
-            permission_factory=has_librarian_permission,
+            permission_factory=allow_librarians,
         ),
         dict(
             dest="CANCELLED",
             trigger="cancel",
-            permission_factory=has_librarian_permission,
+            permission_factory=allow_librarians,
         ),
     ],
     "ITEM_IN_TRANSIT_FOR_PICKUP": [
-        dict(dest="ITEM_AT_DESK", permission_factory=has_librarian_permission),
+        dict(dest="ITEM_AT_DESK", permission_factory=allow_librarians),
         dict(
             dest="CANCELLED",
             trigger="cancel",
-            permission_factory=has_librarian_permission,
+            permission_factory=allow_librarians,
         ),
     ],
     "ITEM_ON_LOAN": [
         dict(
             dest="ITEM_RETURNED",
             transition=ItemOnLoanToItemReturned,
-            permission_factory=has_librarian_permission,
+            permission_factory=allow_librarians,
         ),
         dict(
             dest="ITEM_IN_TRANSIT_TO_HOUSE",
             transition=ItemOnLoanToItemInTransitHouse,
-            permission_factory=has_librarian_permission,
+            permission_factory=allow_librarians,
         ),
         dict(
             dest="ITEM_ON_LOAN",
             transition=ItemOnLoanToItemOnLoan,
             trigger="extend",
-            permission_factory=has_librarian_permission,
+            permission_factory=allow_librarians,
         ),
         dict(
             dest="CANCELLED",
             trigger="cancel",
-            permission_factory=has_librarian_permission,
+            permission_factory=allow_librarians,
         ),
     ],
     "ITEM_IN_TRANSIT_TO_HOUSE": [
         dict(
             dest="ITEM_RETURNED",
             transition=ItemInTransitHouseToItemReturned,
-            permission_factory=has_librarian_permission,
+            permission_factory=allow_librarians,
         ),
         dict(
             dest="CANCELLED",
             trigger="cancel",
-            permission_factory=has_librarian_permission,
+            permission_factory=allow_librarians,
         ),
     ],
     "ITEM_RETURNED": [],
     "CANCELLED": [],
 }
+
+CIRCULATION_REST_ENDPOINTS = dict(
+    loanid=dict(
+        pid_type=_CIRCULATION_LOAN_PID_TYPE,
+        pid_minter=_CIRCULATION_LOAN_MINTER,
+        pid_fetcher=_CIRCULATION_LOAN_FETCHER,
+        search_class="invenio_app_ils.circulation.search:IlsLoansSearch",
+        search_factory_imp="invenio_app_ils.circulation.search"
+        ":circulation_search_factory",
+        record_class="invenio_circulation.api:Loan",
+        record_serializers={
+            "application/json": (
+                "invenio_records_rest.serializers" ":json_v1_response"
+            )
+        },
+        search_serializers={
+            "application/json": (
+                "invenio_records_rest.serializers" ":json_v1_search"
+            )
+        },
+        list_route="/circulation/loans/",
+        item_route="/circulation/loans/<{0}:pid_value>".format(_Loan_PID),
+        default_media_type="application/json",
+        links_factory_imp="invenio_circulation.links:loan_links_factory",
+        max_result_window=10000,
+        error_handlers=dict(),
+        read_permission_factory_imp=loan_owner,
+        create_permission_factory_imp=allow_librarians,
+        update_permission_factory_imp=allow_librarians,
+        delete_permission_factory_imp=allow_librarians,
+        list_permission_factory_imp=login_required,
+    )
+)
+
+# ILS
+# ===
+ILS_VIEWS_PERMISSIONS_FACTORY = views_permissions_factory
+"""Permissions factory for ILS views to handle all ILS actions."""

@@ -16,7 +16,7 @@ readme = open("README.rst").read()
 tests_require = [
     "check-manifest>=0.35",
     "coverage>=4.4.1",
-    "isort>=4.3",
+    "isort>=4.3.4",
     "mock>=2.0.0",
     "pydocstyle>=2.0.0",
     "pytest-cov>=2.5.1",
@@ -40,7 +40,10 @@ install_requires = [
     "Flask-BabelEx>=0.9.3",
     "Flask-Debugtoolbar>=0.10.1",
     "invenio[postgresql,elasticsearch6,base,auth,metadata]~=3.0.0",
-    "invenio-app>=1.0.1",
+    "invenio-app>=1.0.3",
+    "invenio-config>=1.0.1",
+    "invenio-circulation==0.1.0.dev20180000",  # TODO: add a version here
+    # when released, need for Travis and isort
 ]
 
 packages = find_packages()
@@ -70,11 +73,16 @@ setup(
         "console_scripts": ["ils = invenio_app.cli:cli"],
         "flask.commands": ["demo = invenio_app_ils.cli:demo"],
         "invenio_base.apps": [
-            "invenio_app_ils = invenio_app_ils.ext:InvenioAppIls"
+            "invenio_app_ils_ui = invenio_app_ils.ext:InvenioAppIlsUI"
         ],
-        "invenio_base.api_blueprints": [
-            "ils_main_blueprint = invenio_app_ils.views:main_blueprint",
-            "ils_backoffice_blueprint = invenio_app_ils.views:backoffice_blueprint",
+        "invenio_base.api_apps": [
+            "invenio_app_ils_rest = invenio_app_ils.ext:InvenioAppIlsREST"
+        ],
+        "invenio_base.blueprints": [
+            "invenio_app_ils_main_ui"
+            " = invenio_app_ils.views:main_blueprint",
+            "invenio_app_ils_backoffice_ui"
+            "= invenio_app_ils.views:backoffice_blueprint",
         ],
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config"
@@ -82,8 +90,10 @@ setup(
         "invenio_assets.bundles": [
             "invenio_app_ils_main_js = invenio_app_ils.bundles:main_js",
             "invenio_app_ils_main_css = invenio_app_ils.bundles:main_css",
-            "invenio_app_ils_backoffice_js = invenio_app_ils.bundles:backoffice_js",
-            "invenio_app_ils_backoffice_css = invenio_app_ils.bundles:backoffice_css",
+            "invenio_app_ils_backoffice_js"
+            " = invenio_app_ils.bundles:backoffice_js",
+            "invenio_app_ils_backoffice_css "
+            "= invenio_app_ils.bundles:backoffice_css",
         ],
         "invenio_i18n.translations": ["messages = invenio_app_ils"],
         "invenio_jsonschemas.schemas": [
@@ -111,7 +121,7 @@ setup(
         ],
         "invenio_access.actions": [
             "ils_librarian_access = "
-            "invenio_app_ils.permissions:action_librarian_access"
+            "invenio_app_ils.permissions:librarian_access"
         ],
     },
     extras_require=extras_require,
