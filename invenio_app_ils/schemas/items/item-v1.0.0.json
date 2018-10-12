@@ -3,6 +3,9 @@
   "title": "Item",
   "type": "object",
   "properties": {
+    "$schema": {
+      "type": "string"
+    },
     "document_pid": {
       "type": "string",
       "description": ""
@@ -17,12 +20,8 @@
     },
     "status": {
       "title": "Item's status",
-      "type":"string",
-      "enum": [
-        "MISSING",
-        "ON_BINDING",
-        "LOANABLE"
-      ]
+      "type": "string",
+      "enum": ["MISSING", "ON_BINDING", "LOANABLE"]
     },
     "circulation_status": {
       "type": "object",

@@ -1,11 +1,14 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Location",
-    "type": "object",
-    "properties": {
-      "name": {
-        "type": "string",
-        "description": ""
-      }
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Location",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "description": ""
     }
   }
+}

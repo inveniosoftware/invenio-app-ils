@@ -40,10 +40,11 @@ install_requires = [
     "Flask-BabelEx>=0.9.3",
     "Flask-Debugtoolbar>=0.10.1",
     "invenio[postgresql,elasticsearch6,base,auth,metadata]~=3.0.0",
-    "invenio-app>=1.0.3",
+    "invenio-app>=1.0.4",
     "invenio-config>=1.0.1",
     "invenio-circulation==0.1.0.dev20180000",  # TODO: add a version here
     # when released, need for Travis and isort
+    "invenio-records-editor==1.0.0a2"
 ]
 
 packages = find_packages()

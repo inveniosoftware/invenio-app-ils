@@ -44,3 +44,4 @@
 -e git+https://github.com/inveniosoftware/invenio-theme#egg=invenio-theme
 -e git+https://github.com/inveniosoftware/invenio-userprofiles#egg=invenio-userprofiles
 -e git+https://github.com/inveniosoftware/invenio#egg=invenio
+-e git+https//github.com/inveniosoftware/invenio-records-editor#egg=invenio-records-editor
