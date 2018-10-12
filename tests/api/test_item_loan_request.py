@@ -27,29 +27,29 @@ NEW_LOAN = {
 }
 
 
-def test_anonymous_cannot_request_loan_on_item(app, json_headers, testdata):
+def test_anonymous_cannot_request_loan_on_item(client, json_headers, testdata):
     """Test that anonymous users cannot request a loan on a item."""
-    with app.test_client() as client:
-        url = url_for('invenio_app_ils_circulation.loan_request')
-        res = client.post(url, headers=json_headers, data=json.dumps(NEW_LOAN))
-        assert res.status_code == 401
+    url = url_for('invenio_app_ils_circulation.loan_request')
+    res = client.post(url, headers=json_headers, data=json.dumps(NEW_LOAN))
+    assert res.status_code == 401
 
 
-def test_patron_can_request_loan_on_item(app, json_headers, users, testdata):
+def test_patron_can_request_loan_on_item(client, json_headers, users,
+                                         testdata):
     """Test that a patron can request a loan on a item."""
     user = users['patron1']
-    with app.test_client() as client:
-        login_user_via_session(client, email=User.query.get(user.id).email)
-        url = url_for('invenio_app_ils_circulation.loan_request')
-        res = client.post(url, headers=json_headers, data=json.dumps(NEW_LOAN))
-        assert res.status_code == 202
-        loan = json.loads(res.data.decode('utf-8'))['metadata']
-        assert loan['state'] == 'PENDING'
+    login_user_via_session(client, email=User.query.get(user.id).email)
+    url = url_for('invenio_app_ils_circulation.loan_request')
+    res = client.post(url, headers=json_headers, data=json.dumps(NEW_LOAN))
+    assert res.status_code == 202
+    loan = json.loads(res.data.decode('utf-8'))['metadata']
+    assert loan['state'] == 'PENDING'
 
 
 @pytest.mark.skip("Needs development")
-def test_patron_cannot_request_loan_on_already_loaned_item(app, json_headers,
-                                                           users, testdata):
+def test_patron_cannot_request_loan_on_already_loaned_item(client,
+                                                           json_headers, users,
+                                                           testdata):
     """Test that a patron can request a loan on a item."""
 
     def _get_duplicated(user_id):
@@ -59,13 +59,12 @@ def test_patron_cannot_request_loan_on_already_loaned_item(app, json_headers,
                 return t['item_pid']
 
     user = users['patron1']
-    with app.test_client() as client:
-        login_user_via_session(client, email=User.query.get(user.id).email)
-        url = url_for('invenio_app_ils_circulation.loan_request')
+    login_user_via_session(client, email=User.query.get(user.id).email)
+    url = url_for('invenio_app_ils_circulation.loan_request')
 
-        duplicated_loan = dict(NEW_LOAN)
-        duplicated_loan['item_pid'] = _get_duplicated(str(user.id))
+    duplicated_loan = dict(NEW_LOAN)
+    duplicated_loan['item_pid'] = _get_duplicated(str(user.id))
 
-        res = client.post(url, headers=json_headers,
-                          data=json.dumps(duplicated_loan))
-        assert res.status_code == 400
+    res = client.post(url, headers=json_headers,
+                      data=json.dumps(duplicated_loan))
+    assert res.status_code == 400

@@ -23,15 +23,15 @@ from invenio_rest import ContentNegotiatedMethodView
 
 from invenio_app_ils.views import need_permissions
 
-circulation_blueprint = Blueprint(
-    "invenio_app_ils_circulation",
-    __name__,
-    url_prefix="",
-)
 
-
-def add_circulation_views(blueprint):
+def create_circulation_blueprint(_):
     """Add circulation views to the blueprint."""
+    blueprint = Blueprint(
+        "invenio_app_ils_circulation",
+        __name__,
+        url_prefix="",
+    )
+
     create_error_handlers(blueprint)
 
     rec_serializers = {

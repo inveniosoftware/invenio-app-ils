@@ -20,12 +20,11 @@ tests_require = [
     "mock>=2.0.0",
     "pydocstyle>=2.0.0",
     "pytest-cov>=2.5.1",
-    "pytest-invenio>=1.0.2,<1.1.0",
+    "pytest-invenio>=1.0.5,<1.1.0",
     "pytest-mock>=1.6.0",
     "pytest-pep8>=1.0.6",
     "pytest-random-order>=0.5.4",
-    "pytest>=3.3.1",
-    "selenium>=3.4.3",
+    "pytest>=3.8.1",
 ]
 
 extras_require = {"docs": ["Sphinx>=1.5.1"], "tests": tests_require}
@@ -80,10 +79,14 @@ setup(
             "invenio_app_ils_rest = invenio_app_ils.ext:InvenioAppIlsREST"
         ],
         "invenio_base.blueprints": [
-            "invenio_app_ils_main_ui"
-            " = invenio_app_ils.views:main_blueprint",
-            "invenio_app_ils_backoffice_ui"
-            "= invenio_app_ils.views:backoffice_blueprint",
+            "invenio_app_ils_main = "
+            "invenio_app_ils.views:main_blueprint",
+            "invenio_app_ils_backoffice = "
+            "invenio_app_ils.views:backoffice_blueprint",
+        ],
+        "invenio_base.api_blueprints": [
+            "invenio_app_ils_circulation = "
+            "invenio_app_ils.circulation.views:create_circulation_blueprint",
         ],
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config"
@@ -91,10 +94,10 @@ setup(
         "invenio_assets.bundles": [
             "invenio_app_ils_main_js = invenio_app_ils.bundles:main_js",
             "invenio_app_ils_main_css = invenio_app_ils.bundles:main_css",
-            "invenio_app_ils_backoffice_js"
-            " = invenio_app_ils.bundles:backoffice_js",
-            "invenio_app_ils_backoffice_css "
-            "= invenio_app_ils.bundles:backoffice_css",
+            "invenio_app_ils_backoffice_js = "
+            "invenio_app_ils.bundles:backoffice_js",
+            "invenio_app_ils_backoffice_css = "
+            "invenio_app_ils.bundles:backoffice_css",
         ],
         "invenio_i18n.translations": ["messages = invenio_app_ils"],
         "invenio_jsonschemas.schemas": [
@@ -107,22 +110,23 @@ setup(
         ],
         "invenio_pidstore.fetchers": [
             "document_pid_fetcher = "
-            "invenio_app_ils.pid.fetchers:document_pid_fetcher",
+            "invenio_app_ils.pidstore.fetchers:document_pid_fetcher",
             "item_pid_fetcher = "
-            "invenio_app_ils.pid.fetchers:item_pid_fetcher",
+            "invenio_app_ils.pidstore.fetchers:item_pid_fetcher",
             "location_pid_fetcher = "
-            "invenio_app_ils.pid.fetchers:location_pid_fetcher",
+            "invenio_app_ils.pidstore.fetchers:location_pid_fetcher",
         ],
         "invenio_pidstore.minters": [
             "document_pid_minter = "
-            "invenio_app_ils.pid.minters:document_pid_minter",
-            "item_pid_minter = invenio_app_ils.pid.minters:item_pid_minter",
+            "invenio_app_ils.pidstore.minters:document_pid_minter",
+            "item_pid_minter = "
+            "invenio_app_ils.pidstore.minters:item_pid_minter",
             "location_pid_minter = "
-            "invenio_app_ils.pid.minters:location_pid_minter",
+            "invenio_app_ils.pidstore.minters:location_pid_minter",
         ],
         "invenio_access.actions": [
-            "ils_librarian_access = "
-            "invenio_app_ils.permissions:librarian_access"
+            "backoffice_access_action = "
+            "invenio_app_ils.permissions:backoffice_access_action"
         ],
     },
     extras_require=extras_require,

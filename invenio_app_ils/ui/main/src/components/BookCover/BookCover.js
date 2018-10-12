@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Loader } from 'semantic-ui-react';
+// import { Loader } from 'semantic-ui-react';
 
 import './BookCover.scss';
 
