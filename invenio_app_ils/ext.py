@@ -9,6 +9,8 @@
 
 from __future__ import absolute_import, print_function
 
+from invenio_records_rest.utils import allow_all
+
 from . import config
 from .circulation.views import add_circulation_views, circulation_blueprint
 
@@ -46,7 +48,7 @@ class InvenioAppIlsREST(object):
         self._init_config(app)
         _blueprint = add_circulation_views(circulation_blueprint)
         app.register_blueprint(_blueprint)
-        app.extensions["invenio-app-ils"] = self
+        app.extensions['invenio-app-ils'] = self
 
     def _init_config(self, app):
         """Initialize configuration."""

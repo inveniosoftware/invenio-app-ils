@@ -3,6 +3,9 @@
   "title": "Document",
   "type": "object",
   "properties": {
+    "$schema": {
+      "type": "string"
+    },
     "title": {
       "type": "string",
       "description": ""
@@ -24,6 +27,5 @@
       },
       "type": "array"
     }
-
   }
 }

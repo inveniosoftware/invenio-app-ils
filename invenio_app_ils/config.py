@@ -18,6 +18,7 @@ from __future__ import absolute_import, print_function
 import os
 from datetime import timedelta
 
+from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_records_rest.utils import allow_all
 
 from .api import Document, Item, Location
@@ -171,7 +172,7 @@ SESSION_COOKIE_SECURE = True
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
 APP_ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-
+APP_DEFAULT_SECURE_HEADERS['content_security_policy'] = {}
 # OAI-PMH
 # =======
 OAISERVER_ID_PREFIX = "oai:invenio_app_ils.com:"
@@ -461,3 +462,8 @@ CIRCULATION_REST_ENDPOINTS = dict(
 # ===
 ILS_VIEWS_PERMISSIONS_FACTORY = views_permissions_factory
 """Permissions factory for ILS views to handle all ILS actions."""
+
+# Records Editor
+# ==============
+RECORDS_EDITOR_URL_PREFIX = '/editor'
+"""Default URL we want to serve our editor application, i.e /editor."""
