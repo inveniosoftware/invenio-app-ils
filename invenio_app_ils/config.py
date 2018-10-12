@@ -52,9 +52,9 @@ from .circulation.utils import (  # isort:skip
     circulation_patron_exists,
 )
 from .permissions import (  # isort:skip
-    allow_librarians,
-    loan_owner,
-    login_required,
+    authenticated_user_permission,
+    backoffice_permission,
+    LoanOwnerPermission,
     views_permissions_factory,
 )
 
@@ -173,6 +173,7 @@ SESSION_COOKIE_SECURE = True
 #: route correct hosts to the application.
 APP_ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 APP_DEFAULT_SECURE_HEADERS['content_security_policy'] = {}
+
 # OAI-PMH
 # =======
 OAISERVER_ID_PREFIX = "oai:invenio_app_ils.com:"
@@ -340,85 +341,85 @@ CIRCULATION_LOAN_TRANSITIONS = {
             dest="PENDING",
             trigger="request",
             transition=CreatedToPending,
-            permission_factory=login_required,
+            permission_factory=authenticated_user_permission,
         ),
         dict(
             dest="ITEM_ON_LOAN",
             trigger="checkout",
             transition=CreatedToItemOnLoan,
-            permission_factory=allow_librarians,
+            permission_factory=backoffice_permission,
         ),
     ],
     "PENDING": [
         dict(
             dest="ITEM_AT_DESK",
             transition=PendingToItemAtDesk,
-            permission_factory=allow_librarians,
+            permission_factory=backoffice_permission,
         ),
         dict(
             dest="ITEM_IN_TRANSIT_FOR_PICKUP",
             transition=PendingToItemInTransitPickup,
-            permission_factory=allow_librarians,
+            permission_factory=backoffice_permission,
         ),
         dict(
             dest="CANCELLED",
             trigger="cancel",
-            permission_factory=allow_librarians,
+            permission_factory=backoffice_permission,
         ),
     ],
     "ITEM_AT_DESK": [
         dict(
             dest="ITEM_ON_LOAN",
             transition=ItemAtDeskToItemOnLoan,
-            permission_factory=allow_librarians,
+            permission_factory=backoffice_permission,
         ),
         dict(
             dest="CANCELLED",
             trigger="cancel",
-            permission_factory=allow_librarians,
+            permission_factory=backoffice_permission,
         ),
     ],
     "ITEM_IN_TRANSIT_FOR_PICKUP": [
-        dict(dest="ITEM_AT_DESK", permission_factory=allow_librarians),
+        dict(dest="ITEM_AT_DESK", permission_factory=backoffice_permission),
         dict(
             dest="CANCELLED",
             trigger="cancel",
-            permission_factory=allow_librarians,
+            permission_factory=backoffice_permission,
         ),
     ],
     "ITEM_ON_LOAN": [
         dict(
             dest="ITEM_RETURNED",
             transition=ItemOnLoanToItemReturned,
-            permission_factory=allow_librarians,
+            permission_factory=backoffice_permission,
         ),
         dict(
             dest="ITEM_IN_TRANSIT_TO_HOUSE",
             transition=ItemOnLoanToItemInTransitHouse,
-            permission_factory=allow_librarians,
+            permission_factory=backoffice_permission,
         ),
         dict(
             dest="ITEM_ON_LOAN",
             transition=ItemOnLoanToItemOnLoan,
             trigger="extend",
-            permission_factory=allow_librarians,
+            permission_factory=backoffice_permission,
         ),
         dict(
             dest="CANCELLED",
             trigger="cancel",
-            permission_factory=allow_librarians,
+            permission_factory=backoffice_permission,
         ),
     ],
     "ITEM_IN_TRANSIT_TO_HOUSE": [
         dict(
             dest="ITEM_RETURNED",
             transition=ItemInTransitHouseToItemReturned,
-            permission_factory=allow_librarians,
+            permission_factory=backoffice_permission,
         ),
         dict(
             dest="CANCELLED",
             trigger="cancel",
-            permission_factory=allow_librarians,
+            permission_factory=backoffice_permission,
         ),
     ],
     "ITEM_RETURNED": [],
@@ -450,11 +451,11 @@ CIRCULATION_REST_ENDPOINTS = dict(
         links_factory_imp="invenio_circulation.links:loan_links_factory",
         max_result_window=10000,
         error_handlers=dict(),
-        read_permission_factory_imp=loan_owner,
-        create_permission_factory_imp=allow_librarians,
-        update_permission_factory_imp=allow_librarians,
-        delete_permission_factory_imp=allow_librarians,
-        list_permission_factory_imp=login_required,
+        read_permission_factory_imp=LoanOwnerPermission,
+        create_permission_factory_imp=backoffice_permission,
+        update_permission_factory_imp=backoffice_permission,
+        delete_permission_factory_imp=backoffice_permission,
+        list_permission_factory_imp=authenticated_user_permission,
     )
 )
 

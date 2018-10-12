@@ -12,12 +12,12 @@ export default class Footer extends Component {
           <div>cds.support@cern.ch</div>
         </div>
         <div className="footer-list">
-          <a>About</a>
-          <a>Contact</a>
-          <a>FAQ</a>
-          <a>Feedback</a>
-          <a>Help</a>
-          <a>Terms of Use</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+          <a href="/faq">FAQ</a>
+          <a href="/feedback">Feedback</a>
+          <a href="/help">Help</a>
+          <a href="/terms">Terms of Use</a>
         </div>
         <div>CERN Logo</div>
       </footer>

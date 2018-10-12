@@ -34,4 +34,4 @@ ils roles add admin@test.ch admin
 ils roles add librarian@test.ch librarian
 # assign actions
 ils access allow superuser-access role admin
-ils access allow ils-librarian-access role librarian
+ils access allow ils-backoffice-access role librarian

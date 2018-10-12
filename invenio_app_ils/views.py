@@ -17,7 +17,6 @@ from __future__ import absolute_import, print_function
 from functools import wraps
 
 from flask import Blueprint, current_app, render_template
-from flask_login import login_required
 
 from invenio_app_ils.permissions import check_permission
 
@@ -27,7 +26,6 @@ def need_permissions(action):
 
     :param action: The action needed.
     """
-
     def decorator_builder(f):
         @wraps(f)
         def decorate(*args, **kwargs):
@@ -50,10 +48,17 @@ main_blueprint = Blueprint(
 )
 
 
+@main_blueprint.route("/", methods=["GET"])
 @main_blueprint.route("/<path:path>", methods=["GET"])
-def index(path):
+def index(path=None):
     """UI base view."""
     return render_template("invenio_app_ils/main.html")
+
+
+@main_blueprint.route('/ping', methods=['HEAD', 'GET'])
+def ping():
+    """Ping blueprint used by loadbalancer."""
+    return 'OK'
 
 
 backoffice_blueprint = Blueprint(
@@ -65,8 +70,9 @@ backoffice_blueprint = Blueprint(
 )
 
 
+@backoffice_blueprint.route("/", methods=["GET"])
 @backoffice_blueprint.route("/<path:path>", methods=["GET"])
 @need_permissions("ils-backoffice-view")
-def backoffice(path):
+def index(path=None):
     """UI base view."""
     return render_template("invenio_app_ils/backoffice.html")

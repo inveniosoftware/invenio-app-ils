@@ -9,31 +9,16 @@
 
 from __future__ import absolute_import, print_function
 
-import json
-import os
-
 import pytest
-from invenio_access.models import ActionRoles
-from invenio_access.permissions import superuser_access
-from invenio_accounts.models import Role
 from invenio_app.factory import create_api
 from invenio_circulation.api import Loan
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 
 from invenio_app_ils.api import Document, Item, Location
-from invenio_app_ils.permissions import librarian_access
 
+from ..helpers import load_json_from_datadir
 from .helpers import mint_record_pid
-
-
-@pytest.fixture(scope="module")
-def app_config(app_config):
-    """Flask application fixture."""
-    app_config['APP_DEFAULT_SECURE_HEADERS']['content_security_policy'] = {
-        'default-src': []
-    }
-    return app_config
 
 
 @pytest.fixture(scope='module')
@@ -43,91 +28,25 @@ def create_app():
 
 
 @pytest.fixture()
-def users(app, db):
-    """Create admin, librarians and patrons."""
-    with db.session.begin_nested():
-        datastore = app.extensions['security'].datastore
-        # create users
-        patron1 = datastore.create_user(email='patron1@test.com',
-                                        password='123456', active=True)
-        patron2 = datastore.create_user(email='patron2@test.com',
-                                        password='123456', active=True)
-        librarian = datastore.create_user(email='librarian@test.com',
-                                          password='123456', active=True)
-        admin = datastore.create_user(email='admin@test.com',
-                                      password='123456', active=True)
-        # Give role to admin
-        admin_role = Role(name='admin')
-        db.session.add(ActionRoles(action=superuser_access.value,
-                                   role=admin_role))
-        datastore.add_role_to_user(admin, admin_role)
-        # Give role to librarian
-        librarian_role = Role(name='librarian')
-        db.session.add(ActionRoles(action=librarian_access.value,
-                                   role=librarian_role))
-        datastore.add_role_to_user(librarian, librarian_role)
-    db.session.commit()
-
-    return {
-        'admin': admin,
-        'librarian': librarian,
-        'patron1': patron1,
-        'patron2': patron2,
-    }
-
-
-@pytest.fixture()
-def json_headers(app):
+def json_headers():
     """JSON headers."""
     return [('Content-Type', 'application/json'),
             ('Accept', 'application/json')]
 
 
 @pytest.fixture()
-def json_patch_headers(app):
+def json_patch_headers():
     """JSON headers for Invenio Records REST PATCH api calls."""
     return [('Content-Type', 'application/json-patch+json'),
             ('Accept', 'application/json')]
 
 
 @pytest.fixture()
-def datadir():
-    """Get data directory."""
-    return os.path.join(os.path.dirname(__file__), '..', 'data')
-
-
-@pytest.fixture()
-def documents(datadir):
-    """Get documents."""
-    with open(os.path.join(datadir, 'documents.json'), 'r') as fp:
-        yield json.load(fp)
-
-
-@pytest.fixture()
-def items(datadir):
-    """Get items."""
-    with open(os.path.join(datadir, 'items.json'), 'r') as fp:
-        yield json.load(fp)
-
-
-@pytest.fixture()
-def locations(datadir):
-    """Get locations."""
-    with open(os.path.join(datadir, 'locations.json'), 'r') as fp:
-        yield json.load(fp)
-
-
-@pytest.fixture()
-def loans(datadir):
-    """Get loans."""
-    with open(os.path.join(datadir, 'loans.json'), 'r') as fp:
-        yield json.load(fp)
-
-
-@pytest.fixture()
-def testdata(app, db, es_clear, documents, items, locations, loans):
+def testdata(app, db, es_clear):
     """Create, index and return test data."""
     indexer = RecordIndexer()
+
+    locations = load_json_from_datadir('locations.json')
     for location in locations:
         record = Location.create(location)
         mint_record_pid('locid', record)
@@ -135,6 +54,7 @@ def testdata(app, db, es_clear, documents, items, locations, loans):
         db.session.commit()
         indexer.index(record)
 
+    documents = load_json_from_datadir('documents.json')
     for doc in documents:
         record = Document.create(doc)
         mint_record_pid('docid', record)
@@ -142,6 +62,7 @@ def testdata(app, db, es_clear, documents, items, locations, loans):
         db.session.commit()
         indexer.index(record)
 
+    items = load_json_from_datadir('items.json')
     for item in items:
         record = Item.create(item)
         mint_record_pid('itemid', record)
@@ -149,6 +70,7 @@ def testdata(app, db, es_clear, documents, items, locations, loans):
         db.session.commit()
         indexer.index(record)
 
+    loans = load_json_from_datadir('loans.json')
     for loan in loans:
         record = Loan.create(loan)
         mint_record_pid('loanid', record)

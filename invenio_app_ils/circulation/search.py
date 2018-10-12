@@ -15,12 +15,12 @@ from invenio_circulation.search import LoansSearch
 from invenio_records_rest.errors import InvalidQueryRESTError
 from invenio_search.api import DefaultFilter
 
-from invenio_app_ils.permissions import allow_librarians
+from invenio_app_ils.permissions import backoffice_permission
 
 
 def loan_permission_filter():
     """Filter loans by owner."""
-    if allow_librarians().allows(g.identity):
+    if backoffice_permission().allows(g.identity):
         return Q()
 
     # Filter loans where the user is owner
@@ -62,7 +62,7 @@ def circulation_search_factory(self, search, query_parser=None):
     query = _default_parser(qstr=query_string)
 
     # if the logged in user in not librarian or admin, validate the query
-    if not allow_librarians().allows(g.identity):
+    if not backoffice_permission().allows(g.identity):
         # patron can find only his loans
         try:
             if not query_string:
