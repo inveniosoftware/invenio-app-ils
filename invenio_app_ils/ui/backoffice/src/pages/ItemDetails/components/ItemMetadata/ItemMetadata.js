@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Header, Table } from 'semantic-ui-react';
 
-class LoanMetadata extends Component {
-  renderLoanMetadata(data) {
+class ItemMetadata extends Component {
+  renderItemMetadata(data) {
     return Object.keys(data.metadata).map(key => {
       return (
         <Table.Row key={key}>
@@ -18,7 +18,7 @@ class LoanMetadata extends Component {
     let { data } = this.props;
     return (
       <div>
-        <Header as="h1">Loan Information</Header>
+        <Header as="h1">Item Information</Header>
         <Table compact celled definition textAlign="center">
           <Table.Header fullWidth>
             <Table.Row>
@@ -26,15 +26,15 @@ class LoanMetadata extends Component {
               <Table.HeaderCell>Value</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
-          <Table.Body>{this.renderLoanMetadata(data)}</Table.Body>
+          <Table.Body>{this.renderItemMetadata(data)}</Table.Body>
         </Table>
       </div>
     );
   }
 }
 
-export default LoanMetadata;
+export default ItemMetadata;
 
-LoanMetadata.propTypes = {
+ItemMetadata.propTypes = {
   data: PropTypes.object.isRequired,
 };

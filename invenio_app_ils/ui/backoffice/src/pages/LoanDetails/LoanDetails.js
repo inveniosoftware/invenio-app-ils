@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Loader, Grid, List } from 'semantic-ui-react';
+import { Loader, Grid, Message } from 'semantic-ui-react';
 import { LoanMetadata } from './components/LoanMetadata';
 import { LoanActions } from './components/LoanActions';
-import './LoanDetails.scss';
 
 class LoanDetails extends Component {
   constructor(props) {
@@ -18,7 +17,6 @@ class LoanDetails extends Component {
         this.fetchLoanDetails(location.state.recid);
       }
     });
-
     this.fetchLoanDetails(this.props.match.params.recid);
   }
 
@@ -38,26 +36,26 @@ class LoanDetails extends Component {
     if (loanActionError) {
       console.error(data);
       return (
-        <div>Something went wrong! Got server response: {error.message}</div>
+        <Message
+          icon="exclamation"
+          header="Oups, something went horribly wrong!"
+          content={error.message}
+        />
       );
     }
     return (
-      <Grid>
-        <Grid.Column>
-          <List>
-            <Grid.Row>
-              <LoanMetadata data={data} />
-            </Grid.Row>
-            <Grid.Row>
-              <LoanActions
-                data={data.metadata}
-                actions={data.availableActions}
-                actionLoading={actionLoading}
-                onAction={this.postLoanAction}
-              />
-            </Grid.Row>
-          </List>
-        </Grid.Column>
+      <Grid centered>
+        <Grid.Row>
+          <LoanMetadata data={data} />
+        </Grid.Row>
+        <Grid.Row>
+          <LoanActions
+            data={data.metadata}
+            actions={data.availableActions}
+            actionLoading={actionLoading}
+            onAction={this.postLoanAction}
+          />
+        </Grid.Row>
       </Grid>
     );
   }
