@@ -36,5 +36,15 @@ class LocationSearch(RecordsSearch):
     class Meta:
         """Search only on locations index."""
 
-        index = 'location'
+        index = 'locations'
+        doc_types = None
+
+
+class InternalLocationSearch(RecordsSearch):
+    """RecordsSearch for internal locations."""
+
+    class Meta:
+        """Search only on internal locations index."""
+
+        index = 'internal_locations'
         doc_types = None

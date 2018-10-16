@@ -15,21 +15,17 @@ You overwrite and set instance-specific configuration by either:
 
 from __future__ import absolute_import, print_function
 
-import os
 from datetime import timedelta
 
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
-from invenio_records_rest.utils import allow_all
-
-from .api import Document, Item, Location
-from .search import DocumentSearch, ItemSearch, LocationSearch
-
 from invenio_circulation.config import (  # isort:skip
-    _CIRCULATION_LOAN_FETCHER,
-    _CIRCULATION_LOAN_MINTER,
-    _CIRCULATION_LOAN_PID_TYPE,
     CIRCULATION_POLICIES,
-    _Loan_PID,
+    _LOANID_CONVERTER,
+)
+from invenio_circulation.pidstore.pids import (  # isort:skip
+    CIRCULATION_LOAN_FETCHER,
+    CIRCULATION_LOAN_MINTER,
+    CIRCULATION_LOAN_PID_TYPE
 )
 from invenio_circulation.transitions.transitions import (  # isort:skip
     CreatedToItemOnLoan,
@@ -42,6 +38,7 @@ from invenio_circulation.transitions.transitions import (  # isort:skip
     PendingToItemAtDesk,
     PendingToItemInTransitPickup,
 )
+from invenio_records_rest.utils import allow_all
 
 from .circulation.utils import (  # isort:skip
     circulation_document_retriever,
@@ -57,6 +54,23 @@ from .permissions import (  # isort:skip
     LoanOwnerPermission,
     views_permissions_factory,
 )
+from .pidstore.pids import (  # isort:skip
+    DOCUMENT_PID_FETCHER,
+    DOCUMENT_PID_MINTER,
+    DOCUMENT_PID_TYPE,
+    INTERNAL_LOCATION_PID_FETCHER,
+    INTERNAL_LOCATION_PID_MINTER,
+    INTERNAL_LOCATION_PID_TYPE,
+    ITEM_PID_FETCHER,
+    ITEM_PID_MINTER,
+    ITEM_PID_TYPE,
+    LOCATION_PID_FETCHER,
+    LOCATION_PID_MINTER,
+    LOCATION_PID_TYPE
+)
+from .records.api import Document, InternalLocation, Item, Location
+from .search.api import DocumentSearch, InternalLocationSearch, ItemSearch, \
+    LocationSearch
 
 
 def _(x):
@@ -153,7 +167,7 @@ SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://test:psw@localhost/ils"
 # JSONSchemas
 # ===========
 #: Hostname used in URLs for local JSONSchemas.
-JSONSCHEMAS_HOST = os.environ.get("JSONSCHEMAS_HOST", "localhost:5000")
+JSONSCHEMAS_HOST = "ils.mydomain.org"
 
 # Flask configuration
 # ===================
@@ -176,7 +190,7 @@ APP_DEFAULT_SECURE_HEADERS['content_security_policy'] = {}
 
 # OAI-PMH
 # =======
-OAISERVER_ID_PREFIX = "oai:invenio_app_ils.com:"
+OAISERVER_ID_PREFIX = "oai:invenio_app_ils.org:"
 
 ###############################################################################
 # Debug
@@ -185,23 +199,19 @@ DEBUG = True
 DEBUG_TB_ENABLED = True
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
-# PID
-# ===
-_DOCUMENT_PID_TYPE = "docid"
-_ITEM_PID_TYPE = "itemid"
-_LOCATION_PID_TYPE = "locid"
 
-_DOCUMENT_PID = 'pid(docid, record_class="invenio_app_ils.api:Document")'
-_ITEM_PID = 'pid(itemid, record_class="invenio_app_ils.api:Item")'
-_LOCATION_PID = 'pid(locid, record_class="invenio_app_ils.api:Location")'
+_DOCID_CONVERTER = 'pid(docid, record_class="invenio_app_ils.records.api:Document")'
+_ITEMID_CONVERTER = 'pid(itemid, record_class="invenio_app_ils.records.api:Item")'
+_LOCID_CONVERTER = 'pid(locid, record_class="invenio_app_ils.records.api:Location")'
+_ILOCID_CONVERTER = 'pid(ilocid, record_class="invenio_app_ils.records.api:InternalLocation")'
 
 # RECORDS REST
 # ============
 RECORDS_REST_ENDPOINTS = dict(
     docid=dict(
-        pid_type=_DOCUMENT_PID_TYPE,
-        pid_minter="document_pid_minter",
-        pid_fetcher="document_pid_fetcher",
+        pid_type=DOCUMENT_PID_TYPE,
+        pid_minter=DOCUMENT_PID_MINTER,
+        pid_fetcher=DOCUMENT_PID_FETCHER,
         search_class=DocumentSearch,
         record_class=Document,
         record_serializers={
@@ -215,7 +225,7 @@ RECORDS_REST_ENDPOINTS = dict(
             )
         },
         list_route="/documents/",
-        item_route="/documents/<{0}:pid_value>".format(_DOCUMENT_PID),
+        item_route="/documents/<{0}:pid_value>".format(_DOCID_CONVERTER),
         default_media_type="application/json",
         max_result_window=10000,
         error_handlers=dict(),
@@ -223,9 +233,9 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=allow_all,
     ),
     itemid=dict(
-        pid_type=_ITEM_PID_TYPE,
-        pid_minter="item_pid_minter",
-        pid_fetcher="item_pid_fetcher",
+        pid_type=ITEM_PID_TYPE,
+        pid_minter=ITEM_PID_MINTER,
+        pid_fetcher=ITEM_PID_FETCHER,
         search_class=ItemSearch,
         record_class=Item,
         record_serializers={
@@ -239,7 +249,7 @@ RECORDS_REST_ENDPOINTS = dict(
             )
         },
         list_route="/items/",
-        item_route="/items/<{0}:pid_value>".format(_ITEM_PID),
+        item_route="/items/<{0}:pid_value>".format(_ITEMID_CONVERTER),
         default_media_type="application/json",
         max_result_window=10000,
         error_handlers=dict(),
@@ -247,9 +257,9 @@ RECORDS_REST_ENDPOINTS = dict(
         delete_permission_factory_imp=allow_all,
     ),
     locid=dict(
-        pid_type=_LOCATION_PID_TYPE,
-        pid_minter="location_pid_minter",
-        pid_fetcher="location_pid_fetcher",
+        pid_type=LOCATION_PID_TYPE,
+        pid_minter=LOCATION_PID_MINTER,
+        pid_fetcher=LOCATION_PID_FETCHER,
         search_class=LocationSearch,
         record_class=Location,
         record_serializers={
@@ -263,7 +273,30 @@ RECORDS_REST_ENDPOINTS = dict(
             )
         },
         list_route="/locations/",
-        item_route="/locations/<{0}:pid_value>".format(_LOCATION_PID),
+        item_route="/locations/<{0}:pid_value>".format(_LOCID_CONVERTER),
+        default_media_type="application/json",
+        max_result_window=10000,
+        error_handlers=dict(),
+        create_permission_factory_imp=allow_all,
+    ),
+    ilocid=dict(
+        pid_type=INTERNAL_LOCATION_PID_TYPE,
+        pid_minter=INTERNAL_LOCATION_PID_MINTER,
+        pid_fetcher=INTERNAL_LOCATION_PID_FETCHER,
+        search_class=InternalLocationSearch,
+        record_class=InternalLocation,
+        record_serializers={
+            "application/json": (
+                "invenio_records_rest.serializers" ":json_v1_response"
+            )
+        },
+        search_serializers={
+            "application/json": (
+                "invenio_records_rest.serializers" ":json_v1_search"
+            )
+        },
+        list_route="/internal-locations/",
+        item_route="/internal-locations/<{0}:pid_value>".format(_ILOCID_CONVERTER),
         default_media_type="application/json",
         max_result_window=10000,
         error_handlers=dict(),
@@ -278,35 +311,46 @@ RECORDS_REST_DEFAULT_READ_PERMISSION_FACTORY = allow_all
 # ==========
 RECORDS_UI_ENDPOINTS = {
     "docid": {
-        "pid_type": _DOCUMENT_PID_TYPE,
+        "pid_type": DOCUMENT_PID_TYPE,
         "route": "/documents/<pid_value>",
         "template": "invenio_records_ui/detail.html",
     },
     "docid_export": {
-        "pid_type": _DOCUMENT_PID_TYPE,
+        "pid_type": DOCUMENT_PID_TYPE,
         "route": "/documents/<pid_value>/export/<format>",
         "view_imp": "invenio_records_ui.views.export",
         "template": "invenio_records_ui/export.html",
     },
     "itemid": {
-        "pid_type": _ITEM_PID_TYPE,
+        "pid_type": ITEM_PID_TYPE,
         "route": "/items/<pid_value>",
         "template": "invenio_records_ui/detail.html",
     },
     "itemid_export": {
-        "pid_type": _ITEM_PID_TYPE,
+        "pid_type": ITEM_PID_TYPE,
         "route": "/items/<pid_value>/export/<format>",
         "view_imp": "invenio_records_ui.views.export",
         "template": "invenio_records_ui/export.html",
     },
     "locid": {
-        "pid_type": _LOCATION_PID_TYPE,
+        "pid_type": LOCATION_PID_TYPE,
         "route": "/locations/<pid_value>",
         "template": "invenio_records_ui/detail.html",
     },
     "locid_export": {
-        "pid_type": _LOCATION_PID_TYPE,
+        "pid_type": LOCATION_PID_TYPE,
         "route": "/locations/<pid_value>/export/<format>",
+        "view_imp": "invenio_records_ui.views.export",
+        "template": "invenio_records_ui/export.html",
+    },
+    "ilocid": {
+        "pid_type": INTERNAL_LOCATION_PID_TYPE,
+        "route": "/internal-locations/<pid_value>",
+        "template": "invenio_records_ui/detail.html",
+    },
+    "ilocid_export": {
+        "pid_type": INTERNAL_LOCATION_PID_TYPE,
+        "route": "/internal-locations/<pid_value>/export/<format>",
         "view_imp": "invenio_records_ui.views.export",
         "template": "invenio_records_ui/export.html",
     },
@@ -428,9 +472,9 @@ CIRCULATION_LOAN_TRANSITIONS = {
 
 CIRCULATION_REST_ENDPOINTS = dict(
     loanid=dict(
-        pid_type=_CIRCULATION_LOAN_PID_TYPE,
-        pid_minter=_CIRCULATION_LOAN_MINTER,
-        pid_fetcher=_CIRCULATION_LOAN_FETCHER,
+        pid_type=CIRCULATION_LOAN_PID_TYPE,
+        pid_minter=CIRCULATION_LOAN_MINTER,
+        pid_fetcher=CIRCULATION_LOAN_FETCHER,
         search_class="invenio_app_ils.circulation.search:IlsLoansSearch",
         search_factory_imp="invenio_app_ils.circulation.search"
         ":circulation_search_factory",
@@ -446,7 +490,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
             )
         },
         list_route="/circulation/loans/",
-        item_route="/circulation/loans/<{0}:pid_value>".format(_Loan_PID),
+        item_route="/circulation/loans/<{0}:pid_value>".format(_LOANID_CONVERTER),
         default_media_type="application/json",
         links_factory_imp="invenio_circulation.links:loan_links_factory",
         max_result_window=10000,

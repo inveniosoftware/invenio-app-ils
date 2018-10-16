@@ -1,14 +1,38 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Location",
+  "title": "Schema for Location",
   "type": "object",
+  "required": [
+    "$schema",
+    "location_pid"
+  ],
   "properties": {
     "$schema": {
       "type": "string"
     },
+    "location_pid": {
+      "type": "string",
+      "title": "Location ID"
+    },
     "name": {
       "type": "string",
-      "description": ""
+      "title": "Location name"
+    },
+    "address": {
+      "type": "string",
+      "title": "Address of the location"
+    },
+    "email": {
+      "type": "string",
+      "title": "Contact email"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Contact phone"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Extra notes for the location"
     }
   }
 }

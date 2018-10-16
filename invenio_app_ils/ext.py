@@ -10,6 +10,7 @@
 from __future__ import absolute_import, print_function
 
 from . import config
+from .circulation.receivers import register_circulation_signals
 
 
 class InvenioAppIlsUI(object):
@@ -23,7 +24,7 @@ class InvenioAppIlsUI(object):
     def _init_app(self, app):
         """Flask application initialization."""
         self._init_config(app)
-        app.extensions['invenio-app-ils'] = self
+        app.extensions['invenio-app-ils-ui'] = self
 
     def _init_config(self, app):
         """Initialize configuration."""
@@ -37,17 +38,22 @@ class InvenioAppIlsREST(object):
 
     def __init__(self, app=None):
         """Extension initialization."""
-        """Extension initialization."""
         if app:
+            self.app = app
             self._init_app(app)
 
     def _init_app(self, app):
         """Flask application initialization."""
         self._init_config(app)
-        app.extensions["invenio-app-ils"] = self
+        app.extensions['invenio-app-ils-rest'] = self
+        self._register_signals()
 
     def _init_config(self, app):
         """Initialize configuration."""
         for k in dir(config):
             if k.startswith("ILS_"):
                 app.config.setdefault(k, getattr(config, k))
+
+    def _register_signals(self):
+        """Register signals."""
+        register_circulation_signals(self.app)

@@ -9,7 +9,7 @@
 
 from __future__ import absolute_import, print_function
 
-from invenio_app_ils.api import Document, Item
+from ..records.api import Document, Item
 
 
 def circulation_items_retriever(document_pid):

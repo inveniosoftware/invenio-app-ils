@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Schema for Internal Location",
+  "type": "object",
+  "required": [
+    "$schema",
+    "internal_location_pid",
+    "location_pid"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "internal_location_pid": {
+      "type": "string",
+      "title": "Internal Location ID"
+    },
+    "location_pid": {
+      "type": "string",
+      "title": "Location ID"
+    },
+    "legacy_id": {
+      "type": "string",
+      "title": "The legacy id of the internal library in case of a migration"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name of the internal location"
+    },
+    "physical_location": {
+      "type": "string",
+      "title": "Physical location of the internal library"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Extra notes for the internal location"
+    }
+  }
+}

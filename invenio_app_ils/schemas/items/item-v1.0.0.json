@@ -1,32 +1,61 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Item",
+  "title": "Schema for Item",
   "type": "object",
   "properties": {
     "$schema": {
       "type": "string"
     },
+    "item_pid": {
+      "type": "string",
+      "title": "Item ID"
+    },
     "document_pid": {
       "type": "string",
-      "description": ""
+      "title": "Document ID"
     },
-    "location_pid": {
+    "internal_location_pid": {
       "type": "string",
-      "description": ""
+      "title": "Internal Location ID"
     },
-    "title": {
+    "legacy_id": {
       "type": "string",
-      "description": ""
+      "title": "Legacy Item ID"
+    },
+    "legacy_library_id": {
+      "type": "string",
+      "title": "Legacy Library ID"
+    },
+    "barcode": {
+      "type": "string",
+      "title": "Item barcode"
+    },
+    "shelf": {
+      "type": "string",
+      "title": "Item shelf location"
+    },
+    "description": {
+      "type": "string",
+      "title": "Extra description for the Item"
+    },
+    "circulation_restriction": {
+      "type": "string",
+      "title": "Circulation restriction on the Item"
+    },
+    "medium": {
+      "type": "string",
+      "enum": ["NOT_SPECIFIED", "ONLINE", "PAPER", "CDROM", "DVD", "VHS"],
+      "title": "Medium's Item"
     },
     "status": {
-      "title": "Item's status",
       "type": "string",
-      "enum": ["MISSING", "ON_BINDING", "LOANABLE"]
+      "enum": ["LOANABLE", "MISSING", "IN_BINDING", "SCANNING"],
+      "title": "Item's status"
     },
     "circulation_status": {
       "type": "object",
       "properties": {
-        "$reference": {
+        "$ref": {
           "type": "string"
         }
       }
