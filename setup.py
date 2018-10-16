@@ -27,7 +27,15 @@ tests_require = [
     "pytest>=3.8.1",
 ]
 
-extras_require = {"docs": ["Sphinx>=1.5.1"], "tests": tests_require}
+extras_require = {
+    "docs": [
+        "Sphinx>=1.5.1"
+    ],
+    "lorem": [
+        "lorem>=0.1.1 "
+    ],
+    "tests": tests_require
+}
 
 extras_require["all"] = []
 for reqs in extras_require.values():
@@ -107,27 +115,29 @@ setup(
             "documents = invenio_app_ils.mappings",
             "items = invenio_app_ils.mappings",
             "locations = invenio_app_ils.mappings",
+            "internal_locations = invenio_app_ils.mappings",
         ],
         "invenio_pidstore.fetchers": [
-            "document_pid_fetcher = "
-            "invenio_app_ils.pidstore.fetchers:document_pid_fetcher",
-            "item_pid_fetcher = "
-            "invenio_app_ils.pidstore.fetchers:item_pid_fetcher",
-            "location_pid_fetcher = "
-            "invenio_app_ils.pidstore.fetchers:location_pid_fetcher",
+            "docid = invenio_app_ils.pidstore.fetchers:document_pid_fetcher",
+            "itemid = invenio_app_ils.pidstore.fetchers:item_pid_fetcher",
+            "locid = invenio_app_ils.pidstore.fetchers:location_pid_fetcher",
+            "ilocid = "
+            "invenio_app_ils.pidstore.fetchers:internal_location_pid_fetcher",
         ],
         "invenio_pidstore.minters": [
-            "document_pid_minter = "
-            "invenio_app_ils.pidstore.minters:document_pid_minter",
-            "item_pid_minter = "
-            "invenio_app_ils.pidstore.minters:item_pid_minter",
-            "location_pid_minter = "
-            "invenio_app_ils.pidstore.minters:location_pid_minter",
+            "docid = invenio_app_ils.pidstore.minters:document_pid_minter",
+            "itemid = invenio_app_ils.pidstore.minters:item_pid_minter",
+            "locid = invenio_app_ils.pidstore.minters:location_pid_minter",
+            "ilocid = "
+            "invenio_app_ils.pidstore.minters:internal_location_pid_minter",
         ],
         "invenio_access.actions": [
             "backoffice_access_action = "
             "invenio_app_ils.permissions:backoffice_access_action"
         ],
+        'invenio_records.jsonresolver': [
+            'items = invenio_app_ils.records.jsonresolver.items'
+        ]
     },
     extras_require=extras_require,
     install_requires=install_requires,

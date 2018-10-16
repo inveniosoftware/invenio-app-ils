@@ -15,7 +15,7 @@ from invenio_circulation.api import Loan
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 
-from invenio_app_ils.api import Document, Item, Location
+from invenio_app_ils.records.api import Document, Item, Location
 
 from ..helpers import load_json_from_datadir
 from .helpers import mint_record_pid

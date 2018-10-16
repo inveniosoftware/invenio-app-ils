@@ -7,17 +7,91 @@
         "$schema": {
           "type": "keyword"
         },
-        "title": {
+        "item_pid": {
           "type": "keyword"
         },
         "document_pid": {
           "type": "keyword"
         },
-        "location_pid": {
+        "internal_location_pid": {
+          "type": "keyword"
+        },
+        "legacy_id": {
+          "type": "keyword"
+        },
+        "legacy_library_id": {
+          "type": "keyword"
+        },
+        "barcode": {
+          "type": "keyword"
+        },
+        "shelf": {
+          "type": "text"
+        },
+        "description": {
+          "type": "text"
+        },
+        "circulation_restriction": {
+          "type": "keyword"
+        },
+        "medium": {
           "type": "keyword"
         },
         "status": {
           "type": "keyword"
+        },
+        "circulation_status": {
+          "properties": {
+            "$schema": {
+              "type": "keyword"
+            },
+            "loan_pid": {
+              "type": "keyword"
+            },
+            "transaction_date": {
+              "type": "date",
+              "format": "yyyy-MM-dd"
+            },
+            "patron_pid": {
+              "type": "keyword"
+            },
+            "document_pid": {
+              "type": "keyword"
+            },
+            "item_pid": {
+              "type": "keyword"
+            },
+            "end_date": {
+              "type": "date",
+              "format": "yyyy-MM-dd"
+            },
+            "state": {
+              "type": "keyword"
+            },
+            "start_date": {
+              "type": "date",
+              "format": "yyyy-MM-dd"
+            },
+            "request_expire_date": {
+              "type": "date",
+              "format": "yyyy-MM-dd"
+            },
+            "pickup_location_pid": {
+              "type": "keyword"
+            },
+            "transaction_location_pid": {
+              "type": "keyword"
+            },
+            "transaction_user_pid": {
+              "type": "keyword"
+            },
+            "_created": {
+              "type": "date"
+            },
+            "_updated": {
+              "type": "date"
+            }
+          }
         },
         "_created": {
           "type": "date"

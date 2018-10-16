@@ -9,31 +9,46 @@
 
 from invenio_pidstore.fetchers import FetchedPID
 
-from ..config import _DOCUMENT_PID_TYPE, _ITEM_PID_TYPE, _LOCATION_PID_TYPE
+from .pids import (  # isort:skip
+    DOCUMENT_PID_TYPE,
+    INTERNAL_LOCATION_PID_TYPE,
+    ITEM_PID_TYPE,
+    LOCATION_PID_TYPE
+)
+from ..records.api import Document, InternalLocation, Item, Location
 
 
 def document_pid_fetcher(record_uuid, data):
-    """."""
+    """Document PID fetcher."""
     return FetchedPID(
         provider=None,
-        pid_type=_DOCUMENT_PID_TYPE,
-        pid_value=str(data[_DOCUMENT_PID_TYPE])
+        pid_type=DOCUMENT_PID_TYPE,
+        pid_value=str(data[Document.pid_field])
     )
 
 
 def item_pid_fetcher(record_uuid, data):
-    """."""
+    """Item PID fetcher."""
     return FetchedPID(
         provider=None,
-        pid_type=_ITEM_PID_TYPE,
-        pid_value=str(data[_ITEM_PID_TYPE])
+        pid_type=ITEM_PID_TYPE,
+        pid_value=str(data[Item.pid_field])
     )
 
 
 def location_pid_fetcher(record_uuid, data):
-    """."""
+    """Location PID fetcher."""
     return FetchedPID(
         provider=None,
-        pid_type=_LOCATION_PID_TYPE,
-        pid_value=str(data[_LOCATION_PID_TYPE])
+        pid_type=LOCATION_PID_TYPE,
+        pid_value=str(data[Location.pid_field])
+    )
+
+
+def internal_location_pid_fetcher(record_uuid, data):
+    """Internal location PID fetcher."""
+    return FetchedPID(
+        provider=None,
+        pid_type=INTERNAL_LOCATION_PID_TYPE,
+        pid_value=str(data[InternalLocation.pid_field])
     )

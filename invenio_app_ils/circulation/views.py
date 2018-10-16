@@ -9,12 +9,14 @@
 
 from __future__ import absolute_import, print_function
 
+import uuid
+
 from flask import Blueprint, abort, current_app, request
 from invenio_circulation.api import Loan
 from invenio_circulation.errors import InvalidCirculationPermission, \
     ItemNotAvailable, NoValidTransitionAvailable
 from invenio_circulation.links import loan_links_factory
-from invenio_circulation.pid.minters import loan_pid_minter
+from invenio_circulation.pidstore.minters import loan_pid_minter
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.views import create_error_handlers
 from invenio_db import db
@@ -74,8 +76,11 @@ class LoanRequestResource(IlsResource):
     @need_permissions('circulation-loan-request')
     def post(self, **kwargs):
         """Loan request view."""
-        loan = Loan.create({})
-        pid = loan_pid_minter(loan.id, loan)
+        record_uuid = uuid.uuid4()
+        new_loan = {}
+        pid = loan_pid_minter(record_uuid, data=new_loan)
+        loan = Loan.create(data=new_loan, id_=record_uuid)
+
         params = request.get_json()
         try:
             loan = current_circulation.circulation.trigger(
