@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List, Button, Loader } from 'semantic-ui-react';
-import './LoanActions.scss';
 
 class LoanActions extends Component {
   constructor(props) {
@@ -19,7 +18,7 @@ class LoanActions extends Component {
   renderAvailableActions(actions = {}, data) {
     return Object.keys(actions).map(action => {
       return (
-        <List.Item key={action} className="item-inline">
+        <List.Item key={action}>
           <Button
             primary
             onClick={this.handleActionsOnClick(actions[action], data)}
@@ -34,7 +33,7 @@ class LoanActions extends Component {
   render() {
     let { actions, data, actionLoading } = this.props;
     if (actionLoading) return <Loader active inline="centered" />;
-    return <List.Item>{this.renderAvailableActions(actions, data)}</List.Item>;
+    return <List horizontal>{this.renderAvailableActions(actions, data)}</List>;
   }
 }
 
