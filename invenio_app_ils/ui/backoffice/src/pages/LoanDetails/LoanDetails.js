@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { Loader, Grid, Message } from 'semantic-ui-react';
 import { LoanMetadata } from './components/LoanMetadata';
 import { LoanActions } from './components/LoanActions';
@@ -61,4 +60,4 @@ class LoanDetails extends Component {
   }
 }
 
-export default withRouter(LoanDetails);
+export default LoanDetails;

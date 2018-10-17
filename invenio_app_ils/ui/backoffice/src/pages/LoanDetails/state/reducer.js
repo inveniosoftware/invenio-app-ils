@@ -1,12 +1,12 @@
 import {
   SET_LOAN_FETCH_LOADING,
-  SET_LOAN_FETCH_DETAILS,
+  LOAN_FETCH_DETAILS_SUCCESS,
   SET_LOAN_ACTION_LOADING,
-  SET_LOAN_ACTION,
+  LOAN_ACTION_SUCCESS,
   SET_LOAN_ACTION_ERROR,
 } from './types';
 
-const initialState = {
+export const initialState = {
   fetchLoading: true,
   actionLoading: false,
   data: {},
@@ -17,11 +17,11 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case SET_LOAN_FETCH_LOADING:
       return { ...state, fetchLoading: true };
-    case SET_LOAN_FETCH_DETAILS:
+    case LOAN_FETCH_DETAILS_SUCCESS:
       return { ...state, fetchLoading: false, data: action.payload };
     case SET_LOAN_ACTION_LOADING:
       return { ...state, actionLoading: true };
-    case SET_LOAN_ACTION:
+    case LOAN_ACTION_SUCCESS:
       return { ...state, actionLoading: false, data: action.payload };
     case SET_LOAN_ACTION_ERROR:
       return {
