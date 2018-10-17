@@ -18,9 +18,9 @@ from __future__ import absolute_import, print_function
 from datetime import timedelta
 
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
-from invenio_records_rest.utils import allow_all
 
 from .records.api import Document, InternalLocation, Item, Location
+from .records.permissions import RecordPermission
 from .search.api import DocumentSearch, InternalLocationSearch, ItemSearch, \
     LocationSearch
 
@@ -231,8 +231,10 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=10000,
         error_handlers=dict(),
-        create_permission_factory_imp=allow_all,
-        update_permission_factory_imp=allow_all,
+        read_permission_factory_imp=RecordPermission,
+        create_permission_factory_imp=RecordPermission,
+        update_permission_factory_imp=RecordPermission,
+        delete_permission_factory_imp=RecordPermission,
     ),
     itemid=dict(
         pid_type=ITEM_PID_TYPE,
@@ -255,8 +257,10 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=10000,
         error_handlers=dict(),
-        create_permission_factory_imp=allow_all,
-        delete_permission_factory_imp=allow_all,
+        read_permission_factory_imp=RecordPermission,
+        create_permission_factory_imp=RecordPermission,
+        update_permission_factory_imp=RecordPermission,
+        delete_permission_factory_imp=RecordPermission,
     ),
     locid=dict(
         pid_type=LOCATION_PID_TYPE,
@@ -279,7 +283,7 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=10000,
         error_handlers=dict(),
-        create_permission_factory_imp=allow_all,
+        create_permission_factory_imp=RecordPermission,
     ),
     ilocid=dict(
         pid_type=INTERNAL_LOCATION_PID_TYPE,
@@ -302,12 +306,12 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=10000,
         error_handlers=dict(),
-        create_permission_factory_imp=allow_all,
+        read_permission_factory_imp=RecordPermission,
+        create_permission_factory_imp=RecordPermission,
+        update_permission_factory_imp=RecordPermission,
+        delete_permission_factory_imp=RecordPermission,
     ),
 )
-
-# Allow all GET requests
-RECORDS_REST_DEFAULT_READ_PERMISSION_FACTORY = allow_all
 
 # RECORDS UI
 # ==========
