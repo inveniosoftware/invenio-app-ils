@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import LoanDetails from './pages/LoanDetails';
 import ItemDetails from './pages/ItemDetails';
-import NotFound from './components/NotFound/NotFound';
+import NotFound from './components/NotFound';
 
 import './App.scss';
 

@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import LoanDetails from './LoanDetails';
 import { fetchLoanDetails, postLoanAction } from './state/actions';
 
@@ -15,4 +16,4 @@ export default connect(
     error: state.loanDetails.error,
   }),
   mapDispatchToProps
-)(LoanDetails);
+)(withRouter(LoanDetails));

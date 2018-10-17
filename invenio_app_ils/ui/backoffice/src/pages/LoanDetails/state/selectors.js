@@ -1,8 +1,10 @@
 export function serializeLoanDetails(data) {
   let result = {};
-  if (data.links.actions) {
-    result['availableActions'] = data.links.actions;
+  if (data) {
+    if (data.links) {
+      result['availableActions'] = data.links.actions || {};
+    }
+    result['metadata'] = data.metadata;
   }
-  result['metadata'] = data.metadata;
   return result;
 }

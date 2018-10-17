@@ -5,6 +5,11 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
+stages:
+  - test
+  - ui-test
+  - deploy
+
 notifications:
   email: false
 
@@ -61,14 +66,30 @@ script:
 after_success:
   - coveralls
 
-deploy:
-  provider: pypi
-  user: inveniosoftware
-  password:
-    secure: TODO:PYPISECUREHASH
-  distributions: "compile_catalog sdist bdist_wheel"
-  on:
-    tags: true
-    python: "2.7"
-    repo: inveniosoftware/invenio-app-ils
-    condition: $DEPLOY = true
+jobs:
+  include:
+    - stage: ui-test
+      language: node_js
+      node_js:
+        - 8
+      cache:
+        directories:
+          - node_modules
+      before_install:
+        - cd "./invenio_app_ils/ui/backoffice"
+      install:
+        - npm install
+      script:
+        - npm run test:ci
+    - stage: deploy
+      script: skip
+      deploy:
+        provider: pypi
+        user: inveniosoftware
+        password:
+          secure: TODO:PYPISECUREHASH
+        distributions: "compile_catalog sdist bdist_wheel"
+        on:
+          tags: true
+          python: "2.7"
+          repo: inveniosoftware/invenio-app-ils

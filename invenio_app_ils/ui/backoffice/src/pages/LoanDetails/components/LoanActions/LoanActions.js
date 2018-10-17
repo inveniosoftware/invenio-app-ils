@@ -41,7 +41,7 @@ export default LoanActions;
 
 LoanActions.propTypes = {
   data: PropTypes.object.isRequired,
-  actions: PropTypes.object,
+  actions: PropTypes.object.isRequired,
   onAction: PropTypes.func.isRequired,
   actionLoading: PropTypes.bool,
 };

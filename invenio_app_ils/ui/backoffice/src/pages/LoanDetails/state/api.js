@@ -7,7 +7,8 @@ const loansBaseUrl = 'https://localhost:5000/api/circulation/loans';
 const dev_jwt_token = process.env.REACT_APP_JWT_TOKEN;
 
 const getJwtToken = () => {
-  return process.env.NODE_ENV === 'development'
+  return process.env.NODE_ENV === 'development' ||
+    process.env.NODE_ENV === 'test'
     ? dev_jwt_token
     : document.getElementsByName('authorized_token')[0].value;
 };
