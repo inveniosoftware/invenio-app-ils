@@ -1,1244 +1,154 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoanMetadata component renders data 1`] = `
-ShallowWrapper {
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <LoanMetadata
-    data={
-      Object {
-        "metadata": Object {
-          "author": "author",
-          "title": "title",
-        },
-      }
-    }
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateError": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "host",
-    "props": Object {
-      "children": Array [
-        <Header
-          as="h1"
-        >
-          Loan Information
-        </Header>,
-        <Table
-          as="table"
-          celled={true}
-          compact={true}
-          definition={true}
-          textAlign="center"
-        >
-          <TableHeader
-            as="thead"
-            fullWidth={true}
-          >
-            <TableRow
-              as="tr"
-              cellAs="td"
-            >
-              <TableHeaderCell
-                as="th"
-              >
-                Property
-              </TableHeaderCell>
-              <TableHeaderCell
-                as="th"
-              >
-                Value
-              </TableHeaderCell>
-            </TableRow>
-          </TableHeader>
-          <TableBody
-            as="tbody"
-          >
-            <TableRow
-              as="tr"
-              cellAs="td"
-            >
-              <TableCell
-                as="td"
-                collapsing={true}
-              >
-                title
-              </TableCell>
-              <TableCell
-                as="td"
-              >
-                title
-              </TableCell>
-            </TableRow>
-            <TableRow
-              as="tr"
-              cellAs="td"
-            >
-              <TableCell
-                as="td"
-                collapsing={true}
-              >
-                author
-              </TableCell>
-              <TableCell
-                as="td"
-              >
-                author
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>,
-      ],
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "function",
-        "props": Object {
-          "as": "h1",
-          "children": "Loan Information",
-        },
-        "ref": null,
-        "rendered": "Loan Information",
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "function",
-        "props": Object {
-          "as": "table",
-          "celled": true,
-          "children": Array [
-            <TableHeader
-              as="thead"
-              fullWidth={true}
-            >
-              <TableRow
-                as="tr"
-                cellAs="td"
-              >
-                <TableHeaderCell
-                  as="th"
-                >
-                  Property
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                >
-                  Value
-                </TableHeaderCell>
-              </TableRow>
-            </TableHeader>,
-            <TableBody
-              as="tbody"
-            >
-              <TableRow
-                as="tr"
-                cellAs="td"
-              >
-                <TableCell
-                  as="td"
-                  collapsing={true}
-                >
-                  title
-                </TableCell>
-                <TableCell
-                  as="td"
-                >
-                  title
-                </TableCell>
-              </TableRow>
-              <TableRow
-                as="tr"
-                cellAs="td"
-              >
-                <TableCell
-                  as="td"
-                  collapsing={true}
-                >
-                  author
-                </TableCell>
-                <TableCell
-                  as="td"
-                >
-                  author
-                </TableCell>
-              </TableRow>
-            </TableBody>,
-          ],
-          "compact": true,
-          "definition": true,
-          "textAlign": "center",
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "as": "thead",
-              "children": <TableRow
-                as="tr"
-                cellAs="td"
-              >
-                <TableHeaderCell
-                  as="th"
-                >
-                  Property
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                >
-                  Value
-                </TableHeaderCell>
-              </TableRow>,
-              "fullWidth": true,
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "as": "tr",
-                "cellAs": "td",
-                "children": Array [
-                  <TableHeaderCell
-                    as="th"
-                  >
-                    Property
-                  </TableHeaderCell>,
-                  <TableHeaderCell
-                    as="th"
-                  >
-                    Value
-                  </TableHeaderCell>,
-                ],
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "function",
-                  "props": Object {
-                    "as": "th",
-                    "children": "Property",
-                  },
-                  "ref": null,
-                  "rendered": "Property",
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "function",
-                  "props": Object {
-                    "as": "th",
-                    "children": "Value",
-                  },
-                  "ref": null,
-                  "rendered": "Value",
-                  "type": [Function],
-                },
-              ],
-              "type": [Function],
-            },
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "as": "tbody",
-              "children": Array [
-                <TableRow
-                  as="tr"
-                  cellAs="td"
-                >
-                  <TableCell
-                    as="td"
-                    collapsing={true}
-                  >
-                    title
-                  </TableCell>
-                  <TableCell
-                    as="td"
-                  >
-                    title
-                  </TableCell>
-                </TableRow>,
-                <TableRow
-                  as="tr"
-                  cellAs="td"
-                >
-                  <TableCell
-                    as="td"
-                    collapsing={true}
-                  >
-                    author
-                  </TableCell>
-                  <TableCell
-                    as="td"
-                  >
-                    author
-                  </TableCell>
-                </TableRow>,
-              ],
-            },
-            "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": "title",
-                "nodeType": "function",
-                "props": Object {
-                  "as": "tr",
-                  "cellAs": "td",
-                  "children": Array [
-                    <TableCell
-                      as="td"
-                      collapsing={true}
-                    >
-                      title
-                    </TableCell>,
-                    <TableCell
-                      as="td"
-                    >
-                      title
-                    </TableCell>,
-                  ],
-                },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "function",
-                    "props": Object {
-                      "as": "td",
-                      "children": "title",
-                      "collapsing": true,
-                    },
-                    "ref": null,
-                    "rendered": "title",
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "function",
-                    "props": Object {
-                      "as": "td",
-                      "children": "title",
-                    },
-                    "ref": null,
-                    "rendered": "title",
-                    "type": [Function],
-                  },
-                ],
-                "type": [Function],
-              },
-              Object {
-                "instance": null,
-                "key": "author",
-                "nodeType": "function",
-                "props": Object {
-                  "as": "tr",
-                  "cellAs": "td",
-                  "children": Array [
-                    <TableCell
-                      as="td"
-                      collapsing={true}
-                    >
-                      author
-                    </TableCell>,
-                    <TableCell
-                      as="td"
-                    >
-                      author
-                    </TableCell>,
-                  ],
-                },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "function",
-                    "props": Object {
-                      "as": "td",
-                      "children": "author",
-                      "collapsing": true,
-                    },
-                    "ref": null,
-                    "rendered": "author",
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "function",
-                    "props": Object {
-                      "as": "td",
-                      "children": "author",
-                    },
-                    "ref": null,
-                    "rendered": "author",
-                    "type": [Function],
-                  },
-                ],
-                "type": [Function],
-              },
-            ],
-            "type": [Function],
-          },
-        ],
-        "type": [Function],
-      },
-    ],
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
+exports[`LoanMetadata component renders initial state and checks the props are passed 1`] = `
+<LoanMetadata
+  data={
     Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <Header
-            as="h1"
-          >
-            Loan Information
-          </Header>,
-          <Table
-            as="table"
-            celled={true}
-            compact={true}
-            definition={true}
-            textAlign="center"
-          >
-            <TableHeader
-              as="thead"
-              fullWidth={true}
-            >
-              <TableRow
-                as="tr"
-                cellAs="td"
-              >
-                <TableHeaderCell
-                  as="th"
-                >
-                  Property
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                >
-                  Value
-                </TableHeaderCell>
-              </TableRow>
-            </TableHeader>
-            <TableBody
-              as="tbody"
-            >
-              <TableRow
-                as="tr"
-                cellAs="td"
-              >
-                <TableCell
-                  as="td"
-                  collapsing={true}
-                >
-                  title
-                </TableCell>
-                <TableCell
-                  as="td"
-                >
-                  title
-                </TableCell>
-              </TableRow>
-              <TableRow
-                as="tr"
-                cellAs="td"
-              >
-                <TableCell
-                  as="td"
-                  collapsing={true}
-                >
-                  author
-                </TableCell>
-                <TableCell
-                  as="td"
-                >
-                  author
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>,
-        ],
+      "metadata": Object {
+        "author": "author",
+        "title": "title",
       },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "as": "h1",
-            "children": "Loan Information",
-          },
-          "ref": null,
-          "rendered": "Loan Information",
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "as": "table",
-            "celled": true,
-            "children": Array [
-              <TableHeader
-                as="thead"
-                fullWidth={true}
+    }
+  }
+>
+  <div>
+    <Header
+      as="h1"
+    >
+      <h1
+        className="ui header"
+      >
+        Loan Information
+      </h1>
+    </Header>
+    <Table
+      as="table"
+      celled={true}
+      compact={true}
+      definition={true}
+      textAlign="center"
+    >
+      <table
+        className="ui celled definition compact center aligned table"
+      >
+        <TableHeader
+          as="thead"
+          fullWidth={true}
+        >
+          <thead
+            className="full-width"
+          >
+            <TableRow
+              as="tr"
+              cellAs="td"
+            >
+              <tr
+                className=""
               >
-                <TableRow
-                  as="tr"
-                  cellAs="td"
-                >
-                  <TableHeaderCell
-                    as="th"
-                  >
-                    Property
-                  </TableHeaderCell>
-                  <TableHeaderCell
-                    as="th"
-                  >
-                    Value
-                  </TableHeaderCell>
-                </TableRow>
-              </TableHeader>,
-              <TableBody
-                as="tbody"
-              >
-                <TableRow
-                  as="tr"
-                  cellAs="td"
+                <TableHeaderCell
+                  as="th"
                 >
                   <TableCell
-                    as="td"
-                    collapsing={true}
-                  >
-                    title
-                  </TableCell>
-                  <TableCell
-                    as="td"
-                  >
-                    title
-                  </TableCell>
-                </TableRow>
-                <TableRow
-                  as="tr"
-                  cellAs="td"
-                >
-                  <TableCell
-                    as="td"
-                    collapsing={true}
-                  >
-                    author
-                  </TableCell>
-                  <TableCell
-                    as="td"
-                  >
-                    author
-                  </TableCell>
-                </TableRow>
-              </TableBody>,
-            ],
-            "compact": true,
-            "definition": true,
-            "textAlign": "center",
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "as": "thead",
-                "children": <TableRow
-                  as="tr"
-                  cellAs="td"
-                >
-                  <TableHeaderCell
                     as="th"
+                    className=""
                   >
-                    Property
-                  </TableHeaderCell>
-                  <TableHeaderCell
-                    as="th"
-                  >
-                    Value
-                  </TableHeaderCell>
-                </TableRow>,
-                "fullWidth": true,
-              },
-              "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "function",
-                "props": Object {
-                  "as": "tr",
-                  "cellAs": "td",
-                  "children": Array [
-                    <TableHeaderCell
-                      as="th"
+                    <th
+                      className=""
                     >
                       Property
-                    </TableHeaderCell>,
-                    <TableHeaderCell
-                      as="th"
+                    </th>
+                  </TableCell>
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                >
+                  <TableCell
+                    as="th"
+                    className=""
+                  >
+                    <th
+                      className=""
                     >
                       Value
-                    </TableHeaderCell>,
-                  ],
-                },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "function",
-                    "props": Object {
-                      "as": "th",
-                      "children": "Property",
-                    },
-                    "ref": null,
-                    "rendered": "Property",
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "function",
-                    "props": Object {
-                      "as": "th",
-                      "children": "Value",
-                    },
-                    "ref": null,
-                    "rendered": "Value",
-                    "type": [Function],
-                  },
-                ],
-                "type": [Function],
-              },
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "as": "tbody",
-                "children": Array [
-                  <TableRow
-                    as="tr"
-                    cellAs="td"
-                  >
-                    <TableCell
-                      as="td"
-                      collapsing={true}
-                    >
-                      title
-                    </TableCell>
-                    <TableCell
-                      as="td"
-                    >
-                      title
-                    </TableCell>
-                  </TableRow>,
-                  <TableRow
-                    as="tr"
-                    cellAs="td"
-                  >
-                    <TableCell
-                      as="td"
-                      collapsing={true}
-                    >
-                      author
-                    </TableCell>
-                    <TableCell
-                      as="td"
-                    >
-                      author
-                    </TableCell>
-                  </TableRow>,
-                ],
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": "title",
-                  "nodeType": "function",
-                  "props": Object {
-                    "as": "tr",
-                    "cellAs": "td",
-                    "children": Array [
-                      <TableCell
-                        as="td"
-                        collapsing={true}
-                      >
-                        title
-                      </TableCell>,
-                      <TableCell
-                        as="td"
-                      >
-                        title
-                      </TableCell>,
-                    ],
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "function",
-                      "props": Object {
-                        "as": "td",
-                        "children": "title",
-                        "collapsing": true,
-                      },
-                      "ref": null,
-                      "rendered": "title",
-                      "type": [Function],
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "function",
-                      "props": Object {
-                        "as": "td",
-                        "children": "title",
-                      },
-                      "ref": null,
-                      "rendered": "title",
-                      "type": [Function],
-                    },
-                  ],
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": "author",
-                  "nodeType": "function",
-                  "props": Object {
-                    "as": "tr",
-                    "cellAs": "td",
-                    "children": Array [
-                      <TableCell
-                        as="td"
-                        collapsing={true}
-                      >
-                        author
-                      </TableCell>,
-                      <TableCell
-                        as="td"
-                      >
-                        author
-                      </TableCell>,
-                    ],
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "function",
-                      "props": Object {
-                        "as": "td",
-                        "children": "author",
-                        "collapsing": true,
-                      },
-                      "ref": null,
-                      "rendered": "author",
-                      "type": [Function],
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "function",
-                      "props": Object {
-                        "as": "td",
-                        "children": "author",
-                      },
-                      "ref": null,
-                      "rendered": "author",
-                      "type": [Function],
-                    },
-                  ],
-                  "type": [Function],
-                },
-              ],
-              "type": [Function],
-            },
-          ],
-          "type": [Function],
-        },
-      ],
-      "type": "div",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
-      },
-    },
-  },
-}
-`;
-
-exports[`LoanMetadata component renders initial state 1`] = `
-ShallowWrapper {
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <LoanMetadata
-    data={
-      Object {
-        "metadata": Object {},
-      }
-    }
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateError": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "host",
-    "props": Object {
-      "children": Array [
-        <Header
-          as="h1"
+                    </th>
+                  </TableCell>
+                </TableHeaderCell>
+              </tr>
+            </TableRow>
+          </thead>
+        </TableHeader>
+        <TableBody
+          as="tbody"
         >
-          Loan Information
-        </Header>,
-        <Table
-          as="table"
-          celled={true}
-          compact={true}
-          definition={true}
-          textAlign="center"
-        >
-          <TableHeader
-            as="thead"
-            fullWidth={true}
+          <tbody
+            className=""
           >
             <TableRow
               as="tr"
               cellAs="td"
+              key="title"
+              name="loanMetadataRow"
             >
-              <TableHeaderCell
-                as="th"
+              <tr
+                className=""
+                name="loanMetadataRow"
               >
-                Property
-              </TableHeaderCell>
-              <TableHeaderCell
-                as="th"
-              >
-                Value
-              </TableHeaderCell>
+                <TableCell
+                  as="td"
+                  collapsing={true}
+                >
+                  <td
+                    className="collapsing"
+                  >
+                    title
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                >
+                  <td
+                    className=""
+                  >
+                    title
+                  </td>
+                </TableCell>
+              </tr>
             </TableRow>
-          </TableHeader>
-          <TableBody
-            as="tbody"
-          />
-        </Table>,
-      ],
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "function",
-        "props": Object {
-          "as": "h1",
-          "children": "Loan Information",
-        },
-        "ref": null,
-        "rendered": "Loan Information",
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "function",
-        "props": Object {
-          "as": "table",
-          "celled": true,
-          "children": Array [
-            <TableHeader
-              as="thead"
-              fullWidth={true}
+            <TableRow
+              as="tr"
+              cellAs="td"
+              key="author"
+              name="loanMetadataRow"
             >
-              <TableRow
-                as="tr"
-                cellAs="td"
+              <tr
+                className=""
+                name="loanMetadataRow"
               >
-                <TableHeaderCell
-                  as="th"
+                <TableCell
+                  as="td"
+                  collapsing={true}
                 >
-                  Property
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                >
-                  Value
-                </TableHeaderCell>
-              </TableRow>
-            </TableHeader>,
-            <TableBody
-              as="tbody"
-            />,
-          ],
-          "compact": true,
-          "definition": true,
-          "textAlign": "center",
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "as": "thead",
-              "children": <TableRow
-                as="tr"
-                cellAs="td"
-              >
-                <TableHeaderCell
-                  as="th"
-                >
-                  Property
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                >
-                  Value
-                </TableHeaderCell>
-              </TableRow>,
-              "fullWidth": true,
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "as": "tr",
-                "cellAs": "td",
-                "children": Array [
-                  <TableHeaderCell
-                    as="th"
+                  <td
+                    className="collapsing"
                   >
-                    Property
-                  </TableHeaderCell>,
-                  <TableHeaderCell
-                    as="th"
-                  >
-                    Value
-                  </TableHeaderCell>,
-                ],
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "function",
-                  "props": Object {
-                    "as": "th",
-                    "children": "Property",
-                  },
-                  "ref": null,
-                  "rendered": "Property",
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "function",
-                  "props": Object {
-                    "as": "th",
-                    "children": "Value",
-                  },
-                  "ref": null,
-                  "rendered": "Value",
-                  "type": [Function],
-                },
-              ],
-              "type": [Function],
-            },
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "as": "tbody",
-              "children": Array [],
-            },
-            "ref": null,
-            "rendered": Array [],
-            "type": [Function],
-          },
-        ],
-        "type": [Function],
-      },
-    ],
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <Header
-            as="h1"
-          >
-            Loan Information
-          </Header>,
-          <Table
-            as="table"
-            celled={true}
-            compact={true}
-            definition={true}
-            textAlign="center"
-          >
-            <TableHeader
-              as="thead"
-              fullWidth={true}
-            >
-              <TableRow
-                as="tr"
-                cellAs="td"
-              >
-                <TableHeaderCell
-                  as="th"
+                    author
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
                 >
-                  Property
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                >
-                  Value
-                </TableHeaderCell>
-              </TableRow>
-            </TableHeader>
-            <TableBody
-              as="tbody"
-            />
-          </Table>,
-        ],
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "as": "h1",
-            "children": "Loan Information",
-          },
-          "ref": null,
-          "rendered": "Loan Information",
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "as": "table",
-            "celled": true,
-            "children": Array [
-              <TableHeader
-                as="thead"
-                fullWidth={true}
-              >
-                <TableRow
-                  as="tr"
-                  cellAs="td"
-                >
-                  <TableHeaderCell
-                    as="th"
+                  <td
+                    className=""
                   >
-                    Property
-                  </TableHeaderCell>
-                  <TableHeaderCell
-                    as="th"
-                  >
-                    Value
-                  </TableHeaderCell>
-                </TableRow>
-              </TableHeader>,
-              <TableBody
-                as="tbody"
-              />,
-            ],
-            "compact": true,
-            "definition": true,
-            "textAlign": "center",
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "as": "thead",
-                "children": <TableRow
-                  as="tr"
-                  cellAs="td"
-                >
-                  <TableHeaderCell
-                    as="th"
-                  >
-                    Property
-                  </TableHeaderCell>
-                  <TableHeaderCell
-                    as="th"
-                  >
-                    Value
-                  </TableHeaderCell>
-                </TableRow>,
-                "fullWidth": true,
-              },
-              "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "function",
-                "props": Object {
-                  "as": "tr",
-                  "cellAs": "td",
-                  "children": Array [
-                    <TableHeaderCell
-                      as="th"
-                    >
-                      Property
-                    </TableHeaderCell>,
-                    <TableHeaderCell
-                      as="th"
-                    >
-                      Value
-                    </TableHeaderCell>,
-                  ],
-                },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "function",
-                    "props": Object {
-                      "as": "th",
-                      "children": "Property",
-                    },
-                    "ref": null,
-                    "rendered": "Property",
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "function",
-                    "props": Object {
-                      "as": "th",
-                      "children": "Value",
-                    },
-                    "ref": null,
-                    "rendered": "Value",
-                    "type": [Function],
-                  },
-                ],
-                "type": [Function],
-              },
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "as": "tbody",
-                "children": Array [],
-              },
-              "ref": null,
-              "rendered": Array [],
-              "type": [Function],
-            },
-          ],
-          "type": [Function],
-        },
-      ],
-      "type": "div",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
-      },
-    },
-  },
-}
+                    author
+                  </td>
+                </TableCell>
+              </tr>
+            </TableRow>
+          </tbody>
+        </TableBody>
+      </table>
+    </Table>
+  </div>
+</LoanMetadata>
 `;

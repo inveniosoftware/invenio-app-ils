@@ -6,7 +6,7 @@ class LoanMetadata extends Component {
   renderLoanMetadata(data) {
     return Object.keys(data.metadata).map(key => {
       return (
-        <Table.Row key={key}>
+        <Table.Row key={key} name="loanMetadataRow">
           <Table.Cell collapsing>{key}</Table.Cell>
           <Table.Cell>{data.metadata[key]}</Table.Cell>
         </Table.Row>
