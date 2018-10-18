@@ -6,8 +6,8 @@ import { LoanActions } from './components/LoanActions';
 class LoanDetails extends Component {
   constructor(props) {
     super(props);
-    this.fetchLoanDetails = this.props.fetchLoanDetails.bind(this);
-    this.postLoanAction = this.props.postLoanAction.bind(this);
+    this.fetchLoanDetails = this.props.fetchLoanDetails;
+    this.postLoanAction = this.props.postLoanAction;
   }
 
   componentDidMount() {

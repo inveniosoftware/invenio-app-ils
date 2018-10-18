@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { Loader, Grid, Message } from 'semantic-ui-react';
 import { ItemMetadata } from './components/ItemMetadata';
 
-class ItemDetails extends Component {
+export default class ItemDetails extends Component {
   constructor(props) {
     super(props);
     this.fetchItemDetails = this.props.fetchItemDetails;
@@ -44,5 +43,3 @@ class ItemDetails extends Component {
     );
   }
 }
-
-export default withRouter(ItemDetails);
