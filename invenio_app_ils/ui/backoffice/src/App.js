@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import LoanDetails from './pages/LoanDetails';
-import ItemDetails from './pages/ItemDetails';
-import NotFound from './components/NotFound';
+import { LoanDetails } from './pages/LoanDetails';
+import { ItemDetails } from './pages/ItemDetails';
+import NotFound from './common/components/NotFound';
 
 import './App.scss';
 
 export default class App extends Component {
   render() {
     return (
-      <Router basename="/backoffice">
+      <Router>
         <div className="app">
           <div className="app-content">
             <Switch>
-              <Route path="/loans/:recid" component={LoanDetails} />
-              <Route path="/items/:recid" component={ItemDetails} />
+              <Route path="/backoffice/loans/:recid" component={LoanDetails} />
+              <Route path="/backoffice/items/:recid" component={ItemDetails} />
               <Route component={NotFound} />
             </Switch>
           </div>

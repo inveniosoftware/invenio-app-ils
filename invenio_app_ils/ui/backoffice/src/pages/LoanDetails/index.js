@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import LoanDetails from './LoanDetails';
 import { fetchLoanDetails, postLoanAction } from './state/actions';
+import detailsClass from './LoanDetails';
 
 const mapDispatchToProps = dispatch => ({
   fetchLoanDetails: loanid => dispatch(fetchLoanDetails(loanid)),
   postLoanAction: (url, data) => dispatch(postLoanAction(url, data)),
 });
-export default connect(
+
+export const LoanDetails = connect(
   state => ({
     fetchLoading: state.loanDetails.fetchLoading,
     actionLoading: state.loanDetails.actionLoading,
@@ -16,4 +17,4 @@ export default connect(
     error: state.loanDetails.error,
   }),
   mapDispatchToProps
-)(withRouter(LoanDetails));
+)(withRouter(detailsClass));
