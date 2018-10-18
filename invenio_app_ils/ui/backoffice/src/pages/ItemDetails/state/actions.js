@@ -1,5 +1,5 @@
 import { ITEM_LOADING, ITEM_DETAILS, ITEM_ERROR } from './types';
-import { fetchItem } from './api';
+import { fetchRecord } from '../../../common/api';
 
 export const fetchItemDetails = itemid => {
   return async dispatch => {
@@ -8,7 +8,7 @@ export const fetchItemDetails = itemid => {
       payload: {},
     });
 
-    let details = await fetchItem(itemid).catch(reason => {
+    let details = await fetchRecord('/items', itemid).catch(reason => {
       dispatch({
         type: ITEM_ERROR,
         payload: reason,
