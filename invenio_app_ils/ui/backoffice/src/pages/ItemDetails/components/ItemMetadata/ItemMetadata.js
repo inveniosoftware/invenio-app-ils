@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Header, Table } from 'semantic-ui-react';
 
-class ItemMetadata extends Component {
+export class ItemMetadata extends Component {
   renderItemMetadata(data) {
     return Object.keys(data.metadata).map(key => {
       return (
@@ -32,8 +32,6 @@ class ItemMetadata extends Component {
     );
   }
 }
-
-export default ItemMetadata;
 
 ItemMetadata.propTypes = {
   data: PropTypes.object.isRequired,
