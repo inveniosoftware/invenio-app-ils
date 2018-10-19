@@ -1,34 +1,40 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Header, Table } from 'semantic-ui-react';
+import { Grid, Segment, Form, Image } from 'semantic-ui-react';
 
 class ItemMetadata extends Component {
   renderItemMetadata(data) {
     return Object.keys(data.metadata).map(key => {
       return (
-        <Table.Row key={key}>
-          <Table.Cell collapsing>{key}</Table.Cell>
-          <Table.Cell>{JSON.stringify(data.metadata[key])}</Table.Cell>
-        </Table.Row>
+        <Form.Field key={key}>
+          <label>{key}</label>
+          <input defaultValue={data.metadata[key]} />
+        </Form.Field>
       );
     });
   }
 
   render() {
     let { data } = this.props;
+    console.log(data);
     return (
-      <div>
-        <Header as="h1">Item Information</Header>
-        <Table compact celled definition textAlign="center">
-          <Table.Header fullWidth>
-            <Table.Row>
-              <Table.HeaderCell>Property</Table.HeaderCell>
-              <Table.HeaderCell>Value</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>{this.renderItemMetadata(data)}</Table.Body>
-        </Table>
-      </div>
+      <Segment raised>
+        <Grid columns={2} divided>
+          <Grid.Column floated="left">
+            <Form>{this.renderItemMetadata(data)}</Form>
+          </Grid.Column>
+          <Grid.Column>
+            <Grid.Row textAlign="right">
+              <Image
+                src="https://react.semantic-ui.com/images/wireframe/square-image.png"
+                size="medium"
+                rounded
+                bordered
+              />
+            </Grid.Row>
+          </Grid.Column>
+        </Grid>
+      </Segment>
     );
   }
 }

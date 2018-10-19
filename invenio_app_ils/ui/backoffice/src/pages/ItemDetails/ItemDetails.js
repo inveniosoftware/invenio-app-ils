@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Loader, Grid, Message } from 'semantic-ui-react';
+import { Loader, Container, Message } from 'semantic-ui-react';
 import { ItemMetadata } from './components/ItemMetadata';
 
 export default class ItemDetails extends Component {
@@ -35,11 +35,9 @@ export default class ItemDetails extends Component {
     }
     if (fetchLoading) return <Loader active inline="centered" />;
     return (
-      <Grid centered>
-        <Grid.Row>
-          <ItemMetadata data={data} />
-        </Grid.Row>
-      </Grid>
+      <Container>
+        <ItemMetadata data={data} />
+      </Container>
     );
   }
 }
