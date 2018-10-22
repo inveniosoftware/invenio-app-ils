@@ -210,7 +210,7 @@ exports[`tests the LoanDetails component renders the details page when fetching 
                             <td
                               className=""
                             >
-                              title
+                              "title"
                             </td>
                           </TableCell>
                         </tr>

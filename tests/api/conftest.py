@@ -12,13 +12,23 @@ from __future__ import absolute_import, print_function
 import pytest
 from invenio_app.factory import create_api
 from invenio_circulation.api import Loan
+from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 
-from invenio_app_ils.records.api import Document, Item, Location
+from invenio_app_ils.circulation.receivers import index_item_after_loan_change
+from invenio_app_ils.records.api import Document, InternalLocation, Item, \
+    Location
 
 from ..helpers import load_json_from_datadir
 from .helpers import mint_record_pid
+
+from invenio_app_ils.pidstore.pids import (  # isort:skip
+    DOCUMENT_PID_TYPE,
+    INTERNAL_LOCATION_PID_TYPE,
+    ITEM_PID_TYPE,
+    LOCATION_PID_TYPE
+)
 
 
 @pytest.fixture(scope='module')
@@ -49,7 +59,16 @@ def testdata(app, db, es_clear):
     locations = load_json_from_datadir('locations.json')
     for location in locations:
         record = Location.create(location)
-        mint_record_pid('locid', record)
+        mint_record_pid(LOCATION_PID_TYPE, Location.pid_field, record)
+        record.commit()
+        db.session.commit()
+        indexer.index(record)
+
+    internal_locations = load_json_from_datadir('internal_locations.json')
+    for internal_location in internal_locations:
+        record = InternalLocation.create(internal_location)
+        mint_record_pid(INTERNAL_LOCATION_PID_TYPE, InternalLocation.pid_field,
+                        record)
         record.commit()
         db.session.commit()
         indexer.index(record)
@@ -57,7 +76,7 @@ def testdata(app, db, es_clear):
     documents = load_json_from_datadir('documents.json')
     for doc in documents:
         record = Document.create(doc)
-        mint_record_pid('docid', record)
+        mint_record_pid(DOCUMENT_PID_TYPE, Document.pid_field, record)
         record.commit()
         db.session.commit()
         indexer.index(record)
@@ -65,7 +84,7 @@ def testdata(app, db, es_clear):
     items = load_json_from_datadir('items.json')
     for item in items:
         record = Item.create(item)
-        mint_record_pid('itemid', record)
+        mint_record_pid(ITEM_PID_TYPE, Item.pid_field, record)
         record.commit()
         db.session.commit()
         indexer.index(record)
@@ -73,10 +92,12 @@ def testdata(app, db, es_clear):
     loans = load_json_from_datadir('loans.json')
     for loan in loans:
         record = Loan.create(loan)
-        mint_record_pid('loanid', record)
+        mint_record_pid(CIRCULATION_LOAN_PID_TYPE, Loan.pid_field, record)
         record.commit()
         db.session.commit()
         indexer.index(record)
+        # re-index item attached to the loan
+        index_item_after_loan_change(app, record)
 
     # flush all indices after indexing, otherwise ES won't be ready for tests
     current_search.flush_and_refresh(index=None)

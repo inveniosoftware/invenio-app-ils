@@ -8,7 +8,7 @@ class LoanMetadata extends Component {
       return (
         <Table.Row key={key} name="loanMetadataRow">
           <Table.Cell collapsing>{key}</Table.Cell>
-          <Table.Cell>{data.metadata[key]}</Table.Cell>
+          <Table.Cell>{JSON.stringify(data.metadata[key])}</Table.Cell>
         </Table.Row>
       );
     });

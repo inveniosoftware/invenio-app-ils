@@ -1,71 +1,82 @@
 [
   {
-    "itemid": "itemid-1",
+    "item_pid": "itemid-1",
+    "barcode": "123456789",
     "title": "The Gulf: The Making of An American Sea - Item 1",
     "document_pid": "docid-1",
-    "location_pid": "locid-1",
+    "internal_location_pid": "ilocid-1",
     "status": "MISSING"
   },
   {
-    "itemid": "itemid-2",
+    "item_pid": "itemid-2",
+    "barcode": "12345678910",
     "title": "The Gulf: The Making of An American Sea - Item 2",
     "document_pid": "docid-1",
-    "location_pid": "locid-1",
+    "internal_location_pid": "ilocid-1",
     "status": "LOANABLE"
   },
   {
-    "itemid": "itemid-3",
+    "item_pid": "itemid-3",
+    "barcode": "12345678911",
     "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
     "document_pid": "docid-2",
-    "location_pid": "1"
-  },
-  {
-    "itemid": "itemid-4",
-    "title": "Half-light: Collected Poems 1965-2016",
-    "document_pid": "docid-3",
-    "location_pid": "locid-1",
+    "internal_location_pid": "ilocid-1",
     "status": "LOANABLE"
   },
   {
-    "itemid": "itemid-5",
+    "item_pid": "itemid-4",
+    "barcode": "12345678912",
     "title": "Half-light: Collected Poems 1965-2016",
     "document_pid": "docid-3",
-    "location_pid": "locid-1",
+    "internal_location_pid": "ilocid-1",
     "status": "LOANABLE"
   },
   {
-    "itemid": "itemid-6",
+    "item_pid": "itemid-5",
+    "barcode": "12345678913",
     "title": "Half-light: Collected Poems 1965-2016",
     "document_pid": "docid-3",
-    "location_pid": "locid-1",
+    "internal_location_pid": "ilocid-1",
     "status": "LOANABLE"
   },
   {
-    "itemid": "itemid-7",
+    "item_pid": "itemid-6",
+    "barcode": "12345678914",
+    "title": "Half-light: Collected Poems 1965-2016",
+    "document_pid": "docid-3",
+    "internal_location_pid": "ilocid-1",
+    "status": "LOANABLE"
+  },
+  {
+    "item_pid": "itemid-7",
+    "barcode": "12345678915",
     "title": "Less: A Novel",
     "document_pid": "docid-5",
-    "location_pid": "locid-1",
-    "status": "ON_BINDING"
+    "internal_location_pid": "ilocid-1",
+    "status": "IN_BINDING"
   },
   {
-    "itemid": "itemid-8",
+    "item_pid": "itemid-8",
+    "barcode": "12345678916",
     "title": "Less: A Novel",
     "document_pid": "docid-5",
-    "location_pid": "locid-1",
+    "internal_location_pid": "ilocid-1",
     "status": "MISSING"
   },
   {
-    "itemid": "itemid-9",
+    "item_pid": "itemid-917",
+    "barcode": "123456789",
     "title": "Less: A Novel",
     "document_pid": "docid-5",
-    "location_pid": "locid-1",
+    "internal_location_pid": "ilocid-1",
     "status": "LOANABLE"
   },
   {
-    "itemid": "itemid-10",
+    "item_pid": "itemid-10",
+    "barcode": "12345678918",
     "title": "Less: A Novel",
     "document_pid": "docid-5",
-    "location_pid": "locid-1",
+    "internal_location_pid": "ilocid-1",
     "status": "LOANABLE"
   }
 ]

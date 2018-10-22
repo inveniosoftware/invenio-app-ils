@@ -1,6 +1,6 @@
 [
   {
-    "locid": "locid-1",
-    "name": "CERN Library"
+    "location_pid": "locid-1",
+    "name": "Main Library"
   }
 ]

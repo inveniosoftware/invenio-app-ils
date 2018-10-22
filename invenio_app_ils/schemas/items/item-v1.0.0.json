@@ -2,6 +2,13 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Schema for Item",
   "type": "object",
+  "required": [
+    "$schema",
+    "document_pid",
+    "internal_location_pid",
+    "barcode",
+    "status"
+  ],
   "properties": {
     "$schema": {
       "type": "string"

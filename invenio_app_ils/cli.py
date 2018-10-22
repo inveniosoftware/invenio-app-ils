@@ -21,13 +21,14 @@ from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from .circulation.receivers import index_item_after_loan_change
+from .records.api import Document, InternalLocation, Item, Location
+
 from .pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
     ITEM_PID_TYPE,
     LOCATION_PID_TYPE
 )
-from .records.api import Document, Item, Location, InternalLocation
 
 LOCATION = {
     Location.pid_field: "1",
@@ -52,11 +53,11 @@ def get_internal_locations(location):
             "name": "Building {}".format(randint(1, 10)),
             "notes": lorem.sentence(),
             "physical_location": lorem.sentence()
-        } for i in range(1, randint(5, 10))
+        } for i in range(1, randint(8, 10))
     ]
 
 
-def get_documents_items(internal_locations):
+def get_documents_items(internal_locations, n_docs, n_items):
     """Return random document and items."""
     documents = [
         {
@@ -64,7 +65,7 @@ def get_documents_items(internal_locations):
             "title": "{}".format(lorem.sentence()),
             "authors": "{}".format(lorem.sentence()),
             "abstracts": ["{}".format(lorem.text())],
-        } for i in range(1, randint(10, 20))
+        } for i in range(1, n_docs)
     ]
     len_docs = len(documents) - 1
     len_internal_locations = len(internal_locations) - 1
@@ -73,7 +74,7 @@ def get_documents_items(internal_locations):
     LEN_ITEM_STATUSES = len(ITEM_STATUSES) - 1
 
     items = []
-    for i in range(1, randint(40, 50)):
+    for i in range(1, n_items):
         doc = documents[randint(0, len_docs)]
         loc = internal_locations[randint(0, len_internal_locations)]
         restr = ITEM_CIRCULATION_RESTRICTIONS[
@@ -105,7 +106,8 @@ def get_documents_items(internal_locations):
     return documents, items
 
 
-def get_loans_for_items(items, location, patron_ids=None, librarian_id=""):
+def get_loans_for_items(items, location, patron_ids=None, librarian_id="",
+                        n_loans=100):
     """Return random loans."""
     loc_pid = location[Location.pid_field]
     len_patron_ids = len(patron_ids) - 1
@@ -131,14 +133,15 @@ def get_loans_for_items(items, location, patron_ids=None, librarian_id=""):
 
     loans = []
     items_on_loans = []
-    for i in range(1, randint(60, 70)):
+    for i in range(1, n_loans):
         item = _get_loanable_item(items)
         status = _get_valid_status(item, items_on_loans)
         if status == "ITEM_ON_LOAN":
             items_on_loans.append(item[Item.pid_field])
 
         padron_id = randint(1, len_patron_ids)
-        transaction_date = datetime(current_year, randint(1, 12), randint(1, 28))
+        transaction_date = datetime(current_year, randint(1, 12),
+                                    randint(1, 28))
         expire_date = transaction_date + timedelta(days=10)
 
         loan = {
@@ -217,8 +220,11 @@ def demo():
 
 
 @demo.command()
+@click.option('--docs', 'n_docs', default=20)
+@click.option('--items', 'n_items', default=50)
+@click.option('--loans', 'n_loans', default=100)
 @with_appcontext
-def data():
+def data(n_docs, n_items, n_loans):
     """Insert demo data."""
     indexer = RecordIndexer()
 
@@ -233,7 +239,8 @@ def data():
             rec = create_iloc_record(iloc)
             rec_int_locs.append(rec)
 
-    documents, items = get_documents_items(rec_int_locs)
+    documents, items = get_documents_items(rec_int_locs, n_docs=n_docs,
+                                           n_items=n_items)
     rec_docs = []
     with click.progressbar(documents,
                            label="Documents") as docs:
@@ -256,7 +263,7 @@ def data():
             indexer.index(_rec)
 
     loans = get_loans_for_items(rec_items, rec_location, patron_ids=["1", "2"],
-                                librarian_id="4")
+                                librarian_id="4", n_loans=n_loans)
     with click.progressbar(loans,
                            label="Loans") as _loans:
         for loan in _loans:

@@ -13,11 +13,11 @@ from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
-def mint_record_pid(pid_type, record):
+def mint_record_pid(pid_type, pid_field, record):
     """Mint the given PID for the given record."""
     PersistentIdentifier.create(
         pid_type=pid_type,
-        pid_value=record[pid_type],
+        pid_value=record[pid_field],
         object_type='rec',
         object_uuid=record.id,
         status=PIDStatus.REGISTERED

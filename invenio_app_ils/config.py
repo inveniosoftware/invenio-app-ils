@@ -18,6 +18,12 @@ from __future__ import absolute_import, print_function
 from datetime import timedelta
 
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
+from invenio_records_rest.utils import allow_all
+
+from .records.api import Document, InternalLocation, Item, Location
+from .search.api import DocumentSearch, InternalLocationSearch, ItemSearch, \
+    LocationSearch
+
 from invenio_circulation.config import (  # isort:skip
     CIRCULATION_POLICIES,
     _LOANID_CONVERTER,
@@ -38,7 +44,6 @@ from invenio_circulation.transitions.transitions import (  # isort:skip
     PendingToItemAtDesk,
     PendingToItemInTransitPickup,
 )
-from invenio_records_rest.utils import allow_all
 
 from .circulation.utils import (  # isort:skip
     circulation_document_retriever,
@@ -68,9 +73,6 @@ from .pidstore.pids import (  # isort:skip
     LOCATION_PID_MINTER,
     LOCATION_PID_TYPE
 )
-from .records.api import Document, InternalLocation, Item, Location
-from .search.api import DocumentSearch, InternalLocationSearch, ItemSearch, \
-    LocationSearch
 
 
 def _(x):
