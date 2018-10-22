@@ -109,7 +109,7 @@ exports[`LoanMetadata component renders initial state and checks the props are p
                   <td
                     className=""
                   >
-                    title
+                    "title"
                   </td>
                 </TableCell>
               </tr>
@@ -140,7 +140,7 @@ exports[`LoanMetadata component renders initial state and checks the props are p
                   <td
                     className=""
                   >
-                    author
+                    "author"
                   </td>
                 </TableCell>
               </tr>

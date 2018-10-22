@@ -14,6 +14,7 @@ import json
 from flask import url_for
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
+from invenio_circulation.api import Loan
 
 NEW_LOAN = {
     "item_pid": "200",
@@ -31,7 +32,7 @@ def _fetch_loan(client, json_headers, loan, user=None):
     if user:
         login_user_via_session(client, email=User.query.get(user.id).email)
     url = url_for('invenio_records_rest.loanid_item',
-                  pid_value=loan['loanid'])
+                  pid_value=loan[Loan.pid_field])
     return client.get(url, headers=json_headers)
 
 
@@ -40,7 +41,7 @@ def _assert_get_loan_success(client, json_headers, loan, user):
     res = _fetch_loan(client, json_headers, loan=loan, user=user)
     assert res.status_code == 200
     data = json.loads(res.data.decode('utf-8'))['metadata']
-    assert data['loanid'] == loan['loanid']
+    assert data[Loan.pid_field] == loan[Loan.pid_field]
     assert data['patron_pid'] == loan['patron_pid']
 
 
@@ -107,7 +108,7 @@ def _test_post_new_loan(client, json_headers, response_code):
     assert res.status_code == response_code
     if res.status_code == 201:
         data = json.loads(res.data.decode('utf-8'))['metadata']
-        return data['loanid']
+        return data[Loan.pid_field]
 
 
 def _test_patch_existing_loan(client, json_patch_headers, loanid,

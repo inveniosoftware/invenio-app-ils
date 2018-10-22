@@ -9,32 +9,44 @@
 
 from __future__ import absolute_import, print_function
 
-from ..records.api import Document, Item
+import logging
+
+from invenio_pidstore.errors import PersistentIdentifierError
+
+from ..records.api import Document, InternalLocation, Item
+
+logger = logging.getLogger(__name__)
 
 
 def circulation_items_retriever(document_pid):
     """Retrieve items given a document."""
     document = Document.get_record_by_pid(document_pid)
-    for item_pid in document.get("items", []):
+    for item_pid in document["items"]:
         yield item_pid
 
 
 def circulation_document_retriever(item_pid):
     """Retrieve items given a document."""
     item = Item.get_record_by_pid(item_pid)
-    return item.get("document_pid")
+    return item["document_pid"]
 
 
 def circulation_item_location_retriever(item_pid):
     """Retrieve location pid given an item."""
     item = Item.get_record_by_pid(item_pid)
-    return item.get("location_pid")
+    internal_location = InternalLocation.get_record_by_pid(
+        item["internal_location_pid"])
+    return internal_location["location_pid"]
 
 
 def circulation_item_exists(item_pid):
     """Retrieve location pid given an item."""
-    item = Item.get_record_by_pid(item_pid)
-    return item
+    try:
+        Item.get_record_by_pid(item_pid)
+    except PersistentIdentifierError as ex:
+        logger.error(ex)
+        return False
+    return True
 
 
 def circulation_is_item_available(item_pid):

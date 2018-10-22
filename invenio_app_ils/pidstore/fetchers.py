@@ -9,13 +9,14 @@
 
 from invenio_pidstore.fetchers import FetchedPID
 
+from ..records.api import Document, InternalLocation, Item, Location
+
 from .pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
     ITEM_PID_TYPE,
     LOCATION_PID_TYPE
 )
-from ..records.api import Document, InternalLocation, Item, Location
 
 
 def document_pid_fetcher(record_uuid, data):
