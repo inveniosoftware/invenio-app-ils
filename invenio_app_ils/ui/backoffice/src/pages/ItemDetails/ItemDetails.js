@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Loader, Container, Message } from 'semantic-ui-react';
-import { ItemMetadata } from './components/ItemMetadata';
+import { ItemTitle } from './components/ItemTitle/ItemTitle';
+import { ItemMetadata } from './components/ItemMetadata/ItemMetadata';
+import { ItemHoldings } from './components/ItemHoldings/ItemHoldings';
+import { ItemLoanRequests } from './components/ItemLoanRequests/ItemLoanRequests';
+import { ItemLoanHistory } from './components/ItemLoanHistory/ItemLoanHistory';
 
 export default class ItemDetails extends Component {
   constructor(props) {
@@ -36,7 +40,11 @@ export default class ItemDetails extends Component {
     if (fetchLoading) return <Loader active inline="centered" />;
     return (
       <Container>
+        <ItemTitle data={data} />
         <ItemMetadata data={data} />
+        <ItemHoldings />
+        <ItemLoanRequests />
+        <ItemLoanHistory />
       </Container>
     );
   }

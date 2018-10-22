@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Segment, Form, Image } from 'semantic-ui-react';
 
-class ItemMetadata extends Component {
+import './ItemMetadata.scss';
+
+export class ItemMetadata extends Component {
   renderItemMetadata(data) {
     return Object.keys(data.metadata).map(key => {
       return (
         <Form.Field key={key}>
-          <label>{key}</label>
-          <input defaultValue={data.metadata[key]} />
+          <label className="field-name">{key}</label>
+          <p>{data.metadata[key]}</p>
         </Form.Field>
       );
     });
@@ -19,27 +21,25 @@ class ItemMetadata extends Component {
     console.log(data);
     return (
       <Segment raised>
-        <Grid columns={2} divided>
-          <Grid.Column floated="left">
-            <Form>{this.renderItemMetadata(data)}</Form>
-          </Grid.Column>
-          <Grid.Column>
-            <Grid.Row textAlign="right">
+        <Grid>
+          <Grid.Row />
+          <Grid.Row>
+            <Grid.Column width={5} floated="left">
               <Image
-                src="https://react.semantic-ui.com/images/wireframe/square-image.png"
-                size="medium"
+                className="book-cover"
+                src="https://via.placeholder.com/256x384"
                 rounded
-                bordered
               />
-            </Grid.Row>
-          </Grid.Column>
+            </Grid.Column>
+            <Grid.Column width={10} floated="right">
+              <Form>{this.renderItemMetadata(data)}</Form>
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
       </Segment>
     );
   }
 }
-
-export default ItemMetadata;
 
 ItemMetadata.propTypes = {
   data: PropTypes.object.isRequired,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import { Navbar } from './common/components/Navbar';
 import { LoanDetails } from './pages/LoanDetails';
 import { ItemDetails } from './pages/ItemDetails';
 import NotFound from './common/components/NotFound';
@@ -13,6 +14,7 @@ export default class App extends Component {
     return (
       <Router>
         <div className="app">
+          <Navbar />
           <div className="app-content">
             <Switch>
               <Route path="/backoffice/loans/:recid" component={LoanDetails} />
