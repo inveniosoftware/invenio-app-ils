@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchLoanDetails, postLoanAction } from './state/actions';
-import detailsClass from './LoanDetails';
+import LoanDetailsComponent from './LoanDetails';
 
 const mapDispatchToProps = dispatch => ({
   fetchLoanDetails: loanid => dispatch(fetchLoanDetails(loanid)),
@@ -17,4 +17,4 @@ export const LoanDetails = connect(
     error: state.loanDetails.error,
   }),
   mapDispatchToProps
-)(withRouter(detailsClass));
+)(withRouter(LoanDetailsComponent));

@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
+import { $axios } from '../../../../common/api';
 // Actions to be tested
 import * as actions from '../actions';
 import { initialState } from '../reducer';
@@ -10,7 +10,7 @@ import * as types from '../types';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-const loansBaseUrl = 'https://localhost:5000/api/circulation/loans';
+const loansBaseUrl = 'https://127.0.0.1:5000/api/circulation/loans';
 
 describe('loan actions', () => {
   let store;
@@ -23,7 +23,7 @@ describe('loan actions', () => {
     let mock;
     let response = {};
     beforeEach(() => {
-      mock = new MockAdapter(axios);
+      mock = new MockAdapter($axios);
       mock.onGet(`${loansBaseUrl}/1`).reply(() => {
         return new Promise((resolve, reject) =>
           setTimeout(() => {
@@ -89,7 +89,7 @@ describe('loan actions', () => {
     let mock;
     let response = {};
     beforeEach(() => {
-      mock = new MockAdapter(axios);
+      mock = new MockAdapter($axios);
       mock.onPost(`${loansBaseUrl}/1/next`).reply(() => {
         return new Promise((resolve, reject) =>
           setTimeout(() => {

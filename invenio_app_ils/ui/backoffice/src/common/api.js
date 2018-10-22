@@ -12,15 +12,15 @@ const getProductionToken = () => {
 };
 
 const token =
-  process.env.NODE_ENV === 'development'
-    ? process.env.REACT_APP_JWT_TOKEN
-    : getProductionToken();
+  process.env.NODE_ENV === 'production'
+    ? getProductionToken()
+    : process.env.REACT_APP_JWT_TOKEN;
 
 export const $axios = axios.create({
   baseURL:
-    process.env.NODE_ENV === 'development'
-      ? 'https://localhost:5000/api'
-      : '/api',
+    process.env.NODE_ENV === 'production'
+      ? '/api'
+      : 'https://127.0.0.1:5000/api',
   headers: {
     Authorization: `bearer ${token}`,
   },

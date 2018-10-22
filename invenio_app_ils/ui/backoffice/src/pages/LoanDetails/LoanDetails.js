@@ -33,7 +33,6 @@ class LoanDetails extends Component {
     } = this.props;
     if (fetchLoading) return <Loader active inline="centered" />;
     if (loanActionError) {
-      console.error(data);
       return (
         <Message
           icon="exclamation"
