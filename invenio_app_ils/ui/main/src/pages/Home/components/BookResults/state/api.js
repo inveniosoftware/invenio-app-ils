@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const booksUrl = 'http://localhost:3001/books';
+const booksUrl = 'http://127.0.0.1:3001/books';
 
 export const fetchFeaturedBooks = () => {
   return axios.get(`${booksUrl}/featured`);
