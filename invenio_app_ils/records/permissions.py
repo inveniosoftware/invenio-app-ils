@@ -7,7 +7,7 @@
 
 """Ils records' permissions."""
 from flask_principal import ActionNeed, RoleNeed, UserNeed
-from invenio_access import Permission, superuser_access
+from invenio_access import Permission, any_user
 
 librarian_role = RoleNeed('librarian')
 create_records_action = ActionNeed('create-records')
@@ -31,36 +31,26 @@ class RecordPermission(Permission):
         self.record = record
         self.action = action
         self._permissions = None
-        record_needs = self._dispatch()
+        record_needs = self.collect_needs()
         super(RecordPermission, self).__init__(*record_needs)
 
-        # removes need of superuser for reading access
-        if self.allow_by_default:
-            self.explicit_needs.remove(superuser_access)
-
-    def _dispatch(self):
-        """Dispatch permission policy per action."""
+    def collect_needs(self):
+        """Collect permission policy per action."""
         if self.action in self.read_actions:
             return self.read_permissions()
         elif self.action in self.create_actions:
-            return [create_records_action] + self.librarian_permissions()
+            return [create_records_action, librarian_role]
         elif self.action in self.update_actions:
-            return self.record_needs() + self.librarian_permissions()
+            return self.record_needs() + [librarian_role]
         else:
             return self.record_needs()
 
     def read_permissions(self):
         """Define read permission policy per record."""
         if self.is_public():
-            # allow by default per everyone when read is empty
-            self.allow_by_default = True
-            return []
+            return [any_user]
         else:
-            return self.record_needs() + self.librarian_permissions()
-
-    def librarian_permissions(self):
-        """Define librarian role permission."""
-        return [librarian_role]
+            return self.record_needs() + [librarian_role]
 
     def record_allows(self):
         """Read what record allows per action."""
@@ -71,9 +61,12 @@ class RecordPermission(Permission):
         needs = []
         for access_entity in self.record_allows():
             try:
+                if isinstance(access_entity, str):
+                    needs.append(UserNeed(int(access_entity)))
+                elif isinstance(access_entity, int):
+                    needs.append(UserNeed(access_entity))
+            except ValueError:
                 needs.append(RoleNeed(access_entity.lower()))
-            except AttributeError:
-                needs.append(UserNeed(access_entity))
         return needs
 
     def is_public(self):
