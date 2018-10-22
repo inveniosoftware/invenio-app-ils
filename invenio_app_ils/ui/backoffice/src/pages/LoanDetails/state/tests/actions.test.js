@@ -10,7 +10,7 @@ import * as types from '../types';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-const loansBaseUrl = 'https://localhost:5000/api/circulation/loans';
+const loansBaseUrl = 'https://127.0.0.1:5000/api/circulation/loans';
 
 describe('loan actions', () => {
   let store;
