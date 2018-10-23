@@ -9,21 +9,16 @@
 
 from __future__ import absolute_import, print_function
 
-import uuid
-
 from flask import Blueprint, abort, current_app, request
-from invenio_circulation.api import Loan
-from invenio_circulation.errors import InvalidCirculationPermission, \
-    ItemNotAvailable, NoValidTransitionAvailable
+from invenio_circulation.errors import CirculationException, \
+    InvalidCirculationPermission
 from invenio_circulation.links import loan_links_factory
-from invenio_circulation.pidstore.minters import loan_pid_minter
-from invenio_circulation.proxies import current_circulation
 from invenio_circulation.views import create_error_handlers
-from invenio_db import db
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_rest import ContentNegotiatedMethodView
 
-from invenio_app_ils.views import need_permissions
+from ..views import need_permissions
+from .api import request_loan
 
 
 def create_circulation_blueprint(_):
@@ -76,23 +71,14 @@ class LoanRequestResource(IlsResource):
     @need_permissions('circulation-loan-request')
     def post(self, **kwargs):
         """Loan request view."""
-        record_uuid = uuid.uuid4()
-        new_loan = {}
-        pid = loan_pid_minter(record_uuid, data=new_loan)
-        loan = Loan.create(data=new_loan, id_=record_uuid)
-
-        params = request.get_json()
         try:
-            loan = current_circulation.circulation.trigger(
-                loan, **dict(params, trigger="request")
-            )
-            db.session.commit()
-        except (ItemNotAvailable, NoValidTransitionAvailable) as ex:
-            current_app.logger.exception(ex.msg)
-            abort(400)
+            pid, loan = request_loan(request.get_json())
         except InvalidCirculationPermission as ex:
             current_app.logger.exception(ex.msg)
-            abort(403)
+            return abort(403)
+        except CirculationException as ex:
+            current_app.logger.exception(ex.msg)
+            return abort(400)
 
         return self.make_response(
             pid, loan, 202, links_factory=self.links_factory

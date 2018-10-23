@@ -9,13 +9,10 @@
 
 from __future__ import absolute_import, print_function
 
-import logging
-
+from flask import current_app
 from invenio_pidstore.errors import PersistentIdentifierError
 
 from ..records.api import Document, InternalLocation, Item
-
-logger = logging.getLogger(__name__)
 
 
 def circulation_items_retriever(document_pid):
@@ -44,7 +41,7 @@ def circulation_item_exists(item_pid):
     try:
         Item.get_record_by_pid(item_pid)
     except PersistentIdentifierError as ex:
-        logger.error(ex)
+        current_app.logger.error(ex)
         return False
     return True
 

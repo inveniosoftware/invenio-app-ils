@@ -283,7 +283,10 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=10000,
         error_handlers=dict(),
+        read_permission_factory_imp=RecordPermission,
         create_permission_factory_imp=RecordPermission,
+        update_permission_factory_imp=RecordPermission,
+        delete_permission_factory_imp=RecordPermission,
     ),
     ilocid=dict(
         pid_type=INTERNAL_LOCATION_PID_TYPE,
