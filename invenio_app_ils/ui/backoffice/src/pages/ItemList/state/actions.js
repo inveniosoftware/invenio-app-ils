@@ -14,7 +14,6 @@ export const fetchItemList = () => {
         payload: reason,
       });
     });
-    console.log(itemList);
     if (itemList) {
       dispatch({
         type: ITEM_LIST,

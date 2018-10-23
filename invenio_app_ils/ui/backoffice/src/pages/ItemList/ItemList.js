@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Loader, Container, Message } from 'semantic-ui-react';
+import ItemTable from './ItemTable/ItemTable';
 
-export default class ItemList extends Component {
+class ItemList extends Component {
   constructor(props) {
     super(props);
     this.fetchItemList = this.props.fetchItemList;
@@ -19,9 +21,9 @@ export default class ItemList extends Component {
   componentWillUnmount() {
     this.unlisten();
   }
+
   render() {
     let { data, error, isLoading } = this.props;
-    console.log(data);
     if (error) {
       return (
         <Message
@@ -34,8 +36,11 @@ export default class ItemList extends Component {
     if (isLoading) return <Loader active inline="centered" />;
     return (
       <Container>
-        <h1>This is the item list</h1>
+        <h2>Item list</h2>
+        <ItemTable data={data} />
       </Container>
     );
   }
 }
+
+export default withRouter(ItemList);

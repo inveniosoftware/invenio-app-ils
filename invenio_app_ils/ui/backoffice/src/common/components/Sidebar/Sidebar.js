@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Input, Menu } from 'semantic-ui-react';
+import './Sidebar.scss';
 
 class Sidebar extends Component {
   state = { activeItem: '' };
@@ -14,6 +15,9 @@ class Sidebar extends Component {
     const { activeItem } = this.state;
     return (
       <Menu vertical inverted fixed="left" className="sidebar-menu">
+        <Menu.Header as="h2" className="logo">
+          ILS backoffice
+        </Menu.Header>
         <Menu.Item
           name="loans"
           location="/backoffice/loans"
@@ -24,7 +28,6 @@ class Sidebar extends Component {
         </Menu.Item>
 
         <Menu.Item
-          // href="/backoffice/items"
           location="/backoffice/items"
           name="items"
           active={activeItem === 'items'}
