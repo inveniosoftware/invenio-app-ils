@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Input, Menu } from 'semantic-ui-react';
 
-export class Sidebar extends Component {
+class Sidebar extends Component {
   state = { activeItem: '' };
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleItemClick = (e, { name, location }) => {
+    this.setState({ activeItem: name });
+    this.props.history.push(location);
+  };
 
   render() {
     const { activeItem } = this.state;
-
     return (
       <Menu vertical inverted fixed="left" className="sidebar-menu">
         <Menu.Item
           name="loans"
+          location="/backoffice/loans"
           active={activeItem === 'loans'}
           onClick={this.handleItemClick}
         >
@@ -20,6 +24,8 @@ export class Sidebar extends Component {
         </Menu.Item>
 
         <Menu.Item
+          // href="/backoffice/items"
+          location="/backoffice/items"
           name="items"
           active={activeItem === 'items'}
           onClick={this.handleItemClick}
@@ -34,3 +40,5 @@ export class Sidebar extends Component {
     );
   }
 }
+
+export default withRouter(Sidebar);

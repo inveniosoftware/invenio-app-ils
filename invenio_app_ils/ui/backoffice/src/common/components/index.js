@@ -1,2 +1,2 @@
 export { NotFound } from './NotFound/NotFound';
-export { Sidebar } from './Sidebar/Sidebar';
+export { default as Sidebar } from './Sidebar/Sidebar';

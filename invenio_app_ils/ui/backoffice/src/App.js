@@ -4,8 +4,8 @@ import { Grid } from 'semantic-ui-react';
 import { Backoffice } from './pages/Backoffice';
 import { Sidebar } from './common/components';
 import { NotFound } from './common/components';
-import { LoanDetails } from './pages/LoanDetails';
-import { ItemDetails } from './pages/ItemDetails';
+import { ItemLayout } from './layouts';
+import { LoanLayout } from './layouts';
 
 export default class App extends Component {
   render() {
@@ -17,8 +17,8 @@ export default class App extends Component {
           </Grid.Column>
           <Grid.Column width={12}>
             <Switch>
-              <Route path="/backoffice/loans/:recid" component={LoanDetails} />
-              <Route path="/backoffice/items/:recid" component={ItemDetails} />
+              <Route path="/backoffice/items" component={ItemLayout} />
+              <Route path="/backoffice/loans" component={LoanLayout} />
               <Route path="/backoffice" component={Backoffice} />
               <Route component={NotFound} />
             </Switch>
