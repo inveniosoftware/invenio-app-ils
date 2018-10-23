@@ -6,13 +6,17 @@ import './ItemTitle.scss';
 export class ItemTitle extends Component {
   render() {
     let { data } = this.props;
+    console.log(data);
     return (
       <h1>
-        Item details <small>{data.metadata.itemid}</small>
-        <Button primary floated="right">
-          <Icon name="edit" />
-          &nbsp;edit
-        </Button>
+        Item details
+        <small>
+          {data.metadata.item_pid}
+          <Button primary floated="right" size="small">
+            <Icon name="edit" />
+            &nbsp;edit
+          </Button>
+        </small>
       </h1>
     );
   }

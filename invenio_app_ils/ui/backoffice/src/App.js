@@ -15,7 +15,7 @@ export default class App extends Component {
           <Grid.Column width={3}>
             <Sidebar />
           </Grid.Column>
-          <Grid.Column width={13}>
+          <Grid.Column width={12}>
             <Switch>
               <Route path="/backoffice/loans/:recid" component={LoanDetails} />
               <Route path="/backoffice/items/:recid" component={ItemDetails} />

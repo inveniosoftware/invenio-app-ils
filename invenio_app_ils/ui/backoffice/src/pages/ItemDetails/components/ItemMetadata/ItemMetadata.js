@@ -7,22 +7,23 @@ import './ItemMetadata.scss';
 export class ItemMetadata extends Component {
   renderItemMetadata(data) {
     return Object.keys(data.metadata).map(key => {
-      return (
-        <Form.Field key={key}>
-          <label className="field-name">{key}</label>
-          <p>{data.metadata[key]}</p>
-        </Form.Field>
-      );
+      if (typeof data.metadata[key] !== 'object') {
+        return (
+          <Form.Field key={key}>
+            <label className="field-name">{key}</label>
+            <p>{data.metadata[key]}</p>
+          </Form.Field>
+        );
+      }
+      return '';
     });
   }
 
   render() {
     let { data } = this.props;
-    console.log(data);
     return (
       <Segment raised>
         <Grid>
-          <Grid.Row />
           <Grid.Row>
             <Grid.Column width={5} floated="left">
               <Image
