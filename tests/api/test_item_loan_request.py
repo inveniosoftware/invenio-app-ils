@@ -11,7 +11,6 @@ from __future__ import absolute_import, print_function
 
 import json
 
-import pytest
 from flask import url_for
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
@@ -46,7 +45,6 @@ def test_patron_can_request_loan_on_item(client, json_headers, users,
     assert loan['state'] == 'PENDING'
 
 
-@pytest.mark.skip("Needs development")
 def test_patron_cannot_request_loan_on_already_loaned_item(client,
                                                            json_headers, users,
                                                            testdata):

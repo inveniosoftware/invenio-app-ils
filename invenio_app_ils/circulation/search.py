@@ -11,7 +11,7 @@ import re
 
 from elasticsearch_dsl.query import Q
 from flask import abort, current_app, g, request
-from invenio_circulation.search import LoansSearch
+from invenio_circulation.search.api import LoansSearch
 from invenio_records_rest.errors import InvalidQueryRESTError
 from invenio_search.api import DefaultFilter
 

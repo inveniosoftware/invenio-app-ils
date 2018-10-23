@@ -33,47 +33,38 @@ class _InvenioAppIlsState(object):
         return _cls()
 
 
-class InvenioAppIlsUI(object):
+class InvenioAppIls(object):
     """Invenio App ILS UI app."""
 
     def __init__(self, app=None):
         """Extension initialization."""
         if app:
             self.app = app
-            self._init_app(app)
+            self.init_app(app)
 
-    def _init_app(self, app):
+    def init_app(self, app):
         """Flask application initialization."""
-        self._init_config(app)
+        self.init_config(app)
         app.extensions['invenio-app-ils'] = _InvenioAppIlsState(app)
 
-    def _init_config(self, app):
+    def init_config(self, app):
         """Initialize configuration."""
         for k in dir(config):
             if k.startswith('ILS_'):
                 app.config.setdefault(k, getattr(config, k))
 
 
-class InvenioAppIlsREST(object):
+class InvenioAppIlsUI(InvenioAppIls):
+    """Invenio App ILS UI app."""
+
+
+class InvenioAppIlsREST(InvenioAppIls):
     """Invenio App ILS REST API app."""
 
-    def __init__(self, app=None):
-        """Extension initialization."""
-        if app:
-            self.app = app
-            self._init_app(app)
-
-    def _init_app(self, app):
+    def init_app(self, app):
         """Flask application initialization."""
-        self._init_config(app)
-        app.extensions['invenio-app-ils'] = _InvenioAppIlsState(app)
+        super(InvenioAppIlsREST, self).init_app(app)
         self._register_signals()
-
-    def _init_config(self, app):
-        """Initialize configuration."""
-        for k in dir(config):
-            if k.startswith("ILS_"):
-                app.config.setdefault(k, getattr(config, k))
 
     def _register_signals(self):
         """Register signals."""
