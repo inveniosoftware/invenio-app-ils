@@ -10,16 +10,16 @@ import { LoanLayout } from './layouts';
 export default class App extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <BrowserRouter basename="/backoffice">
         <Grid>
           <Grid.Column width={3}>
             <Sidebar />
           </Grid.Column>
           <Grid.Column width={12}>
             <Switch>
-              <Route path="/backoffice/items" component={ItemLayout} />
-              <Route path="/backoffice/loans" component={LoanLayout} />
-              <Route path="/backoffice" component={Backoffice} />
+              <Route path="/items" component={ItemLayout} />
+              <Route path="/loans" component={LoanLayout} />
+              <Route path="/" exact component={Backoffice} />
               <Route component={NotFound} />
             </Switch>
           </Grid.Column>

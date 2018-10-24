@@ -4,7 +4,7 @@ import { Table } from 'semantic-ui-react';
 
 class ItemTable extends Component {
   navToDetails(itemId) {
-    this.props.history.push(`/backoffice/items/${itemId}`);
+    this.props.history.push(`/items/${itemId}`);
   }
 
   renderData(items) {

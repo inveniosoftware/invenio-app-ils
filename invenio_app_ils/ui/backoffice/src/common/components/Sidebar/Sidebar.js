@@ -20,7 +20,7 @@ class Sidebar extends Component {
         </Menu.Header>
         <Menu.Item
           name="loans"
-          location="/backoffice/loans"
+          location="/loans"
           active={activeItem === 'loans'}
           onClick={this.handleItemClick}
         >
@@ -28,7 +28,7 @@ class Sidebar extends Component {
         </Menu.Item>
 
         <Menu.Item
-          location="/backoffice/items"
+          location="/items"
           name="items"
           active={activeItem === 'items'}
           onClick={this.handleItemClick}
