@@ -18,6 +18,7 @@ from __future__ import absolute_import, print_function
 from datetime import timedelta
 
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
+from invenio_circulation.search.api import LoansSearch
 
 from .records.api import Document, InternalLocation, Item, Location
 from .records.permissions import RecordPermission
@@ -484,7 +485,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         pid_type=CIRCULATION_LOAN_PID_TYPE,
         pid_minter=CIRCULATION_LOAN_MINTER,
         pid_fetcher=CIRCULATION_LOAN_FETCHER,
-        search_class="invenio_app_ils.circulation.search:IlsLoansSearch",
+        search_class=LoansSearch,
         search_factory_imp="invenio_app_ils.circulation.search"
         ":circulation_search_factory",
         record_class="invenio_circulation.api:Loan",
