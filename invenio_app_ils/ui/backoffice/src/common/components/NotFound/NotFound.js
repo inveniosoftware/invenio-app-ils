@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Button, Icon } from 'semantic-ui-react';
+import { URLS } from '../../../common/urls';
+
 import './NotFound.scss';
 
 export class NotFound extends Component {
@@ -11,7 +13,7 @@ export class NotFound extends Component {
           <Icon name="compass outline" size="massive" />
           <h1>404</h1>
           <h2>Not all who wander are lost..</h2>
-          <Link to="/">
+          <Link to={URLS.ROOT}>
             <Button className="teal">back to office</Button>
           </Link>
         </Grid.Column>

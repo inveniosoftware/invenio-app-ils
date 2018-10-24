@@ -28,7 +28,7 @@ export const $axios = axios.create({
 });
 
 export const fetchList = url => {
-  return $axios.get(`${url}`);
+  return $axios.get(url);
 };
 
 export const fetchRecord = (url, recid) => {

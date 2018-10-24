@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
+import { URLS } from '../../../common/urls';
 
 class ItemTable extends Component {
-  navToDetails(itemId) {
-    this.props.history.push(`/items/${itemId}`);
+  navigateToDetails(itemId) {
+    this.props.history.push(URLS.ITEM_DETAILS(itemId));
   }
 
   renderData(items) {
@@ -13,7 +14,7 @@ class ItemTable extends Component {
       return (
         <Table.Row
           key={meta.item_pid}
-          onClick={() => this.navToDetails(meta.item_pid)}
+          onClick={() => this.navigateToDetails(meta.item_pid)}
         >
           <Table.Cell collapsing>{meta.barcode}</Table.Cell>
           <Table.Cell collapsing>{meta.status}</Table.Cell>

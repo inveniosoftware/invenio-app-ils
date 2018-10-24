@@ -6,20 +6,21 @@ import { Sidebar } from './common/components';
 import { NotFound } from './common/components';
 import { ItemLayout } from './layouts';
 import { LoanLayout } from './layouts';
+import { URLS } from './common/urls';
 
 export default class App extends Component {
   render() {
     return (
-      <BrowserRouter basename="/backoffice">
+      <BrowserRouter basename={URLS.BASENAME}>
         <Grid>
           <Grid.Column width={3}>
             <Sidebar />
           </Grid.Column>
           <Grid.Column width={12}>
             <Switch>
-              <Route path="/items" component={ItemLayout} />
-              <Route path="/loans" component={LoanLayout} />
-              <Route path="/" exact component={Backoffice} />
+              <Route path={URLS.ITEM_LIST} component={ItemLayout} />
+              <Route path={URLS.LOAN_LIST} component={LoanLayout} />
+              <Route path={URLS.ROOT} exact component={Backoffice} />
               <Route component={NotFound} />
             </Switch>
           </Grid.Column>
