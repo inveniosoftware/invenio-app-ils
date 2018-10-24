@@ -28,7 +28,7 @@ class ItemTable extends Component {
     let { data } = this.props;
     let items = data.hits.hits;
     return (
-      <Table color={'black'} selectable celled>
+      <Table selectable celled>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Barcode</Table.HeaderCell>

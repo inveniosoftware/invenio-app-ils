@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Loader, Container, Message } from 'semantic-ui-react';
+import { Loader, Message } from 'semantic-ui-react';
 import { ItemTitle } from './components/ItemTitle/ItemTitle';
 import { ItemMetadata } from './components/ItemMetadata/ItemMetadata';
-import { ItemHoldings } from './components/ItemHoldings/ItemHoldings';
+import { ItemLoans } from './components/ItemLoans/ItemLoans';
 import { ItemLoanRequests } from './components/ItemLoanRequests/ItemLoanRequests';
 import { ItemLoanHistory } from './components/ItemLoanHistory/ItemLoanHistory';
 
@@ -39,13 +39,13 @@ export default class ItemDetails extends Component {
     }
     if (fetchLoading) return <Loader active inline="centered" />;
     return (
-      <Container>
+      <section>
         <ItemTitle data={data} />
         <ItemMetadata data={data} />
-        <ItemHoldings />
+        <ItemLoans />
         <ItemLoanRequests />
         <ItemLoanHistory />
-      </Container>
+      </section>
     );
   }
 }

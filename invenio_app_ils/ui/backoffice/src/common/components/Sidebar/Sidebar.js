@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Input, Menu } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import { URLS } from '../../../common/urls';
+
 import './Sidebar.scss';
 
 class Sidebar extends Component {
@@ -27,7 +28,6 @@ class Sidebar extends Component {
         >
           Loans
         </Menu.Item>
-
         <Menu.Item
           location={URLS.ITEM_LIST}
           name="items"
@@ -35,10 +35,6 @@ class Sidebar extends Component {
           onClick={this.handleItemClick}
         >
           Items
-        </Menu.Item>
-
-        <Menu.Item>
-          <Input icon="search" placeholder="Search..." />
         </Menu.Item>
       </Menu>
     );

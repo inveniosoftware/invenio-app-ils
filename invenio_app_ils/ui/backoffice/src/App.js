@@ -12,7 +12,7 @@ export default class App extends Component {
   render() {
     return (
       <BrowserRouter basename={URLS.BASENAME}>
-        <Grid>
+        <Grid columns={2} relaxed>
           <Grid.Column width={3}>
             <Sidebar />
           </Grid.Column>
