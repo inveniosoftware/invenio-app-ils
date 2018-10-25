@@ -1,4 +1,4 @@
-import { ITEM_LOADING, ITEM_DETAILS, ITEM_ERROR } from './types';
+import { IS_LOADING, ITEM_DETAILS, HAS_ERROR } from './types';
 
 const initialState = {
   fetchLoading: true,
@@ -7,11 +7,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ITEM_LOADING:
+    case IS_LOADING:
       return { ...state, fetchLoading: true };
     case ITEM_DETAILS:
       return { ...state, fetchLoading: false, data: action.payload };
-    case ITEM_ERROR:
+    case HAS_ERROR:
       return { ...state, fetchLoading: false, error: action.payload };
     default:
       return state;

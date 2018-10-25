@@ -1,23 +1,24 @@
-import { ITEM_LIST, ITEM_LIST_LOADING, ITEM_LIST_ERROR } from './types';
-import { fetchList } from '../../../common/api';
+import { ITEM_LIST, IS_LOADING, HAS_ERROR } from './types';
+import { item } from 'common/api';
 
 export const fetchItemList = () => {
   return async dispatch => {
     dispatch({
-      type: ITEM_LIST_LOADING,
+      type: IS_LOADING,
       payload: {},
     });
 
-    let itemList = await fetchList('/items/').catch(reason => {
+    let response = await item.getList().catch(reason => {
       dispatch({
-        type: ITEM_LIST_ERROR,
+        type: HAS_ERROR,
         payload: reason,
       });
     });
-    if (itemList) {
+
+    if (response) {
       dispatch({
         type: ITEM_LIST,
-        payload: itemList.data,
+        payload: response.data,
       });
     }
   };

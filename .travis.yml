@@ -31,6 +31,7 @@ env:
   global:
     - ES6_DOWNLOAD_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.0.tar.gz"
     - ES_HOST=127.0.0.1
+    - NODE_PATH=src
   matrix:
     - REQUIREMENTS=lowest EXTRAS=all ES_URL=$ES6_DOWNLOAD_URL
     - REQUIREMENTS=release EXTRAS=all ES_URL=$ES6_DOWNLOAD_URL DEPLOY=true

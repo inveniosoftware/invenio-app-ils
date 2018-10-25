@@ -1,3 +1,3 @@
 export const ITEM_DETAILS = 'ITEM_DETAILS';
-export const ITEM_ERROR = 'ITEM_ERROR';
-export const ITEM_LOADING = 'ITEM_LOADING';
+export const HAS_ERROR = 'HAS_ERROR';
+export const IS_LOADING = 'IS_LOADING';

@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
-import { $axios } from '../../../../common/api';
+import { http } from 'common/api';
 // Actions to be tested
 import * as actions from '../actions';
 import { initialState } from '../reducer';
@@ -23,7 +23,7 @@ describe('loan actions', () => {
     let mock;
     let response = {};
     beforeEach(() => {
-      mock = new MockAdapter($axios);
+      mock = new MockAdapter(http);
       mock.onGet(`${loansBaseUrl}/1`).reply(() => {
         return new Promise((resolve, reject) =>
           setTimeout(() => {
@@ -89,7 +89,7 @@ describe('loan actions', () => {
     let mock;
     let response = {};
     beforeEach(() => {
-      mock = new MockAdapter($axios);
+      mock = new MockAdapter(http);
       mock.onPost(`${loansBaseUrl}/1/next`).reply(() => {
         return new Promise((resolve, reject) =>
           setTimeout(() => {

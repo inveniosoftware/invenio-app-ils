@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { LoanList } from '../../pages/LoanList';
-import { LoanDetails } from '../../pages/LoanDetails';
+import { LoanList, LoanDetails } from 'pages';
 
 export class LoanLayout extends Component {
   render() {

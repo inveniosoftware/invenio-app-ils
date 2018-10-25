@@ -1,23 +1,24 @@
-import { ITEM_LOADING, ITEM_DETAILS, ITEM_ERROR } from './types';
-import { fetchRecord } from '../../../common/api';
+import { IS_LOADING, ITEM_DETAILS, HAS_ERROR } from './types';
+import { item } from 'common/api';
 
-export const fetchItemDetails = itemid => {
+export const fetchItemDetails = itemId => {
   return async dispatch => {
     dispatch({
-      type: ITEM_LOADING,
+      type: IS_LOADING,
       payload: {},
     });
 
-    let details = await fetchRecord('/items', itemid).catch(reason => {
+    let response = await item.getRecord(itemId).catch(reason => {
       dispatch({
-        type: ITEM_ERROR,
+        type: HAS_ERROR,
         payload: reason,
       });
     });
-    if (details) {
+
+    if (response) {
       dispatch({
         type: ITEM_DETAILS,
-        payload: details.data,
+        payload: response.data,
       });
     }
   };
