@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Loader, Container, Message } from 'semantic-ui-react';
-import ItemTable from './ItemTable/ItemTable';
+import ItemTable from './components/ItemTable/ItemTable';
 
 class ItemList extends Component {
   constructor(props) {

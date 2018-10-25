@@ -2,14 +2,16 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
-import { loanDetailsReducer } from './pages/LoanDetails/reducer';
 import { itemListReducer } from './pages/ItemList/reducer';
 import { itemDetailsReducer } from './pages/ItemDetails/reducer';
+import { loanListReducer } from './pages/LoanList/reducer';
+import { loanDetailsReducer } from './pages/LoanDetails/reducer';
 
 const rootReducer = combineReducers({
-  loanDetails: loanDetailsReducer,
   itemList: itemListReducer,
   itemDetails: itemDetailsReducer,
+  loanList: loanListReducer,
+  loanDetails: loanDetailsReducer,
 });
 
 const store = createStore(
