@@ -27,6 +27,10 @@ export const $axios = axios.create({
   withCredentials: true,
 });
 
+export const fetchList = url => {
+  return $axios.get(url);
+};
+
 export const fetchRecord = (url, recid) => {
   return $axios.get(`${url}/${recid}`);
 };

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { Loader, Grid, Message } from 'semantic-ui-react';
-import { ItemMetadata } from './components/ItemMetadata';
+import { Loader, Message } from 'semantic-ui-react';
+import { ItemTitle } from './components/ItemTitle/ItemTitle';
+import { ItemMetadata } from './components/ItemMetadata/ItemMetadata';
+import { ItemLoans } from './components/ItemLoans/ItemLoans';
+import { ItemLoanRequests } from './components/ItemLoanRequests/ItemLoanRequests';
+import { ItemLoanHistory } from './components/ItemLoanHistory/ItemLoanHistory';
 
 export default class ItemDetails extends Component {
   constructor(props) {
@@ -10,11 +14,11 @@ export default class ItemDetails extends Component {
 
   componentDidMount() {
     this.unlisten = this.props.history.listen((location, action) => {
-      if (location.state && location.state.recid) {
-        this.fetchItemDetails(location.state.recid);
+      if (location.state && location.state.itemId) {
+        this.fetchItemDetails(location.state.itemId);
       }
     });
-    this.fetchItemDetails(this.props.match.params.recid);
+    this.fetchItemDetails(this.props.match.params.itemId);
   }
 
   componentWillUnmount() {
@@ -35,11 +39,13 @@ export default class ItemDetails extends Component {
     }
     if (fetchLoading) return <Loader active inline="centered" />;
     return (
-      <Grid centered>
-        <Grid.Row>
-          <ItemMetadata data={data} />
-        </Grid.Row>
-      </Grid>
+      <section>
+        <ItemTitle data={data} />
+        <ItemMetadata data={data} />
+        <ItemLoans />
+        <ItemLoanRequests />
+        <ItemLoanHistory />
+      </section>
     );
   }
 }

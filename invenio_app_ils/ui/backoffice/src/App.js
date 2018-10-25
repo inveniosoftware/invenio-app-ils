@@ -1,27 +1,31 @@
 import React, { Component } from 'react';
-
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
-import { LoanDetails } from './pages/LoanDetails';
-import { ItemDetails } from './pages/ItemDetails';
-import NotFound from './common/components/NotFound';
-
-import './App.scss';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Grid } from 'semantic-ui-react';
+import { Backoffice } from './pages/Backoffice';
+import { Sidebar } from './common/components';
+import { NotFound } from './common/components';
+import { ItemLayout } from './layouts';
+import { LoanLayout } from './layouts';
+import { URLS } from './common/urls';
 
 export default class App extends Component {
   render() {
     return (
-      <Router>
-        <div className="app">
-          <div className="app-content">
+      <BrowserRouter basename={URLS.BASENAME}>
+        <Grid columns={2} relaxed>
+          <Grid.Column width={3}>
+            <Sidebar />
+          </Grid.Column>
+          <Grid.Column width={12}>
             <Switch>
-              <Route path="/backoffice/loans/:recid" component={LoanDetails} />
-              <Route path="/backoffice/items/:recid" component={ItemDetails} />
+              <Route path={URLS.ITEM_LIST} component={ItemLayout} />
+              <Route path={URLS.LOAN_LIST} component={LoanLayout} />
+              <Route path={URLS.ROOT} exact component={Backoffice} />
               <Route component={NotFound} />
             </Switch>
-          </div>
-        </div>
-      </Router>
+          </Grid.Column>
+        </Grid>
+      </BrowserRouter>
     );
   }
 }
