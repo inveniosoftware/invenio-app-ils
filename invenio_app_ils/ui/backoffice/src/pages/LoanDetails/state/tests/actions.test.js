@@ -113,13 +113,11 @@ describe('loan actions', () => {
         },
       ];
 
-      store
-        .dispatch(actions.postLoanAction(`${loansBaseUrl}/1/next`, {}))
-        .then(() => {
-          let actions = store.getActions();
-          expect(actions[0]).toEqual(expectedActions[0]);
-          done();
-        });
+      store.dispatch(actions.postLoanAction(1, {})).then(() => {
+        let actions = store.getActions();
+        expect(actions[0]).toEqual(expectedActions[0]);
+        done();
+      });
     });
 
     it('fires an event when the loan transition action succeeds', done => {
@@ -130,13 +128,11 @@ describe('loan actions', () => {
         },
       ];
 
-      return store
-        .dispatch(actions.postLoanAction(`${loansBaseUrl}/1/next`, {}))
-        .then(() => {
-          let actions = store.getActions();
-          expect(actions[1]).toEqual(expectedActions[0]);
-          done();
-        });
+      return store.dispatch(actions.postLoanAction(1, {})).then(() => {
+        let actions = store.getActions();
+        expect(actions[1]).toEqual(expectedActions[0]);
+        done();
+      });
     });
 
     it('fires an event when the loan transition action fails', done => {
@@ -147,13 +143,11 @@ describe('loan actions', () => {
         },
       ];
 
-      return store
-        .dispatch(actions.postLoanAction(`${loansBaseUrl}/2/next`, {}))
-        .then(() => {
-          let actions = store.getActions();
-          expect(actions[1]).toEqual(expectedActions[0]);
-          done();
-        });
+      return store.dispatch(actions.postLoanAction(2, {})).then(() => {
+        let actions = store.getActions();
+        expect(actions[1]).toEqual(expectedActions[0]);
+        done();
+      });
     });
   });
 });

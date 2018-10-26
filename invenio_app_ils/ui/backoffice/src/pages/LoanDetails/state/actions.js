@@ -15,7 +15,7 @@ export const fetchLoanDetails = loanId => {
     });
 
     return loan
-      .getRecord('/circulation/loans', loanId)
+      .getRecord(loanId)
       .then(details =>
         dispatch({
           type: LOAN_FETCH_DETAILS_SUCCESS,
@@ -31,14 +31,14 @@ export const fetchLoanDetails = loanId => {
   };
 };
 
-export const postLoanAction = (url, data) => {
+export const postLoanAction = (loanId, data) => {
   return async dispatch => {
     dispatch({
       type: SET_LOAN_ACTION_LOADING,
     });
 
     return loan
-      .postRecord(url, data)
+      .postAction(loanId, data)
       .then(details =>
         dispatch({
           type: LOAN_ACTION_SUCCESS,
