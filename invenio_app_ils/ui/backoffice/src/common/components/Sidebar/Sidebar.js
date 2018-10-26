@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
-import { URLS } from '../../../common/urls';
+import { URLS } from 'common/urls';
 
 import './Sidebar.scss';
 
@@ -22,14 +22,14 @@ class Sidebar extends Component {
         </Menu.Header>
         <Menu.Item
           name="loans"
-          location={URLS.LOAN_LIST}
+          location={URLS.loanList}
           active={activeItem === 'loans'}
           onClick={this.handleItemClick}
         >
           Loans
         </Menu.Item>
         <Menu.Item
-          location={URLS.ITEM_LIST}
+          location={URLS.itemList}
           name="items"
           active={activeItem === 'items'}
           onClick={this.handleItemClick}

@@ -4,7 +4,7 @@ import { fetchItemDetails } from './state/actions';
 import ItemDetailsComponent from './ItemDetails';
 
 const mapDispatchToProps = dispatch => ({
-  fetchItemDetails: itemid => dispatch(fetchItemDetails(itemid)),
+  fetchItemDetails: itemId => dispatch(fetchItemDetails(itemId)),
 });
 
 export const ItemDetails = connect(

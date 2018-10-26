@@ -4,8 +4,8 @@ import { fetchLoanDetails, postLoanAction } from './state/actions';
 import LoanDetailsComponent from './LoanDetails';
 
 const mapDispatchToProps = dispatch => ({
-  fetchLoanDetails: loanid => dispatch(fetchLoanDetails(loanid)),
-  postLoanAction: (url, data) => dispatch(postLoanAction(url, data)),
+  fetchLoanDetails: loanId => dispatch(fetchLoanDetails(loanId)),
+  postLoanAction: (loanId, data) => dispatch(postLoanAction(loanId, data)),
 });
 
 export const LoanDetails = connect(

@@ -5,16 +5,17 @@ import {
   LOAN_ACTION_SUCCESS,
   SET_LOAN_ACTION_ERROR,
 } from './types';
-import { fetchRecord, postRecord } from '../../../common/api';
+import { loan } from 'common/api';
 import { serializeLoanDetails } from './selectors';
 
-export const fetchLoanDetails = loanid => {
+export const fetchLoanDetails = loanId => {
   return dispatch => {
     dispatch({
       type: SET_LOAN_FETCH_LOADING,
     });
 
-    return fetchRecord('/circulation/loans', loanid)
+    return loan
+      .getRecord(loanId)
       .then(details =>
         dispatch({
           type: LOAN_FETCH_DETAILS_SUCCESS,
@@ -24,19 +25,20 @@ export const fetchLoanDetails = loanid => {
       .catch(reason => {
         dispatch({
           type: SET_LOAN_ACTION_ERROR,
-          payload: loanid,
+          payload: loanId,
         });
       });
   };
 };
 
-export const postLoanAction = (url, data) => {
+export const postLoanAction = (loanId, data) => {
   return async dispatch => {
     dispatch({
       type: SET_LOAN_ACTION_LOADING,
     });
 
-    return postRecord(url, data)
+    return loan
+      .postAction(loanId, data)
       .then(details =>
         dispatch({
           type: LOAN_ACTION_SUCCESS,

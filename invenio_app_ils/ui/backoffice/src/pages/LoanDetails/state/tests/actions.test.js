@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
-import { $axios } from '../../../../common/api';
+import { http } from 'common/api';
 // Actions to be tested
 import * as actions from '../actions';
 import { initialState } from '../reducer';
@@ -23,7 +23,7 @@ describe('loan actions', () => {
     let mock;
     let response = {};
     beforeEach(() => {
-      mock = new MockAdapter($axios);
+      mock = new MockAdapter(http);
       mock.onGet(`${loansBaseUrl}/1`).reply(() => {
         return new Promise((resolve, reject) =>
           setTimeout(() => {
@@ -89,7 +89,7 @@ describe('loan actions', () => {
     let mock;
     let response = {};
     beforeEach(() => {
-      mock = new MockAdapter($axios);
+      mock = new MockAdapter(http);
       mock.onPost(`${loansBaseUrl}/1/next`).reply(() => {
         return new Promise((resolve, reject) =>
           setTimeout(() => {
@@ -113,13 +113,11 @@ describe('loan actions', () => {
         },
       ];
 
-      store
-        .dispatch(actions.postLoanAction(`${loansBaseUrl}/1/next`, {}))
-        .then(() => {
-          let actions = store.getActions();
-          expect(actions[0]).toEqual(expectedActions[0]);
-          done();
-        });
+      store.dispatch(actions.postLoanAction(1, {})).then(() => {
+        let actions = store.getActions();
+        expect(actions[0]).toEqual(expectedActions[0]);
+        done();
+      });
     });
 
     it('fires an event when the loan transition action succeeds', done => {
@@ -130,13 +128,11 @@ describe('loan actions', () => {
         },
       ];
 
-      return store
-        .dispatch(actions.postLoanAction(`${loansBaseUrl}/1/next`, {}))
-        .then(() => {
-          let actions = store.getActions();
-          expect(actions[1]).toEqual(expectedActions[0]);
-          done();
-        });
+      return store.dispatch(actions.postLoanAction(1, {})).then(() => {
+        let actions = store.getActions();
+        expect(actions[1]).toEqual(expectedActions[0]);
+        done();
+      });
     });
 
     it('fires an event when the loan transition action fails', done => {
@@ -147,13 +143,11 @@ describe('loan actions', () => {
         },
       ];
 
-      return store
-        .dispatch(actions.postLoanAction(`${loansBaseUrl}/2/next`, {}))
-        .then(() => {
-          let actions = store.getActions();
-          expect(actions[1]).toEqual(expectedActions[0]);
-          done();
-        });
+      return store.dispatch(actions.postLoanAction(2, {})).then(() => {
+        let actions = store.getActions();
+        expect(actions[1]).toEqual(expectedActions[0]);
+        done();
+      });
     });
   });
 });

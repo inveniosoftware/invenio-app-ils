@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
-import { URLS } from '../../../common/urls';
+import { URLS } from 'common/urls';
 
 class ItemTable extends Component {
   navigateToDetails(itemId) {
-    this.props.history.push(URLS.ITEM_DETAILS(itemId));
+    this.props.history.push(URLS.itemDetails(itemId));
   }
 
   renderData(items) {

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { ItemDetails } from '../../pages/ItemDetails';
-import { ItemList } from '../../pages/ItemList';
+import { ItemList, ItemDetails } from 'pages';
 
 export class ItemLayout extends Component {
   render() {
