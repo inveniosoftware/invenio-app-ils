@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List, Button, Loader } from 'semantic-ui-react';
 
-class LoanActions extends Component {
+export class LoanActions extends Component {
   constructor(props) {
     super(props);
     this.handleActionsOnClick = this.handleActionsOnClick.bind(this);
@@ -36,8 +36,6 @@ class LoanActions extends Component {
     return <List horizontal>{this.renderAvailableActions(actions, data)}</List>;
   }
 }
-
-export default LoanActions;
 
 LoanActions.propTypes = {
   data: PropTypes.object.isRequired,

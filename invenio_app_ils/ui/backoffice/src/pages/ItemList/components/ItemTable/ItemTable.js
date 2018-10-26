@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
 import { URLS } from 'common/urls';
 
+import './ItemTable.scss';
+
 class ItemTable extends Component {
   navigateToDetails(itemId) {
     this.props.history.push(URLS.itemDetails(itemId));
@@ -28,7 +30,7 @@ class ItemTable extends Component {
     let { data } = this.props;
     let items = data.hits.hits;
     return (
-      <Table selectable celled>
+      <Table selectable celled className="item-table">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Barcode</Table.HeaderCell>

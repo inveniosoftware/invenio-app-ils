@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Loader, Grid, Message } from 'semantic-ui-react';
-import { LoanMetadata } from './components/LoanMetadata';
-import { LoanActions } from './components/LoanActions';
+import { Loader, Message } from 'semantic-ui-react';
+import { LoanTitle } from './components/LoanTitle/LoanTitle';
+import { LoanMetadata } from './components/LoanMetadata/LoanMetadata';
+import { LoanActions } from './components/LoanActions/LoanActions';
 
-class LoanDetails extends Component {
+export default class LoanDetails extends Component {
   constructor(props) {
     super(props);
     this.fetchLoanDetails = this.props.fetchLoanDetails;
@@ -13,10 +14,10 @@ class LoanDetails extends Component {
   componentDidMount() {
     this.unlisten = this.props.history.listen((location, action) => {
       if (location.state && location.state.recid) {
-        this.fetchLoanDetails(location.state.recid);
+        this.fetchLoanDetails(location.state.loanId);
       }
     });
-    this.fetchLoanDetails(this.props.match.params.recid);
+    this.fetchLoanDetails(this.props.match.params.loanId);
   }
 
   componentWillUnmount() {
@@ -41,22 +42,18 @@ class LoanDetails extends Component {
         />
       );
     }
+    console.log(data);
     return (
-      <Grid centered>
-        <Grid.Row>
-          <LoanMetadata data={data} />
-        </Grid.Row>
-        <Grid.Row>
-          <LoanActions
-            data={data.metadata}
-            actions={data.availableActions}
-            actionLoading={actionLoading}
-            onAction={this.postLoanAction}
-          />
-        </Grid.Row>
-      </Grid>
+      <section>
+        <LoanTitle loanId={data.metadata.loan_pid} />
+        <LoanMetadata data={data} />
+        <LoanActions
+          data={data.metadata}
+          actions={data.availableActions}
+          actionLoading={actionLoading}
+          onAction={this.postLoanAction}
+        />
+      </section>
     );
   }
 }
-
-export default LoanDetails;

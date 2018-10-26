@@ -31,14 +31,14 @@ export const fetchLoanDetails = loanId => {
   };
 };
 
-export const postLoanAction = (loanId, data) => {
+export const postLoanAction = (url, data) => {
   return async dispatch => {
     dispatch({
       type: SET_LOAN_ACTION_LOADING,
     });
 
     return loan
-      .postAction(loanId, data)
+      .postAction(url, data)
       .then(details =>
         dispatch({
           type: LOAN_ACTION_SUCCESS,

@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { Table } from 'semantic-ui-react';
 import { URLS } from 'common/urls';
 
+import './LoanTable.scss';
+
 class LoanTable extends Component {
   navigateToDetails(loanId) {
     this.props.history.push(URLS.loanDetails(loanId));
@@ -29,7 +31,7 @@ class LoanTable extends Component {
     let { data } = this.props;
     let loans = data.hits.hits;
     return (
-      <Table selectable celled>
+      <Table selectable celled className="loan-table">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>State</Table.HeaderCell>

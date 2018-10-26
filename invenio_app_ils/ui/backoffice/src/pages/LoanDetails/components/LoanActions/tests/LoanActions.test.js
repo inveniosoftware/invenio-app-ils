@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { List, Loader } from 'semantic-ui-react';
-import LoanAction from '../LoanActions';
+import { LoanActions } from '../LoanActions';
 
 const LOAN_ACTION_DEFAULT_PROPS = {
   data: {},
@@ -17,7 +17,7 @@ describe('LoanAction', () => {
   });
 
   it('renders initial state and checks the props are passed', () => {
-    component = mount(<LoanAction {...LOAN_ACTION_DEFAULT_PROPS} />);
+    component = mount(<LoanActions {...LOAN_ACTION_DEFAULT_PROPS} />);
     Object.keys(LOAN_ACTION_DEFAULT_PROPS).forEach(key =>
       expect(component.props()[key]).toEqual(LOAN_ACTION_DEFAULT_PROPS[key])
     );
@@ -33,7 +33,7 @@ describe('LoanAction', () => {
       },
     };
 
-    component = mount(<LoanAction {...props} />);
+    component = mount(<LoanActions {...props} />);
     expect(component).toMatchSnapshot();
 
     const actionComponents = component.find(List.Item);
@@ -45,7 +45,7 @@ describe('LoanAction', () => {
       ...LOAN_ACTION_DEFAULT_PROPS,
       actionLoading: true,
     };
-    component = mount(<LoanAction {...props} />);
+    component = mount(<LoanActions {...props} />);
     expect(component).toMatchSnapshot();
 
     const actionComponents = component.find(List.Item);
