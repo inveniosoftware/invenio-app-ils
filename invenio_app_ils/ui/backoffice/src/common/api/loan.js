@@ -14,8 +14,8 @@ const postRecord = (loanId, data) => {
   return http.post(`${loanURL}${loanId}`, data);
 };
 
-const postAction = (loanId, data) => {
-  return http.post(`${loanURL}${loanId}/next`, data);
+const postAction = (url, data) => {
+  return http.post(url, data);
 };
 
 export const loan = {

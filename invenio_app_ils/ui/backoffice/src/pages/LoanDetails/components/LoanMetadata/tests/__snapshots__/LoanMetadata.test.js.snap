@@ -11,144 +11,71 @@ exports[`LoanMetadata component renders initial state and checks the props are p
     }
   }
 >
-  <div>
-    <Header
-      as="h1"
+  <Segment
+    className="item-metadata"
+    raised={true}
+  >
+    <div
+      className="ui raised segment item-metadata"
     >
-      <h1
-        className="ui header"
-      >
-        Loan Information
-      </h1>
-    </Header>
-    <Table
-      as="table"
-      celled={true}
-      compact={true}
-      definition={true}
-      textAlign="center"
-    >
-      <table
-        className="ui celled definition compact center aligned table"
-      >
-        <TableHeader
-          as="thead"
-          fullWidth={true}
+      <Grid>
+        <div
+          className="ui grid"
         >
-          <thead
-            className="full-width"
-          >
-            <TableRow
-              as="tr"
-              cellAs="td"
+          <GridColumn>
+            <div
+              className="column"
             >
-              <tr
-                className=""
+              <Form
+                as="form"
               >
-                <TableHeaderCell
-                  as="th"
+                <form
+                  className="ui form"
+                  onSubmit={[Function]}
                 >
-                  <TableCell
-                    as="th"
-                    className=""
+                  <FormField
+                    key="title"
+                    name="loan-field"
                   >
-                    <th
-                      className=""
+                    <div
+                      className="field"
+                      name="loan-field"
                     >
-                      Property
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
+                      <label
+                        className="field-name"
+                      >
+                        title
+                      </label>
+                      <p>
+                        title
+                      </p>
+                    </div>
+                  </FormField>
+                  <FormField
+                    key="author"
+                    name="loan-field"
                   >
-                    <th
-                      className=""
+                    <div
+                      className="field"
+                      name="loan-field"
                     >
-                      Value
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-              </tr>
-            </TableRow>
-          </thead>
-        </TableHeader>
-        <TableBody
-          as="tbody"
-        >
-          <tbody
-            className=""
-          >
-            <TableRow
-              as="tr"
-              cellAs="td"
-              key="title"
-              name="loanMetadataRow"
-            >
-              <tr
-                className=""
-                name="loanMetadataRow"
-              >
-                <TableCell
-                  as="td"
-                  collapsing={true}
-                >
-                  <td
-                    className="collapsing"
-                  >
-                    title
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                >
-                  <td
-                    className=""
-                  >
-                    "title"
-                  </td>
-                </TableCell>
-              </tr>
-            </TableRow>
-            <TableRow
-              as="tr"
-              cellAs="td"
-              key="author"
-              name="loanMetadataRow"
-            >
-              <tr
-                className=""
-                name="loanMetadataRow"
-              >
-                <TableCell
-                  as="td"
-                  collapsing={true}
-                >
-                  <td
-                    className="collapsing"
-                  >
-                    author
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                >
-                  <td
-                    className=""
-                  >
-                    "author"
-                  </td>
-                </TableCell>
-              </tr>
-            </TableRow>
-          </tbody>
-        </TableBody>
-      </table>
-    </Table>
-  </div>
+                      <label
+                        className="field-name"
+                      >
+                        author
+                      </label>
+                      <p>
+                        author
+                      </p>
+                    </div>
+                  </FormField>
+                </form>
+              </Form>
+            </div>
+          </GridColumn>
+        </div>
+      </Grid>
+    </div>
+  </Segment>
 </LoanMetadata>
 `;

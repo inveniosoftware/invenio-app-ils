@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import LoanMetadata from '../LoanMetadata';
+import { LoanMetadata } from '../LoanMetadata';
 
 const LOAN_METADATA_DEFAULT_PROPS = {
   data: {
@@ -26,9 +26,9 @@ describe('LoanMetadata component', () => {
     );
   });
 
-  it('creates a <tr> for each item in data.metadata', () => {
+  it('creates a div for each property in data.metadata', () => {
     component = mount(<LoanMetadata {...LOAN_METADATA_DEFAULT_PROPS} />);
-    const rowComponents = component.find('tr[name="loanMetadataRow"]');
+    const rowComponents = component.find('div[name="loan-field"]');
     expect(rowComponents).toHaveLength(
       Object.keys(LOAN_METADATA_DEFAULT_PROPS.data.metadata).length
     );

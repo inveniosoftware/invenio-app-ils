@@ -46,27 +46,6 @@ exports[`tests the LoanDetails component renders a message when fetching fails 1
 </LoanDetails>
 `;
 
-exports[`tests the LoanDetails component renders initial state and checks the props are passed 1`] = `
-<LoanDetails
-  actionLoading={false}
-  data={Object {}}
-  error={Object {}}
-  fetchLoading={true}
-  fetchLoanDetails={[Function]}
-  loanActionError={false}
-  postLoanAction={[Function]}
->
-  <Loader
-    active={true}
-    inline="centered"
-  >
-    <div
-      className="ui active centered inline loader"
-    />
-  </Loader>
-</LoanDetails>
-`;
-
 exports[`tests the LoanDetails component renders the details page when fetching succeeds 1`] = `
 <LoanDetails
   actionLoading={false}
@@ -90,195 +69,157 @@ exports[`tests the LoanDetails component renders the details page when fetching 
   loanActionError={false}
   postLoanAction={[Function]}
 >
-  <Grid
-    centered={true}
-  >
-    <div
-      className="ui centered grid"
+  <section>
+    <LoanTitle>
+      <Container
+        className="loan-title"
+      >
+        <div
+          className="ui container loan-title"
+        >
+          <h1>
+            Loan
+            <small>
+               
+              <Button
+                as="button"
+                floated="right"
+                primary={true}
+                role="button"
+                size="small"
+              >
+                <button
+                  className="ui small primary right floated button"
+                  onClick={[Function]}
+                  role="button"
+                >
+                  <Icon
+                    as="i"
+                    name="edit"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="edit icon"
+                    />
+                  </Icon>
+                   edit
+                </button>
+              </Button>
+            </small>
+          </h1>
+        </div>
+      </Container>
+    </LoanTitle>
+    <LoanMetadata
+      data={
+        Object {
+          "availableActions": Object {
+            "action": "action",
+          },
+          "metadata": Object {
+            "title": "title",
+          },
+        }
+      }
     >
-      <GridRow>
+      <Segment
+        className="item-metadata"
+        raised={true}
+      >
         <div
-          className="row"
+          className="ui raised segment item-metadata"
         >
-          <LoanMetadata
-            data={
-              Object {
-                "availableActions": Object {
-                  "action": "action",
-                },
-                "metadata": Object {
-                  "title": "title",
-                },
-              }
-            }
-          >
-            <div>
-              <Header
-                as="h1"
-              >
-                <h1
-                  className="ui header"
-                >
-                  Loan Information
-                </h1>
-              </Header>
-              <Table
-                as="table"
-                celled={true}
-                compact={true}
-                definition={true}
-                textAlign="center"
-              >
-                <table
-                  className="ui celled definition compact center aligned table"
-                >
-                  <TableHeader
-                    as="thead"
-                    fullWidth={true}
-                  >
-                    <thead
-                      className="full-width"
-                    >
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                      >
-                        <tr
-                          className=""
-                        >
-                          <TableHeaderCell
-                            as="th"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Property
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Value
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                        </tr>
-                      </TableRow>
-                    </thead>
-                  </TableHeader>
-                  <TableBody
-                    as="tbody"
-                  >
-                    <tbody
-                      className=""
-                    >
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        key="title"
-                        name="loanMetadataRow"
-                      >
-                        <tr
-                          className=""
-                          name="loanMetadataRow"
-                        >
-                          <TableCell
-                            as="td"
-                            collapsing={true}
-                          >
-                            <td
-                              className="collapsing"
-                            >
-                              title
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                          >
-                            <td
-                              className=""
-                            >
-                              "title"
-                            </td>
-                          </TableCell>
-                        </tr>
-                      </TableRow>
-                    </tbody>
-                  </TableBody>
-                </table>
-              </Table>
-            </div>
-          </LoanMetadata>
-        </div>
-      </GridRow>
-      <GridRow>
-        <div
-          className="row"
-        >
-          <LoanActions
-            actionLoading={false}
-            actions={
-              Object {
-                "action": "action",
-              }
-            }
-            data={
-              Object {
-                "title": "title",
-              }
-            }
-            onAction={[Function]}
-          >
-            <List
-              horizontal={true}
+          <Grid>
+            <div
+              className="ui grid"
             >
-              <div
-                className="ui horizontal list"
-                role="list"
-              >
-                <ListItem
-                  key="action"
+              <GridColumn>
+                <div
+                  className="column"
                 >
-                  <div
-                    className="item"
-                    onClick={[Function]}
-                    role="listitem"
+                  <Form
+                    as="form"
                   >
-                    <Button
-                      as="button"
-                      onClick={[Function]}
-                      primary={true}
-                      role="button"
+                    <form
+                      className="ui form"
+                      onSubmit={[Function]}
                     >
-                      <button
-                        className="ui primary button"
-                        onClick={[Function]}
-                        role="button"
+                      <FormField
+                        key="title"
+                        name="loan-field"
                       >
-                        action
-                      </button>
-                    </Button>
-                  </div>
-                </ListItem>
-              </div>
-            </List>
-          </LoanActions>
+                        <div
+                          className="field"
+                          name="loan-field"
+                        >
+                          <label
+                            className="field-name"
+                          >
+                            title
+                          </label>
+                          <p>
+                            title
+                          </p>
+                        </div>
+                      </FormField>
+                    </form>
+                  </Form>
+                </div>
+              </GridColumn>
+            </div>
+          </Grid>
         </div>
-      </GridRow>
-    </div>
-  </Grid>
+      </Segment>
+    </LoanMetadata>
+    <LoanActions
+      actionLoading={false}
+      actions={
+        Object {
+          "action": "action",
+        }
+      }
+      data={
+        Object {
+          "title": "title",
+        }
+      }
+      onAction={[Function]}
+    >
+      <List
+        horizontal={true}
+      >
+        <div
+          className="ui horizontal list"
+          role="list"
+        >
+          <ListItem
+            key="action"
+          >
+            <div
+              className="item"
+              onClick={[Function]}
+              role="listitem"
+            >
+              <Button
+                as="button"
+                onClick={[Function]}
+                primary={true}
+                role="button"
+              >
+                <button
+                  className="ui primary button"
+                  onClick={[Function]}
+                  role="button"
+                >
+                  action
+                </button>
+              </Button>
+            </div>
+          </ListItem>
+        </div>
+      </List>
+    </LoanActions>
+  </section>
 </LoanDetails>
 `;
 

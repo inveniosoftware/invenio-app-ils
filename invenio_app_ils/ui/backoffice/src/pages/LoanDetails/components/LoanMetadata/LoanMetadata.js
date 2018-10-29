@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Header, Table } from 'semantic-ui-react';
+import { Grid, Segment, Form } from 'semantic-ui-react';
 
-class LoanMetadata extends Component {
+export class LoanMetadata extends Component {
   renderLoanMetadata(data) {
     return Object.keys(data.metadata).map(key => {
       return (
-        <Table.Row key={key} name="loanMetadataRow">
-          <Table.Cell collapsing>{key}</Table.Cell>
-          <Table.Cell>{JSON.stringify(data.metadata[key])}</Table.Cell>
-        </Table.Row>
+        <Form.Field key={key} name="loan-field">
+          <label className="field-name">{key}</label>
+          <p>{data.metadata[key]}</p>
+        </Form.Field>
       );
     });
   }
@@ -17,23 +17,16 @@ class LoanMetadata extends Component {
   render() {
     let { data } = this.props;
     return (
-      <div>
-        <Header as="h1">Loan Information</Header>
-        <Table compact celled definition textAlign="center">
-          <Table.Header fullWidth>
-            <Table.Row>
-              <Table.HeaderCell>Property</Table.HeaderCell>
-              <Table.HeaderCell>Value</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>{this.renderLoanMetadata(data)}</Table.Body>
-        </Table>
-      </div>
+      <Segment raised className="item-metadata">
+        <Grid>
+          <Grid.Column>
+            <Form>{this.renderLoanMetadata(data)}</Form>
+          </Grid.Column>
+        </Grid>
+      </Segment>
     );
   }
 }
-
-export default LoanMetadata;
 
 LoanMetadata.propTypes = {
   data: PropTypes.object.isRequired,

@@ -40,7 +40,7 @@ export default class ItemDetails extends Component {
     if (fetchLoading) return <Loader active inline="centered" />;
     return (
       <section>
-        <ItemTitle data={data} />
+        <ItemTitle itemId={data.metadata.item_pid} />
         <ItemMetadata data={data} />
         <ItemLoans />
         <ItemLoanRequests />

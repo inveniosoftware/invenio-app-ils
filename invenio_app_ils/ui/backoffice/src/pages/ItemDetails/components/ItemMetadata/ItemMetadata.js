@@ -24,11 +24,9 @@ export class ItemMetadata extends Component {
     return (
       <Segment raised className="item-metadata">
         <Grid>
-          <Grid.Row>
-            <Grid.Column>
-              <Form>{this.renderItemMetadata(data)}</Form>
-            </Grid.Column>
-          </Grid.Row>
+          <Grid.Column>
+            <Form>{this.renderItemMetadata(data)}</Form>
+          </Grid.Column>
         </Grid>
       </Segment>
     );

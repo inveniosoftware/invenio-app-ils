@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { Icon, Button, Container } from 'semantic-ui-react';
 
-import './ItemTitle.scss';
+import './LoanTitle.scss';
 
-export class ItemTitle extends Component {
+export class LoanTitle extends Component {
   render() {
-    let { itemId } = this.props;
+    let { loanId } = this.props;
     return (
-      <Container className="item-title">
+      <Container className="loan-title">
         <h1>
-          Item
+          Loan
           <small>
             &nbsp;
-            {itemId}
+            {loanId}
             <Button primary floated="right" size="small">
               <Icon name="edit" />
               &nbsp;edit

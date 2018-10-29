@@ -2,8 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Message, Loader } from 'semantic-ui-react';
 import LoanDetails from '../LoanDetails';
-import { LoanMetadata } from '../components/LoanMetadata';
-import { LoanActions } from '../components/LoanActions';
+import { LoanMetadata } from '../components/LoanMetadata/LoanMetadata';
+import { LoanActions } from '../components/LoanActions/LoanActions';
 
 const LOAN_DETAILS_DEFAULT_PROPS = {
   data: {},
@@ -29,15 +29,6 @@ describe('tests the LoanDetails component', () => {
 
   afterEach(() => {
     component.unmount();
-  });
-
-  it('renders initial state and checks the props are passed', () => {
-    component = mount(<LoanDetails {...LOAN_DETAILS_DEFAULT_PROPS} />);
-    expect(component).toMatchSnapshot();
-
-    Object.keys(LOAN_DETAILS_DEFAULT_PROPS).forEach(key =>
-      expect(component.props()[key]).toEqual(LOAN_DETAILS_DEFAULT_PROPS[key])
-    );
   });
 
   it('renders the loader component when fetching is in progress', () => {
