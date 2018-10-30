@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { Loader, Message } from 'semantic-ui-react';
-import { ItemTitle } from './components/ItemTitle/ItemTitle';
+import PropTypes from 'prop-types';
 import { ItemMetadata } from './components/ItemMetadata/ItemMetadata';
 import { ItemLoans } from './components/ItemLoans/ItemLoans';
-import { ItemLoanRequests } from './components/ItemLoanRequests/ItemLoanRequests';
-import { ItemLoanHistory } from './components/ItemLoanHistory/ItemLoanHistory';
 
 export default class ItemDetails extends Component {
   constructor(props) {
@@ -26,26 +23,16 @@ export default class ItemDetails extends Component {
   }
 
   render() {
-    let { data, error, fetchLoading } = this.props;
-    if (error) {
-      console.error(error);
-      return (
-        <Message
-          icon="exclamation"
-          header="Oups, something went horribly wrong!"
-          content={error.message}
-        />
-      );
-    }
-    if (fetchLoading) return <Loader active inline="centered" />;
     return (
       <section>
-        <ItemTitle itemId={data.metadata.item_pid} />
-        <ItemMetadata data={data} />
+        <ItemMetadata {...this.props} />
         <ItemLoans />
-        <ItemLoanRequests />
-        <ItemLoanHistory />
       </section>
     );
   }
 }
+
+ItemDetails.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  data: PropTypes.object.isRequired,
+};

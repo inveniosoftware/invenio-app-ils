@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { withError, withLoader } from 'common/components';
 import { Grid, Segment, Form } from 'semantic-ui-react';
 
 import './ItemMetadata.scss';
 
-export class ItemMetadata extends Component {
+class ItemMetadataTemplate extends Component {
   renderItemMetadata(data) {
     return Object.keys(data.metadata).map(key => {
       if (typeof data.metadata[key] !== 'object') {
@@ -25,6 +26,7 @@ export class ItemMetadata extends Component {
       <Segment raised className="item-metadata">
         <Grid>
           <Grid.Column>
+            <h1>Item - {data.id}</h1>
             <Form>{this.renderItemMetadata(data)}</Form>
           </Grid.Column>
         </Grid>
@@ -33,6 +35,7 @@ export class ItemMetadata extends Component {
   }
 }
 
-ItemMetadata.propTypes = {
-  data: PropTypes.object.isRequired,
-};
+export const ItemMetadata = compose(
+  withLoader,
+  withError
+)(ItemMetadataTemplate);

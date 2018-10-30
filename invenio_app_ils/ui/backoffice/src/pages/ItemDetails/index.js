@@ -5,12 +5,12 @@ import { fetchItemDetails } from './state/actions';
 import ItemDetailsComponent from './ItemDetails';
 
 const mapStateToProps = state => ({
-  fetchLoading: state.itemDetails.fetchLoading,
+  isLoading: state.itemDetails.isLoading,
   data: state.itemDetails.data,
   error: state.itemDetails.error,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapActions = dispatch => ({
   fetchItemDetails: itemId => dispatch(fetchItemDetails(itemId)),
 });
 
@@ -18,6 +18,6 @@ export const ItemDetails = compose(
   withRouter,
   connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapActions
   )
 )(ItemDetailsComponent);
