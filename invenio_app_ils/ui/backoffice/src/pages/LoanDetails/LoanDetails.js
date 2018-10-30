@@ -23,16 +23,10 @@ export default class LoanDetails extends Component {
   }
 
   render() {
-    let { data, actionLoading } = this.props;
     return (
       <section>
         <LoanMetadata {...this.props} />
-        <LoanActions
-          data={data.metadata}
-          actions={data.availableActions}
-          actionLoading={actionLoading}
-          onAction={this.postLoanAction}
-        />
+        <LoanActions {...this.props} onAction={this.postLoanAction} />
       </section>
     );
   }

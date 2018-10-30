@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { List, Button, Loader } from 'semantic-ui-react';
+import { List, Button } from 'semantic-ui-react';
 
 export class LoanActions extends Component {
   constructor(props) {
     super(props);
-    this.handleActionsOnClick = this.handleActionsOnClick.bind(this);
     this.onAction = this.props.onAction;
   }
 
@@ -31,15 +30,13 @@ export class LoanActions extends Component {
   }
 
   render() {
-    let { actions, data, actionLoading } = this.props;
-    if (actionLoading) return <Loader active inline="centered" />;
+    let { availableActions: actions, metadata: data } = this.props.data;
     return <List horizontal>{this.renderAvailableActions(actions, data)}</List>;
   }
 }
 
 LoanActions.propTypes = {
   data: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired,
-  onAction: PropTypes.func.isRequired,
+  onAction: PropTypes.func,
   actionLoading: PropTypes.bool,
 };
