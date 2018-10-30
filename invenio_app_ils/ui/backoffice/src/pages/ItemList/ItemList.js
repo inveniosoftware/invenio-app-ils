@@ -25,7 +25,7 @@ export default class ItemList extends Component {
   render() {
     return (
       <Container>
-        <h2>Items</h2>
+        <h1>Items</h1>
         <ItemTable {...this.props} />
       </Container>
     );

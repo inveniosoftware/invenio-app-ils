@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { Loader, Container, Message } from 'semantic-ui-react';
-import LoanTable from './LoanTable/LoanTable';
+import PropTypes from 'prop-types';
+import { Container } from 'semantic-ui-react';
+import { LoanTable } from './LoanTable/LoanTable';
 
-class LoanList extends Component {
+export default class LoanList extends Component {
   constructor(props) {
     super(props);
     this.fetchLoanList = this.props.fetchLoanList;
@@ -23,24 +23,15 @@ class LoanList extends Component {
   }
 
   render() {
-    let { data, error, isLoading } = this.props;
-    if (error) {
-      return (
-        <Message
-          icon="exclamation"
-          header="Oups, something went horribly wrong!"
-          content={error.message}
-        />
-      );
-    }
-    if (isLoading) return <Loader active inline="centered" />;
     return (
       <Container>
-        <h2>Loan list</h2>
-        <LoanTable data={data} />
+        <h1>Loans</h1>
+        <LoanTable {...this.props} />
       </Container>
     );
   }
 }
 
-export default withRouter(LoanList);
+LoanList.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};

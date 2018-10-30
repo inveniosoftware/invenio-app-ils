@@ -7,7 +7,7 @@ import {
 } from './types';
 
 export const initialState = {
-  fetchLoading: true,
+  isLoading: true,
   actionLoading: false,
   data: {},
   loanActionError: false,
@@ -16,9 +16,9 @@ export const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_LOAN_FETCH_LOADING:
-      return { ...state, fetchLoading: true };
+      return { ...state, isLoading: true };
     case LOAN_FETCH_DETAILS_SUCCESS:
-      return { ...state, fetchLoading: false, data: action.payload };
+      return { ...state, isLoading: false, data: action.payload };
     case SET_LOAN_ACTION_LOADING:
       return { ...state, actionLoading: true };
     case LOAN_ACTION_SUCCESS:
@@ -27,7 +27,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         actionLoading: false,
-        fetchLoading: false,
+        isLoading: false,
         loanActionError: true,
         error: action.payload,
       };
