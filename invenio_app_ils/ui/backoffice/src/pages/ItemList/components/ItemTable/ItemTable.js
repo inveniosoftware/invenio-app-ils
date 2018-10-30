@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
+import { withLoader, withError } from 'common/components';
 import { Table } from 'semantic-ui-react';
 import { URLS } from 'common/urls';
 
 import './ItemTable.scss';
 
-class ItemTable extends Component {
+class ItemTableTemplate extends Component {
   navigateToDetails(itemId) {
     this.props.history.push(URLS.itemDetails(itemId));
   }
@@ -44,4 +45,7 @@ class ItemTable extends Component {
   }
 }
 
-export default withRouter(ItemTable);
+export const ItemTable = compose(
+  withError,
+  withLoader
+)(ItemTableTemplate);

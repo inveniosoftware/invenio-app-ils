@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { Loader, Container, Message } from 'semantic-ui-react';
-import ItemTable from './components/ItemTable/ItemTable';
+import PropTypes from 'prop-types';
+import { Container } from 'semantic-ui-react';
+import { ItemTable } from './components/ItemTable/ItemTable';
 
-class ItemList extends Component {
+export default class ItemList extends Component {
   constructor(props) {
     super(props);
     this.fetchItemList = this.props.fetchItemList;
@@ -23,24 +23,15 @@ class ItemList extends Component {
   }
 
   render() {
-    let { data, error, isLoading } = this.props;
-    if (error) {
-      return (
-        <Message
-          icon="exclamation"
-          header="Oups, something went horribly wrong!"
-          content={error.message}
-        />
-      );
-    }
-    if (isLoading) return <Loader active inline="centered" />;
     return (
       <Container>
-        <h2>Item list</h2>
-        <ItemTable data={data} />
+        <h2>Items</h2>
+        <ItemTable {...this.props} />
       </Container>
     );
   }
 }
 
-export default withRouter(ItemList);
+ItemList.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};
