@@ -54,6 +54,7 @@
     "not op_mini all"
   ],
   "jest": {
+    "testEnvironment": "node",
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ]

@@ -12,7 +12,7 @@ describe('loan details reducer', () => {
     };
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
-      fetchLoading: true,
+      isLoading: true,
     });
   });
 
@@ -23,7 +23,7 @@ describe('loan details reducer', () => {
     };
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
-      fetchLoading: false,
+      isLoading: false,
       data: {},
     });
   });
@@ -36,7 +36,7 @@ describe('loan details reducer', () => {
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
       actionLoading: false,
-      fetchLoading: false,
+      isLoading: false,
       loanActionError: true,
       error: 'Error',
     });

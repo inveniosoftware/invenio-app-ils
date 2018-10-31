@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
     case SET_LOAN_FETCH_LOADING:
       return { ...state, isLoading: true };
     case LOAN_FETCH_DETAILS_SUCCESS:
-      return { ...state, isLoading: false, data: action.payload };
+      return { ...state, isLoading: true, data: action.payload };
     case SET_LOAN_ACTION_LOADING:
       return { ...state, actionLoading: true };
     case LOAN_ACTION_SUCCESS:

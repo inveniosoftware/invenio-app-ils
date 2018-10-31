@@ -5,7 +5,7 @@ import { withError, withLoader } from 'common/components';
 
 import { Grid, Segment, Form } from 'semantic-ui-react';
 
-class LoanMetadataTemplate extends Component {
+export class LoanMetadataTemplate extends Component {
   renderLoanMetadata(data) {
     return Object.keys(data.metadata).map(key => {
       return (
@@ -19,7 +19,6 @@ class LoanMetadataTemplate extends Component {
 
   render() {
     let { data } = this.props;
-    console.log('Metadata rendering', data);
     return (
       <Segment raised className="item-metadata">
         <Grid>
