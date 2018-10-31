@@ -6,6 +6,11 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Ils records' permissions."""
+from __future__ import unicode_literals
+
+from builtins import str
+
+from flask import request
 from flask_principal import ActionNeed, RoleNeed, UserNeed
 from invenio_access import Permission, any_user
 
@@ -21,26 +26,28 @@ class RecordPermission(Permission):
     - Delete access to admin and specified users.
     """
 
-    create_actions = ['create']
-    read_actions = ['read']
-    update_actions = ['update']
-    delete_actions = ['delete']
+    _actions = {'POST': 'create',
+                'GET': 'read',
+                'PUT': 'update',
+                'PATCH': 'update',
+                'DELETE': 'delete',
+                }
 
-    def __init__(self, record, action):
+    def __init__(self, record):
         """Constructor."""
         self.record = record
-        self.action = action
+        self.current_action = self._actions[request.method]
         self._permissions = None
         record_needs = self.collect_needs()
         super(RecordPermission, self).__init__(*record_needs)
 
     def collect_needs(self):
         """Collect permission policy per action."""
-        if self.action in self.read_actions:
+        if self.current_action == 'read':
             return self.read_permissions()
-        elif self.action in self.create_actions:
+        elif self.current_action == 'create':
             return [create_records_action, librarian_role]
-        elif self.action in self.update_actions:
+        elif self.current_action == 'update':
             return self.record_needs() + [librarian_role]
         else:
             return self.record_needs()
@@ -54,7 +61,7 @@ class RecordPermission(Permission):
 
     def record_allows(self):
         """Read what record allows per action."""
-        return self.record.get('_access', {}).get(self.action, [])
+        return self.record.get('_access', {}).get(self.current_action, [])
 
     def record_needs(self):
         """Create needs of the record."""
@@ -76,4 +83,4 @@ class RecordPermission(Permission):
         key or the action is not inside access or is empty.
         """
         return '_access' not in self.record or \
-               not self.record.get('_access', {}).get(self.action)
+               not self.record.get('_access', {}).get(self.current_action)

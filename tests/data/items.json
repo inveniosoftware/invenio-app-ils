@@ -78,5 +78,58 @@
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
     "status": "LOANABLE"
+  },
+  {
+    "item_pid": "itemid-50",
+    "barcode": "12345678918",
+    "title": "Less: A Novel",
+    "document_pid": "docid-5",
+    "internal_location_pid": "ilocid-1",
+    "status": "LOANABLE",
+    "_access": { "update": [1] }
+  },
+  {
+    "item_pid": "itemid-51",
+    "barcode": "12345678918",
+    "title": "Less: A Novel",
+    "document_pid": "docid-5",
+    "internal_location_pid": "ilocid-1",
+    "status": "LOANABLE",
+    "_access": { "delete": ["librarian"] }
+  },
+  {
+    "item_pid": "itemid-52",
+    "barcode": "12345678918",
+    "title": "Less: A Novel",
+    "document_pid": "docid-5",
+    "internal_location_pid": "ilocid-1",
+    "status": "LOANABLE",
+    "_access": { "delete": ["1"] }
+  },
+  {
+    "item_pid": "itemid-53",
+    "barcode": "12345678918",
+    "title": "Less: A Novel",
+    "document_pid": "docid-5",
+    "internal_location_pid": "ilocid-1",
+    "status": "LOANABLE",
+    "_access": { "update": ["1"] }
+  },
+  {
+    "item_pid": "itemid-54",
+    "barcode": "12345678918",
+    "title": "Less: A Novel",
+    "document_pid": "docid-5",
+    "internal_location_pid": "ilocid-1",
+    "status": "LOANABLE",
+    "_access": { "read": ["1"] }
+  },
+  {
+    "item_pid": "itemid-55",
+    "barcode": "123456789",
+    "title": "The Gulf: The Making of An American Sea - Item 1",
+    "document_pid": "docid-1",
+    "internal_location_pid": "ilocid-1",
+    "status": "MISSING"
   }
 ]
