@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container } from 'semantic-ui-react';
-import { LoanTable } from './LoanTable/LoanTable';
+import LoanList from './components/LoanList/LoanList';
 
-export default class LoanList extends Component {
+export default class LoanListContainer extends Component {
   constructor(props) {
     super(props);
     this.fetchLoanList = this.props.fetchLoanList;
@@ -23,15 +22,10 @@ export default class LoanList extends Component {
   }
 
   render() {
-    return (
-      <Container>
-        <h1>Loans</h1>
-        <LoanTable {...this.props} />
-      </Container>
-    );
+    return <LoanList {...this.props} />;
   }
 }
 
-LoanList.propTypes = {
+LoanListContainer.propTypes = {
   isLoading: PropTypes.bool.isRequired,
 };
