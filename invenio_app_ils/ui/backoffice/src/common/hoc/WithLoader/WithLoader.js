@@ -8,7 +8,7 @@ class ApiLoader extends Component {
 }
 
 export function withLoader(WrappedComponent) {
-  return function WihLoader({ isLoading, ...props }) {
+  return function WithLoader({ isLoading, ...props }) {
     return isLoading ? <ApiLoader /> : <WrappedComponent {...props} />;
   };
 }

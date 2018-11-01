@@ -16,12 +16,12 @@ export const fetchLoanDetails = loanId => {
 
     return loan
       .getRecord(loanId)
-      .then(details =>
+      .then(details => {
         dispatch({
           type: LOAN_FETCH_DETAILS_SUCCESS,
           payload: serializeLoanDetails(details.data),
-        })
-      )
+        });
+      })
       .catch(reason => {
         dispatch({
           type: SET_LOAN_ACTION_ERROR,
@@ -39,12 +39,12 @@ export const postLoanAction = (url, data) => {
 
     return loan
       .postAction(url, data)
-      .then(details =>
+      .then(details => {
         dispatch({
           type: LOAN_ACTION_SUCCESS,
           payload: serializeLoanDetails(details.data),
-        })
-      )
+        });
+      })
       .catch(reason => {
         dispatch({
           type: SET_LOAN_ACTION_ERROR,

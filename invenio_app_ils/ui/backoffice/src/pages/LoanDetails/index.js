@@ -2,14 +2,14 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchLoanDetails, postLoanAction } from './state/actions';
-import LoanDetailsComponent from './LoanDetails';
+import LoanDetailsContainerComponent from './LoanDetailsContainer';
 
 const mapStateToProps = state => ({
+  data: state.loanDetails.data,
+  error: state.loanDetails.error,
   isLoading: state.loanDetails.isLoading,
   actionLoading: state.loanDetails.actionLoading,
-  data: state.loanDetails.data,
   loanActionError: state.loanDetails.loanActionError,
-  error: state.loanDetails.error,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -17,10 +17,10 @@ const mapDispatchToProps = dispatch => ({
   postLoanAction: (url, data) => dispatch(postLoanAction(url, data)),
 });
 
-export const LoanDetails = compose(
+export const LoanDetailsContainer = compose(
   withRouter,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(LoanDetailsComponent);
+)(LoanDetailsContainerComponent);

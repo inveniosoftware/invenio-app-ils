@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { LoanList, LoanDetails } from 'pages';
+import { LoanList, LoanDetailsContainer } from 'pages';
 
 export class LoanLayout extends Component {
   render() {
@@ -8,7 +8,10 @@ export class LoanLayout extends Component {
     return (
       <Switch>
         <Route path={match.path} exact component={LoanList} />
-        <Route path={`${match.path}/:loanId`} component={LoanDetails} />
+        <Route
+          path={`${match.path}/:loanId`}
+          component={LoanDetailsContainer}
+        />
       </Switch>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
-import { withLoader, withError } from 'common/components';
+import { withLoader, withError } from 'common/hoc';
 import { Table } from 'semantic-ui-react';
 import { URLS } from 'common/urls';
 
