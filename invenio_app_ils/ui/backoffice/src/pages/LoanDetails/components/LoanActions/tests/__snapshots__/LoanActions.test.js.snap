@@ -1,14 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoanAction creates a List.Item for each action 1`] = `
+exports[`LoanAction component LoanAction List.Item for each action 1`] = `
 <LoanActions
-  actions={
+  actions={Object {}}
+  availableActions={
     Object {
       "action": "url",
       "anotheraction": "another-url",
     }
   }
-  data={Object {}}
+  data={
+    Object {
+      "title": "A title",
+    }
+  }
   onAction={[Function]}
 >
   <List
@@ -22,7 +27,7 @@ exports[`LoanAction creates a List.Item for each action 1`] = `
 </LoanActions>
 `;
 
-exports[`LoanAction renders initial state and checks the props are passed 1`] = `
+exports[`LoanAction component LoanAction initial state and props 1`] = `
 <LoanActions
   actions={Object {}}
   data={Object {}}
@@ -39,7 +44,25 @@ exports[`LoanAction renders initial state and checks the props are passed 1`] = 
 </LoanActions>
 `;
 
-exports[`LoanAction renders loader on action triggered 1`] = `
+exports[`LoanAction component LoanAction renders loader on action triggered 1`] = `
+<LoanActions
+  actionLoading={true}
+  actions={Object {}}
+  data={Object {}}
+  onAction={[Function]}
+>
+  <List
+    horizontal={true}
+  >
+    <div
+      className="ui horizontal list"
+      role="list"
+    />
+  </List>
+</LoanActions>
+`;
+
+exports[`LoanAction component renders loader on action triggered 1`] = `
 <LoanActions
   actionLoading={true}
   actions={Object {}}

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoanMetadata component renders initial state and checks the props are passed 1`] = `
-<WihLoader
+exports[`tests LoanMetadata component renders initial state and checks the props are passed 1`] = `
+<LoanMetadata
   data={
     Object {
       "metadata": Object {
@@ -11,96 +11,71 @@ exports[`LoanMetadata component renders initial state and checks the props are p
     }
   }
 >
-  <WithError
-    data={
-      Object {
-        "metadata": Object {
-          "author": "author",
-          "title": "title",
-        },
-      }
-    }
-  >
-    <LoanMetadataTemplate
-      data={
-        Object {
-          "metadata": Object {
-            "author": "author",
-            "title": "title",
-          },
-        }
-      }
+  <Segment>
+    <div
+      className="ui segment"
     >
-      <Segment
-        className="item-metadata"
-        raised={true}
-      >
+      <Grid>
         <div
-          className="ui raised segment item-metadata"
+          className="ui grid"
         >
-          <Grid>
+          <GridColumn>
             <div
-              className="ui grid"
+              className="column"
             >
-              <GridColumn>
-                <div
-                  className="column"
+              <h1>
+                Loan - 
+              </h1>
+              <Form
+                as="form"
+              >
+                <form
+                  className="ui form"
+                  onSubmit={[Function]}
                 >
-                  <h1>
-                    Loan - 
-                  </h1>
-                  <Form
-                    as="form"
+                  <FormField
+                    key="title"
+                    name="loan-field"
                   >
-                    <form
-                      className="ui form"
-                      onSubmit={[Function]}
+                    <div
+                      className="field"
+                      name="loan-field"
                     >
-                      <FormField
-                        key="title"
-                        name="loan-field"
+                      <label
+                        className="field-name"
                       >
-                        <div
-                          className="field"
-                          name="loan-field"
-                        >
-                          <label
-                            className="field-name"
-                          >
-                            title
-                          </label>
-                          <p>
-                            title
-                          </p>
-                        </div>
-                      </FormField>
-                      <FormField
-                        key="author"
-                        name="loan-field"
+                        title
+                      </label>
+                      <p>
+                        title
+                      </p>
+                    </div>
+                  </FormField>
+                  <FormField
+                    key="author"
+                    name="loan-field"
+                  >
+                    <div
+                      className="field"
+                      name="loan-field"
+                    >
+                      <label
+                        className="field-name"
                       >
-                        <div
-                          className="field"
-                          name="loan-field"
-                        >
-                          <label
-                            className="field-name"
-                          >
-                            author
-                          </label>
-                          <p>
-                            author
-                          </p>
-                        </div>
-                      </FormField>
-                    </form>
-                  </Form>
-                </div>
-              </GridColumn>
+                        author
+                      </label>
+                      <p>
+                        author
+                      </p>
+                    </div>
+                  </FormField>
+                </form>
+              </Form>
             </div>
-          </Grid>
+          </GridColumn>
         </div>
-      </Segment>
-    </LoanMetadataTemplate>
-  </WithError>
-</WihLoader>
+      </Grid>
+    </div>
+  </Segment>
+</LoanMetadata>
 `;
