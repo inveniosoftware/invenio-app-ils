@@ -7,9 +7,9 @@ import {
 } from './types';
 
 export const initialState = {
+  data: {},
   isLoading: true,
   actionLoading: false,
-  data: {},
   loanActionError: false,
 };
 

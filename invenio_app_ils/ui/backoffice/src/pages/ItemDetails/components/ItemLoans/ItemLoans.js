@@ -4,7 +4,7 @@ import { Segment, Message } from 'semantic-ui-react';
 export class ItemLoans extends Component {
   render() {
     return (
-      <Segment raised>
+      <Segment>
         <Message info>
           <Message.Header>There are no loans for this item!</Message.Header>
         </Message>

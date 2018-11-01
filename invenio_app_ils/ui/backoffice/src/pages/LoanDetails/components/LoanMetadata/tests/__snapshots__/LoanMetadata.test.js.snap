@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoanMetadata component renders initial state and checks the props are passed 1`] = `
+exports[`tests LoanMetadata component renders initial state and checks the props are passed 1`] = `
 <LoanMetadata
   data={
     Object {
@@ -11,12 +11,9 @@ exports[`LoanMetadata component renders initial state and checks the props are p
     }
   }
 >
-  <Segment
-    className="item-metadata"
-    raised={true}
-  >
+  <Segment>
     <div
-      className="ui raised segment item-metadata"
+      className="ui segment"
     >
       <Grid>
         <div
@@ -26,6 +23,9 @@ exports[`LoanMetadata component renders initial state and checks the props are p
             <div
               className="column"
             >
+              <h1>
+                Loan - 
+              </h1>
               <Form
                 as="form"
               >

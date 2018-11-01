@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
 import PropTypes from 'prop-types';
-import { withError, withLoader } from 'common/components';
-
 import { Grid, Segment, Form } from 'semantic-ui-react';
 
-class LoanMetadataTemplate extends Component {
+export class LoanMetadata extends Component {
   renderLoanMetadata(data) {
     return Object.keys(data.metadata).map(key => {
       return (
@@ -19,9 +16,8 @@ class LoanMetadataTemplate extends Component {
 
   render() {
     let { data } = this.props;
-    console.log('Metadata rendering', data);
     return (
-      <Segment raised className="item-metadata">
+      <Segment>
         <Grid>
           <Grid.Column>
             <h1>Loan - {data.metadata.loan_pid}</h1>
@@ -33,11 +29,6 @@ class LoanMetadataTemplate extends Component {
   }
 }
 
-LoanMetadataTemplate.propTypes = {
+LoanMetadata.propTypes = {
   data: PropTypes.object.isRequired,
 };
-
-export const LoanMetadata = compose(
-  withLoader,
-  withError
-)(LoanMetadataTemplate);

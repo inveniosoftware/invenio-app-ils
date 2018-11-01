@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { LoanMetadata } from './components/LoanMetadata/LoanMetadata';
-import { LoanActions } from './components/LoanActions/LoanActions';
+import LoanDetails from './components/LoanDetails/LoanDetails';
 
-export default class LoanDetails extends Component {
+export default class LoanDetailsContainer extends Component {
   constructor(props) {
     super(props);
     this.fetchLoanDetails = this.props.fetchLoanDetails;
@@ -23,11 +22,6 @@ export default class LoanDetails extends Component {
   }
 
   render() {
-    return (
-      <section>
-        <LoanMetadata {...this.props} />
-        <LoanActions {...this.props} onAction={this.postLoanAction} />
-      </section>
-    );
+    return <LoanDetails {...this.props} />;
   }
 }

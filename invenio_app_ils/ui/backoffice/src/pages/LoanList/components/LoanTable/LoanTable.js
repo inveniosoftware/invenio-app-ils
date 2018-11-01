@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
-import { withLoader, withError } from 'common/components';
 import { Table } from 'semantic-ui-react';
 import { URLS } from 'common/urls';
 
 import './LoanTable.scss';
 
-class LoanTableTemplate extends Component {
+export class LoanTable extends Component {
   navigateToDetails(loanId) {
     this.props.history.push(URLS.loanDetails(loanId));
   }
@@ -46,8 +44,3 @@ class LoanTableTemplate extends Component {
     );
   }
 }
-
-export const LoanTable = compose(
-  withError,
-  withLoader
-)(LoanTableTemplate);
