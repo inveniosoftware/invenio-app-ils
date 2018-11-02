@@ -9,13 +9,13 @@ const defaultProps = {
   actions: {},
 };
 
-describe('LoanAction component', () => {
+describe('LoanActions', () => {
   let component;
   afterEach(() => {
     component.unmount();
   });
 
-  it('LoanAction initial state and props', () => {
+  it('should render initial state and check props', () => {
     component = mount(<LoanActions {...defaultProps} />);
     Object.keys(defaultProps).forEach(key =>
       expect(component.props()[key]).toEqual(defaultProps[key])
@@ -23,7 +23,7 @@ describe('LoanAction component', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('LoanAction List.Item for each action', () => {
+  it('should render an List.Item for each available action', () => {
     const props = {
       ...defaultProps,
       data: {
@@ -42,7 +42,7 @@ describe('LoanAction component', () => {
   });
 
   // FIXME: LoanActions will have a custom loader, will be introduced here.
-  it('LoanAction renders loader on action triggered', () => {
+  it('should render a loader when trigger an action', () => {
     const props = {
       ...defaultProps,
       actionLoading: true,

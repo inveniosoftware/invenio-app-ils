@@ -2,11 +2,11 @@ import reducer, { initialState } from '../reducer';
 import * as types from '../types';
 
 describe('LoanDetailsContainer reducer', () => {
-  it('LoanDetailsContainer initial state', () => {
+  it('should render LoanDetailsContainer', () => {
     expect(reducer(undefined, {})).toEqual(initialState);
   });
 
-  it('LoanDetailsContainer loading state', () => {
+  it('should check api loading state', () => {
     let action = {
       type: types.SET_LOAN_FETCH_LOADING,
     };
@@ -16,7 +16,7 @@ describe('LoanDetailsContainer reducer', () => {
     });
   });
 
-  it('LoanDetailsContainer fetch success', () => {
+  it('should check loading success', () => {
     let action = {
       type: types.LOAN_FETCH_DETAILS_SUCCESS,
       payload: {},
@@ -28,7 +28,7 @@ describe('LoanDetailsContainer reducer', () => {
     });
   });
 
-  it('LoanDetailsContainer fetch error', () => {
+  it('should check loading error', () => {
     let action = {
       type: types.SET_LOAN_ACTION_ERROR,
       payload: 'Error',
@@ -42,7 +42,7 @@ describe('LoanDetailsContainer reducer', () => {
     });
   });
 
-  it('LoanDetailsContainer action loading', () => {
+  it('should check action loading state', () => {
     let action = {
       type: types.SET_LOAN_ACTION_LOADING,
     };

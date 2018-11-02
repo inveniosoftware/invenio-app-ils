@@ -1,6 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoanAction component LoanAction List.Item for each action 1`] = `
+exports[`LoanActions should render a loader when trigger an action 1`] = `
+<LoanActions
+  actionLoading={true}
+  actions={Object {}}
+  data={Object {}}
+  onAction={[Function]}
+>
+  <List
+    horizontal={true}
+  >
+    <div
+      className="ui horizontal list"
+      role="list"
+    />
+  </List>
+</LoanActions>
+`;
+
+exports[`LoanActions should render an List.Item for each available action 1`] = `
 <LoanActions
   actions={Object {}}
   availableActions={
@@ -27,44 +45,8 @@ exports[`LoanAction component LoanAction List.Item for each action 1`] = `
 </LoanActions>
 `;
 
-exports[`LoanAction component LoanAction initial state and props 1`] = `
+exports[`LoanActions should render initial state and check props 1`] = `
 <LoanActions
-  actions={Object {}}
-  data={Object {}}
-  onAction={[Function]}
->
-  <List
-    horizontal={true}
-  >
-    <div
-      className="ui horizontal list"
-      role="list"
-    />
-  </List>
-</LoanActions>
-`;
-
-exports[`LoanAction component LoanAction renders loader on action triggered 1`] = `
-<LoanActions
-  actionLoading={true}
-  actions={Object {}}
-  data={Object {}}
-  onAction={[Function]}
->
-  <List
-    horizontal={true}
-  >
-    <div
-      className="ui horizontal list"
-      role="list"
-    />
-  </List>
-</LoanActions>
-`;
-
-exports[`LoanAction component renders loader on action triggered 1`] = `
-<LoanActions
-  actionLoading={true}
   actions={Object {}}
   data={Object {}}
   onAction={[Function]}

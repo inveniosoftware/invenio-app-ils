@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoanDetails component LoanDetails fetch error 1`] = `
+exports[`LoanDetails should render an error when fetch fails 1`] = `
 <WithLoader
   actionLoading={false}
   data={Object {}}
@@ -75,7 +75,7 @@ exports[`LoanDetails component LoanDetails fetch error 1`] = `
 </WithLoader>
 `;
 
-exports[`LoanDetails component LoanDetails fetch success 1`] = `
+exports[`LoanDetails should render metadata and actions when fetch succeeds 1`] = `
 <WithLoader
   actionLoading={false}
   data={

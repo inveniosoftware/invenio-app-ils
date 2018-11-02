@@ -10,14 +10,14 @@ const defaultProps = {
     },
   },
 };
-describe('tests LoanMetadata component', () => {
+describe('LoanMetadata', () => {
   let component;
 
   afterEach(() => {
     component.unmount();
   });
 
-  it('renders initial state and checks the props are passed', () => {
+  it('should render initial state and check props', () => {
     component = mount(<LoanMetadata {...defaultProps} />);
     expect(component).toMatchSnapshot();
 
@@ -26,7 +26,7 @@ describe('tests LoanMetadata component', () => {
     );
   });
 
-  it('creates a div for each property in data.metadata', () => {
+  it('should create a div for each loan property', () => {
     component = mount(<LoanMetadata {...defaultProps} />);
     const rowComponents = component.find('div[name="loan-field"]');
     expect(rowComponents).toHaveLength(

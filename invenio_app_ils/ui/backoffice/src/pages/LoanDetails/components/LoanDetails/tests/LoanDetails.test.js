@@ -14,7 +14,7 @@ const defaultProps = {
   postLoanAction: () => 'postLoanAction',
 };
 
-describe('LoanDetails component', () => {
+describe('LoanDetails', () => {
   let component;
 
   beforeAll(() => {
@@ -27,7 +27,7 @@ describe('LoanDetails component', () => {
     component.unmount();
   });
 
-  it('LoanDetails fetch error', () => {
+  it('should render an error when fetch fails', () => {
     let props = {
       ...defaultProps,
       isLoading: false,
@@ -46,7 +46,7 @@ describe('LoanDetails component', () => {
     expect(message.exists()).toEqual(true);
   });
 
-  it('LoanDetails fetch success', () => {
+  it('should render metadata and actions when fetch succeeds', () => {
     let props = {
       ...defaultProps,
       data: {

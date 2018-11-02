@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`tests LoanMetadata component renders initial state and checks the props are passed 1`] = `
+exports[`LoanMetadata should render initial state and check props 1`] = `
 <LoanMetadata
   data={
     Object {
