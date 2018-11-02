@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 import { Sidebar, NotFound } from 'common/components';
 import { URLS } from 'common/urls';
-import { ItemLayout, LoanLayout } from 'layouts';
+import { ItemRoutes, LoanRoutes } from 'routes';
 import { Backoffice } from './pages';
 
 export default class App extends Component {
@@ -16,8 +16,8 @@ export default class App extends Component {
           </Grid.Column>
           <Grid.Column width={12}>
             <Switch>
-              <Route path={URLS.itemList} component={ItemLayout} />
-              <Route path={URLS.loanList} component={LoanLayout} />
+              <Route path={URLS.itemList} component={ItemRoutes} />
+              <Route path={URLS.loanList} component={LoanRoutes} />
               <Route path={URLS.root} exact component={Backoffice} />
               <Route component={NotFound} />
             </Switch>

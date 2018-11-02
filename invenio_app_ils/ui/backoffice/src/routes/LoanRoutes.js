@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { LoanListContainer, LoanDetailsContainer } from 'pages';
 
-export class LoanLayout extends Component {
+export class LoanRoutes extends Component {
   render() {
     let { match } = this.props;
     return (

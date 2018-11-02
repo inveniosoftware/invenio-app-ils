@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-
 import { ItemList, ItemDetails } from 'pages';
 
-export class ItemLayout extends Component {
+export class ItemRoutes extends Component {
   render() {
     let { match } = this.props;
     return (
