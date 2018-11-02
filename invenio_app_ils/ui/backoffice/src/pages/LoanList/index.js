@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
   error: state.loanList.error,
 });
 
-const mapActions = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   fetchLoanList: () => dispatch(fetchLoanList()),
 });
 
@@ -18,6 +18,6 @@ export const LoanListContainer = compose(
   withRouter,
   connect(
     mapStateToProps,
-    mapActions
+    mapDispatchToProps
   )
 )(loanListContainerComponent);

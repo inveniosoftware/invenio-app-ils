@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
   error: state.itemList.error,
 });
 
-const mapActions = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   fetchItemList: () => dispatch(fetchItemList()),
 });
 
@@ -18,6 +18,6 @@ export const ItemList = compose(
   withRouter,
   connect(
     mapStateToProps,
-    mapActions
+    mapDispatchToProps
   )
 )(itemListComponent);
