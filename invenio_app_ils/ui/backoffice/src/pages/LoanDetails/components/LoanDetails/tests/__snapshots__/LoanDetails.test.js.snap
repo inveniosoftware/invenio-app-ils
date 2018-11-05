@@ -76,7 +76,7 @@ exports[`LoanDetails should render an error when fetch fails 1`] = `
 `;
 
 exports[`LoanDetails should render metadata and actions when fetch succeeds 1`] = `
-<WithLoader
+<LoanDetails
   actionLoading={false}
   data={
     Object {
@@ -93,161 +93,129 @@ exports[`LoanDetails should render metadata and actions when fetch succeeds 1`] 
   loanActionError={false}
   postLoanAction={[Function]}
 >
-  <WithError
-    actionLoading={false}
-    data={
-      Object {
-        "availableActions": Object {
-          "action": "action",
-        },
-        "metadata": Object {
-          "title": "title",
-        },
-      }
-    }
-    fetchLoanDetails={[Function]}
-    loanActionError={false}
-    postLoanAction={[Function]}
-  >
-    <LoanDetails
-      actionLoading={false}
-      data={
-        Object {
-          "availableActions": Object {
-            "action": "action",
-          },
-          "metadata": Object {
-            "title": "title",
-          },
-        }
-      }
-      fetchLoanDetails={[Function]}
-      loanActionError={false}
-      postLoanAction={[Function]}
+  <Container>
+    <div
+      className="ui container"
     >
-      <Container>
-        <div
-          className="ui container"
-        >
-          <LoanMetadata
-            actionLoading={false}
-            data={
-              Object {
-                "availableActions": Object {
-                  "action": "action",
-                },
-                "metadata": Object {
-                  "title": "title",
-                },
-              }
-            }
-            fetchLoanDetails={[Function]}
-            loanActionError={false}
-            postLoanAction={[Function]}
+      <LoanMetadata
+        actionLoading={false}
+        data={
+          Object {
+            "availableActions": Object {
+              "action": "action",
+            },
+            "metadata": Object {
+              "title": "title",
+            },
+          }
+        }
+        fetchLoanDetails={[Function]}
+        isLoading={false}
+        loanActionError={false}
+        postLoanAction={[Function]}
+      >
+        <Segment>
+          <div
+            className="ui segment"
           >
-            <Segment>
+            <Grid>
               <div
-                className="ui segment"
+                className="ui grid"
               >
-                <Grid>
+                <GridColumn>
                   <div
-                    className="ui grid"
+                    className="column"
                   >
-                    <GridColumn>
-                      <div
-                        className="column"
+                    <h1>
+                      Loan - 
+                    </h1>
+                    <Form
+                      as="form"
+                    >
+                      <form
+                        className="ui form"
+                        onSubmit={[Function]}
                       >
-                        <h1>
-                          Loan - 
-                        </h1>
-                        <Form
-                          as="form"
+                        <FormField
+                          key="title"
+                          name="loan-field"
                         >
-                          <form
-                            className="ui form"
-                            onSubmit={[Function]}
+                          <div
+                            className="field"
+                            name="loan-field"
                           >
-                            <FormField
-                              key="title"
-                              name="loan-field"
+                            <label
+                              className="field-name"
                             >
-                              <div
-                                className="field"
-                                name="loan-field"
-                              >
-                                <label
-                                  className="field-name"
-                                >
-                                  title
-                                </label>
-                                <p>
-                                  title
-                                </p>
-                              </div>
-                            </FormField>
-                          </form>
-                        </Form>
-                      </div>
-                    </GridColumn>
+                              title
+                            </label>
+                            <p>
+                              title
+                            </p>
+                          </div>
+                        </FormField>
+                      </form>
+                    </Form>
                   </div>
-                </Grid>
+                </GridColumn>
               </div>
-            </Segment>
-          </LoanMetadata>
-          <LoanActions
-            actionLoading={false}
-            data={
-              Object {
-                "availableActions": Object {
-                  "action": "action",
-                },
-                "metadata": Object {
-                  "title": "title",
-                },
-              }
-            }
-            fetchLoanDetails={[Function]}
-            loanActionError={false}
-            onAction={[Function]}
-            postLoanAction={[Function]}
+            </Grid>
+          </div>
+        </Segment>
+      </LoanMetadata>
+      <LoanActions
+        actionLoading={false}
+        data={
+          Object {
+            "availableActions": Object {
+              "action": "action",
+            },
+            "metadata": Object {
+              "title": "title",
+            },
+          }
+        }
+        fetchLoanDetails={[Function]}
+        isLoading={false}
+        loanActionError={false}
+        onAction={[Function]}
+        postLoanAction={[Function]}
+      >
+        <List
+          horizontal={true}
+        >
+          <div
+            className="ui horizontal list"
+            role="list"
           >
-            <List
-              horizontal={true}
+            <ListItem
+              key="action"
             >
               <div
-                className="ui horizontal list"
-                role="list"
+                className="item"
+                onClick={[Function]}
+                role="listitem"
               >
-                <ListItem
-                  key="action"
+                <Button
+                  as="button"
+                  onClick={[Function]}
+                  primary={true}
+                  role="button"
                 >
-                  <div
-                    className="item"
+                  <button
+                    className="ui primary button"
                     onClick={[Function]}
-                    role="listitem"
+                    role="button"
                   >
-                    <Button
-                      as="button"
-                      onClick={[Function]}
-                      primary={true}
-                      role="button"
-                    >
-                      <button
-                        className="ui primary button"
-                        onClick={[Function]}
-                        role="button"
-                      >
-                        action
-                      </button>
-                    </Button>
-                  </div>
-                </ListItem>
+                    action
+                  </button>
+                </Button>
               </div>
-            </List>
-          </LoanActions>
-        </div>
-      </Container>
-    </LoanDetails>
-  </WithError>
-</WithLoader>
+            </ListItem>
+          </div>
+        </List>
+      </LoanActions>
+    </div>
+  </Container>
+</LoanDetails>
 `;

@@ -2,7 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchItemList } from './state/actions';
-import itemListComponent from './ItemList';
+import ItemListContainerComponent from './ItemListContainer';
 
 const mapStateToProps = state => ({
   isLoading: state.itemList.isLoading,
@@ -14,10 +14,10 @@ const mapDispatchToProps = dispatch => ({
   fetchItemList: () => dispatch(fetchItemList()),
 });
 
-export const ItemList = compose(
+export const ItemListContainer = compose(
   withRouter,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(itemListComponent);
+)(ItemListContainerComponent);

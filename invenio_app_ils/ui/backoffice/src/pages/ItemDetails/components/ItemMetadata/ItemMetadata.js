@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
-import { withError, withLoader } from 'common/hoc';
 import { Grid, Segment, Form } from 'semantic-ui-react';
 
 import './ItemMetadata.scss';
 
-class ItemMetadataBase extends Component {
+export class ItemMetadata extends Component {
   renderItemMetadata(data) {
     return Object.keys(data.metadata).map(key => {
       if (typeof data.metadata[key] !== 'object') {
@@ -34,8 +32,3 @@ class ItemMetadataBase extends Component {
     );
   }
 }
-
-export const ItemMetadata = compose(
-  withLoader,
-  withError
-)(ItemMetadataBase);

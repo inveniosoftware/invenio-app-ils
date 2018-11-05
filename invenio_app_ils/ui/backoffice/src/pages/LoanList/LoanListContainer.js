@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import LoanList from './components/LoanList/LoanList';
+import { LoanList } from './components/LoanList/LoanList';
 
 export default class LoanListContainer extends Component {
   constructor(props) {
@@ -25,7 +24,3 @@ export default class LoanListContainer extends Component {
     return <LoanList {...this.props} />;
   }
 }
-
-LoanListContainer.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-};

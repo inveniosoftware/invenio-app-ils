@@ -1,31 +1,31 @@
 import {
-  SET_LOAN_FETCH_LOADING,
-  LOAN_FETCH_DETAILS_SUCCESS,
-  SET_LOAN_ACTION_LOADING,
+  IS_ACTION_LOADING,
+  IS_LOAN_LOADING,
   LOAN_ACTION_SUCCESS,
-  SET_LOAN_ACTION_ERROR,
+  LOAN_DETAILS_SUCCESS,
+  HAS_ERROR,
 } from './types';
 import { loan } from 'common/api';
 import { serializeLoanDetails } from './selectors';
 
 export const fetchLoanDetails = loanId => {
-  return dispatch => {
+  return async dispatch => {
     dispatch({
-      type: SET_LOAN_FETCH_LOADING,
+      type: IS_LOAN_LOADING,
     });
 
-    return loan
+    await loan
       .getRecord(loanId)
-      .then(details => {
+      .then(response => {
         dispatch({
-          type: LOAN_FETCH_DETAILS_SUCCESS,
-          payload: serializeLoanDetails(details.data),
+          type: LOAN_DETAILS_SUCCESS,
+          payload: serializeLoanDetails(response.data),
         });
       })
-      .catch(reason => {
+      .catch(error => {
         dispatch({
-          type: SET_LOAN_ACTION_ERROR,
-          payload: loanId,
+          type: HAS_ERROR,
+          payload: error,
         });
       });
   };
@@ -34,10 +34,10 @@ export const fetchLoanDetails = loanId => {
 export const postLoanAction = (url, data) => {
   return async dispatch => {
     dispatch({
-      type: SET_LOAN_ACTION_LOADING,
+      type: IS_ACTION_LOADING,
     });
 
-    return loan
+    await loan
       .postAction(url, data)
       .then(details => {
         dispatch({
@@ -45,10 +45,10 @@ export const postLoanAction = (url, data) => {
           payload: serializeLoanDetails(details.data),
         });
       })
-      .catch(reason => {
+      .catch(error => {
         dispatch({
-          type: SET_LOAN_ACTION_ERROR,
-          payload: reason,
+          type: HAS_ERROR,
+          payload: error,
         });
       });
   };

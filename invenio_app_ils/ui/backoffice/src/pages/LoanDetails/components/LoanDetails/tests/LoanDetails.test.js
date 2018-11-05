@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Message } from 'semantic-ui-react';
-import LoanDetails from '../LoanDetails';
+import { LoanDetails } from '../LoanDetails';
 import { LoanMetadata } from '../../LoanMetadata/LoanMetadata';
 import { LoanActions } from '../../LoanActions/LoanActions';
 
@@ -17,11 +17,11 @@ const defaultProps = {
 describe('LoanDetails', () => {
   let component;
 
-  beforeAll(() => {
-    // omit `componentDidMount` to skip routing testing
-    LoanDetails.prototype.componentDidMount = () => {};
-    LoanDetails.prototype.componentWillUnmount = () => {};
-  });
+  // beforeAll(() => {
+  //   // omit `componentDidMount` to skip routing testing
+  //   LoanDetails.prototype.componentDidMount = () => {};
+  //   LoanDetails.prototype.componentWillUnmount = () => {};
+  // });
 
   afterEach(() => {
     component.unmount();

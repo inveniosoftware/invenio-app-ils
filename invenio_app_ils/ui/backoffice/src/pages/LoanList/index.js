@@ -2,7 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchLoanList } from './state/actions';
-import loanListContainerComponent from './LoanListContainer';
+import LoanListContainerComponent from './LoanListContainer';
 
 const mapStateToProps = state => ({
   isLoading: state.loanList.isLoading,
@@ -20,4 +20,4 @@ export const LoanListContainer = compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(loanListContainerComponent);
+)(LoanListContainerComponent);

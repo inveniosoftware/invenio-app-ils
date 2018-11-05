@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Message } from 'semantic-ui-react';
 
-class ApiError extends Component {
-  render() {
-    return (
-      <Message
-        icon="exclamation"
-        header="Oups, failed to fetch data from API!"
-        content={this.props.error.message}
-      />
-    );
-  }
+function ApiError(props) {
+  return (
+    <Message
+      icon="exclamation"
+      header="Oups, failed to fetch data from API!"
+      content={props.error.message}
+    />
+  );
 }
 
 export function withError(WrappedComponent) {

@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
 import PropTypes from 'prop-types';
-import { ItemMetadata } from './components/ItemMetadata/ItemMetadata';
-import { ItemLoans } from './components/ItemLoans/ItemLoans';
+import { ItemMetadata } from '../ItemMetadata/ItemMetadata';
+import { ItemLoans } from '../ItemLoans/ItemLoans';
 
-export default class ItemDetails extends Component {
+import { withError, withLoader } from 'common/hoc';
+
+export const EnchancedItemMetadata = compose(
+  withLoader,
+  withError
+)(ItemMetadata);
+
+export class ItemDetails extends Component {
   constructor(props) {
     super(props);
     this.fetchItemDetails = this.props.fetchItemDetails;
@@ -25,7 +33,7 @@ export default class ItemDetails extends Component {
   render() {
     return (
       <section>
-        <ItemMetadata {...this.props} />
+        <EnchancedItemMetadata {...this.props} />
         <ItemLoans />
       </section>
     );
@@ -33,6 +41,5 @@ export default class ItemDetails extends Component {
 }
 
 ItemDetails.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
   data: PropTypes.object.isRequired,
 };

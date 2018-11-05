@@ -8,18 +8,19 @@ export const fetchLoanList = () => {
       payload: {},
     });
 
-    let response = await loan.getList().catch(reason => {
-      dispatch({
-        type: HAS_ERROR,
-        payload: reason,
+    await loan
+      .getList()
+      .then(response => {
+        dispatch({
+          type: LOAN_LIST,
+          payload: response.data,
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: HAS_ERROR,
+          payload: error,
+        });
       });
-    });
-
-    if (response) {
-      dispatch({
-        type: LOAN_LIST,
-        payload: response.data,
-      });
-    }
   };
 };

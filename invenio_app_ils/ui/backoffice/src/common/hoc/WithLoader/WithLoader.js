@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Loader } from 'semantic-ui-react';
 
-class ApiLoader extends Component {
-  render() {
-    return <Loader active size="huge" inline="centered" />;
-  }
+function ApiLoader(props) {
+  return <Loader active size="huge" inline="centered" />;
 }
 
 export function withLoader(WrappedComponent) {

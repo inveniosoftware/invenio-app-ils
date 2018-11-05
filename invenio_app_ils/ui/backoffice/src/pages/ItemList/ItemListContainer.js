@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Container } from 'semantic-ui-react';
-import { ItemTable } from './components/ItemTable/ItemTable';
+import { ItemList } from './components/ItemList/ItemList';
 
-export default class ItemList extends Component {
+export default class ItemListContainer extends Component {
   constructor(props) {
     super(props);
     this.fetchItemList = this.props.fetchItemList;
@@ -23,15 +21,6 @@ export default class ItemList extends Component {
   }
 
   render() {
-    return (
-      <Container>
-        <h1>Items</h1>
-        <ItemTable {...this.props} />
-      </Container>
-    );
+    return <ItemList {...this.props} />;
   }
 }
-
-ItemList.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-};
