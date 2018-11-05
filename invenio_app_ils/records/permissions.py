@@ -8,14 +8,32 @@
 """Ils records' permissions."""
 from __future__ import unicode_literals
 
-from builtins import str
-
-from flask import request
 from flask_principal import ActionNeed, RoleNeed, UserNeed
 from invenio_access import Permission, any_user
+from six import string_types
 
 librarian_role = RoleNeed('librarian')
 create_records_action = ActionNeed('create-records')
+
+
+def record_create_permission_factory(record=None):
+    """Record create permission factory."""
+    return RecordPermission(record=record, action='create')
+
+
+def record_update_permission_factory(record=None):
+    """Record update permission factory."""
+    return RecordPermission(record=record, action='update')
+
+
+def record_delete_permission_factory(record=None):
+    """Record delete permission factory."""
+    return RecordPermission(record=record, action='delete')
+
+
+def record_read_permission_factory(record=None):
+    """Record read permission factory."""
+    return RecordPermission(record=record, action='read')
 
 
 class RecordPermission(Permission):
@@ -26,18 +44,10 @@ class RecordPermission(Permission):
     - Delete access to admin and specified users.
     """
 
-    _actions = {'POST': 'create',
-                'GET': 'read',
-                'PUT': 'update',
-                'PATCH': 'update',
-                'DELETE': 'delete',
-                }
-
-    def __init__(self, record):
+    def __init__(self, record, action):
         """Constructor."""
         self.record = record
-        self.current_action = self._actions[request.method]
-        self._permissions = None
+        self.current_action = action
         record_needs = self.collect_needs()
         super(RecordPermission, self).__init__(*record_needs)
 
@@ -68,7 +78,7 @@ class RecordPermission(Permission):
         needs = []
         for access_entity in self.record_allows():
             try:
-                if isinstance(access_entity, str):
+                if isinstance(access_entity, string_types):
                     needs.append(UserNeed(int(access_entity)))
                 elif isinstance(access_entity, int):
                     needs.append(UserNeed(access_entity))

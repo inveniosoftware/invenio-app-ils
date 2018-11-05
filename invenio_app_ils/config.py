@@ -21,7 +21,9 @@ from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_circulation.search.api import LoansSearch
 
 from .records.api import Document, InternalLocation, Item, Location
-from .records.permissions import RecordPermission
+from .records.permissions import record_create_permission_factory, \
+    record_delete_permission_factory, record_read_permission_factory, \
+    record_update_permission_factory
 from .search.api import DocumentSearch, InternalLocationSearch, ItemSearch, \
     LocationSearch
 
@@ -239,10 +241,10 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=10000,
         error_handlers=dict(),
-        read_permission_factory_imp=RecordPermission,
-        create_permission_factory_imp=RecordPermission,
-        update_permission_factory_imp=RecordPermission,
-        delete_permission_factory_imp=RecordPermission,
+        read_permission_factory_imp=record_read_permission_factory,
+        create_permission_factory_imp=record_create_permission_factory,
+        update_permission_factory_imp=record_update_permission_factory,
+        delete_permission_factory_imp=record_delete_permission_factory,
     ),
     itemid=dict(
         pid_type=ITEM_PID_TYPE,
@@ -265,10 +267,10 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=10000,
         error_handlers=dict(),
-        read_permission_factory_imp=RecordPermission,
-        create_permission_factory_imp=RecordPermission,
-        update_permission_factory_imp=RecordPermission,
-        delete_permission_factory_imp=RecordPermission,
+        read_permission_factory_imp=record_read_permission_factory,
+        create_permission_factory_imp=record_create_permission_factory,
+        update_permission_factory_imp=record_update_permission_factory,
+        delete_permission_factory_imp=record_delete_permission_factory,
     ),
     locid=dict(
         pid_type=LOCATION_PID_TYPE,
@@ -291,10 +293,10 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=10000,
         error_handlers=dict(),
-        read_permission_factory_imp=RecordPermission,
-        create_permission_factory_imp=RecordPermission,
-        update_permission_factory_imp=RecordPermission,
-        delete_permission_factory_imp=RecordPermission,
+        read_permission_factory_imp=record_read_permission_factory,
+        create_permission_factory_imp=record_create_permission_factory,
+        update_permission_factory_imp=record_update_permission_factory,
+        delete_permission_factory_imp=record_delete_permission_factory,
     ),
     ilocid=dict(
         pid_type=INTERNAL_LOCATION_PID_TYPE,
@@ -317,10 +319,10 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type="application/json",
         max_result_window=10000,
         error_handlers=dict(),
-        read_permission_factory_imp=RecordPermission,
-        create_permission_factory_imp=RecordPermission,
-        update_permission_factory_imp=RecordPermission,
-        delete_permission_factory_imp=RecordPermission,
+        read_permission_factory_imp=record_read_permission_factory,
+        create_permission_factory_imp=record_create_permission_factory,
+        update_permission_factory_imp=record_update_permission_factory,
+        delete_permission_factory_imp=record_delete_permission_factory,
     ),
 )
 
