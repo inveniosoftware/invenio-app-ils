@@ -6,6 +6,8 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Test accesibility of resource endpoints"""
+from __future__ import unicode_literals
+
 import copy
 import json
 
