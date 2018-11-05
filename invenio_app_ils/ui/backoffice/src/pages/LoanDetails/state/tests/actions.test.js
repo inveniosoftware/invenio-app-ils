@@ -42,7 +42,7 @@ describe('Loan actions', () => {
     it('should fetch loan avaialable actions', done => {
       const expectedActions = [
         {
-          type: types.SET_LOAN_FETCH_LOADING,
+          type: types.IS_LOAN_LOADING,
         },
       ];
 
@@ -58,7 +58,7 @@ describe('Loan actions', () => {
     it('should fire an event when the loan fetch succeeds', done => {
       const expectedActions = [
         {
-          type: types.LOAN_FETCH_DETAILS_SUCCESS,
+          type: types.LOAN_DETAILS_SUCCESS,
           payload: serializeLoanDetails(response),
         },
       ];
@@ -73,8 +73,8 @@ describe('Loan actions', () => {
     it('should fire an event when loan fetch fails', done => {
       const expectedActions = [
         {
-          type: types.SET_LOAN_ACTION_ERROR,
-          payload: 2,
+          type: types.HAS_ERROR,
+          payload: { error: 404, message: 'resource not found' },
         },
       ];
 
@@ -110,7 +110,7 @@ describe('Loan actions', () => {
     it('should trigger a loan transition action', done => {
       const expectedActions = [
         {
-          type: types.SET_LOAN_ACTION_LOADING,
+          type: types.IS_ACTION_LOADING,
         },
       ];
 
@@ -143,7 +143,7 @@ describe('Loan actions', () => {
     it('should fire an event when the loan action fails', done => {
       const expectedActions = [
         {
-          type: types.SET_LOAN_ACTION_ERROR,
+          type: types.HAS_ERROR,
           payload: 'Error',
         },
       ];

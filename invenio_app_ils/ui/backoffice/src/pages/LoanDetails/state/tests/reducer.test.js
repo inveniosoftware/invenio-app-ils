@@ -8,7 +8,7 @@ describe('LoanDetailsContainer reducer', () => {
 
   it('should check api loading state', () => {
     let action = {
-      type: types.SET_LOAN_FETCH_LOADING,
+      type: types.IS_LOAN_LOADING,
     };
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
@@ -18,7 +18,7 @@ describe('LoanDetailsContainer reducer', () => {
 
   it('should check loading success', () => {
     let action = {
-      type: types.LOAN_FETCH_DETAILS_SUCCESS,
+      type: types.LOAN_ACTION_SUCCESS,
       payload: {},
     };
     expect(reducer(initialState, action)).toEqual({
@@ -30,7 +30,7 @@ describe('LoanDetailsContainer reducer', () => {
 
   it('should check loading error', () => {
     let action = {
-      type: types.SET_LOAN_ACTION_ERROR,
+      type: types.HAS_ERROR,
       payload: 'Error',
     };
     expect(reducer(initialState, action)).toEqual({
@@ -44,7 +44,7 @@ describe('LoanDetailsContainer reducer', () => {
 
   it('should check action loading state', () => {
     let action = {
-      type: types.SET_LOAN_ACTION_LOADING,
+      type: types.IS_ACTION_LOADING,
     };
     expect(reducer(initialState, action)).toEqual({
       ...initialState,

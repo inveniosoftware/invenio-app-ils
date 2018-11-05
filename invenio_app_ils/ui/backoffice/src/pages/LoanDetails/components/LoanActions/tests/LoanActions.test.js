@@ -41,7 +41,6 @@ describe('LoanActions', () => {
     expect(actionComponents).toHaveLength(Object.keys(props.actions).length);
   });
 
-  // FIXME: LoanActions will have a custom loader, will be introduced here.
   it('should render a loader when trigger an action', () => {
     const props = {
       ...defaultProps,

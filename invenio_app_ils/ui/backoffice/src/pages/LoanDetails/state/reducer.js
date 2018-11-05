@@ -22,7 +22,12 @@ export default (state = initialState, action) => {
     case IS_ACTION_LOADING:
       return { ...state, actionLoading: true };
     case LOAN_ACTION_SUCCESS:
-      return { ...state, actionLoading: false, data: action.payload };
+      return {
+        ...state,
+        isLoading: false,
+        actionLoading: false,
+        data: action.payload,
+      };
     case HAS_ERROR:
       return {
         ...state,

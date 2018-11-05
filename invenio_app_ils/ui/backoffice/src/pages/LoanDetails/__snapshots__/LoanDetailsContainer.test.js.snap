@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoanDetailsContainer should render metadata and actions when fetch succeeds 1`] = `
+<LoanDetails
+  data={
+    Object {
+      "availableActions": Object {
+        "action": "action",
+      },
+      "metadata": Object {
+        "title": "title",
+      },
+    }
+  }
+  error={Object {}}
+  fetchLoanDetails={[Function]}
+  isLoading={false}
+>
+  <Container>
+    <div
+      className="ui container"
+    >
+      <LoanMetadata
+        data={
+          Object {
+            "availableActions": Object {
+              "action": "action",
+            },
+            "metadata": Object {
+              "title": "title",
+            },
+          }
+        }
+        error={Object {}}
+        fetchLoanDetails={[Function]}
+        isLoading={false}
+      >
+        <Segment>
+          <div
+            className="ui segment"
+          >
+            <Grid>
+              <div
+                className="ui grid"
+              >
+                <GridColumn>
+                  <div
+                    className="column"
+                  >
+                    <h1>
+                      Loan - 
+                    </h1>
+                    <Form
+                      as="form"
+                    >
+                      <form
+                        className="ui form"
+                        onSubmit={[Function]}
+                      >
+                        <FormField
+                          key="title"
+                          name="loan-field"
+                        >
+                          <div
+                            className="field"
+                            name="loan-field"
+                          >
+                            <label
+                              className="field-name"
+                            >
+                              title
+                            </label>
+                            <p>
+                              title
+                            </p>
+                          </div>
+                        </FormField>
+                      </form>
+                    </Form>
+                  </div>
+                </GridColumn>
+              </div>
+            </Grid>
+          </div>
+        </Segment>
+      </LoanMetadata>
+      <LoanActions
+        data={
+          Object {
+            "availableActions": Object {
+              "action": "action",
+            },
+            "metadata": Object {
+              "title": "title",
+            },
+          }
+        }
+        error={Object {}}
+        fetchLoanDetails={[Function]}
+        isLoading={false}
+      >
+        <List
+          horizontal={true}
+        >
+          <div
+            className="ui horizontal list"
+            role="list"
+          >
+            <ListItem
+              key="action"
+            >
+              <div
+                className="item"
+                onClick={[Function]}
+                role="listitem"
+              >
+                <Button
+                  as="button"
+                  onClick={[Function]}
+                  primary={true}
+                  role="button"
+                >
+                  <button
+                    className="ui primary button"
+                    onClick={[Function]}
+                    role="button"
+                  >
+                    action
+                  </button>
+                </Button>
+              </div>
+            </ListItem>
+          </div>
+        </List>
+      </LoanActions>
+    </div>
+  </Container>
+</LoanDetails>
+`;
