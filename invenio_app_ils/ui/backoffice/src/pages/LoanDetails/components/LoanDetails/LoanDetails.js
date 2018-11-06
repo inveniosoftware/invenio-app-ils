@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
+import { compose } from 'redux';
+import { withError, withLoader } from 'common/hoc';
 import { LoanMetadata } from '../LoanMetadata/LoanMetadata';
 import { LoanActions } from '../LoanActions/LoanActions';
 
-export class LoanDetails extends Component {
+class LoanDetails extends Component {
   render() {
     return (
       <Container>
@@ -13,3 +15,8 @@ export class LoanDetails extends Component {
     );
   }
 }
+
+export default compose(
+  withLoader,
+  withError
+)(LoanDetails);

@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
-import { withError, withLoader } from 'common/hoc';
-import { LoanDetails } from './components/LoanDetails/LoanDetails';
-
-const EnchancedLoanDetails = compose(
-  withLoader,
-  withError
-)(LoanDetails);
+import LoanDetails from './components/LoanDetails/LoanDetails';
 
 export default class LoanDetailsContainer extends Component {
   constructor(props) {
@@ -29,6 +22,6 @@ export default class LoanDetailsContainer extends Component {
   }
 
   render() {
-    return <EnchancedLoanDetails {...this.props} />;
+    return <LoanDetails {...this.props} />;
   }
 }

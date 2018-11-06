@@ -74,7 +74,7 @@ describe('Loan actions', () => {
       const expectedActions = [
         {
           type: types.HAS_ERROR,
-          payload: { error: 404, message: 'resource not found' },
+          payload: [500, 'Error'],
         },
       ];
 

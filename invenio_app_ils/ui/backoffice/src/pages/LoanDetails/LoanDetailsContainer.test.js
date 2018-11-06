@@ -1,27 +1,36 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Message } from 'semantic-ui-react';
-import { LoanDetailsContainer } from './LoanDetailsContainer';
-import { LoanDetails } from './components/LoanDetails/LoanDetails';
-import { LoanMetadata } from './components/LoanMetadata/LoanMetadata';
-import { LoanActions } from './components/LoanActions/LoanActions';
+import LoanDetailsContainer from './LoanDetailsContainer';
+import LoanDetails from './components/LoanDetails/LoanDetails';
 
 const defaultProps = {
-  data: {},
-  error: {},
+  data: {
+    loan_pid: 42,
+    metadata: {
+      title: 'title',
+    },
+    availableActions: {
+      action: 'action',
+    },
+  },
   isLoading: true,
-  fetchLoanDetails: () => 'fetchLoanDetails',
 };
 
 describe('LoanDetailsContainer', () => {
   let component;
 
+  beforeAll(() => {
+    LoanDetailsContainer.prototype.componentDidMount = () => {};
+    LoanDetailsContainer.prototype.componentWillUnmount = () => {};
+  });
+
   afterEach(() => {
     component.unmount();
   });
 
-  it('should render correctly without props', () => {
-    component = mount(<LoanDetailsContainer />);
+  it('should render correctly props', () => {
+    component = mount(<LoanDetailsContainer {...defaultProps} />);
     expect(component).toMatchSnapshot();
   });
 
@@ -39,27 +48,16 @@ describe('LoanDetailsContainer', () => {
     expect(message.exists()).toEqual(true);
   });
 
-  it('should render metadata and actions when fetch succeeds', () => {
+  it('should render loan details when fetch succeeds', () => {
     let props = {
       ...defaultProps,
-      data: {
-        metadata: {
-          title: 'title',
-        },
-        availableActions: {
-          action: 'action',
-        },
-      },
       isLoading: false,
     };
-    component = mount(<LoanDetails {...props} />);
+    component = mount(<LoanDetailsContainer {...props} />);
     expect(component).toMatchSnapshot();
-
-    const metadata = component.find(LoanMetadata);
-    const actions = component.find(LoanActions);
+    const detailsComponent = component.find(LoanDetails);
+    expect(detailsComponent.exists()).toEqual(true);
     const message = component.find(Message);
-    expect(metadata.exists()).toEqual(true);
-    expect(actions.exists()).toEqual(true);
     expect(message.exists()).toEqual(false);
   });
 });
