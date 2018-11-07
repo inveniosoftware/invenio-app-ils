@@ -1,4 +1,4 @@
-import { LOAN_LIST, IS_LOADING, HAS_ERROR } from './types';
+import { LOAN_LIST, IS_LOADING, LOAN_LIST_HAS_ERROR } from './types';
 import { loan } from 'common/api';
 
 export const fetchLoanList = () => {
@@ -18,7 +18,7 @@ export const fetchLoanList = () => {
       })
       .catch(error => {
         dispatch({
-          type: HAS_ERROR,
+          type: LOAN_LIST_HAS_ERROR,
           payload: error,
         });
       });

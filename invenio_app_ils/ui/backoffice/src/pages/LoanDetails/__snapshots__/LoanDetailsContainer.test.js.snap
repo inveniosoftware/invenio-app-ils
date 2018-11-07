@@ -206,9 +206,11 @@ exports[`LoanDetailsContainer should render loan details when fetch succeeds 1`]
           }
         }
       >
-        <Container>
+        <Container
+          fluid={true}
+        >
           <div
-            className="ui container"
+            className="ui fluid container"
           >
             <LoanMetadata
               data={

@@ -1,9 +1,10 @@
 import {
-  IS_LOAN_LOADING,
+  IS_LOADING,
   IS_ACTION_LOADING,
   LOAN_ACTION_SUCCESS,
   LOAN_DETAILS_SUCCESS,
-  HAS_ERROR,
+  LOAN_DETAILS_HAS_ERROR,
+  LOAN_ACTION_HAS_ERROR,
 } from './types';
 
 export const initialState = {
@@ -15,7 +16,7 @@ export const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case IS_LOAN_LOADING:
+    case IS_LOADING:
       return { ...state, isLoading: true };
     case LOAN_DETAILS_SUCCESS:
       return { ...state, isLoading: false, data: action.payload };
@@ -28,7 +29,15 @@ export default (state = initialState, action) => {
         actionLoading: false,
         data: action.payload,
       };
-    case HAS_ERROR:
+    case LOAN_DETAILS_HAS_ERROR:
+      return {
+        ...state,
+        actionLoading: false,
+        isLoading: false,
+        loanActionError: false,
+        error: action.payload,
+      };
+    case LOAN_ACTION_HAS_ERROR:
       return {
         ...state,
         actionLoading: false,

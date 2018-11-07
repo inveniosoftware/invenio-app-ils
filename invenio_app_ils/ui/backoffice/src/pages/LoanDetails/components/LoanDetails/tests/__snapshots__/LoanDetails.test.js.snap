@@ -53,9 +53,11 @@ exports[`LoanDetails should render correctly with props 1`] = `
       onAction={[Function]}
       postLoanAction={[Function]}
     >
-      <Container>
+      <Container
+        fluid={true}
+      >
         <div
-          className="ui container"
+          className="ui fluid container"
         >
           <LoanMetadata
             data={
