@@ -1,9 +1,10 @@
 import {
+  IS_LOADING,
   IS_ACTION_LOADING,
-  IS_LOAN_LOADING,
   LOAN_ACTION_SUCCESS,
   LOAN_DETAILS_SUCCESS,
-  HAS_ERROR,
+  LOAN_DETAILS_HAS_ERROR,
+  LOAN_ACTION_HAS_ERROR,
 } from './types';
 import { loan } from 'common/api';
 import { serializeLoanDetails } from './selectors';
@@ -11,7 +12,7 @@ import { serializeLoanDetails } from './selectors';
 export const fetchLoanDetails = loanId => {
   return async dispatch => {
     dispatch({
-      type: IS_LOAN_LOADING,
+      type: IS_LOADING,
     });
 
     await loan
@@ -24,7 +25,7 @@ export const fetchLoanDetails = loanId => {
       })
       .catch(error => {
         dispatch({
-          type: HAS_ERROR,
+          type: LOAN_DETAILS_HAS_ERROR,
           payload: error,
         });
       });
@@ -47,7 +48,7 @@ export const postLoanAction = (url, data) => {
       })
       .catch(error => {
         dispatch({
-          type: HAS_ERROR,
+          type: LOAN_ACTION_HAS_ERROR,
           payload: error,
         });
       });

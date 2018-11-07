@@ -42,7 +42,7 @@ describe('Loan actions', () => {
     it('should fetch loan avaialable actions', done => {
       const expectedActions = [
         {
-          type: types.IS_LOAN_LOADING,
+          type: types.IS_LOADING,
         },
       ];
 
@@ -73,7 +73,7 @@ describe('Loan actions', () => {
     it('should fire an event when loan fetch fails', done => {
       const expectedActions = [
         {
-          type: types.HAS_ERROR,
+          type: types.LOAN_DETAILS_HAS_ERROR,
           payload: [500, 'Error'],
         },
       ];
@@ -143,7 +143,7 @@ describe('Loan actions', () => {
     it('should fire an event when the loan action fails', done => {
       const expectedActions = [
         {
-          type: types.HAS_ERROR,
+          type: types.LOAN_ACTION_HAS_ERROR,
           payload: 'Error',
         },
       ];
