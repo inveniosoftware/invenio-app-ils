@@ -1,4 +1,4 @@
-import { IS_LOADING, ITEM_DETAILS, HAS_ERROR } from './types';
+import { IS_LOADING, ITEM_DETAILS, ITEM_DETAILS_HAS_ERROR } from './types';
 import { item } from 'common/api';
 
 export const fetchItemDetails = itemId => {
@@ -18,7 +18,7 @@ export const fetchItemDetails = itemId => {
       })
       .catch(error => {
         dispatch({
-          type: HAS_ERROR,
+          type: ITEM_DETAILS_HAS_ERROR,
           payload: error,
         });
       });

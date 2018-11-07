@@ -1,4 +1,4 @@
-import { LOAN_LIST, IS_LOADING, HAS_ERROR } from './types';
+import { LOAN_LIST, IS_LOADING, LOAN_LIST_HAS_ERROR } from './types';
 
 const initialState = {
   isLoading: true,
@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
       return { ...state, isLoading: true };
     case LOAN_LIST:
       return { ...state, isLoading: false, data: action.payload };
-    case HAS_ERROR:
+    case LOAN_LIST_HAS_ERROR:
       return { ...state, isLoading: false, error: action.payload };
     default:
       return state;
