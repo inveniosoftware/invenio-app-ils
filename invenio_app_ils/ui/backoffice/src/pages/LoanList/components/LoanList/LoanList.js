@@ -16,7 +16,7 @@ export class LoanList extends Component {
   render() {
     let { isLoading, data, error } = this.props;
     return (
-      <Container>
+      <Container fluid>
         <h1>Loans</h1>
         <EnchancedTable isLoading={isLoading} data={data} error={error} />
       </Container>

@@ -10,7 +10,7 @@ class LoanDetails extends Component {
   render() {
     let { data, onAction } = this.props;
     return (
-      <Container>
+      <Container fluid>
         <LoanMetadata data={data} />
         <LoanActions data={data} onAction={onAction} />
       </Container>

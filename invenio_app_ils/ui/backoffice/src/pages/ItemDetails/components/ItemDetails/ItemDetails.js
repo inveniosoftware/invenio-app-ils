@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
+import { Container } from 'semantic-ui-react';
 import { ItemMetadata } from '../ItemMetadata/ItemMetadata';
 import { ItemLoans } from '../ItemLoans/ItemLoans';
 
@@ -15,14 +16,14 @@ export class ItemDetails extends Component {
   render() {
     let { isLoading, data, error } = this.props;
     return (
-      <section>
+      <Container fluid>
         <EnchancedItemMetadata
           data={data}
           isLoading={isLoading}
           error={error}
         />
         <ItemLoans />
-      </section>
+      </Container>
     );
   }
 }

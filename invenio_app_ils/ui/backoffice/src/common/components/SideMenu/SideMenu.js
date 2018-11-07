@@ -3,9 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import { URLS } from 'common/urls';
 
-import './Sidebar.scss';
+import './SideMenu.scss';
 
-class Sidebar extends Component {
+class SideMenu extends Component {
   state = { activeItem: '' };
 
   handleItemClick = (e, { name, location }) => {
@@ -16,7 +16,7 @@ class Sidebar extends Component {
   render() {
     const { activeItem } = this.state;
     return (
-      <Menu vertical inverted fixed="left" className="sidebar-menu">
+      <Menu fixed="left" vertical inverted className="side-menu">
         <Menu.Header as="h2" className="logo">
           ILS backoffice
         </Menu.Header>
@@ -41,4 +41,4 @@ class Sidebar extends Component {
   }
 }
 
-export default withRouter(Sidebar);
+export default withRouter(SideMenu);
