@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import { URLS } from 'common/urls';
 
 import './ItemTable.scss';
 
-class ItemTable extends Component {
+export class ItemTable extends Component {
   navigateToDetails(itemId) {
     this.props.history.push(URLS.itemDetails(itemId));
   }
@@ -44,4 +44,6 @@ class ItemTable extends Component {
   }
 }
 
-export default withRouter(ItemTable);
+ItemTable.propTypes = {
+  data: PropTypes.object.isRequired,
+};

@@ -1,33 +1,35 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { List, Loader } from 'semantic-ui-react';
+import { List } from 'semantic-ui-react';
 import { LoanActions } from '../LoanActions';
 
-const LOAN_ACTION_DEFAULT_PROPS = {
+const defaultProps = {
   data: {},
   onAction: () => 'onAction',
   actions: {},
 };
 
-describe('LoanAction', () => {
+describe('LoanActions', () => {
   let component;
-
   afterEach(() => {
     component.unmount();
   });
 
-  it('renders initial state and checks the props are passed', () => {
-    component = mount(<LoanActions {...LOAN_ACTION_DEFAULT_PROPS} />);
-    Object.keys(LOAN_ACTION_DEFAULT_PROPS).forEach(key =>
-      expect(component.props()[key]).toEqual(LOAN_ACTION_DEFAULT_PROPS[key])
+  it('should render initial state and check props', () => {
+    component = mount(<LoanActions {...defaultProps} />);
+    Object.keys(defaultProps).forEach(key =>
+      expect(component.props()[key]).toEqual(defaultProps[key])
     );
     expect(component).toMatchSnapshot();
   });
 
-  it('creates a List.Item for each action', () => {
+  it('should render an List.Item for each available action', () => {
     const props = {
-      ...LOAN_ACTION_DEFAULT_PROPS,
-      actions: {
+      ...defaultProps,
+      data: {
+        title: 'A title',
+      },
+      availableActions: {
         action: 'url',
         anotheraction: 'another-url',
       },
@@ -35,25 +37,19 @@ describe('LoanAction', () => {
 
     component = mount(<LoanActions {...props} />);
     expect(component).toMatchSnapshot();
-
     const actionComponents = component.find(List.Item);
     expect(actionComponents).toHaveLength(Object.keys(props.actions).length);
   });
 
-  it('renders loader on action triggered', () => {
+  it('should render a loader when trigger an action', () => {
     const props = {
-      ...LOAN_ACTION_DEFAULT_PROPS,
+      ...defaultProps,
       actionLoading: true,
     };
     component = mount(<LoanActions {...props} />);
     expect(component).toMatchSnapshot();
-
     const actionComponents = component.find(List.Item);
     // should not render any List.Item component
     expect(actionComponents).toHaveLength(0);
-
-    const loader = component.find(Loader);
-    // should render Loader component
-    expect(loader.exists()).toEqual(true);
   });
 });

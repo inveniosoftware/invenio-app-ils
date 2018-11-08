@@ -1,7 +1,8 @@
-import { ITEM_LIST, IS_LOADING, HAS_ERROR } from './types';
+import { IS_LOADING, ITEM_LIST, HAS_ERROR } from './types';
 
 const initialState = {
   isLoading: true,
+  hasError: false,
   data: {},
 };
 

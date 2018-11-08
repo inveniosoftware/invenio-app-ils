@@ -2,7 +2,6 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 import { http } from 'common/api';
-// Actions to be tested
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import { serializeLoanDetails } from '../selectors';
@@ -12,7 +11,7 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const loansBaseUrl = 'https://127.0.0.1:5000/api/circulation/loans';
 
-describe('loan actions', () => {
+describe('Loan actions', () => {
   let store;
   beforeEach(() => {
     store = mockStore(initialState);
@@ -40,10 +39,10 @@ describe('loan actions', () => {
       });
     });
 
-    it('fires a fetch loan details action', done => {
+    it('should fetch loan avaialable actions', done => {
       const expectedActions = [
         {
-          type: types.SET_LOAN_FETCH_LOADING,
+          type: types.IS_LOAN_LOADING,
         },
       ];
 
@@ -56,10 +55,10 @@ describe('loan actions', () => {
         });
     });
 
-    it('fires an event when the loan fetch succeeds', done => {
+    it('should fire an event when the loan fetch succeeds', done => {
       const expectedActions = [
         {
-          type: types.LOAN_FETCH_DETAILS_SUCCESS,
+          type: types.LOAN_DETAILS_SUCCESS,
           payload: serializeLoanDetails(response),
         },
       ];
@@ -71,11 +70,11 @@ describe('loan actions', () => {
       });
     });
 
-    it('fires an event when the loan fetch fails', done => {
+    it('should fire an event when loan fetch fails', done => {
       const expectedActions = [
         {
-          type: types.SET_LOAN_ACTION_ERROR,
-          payload: 2,
+          type: types.HAS_ERROR,
+          payload: [500, 'Error'],
         },
       ];
 
@@ -87,7 +86,7 @@ describe('loan actions', () => {
     });
   });
 
-  describe('trigger action on loan', () => {
+  describe('trigger loan actions', () => {
     let mock;
     let response = {};
     beforeEach(() => {
@@ -108,10 +107,10 @@ describe('loan actions', () => {
       });
     });
 
-    it('fires a loan transition action', done => {
+    it('should trigger a loan transition action', done => {
       const expectedActions = [
         {
-          type: types.SET_LOAN_ACTION_LOADING,
+          type: types.IS_ACTION_LOADING,
         },
       ];
 
@@ -124,7 +123,7 @@ describe('loan actions', () => {
         });
     });
 
-    it('fires an event when the loan transition action succeeds', done => {
+    it('should trigger an event when the loan action succeeds', done => {
       const expectedActions = [
         {
           type: types.LOAN_ACTION_SUCCESS,
@@ -141,10 +140,10 @@ describe('loan actions', () => {
         });
     });
 
-    it('fires an event when the loan transition action fails', done => {
+    it('should fire an event when the loan action fails', done => {
       const expectedActions = [
         {
-          type: types.SET_LOAN_ACTION_ERROR,
+          type: types.HAS_ERROR,
           payload: 'Error',
         },
       ];

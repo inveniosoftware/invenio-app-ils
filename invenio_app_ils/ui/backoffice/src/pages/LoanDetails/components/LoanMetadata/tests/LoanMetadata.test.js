@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { LoanMetadata } from '../LoanMetadata';
 
-const LOAN_METADATA_DEFAULT_PROPS = {
+const defaultProps = {
   data: {
     metadata: {
       title: 'title',
@@ -10,27 +10,27 @@ const LOAN_METADATA_DEFAULT_PROPS = {
     },
   },
 };
-describe('LoanMetadata component', () => {
+describe('LoanMetadata', () => {
   let component;
 
   afterEach(() => {
     component.unmount();
   });
 
-  it('renders initial state and checks the props are passed', () => {
-    component = mount(<LoanMetadata {...LOAN_METADATA_DEFAULT_PROPS} />);
+  it('should render initial state and check props', () => {
+    component = mount(<LoanMetadata {...defaultProps} />);
     expect(component).toMatchSnapshot();
 
-    Object.keys(LOAN_METADATA_DEFAULT_PROPS).forEach(key =>
-      expect(component.props()[key]).toEqual(LOAN_METADATA_DEFAULT_PROPS[key])
+    Object.keys(defaultProps).forEach(key =>
+      expect(component.props()[key]).toEqual(defaultProps[key])
     );
   });
 
-  it('creates a div for each property in data.metadata', () => {
-    component = mount(<LoanMetadata {...LOAN_METADATA_DEFAULT_PROPS} />);
+  it('should create a div for each loan property', () => {
+    component = mount(<LoanMetadata {...defaultProps} />);
     const rowComponents = component.find('div[name="loan-field"]');
     expect(rowComponents).toHaveLength(
-      Object.keys(LOAN_METADATA_DEFAULT_PROPS.data.metadata).length
+      Object.keys(defaultProps.data.metadata).length
     );
   });
 });

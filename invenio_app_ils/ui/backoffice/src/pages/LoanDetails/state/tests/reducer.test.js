@@ -1,50 +1,50 @@
 import reducer, { initialState } from '../reducer';
 import * as types from '../types';
 
-describe('loan details reducer', () => {
-  it('returns the initial state', () => {
+describe('LoanDetailsContainer reducer', () => {
+  it('should render LoanDetailsContainer', () => {
     expect(reducer(undefined, {})).toEqual(initialState);
   });
 
-  it('returns the loan fetch details loading state', () => {
+  it('should check api loading state', () => {
     let action = {
-      type: types.SET_LOAN_FETCH_LOADING,
+      type: types.IS_LOAN_LOADING,
     };
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
-      fetchLoading: true,
+      isLoading: true,
     });
   });
 
-  it('returns the loan fetch details success state', () => {
+  it('should check loading success', () => {
     let action = {
-      type: types.LOAN_FETCH_DETAILS_SUCCESS,
+      type: types.LOAN_ACTION_SUCCESS,
       payload: {},
     };
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
-      fetchLoading: false,
+      isLoading: false,
       data: {},
     });
   });
 
-  it('returns the loan fetch details error state', () => {
+  it('should check loading error', () => {
     let action = {
-      type: types.SET_LOAN_ACTION_ERROR,
+      type: types.HAS_ERROR,
       payload: 'Error',
     };
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
       actionLoading: false,
-      fetchLoading: false,
+      isLoading: false,
       loanActionError: true,
       error: 'Error',
     });
   });
 
-  it('returns the loan transition action loading state', () => {
+  it('should check action loading state', () => {
     let action = {
-      type: types.SET_LOAN_ACTION_LOADING,
+      type: types.IS_ACTION_LOADING,
     };
     expect(reducer(initialState, action)).toEqual({
       ...initialState,

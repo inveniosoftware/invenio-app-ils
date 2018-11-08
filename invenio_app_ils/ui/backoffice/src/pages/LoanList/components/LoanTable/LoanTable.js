@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import { URLS } from 'common/urls';
 
 import './LoanTable.scss';
 
-class LoanTable extends Component {
+export class LoanTable extends Component {
   navigateToDetails(loanId) {
     this.props.history.push(URLS.loanDetails(loanId));
   }
@@ -46,4 +46,6 @@ class LoanTable extends Component {
   }
 }
 
-export default withRouter(LoanTable);
+LoanTable.propTypes = {
+  data: PropTypes.object.isRequired,
+};

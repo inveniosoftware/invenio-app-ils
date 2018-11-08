@@ -21,20 +21,20 @@ class Sidebar extends Component {
           ILS backoffice
         </Menu.Header>
         <Menu.Item
-          name="loans"
-          location={URLS.loanList}
-          active={activeItem === 'loans'}
-          onClick={this.handleItemClick}
-        >
-          Loans
-        </Menu.Item>
-        <Menu.Item
           location={URLS.itemList}
           name="items"
           active={activeItem === 'items'}
           onClick={this.handleItemClick}
         >
           Items
+        </Menu.Item>
+        <Menu.Item
+          name="loans"
+          location={URLS.loanList}
+          active={activeItem === 'loans'}
+          onClick={this.handleItemClick}
+        >
+          Loans
         </Menu.Item>
       </Menu>
     );

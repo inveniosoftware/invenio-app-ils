@@ -17,9 +17,10 @@ export class LoanMetadata extends Component {
   render() {
     let { data } = this.props;
     return (
-      <Segment raised className="item-metadata">
+      <Segment>
         <Grid>
           <Grid.Column>
+            <h1>Loan - {data.metadata.loan_pid}</h1>
             <Form>{this.renderLoanMetadata(data)}</Form>
           </Grid.Column>
         </Grid>

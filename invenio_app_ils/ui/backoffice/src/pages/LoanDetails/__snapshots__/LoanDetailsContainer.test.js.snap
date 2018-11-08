@@ -1,0 +1,328 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoanDetailsContainer should render an error when fetch fails 1`] = `
+<LoanDetailsContainer
+  data={
+    Object {
+      "availableActions": Object {
+        "action": "action",
+      },
+      "loan_pid": 42,
+      "metadata": Object {
+        "title": "title",
+      },
+    }
+  }
+  error={
+    Object {
+      "message": "error",
+    }
+  }
+  isLoading={false}
+>
+  <WithLoader
+    data={
+      Object {
+        "availableActions": Object {
+          "action": "action",
+        },
+        "loan_pid": 42,
+        "metadata": Object {
+          "title": "title",
+        },
+      }
+    }
+    error={
+      Object {
+        "message": "error",
+      }
+    }
+    isLoading={false}
+  >
+    <WithError
+      data={
+        Object {
+          "availableActions": Object {
+            "action": "action",
+          },
+          "loan_pid": 42,
+          "metadata": Object {
+            "title": "title",
+          },
+        }
+      }
+      error={
+        Object {
+          "message": "error",
+        }
+      }
+    >
+      <ApiError
+        error={
+          Object {
+            "message": "error",
+          }
+        }
+      >
+        <Message
+          content="error"
+          header="Oups, failed to fetch data from API!"
+          icon="exclamation"
+        >
+          <div
+            className="ui icon message"
+          >
+            <Icon
+              as="i"
+              name="exclamation"
+            >
+              <i
+                aria-hidden="true"
+                className="exclamation icon"
+              />
+            </Icon>
+            <MessageContent>
+              <div
+                className="content"
+              >
+                <MessageHeader
+                  content="Oups, failed to fetch data from API!"
+                >
+                  <div
+                    className="header"
+                  >
+                    Oups, failed to fetch data from API!
+                  </div>
+                </MessageHeader>
+                <p>
+                  error
+                </p>
+              </div>
+            </MessageContent>
+          </div>
+        </Message>
+      </ApiError>
+    </WithError>
+  </WithLoader>
+</LoanDetailsContainer>
+`;
+
+exports[`LoanDetailsContainer should render correctly props 1`] = `
+<LoanDetailsContainer
+  data={
+    Object {
+      "availableActions": Object {
+        "action": "action",
+      },
+      "loan_pid": 42,
+      "metadata": Object {
+        "title": "title",
+      },
+    }
+  }
+  isLoading={true}
+>
+  <WithLoader
+    data={
+      Object {
+        "availableActions": Object {
+          "action": "action",
+        },
+        "loan_pid": 42,
+        "metadata": Object {
+          "title": "title",
+        },
+      }
+    }
+    isLoading={true}
+  >
+    <ApiLoader>
+      <Loader
+        active={true}
+        inline="centered"
+        size="huge"
+      >
+        <div
+          className="ui huge active centered inline loader"
+        />
+      </Loader>
+    </ApiLoader>
+  </WithLoader>
+</LoanDetailsContainer>
+`;
+
+exports[`LoanDetailsContainer should render loan details when fetch succeeds 1`] = `
+<LoanDetailsContainer
+  data={
+    Object {
+      "availableActions": Object {
+        "action": "action",
+      },
+      "loan_pid": 42,
+      "metadata": Object {
+        "title": "title",
+      },
+    }
+  }
+  isLoading={false}
+>
+  <WithLoader
+    data={
+      Object {
+        "availableActions": Object {
+          "action": "action",
+        },
+        "loan_pid": 42,
+        "metadata": Object {
+          "title": "title",
+        },
+      }
+    }
+    isLoading={false}
+  >
+    <WithError
+      data={
+        Object {
+          "availableActions": Object {
+            "action": "action",
+          },
+          "loan_pid": 42,
+          "metadata": Object {
+            "title": "title",
+          },
+        }
+      }
+    >
+      <LoanDetails
+        data={
+          Object {
+            "availableActions": Object {
+              "action": "action",
+            },
+            "loan_pid": 42,
+            "metadata": Object {
+              "title": "title",
+            },
+          }
+        }
+      >
+        <Container>
+          <div
+            className="ui container"
+          >
+            <LoanMetadata
+              data={
+                Object {
+                  "availableActions": Object {
+                    "action": "action",
+                  },
+                  "loan_pid": 42,
+                  "metadata": Object {
+                    "title": "title",
+                  },
+                }
+              }
+            >
+              <Segment>
+                <div
+                  className="ui segment"
+                >
+                  <Grid>
+                    <div
+                      className="ui grid"
+                    >
+                      <GridColumn>
+                        <div
+                          className="column"
+                        >
+                          <h1>
+                            Loan - 
+                          </h1>
+                          <Form
+                            as="form"
+                          >
+                            <form
+                              className="ui form"
+                              onSubmit={[Function]}
+                            >
+                              <FormField
+                                key="title"
+                                name="loan-field"
+                              >
+                                <div
+                                  className="field"
+                                  name="loan-field"
+                                >
+                                  <label
+                                    className="field-name"
+                                  >
+                                    title
+                                  </label>
+                                  <p>
+                                    title
+                                  </p>
+                                </div>
+                              </FormField>
+                            </form>
+                          </Form>
+                        </div>
+                      </GridColumn>
+                    </div>
+                  </Grid>
+                </div>
+              </Segment>
+            </LoanMetadata>
+            <LoanActions
+              data={
+                Object {
+                  "availableActions": Object {
+                    "action": "action",
+                  },
+                  "loan_pid": 42,
+                  "metadata": Object {
+                    "title": "title",
+                  },
+                }
+              }
+            >
+              <List
+                horizontal={true}
+              >
+                <div
+                  className="ui horizontal list"
+                  role="list"
+                >
+                  <ListItem
+                    key="action"
+                  >
+                    <div
+                      className="item"
+                      onClick={[Function]}
+                      role="listitem"
+                    >
+                      <Button
+                        as="button"
+                        onClick={[Function]}
+                        primary={true}
+                        role="button"
+                      >
+                        <button
+                          className="ui primary button"
+                          onClick={[Function]}
+                          role="button"
+                        >
+                          action
+                        </button>
+                      </Button>
+                    </div>
+                  </ListItem>
+                </div>
+              </List>
+            </LoanActions>
+          </div>
+        </Container>
+      </LoanDetails>
+    </WithError>
+  </WithLoader>
+</LoanDetailsContainer>
+`;

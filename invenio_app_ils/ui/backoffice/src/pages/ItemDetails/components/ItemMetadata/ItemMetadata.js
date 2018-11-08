@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Grid, Segment, Form } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 import './ItemMetadata.scss';
 
@@ -22,9 +22,10 @@ export class ItemMetadata extends Component {
   render() {
     let { data } = this.props;
     return (
-      <Segment raised className="item-metadata">
+      <Segment className="item-metadata">
         <Grid>
           <Grid.Column>
+            <h1>Item - {data.id}</h1>
             <Form>{this.renderItemMetadata(data)}</Form>
           </Grid.Column>
         </Grid>

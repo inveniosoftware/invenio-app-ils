@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoanDetails should render correctly with props 1`] = `
+<WithLoader
+  actionLoading={false}
+  data={
+    Object {
+      "availableActions": Object {
+        "action": "action",
+      },
+      "loan_id": 42,
+      "metadata": Object {
+        "title": "title",
+      },
+    }
+  }
+  isLoading={false}
+  loanActionError={false}
+  onAction={[Function]}
+  postLoanAction={[Function]}
+>
+  <WithError
+    actionLoading={false}
+    data={
+      Object {
+        "availableActions": Object {
+          "action": "action",
+        },
+        "loan_id": 42,
+        "metadata": Object {
+          "title": "title",
+        },
+      }
+    }
+    loanActionError={false}
+    onAction={[Function]}
+    postLoanAction={[Function]}
+  >
+    <LoanDetails
+      actionLoading={false}
+      data={
+        Object {
+          "availableActions": Object {
+            "action": "action",
+          },
+          "loan_id": 42,
+          "metadata": Object {
+            "title": "title",
+          },
+        }
+      }
+      loanActionError={false}
+      onAction={[Function]}
+      postLoanAction={[Function]}
+    >
+      <Container>
+        <div
+          className="ui container"
+        >
+          <LoanMetadata
+            data={
+              Object {
+                "availableActions": Object {
+                  "action": "action",
+                },
+                "loan_id": 42,
+                "metadata": Object {
+                  "title": "title",
+                },
+              }
+            }
+          >
+            <Segment>
+              <div
+                className="ui segment"
+              >
+                <Grid>
+                  <div
+                    className="ui grid"
+                  >
+                    <GridColumn>
+                      <div
+                        className="column"
+                      >
+                        <h1>
+                          Loan - 
+                        </h1>
+                        <Form
+                          as="form"
+                        >
+                          <form
+                            className="ui form"
+                            onSubmit={[Function]}
+                          >
+                            <FormField
+                              key="title"
+                              name="loan-field"
+                            >
+                              <div
+                                className="field"
+                                name="loan-field"
+                              >
+                                <label
+                                  className="field-name"
+                                >
+                                  title
+                                </label>
+                                <p>
+                                  title
+                                </p>
+                              </div>
+                            </FormField>
+                          </form>
+                        </Form>
+                      </div>
+                    </GridColumn>
+                  </div>
+                </Grid>
+              </div>
+            </Segment>
+          </LoanMetadata>
+          <LoanActions
+            data={
+              Object {
+                "availableActions": Object {
+                  "action": "action",
+                },
+                "loan_id": 42,
+                "metadata": Object {
+                  "title": "title",
+                },
+              }
+            }
+            onAction={[Function]}
+          >
+            <List
+              horizontal={true}
+            >
+              <div
+                className="ui horizontal list"
+                role="list"
+              >
+                <ListItem
+                  key="action"
+                >
+                  <div
+                    className="item"
+                    onClick={[Function]}
+                    role="listitem"
+                  >
+                    <Button
+                      as="button"
+                      onClick={[Function]}
+                      primary={true}
+                      role="button"
+                    >
+                      <button
+                        className="ui primary button"
+                        onClick={[Function]}
+                        role="button"
+                      >
+                        action
+                      </button>
+                    </Button>
+                  </div>
+                </ListItem>
+              </div>
+            </List>
+          </LoanActions>
+        </div>
+      </Container>
+    </LoanDetails>
+  </WithError>
+</WithLoader>
+`;

@@ -8,18 +8,19 @@ export const fetchItemList = () => {
       payload: {},
     });
 
-    let response = await item.getList().catch(reason => {
-      dispatch({
-        type: HAS_ERROR,
-        payload: reason,
+    await item
+      .getList()
+      .then(response => {
+        dispatch({
+          type: ITEM_LIST,
+          payload: response.data,
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: HAS_ERROR,
+          payload: error,
+        });
       });
-    });
-
-    if (response) {
-      dispatch({
-        type: ITEM_LIST,
-        payload: response.data,
-      });
-    }
   };
 };

@@ -1,107 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoanAction creates a List.Item for each action 1`] = `
-<LoanActions
-  actions={
-    Object {
-      "action": "url",
-      "anotheraction": "another-url",
-    }
-  }
-  data={Object {}}
-  onAction={[Function]}
->
-  <List
-    horizontal={true}
-  >
-    <div
-      className="ui horizontal list"
-      role="list"
-    >
-      <ListItem
-        key="action"
-      >
-        <div
-          className="item"
-          onClick={[Function]}
-          role="listitem"
-        >
-          <Button
-            as="button"
-            onClick={[Function]}
-            primary={true}
-            role="button"
-          >
-            <button
-              className="ui primary button"
-              onClick={[Function]}
-              role="button"
-            >
-              action
-            </button>
-          </Button>
-        </div>
-      </ListItem>
-      <ListItem
-        key="anotheraction"
-      >
-        <div
-          className="item"
-          onClick={[Function]}
-          role="listitem"
-        >
-          <Button
-            as="button"
-            onClick={[Function]}
-            primary={true}
-            role="button"
-          >
-            <button
-              className="ui primary button"
-              onClick={[Function]}
-              role="button"
-            >
-              anotheraction
-            </button>
-          </Button>
-        </div>
-      </ListItem>
-    </div>
-  </List>
-</LoanActions>
-`;
-
-exports[`LoanAction renders initial state and checks the props are passed 1`] = `
-<LoanActions
-  actions={Object {}}
-  data={Object {}}
-  onAction={[Function]}
->
-  <List
-    horizontal={true}
-  >
-    <div
-      className="ui horizontal list"
-      role="list"
-    />
-  </List>
-</LoanActions>
-`;
-
-exports[`LoanAction renders loader on action triggered 1`] = `
+exports[`LoanActions should render a loader when trigger an action 1`] = `
 <LoanActions
   actionLoading={true}
   actions={Object {}}
   data={Object {}}
   onAction={[Function]}
 >
-  <Loader
-    active={true}
-    inline="centered"
+  <List
+    horizontal={true}
   >
     <div
-      className="ui active centered inline loader"
+      className="ui horizontal list"
+      role="list"
     />
-  </Loader>
+  </List>
+</LoanActions>
+`;
+
+exports[`LoanActions should render an List.Item for each available action 1`] = `
+<LoanActions
+  actions={Object {}}
+  availableActions={
+    Object {
+      "action": "url",
+      "anotheraction": "another-url",
+    }
+  }
+  data={
+    Object {
+      "title": "A title",
+    }
+  }
+  onAction={[Function]}
+>
+  <List
+    horizontal={true}
+  >
+    <div
+      className="ui horizontal list"
+      role="list"
+    />
+  </List>
+</LoanActions>
+`;
+
+exports[`LoanActions should render initial state and check props 1`] = `
+<LoanActions
+  actions={Object {}}
+  data={Object {}}
+  onAction={[Function]}
+>
+  <List
+    horizontal={true}
+  >
+    <div
+      className="ui horizontal list"
+      role="list"
+    />
+  </List>
 </LoanActions>
 `;

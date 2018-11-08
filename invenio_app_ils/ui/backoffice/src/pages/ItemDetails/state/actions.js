@@ -8,18 +8,19 @@ export const fetchItemDetails = itemId => {
       payload: {},
     });
 
-    let response = await item.getRecord(itemId).catch(reason => {
-      dispatch({
-        type: HAS_ERROR,
-        payload: reason,
+    await item
+      .getRecord(itemId)
+      .then(response => {
+        dispatch({
+          type: ITEM_DETAILS,
+          payload: response.data,
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: HAS_ERROR,
+          payload: error,
+        });
       });
-    });
-
-    if (response) {
-      dispatch({
-        type: ITEM_DETAILS,
-        payload: response.data,
-      });
-    }
   };
 };
