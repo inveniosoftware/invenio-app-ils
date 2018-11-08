@@ -58,7 +58,6 @@ exports[`LoanDetails should render correctly with props 1`] = `
           className="ui container"
         >
           <LoanMetadata
-            actionLoading={false}
             data={
               Object {
                 "availableActions": Object {
@@ -70,9 +69,6 @@ exports[`LoanDetails should render correctly with props 1`] = `
                 },
               }
             }
-            loanActionError={false}
-            onAction={[Function]}
-            postLoanAction={[Function]}
           >
             <Segment>
               <div
@@ -124,7 +120,6 @@ exports[`LoanDetails should render correctly with props 1`] = `
             </Segment>
           </LoanMetadata>
           <LoanActions
-            actionLoading={false}
             data={
               Object {
                 "availableActions": Object {
@@ -136,9 +131,7 @@ exports[`LoanDetails should render correctly with props 1`] = `
                 },
               }
             }
-            loanActionError={false}
             onAction={[Function]}
-            postLoanAction={[Function]}
           >
             <List
               horizontal={true}

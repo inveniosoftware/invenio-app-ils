@@ -23,12 +23,13 @@ export default class LoanDetailsContainer extends Component {
   }
 
   render() {
-    let { data, isLoading } = this.props;
+    let { data, isLoading, error } = this.props;
     return (
       <LoanDetails
         data={data}
         isLoading={isLoading}
         onAction={this.postLoanAction}
+        error={error}
       />
     );
   }

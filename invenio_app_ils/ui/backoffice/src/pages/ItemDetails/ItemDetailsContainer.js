@@ -22,8 +22,8 @@ export default class ItemDetailsContainer extends Component {
   }
 
   render() {
-    let { isLoading, data } = this.props;
-    return <ItemDetails data={data} isLoading={isLoading} />;
+    let { isLoading, data, error } = this.props;
+    return <ItemDetails data={data} isLoading={isLoading} error={error} />;
   }
 }
 

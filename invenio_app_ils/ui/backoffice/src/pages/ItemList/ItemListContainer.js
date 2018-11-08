@@ -22,8 +22,8 @@ export default class ItemListContainer extends Component {
   }
 
   render() {
-    let { data, isLoading } = this.props;
-    return <ItemList data={data} isLoading={isLoading} />;
+    let { data, isLoading, error } = this.props;
+    return <ItemList data={data} isLoading={isLoading} error={error} />;
   }
 }
 

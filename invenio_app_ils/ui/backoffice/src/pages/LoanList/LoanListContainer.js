@@ -22,8 +22,8 @@ export default class LoanListContainer extends Component {
   }
 
   render() {
-    let { data, isLoading } = this.props;
-    return <LoanList data={data} isLoading={isLoading} />;
+    let { data, isLoading, error } = this.props;
+    return <LoanList data={data} isLoading={isLoading} error={error} />;
   }
 }
 

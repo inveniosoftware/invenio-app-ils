@@ -14,11 +14,11 @@ const EnchancedTable = compose(
 
 export class ItemList extends Component {
   render() {
-    let { isLoading, data } = this.props;
+    let { isLoading, data, error } = this.props;
     return (
       <Container>
         <h1>Items</h1>
-        <EnchancedTable isLoading={isLoading} data={data} />
+        <EnchancedTable isLoading={isLoading} data={data} error={error} />
       </Container>
     );
   }

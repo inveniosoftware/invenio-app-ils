@@ -13,10 +13,14 @@ export const EnchancedItemMetadata = compose(
 
 export class ItemDetails extends Component {
   render() {
-    let { isLoading, data } = this.props;
+    let { isLoading, data, error } = this.props;
     return (
       <section>
-        <EnchancedItemMetadata data={data} isLoading={isLoading} />
+        <EnchancedItemMetadata
+          data={data}
+          isLoading={isLoading}
+          error={error}
+        />
         <ItemLoans />
       </section>
     );
