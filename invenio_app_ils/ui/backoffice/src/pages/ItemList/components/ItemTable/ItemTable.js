@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
-import { withLoader, withError } from 'common/hoc';
+import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import { URLS } from 'common/urls';
 
 import './ItemTable.scss';
 
-class ItemTableTemplate extends Component {
+export class ItemTable extends Component {
   navigateToDetails(itemId) {
     this.props.history.push(URLS.itemDetails(itemId));
   }
@@ -45,7 +44,6 @@ class ItemTableTemplate extends Component {
   }
 }
 
-export const ItemTable = compose(
-  withError,
-  withLoader
-)(ItemTableTemplate);
+ItemTable.propTypes = {
+  data: PropTypes.object.isRequired,
+};

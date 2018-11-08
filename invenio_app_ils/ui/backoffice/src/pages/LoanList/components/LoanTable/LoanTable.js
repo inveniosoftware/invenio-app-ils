@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import { URLS } from 'common/urls';
 
@@ -44,3 +45,7 @@ export class LoanTable extends Component {
     );
   }
 }
+
+LoanTable.propTypes = {
+  data: PropTypes.object.isRequired,
+};

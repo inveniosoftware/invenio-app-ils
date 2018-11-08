@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import LoanDetails from './components/LoanDetails/LoanDetails';
 
 export default class LoanDetailsContainer extends Component {
@@ -22,6 +23,17 @@ export default class LoanDetailsContainer extends Component {
   }
 
   render() {
-    return <LoanDetails {...this.props} />;
+    let { data, isLoading } = this.props;
+    return (
+      <LoanDetails
+        data={data}
+        isLoading={isLoading}
+        onAction={this.postLoanAction}
+      />
+    );
   }
 }
+
+LoanDetailsContainer.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};

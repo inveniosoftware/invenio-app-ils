@@ -22,11 +22,11 @@ export default class ItemDetailsContainer extends Component {
   }
 
   render() {
-    return <ItemDetails {...this.props} />;
+    let { isLoading, data } = this.props;
+    return <ItemDetails data={data} isLoading={isLoading} />;
   }
 }
 
-ItemDetails.propTypes = {
+ItemDetailsContainer.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  data: PropTypes.object.isRequired,
 };
