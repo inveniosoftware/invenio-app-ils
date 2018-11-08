@@ -172,6 +172,13 @@ SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://test:psw@localhost/ils"
 #: Hostname used in URLs for local JSONSchemas.
 JSONSCHEMAS_HOST = "ils.mydomain.org"
 
+# CORS
+# ====
+REST_ENABLE_CORS = True
+# change this only while developing
+CORS_SEND_WILDCARD = True
+CORS_SUPPORTS_CREDENTIALS = False
+
 # Flask configuration
 # ===================
 # See details on
