@@ -8,17 +8,21 @@
  invenio-app-ils
 =================
 
-.. image:: https://img.shields.io/travis/invenio_app_ils/invenio_app_ils.svg
-        :target: https://travis-ci.org/invenio_app_ils/invenio_app_ils
+.. image:: https://img.shields.io/travis/inveniosoftware/invenio-app-ils.svg
+        :target: https://travis-ci.org/inveniosoftware/invenio-app-ils
 
-.. image:: https://img.shields.io/coveralls/invenio_app_ils/invenio_app_ils.svg
-        :target: https://coveralls.io/r/invenio_app_ils/invenio_app_ils
+.. image:: https://img.shields.io/coveralls/inveniosoftware/invenio-app-ils.svg
+        :target: https://coveralls.io/r/inveniosoftware/invenio-app-ils
 
-.. image:: https://img.shields.io/github/license/invenio_app_ils/invenio_app_ils.svg
-        :target: https://github.com/invenio_app_ils/invenio_app_ils/blob/master/LICENSE
+.. image:: https://img.shields.io/github/license/inveniosoftware/invenio-app-ils.svg
+        :target: https://github.com/inveniosoftware/invenio-app-ils/blob/master/LICENSE
 
-Invenio app ils
+Invenio App ILS
 
 Further documentation is available on
 https://invenio_app_ils.readthedocs.io/
+
+Installation
+============
+See INSTALL.rst
 
