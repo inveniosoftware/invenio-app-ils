@@ -28,13 +28,9 @@ tests_require = [
 ]
 
 extras_require = {
-    "docs": [
-        "Sphinx>=1.5.1"
-    ],
-    "lorem": [
-        "lorem>=0.1.1 "
-    ],
-    "tests": tests_require
+    "docs": ["Sphinx>=1.5.1"],
+    "lorem": ["lorem>=0.1.1 "],
+    "tests": tests_require,
 }
 
 extras_require["all"] = []
@@ -51,7 +47,7 @@ install_requires = [
     "invenio-config>=1.0.1",
     "invenio-circulation==0.1.0.dev20180000",  # TODO: add a version here
     # when released, need for Travis and isort
-    "invenio-records-editor==1.0.0a2"
+    "invenio-records-editor==1.0.0a2",
 ]
 
 packages = find_packages()
@@ -87,14 +83,13 @@ setup(
             "invenio_app_ils_rest = invenio_app_ils.ext:InvenioAppIlsREST"
         ],
         "invenio_base.blueprints": [
-            "invenio_app_ils_main = "
-            "invenio_app_ils.views:main_blueprint",
+            "invenio_app_ils_main = invenio_app_ils.views:main_blueprint",
             "invenio_app_ils_backoffice = "
             "invenio_app_ils.views:backoffice_blueprint",
         ],
         "invenio_base.api_blueprints": [
             "invenio_app_ils_circulation = "
-            "invenio_app_ils.circulation.views:create_circulation_blueprint",
+            "invenio_app_ils.circulation.views:create_circulation_blueprint"
         ],
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config"
@@ -135,9 +130,10 @@ setup(
             "backoffice_access_action = "
             "invenio_app_ils.permissions:backoffice_access_action"
         ],
-        'invenio_records.jsonresolver': [
-            'items = invenio_app_ils.records.jsonresolver.items'
-        ]
+        "invenio_records.jsonresolver": [
+            "item = invenio_app_ils.records.jsonresolver.item",
+            "location = invenio_app_ils.records.jsonresolver.location",
+        ],
     },
     extras_require=extras_require,
     install_requires=install_requires,

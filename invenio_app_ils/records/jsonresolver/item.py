@@ -11,8 +11,9 @@ import jsonresolver
 from invenio_circulation.api import get_loan_for_item
 
 
-@jsonresolver.route('/api/circulation/items/<pid_value>/loan',
-                    host='ils.mydomain.org')
+@jsonresolver.route(
+    "/api/circulation/items/<pid_value>/loan", host="ils.mydomain.org"
+)
 def loan_for_item_resolver(pid_value):
     """Return the circulation status for the given item."""
     return get_loan_for_item(pid_value) or {}

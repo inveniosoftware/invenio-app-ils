@@ -13,12 +13,13 @@ from flask import current_app
 from invenio_jsonschemas import current_jsonschemas
 from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
+from ..errors import IlsException
 
 from ..pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
     ITEM_PID_TYPE,
-    LOCATION_PID_TYPE
+    LOCATION_PID_TYPE,
 )
 
 
@@ -29,9 +30,7 @@ class IlsRecord(Record):
     def get_record_by_pid(cls, pid, with_deleted=False):
         """Get ils record by pid value."""
         resolver = Resolver(
-            pid_type=cls._pid_type,
-            object_type="rec",
-            getter=cls.get_record,
+            pid_type=cls._pid_type, object_type="rec", getter=cls.get_record
         )
         _, record = resolver.resolve(str(pid))
         return record
@@ -62,12 +61,11 @@ class Item(IlsRecord):
     def create(cls, data, id_=None, **kwargs):
         """Create Item record."""
         data["circulation_status"] = {
-            "$ref": "{scheme}://{host}/api/circulation/items/{pid_value}/loan"
-                    .format(
-                        scheme=current_app.config['JSONSCHEMAS_URL_SCHEME'],
-                        host=current_app.config['JSONSCHEMAS_HOST'],
-                        pid_value=data[cls.pid_field]
-                    )
+            "$ref": "{scheme}://{host}/api/circulation/items/{pid_value}/loan".format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                pid_value=data[cls.pid_field],
+            )
         }
         return super(Item, cls).create(data, id_=id_, **kwargs)
 
@@ -95,4 +93,15 @@ class InternalLocation(IlsRecord):
     @classmethod
     def create(cls, data, id_=None, **kwargs):
         """Create Internal Location record."""
+        if Location.pid_field not in kwargs:
+            raise IlsException("Location pid is required")
+
+        data["location"] = {
+            "$ref": "{scheme}://{host}/api/locations/{pid_value}".format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                pid_value=kwargs[Location.pid_field],
+            )
+        }
+        del kwargs[Location.pid_field]
         return super(InternalLocation, cls).create(data, id_=id_, **kwargs)

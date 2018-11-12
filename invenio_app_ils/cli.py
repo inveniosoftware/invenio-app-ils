@@ -181,9 +181,9 @@ def create_loc_record():
     return record
 
 
-def create_iloc_record(internal_location):
+def create_iloc_record(internal_location, loc_pid):
     """Create Internal Location record."""
-    record = InternalLocation.create(internal_location)
+    record = InternalLocation.create(internal_location, **{Location.pid_field: loc_pid})
     _mint_record_pid(INTERNAL_LOCATION_PID_TYPE,
                      InternalLocation.pid_field, record)
     record.commit()
@@ -236,7 +236,7 @@ def data(n_docs, n_items, n_loans):
     with click.progressbar(get_internal_locations(rec_location),
                            label="Internal Locations") as ilocs:
         for iloc in ilocs:
-            rec = create_iloc_record(iloc)
+            rec = create_iloc_record(iloc, rec_location[Location.pid_field])
             rec_int_locs.append(rec)
 
     documents, items = get_documents_items(rec_int_locs, n_docs=n_docs,
