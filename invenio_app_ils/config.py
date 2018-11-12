@@ -34,7 +34,7 @@ from invenio_circulation.config import (  # isort:skip
 from invenio_circulation.pidstore.pids import (  # isort:skip
     CIRCULATION_LOAN_FETCHER,
     CIRCULATION_LOAN_MINTER,
-    CIRCULATION_LOAN_PID_TYPE
+    CIRCULATION_LOAN_PID_TYPE,
 )
 from invenio_circulation.transitions.transitions import (  # isort:skip
     ToItemOnLoan,
@@ -72,7 +72,7 @@ from .pidstore.pids import (  # isort:skip
     ITEM_PID_TYPE,
     LOCATION_PID_FETCHER,
     LOCATION_PID_MINTER,
-    LOCATION_PID_TYPE
+    LOCATION_PID_TYPE,
 )
 
 
@@ -196,7 +196,7 @@ SESSION_COOKIE_SECURE = True
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
 APP_ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-APP_DEFAULT_SECURE_HEADERS['content_security_policy'] = {}
+APP_DEFAULT_SECURE_HEADERS["content_security_policy"] = {}
 
 # OAI-PMH
 # =======
@@ -210,10 +210,18 @@ DEBUG_TB_ENABLED = True
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 
-_DOCID_CONVERTER = 'pid(docid, record_class="invenio_app_ils.records.api:Document")'
-_ITEMID_CONVERTER = 'pid(itemid, record_class="invenio_app_ils.records.api:Item")'
-_LOCID_CONVERTER = 'pid(locid, record_class="invenio_app_ils.records.api:Location")'
-_ILOCID_CONVERTER = 'pid(ilocid, record_class="invenio_app_ils.records.api:InternalLocation")'
+_DOCID_CONVERTER = (
+    'pid(docid, record_class="invenio_app_ils.records.api:Document")'
+)
+_ITEMID_CONVERTER = (
+    'pid(itemid, record_class="invenio_app_ils.records.api:Item")'
+)
+_LOCID_CONVERTER = (
+    'pid(locid, record_class="invenio_app_ils.records.api:Location")'
+)
+_ILOCID_CONVERTER = (
+    'pid(ilocid, record_class="invenio_app_ils.records.api:InternalLocation")'
+)
 
 # RECORDS REST
 # ============
@@ -313,7 +321,9 @@ RECORDS_REST_ENDPOINTS = dict(
             )
         },
         list_route="/internal-locations/",
-        item_route="/internal-locations/<{0}:pid_value>".format(_ILOCID_CONVERTER),
+        item_route="/internal-locations/<{0}:pid_value>".format(
+            _ILOCID_CONVERTER
+        ),
         default_media_type="application/json",
         max_result_window=10000,
         error_handlers=dict(),
@@ -507,7 +517,9 @@ CIRCULATION_REST_ENDPOINTS = dict(
             )
         },
         list_route="/circulation/loans/",
-        item_route="/circulation/loans/<{0}:pid_value>".format(_LOANID_CONVERTER),
+        item_route="/circulation/loans/<{0}:pid_value>".format(
+            _LOANID_CONVERTER
+        ),
         default_media_type="application/json",
         links_factory_imp="invenio_circulation.links:loan_links_factory",
         max_result_window=10000,
@@ -527,5 +539,5 @@ ILS_VIEWS_PERMISSIONS_FACTORY = views_permissions_factory
 
 # Records Editor
 # ==============
-RECORDS_EDITOR_URL_PREFIX = '/editor'
+RECORDS_EDITOR_URL_PREFIX = "/editor"
 """Default URL we want to serve our editor application, i.e /editor."""
