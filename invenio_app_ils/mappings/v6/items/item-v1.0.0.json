@@ -41,6 +41,7 @@
           "type": "keyword"
         },
         "circulation_status": {
+          "type": "object",
           "properties": {
             "$schema": {
               "type": "keyword"

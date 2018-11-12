@@ -2,11 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Schema for Internal Location",
   "type": "object",
-  "required": [
-    "$schema",
-    "internal_location_pid",
-    "location_pid"
-  ],
+  "required": ["$schema", "internal_location_pid", "location"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -15,9 +11,13 @@
       "type": "string",
       "title": "Internal Location ID"
     },
-    "location_pid": {
-      "type": "string",
-      "title": "Location ID"
+    "location": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
     },
     "legacy_id": {
       "type": "string",
