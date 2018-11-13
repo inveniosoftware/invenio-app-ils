@@ -5,7 +5,7 @@
   "required": [
     "$schema",
     "document_pid",
-    "internal_location_pid",
+    "internal_location",
     "barcode",
     "status"
   ],
@@ -21,9 +21,9 @@
       "type": "string",
       "title": "Document ID"
     },
-    "internal_location_pid": {
-      "type": "string",
-      "title": "Internal Location ID"
+    "internal_location": {
+      "type": "object",
+      "title": "Internal Location"
     },
     "legacy_id": {
       "type": "string",
