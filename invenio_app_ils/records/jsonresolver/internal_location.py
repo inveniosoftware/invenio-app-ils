@@ -8,9 +8,10 @@
 """Ils Internal Location record resolver."""
 
 import jsonresolver
-from invenio_pidstore.errors import PersistentIdentifierError
-from ..api import InternalLocation
 from flask import current_app
+from invenio_pidstore.errors import PersistentIdentifierError
+
+from ..api import InternalLocation
 
 
 @jsonresolver.route(

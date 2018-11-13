@@ -21,18 +21,11 @@ from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_circulation.search.api import LoansSearch
 
 from .records.api import Document, InternalLocation, Item, Location
-from .records.permissions import (
-    record_create_permission_factory,
-    record_delete_permission_factory,
-    record_read_permission_factory,
-    record_update_permission_factory,
-)
-from .search.api import (
-    DocumentSearch,
-    InternalLocationSearch,
-    ItemSearch,
-    LocationSearch,
-)
+from .records.permissions import record_create_permission_factory, \
+    record_delete_permission_factory, record_read_permission_factory, \
+    record_update_permission_factory
+from .search.api import DocumentSearch, InternalLocationSearch, ItemSearch, \
+    LocationSearch
 
 from invenio_circulation.config import (  # isort:skip
     CIRCULATION_POLICIES,
