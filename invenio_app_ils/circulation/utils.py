@@ -12,7 +12,7 @@ from __future__ import absolute_import, print_function
 from flask import current_app
 from invenio_pidstore.errors import PersistentIdentifierError
 
-from ..records.api import Document, InternalLocation, Item
+from ..records.api import Document, Item
 
 
 def circulation_items_retriever(document_pid):
@@ -30,10 +30,9 @@ def circulation_document_retriever(item_pid):
 
 def circulation_item_location_retriever(item_pid):
     """Retrieve location pid given an item."""
-    item = Item.get_record_by_pid(item_pid)
-    internal_location = InternalLocation.get_record_by_pid(
-        item["internal_location_pid"])
-    return internal_location["location_pid"]
+    item_rec = Item.get_record_by_pid(item_pid)
+    item = item_rec.replace_refs()
+    return item["internal_location"]["location"]["location_pid"]
 
 
 def circulation_item_exists(item_pid):

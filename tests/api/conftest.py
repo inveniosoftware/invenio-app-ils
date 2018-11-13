@@ -9,6 +9,8 @@
 
 from __future__ import absolute_import, print_function
 
+from random import randint
+
 import pytest
 from invenio_app.factory import create_api
 from invenio_circulation.api import Loan
@@ -27,11 +29,11 @@ from invenio_app_ils.pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
     ITEM_PID_TYPE,
-    LOCATION_PID_TYPE
+    LOCATION_PID_TYPE,
 )
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def create_app():
     """Create test app."""
     return create_api
@@ -40,15 +42,19 @@ def create_app():
 @pytest.fixture()
 def json_headers():
     """JSON headers."""
-    return [('Content-Type', 'application/json'),
-            ('Accept', 'application/json')]
+    return [
+        ("Content-Type", "application/json"),
+        ("Accept", "application/json"),
+    ]
 
 
 @pytest.fixture()
 def json_patch_headers():
     """JSON headers for Invenio Records REST PATCH api calls."""
-    return [('Content-Type', 'application/json-patch+json'),
-            ('Accept', 'application/json')]
+    return [
+        ("Content-Type", "application/json-patch+json"),
+        ("Accept", "application/json"),
+    ]
 
 
 @pytest.fixture()
@@ -56,7 +62,7 @@ def testdata(app, db, es_clear):
     """Create, index and return test data."""
     indexer = RecordIndexer()
 
-    locations = load_json_from_datadir('locations.json')
+    locations = load_json_from_datadir("locations.json")
     for location in locations:
         record = Location.create(location)
         mint_record_pid(LOCATION_PID_TYPE, Location.pid_field, record)
@@ -64,16 +70,22 @@ def testdata(app, db, es_clear):
         db.session.commit()
         indexer.index(record)
 
-    internal_locations = load_json_from_datadir('internal_locations.json')
+    internal_locations = load_json_from_datadir("internal_locations.json")
+    iloc_records = []
     for internal_location in internal_locations:
-        record = InternalLocation.create(internal_location)
-        mint_record_pid(INTERNAL_LOCATION_PID_TYPE, InternalLocation.pid_field,
-                        record)
+        record = InternalLocation.create(
+            internal_location,
+            **{Location.pid_field: locations[0]["location_pid"]},
+        )
+        mint_record_pid(
+            INTERNAL_LOCATION_PID_TYPE, InternalLocation.pid_field, record
+        )
         record.commit()
+        iloc_records.append(record)
         db.session.commit()
         indexer.index(record)
 
-    documents = load_json_from_datadir('documents.json')
+    documents = load_json_from_datadir("documents.json")
     for doc in documents:
         record = Document.create(doc)
         mint_record_pid(DOCUMENT_PID_TYPE, Document.pid_field, record)
@@ -81,15 +93,18 @@ def testdata(app, db, es_clear):
         db.session.commit()
         indexer.index(record)
 
-    items = load_json_from_datadir('items.json')
+    items = load_json_from_datadir("items.json")
     for item in items:
-        record = Item.create(item)
+        iloc = iloc_records[randint(0, len(iloc_records) - 1)]
+        record = Item.create(
+            item, **{InternalLocation.pid_field: iloc["internal_location_pid"]}
+        )
         mint_record_pid(ITEM_PID_TYPE, Item.pid_field, record)
         record.commit()
         db.session.commit()
         indexer.index(record)
 
-    loans = load_json_from_datadir('loans.json')
+    loans = load_json_from_datadir("loans.json")
     for loan in loans:
         record = Loan.create(loan)
         mint_record_pid(CIRCULATION_LOAN_PID_TYPE, Loan.pid_field, record)
@@ -103,8 +118,8 @@ def testdata(app, db, es_clear):
     current_search.flush_and_refresh(index=None)
 
     return {
-        'locations': locations,
-        'documents': documents,
-        'items': items,
-        'loans': loans
+        "locations": locations,
+        "documents": documents,
+        "items": items,
+        "loans": loans,
     }
