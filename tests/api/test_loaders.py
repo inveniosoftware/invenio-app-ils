@@ -53,7 +53,7 @@ def _test_response(client, req_method, url, headers, data, expected_resp_code):
 
 
 def test_post_internal_location(client, json_headers, testdata, users):
-    """Test POST permissions of an item."""
+    """Test POST of internal_location."""
     user_login("admin", client, users)
     url = url_for("invenio_records_rest.ilocid_list")
     res = _test_response(
@@ -63,11 +63,32 @@ def test_post_internal_location(client, json_headers, testdata, users):
     assert "$ref" in data["location"]
 
 
-def test_post_broken_internal_location(client, json_headers, testdata, users):
-    """Test POST permissions of an item."""
+def test_post_partial_internal_location(client, json_headers, testdata, users):
+    """Test POST of internal_location without all required data."""
     user_login("admin", client, users)
     del NEW_INTERNAL_LOCATION["location_pid"]
     url = url_for("invenio_records_rest.ilocid_list")
     _test_response(
         client, "post", url, json_headers, NEW_INTERNAL_LOCATION, 400
+    )
+
+
+def test_post_item(client, json_headers, testdata, users):
+    """Test POST of an item."""
+    user_login("admin", client, users)
+    url = url_for("invenio_records_rest.itemid_list")
+    res = _test_response(
+        client, "post", url, json_headers, NEW_ITEM, 201
+    )
+    data = json.loads(res.data.decode("utf-8"))["metadata"]
+    assert "$ref" in data["internal_location"]
+
+
+def test_post_partial_item(client, json_headers, testdata, users):
+    """Test POST of an item."""
+    user_login("admin", client, users)
+    del NEW_ITEM["document_pid"]
+    url = url_for("invenio_records_rest.itemid_list")
+    _test_response(
+        client, "post", url, json_headers, NEW_ITEM, 400
     )
