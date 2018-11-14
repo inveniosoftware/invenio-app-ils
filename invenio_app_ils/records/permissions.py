@@ -12,28 +12,28 @@ from flask_principal import ActionNeed, RoleNeed, UserNeed
 from invenio_access import Permission, any_user
 from six import string_types
 
-librarian_role = RoleNeed('librarian')
-create_records_action = ActionNeed('create-records')
+librarian_role = RoleNeed("librarian")
+create_records_action = ActionNeed("create-records")
 
 
 def record_create_permission_factory(record=None):
     """Record create permission factory."""
-    return RecordPermission(record=record, action='create')
+    return RecordPermission(record=record, action="create")
 
 
 def record_update_permission_factory(record=None):
     """Record update permission factory."""
-    return RecordPermission(record=record, action='update')
+    return RecordPermission(record=record, action="update")
 
 
 def record_delete_permission_factory(record=None):
     """Record delete permission factory."""
-    return RecordPermission(record=record, action='delete')
+    return RecordPermission(record=record, action="delete")
 
 
 def record_read_permission_factory(record=None):
     """Record read permission factory."""
-    return RecordPermission(record=record, action='read')
+    return RecordPermission(record=record, action="read")
 
 
 class RecordPermission(Permission):
@@ -53,11 +53,11 @@ class RecordPermission(Permission):
 
     def collect_needs(self):
         """Collect permission policy per action."""
-        if self.current_action == 'read':
+        if self.current_action == "read":
             return self.read_permissions()
-        elif self.current_action == 'create':
+        elif self.current_action == "create":
             return [create_records_action, librarian_role]
-        elif self.current_action == 'update':
+        elif self.current_action == "update":
             return self.record_needs() + [librarian_role]
         else:
             return self.record_needs()
@@ -71,7 +71,7 @@ class RecordPermission(Permission):
 
     def record_allows(self):
         """Read what record allows per action."""
-        return self.record.get('_access', {}).get(self.current_action, [])
+        return self.record.get("_access", {}).get(self.current_action, [])
 
     def record_needs(self):
         """Create needs of the record."""
@@ -92,5 +92,6 @@ class RecordPermission(Permission):
         In practice this means that the record doesn't have the ``access``
         key or the action is not inside access or is empty.
         """
-        return '_access' not in self.record or \
-               not self.record.get('_access', {}).get(self.current_action)
+        return "_access" not in self.record or not self.record.get(
+            "_access", {}
+        ).get(self.current_action)

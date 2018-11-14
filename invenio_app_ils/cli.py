@@ -184,9 +184,8 @@ def create_loc_record():
 
 def create_iloc_record(internal_location, loc_pid):
     """Create Internal Location record."""
-    record = InternalLocation.create(
-        internal_location, **{Location.pid_field: loc_pid}
-    )
+    internal_location[Location.pid_field] = loc_pid
+    record = InternalLocation.create(internal_location)
     _mint_record_pid(
         INTERNAL_LOCATION_PID_TYPE, InternalLocation.pid_field, record
     )
@@ -204,7 +203,8 @@ def create_doc_record(document):
 
 def create_item_record(item, iloc_pid):
     """Create Item record."""
-    record = Item.create(item, **{InternalLocation.pid_field: iloc_pid})
+    item[InternalLocation.pid_field] = iloc_pid
+    record = Item.create(item)
     _mint_record_pid(ITEM_PID_TYPE, Item.pid_field, record)
     record.commit()
     return record
