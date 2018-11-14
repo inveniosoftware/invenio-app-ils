@@ -68,17 +68,16 @@ class Item(IlsRecord):
                 pid_value=data[cls.pid_field],
             )
         }
-        if InternalLocation.pid_field not in kwargs:
+        if InternalLocation.pid_field not in data:
             raise IlsException("Internal Location pid is required")
 
         data["internal_location"] = {
             "$ref": "{scheme}://{host}/api/internal-locations/{pid_value}".format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
-                pid_value=kwargs[InternalLocation.pid_field],
+                pid_value=data[InternalLocation.pid_field],
             )
         }
-        del kwargs[InternalLocation.pid_field]
         return super(Item, cls).create(data, id_=id_, **kwargs)
 
 
@@ -105,15 +104,14 @@ class InternalLocation(IlsRecord):
     @classmethod
     def create(cls, data, id_=None, **kwargs):
         """Create Internal Location record."""
-        if Location.pid_field not in kwargs:
+        if Location.pid_field not in data:
             raise IlsException("Location pid is required")
 
         data["location"] = {
             "$ref": "{scheme}://{host}/api/locations/{pid_value}".format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
-                pid_value=kwargs[Location.pid_field],
+                pid_value=data[Location.pid_field],
             )
         }
-        del kwargs[Location.pid_field]
         return super(InternalLocation, cls).create(data, id_=id_, **kwargs)

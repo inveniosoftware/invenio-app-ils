@@ -9,8 +9,6 @@
 
 from __future__ import absolute_import, print_function
 
-from random import randint
-
 import pytest
 from invenio_app.factory import create_api
 from invenio_circulation.api import Loan
@@ -73,10 +71,7 @@ def testdata(app, db, es_clear):
     internal_locations = load_json_from_datadir("internal_locations.json")
     iloc_records = []
     for internal_location in internal_locations:
-        record = InternalLocation.create(
-            internal_location,
-            **{Location.pid_field: locations[0]["location_pid"]},
-        )
+        record = InternalLocation.create(internal_location)
         mint_record_pid(
             INTERNAL_LOCATION_PID_TYPE, InternalLocation.pid_field, record
         )
@@ -95,10 +90,7 @@ def testdata(app, db, es_clear):
 
     items = load_json_from_datadir("items.json")
     for item in items:
-        iloc = iloc_records[randint(0, len(iloc_records) - 1)]
-        record = Item.create(
-            item, **{InternalLocation.pid_field: iloc["internal_location_pid"]}
-        )
+        record = Item.create(item)
         mint_record_pid(ITEM_PID_TYPE, Item.pid_field, record)
         record.commit()
         db.session.commit()

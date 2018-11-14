@@ -21,11 +21,19 @@ from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_circulation.search.api import LoansSearch
 
 from .records.api import Document, InternalLocation, Item, Location
-from .records.permissions import record_create_permission_factory, \
-    record_delete_permission_factory, record_read_permission_factory, \
-    record_update_permission_factory
-from .search.api import DocumentSearch, InternalLocationSearch, ItemSearch, \
-    LocationSearch
+
+from .records.permissions import (  # isort:skip
+    record_create_permission_factory,
+    record_delete_permission_factory,
+    record_read_permission_factory,
+    record_update_permission_factory,
+)
+from .search.api import (  # isort:skip
+    DocumentSearch,
+    InternalLocationSearch,
+    ItemSearch,
+    LocationSearch,
+)
 
 from invenio_circulation.config import (  # isort:skip
     CIRCULATION_POLICIES,
@@ -234,12 +242,12 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=Document,
         record_serializers={
             "application/json": (
-                "invenio_records_rest.serializers" ":json_v1_response"
+                "invenio_records_rest.serializers:json_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_records_rest.serializers" ":json_v1_search"
+                "invenio_records_rest.serializers:json_v1_search"
             )
         },
         list_route="/documents/",
@@ -260,12 +268,12 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=Item,
         record_serializers={
             "application/json": (
-                "invenio_records_rest.serializers" ":json_v1_response"
+                "invenio_records_rest.serializers:json_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_records_rest.serializers" ":json_v1_search"
+                "invenio_records_rest.serializers:json_v1_search"
             )
         },
         list_route="/items/",
@@ -284,14 +292,17 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher=LOCATION_PID_FETCHER,
         search_class=LocationSearch,
         record_class=Location,
+        record_loaders={
+            "application/json": "invenio_app_ils.records.loaders:location_loader"
+        },
         record_serializers={
             "application/json": (
-                "invenio_records_rest.serializers" ":json_v1_response"
+                "invenio_records_rest.serializers:json_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_records_rest.serializers" ":json_v1_search"
+                "invenio_records_rest.serializers:json_v1_search"
             )
         },
         list_route="/locations/",
@@ -310,14 +321,17 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher=INTERNAL_LOCATION_PID_FETCHER,
         search_class=InternalLocationSearch,
         record_class=InternalLocation,
+        record_loaders={
+            "application/json": "invenio_app_ils.records.loaders:internal_location_loader"
+        },
         record_serializers={
             "application/json": (
-                "invenio_records_rest.serializers" ":json_v1_response"
+                "invenio_records_rest.serializers:json_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_records_rest.serializers" ":json_v1_search"
+                "invenio_records_rest.serializers:json_v1_search"
             )
         },
         list_route="/internal-locations/",
@@ -508,12 +522,12 @@ CIRCULATION_REST_ENDPOINTS = dict(
         record_class="invenio_circulation.api:Loan",
         record_serializers={
             "application/json": (
-                "invenio_records_rest.serializers" ":json_v1_response"
+                "invenio_records_rest.serializers:json_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_records_rest.serializers" ":json_v1_search"
+                "invenio_records_rest.serializers:json_v1_search"
             )
         },
         list_route="/circulation/loans/",

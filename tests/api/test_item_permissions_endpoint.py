@@ -5,7 +5,8 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Test accesibility of resource endpoints"""
+"""Test accesibility of resource endpoints."""
+
 from __future__ import unicode_literals
 
 import copy
@@ -198,4 +199,3 @@ def test_delete_item_endpoint(
         data=NEW_ITEM,
         expected_resp_code=expected_resp_code,
     )
-
