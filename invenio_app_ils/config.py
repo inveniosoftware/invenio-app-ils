@@ -266,6 +266,9 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher=ITEM_PID_FETCHER,
         search_class=ItemSearch,
         record_class=Item,
+        record_loaders={
+            "application/json": "invenio_app_ils.records.loaders:item_loader"
+        },
         record_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_response"

@@ -14,7 +14,7 @@ from marshmallow import Schema, fields
 class InternalLocationSchemaV1(Schema):
     """Internal Location schema."""
 
-    location_pid = fields.String(required=True)
+    location_pid = fields.Str(required=True)
     legacy_id = fields.Str()
     name = fields.Str()
     physical_location = fields.Str()
