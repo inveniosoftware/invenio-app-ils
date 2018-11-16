@@ -18,7 +18,7 @@ from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
 
 NEW_ITEM = {
-    "item_pid": "itemid-10",
+    "pid": {"pid_type": "item_pid", "pid_value": "itemid-10"},
     "barcode": "123456789",
     "title": "Test item x",
     "document_pid": "docid-1",
@@ -126,8 +126,7 @@ def test_put_item_endpoint(
     res = _test_response(
         client, "put", url, json_headers, NEW_ITEM, expected_resp_code
     )
-
-    _test_data("item_pid", "itemid-10", res)
+    _test_data("pid", "itemid-10", res)
 
 
 @pytest.mark.parametrize(
@@ -160,7 +159,6 @@ def test_patch_item_endpoint(
     patch = [{"op": "replace", "path": "/status", "value": "LOANABLE"}]
     url = url_for("invenio_records_rest.itemid_item", pid_value=res_id)
     user_login(user_id, client, users)
-
     res = _test_response(
         client,
         "patch",

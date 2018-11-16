@@ -17,6 +17,7 @@ from __future__ import absolute_import, print_function
 
 from datetime import timedelta
 
+from flask import request
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_circulation.search.api import LoansSearch
 
@@ -267,7 +268,8 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=ItemSearch,
         record_class=Item,
         record_loaders={
-            "application/json": "invenio_app_ils.records.loaders:item_loader"
+            "application/json": "invenio_app_ils.records.loaders:item_loader",
+            'application/json-patch+json': lambda: request.get_json(force=True),
         },
         record_serializers={
             "application/json": (

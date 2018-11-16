@@ -17,4 +17,5 @@ cd $static_folder
 npm install
 cd ${CWD}
 ils collect -v
-ils assets build
+# ils assets build
+ils webpack buildall

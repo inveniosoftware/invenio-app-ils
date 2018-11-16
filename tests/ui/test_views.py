@@ -9,7 +9,6 @@
 
 from __future__ import absolute_import, print_function
 
-import pytest
 from flask import url_for
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
