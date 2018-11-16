@@ -10,7 +10,7 @@
 from .schemas.json.item import ItemSchemaV1
 from .schemas.json.location import LocationSchemaV1
 from .schemas.json.internal_location import InternalLocationSchemaV1
-from .loader import marshmallow_loader
+from invenio_records_rest.loaders import marshmallow_loader
 
 item_loader = marshmallow_loader(ItemSchemaV1)
 location_loader = marshmallow_loader(LocationSchemaV1)

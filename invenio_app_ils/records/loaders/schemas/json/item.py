@@ -7,13 +7,14 @@
 
 """Item schema for marshmallow loader."""
 
-
+from invenio_records_rest.schemas.fields import PersistentIdentifier
 from marshmallow import Schema, fields
 
 
 class ItemSchemaV1(Schema):
     """Internal Location schema."""
 
+    pid = PersistentIdentifier()
     document_pid = fields.Str(required=True)
     internal_location_pid = fields.Str(required=True)
     legacy_id = fields.Str()

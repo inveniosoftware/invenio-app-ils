@@ -46,10 +46,10 @@ def test_patron_can_request_loan_on_item(client, json_headers, users,
 
 
 def test_patron_cannot_request_loan_on_already_loaned_item(client,
-                                                           json_headers, users,
+                                                           json_headers,
+                                                           users,
                                                            testdata):
     """Test that a patron can request a loan on a item."""
-
     def _get_duplicated(user_id):
         """Return an item PID of an existing loan for the given user."""
         for t in testdata['loans']:
