@@ -2,25 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List, Button } from 'semantic-ui-react';
 
-export class LoanActions extends Component {
+export default class LoanActions extends Component {
   constructor(props) {
     super(props);
-    this.onAction = this.props.onAction;
+    this.performLoanAction = this.props.performLoanAction;
   }
 
-  handleActionsOnClick(url, data) {
-    return () => {
-      this.onAction(url, data);
-    };
-  }
-
-  renderAvailableActions(actions = {}, data) {
+  renderAvailableActions(pid, loan, actions = {}) {
     return Object.keys(actions).map(action => {
       return (
         <List.Item key={action}>
           <Button
             primary
-            onClick={this.handleActionsOnClick(actions[action], data)}
+            onClick={() => {
+              this.performLoanAction(pid, loan, actions[action]);
+            }}
           >
             {action}
           </Button>
@@ -30,13 +26,18 @@ export class LoanActions extends Component {
   }
 
   render() {
-    let { availableActions: actions, metadata: data } = this.props.data;
-    return <List horizontal>{this.renderAvailableActions(actions, data)}</List>;
+    const {
+      availableActions: actions,
+      metadata: loan,
+      id: pid,
+    } = this.props.loanDetails;
+    return (
+      <List horizontal>{this.renderAvailableActions(pid, loan, actions)}</List>
+    );
   }
 }
 
 LoanActions.propTypes = {
-  data: PropTypes.object.isRequired,
-  onAction: PropTypes.func,
-  actionLoading: PropTypes.bool,
+  loanDetails: PropTypes.object.isRequired,
+  performLoanAction: PropTypes.func,
 };

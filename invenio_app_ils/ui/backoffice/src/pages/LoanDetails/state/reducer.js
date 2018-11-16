@@ -1,49 +1,53 @@
 import {
   IS_LOADING,
-  IS_ACTION_LOADING,
-  LOAN_ACTION_SUCCESS,
-  LOAN_DETAILS_SUCCESS,
-  LOAN_DETAILS_HAS_ERROR,
-  LOAN_ACTION_HAS_ERROR,
+  SUCCESS,
+  HAS_ERROR,
+  ACTION_IS_LOADING,
+  ACTION_SUCCESS,
+  ACTION_HAS_ERROR,
 } from './types';
 
 export const initialState = {
   data: {},
   isLoading: true,
-  actionLoading: false,
-  loanActionError: false,
+  isActionLoading: false,
+  hasError: false,
+  actionHasError: false,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case IS_LOADING:
       return { ...state, isLoading: true };
-    case LOAN_DETAILS_SUCCESS:
-      return { ...state, isLoading: false, data: action.payload };
-    case IS_ACTION_LOADING:
-      return { ...state, actionLoading: true };
-    case LOAN_ACTION_SUCCESS:
+    case SUCCESS:
       return {
         ...state,
         isLoading: false,
-        actionLoading: false,
         data: action.payload,
+        hasError: false,
       };
-    case LOAN_DETAILS_HAS_ERROR:
+    case ACTION_IS_LOADING:
+      return { ...state, isActionLoading: true };
+    case ACTION_SUCCESS:
       return {
         ...state,
-        actionLoading: false,
-        isLoading: false,
-        loanActionError: false,
-        error: action.payload,
+        isActionLoading: false,
+        data: action.payload,
+        actionHasError: false,
       };
-    case LOAN_ACTION_HAS_ERROR:
+    case HAS_ERROR:
       return {
         ...state,
-        actionLoading: false,
         isLoading: false,
-        loanActionError: true,
-        error: action.payload,
+        data: action.payload,
+        hasError: true,
+      };
+    case ACTION_HAS_ERROR:
+      return {
+        ...state,
+        isActionLoading: false,
+        data: action.payload,
+        actionHasError: true,
       };
     default:
       return state;

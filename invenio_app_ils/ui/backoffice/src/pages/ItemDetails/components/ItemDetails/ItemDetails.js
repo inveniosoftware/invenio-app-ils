@@ -1,33 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import { ItemMetadata } from '../ItemMetadata/ItemMetadata';
-import { ItemLoans } from '../ItemLoans/ItemLoans';
+import { Loader, Error } from 'common/components';
+import { ItemMetadata } from '../';
+import { ItemLoans } from '../';
 
-import { withError, withLoader } from 'common/hoc';
-
-export const EnchancedItemMetadata = compose(
-  withLoader,
-  withError
-)(ItemMetadata);
-
-export class ItemDetails extends Component {
+export default class ItemDetails extends Component {
   render() {
-    let { isLoading, data, error } = this.props;
+    const { isLoading, data, hasError } = this.props;
+    const errorData = hasError ? data : null;
     return (
-      <section>
-        <EnchancedItemMetadata
-          data={data}
-          isLoading={isLoading}
-          error={error}
-        />
-        <ItemLoans />
-      </section>
+      <Loader isLoading={isLoading}>
+        <Error error={errorData}>
+          <ItemMetadata />
+          <ItemLoans />
+        </Error>
+      </Loader>
     );
   }
 }
 
 ItemDetails.propTypes = {
-  data: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  data: PropTypes.object,
+  hasError: PropTypes.bool.isRequired,
 };

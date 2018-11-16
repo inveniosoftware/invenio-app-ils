@@ -2,21 +2,23 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
-import { itemListReducer } from './pages/ItemList/reducer';
+import { userSessionReducer } from './common/components/UserSession/reducer';
 import { itemDetailsReducer } from './pages/ItemDetails/reducer';
-import { loanListReducer } from './pages/LoanList/reducer';
 import { loanDetailsReducer } from './pages/LoanDetails/reducer';
 
 const rootReducer = combineReducers({
-  itemList: itemListReducer,
+  userSession: userSessionReducer,
   itemDetails: itemDetailsReducer,
-  loanList: loanListReducer,
   loanDetails: loanDetailsReducer,
+});
+
+const composeEnhancers = composeWithDevTools({
+  name: 'ILS Backoffice',
 });
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
+  composeEnhancers(applyMiddleware(thunk))
 );
 
 export default store;

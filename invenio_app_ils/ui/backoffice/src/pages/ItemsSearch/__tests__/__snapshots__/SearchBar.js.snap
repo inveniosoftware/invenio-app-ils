@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemsSearch SearchBar tests should render the current query string 1`] = `
+<SearchBar
+  currentQueryString="The Gulf: The Making of An American Sea"
+  executeSearch={[Function]}
+  onInputChange={[Function]}
+>
+  <Input
+    action={
+      Object {
+        "content": "Search",
+        "onClick": [Function],
+      }
+    }
+    fluid={true}
+    onChange={[Function]}
+    onKeyPress={[Function]}
+    placeholder="Search for items"
+    type="text"
+    value="The Gulf: The Making of An American Sea"
+  >
+    <div
+      className="ui fluid action input"
+    >
+      <input
+        onChange={[Function]}
+        onKeyPress={[Function]}
+        placeholder="Search for items"
+        type="text"
+        value="The Gulf: The Making of An American Sea"
+      />
+      <Button
+        as="button"
+        content="Search"
+        onClick={[Function]}
+        role="button"
+      >
+        <button
+          className="ui button"
+          onClick={[Function]}
+          role="button"
+        >
+          Search
+        </button>
+      </Button>
+    </div>
+  </Input>
+</SearchBar>
+`;

@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "lodash": "^4.17.11",
     "node-sass": "^4.10.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.0",
@@ -23,8 +24,9 @@
     "react-redux": "^5.1.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
-    "redux-thunk": "^2.3.0",
+    "react-searchkit": "0.2.0",
     "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.83.0"
   },

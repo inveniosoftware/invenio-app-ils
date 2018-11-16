@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 import './ItemMetadata.scss';
 
-export class ItemMetadata extends Component {
+export default class ItemMetadata extends Component {
   render() {
-    let { metadata: data } = this.props.data;
+    const data = this.props.itemDetails.metadata;
     return (
       <Segment className="item-metadata">
         <Grid padded columns={2}>
@@ -50,8 +50,12 @@ export class ItemMetadata extends Component {
             </List>
           </Grid.Column>
           <Grid.Column>
-            <List.Header>Description</List.Header>
-            {data.description}
+            <List relaxed size="large">
+              <List.Item>
+                <List.Header>Description</List.Header>
+                {data.description}
+              </List.Item>
+            </List>
           </Grid.Column>
         </Grid>
       </Segment>
@@ -60,5 +64,5 @@ export class ItemMetadata extends Component {
 }
 
 ItemMetadata.propTypes = {
-  data: PropTypes.object.isRequired,
+  itemDetails: PropTypes.object.isRequired,
 };
