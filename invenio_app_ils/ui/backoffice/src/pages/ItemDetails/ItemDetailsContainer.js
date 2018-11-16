@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ItemDetails } from './components/ItemDetails/ItemDetails';
+import { Container } from 'semantic-ui-react';
+import { ItemDetails } from './components';
 
 export default class ItemDetailsContainer extends Component {
   constructor(props) {
@@ -9,12 +10,12 @@ export default class ItemDetailsContainer extends Component {
   }
 
   componentDidMount() {
-    this.unlisten = this.props.history.listen((location, action) => {
-      if (location.state && location.state.itemId) {
-        this.fetchItemDetails(location.state.itemId);
+    this.unlisten = this.props.history.listen(location => {
+      if (location.state && location.state.itemPid) {
+        this.fetchItemDetails(location.state.itemPid);
       }
     });
-    this.fetchItemDetails(this.props.match.params.itemId);
+    this.fetchItemDetails(this.props.match.params.itemPid);
   }
 
   componentWillUnmount() {
@@ -22,11 +23,14 @@ export default class ItemDetailsContainer extends Component {
   }
 
   render() {
-    let { isLoading, data, error } = this.props;
-    return <ItemDetails data={data} isLoading={isLoading} error={error} />;
+    return (
+      <Container>
+        <ItemDetails />
+      </Container>
+    );
   }
 }
 
 ItemDetailsContainer.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
+  fetchItemDetails: PropTypes.func.isRequired,
 };

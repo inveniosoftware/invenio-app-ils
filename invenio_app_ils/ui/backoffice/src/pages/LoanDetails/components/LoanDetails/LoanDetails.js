@@ -1,28 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
-import { compose } from 'redux';
-import { withError, withLoader } from 'common/hoc';
-import { LoanMetadata } from '../LoanMetadata/LoanMetadata';
-import { LoanActions } from '../LoanActions/LoanActions';
+import { Loader, Error } from 'common/components';
+import { LoanMetadata } from '../';
+import { LoanActions } from '../';
 
-class LoanDetails extends Component {
+export default class LoanDetails extends Component {
   render() {
-    let { data, onAction } = this.props;
+    const {
+      isLoading,
+      isActionLoading,
+      data,
+      hasError,
+      actionHasError,
+    } = this.props;
+    const errorData = hasError || actionHasError ? data : null;
+    const anyIsLoading = isLoading || isActionLoading;
     return (
-      <Container>
-        <LoanMetadata data={data} />
-        <LoanActions data={data} onAction={onAction} />
-      </Container>
+      <Loader isLoading={anyIsLoading}>
+        <Error error={errorData}>
+          <Container>
+            <LoanMetadata />
+            <LoanActions />
+          </Container>
+        </Error>
+      </Loader>
     );
   }
 }
 
 LoanDetails.propTypes = {
-  data: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isActionLoading: PropTypes.bool.isRequired,
+  data: PropTypes.object,
+  hasError: PropTypes.bool.isRequired,
+  actionHasError: PropTypes.bool.isRequired,
 };
-
-export default compose(
-  withLoader,
-  withError
-)(LoanDetails);

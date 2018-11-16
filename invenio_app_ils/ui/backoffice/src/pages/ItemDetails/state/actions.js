@@ -1,24 +1,23 @@
-import { IS_LOADING, ITEM_DETAILS, ITEM_DETAILS_HAS_ERROR } from './types';
+import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { item } from 'common/api';
 
-export const fetchItemDetails = itemId => {
+export const fetchItemDetails = itemPid => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
-      payload: {},
     });
 
     await item
-      .getRecord(itemId)
+      .getRecord(itemPid)
       .then(response => {
         dispatch({
-          type: ITEM_DETAILS,
+          type: SUCCESS,
           payload: response.data,
         });
       })
       .catch(error => {
         dispatch({
-          type: ITEM_DETAILS_HAS_ERROR,
+          type: HAS_ERROR,
           payload: error,
         });
       });

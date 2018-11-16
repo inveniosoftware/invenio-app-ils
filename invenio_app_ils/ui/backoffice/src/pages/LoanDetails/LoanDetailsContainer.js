@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import LoanDetails from './components/LoanDetails/LoanDetails';
+import { Container } from 'semantic-ui-react';
+import { LoanDetails } from './components';
 
 export default class LoanDetailsContainer extends Component {
   constructor(props) {
     super(props);
     this.fetchLoanDetails = this.props.fetchLoanDetails;
-    this.postLoanAction = this.props.postLoanAction;
   }
 
   componentDidMount() {
-    this.unlisten = this.props.history.listen((location, action) => {
-      if (location.state && location.state.loanid) {
-        this.fetchLoanDetails(location.state.loanId);
+    this.unlisten = this.props.history.listen(location => {
+      if (location.state && location.state.loanPid) {
+        this.fetchLoanDetails(location.state.loanPid);
       }
     });
-    this.fetchLoanDetails(this.props.match.params.loanId);
+    this.fetchLoanDetails(this.props.match.params.loanPid);
   }
 
   componentWillUnmount() {
@@ -23,18 +23,14 @@ export default class LoanDetailsContainer extends Component {
   }
 
   render() {
-    let { data, isLoading, error } = this.props;
     return (
-      <LoanDetails
-        data={data}
-        isLoading={isLoading}
-        onAction={this.postLoanAction}
-        error={error}
-      />
+      <Container>
+        <LoanDetails />
+      </Container>
     );
   }
 }
 
 LoanDetailsContainer.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
+  fetchLoanDetails: PropTypes.func.isRequired,
 };

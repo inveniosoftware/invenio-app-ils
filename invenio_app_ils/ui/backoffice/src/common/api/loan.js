@@ -1,26 +1,41 @@
 import { http } from './base';
+import { formatDate } from 'common/api/base';
 
 const loanURL = '/circulation/loans/';
 
-const getList = () => {
-  return http.get(loanURL);
+const getRecord = loanPid => {
+  return http.get(`${loanURL}${loanPid}`);
 };
 
-const getRecord = loanId => {
-  return http.get(`${loanURL}${loanId}`);
-};
+const postAction = (
+  url,
+  pid,
+  loan,
+  transactionUserPid,
+  transactionLocationPid
+) => {
+  const payload = {
+    transaction_user_pid: transactionUserPid,
+    patron_pid: loan.patron_pid,
+    transaction_location_pid: transactionLocationPid,
+    transaction_date: formatDate(new Date()),
+  };
 
-const postRecord = (loanId, data) => {
-  return http.post(`${loanURL}${loanId}`, data);
-};
+  if ('item_pid' in loan) {
+    payload['item_pid'] = loan.item_pid;
+  } else if ('document_pid' in loan) {
+    payload['document_pid'] = loan.document_pid;
+  } else {
+    throw new Error(
+      `No 'item_pid' or 'document_pid' attached to loan '${pid}'`
+    );
+  }
 
-const postAction = (url, data) => {
-  return http.post(url, data);
+  return http.post(url, payload);
 };
 
 export const loan = {
-  getList: getList,
+  url: loanURL,
   getRecord: getRecord,
-  postRecord: postRecord,
   postAction: postAction,
 };

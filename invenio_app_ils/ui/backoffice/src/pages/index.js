@@ -1,5 +1,5 @@
 export { Backoffice } from 'pages/Backoffice/Backoffice';
-export { ItemListContainer } from 'pages/ItemList';
+export { ItemsSearch } from 'pages/ItemsSearch';
 export { ItemDetailsContainer } from 'pages/ItemDetails';
-export { LoanListContainer } from 'pages/LoanList';
+export { LoansSearch } from 'pages/LoansSearch';
 export { LoanDetailsContainer } from 'pages/LoanDetails';

@@ -2,26 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Segment, Form } from 'semantic-ui-react';
 
-export class LoanMetadata extends Component {
-  renderLoanMetadata(data) {
-    return Object.keys(data.metadata).map(key => {
+export default class LoanMetadata extends Component {
+  renderLoanMetadata(loanDetails) {
+    return Object.keys(loanDetails).map(key => {
       return (
-        <Form.Field key={key} name="loan-field">
+        <Form.Field key={key} data-test="loan-field">
           <label className="field-name">{key}</label>
-          <p>{data.metadata[key]}</p>
+          <p>{loanDetails[key]}</p>
         </Form.Field>
       );
     });
   }
 
   render() {
-    let { data } = this.props;
+    const loanDetails = this.props.loanDetails.metadata;
     return (
       <Segment>
         <Grid>
           <Grid.Column>
-            <h1>Loan - {data.metadata.loan_pid}</h1>
-            <Form>{this.renderLoanMetadata(data)}</Form>
+            <h1>Loan - {loanDetails.loan_pid}</h1>
+            <Form>{this.renderLoanMetadata(loanDetails)}</Form>
           </Grid.Column>
         </Grid>
       </Segment>
@@ -30,5 +30,5 @@ export class LoanMetadata extends Component {
 }
 
 LoanMetadata.propTypes = {
-  data: PropTypes.object.isRequired,
+  loanDetails: PropTypes.object.isRequired,
 };

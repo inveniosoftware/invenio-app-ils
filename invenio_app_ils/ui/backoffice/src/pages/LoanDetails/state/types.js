@@ -1,6 +1,6 @@
-export const IS_LOADING = 'IS_LOADING';
-export const IS_ACTION_LOADING = 'IS_ACTION_LOADING';
-export const LOAN_ACTION_SUCCESS = 'LOAN_ACTION_SUCCESS';
-export const LOAN_DETAILS_SUCCESS = 'LOAN_DETAILS_SUCCESS';
-export const LOAN_ACTION_HAS_ERROR = 'LOAN_ACTION_HAS_ERROR';
-export const LOAN_DETAILS_HAS_ERROR = 'LOAN_DETAILS_HAS_ERROR';
+export const IS_LOADING = 'fetchLoanDetails/IS_LOADING';
+export const SUCCESS = 'fetchLoanDetails/SUCCESS';
+export const HAS_ERROR = 'fetchLoanDetails/HAS_ERROR';
+export const ACTION_IS_LOADING = 'performLoanAction/IS_LOADING';
+export const ACTION_SUCCESS = 'performLoanAction/SUCCESS';
+export const ACTION_HAS_ERROR = 'performLoanAction/HAS_ERROR';
