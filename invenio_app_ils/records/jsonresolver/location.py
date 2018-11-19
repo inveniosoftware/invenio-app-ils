@@ -14,7 +14,9 @@ from invenio_pidstore.errors import PersistentIdentifierError
 from ..api import Location
 
 
-@jsonresolver.route("/api/locations/<pid_value>", host="ils.mydomain.org")
+@jsonresolver.route(
+    "/api/resolver/locations/<pid_value>", host="ils.mydomain.org"
+)
 def location_resolver(pid_value):
     """Return the location record for the given pid or raise exception."""
     location = {}
