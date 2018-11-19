@@ -14,8 +14,6 @@ from invenio_jsonschemas import current_jsonschemas
 from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
 
-from ..errors import IlsException
-
 from ..pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
@@ -62,17 +60,14 @@ class Item(IlsRecord):
     def create(cls, data, id_=None, **kwargs):
         """Create Item record."""
         data["circulation_status"] = {
-            "$ref": "{scheme}://{host}/api/circulation/items/{pid_value}/loan".format(
+            "$ref": "{scheme}://{host}/api/resolver/circulation/items/{pid_value}/loan".format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 pid_value=data[cls.pid_field],
             )
         }
-        if InternalLocation.pid_field not in data:
-            raise IlsException("Internal Location pid is required")
-
         data["internal_location"] = {
-            "$ref": "{scheme}://{host}/api/internal-locations/{pid_value}".format(
+            "$ref": "{scheme}://{host}/api/resolver/internal-locations/{pid_value}".format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 pid_value=data[InternalLocation.pid_field],
@@ -104,11 +99,8 @@ class InternalLocation(IlsRecord):
     @classmethod
     def create(cls, data, id_=None, **kwargs):
         """Create Internal Location record."""
-        if Location.pid_field not in data:
-            raise IlsException("Location pid is required")
-
         data["location"] = {
-            "$ref": "{scheme}://{host}/api/locations/{pid_value}".format(
+            "$ref": "{scheme}://{host}/api/resolver/locations/{pid_value}".format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 pid_value=data[Location.pid_field],
