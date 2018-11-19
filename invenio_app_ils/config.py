@@ -37,12 +37,10 @@ from invenio_circulation.pidstore.pids import (  # isort:skip
     CIRCULATION_LOAN_PID_TYPE
 )
 from invenio_circulation.transitions.transitions import (  # isort:skip
-    CreatedToItemOnLoan,
+    ToItemOnLoan,
     CreatedToPending,
-    ItemAtDeskToItemOnLoan,
     ItemInTransitHouseToItemReturned,
     ItemOnLoanToItemInTransitHouse,
-    ItemOnLoanToItemOnLoan,
     ItemOnLoanToItemReturned,
     PendingToItemAtDesk,
     PendingToItemInTransitPickup,
@@ -409,7 +407,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
         dict(
             dest="ITEM_ON_LOAN",
             trigger="checkout",
-            transition=CreatedToItemOnLoan,
+            transition=ToItemOnLoan,
             permission_factory=backoffice_permission,
         ),
     ],
@@ -433,7 +431,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
     "ITEM_AT_DESK": [
         dict(
             dest="ITEM_ON_LOAN",
-            transition=ItemAtDeskToItemOnLoan,
+            transition=ToItemOnLoan,
             permission_factory=backoffice_permission,
         ),
         dict(
@@ -463,7 +461,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
         ),
         dict(
             dest="ITEM_ON_LOAN",
-            transition=ItemOnLoanToItemOnLoan,
+            transition=ToItemOnLoan,
             trigger="extend",
             permission_factory=backoffice_permission,
         ),
