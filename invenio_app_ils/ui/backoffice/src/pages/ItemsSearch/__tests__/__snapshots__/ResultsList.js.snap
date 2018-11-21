@@ -12,7 +12,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
   results={
     Array [
       Object {
-        "created": "2018-02-01T11:05:00+00:00",
+        "created": "2018-01-01T11:05:00.000+01:00",
         "id": 987,
         "metadata": Object {
           "barcode": "9865745223",
@@ -27,11 +27,12 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
 >
   <Table
     as="table"
+    selectable={true}
     singleLine={true}
     striped={true}
   >
     <table
-      className="ui single line striped table"
+      className="ui selectable single line striped table"
     >
       <TableHeader
         as="thead"
@@ -145,7 +146,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
           <ItemRow
             itemRecord={
               Object {
-                "created": "2018-02-01T11:05:00+00:00",
+                "created": "2018-01-01T11:05:00.000+01:00",
                 "id": 987,
                 "metadata": Object {
                   "barcode": "9865745223",

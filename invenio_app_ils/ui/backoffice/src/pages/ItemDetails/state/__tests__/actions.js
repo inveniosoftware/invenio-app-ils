@@ -1,75 +1,67 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import MockAdapter from 'axios-mock-adapter';
-import { http } from 'common/api';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as types from '../types';
+import { item as itemApi } from 'common/api';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-const itemsBaseUrl = 'https://127.0.0.1:5000/api/items';
 
-describe('Items actions', () => {
-  let store;
-  beforeEach(() => {
-    store = mockStore(initialState);
-    store.clearActions();
-  });
+const mockGetRecord = jest.fn();
+itemApi.getRecord = mockGetRecord;
 
+const response = { data: {} };
+const expectedPayload = {};
+
+let store;
+beforeEach(() => {
+  mockGetRecord.mockClear();
+
+  store = mockStore(initialState);
+  store.clearActions();
+});
+
+describe('Item details actions', () => {
   describe('Fetch item details tests', () => {
-    let mock;
-    let response = {};
-    beforeEach(() => {
-      mock = new MockAdapter(http);
-      mock.onGet(`${itemsBaseUrl}/1`).reply(() => {
-        return new Promise((resolve, reject) =>
-          setTimeout(() => {
-            resolve([200, JSON.stringify(response)]);
-          }, 1000)
-        );
-      });
-      mock.onGet(`${itemsBaseUrl}/2`).reply(() => {
-        return new Promise((resolve, reject) =>
-          setTimeout(() => {
-            reject([500, 'Error']);
-          }, 1000)
-        );
-      });
-    });
-
     it('should dispatch an action when fetching an item', done => {
+      mockGetRecord.mockResolvedValue(response);
+
       const expectedActions = [
         {
           type: types.IS_LOADING,
         },
       ];
 
-      store
-        .dispatch(actions.fetchItemDetails(`${itemsBaseUrl}/1/next`))
-        .then(() => {
-          let actions = store.getActions();
-          expect(actions[0]).toEqual(expectedActions[0]);
-          done();
-        });
+      store.dispatch(actions.fetchItemDetails('123')).then(() => {
+        expect(mockGetRecord).toHaveBeenCalledWith('123');
+        const actions = store.getActions();
+        expect(actions[0]).toEqual(expectedActions[0]);
+        done();
+      });
     });
 
     it('should dispatch an action when item fetch succeeds', done => {
+      mockGetRecord.mockResolvedValue(response);
+
       const expectedActions = [
         {
           type: types.SUCCESS,
-          payload: response,
+          payload: expectedPayload,
         },
       ];
 
-      store.dispatch(actions.fetchItemDetails(1)).then(() => {
-        let actions = store.getActions();
+      store.dispatch(actions.fetchItemDetails('123')).then(() => {
+        expect(mockGetRecord).toHaveBeenCalledWith('123');
+        const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
         done();
       });
     });
 
     it('should dispatch an action when item fetch fails', done => {
+      mockGetRecord.mockRejectedValue([500, 'Error']);
+
       const expectedActions = [
         {
           type: types.HAS_ERROR,
@@ -77,8 +69,9 @@ describe('Items actions', () => {
         },
       ];
 
-      store.dispatch(actions.fetchItemDetails(2)).then(() => {
-        let actions = store.getActions();
+      store.dispatch(actions.fetchItemDetails('456')).then(() => {
+        expect(mockGetRecord).toHaveBeenCalledWith('456');
+        const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
         done();
       });

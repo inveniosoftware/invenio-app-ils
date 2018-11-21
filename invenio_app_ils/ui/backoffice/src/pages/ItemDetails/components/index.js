@@ -1,3 +1,3 @@
 export { ItemDetails } from './ItemDetails';
-export { ItemLoans } from './ItemLoans';
+export { ItemPendingLoans } from './ItemPendingLoans';
 export { ItemMetadata } from './ItemMetadata';
