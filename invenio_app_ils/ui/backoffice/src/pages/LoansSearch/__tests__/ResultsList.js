@@ -1,25 +1,22 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { formatDate } from 'common/api/base';
+import { fromBackend, toBackend } from 'common/api/date';
 import { ResultsList } from '../components';
 
 describe('LoansSearch ResultsList tests', () => {
-  // eslint-disable-next-line no-extend-native
-  Date.prototype.getTimezoneOffset = () => 0;
-
-  const d = new Date(2018, 1, 1, 11, 5, 0);
-  const start = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
-  const end = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 3);
+  const d = fromBackend('2018-01-01T11:05:00+01:00');
+  const start = d.plus({ days: 1 });
+  const end = d.plus({ months: 1 });
 
   const results = [
     {
       id: 3,
-      created: formatDate(d),
+      created: toBackend(d),
       metadata: {
         state: 'ITEM_ON_LOAN',
         patron_pid: 1,
-        start_date: formatDate(start),
-        end_date: formatDate(end),
+        start_date: toBackend(start),
+        end_date: toBackend(end),
       },
     },
   ];

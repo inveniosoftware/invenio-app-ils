@@ -50,7 +50,7 @@ export class ResultsList extends Component {
       />
     ));
     return _results.length ? (
-      <Table singleLine striped>
+      <Table striped singleLine selectable>
         <Table.Header>
           <Table.Row data-test="header">
             <Table.HeaderCell collapsing />

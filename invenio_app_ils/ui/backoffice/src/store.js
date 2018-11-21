@@ -3,12 +3,16 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 import { userSessionReducer } from './common/components/UserSession/reducer';
-import { itemDetailsReducer } from './pages/ItemDetails/reducer';
+import {
+  itemDetailsReducer,
+  itemPendingLoansReducer,
+} from './pages/ItemDetails/reducer';
 import { loanDetailsReducer } from './pages/LoanDetails/reducer';
 
 const rootReducer = combineReducers({
   userSession: userSessionReducer,
   itemDetails: itemDetailsReducer,
+  itemPendingLoans: itemPendingLoansReducer,
   loanDetails: loanDetailsReducer,
 });
 

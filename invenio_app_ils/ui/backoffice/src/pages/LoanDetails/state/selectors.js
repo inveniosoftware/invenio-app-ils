@@ -1,9 +1,9 @@
+import _isEmpty from 'lodash/isEmpty';
+
 export function serializeLoanDetails(data) {
-  let result = {};
-  if (data) {
-    if (data.links) {
-      result['availableActions'] = data.links.actions || {};
-    }
+  const result = {};
+  if (!_isEmpty(data)) {
+    result['availableActions'] = data.links ? data.links.actions : {};
     result['metadata'] = data.metadata;
   }
   return result;

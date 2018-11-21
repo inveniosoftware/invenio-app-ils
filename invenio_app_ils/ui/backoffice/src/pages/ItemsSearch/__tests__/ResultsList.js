@@ -1,18 +1,15 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { formatDate } from 'common/api/base';
+import { fromBackend, toBackend } from 'common/api/date';
 import { ResultsList } from '../components';
 
 describe('ItemsSearch ResultsList tests', () => {
-  // eslint-disable-next-line no-extend-native
-  Date.prototype.getTimezoneOffset = () => 0;
-
-  const d = new Date(2018, 1, 1, 11, 5, 0);
+  const d = fromBackend('2018-01-01T11:05:00+01:00');
 
   const results = [
     {
       id: 987,
-      created: formatDate(d),
+      created: toBackend(d),
       metadata: {
         barcode: '9865745223',
         document_pid: 1342,
