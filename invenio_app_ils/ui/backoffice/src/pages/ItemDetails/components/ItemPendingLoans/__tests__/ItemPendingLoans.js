@@ -1,10 +1,12 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { fromBackend } from 'common/api/date';
+import { Settings } from 'luxon';
+import { fromISO } from 'common/api/date';
 import { URLS } from 'common/urls';
 import ItemPendingLoans from '../ItemPendingLoans';
 
-const d = fromBackend('2018-01-01T11:05:00+01:00');
+Settings.defaultZoneName = 'utc';
+const d = fromISO('2018-01-01T11:05:00+01:00');
 
 describe('ItemPendingLoans tests', () => {
   let component;
