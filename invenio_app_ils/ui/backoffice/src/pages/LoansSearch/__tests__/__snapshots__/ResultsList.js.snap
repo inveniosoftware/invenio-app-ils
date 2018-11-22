@@ -12,12 +12,12 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
   results={
     Array [
       Object {
-        "created": "2018-01-01T11:05:00.000+01:00",
+        "created": "2018-01-01T10:05:00.000Z",
         "id": 3,
         "metadata": Object {
-          "end_date": "2018-02-01T11:05:00.000+01:00",
+          "end_date": "2018-02-01T10:05:00.000Z",
           "patron_pid": 1,
-          "start_date": "2018-01-02T11:05:00.000+01:00",
+          "start_date": "2018-01-02T10:05:00.000Z",
           "state": "ITEM_ON_LOAN",
         },
       },
@@ -175,12 +175,12 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
             key="3"
             loanRecord={
               Object {
-                "created": "2018-01-01T11:05:00.000+01:00",
+                "created": "2018-01-01T10:05:00.000Z",
                 "id": 3,
                 "metadata": Object {
-                  "end_date": "2018-02-01T11:05:00.000+01:00",
+                  "end_date": "2018-02-01T10:05:00.000Z",
                   "patron_pid": 1,
-                  "start_date": "2018-01-02T11:05:00.000+01:00",
+                  "start_date": "2018-01-02T10:05:00.000Z",
                   "state": "ITEM_ON_LOAN",
                 },
               }
@@ -272,7 +272,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                   <td
                     className=""
                   >
-                    2018-01-01T11:05:00.000+01:00
+                    2018-01-01T10:05:00.000Z
                   </td>
                 </TableCell>
                 <TableCell
@@ -281,7 +281,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                   <td
                     className=""
                   >
-                    2018-01-02T11:05:00.000+01:00
+                    2018-01-02T10:05:00.000Z
                   </td>
                 </TableCell>
                 <TableCell
@@ -290,7 +290,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                   <td
                     className=""
                   >
-                    2018-02-01T11:05:00.000+01:00
+                    2018-02-01T10:05:00.000Z
                   </td>
                 </TableCell>
               </tr>

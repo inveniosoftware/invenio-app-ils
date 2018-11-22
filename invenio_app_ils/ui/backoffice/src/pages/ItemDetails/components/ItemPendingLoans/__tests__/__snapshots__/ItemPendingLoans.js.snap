@@ -28,18 +28,18 @@ exports[`ItemPendingLoans tests should render pending loans 1`] = `
   data={
     Array [
       Object {
-        "end_date": "2018-01-01T11:05:00.000+01:00",
+        "end_date": "2018-01-01T10:05:00.000Z",
         "loan_pid": "loan1",
         "patron_pid": "patron_1",
-        "start_date": "2018-01-01T11:05:00.000+01:00",
-        "updated": "2018-01-01T11:05:00.000+01:00",
+        "start_date": "2018-01-01T10:05:00.000Z",
+        "updated": "2018-01-01T10:05:00.000Z",
       },
       Object {
-        "end_date": "2018-01-01T11:05:00.000+01:00",
+        "end_date": "2018-01-01T10:05:00.000Z",
         "loan_pid": "loan2",
         "patron_pid": "patron_2",
-        "start_date": "2018-01-01T11:05:00.000+01:00",
-        "updated": "2018-01-01T11:05:00.000+01:00",
+        "start_date": "2018-01-01T10:05:00.000Z",
+        "updated": "2018-01-01T10:05:00.000Z",
       },
     ]
   }
@@ -540,18 +540,18 @@ exports[`ItemPendingLoans tests should render the show all button when showing o
   data={
     Array [
       Object {
-        "end_date": "2018-01-01T11:05:00.000+01:00",
+        "end_date": "2018-01-01T10:05:00.000Z",
         "loan_pid": "loan1",
         "patron_pid": "patron_1",
-        "start_date": "2018-01-01T11:05:00.000+01:00",
-        "updated": "2018-01-01T11:05:00.000+01:00",
+        "start_date": "2018-01-01T10:05:00.000Z",
+        "updated": "2018-01-01T10:05:00.000Z",
       },
       Object {
-        "end_date": "2018-01-01T11:05:00.000+01:00",
+        "end_date": "2018-01-01T10:05:00.000Z",
         "loan_pid": "loan2",
         "patron_pid": "patron_2",
-        "start_date": "2018-01-01T11:05:00.000+01:00",
-        "updated": "2018-01-01T11:05:00.000+01:00",
+        "start_date": "2018-01-01T10:05:00.000Z",
+        "updated": "2018-01-01T10:05:00.000Z",
       },
     ]
   }

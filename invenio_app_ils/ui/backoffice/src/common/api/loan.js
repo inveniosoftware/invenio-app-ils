@@ -1,5 +1,5 @@
 import { http } from './base';
-import { toBackend } from 'common/api/date';
+import { toISO } from 'common/api/date';
 import { DateTime } from 'luxon';
 
 const loanURL = '/circulation/loans/';
@@ -20,7 +20,7 @@ const postAction = (
     transaction_user_pid: transactionUserPid,
     patron_pid: loan.patron_pid,
     transaction_location_pid: transactionLocationPid,
-    transaction_date: toBackend(now),
+    transaction_date: toISO(now),
   };
 
   if ('item_pid' in loan) {
@@ -36,7 +36,7 @@ const postAction = (
   return http.post(url, payload);
 };
 
-const getPendingQuery = (documentPid, itemPid) => {
+const buildPendingQuery = (documentPid, itemPid) => {
   const qsDoc = documentPid ? `document_pid:${documentPid}` : '';
   const qsItem = itemPid ? `item_pid:${itemPid}` : '';
   const qsDocItem =
@@ -50,7 +50,7 @@ const fetchPendingOnDocumentItem = (
   sortBy,
   sortOrder
 ) => {
-  const qs = getPendingQuery(documentPid, itemPid);
+  const qs = buildPendingQuery(documentPid, itemPid);
   const sort =
     sortBy === 'transaction_date' ? `transaction_date` : `start_date`;
   const sortByOrder = sortOrder === 'asc' ? `${sort}:asc` : `${sort}:desc`;
@@ -61,6 +61,6 @@ export const loan = {
   url: loanURL,
   getRecord: getRecord,
   postAction: postAction,
-  getPendingQuery: getPendingQuery,
+  buildPendingQuery: buildPendingQuery,
   fetchPendingOnDocumentItem: fetchPendingOnDocumentItem,
 };

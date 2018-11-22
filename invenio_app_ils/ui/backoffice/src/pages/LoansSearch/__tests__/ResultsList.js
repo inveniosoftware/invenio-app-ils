@@ -1,22 +1,25 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { fromBackend, toBackend } from 'common/api/date';
+import { Settings } from 'luxon';
+import { fromISO, toISO } from 'common/api/date';
 import { ResultsList } from '../components';
 
+Settings.defaultZoneName = 'utc';
+
 describe('LoansSearch ResultsList tests', () => {
-  const d = fromBackend('2018-01-01T11:05:00+01:00');
+  const d = fromISO('2018-01-01T11:05:00+01:00');
   const start = d.plus({ days: 1 });
   const end = d.plus({ months: 1 });
 
   const results = [
     {
       id: 3,
-      created: toBackend(d),
+      created: toISO(d),
       metadata: {
         state: 'ITEM_ON_LOAN',
         patron_pid: 1,
-        start_date: toBackend(start),
-        end_date: toBackend(end),
+        start_date: toISO(start),
+        end_date: toISO(end),
       },
     },
   ];

@@ -1,5 +1,5 @@
 import { serializePendingLoan } from '../selectors';
-import { fromBackend } from 'common/api/date';
+import { fromISO } from 'common/api/date';
 
 const stringDate = '2018-01-01T11:05:00+01:00';
 
@@ -13,7 +13,7 @@ describe('Pending loans serialization tests', () => {
 
     expect(serialized).toEqual({
       loan_pid: '123',
-      updated: fromBackend(stringDate),
+      updated: fromISO(stringDate),
     });
   });
 
@@ -30,10 +30,10 @@ describe('Pending loans serialization tests', () => {
 
     expect(serialized).toEqual({
       loan_pid: '123',
-      updated: fromBackend(stringDate),
+      updated: fromISO(stringDate),
       patron_pid: '1',
-      start_date: fromBackend(stringDate),
-      end_date: fromBackend(stringDate),
+      start_date: fromISO(stringDate),
+      end_date: fromISO(stringDate),
     });
   });
 
@@ -48,7 +48,7 @@ describe('Pending loans serialization tests', () => {
 
     expect(serialized).toEqual({
       loan_pid: '123',
-      updated: fromBackend(stringDate),
+      updated: fromISO(stringDate),
       patron_pid: '1',
       start_date: null,
       end_date: null,

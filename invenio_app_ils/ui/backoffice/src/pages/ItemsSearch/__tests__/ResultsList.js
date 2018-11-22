@@ -1,15 +1,18 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { fromBackend, toBackend } from 'common/api/date';
+import { Settings } from 'luxon';
+import { fromISO, toISO } from 'common/api/date';
 import { ResultsList } from '../components';
 
+Settings.defaultZoneName = 'utc';
+
 describe('ItemsSearch ResultsList tests', () => {
-  const d = fromBackend('2018-01-01T11:05:00+01:00');
+  const d = fromISO('2018-01-01T11:05:00+01:00');
 
   const results = [
     {
       id: 987,
-      created: toBackend(d),
+      created: toISO(d),
       metadata: {
         barcode: '9865745223',
         document_pid: 1342,

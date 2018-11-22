@@ -11,7 +11,7 @@ import {
 } from 'semantic-ui-react';
 import { Loader, Error } from 'common/components';
 import { URLS } from 'common/urls';
-import { toHuman } from 'common/api/date';
+import { toString } from 'common/api/date';
 import { loan as loanApi } from 'common/api/';
 import './ItemPendingLoans.scss';
 
@@ -32,7 +32,7 @@ export default class ItemPendingLoans extends Component {
     this.props.history.push(URLS.loanDetails(loanPid));
   };
 
-  _getFormattedDate = d => (d ? toHuman(d) : '');
+  _getFormattedDate = d => (d ? toString(d) : '');
 
   _renderPendingLoan = pendingLoan => {
     const updated = this._getFormattedDate(pendingLoan.updated);
@@ -70,7 +70,7 @@ export default class ItemPendingLoans extends Component {
 
   _handleShowAllClick = () => {
     const { document_pid, item_pid } = this.props.item.metadata;
-    const qs = loanApi.getPendingQuery(document_pid, item_pid);
+    const qs = loanApi.buildPendingQuery(document_pid, item_pid);
     const url = `${URLS.loansSearch}?q=${qs}`;
     this.props.history.push(url);
   };
