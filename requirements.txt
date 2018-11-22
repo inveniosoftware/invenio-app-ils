@@ -13,3 +13,5 @@
 #
 # You can read more about pip-compile command here:
 # https://github.com/jazzband/pip-tools#example-usage-for-pip-compile
+
+-e .[all]
