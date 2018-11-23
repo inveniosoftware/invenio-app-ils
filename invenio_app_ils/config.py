@@ -15,6 +15,7 @@ You overwrite and set instance-specific configuration by either:
 
 from __future__ import absolute_import, print_function
 
+import os
 from datetime import timedelta
 
 from flask import request
@@ -90,6 +91,38 @@ def _(x):
     """Identity function used to trigger string extraction."""
     return x
 
+def _parse_env_bool(var_name, default=None):
+    if str(os.environ.get(var_name)).lower() == 'true':
+        return True
+    elif str(os.environ.get(var_name)).lower() == 'false':
+        return False
+    return default
+
+# Search
+# ======
+ELASTICSEARCH_HOST = os.environ.get('ELASTICSEARCH_HOST', 'localhost')
+ELASTICSEARCH_PORT = int(os.environ.get('ELASTICSEARCH_PORT', '9200'))
+ELASTICSEARCH_USER = os.environ.get('ELASTICSEARCH_USER')
+ELASTICSEARCH_PASSWORD = os.environ.get('ELASTICSEARCH_PASSWORD')
+ELASTICSEARCH_URL_PREFIX = os.environ.get('ELASTICSEARCH_URL_PREFIX', '')
+ELASTICSEARCH_USE_SSL = _parse_env_bool('ELASTICSEARCH_USE_SSL')
+ELASTICSEARCH_VERIFY_CERTS = _parse_env_bool('ELASTICSEARCH_VERIFY_CERTS')
+
+es_host_params = {
+    'host': ELASTICSEARCH_HOST,
+    'port': ELASTICSEARCH_PORT,
+}
+if ELASTICSEARCH_USER and ELASTICSEARCH_PASSWORD:
+    es_host_params['http_auth'] = (ELASTICSEARCH_USER, ELASTICSEARCH_PASSWORD)
+if ELASTICSEARCH_URL_PREFIX:
+    es_host_params['url_prefix'] = ELASTICSEARCH_URL_PREFIX
+if ELASTICSEARCH_USE_SSL is not None:
+    es_host_params['use_ssl'] = ELASTICSEARCH_USE_SSL
+if ELASTICSEARCH_VERIFY_CERTS is not None:
+    es_host_params['verify_certs'] = ELASTICSEARCH_VERIFY_CERTS
+
+SEARCH_ELASTIC_HOSTS = [es_host_params]
+"""Elasticsearch hosts configuration."""
 
 # Rate limiting
 # =============
