@@ -48,6 +48,8 @@ install_requires = [
     "invenio-circulation==0.1.0.dev20180000",  # TODO: add a version here
     # when released, need for Travis and isort
     "invenio-records-editor==1.0.0a2",
+    "invenio-userprofiles==1.0.1",
+    "invenio-accounts-rest==1.0.0a4",
 ]
 
 packages = find_packages()

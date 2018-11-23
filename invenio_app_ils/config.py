@@ -560,3 +560,14 @@ ILS_VIEWS_PERMISSIONS_FACTORY = views_permissions_factory
 # ==============
 RECORDS_EDITOR_URL_PREFIX = "/editor"
 """Default URL we want to serve our editor application, i.e /editor."""
+
+# Accounts REST
+# ==============
+ACCOUNTS_REST_READ_USER_PROPERTIES_PERMISSION_FACTORY = backoffice_permission
+"""Default read user properties permission factory: reject any request."""
+
+ACCOUNTS_REST_UPDATE_USER_PROPERTIES_PERMISSION_FACTORY = backoffice_permission
+"""Default modify user properties permission factory: reject any request."""
+
+ACCOUNTS_REST_READ_USERS_LIST_PERMISSION_FACTORY = backoffice_permission
+"""Default list users permission factory: reject any request."""
