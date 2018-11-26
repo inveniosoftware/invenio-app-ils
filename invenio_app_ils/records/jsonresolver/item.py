@@ -12,7 +12,7 @@ from invenio_circulation.api import get_loan_for_item
 
 
 @jsonresolver.route(
-    "/api/resolver/circulation/items/<pid_value>/loan", host="ils.mydomain.org"
+    "/api/resolver/circulation/items/<pid_value>/loan", host="127.0.0.1:5000"
 )
 def loan_for_item_resolver(pid_value):
     """Return the circulation status for the given item."""

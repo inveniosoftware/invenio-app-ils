@@ -13,15 +13,25 @@ import PropTypes from 'prop-types';
 import './ItemMetadata.scss';
 
 export default class ItemMetadata extends Component {
+  openEditor(url) {
+    window.open(`/editor?url=${url}`, url);
+  }
+
   render() {
     const data = this.props.itemDetails.metadata;
+    const itemUrl = this.props.itemDetails.links.self;
     return (
       <Segment className="item-metadata">
         <Grid padded columns={2}>
           <Grid.Column width={16}>
             <Header as="h1">
               Item - {data.barcode}
-              <Button primary floated="right" size="small">
+              <Button
+                primary
+                floated="right"
+                size="small"
+                onClick={() => this.openEditor(itemUrl)}
+              >
                 <Icon name="edit" />
                 edit
               </Button>
@@ -80,7 +90,7 @@ export default class ItemMetadata extends Component {
           </Grid.Column>
 
           <Grid.Column>
-            <Container text>
+            <Container>
               <Header as="h3">Description</Header>
               <p>{data.description}</p>
             </Container>
