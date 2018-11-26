@@ -5,4 +5,5 @@ export const URLS = {
   itemDetails: id => `/items/${id}`,
   loansSearch: '/loans',
   loanDetails: id => `/loans/${id}`,
+  patronDetails: `/users/:userPid`,
 };

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Header, NotFound } from 'common/components';
 import { URLS } from 'common/urls';
 import { ItemRoutes, LoanRoutes } from 'routes';
-import { Backoffice } from './pages';
+import { Backoffice, UserDetailsContainer } from './pages';
 import './App.scss';
 
 export default class App extends Component {
@@ -16,6 +16,10 @@ export default class App extends Component {
             <Switch>
               <Route path={URLS.itemsSearch} component={ItemRoutes} />
               <Route path={URLS.loansSearch} component={LoanRoutes} />
+              <Route
+                path={URLS.patronDetails}
+                component={UserDetailsContainer}
+              />
               <Route path={URLS.root} exact component={Backoffice} />
               <Route component={NotFound} />
             </Switch>

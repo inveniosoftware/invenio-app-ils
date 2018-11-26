@@ -1,5 +1,5 @@
 import { http } from './base';
 import { item } from './item';
 import { loan } from './loan';
-
-export { http, item, loan };
+import { user } from './user';
+export { http, item, loan, user };

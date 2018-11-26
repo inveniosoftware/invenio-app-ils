@@ -2,11 +2,11 @@ import { http } from './base';
 
 const itemURL = '/items/';
 
-const getRecord = itemPid => {
+const get = itemPid => {
   return http.get(`${itemURL}${itemPid}`);
 };
 
 export const item = {
   url: itemURL,
-  getRecord: getRecord,
+  get: get,
 };

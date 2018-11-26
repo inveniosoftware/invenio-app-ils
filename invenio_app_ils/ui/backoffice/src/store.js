@@ -8,12 +8,14 @@ import {
   itemPendingLoansReducer,
 } from './pages/ItemDetails/reducer';
 import { loanDetailsReducer } from './pages/LoanDetails/reducer';
+import { userDetailsReducer } from './pages/UserDetails/reducer';
 
 const rootReducer = combineReducers({
   userSession: userSessionReducer,
   itemDetails: itemDetailsReducer,
   itemPendingLoans: itemPendingLoansReducer,
   loanDetails: loanDetailsReducer,
+  userDetails: userDetailsReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 
 const loanURL = '/circulation/loans/';
 
-const getRecord = loanPid => {
+const get = loanPid => {
   return http.get(`${loanURL}${loanPid}`);
 };
 
@@ -59,7 +59,7 @@ const fetchPendingOnDocumentItem = (
 
 export const loan = {
   url: loanURL,
-  getRecord: getRecord,
+  get: get,
   postAction: postAction,
   buildPendingQuery: buildPendingQuery,
   fetchPendingOnDocumentItem: fetchPendingOnDocumentItem,

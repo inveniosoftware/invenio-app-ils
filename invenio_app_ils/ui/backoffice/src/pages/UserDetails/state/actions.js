@@ -1,14 +1,14 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { item } from 'common/api';
+import { user } from 'common/api';
 
-export const fetchItemDetails = itemPid => {
+export const fetchUserDetails = userPid => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
 
-    await item
-      .get(itemPid)
+    await user
+      .get(userPid)
       .then(response => {
         dispatch({
           type: SUCCESS,
