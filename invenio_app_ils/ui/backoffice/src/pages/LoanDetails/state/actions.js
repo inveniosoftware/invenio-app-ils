@@ -16,7 +16,7 @@ export const fetchLoanDetails = loanPid => {
     });
 
     await loanApi
-      .getRecord(loanPid)
+      .get(loanPid)
       .then(response => {
         dispatch({
           type: SUCCESS,

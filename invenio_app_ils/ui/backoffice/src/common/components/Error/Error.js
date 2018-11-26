@@ -13,6 +13,9 @@ export class Error extends Component {
       case 403:
         message = 'You are not authorized to perform this action.';
         break;
+      case 404:
+        message = 'The requested URL has not been found.';
+        break;
       default:
         message = errorMessage;
     }

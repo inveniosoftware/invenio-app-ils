@@ -9,8 +9,8 @@ import { loan as loanApi } from 'common/api';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-const mockGetRecord = jest.fn();
-loanApi.getRecord = mockGetRecord;
+const mockGet = jest.fn();
+loanApi.get = mockGet;
 const mockPostAction = jest.fn();
 loanApi.postAction = mockPostAction;
 
@@ -31,7 +31,7 @@ const _initialState = {
 
 let store;
 beforeEach(() => {
-  mockGetRecord.mockClear();
+  mockGet.mockClear();
   mockPostAction.mockClear();
 
   store = mockStore(_initialState);
@@ -41,7 +41,7 @@ beforeEach(() => {
 describe('Loan details tests', () => {
   describe('Fetch loan details tests', () => {
     it('should dispatch a loading action when fetching a loan', done => {
-      mockGetRecord.mockResolvedValue(response);
+      mockGet.mockResolvedValue(response);
 
       const expectedActions = [
         {
@@ -50,7 +50,7 @@ describe('Loan details tests', () => {
       ];
 
       store.dispatch(actions.fetchLoanDetails('123')).then(() => {
-        expect(mockGetRecord).toHaveBeenCalledWith('123');
+        expect(mockGet).toHaveBeenCalledWith('123');
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedActions[0]);
         done();
@@ -58,7 +58,7 @@ describe('Loan details tests', () => {
     });
 
     it('should dispatch a success action when loan fetch succeeds', done => {
-      mockGetRecord.mockResolvedValue(response);
+      mockGet.mockResolvedValue(response);
 
       const expectedActions = [
         {
@@ -68,7 +68,7 @@ describe('Loan details tests', () => {
       ];
 
       store.dispatch(actions.fetchLoanDetails('123')).then(() => {
-        expect(mockGetRecord).toHaveBeenCalledWith('123');
+        expect(mockGet).toHaveBeenCalledWith('123');
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
         done();
@@ -76,7 +76,7 @@ describe('Loan details tests', () => {
     });
 
     it('should dispatch an error action when loan fetch fails', done => {
-      mockGetRecord.mockRejectedValue([500, 'Error']);
+      mockGet.mockRejectedValue([500, 'Error']);
 
       const expectedActions = [
         {
@@ -86,7 +86,7 @@ describe('Loan details tests', () => {
       ];
 
       store.dispatch(actions.fetchLoanDetails('456')).then(() => {
-        expect(mockGetRecord).toHaveBeenCalledWith('456');
+        expect(mockGet).toHaveBeenCalledWith('456');
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
         done();
