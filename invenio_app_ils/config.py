@@ -179,7 +179,7 @@ SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://test:psw@localhost/ils"
 # JSONSchemas
 # ===========
 #: Hostname used in URLs for local JSONSchemas.
-JSONSCHEMAS_HOST = "ils.mydomain.org"
+JSONSCHEMAS_HOST = "127.0.0.1:5000"
 
 # CORS
 # ====
@@ -232,6 +232,7 @@ _ILOCID_CONVERTER = (
     'pid(ilocid, record_class="invenio_app_ils.records.api:InternalLocation")'
 )
 
+from invenio_records_rest.utils import
 # RECORDS REST
 # ============
 RECORDS_REST_ENDPOINTS = dict(
@@ -302,7 +303,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_serializers={
             "application/json": (
-                "invenio_records_rest.serializers:json_v1_response"
+                "invenio_app_ils.records.serializers:json_v1_response"
             )
         },
         search_serializers={
@@ -331,7 +332,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_serializers={
             "application/json": (
-                "invenio_records_rest.serializers:json_v1_response"
+                "invenio_app_ils.records.serializers:json_v1_response"
             )
         },
         search_serializers={

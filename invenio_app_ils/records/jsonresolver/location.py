@@ -15,7 +15,7 @@ from ..api import Location
 
 
 @jsonresolver.route(
-    "/api/resolver/locations/<pid_value>", host="ils.mydomain.org"
+    "/api/resolver/locations/<pid_value>", host="127.0.0.1:5000"
 )
 def location_resolver(pid_value):
     """Return the location record for the given pid or raise exception."""
