@@ -232,7 +232,6 @@ _ILOCID_CONVERTER = (
     'pid(ilocid, record_class="invenio_app_ils.records.api:InternalLocation")'
 )
 
-from invenio_records_rest.utils import
 # RECORDS REST
 # ============
 RECORDS_REST_ENDPOINTS = dict(
