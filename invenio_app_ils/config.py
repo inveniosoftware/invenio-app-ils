@@ -29,6 +29,7 @@ from .records.permissions import (  # isort:skip
     record_read_permission_factory,
     record_update_permission_factory,
 )
+
 from .search.api import (  # isort:skip
     DocumentSearch,
     InternalLocationSearch,
@@ -249,7 +250,10 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
-            )
+            ),
+            "application/vnd.ils.refs+json": (
+                "invenio_records_rest.serializers:json_v1_response"
+            ),
         },
         list_route="/documents/",
         item_route="/documents/<{0}:pid_value>".format(_DOCID_CONVERTER),
@@ -268,13 +272,18 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=ItemSearch,
         record_class=Item,
         record_loaders={
-            "application/json": "invenio_app_ils.records.loaders:item_loader",
-            'application/json-patch+json': lambda: request.get_json(force=True),
+            "application/json": ("invenio_app_ils.records.loaders:item_loader"),
+            "application/json-patch+json": (
+                lambda: request.get_json(force=True)
+            ),
         },
         record_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_response"
-            )
+            ),
+            "application/vnd.ils.refs+json": (
+                "invenio_records_rest.serializers:json_v1_response"
+            ),
         },
         search_serializers={
             "application/json": (
@@ -298,12 +307,17 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=LocationSearch,
         record_class=Location,
         record_loaders={
-            "application/json": "invenio_app_ils.records.loaders:location_loader"
+            "application/json": (
+                "invenio_app_ils.records.loaders:location_loader"
+            ),
         },
         record_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_response"
-            )
+            ),
+            "application/vnd.ils.refs+json": (
+                "invenio_records_rest.serializers:json_v1_response"
+            ),
         },
         search_serializers={
             "application/json": (
@@ -327,12 +341,17 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=InternalLocationSearch,
         record_class=InternalLocation,
         record_loaders={
-            "application/json": "invenio_app_ils.records.loaders:internal_location_loader"
+            "application/json": (
+                "invenio_app_ils.records.loaders:internal_location_loader"
+            ),
         },
         record_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_response"
-            )
+            ),
+            "application/vnd.ils.refs+json": (
+                "invenio_records_rest.serializers:json_v1_response"
+            ),
         },
         search_serializers={
             "application/json": (
