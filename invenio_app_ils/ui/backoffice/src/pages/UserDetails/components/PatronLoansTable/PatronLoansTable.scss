@@ -1,0 +1,18 @@
+.item-pending-loans {
+  .header {
+    span {
+      margin-right: 0.8em;
+    }
+  }
+
+  tr:hover {
+    cursor: pointer;
+  }
+
+  .footer {
+    span {
+      font-style: italic;
+      margin-right: 1em;
+    }
+  }
+}
