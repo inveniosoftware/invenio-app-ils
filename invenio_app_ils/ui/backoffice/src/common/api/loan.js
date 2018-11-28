@@ -57,10 +57,41 @@ const fetchPendingOnDocumentItem = (
   return http.get(`${loanURL}?q=${qs}&sort:${sortByOrder}`);
 };
 
+const buildLoansQuery = (documentPid, itemPid, state, patronPid) => {
+  const qsDoc = documentPid ? `document_pid:${documentPid}` : '';
+  const qsItem = itemPid ? `item_pid:${itemPid}` : '';
+  const qsUser = patronPid ? `patron_pid:${patronPid}` : '';
+  const qsDocItem =
+    qsDoc && qsItem ? `(${qsDoc} OR ${qsItem})` : `${qsDoc}${qsItem}`;
+  const qsDocItemUser =
+    qsDocItem && qsUser
+      ? `(${qsDocItem} AND ${qsUser})`
+      : `${qsDocItem}${qsUser}`;
+  const qsState = state ? `AND state:${state}` : '';
+  return `${qsDocItemUser}${qsState}`;
+};
+
+const fetchLoans = (
+  documentPid,
+  itemPid,
+  sortBy,
+  sortOrder,
+  patronPid,
+  state
+) => {
+  const qs = buildLoansQuery(documentPid, itemPid, state, patronPid);
+  const sort =
+    sortBy === 'transaction_date' ? `transaction_date` : `start_date`;
+  const sortByOrder = sortOrder === 'asc' ? `${sort}:asc` : `${sort}:desc`;
+  return http.get(`${loanURL}?q=${qs}&sort:${sortByOrder}`);
+};
+
 export const loan = {
   url: loanURL,
   get: get,
   postAction: postAction,
   buildPendingQuery: buildPendingQuery,
   fetchPendingOnDocumentItem: fetchPendingOnDocumentItem,
+  fetchLoans: fetchLoans,
+  buildLoansQuery: buildLoansQuery,
 };

@@ -1,0 +1,1267 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PatronLoansTable tests should load the details component 1`] = `
+<Loader>
+  <Error
+    error={null}
+  >
+    <Segment>
+      <Header
+        as="h3"
+      >
+        User's loan requests
+      </Header>
+      <Message
+        data-test="no-results"
+      >
+        There are no loan requests from this user.
+      </Message>
+    </Segment>
+  </Error>
+</Loader>
+`;
+
+exports[`PatronLoansTable tests should render patron loans 1`] = `
+<PatronLoansTable
+  currentSortBy=""
+  currentSortOrder=""
+  data={
+    Array [
+      Object {
+        "end_date": "2018-01-01T10:05:00.000Z",
+        "loan_pid": "loan1",
+        "patron_pid": "patron_1",
+        "start_date": "2018-01-01T10:05:00.000Z",
+        "updated": "2018-01-01T10:05:00.000Z",
+      },
+      Object {
+        "end_date": "2018-01-01T10:05:00.000Z",
+        "loan_pid": "loan2",
+        "patron_pid": "patron_1",
+        "start_date": "2018-01-01T10:05:00.000Z",
+        "updated": "2018-01-01T10:05:00.000Z",
+      },
+    ]
+  }
+  fetchPatronLoans={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          null,
+          null,
+          null,
+          2,
+        ],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  history={[Function]}
+  loanState=""
+  patron={2}
+  patronLoansChangeSortBy={[MockFunction]}
+  patronLoansChangeSortOrder={[MockFunction]}
+  showMaxLoans={5}
+>
+  <Loader>
+    <Error
+      error={null}
+    >
+      <Segment>
+        <div
+          className="ui segment"
+        >
+          <Header
+            as="h3"
+          >
+            <h3
+              className="ui header"
+            >
+              User's loan requests
+            </h3>
+          </Header>
+          <Table
+            as="table"
+            className="item-pending-loans"
+            selectable={true}
+            singleLine={true}
+          >
+            <table
+              className="ui selectable single line table item-pending-loans"
+            >
+              <TableHeader
+                as="thead"
+                className="header"
+              >
+                <thead
+                  className="header"
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="header"
+                  >
+                    <tr
+                      className=""
+                      data-test="header"
+                    >
+                      <TableHeaderCell
+                        as="th"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          />
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        textAlign="center"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                          textAlign="center"
+                        >
+                          <th
+                            className="center aligned"
+                          >
+                            Loan
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        textAlign="center"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                          textAlign="center"
+                        >
+                          <th
+                            className="center aligned"
+                          >
+                            Item
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        textAlign="center"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                          textAlign="center"
+                        >
+                          <th
+                            className="center aligned"
+                          >
+                            State
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            <span>
+                              Request created
+                            </span>
+                            <Popup
+                              content="Sort by request date asc/desc"
+                              keepInViewPort={true}
+                              on="hover"
+                              position="top center"
+                              size="mini"
+                              trigger={
+                                <Icon
+                                  as="i"
+                                  link={true}
+                                  name="sort"
+                                  onClick={[Function]}
+                                />
+                              }
+                            >
+                              <Portal
+                                closeOnDocumentClick={true}
+                                closeOnEscape={true}
+                                closeOnTriggerMouseLeave={true}
+                                eventPool="default"
+                                mouseEnterDelay={50}
+                                mouseLeaveDelay={70}
+                                onClose={[Function]}
+                                onMount={[Function]}
+                                onOpen={[Function]}
+                                onUnmount={[Function]}
+                                openOnTriggerClick={true}
+                                openOnTriggerMouseEnter={true}
+                                trigger={
+                                  <Icon
+                                    as="i"
+                                    link={true}
+                                    name="sort"
+                                    onClick={[Function]}
+                                  />
+                                }
+                                triggerRef={[Function]}
+                              >
+                                <Ref
+                                  innerRef={[Function]}
+                                  key="trigger"
+                                >
+                                  <Icon
+                                    as="i"
+                                    link={true}
+                                    name="sort"
+                                    onBlur={[Function]}
+                                    onClick={[Function]}
+                                    onFocus={[Function]}
+                                    onMouseEnter={[Function]}
+                                    onMouseLeave={[Function]}
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="sort link icon"
+                                      onBlur={[Function]}
+                                      onClick={[Function]}
+                                      onFocus={[Function]}
+                                      onMouseEnter={[Function]}
+                                      onMouseLeave={[Function]}
+                                    />
+                                  </Icon>
+                                </Ref>
+                              </Portal>
+                            </Popup>
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            <span>
+                              Loan start date
+                            </span>
+                            <Popup
+                              content="Sort by start date asc/desc"
+                              keepInViewPort={true}
+                              on="hover"
+                              position="top center"
+                              size="mini"
+                              trigger={
+                                <Icon
+                                  as="i"
+                                  link={true}
+                                  name="sort"
+                                  onClick={[Function]}
+                                />
+                              }
+                            >
+                              <Portal
+                                closeOnDocumentClick={true}
+                                closeOnEscape={true}
+                                closeOnTriggerMouseLeave={true}
+                                eventPool="default"
+                                mouseEnterDelay={50}
+                                mouseLeaveDelay={70}
+                                onClose={[Function]}
+                                onMount={[Function]}
+                                onOpen={[Function]}
+                                onUnmount={[Function]}
+                                openOnTriggerClick={true}
+                                openOnTriggerMouseEnter={true}
+                                trigger={
+                                  <Icon
+                                    as="i"
+                                    link={true}
+                                    name="sort"
+                                    onClick={[Function]}
+                                  />
+                                }
+                                triggerRef={[Function]}
+                              >
+                                <Ref
+                                  innerRef={[Function]}
+                                  key="trigger"
+                                >
+                                  <Icon
+                                    as="i"
+                                    link={true}
+                                    name="sort"
+                                    onBlur={[Function]}
+                                    onClick={[Function]}
+                                    onFocus={[Function]}
+                                    onMouseEnter={[Function]}
+                                    onMouseLeave={[Function]}
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="sort link icon"
+                                      onBlur={[Function]}
+                                      onClick={[Function]}
+                                      onFocus={[Function]}
+                                      onMouseEnter={[Function]}
+                                      onMouseLeave={[Function]}
+                                    />
+                                  </Icon>
+                                </Ref>
+                              </Portal>
+                            </Popup>
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            <span>
+                              Loan end date
+                            </span>
+                            <Popup
+                              content="Sort by end asc/desc"
+                              keepInViewPort={true}
+                              on="hover"
+                              position="top center"
+                              size="mini"
+                              trigger={
+                                <Icon
+                                  as="i"
+                                  link={true}
+                                  name="sort"
+                                  onClick={[Function]}
+                                />
+                              }
+                            >
+                              <Portal
+                                closeOnDocumentClick={true}
+                                closeOnEscape={true}
+                                closeOnTriggerMouseLeave={true}
+                                eventPool="default"
+                                mouseEnterDelay={50}
+                                mouseLeaveDelay={70}
+                                onClose={[Function]}
+                                onMount={[Function]}
+                                onOpen={[Function]}
+                                onUnmount={[Function]}
+                                openOnTriggerClick={true}
+                                openOnTriggerMouseEnter={true}
+                                trigger={
+                                  <Icon
+                                    as="i"
+                                    link={true}
+                                    name="sort"
+                                    onClick={[Function]}
+                                  />
+                                }
+                                triggerRef={[Function]}
+                              >
+                                <Ref
+                                  innerRef={[Function]}
+                                  key="trigger"
+                                >
+                                  <Icon
+                                    as="i"
+                                    link={true}
+                                    name="sort"
+                                    onBlur={[Function]}
+                                    onClick={[Function]}
+                                    onFocus={[Function]}
+                                    onMouseEnter={[Function]}
+                                    onMouseLeave={[Function]}
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="sort link icon"
+                                      onBlur={[Function]}
+                                      onClick={[Function]}
+                                      onFocus={[Function]}
+                                      onMouseEnter={[Function]}
+                                      onMouseLeave={[Function]}
+                                    />
+                                  </Icon>
+                                </Ref>
+                              </Portal>
+                            </Popup>
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                    </tr>
+                  </TableRow>
+                </thead>
+              </TableHeader>
+              <TableBody
+                as="tbody"
+              >
+                <tbody
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="loan1"
+                    key="loan1"
+                  >
+                    <tr
+                      className=""
+                      data-test="loan1"
+                    >
+                      <TableCell
+                        as="td"
+                        collapsing={true}
+                        textAlign="center"
+                      >
+                        <td
+                          className="collapsing center aligned"
+                        >
+                          <Icon
+                            as="i"
+                            circular={true}
+                            link={true}
+                            name="eye"
+                            onClick={[Function]}
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="eye circular link icon"
+                              onClick={[Function]}
+                            />
+                          </Icon>
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        collapsing={true}
+                        textAlign="center"
+                      >
+                        <td
+                          className="collapsing center aligned"
+                        >
+                          loan1
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        collapsing={true}
+                        textAlign="center"
+                      >
+                        <td
+                          className="collapsing center aligned"
+                        />
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        collapsing={true}
+                        textAlign="center"
+                      >
+                        <td
+                          className="collapsing center aligned"
+                        />
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        collapsing={true}
+                        textAlign="center"
+                      >
+                        <td
+                          className="collapsing center aligned"
+                        >
+                          1/1/2018
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                      >
+                        <td
+                          className=""
+                        >
+                          1/1/2018
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                      >
+                        <td
+                          className=""
+                        >
+                          1/1/2018
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="loan2"
+                    key="loan2"
+                  >
+                    <tr
+                      className=""
+                      data-test="loan2"
+                    >
+                      <TableCell
+                        as="td"
+                        collapsing={true}
+                        textAlign="center"
+                      >
+                        <td
+                          className="collapsing center aligned"
+                        >
+                          <Icon
+                            as="i"
+                            circular={true}
+                            link={true}
+                            name="eye"
+                            onClick={[Function]}
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="eye circular link icon"
+                              onClick={[Function]}
+                            />
+                          </Icon>
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        collapsing={true}
+                        textAlign="center"
+                      >
+                        <td
+                          className="collapsing center aligned"
+                        >
+                          loan2
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        collapsing={true}
+                        textAlign="center"
+                      >
+                        <td
+                          className="collapsing center aligned"
+                        />
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        collapsing={true}
+                        textAlign="center"
+                      >
+                        <td
+                          className="collapsing center aligned"
+                        />
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        collapsing={true}
+                        textAlign="center"
+                      >
+                        <td
+                          className="collapsing center aligned"
+                        >
+                          1/1/2018
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                      >
+                        <td
+                          className=""
+                        >
+                          1/1/2018
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                      >
+                        <td
+                          className=""
+                        >
+                          1/1/2018
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                </tbody>
+              </TableBody>
+            </table>
+          </Table>
+        </div>
+      </Segment>
+    </Error>
+  </Loader>
+</PatronLoansTable>
+`;
+
+exports[`PatronLoansTable tests should render show a message with no user loans 1`] = `
+<PatronLoansTable
+  currentSortBy=""
+  currentSortOrder=""
+  data={Array []}
+  fetchPatronLoans={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          null,
+          null,
+          null,
+          2,
+        ],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  history={[Function]}
+  loanState=""
+  patron={2}
+  patronLoansChangeSortBy={[MockFunction]}
+  patronLoansChangeSortOrder={[MockFunction]}
+  showMaxLoans={5}
+>
+  <Loader>
+    <Error
+      error={null}
+    >
+      <Segment>
+        <div
+          className="ui segment"
+        >
+          <Header
+            as="h3"
+          >
+            <h3
+              className="ui header"
+            >
+              User's loan requests
+            </h3>
+          </Header>
+          <Message
+            data-test="no-results"
+          >
+            <div
+              className="ui message"
+              data-test="no-results"
+            >
+              There are no loan requests from this user.
+            </div>
+          </Message>
+        </div>
+      </Segment>
+    </Error>
+  </Loader>
+</PatronLoansTable>
+`;
+
+exports[`PatronLoansTable tests should render the show all button when showing only a few patron loans 1`] = `
+<PatronLoansTable
+  currentSortBy=""
+  currentSortOrder=""
+  data={
+    Array [
+      Object {
+        "end_date": "2018-01-01T10:05:00.000Z",
+        "loan_pid": "loan1",
+        "patron_pid": "patron_1",
+        "start_date": "2018-01-01T10:05:00.000Z",
+        "updated": "2018-01-01T10:05:00.000Z",
+      },
+      Object {
+        "end_date": "2018-01-01T10:05:00.000Z",
+        "loan_pid": "loan2",
+        "patron_pid": "patron_2",
+        "start_date": "2018-01-01T10:05:00.000Z",
+        "updated": "2018-01-01T10:05:00.000Z",
+      },
+    ]
+  }
+  fetchPatronLoans={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          null,
+          null,
+          null,
+          2,
+        ],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  history={[Function]}
+  patron={2}
+  patronLoansChangeSortBy={[MockFunction]}
+  patronLoansChangeSortOrder={[MockFunction]}
+  showMaxLoans={1}
+>
+  <Loader>
+    <Error
+      error={null}
+    >
+      <Segment>
+        <div
+          className="ui segment"
+        >
+          <Header
+            as="h3"
+          >
+            <h3
+              className="ui header"
+            >
+              User's loan requests
+            </h3>
+          </Header>
+          <Table
+            as="table"
+            className="item-pending-loans"
+            selectable={true}
+            singleLine={true}
+          >
+            <table
+              className="ui selectable single line table item-pending-loans"
+            >
+              <TableHeader
+                as="thead"
+                className="header"
+              >
+                <thead
+                  className="header"
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="header"
+                  >
+                    <tr
+                      className=""
+                      data-test="header"
+                    >
+                      <TableHeaderCell
+                        as="th"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          />
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        textAlign="center"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                          textAlign="center"
+                        >
+                          <th
+                            className="center aligned"
+                          >
+                            Loan
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        textAlign="center"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                          textAlign="center"
+                        >
+                          <th
+                            className="center aligned"
+                          >
+                            Item
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        textAlign="center"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                          textAlign="center"
+                        >
+                          <th
+                            className="center aligned"
+                          >
+                            State
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            <span>
+                              Request created
+                            </span>
+                            <Popup
+                              content="Sort by request date asc/desc"
+                              keepInViewPort={true}
+                              on="hover"
+                              position="top center"
+                              size="mini"
+                              trigger={
+                                <Icon
+                                  as="i"
+                                  link={true}
+                                  name="sort"
+                                  onClick={[Function]}
+                                />
+                              }
+                            >
+                              <Portal
+                                closeOnDocumentClick={true}
+                                closeOnEscape={true}
+                                closeOnTriggerMouseLeave={true}
+                                eventPool="default"
+                                mouseEnterDelay={50}
+                                mouseLeaveDelay={70}
+                                onClose={[Function]}
+                                onMount={[Function]}
+                                onOpen={[Function]}
+                                onUnmount={[Function]}
+                                openOnTriggerClick={true}
+                                openOnTriggerMouseEnter={true}
+                                trigger={
+                                  <Icon
+                                    as="i"
+                                    link={true}
+                                    name="sort"
+                                    onClick={[Function]}
+                                  />
+                                }
+                                triggerRef={[Function]}
+                              >
+                                <Ref
+                                  innerRef={[Function]}
+                                  key="trigger"
+                                >
+                                  <Icon
+                                    as="i"
+                                    link={true}
+                                    name="sort"
+                                    onBlur={[Function]}
+                                    onClick={[Function]}
+                                    onFocus={[Function]}
+                                    onMouseEnter={[Function]}
+                                    onMouseLeave={[Function]}
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="sort link icon"
+                                      onBlur={[Function]}
+                                      onClick={[Function]}
+                                      onFocus={[Function]}
+                                      onMouseEnter={[Function]}
+                                      onMouseLeave={[Function]}
+                                    />
+                                  </Icon>
+                                </Ref>
+                              </Portal>
+                            </Popup>
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            <span>
+                              Loan start date
+                            </span>
+                            <Popup
+                              content="Sort by start date asc/desc"
+                              keepInViewPort={true}
+                              on="hover"
+                              position="top center"
+                              size="mini"
+                              trigger={
+                                <Icon
+                                  as="i"
+                                  link={true}
+                                  name="sort"
+                                  onClick={[Function]}
+                                />
+                              }
+                            >
+                              <Portal
+                                closeOnDocumentClick={true}
+                                closeOnEscape={true}
+                                closeOnTriggerMouseLeave={true}
+                                eventPool="default"
+                                mouseEnterDelay={50}
+                                mouseLeaveDelay={70}
+                                onClose={[Function]}
+                                onMount={[Function]}
+                                onOpen={[Function]}
+                                onUnmount={[Function]}
+                                openOnTriggerClick={true}
+                                openOnTriggerMouseEnter={true}
+                                trigger={
+                                  <Icon
+                                    as="i"
+                                    link={true}
+                                    name="sort"
+                                    onClick={[Function]}
+                                  />
+                                }
+                                triggerRef={[Function]}
+                              >
+                                <Ref
+                                  innerRef={[Function]}
+                                  key="trigger"
+                                >
+                                  <Icon
+                                    as="i"
+                                    link={true}
+                                    name="sort"
+                                    onBlur={[Function]}
+                                    onClick={[Function]}
+                                    onFocus={[Function]}
+                                    onMouseEnter={[Function]}
+                                    onMouseLeave={[Function]}
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="sort link icon"
+                                      onBlur={[Function]}
+                                      onClick={[Function]}
+                                      onFocus={[Function]}
+                                      onMouseEnter={[Function]}
+                                      onMouseLeave={[Function]}
+                                    />
+                                  </Icon>
+                                </Ref>
+                              </Portal>
+                            </Popup>
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            <span>
+                              Loan end date
+                            </span>
+                            <Popup
+                              content="Sort by end asc/desc"
+                              keepInViewPort={true}
+                              on="hover"
+                              position="top center"
+                              size="mini"
+                              trigger={
+                                <Icon
+                                  as="i"
+                                  link={true}
+                                  name="sort"
+                                  onClick={[Function]}
+                                />
+                              }
+                            >
+                              <Portal
+                                closeOnDocumentClick={true}
+                                closeOnEscape={true}
+                                closeOnTriggerMouseLeave={true}
+                                eventPool="default"
+                                mouseEnterDelay={50}
+                                mouseLeaveDelay={70}
+                                onClose={[Function]}
+                                onMount={[Function]}
+                                onOpen={[Function]}
+                                onUnmount={[Function]}
+                                openOnTriggerClick={true}
+                                openOnTriggerMouseEnter={true}
+                                trigger={
+                                  <Icon
+                                    as="i"
+                                    link={true}
+                                    name="sort"
+                                    onClick={[Function]}
+                                  />
+                                }
+                                triggerRef={[Function]}
+                              >
+                                <Ref
+                                  innerRef={[Function]}
+                                  key="trigger"
+                                >
+                                  <Icon
+                                    as="i"
+                                    link={true}
+                                    name="sort"
+                                    onBlur={[Function]}
+                                    onClick={[Function]}
+                                    onFocus={[Function]}
+                                    onMouseEnter={[Function]}
+                                    onMouseLeave={[Function]}
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="sort link icon"
+                                      onBlur={[Function]}
+                                      onClick={[Function]}
+                                      onFocus={[Function]}
+                                      onMouseEnter={[Function]}
+                                      onMouseLeave={[Function]}
+                                    />
+                                  </Icon>
+                                </Ref>
+                              </Portal>
+                            </Popup>
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                    </tr>
+                  </TableRow>
+                </thead>
+              </TableHeader>
+              <TableBody
+                as="tbody"
+              >
+                <tbody
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="loan1"
+                    key="loan1"
+                  >
+                    <tr
+                      className=""
+                      data-test="loan1"
+                    >
+                      <TableCell
+                        as="td"
+                        collapsing={true}
+                        textAlign="center"
+                      >
+                        <td
+                          className="collapsing center aligned"
+                        >
+                          <Icon
+                            as="i"
+                            circular={true}
+                            link={true}
+                            name="eye"
+                            onClick={[Function]}
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="eye circular link icon"
+                              onClick={[Function]}
+                            />
+                          </Icon>
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        collapsing={true}
+                        textAlign="center"
+                      >
+                        <td
+                          className="collapsing center aligned"
+                        >
+                          loan1
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        collapsing={true}
+                        textAlign="center"
+                      >
+                        <td
+                          className="collapsing center aligned"
+                        />
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        collapsing={true}
+                        textAlign="center"
+                      >
+                        <td
+                          className="collapsing center aligned"
+                        />
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        collapsing={true}
+                        textAlign="center"
+                      >
+                        <td
+                          className="collapsing center aligned"
+                        >
+                          1/1/2018
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                      >
+                        <td
+                          className=""
+                        >
+                          1/1/2018
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                      >
+                        <td
+                          className=""
+                        >
+                          1/1/2018
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                </tbody>
+              </TableBody>
+              <TableFooter
+                as="tfoot"
+                className="footer"
+                data-test="footer"
+                fullWidth={true}
+              >
+                <TableHeader
+                  as="tfoot"
+                  className="footer"
+                  data-test="footer"
+                  fullWidth={true}
+                >
+                  <tfoot
+                    className="full-width footer"
+                    data-test="footer"
+                  >
+                    <TableRow
+                      as="tr"
+                      cellAs="td"
+                    >
+                      <tr
+                        className=""
+                      >
+                        <TableHeaderCell
+                          as="th"
+                          colSpan="6"
+                        >
+                          <TableCell
+                            as="th"
+                            className=""
+                            colSpan="6"
+                          >
+                            <th
+                              className=""
+                              colSpan="6"
+                            />
+                          </TableCell>
+                        </TableHeaderCell>
+                        <TableHeaderCell
+                          as="th"
+                          textAlign="right"
+                        >
+                          <TableCell
+                            as="th"
+                            className=""
+                            textAlign="right"
+                          >
+                            <th
+                              className="right aligned"
+                            >
+                              <span>
+                                Showing first 
+                                1
+                                 user requests
+                              </span>
+                              <Button
+                                as="button"
+                                onClick={[Function]}
+                                role="button"
+                                size="small"
+                              >
+                                <button
+                                  className="ui small button"
+                                  onClick={[Function]}
+                                  role="button"
+                                >
+                                  Show all
+                                </button>
+                              </Button>
+                            </th>
+                          </TableCell>
+                        </TableHeaderCell>
+                      </tr>
+                    </TableRow>
+                  </tfoot>
+                </TableHeader>
+              </TableFooter>
+            </table>
+          </Table>
+        </div>
+      </Segment>
+    </Error>
+  </Loader>
+</PatronLoansTable>
+`;
