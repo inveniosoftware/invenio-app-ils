@@ -60,7 +60,7 @@ def test_post_internal_location(client, json_headers, testdata, users):
         client, "post", url, json_headers, NEW_INTERNAL_LOCATION, 201
     )
     data = json.loads(res.data.decode("utf-8"))["metadata"]
-    assert "$ref" in data["location"]
+    assert "name" in data["location"]
 
 
 def test_post_partial_internal_location(client, json_headers, testdata, users):
@@ -81,7 +81,7 @@ def test_post_item(client, json_headers, testdata, users):
         client, "post", url, json_headers, NEW_ITEM, 201
     )
     data = json.loads(res.data.decode("utf-8"))["metadata"]
-    assert "$ref" in data["internal_location"]
+    assert "name" in data["internal_location"]
 
 
 def test_post_partial_item(client, json_headers, testdata, users):
