@@ -21,9 +21,17 @@
       "type": "string",
       "title": "Document ID"
     },
+    "internal_location_pid": {
+      "type": "string",
+      "title": "Internal Location ID"
+    },
     "internal_location": {
       "type": "object",
-      "title": "Internal Location"
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
     },
     "legacy_id": {
       "type": "string",

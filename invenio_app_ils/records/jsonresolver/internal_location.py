@@ -15,7 +15,7 @@ from ..api import InternalLocation
 
 
 @jsonresolver.route(
-    "/api/resolver/internal-locations/<pid_value>", host="ils.mydomain.org"
+    "/api/resolver/internal-locations/<pid_value>", host="127.0.0.1:5000"
 )
 def internal_location_resolver(pid_value):
     """Return the internal location for the given pid or raise exception."""

@@ -70,3 +70,5 @@ target/
 **/static/js/invenio_app_ils/backoffice
 **/static/images
 **/static/media
+.eggs
+*.egg-info
