@@ -50,6 +50,7 @@ install_requires = [
     "invenio-records-editor==1.0.0a2",
     "invenio-userprofiles==1.0.1",
     "invenio-accounts-rest==1.0.0a4",
+    "redis<3.0.0"
 ]
 
 packages = find_packages()
