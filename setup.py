@@ -45,11 +45,10 @@ install_requires = [
     "invenio[postgresql,elasticsearch6,base,auth,metadata]>=3.1.0.dev20181106",
     "invenio-app>=1.0.4",
     "invenio-config>=1.0.1",
-    "invenio-circulation==0.1.0.dev20180000",  # TODO: add a version here
-    # when released, need for Travis and isort
-    "invenio-records-editor==1.0.0a2",
-    "invenio-userprofiles==1.0.1",
-    "invenio-accounts-rest==1.0.0a4",
+    "invenio-circulation>=1.0.0a1",
+    "invenio-records-editor>=1.0.0a2",
+    "invenio-userprofiles>=1.0.1",
+    "invenio-accounts-rest>=1.0.0a4",
 ]
 
 packages = find_packages()

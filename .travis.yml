@@ -55,8 +55,6 @@ before_install:
   - "requirements-builder -e $EXTRAS --level=dev --req requirements-devel.txt setup.py > .travis-devel-requirements.txt"
 
 install:
-  # TODO: delete this line when circulation released
-  - "travis_retry pip install -e git+https://github.com/inveniosoftware/invenio-circulation#egg=invenio-circulation"
   - "travis_retry pip install -r .travis-${REQUIREMENTS}-requirements.txt"
   - "travis_retry pip install -e .[$EXTRAS]"
   - "./scripts/build_assets"
