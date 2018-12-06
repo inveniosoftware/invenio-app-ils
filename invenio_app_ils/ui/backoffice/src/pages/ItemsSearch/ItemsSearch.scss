@@ -3,8 +3,13 @@
 }
 
 .items-search-container {
-  .results-per-page {
-    padding: 0 0.5em;
+  .sorting {
+    .before {
+      margin-right: 0.5em;
+    }
+    .middle {
+      padding: 0 0.5em;
+    }
   }
 
   .empty-results-current {
@@ -14,5 +19,15 @@
 
   .results-list {
     margin: 2em 0 !important;
+  }
+
+  .aggregators {
+    display: flex;
+    flex-direction: column;
+
+    .aggregator {
+      margin-left: auto;
+      margin-bottom: 1em;
+    }
   }
 }

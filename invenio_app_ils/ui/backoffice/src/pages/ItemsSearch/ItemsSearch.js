@@ -6,7 +6,6 @@ import {
   Icon,
   Header,
   Button,
-  Dropdown,
 } from 'semantic-ui-react';
 import {
   ReactSearchKit,
@@ -18,6 +17,9 @@ import {
   Error,
   Pagination,
   Count,
+  SortBy,
+  SortOrder,
+  Aggregator,
 } from 'react-searchkit';
 import { apiConfig } from 'common/api/base';
 import { URLS } from 'common/urls';
@@ -27,22 +29,8 @@ import {
   SearchBar as ItemsSearchBar,
   ResultsList as ItemsResultsList,
 } from './components';
+import { default as config } from './config';
 import './ItemsSearch.scss';
-
-const resultsPerPageValues = [
-  {
-    text: '10',
-    value: 10,
-  },
-  {
-    text: '20',
-    value: 20,
-  },
-  {
-    text: '50',
-    value: 50,
-  },
-];
 
 export class ItemsSearch extends Component {
   _renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
@@ -100,35 +88,46 @@ export class ItemsSearch extends Component {
     return <div>{totalResults} results</div>;
   };
 
-  _renderResultsPerPage = (currentSize, values, onChange) => {
-    return (
-      <div>
-        <span className="results-per-page">Show</span>
-        <Dropdown
-          inline
-          compact
-          options={values}
-          value={currentSize}
-          onChange={(e, { value }) => onChange(value)}
+  _renderResultsSorting = () => {
+    return config.SORT_BY.length ? (
+      <div className="sorting">
+        <span className="before">Show</span>
+        <ResultsPerPage
+          values={config.RESULTS_PER_PAGE}
+          defaultValue={config.RESULTS_PER_PAGE[0].value}
         />
-        <span className="results-per-page">results per page</span>
+        <span className="middle">results per page sorted by</span>
+        <SortBy
+          values={config.SORT_BY}
+          defaultValue={config.SORT_BY[0].value}
+          defaultValueOnEmptyString={config.SORT_BY_ON_EMPTY_QUERY}
+        />
+        <SortOrder
+          values={config.SORT_ORDER}
+          defaultValue={config.SORT_ORDER[0]['value']}
+        />
       </div>
-    );
+    ) : null;
+  };
+
+  _renderAggregations = () => {
+    const components = config.AGGREGATIONS.map(agg => (
+      <div className="aggregator" key={agg.field}>
+        <Aggregator title={agg.title} field={agg.field} />
+      </div>
+    ));
+    return <div className="aggregators">{components}</div>;
   };
 
   _renderHeader = () => {
     return (
-      <Grid columns={3} verticalAlign="middle" relaxed>
-        <Grid.Column width={4} textAlign="left">
+      <Grid columns={3} verticalAlign="middle" stackable relaxed>
+        <Grid.Column width={5} textAlign="left">
           <Count renderElement={this._renderCount} />
         </Grid.Column>
-        <Grid.Column width={8}>{this._renderPagination()}</Grid.Column>
-        <Grid.Column width={4} textAlign="right">
-          <ResultsPerPage
-            values={resultsPerPageValues}
-            defaultValue={resultsPerPageValues[0].value}
-            renderElement={this._renderResultsPerPage}
-          />
+        <Grid.Column width={6}>{this._renderPagination()}</Grid.Column>
+        <Grid.Column width={5} textAlign="right">
+          {this._renderResultsSorting()}
         </Grid.Column>
       </Grid>
     );
@@ -136,10 +135,10 @@ export class ItemsSearch extends Component {
 
   _renderFooter = () => {
     return (
-      <Grid columns={3} verticalAlign="middle" relaxed>
-        <Grid.Column width={4} />
-        <Grid.Column width={8}>{this._renderPagination()}</Grid.Column>
-        <Grid.Column width={4} />
+      <Grid columns={3} verticalAlign="middle" stackable relaxed>
+        <Grid.Column width={5} />
+        <Grid.Column width={6}>{this._renderPagination()}</Grid.Column>
+        <Grid.Column width={5} />
       </Grid>
     );
   };
@@ -156,11 +155,9 @@ export class ItemsSearch extends Component {
           <SearchBar renderElement={this._renderSearchBar} />
         </Container>
 
-        <Grid columns={2} relaxed className="items-search-container">
-          <Grid.Column width={4} textAlign="center">
-            FACETS
-          </Grid.Column>
-          <Grid.Column width={12} textAlign="center">
+        <Grid columns={2} stackable relaxed className="items-search-container">
+          <Grid.Column width={3}>{this._renderAggregations()}</Grid.Column>
+          <Grid.Column width={13}>
             <ResultsLoader>
               <EmptyResults renderElement={this._renderEmptyResults} />
               <Error renderElement={this._renderError} />

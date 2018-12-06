@@ -20,6 +20,7 @@ from datetime import timedelta
 from flask import request
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_circulation.search.api import LoansSearch
+from invenio_records_rest.facets import terms_filter
 
 from .records.api import Document, InternalLocation, Item, Location
 
@@ -372,62 +373,6 @@ RECORDS_REST_ENDPOINTS = dict(
     ),
 )
 
-# RECORDS UI
-# ==========
-RECORDS_UI_ENDPOINTS = {
-    "docid": {
-        "pid_type": DOCUMENT_PID_TYPE,
-        "route": "/documents/<pid_value>",
-        "template": "invenio_records_ui/detail.html",
-    },
-    "docid_export": {
-        "pid_type": DOCUMENT_PID_TYPE,
-        "route": "/documents/<pid_value>/export/<format>",
-        "view_imp": "invenio_records_ui.views.export",
-        "template": "invenio_records_ui/export.html",
-    },
-    "itemid": {
-        "pid_type": ITEM_PID_TYPE,
-        "route": "/items/<pid_value>",
-        "template": "invenio_records_ui/detail.html",
-    },
-    "itemid_export": {
-        "pid_type": ITEM_PID_TYPE,
-        "route": "/items/<pid_value>/export/<format>",
-        "view_imp": "invenio_records_ui.views.export",
-        "template": "invenio_records_ui/export.html",
-    },
-    "locid": {
-        "pid_type": LOCATION_PID_TYPE,
-        "route": "/locations/<pid_value>",
-        "template": "invenio_records_ui/detail.html",
-    },
-    "locid_export": {
-        "pid_type": LOCATION_PID_TYPE,
-        "route": "/locations/<pid_value>/export/<format>",
-        "view_imp": "invenio_records_ui.views.export",
-        "template": "invenio_records_ui/export.html",
-    },
-    "ilocid": {
-        "pid_type": INTERNAL_LOCATION_PID_TYPE,
-        "route": "/internal-locations/<pid_value>",
-        "template": "invenio_records_ui/detail.html",
-    },
-    "ilocid_export": {
-        "pid_type": INTERNAL_LOCATION_PID_TYPE,
-        "route": "/internal-locations/<pid_value>/export/<format>",
-        "view_imp": "invenio_records_ui.views.export",
-        "template": "invenio_records_ui/export.html",
-    },
-}
-
-# SEARCH UI
-# =========
-SEARCH_UI_SEARCH_API = "/api/documents/"
-
-SEARCH_UI_SEARCH_INDEX = "documents"
-
-
 # CIRCULATION
 # ===========
 CIRCULATION_ITEMS_RETRIEVER_FROM_DOCUMENT = circulation_items_retriever
@@ -567,6 +512,52 @@ CIRCULATION_REST_ENDPOINTS = dict(
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
         list_permission_factory_imp=authenticated_user_permission,
+    )
+)
+
+# RECORDS REST sort options
+# =========================
+RECORDS_REST_SORT_OPTIONS = dict(
+    items=dict(  # ItemSearch.Meta.index
+        bestmatch=dict(
+            fields=['-_score'],
+            title='Best match',
+            default_order='asc',
+            order=2
+        ),
+        mostrecent=dict(
+            fields=['_updated'],
+            title='Newest',
+            default_order='asc',
+            order=1
+        )
+    )
+)
+
+# RECORDS REST facets
+# =========================
+RECORDS_REST_FACETS = dict(
+    items=dict(  # ItemSearch.Meta.index
+        aggs=dict(
+            status=dict(
+                terms=dict(field="status"),
+            ),
+            medium=dict(
+                terms=dict(field="medium"),
+            ),
+            # name=dict(
+            #     terms=dict(field="internal_location.name"),
+            # ),
+            circulation_status=dict(
+                terms=dict(field="circulation_status.state"),
+            ),
+        ),
+        filters=dict(
+            status=terms_filter('status'),
+            medium=terms_filter('medium'),
+            # name=terms_filter('internal_location.name'),
+            circulation_status=terms_filter('circulation_status.state'),
+        )
     )
 )
 

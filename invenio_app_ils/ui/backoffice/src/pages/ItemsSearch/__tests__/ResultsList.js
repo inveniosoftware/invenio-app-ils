@@ -17,7 +17,9 @@ describe('ItemsSearch ResultsList tests', () => {
         barcode: '9865745223',
         document_pid: 1342,
         status: 'IN_BINDING',
-        internal_location_pid: 34325,
+        internal_location: {
+          name: 'A library location',
+        },
       },
     },
   ];

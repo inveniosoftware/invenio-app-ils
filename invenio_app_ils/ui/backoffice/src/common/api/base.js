@@ -1,21 +1,19 @@
 import axios from 'axios';
 
-// In development create a personal token to be able to perform requests and
-// and put it in a .env file under the name `REACT_APP_JWT_TOKEN`
-const getProductionToken = () => {
-  const res = document.getElementsByName('authorized_token');
-  if (res.length > 0 && res[0].hasOwnProperty('value')) {
-    return res[0].value;
+const getTokenFromDOM = () => {
+  const element = document.getElementsByName('authorized_token');
+  if (element.length > 0 && element[0].hasOwnProperty('value')) {
+    return element[0].value;
   }
   return '';
 };
 
 const token =
   process.env.NODE_ENV === 'production'
-    ? getProductionToken()
+    ? getTokenFromDOM()
     : process.env.REACT_APP_JWT_TOKEN;
 
-export const apiConfig = {
+const apiConfig = {
   baseURL:
     process.env.NODE_ENV === 'production'
       ? '/api'
@@ -26,4 +24,6 @@ export const apiConfig = {
   withCredentials: true,
 };
 
-export const http = axios.create(apiConfig);
+const http = axios.create(apiConfig);
+
+export { http, apiConfig };
