@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
-    <meta charset="utf-8">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -24,9 +26,11 @@
   </head>
 
   <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
+    <noscript> You need to enable JavaScript to run this app. </noscript>
+    <div
+      id="invenio-config"
+      data-config="{&quot;items&quot;: {&quot;search&quot;: {&quot;aggs&quot;: [&quot;status&quot;, &quot;medium&quot;, &quot;circulation_status&quot;], &quot;sortBy&quot;: {&quot;onEmptyQuery&quot;: &quot;mostrecent&quot;, &quot;values&quot;: [{&quot;field&quot;: &quot;mostrecent&quot;, &quot;order&quot;: 1, &quot;title&quot;: &quot;Newest&quot;}, {&quot;field&quot;: &quot;bestmatch&quot;, &quot;order&quot;: 2, &quot;title&quot;: &quot;Best match&quot;}]}, &quot;sortOrder&quot;: [&quot;asc&quot;, &quot;desc&quot;]}}}"
+    ></div>
     <div id="backoffice"></div>
     <!--
       This HTML file is a template.
@@ -39,5 +43,4 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
-
 </html>

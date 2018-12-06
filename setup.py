@@ -5,7 +5,7 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Invenio app ils"""
+"""Invenio App ILS"""
 
 import os
 
@@ -42,13 +42,24 @@ setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
 install_requires = [
     "Flask-BabelEx>=0.9.3",
     "Flask-Debugtoolbar>=0.10.1",
-    "invenio[postgresql,elasticsearch6,base,auth,metadata]>=3.1.0.dev20181106",
+    "invenio[postgresql,elasticsearch6,base,auth]>=3.1.0.dev20181106",
+    # metadata bundle without records UI
+    "invenio-indexer>=1.0.1,<1.1.0",
+    "invenio-jsonschemas>=1.0.0,<1.1.0",
+    "invenio-oaiserver>=1.0.0,<1.1.0",
+    "invenio-pidstore>=1.0.0,<1.1.0",
+    "invenio-records-rest>=1.2.1,<1.3.0",
+    "invenio-records>=1.0.0,<1.1.0",
+    # upgraded packages
     "invenio-app>=1.0.4",
     "invenio-config>=1.0.1",
-    "invenio-circulation>=1.0.0a1",
-    "invenio-records-editor>=1.0.0a2",
     "invenio-userprofiles>=1.0.1",
     "invenio-accounts-rest>=1.0.0a4",
+    # https://github.com/inveniosoftware/invenio-indexer/commit/9749c2fe4e2cbaabc167ad7fb12ade945a2d580c
+    "redis>=2.10.0,<3.0.0",
+    # extra
+    "invenio-circulation>=1.0.0a1",
+    "invenio-records-editor>=1.0.0a2",
 ]
 
 packages = find_packages()

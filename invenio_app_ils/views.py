@@ -19,6 +19,7 @@ from functools import wraps
 from flask import Blueprint, current_app, render_template
 
 from invenio_app_ils.permissions import check_permission
+from invenio_app_ils.search.api import ItemSearch
 
 
 def need_permissions(action):
@@ -75,4 +76,29 @@ backoffice_blueprint = Blueprint(
 @need_permissions("ils-backoffice-view")
 def index(path=None):
     """UI base view."""
-    return render_template("invenio_app_ils/backoffice.html")
+    ui_config = {'items': {
+        'search': {'sortBy': {'values': [], 'onEmptyQuery': None},
+                   'sortOrder': ['asc', 'desc'],
+                   'aggs': []}}}
+    items_index = ItemSearch.Meta.index
+
+    items_sort = current_app.config.get('RECORDS_REST_SORT_OPTIONS', {}).get(
+        items_index, {})
+    items_sort_ui = [{
+        'field': field,
+        'title': items_sort[field]['title'],
+        'order': items_sort[field]['order']
+    } for field in items_sort.keys()]
+
+    ui_config['items']['search']['sortBy']['values'] = sorted(items_sort_ui,
+                                                              key=lambda s: s[
+                                                                  'order'])
+    if 'mostrecent' in items_sort:
+        ui_config['items']['search']['sortBy']['onEmptyQuery'] = 'mostrecent'
+
+    items_aggs = current_app.config.get('RECORDS_REST_FACETS', {}).get(
+        items_index, {}).get('aggs', {})
+    ui_config['items']['search']['aggs'] = list(items_aggs.keys())
+
+    return render_template("invenio_app_ils/backoffice.html",
+                           ui_config=ui_config)

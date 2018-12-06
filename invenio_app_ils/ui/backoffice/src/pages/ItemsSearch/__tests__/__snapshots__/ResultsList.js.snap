@@ -17,7 +17,9 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
         "metadata": Object {
           "barcode": "9865745223",
           "document_pid": 1342,
-          "internal_location_pid": 34325,
+          "internal_location": Object {
+            "name": "A library location",
+          },
           "status": "IN_BINDING",
         },
       },
@@ -129,7 +131,35 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                   <th
                     className=""
                   >
-                    Internal Location PID
+                    Location
+                  </th>
+                </TableCell>
+              </TableHeaderCell>
+              <TableHeaderCell
+                as="th"
+              >
+                <TableCell
+                  as="th"
+                  className=""
+                >
+                  <th
+                    className=""
+                  >
+                    Created
+                  </th>
+                </TableCell>
+              </TableHeaderCell>
+              <TableHeaderCell
+                as="th"
+              >
+                <TableCell
+                  as="th"
+                  className=""
+                >
+                  <th
+                    className=""
+                  >
+                    Updated
                   </th>
                 </TableCell>
               </TableHeaderCell>
@@ -151,7 +181,9 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                 "metadata": Object {
                   "barcode": "9865745223",
                   "document_pid": 1342,
-                  "internal_location_pid": 34325,
+                  "internal_location": Object {
+                    "name": "A library location",
+                  },
                   "status": "IN_BINDING",
                 },
               }
@@ -246,8 +278,24 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                   <td
                     className=""
                   >
-                    34325
+                    A library location
                   </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                >
+                  <td
+                    className=""
+                  >
+                    1/1/2018
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                >
+                  <td
+                    className=""
+                  />
                 </TableCell>
               </tr>
             </TableRow>

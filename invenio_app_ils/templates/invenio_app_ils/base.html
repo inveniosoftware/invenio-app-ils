@@ -12,6 +12,7 @@
     </head>
 
     <body>
+        <div id="invenio-config" data-config='{{ ui_config | default("{}") | tojson }}'></div>
         {%- block page_body %} {%- endblock %}
         {{ jwt() }}
     </body>
