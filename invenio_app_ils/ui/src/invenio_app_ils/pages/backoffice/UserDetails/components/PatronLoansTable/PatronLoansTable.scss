@@ -1,0 +1,18 @@
+.patron-pending-loans {
+  thead {
+    span {
+      margin-right: 0.8em;
+    }
+  }
+
+  tr:hover {
+    cursor: pointer;
+  }
+
+  tfoot {
+    span {
+      font-style: italic;
+      margin-right: 1em;
+    }
+  }
+}

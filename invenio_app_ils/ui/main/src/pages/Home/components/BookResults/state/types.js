@@ -1,2 +1,0 @@
-export const SET_LOADING = 'SET_LOADING';
-export const SET_BOOK_RESULTS = 'SET_BOOK_RESULTS';

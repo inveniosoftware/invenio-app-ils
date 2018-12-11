@@ -74,7 +74,7 @@ jobs:
         directories:
           - node_modules
       before_install:
-        - cd "./invenio_app_ils/ui/backoffice"
+        - cd "./invenio_app_ils/ui"
       install:
         - npm install
       script:

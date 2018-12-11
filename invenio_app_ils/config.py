@@ -123,14 +123,7 @@ SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
 
 # Theme configuration
 # ===================
-#: Site name
-THEME_SITENAME = _("invenio-app-ils")
-#: Use default frontpage.
-THEME_FRONTPAGE = True
-#: Frontpage title.
-THEME_FRONTPAGE_TITLE = _("invenio-app-ils")
-#: Frontpage template.
-THEME_FRONTPAGE_TEMPLATE = "invenio_app_ils/main.html"
+THEME_FRONTPAGE = False
 
 # Email configuration
 # ===================

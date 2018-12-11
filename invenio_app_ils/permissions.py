@@ -55,7 +55,5 @@ def views_permissions_factory(action):
     """Default ILS views permissions factory."""
     if action == "circulation-loan-request":
         return authenticated_user_permission()
-    elif action == "ils-backoffice-view":
-        return backoffice_permission()
     else:
         return deny_all()

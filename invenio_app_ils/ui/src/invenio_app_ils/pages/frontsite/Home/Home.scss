@@ -1,0 +1,49 @@
+$body-background-color: #fff;
+
+$home-banner-height: 256px;
+$side-container-width: 220px;
+$padding-30: 30px;
+$margin-10: 10px;
+$margin-20: 20px;
+
+.home-container {
+  background-color: $body-background-color;
+
+  .sidebar-container {
+    position: fixed !important;
+    min-width: $side-container-width;
+    max-width: $side-container-width;
+    padding-left: $padding-30 !important;
+  }
+
+  .book-list-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: $side-container-width;
+    justify-content: space-between;
+  }
+
+  .home-banner {
+    display: flex;
+    flex-direction: column;
+
+    height: $home-banner-height;
+
+    margin: 0 $margin-10;
+
+    background-image: url('../../../static/images/home.jpg');
+    background-position: center;
+
+    justify-content: center;
+    align-items: center;
+
+    .home-title {
+      font-size: 3.5em;
+      margin-bottom: $margin-20;
+    }
+
+    .home-description {
+      font-size: 1.5em;
+    }
+  }
+}

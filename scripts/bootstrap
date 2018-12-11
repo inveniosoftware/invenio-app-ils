@@ -11,7 +11,5 @@ set -e
 pip install -r requirements.txt
 pip install -e .[all]
 
-npm update && npm install -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0
-
 CWD=`pwd`
 bash "${CWD}/scripts/build_assets"

@@ -109,16 +109,12 @@ You can build the documentation with:
 UI Development
 --------------
 
-The user interfaced is a standalone React application. It is split in 2 parts:
+The user interface is a standalone React application created using
+[create-react-app](https://facebook.github.io/create-react-app/).
+The easiest development setup consists in starting separately Invenio, for REST APIs, and the React app using the
+create-react-app webserver.
 
-* main website, under `./invenio_app_ils/ui/main/`
-* backoffice, under `./invenio_app_ils/ui/backoffice/`
-
-Both application are using [create-react-app](https://facebook.github.io/create-react-app/).
-When developing, it is easier to start the Invenio instance to use it as REST API endpoint and start the
-React app using the create-react-app webserver.
-
-First of all, create your own personal access token to be able to GET or POST data to the API:
+First of all, you have to create your own personal access token, to be able to GET or POST data to the API:
 
 * start the server:
 
@@ -126,16 +122,16 @@ First of all, create your own personal access token to be able to GET or POST da
 
         $ ./scripts/server
 
-* create a personal access token as administrator by visiting `https://127.0.0.1:5000/account/settings/applications/`
-* create the same `.env.development` file in both `invenio_app_ils/ui/main/` and `invenio_app_ils/ui/backoffice/`:
+* visit `https://127.0.0.1:5000/account/settings/applications/`, login as admin
+* create a personal access token
+* create a file `.env.development` in `invenio_app_ils/ui/` and add the token:
 
     .. code-block:: console
 
-        $ echo 'REACT_APP_JWT_TOKEN=<paste token here>' > ./invenio_app_ils/ui/main/.env.development
-        $ echo 'REACT_APP_JWT_TOKEN=<paste token here>' > ./invenio_app_ils/ui/backoffice/.env.development
+        $ echo 'REACT_APP_JWT_TOKEN=<paste token here>' > ./invenio_app_ils/ui/.env.development
 
-* since the React app is server under a different port (normally, :3000), you need enable extra settings
-  to Invenio to allow requests from different domains. In `config.py`, change the following:
+* since the React app is server under a different port (normally, :3000), you need to change extra settings
+  on Invenio to allow requests from different domains. In `config.py`, change the following:
 
     .. code-block:: python
 
@@ -145,7 +141,7 @@ First of all, create your own personal access token to be able to GET or POST da
         CORS_SEND_WILDCARD = False
         CORS_SUPPORTS_CREDENTIALS = True
 
-You won't need all this in production because the token is automatically retrieved by the current logged in user
+You won't need these changes in production because the token is automatically retrieved by the current logged in user
 and the React app will be served from the same domain.
 
 Production environment

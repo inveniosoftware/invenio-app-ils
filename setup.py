@@ -51,10 +51,11 @@ install_requires = [
     "invenio-records-rest>=1.2.1,<1.3.0",
     "invenio-records>=1.0.0,<1.1.0",
     # upgraded packages
-    "invenio-app>=1.0.4",
-    "invenio-config>=1.0.1",
-    "invenio-userprofiles>=1.0.1",
     "invenio-accounts-rest>=1.0.0a4",
+    "invenio-app>=1.0.4,<1.1.0",
+    "invenio-assets>=1.1.1,<1.2.0",
+    "invenio-i18n>=1.1.0,<1.2.0",
+    "invenio-userprofiles>=1.0.1,<1.1.0",
     # https://github.com/inveniosoftware/invenio-indexer/commit/9749c2fe4e2cbaabc167ad7fb12ade945a2d580c
     "redis>=2.10.0,<3.0.0",
     # extra
@@ -95,9 +96,7 @@ setup(
             "invenio_app_ils_rest = invenio_app_ils.ext:InvenioAppIlsREST"
         ],
         "invenio_base.blueprints": [
-            "invenio_app_ils_main = invenio_app_ils.views:main_blueprint",
-            "invenio_app_ils_backoffice = "
-            "invenio_app_ils.views:backoffice_blueprint",
+            "invenio_app_ils_ui = invenio_app_ils.views:blueprint",
         ],
         "invenio_base.api_blueprints": [
             "invenio_app_ils_circulation = "
@@ -106,13 +105,8 @@ setup(
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config"
         ],
-        "invenio_assets.bundles": [
-            "invenio_app_ils_main_js = invenio_app_ils.bundles:main_js",
-            "invenio_app_ils_main_css = invenio_app_ils.bundles:main_css",
-            "invenio_app_ils_backoffice_js = "
-            "invenio_app_ils.bundles:backoffice_js",
-            "invenio_app_ils_backoffice_css = "
-            "invenio_app_ils.bundles:backoffice_css",
+        "invenio_assets.webpack": [
+            "invenio_app_ils = invenio_app_ils.webpack:ils"
         ],
         "invenio_i18n.translations": ["messages = invenio_app_ils"],
         "invenio_jsonschemas.schemas": [

@@ -9,6 +9,8 @@
 
 from __future__ import absolute_import, print_function
 
+from functools import wraps
+
 from flask import Blueprint, abort, current_app, request
 from invenio_circulation.errors import CirculationException, \
     InvalidCirculationPermission
@@ -17,8 +19,27 @@ from invenio_circulation.views import create_error_handlers
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_rest import ContentNegotiatedMethodView
 
-from ..views import need_permissions
+from invenio_app_ils.permissions import check_permission
+
 from .api import request_loan
+
+
+def need_permissions(action):
+    """View decorator to check permissions for the given action or abort.
+
+    :param action: The action needed.
+    """
+    def decorator_builder(f):
+        @wraps(f)
+        def decorate(*args, **kwargs):
+            check_permission(
+                current_app.config["ILS_VIEWS_PERMISSIONS_FACTORY"](action)
+            )
+            return f(*args, **kwargs)
+
+        return decorate
+
+    return decorator_builder
 
 
 def create_circulation_blueprint(_):

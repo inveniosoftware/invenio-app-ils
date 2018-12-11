@@ -1,0 +1,55 @@
+import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+import { BackOfficeURLS } from '../common/urls';
+import {
+  Header,
+  Home,
+  ItemsSearch,
+  ItemDetailsContainer,
+  LoansSearch,
+  LoanDetailsContainer,
+  UserDetailsContainer,
+} from '../pages/backoffice';
+import './BackOffice.scss';
+
+export class BackOffice extends Component {
+  render() {
+    return (
+      <div>
+        <Header />
+        <div className="container">
+          {/* home */}
+          <Route exact path={BackOfficeURLS.home} component={Home} />
+          {/* items */}
+          <Route
+            exact
+            path={BackOfficeURLS.itemsSearch}
+            component={ItemsSearch}
+          />
+          <Route
+            exact
+            path={BackOfficeURLS.itemDetails}
+            component={ItemDetailsContainer}
+          />
+          {/* loans */}
+          <Route
+            exact
+            path={BackOfficeURLS.loansSearch}
+            component={LoansSearch}
+          />
+          <Route
+            exact
+            path={BackOfficeURLS.loanDetails}
+            component={LoanDetailsContainer}
+          />
+          {/* patrons */}
+          <Route
+            exact
+            path={BackOfficeURLS.patronDetails}
+            component={UserDetailsContainer}
+          />
+        </div>
+      </div>
+    );
+  }
+}

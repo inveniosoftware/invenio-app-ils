@@ -1,0 +1,306 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemsSearch ResultsList tests should not render when empty results 1`] = `
+<ResultsList
+  results={Array []}
+  viewDetailsClickHandler={[Function]}
+/>
+`;
+
+exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
+<ResultsList
+  results={
+    Array [
+      Object {
+        "created": "2018-01-01T10:05:00.000Z",
+        "id": 987,
+        "metadata": Object {
+          "barcode": "9865745223",
+          "document_pid": 1342,
+          "internal_location": Object {
+            "name": "A library",
+          },
+          "status": "IN_BINDING",
+        },
+      },
+    ]
+  }
+  viewDetailsClickHandler={[Function]}
+>
+  <Table
+    as="table"
+    selectable={true}
+    singleLine={true}
+    striped={true}
+  >
+    <table
+      className="ui selectable single line striped table"
+    >
+      <TableHeader
+        as="thead"
+      >
+        <thead
+          className=""
+        >
+          <TableRow
+            as="tr"
+            cellAs="td"
+            data-test="header"
+          >
+            <tr
+              className=""
+              data-test="header"
+            >
+              <TableHeaderCell
+                as="th"
+                collapsing={true}
+              >
+                <TableCell
+                  as="th"
+                  className=""
+                  collapsing={true}
+                >
+                  <th
+                    className="collapsing"
+                  />
+                </TableCell>
+              </TableHeaderCell>
+              <TableHeaderCell
+                as="th"
+              >
+                <TableCell
+                  as="th"
+                  className=""
+                >
+                  <th
+                    className=""
+                  >
+                    Barcode
+                  </th>
+                </TableCell>
+              </TableHeaderCell>
+              <TableHeaderCell
+                as="th"
+              >
+                <TableCell
+                  as="th"
+                  className=""
+                >
+                  <th
+                    className=""
+                  >
+                    Item PID
+                  </th>
+                </TableCell>
+              </TableHeaderCell>
+              <TableHeaderCell
+                as="th"
+              >
+                <TableCell
+                  as="th"
+                  className=""
+                >
+                  <th
+                    className=""
+                  >
+                    Document PID
+                  </th>
+                </TableCell>
+              </TableHeaderCell>
+              <TableHeaderCell
+                as="th"
+              >
+                <TableCell
+                  as="th"
+                  className=""
+                >
+                  <th
+                    className=""
+                  >
+                    Status
+                  </th>
+                </TableCell>
+              </TableHeaderCell>
+              <TableHeaderCell
+                as="th"
+              >
+                <TableCell
+                  as="th"
+                  className=""
+                >
+                  <th
+                    className=""
+                  >
+                    Location
+                  </th>
+                </TableCell>
+              </TableHeaderCell>
+              <TableHeaderCell
+                as="th"
+              >
+                <TableCell
+                  as="th"
+                  className=""
+                >
+                  <th
+                    className=""
+                  >
+                    Created
+                  </th>
+                </TableCell>
+              </TableHeaderCell>
+              <TableHeaderCell
+                as="th"
+              >
+                <TableCell
+                  as="th"
+                  className=""
+                >
+                  <th
+                    className=""
+                  >
+                    Updated
+                  </th>
+                </TableCell>
+              </TableHeaderCell>
+            </tr>
+          </TableRow>
+        </thead>
+      </TableHeader>
+      <TableBody
+        as="tbody"
+      >
+        <tbody
+          className=""
+        >
+          <ItemRow
+            itemRecord={
+              Object {
+                "created": "2018-01-01T10:05:00.000Z",
+                "id": 987,
+                "metadata": Object {
+                  "barcode": "9865745223",
+                  "document_pid": 1342,
+                  "internal_location": Object {
+                    "name": "A library",
+                  },
+                  "status": "IN_BINDING",
+                },
+              }
+            }
+            key="987"
+            viewDetailsClickHandler={[Function]}
+          >
+            <TableRow
+              as="tr"
+              cellAs="td"
+              data-test={987}
+              key="987"
+            >
+              <tr
+                className=""
+                data-test={987}
+              >
+                <TableCell
+                  as="td"
+                  textAlign="center"
+                >
+                  <td
+                    className="center aligned"
+                  >
+                    <Button
+                      as="button"
+                      circular={true}
+                      compact={true}
+                      icon="eye"
+                      onClick={[Function]}
+                    >
+                      <button
+                        className="ui circular compact icon button"
+                        onClick={[Function]}
+                      >
+                        <Icon
+                          as="i"
+                          name="eye"
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="eye icon"
+                          />
+                        </Icon>
+                      </button>
+                    </Button>
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                >
+                  <td
+                    className=""
+                  >
+                    9865745223
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                >
+                  <td
+                    className=""
+                  >
+                    987
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                >
+                  <td
+                    className=""
+                  >
+                    1342
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                  data-test="mapped-status"
+                >
+                  <td
+                    className=""
+                    data-test="mapped-status"
+                  >
+                    IN_BINDING
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                >
+                  <td
+                    className=""
+                  >
+                    A library
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                >
+                  <td
+                    className=""
+                  >
+                    1/1/2018
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                >
+                  <td
+                    className=""
+                  />
+                </TableCell>
+              </tr>
+            </TableRow>
+          </ItemRow>
+        </tbody>
+      </TableBody>
+    </table>
+  </Table>
+</ResultsList>
+`;
