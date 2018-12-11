@@ -1,0 +1,26 @@
+{# -*- coding: utf-8 -*-
+
+    Copyright (C) 2018 CERN.
+
+    invenio-app-ils is free software; you can redistribute it and/or modify it
+    under the terms of the MIT License; see LICENSE file for more details.
+#}
+<!DOCTYPE html>
+<html>
+  <head>
+    {%- block css %}
+    {{ webpack['vendor.css']}}
+    {{ webpack['app_ils.css']}}
+    {%-endblock %}
+  </head>
+  <body>
+    <div id="invenio-config" data-config='{{ ui_config | default("{}") | tojson }}'></div>
+    <div id="app"></div>
+    {{ jwt() }}
+    {%- block javascript %}
+    {{ webpack['vendor.js']}}
+    {{ webpack['app_ils.js']}}
+    {{ webpack['manifest.js']}}
+    {%- endblock %}
+  </body>
+</html>
