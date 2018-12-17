@@ -9,7 +9,6 @@
 
 from __future__ import absolute_import, print_function
 
-import pytest
 from flask import url_for
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
@@ -22,7 +21,6 @@ def test_ping(client):
     assert resp.get_data(as_text=True) == 'OK'
 
 
-@pytest.mark.skip(reason="test failing on Travis, to be fixed.")
 def test_homepage_view(client):
     """Test the home view."""
     resp = client.get(url_for('invenio_app_ils_ui.index'))
