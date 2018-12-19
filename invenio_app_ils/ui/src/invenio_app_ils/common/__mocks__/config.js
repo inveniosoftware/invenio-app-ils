@@ -9,4 +9,14 @@ export const invenioConfig = {
       aggs: [],
     },
   },
+  loans: {
+    search: {
+      sortBy: {
+        values: [],
+        onEmptyQuery: '',
+      },
+      sortOrder: [],
+      aggs: [],
+    },
+  },
 };
