@@ -524,7 +524,21 @@ RECORDS_REST_SORT_OPTIONS = dict(
             default_order='asc',
             order=1
         )
-    )
+    ),
+    loans=dict(  # LoansSearch.Meta.index
+        bestmatch=dict(
+            fields=['-_score'],
+            title='Best match',
+            default_order='asc',
+            order=2
+        ),
+        mostrecent=dict(
+            fields=['_updated'],
+            title='Newest',
+            default_order='asc',
+            order=1
+        )
+    ),
 )
 
 # RECORDS REST facets
@@ -550,6 +564,16 @@ RECORDS_REST_FACETS = dict(
             medium=terms_filter('medium'),
             # name=terms_filter('internal_location.name'),
             circulation_status=terms_filter('circulation_status.state'),
+        )
+    ),
+    loans=dict(  # LoansSearch.Meta.index
+        aggs=dict(
+            state=dict(
+                terms=dict(field="state"),
+            ),
+        ),
+        filters=dict(
+            state=terms_filter('state'),
         )
     )
 )
