@@ -7,7 +7,6 @@ import {
   Icon,
   Header,
   Button,
-  Dropdown,
 } from 'semantic-ui-react';
 import {
   ReactSearchKit,
@@ -33,21 +32,6 @@ import {
 } from './components';
 import './LoansSearch.scss';
 import { default as config } from './config';
-
-const resultsPerPageValues = [
-  {
-    text: '10',
-    value: 10,
-  },
-  {
-    text: '20',
-    value: 20,
-  },
-  {
-    text: '50',
-    value: 50,
-  },
-];
 
 export class LoansSearch extends Component {
   _renderSearchBar = (_, queryString, onInputChange, executeSearch) => {

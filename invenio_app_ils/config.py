@@ -50,11 +50,8 @@ from invenio_circulation.pidstore.pids import (  # isort:skip
 from invenio_circulation.transitions.transitions import (  # isort:skip
     ToItemOnLoan,
     CreatedToPending,
-    ItemInTransitHouseToItemReturned,
-    ItemOnLoanToItemInTransitHouse,
     ItemOnLoanToItemReturned,
-    PendingToItemAtDesk,
-    PendingToItemInTransitPickup,
+    ItemOnLoanToItemOnLoan,
 )
 
 from .circulation.utils import (  # isort:skip
@@ -399,35 +396,11 @@ CIRCULATION_LOAN_TRANSITIONS = {
     ],
     "PENDING": [
         dict(
-            dest="ITEM_AT_DESK",
-            transition=PendingToItemAtDesk,
-            permission_factory=backoffice_permission,
-        ),
-        dict(
-            dest="ITEM_IN_TRANSIT_FOR_PICKUP",
-            transition=PendingToItemInTransitPickup,
-            permission_factory=backoffice_permission,
-        ),
-        dict(
-            dest="CANCELLED",
-            trigger="cancel",
-            permission_factory=backoffice_permission,
-        ),
-    ],
-    "ITEM_AT_DESK": [
-        dict(
             dest="ITEM_ON_LOAN",
+            trigger="checkout",
             transition=ToItemOnLoan,
             permission_factory=backoffice_permission,
         ),
-        dict(
-            dest="CANCELLED",
-            trigger="cancel",
-            permission_factory=backoffice_permission,
-        ),
-    ],
-    "ITEM_IN_TRANSIT_FOR_PICKUP": [
-        dict(dest="ITEM_AT_DESK", permission_factory=backoffice_permission),
         dict(
             dest="CANCELLED",
             trigger="cancel",
@@ -437,30 +410,14 @@ CIRCULATION_LOAN_TRANSITIONS = {
     "ITEM_ON_LOAN": [
         dict(
             dest="ITEM_RETURNED",
+            trigger="checkin",
             transition=ItemOnLoanToItemReturned,
             permission_factory=backoffice_permission,
         ),
         dict(
-            dest="ITEM_IN_TRANSIT_TO_HOUSE",
-            transition=ItemOnLoanToItemInTransitHouse,
-            permission_factory=backoffice_permission,
-        ),
-        dict(
             dest="ITEM_ON_LOAN",
-            transition=ToItemOnLoan,
+            transition=ItemOnLoanToItemOnLoan,
             trigger="extend",
-            permission_factory=backoffice_permission,
-        ),
-        dict(
-            dest="CANCELLED",
-            trigger="cancel",
-            permission_factory=backoffice_permission,
-        ),
-    ],
-    "ITEM_IN_TRANSIT_TO_HOUSE": [
-        dict(
-            dest="ITEM_RETURNED",
-            transition=ItemInTransitHouseToItemReturned,
             permission_factory=backoffice_permission,
         ),
         dict(
