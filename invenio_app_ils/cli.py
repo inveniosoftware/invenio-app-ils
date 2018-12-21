@@ -139,7 +139,7 @@ def get_loans_for_items(
         if status == "ITEM_ON_LOAN":
             items_on_loans.append(item[Item.pid_field])
 
-        padron_id = randint(1, len_patron_ids)
+        patron_id = randint(1, len_patron_ids)
         transaction_date = datetime(
             current_year, randint(1, 12), randint(1, 28)
         )
@@ -147,8 +147,7 @@ def get_loans_for_items(
 
         loan = {
             Loan.pid_field: "{}".format(i),
-            Item.pid_field: "{}".format(item[Item.pid_field]),
-            "patron_pid": "{}".format(padron_id),
+            "patron_pid": "{}".format(patron_id),
             "state": "{}".format(status),
             "transaction_date": transaction_date.strftime("%Y-%m-%d"),
             "transaction_location_pid": "{}".format(loc_pid),
@@ -156,6 +155,11 @@ def get_loans_for_items(
             "pickup_location_pid": "{}".format(loc_pid),
             "request_expire_date": expire_date.strftime("%Y-%m-%d"),
         }
+
+        if status == "PENDING":
+            loan[Document.pid_field] = "{}".format(item[Document.pid_field])
+        else:
+            loan[Item.pid_field] = "{}".format(item[Item.pid_field])
 
         loans.append(loan)
 
