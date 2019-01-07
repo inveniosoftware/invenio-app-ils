@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../common/components';
-import { ItemMetadata } from '../';
+import { Loader, Error, ItemMetadata } from '../../../../../common/components';
 import { ItemPendingLoans } from '../';
 
 export default class ItemDetails extends Component {
@@ -11,7 +10,7 @@ export default class ItemDetails extends Component {
     return (
       <Loader isLoading={isLoading}>
         <Error error={errorData}>
-          <ItemMetadata />
+          <ItemMetadata item={data} view="item" />
           <ItemPendingLoans item={data} />
         </Error>
       </Loader>

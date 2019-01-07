@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Segment, Header, Table } from 'semantic-ui-react';
+import { Grid, Segment, Header, Table, Divider } from 'semantic-ui-react';
+import { ItemMetadata } from '../../../../../common/components/ItemMetadata';
+import { LoanActions } from '../LoanActions';
 
 export default class LoanMetadata extends Component {
   render() {
@@ -13,34 +15,34 @@ export default class LoanMetadata extends Component {
           </Grid.Column>
 
           <Grid.Column>
-            <Table basic="very" definition>
+            <Table basic="very">
               <Table.Body>
                 <Table.Row>
-                  <Table.Cell width={3}>Item pid</Table.Cell>
+                  <Table.Cell width={4}>Item pid</Table.Cell>
                   <Table.Cell width={12}>{data.item_pid}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.Cell width={3}>Patron pid</Table.Cell>
+                  <Table.Cell width={4}>Patron pid</Table.Cell>
                   <Table.Cell width={12}>{data.patron_pid}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.Cell width={3}>Pickup location pid</Table.Cell>
+                  <Table.Cell width={4}>Pickup Location pid</Table.Cell>
                   <Table.Cell width={12}>{data.pickup_location_pid}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.Cell width={3}>Transaction Location pid</Table.Cell>
+                  <Table.Cell width={4}>Transaction Location pid</Table.Cell>
                   <Table.Cell width={12}>
                     {data.transaction_location_pid}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.Cell width={3}>Transaction User pid</Table.Cell>
+                  <Table.Cell width={4}>Transaction User pid</Table.Cell>
                   <Table.Cell width={12}>
                     {data.transaction_user_pid}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.Cell width={3}>State</Table.Cell>
+                  <Table.Cell width={4}>State</Table.Cell>
                   <Table.Cell width={12}>{data.state}</Table.Cell>
                 </Table.Row>
               </Table.Body>
@@ -48,20 +50,26 @@ export default class LoanMetadata extends Component {
           </Grid.Column>
 
           <Grid.Column>
-            <Table basic="very" definition>
+            <Table basic="very">
               <Table.Body>
                 <Table.Row>
-                  <Table.Cell width={3}>Transaction date</Table.Cell>
+                  <Table.Cell width={4}>Transaction date</Table.Cell>
                   <Table.Cell width={12}>{data.transaction_date}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.Cell width={3}>Expire Date</Table.Cell>
+                  <Table.Cell width={4}>Expire Date</Table.Cell>
                   <Table.Cell width={12}>{data.request_expire_date}</Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
           </Grid.Column>
         </Grid>
+
+        <Divider />
+        <LoanActions />
+        <Divider />
+        <ItemMetadata item={this.props.loanDetails.metadata.item} view="loan" />
+        <Divider />
       </Segment>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { List, Button } from 'semantic-ui-react';
+import { List, Button, Header } from 'semantic-ui-react';
 
 export default class LoanActions extends Component {
   constructor(props) {
@@ -31,8 +31,15 @@ export default class LoanActions extends Component {
       metadata: loan,
       id: pid,
     } = this.props.loanDetails;
+    console.log('Available actions', actions);
     return (
-      <List horizontal>{this.renderAvailableActions(pid, loan, actions)}</List>
+      <List horizontal>
+        {Object.keys(actions).length ? (
+          this.renderAvailableActions(pid, loan, actions)
+        ) : (
+          <List.Item as="h2">No actions available</List.Item>
+        )}
+      </List>
     );
   }
 }
