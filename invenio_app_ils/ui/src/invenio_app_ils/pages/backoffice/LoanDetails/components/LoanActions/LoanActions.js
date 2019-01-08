@@ -31,7 +31,6 @@ export default class LoanActions extends Component {
       metadata: loan,
       id: pid,
     } = this.props.loanDetails;
-    console.log('Available actions', actions);
     return (
       <List horizontal>
         {Object.keys(actions).length ? (

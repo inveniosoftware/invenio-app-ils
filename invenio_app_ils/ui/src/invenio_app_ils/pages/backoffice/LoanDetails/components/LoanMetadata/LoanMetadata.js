@@ -4,8 +4,20 @@ import { Grid, Segment, Header, Table, Divider } from 'semantic-ui-react';
 import { ItemMetadata } from '../../../../../common/components/ItemMetadata';
 import { ItemsSearch } from '../../../ItemsSearch';
 import { LoanActions } from '../LoanActions';
+import _isEmpty from 'lodash/isEmpty';
 
 export default class LoanMetadata extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showItemList: _isEmpty(this.props.loanDetails.metadata.item),
+    };
+  }
+
+  handlerShowItemList = newState => {
+    this.setState({ showItemList: newState });
+  };
+
   render() {
     const data = this.props.loanDetails.metadata;
     return (
@@ -68,9 +80,15 @@ export default class LoanMetadata extends Component {
         <Divider />
         <LoanActions />
         <Divider />
-        <ItemMetadata item={data.item} view="loan" />
-        <Divider />
-        <ItemsSearch view="loan" />
+        {data.item && (
+          <ItemMetadata
+            item={data.item}
+            handlerShowItemList={this.handlerShowItemList}
+            view="loan"
+          />
+        )}
+        {this.state.showItemList && <Divider />}
+        {this.state.showItemList && <ItemsSearch view="loan" />}
       </Segment>
     );
   }

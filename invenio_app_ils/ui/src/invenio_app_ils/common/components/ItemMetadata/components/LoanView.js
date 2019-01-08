@@ -1,12 +1,30 @@
 import React from 'react';
-import { Grid, Container, Header, Table } from 'semantic-ui-react';
+import {
+  Button,
+  Container,
+  Grid,
+  Header,
+  Icon,
+  Table,
+} from 'semantic-ui-react';
 
 export function LoanView(props) {
   const { item } = props;
   return (
     <Grid className="item-metadata" padded columns={2}>
       <Grid.Column width={16}>
-        <Header as="h1">Item - {item.barcode}</Header>
+        <Header as="h1">
+          Item - {item.barcode}
+          <Button
+            primary
+            floated="right"
+            size="small"
+            onClick={() => props.handlerShowItemList(true)}
+          >
+            <Icon name="exchange" />
+            change item
+          </Button>
+        </Header>
       </Grid.Column>
 
       <Grid.Column>
