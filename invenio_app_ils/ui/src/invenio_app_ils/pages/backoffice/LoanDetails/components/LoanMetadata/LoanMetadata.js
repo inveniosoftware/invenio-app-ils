@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Segment, Header, Table, Divider } from 'semantic-ui-react';
 import { ItemMetadata } from '../../../../../common/components/ItemMetadata';
+import { ItemsSearch } from '../../../ItemsSearch';
 import { LoanActions } from '../LoanActions';
 
 export default class LoanMetadata extends Component {
@@ -64,12 +65,12 @@ export default class LoanMetadata extends Component {
             </Table>
           </Grid.Column>
         </Grid>
-
         <Divider />
         <LoanActions />
         <Divider />
-        <ItemMetadata item={this.props.loanDetails.metadata.item} view="loan" />
+        <ItemMetadata item={data.item} view="loan" />
         <Divider />
+        <ItemsSearch view="loan" />
       </Segment>
     );
   }
