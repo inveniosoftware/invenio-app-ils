@@ -2,14 +2,15 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
-import { userSessionReducer } from './common/components/UserSession/reducer';
+import { documentItemsReducer } from './pages/backoffice/LoanDetails/reducer';
 import {
   itemDetailsReducer,
   itemPendingLoansReducer,
 } from './pages/backoffice/ItemDetails/reducer';
 import { loanDetailsReducer } from './pages/backoffice/LoanDetails/reducer';
-import { userDetailsReducer } from './pages/backoffice/UserDetails/reducer';
 import { patronLoansTableReducer } from './pages/backoffice/UserDetails/components/PatronLoansTable/reducer';
+import { userDetailsReducer } from './pages/backoffice/UserDetails/reducer';
+import { userSessionReducer } from './common/components/UserSession/reducer';
 
 const rootReducer = combineReducers({
   userSession: userSessionReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   loanDetails: loanDetailsReducer,
   userDetails: userDetailsReducer,
   patronLoansTable: patronLoansTableReducer,
+  documentItems: documentItemsReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

@@ -143,14 +143,16 @@ def get_loans_for_items(
         expire_date = transaction_date + timedelta(days=10)
 
         loan = {
+            Document.pid_field: "{}".format(item[Document.pid_field]),
+            Item.pid_field: "{}".format(item[Item.pid_field]),
             Loan.pid_field: "{}".format(i),
             "patron_pid": "{}".format(patron_id),
+            "pickup_location_pid": "{}".format(loc_pid),
+            "request_expire_date": expire_date.strftime("%Y-%m-%d"),
             "state": "{}".format(status),
             "transaction_date": transaction_date.strftime("%Y-%m-%d"),
             "transaction_location_pid": "{}".format(loc_pid),
             "transaction_user_pid": "{}".format(librarian_id),
-            "pickup_location_pid": "{}".format(loc_pid),
-            "request_expire_date": expire_date.strftime("%Y-%m-%d"),
         }
 
         if status == "PENDING":

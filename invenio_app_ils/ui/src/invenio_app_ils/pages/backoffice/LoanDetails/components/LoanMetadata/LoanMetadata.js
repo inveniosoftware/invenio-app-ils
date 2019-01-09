@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Segment, Header, Table, Divider } from 'semantic-ui-react';
 import { ItemMetadata } from '../../../../../common/components/ItemMetadata';
-import { ItemsSearch } from '../../../ItemsSearch';
 import { LoanActions } from '../LoanActions';
+import { DocumentItems } from '../DocumentItems';
 import _isEmpty from 'lodash/isEmpty';
 
 export default class LoanMetadata extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showItemList: _isEmpty(this.props.loanDetails.metadata.item),
+      showDocumentItems: _isEmpty(this.props.loanDetails.metadata.item),
     };
   }
 
   handlerShowItemList = newState => {
-    this.setState({ showItemList: newState });
+    this.setState({ showDocumentItems: newState });
   };
 
   render() {
@@ -30,6 +30,10 @@ export default class LoanMetadata extends Component {
           <Grid.Column>
             <Table basic="very">
               <Table.Body>
+                <Table.Row>
+                  <Table.Cell width={4}>Document pid</Table.Cell>
+                  <Table.Cell width={12}>{data.document_pid}</Table.Cell>
+                </Table.Row>
                 <Table.Row>
                   <Table.Cell width={4}>Item pid</Table.Cell>
                   <Table.Cell width={12}>{data.item_pid}</Table.Cell>
@@ -87,8 +91,10 @@ export default class LoanMetadata extends Component {
             view="loan"
           />
         )}
-        {this.state.showItemList && <Divider />}
-        {this.state.showItemList && <ItemsSearch view="loan" />}
+        {this.state.showDocumentItems && data.item && <Divider />}
+        {this.state.showDocumentItems && (
+          <DocumentItems loan={this.props.loanDetails} />
+        )}
       </Segment>
     );
   }
