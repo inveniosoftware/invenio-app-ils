@@ -12,6 +12,7 @@ export default class LoanMetadata extends Component {
     this.state = {
       showDocumentItems: _isEmpty(this.props.loanDetails.metadata.item),
     };
+    this.assignLoanItem = props.assignLoanItem;
   }
 
   handlerShowItemList = newState => {

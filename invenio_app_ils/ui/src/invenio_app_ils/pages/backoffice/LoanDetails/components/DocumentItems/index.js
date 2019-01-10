@@ -6,6 +6,7 @@ import {
   documentItemsChangeSortBy,
   documentItemsChangeSortOrder,
 } from './state/actions';
+import { assignLoanItem } from '../../state/actions';
 import DocumentItemsComponent from './DocumentItems';
 
 const mapStateToProps = state => ({
@@ -22,6 +23,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(documentItemsChangeSortBy(documentPid)),
   documentItemsChangeSortOrder: documentPid =>
     dispatch(documentItemsChangeSortOrder(documentPid)),
+  assignLoanItem: (loanPid, itemPid) =>
+    dispatch(assignLoanItem(loanPid, itemPid)),
 });
 
 export const DocumentItems = compose(

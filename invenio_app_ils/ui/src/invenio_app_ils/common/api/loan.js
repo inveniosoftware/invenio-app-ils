@@ -44,6 +44,15 @@ const buildPendingQuery = (documentPid, itemPid) => {
   return `${qsDocItem} AND state:PENDING`;
 };
 
+const assignLoanItem = (loanPid, itemPid) => {
+  const url = `${loanURL}${loanPid}`;
+  const headers = {
+    'Content-Type': 'application/json-patch+json',
+  };
+  const operations = [{ op: 'replace', path: '/item_pid', value: itemPid }];
+  return http.patch(url, operations, headers);
+};
+
 const fetchPendingOnDocumentItem = (
   documentPid,
   itemPid,
@@ -87,11 +96,12 @@ const fetchLoans = (
 };
 
 export const loan = {
-  url: loanURL,
+  assignLoanItem: assignLoanItem,
+  buildLoansQuery: buildLoansQuery,
+  buildPendingQuery: buildPendingQuery,
+  fetchLoans: fetchLoans,
+  fetchPendingOnDocumentItem: fetchPendingOnDocumentItem,
   get: get,
   postAction: postAction,
-  buildPendingQuery: buildPendingQuery,
-  fetchPendingOnDocumentItem: fetchPendingOnDocumentItem,
-  fetchLoans: fetchLoans,
-  buildLoansQuery: buildLoansQuery,
+  url: loanURL,
 };

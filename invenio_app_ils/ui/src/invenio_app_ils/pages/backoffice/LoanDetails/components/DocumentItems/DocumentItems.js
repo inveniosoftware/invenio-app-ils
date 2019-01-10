@@ -1,17 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { generatePath } from 'react-router';
-import {
-  Segment,
-  Message,
-  Header,
-  Table,
-  Icon,
-  Button,
-  Popup,
-} from 'semantic-ui-react';
+import { Message, Header, Table, Icon, Button, Popup } from 'semantic-ui-react';
 import { Loader, Error } from '../../../../../common/components';
-import { BackOfficeURLS } from '../../../../../common/urls';
 import { toString } from '../../../../../common/api/date';
 import './DocumentItems.scss';
 
@@ -19,6 +9,7 @@ export default class DocumentItems extends Component {
   constructor(props) {
     super(props);
     this.fetchDocumentItems = props.fetchDocumentItems;
+    this.assignLoanItem = props.assignLoanItem;
     this.documentItemsChangeSortBy = props.documentItemsChangeSortBy;
     this.documentItemsChangeSortOrder = props.documentItemsChangeSortOrder;
   }
@@ -28,10 +19,10 @@ export default class DocumentItems extends Component {
     this.fetchDocumentItems(document_pid);
   }
 
-  _handleRowClick = loanPid => {
-    const path = generatePath(BackOfficeURLS.loanDetails, { loanPid: loanPid });
-    this.props.history.push(path);
-  };
+  // _handleRowClick = loanPid => {
+  //   const path = generatePath(BackOfficeURLS.loanDetails, { loanPid: loanPid });
+  //   this.props.history.push(path);
+  // };
 
   _getFormattedDate = d => (d ? toString(d) : '');
 
@@ -116,7 +107,7 @@ export default class DocumentItems extends Component {
             size="mini"
             color="teal"
             onClick={() => {
-              this._handleRowClick(item.metadata.loan_pid);
+              this.assignLoanItem(this.props.loan.metadata.loan_pid, item.id);
             }}
           >
             assign
@@ -151,6 +142,7 @@ export default class DocumentItems extends Component {
 }
 
 DocumentItems.propTypes = {
+  // assignLoanItem: PropTypes.func.isRequired,
   currentSortBy: PropTypes.string.isRequired,
   currentSortOrder: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
