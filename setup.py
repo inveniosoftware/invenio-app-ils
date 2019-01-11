@@ -59,6 +59,7 @@ install_requires = [
     # because of https://github.com/requests/requests-oauthlib/commit/1b9fe1a630eb1c91bf12fd70aa2e10ca74ffc0b6
     "oauthlib>=2.1.0,<3.0.0",
     # https://github.com/inveniosoftware/invenio-indexer/commit/9749c2fe4e2cbaabc167ad7fb12ade945a2d580c
+    "oauthlib==2.1.0",
     "redis>=2.10.0,<3.0.0",
     # extra
     "invenio-circulation>=1.0.0a1",
