@@ -18,15 +18,6 @@ export default class DocumentItems extends Component {
     this.fetchDocumentItems(document_pid);
   }
 
-  _handleSortClick = sortByValue => {
-    const { document_pid } = this.props.loan.metadata;
-    if (this.props.currentSortBy === sortByValue) {
-      this.documentItemsChangeSortOrder(document_pid);
-    } else {
-      this.documentItemsChangeSortBy(document_pid);
-    }
-  };
-
   _renderDocumentItems = documentItems => {
     const _documentItems = documentItems
       .slice(0, this.props.showMaxDocumentItems)
@@ -39,18 +30,6 @@ export default class DocumentItems extends Component {
             <Table.HeaderCell>Barcode</Table.HeaderCell>
             <Table.HeaderCell>
               <span>Status</span>
-              <Popup
-                trigger={
-                  <Icon
-                    name="sort"
-                    link
-                    onClick={() => this._handleSortClick('status')}
-                  />
-                }
-                content="Sort by status"
-                size="mini"
-                position="top center"
-              />
             </Table.HeaderCell>
             <Table.HeaderCell>Location</Table.HeaderCell>
             <Table.HeaderCell />

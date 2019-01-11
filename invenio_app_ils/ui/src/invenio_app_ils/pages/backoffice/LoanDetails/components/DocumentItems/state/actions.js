@@ -8,15 +8,13 @@ import {
 import { item as itemApi } from '../../../../../../common/api';
 
 export const fetchDocumentItems = documentPid => {
-  return async (dispatch, getState) => {
+  return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
-    const sortBy = getState().documentItems.sortBy;
-    const sortOrder = getState().documentItems.sortOrder;
 
     await itemApi
-      .fetchItemsByDocPid(documentPid, sortBy, sortOrder)
+      .fetchItemsByDocPid(documentPid)
       .then(response => {
         dispatch({
           type: SUCCESS,
