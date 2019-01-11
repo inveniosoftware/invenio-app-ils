@@ -1,9 +1,12 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
+import createLoanReducer from '../components/ItemMetadata/components/CreateNewLoanModal/state/reducer';
+import { initialState as newLoanCreateInitialState } from '../components/ItemMetadata/components/CreateNewLoanModal/state/reducer';
 
 export const initialState = {
   isLoading: true,
   hasError: false,
   data: {},
+  ...newLoanCreateInitialState,
 };
 
 export default (state = initialState, action) => {
@@ -25,6 +28,6 @@ export default (state = initialState, action) => {
         hasError: true,
       };
     default:
-      return state;
+      return createLoanReducer(state, action);
   }
 };

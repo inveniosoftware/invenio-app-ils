@@ -10,7 +10,10 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
+import { CreateNewLoanModal } from './components/CreateNewLoanModal';
+
 import './ItemMetadata.scss';
+import { invenioConfig } from '../../../../../common/config';
 
 export default class ItemMetadata extends Component {
   openEditor(url) {
@@ -19,6 +22,7 @@ export default class ItemMetadata extends Component {
 
   render() {
     const data = this.props.itemDetails.metadata;
+
     const itemUrl = this.props.itemDetails.links.self;
     return (
       <Segment className="item-metadata">
@@ -35,6 +39,15 @@ export default class ItemMetadata extends Component {
                 <Icon name="edit" />
                 edit
               </Button>
+              <CreateNewLoanModal
+                itemPid={data.item_pid}
+                active={
+                  !invenioConfig.items.loanActiveStates.includes(
+                    data.circulation_status.state
+                  )
+                }
+                onLoanCreatedCallback={this.props.fetchItemDetails}
+              />
             </Header>
           </Grid.Column>
 

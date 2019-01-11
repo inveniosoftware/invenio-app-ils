@@ -21,7 +21,7 @@ from invenio_rest import ContentNegotiatedMethodView
 
 from invenio_app_ils.permissions import check_permission
 
-from .api import request_loan
+from .api import create_loan, request_loan
 
 
 def need_permissions(action):
@@ -71,6 +71,17 @@ def create_circulation_blueprint(_):
     blueprint.add_url_rule(
         "/circulation/loans/request", view_func=loan_request, methods=["POST"]
     )
+
+    loan_create = LoanCreateResource.as_view(
+        LoanCreateResource.view_name,
+        serializers=serializers,
+        ctx=dict(links_factory=loan_links_factory),
+    )
+
+    blueprint.add_url_rule(
+        "/circulation/loans/create", view_func=loan_create, methods=["POST"]
+    )
+
     return blueprint
 
 
@@ -85,15 +96,36 @@ class IlsResource(ContentNegotiatedMethodView):
 
 
 class LoanRequestResource(IlsResource):
-    """Loan action resource."""
+    """Loan request action resource."""
 
     view_name = "loan_request"
 
     @need_permissions('circulation-loan-request')
     def post(self, **kwargs):
-        """Loan request view."""
+        """Loan request post method."""
         try:
             pid, loan = request_loan(request.get_json())
+        except InvalidCirculationPermission as ex:
+            current_app.logger.exception(ex.msg)
+            return abort(403)
+        except CirculationException as ex:
+            current_app.logger.exception(ex.msg)
+            return abort(400)
+
+        return self.make_response(
+            pid, loan, 202, links_factory=self.links_factory
+        )
+
+class LoanCreateResource(IlsResource):
+    """Loan create action resource."""
+
+    view_name = "loan_create"
+
+    @need_permissions('circulation-loan-create')
+    def post(self, **kwargs):
+        """Loan create post method."""
+        try:
+            pid, loan = create_loan(request.get_json())
         except InvalidCirculationPermission as ex:
             current_app.logger.exception(ex.msg)
             return abort(403)
