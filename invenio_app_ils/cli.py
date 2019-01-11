@@ -18,7 +18,8 @@ from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
+    RecordIdentifier
 
 from .circulation.receivers import index_item_after_loan_change
 from .records.api import Document, InternalLocation, Item, Location
@@ -162,6 +163,7 @@ def get_loans_for_items(
             loan[Item.pid_field] = "{}".format(item[Item.pid_field])
 
         loans.append(loan)
+    RecordIdentifier.insert(len(loans))
 
     return loans
 

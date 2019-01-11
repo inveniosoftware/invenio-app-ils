@@ -53,6 +53,8 @@ def _get_items_ui_config():
     items_aggs = current_app.config.get('RECORDS_REST_FACETS', {}).get(
         items_index, {}).get('aggs', {})
     ui_config['items']['search']['aggs'] = list(items_aggs.keys())
+    ui_config['items']['loanActiveStates'] = current_app.config.get(
+        "CIRCULATION_STATES_LOAN_ACTIVE", [])
     return ui_config
 
 

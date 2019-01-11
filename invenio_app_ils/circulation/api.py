@@ -19,7 +19,7 @@ def request_loan(params):
     """Create a loan and trigger the first transition to create a request."""
     if "patron_pid" not in params or "item_pid" not in params:
         raise CirculationException(
-            "Patron or item not define on loan request.")
+            "Patron or item not defined on loan request.")
 
     if patron_has_active_loan_on_item(patron_pid=params["patron_pid"],
                                       item_pid=params["item_pid"]):
@@ -35,6 +35,30 @@ def request_loan(params):
     # trigger the first transition
     loan = current_circulation.circulation.trigger(
         loan, **dict(params, trigger="request")
+    )
+
+    return pid, loan
+
+
+def create_loan(params):
+    """Create a loan for behalf of a user."""
+    if "patron_pid" not in params or "item_pid" not in params:
+        raise CirculationException(
+            "Patron or item not defined on loan request.")
+
+    if patron_has_active_loan_on_item(patron_pid=params["patron_pid"],
+                                      item_pid=params["item_pid"]):
+        raise CirculationException(
+            "Patron has already a request or active loan on this item.")
+
+    # create a new loan
+    record_uuid = uuid.uuid4()
+    new_loan = {}
+    pid = loan_pid_minter(record_uuid, data=new_loan)
+    loan = Loan.create(data=new_loan, id_=record_uuid)
+    # trigger the first transition
+    loan = current_circulation.circulation.trigger(
+        loan, **dict(params, trigger="checkout")
     )
 
     return pid, loan
