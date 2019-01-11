@@ -45,12 +45,17 @@ const buildPendingQuery = (documentPid, itemPid) => {
 };
 
 const assignLoanItem = (loanPid, itemPid) => {
-  const url = `${loanURL}${loanPid}`;
-  const headers = {
-    'Content-Type': 'application/json-patch+json',
+  const newItemRef = {
+    $ref: `https://127.0.0.1:5000/api/resolver/circulation/items/${itemPid}`,
   };
-  const operations = [{ op: 'replace', path: '/item_pid', value: itemPid }];
-  return http.patch(url, operations, headers);
+  return http.patch(
+    `${loanURL}${loanPid}`,
+    [
+      { op: 'replace', path: '/item_pid', value: `${itemPid}` },
+      { op: 'add', path: '/item', value: newItemRef },
+    ],
+    { headers: { 'Content-Type': 'application/json-patch+json' } }
+  );
 };
 
 const fetchPendingOnDocumentItem = (

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Message, Header, Table, Icon, Button, Popup } from 'semantic-ui-react';
 import { Loader, Error } from '../../../../../common/components';
-import { toString } from '../../../../../common/api/date';
 import './DocumentItems.scss';
 
 export default class DocumentItems extends Component {
@@ -18,38 +17,6 @@ export default class DocumentItems extends Component {
     const { document_pid } = this.props.loan.metadata;
     this.fetchDocumentItems(document_pid);
   }
-
-  // _handleRowClick = loanPid => {
-  //   const path = generatePath(BackOfficeURLS.loanDetails, { loanPid: loanPid });
-  //   this.props.history.push(path);
-  // };
-
-  _getFormattedDate = d => (d ? toString(d) : '');
-
-  // _handleShowAllClick = () => {
-  //   const { document_pid, item_pid } = this.props.item.metadata;
-  //   const qs = loanApi.buildPendingQuery(document_pid, item_pid);
-  //   const url = `${BackOfficeURLS.loansSearch}?q=${qs}`;
-  //   this.props.history.push(url);
-  // };
-
-  // _renderFooter = pendingLoans => {
-  //   const total = pendingLoans.length;
-  //   return total > this.props.showMaxDocumentItems ? (
-  //     <Table.Footer fullWidth data-test="footer">
-  //       <Table.Row>
-  //         <Table.HeaderCell colSpan="5" textAlign="right">
-  //           <span>
-  //             Showing first {this.props.showMaxDocumentItems} pending requests
-  //           </span>
-  //           <Button size="small" onClick={this._handleShowAllClick}>
-  //             Show all
-  //           </Button>
-  //         </Table.HeaderCell>
-  //       </Table.Row>
-  //     </Table.Footer>
-  //   ) : null;
-  // };
 
   _handleSortClick = sortByValue => {
     const { document_pid } = this.props.loan.metadata;
@@ -90,7 +57,6 @@ export default class DocumentItems extends Component {
           </Table.Row>
         </Table.Header>
         <Table.Body>{_documentItems}</Table.Body>
-        {/* {this._renderFooter(documentItems)} */}
       </Table>
     );
   };
@@ -142,7 +108,7 @@ export default class DocumentItems extends Component {
 }
 
 DocumentItems.propTypes = {
-  // assignLoanItem: PropTypes.func.isRequired,
+  assignLoanItem: PropTypes.func.isRequired,
   currentSortBy: PropTypes.string.isRequired,
   currentSortOrder: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
@@ -153,5 +119,5 @@ DocumentItems.propTypes = {
 };
 
 DocumentItems.defaultProps = {
-  showMaxDocumentItems: 5,
+  showMaxDocumentItems: 10,
 };

@@ -31,6 +31,14 @@ export function LoanView(props) {
         <Table basic="very" definition className="metadata-table">
           <Table.Body>
             <Table.Row>
+              <Table.Cell>Document ID</Table.Cell>
+              <Table.Cell>{item.document_pid}</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell width={4}>Item ID</Table.Cell>
+              <Table.Cell width={12}>{item.item_pid}</Table.Cell>
+            </Table.Row>
+            <Table.Row>
               <Table.Cell width={4}>Item Status</Table.Cell>
               <Table.Cell width={12}>{item.status}</Table.Cell>
             </Table.Row>
@@ -53,10 +61,6 @@ export function LoanView(props) {
             <Table.Row>
               <Table.Cell>Legacy ID</Table.Cell>
               <Table.Cell>{item.legacy_id}</Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell>Document</Table.Cell>
-              <Table.Cell>{item.document_pid}</Table.Cell>
             </Table.Row>
           </Table.Body>
         </Table>
