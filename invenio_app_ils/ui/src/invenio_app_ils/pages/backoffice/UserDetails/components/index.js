@@ -1,3 +1,3 @@
 export { UserDetails } from './UserDetails';
 export { UserMetadata } from './UserMetadata';
-export { PatronLoansTable } from './PatronLoansTable';
+export { PatronLoans } from './PatronLoans';

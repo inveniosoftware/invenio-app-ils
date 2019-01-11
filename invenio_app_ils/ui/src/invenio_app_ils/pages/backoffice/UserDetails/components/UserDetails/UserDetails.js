@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
-import { UserMetadata, PatronLoansTable } from '../';
+import { UserMetadata, PatronLoans } from '../';
 
 export default class UserDetails extends Component {
   render() {
@@ -11,7 +11,7 @@ export default class UserDetails extends Component {
       <Loader isLoading={isLoading}>
         <Error error={errorData}>
           <UserMetadata />
-          <PatronLoansTable patron={data.id} />
+          <PatronLoans patron={data.id} />
         </Error>
       </Loader>
     );

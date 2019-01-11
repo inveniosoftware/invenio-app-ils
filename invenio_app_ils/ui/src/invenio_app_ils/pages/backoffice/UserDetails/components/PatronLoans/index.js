@@ -6,14 +6,14 @@ import {
   patronLoansChangeSortBy,
   patronLoansChangeSortOrder,
 } from './state/actions';
-import PatronLoansTableComponent from './PatronLoansTable';
+import PatronLoansComponent from './PatronLoans';
 
 const mapStateToProps = state => ({
-  data: state.patronLoansTable.data,
-  isLoading: state.patronLoansTable.isLoading,
-  hasError: state.patronLoansTable.hasError,
-  currentSortBy: state.patronLoansTable.sortBy,
-  currentSortOrder: state.patronLoansTable.sortOrder,
+  data: state.patronLoans.data,
+  isLoading: state.patronLoans.isLoading,
+  hasError: state.patronLoans.hasError,
+  currentSortBy: state.patronLoans.sortBy,
+  currentSortOrder: state.patronLoans.sortOrder,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -29,10 +29,10 @@ const mapDispatchToProps = dispatch => ({
     ),
 });
 
-export const PatronLoansTable = compose(
+export const PatronLoans = compose(
   withRouter,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(PatronLoansTableComponent);
+)(PatronLoansComponent);

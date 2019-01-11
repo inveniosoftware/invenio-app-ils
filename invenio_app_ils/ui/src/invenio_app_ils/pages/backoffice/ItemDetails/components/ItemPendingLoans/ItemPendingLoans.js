@@ -72,7 +72,7 @@ export default class ItemPendingLoans extends Component {
 
   _handleShowAllClick = () => {
     const { document_pid, item_pid } = this.props.item.metadata;
-    const qs = loanApi.buildPendingQuery(document_pid, item_pid);
+    const qs = loanApi.buildLoansQuery(document_pid, item_pid, null, null);
     const url = `${BackOfficeURLS.loansSearch}?q=${qs}`;
     this.props.history.push(url);
   };

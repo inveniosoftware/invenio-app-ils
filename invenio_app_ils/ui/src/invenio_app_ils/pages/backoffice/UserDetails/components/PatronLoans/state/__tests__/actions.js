@@ -2,9 +2,11 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
-import { serializeLoan } from '../selectors';
 import * as types from '../types';
-import { loan as loanApi } from '../../../../../../../common/api';
+import {
+  loan as loanApi,
+  serializeLoan,
+} from '../../../../../../../common/api';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -24,7 +26,7 @@ let store;
 beforeEach(() => {
   mockFetchUserLoan.mockClear();
 
-  store = mockStore({ patronLoansTable: initialState });
+  store = mockStore({ patronLoans: initialState });
   store.clearActions();
 });
 
@@ -119,7 +121,7 @@ describe('Fetch change sort by when fetching patron loans tests', () => {
 
   it('should dispatch a change sort by action with `transaction_date` when calling patronLoansChangeSortBy the second time', done => {
     mockFetchUserLoan.mockResolvedValue(mockResponse);
-    store.getState().patronLoansTable.sortBy = 'start_date';
+    store.getState().patronLoans.sortBy = 'start_date';
 
     const expectedAction = {
       type: types.CHANGE_SORT_BY,
@@ -156,7 +158,7 @@ describe('Fetch change sort order when fetching patron loans tests', () => {
 
   it('should dispatch a change sort by action with `asc` when calling patronLoansChangeSortOrder the second time', done => {
     mockFetchUserLoan.mockResolvedValue(mockResponse);
-    store.getState().patronLoansTable.sortOrder = 'desc';
+    store.getState().patronLoans.sortOrder = 'desc';
 
     const expectedAction = {
       type: types.CHANGE_SORT_ORDER,

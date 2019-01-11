@@ -36,27 +36,6 @@ const postAction = (
   return http.post(url, payload);
 };
 
-const buildPendingQuery = (documentPid, itemPid) => {
-  const qsDoc = documentPid ? `document_pid:${documentPid}` : '';
-  const qsItem = itemPid ? `item_pid:${itemPid}` : '';
-  const qsDocItem =
-    qsDoc && qsItem ? `(${qsDoc} OR ${qsItem})` : `${qsDoc}${qsItem}`;
-  return `${qsDocItem} AND state:PENDING`;
-};
-
-const fetchPendingOnDocumentItem = (
-  documentPid,
-  itemPid,
-  sortBy,
-  sortOrder
-) => {
-  const qs = buildPendingQuery(documentPid, itemPid);
-  const sort =
-    sortBy === 'transaction_date' ? `transaction_date` : `start_date`;
-  const sortByOrder = sortOrder === 'asc' ? `${sort}:asc` : `${sort}:desc`;
-  return http.get(`${loanURL}?q=${qs}&sort:${sortByOrder}`);
-};
-
 const buildLoansQuery = (documentPid, itemPid, state, patronPid) => {
   const qsDoc = documentPid ? `document_pid:${documentPid}` : '';
   const qsItem = itemPid ? `item_pid:${itemPid}` : '';
@@ -90,8 +69,6 @@ export const loan = {
   url: loanURL,
   get: get,
   postAction: postAction,
-  buildPendingQuery: buildPendingQuery,
-  fetchPendingOnDocumentItem: fetchPendingOnDocumentItem,
   fetchLoans: fetchLoans,
   buildLoansQuery: buildLoansQuery,
 };

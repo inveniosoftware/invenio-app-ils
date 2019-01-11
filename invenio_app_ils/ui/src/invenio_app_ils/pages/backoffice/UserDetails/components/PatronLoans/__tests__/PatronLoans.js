@@ -4,12 +4,12 @@ import { generatePath } from 'react-router';
 import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../common/api/date';
 import { BackOfficeURLS } from '../../../../../../common/urls';
-import PatronLoansTable from '../PatronLoansTable';
+import PatronLoans from '../PatronLoans';
 
 Settings.defaultZoneName = 'utc';
 const d = fromISO('2018-01-01T11:05:00+01:00');
 
-describe('PatronLoansTable tests', () => {
+describe('PatronLoans tests', () => {
   let component;
   afterEach(() => {
     if (component) {
@@ -27,10 +27,11 @@ describe('PatronLoansTable tests', () => {
     const mockedPatronLoansChangeSortOrder = jest.fn();
 
     const component = shallow(
-      <PatronLoansTable
+      <PatronLoans
         history={() => {}}
         data={[]}
         loanState=""
+        patron={patron.patron_pid}
         fetchPatronLoans={mockedFetchPatronLoans}
         patronLoansChangeSortBy={mockedPatronLoansChangeSortBy}
         patronLoansChangeSortOrder={mockedPatronLoansChangeSortOrder}
@@ -46,7 +47,7 @@ describe('PatronLoansTable tests', () => {
     const mockedPatronLoansChangeSortBy = jest.fn();
     const mockedPatronLoansChangeSortOrder = jest.fn();
     component = mount(
-      <PatronLoansTable
+      <PatronLoans
         patron={patron.patron_pid}
         history={() => {}}
         data={[]}
@@ -88,7 +89,7 @@ describe('PatronLoansTable tests', () => {
     ];
 
     component = mount(
-      <PatronLoansTable
+      <PatronLoans
         patron={patron.patron_pid}
         history={() => {}}
         data={data}
@@ -139,7 +140,7 @@ describe('PatronLoansTable tests', () => {
     ];
 
     component = mount(
-      <PatronLoansTable
+      <PatronLoans
         patron={patron.patron_pid}
         history={() => {}}
         data={data}
@@ -179,7 +180,7 @@ describe('PatronLoansTable tests', () => {
 
     const mockedFetchPatronLoans = jest.fn();
     component = mount(
-      <PatronLoansTable
+      <PatronLoans
         patron={patron.patron_pid}
         history={historyFn}
         data={data}
