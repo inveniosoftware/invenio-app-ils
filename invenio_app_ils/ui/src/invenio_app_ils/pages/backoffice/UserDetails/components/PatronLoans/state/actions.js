@@ -6,7 +6,7 @@ import {
   CHANGE_SORT_ORDER,
 } from './types';
 import { loan as loanApi } from '../../../../../../common/api';
-import { serializeLoan } from './selectors';
+import { serializeLoan } from '../../../../../../common/api';
 
 export const fetchPatronLoans = (
   documentPid,
@@ -19,8 +19,8 @@ export const fetchPatronLoans = (
       type: IS_LOADING,
     });
 
-    const sortBy = getState().patronLoansTable.sortBy;
-    const sortOrder = getState().patronLoansTable.sortOrder;
+    const sortBy = getState().patronLoans.sortBy;
+    const sortOrder = getState().patronLoans.sortOrder;
 
     await loanApi
       .fetchLoans(documentPid, itemPid, sortBy, sortOrder, patronPid, loanState)
@@ -47,7 +47,7 @@ export const patronLoansChangeSortBy = (
 ) => {
   return async (dispatch, getState) => {
     const newSortBy =
-      getState().patronLoansTable.sortBy === 'transaction_date'
+      getState().patronLoans.sortBy === 'transaction_date'
         ? 'start_date'
         : 'transaction_date';
 
@@ -70,7 +70,7 @@ export const patronLoansChangeSortOrder = (
 ) => {
   return async (dispatch, getState) => {
     const newSortOrder =
-      getState().patronLoansTable.sortOrder === 'asc' ? 'desc' : 'asc';
+      getState().patronLoans.sortOrder === 'asc' ? 'desc' : 'asc';
 
     dispatch({
       type: CHANGE_SORT_ORDER,

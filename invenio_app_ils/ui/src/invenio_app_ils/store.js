@@ -9,7 +9,7 @@ import {
 } from './pages/backoffice/ItemDetails/reducer';
 import { loanDetailsReducer } from './pages/backoffice/LoanDetails/reducer';
 import { userDetailsReducer } from './pages/backoffice/UserDetails/reducer';
-import { patronLoansTableReducer } from './pages/backoffice/UserDetails/components/PatronLoansTable/reducer';
+import { patronLoansReducer } from './pages/backoffice/UserDetails/components/PatronLoans/reducer';
 
 const rootReducer = combineReducers({
   userSession: userSessionReducer,
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   itemPendingLoans: itemPendingLoansReducer,
   loanDetails: loanDetailsReducer,
   userDetails: userDetailsReducer,
-  patronLoansTable: patronLoansTableReducer,
+  patronLoans: patronLoansReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

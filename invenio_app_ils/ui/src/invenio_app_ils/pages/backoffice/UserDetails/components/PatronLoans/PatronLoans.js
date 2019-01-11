@@ -14,9 +14,9 @@ import { Loader, Error } from '../../../../../common/components';
 import { BackOfficeURLS } from '../../../../../common/urls';
 import { toString } from '../../../../../common/api/date';
 import { loan as loanApi } from '../../../../../common/api/loan';
-import './PatronLoansTable.scss';
+import './PatronLoans.scss';
 
-export default class PatronLoansTable extends Component {
+export default class PatronLoans extends Component {
   constructor(props) {
     super(props);
     this.fetchPatronLoans = props.fetchPatronLoans;
@@ -25,15 +25,14 @@ export default class PatronLoansTable extends Component {
   }
 
   componentDidMount() {
-    const initProps = {
+    const initialProps = {
       document_pid: null,
       item_pid: null,
     };
-    this.initProps = initProps;
-    const { document_pid, item_pid } = this.props.item
+    this.initProps = initialProps;
+    const { document_pid, item_pid, patron_pid } = this.props.item
       ? this.props.item.metadata
-      : initProps;
-    const patron_pid = this.props.patron ? this.props.patron : null;
+      : initialProps;
     const loan_state = this.props.loanState ? this.props.loanState : null;
 
     this.fetchPatronLoans(document_pid, item_pid, loan_state, patron_pid);
@@ -230,9 +229,9 @@ export default class PatronLoansTable extends Component {
   }
 }
 
-PatronLoansTable.propTypes = {
+PatronLoans.propTypes = {
   item: PropTypes.object,
-  patron: PropTypes.number,
+  patron: PropTypes.number.isRequired,
   loanState: PropTypes.string,
   fetchPatronLoans: PropTypes.func.isRequired,
   patronLoansChangeSortBy: PropTypes.func.isRequired,
@@ -243,6 +242,6 @@ PatronLoansTable.propTypes = {
   showMaxLoans: PropTypes.number,
 };
 
-PatronLoansTable.defaultProps = {
+PatronLoans.defaultProps = {
   showMaxLoans: 5,
 };

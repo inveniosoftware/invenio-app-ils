@@ -1,5 +1,5 @@
-import { serializeLoan } from '../selectors';
 import { fromISO } from '../../../../../../../common/api/date';
+import { serializeLoan } from '../../../../../../../common/api';
 
 const stringDate = '2018-01-01T11:05:00+01:00';
 

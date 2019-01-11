@@ -18,7 +18,7 @@ const mockResponse = {
 };
 
 const mockFetchPendingOnDocumentItem = jest.fn();
-loanApi.fetchPendingOnDocumentItem = mockFetchPendingOnDocumentItem;
+loanApi.fetchLoans = mockFetchPendingOnDocumentItem;
 
 let store;
 beforeEach(() => {
@@ -42,7 +42,9 @@ describe('Pending loans tests', () => {
           '123',
           '456',
           initialState.sortBy,
-          initialState.sortOrder
+          initialState.sortOrder,
+          null,
+          'PENDING'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
@@ -65,7 +67,9 @@ describe('Pending loans tests', () => {
           '123',
           '456',
           initialState.sortBy,
-          initialState.sortOrder
+          initialState.sortOrder,
+          null,
+          'PENDING'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -86,7 +90,9 @@ describe('Pending loans tests', () => {
           '123',
           '456',
           initialState.sortBy,
-          initialState.sortOrder
+          initialState.sortOrder,
+          null,
+          'PENDING'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);

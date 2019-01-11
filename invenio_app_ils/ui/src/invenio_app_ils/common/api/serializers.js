@@ -1,5 +1,5 @@
 import _isEmpty from 'lodash/isEmpty';
-import { fromISO } from '../../../../../../common/api/date';
+import { fromISO } from './date';
 
 export function serializeLoan(hit) {
   const result = {};
