@@ -147,7 +147,7 @@ export class ItemsSearch extends Component {
     );
   };
 
-  _renderDefaultView = () => {
+  render() {
     return (
       <ReactSearchKit
         searchConfig={{
@@ -173,37 +173,5 @@ export class ItemsSearch extends Component {
         </Grid>
       </ReactSearchKit>
     );
-  };
-
-  _renderLoanView = () => {
-    return (
-      <ReactSearchKit
-        searchConfig={{
-          ...apiConfig,
-          url: endpoint.url,
-        }}
-      >
-        <Grid columns={2} stackable relaxed className="items-search-container">
-          <Grid.Column width={16}>
-            <ResultsLoader>
-              <EmptyResults renderElement={this._renderEmptyResults} />
-              <Error renderElement={this._renderError} />
-              {this._renderHeader()}
-              <ResultsList renderElement={this._renderResultsList} />
-              {this._renderFooter()}
-            </ResultsLoader>
-          </Grid.Column>
-        </Grid>
-      </ReactSearchKit>
-    );
-  };
-
-  render() {
-    const renderView =
-      this.props.view === 'loan'
-        ? this._renderLoanView
-        : this._renderDefaultView;
-
-    return renderView();
   }
 }
