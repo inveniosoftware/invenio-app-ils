@@ -1,5 +1,6 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { item as itemApi } from '../../../../../../common/api';
+import { config } from '../config';
 
 export const fetchAvailableItems = documentPid => {
   return async dispatch => {
@@ -8,7 +9,7 @@ export const fetchAvailableItems = documentPid => {
     });
 
     await itemApi
-      .fetchItemsByDocPid(documentPid)
+      .fetchItemsByDocPid(documentPid, config)
       .then(response => {
         dispatch({
           type: SUCCESS,

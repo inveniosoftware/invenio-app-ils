@@ -37,8 +37,8 @@ def _get_items_ui_config():
                 "sortOrder": ["asc", "desc"],
                 "aggs": [],
             },
-            "loanable": {
-                "status": ""
+            "available": {
+                "status": "LOANABLE"
             }
         }
     }

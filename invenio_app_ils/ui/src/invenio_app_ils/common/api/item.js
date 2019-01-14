@@ -6,8 +6,8 @@ const get = itemPid => {
   return http.get(`${itemURL}${itemPid}`);
 };
 
-const fetchItemsByDocPid = documentPid => {
-  const qs = `(document_pid:${documentPid} AND NOT(status:MISSING))`;
+const fetchItemsByDocPid = (documentPid, config) => {
+  const qs = `(document_pid:${documentPid} AND status:${config.status})`;
   return http.get(`${itemURL}?q=${qs}`);
 };
 
