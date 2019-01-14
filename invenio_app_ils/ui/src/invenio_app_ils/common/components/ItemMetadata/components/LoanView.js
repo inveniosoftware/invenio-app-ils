@@ -19,7 +19,7 @@ export function LoanView(props) {
             primary
             floated="right"
             size="small"
-            onClick={() => props.handlerShowItemList(true)}
+            onClick={() => props.showAvailableItems(true)}
           >
             <Icon name="exchange" />
             change item

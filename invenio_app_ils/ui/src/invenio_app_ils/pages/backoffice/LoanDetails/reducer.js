@@ -1,4 +1,4 @@
 export { default as loanDetailsReducer } from './state/reducer';
 export {
-  default as documentItemsReducer,
-} from './components/DocumentItems/state/reducer';
+  default as availableItemsReducer,
+} from './components/AvailableItems/state/reducer';

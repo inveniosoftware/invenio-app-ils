@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 import { Grid, Segment, Header, Table, Divider } from 'semantic-ui-react';
 import { ItemMetadata } from '../../../../../common/components/ItemMetadata';
 import { LoanActions } from '../LoanActions';
-import { DocumentItems } from '../DocumentItems';
+import { AvailableItems } from '../AvailableItems';
 import _isEmpty from 'lodash/isEmpty';
 
 export default class LoanMetadata extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showDocumentItems: _isEmpty(this.props.loanDetails.metadata.item),
+      isAvailableItemsVisible: _isEmpty(this.props.loanDetails.metadata.item),
     };
-    this.assignLoanItem = props.assignLoanItem;
+    this.assignItemToLoan = props.assignItemToLoan;
   }
 
-  handlerShowItemList = newState => {
-    this.setState({ showDocumentItems: newState });
+  showAvailableItems = newState => {
+    this.setState({ isAvailableItemsVisible: newState });
   };
 
   render() {
@@ -88,13 +88,13 @@ export default class LoanMetadata extends Component {
         {data.item && (
           <ItemMetadata
             item={data.item}
-            handlerShowItemList={this.handlerShowItemList}
+            showAvailableItems={this.showAvailableItems}
             view="loan"
           />
         )}
-        {this.state.showDocumentItems && data.item && <Divider />}
-        {this.state.showDocumentItems && (
-          <DocumentItems loan={this.props.loanDetails} />
+        {this.state.isAvailableItemsVisible && data.item && <Divider />}
+        {this.state.isAvailableItemsVisible && (
+          <AvailableItems loan={this.props.loanDetails} />
         )}
       </Segment>
     );

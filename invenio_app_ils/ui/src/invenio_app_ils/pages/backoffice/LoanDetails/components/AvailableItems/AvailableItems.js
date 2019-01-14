@@ -1,26 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Message, Header, Table, Icon, Button, Popup } from 'semantic-ui-react';
+import { Message, Header, Table, Button } from 'semantic-ui-react';
 import { Loader, Error } from '../../../../../common/components';
-import './DocumentItems.scss';
+import './AvailableItems.scss';
 
-export default class DocumentItems extends Component {
+export default class AvailableItems extends Component {
   constructor(props) {
     super(props);
-    this.fetchDocumentItems = props.fetchDocumentItems;
-    this.assignLoanItem = props.assignLoanItem;
-    this.documentItemsChangeSortBy = props.documentItemsChangeSortBy;
-    this.documentItemsChangeSortOrder = props.documentItemsChangeSortOrder;
+    this.fetchAvailableItems = props.fetchAvailableItems;
+    this.assignItemToLoan = props.assignItemToLoan;
   }
 
   componentDidMount() {
     const { document_pid } = this.props.loan.metadata;
-    this.fetchDocumentItems(document_pid);
+    this.fetchAvailableItems(document_pid);
   }
 
-  _renderDocumentItems = documentItems => {
-    const _documentItems = documentItems
-      .slice(0, this.props.showMaxDocumentItems)
+  _renderAvailableItems = availableItems => {
+    const _availableItems = availableItems
+      .slice(0, this.props.showMaxAvailableItems)
       .map(item => this._renderItem(item));
     return (
       <Table singleLine selectable className="document-items">
@@ -35,7 +33,7 @@ export default class DocumentItems extends Component {
             <Table.HeaderCell />
           </Table.Row>
         </Table.Header>
-        <Table.Body>{_documentItems}</Table.Body>
+        <Table.Body>{_availableItems}</Table.Body>
       </Table>
     );
   };
@@ -52,7 +50,7 @@ export default class DocumentItems extends Component {
             size="mini"
             color="teal"
             onClick={() => {
-              this.assignLoanItem(this.props.loan.metadata.loan_pid, item.id);
+              this.assignItemToLoan(item.id, this.props.loan.metadata.loan_pid);
             }}
           >
             assign
@@ -62,9 +60,9 @@ export default class DocumentItems extends Component {
     );
   };
 
-  _renderDocumentItemsOrEmpty = documentItems => {
-    return documentItems.length ? (
-      this._renderDocumentItems(documentItems)
+  _renderAvailableItemsOrEmpty = availableItems => {
+    return availableItems.length ? (
+      this._renderAvailableItems(availableItems)
     ) : (
       <Message data-test="no-results">
         There are no available items for this document
@@ -79,24 +77,22 @@ export default class DocumentItems extends Component {
       <Loader isLoading={isLoading}>
         <Error error={errorData}>
           <Header as="h3">Available items</Header>
-          {this._renderDocumentItemsOrEmpty(data)}
+          {this._renderAvailableItemsOrEmpty(data)}
         </Error>
       </Loader>
     );
   }
 }
 
-DocumentItems.propTypes = {
-  assignLoanItem: PropTypes.func.isRequired,
+AvailableItems.propTypes = {
+  assignItemToLoan: PropTypes.func.isRequired,
   currentSortBy: PropTypes.string.isRequired,
   currentSortOrder: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
-  documentItemsChangeSortBy: PropTypes.func.isRequired,
-  documentItemsChangeSortOrder: PropTypes.func.isRequired,
-  fetchDocumentItems: PropTypes.func.isRequired,
-  showMaxDocumentItems: PropTypes.number,
+  fetchAvailableItems: PropTypes.func.isRequired,
+  showMaxAvailableItems: PropTypes.number,
 };
 
-DocumentItems.defaultProps = {
-  showMaxDocumentItems: 10,
+AvailableItems.defaultProps = {
+  showMaxAvailableItems: 10,
 };

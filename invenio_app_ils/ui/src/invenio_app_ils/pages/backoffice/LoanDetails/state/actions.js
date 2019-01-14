@@ -32,13 +32,13 @@ export const fetchLoanDetails = loanPid => {
   };
 };
 
-export const assignLoanItem = (loanId, itemId) => {
+export const assignItemToLoan = (itemId, loanId) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
     await loanApi
-      .assignLoanItem(loanId, itemId)
+      .assignItemToLoan(itemId, loanId)
       .then(response => {
         dispatch({
           type: SUCCESS,

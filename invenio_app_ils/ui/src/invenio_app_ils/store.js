@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
-import { documentItemsReducer } from './pages/backoffice/LoanDetails/reducer';
+import { availableItemsReducer } from './pages/backoffice/LoanDetails/reducer';
 import {
   itemDetailsReducer,
   itemPendingLoansReducer,
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   loanDetails: loanDetailsReducer,
   userDetails: userDetailsReducer,
   patronLoansTable: patronLoansTableReducer,
-  documentItems: documentItemsReducer,
+  availableItems: availableItemsReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

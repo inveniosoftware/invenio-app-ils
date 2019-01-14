@@ -30,64 +30,91 @@ blueprint = Blueprint(
 
 def _get_items_ui_config():
     """Get ui config for items search page."""
-    ui_config = {'items': {
-        'search': {'sortBy': {'values': [], 'onEmptyQuery': None},
-                   'sortOrder': ['asc', 'desc'],
-                   'aggs': []}}}
+    ui_config = {
+        "items": {
+            "search": {
+                "sortBy": {"values": [], "onEmptyQuery": None},
+                "sortOrder": ["asc", "desc"],
+                "aggs": [],
+            },
+            "loanable": {
+                "status": ""
+            }
+        }
+    }
     items_index = ItemSearch.Meta.index
 
-    items_sort = current_app.config.get('RECORDS_REST_SORT_OPTIONS', {}).get(
-        items_index, {})
-    items_sort_ui = [{
-        'field': field,
-        'title': items_sort[field]['title'],
-        'order': items_sort[field]['order']
-    } for field in items_sort.keys()]
+    items_sort = current_app.config.get("RECORDS_REST_SORT_OPTIONS", {}).get(
+        items_index, {}
+    )
+    items_sort_ui = [
+        {
+            "field": field,
+            "title": items_sort[field]["title"],
+            "order": items_sort[field]["order"],
+        }
+        for field in items_sort.keys()
+    ]
 
-    ui_config['items']['search']['sortBy']['values'] = sorted(items_sort_ui,
-                                                              key=lambda s: s[
-                                                                  'order'])
-    if 'mostrecent' in items_sort:
-        ui_config['items']['search']['sortBy']['onEmptyQuery'] = 'mostrecent'
+    ui_config["items"]["search"]["sortBy"]["values"] = sorted(
+        items_sort_ui, key=lambda s: s["order"]
+    )
+    if "mostrecent" in items_sort:
+        ui_config["items"]["search"]["sortBy"]["onEmptyQuery"] = "mostrecent"
 
-    items_aggs = current_app.config.get('RECORDS_REST_FACETS', {}).get(
-        items_index, {}).get('aggs', {})
-    ui_config['items']['search']['aggs'] = list(items_aggs.keys())
+    items_aggs = (
+        current_app.config.get("RECORDS_REST_FACETS", {})
+        .get(items_index, {})
+        .get("aggs", {})
+    )
+    ui_config["items"]["search"]["aggs"] = list(items_aggs.keys())
     return ui_config
 
 
 def _get_loans_ui_config():
     """Get ui config for loans search page."""
-    ui_config = {'loans': {
-        'search': {'sortBy': {'values': [], 'onEmptyQuery': None},
-                   'sortOrder': ['asc', 'desc'],
-                   'aggs': []}}}
+    ui_config = {
+        "loans": {
+            "search": {
+                "sortBy": {"values": [], "onEmptyQuery": None},
+                "sortOrder": ["asc", "desc"],
+                "aggs": [],
+            }
+        }
+    }
     loans_index = LoansSearch.Meta.index
 
-    loans_sort = current_app.config.get('RECORDS_REST_SORT_OPTIONS', {}).get(
-        loans_index, {})
-    loans_sort_ui = [{
-        'field': field,
-        'title': loans_sort[field]['title'],
-        'order': loans_sort[field]['order']
-    } for field in loans_sort.keys()]
+    loans_sort = current_app.config.get("RECORDS_REST_SORT_OPTIONS", {}).get(
+        loans_index, {}
+    )
+    loans_sort_ui = [
+        {
+            "field": field,
+            "title": loans_sort[field]["title"],
+            "order": loans_sort[field]["order"],
+        }
+        for field in loans_sort.keys()
+    ]
 
-    ui_config['loans']['search']['sortBy']['values'] = sorted(loans_sort_ui,
-                                                              key=lambda s: s[
-                                                                  'order'])
-    if 'mostrecent' in loans_sort:
-        ui_config['loans']['search']['sortBy']['onEmptyQuery'] = 'mostrecent'
+    ui_config["loans"]["search"]["sortBy"]["values"] = sorted(
+        loans_sort_ui, key=lambda s: s["order"]
+    )
+    if "mostrecent" in loans_sort:
+        ui_config["loans"]["search"]["sortBy"]["onEmptyQuery"] = "mostrecent"
 
-    loans_aggs = current_app.config.get('RECORDS_REST_FACETS', {}).get(
-        loans_index, {}).get('aggs', {})
-    ui_config['loans']['search']['aggs'] = list(loans_aggs.keys())
+    loans_aggs = (
+        current_app.config.get("RECORDS_REST_FACETS", {})
+        .get(loans_index, {})
+        .get("aggs", {})
+    )
+    ui_config["loans"]["search"]["aggs"] = list(loans_aggs.keys())
     return ui_config
 
 
-@blueprint.route('/ping', methods=['HEAD', 'GET'])
+@blueprint.route("/ping", methods=["HEAD", "GET"])
 def ping():
     """Ping blueprint used by loadbalancer."""
-    return 'OK'
+    return "OK"
 
 
 @blueprint.route("/", methods=["GET"])

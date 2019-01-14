@@ -44,7 +44,7 @@ const buildPendingQuery = (documentPid, itemPid) => {
   return `${qsDocItem} AND state:PENDING`;
 };
 
-const assignLoanItem = (loanPid, itemPid) => {
+const assignItemToLoan = (itemPid, loanPid) => {
   const newItemRef = {
     $ref: `https://127.0.0.1:5000/api/resolver/circulation/items/${itemPid}`,
   };
@@ -101,7 +101,7 @@ const fetchLoans = (
 };
 
 export const loan = {
-  assignLoanItem: assignLoanItem,
+  assignItemToLoan: assignItemToLoan,
   buildLoansQuery: buildLoansQuery,
   buildPendingQuery: buildPendingQuery,
   fetchLoans: fetchLoans,
