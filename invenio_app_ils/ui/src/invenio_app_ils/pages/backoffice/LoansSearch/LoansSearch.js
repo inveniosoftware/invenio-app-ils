@@ -30,7 +30,7 @@ import {
 } from './components';
 import './LoansSearch.scss';
 import { default as config } from './config';
-import { viewDetailsClickUrl } from '../../../common/urls';
+import { viewLoanDetailsUrl } from '../../../common/urls';
 
 export class LoansSearch extends Component {
   _renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
@@ -49,7 +49,7 @@ export class LoansSearch extends Component {
         <LoansResultsList
           results={results}
           viewDetailsClickHandler={loanPid => {
-            const path = viewDetailsClickUrl(loanPid);
+            const path = viewLoanDetailsUrl(loanPid);
             this.props.history.push(path);
           }}
         />

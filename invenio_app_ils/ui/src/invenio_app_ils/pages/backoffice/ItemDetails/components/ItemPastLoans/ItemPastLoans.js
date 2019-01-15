@@ -2,42 +2,50 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
 import { toString } from '../../../../../common/api/date';
-import './PatronLoans.scss';
-
 import { ResultsTable } from '../../../../../common/components';
+
 import {
   showAllLoansUrl,
   viewLoanDetailsUrl,
 } from '../../../../../common/urls';
 
-export default class PatronLoans extends Component {
+export default class ItemPastLoans extends Component {
   constructor(props) {
     super(props);
-    this.fetchPatronLoans = props.fetchPatronLoans;
+    this.fetchPastLoans = props.fetchPastLoans;
     this.showDetailsUrl = viewLoanDetailsUrl;
     this.showAllUrl = showAllLoansUrl;
   }
 
   componentDidMount() {
-    const patron_pid = this.props.patron ? this.props.patron : null;
-    this.fetchPatronLoans(null, null, null, patron_pid);
+    const { document_pid, item_pid } = this.props.item.metadata;
+    this.fetchPastLoans(document_pid, item_pid);
   }
+
+  _getFormattedDate = d => (d ? toString(d) : '');
 
   _showDetailsHandler = loan_pid =>
     this.props.history.push(this.showDetailsUrl(loan_pid));
 
-  _showAllHandler = patron_id =>
-    this.props.history.push(this.showAllUrl(null, null, null, patron_id));
-
-  _getFormattedDate = d => (d ? toString(d) : '');
+  _showAllHandler = params => {
+    const { document_pid, item_pid } = this.props.item.metadata;
+    this.props.history.push(
+      this.showAllUrl(
+        document_pid,
+        item_pid,
+        'ITEM_RETURNED',
+        null,
+        'OR state:CANCELLED'
+      )
+    );
+  };
 
   prepareData() {
     return this.props.data.map(row => ({
       ID: row.loan_pid,
-      'Item PID': row.item_pid,
+      'Patron PID': row.patron_pid,
+      'Request created': this._getFormattedDate(row.updated),
       State: row.state,
-      Start_date: this._getFormattedDate(row.start_date),
-      End_date: this._getFormattedDate(row.end_date),
     }));
   }
 
@@ -50,13 +58,13 @@ export default class PatronLoans extends Component {
         <Error error={errorData}>
           <ResultsTable
             rows={rows}
-            name={"User's loan requests"}
+            name={'Loans history'}
             detailsClickHandler={this._showDetailsHandler}
             showAllClickHandler={{
               handler: this._showAllHandler,
-              params: this.props.patron,
+              params: null,
             }}
-            showMaxRows={this.props.showMaxLoans}
+            showMaxRows={this.props.showMaxPastLoans}
           />
         </Error>
       </Loader>
@@ -64,13 +72,13 @@ export default class PatronLoans extends Component {
   }
 }
 
-PatronLoans.propTypes = {
-  patron: PropTypes.number,
-  fetchPatronLoans: PropTypes.func.isRequired,
+ItemPastLoans.propTypes = {
+  item: PropTypes.object.isRequired,
+  fetchPastLoans: PropTypes.func.isRequired,
   data: PropTypes.array.isRequired,
-  showMaxLoans: PropTypes.number,
+  showMaxPastLoans: PropTypes.number,
 };
 
-PatronLoans.defaultProps = {
-  showMaxLoans: 5,
+ItemPastLoans.defaultProps = {
+  showMaxPastLoans: 5,
 };
