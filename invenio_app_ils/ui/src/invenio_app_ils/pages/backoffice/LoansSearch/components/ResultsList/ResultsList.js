@@ -8,28 +8,28 @@ export class ResultsList extends Component {
     this.viewDetailsClickHandler = this.props.viewDetailsClickHandler;
   }
 
-  prepareData() {
-    return this.props.results.map(row => ({
-      ID: row.id,
-      State: row.metadata.state,
-      'Item ID': row.metadata.item_pid,
-      'Document ID': row.metadata.document_pid,
-      'Patron ID': row.metadata.patron_pid,
-      Created: row.created,
-      'Transaction date': row.metadata.transaction_date,
-    }));
-  }
-
   render() {
-    const rows = this.prepareData();
-
-    return (
+    const columns = [
+      'id',
+      'state',
+      'patron_pid',
+      'item_pid',
+      'created',
+      'start_date',
+      'end_date',
+    ];
+    const rows = this.props.results.map(loanRecord => ({
+      ...loanRecord,
+      ...loanRecord.metadata,
+    }));
+    return rows.length ? (
       <ResultsTable
+        columns={columns}
         rows={rows}
-        name={''}
+        name={'Loans'}
         detailsClickHandler={this.viewDetailsClickHandler}
       />
-    );
+    ) : null;
   }
 }
 
