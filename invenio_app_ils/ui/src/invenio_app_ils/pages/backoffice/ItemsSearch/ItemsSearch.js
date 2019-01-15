@@ -40,6 +40,7 @@ export class ItemsSearch extends Component {
         currentQueryString={queryString}
         onInputChange={onInputChange}
         executeSearch={executeSearch}
+        placeholder={'Search for items'}
       />
     );
   };

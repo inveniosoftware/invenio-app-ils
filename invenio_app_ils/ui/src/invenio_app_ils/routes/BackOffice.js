@@ -5,6 +5,7 @@ import {
   Header,
   Home,
   DocumentDetailsContainer,
+  DocumentsSearch,
   ItemsSearch,
   ItemDetailsContainer,
   LoansSearch,
@@ -27,6 +28,12 @@ export class BackOffice extends Component {
             exact
             path={BackOfficeURLS.documentDetails}
             component={DocumentDetailsContainer}
+          />
+          {/* documents */}
+          <Route
+            exact
+            path={BackOfficeURLS.documentsSearch}
+            component={DocumentsSearch}
           />
           {/* items */}
           <Route

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { generatePath } from 'react-router';
 import {
   Container,
   Grid,
@@ -19,27 +20,26 @@ import {
   Count,
   SortBy,
   SortOrder,
-  Aggregator,
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
-import { Error as IlsError } from '../../../common/components';
-import { loan as endpoint } from '../../../common/api/loans/loan';
+import { BackOfficeURLS } from '../../../common/urls';
 import {
-  SearchBar as LoansSearchBar,
-  ResultsList as LoansResultsList,
-} from './components';
-import './LoansSearch.scss';
+  Error as IlsError,
+  SearchBar as DocumentsSearchBar,
+} from '../../../common/components';
+import { document as endpoint } from '../../../common/api/document';
+import { ResultsList as DocumentsResultsList } from './components';
 import { default as config } from './config';
-import { viewLoanDetailsUrl } from '../../../common/urls';
+import './DocumentsSearch.scss';
 
-export class LoansSearch extends Component {
+export class DocumentsSearch extends Component {
   _renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
     return (
-      <LoansSearchBar
+      <DocumentsSearchBar
         currentQueryString={queryString}
         onInputChange={onInputChange}
         executeSearch={executeSearch}
-        placeholder={'Search for loans'}
+        placeholder={'Search for documents'}
       />
     );
   };
@@ -47,24 +47,17 @@ export class LoansSearch extends Component {
   _renderResultsList = results => {
     return (
       <div className="results-list">
-        <LoansResultsList
+        <DocumentsResultsList
           results={results}
-          viewDetailsClickHandler={loanPid => {
-            const path = viewLoanDetailsUrl(loanPid);
+          viewDetailsClickHandler={documentPid => {
+            const path = generatePath(BackOfficeURLS.documentDetails, {
+              documentPid: documentPid,
+            });
             this.props.history.push(path);
           }}
         />
       </div>
     );
-  };
-
-  _renderAggregations = () => {
-    const components = config.AGGREGATIONS.map(agg => (
-      <div className="aggregator" key={agg.field}>
-        <Aggregator title={agg.title} field={agg.field} />
-      </div>
-    ));
-    return <div className="aggregators">{components}</div>;
   };
 
   _renderEmptyResults = (queryString, resetQuery) => {
@@ -81,6 +74,7 @@ export class LoansSearch extends Component {
           <Button primary onClick={() => resetQuery()}>
             Clear query
           </Button>
+          <Button onClick={() => {}}>Add a new item</Button>
         </Segment.Inline>
       </Segment>
     );
@@ -122,7 +116,7 @@ export class LoansSearch extends Component {
 
   _renderHeader = () => {
     return (
-      <Grid columns={3} verticalAlign="middle" relaxed>
+      <Grid columns={3} verticalAlign="middle" stackable relaxed>
         <Grid.Column width={5} textAlign="left">
           <Count renderElement={this._renderCount} />
         </Grid.Column>
@@ -136,7 +130,7 @@ export class LoansSearch extends Component {
 
   _renderFooter = () => {
     return (
-      <Grid columns={3} verticalAlign="middle" relaxed>
+      <Grid columns={3} verticalAlign="middle" stackable relaxed>
         <Grid.Column width={5} />
         <Grid.Column width={6}>{this._renderPagination()}</Grid.Column>
         <Grid.Column width={5} />
@@ -152,13 +146,18 @@ export class LoansSearch extends Component {
           url: endpoint.url,
         }}
       >
-        <Container className="loans-search-searchbar">
+        <Container className="documents-search-searchbar">
           <SearchBar renderElement={this._renderSearchBar} />
         </Container>
 
-        <Grid columns={2} stackable relaxed className="loans-search-container">
-          <Grid.Column width={3}>{this._renderAggregations()}</Grid.Column>
-          <Grid.Column width={13} textAlign="center">
+        <Grid
+          columns={2}
+          stackable
+          relaxed
+          className="documents-search-container"
+        >
+          {/* <Grid.Column width={3}>{this._renderAggregations()}</Grid.Column> */}
+          <Grid.Column width={13}>
             <ResultsLoader>
               <EmptyResults renderElement={this._renderEmptyResults} />
               <Error renderElement={this._renderError} />

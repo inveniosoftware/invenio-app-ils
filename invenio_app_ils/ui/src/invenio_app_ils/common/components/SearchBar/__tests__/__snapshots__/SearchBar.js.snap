@@ -5,6 +5,7 @@ exports[`LoansSearch SearchBar tests should render the current query string 1`] 
   currentQueryString="The Gulf: The Making of An American Sea"
   executeSearch={[Function]}
   onInputChange={[Function]}
+  placeholder="Search"
 >
   <Input
     action={
@@ -16,7 +17,7 @@ exports[`LoansSearch SearchBar tests should render the current query string 1`] 
     fluid={true}
     onChange={[Function]}
     onKeyPress={[Function]}
-    placeholder="Search for loans"
+    placeholder="Search"
     type="text"
     value="The Gulf: The Making of An American Sea"
   >
@@ -26,7 +27,7 @@ exports[`LoansSearch SearchBar tests should render the current query string 1`] 
       <input
         onChange={[Function]}
         onKeyPress={[Function]}
-        placeholder="Search for loans"
+        placeholder="Search"
         type="text"
         value="The Gulf: The Making of An American Sea"
       />

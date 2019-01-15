@@ -17,7 +17,7 @@ from __future__ import absolute_import, print_function
 from flask import Blueprint, current_app, render_template
 from invenio_circulation.search.api import LoansSearch
 
-from invenio_app_ils.search.api import ItemSearch
+from invenio_app_ils.search.api import DocumentSearch, ItemSearch
 
 blueprint = Blueprint(
     "invenio_app_ils_ui",
@@ -26,6 +26,34 @@ blueprint = Blueprint(
     static_folder="static",
     url_prefix="",
 )
+
+
+def _get_documents_ui_config():
+    """Get ui config for documents search page."""
+    ui_config = {'documents': {
+        'search': {'sortBy': {'values': [], 'onEmptyQuery': None},
+                   'sortOrder': ['asc', 'desc'],
+                   'aggs': []}}}
+    documents_index = DocumentSearch.Meta.index
+
+    documents_sort = current_app.config.get('RECORDS_REST_SORT_OPTIONS', {}).get(
+        documents_index, {})
+    documents_sort_ui = [{
+        'field': field,
+        'title': documents_sort[field]['title'],
+        'order': documents_sort[field]['order']
+    } for field in documents_sort.keys()]
+
+    ui_config['documents']['search']['sortBy']['values'] = sorted(documents_sort_ui,
+                                                              key=lambda s: s[
+                                                                  'order'])
+    if 'mostrecent' in documents_sort:
+        ui_config['documents']['search']['sortBy']['onEmptyQuery'] = 'mostrecent'
+
+    documents_aggs = current_app.config.get('RECORDS_REST_FACETS', {}).get(
+        documents_index, {}).get('aggs', {})
+    ui_config['documents']['search']['aggs'] = list(documents_aggs.keys())
+    return ui_config
 
 
 def _get_items_ui_config():
@@ -127,7 +155,8 @@ def ping():
 @blueprint.route("/<path:path>", methods=["GET"])
 def index(path=None):
     """UI base view."""
-    ui_config = _get_items_ui_config()
+    ui_config = _get_documents_ui_config()
+    ui_config.update(_get_items_ui_config())
     ui_config.update(_get_loans_ui_config())
     ui_config.update(
         {"editor": {"url": current_app.config["RECORDS_EDITOR_URL_PREFIX"]}}

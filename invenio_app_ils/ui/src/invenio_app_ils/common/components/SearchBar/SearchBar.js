@@ -4,8 +4,12 @@ import { Input } from 'semantic-ui-react';
 
 export class SearchBar extends Component {
   render() {
-    const placeholder = 'Search for items';
-    const { currentQueryString, onInputChange, executeSearch } = this.props;
+    const {
+      currentQueryString,
+      onInputChange,
+      executeSearch,
+      placeholder,
+    } = this.props;
     return (
       <Input
         action={{
@@ -34,4 +38,5 @@ SearchBar.propTypes = {
   currentQueryString: PropTypes.string.isRequired,
   onInputChange: PropTypes.func.isRequired,
   executeSearch: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired,
 };
