@@ -1,6 +1,8 @@
 import { http } from './base';
 import { toISO } from './date';
 import { DateTime } from 'luxon';
+import { BackOfficeURLS } from '../urls';
+import { generatePath } from 'react-router-dom';
 
 const loanURL = '/circulation/loans/';
 
@@ -65,10 +67,24 @@ const fetchLoans = (
   return http.get(`${loanURL}?q=${qs}&sort:${sortByOrder}`);
 };
 
+const viewDetailsClickUrl = loanPid => {
+  const path = generatePath(BackOfficeURLS.loanDetails, {
+    loanPid: loanPid,
+  });
+  return path;
+};
+
+const showAllClickUrl = (documentPid, itemPid, state, patronPid) => {
+  const qs = buildLoansQuery(documentPid, itemPid, state, patronPid);
+  return `${BackOfficeURLS.loansSearch}?q=${qs}`;
+};
+
 export const loan = {
   url: loanURL,
   get: get,
   postAction: postAction,
   fetchLoans: fetchLoans,
   buildLoansQuery: buildLoansQuery,
+  viewDetailsClickUrl: viewDetailsClickUrl,
+  showAllClickUrl: showAllClickUrl,
 };
