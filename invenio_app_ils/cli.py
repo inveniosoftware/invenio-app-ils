@@ -43,6 +43,7 @@ ITEM_MEDIUMS = ["NOT_SPECIFIED", "ONLINE", "PAPER", "CDROM", "DVD", "VHS"]
 ITEM_STATUSES = ["LOANABLE", "MISSING"]
 LOAN_STATUSES = ["PENDING", "ITEM_ON_LOAN", "ITEM_RETURNED", "CANCELLED"]
 
+ITEM_DOCUMENT_MAPPING = {}
 
 def get_internal_locations(location):
     """Return random internal locations."""
@@ -83,7 +84,6 @@ def get_documents_items(internal_locations, n_docs, n_items):
 
         item = {
             Item.pid_field: "{}".format(i),
-            Document.pid_field: "{}".format(doc[Document.pid_field]),
             "legacy_id": "{}".format(randint(100000, 999999)),
             "legacy_library_id": "{}".format(randint(5, 50)),
             "barcode": "{}".format(randint(10000000, 99999999)),
@@ -92,6 +92,17 @@ def get_documents_items(internal_locations, n_docs, n_items):
             "medium": "{}".format(ITEM_MEDIUMS[randint(0, LEN_ITEM_MEDIUMS)]),
             "status": "{}".format(ITEM_STATUSES[randint(0, LEN_ITEM_STATUSES)]),
         }
+
+        item["document"] = {
+            "$ref": "{scheme}://{host}/api/resolver/items/document/{pid_value}"
+            .format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                pid_value="{}".format(doc[Document.pid_field])
+            )
+        }
+
+        ITEM_DOCUMENT_MAPPING["{}".format(i)] = doc[Document.pid_field]
 
         if restr:
             item["circulation_restriction"] = "{}".format(restr)
@@ -158,7 +169,7 @@ def get_loans_for_items(
         }
 
         if status == "PENDING":
-            loan[Document.pid_field] = "{}".format(item[Document.pid_field])
+            loan[Document.pid_field] = "{}".format(ITEM_DOCUMENT_MAPPING[item[Item.pid_field]])
         else:
             loan[Item.pid_field] = "{}".format(item[Item.pid_field])
 

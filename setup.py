@@ -139,6 +139,7 @@ setup(
             "invenio_app_ils.permissions:backoffice_access_action"
         ],
         "invenio_records.jsonresolver": [
+            "document = invenio_app_ils.records.jsonresolver.document",
             "item = invenio_app_ils.records.jsonresolver.item",
             "location = invenio_app_ils.records.jsonresolver.location",
             "internal_location = "

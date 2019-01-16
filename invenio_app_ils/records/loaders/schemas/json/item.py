@@ -15,7 +15,6 @@ class ItemSchemaV1(Schema):
     """Internal Location schema."""
 
     pid = PersistentIdentifier()
-    document_pid = fields.Str(required=True)
     internal_location_pid = fields.Str(required=True)
     legacy_id = fields.Str()
     legacy_library_id = fields.Str()
