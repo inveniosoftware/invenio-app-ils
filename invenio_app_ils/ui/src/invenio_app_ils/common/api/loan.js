@@ -1,6 +1,7 @@
 import { http } from './base';
 import { toISO } from './date';
 import { DateTime } from 'luxon';
+import { invenioConfig } from '../config';
 
 const loanURL = '/circulation/loans/';
 
@@ -45,8 +46,10 @@ const buildPendingQuery = (documentPid, itemPid) => {
 };
 
 const assignItemToLoan = (itemPid, loanPid) => {
+  const scheme = invenioConfig.JSONSCHEMAS.scheme;
+  const host = invenioConfig.JSONSCHEMAS.host;
   const newItemRef = {
-    $ref: `https://127.0.0.1:5000/api/resolver/circulation/items/${itemPid}`,
+    $ref: `${scheme}://${host}/api/resolver/circulation/items/${itemPid}`,
   };
   return http.patch(
     `${loanURL}${loanPid}`,
