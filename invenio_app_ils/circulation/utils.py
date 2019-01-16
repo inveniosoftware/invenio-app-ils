@@ -25,7 +25,8 @@ def circulation_items_retriever(document_pid):
 def circulation_document_retriever(item_pid):
     """Retrieve items given a document."""
     item = Item.get_record_by_pid(item_pid)
-    return item["document_pid"]
+    item = item.replace_refs()
+    return item["document"]["document_pid"]
 
 
 def circulation_item_location_retriever(item_pid):

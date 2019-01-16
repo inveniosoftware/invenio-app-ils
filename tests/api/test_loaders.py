@@ -19,7 +19,9 @@ NEW_ITEM = {
     "item_pid": "itemid-10",
     "barcode": "123456789",
     "title": "Test item x",
-    "document_pid": "docid-1",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-1"
+    },
     "internal_location_pid": "ilocid-1",
     "status": "LOANABLE",
 }
@@ -82,13 +84,3 @@ def test_post_item(client, json_headers, testdata, users):
     )
     data = json.loads(res.data.decode("utf-8"))["metadata"]
     assert "name" in data["internal_location"]
-
-
-def test_post_partial_item(client, json_headers, testdata, users):
-    """Test POST of an item."""
-    user_login("admin", client, users)
-    del NEW_ITEM["document_pid"]
-    url = url_for("invenio_records_rest.itemid_list")
-    _test_response(
-        client, "post", url, json_headers, NEW_ITEM, 400
-    )

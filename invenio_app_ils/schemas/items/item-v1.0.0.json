@@ -2,13 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Schema for Item",
   "type": "object",
-  "required": [
-    "$schema",
-    "document_pid",
-    "internal_location",
-    "barcode",
-    "status"
-  ],
+  "required": ["$schema", "internal_location", "barcode", "status"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -17,9 +11,13 @@
       "type": "string",
       "title": "Item ID"
     },
-    "document_pid": {
-      "type": "string",
-      "title": "Document ID"
+    "document": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
     },
     "internal_location_pid": {
       "type": "string",
