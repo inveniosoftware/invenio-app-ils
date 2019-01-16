@@ -55,12 +55,12 @@ from invenio_circulation.transitions.transitions import (  # isort:skip
 )
 
 from .circulation.utils import (  # isort:skip
-    circulation_build_item_ref,
+    circulation_item_ref_builder,
     circulation_document_retriever,
     circulation_is_item_available,
     circulation_item_exists,
-    circulation_item_retriever,
     circulation_item_location_retriever,
+    circulation_item_resolver,
     circulation_items_retriever,
     circulation_patron_exists,
 )
@@ -373,13 +373,13 @@ CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = circulation_document_retriever
 
 CIRCULATION_PATRON_EXISTS = circulation_patron_exists
 
-CIRCULATION_ITEM_RETRIEVER = circulation_item_retriever
+CIRCULATION_ITEM_RESOLVER = circulation_item_resolver
 
 CIRCULATION_ITEM_EXISTS = circulation_item_exists
 
 CIRCULATION_ITEM_LOCATION_RETRIEVER = circulation_item_location_retriever
 
-CIRCULATION_BUILD_ITEM_REF = circulation_build_item_ref
+CIRCULATION_ITEM_REF_BUILDER = circulation_item_ref_builder
 
 CIRCULATION_POLICIES["checkout"][
     "item_available"

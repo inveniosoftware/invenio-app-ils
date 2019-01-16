@@ -15,7 +15,7 @@ from invenio_pidstore.errors import PersistentIdentifierError
 from ..records.api import Document, Item
 
 
-def circulation_build_item_ref(item_pid):
+def circulation_item_ref_builder(item_pid):
     """Build $ref for item."""
     return {
         "$ref": "{scheme}://{host}/api/resolver/circulation/items/{item_pid}".format(
@@ -39,7 +39,7 @@ def circulation_document_retriever(item_pid):
     return item["document_pid"]
 
 
-def circulation_item_retriever(item_pid):
+def circulation_item_resolver(item_pid):
     """Retrieve item given its pid."""
     item = Item.get_record_by_pid(item_pid)
     # To avoid circular dependencies, we remove loan from item.
