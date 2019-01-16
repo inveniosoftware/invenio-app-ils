@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 
-export default class TableHeader extends Component {
+export default class ResultsTableHeader extends Component {
   _renderHeaderCell = cellName => {
     return <Table.HeaderCell key={cellName}>{cellName}</Table.HeaderCell>;
   };
@@ -23,6 +23,6 @@ export default class TableHeader extends Component {
   }
 }
 
-TableHeader.propTypes = {
+ResultsTableHeader.propTypes = {
   columns: PropTypes.array.isRequired,
 };

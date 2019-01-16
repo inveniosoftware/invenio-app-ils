@@ -2,14 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Table } from 'semantic-ui-react';
 
-export default class TableBody extends Component {
+export default class ResultsTableBody extends Component {
   constructor(props) {
     super(props);
     this.detailsClickHandler = this.props.detailsClickHandler;
   }
 
-  _renderCell = (cell, column, id) => {
-    return <Table.Cell key={column + id}>{cell}</Table.Cell>;
+  _renderCell = (cell, column, id, col_index) => {
+    return (
+      <Table.Cell key={col_index + '-' + id} data-test={column + '-' + id}>
+        {cell}
+      </Table.Cell>
+    );
   };
 
   _renderRow = (columns, rows) => {
@@ -25,8 +29,8 @@ export default class TableBody extends Component {
             }}
           />
         </Table.Cell>
-        {columns.map(column =>
-          this._renderCell(row[column] ? row[column] : '-', column, row.ID)
+        {columns.map((column, idx) =>
+          this._renderCell(row[column] ? row[column] : '-', column, row.ID, idx)
         )}
       </Table.Row>
     ));
@@ -41,7 +45,7 @@ export default class TableBody extends Component {
   }
 }
 
-TableBody.propTypes = {
+ResultsTableBody.propTypes = {
   columns: PropTypes.array.isRequired,
   detailsClickHandler: PropTypes.func.isRequired,
 };

@@ -3,7 +3,7 @@ import { Table } from 'semantic-ui-react';
 import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-export default class TableFooter extends Component {
+export default class ResultsTableFooter extends Component {
   constructor(props) {
     super(props);
     if (this.props.showAllClickHandler) {
@@ -46,7 +46,7 @@ export default class TableFooter extends Component {
   }
 }
 
-TableFooter.propTypes = {
+ResultsTableFooter.propTypes = {
   allRowsNumber: PropTypes.number.isRequired,
   columnsNumber: PropTypes.number.isRequired,
   showMaxRows: PropTypes.number.isRequired,

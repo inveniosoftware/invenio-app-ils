@@ -31,10 +31,6 @@ describe('ItemPendingLoans tests', () => {
         history={() => {}}
         data={[]}
         fetchPendingLoans={() => {}}
-        pendingLoansChangeSortBy={() => {}}
-        pendingLoansChangeSortOrder={() => {}}
-        currentSortBy=""
-        currentSortOrder=""
       />
     );
     expect(component).toMatchSnapshot();
@@ -48,10 +44,6 @@ describe('ItemPendingLoans tests', () => {
         history={() => {}}
         data={[]}
         fetchPendingLoans={mockedFetchPendingLoans}
-        pendingLoansChangeSortBy={() => {}}
-        pendingLoansChangeSortOrder={() => {}}
-        currentSortBy=""
-        currentSortOrder=""
       />
     );
     expect(mockedFetchPendingLoans).toHaveBeenCalledWith(
@@ -67,10 +59,6 @@ describe('ItemPendingLoans tests', () => {
         history={() => {}}
         data={[]}
         fetchPendingLoans={() => {}}
-        pendingLoansChangeSortBy={() => {}}
-        pendingLoansChangeSortOrder={() => {}}
-        currentSortBy=""
-        currentSortOrder=""
       />
     );
 
@@ -105,10 +93,6 @@ describe('ItemPendingLoans tests', () => {
         history={() => {}}
         data={data}
         fetchPendingLoans={() => {}}
-        pendingLoansChangeSortBy={() => {}}
-        pendingLoansChangeSortOrder={() => {}}
-        currentSortBy=""
-        currentSortOrder=""
       />
     );
 
@@ -152,10 +136,6 @@ describe('ItemPendingLoans tests', () => {
         history={() => {}}
         data={data}
         fetchPendingLoans={() => {}}
-        pendingLoansChangeSortBy={() => {}}
-        pendingLoansChangeSortOrder={() => {}}
-        currentSortBy=""
-        currentSortOrder=""
         showMaxPendingLoans={1}
       />
     );
@@ -189,10 +169,6 @@ describe('ItemPendingLoans tests', () => {
         history={historyFn}
         data={data}
         fetchPendingLoans={() => {}}
-        pendingLoansChangeSortBy={() => {}}
-        pendingLoansChangeSortOrder={() => {}}
-        currentSortBy=""
-        currentSortOrder=""
         showMaxPendingLoans={1}
       />
     );

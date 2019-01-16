@@ -49,7 +49,9 @@ describe('LoansSearch ResultsList tests', () => {
 
     const mappedStatusElements = resultRows
       .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === 'mapped-status');
+      .filterWhere(
+        element => element.prop('data-test') === 'State-' + firstResult.id
+      );
     expect(mappedStatusElements).toHaveLength(1);
 
     expect(mappedStatusElements.text()).toEqual(firstResult.metadata.state);

@@ -49,7 +49,9 @@ describe('ItemsSearch ResultsList tests', () => {
 
     const mappedStatusElements = resultRows
       .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === 'mapped-status');
+      .filterWhere(
+        element => element.prop('data-test') === 'Status-' + firstResult.id
+      );
     expect(mappedStatusElements).toHaveLength(1);
 
     expect(mappedStatusElements.text()).toEqual(firstResult.metadata.status);
