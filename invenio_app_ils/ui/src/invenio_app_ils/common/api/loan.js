@@ -36,6 +36,41 @@ const postAction = (
   return http.post(url, payload);
 };
 
+const buildPendingQuery = (documentPid, itemPid) => {
+  const qsDoc = documentPid ? `document_pid:${documentPid}` : '';
+  const qsItem = itemPid ? `item_pid:${itemPid}` : '';
+  const qsDocItem =
+    qsDoc && qsItem ? `(${qsDoc} OR ${qsItem})` : `${qsDoc}${qsItem}`;
+  return `${qsDocItem} AND state:PENDING`;
+};
+
+const assignItemToLoan = (itemPid, loanPid) => {
+  const newItemRef = {
+    $ref: `https://127.0.0.1:5000/api/resolver/circulation/items/${itemPid}`,
+  };
+  return http.patch(
+    `${loanURL}${loanPid}`,
+    [
+      { op: 'replace', path: '/item_pid', value: `${itemPid}` },
+      { op: 'add', path: '/item', value: newItemRef },
+    ],
+    { headers: { 'Content-Type': 'application/json-patch+json' } }
+  );
+};
+
+const fetchPendingOnDocumentItem = (
+  documentPid,
+  itemPid,
+  sortBy,
+  sortOrder
+) => {
+  const qs = buildPendingQuery(documentPid, itemPid);
+  const sort =
+    sortBy === 'transaction_date' ? `transaction_date` : `start_date`;
+  const sortByOrder = sortOrder === 'asc' ? `${sort}:asc` : `${sort}:desc`;
+  return http.get(`${loanURL}?q=${qs}&sort:${sortByOrder}`);
+};
+
 const buildLoansQuery = (documentPid, itemPid, state, patronPid) => {
   const qsDoc = documentPid ? `document_pid:${documentPid}` : '';
   const qsItem = itemPid ? `item_pid:${itemPid}` : '';
@@ -66,9 +101,12 @@ const fetchLoans = (
 };
 
 export const loan = {
-  url: loanURL,
+  assignItemToLoan: assignItemToLoan,
+  buildLoansQuery: buildLoansQuery,
+  buildPendingQuery: buildPendingQuery,
+  fetchLoans: fetchLoans,
+  fetchPendingOnDocumentItem: fetchPendingOnDocumentItem,
   get: get,
   postAction: postAction,
-  fetchLoans: fetchLoans,
-  buildLoansQuery: buildLoansQuery,
+  url: loanURL,
 };

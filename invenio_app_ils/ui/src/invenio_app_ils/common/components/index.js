@@ -1,3 +1,3 @@
-export { NotFound } from './NotFound/NotFound';
-export { Loader } from './Loader';
 export { Error } from './Error';
+export { Loader } from './Loader';
+export { NotFound } from './NotFound/NotFound';

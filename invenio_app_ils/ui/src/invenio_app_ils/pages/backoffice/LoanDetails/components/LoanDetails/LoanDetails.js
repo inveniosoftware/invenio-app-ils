@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
 import { Loader, Error } from '../../../../../common/components';
 import { LoanMetadata } from '../';
-import { LoanActions } from '../';
 
 export default class LoanDetails extends Component {
   render() {
@@ -21,7 +20,6 @@ export default class LoanDetails extends Component {
         <Error error={errorData}>
           <Container>
             <LoanMetadata />
-            <LoanActions />
           </Container>
         </Error>
       </Loader>

@@ -137,9 +137,6 @@ def get_loans_for_items(
     for i in range(1, n_loans):
         item = _get_loanable_item(items)
         status = _get_valid_status(item, items_on_loans)
-        if status == "ITEM_ON_LOAN":
-            items_on_loans.append(item[Item.pid_field])
-
         patron_id = randint(1, len_patron_ids)
         transaction_date = datetime(
             current_year, randint(1, 12), randint(1, 28)
@@ -147,20 +144,24 @@ def get_loans_for_items(
         expire_date = transaction_date + timedelta(days=10)
 
         loan = {
+            Document.pid_field: "{}".format(item[Document.pid_field]),
+            Item.pid_field: "{}".format(item[Item.pid_field]),
             Loan.pid_field: "{}".format(i),
             "patron_pid": "{}".format(patron_id),
+            "pickup_location_pid": "{}".format(loc_pid),
+            "request_expire_date": expire_date.strftime("%Y-%m-%d"),
             "state": "{}".format(status),
             "transaction_date": transaction_date.strftime("%Y-%m-%d"),
             "transaction_location_pid": "{}".format(loc_pid),
             "transaction_user_pid": "{}".format(librarian_id),
-            "pickup_location_pid": "{}".format(loc_pid),
-            "request_expire_date": expire_date.strftime("%Y-%m-%d"),
         }
 
         if status == "PENDING":
+            loan[Item.pid_field] = ""
             loan[Document.pid_field] = "{}".format(item[Document.pid_field])
         else:
             loan[Item.pid_field] = "{}".format(item[Item.pid_field])
+            items_on_loans.append(item[Item.pid_field])
 
         loans.append(loan)
     RecordIdentifier.insert(len(loans))

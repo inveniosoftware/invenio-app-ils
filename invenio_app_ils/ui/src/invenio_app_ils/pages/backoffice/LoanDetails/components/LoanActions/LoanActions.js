@@ -32,7 +32,13 @@ export default class LoanActions extends Component {
       id: pid,
     } = this.props.loanDetails;
     return (
-      <List horizontal>{this.renderAvailableActions(pid, loan, actions)}</List>
+      <List horizontal>
+        {Object.keys(actions).length ? (
+          this.renderAvailableActions(pid, loan, actions)
+        ) : (
+          <List.Header as="h3">No actions available</List.Header>
+        )}
+      </List>
     );
   }
 }
