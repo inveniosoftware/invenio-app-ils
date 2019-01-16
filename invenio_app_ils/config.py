@@ -59,6 +59,7 @@ from .circulation.utils import (  # isort:skip
     circulation_document_retriever,
     circulation_is_item_available,
     circulation_item_exists,
+    circulation_item_retriever,
     circulation_item_location_retriever,
     circulation_items_retriever,
     circulation_patron_exists,
@@ -374,6 +375,8 @@ CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = circulation_document_retriever
 
 CIRCULATION_PATRON_EXISTS = circulation_patron_exists
 
+CIRCULATION_ITEM_RETRIEVER = circulation_item_retriever
+
 CIRCULATION_ITEM_EXISTS = circulation_item_exists
 
 CIRCULATION_ITEM_LOCATION_RETRIEVER = circulation_item_location_retriever
@@ -450,7 +453,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         record_class="invenio_circulation.api:Loan",
         record_serializers={
             "application/json": (
-                "invenio_records_rest.serializers:json_v1_response"
+                "invenio_app_ils.records.serializers:json_v1_response"
             )
         },
         search_serializers={

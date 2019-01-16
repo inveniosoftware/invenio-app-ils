@@ -36,6 +36,20 @@ const postAction = (
   return http.post(url, payload);
 };
 
+const assignItemToLoan = (itemPid, loanPid) => {
+  const newItemRef = {
+    $ref: `https://127.0.0.1:5000/api/resolver/circulation/items/${itemPid}`,
+  };
+  return http.patch(
+    `${loanURL}${loanPid}`,
+    [
+      { op: 'replace', path: '/item_pid', value: `${itemPid}` },
+      { op: 'add', path: '/item', value: newItemRef },
+    ],
+    { headers: { 'Content-Type': 'application/json-patch+json' } }
+  );
+};
+
 const buildLoansQuery = (
   documentPid,
   itemPid,
@@ -80,9 +94,10 @@ const fetchLoans = (
 };
 
 export const loan = {
-  url: loanURL,
+  assignItemToLoan: assignItemToLoan,
+  buildLoansQuery: buildLoansQuery,
+  fetchLoans: fetchLoans,
   get: get,
   postAction: postAction,
-  fetchLoans: fetchLoans,
-  buildLoansQuery: buildLoansQuery,
+  url: loanURL,
 };
