@@ -12,18 +12,16 @@ from __future__ import absolute_import, print_function
 from flask import current_app
 from invenio_pidstore.errors import PersistentIdentifierError
 
-from ..records.api import Document, Item
+from ..records.api import Item
+from ..search.api import ItemSearch
 
 
 def circulation_build_item_ref(item_pid):
     """Build $ref for item."""
     return {
-        "$ref": "{scheme}://{host}{item_resolving_path}{item_pid}".format(
+        "$ref": "{scheme}://{host}/api/resolver/circulation/items/{item_pid}".format(
             scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
             host=current_app.config["JSONSCHEMAS_HOST"],
-            item_resolving_path=current_app.config[
-                "ILS_CIRCULATION_ITEM_RESOLVING_BASE_PATH"
-            ],
             item_pid=item_pid,
         )
     }
@@ -31,9 +29,9 @@ def circulation_build_item_ref(item_pid):
 
 def circulation_items_retriever(document_pid):
     """Retrieve items given a document."""
-    document = Document.get_record_by_pid(document_pid)
-    for item_pid in document["items"]:
-        yield item_pid
+    search = ItemSearch().search_by_document_pid(document_pid)
+    for item in search.scan():
+        yield item["item_pid"]
 
 
 def circulation_document_retriever(item_pid):
@@ -62,7 +60,10 @@ def circulation_item_exists(item_pid):
 
 def circulation_is_item_available(item_pid):
     """Check if item is available."""
-    return True
+    item = Item.get_record_by_pid(item_pid)
+    if item:
+        return item["status"] == "LOANABLE"
+    return False
 
 
 def circulation_patron_exists(patron_pid):

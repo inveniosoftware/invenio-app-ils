@@ -47,6 +47,21 @@ class Document(IlsRecord):
     pid_field = "document_pid"
     _pid_type = DOCUMENT_PID_TYPE
     _schema = "documents/document-v1.0.0.json"
+    _circulation_resolver_path = (
+        "{scheme}://{host}/api/resolver/documents/{pid_value}/circulation"
+    )
+
+    @classmethod
+    def create(cls, data, id_=None, **kwargs):
+        """Create Item record."""
+        data["circulation"] = {
+            "$ref": cls._circulation_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                pid_value=data[cls.pid_field],
+            )
+        }
+        return super(Document, cls).create(data, id_=id_, **kwargs)
 
 
 class Item(IlsRecord):
@@ -55,19 +70,28 @@ class Item(IlsRecord):
     pid_field = "item_pid"
     _pid_type = ITEM_PID_TYPE
     _schema = "items/item-v1.0.0.json"
+    _loan_resolver_path = (
+        "{scheme}://{host}/api/resolver/circulation/items/{pid_value}/loan"
+    )
+    _internal_location_resolver_path = (
+        "{scheme}://{host}/api/resolver/internal-locations/{pid_value}"
+    )
+    _document_resolver_path = (
+        "{scheme}://{host}/api/resolver/items/document/{pid_value}"
+    )
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
         """Create Item record."""
         data["circulation_status"] = {
-            "$ref": "{scheme}://{host}/api/resolver/circulation/items/{pid_value}/loan".format(
+            "$ref": cls._loan_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 pid_value=data[cls.pid_field],
             )
         }
         data["internal_location"] = {
-            "$ref": "{scheme}://{host}/api/resolver/internal-locations/{pid_value}".format(
+            "$ref": cls._internal_location_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 pid_value=data[InternalLocation.pid_field],
@@ -75,11 +99,11 @@ class Item(IlsRecord):
         }
         return super(Item, cls).create(data, id_=id_, **kwargs)
 
-
-    def attach_document(self, document_pid, **kwargs):
+    @classmethod
+    def attach_document(cls, data, document_pid, **kwargs):
         """Attach a document ref to the record."""
-        self["document"] = {
-            "$ref": "{scheme}://{host}/api/resolver/items/document/{pid_value}".format(
+        data["document"] = {
+            "$ref": cls._document_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 pid_value=document_pid,
@@ -106,12 +130,15 @@ class InternalLocation(IlsRecord):
     pid_field = "internal_location_pid"
     _pid_type = INTERNAL_LOCATION_PID_TYPE
     _schema = "internal_locations/internal_location-v1.0.0.json"
+    _location_resolver_path = (
+        "{scheme}://{host}/api/resolver/locations/{pid_value}"
+    )
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
         """Create Internal Location record."""
         data["location"] = {
-            "$ref": "{scheme}://{host}/api/resolver/locations/{pid_value}".format(
+            "$ref": cls._location_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 pid_value=data[Location.pid_field],

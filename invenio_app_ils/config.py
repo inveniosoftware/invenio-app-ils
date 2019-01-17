@@ -549,9 +549,6 @@ RECORDS_REST_FACETS = dict(
 ILS_VIEWS_PERMISSIONS_FACTORY = views_permissions_factory
 """Permissions factory for ILS views to handle all ILS actions."""
 
-ILS_CIRCULATION_ITEM_RESOLVING_BASE_PATH = "/api/resolver/circulation/items/"
-"""Ils base path for resolving item ref inside loan record."""
-
 # Records Editor
 # ==============
 RECORDS_EDITOR_URL_PREFIX = "/editor"

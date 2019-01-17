@@ -8,7 +8,6 @@
 """Ils Records Items record document resolver."""
 
 import jsonresolver
-from invenio_circulation.api import get_loan_for_item
 
 from invenio_app_ils.records.api import Document
 

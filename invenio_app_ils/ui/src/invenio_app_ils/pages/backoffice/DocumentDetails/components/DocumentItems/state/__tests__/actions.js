@@ -58,7 +58,9 @@ describe('Document Item tests', () => {
       store.dispatch(actions.fetchDocumentItems('123')).then(() => {
         expect(mockFetchDocumentItems).toHaveBeenCalledWith('123');
         const actions = store.getActions();
-        expect(actions[1]).toEqual(expectedAction);
+        expect(JSON.stringify(actions[1])).toEqual(
+          JSON.stringify(expectedAction)
+        );
         done();
       });
     });

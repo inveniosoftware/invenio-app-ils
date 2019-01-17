@@ -20,7 +20,7 @@ def test_circulation_items_retriever(testdata):
     """Test retrieve Items PIDs for the given Document."""
     first_doc_pid = testdata["documents"][0][Document.pid_field]
     items_pids = circulation_items_retriever(first_doc_pid)
-    assert len(list(items_pids)) == 2
+    assert len(list(items_pids)) == 3
 
 
 def test_circulation_document_retriever(testdata):

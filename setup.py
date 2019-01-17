@@ -144,6 +144,7 @@ setup(
             "location = invenio_app_ils.records.jsonresolver.location",
             "internal_location = "
             "invenio_app_ils.records.jsonresolver.internal_location",
+            "circulation = invenio_app_ils.records.jsonresolver.circulation"
         ],
     },
     extras_require=extras_require,

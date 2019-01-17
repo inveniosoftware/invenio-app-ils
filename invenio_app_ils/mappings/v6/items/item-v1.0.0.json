@@ -10,9 +10,6 @@
         "item_pid": {
           "type": "keyword"
         },
-        "document_pid": {
-          "type": "keyword"
-        },
         "internal_location": {
           "type": "object"
         },
@@ -91,6 +88,14 @@
             },
             "_updated": {
               "type": "date"
+            }
+          }
+        },
+        "document": {
+          "type": "object",
+          "properties": {
+            "document_pid": {
+              "type": "keyword"
             }
           }
         },

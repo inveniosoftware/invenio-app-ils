@@ -12,18 +12,23 @@ from __future__ import absolute_import, print_function
 from invenio_circulation.signals import loan_state_changed
 
 from ..proxies import current_app_ils_extension
-from ..records.api import Item
+from ..records.api import Document, Item
 
 
 def register_circulation_signals(app):
     """Register Circulation signal."""
-    loan_state_changed.connect(index_item_after_loan_change,
+    loan_state_changed.connect(index_record_after_loan_change,
                                sender=app, weak=False)
 
 
-def index_item_after_loan_change(_, loan):
+def index_record_after_loan_change(_, loan):
     """Reindex item when attached loan changes."""
     item_pid = loan.get(Item.pid_field)
     if item_pid:
         item = Item.get_record_by_pid(item_pid)
         current_app_ils_extension.item_indexer.index(item)
+
+    document_pid = loan.get(Document.pid_field)
+    if document_pid:
+        document = Document.get_record_by_pid(document_pid)
+        current_app_ils_extension.document_indexer.index(document)
