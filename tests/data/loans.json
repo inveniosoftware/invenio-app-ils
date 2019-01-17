@@ -1,6 +1,7 @@
 [
   {
     "loan_pid": "loanid-1",
+    "document_pid": "docid-1",
     "item_pid": "itemid-1",
     "patron_pid": "1",
     "state": "PENDING",
@@ -12,6 +13,7 @@
   },
   {
     "loan_pid": "loanid-2",
+    "document_pid": "docid-1",
     "item_pid": "itemid-2",
     "patron_pid": "1",
     "state": "PENDING",
@@ -23,6 +25,7 @@
   },
   {
     "loan_pid": "loanid-3",
+    "document_pid": "docid-3",
     "item_pid": "itemid-5",
     "patron_pid": "2",
     "state": "PENDING",
@@ -34,6 +37,7 @@
   },
   {
     "loan_pid": "loanid-4",
+    "document_pid": "docid-5",
     "item_pid": "itemid-7",
     "patron_pid": "2",
     "state": "PENDING",

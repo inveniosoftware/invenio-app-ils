@@ -2,6 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Document",
   "type": "object",
+  "required": ["$schema", "document_pid"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -21,11 +22,17 @@
       "type": "array",
       "description": ""
     },
-    "items": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
+    "circulation": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
+    },
+    "document_pid": {
+      "type": "string",
+      "title": "Document ID"
     }
   }
 }

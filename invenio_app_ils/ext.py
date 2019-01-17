@@ -14,7 +14,7 @@ from werkzeug.utils import cached_property
 
 from . import config
 from .circulation.receivers import register_circulation_signals
-from .pidstore.pids import ITEM_PID_TYPE
+from .pidstore.pids import DOCUMENT_PID_TYPE, ITEM_PID_TYPE
 
 
 class _InvenioAppIlsState(object):
@@ -29,6 +29,14 @@ class _InvenioAppIlsState(object):
         """Return an Item indexer instance."""
         endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', [])
         pid_type = ITEM_PID_TYPE
+        _cls = endpoints.get(pid_type, {}).get('indexer_class', RecordIndexer)
+        return _cls()
+
+    @cached_property
+    def document_indexer(self):
+        """Return an document indexer instance."""
+        endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', [])
+        pid_type = DOCUMENT_PID_TYPE
         _cls = endpoints.get(pid_type, {}).get('indexer_class', RecordIndexer)
         return _cls()
 

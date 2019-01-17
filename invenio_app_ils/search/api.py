@@ -16,7 +16,7 @@ class DocumentSearch(RecordsSearch):
     class Meta:
         """Search only on documents index."""
 
-        index = 'documents'
+        index = "documents"
         doc_types = None
 
 
@@ -26,8 +26,21 @@ class ItemSearch(RecordsSearch):
     class Meta:
         """Search only on items index."""
 
-        index = 'items'
+        index = "items"
         doc_types = None
+
+    def search_by_document_pid(self, document_pid=None):
+        """Retrieve items based on the given document pid."""
+        search = self
+
+        if document_pid:
+            search = search.filter(
+                "match", document__document_pid=document_pid
+            )
+        else:
+            raise ValueError("Must specify document_pid param")
+
+        return search
 
 
 class LocationSearch(RecordsSearch):
@@ -36,7 +49,7 @@ class LocationSearch(RecordsSearch):
     class Meta:
         """Search only on locations index."""
 
-        index = 'locations'
+        index = "locations"
         doc_types = None
 
 
@@ -46,5 +59,5 @@ class InternalLocationSearch(RecordsSearch):
     class Meta:
         """Search only on internal locations index."""
 
-        index = 'internal_locations'
+        index = "internal_locations"
         doc_types = None

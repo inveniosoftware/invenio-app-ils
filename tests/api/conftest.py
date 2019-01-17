@@ -16,7 +16,8 @@ from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 
-from invenio_app_ils.circulation.receivers import index_item_after_loan_change
+from invenio_app_ils.circulation.receivers import \
+    index_record_after_loan_change
 from invenio_app_ils.records.api import Document, InternalLocation, Item, \
     Location
 
@@ -104,7 +105,7 @@ def testdata(app, db, es_clear):
         db.session.commit()
         indexer.index(record)
         # re-index item attached to the loan
-        index_item_after_loan_change(app, record)
+        index_record_after_loan_change(app, record)
 
     # flush all indices after indexing, otherwise ES won't be ready for tests
     current_search.flush_and_refresh(index=None)

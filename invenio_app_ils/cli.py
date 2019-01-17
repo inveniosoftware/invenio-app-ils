@@ -21,7 +21,7 @@ from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
     RecordIdentifier
 
-from .circulation.receivers import index_item_after_loan_change
+from .circulation.receivers import index_record_after_loan_change
 from .records.api import Document, InternalLocation, Item, Location
 
 from .pidstore.pids import (  # isort:skip
@@ -91,16 +91,9 @@ def get_documents_items(internal_locations, n_docs, n_items):
             "shelf": "{}".format(lorem.sentence()),
             "description": "{}".format(lorem.text()),
             "medium": "{}".format(ITEM_MEDIUMS[randint(0, LEN_ITEM_MEDIUMS)]),
-            "status": "{}".format(ITEM_STATUSES[randint(0, LEN_ITEM_STATUSES)]),
-        }
-
-        item["document"] = {
-            "$ref": "{scheme}://{host}/api/resolver/items/document/{pid_value}"
-            .format(
-                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
-                host=current_app.config["JSONSCHEMAS_HOST"],
-                pid_value="{}".format(doc[Document.pid_field])
-            )
+            "status": "{}".format(
+                ITEM_STATUSES[randint(0, LEN_ITEM_STATUSES)]
+            ),
         }
 
         ITEM_DOCUMENT_MAPPING["{}".format(i)] = doc[Document.pid_field]
@@ -108,11 +101,7 @@ def get_documents_items(internal_locations, n_docs, n_items):
         if restr:
             item["circulation_restriction"] = "{}".format(restr)
 
-        if "items" in doc:
-            doc["items"].append(item["item_pid"])
-        else:
-            doc["items"] = [item["item_pid"]]
-
+        Item.attach_document(item, ITEM_DOCUMENT_MAPPING[item[Item.pid_field]])
         items.append(item)
 
     return documents, items
@@ -156,6 +145,9 @@ def get_loans_for_items(
         expire_date = transaction_date + timedelta(days=10)
 
         loan = {
+            Document.pid_field: "{}".format(
+                ITEM_DOCUMENT_MAPPING[item[Item.pid_field]]
+            ),
             Item.pid_field: "{}".format(item[Item.pid_field]),
             Loan.pid_field: "{}".format(i),
             "patron_pid": "{}".format(patron_id),
@@ -297,4 +289,4 @@ def data(n_docs, n_items, n_loans):
             db.session.commit()
             indexer.index(rec)
             # re-index item attached to the loan
-            index_item_after_loan_change(current_app, rec)
+            index_record_after_loan_change(current_app, rec)

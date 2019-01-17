@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Schema for Item",
   "type": "object",
-  "required": ["$schema", "internal_location", "barcode", "status"],
+  "required": ["$schema", "internal_location", "barcode", "status", "item_pid"],
   "properties": {
     "$schema": {
       "type": "string"
