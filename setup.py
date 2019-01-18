@@ -61,7 +61,7 @@ install_requires = [
     # https://github.com/inveniosoftware/invenio-indexer/commit/9749c2fe4e2cbaabc167ad7fb12ade945a2d580c
     "redis>=2.10.0,<3.0.0",
     # extra
-    "invenio-circulation>=1.0.0a1",
+    "invenio-circulation>=1.0.0a3",
     "invenio-records-editor>=1.0.0a2",
 ]
 

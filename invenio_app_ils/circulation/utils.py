@@ -15,6 +15,20 @@ from invenio_pidstore.errors import PersistentIdentifierError
 from ..records.api import Document, Item
 
 
+def circulation_build_item_ref(item_pid):
+    """Build $ref for item."""
+    return {
+        "$ref": "{scheme}://{host}{item_resolving_path}{item_pid}".format(
+            scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+            host=current_app.config["JSONSCHEMAS_HOST"],
+            item_resolving_path=current_app.config[
+                "ILS_CIRCULATION_ITEM_RESOLVING_BASE_PATH"
+            ],
+            item_pid=item_pid,
+        )
+    }
+
+
 def circulation_items_retriever(document_pid):
     """Retrieve items given a document."""
     document = Document.get_record_by_pid(document_pid)

@@ -22,6 +22,7 @@ from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_circulation.search.api import LoansSearch
 from invenio_records_rest.facets import terms_filter
 
+from .circulation.resolver import item_resolver_endpoint
 from .records.api import Document, InternalLocation, Item, Location
 
 from .records.permissions import (  # isort:skip
@@ -61,7 +62,9 @@ from .circulation.utils import (  # isort:skip
     circulation_item_location_retriever,
     circulation_items_retriever,
     circulation_patron_exists,
+    circulation_build_item_ref,
 )
+
 from .permissions import (  # isort:skip
     authenticated_user_permission,
     backoffice_permission,
@@ -379,6 +382,12 @@ CIRCULATION_POLICIES["checkout"][
     "item_available"
 ] = circulation_is_item_available
 
+CIRCULATION_ITEM_RESOLVING_PATH = "/api/resolver/circulation/items/<item_pid>"
+
+CIRCULATION_ITEM_RESOLVER_ENDPOINT = item_resolver_endpoint
+
+CIRCULATION_ITEM_REF_BUILDER = circulation_build_item_ref
+
 CIRCULATION_LOAN_TRANSITIONS = {
     "CREATED": [
         dict(
@@ -539,6 +548,9 @@ RECORDS_REST_FACETS = dict(
 # ===
 ILS_VIEWS_PERMISSIONS_FACTORY = views_permissions_factory
 """Permissions factory for ILS views to handle all ILS actions."""
+
+ILS_CIRCULATION_ITEM_RESOLVING_BASE_PATH = "/api/resolver/circulation/items/"
+"""Ils base path for resolving item ref inside loan record."""
 
 # Records Editor
 # ==============
