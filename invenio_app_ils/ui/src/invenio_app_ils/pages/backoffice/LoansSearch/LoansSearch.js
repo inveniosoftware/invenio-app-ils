@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { generatePath } from 'react-router';
 import {
   Container,
   Grid,
@@ -23,7 +22,6 @@ import {
   Aggregator,
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
-import { BackOfficeURLS } from '../../../common/urls';
 import { Error as IlsError } from '../../../common/components';
 import { loan as endpoint } from '../../../common/api/loan';
 import {
@@ -32,6 +30,7 @@ import {
 } from './components';
 import './LoansSearch.scss';
 import { default as config } from './config';
+import { viewDetailsClickUrl } from '../../../common/urls';
 
 export class LoansSearch extends Component {
   _renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
@@ -50,9 +49,7 @@ export class LoansSearch extends Component {
         <LoansResultsList
           results={results}
           viewDetailsClickHandler={loanPid => {
-            const path = generatePath(BackOfficeURLS.loanDetails, {
-              loanPid: loanPid,
-            });
+            const path = viewDetailsClickUrl(loanPid);
             this.props.history.push(path);
           }}
         />

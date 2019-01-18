@@ -23,8 +23,6 @@ describe('PatronLoans tests', () => {
 
   it('should load the details component', () => {
     const mockedFetchPatronLoans = jest.fn();
-    const mockedPatronLoansChangeSortBy = jest.fn();
-    const mockedPatronLoansChangeSortOrder = jest.fn();
 
     const component = shallow(
       <PatronLoans
@@ -33,10 +31,6 @@ describe('PatronLoans tests', () => {
         loanState=""
         patron={patron.patron_pid}
         fetchPatronLoans={mockedFetchPatronLoans}
-        patronLoansChangeSortBy={mockedPatronLoansChangeSortBy}
-        patronLoansChangeSortOrder={mockedPatronLoansChangeSortOrder}
-        currentSortBy=""
-        currentSortOrder=""
       />
     );
     expect(component).toMatchSnapshot();
@@ -44,8 +38,6 @@ describe('PatronLoans tests', () => {
 
   it('should render show a message with no user loans', () => {
     const mockedFetchPatronLoans = jest.fn();
-    const mockedPatronLoansChangeSortBy = jest.fn();
-    const mockedPatronLoansChangeSortOrder = jest.fn();
     component = mount(
       <PatronLoans
         patron={patron.patron_pid}
@@ -53,10 +45,6 @@ describe('PatronLoans tests', () => {
         data={[]}
         loanState=""
         fetchPatronLoans={mockedFetchPatronLoans}
-        patronLoansChangeSortBy={mockedPatronLoansChangeSortBy}
-        patronLoansChangeSortOrder={mockedPatronLoansChangeSortOrder}
-        currentSortBy=""
-        currentSortOrder=""
       />
     );
 
@@ -69,8 +57,6 @@ describe('PatronLoans tests', () => {
 
   it('should render patron loans', () => {
     const mockedFetchPatronLoans = jest.fn();
-    const mockedPatronLoansChangeSortBy = jest.fn();
-    const mockedPatronLoansChangeSortOrder = jest.fn();
     const data = [
       {
         loan_pid: 'loan1',
@@ -95,10 +81,6 @@ describe('PatronLoans tests', () => {
         data={data}
         loanState=""
         fetchPatronLoans={mockedFetchPatronLoans}
-        patronLoansChangeSortBy={mockedPatronLoansChangeSortBy}
-        patronLoansChangeSortOrder={mockedPatronLoansChangeSortOrder}
-        currentSortBy=""
-        currentSortOrder=""
       />
     );
 
@@ -120,8 +102,6 @@ describe('PatronLoans tests', () => {
 
   it('should render the show all button when showing only a few patron loans', () => {
     const mockedFetchPatronLoans = jest.fn();
-    const mockedPatronLoansChangeSortBy = jest.fn();
-    const mockedPatronLoansChangeSortOrder = jest.fn();
     const data = [
       {
         loan_pid: 'loan1',
@@ -145,10 +125,6 @@ describe('PatronLoans tests', () => {
         history={() => {}}
         data={data}
         fetchPatronLoans={mockedFetchPatronLoans}
-        patronLoansChangeSortBy={mockedPatronLoansChangeSortBy}
-        patronLoansChangeSortOrder={mockedPatronLoansChangeSortOrder}
-        currentSortBy=""
-        currentSortOrder=""
         showMaxLoans={1}
       />
     );
@@ -162,8 +138,6 @@ describe('PatronLoans tests', () => {
 
   it('should go to loan details when clicking on a patron loan', () => {
     const mockedHistoryPush = jest.fn();
-    const mockedPatronLoansChangeSortBy = jest.fn();
-    const mockedPatronLoansChangeSortOrder = jest.fn();
     const historyFn = {
       push: mockedHistoryPush,
     };
@@ -186,10 +160,6 @@ describe('PatronLoans tests', () => {
         data={data}
         loanState=""
         fetchPatronLoans={mockedFetchPatronLoans}
-        patronLoansChangeSortBy={mockedPatronLoansChangeSortBy}
-        patronLoansChangeSortOrder={mockedPatronLoansChangeSortOrder}
-        currentSortBy=""
-        currentSortOrder=""
         showMaxLoans={1}
       />
     );

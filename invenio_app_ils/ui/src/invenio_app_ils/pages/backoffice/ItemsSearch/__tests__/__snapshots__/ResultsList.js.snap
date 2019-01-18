@@ -27,280 +27,340 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
   }
   viewDetailsClickHandler={[Function]}
 >
-  <Table
-    as="table"
-    selectable={true}
-    singleLine={true}
-    striped={true}
+  <ResultsTable
+    detailsClickHandler={[Function]}
+    name="All items"
+    rows={
+      Array [
+        Object {
+          "Created": "2018-01-01T10:05:00.000Z",
+          "Document ID": 1342,
+          "ID": 987,
+          "Internal location": "A library",
+          "Status": "IN_BINDING",
+          "Updated": undefined,
+        },
+      ]
+    }
+    showMaxRows={10}
   >
-    <table
-      className="ui selectable single line striped table"
-    >
-      <TableHeader
-        as="thead"
+    <Segment>
+      <div
+        className="ui segment"
       >
-        <thead
-          className=""
+        <Header
+          as="h3"
         >
-          <TableRow
-            as="tr"
-            cellAs="td"
-            data-test="header"
+          <h3
+            className="ui header"
           >
-            <tr
-              className=""
-              data-test="header"
-            >
-              <TableHeaderCell
-                as="th"
-                collapsing={true}
-              >
-                <TableCell
-                  as="th"
-                  className=""
-                  collapsing={true}
-                >
-                  <th
-                    className="collapsing"
-                  />
-                </TableCell>
-              </TableHeaderCell>
-              <TableHeaderCell
-                as="th"
-              >
-                <TableCell
-                  as="th"
-                  className=""
-                >
-                  <th
-                    className=""
-                  >
-                    Barcode
-                  </th>
-                </TableCell>
-              </TableHeaderCell>
-              <TableHeaderCell
-                as="th"
-              >
-                <TableCell
-                  as="th"
-                  className=""
-                >
-                  <th
-                    className=""
-                  >
-                    Item PID
-                  </th>
-                </TableCell>
-              </TableHeaderCell>
-              <TableHeaderCell
-                as="th"
-              >
-                <TableCell
-                  as="th"
-                  className=""
-                >
-                  <th
-                    className=""
-                  >
-                    Document PID
-                  </th>
-                </TableCell>
-              </TableHeaderCell>
-              <TableHeaderCell
-                as="th"
-              >
-                <TableCell
-                  as="th"
-                  className=""
-                >
-                  <th
-                    className=""
-                  >
-                    Status
-                  </th>
-                </TableCell>
-              </TableHeaderCell>
-              <TableHeaderCell
-                as="th"
-              >
-                <TableCell
-                  as="th"
-                  className=""
-                >
-                  <th
-                    className=""
-                  >
-                    Location
-                  </th>
-                </TableCell>
-              </TableHeaderCell>
-              <TableHeaderCell
-                as="th"
-              >
-                <TableCell
-                  as="th"
-                  className=""
-                >
-                  <th
-                    className=""
-                  >
-                    Created
-                  </th>
-                </TableCell>
-              </TableHeaderCell>
-              <TableHeaderCell
-                as="th"
-              >
-                <TableCell
-                  as="th"
-                  className=""
-                >
-                  <th
-                    className=""
-                  >
-                    Updated
-                  </th>
-                </TableCell>
-              </TableHeaderCell>
-            </tr>
-          </TableRow>
-        </thead>
-      </TableHeader>
-      <TableBody
-        as="tbody"
-      >
-        <tbody
-          className=""
+            All items
+          </h3>
+        </Header>
+        <Table
+          as="table"
+          selectable={true}
+          singleLine={true}
+          striped={true}
         >
-          <ItemRow
-            itemRecord={
-              Object {
-                "created": "2018-01-01T10:05:00.000Z",
-                "id": 987,
-                "metadata": Object {
-                  "barcode": "9865745223",
-                  "document_pid": 1342,
-                  "internal_location": Object {
-                    "name": "A library",
-                  },
-                  "status": "IN_BINDING",
-                },
+          <table
+            className="ui selectable single line striped table"
+          >
+            <ResultsTableHeader
+              columns={
+                Array [
+                  "ID",
+                  "Document ID",
+                  "Status",
+                  "Internal location",
+                  "Created",
+                  "Updated",
+                ]
               }
-            }
-            key="987"
-            viewDetailsClickHandler={[Function]}
-          >
-            <TableRow
-              as="tr"
-              cellAs="td"
-              data-test={987}
-              key="987"
             >
-              <tr
-                className=""
-                data-test={987}
+              <TableHeader
+                as="thead"
               >
-                <TableCell
-                  as="td"
-                  textAlign="center"
+                <thead
+                  className=""
                 >
-                  <td
-                    className="center aligned"
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="header"
                   >
-                    <Button
-                      as="button"
-                      circular={true}
-                      compact={true}
-                      icon="eye"
-                      onClick={[Function]}
+                    <tr
+                      className=""
+                      data-test="header"
                     >
-                      <button
-                        className="ui circular compact icon button"
-                        onClick={[Function]}
+                      <TableHeaderCell
+                        as="th"
+                        collapsing={true}
                       >
-                        <Icon
-                          as="i"
-                          name="eye"
+                        <TableCell
+                          as="th"
+                          className=""
+                          collapsing={true}
                         >
-                          <i
-                            aria-hidden="true"
-                            className="eye icon"
+                          <th
+                            className="collapsing"
                           />
-                        </Icon>
-                      </button>
-                    </Button>
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="ID"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Document ID"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Document ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Status"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Status
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Internal location"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Internal location
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Created"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Created
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Updated"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Updated
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                    </tr>
+                  </TableRow>
+                </thead>
+              </TableHeader>
+            </ResultsTableHeader>
+            <ResultsTableBody
+              columns={
+                Array [
+                  "ID",
+                  "Document ID",
+                  "Status",
+                  "Internal location",
+                  "Created",
+                  "Updated",
+                ]
+              }
+              detailsClickHandler={[Function]}
+              rows={
+                Array [
+                  Object {
+                    "Created": "2018-01-01T10:05:00.000Z",
+                    "Document ID": 1342,
+                    "ID": 987,
+                    "Internal location": "A library",
+                    "Status": "IN_BINDING",
+                    "Updated": undefined,
+                  },
+                ]
+              }
+            >
+              <TableBody
+                as="tbody"
+              >
+                <tbody
+                  className=""
                 >
-                  <td
-                    className=""
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test={987}
+                    key="987"
                   >
-                    9865745223
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                >
-                  <td
-                    className=""
-                  >
-                    987
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                >
-                  <td
-                    className=""
-                  >
-                    1342
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="mapped-status"
-                >
-                  <td
-                    className=""
-                    data-test="mapped-status"
-                  >
-                    IN_BINDING
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                >
-                  <td
-                    className=""
-                  >
-                    A library
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                >
-                  <td
-                    className=""
-                  >
-                    1/1/2018
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                >
-                  <td
-                    className=""
-                  />
-                </TableCell>
-              </tr>
-            </TableRow>
-          </ItemRow>
-        </tbody>
-      </TableBody>
-    </table>
-  </Table>
+                    <tr
+                      className=""
+                      data-test={987}
+                    >
+                      <TableCell
+                        as="td"
+                        key="details"
+                        textAlign="center"
+                      >
+                        <td
+                          className="center aligned"
+                        >
+                          <Button
+                            as="button"
+                            circular={true}
+                            compact={true}
+                            icon="eye"
+                            onClick={[Function]}
+                          >
+                            <button
+                              className="ui circular compact icon button"
+                              onClick={[Function]}
+                            >
+                              <Icon
+                                as="i"
+                                name="eye"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="eye icon"
+                                />
+                              </Icon>
+                            </button>
+                          </Button>
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="ID-987"
+                        key="0-987"
+                      >
+                        <td
+                          className=""
+                          data-test="ID-987"
+                        >
+                          987
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Document ID-987"
+                        key="1-987"
+                      >
+                        <td
+                          className=""
+                          data-test="Document ID-987"
+                        >
+                          1342
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Status-987"
+                        key="2-987"
+                      >
+                        <td
+                          className=""
+                          data-test="Status-987"
+                        >
+                          IN_BINDING
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Internal location-987"
+                        key="3-987"
+                      >
+                        <td
+                          className=""
+                          data-test="Internal location-987"
+                        >
+                          A library
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Created-987"
+                        key="4-987"
+                      >
+                        <td
+                          className=""
+                          data-test="Created-987"
+                        >
+                          2018-01-01T10:05:00.000Z
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Updated-987"
+                        key="5-987"
+                      >
+                        <td
+                          className=""
+                          data-test="Updated-987"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                </tbody>
+              </TableBody>
+            </ResultsTableBody>
+            <ResultsTableFooter
+              allRowsNumber={1}
+              columnsNumber={6}
+              showMaxRows={10}
+            />
+          </table>
+        </Table>
+      </div>
+    </Segment>
+  </ResultsTable>
 </ResultsList>
 `;
