@@ -17,7 +17,7 @@ from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.api import Loan
 
 NEW_LOAN = {
-    "item_pid": "200",
+    "item_pid": "itemid-1",
     "patron_pid": "1",
     "transaction_date": "2018-06-29",
     "transaction_location_pid": "locid-1",

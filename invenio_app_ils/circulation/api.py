@@ -17,7 +17,7 @@ from invenio_circulation.proxies import current_circulation
 
 def request_loan(params):
     """Create a loan and trigger the first transition to create a request."""
-    if "patron_pid" not in params or "item_pid" not in params:
+    if "patron_pid" not in params or "document_pid" not in params:
         raise CirculationException(
             "Patron or item not defined on loan request.")
 
