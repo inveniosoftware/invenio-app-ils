@@ -76,6 +76,17 @@ class Item(IlsRecord):
         return super(Item, cls).create(data, id_=id_, **kwargs)
 
 
+    def attach_document(self, document_pid, **kwargs):
+        """Attach a document ref to the record."""
+        self["document"] = {
+            "$ref": "{scheme}://{host}/api/resolver/items/document/{pid_value}".format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                pid_value=document_pid,
+            )
+        }
+
+
 class Location(IlsRecord):
     """Location record class."""
 

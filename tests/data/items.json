@@ -3,7 +3,9 @@
     "item_pid": "itemid-1",
     "barcode": "123456789",
     "title": "The Gulf: The Making of An American Sea - Item 1",
-    "document_pid": "docid-1",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-1"
+    },
     "internal_location_pid": "ilocid-1",
     "status": "MISSING"
   },
@@ -11,7 +13,9 @@
     "item_pid": "itemid-2",
     "barcode": "12345678910",
     "title": "The Gulf: The Making of An American Sea - Item 2",
-    "document_pid": "docid-1",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-1"
+    },
     "internal_location_pid": "ilocid-2",
     "status": "LOANABLE"
   },
@@ -19,7 +23,9 @@
     "item_pid": "itemid-3",
     "barcode": "12345678911",
     "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
-    "document_pid": "docid-2",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-2"
+    },
     "internal_location_pid": "ilocid-1",
     "status": "LOANABLE"
   },
@@ -27,7 +33,9 @@
     "item_pid": "itemid-4",
     "barcode": "12345678912",
     "title": "Half-light: Collected Poems 1965-2016",
-    "document_pid": "docid-3",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-3"
+    },
     "internal_location_pid": "ilocid-2",
     "status": "LOANABLE"
   },
@@ -35,7 +43,9 @@
     "item_pid": "itemid-5",
     "barcode": "12345678913",
     "title": "Half-light: Collected Poems 1965-2016",
-    "document_pid": "docid-3",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-3"
+    },
     "internal_location_pid": "ilocid-1",
     "status": "LOANABLE"
   },
@@ -43,7 +53,9 @@
     "item_pid": "itemid-6",
     "barcode": "12345678914",
     "title": "Half-light: Collected Poems 1965-2016",
-    "document_pid": "docid-3",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-3"
+    },
     "internal_location_pid": "ilocid-1",
     "status": "LOANABLE"
   },
@@ -51,7 +63,9 @@
     "item_pid": "itemid-7",
     "barcode": "12345678915",
     "title": "Less: A Novel",
-    "document_pid": "docid-5",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-5"
+    },
     "internal_location_pid": "ilocid-2",
     "status": "IN_BINDING"
   },
@@ -59,7 +73,9 @@
     "item_pid": "itemid-8",
     "barcode": "12345678916",
     "title": "Less: A Novel",
-    "document_pid": "docid-5",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-5"
+    },
     "internal_location_pid": "ilocid-1",
     "status": "MISSING"
   },
@@ -67,7 +83,9 @@
     "item_pid": "itemid-917",
     "barcode": "123456789",
     "title": "Less: A Novel",
-    "document_pid": "docid-5",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-5"
+    },
     "internal_location_pid": "ilocid-1",
     "status": "LOANABLE"
   },
@@ -75,7 +93,9 @@
     "item_pid": "itemid-10",
     "barcode": "12345678918",
     "title": "Less: A Novel",
-    "document_pid": "docid-5",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-5"
+    },
     "internal_location_pid": "ilocid-1",
     "status": "LOANABLE"
   },
@@ -83,7 +103,9 @@
     "item_pid": "itemid-50",
     "barcode": "12345678918",
     "title": "Less: A Novel",
-    "document_pid": "docid-5",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-5"
+    },
     "internal_location_pid": "ilocid-1",
     "status": "LOANABLE",
     "_access": { "update": [1] }
@@ -92,7 +114,9 @@
     "item_pid": "itemid-51",
     "barcode": "12345678918",
     "title": "Less: A Novel",
-    "document_pid": "docid-5",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-5"
+    },
     "internal_location_pid": "ilocid-2",
     "status": "LOANABLE",
     "_access": { "delete": ["librarian"] }
@@ -101,7 +125,9 @@
     "item_pid": "itemid-52",
     "barcode": "12345678918",
     "title": "Less: A Novel",
-    "document_pid": "docid-5",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-5"
+    },
     "internal_location_pid": "ilocid-1",
     "status": "LOANABLE",
     "_access": { "delete": ["1"] }
@@ -110,7 +136,9 @@
     "item_pid": "itemid-53",
     "barcode": "12345678918",
     "title": "Less: A Novel",
-    "document_pid": "docid-5",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-5"
+    },
     "internal_location_pid": "ilocid-1",
     "status": "LOANABLE",
     "_access": { "update": ["1"] }
@@ -119,7 +147,9 @@
     "item_pid": "itemid-54",
     "barcode": "12345678918",
     "title": "Less: A Novel",
-    "document_pid": "docid-5",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-5"
+    },
     "internal_location_pid": "ilocid-1",
     "status": "LOANABLE",
     "_access": { "read": ["1"] }
@@ -128,7 +158,9 @@
     "item_pid": "itemid-55",
     "barcode": "123456789",
     "title": "The Gulf: The Making of An American Sea - Item 1",
-    "document_pid": "docid-1",
+    "document": {
+      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-1"
+    },
     "internal_location_pid": "ilocid-1",
     "status": "MISSING"
   }
