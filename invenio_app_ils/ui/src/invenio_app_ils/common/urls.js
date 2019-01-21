@@ -13,13 +13,25 @@ export const BackOfficeURLS = {
   patronDetails: `${BackOfficeBase}/users/:userPid`,
 };
 
-export const viewDetailsClickUrl = loanPid => {
+export const viewLoanDetailsUrl = loanPid => {
   return generatePath(BackOfficeURLS.loanDetails, {
     loanPid: loanPid,
   });
 };
 
-export const showAllClickUrl = (documentPid, itemPid, state, patronPid) => {
-  const qs = loanApi.buildLoansQuery(documentPid, itemPid, state, patronPid);
+export const showAllLoansUrl = (
+  documentPid,
+  itemPid,
+  state,
+  patronPid,
+  extraQuery
+) => {
+  const qs = loanApi.buildLoansQuery(
+    documentPid,
+    itemPid,
+    state,
+    patronPid,
+    extraQuery
+  );
   return `${BackOfficeURLS.loansSearch}?q=${qs}`;
 };

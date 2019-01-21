@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
 import { ItemMetadata } from '../';
 import { ItemPendingLoans } from '../';
+import { ItemPastLoans } from '../';
 
 export default class ItemDetails extends Component {
   render() {
@@ -13,6 +14,7 @@ export default class ItemDetails extends Component {
         <Error error={errorData}>
           <ItemMetadata />
           <ItemPendingLoans item={data} />
+          <ItemPastLoans item={data} />
         </Error>
       </Loader>
     );

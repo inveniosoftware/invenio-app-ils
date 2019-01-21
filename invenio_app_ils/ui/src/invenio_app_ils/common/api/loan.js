@@ -1,8 +1,6 @@
 import { http } from './base';
 import { toISO } from './date';
 import { DateTime } from 'luxon';
-import { BackOfficeURLS } from '../urls';
-import { generatePath } from 'react-router-dom';
 
 const loanURL = '/circulation/loans/';
 
@@ -38,7 +36,13 @@ const postAction = (
   return http.post(url, payload);
 };
 
-const buildLoansQuery = (documentPid, itemPid, state, patronPid) => {
+const buildLoansQuery = (
+  documentPid,
+  itemPid,
+  state,
+  patronPid,
+  extraQuery
+) => {
   const qsDoc = documentPid ? `document_pid:${documentPid}` : '';
   const qsItem = itemPid ? `item_pid:${itemPid}` : '';
   const qsUser = patronPid ? `patron_pid:${patronPid}` : '';
@@ -49,7 +53,8 @@ const buildLoansQuery = (documentPid, itemPid, state, patronPid) => {
       ? `(${qsDocItem} AND ${qsUser})`
       : `${qsDocItem}${qsUser}`;
   const qsState = state ? `AND state:${state}` : '';
-  return `${qsDocItemUser}${qsState}`;
+  const qsExtra = extraQuery ? `${extraQuery}` : '';
+  return `${qsDocItemUser}${qsState} ${qsExtra}`;
 };
 
 const fetchLoans = (
@@ -58,9 +63,16 @@ const fetchLoans = (
   sortBy,
   sortOrder,
   patronPid,
-  state
+  state,
+  extraQuery
 ) => {
-  const qs = buildLoansQuery(documentPid, itemPid, state, patronPid);
+  const qs = buildLoansQuery(
+    documentPid,
+    itemPid,
+    state,
+    patronPid,
+    extraQuery
+  );
   const sort =
     sortBy === 'transaction_date' ? `transaction_date` : `start_date`;
   const sortByOrder = sortOrder === 'asc' ? `${sort}:asc` : `${sort}:desc`;

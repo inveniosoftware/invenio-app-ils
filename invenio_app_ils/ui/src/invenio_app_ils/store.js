@@ -6,6 +6,7 @@ import { userSessionReducer } from './common/components/UserSession/reducer';
 import {
   itemDetailsReducer,
   itemPendingLoansReducer,
+  itemPastLoansReducer,
 } from './pages/backoffice/ItemDetails/reducer';
 import { loanDetailsReducer } from './pages/backoffice/LoanDetails/reducer';
 import { userDetailsReducer } from './pages/backoffice/UserDetails/reducer';
@@ -14,6 +15,7 @@ import { patronLoansReducer } from './pages/backoffice/UserDetails/components/Pa
 const rootReducer = combineReducers({
   userSession: userSessionReducer,
   itemDetails: itemDetailsReducer,
+  itemPastLoans: itemPastLoansReducer,
   itemPendingLoans: itemPendingLoansReducer,
   loanDetails: loanDetailsReducer,
   userDetails: userDetailsReducer,

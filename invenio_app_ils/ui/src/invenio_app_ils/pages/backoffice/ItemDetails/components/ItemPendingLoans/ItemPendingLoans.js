@@ -6,16 +6,16 @@ import { ResultsTable } from '../../../../../common/components';
 
 import './ItemPendingLoans.scss';
 import {
-  showAllClickUrl,
-  viewDetailsClickUrl,
+  showAllLoansUrl,
+  viewLoanDetailsUrl,
 } from '../../../../../common/urls';
 
 export default class ItemPendingLoans extends Component {
   constructor(props) {
     super(props);
     this.fetchPendingLoans = props.fetchPendingLoans;
-    this.showDetailsUrl = viewDetailsClickUrl;
-    this.showAllUrl = showAllClickUrl;
+    this.showDetailsUrl = viewLoanDetailsUrl;
+    this.showAllUrl = showAllLoansUrl;
   }
 
   componentDidMount() {
