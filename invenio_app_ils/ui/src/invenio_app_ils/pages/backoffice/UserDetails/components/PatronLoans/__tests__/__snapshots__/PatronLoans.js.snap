@@ -148,14 +148,16 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                           <TableHeaderCell
                             as="th"
                             collapsing={true}
+                            width={1}
                           >
                             <TableCell
                               as="th"
                               className=""
                               collapsing={true}
+                              width={1}
                             >
                               <th
-                                className="collapsing"
+                                className="collapsing one wide"
                               />
                             </TableCell>
                           </TableHeaderCell>
@@ -707,14 +709,16 @@ exports[`PatronLoans tests should render the show all button when showing only a
                           <TableHeaderCell
                             as="th"
                             collapsing={true}
+                            width={1}
                           >
                             <TableCell
                               as="th"
                               className=""
                               collapsing={true}
+                              width={1}
                             >
                               <th
-                                className="collapsing"
+                                className="collapsing one wide"
                               />
                             </TableCell>
                           </TableHeaderCell>

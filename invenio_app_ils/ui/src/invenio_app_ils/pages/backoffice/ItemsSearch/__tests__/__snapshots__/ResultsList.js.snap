@@ -96,14 +96,16 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                       <TableHeaderCell
                         as="th"
                         collapsing={true}
+                        width={1}
                       >
                         <TableCell
                           as="th"
                           className=""
                           collapsing={true}
+                          width={1}
                         >
                           <th
-                            className="collapsing"
+                            className="collapsing one wide"
                           />
                         </TableCell>
                       </TableHeaderCell>

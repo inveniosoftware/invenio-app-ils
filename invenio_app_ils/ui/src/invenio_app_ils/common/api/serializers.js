@@ -17,3 +17,21 @@ export function serializeLoan(hit) {
   }
   return result;
 }
+
+export function serializeItem(hit) {
+  const result = {};
+  if (!_isEmpty(hit)) {
+    result['item_pid'] = hit.id;
+    result['created'] = fromISO(hit.created);
+    result['updated'] = fromISO(hit.updated);
+  }
+  const item = hit.metadata;
+  if (!_isEmpty(item)) {
+    result['location'] = item.internal_location.name;
+    result['medium'] = item.medium;
+    result['status'] = item.status;
+    result['shelf'] = item.shelf;
+    result['barcode'] = item.barcode;
+  }
+  return result;
+}

@@ -93,18 +93,6 @@ const fetchLoans = (
   return http.get(`${loanURL}?q=${qs}&sort:${sortByOrder}`);
 };
 
-const viewDetailsClickUrl = loanPid => {
-  const path = generatePath(BackOfficeURLS.loanDetails, {
-    loanPid: loanPid,
-  });
-  return path;
-};
-
-const showAllClickUrl = (documentPid, itemPid, state, patronPid) => {
-  const qs = buildLoansQuery(documentPid, itemPid, state, patronPid);
-  return `${BackOfficeURLS.loansSearch}?q=${qs}`;
-};
-
 export const loan = {
   assignItemToLoan: assignItemToLoan,
   buildLoansQuery: buildLoansQuery,
@@ -112,6 +100,4 @@ export const loan = {
   get: get,
   postAction: postAction,
   url: loanURL,
-  viewDetailsClickUrl: viewDetailsClickUrl,
-  showAllClickUrl: showAllClickUrl,
 };
