@@ -59,7 +59,6 @@ from .circulation.utils import (  # isort:skip
     circulation_document_retriever,
     circulation_is_item_available,
     circulation_item_exists,
-    circulation_item_retriever,
     circulation_item_location_retriever,
     circulation_items_retriever,
     circulation_patron_exists,
@@ -374,8 +373,6 @@ CIRCULATION_ITEMS_RETRIEVER_FROM_DOCUMENT = circulation_items_retriever
 CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = circulation_document_retriever
 
 CIRCULATION_PATRON_EXISTS = circulation_patron_exists
-
-CIRCULATION_ITEM_RETRIEVER = circulation_item_retriever
 
 CIRCULATION_ITEM_EXISTS = circulation_item_exists
 

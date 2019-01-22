@@ -43,14 +43,6 @@ def circulation_document_retriever(item_pid):
     return item["document"]["document_pid"]
 
 
-def circulation_item_retriever(item_pid):
-    """Retrieve item given its pid."""
-    item = Item.get_record_by_pid(item_pid)
-    # To avoid circular dependencies, we remove loan from item.
-    del item['circulation_status']
-    return item
-
-
 def circulation_item_location_retriever(item_pid):
     """Retrieve location pid given an item."""
     item_rec = Item.get_record_by_pid(item_pid)

@@ -45,6 +45,7 @@ LOAN_STATUSES = ["PENDING", "ITEM_ON_LOAN", "ITEM_RETURNED", "CANCELLED"]
 
 ITEM_DOCUMENT_MAPPING = {}
 
+
 def get_internal_locations(location):
     """Return random internal locations."""
     return [
@@ -155,7 +156,6 @@ def get_loans_for_items(
         expire_date = transaction_date + timedelta(days=10)
 
         loan = {
-            Document.pid_field: "{}".format(item[Document.pid_field]),
             Item.pid_field: "{}".format(item[Item.pid_field]),
             Loan.pid_field: "{}".format(i),
             "patron_pid": "{}".format(patron_id),
@@ -169,7 +169,6 @@ def get_loans_for_items(
 
         if status == "PENDING":
             loan[Item.pid_field] = ""
-            loan[Document.pid_field] = "{}".format(ITEM_DOCUMENT_MAPPING[item[Item.pid_field]])
         else:
             loan[Item.pid_field] = "{}".format(item[Item.pid_field])
             items_on_loans.append(item[Item.pid_field])
