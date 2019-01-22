@@ -1,4 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
+
+import { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Grid,
   Segment,
@@ -8,42 +11,36 @@ import {
   Table,
   Icon,
 } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
-
 import { CreateNewLoanModal } from './components/CreateNewLoanModal';
-
-import './ItemMetadata.scss';
 import { invenioConfig } from '../../../../../common/config';
 
+import './ItemMetadata.scss';
+
 export default class ItemMetadata extends Component {
-  openEditor(url) {
-    window.open(`/editor?url=${url}`, url);
-  }
-
   render() {
-    const data = this.props.itemDetails.metadata;
-
-    const itemUrl = this.props.itemDetails.links.self;
+    const { item } = this.props;
     return (
       <Segment className="item-metadata">
         <Grid padded columns={2}>
           <Grid.Column width={16}>
             <Header as="h1">
-              Item - {data.barcode}
+              Item - {item.metadata.barcode}
               <Button
                 primary
                 floated="right"
                 size="small"
-                onClick={() => this.openEditor(itemUrl)}
+                onClick={() =>
+                  window.open(`/editor?url=${item.links.self}`, item.links.self)
+                }
               >
                 <Icon name="edit" />
                 edit
               </Button>
               <CreateNewLoanModal
-                itemPid={data.item_pid}
+                itemPid={item.metadata.item_pid}
                 active={
                   !invenioConfig.items.loanActiveStates.includes(
-                    data.circulation_status.state
+                    item.metadata.circulation_status.state
                   )
                 }
                 onLoanCreatedCallback={this.props.fetchItemDetails}
@@ -55,48 +52,52 @@ export default class ItemMetadata extends Component {
             <Table basic="very" definition className="metadata-table">
               <Table.Body>
                 <Table.Row>
-                  <Table.Cell width={3}>Circulation Status</Table.Cell>
+                  <Table.Cell width={4}>Circulation Status</Table.Cell>
                   <Table.Cell width={12}>
-                    {data.circulation_status.state}
+                    {item.metadata.circulation_status.state}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.Cell width={3}>Item Status</Table.Cell>
-                  <Table.Cell width={12}>{data.status}</Table.Cell>
+                  <Table.Cell width={4}>Item Status</Table.Cell>
+                  <Table.Cell width={12}>{item.metadata.status}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Barcode</Table.Cell>
-                  <Table.Cell>{data.barcode}</Table.Cell>
+                  <Table.Cell>{item.metadata.barcode}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Medium</Table.Cell>
-                  <Table.Cell>{data.medium}</Table.Cell>
+                  <Table.Cell>{item.metadata.medium}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Circulation Restriction</Table.Cell>
-                  <Table.Cell>{data.circulation_restriction}</Table.Cell>
+                  <Table.Cell>
+                    {item.metadata.circulation_restriction}
+                  </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Shelf</Table.Cell>
-                  <Table.Cell>{data.shelf}</Table.Cell>
+                  <Table.Cell>{item.metadata.shelf}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Legacy ID</Table.Cell>
-                  <Table.Cell>{data.legacy_id}</Table.Cell>
+                  <Table.Cell>{item.metadata.legacy_id}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Document</Table.Cell>
-                  <Table.Cell>{data.document_pid}</Table.Cell>
+                  <Table.Cell>{item.metadata.document_pid}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Library</Table.Cell>
                   <Table.Cell>
-                    {data.internal_location.location.name}
+                    {item.metadata.internal_location.location.name}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Location</Table.Cell>
-                  <Table.Cell>{data.internal_location.name}</Table.Cell>
+                  <Table.Cell>
+                    {item.metadata.internal_location.name}
+                  </Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
@@ -104,8 +105,8 @@ export default class ItemMetadata extends Component {
 
           <Grid.Column>
             <Container>
-              <Header as="h3">Description</Header>
-              <p>{data.description}</p>
+              <Header as="h4">Description</Header>
+              <p>{item.metadata.description}</p>
             </Container>
           </Grid.Column>
         </Grid>
@@ -115,5 +116,5 @@ export default class ItemMetadata extends Component {
 }
 
 ItemMetadata.propTypes = {
-  itemDetails: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
 };
