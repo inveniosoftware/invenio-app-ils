@@ -16,4 +16,7 @@ from invenio_circulation.api import get_loan_for_item
 )
 def loan_for_item_resolver(pid_value):
     """Return the circulation status for the given item."""
-    return get_loan_for_item(pid_value) or {}
+    loan = get_loan_for_item(pid_value) or {}
+    if loan.get("item"):
+        del loan["item"]
+    return loan

@@ -22,6 +22,7 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
     RecordIdentifier
 
 from .circulation.receivers import index_record_after_loan_change
+from .indexer import DocumentIndexer, ItemIndexer, LoanIndexer
 from .records.api import Document, InternalLocation, Item, Location
 
 from .pidstore.pids import (  # isort:skip
@@ -270,11 +271,27 @@ def data(n_docs, n_items, n_loans):
             rec_items.append(rec)
 
     db.session.commit()
+
     with click.progressbar(
-        rec_int_locs + rec_docs + rec_items, label="Indexing"
+        rec_int_locs, label="Indexing internal locations"
     ) as _recs:
         for _rec in _recs:
             indexer.index(_rec)
+
+    with click.progressbar(
+        rec_docs, label="Indexing documents"
+    ) as _recs:
+        document_indexer = DocumentIndexer()
+        for _rec in _recs:
+            document_indexer.index(_rec)
+
+    with click.progressbar(
+        rec_items, label="Indexing items"
+    ) as _recs:
+        item_indexer = ItemIndexer()
+        for _rec in _recs:
+            item_indexer.index(_rec)
+
 
     loans = get_loans_for_items(
         rec_items,
@@ -284,9 +301,8 @@ def data(n_docs, n_items, n_loans):
         n_loans=n_loans,
     )
     with click.progressbar(loans, label="Loans") as _loans:
-        for loan in _loans:
-            rec = create_loan_record(loan)
+        loan_indexer = LoanIndexer()
+        for _loan in _loans:
+            rec = create_loan_record(_loan)
             db.session.commit()
-            indexer.index(rec)
-            # re-index item attached to the loan
-            index_record_after_loan_change(current_app, rec)
+            loan_indexer.index(rec)

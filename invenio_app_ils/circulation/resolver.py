@@ -15,4 +15,5 @@ def item_resolver_endpoint(item_pid):
     item = Item.get_record_by_pid(item_pid)
     # To avoid circular dependencies, we remove loan from item.
     del item["circulation_status"]
+    del item["document"]
     return item

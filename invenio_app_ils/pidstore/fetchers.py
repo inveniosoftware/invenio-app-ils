@@ -20,7 +20,7 @@ from .pids import (  # isort:skip
 
 
 def document_pid_fetcher(record_uuid, data):
-    """Document PID fetcher."""
+    """Return Document PID fetcher."""
     return FetchedPID(
         provider=None,
         pid_type=DOCUMENT_PID_TYPE,
@@ -29,7 +29,7 @@ def document_pid_fetcher(record_uuid, data):
 
 
 def item_pid_fetcher(record_uuid, data):
-    """Item PID fetcher."""
+    """Return Item PID fetcher."""
     return FetchedPID(
         provider=None,
         pid_type=ITEM_PID_TYPE,
@@ -38,7 +38,7 @@ def item_pid_fetcher(record_uuid, data):
 
 
 def location_pid_fetcher(record_uuid, data):
-    """Location PID fetcher."""
+    """Return Location PID fetcher."""
     return FetchedPID(
         provider=None,
         pid_type=LOCATION_PID_TYPE,
@@ -47,7 +47,7 @@ def location_pid_fetcher(record_uuid, data):
 
 
 def internal_location_pid_fetcher(record_uuid, data):
-    """Internal location PID fetcher."""
+    """Return Internal location PID fetcher."""
     return FetchedPID(
         provider=None,
         pid_type=INTERNAL_LOCATION_PID_TYPE,

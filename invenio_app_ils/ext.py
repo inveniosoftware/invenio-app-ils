@@ -25,16 +25,24 @@ class _InvenioAppIlsState(object):
         self.app = app
 
     @cached_property
+    def document_indexer(self):
+        """Return a document indexer instance."""
+        endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', [])
+        pid_type = DOCUMENT_PID_TYPE
+        _cls = endpoints.get(pid_type, {}).get('indexer_class', RecordIndexer)
+        return _cls()
+
+    @cached_property
     def item_indexer(self):
-        """Return an Item indexer instance."""
+        """Return an item indexer instance."""
         endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', [])
         pid_type = ITEM_PID_TYPE
         _cls = endpoints.get(pid_type, {}).get('indexer_class', RecordIndexer)
         return _cls()
 
     @cached_property
-    def document_indexer(self):
-        """Return an document indexer instance."""
+    def loan_indexer(self):
+        """Return a loan indexer instance."""
         endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', [])
         pid_type = DOCUMENT_PID_TYPE
         _cls = endpoints.get(pid_type, {}).get('indexer_class', RecordIndexer)
