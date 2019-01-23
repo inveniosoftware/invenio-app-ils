@@ -11,3 +11,7 @@ export const toISO = date => {
 export const toString = date => {
   return date.toLocaleString();
 };
+
+export const toShortDateTime = date => {
+  return date.toFormat('yyyy-MM-dd HH:mm');
+};

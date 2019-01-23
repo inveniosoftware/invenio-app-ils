@@ -93,14 +93,16 @@ exports[`ResultsTable tests should not render the show all button when showing o
                     <TableHeaderCell
                       as="th"
                       collapsing={true}
+                      width={1}
                     >
                       <TableCell
                         as="th"
                         className=""
                         collapsing={true}
+                        width={1}
                       >
                         <th
-                          className="collapsing"
+                          className="collapsing one wide"
                         />
                       </TableCell>
                     </TableHeaderCell>
@@ -452,6 +454,7 @@ exports[`ResultsTable tests should render the show all button when showing only 
   rows={
     Array [
       Object {
+        "ID": "1",
         "end_date": "2018-01-01",
         "loan_pid": "loan1",
         "patron_pid": "patron_1",
@@ -459,6 +462,7 @@ exports[`ResultsTable tests should render the show all button when showing only 
         "updated": "2018-01-01",
       },
       Object {
+        "ID": "2",
         "end_date": "2018-01-01",
         "loan_pid": "loan2",
         "patron_pid": "patron_2",
@@ -501,6 +505,7 @@ exports[`ResultsTable tests should render the show all button when showing only 
             columns={
               Array [
                 "loan_pid",
+                "ID",
                 "patron_pid",
                 "updated",
                 "start_date",
@@ -526,14 +531,16 @@ exports[`ResultsTable tests should render the show all button when showing only 
                     <TableHeaderCell
                       as="th"
                       collapsing={true}
+                      width={1}
                     >
                       <TableCell
                         as="th"
                         className=""
                         collapsing={true}
+                        width={1}
                       >
                         <th
-                          className="collapsing"
+                          className="collapsing one wide"
                         />
                       </TableCell>
                     </TableHeaderCell>
@@ -549,6 +556,21 @@ exports[`ResultsTable tests should render the show all button when showing only 
                           className=""
                         >
                           loan_pid
+                        </th>
+                      </TableCell>
+                    </TableHeaderCell>
+                    <TableHeaderCell
+                      as="th"
+                      key="ID"
+                    >
+                      <TableCell
+                        as="th"
+                        className=""
+                      >
+                        <th
+                          className=""
+                        >
+                          ID
                         </th>
                       </TableCell>
                     </TableHeaderCell>
@@ -621,6 +643,7 @@ exports[`ResultsTable tests should render the show all button when showing only 
             columns={
               Array [
                 "loan_pid",
+                "ID",
                 "patron_pid",
                 "updated",
                 "start_date",
@@ -631,6 +654,7 @@ exports[`ResultsTable tests should render the show all button when showing only 
             rows={
               Array [
                 Object {
+                  "ID": "1",
                   "end_date": "2018-01-01",
                   "loan_pid": "loan1",
                   "patron_pid": "patron_1",
@@ -649,9 +673,12 @@ exports[`ResultsTable tests should render the show all button when showing only 
                 <TableRow
                   as="tr"
                   cellAs="td"
+                  data-test="1"
+                  key="1"
                 >
                   <tr
                     className=""
+                    data-test="1"
                   >
                     <TableCell
                       as="td"
@@ -687,60 +714,72 @@ exports[`ResultsTable tests should render the show all button when showing only 
                     </TableCell>
                     <TableCell
                       as="td"
-                      data-test="loan_pid-undefined"
-                      key="0-undefined"
+                      data-test="loan_pid-1"
+                      key="0-1"
                     >
                       <td
                         className=""
-                        data-test="loan_pid-undefined"
+                        data-test="loan_pid-1"
                       >
                         loan1
                       </td>
                     </TableCell>
                     <TableCell
                       as="td"
-                      data-test="patron_pid-undefined"
-                      key="1-undefined"
+                      data-test="ID-1"
+                      key="1-1"
                     >
                       <td
                         className=""
-                        data-test="patron_pid-undefined"
+                        data-test="ID-1"
+                      >
+                        1
+                      </td>
+                    </TableCell>
+                    <TableCell
+                      as="td"
+                      data-test="patron_pid-1"
+                      key="2-1"
+                    >
+                      <td
+                        className=""
+                        data-test="patron_pid-1"
                       >
                         patron_1
                       </td>
                     </TableCell>
                     <TableCell
                       as="td"
-                      data-test="updated-undefined"
-                      key="2-undefined"
+                      data-test="updated-1"
+                      key="3-1"
                     >
                       <td
                         className=""
-                        data-test="updated-undefined"
+                        data-test="updated-1"
                       >
                         2018-01-01
                       </td>
                     </TableCell>
                     <TableCell
                       as="td"
-                      data-test="start_date-undefined"
-                      key="3-undefined"
+                      data-test="start_date-1"
+                      key="4-1"
                     >
                       <td
                         className=""
-                        data-test="start_date-undefined"
+                        data-test="start_date-1"
                       >
                         2018-01-01
                       </td>
                     </TableCell>
                     <TableCell
                       as="td"
-                      data-test="end_date-undefined"
-                      key="4-undefined"
+                      data-test="end_date-1"
+                      key="5-1"
                     >
                       <td
                         className=""
-                        data-test="end_date-undefined"
+                        data-test="end_date-1"
                       >
                         2018-01-01
                       </td>
@@ -752,7 +791,7 @@ exports[`ResultsTable tests should render the show all button when showing only 
           </ResultsTableBody>
           <ResultsTableFooter
             allRowsNumber={2}
-            columnsNumber={5}
+            columnsNumber={6}
             showAllClickHandler={
               Object {
                 "handler": [MockFunction],
@@ -784,18 +823,18 @@ exports[`ResultsTable tests should render the show all button when showing only 
                     >
                       <TableHeaderCell
                         as="th"
-                        colSpan={6}
+                        colSpan={7}
                         textAlign="right"
                       >
                         <TableCell
                           as="th"
                           className=""
-                          colSpan={6}
+                          colSpan={7}
                           textAlign="right"
                         >
                           <th
                             className="right aligned"
-                            colSpan={6}
+                            colSpan={7}
                           >
                             <span>
                               Showing first 

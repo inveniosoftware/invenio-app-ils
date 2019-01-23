@@ -4,6 +4,11 @@ import thunk from 'redux-thunk';
 
 import { availableItemsReducer } from './pages/backoffice/LoanDetails/reducer';
 import {
+  documentDetailsReducer,
+  documentPendingLoans,
+  documentItems,
+} from './pages/backoffice/DocumentDetails/reducer';
+import {
   itemDetailsReducer,
   itemPendingLoansReducer,
   itemPastLoansReducer,
@@ -15,6 +20,9 @@ import { userSessionReducer } from './common/components/UserSession/reducer';
 
 const rootReducer = combineReducers({
   userSession: userSessionReducer,
+  documentDetails: documentDetailsReducer,
+  documentPendingLoans: documentPendingLoans,
+  documentItems: documentItems,
   itemDetails: itemDetailsReducer,
   itemPastLoans: itemPastLoansReducer,
   itemPendingLoans: itemPendingLoansReducer,

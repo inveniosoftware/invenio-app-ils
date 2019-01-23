@@ -34,6 +34,7 @@ describe('ResultsTable tests', () => {
     const data = [
       {
         loan_pid: 'loan1',
+        ID: '1',
         patron_pid: 'patron_1',
         updated: d,
         start_date: d,
@@ -41,6 +42,7 @@ describe('ResultsTable tests', () => {
       },
       {
         loan_pid: 'loan2',
+        ID: '2',
         patron_pid: 'patron_2',
         updated: d,
         start_date: d,
@@ -173,7 +175,6 @@ describe('ResultsTable tests', () => {
         detailsClickHandler={mockedClickHandler}
       />
     );
-    const firstId = results[0].ID;
     const button = component.find('TableFooter').find('button');
     button.simulate('click');
     expect(mockedShowAllClickHandler).toHaveBeenCalledWith(3);

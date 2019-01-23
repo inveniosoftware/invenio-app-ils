@@ -1,11 +1,14 @@
 import { generatePath } from 'react-router-dom';
 import { loan as loanApi } from './api/loan';
+import { item as itemApi } from './api/item';
 
 export const FrontSiteURLS = {};
 
 const BackOfficeBase = '/backoffice';
+
 export const BackOfficeURLS = {
   home: BackOfficeBase,
+  documentDetails: `${BackOfficeBase}/documents/:documentPid`,
   itemsSearch: `${BackOfficeBase}/items`,
   itemDetails: `${BackOfficeBase}/items/:itemPid`,
   loansSearch: `${BackOfficeBase}/loans`,
@@ -34,4 +37,15 @@ export const showAllLoansUrl = (
     extraQuery
   );
   return `${BackOfficeURLS.loansSearch}?q=${qs}`;
+};
+
+export const viewItemDetailsUrl = itemPid => {
+  return generatePath(BackOfficeURLS.itemDetails, {
+    itemPid: itemPid,
+  });
+};
+
+export const showAllItemsUrl = (documentPid, state, extraQuery) => {
+  const qs = itemApi.buildItemsQuery(documentPid, state, extraQuery);
+  return `${BackOfficeURLS.itemsSearch}?q=${qs}`;
 };

@@ -15,7 +15,7 @@ export default class ResultsTableHeader extends Component {
     return (
       <Table.Header>
         <Table.Row data-test="header">
-          <Table.HeaderCell collapsing />
+          <Table.HeaderCell width={1} collapsing />
           {headerColumns}
         </Table.Row>
       </Table.Header>
