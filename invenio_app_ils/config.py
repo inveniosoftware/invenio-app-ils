@@ -23,6 +23,7 @@ from invenio_circulation.search.api import LoansSearch
 from invenio_records_rest.facets import terms_filter
 
 from .circulation.resolver import item_resolver_endpoint
+from .indexer import DocumentIndexer, ItemIndexer, LoanIndexer
 from .records.api import Document, InternalLocation, Item, Location
 
 from .records.permissions import (  # isort:skip
@@ -236,6 +237,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher=DOCUMENT_PID_FETCHER,
         search_class=DocumentSearch,
         record_class=Document,
+        indexer_class=DocumentIndexer,
         record_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_response"
@@ -265,6 +267,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher=ITEM_PID_FETCHER,
         search_class=ItemSearch,
         record_class=Item,
+        indexer_class=ItemIndexer,
         record_loaders={
             "application/json": ("invenio_app_ils.records.loaders:item_loader"),
             "application/json-patch+json": (
@@ -448,6 +451,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         search_factory_imp="invenio_app_ils.circulation.search"
         ":circulation_search_factory",
         record_class="invenio_circulation.api:Loan",
+        indexer_class=LoanIndexer,
         record_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_response"
@@ -543,6 +547,10 @@ RECORDS_REST_FACETS = dict(
         )
     )
 )
+
+# PIDSTORE
+# =========================
+PIDSTORE_RECID_FIELD = Item.pid_field
 
 # ILS
 # ===

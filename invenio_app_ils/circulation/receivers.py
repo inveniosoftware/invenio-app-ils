@@ -23,12 +23,4 @@ def register_circulation_signals(app):
 
 def index_record_after_loan_change(_, loan):
     """Reindex item when attached loan changes."""
-    item_pid = loan.get(Item.pid_field)
-    if item_pid:
-        item = Item.get_record_by_pid(item_pid)
-        current_app_ils_extension.item_indexer.index(item)
-
-    document_pid = loan.get(Document.pid_field)
-    if document_pid:
-        document = Document.get_record_by_pid(document_pid)
-        current_app_ils_extension.document_indexer.index(document)
+    current_app_ils_extension.loan_indexer.index(loan)

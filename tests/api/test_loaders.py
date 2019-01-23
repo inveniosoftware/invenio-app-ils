@@ -16,7 +16,6 @@ from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
 
 NEW_ITEM = {
-    "item_pid": "itemid-10",
     "barcode": "123456789",
     "title": "Test item x",
     "document": {

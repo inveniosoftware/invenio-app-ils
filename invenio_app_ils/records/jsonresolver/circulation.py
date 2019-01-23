@@ -45,7 +45,7 @@ def jsonresolver_loader(url_map):
             ),
         )
 
-        circulation["number_of_loans"] = search.execute().hits.total
+        circulation["number_of_past_loans"] = search.execute().hits.total
         circulation["number_of_items"] = items_count
         circulation["active_loans"] = active_loans_count
         circulation["loanable_items"] = loanable_items_count

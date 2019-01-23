@@ -50,7 +50,7 @@ def circulation_search_factory(self, search, query_parser=None):
     :returns: Tuple with search instance and URL arguments.
     """
     def _default_parser(qstr=None):
-        """Default parser that uses the Q() from elasticsearch_dsl."""
+        """Return default parser that uses the Q() from elasticsearch_dsl."""
         if qstr:
             return Q('query_string', query=qstr)
         return Q()

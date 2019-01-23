@@ -7,14 +7,14 @@
 
 """Item schema for marshmallow loader."""
 
+from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from invenio_records_rest.schemas.fields import PersistentIdentifier
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, post_load
 
 
-class ItemSchemaV1(Schema):
-    """Internal Location schema."""
+class ItemSchemaV1(RecordMetadataSchemaJSONV1):
+    """Item schema."""
 
-    pid = PersistentIdentifier()
     internal_location_pid = fields.Str(required=True)
     legacy_id = fields.Str()
     legacy_library_id = fields.Str()

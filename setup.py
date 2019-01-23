@@ -48,7 +48,7 @@ install_requires = [
     "invenio-jsonschemas>=1.0.0,<1.1.0",
     "invenio-oaiserver>=1.0.0,<1.1.0",
     "invenio-pidstore>=1.0.0,<1.1.0",
-    "invenio-records-rest>=1.2.1,<1.3.0",
+    "invenio-records-rest>=1.3.0,<1.4.0",
     "invenio-records>=1.0.0,<1.1.0",
     # upgraded packages
     "invenio-accounts-rest>=1.0.0a4",
@@ -146,6 +146,9 @@ setup(
             "invenio_app_ils.records.jsonresolver.internal_location",
             "circulation = invenio_app_ils.records.jsonresolver.circulation"
         ],
+        'invenio_celery.tasks' : [
+            'indexer = invenio_app_ils.indexer'
+        ]
     },
     extras_require=extras_require,
     install_requires=install_requires,

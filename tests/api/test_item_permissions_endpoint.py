@@ -18,10 +18,8 @@ from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
 
 NEW_ITEM = {
-    "pid": {"pid_type": "item_pid", "pid_value": "itemid-10"},
     "barcode": "123456789",
     "title": "Test item x",
-    "document_pid": "docid-1",
     "internal_location_pid": "ilocid-1",
     "status": "LOANABLE",
 }
@@ -77,16 +75,16 @@ def test_get_item_endpoint(
 
 
 @pytest.mark.parametrize(
-    "user_id,res_id,expected_resp_code",
+    "user_id,expected_resp_code",
     [
-        ("patron1", None, 403),
-        ("librarian", None, 201),
-        ("admin", None, 201),
-        ("anonymous", None, 401),
+        ("patron1", 403),
+        ("librarian", 201),
+        ("admin", 201),
+        ("anonymous", 401),
     ],
 )
 def test_post_item_endpoint(
-    client, json_headers, testdata, users, user_id, res_id, expected_resp_code
+    client, json_headers, testdata, users, user_id, expected_resp_code
 ):
     """Test POST permissions of an item."""
     user_login(user_id, client, users)
@@ -123,10 +121,11 @@ def test_put_item_endpoint(
     """Test PUT permissions of an item."""
     url = url_for("invenio_records_rest.itemid_item", pid_value=res_id)
     user_login(user_id, client, users)
+    ITEM = copy.deepcopy(NEW_ITEM)
     res = _test_response(
-        client, "put", url, json_headers, NEW_ITEM, expected_resp_code
+        client, "put", url, json_headers, ITEM, expected_resp_code
     )
-    _test_data("pid", "itemid-10", res)
+    _test_data("item_pid", res_id, res)
 
 
 @pytest.mark.parametrize(

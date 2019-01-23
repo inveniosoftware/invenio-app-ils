@@ -52,7 +52,7 @@ def authenticated_user_permission(*args, **kwargs):
 
 
 def views_permissions_factory(action):
-    """Default ILS views permissions factory."""
+    """Return ILS views permissions factory."""
     if action == "circulation-loan-request":
         return authenticated_user_permission()
     elif action == "circulation-loan-create":

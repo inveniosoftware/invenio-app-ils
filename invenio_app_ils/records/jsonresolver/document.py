@@ -17,4 +17,7 @@ from invenio_app_ils.records.api import Document
 )
 def document_for_item_resolver(pid_value):
     """Return the document for the given item."""
-    return Document.get_record_by_pid(pid_value) or {}
+    document = Document.get_record_by_pid(pid_value)
+    # delete circulation field when document is dereferenced inside item
+    del document["circulation"]
+    return document
