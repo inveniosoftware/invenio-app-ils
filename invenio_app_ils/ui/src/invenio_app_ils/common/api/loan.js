@@ -3,10 +3,8 @@ import { toISO } from './date';
 import { DateTime } from 'luxon';
 
 const loanURL = '/circulation/loans/';
-
-const get = loanPid => {
-  return http.get(`${loanURL}${loanPid}`);
-};
+const get = loanPid => http.get(`${loanURL}${loanPid}`);
+const getLoanReplaceItemUrl = loanPid => `${loanURL}/${loanPid}/replace-item`;
 
 const postAction = (
   url,
@@ -32,22 +30,13 @@ const postAction = (
       `No 'item_pid' or 'document_pid' attached to loan '${pid}'`
     );
   }
-
   return http.post(url, payload);
 };
 
 const assignItemToLoan = (itemPid, loanPid) => {
-  const newItemRef = {
-    $ref: `https://127.0.0.1:5000/api/resolver/circulation/items/${itemPid}`,
-  };
-  return http.patch(
-    `${loanURL}${loanPid}`,
-    [
-      { op: 'replace', path: '/item_pid', value: `${itemPid}` },
-      { op: 'add', path: '/item', value: newItemRef },
-    ],
-    { headers: { 'Content-Type': 'application/json-patch+json' } }
-  );
+  const url = getLoanReplaceItemUrl(loanPid);
+  const payload = { item_pid: itemPid };
+  return http.post(url, payload);
 };
 
 const buildLoansQuery = (
