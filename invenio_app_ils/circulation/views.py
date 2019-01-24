@@ -116,6 +116,7 @@ class LoanRequestResource(IlsResource):
             pid, loan, 202, links_factory=self.links_factory
         )
 
+
 class LoanCreateResource(IlsResource):
     """Loan create action resource."""
 
