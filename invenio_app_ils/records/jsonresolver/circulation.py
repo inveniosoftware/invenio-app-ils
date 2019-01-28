@@ -40,8 +40,8 @@ def jsonresolver_loader(url_map):
 
         search = search_by_pid(
             document_pid=document_pid,
-            exclude_states=current_app.config.get(
-                "CIRCULATION_STATES_LOAN_ACTIVE", []
+            filter_states=current_app.config.get(
+                "CIRCULATION_STATES_LOAN_COMPLETED", []
             ),
         )
 
