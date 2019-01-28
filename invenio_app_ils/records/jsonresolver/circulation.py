@@ -8,13 +8,12 @@
 """Ils Records Documents record circulation resolver."""
 
 import jsonresolver
-from invenio_circulation.api import get_loan_for_item, is_item_available
+from invenio_circulation.api import is_item_available
 from invenio_circulation.search.api import search_by_pid
 from werkzeug.routing import Rule
 
 from invenio_app_ils.circulation.utils import circulation_is_item_available, \
     circulation_items_retriever
-from invenio_app_ils.records.api import Document
 
 
 @jsonresolver.hookimpl

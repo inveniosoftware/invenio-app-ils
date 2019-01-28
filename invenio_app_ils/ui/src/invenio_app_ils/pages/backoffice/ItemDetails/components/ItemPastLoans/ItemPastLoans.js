@@ -33,9 +33,9 @@ export default class ItemPastLoans extends Component {
       this.showAllUrl(
         document_pid,
         item_pid,
-        'ITEM_RETURNED',
+        'state:ITEM_RETURNED OR state:CANCELLED',
         null,
-        'OR state:CANCELLED'
+        null
       )
     );
   };

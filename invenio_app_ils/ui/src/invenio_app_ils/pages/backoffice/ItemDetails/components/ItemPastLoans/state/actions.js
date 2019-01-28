@@ -14,8 +14,8 @@ export const fetchPastLoans = (documentPid, itemPid) => {
         null,
         null,
         null,
-        'ITEM_RETURNED',
-        'OR state:CANCELLED'
+        'state:ITEM_RETURNED OR state:CANCELLED',
+        null
       )
       .then(response => {
         dispatch({

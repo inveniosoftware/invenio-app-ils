@@ -31,7 +31,7 @@ export default class ItemPendingLoans extends Component {
   _showAllHandler = () => {
     const { document_pid, item_pid } = this.props.item.metadata;
     this.props.history.push(
-      this.showAllUrl(document_pid, item_pid, 'PENDING', null)
+      this.showAllUrl(document_pid, item_pid, 'state:PENDING', null)
     );
   };
 

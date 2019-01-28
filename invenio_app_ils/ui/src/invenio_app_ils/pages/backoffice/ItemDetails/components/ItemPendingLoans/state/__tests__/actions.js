@@ -44,7 +44,8 @@ describe('Pending loans tests', () => {
           initialState.sortBy,
           initialState.sortOrder,
           null,
-          'PENDING'
+          'state:PENDING',
+          null
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
@@ -69,7 +70,8 @@ describe('Pending loans tests', () => {
           initialState.sortBy,
           initialState.sortOrder,
           null,
-          'PENDING'
+          'state:PENDING',
+          null
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -92,7 +94,8 @@ describe('Pending loans tests', () => {
           initialState.sortBy,
           initialState.sortOrder,
           null,
-          'PENDING'
+          'state:PENDING',
+          null
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);

@@ -146,7 +146,7 @@ setup(
             "invenio_app_ils.records.jsonresolver.internal_location",
             "circulation = invenio_app_ils.records.jsonresolver.circulation"
         ],
-        'invenio_celery.tasks' : [
+        'invenio_celery.tasks': [
             'indexer = invenio_app_ils.indexer'
         ]
     },

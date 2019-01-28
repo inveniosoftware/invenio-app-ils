@@ -23,7 +23,15 @@ export const fetchPatronLoans = (
     const sortOrder = getState().patronLoans.sortOrder;
 
     await loanApi
-      .fetchLoans(documentPid, itemPid, sortBy, sortOrder, patronPid, loanState)
+      .fetchLoans(
+        documentPid,
+        itemPid,
+        sortBy,
+        sortOrder,
+        patronPid,
+        `state:${loanState}`,
+        null
+      )
       .then(response => {
         dispatch({
           type: SUCCESS,

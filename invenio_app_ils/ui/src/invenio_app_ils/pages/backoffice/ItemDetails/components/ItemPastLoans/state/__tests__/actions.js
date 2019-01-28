@@ -48,8 +48,8 @@ describe('Past loans tests', () => {
           null,
           null,
           null,
-          'ITEM_RETURNED',
-          'OR state:CANCELLED'
+          'state:ITEM_RETURNED OR state:CANCELLED',
+          null
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
@@ -72,8 +72,8 @@ describe('Past loans tests', () => {
           null,
           null,
           null,
-          'ITEM_RETURNED',
-          'OR state:CANCELLED'
+          'state:ITEM_RETURNED OR state:CANCELLED',
+          null
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -96,8 +96,8 @@ describe('Past loans tests', () => {
           null,
           null,
           null,
-          'ITEM_RETURNED',
-          'OR state:CANCELLED'
+          'state:ITEM_RETURNED OR state:CANCELLED',
+          null
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
