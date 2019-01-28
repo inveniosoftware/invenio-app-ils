@@ -19,7 +19,6 @@ def jsonresolver_loader(url_map):
     """Resolve the location for internal location record."""
     from flask import current_app
 
-
     def _location_resolver(loc_pid):
         """Return the location record for the given pid or raise exception."""
         location = {}

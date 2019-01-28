@@ -144,7 +144,7 @@ def test_anonymous_cannot_update_loans(client, json_headers,
     """Test that anonymous cannot update loans."""
     loanid = 'loanid-1'
     _test_post_new_loan(client, json_headers, 401)
-    _test_patch_existing_loan(client,  json_patch_headers, loanid, 401)
+    _test_patch_existing_loan(client, json_patch_headers, loanid, 401)
     _test_replace_existing_loan(client, json_headers, loanid, 401)
     _test_delete_existing_loan(client, json_headers, loanid, 401)
 

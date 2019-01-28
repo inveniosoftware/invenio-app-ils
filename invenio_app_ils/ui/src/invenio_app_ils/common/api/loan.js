@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 
 const loanURL = '/circulation/loans/';
 const get = loanPid => http.get(`${loanURL}${loanPid}`);
-const getLoanReplaceItemUrl = loanPid => `${loanURL}/${loanPid}/replace-item`;
+const getLoanReplaceItemUrl = loanPid => `${loanURL}${loanPid}/replace-item`;
 
 const postAction = (
   url,
@@ -42,7 +42,7 @@ const assignItemToLoan = (itemPid, loanPid) => {
 const buildLoansQuery = (
   documentPid,
   itemPid,
-  state,
+  stateQuery,
   patronPid,
   extraQuery
 ) => {
@@ -55,9 +55,9 @@ const buildLoansQuery = (
     qsDocItem && qsUser
       ? `(${qsDocItem} AND ${qsUser})`
       : `${qsDocItem}${qsUser}`;
-  const qsState = state ? `AND state:${state}` : '';
+  const qsState = stateQuery ? ` AND ${stateQuery}` : '';
   const qsExtra = extraQuery ? `${extraQuery}` : '';
-  return `${qsDocItemUser}${qsState} ${qsExtra}`;
+  return `${qsDocItemUser}${qsState}${qsExtra}`;
 };
 
 const fetchLoans = (
@@ -66,13 +66,13 @@ const fetchLoans = (
   sortBy,
   sortOrder,
   patronPid,
-  state,
+  stateQuery,
   extraQuery
 ) => {
   const qs = buildLoansQuery(
     documentPid,
     itemPid,
-    state,
+    stateQuery,
     patronPid,
     extraQuery
   );

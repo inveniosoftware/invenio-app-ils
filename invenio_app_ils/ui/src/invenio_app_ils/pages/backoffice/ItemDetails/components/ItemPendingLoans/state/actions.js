@@ -18,7 +18,15 @@ export const fetchPendingLoans = (documentPid, itemPid) => {
     const sortOrder = getState().itemPendingLoans.sortOrder;
 
     await loanApi
-      .fetchLoans(documentPid, itemPid, sortBy, sortOrder, null, 'PENDING')
+      .fetchLoans(
+        documentPid,
+        itemPid,
+        sortBy,
+        sortOrder,
+        null,
+        'state:PENDING',
+        null
+      )
       .then(response => {
         dispatch({
           type: SUCCESS,

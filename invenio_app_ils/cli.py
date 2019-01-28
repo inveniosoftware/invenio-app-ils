@@ -12,7 +12,6 @@ from random import randint
 
 import click
 import lorem
-from flask import current_app
 from flask.cli import with_appcontext
 from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
@@ -21,7 +20,6 @@ from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
     RecordIdentifier
 
-from .circulation.receivers import index_record_after_loan_change
 from .records.api import Document, InternalLocation, Item, Location
 
 from .pidstore.pids import (  # isort:skip

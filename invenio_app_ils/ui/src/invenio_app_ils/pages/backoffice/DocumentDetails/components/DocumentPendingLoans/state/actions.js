@@ -8,7 +8,7 @@ export const fetchPendingLoans = documentPid => {
     });
 
     await loanApi
-      .fetchLoans(documentPid, null, null, null, null, 'PENDING')
+      .fetchLoans(documentPid, null, null, null, null, 'state:PENDING', null)
       .then(response => {
         dispatch({
           type: SUCCESS,

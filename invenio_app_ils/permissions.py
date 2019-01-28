@@ -9,7 +9,7 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import abort, g
+from flask import abort
 from flask_login import current_user
 from flask_principal import UserNeed
 from invenio_access import action_factory

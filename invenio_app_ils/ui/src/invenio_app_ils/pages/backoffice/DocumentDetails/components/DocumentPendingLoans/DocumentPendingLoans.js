@@ -30,7 +30,7 @@ export default class DocumentPendingLoans extends Component {
   _showAllHandler = () => {
     const { document_pid } = this.props.document.id;
     this.props.history.push(
-      this.showAllUrl(document_pid, null, 'PENDING', null)
+      this.showAllUrl(document_pid, null, 'state:PENDING', null)
     );
   };
 

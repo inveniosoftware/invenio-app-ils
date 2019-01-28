@@ -12,7 +12,7 @@ from __future__ import absolute_import, print_function
 from invenio_circulation.signals import loan_replace_item, loan_state_changed
 
 from ..proxies import current_app_ils_extension
-from ..records.api import Document, Item
+from ..records.api import Item
 
 
 def register_circulation_signals(app):

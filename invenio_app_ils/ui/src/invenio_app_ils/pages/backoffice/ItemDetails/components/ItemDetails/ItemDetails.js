@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
-import { ItemMetadata, ItemPastLoans, ItemPendingLoans  } from '../';
+import { ItemMetadata, ItemPastLoans, ItemPendingLoans } from '../';
 
 export default class ItemDetails extends Component {
   render() {

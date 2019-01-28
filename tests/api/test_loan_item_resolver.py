@@ -6,14 +6,8 @@
 # it under the terms of the MIT License; see LICENSE file for more details.
 
 """Tests for loan item resolver."""
-from copy import deepcopy
-from json import loads
 
 from invenio_circulation.api import Loan
-from invenio_circulation.proxies import current_circulation
-from pkg_resources import resource_string
-
-from invenio_app_ils.records.api import Item
 
 
 def test_loan_item_resolver(app, testdata):

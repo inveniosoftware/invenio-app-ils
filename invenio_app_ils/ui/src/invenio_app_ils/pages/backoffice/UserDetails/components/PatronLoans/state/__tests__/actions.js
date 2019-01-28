@@ -46,7 +46,8 @@ describe('Patron loans tests', () => {
           initialState.sortBy,
           initialState.sortOrder,
           2,
-          'P'
+          'state:P',
+          null
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
@@ -69,7 +70,8 @@ describe('Patron loans tests', () => {
           initialState.sortBy,
           initialState.sortOrder,
           2,
-          'P'
+          'state:P',
+          null
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -92,7 +94,8 @@ describe('Patron loans tests', () => {
           initialState.sortBy,
           initialState.sortOrder,
           2,
-          'P'
+          'state:P',
+          null
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);

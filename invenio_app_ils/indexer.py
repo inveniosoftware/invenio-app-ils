@@ -16,9 +16,6 @@ from flask import current_app
 from invenio_circulation.api import Loan
 from invenio_circulation.search.api import search_by_pid
 from invenio_indexer.api import RecordIndexer
-from invenio_jsonschemas import current_jsonschemas
-from invenio_pidstore.resolver import Resolver
-from invenio_records.api import Record
 
 from invenio_app_ils.circulation.utils import circulation_document_retriever, \
     circulation_items_retriever
