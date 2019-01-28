@@ -22,7 +22,6 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
     RecordIdentifier
 
 from .circulation.receivers import index_record_after_loan_change
-from .indexer import DocumentIndexer, ItemIndexer, LoanIndexer
 from .records.api import Document, InternalLocation, Item, Location
 
 from .pidstore.pids import (  # isort:skip
@@ -272,27 +271,6 @@ def data(n_docs, n_items, n_loans):
 
     db.session.commit()
 
-    with click.progressbar(
-        rec_int_locs, label="Indexing internal locations"
-    ) as _recs:
-        for _rec in _recs:
-            indexer.index(_rec)
-
-    with click.progressbar(
-        rec_docs, label="Indexing documents"
-    ) as _recs:
-        document_indexer = DocumentIndexer()
-        for _rec in _recs:
-            document_indexer.index(_rec)
-
-    with click.progressbar(
-        rec_items, label="Indexing items"
-    ) as _recs:
-        item_indexer = ItemIndexer()
-        for _rec in _recs:
-            item_indexer.index(_rec)
-
-
     loans = get_loans_for_items(
         rec_items,
         rec_location,
@@ -300,9 +278,31 @@ def data(n_docs, n_items, n_loans):
         librarian_id="4",
         n_loans=n_loans,
     )
+    rec_loans = []
     with click.progressbar(loans, label="Loans") as _loans:
-        loan_indexer = LoanIndexer()
         for _loan in _loans:
             rec = create_loan_record(_loan)
-            db.session.commit()
-            loan_indexer.index(rec)
+            rec_loans.append(rec)
+
+    db.session.commit()
+
+    # index locations
+    indexer.bulk_index([str(r.id) for r in rec_int_locs])
+    click.echo('Sent to the indexing queue {0} locations'.format(len(
+                                                                rec_int_locs)))
+
+    # index loans
+    indexer.bulk_index([str(r.id) for r in rec_loans])
+    click.echo('Sent to the indexing queue {0} loans'.format(len(rec_loans)))
+
+    # index items
+    indexer.bulk_index([str(r.id) for r in rec_items])
+    click.echo('Sent to the indexing queue {0} items'.format(len(rec_items)))
+
+    # index documents
+    indexer.bulk_index([str(r.id) for r in rec_docs])
+    click.echo('Sent to the indexing queue {0} documents'.format(len(
+                                                                    rec_docs)))
+
+    click.secho('Now indexing...', fg='green')
+    indexer.process_bulk_queue()

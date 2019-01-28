@@ -24,8 +24,6 @@ export default class DocumentMetadata extends Component {
     const documentUrl = this.props.documentDetails.links.self;
 
     const rows = [
-      { name: 'Created', value: data.created },
-      { name: 'Updated', value: data.updated },
       { name: 'Title', value: data.title },
       { name: 'Authors', value: data.authors },
     ];

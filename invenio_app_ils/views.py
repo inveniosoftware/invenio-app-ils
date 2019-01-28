@@ -62,11 +62,9 @@ def _get_items_ui_config():
     if "mostrecent" in items_sort:
         ui_config["items"]["search"]["sortBy"]["onEmptyQuery"] = "mostrecent"
 
-    items_aggs = current_app.config.get('RECORDS_REST_FACETS', {}).get(
-        items_index, {}).get('aggs', {})
-    ui_config['items']['search']['aggs'] = list(items_aggs.keys())
-    ui_config['items']['loanActiveStates'] = current_app.config.get(
-        "CIRCULATION_STATES_LOAN_ACTIVE", [])
+    items_aggs = current_app.config.get("RECORDS_REST_FACETS", {}).get(
+        items_index, {}).get("aggs", {})
+    ui_config["items"]["search"]["aggs"] = list(items_aggs.keys())
     return ui_config
 
 
@@ -79,6 +77,10 @@ def _get_loans_ui_config():
                 "sortOrder": ["asc", "desc"],
                 "aggs": [],
             }
+        },
+        "circulation": {
+            "loanActiveStates": [],
+            "loanCompletedStates": [],
         }
     }
     loans_index = LoansSearch.Meta.index
@@ -107,6 +109,11 @@ def _get_loans_ui_config():
         .get("aggs", {})
     )
     ui_config["loans"]["search"]["aggs"] = list(loans_aggs.keys())
+
+    ui_config["circulation"]["loanActiveStates"] = current_app.config.get(
+        "CIRCULATION_STATES_LOAN_ACTIVE", [])
+    ui_config["circulation"]["loanCompletedStates"] = current_app.config.get(
+        "CIRCULATION_STATES_LOAN_COMPLETED", [])
     return ui_config
 
 

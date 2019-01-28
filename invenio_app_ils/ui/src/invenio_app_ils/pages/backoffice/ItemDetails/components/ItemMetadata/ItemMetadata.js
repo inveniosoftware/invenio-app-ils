@@ -39,7 +39,7 @@ export default class ItemMetadata extends Component {
               <CreateNewLoanModal
                 itemPid={item.metadata.item_pid}
                 active={
-                  !invenioConfig.items.loanActiveStates.includes(
+                  !invenioConfig.circulation.loanActiveStates.includes(
                     item.metadata.circulation_status.state
                   )
                 }

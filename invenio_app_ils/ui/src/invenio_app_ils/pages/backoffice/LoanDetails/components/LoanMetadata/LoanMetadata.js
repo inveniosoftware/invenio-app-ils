@@ -15,7 +15,7 @@ export default class LoanMetadata extends Component {
     this.assignItemToLoan = props.assignItemToLoan;
   }
 
-  showAvailableItems = newState => {
+  showAvailableItems = (newState = true) => {
     this.setState({ isAvailableItemsVisible: newState });
   };
 
@@ -88,7 +88,8 @@ export default class LoanMetadata extends Component {
         {data.item && (
           <ItemMetadata
             item={data.item}
-            showAvailableItems={this.showAvailableItems}
+            loanState={data.state}
+            changeItemClickHandler={this.showAvailableItems}
           />
         )}
         {this.state.isAvailableItemsVisible && data.item && <Divider />}

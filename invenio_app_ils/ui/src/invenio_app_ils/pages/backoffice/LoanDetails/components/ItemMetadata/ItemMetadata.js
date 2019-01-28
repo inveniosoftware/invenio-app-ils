@@ -8,26 +8,29 @@ import {
   Icon,
   Table,
 } from 'semantic-ui-react';
+import { invenioConfig } from '../../../../../common/config';
 
 import './ItemMetadata.scss';
 
 export default class ItemMetadata extends Component {
   render() {
-    const { item } = this.props;
+    const { item, loanState, changeItemClickHandler } = this.props;
     return (
       <Grid className="item-metadata" padded columns={2}>
         <Grid.Column width={16}>
           <Header as="h1">
             Item - {item.barcode}
-            <Button
-              primary
-              floated="right"
-              size="small"
-              onClick={() => this.props.showAvailableItems(true)}
-            >
-              <Icon name="exchange" />
-              change item
-            </Button>
+            {invenioConfig.circulation.loanActiveStates.includes(loanState) && (
+              <Button
+                primary
+                floated="right"
+                size="small"
+                onClick={() => changeItemClickHandler()}
+              >
+                <Icon name="exchange" />
+                change item
+              </Button>
+            )}
           </Header>
         </Grid.Column>
 
@@ -36,7 +39,7 @@ export default class ItemMetadata extends Component {
             <Table.Body>
               <Table.Row>
                 <Table.Cell>Document ID</Table.Cell>
-                <Table.Cell>{item.document.document_pid}</Table.Cell>
+                <Table.Cell>{item.document_pid}</Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell width={4}>Item ID</Table.Cell>
@@ -83,4 +86,5 @@ export default class ItemMetadata extends Component {
 
 ItemMetadata.propTypes = {
   item: PropTypes.object.isRequired,
+  changeItemClickHandler: PropTypes.func.isRequired,
 };

@@ -31,6 +31,6 @@ MetadataTable.propTypes = {
 };
 
 MetadataTable.defaultProps = {
-  labelWidth: 3,
+  labelWidth: 4,
   dataColumnWidth: 12,
 };
