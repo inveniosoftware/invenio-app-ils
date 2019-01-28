@@ -9,14 +9,25 @@
 
 import jsonresolver
 from invenio_circulation.api import get_loan_for_item
+from werkzeug.routing import Rule
 
 
-@jsonresolver.route(
-    "/api/resolver/circulation/items/<pid_value>/loan", host="127.0.0.1:5000"
-)
-def loan_for_item_resolver(pid_value):
-    """Return the circulation status for the given item."""
-    loan = get_loan_for_item(pid_value) or {}
-    if loan.get("item"):
-        del loan["item"]
-    return loan
+@jsonresolver.hookimpl
+def jsonresolver_loader(url_map):
+    """Resolve the loan for item record."""
+    from flask import current_app
+
+    def _loan_for_item_resolver(pid_value):
+        """Return the loan for the given item."""
+        loan = get_loan_for_item(pid_value) or {}
+        if loan.get("item"):
+            del loan["item"]
+        return loan
+
+    url_map.add(
+        Rule(
+            "/api/resolver/circulation/items/<pid_value>/loan",
+            endpoint=_loan_for_item_resolver,
+            host=current_app.config.get("JSONSCHEMAS_HOST"),
+        )
+    )

@@ -9,7 +9,7 @@
 
 from __future__ import absolute_import, print_function
 
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from celery import shared_task
 from flask import current_app
@@ -55,11 +55,13 @@ class ItemIndexer(RecordIndexer):
         super(ItemIndexer, self).index(item)
         index_loans_after_item_indexed.apply_async(
             (item[Item.pid_field],),
-            eta=datetime.utcnow() + timedelta(seconds=5),
+            eta=datetime.utcnow()
+            + current_app.config["ILS_INDEXER_TASK_DELAY"],
         )
         index_document_after_item_indexed.apply_async(
             (item[Item.pid_field],),
-            eta=datetime.utcnow() + timedelta(seconds=5),
+            eta=datetime.utcnow()
+            + current_app.config["ILS_INDEXER_TASK_DELAY"],
         )
 
 
@@ -83,7 +85,8 @@ class DocumentIndexer(RecordIndexer):
         super(DocumentIndexer, self).index(document)
         index_item_after_document_indexed.apply_async(
             (document[Document.pid_field],),
-            eta=datetime.utcnow() + timedelta(seconds=5),
+            eta=datetime.utcnow()
+            + current_app.config["ILS_INDEXER_TASK_DELAY"],
         )
 
 
@@ -111,9 +114,11 @@ class LoanIndexer(RecordIndexer):
         super(LoanIndexer, self).index(loan)
         index_item_after_loan_indexed.apply_async(
             (loan.get(Item.pid_field),),
-            eta=datetime.utcnow() + timedelta(seconds=5),
+            eta=datetime.utcnow()
+            + current_app.config["ILS_INDEXER_TASK_DELAY"],
         )
         index_document_after_loan_indexed.apply_async(
             (loan[Document.pid_field],),
-            eta=datetime.utcnow() + timedelta(seconds=5),
+            eta=datetime.utcnow()
+            + current_app.config["ILS_INDEXER_TASK_DELAY"],
         )
