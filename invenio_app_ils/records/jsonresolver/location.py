@@ -8,20 +8,31 @@
 """Ils Location record resolver."""
 
 import jsonresolver
-from flask import current_app
 from invenio_pidstore.errors import PersistentIdentifierError
+from werkzeug.routing import Rule
 
 from ..api import Location
 
 
-@jsonresolver.route(
-    "/api/resolver/locations/<pid_value>", host="127.0.0.1:5000"
-)
-def location_resolver(pid_value):
-    """Return the location record for the given pid or raise exception."""
-    location = {}
-    try:
-        location = Location.get_record_by_pid(pid_value)
-    except PersistentIdentifierError as ex:
-        current_app.logger.error(ex)
-    return location
+@jsonresolver.hookimpl
+def jsonresolver_loader(url_map):
+    """Resolve the location for internal location record."""
+    from flask import current_app
+
+
+    def _location_resolver(loc_pid):
+        """Return the location record for the given pid or raise exception."""
+        location = {}
+        try:
+            location = Location.get_record_by_pid(loc_pid)
+        except PersistentIdentifierError as ex:
+            current_app.logger.error(ex)
+        return location
+
+    url_map.add(
+        Rule(
+            "/api/resolver/locations/<loc_pid>",
+            endpoint=_location_resolver,
+            host=current_app.config.get("JSONSCHEMAS_HOST"),
+        )
+    )

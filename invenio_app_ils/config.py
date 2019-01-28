@@ -557,6 +557,9 @@ PIDSTORE_RECID_FIELD = Item.pid_field
 ILS_VIEWS_PERMISSIONS_FACTORY = views_permissions_factory
 """Permissions factory for ILS views to handle all ILS actions."""
 
+ILS_INDEXER_TASK_DELAY = timedelta(seconds=5)
+"""Time delay that indexers spawning their asynchronous celery tasks."""
+
 # Records Editor
 # ==============
 RECORDS_EDITOR_URL_PREFIX = "/editor"
