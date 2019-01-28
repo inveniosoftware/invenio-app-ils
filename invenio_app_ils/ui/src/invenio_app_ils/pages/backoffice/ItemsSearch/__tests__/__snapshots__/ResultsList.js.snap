@@ -33,12 +33,12 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
     rows={
       Array [
         Object {
-          "Created": "2018-01-01T10:05:00.000Z",
+          "Created": "1/1/2018",
           "Document ID": 1342,
           "ID": 987,
           "Internal location": "A library",
           "Status": "IN_BINDING",
-          "Updated": undefined,
+          "Updated": "",
         },
       ]
     }
@@ -219,12 +219,12 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
               rows={
                 Array [
                   Object {
-                    "Created": "2018-01-01T10:05:00.000Z",
+                    "Created": "1/1/2018",
                     "Document ID": 1342,
                     "ID": 987,
                     "Internal location": "A library",
                     "Status": "IN_BINDING",
-                    "Updated": undefined,
+                    "Updated": "",
                   },
                 ]
               }
@@ -334,7 +334,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                           className=""
                           data-test="Created-987"
                         >
-                          2018-01-01T10:05:00.000Z
+                          1/1/2018
                         </td>
                       </TableCell>
                       <TableCell

@@ -62,13 +62,13 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
     rows={
       Array [
         Object {
-          "Created": "2018-01-01T10:05:00.000Z",
+          "Created": "1/1/2018",
           "Document ID": undefined,
           "ID": 3,
           "Item ID": undefined,
           "Patron ID": 1,
           "State": "ITEM_ON_LOAN",
-          "Transaction date": undefined,
+          "Transaction date": "",
         },
       ]
     }
@@ -264,13 +264,13 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
               rows={
                 Array [
                   Object {
-                    "Created": "2018-01-01T10:05:00.000Z",
+                    "Created": "1/1/2018",
                     "Document ID": undefined,
                     "ID": 3,
                     "Item ID": undefined,
                     "Patron ID": 1,
                     "State": "ITEM_ON_LOAN",
-                    "Transaction date": undefined,
+                    "Transaction date": "",
                   },
                 ]
               }
@@ -392,7 +392,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                           className=""
                           data-test="Created-3"
                         >
-                          2018-01-01T10:05:00.000Z
+                          1/1/2018
                         </td>
                       </TableCell>
                       <TableCell

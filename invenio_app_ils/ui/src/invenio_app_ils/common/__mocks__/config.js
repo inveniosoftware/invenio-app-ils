@@ -8,7 +8,6 @@ export const invenioConfig = {
       sortOrder: [],
       aggs: [],
     },
-    loanActiveStates: [],
   },
   loans: {
     search: {
@@ -19,5 +18,9 @@ export const invenioConfig = {
       sortOrder: [],
       aggs: [],
     },
+  },
+  circulation: {
+    loanActiveStates: [],
+    loanCompletedStates: [],
   },
 };
