@@ -30,7 +30,8 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
   viewDetailsClickHandler={[Function]}
 >
   <ResultsTable
-    detailsClickHandler={[Function]}
+    actionClickHandler={[Function]}
+    actionComponent={null}
     name="All items"
     rows={
       Array [
@@ -207,6 +208,8 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
               </TableHeader>
             </ResultsTableHeader>
             <ResultsTableBody
+              actionClickHandler={[Function]}
+              actionComponent={null}
               columns={
                 Array [
                   "ID",
@@ -217,7 +220,6 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                   "Updated",
                 ]
               }
-              detailsClickHandler={[Function]}
               rows={
                 Array [
                   Object {

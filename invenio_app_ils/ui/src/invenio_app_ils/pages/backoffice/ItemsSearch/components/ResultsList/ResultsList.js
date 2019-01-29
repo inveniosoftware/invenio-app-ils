@@ -29,7 +29,7 @@ export class ResultsList extends Component {
       <ResultsTable
         rows={rows}
         name={'All items'}
-        detailsClickHandler={this.viewDetailsClickHandler}
+        actionClickHandler={this.viewDetailsClickHandler}
       />
     ) : null;
   }

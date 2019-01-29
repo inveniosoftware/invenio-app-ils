@@ -51,7 +51,7 @@ export default class PatronLoans extends Component {
           <ResultsTable
             rows={rows}
             name={"User's loan requests"}
-            detailsClickHandler={this._showDetailsHandler}
+            actionClickHandler={this._showDetailsHandler}
             showAllClickHandler={{
               handler: this._showAllHandler,
               params: this.props.patron,

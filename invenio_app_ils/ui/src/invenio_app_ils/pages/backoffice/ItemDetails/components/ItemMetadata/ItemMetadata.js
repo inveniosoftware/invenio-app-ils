@@ -30,7 +30,10 @@ export default class ItemMetadata extends Component {
                 floated="right"
                 size="small"
                 onClick={() =>
-                  window.open(`/editor?url=${item.links.self}`, item.links.self)
+                  window.open(
+                    `${invenioConfig.editor.url}url=${item.links.self}`,
+                    item.links.self
+                  )
                 }
               >
                 <Icon name="edit" />

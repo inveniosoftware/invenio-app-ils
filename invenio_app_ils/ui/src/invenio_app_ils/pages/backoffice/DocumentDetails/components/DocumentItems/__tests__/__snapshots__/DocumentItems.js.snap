@@ -6,7 +6,8 @@ exports[`DocumentItems tests should load the DocumentItems component 1`] = `
     error={null}
   >
     <ResultsTable
-      detailsClickHandler={[Function]}
+      actionClickHandler={[Function]}
+      actionComponent={null}
       name="Attached items"
       rows={Array []}
       showAllClickHandler={
@@ -57,7 +58,8 @@ exports[`DocumentItems tests should render item 1`] = `
       error={null}
     >
       <ResultsTable
-        detailsClickHandler={[Function]}
+        actionClickHandler={[Function]}
+        actionComponent={null}
         name="Attached items"
         rows={
           Array [
@@ -266,6 +268,8 @@ exports[`DocumentItems tests should render item 1`] = `
                   </TableHeader>
                 </ResultsTableHeader>
                 <ResultsTableBody
+                  actionClickHandler={[Function]}
+                  actionComponent={null}
                   columns={
                     Array [
                       "ID",
@@ -277,7 +281,6 @@ exports[`DocumentItems tests should render item 1`] = `
                       "Shelf",
                     ]
                   }
-                  detailsClickHandler={[Function]}
                   rows={
                     Array [
                       Object {
@@ -606,7 +609,8 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
       error={null}
     >
       <ResultsTable
-        detailsClickHandler={[Function]}
+        actionClickHandler={[Function]}
+        actionComponent={null}
         name="Attached items"
         rows={Array []}
         showAllClickHandler={
@@ -685,7 +689,8 @@ exports[`DocumentItems tests should render the show all button when showing only
       error={null}
     >
       <ResultsTable
-        detailsClickHandler={[Function]}
+        actionClickHandler={[Function]}
+        actionComponent={null}
         name="Attached items"
         rows={
           Array [
@@ -894,6 +899,8 @@ exports[`DocumentItems tests should render the show all button when showing only
                   </TableHeader>
                 </ResultsTableHeader>
                 <ResultsTableBody
+                  actionClickHandler={[Function]}
+                  actionComponent={null}
                   columns={
                     Array [
                       "ID",
@@ -905,7 +912,6 @@ exports[`DocumentItems tests should render the show all button when showing only
                       "Shelf",
                     ]
                   }
-                  detailsClickHandler={[Function]}
                   rows={
                     Array [
                       Object {

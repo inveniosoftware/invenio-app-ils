@@ -18,7 +18,8 @@ exports[`ResultsTable tests should load the ResultTable component 1`] = `
 
 exports[`ResultsTable tests should not render the show all button when showing only a few rows 1`] = `
 <ResultsTable
-  detailsClickHandler={[Function]}
+  actionClickHandler={[Function]}
+  actionComponent={null}
   history={[Function]}
   name="results"
   rows={
@@ -187,6 +188,8 @@ exports[`ResultsTable tests should not render the show all button when showing o
             </TableHeader>
           </ResultsTableHeader>
           <ResultsTableBody
+            actionClickHandler={[Function]}
+            actionComponent={null}
             columns={
               Array [
                 "ID",
@@ -196,7 +199,6 @@ exports[`ResultsTable tests should not render the show all button when showing o
                 "end_date",
               ]
             }
-            detailsClickHandler={[Function]}
             rows={
               Array [
                 Object {
@@ -448,7 +450,8 @@ exports[`ResultsTable tests should not render the show all button when showing o
 
 exports[`ResultsTable tests should render the show all button when showing only a few rows 1`] = `
 <ResultsTable
-  detailsClickHandler={[Function]}
+  actionClickHandler={[Function]}
+  actionComponent={null}
   history={[Function]}
   name="results"
   rows={
@@ -640,6 +643,8 @@ exports[`ResultsTable tests should render the show all button when showing only 
             </TableHeader>
           </ResultsTableHeader>
           <ResultsTableBody
+            actionClickHandler={[Function]}
+            actionComponent={null}
             columns={
               Array [
                 "loan_pid",
@@ -650,7 +655,6 @@ exports[`ResultsTable tests should render the show all button when showing only 
                 "end_date",
               ]
             }
-            detailsClickHandler={[Function]}
             rows={
               Array [
                 Object {

@@ -8,8 +8,9 @@ import ResultsTableFooter from './ResultsTableFooter';
 export class ResultsTable extends Component {
   constructor(props) {
     super(props);
-    this.detailsClickHandler = this.props.detailsClickHandler;
+    this.actionClickHandler = this.props.actionClickHandler;
     this.showAllClickHandler = this.props.showAllClickHandler;
+    this.actionComponent = this.props.actionComponent;
   }
 
   _renderTable = () => {
@@ -21,7 +22,8 @@ export class ResultsTable extends Component {
         <ResultsTableBody
           columns={columns}
           rows={rows.slice(0, showMaxRows)}
-          detailsClickHandler={this.detailsClickHandler}
+          actionClickHandler={this.actionClickHandler}
+          actionComponent={this.actionComponent}
         />
         <ResultsTableFooter
           allRowsNumber={rows.length}
@@ -58,11 +60,13 @@ ResultsTable.propTypes = {
   rows: PropTypes.array.isRequired,
   showMaxRows: PropTypes.number,
   name: PropTypes.string,
-  detailsClickHandler: PropTypes.func.isRequired,
+  actionClickHandler: PropTypes.func.isRequired,
   showAllClickHandler: PropTypes.object,
+  actionComponent: PropTypes.Component,
 };
 
 ResultsTable.defaultProps = {
   showMaxRows: 10,
   name: 'results',
+  actionComponent: null,
 };

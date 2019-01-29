@@ -6,7 +6,8 @@ exports[`ItemPastLoans tests should load the past loans component 1`] = `
     error={null}
   >
     <ResultsTable
-      detailsClickHandler={[Function]}
+      actionClickHandler={[Function]}
+      actionComponent={null}
       name="Loans history"
       rows={Array []}
       showAllClickHandler={
@@ -60,7 +61,8 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
       error={null}
     >
       <ResultsTable
-        detailsClickHandler={[Function]}
+        actionClickHandler={[Function]}
+        actionComponent={null}
         name="Loans history"
         rows={
           Array [
@@ -215,6 +217,8 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                   </TableHeader>
                 </ResultsTableHeader>
                 <ResultsTableBody
+                  actionClickHandler={[Function]}
+                  actionComponent={null}
                   columns={
                     Array [
                       "ID",
@@ -223,7 +227,6 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       "State",
                     ]
                   }
-                  detailsClickHandler={[Function]}
                   rows={
                     Array [
                       Object {
@@ -475,7 +478,8 @@ exports[`ItemPastLoans tests should render show a message with no past loans 1`]
       error={null}
     >
       <ResultsTable
-        detailsClickHandler={[Function]}
+        actionClickHandler={[Function]}
+        actionComponent={null}
         name="Loans history"
         rows={Array []}
         showAllClickHandler={
