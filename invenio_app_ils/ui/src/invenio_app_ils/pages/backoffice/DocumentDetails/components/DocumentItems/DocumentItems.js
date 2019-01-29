@@ -55,7 +55,7 @@ export default class DocumentItems extends Component {
           <ResultsTable
             rows={rows}
             name={'Attached items'}
-            detailsClickHandler={this._showDetailsHandler}
+            actionClickHandler={this._showDetailsHandler}
             showAllClickHandler={{
               handler: this._showAllHandler,
               params: null,

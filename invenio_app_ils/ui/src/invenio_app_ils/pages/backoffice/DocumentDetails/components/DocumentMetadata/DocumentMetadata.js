@@ -9,10 +9,11 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { MetadataTable } from '../../../components/MetadataTable';
+import { invenioConfig } from '../../../../../common/config';
 
 export default class DocumentMetadata extends Component {
   openEditor(url) {
-    window.open(`/editor?url=${url}`, url);
+    window.open(`${invenioConfig.editor.url}?url=${url}`, url);
   }
 
   render() {

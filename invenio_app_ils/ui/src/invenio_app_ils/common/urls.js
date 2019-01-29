@@ -14,6 +14,7 @@ export const BackOfficeURLS = {
   loansSearch: `${BackOfficeBase}/loans`,
   loanDetails: `${BackOfficeBase}/loans/:loanPid`,
   patronDetails: `${BackOfficeBase}/users/:userPid`,
+  locationList: `${BackOfficeBase}/locations`,
 };
 
 export const viewLoanDetailsUrl = loanPid => {

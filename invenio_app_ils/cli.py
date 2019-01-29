@@ -32,8 +32,8 @@ from .pidstore.pids import (  # isort:skip
 LOCATION = {
     Location.pid_field: "1",
     "name": "Central Library",
-    "address": "",
-    "email": "",
+    "address": "Rue de Meyrin",
+    "email": "library@cern.ch",
 }
 
 ITEM_CIRCULATION_RESTRICTIONS = [None, "FOR_REFERENCE_ONLY"]

@@ -6,7 +6,8 @@ exports[`LoansSearch ResultsList tests should not render when empty results 1`] 
   viewDetailsClickHandler={[Function]}
 >
   <ResultsTable
-    detailsClickHandler={[Function]}
+    actionClickHandler={[Function]}
+    actionComponent={null}
     name=""
     rows={Array []}
     showMaxRows={10}
@@ -57,7 +58,8 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
   viewDetailsClickHandler={[Function]}
 >
   <ResultsTable
-    detailsClickHandler={[Function]}
+    actionClickHandler={[Function]}
+    actionComponent={null}
     name=""
     rows={
       Array [
@@ -249,6 +251,8 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
               </TableHeader>
             </ResultsTableHeader>
             <ResultsTableBody
+              actionClickHandler={[Function]}
+              actionComponent={null}
               columns={
                 Array [
                   "ID",
@@ -260,7 +264,6 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                   "Transaction date",
                 ]
               }
-              detailsClickHandler={[Function]}
               rows={
                 Array [
                   Object {

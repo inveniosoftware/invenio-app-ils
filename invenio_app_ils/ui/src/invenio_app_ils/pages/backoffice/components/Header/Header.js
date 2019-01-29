@@ -15,6 +15,8 @@ class Header extends Component {
       activePath && activePath.indexOf(BackOfficeURLS.itemsSearch) > -1;
     const loansActive =
       activePath && activePath.indexOf(BackOfficeURLS.loansSearch) > -1;
+    const locationsActive =
+      activePath && activePath.indexOf(BackOfficeURLS.locationList) > -1;
     return (
       <Segment inverted vertical className="header">
         <Grid verticalAlign="middle">
@@ -42,6 +44,13 @@ class Header extends Component {
                   onClick={(e, { location }) => this.goTo(location)}
                 >
                   Loans
+                </Menu.Item>
+                <Menu.Item
+                  location={BackOfficeURLS.locationList}
+                  active={locationsActive}
+                  onClick={(e, { location }) => this.goTo(location)}
+                >
+                  Locations
                 </Menu.Item>
               </Menu>
             </Grid.Column>

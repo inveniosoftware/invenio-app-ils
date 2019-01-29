@@ -52,7 +52,7 @@ export default class DocumentPendingLoans extends Component {
           <ResultsTable
             rows={rows}
             name={'Pending loans requests'}
-            detailsClickHandler={this._showDetailsHandler}
+            actionClickHandler={this._showDetailsHandler}
             showAllClickHandler={{
               handler: this._showAllHandler,
               params: null,

@@ -59,7 +59,7 @@ export default class ItemPastLoans extends Component {
           <ResultsTable
             rows={rows}
             name={'Loans history'}
-            detailsClickHandler={this._showDetailsHandler}
+            actionClickHandler={this._showDetailsHandler}
             showAllClickHandler={{
               handler: this._showAllHandler,
               params: null,

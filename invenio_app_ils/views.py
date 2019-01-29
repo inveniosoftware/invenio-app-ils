@@ -37,9 +37,7 @@ def _get_items_ui_config():
                 "sortOrder": ["asc", "desc"],
                 "aggs": [],
             },
-            "available": {
-                "status": "LOANABLE"
-            }
+            "available": {"status": "LOANABLE"},
         }
     }
     items_index = ItemSearch.Meta.index
@@ -62,8 +60,11 @@ def _get_items_ui_config():
     if "mostrecent" in items_sort:
         ui_config["items"]["search"]["sortBy"]["onEmptyQuery"] = "mostrecent"
 
-    items_aggs = current_app.config.get("RECORDS_REST_FACETS", {}).get(
-        items_index, {}).get("aggs", {})
+    items_aggs = (
+        current_app.config.get("RECORDS_REST_FACETS", {})
+        .get(items_index, {})
+        .get("aggs", {})
+    )
     ui_config["items"]["search"]["aggs"] = list(items_aggs.keys())
     return ui_config
 
@@ -78,10 +79,7 @@ def _get_loans_ui_config():
                 "aggs": [],
             }
         },
-        "circulation": {
-            "loanActiveStates": [],
-            "loanCompletedStates": [],
-        }
+        "circulation": {"loanActiveStates": [], "loanCompletedStates": []},
     }
     loans_index = LoansSearch.Meta.index
 
@@ -111,9 +109,11 @@ def _get_loans_ui_config():
     ui_config["loans"]["search"]["aggs"] = list(loans_aggs.keys())
 
     ui_config["circulation"]["loanActiveStates"] = current_app.config.get(
-        "CIRCULATION_STATES_LOAN_ACTIVE", [])
+        "CIRCULATION_STATES_LOAN_ACTIVE", []
+    )
     ui_config["circulation"]["loanCompletedStates"] = current_app.config.get(
-        "CIRCULATION_STATES_LOAN_COMPLETED", [])
+        "CIRCULATION_STATES_LOAN_COMPLETED", []
+    )
     return ui_config
 
 
@@ -129,5 +129,8 @@ def index(path=None):
     """UI base view."""
     ui_config = _get_items_ui_config()
     ui_config.update(_get_loans_ui_config())
+    ui_config.update(
+        {"editor": {"url": current_app.config["RECORDS_EDITOR_URL_PREFIX"]}}
+    )
 
     return render_template("invenio_app_ils/index.html", ui_config=ui_config)

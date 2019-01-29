@@ -5,7 +5,7 @@ import { Button, Table } from 'semantic-ui-react';
 export default class ResultsTableBody extends Component {
   constructor(props) {
     super(props);
-    this.detailsClickHandler = this.props.detailsClickHandler;
+    this.actionClickHandler = this.props.actionClickHandler;
   }
 
   _renderCell = (cell, column, id, col_index) => {
@@ -17,17 +17,31 @@ export default class ResultsTableBody extends Component {
   };
 
   _renderRow = (columns, rows) => {
+    const RowActionComponent = this.props.actionComponent
+      ? props =>
+          React.cloneElement(this.props.actionComponent, {
+            onClick: props.actionClickHandler,
+          })
+      : null;
     return rows.map(row => (
       <Table.Row key={row.ID} data-test={row.ID}>
         <Table.Cell key="details" textAlign="center">
-          <Button
-            circular
-            compact
-            icon="eye"
-            onClick={() => {
-              this.detailsClickHandler(row.ID);
-            }}
-          />
+          {this.props.actionComponent ? (
+            <RowActionComponent
+              actionClickHandler={() => {
+                this.actionClickHandler(row.ID);
+              }}
+            />
+          ) : (
+            <Button
+              circular
+              compact
+              icon="eye"
+              onClick={() => {
+                this.actionClickHandler(row.ID);
+              }}
+            />
+          )}
         </Table.Cell>
         {columns.map((column, idx) =>
           this._renderCell(row[column] ? row[column] : '-', column, row.ID, idx)
@@ -47,5 +61,5 @@ export default class ResultsTableBody extends Component {
 
 ResultsTableBody.propTypes = {
   columns: PropTypes.array.isRequired,
-  detailsClickHandler: PropTypes.func.isRequired,
+  actionClickHandler: PropTypes.func.isRequired,
 };

@@ -22,7 +22,7 @@ describe('ResultsTable tests', () => {
         history={() => {}}
         rows={[]}
         showAllClickHandler={{}}
-        detailsClickHandler={() => {}}
+        actionClickHandler={() => {}}
       />
     );
     expect(component).toMatchSnapshot();
@@ -58,7 +58,7 @@ describe('ResultsTable tests', () => {
           handler: mockedShowAllClickHandler,
           params: 3,
         }}
-        detailsClickHandler={() => {}}
+        actionClickHandler={() => {}}
         showMaxRows={1}
       />
     );
@@ -95,7 +95,7 @@ describe('ResultsTable tests', () => {
         history={() => {}}
         rows={data}
         showAllClickHandler={{}}
-        detailsClickHandler={() => {}}
+        actionClickHandler={() => {}}
         showMaxRows={3}
       />
     );
@@ -131,7 +131,7 @@ describe('ResultsTable tests', () => {
       <ResultsTable
         rows={results}
         showAllClickHandler={{}}
-        detailsClickHandler={mockedClickHandler}
+        actionClickHandler={mockedClickHandler}
       />
     );
     const firstId = results[0].ID;
@@ -172,7 +172,7 @@ describe('ResultsTable tests', () => {
           handler: mockedShowAllClickHandler,
           params: 3,
         }}
-        detailsClickHandler={mockedClickHandler}
+        actionClickHandler={mockedClickHandler}
       />
     );
     const button = component.find('TableFooter').find('button');

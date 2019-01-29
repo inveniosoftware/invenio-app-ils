@@ -17,6 +17,10 @@ import { loanDetailsReducer } from './pages/backoffice/LoanDetails/reducer';
 import { userDetailsReducer } from './pages/backoffice/UserDetails/reducer';
 import { patronLoansReducer } from './pages/backoffice/UserDetails/components/PatronLoans/reducer';
 import { userSessionReducer } from './common/components/UserSession/reducer';
+import {
+  locationListReducer,
+  internalLocationListReducer,
+} from './pages/backoffice/LocationList/reducer';
 
 const rootReducer = combineReducers({
   userSession: userSessionReducer,
@@ -30,6 +34,8 @@ const rootReducer = combineReducers({
   userDetails: userDetailsReducer,
   patronLoans: patronLoansReducer,
   availableItems: availableItemsReducer,
+  locations: locationListReducer,
+  internalLocations: internalLocationListReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

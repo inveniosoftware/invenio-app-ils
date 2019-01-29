@@ -6,7 +6,8 @@ exports[`ItemPendingLoans tests should load the details component 1`] = `
     error={null}
   >
     <ResultsTable
-      detailsClickHandler={[Function]}
+      actionClickHandler={[Function]}
+      actionComponent={null}
       name="Pending loans requests"
       rows={Array []}
       showAllClickHandler={
@@ -58,7 +59,8 @@ exports[`ItemPendingLoans tests should render pending loans 1`] = `
       error={null}
     >
       <ResultsTable
-        detailsClickHandler={[Function]}
+        actionClickHandler={[Function]}
+        actionComponent={null}
         name="Pending loans requests"
         rows={
           Array [
@@ -195,6 +197,8 @@ exports[`ItemPendingLoans tests should render pending loans 1`] = `
                   </TableHeader>
                 </ResultsTableHeader>
                 <ResultsTableBody
+                  actionClickHandler={[Function]}
+                  actionComponent={null}
                   columns={
                     Array [
                       "ID",
@@ -202,7 +206,6 @@ exports[`ItemPendingLoans tests should render pending loans 1`] = `
                       "Request created",
                     ]
                   }
-                  detailsClickHandler={[Function]}
                   rows={
                     Array [
                       Object {
@@ -428,7 +431,8 @@ exports[`ItemPendingLoans tests should render show a message with no pending loa
       error={null}
     >
       <ResultsTable
-        detailsClickHandler={[Function]}
+        actionClickHandler={[Function]}
+        actionComponent={null}
         name="Pending loans requests"
         rows={Array []}
         showAllClickHandler={
@@ -508,7 +512,8 @@ exports[`ItemPendingLoans tests should render the show all button when showing o
       error={null}
     >
       <ResultsTable
-        detailsClickHandler={[Function]}
+        actionClickHandler={[Function]}
+        actionComponent={null}
         name="Pending loans requests"
         rows={
           Array [
@@ -645,6 +650,8 @@ exports[`ItemPendingLoans tests should render the show all button when showing o
                   </TableHeader>
                 </ResultsTableHeader>
                 <ResultsTableBody
+                  actionClickHandler={[Function]}
+                  actionComponent={null}
                   columns={
                     Array [
                       "ID",
@@ -652,7 +659,6 @@ exports[`ItemPendingLoans tests should render the show all button when showing o
                       "Request created",
                     ]
                   }
-                  detailsClickHandler={[Function]}
                   rows={
                     Array [
                       Object {
