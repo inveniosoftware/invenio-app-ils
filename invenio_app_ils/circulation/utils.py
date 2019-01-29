@@ -35,10 +35,12 @@ def circulation_items_retriever(document_pid):
 
 
 def circulation_document_retriever(item_pid):
-    """Retrieve items given a document."""
+    """Retrieves document given an item."""
     item = Item.get_record_by_pid(item_pid)
     item = item.replace_refs()
-    return item["document"]["document_pid"]
+    if item.get("document") and item["document"].get("document_pid"):
+        return item["document"]["document_pid"]
+    return ""
 
 
 def circulation_item_location_retriever(item_pid):

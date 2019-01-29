@@ -110,12 +110,12 @@ class LoanIndexer(RecordIndexer):
         """Index a loan."""
         super(LoanIndexer, self).index(loan)
         index_item_after_loan_indexed.apply_async(
-            (loan.get(Item.pid_field),),
+            (loan.get(Item.pid_field, ""),),
             eta=datetime.utcnow()
             + current_app.config["ILS_INDEXER_TASK_DELAY"],
         )
         index_document_after_loan_indexed.apply_async(
-            (loan[Document.pid_field],),
+            (loan.get(Document.pid_field, ""),),
             eta=datetime.utcnow()
             + current_app.config["ILS_INDEXER_TASK_DELAY"],
         )
