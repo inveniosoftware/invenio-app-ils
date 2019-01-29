@@ -15,7 +15,9 @@ describe('ItemsSearch ResultsList tests', () => {
       created: toISO(d),
       metadata: {
         barcode: '9865745223',
-        document_pid: 1342,
+        document: {
+          document_pid: 1342,
+        },
         status: 'IN_BINDING',
         internal_location: {
           name: 'A library',

@@ -16,7 +16,9 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
         "id": 987,
         "metadata": Object {
           "barcode": "9865745223",
-          "document_pid": 1342,
+          "document": Object {
+            "document_pid": 1342,
+          },
           "internal_location": Object {
             "name": "A library",
           },

@@ -85,7 +85,7 @@ export default class ItemMetadata extends Component {
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Document</Table.Cell>
-                  <Table.Cell>{item.metadata.document_pid}</Table.Cell>
+                  <Table.Cell>{item.metadata.document.document_pid}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Library</Table.Cell>
