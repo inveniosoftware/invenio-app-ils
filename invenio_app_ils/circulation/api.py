@@ -14,6 +14,8 @@ from invenio_circulation.errors import CirculationException
 from invenio_circulation.pidstore.minters import loan_pid_minter
 from invenio_circulation.proxies import current_circulation
 
+from invenio_app_ils.circulation.utils import circulation_document_retriever
+
 
 def request_loan(params):
     """Create a loan and trigger the first transition to create a request."""
@@ -51,6 +53,10 @@ def create_loan(params):
         raise CirculationException(
             "Patron has already a request or active loan on this item.")
 
+    if "document_pid" not in params:
+        document_pid = circulation_document_retriever(params["item_pid"])
+        if document_pid:
+            params["document_pid"] = document_pid
     # create a new loan
     record_uuid = uuid.uuid4()
     new_loan = {}
