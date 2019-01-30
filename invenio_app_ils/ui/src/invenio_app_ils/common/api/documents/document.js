@@ -1,4 +1,4 @@
-import { http } from './base';
+import { http } from '../base';
 
 const documentURL = '/documents/';
 

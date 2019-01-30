@@ -21,7 +21,7 @@ const mockResponse = {
 };
 
 const mockFetchPastOnDocumentItem = jest.fn();
-loanApi.fetchLoans = mockFetchPastOnDocumentItem;
+loanApi.list = mockFetchPastOnDocumentItem;
 
 let store;
 
@@ -43,13 +43,7 @@ describe('Past loans tests', () => {
 
       store.dispatch(actions.fetchPastLoans('123', '456')).then(() => {
         expect(mockFetchPastOnDocumentItem).toHaveBeenCalledWith(
-          '123',
-          '456',
-          null,
-          null,
-          null,
-          'state:ITEM_RETURNED OR state:CANCELLED',
-          null
+          'document_pid:123 AND item_pid:456 AND state:(ITEM_RETURNED OR CANCELLED)'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
@@ -67,13 +61,7 @@ describe('Past loans tests', () => {
 
       store.dispatch(actions.fetchPastLoans('123', '456')).then(() => {
         expect(mockFetchPastOnDocumentItem).toHaveBeenCalledWith(
-          '123',
-          '456',
-          null,
-          null,
-          null,
-          'state:ITEM_RETURNED OR state:CANCELLED',
-          null
+          'document_pid:123 AND item_pid:456 AND state:(ITEM_RETURNED OR CANCELLED)'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -91,13 +79,7 @@ describe('Past loans tests', () => {
 
       store.dispatch(actions.fetchPastLoans('123', '456')).then(() => {
         expect(mockFetchPastOnDocumentItem).toHaveBeenCalledWith(
-          '123',
-          '456',
-          null,
-          null,
-          null,
-          'state:ITEM_RETURNED OR state:CANCELLED',
-          null
+          'document_pid:123 AND item_pid:456 AND state:(ITEM_RETURNED OR CANCELLED)'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);

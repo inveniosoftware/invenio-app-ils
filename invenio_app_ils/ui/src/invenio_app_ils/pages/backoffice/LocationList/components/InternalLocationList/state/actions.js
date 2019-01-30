@@ -1,14 +1,13 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { location } from '../../../../../../common/api';
+import { internalLocation as internalLocationApi } from '../../../../../../common/api';
 
 export const fetchInternalLocations = () => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
-
-    await location
-      .fetchInternalLocations()
+    await internalLocationApi
+      .list()
       .then(response => {
         dispatch({
           type: SUCCESS,

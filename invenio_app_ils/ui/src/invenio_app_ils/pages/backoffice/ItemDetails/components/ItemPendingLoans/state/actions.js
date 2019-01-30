@@ -14,18 +14,14 @@ export const fetchPendingLoans = (documentPid, itemPid) => {
       type: IS_LOADING,
     });
 
-    const sortBy = getState().itemPendingLoans.sortBy;
-    const sortOrder = getState().itemPendingLoans.sortOrder;
-
     await loanApi
-      .fetchLoans(
-        documentPid,
-        itemPid,
-        sortBy,
-        sortOrder,
-        null,
-        'state:PENDING',
-        null
+      .list(
+        loanApi
+          .query()
+          .withDocPid(documentPid)
+          .withItemPid(itemPid)
+          .withState('PENDING')
+          .qs()
       )
       .then(response => {
         dispatch({

@@ -1,10 +1,11 @@
-import { document } from './document';
+import { document } from './documents/document';
 import { http } from './base';
-import { item } from './item';
-import { loan } from './loan';
+import { item } from './items/item';
+import { loan } from './loans/loan';
 import { serializeLoan, serializeItem } from './serializers';
 import { user } from './user';
-import { location } from './location';
+import { location } from './locations/location';
+import { internalLocation } from './locations/internalLocation';
 export {
   document,
   http,
@@ -14,4 +15,5 @@ export {
   serializeLoan,
   serializeItem,
   location,
+  internalLocation,
 };

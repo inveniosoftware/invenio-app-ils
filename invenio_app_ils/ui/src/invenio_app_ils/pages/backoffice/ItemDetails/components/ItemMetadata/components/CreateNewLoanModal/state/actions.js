@@ -1,5 +1,5 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR, RESET_STATE } from './types';
-import { loan as loanApi } from '../../../../../../../../common/api/loan';
+import { loan as loanApi } from '../../../../../../../../common/api/loans/loan';
 
 export const createNewLoanForItem = (itemPid, loan) => {
   return async (dispatch, getState) => {

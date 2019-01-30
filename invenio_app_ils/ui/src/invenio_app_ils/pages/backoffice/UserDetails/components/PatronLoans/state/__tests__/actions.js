@@ -20,7 +20,7 @@ const mockResponse = {
 };
 
 const mockFetchUserLoan = jest.fn();
-loanApi.fetchLoans = mockFetchUserLoan;
+loanApi.list = mockFetchUserLoan;
 
 let store;
 beforeEach(() => {
@@ -39,16 +39,8 @@ describe('Patron loans tests', () => {
         type: types.IS_LOADING,
       };
 
-      store.dispatch(actions.fetchPatronLoans(null, null, 'P', 2)).then(() => {
-        expect(mockFetchUserLoan).toHaveBeenCalledWith(
-          null,
-          null,
-          initialState.sortBy,
-          initialState.sortOrder,
-          2,
-          'state:P',
-          null
-        );
+      store.dispatch(actions.fetchPatronLoans(2)).then(() => {
+        expect(mockFetchUserLoan).toHaveBeenCalledWith('patron_pid:2');
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
         done();
@@ -63,16 +55,8 @@ describe('Patron loans tests', () => {
         payload: mockResponse.data.hits.hits.map(hit => serializeLoan(hit)),
       };
 
-      store.dispatch(actions.fetchPatronLoans(null, null, 'P', 2)).then(() => {
-        expect(mockFetchUserLoan).toHaveBeenCalledWith(
-          null,
-          null,
-          initialState.sortBy,
-          initialState.sortOrder,
-          2,
-          'state:P',
-          null
-        );
+      store.dispatch(actions.fetchPatronLoans(2)).then(() => {
+        expect(mockFetchUserLoan).toHaveBeenCalledWith('patron_pid:2');
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
         done();
@@ -87,16 +71,8 @@ describe('Patron loans tests', () => {
         payload: [500, 'Error'],
       };
 
-      store.dispatch(actions.fetchPatronLoans(null, null, 'P', 2)).then(() => {
-        expect(mockFetchUserLoan).toHaveBeenCalledWith(
-          null,
-          null,
-          initialState.sortBy,
-          initialState.sortOrder,
-          2,
-          'state:P',
-          null
-        );
+      store.dispatch(actions.fetchPatronLoans(2)).then(() => {
+        expect(mockFetchUserLoan).toHaveBeenCalledWith('patron_pid:2');
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
         done();

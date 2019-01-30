@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
 import { toString } from '../../../../../common/api/date';
+import { loan as loanApi } from '../../../../../common/api/';
 import './PatronLoans.scss';
 
 import { ResultsTable } from '../../../../../common/components';
 import {
-  showAllLoansUrl,
+  loanSearchQueryUrl,
   viewLoanDetailsUrl,
 } from '../../../../../common/urls';
 
@@ -15,7 +16,7 @@ export default class PatronLoans extends Component {
     super(props);
     this.fetchPatronLoans = props.fetchPatronLoans;
     this.showDetailsUrl = viewLoanDetailsUrl;
-    this.showAllUrl = showAllLoansUrl;
+    this.showAllUrl = loanSearchQueryUrl;
   }
 
   componentDidMount() {
@@ -27,7 +28,14 @@ export default class PatronLoans extends Component {
     this.props.history.push(this.showDetailsUrl(loan_pid));
 
   _showAllHandler = patron_id =>
-    this.props.history.push(this.showAllUrl(null, null, null, patron_id));
+    this.props.history.push(
+      this.showAllUrl(
+        loanApi
+          .query()
+          .withPatronPid(patron_id)
+          .qs()
+      )
+    );
 
   _getFormattedDate = d => (d ? toString(d) : '');
 

@@ -9,7 +9,7 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 const mockGet = jest.fn();
-locationApi.get = mockGet;
+locationApi.list = mockGet;
 
 const response = { data: {} };
 const expectedPayload = {};
