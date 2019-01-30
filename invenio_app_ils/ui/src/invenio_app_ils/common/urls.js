@@ -1,6 +1,4 @@
 import { generatePath } from 'react-router-dom';
-import { loan as loanApi } from './api/loan';
-import { item as itemApi } from './api/item';
 
 export const FrontSiteURLS = {};
 
@@ -23,20 +21,7 @@ export const viewLoanDetailsUrl = loanPid => {
   });
 };
 
-export const showAllLoansUrl = (
-  documentPid,
-  itemPid,
-  state,
-  patronPid,
-  extraQuery
-) => {
-  const qs = loanApi.buildLoansQuery(
-    documentPid,
-    itemPid,
-    state,
-    patronPid,
-    extraQuery
-  );
+export const loanSearchQueryUrl = qs => {
   return `${BackOfficeURLS.loansSearch}?q=${qs}`;
 };
 
@@ -46,7 +31,6 @@ export const viewItemDetailsUrl = itemPid => {
   });
 };
 
-export const showAllItemsUrl = (documentPid, state, extraQuery) => {
-  const qs = itemApi.buildItemsQuery(documentPid, state, extraQuery);
+export const itemSearchQueryUrl = qs => {
   return `${BackOfficeURLS.itemsSearch}?q=${qs}`;
 };

@@ -23,7 +23,7 @@ import {
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
 import { Error as IlsError } from '../../../common/components';
-import { loan as endpoint } from '../../../common/api/loan';
+import { loan as endpoint } from '../../../common/api/loans/loan';
 import {
   SearchBar as LoansSearchBar,
   ResultsList as LoansResultsList,

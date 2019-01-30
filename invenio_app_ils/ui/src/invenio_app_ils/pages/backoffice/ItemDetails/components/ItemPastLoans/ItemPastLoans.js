@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
 import { toString } from '../../../../../common/api/date';
+import { loan as loanApi } from '../../../../../common/api/';
 import { ResultsTable } from '../../../../../common/components';
 
 import {
-  showAllLoansUrl,
+  loanSearchQueryUrl,
   viewLoanDetailsUrl,
 } from '../../../../../common/urls';
 
@@ -14,7 +15,7 @@ export default class ItemPastLoans extends Component {
     super(props);
     this.fetchPastLoans = props.fetchPastLoans;
     this.showDetailsUrl = viewLoanDetailsUrl;
-    this.showAllUrl = showAllLoansUrl;
+    this.showAllUrl = loanSearchQueryUrl;
   }
 
   componentDidMount() {
@@ -31,11 +32,12 @@ export default class ItemPastLoans extends Component {
     const { document_pid, item_pid } = this.props.item.metadata;
     this.props.history.push(
       this.showAllUrl(
-        document_pid,
-        item_pid,
-        'state:ITEM_RETURNED OR state:CANCELLED',
-        null,
-        null
+        loanApi
+          .query()
+          .withDocPid(document_pid)
+          .withItemPid(item_pid)
+          .withState(['ITEM_RETURNED', 'CANCELLED'])
+          .qs()
       )
     );
   };

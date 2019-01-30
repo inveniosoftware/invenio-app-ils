@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
 import { toString } from '../../../../../common/api/date';
 import { ResultsTable } from '../../../../../common/components';
+import { loan as loanApi } from '../../../../../common/api';
 
 import {
-  showAllLoansUrl,
+  loanSearchQueryUrl,
   viewLoanDetailsUrl,
 } from '../../../../../common/urls';
 
@@ -14,7 +15,7 @@ export default class DocumentPendingLoans extends Component {
     super(props);
     this.fetchPendingLoans = props.fetchPendingLoans;
     this.showDetailsUrl = viewLoanDetailsUrl;
-    this.showAllUrl = showAllLoansUrl;
+    this.showAllUrl = loanSearchQueryUrl;
   }
 
   componentDidMount() {
@@ -30,7 +31,13 @@ export default class DocumentPendingLoans extends Component {
   _showAllHandler = () => {
     const { document_pid } = this.props.document.id;
     this.props.history.push(
-      this.showAllUrl(document_pid, null, 'state:PENDING', null)
+      this.showAllUrl(
+        loanApi
+          .query()
+          .withDocPid(document_pid)
+          .withState('PENDING')
+          .qs()
+      )
     );
   };
 

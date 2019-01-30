@@ -1,5 +1,5 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { location } from '../../../../common/api';
+import { location as locationApi } from '../../../../common/api';
 
 export const fetchLocations = () => {
   return async dispatch => {
@@ -7,8 +7,8 @@ export const fetchLocations = () => {
       type: IS_LOADING,
     });
 
-    await location
-      .get()
+    await locationApi
+      .list()
       .then(response => {
         dispatch({
           type: SUCCESS,

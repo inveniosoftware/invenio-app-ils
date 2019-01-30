@@ -17,8 +17,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPatronLoans: (documentPid, itemPid, loanState, patronPid) =>
-    dispatch(fetchPatronLoans(documentPid, itemPid, loanState, patronPid)),
+  fetchPatronLoans: patronPid => dispatch(fetchPatronLoans(patronPid)),
   patronLoansChangeSortBy: (documentPid, itemPid, loanState, patronPid) =>
     dispatch(
       patronLoansChangeSortBy(documentPid, itemPid, loanState, patronPid)

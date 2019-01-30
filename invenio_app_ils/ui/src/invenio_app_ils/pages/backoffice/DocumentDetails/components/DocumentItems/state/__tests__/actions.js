@@ -20,7 +20,7 @@ const mockResponse = {
 };
 
 const mockFetchDocumentItems = jest.fn();
-itemApi.fetchItems = mockFetchDocumentItems;
+itemApi.list = mockFetchDocumentItems;
 
 let store;
 beforeEach(() => {
@@ -40,7 +40,7 @@ describe('Document Item tests', () => {
       };
 
       store.dispatch(actions.fetchDocumentItems('123')).then(() => {
-        expect(mockFetchDocumentItems).toHaveBeenCalledWith('123');
+        expect(mockFetchDocumentItems).toHaveBeenCalledWith('document_pid:123');
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
         done();
@@ -56,7 +56,7 @@ describe('Document Item tests', () => {
       };
 
       store.dispatch(actions.fetchDocumentItems('123')).then(() => {
-        expect(mockFetchDocumentItems).toHaveBeenCalledWith('123');
+        expect(mockFetchDocumentItems).toHaveBeenCalledWith('document_pid:123');
         const actions = store.getActions();
         expect(JSON.stringify(actions[1])).toEqual(
           JSON.stringify(expectedAction)
@@ -74,7 +74,7 @@ describe('Document Item tests', () => {
       };
 
       store.dispatch(actions.fetchDocumentItems('123')).then(() => {
-        expect(mockFetchDocumentItems).toHaveBeenCalledWith('123');
+        expect(mockFetchDocumentItems).toHaveBeenCalledWith('document_pid:123');
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
         done();

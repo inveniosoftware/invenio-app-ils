@@ -8,29 +8,18 @@ import {
 import { loan as loanApi } from '../../../../../../common/api';
 import { serializeLoan } from '../../../../../../common/api';
 
-export const fetchPatronLoans = (
-  documentPid,
-  itemPid,
-  loanState,
-  patronPid
-) => {
-  return async (dispatch, getState) => {
+export const fetchPatronLoans = patronPid => {
+  return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
 
-    const sortBy = getState().patronLoans.sortBy;
-    const sortOrder = getState().patronLoans.sortOrder;
-
     await loanApi
-      .fetchLoans(
-        documentPid,
-        itemPid,
-        sortBy,
-        sortOrder,
-        patronPid,
-        `state:${loanState}`,
-        null
+      .list(
+        loanApi
+          .query()
+          .withPatronPid(patronPid)
+          .qs()
       )
       .then(response => {
         dispatch({

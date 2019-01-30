@@ -9,7 +9,12 @@ export const fetchDocumentItems = documentPid => {
     });
 
     await itemApi
-      .fetchItems(documentPid)
+      .list(
+        itemApi
+          .query()
+          .withDocPid(documentPid)
+          .qs()
+      )
       .then(response => {
         dispatch({
           type: SUCCESS,

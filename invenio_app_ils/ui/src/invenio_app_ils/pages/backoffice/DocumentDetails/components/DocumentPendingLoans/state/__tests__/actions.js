@@ -20,7 +20,7 @@ const mockResponse = {
 };
 
 const mockFetchPendingOnDocument = jest.fn();
-loanApi.fetchLoans = mockFetchPendingOnDocument;
+loanApi.list = mockFetchPendingOnDocument;
 
 let store;
 beforeEach(() => {
@@ -41,13 +41,7 @@ describe('Pending loans tests', () => {
 
       store.dispatch(actions.fetchPendingLoans('123')).then(() => {
         expect(mockFetchPendingOnDocument).toHaveBeenCalledWith(
-          '123',
-          null,
-          null,
-          null,
-          null,
-          'state:PENDING',
-          null
+          'document_pid:123 AND state:PENDING'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
@@ -65,13 +59,7 @@ describe('Pending loans tests', () => {
 
       store.dispatch(actions.fetchPendingLoans('123')).then(() => {
         expect(mockFetchPendingOnDocument).toHaveBeenCalledWith(
-          '123',
-          null,
-          null,
-          null,
-          null,
-          'state:PENDING',
-          null
+          'document_pid:123 AND state:PENDING'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -89,13 +77,7 @@ describe('Pending loans tests', () => {
 
       store.dispatch(actions.fetchPendingLoans('123')).then(() => {
         expect(mockFetchPendingOnDocument).toHaveBeenCalledWith(
-          '123',
-          null,
-          null,
-          null,
-          null,
-          'state:PENDING',
-          null
+          'document_pid:123 AND state:PENDING'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);

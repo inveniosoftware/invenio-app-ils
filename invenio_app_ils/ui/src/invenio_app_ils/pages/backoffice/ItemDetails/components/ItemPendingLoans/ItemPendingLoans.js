@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
 import { toString } from '../../../../../common/api/date';
+import { loan as loanApi } from '../../../../../common/api/';
 import { ResultsTable } from '../../../../../common/components';
 
 import './ItemPendingLoans.scss';
 import {
-  showAllLoansUrl,
+  loanSearchQueryUrl,
   viewLoanDetailsUrl,
 } from '../../../../../common/urls';
 
@@ -15,7 +16,7 @@ export default class ItemPendingLoans extends Component {
     super(props);
     this.fetchPendingLoans = props.fetchPendingLoans;
     this.showDetailsUrl = viewLoanDetailsUrl;
-    this.showAllUrl = showAllLoansUrl;
+    this.showAllUrl = loanSearchQueryUrl;
   }
 
   componentDidMount() {
@@ -31,7 +32,14 @@ export default class ItemPendingLoans extends Component {
   _showAllHandler = () => {
     const { document_pid, item_pid } = this.props.item.metadata;
     this.props.history.push(
-      this.showAllUrl(document_pid, item_pid, 'state:PENDING', null)
+      this.showAllUrl(
+        loanApi
+          .query()
+          .withDocPid(document_pid)
+          .withItemPid(item_pid)
+          .withState('PENDING')
+          .qs()
+      )
     );
   };
 

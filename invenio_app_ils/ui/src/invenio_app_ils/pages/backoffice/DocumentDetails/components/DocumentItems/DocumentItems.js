@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
 import { toShortDateTime } from '../../../../../common/api/date';
 import { ResultsTable } from '../../../../../common/components';
+import { item as itemApi } from '../../../../../common/api';
 
 import {
-  showAllItemsUrl,
+  itemSearchQueryUrl,
   viewItemDetailsUrl,
 } from '../../../../../common/urls';
 
@@ -14,7 +15,7 @@ export default class DocumentItems extends Component {
     super(props);
     this.fetchDocumentItems = props.fetchDocumentItems;
     this.showDetailsUrl = viewItemDetailsUrl;
-    this.showAllUrl = showAllItemsUrl;
+    this.showAllUrl = itemSearchQueryUrl;
   }
 
   componentDidMount() {
@@ -29,7 +30,14 @@ export default class DocumentItems extends Component {
 
   _showAllHandler = () => {
     const { document_pid } = this.props.document.id;
-    this.props.history.push(this.showAllUrl(document_pid));
+    this.props.history.push(
+      this.showAllUrl(
+        itemApi
+          .query()
+          .withDocPid(document_pid)
+          .qs()
+      )
+    );
   };
 
   prepareData() {

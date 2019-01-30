@@ -62,7 +62,7 @@ ResultsTable.propTypes = {
   name: PropTypes.string,
   actionClickHandler: PropTypes.func.isRequired,
   showAllClickHandler: PropTypes.object,
-  actionComponent: PropTypes.Component,
+  actionComponent: PropTypes.node,
 };
 
 ResultsTable.defaultProps = {

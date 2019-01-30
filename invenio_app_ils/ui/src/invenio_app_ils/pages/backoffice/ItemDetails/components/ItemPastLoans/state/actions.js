@@ -8,14 +8,13 @@ export const fetchPastLoans = (documentPid, itemPid) => {
     });
 
     await loanApi
-      .fetchLoans(
-        documentPid,
-        itemPid,
-        null,
-        null,
-        null,
-        'state:ITEM_RETURNED OR state:CANCELLED',
-        null
+      .list(
+        loanApi
+          .query()
+          .withDocPid(documentPid)
+          .withItemPid(itemPid)
+          .withState(['ITEM_RETURNED', 'CANCELLED'])
+          .qs()
       )
       .then(response => {
         dispatch({
