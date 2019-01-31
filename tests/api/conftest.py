@@ -9,6 +9,7 @@
 
 from __future__ import absolute_import, print_function
 
+import mock
 import pytest
 from invenio_app.factory import create_api
 from invenio_circulation.api import Loan
@@ -22,7 +23,8 @@ from invenio_app_ils.records.api import Document, InternalLocation, Item, \
     Location
 
 from ..helpers import load_json_from_datadir
-from .helpers import mint_record_pid
+from .helpers import document_ref_builder, internal_location_ref_builder, \
+    mint_record_pid
 
 from invenio_app_ils.pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
@@ -30,6 +32,22 @@ from invenio_app_ils.pidstore.pids import (  # isort:skip
     ITEM_PID_TYPE,
     LOCATION_PID_TYPE,
 )
+
+
+@pytest.fixture()
+def item_record(app):
+    """Fixture to return an item payload."""
+    return {
+        "document_pid": "docid-1",
+        "document": {"$ref": document_ref_builder(app, "docid-1")},
+        "barcode": "123456789",
+        "title": "Test item x",
+        "internal_location_pid": "ilocid-1",
+        "internal_location": {
+            "$ref": internal_location_ref_builder(app, "ilocid-1")
+        },
+        "status": "LOANABLE",
+    }
 
 
 @pytest.fixture(scope="module")

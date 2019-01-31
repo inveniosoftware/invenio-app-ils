@@ -19,9 +19,12 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
           "document": Object {
             "document_pid": 1342,
           },
+          "document_pid": 1342,
           "internal_location": Object {
+            "internal_location_pid": 1,
             "name": "A library",
           },
+          "internal_location_pid": 1,
           "status": "IN_BINDING",
         },
       },

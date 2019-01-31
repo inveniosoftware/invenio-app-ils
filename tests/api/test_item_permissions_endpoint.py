@@ -17,13 +17,6 @@ from flask import url_for
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
 
-NEW_ITEM = {
-    "barcode": "123456789",
-    "title": "Test item x",
-    "internal_location_pid": "ilocid-1",
-    "status": "LOANABLE",
-}
-
 
 def user_login(user_id, client, users):
     """Util function log user in."""
@@ -76,20 +69,21 @@ def test_get_item_endpoint(
 
 @pytest.mark.parametrize(
     "user_id,expected_resp_code",
-    [
-        ("patron1", 403),
-        ("librarian", 201),
-        ("admin", 201),
-        ("anonymous", 401),
-    ],
+    [("patron1", 403), ("librarian", 201), ("admin", 201), ("anonymous", 401)],
 )
 def test_post_item_endpoint(
-    client, json_headers, testdata, users, user_id, expected_resp_code
+    client,
+    json_headers,
+    testdata,
+    users,
+    user_id,
+    expected_resp_code,
+    item_record,
 ):
     """Test POST permissions of an item."""
     user_login(user_id, client, users)
     url = url_for("invenio_records_rest.itemid_list")
-    ITEM = copy.deepcopy(NEW_ITEM)
+    ITEM = copy.deepcopy(item_record)
     if "item_pid" in ITEM:
         del ITEM["item_pid"]
     res = _test_response(
@@ -116,12 +110,19 @@ def test_post_item_endpoint(
     ],
 )
 def test_put_item_endpoint(
-    client, json_headers, testdata, users, user_id, res_id, expected_resp_code
+    client,
+    json_headers,
+    testdata,
+    users,
+    user_id,
+    res_id,
+    expected_resp_code,
+    item_record,
 ):
     """Test PUT permissions of an item."""
     url = url_for("invenio_records_rest.itemid_item", pid_value=res_id)
     user_login(user_id, client, users)
-    ITEM = copy.deepcopy(NEW_ITEM)
+    ITEM = copy.deepcopy(item_record)
     res = _test_response(
         client, "put", url, json_headers, ITEM, expected_resp_code
     )
@@ -183,7 +184,14 @@ def test_patch_item_endpoint(
     ],
 )
 def test_delete_item_endpoint(
-    client, json_headers, testdata, users, user_id, res_id, expected_resp_code
+    client,
+    json_headers,
+    testdata,
+    users,
+    user_id,
+    res_id,
+    expected_resp_code,
+    item_record,
 ):
     """Test DELETE permissions of an item."""
     user_login(user_id, client, users)
@@ -193,6 +201,6 @@ def test_delete_item_endpoint(
         "delete",
         url,
         json_headers,
-        data=NEW_ITEM,
+        data=item_record,
         expected_resp_code=expected_resp_code,
     )

@@ -14,7 +14,7 @@ export class ResultsList extends Component {
   prepareData() {
     return this.props.results.map(row => ({
       ID: row.id,
-      'Document ID': row.metadata.document.document_pid,
+      'Document ID': row.metadata.document_pid,
       Status: row.metadata.status,
       'Internal location': row.metadata.internal_location.name,
       Created: this._getFormattedDate(row.created),

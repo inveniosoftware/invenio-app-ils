@@ -7,6 +7,7 @@
 
 """CLI for Invenio App ILS."""
 
+import time
 from datetime import datetime, timedelta
 from random import randint
 
@@ -82,6 +83,7 @@ def get_documents_items(internal_locations, n_docs, n_items):
         ]
 
         item = {
+            Document.pid_field: "{}".format(doc[Document.pid_field]),
             Item.pid_field: "{}".format(i),
             "legacy_id": "{}".format(randint(100000, 999999)),
             "legacy_library_id": "{}".format(randint(5, 50)),
@@ -99,7 +101,6 @@ def get_documents_items(internal_locations, n_docs, n_items):
         if restr:
             item["circulation_restriction"] = "{}".format(restr)
 
-        Item.attach_document(item, ITEM_DOCUMENT_MAPPING[item[Item.pid_field]])
         items.append(item)
 
     return documents, items
@@ -293,9 +294,20 @@ def data(n_docs, n_items, n_loans):
     indexer.bulk_index([str(r.id) for r in rec_loans])
     click.echo('Sent to the indexing queue {0} loans'.format(len(rec_loans)))
 
+    click.secho('Now indexing...', fg='green')
+    # process queue so items can resolve circulation status correctly
+    indexer.process_bulk_queue()
+
     # index items
     indexer.bulk_index([str(r.id) for r in rec_items])
     click.echo('Sent to the indexing queue {0} items'.format(len(rec_items)))
+
+    click.secho('Now indexing...', fg='green')
+    # process queue so documents can resolve circulation correctly
+    indexer.process_bulk_queue()
+
+    # sleep to give time for items to be indexed
+    time.sleep(1)
 
     # index documents
     indexer.bulk_index([str(r.id) for r in rec_docs])

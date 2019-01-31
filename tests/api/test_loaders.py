@@ -15,16 +15,6 @@ from flask import url_for
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
 
-NEW_ITEM = {
-    "barcode": "123456789",
-    "title": "Test item x",
-    "document": {
-      "$ref": "https://127.0.0.1:5000/api/resolver/items/document/docid-1"
-    },
-    "internal_location_pid": "ilocid-1",
-    "status": "LOANABLE",
-}
-
 NEW_INTERNAL_LOCATION = {
     "location_pid": "locid-1",
     "legacy_id": "Test legacy id",
@@ -74,12 +64,10 @@ def test_post_partial_internal_location(client, json_headers, testdata, users):
     )
 
 
-def test_post_item(client, json_headers, testdata, users):
+def test_post_item(client, json_headers, testdata, users, item_record):
     """Test POST of an item."""
     user_login("admin", client, users)
     url = url_for("invenio_records_rest.itemid_list")
-    res = _test_response(
-        client, "post", url, json_headers, NEW_ITEM, 201
-    )
+    res = _test_response(client, "post", url, json_headers, item_record, 201)
     data = json.loads(res.data.decode("utf-8"))["metadata"]
     assert "name" in data["internal_location"]
