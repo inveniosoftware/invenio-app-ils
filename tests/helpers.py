@@ -15,6 +15,6 @@ import os
 
 def load_json_from_datadir(filename):
     """Load JSON from dir."""
-    _data_dir = os.path.join(os.path.dirname(__file__), 'data')
-    with open(os.path.join(_data_dir, filename), 'r') as fp:
+    _data_dir = os.path.join(os.path.dirname(__file__), "data")
+    with open(os.path.join(_data_dir, filename), "r") as fp:
         return json.load(fp)

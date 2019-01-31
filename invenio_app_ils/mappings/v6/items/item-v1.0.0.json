@@ -10,6 +10,12 @@
         "item_pid": {
           "type": "keyword"
         },
+        "document_pid": {
+          "type": "keyword"
+        },
+        "internal_location_pid": {
+          "type": "keyword"
+        },
         "internal_location": {
           "type": "object"
         },

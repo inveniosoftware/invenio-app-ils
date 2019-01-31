@@ -34,9 +34,7 @@ class ItemSearch(RecordsSearch):
         search = self
 
         if document_pid:
-            search = search.filter(
-                "match", document__document_pid=document_pid
-            )
+            search = search.filter("term", document_pid=document_pid)
         else:
             raise ValueError("Must specify document_pid param")
 

@@ -97,18 +97,14 @@ class Item(IlsRecord):
                 pid_value=data[InternalLocation.pid_field],
             )
         }
-        return super(Item, cls).create(data, id_=id_, **kwargs)
-
-    @classmethod
-    def attach_document(cls, data, document_pid, **kwargs):
-        """Attach a document ref to the record."""
         data["document"] = {
             "$ref": cls._document_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
-                pid_value=document_pid,
+                pid_value=data[Document.pid_field],
             )
         }
+        return super(Item, cls).create(data, id_=id_, **kwargs)
 
 
 class Location(IlsRecord):

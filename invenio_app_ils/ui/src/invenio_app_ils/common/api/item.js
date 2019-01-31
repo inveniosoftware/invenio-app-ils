@@ -7,7 +7,7 @@ const get = itemPid => {
 };
 
 const buildItemsQuery = (documentPid, state, extraQuery) => {
-  const qsDoc = documentPid ? `document.document_pid:${documentPid}` : '';
+  const qsDoc = documentPid ? `document_pid:${documentPid}` : '';
   const qsState = state ? ` AND state:${state}` : '';
   const qsExtra = extraQuery ? `${extraQuery}` : '';
   return `${qsDoc}${qsState}${qsExtra}`;
@@ -19,7 +19,7 @@ const fetchItems = (documentPid, state, extraQuery) => {
 };
 
 const fetchItemsByDocPid = (documentPid, config) => {
-  const qs = `document.document_pid:${documentPid} AND status:${
+  const qs = `document_pid:${documentPid} AND status:${
     config.items.available.status
   }`;
   return http.get(`${itemURL}?q=${qs}`);
