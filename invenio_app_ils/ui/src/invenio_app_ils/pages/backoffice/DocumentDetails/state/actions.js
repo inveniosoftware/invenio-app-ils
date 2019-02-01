@@ -1,5 +1,5 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { document } from '../../../../common/api';
+import { document as documentApi } from '../../../../common/api';
 
 export const fetchDocumentDetails = documentPid => {
   return async dispatch => {
@@ -7,7 +7,7 @@ export const fetchDocumentDetails = documentPid => {
       type: IS_LOADING,
     });
 
-    await document
+    await documentApi
       .get(documentPid)
       .then(response => {
         dispatch({

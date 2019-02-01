@@ -24,7 +24,7 @@ export default class ItemMetadata extends Component {
         <Grid padded columns={2}>
           <Grid.Column width={16}>
             <Header as="h1">
-              Item - {item.metadata.barcode}
+              Item - {item.barcode}
               <Button
                 primary
                 floated="right"
@@ -40,10 +40,10 @@ export default class ItemMetadata extends Component {
                 edit
               </Button>
               <CreateNewLoanModal
-                itemPid={item.metadata.item_pid}
+                itemPid={item.item_pid}
                 active={
                   !invenioConfig.circulation.loanActiveStates.includes(
-                    item.metadata.circulation_status.state
+                    item.circulation_status
                   )
                 }
                 onLoanCreatedCallback={this.props.fetchItemDetails}
@@ -56,51 +56,43 @@ export default class ItemMetadata extends Component {
               <Table.Body>
                 <Table.Row>
                   <Table.Cell width={4}>Circulation Status</Table.Cell>
-                  <Table.Cell width={12}>
-                    {item.metadata.circulation_status.state}
-                  </Table.Cell>
+                  <Table.Cell width={12}>{item.circulation_status}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell width={4}>Item Status</Table.Cell>
-                  <Table.Cell width={12}>{item.metadata.status}</Table.Cell>
+                  <Table.Cell width={12}>{item.status}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Barcode</Table.Cell>
-                  <Table.Cell>{item.metadata.barcode}</Table.Cell>
+                  <Table.Cell>{item.barcode}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Medium</Table.Cell>
-                  <Table.Cell>{item.metadata.medium}</Table.Cell>
+                  <Table.Cell>{item.medium}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Circulation Restriction</Table.Cell>
-                  <Table.Cell>
-                    {item.metadata.circulation_restriction}
-                  </Table.Cell>
+                  <Table.Cell>{item.circulation_restriction}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Shelf</Table.Cell>
-                  <Table.Cell>{item.metadata.shelf}</Table.Cell>
+                  <Table.Cell>{item.shelf}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Legacy ID</Table.Cell>
-                  <Table.Cell>{item.metadata.legacy_id}</Table.Cell>
+                  <Table.Cell>{item.legacy_id}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Document</Table.Cell>
-                  <Table.Cell>{item.metadata.document_pid}</Table.Cell>
+                  <Table.Cell>{item.document_pid}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Library</Table.Cell>
-                  <Table.Cell>
-                    {item.metadata.internal_location.location.name}
-                  </Table.Cell>
+                  <Table.Cell>{item.location}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Location</Table.Cell>
-                  <Table.Cell>
-                    {item.metadata.internal_location.name}
-                  </Table.Cell>
+                  <Table.Cell>{item.internal_location.name}</Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
@@ -109,7 +101,7 @@ export default class ItemMetadata extends Component {
           <Grid.Column>
             <Container>
               <Header as="h4">Description</Header>
-              <p>{item.metadata.description}</p>
+              <p>{item.description}</p>
             </Container>
           </Grid.Column>
         </Grid>

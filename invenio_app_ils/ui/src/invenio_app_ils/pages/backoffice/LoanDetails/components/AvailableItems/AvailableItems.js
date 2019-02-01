@@ -12,7 +12,7 @@ export default class AvailableItems extends Component {
   }
 
   componentDidMount() {
-    const { document_pid } = this.props.loan.metadata;
+    const { document_pid } = this.props.loan;
     this.fetchAvailableItems(document_pid);
   }
 
@@ -40,17 +40,17 @@ export default class AvailableItems extends Component {
 
   _renderItem = item => {
     return (
-      <Table.Row key={item.id}>
+      <Table.Row key={item.item_pid}>
         <Table.Cell />
-        <Table.Cell>{item.metadata.barcode}</Table.Cell>
-        <Table.Cell>{item.metadata.status}</Table.Cell>
-        <Table.Cell>{item.metadata.internal_location.name}</Table.Cell>
+        <Table.Cell>{item.barcode}</Table.Cell>
+        <Table.Cell>{item.status}</Table.Cell>
+        <Table.Cell>{item.internal_location}</Table.Cell>
         <Table.Cell textAlign="right">
           <Button
             size="mini"
             color="teal"
             onClick={() => {
-              this.assignItemToLoan(item.id, this.props.loan.metadata.loan_pid);
+              this.assignItemToLoan(item.id, this.props.loan.loan_pid);
             }}
           >
             assign
@@ -87,6 +87,7 @@ export default class AvailableItems extends Component {
 AvailableItems.propTypes = {
   assignItemToLoan: PropTypes.func.isRequired,
   data: PropTypes.array.isRequired,
+  loan: PropTypes.object.isRequired,
   fetchAvailableItems: PropTypes.func.isRequired,
   showMaxAvailableItems: PropTypes.number,
 };

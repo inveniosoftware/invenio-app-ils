@@ -2,7 +2,6 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
-import { serializePendingLoan } from '../selectors';
 import * as types from '../types';
 import { loan as loanApi } from '../../../../../../../common/api';
 
@@ -12,7 +11,14 @@ const mockStore = configureMockStore(middlewares);
 const mockResponse = {
   data: {
     hits: {
-      hits: [{ id: '123', updated: '2018-01-01T11:05:00+01:00', metadata: {} }],
+      hits: [
+        {
+          id: '123',
+          updated: '2018-01-01T11:05:00+01:00',
+          created: '2018-01-01T11:05:00+01:00',
+          metadata: {},
+        },
+      ],
     },
   },
 };
@@ -37,9 +43,9 @@ describe('Pending loans tests', () => {
         type: types.IS_LOADING,
       };
 
-      store.dispatch(actions.fetchPendingLoans('123', '456')).then(() => {
+      store.dispatch(actions.fetchPendingLoans('456')).then(() => {
         expect(mockFetchPendingOnDocumentItem).toHaveBeenCalledWith(
-          'document_pid:123 AND item_pid:456 AND state:PENDING'
+          'item_pid:456 AND state:PENDING'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
@@ -52,14 +58,12 @@ describe('Pending loans tests', () => {
 
       const expectedAction = {
         type: types.SUCCESS,
-        payload: mockResponse.data.hits.hits.map(hit =>
-          serializePendingLoan(hit)
-        ),
+        payload: mockResponse.data,
       };
 
-      store.dispatch(actions.fetchPendingLoans('123', '456')).then(() => {
+      store.dispatch(actions.fetchPendingLoans('456')).then(() => {
         expect(mockFetchPendingOnDocumentItem).toHaveBeenCalledWith(
-          'document_pid:123 AND item_pid:456 AND state:PENDING'
+          'item_pid:456 AND state:PENDING'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -75,9 +79,9 @@ describe('Pending loans tests', () => {
         payload: [500, 'Error'],
       };
 
-      store.dispatch(actions.fetchPendingLoans('123', '456')).then(() => {
+      store.dispatch(actions.fetchPendingLoans('456')).then(() => {
         expect(mockFetchPendingOnDocumentItem).toHaveBeenCalledWith(
-          'document_pid:123 AND item_pid:456 AND state:PENDING'
+          'item_pid:456 AND state:PENDING'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);

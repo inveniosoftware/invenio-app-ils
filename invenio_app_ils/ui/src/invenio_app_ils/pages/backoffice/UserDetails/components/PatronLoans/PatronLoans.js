@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
-import { toString } from '../../../../../common/api/date';
 import { loan as loanApi } from '../../../../../common/api/';
 import './PatronLoans.scss';
 
@@ -21,7 +20,7 @@ export default class PatronLoans extends Component {
 
   componentDidMount() {
     const patron_pid = this.props.patron ? this.props.patron : null;
-    this.fetchPatronLoans(null, null, null, patron_pid);
+    this.fetchPatronLoans(patron_pid);
   }
 
   _showDetailsHandler = loan_pid =>
@@ -37,16 +36,12 @@ export default class PatronLoans extends Component {
       )
     );
 
-  _getFormattedDate = d => (d ? toString(d) : '');
-
   prepareData() {
-    return this.props.data.map(row => ({
-      ID: row.loan_pid,
-      'Item PID': row.item_pid,
-      State: row.state,
-      Start_date: this._getFormattedDate(row.start_date),
-      End_date: this._getFormattedDate(row.end_date),
-    }));
+    return this.props.data.map(row => {
+      let tableRow = loanApi.serializer.toTableView(row);
+      delete tableRow['Patron ID'];
+      return tableRow;
+    });
   }
 
   render() {

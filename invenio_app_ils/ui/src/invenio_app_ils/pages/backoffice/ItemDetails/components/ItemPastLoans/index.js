@@ -11,8 +11,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPastLoans: (documentPid, itemPid) =>
-    dispatch(fetchPastLoans(documentPid, itemPid)),
+  fetchPastLoans: itemPid => dispatch(fetchPastLoans(itemPid)),
 });
 
 export const ItemPastLoans = compose(

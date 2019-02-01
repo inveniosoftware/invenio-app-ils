@@ -1,10 +1,9 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { serializeInternalLocationData } from './selectors';
 
 export const initialState = {
   isLoading: true,
   hasError: false,
-  data: {},
+  data: [],
 };
 
 export default (state = initialState, action) => {
@@ -15,7 +14,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        data: serializeInternalLocationData(action.payload),
+        data: action.payload,
         hasError: false,
       };
     case HAS_ERROR:

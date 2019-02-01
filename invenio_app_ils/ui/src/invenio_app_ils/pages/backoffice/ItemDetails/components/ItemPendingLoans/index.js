@@ -17,8 +17,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPendingLoans: (documentPid, itemPid) =>
-    dispatch(fetchPendingLoans(documentPid, itemPid)),
+  fetchPendingLoans: itemPid => dispatch(fetchPendingLoans(itemPid)),
   pendingLoansChangeSortBy: (documentPid, itemPid) =>
     dispatch(pendingLoansChangeSortBy(documentPid, itemPid)),
   pendingLoansChangeSortOrder: (documentPid, itemPid) =>

@@ -2,7 +2,6 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
-import { serializeLoanDetails } from '../selectors';
 import * as types from '../types';
 import { loan as loanApi } from '../../../../../common/api';
 
@@ -63,7 +62,7 @@ describe('Loan details tests', () => {
       const expectedActions = [
         {
           type: types.SUCCESS,
-          payload: serializeLoanDetails(response.data),
+          payload: response.data,
         },
       ];
 
@@ -126,7 +125,7 @@ describe('Loan details tests', () => {
       const expectedActions = [
         {
           type: types.ACTION_SUCCESS,
-          payload: serializeLoanDetails(response.data),
+          payload: response.data,
         },
       ];
 

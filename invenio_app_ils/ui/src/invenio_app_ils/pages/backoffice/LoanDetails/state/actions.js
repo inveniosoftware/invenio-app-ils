@@ -7,7 +7,6 @@ import {
   ACTION_HAS_ERROR,
 } from './types';
 import { loan as loanApi } from '../../../../common/api';
-import { serializeLoanDetails } from './selectors';
 
 export const fetchLoanDetails = loanPid => {
   return async dispatch => {
@@ -20,7 +19,7 @@ export const fetchLoanDetails = loanPid => {
       .then(response => {
         dispatch({
           type: SUCCESS,
-          payload: serializeLoanDetails(response.data),
+          payload: response.data,
         });
       })
       .catch(error => {
@@ -42,7 +41,7 @@ export const assignItemToLoan = (itemId, loanId) => {
       .then(response => {
         dispatch({
           type: SUCCESS,
-          payload: serializeLoanDetails(response.data),
+          payload: response.data,
         });
       })
       .catch(error => {
@@ -71,7 +70,7 @@ export const performLoanAction = (pid, loan, url) => {
       .then(details => {
         dispatch({
           type: ACTION_SUCCESS,
-          payload: serializeLoanDetails(details.data),
+          payload: details.data,
         });
       })
       .catch(error => {

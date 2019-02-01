@@ -20,18 +20,18 @@ export default class LocationList extends Component {
     window.open(`${invenioConfig.editor.url}?url=${url}`, url);
   }
 
-  prepareData(data) {
-    return data.map(row => ({
-      ID: row.metadata.location_pid,
-      Address: row.metadata.address,
-      Email: row.metadata.email,
-      Name: row.metadata.name,
+  prepareData() {
+    return this.props.data.map(row => ({
+      ID: row.location_pid,
+      Address: row.address,
+      Email: row.email,
+      Name: row.name,
     }));
   }
 
   render() {
     let { data, hasError, isLoading } = this.props;
-    const rows = this.prepareData(data.hits || []);
+    const rows = this.prepareData();
     const errorData = hasError ? data : null;
     const locationsUrl = !_isEmpty(data) ? data.link : null;
     const actionComponent = <Button circular compact icon="edit" />;
@@ -55,7 +55,7 @@ export default class LocationList extends Component {
 }
 
 LocationList.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.array.isRequired,
   fetchLocations: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   hasError: PropTypes.bool.isRequired,

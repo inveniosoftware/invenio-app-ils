@@ -11,8 +11,21 @@ const mockStore = configureMockStore(middlewares);
 const mockFetchInternalLocations = jest.fn();
 locationApi.list = mockFetchInternalLocations;
 
-const response = { data: {} };
-const expectedPayload = {};
+const response = {
+  data: {
+    hits: {
+      hits: [
+        {
+          id: '123',
+          updated: '2018-01-01T11:05:00+01:00',
+          created: '2018-01-01T11:05:00+01:00',
+          metadata: {},
+          links: { self: 'l' },
+        },
+      ],
+    },
+  },
+};
 
 let store;
 beforeEach(() => {
@@ -47,7 +60,7 @@ describe('Internal Location details actions', () => {
       const expectedActions = [
         {
           type: types.SUCCESS,
-          payload: expectedPayload,
+          payload: response.data,
         },
       ];
 

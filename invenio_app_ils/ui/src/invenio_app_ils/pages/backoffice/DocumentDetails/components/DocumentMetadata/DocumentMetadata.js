@@ -17,10 +17,7 @@ export default class DocumentMetadata extends Component {
   }
 
   render() {
-    const data = {
-      ...this.props.documentDetails,
-      ...this.props.documentDetails.metadata,
-    };
+    const data = this.props.documentDetails;
 
     const documentUrl = this.props.documentDetails.links.self;
 

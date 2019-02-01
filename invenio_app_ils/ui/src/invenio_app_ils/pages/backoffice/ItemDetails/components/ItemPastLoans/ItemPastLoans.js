@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
-import { toString } from '../../../../../common/api/date';
 import { loan as loanApi } from '../../../../../common/api/';
 import { ResultsTable } from '../../../../../common/components';
 
@@ -19,22 +18,19 @@ export default class ItemPastLoans extends Component {
   }
 
   componentDidMount() {
-    const { document_pid, item_pid } = this.props.item.metadata;
-    this.fetchPastLoans(document_pid, item_pid);
+    const { item_pid } = this.props.item;
+    this.fetchPastLoans(item_pid);
   }
-
-  _getFormattedDate = d => (d ? toString(d) : '');
 
   _showDetailsHandler = loan_pid =>
     this.props.history.push(this.showDetailsUrl(loan_pid));
 
   _showAllHandler = params => {
-    const { document_pid, item_pid } = this.props.item.metadata;
+    const { item_pid } = this.props.item;
     this.props.history.push(
       this.showAllUrl(
         loanApi
           .query()
-          .withDocPid(document_pid)
           .withItemPid(item_pid)
           .withState(['ITEM_RETURNED', 'CANCELLED'])
           .qs()
@@ -43,12 +39,7 @@ export default class ItemPastLoans extends Component {
   };
 
   prepareData() {
-    return this.props.data.map(row => ({
-      ID: row.loan_pid,
-      'Patron PID': row.patron_pid,
-      'Request created': this._getFormattedDate(row.updated),
-      State: row.state,
-    }));
+    return this.props.data.map(row => loanApi.serializer.toTableView(row));
   }
 
   render() {

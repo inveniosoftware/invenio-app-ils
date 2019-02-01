@@ -10,7 +10,7 @@ export default class LoanMetadata extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAvailableItemsVisible: _isEmpty(this.props.loanDetails.metadata.item),
+      isAvailableItemsVisible: _isEmpty(this.props.loanDetails.item),
     };
     this.assignItemToLoan = props.assignItemToLoan;
   }
@@ -20,7 +20,7 @@ export default class LoanMetadata extends Component {
   };
 
   render() {
-    const data = this.props.loanDetails.metadata;
+    const data = this.props.loanDetails;
     return (
       <Segment>
         <Grid padded columns={2}>
