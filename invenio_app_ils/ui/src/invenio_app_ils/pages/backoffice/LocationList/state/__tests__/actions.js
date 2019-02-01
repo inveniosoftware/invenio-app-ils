@@ -8,15 +8,28 @@ import { location as locationApi } from '../../../../../common/api';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-const mockGet = jest.fn();
-locationApi.list = mockGet;
+const mockList = jest.fn();
+locationApi.list = mockList;
 
-const response = { data: {} };
-const expectedPayload = {};
+const response = {
+  data: {
+    hits: {
+      hits: [
+        {
+          id: '123',
+          updated: '2018-01-01T11:05:00+01:00',
+          created: '2018-01-01T11:05:00+01:00',
+          metadata: {},
+          links: { self: 'l' },
+        },
+      ],
+    },
+  },
+};
 
 let store;
 beforeEach(() => {
-  mockGet.mockClear();
+  mockList.mockClear();
 
   store = mockStore(initialState);
   store.clearActions();
@@ -25,7 +38,7 @@ beforeEach(() => {
 describe('Location details actions', () => {
   describe('Fetch location details tests', () => {
     it('should dispatch an action when fetching locations', done => {
-      mockGet.mockResolvedValue(response);
+      mockList.mockResolvedValue(response);
 
       const expectedActions = [
         {
@@ -34,7 +47,7 @@ describe('Location details actions', () => {
       ];
 
       store.dispatch(actions.fetchLocations()).then(() => {
-        expect(mockGet).toHaveBeenCalled();
+        expect(mockList).toHaveBeenCalled();
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedActions[0]);
         done();
@@ -42,17 +55,17 @@ describe('Location details actions', () => {
     });
 
     it('should dispatch an action when location fetch succeeds', done => {
-      mockGet.mockResolvedValue(response);
+      mockList.mockResolvedValue(response);
 
       const expectedActions = [
         {
           type: types.SUCCESS,
-          payload: expectedPayload,
+          payload: response.data,
         },
       ];
 
       store.dispatch(actions.fetchLocations()).then(() => {
-        expect(mockGet).toHaveBeenCalled();
+        expect(mockList).toHaveBeenCalled();
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
         done();
@@ -60,7 +73,7 @@ describe('Location details actions', () => {
     });
 
     it('should dispatch an action when location fetch fails', done => {
-      mockGet.mockRejectedValue([500, 'Error']);
+      mockList.mockRejectedValue([500, 'Error']);
 
       const expectedActions = [
         {
@@ -70,7 +83,7 @@ describe('Location details actions', () => {
       ];
 
       store.dispatch(actions.fetchLocations()).then(() => {
-        expect(mockGet).toHaveBeenCalled();
+        expect(mockList).toHaveBeenCalled();
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
         done();

@@ -44,10 +44,7 @@ describe('ItemPastLoans tests', () => {
         fetchPastLoans={mockedFetchPastLoans}
       />
     );
-    expect(mockedFetchPastLoans).toHaveBeenCalledWith(
-      item.metadata.document_pid,
-      item.metadata.item_pid
-    );
+    expect(mockedFetchPastLoans).toHaveBeenCalledWith(item.item_pid);
   });
 
   it('should render show a message with no past loans', () => {

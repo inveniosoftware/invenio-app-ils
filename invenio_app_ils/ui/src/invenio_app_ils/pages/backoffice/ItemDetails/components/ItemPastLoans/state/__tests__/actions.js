@@ -4,10 +4,7 @@ import * as actions from '../actions';
 import { initialState } from '../reducer';
 
 import * as types from '../types';
-import {
-  loan as loanApi,
-  serializeLoan,
-} from '../../../../../../../common/api';
+import { loan as loanApi } from '../../../../../../../common/api';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -15,7 +12,14 @@ const mockStore = configureMockStore(middlewares);
 const mockResponse = {
   data: {
     hits: {
-      hits: [{ id: '123', updated: '2018-01-01T11:05:00+01:00', metadata: {} }],
+      hits: [
+        {
+          id: '123',
+          updated: '2018-01-01T11:05:00+01:00',
+          created: '2018-01-01T11:05:00+01:00',
+          metadata: {},
+        },
+      ],
     },
   },
 };
@@ -41,9 +45,9 @@ describe('Past loans tests', () => {
         type: types.IS_LOADING,
       };
 
-      store.dispatch(actions.fetchPastLoans('123', '456')).then(() => {
+      store.dispatch(actions.fetchPastLoans('456')).then(() => {
         expect(mockFetchPastOnDocumentItem).toHaveBeenCalledWith(
-          'document_pid:123 AND item_pid:456 AND state:(ITEM_RETURNED OR CANCELLED)'
+          'item_pid:456 AND state:(ITEM_RETURNED OR CANCELLED)'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
@@ -56,12 +60,12 @@ describe('Past loans tests', () => {
 
       const expectedAction = {
         type: types.SUCCESS,
-        payload: mockResponse.data.hits.hits.map(hit => serializeLoan(hit)),
+        payload: mockResponse.data,
       };
 
-      store.dispatch(actions.fetchPastLoans('123', '456')).then(() => {
+      store.dispatch(actions.fetchPastLoans('456')).then(() => {
         expect(mockFetchPastOnDocumentItem).toHaveBeenCalledWith(
-          'document_pid:123 AND item_pid:456 AND state:(ITEM_RETURNED OR CANCELLED)'
+          'item_pid:456 AND state:(ITEM_RETURNED OR CANCELLED)'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -77,9 +81,9 @@ describe('Past loans tests', () => {
         payload: [500, 'Error'],
       };
 
-      store.dispatch(actions.fetchPastLoans('123', '456')).then(() => {
+      store.dispatch(actions.fetchPastLoans('456')).then(() => {
         expect(mockFetchPastOnDocumentItem).toHaveBeenCalledWith(
-          'document_pid:123 AND item_pid:456 AND state:(ITEM_RETURNED OR CANCELLED)'
+          'item_pid:456 AND state:(ITEM_RETURNED OR CANCELLED)'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);

@@ -6,14 +6,12 @@ import {
   CHANGE_SORT_ORDER,
 } from './types';
 import { loan as loanApi } from '../../../../../../common/api';
-import { serializeLoan } from '../../../../../../common/api';
 
 export const fetchPatronLoans = patronPid => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
-
     await loanApi
       .list(
         loanApi
@@ -24,7 +22,7 @@ export const fetchPatronLoans = patronPid => {
       .then(response => {
         dispatch({
           type: SUCCESS,
-          payload: response.data.hits.hits.map(hit => serializeLoan(hit)),
+          payload: response.data,
         });
       })
       .catch(error => {

@@ -1,6 +1,5 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { item as itemApi } from '../../../../../../common/api';
-import { serializeItem } from '../../../../../../common/api/serializers';
 
 export const fetchDocumentItems = documentPid => {
   return async dispatch => {
@@ -18,7 +17,7 @@ export const fetchDocumentItems = documentPid => {
       .then(response => {
         dispatch({
           type: SUCCESS,
-          payload: response.data.hits.hits.map(hit => serializeItem(hit)),
+          payload: response.data,
         });
       })
       .catch(error => {

@@ -1,9 +1,13 @@
 import { http } from '../base';
+import { serializer } from './serializer';
 
 const itemURL = '/items/';
 
 const get = itemPid => {
-  return http.get(`${itemURL}${itemPid}`);
+  return http.get(`${itemURL}${itemPid}`).then(response => {
+    response.data = serializer.fromJSON(response.data);
+    return response;
+  });
 };
 
 class QueryBuilder {
@@ -49,7 +53,12 @@ const queryBuilder = () => {
 };
 
 const list = query => {
-  return http.get(`${itemURL}?q=${query}`);
+  return http.get(`${itemURL}?q=${query}`).then(response => {
+    response.data = response.data.hits.hits.map(hit =>
+      serializer.fromJSON(hit)
+    );
+    return response;
+  });
 };
 
 export const item = {

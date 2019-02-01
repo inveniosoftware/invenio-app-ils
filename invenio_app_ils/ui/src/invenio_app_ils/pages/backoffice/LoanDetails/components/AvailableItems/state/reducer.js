@@ -4,8 +4,6 @@ export const initialState = {
   isLoading: true,
   hasError: false,
   data: [],
-  sortBy: 'transaction_date',
-  sortOrder: 'asc',
 };
 
 export default (state = initialState, action) => {

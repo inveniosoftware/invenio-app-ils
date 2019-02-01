@@ -17,12 +17,7 @@ describe('Fetch location details reducer', () => {
   });
 
   it('should change data state on success action', () => {
-    const location = {
-      hits: { hits: [{ location_pid: '1' }] },
-      links: { self: 'link' },
-    };
-
-    const expectedData = { hits: [{ location_pid: '1' }], link: 'link' };
+    const location = { field: 123 };
     const action = {
       type: types.SUCCESS,
       payload: location,
@@ -30,7 +25,7 @@ describe('Fetch location details reducer', () => {
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
       isLoading: false,
-      data: expectedData,
+      data: location,
       hasError: false,
     });
   });

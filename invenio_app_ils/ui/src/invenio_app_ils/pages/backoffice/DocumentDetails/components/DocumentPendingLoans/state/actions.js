@@ -1,5 +1,5 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { loan as loanApi, serializeLoan } from '../../../../../../common/api';
+import { loan as loanApi } from '../../../../../../common/api';
 
 export const fetchPendingLoans = documentPid => {
   return async dispatch => {
@@ -18,7 +18,7 @@ export const fetchPendingLoans = documentPid => {
       .then(response => {
         dispatch({
           type: SUCCESS,
-          payload: response.data.hits.hits.map(hit => serializeLoan(hit)),
+          payload: response.data,
         });
       })
       .catch(error => {

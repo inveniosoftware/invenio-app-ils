@@ -68,14 +68,14 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
           Array [
             Object {
               "ID": "loan1",
-              "Patron PID": "patron_1",
-              "Request created": "1/1/2018",
+              "Patron ID": "patron_1",
+              "Request created": "2018-01-01 10:05",
               "State": "ITEM_RETURNED",
             },
             Object {
               "ID": "loan2",
-              "Patron PID": "patron_2",
-              "Request created": "1/1/2018",
+              "Patron ID": "patron_2",
+              "Request created": "2018-01-01 10:05",
               "State": "CANCELLED",
             },
           ]
@@ -114,8 +114,8 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                   columns={
                     Array [
                       "ID",
-                      "Patron PID",
                       "Request created",
+                      "Patron ID",
                       "State",
                     ]
                   }
@@ -168,21 +168,6 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Patron PID"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Patron PID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
                             key="Request created"
                           >
                             <TableCell
@@ -193,6 +178,21 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                                 className=""
                               >
                                 Request created
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Patron ID"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Patron ID
                               </th>
                             </TableCell>
                           </TableHeaderCell>
@@ -222,8 +222,8 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                   columns={
                     Array [
                       "ID",
-                      "Patron PID",
                       "Request created",
+                      "Patron ID",
                       "State",
                     ]
                   }
@@ -231,14 +231,14 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                     Array [
                       Object {
                         "ID": "loan1",
-                        "Patron PID": "patron_1",
-                        "Request created": "1/1/2018",
+                        "Patron ID": "patron_1",
+                        "Request created": "2018-01-01 10:05",
                         "State": "ITEM_RETURNED",
                       },
                       Object {
                         "ID": "loan2",
-                        "Patron PID": "patron_2",
-                        "Request created": "1/1/2018",
+                        "Patron ID": "patron_2",
+                        "Request created": "2018-01-01 10:05",
                         "State": "CANCELLED",
                       },
                     ]
@@ -306,26 +306,26 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Patron PID-loan1"
-                            key="1-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Patron PID-loan1"
-                            >
-                              patron_1
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
                             data-test="Request created-loan1"
-                            key="2-loan1"
+                            key="1-loan1"
                           >
                             <td
                               className=""
                               data-test="Request created-loan1"
                             >
-                              1/1/2018
+                              2018-01-01 10:05
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Patron ID-loan1"
+                            key="2-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="Patron ID-loan1"
+                            >
+                              patron_1
                             </td>
                           </TableCell>
                           <TableCell
@@ -398,26 +398,26 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Patron PID-loan2"
-                            key="1-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="Patron PID-loan2"
-                            >
-                              patron_2
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
                             data-test="Request created-loan2"
-                            key="2-loan2"
+                            key="1-loan2"
                           >
                             <td
                               className=""
                               data-test="Request created-loan2"
                             >
-                              1/1/2018
+                              2018-01-01 10:05
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Patron ID-loan2"
+                            key="2-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="Patron ID-loan2"
+                            >
+                              patron_2
                             </td>
                           </TableCell>
                           <TableCell

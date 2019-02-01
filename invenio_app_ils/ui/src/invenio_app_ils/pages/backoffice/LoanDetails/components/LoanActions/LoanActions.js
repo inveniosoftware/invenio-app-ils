@@ -28,9 +28,16 @@ export default class LoanActions extends Component {
   render() {
     const {
       availableActions: actions,
-      metadata: loan,
       id: pid,
+      document_pid,
+      patron_pid,
+      item_pid,
     } = this.props.loanDetails;
+    const loan = {
+      document_pid: document_pid,
+      patron_pid: patron_pid,
+      item_pid: item_pid,
+    };
     return (
       <List horizontal>
         {Object.keys(actions).length ? (

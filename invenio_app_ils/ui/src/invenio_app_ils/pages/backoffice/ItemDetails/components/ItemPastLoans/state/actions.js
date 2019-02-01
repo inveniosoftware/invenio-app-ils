@@ -1,7 +1,7 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { loan as loanApi, serializeLoan } from '../../../../../../common/api';
+import { loan as loanApi } from '../../../../../../common/api';
 
-export const fetchPastLoans = (documentPid, itemPid) => {
+export const fetchPastLoans = itemPid => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
@@ -11,7 +11,6 @@ export const fetchPastLoans = (documentPid, itemPid) => {
       .list(
         loanApi
           .query()
-          .withDocPid(documentPid)
           .withItemPid(itemPid)
           .withState(['ITEM_RETURNED', 'CANCELLED'])
           .qs()
@@ -19,7 +18,7 @@ export const fetchPastLoans = (documentPid, itemPid) => {
       .then(response => {
         dispatch({
           type: SUCCESS,
-          payload: response.data.hits.hits.map(hit => serializeLoan(hit)),
+          payload: response.data,
         });
       })
       .catch(error => {

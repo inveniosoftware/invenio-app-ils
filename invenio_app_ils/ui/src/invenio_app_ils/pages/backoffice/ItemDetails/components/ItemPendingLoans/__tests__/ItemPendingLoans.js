@@ -46,10 +46,7 @@ describe('ItemPendingLoans tests', () => {
         fetchPendingLoans={mockedFetchPendingLoans}
       />
     );
-    expect(mockedFetchPendingLoans).toHaveBeenCalledWith(
-      item.metadata.document_pid,
-      item.metadata.item_pid
-    );
+    expect(mockedFetchPendingLoans).toHaveBeenCalledWith(item.item_pid);
   });
 
   it('should render show a message with no pending loans', () => {

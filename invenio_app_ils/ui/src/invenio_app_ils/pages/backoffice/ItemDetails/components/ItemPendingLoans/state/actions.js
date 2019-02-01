@@ -6,9 +6,8 @@ import {
   CHANGE_SORT_ORDER,
 } from './types';
 import { loan as loanApi } from '../../../../../../common/api';
-import { serializePendingLoan } from './selectors';
 
-export const fetchPendingLoans = (documentPid, itemPid) => {
+export const fetchPendingLoans = itemPid => {
   return async (dispatch, getState) => {
     dispatch({
       type: IS_LOADING,
@@ -18,7 +17,6 @@ export const fetchPendingLoans = (documentPid, itemPid) => {
       .list(
         loanApi
           .query()
-          .withDocPid(documentPid)
           .withItemPid(itemPid)
           .withState('PENDING')
           .qs()
@@ -26,9 +24,7 @@ export const fetchPendingLoans = (documentPid, itemPid) => {
       .then(response => {
         dispatch({
           type: SUCCESS,
-          payload: response.data.hits.hits.map(hit =>
-            serializePendingLoan(hit)
-          ),
+          payload: response.data,
         });
       })
       .catch(error => {
@@ -52,7 +48,7 @@ export const pendingLoansChangeSortBy = (documentPid, itemPid) => {
       payload: newSortBy,
     });
 
-    await dispatch(fetchPendingLoans(documentPid, itemPid));
+    await dispatch(fetchPendingLoans(itemPid));
   };
 };
 
@@ -66,6 +62,6 @@ export const pendingLoansChangeSortOrder = (documentPid, itemPid) => {
       payload: newSortOrder,
     });
 
-    await dispatch(fetchPendingLoans(documentPid, itemPid));
+    await dispatch(fetchPendingLoans(itemPid));
   };
 };

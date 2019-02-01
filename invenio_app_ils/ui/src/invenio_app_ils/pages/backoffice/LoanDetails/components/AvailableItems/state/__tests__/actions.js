@@ -19,6 +19,8 @@ const response = {
       hits: [
         {
           id: 987,
+          created: '2018-01-01T11:05:00+01:00',
+          updated: '2018-01-01T11:05:00+01:00',
           metadata: {
             barcode: '9865745223',
             document_pid: 1342,
@@ -35,6 +37,8 @@ const response = {
         },
         {
           id: 988,
+          created: '2018-01-01T11:05:00+01:00',
+          updated: '2018-01-01T11:05:00+01:00',
           metadata: {
             barcode: '9865745224',
             document_pid: 1342,
@@ -89,7 +93,7 @@ describe('Available items tests', () => {
       const expectedActions = [
         {
           type: types.SUCCESS,
-          payload: response.data.hits.hits,
+          payload: response.data,
         },
       ];
 

@@ -19,7 +19,7 @@ export const fetchAvailableItems = documentPid => {
       .then(response => {
         dispatch({
           type: SUCCESS,
-          payload: response.data.hits.hits,
+          payload: response.data,
         });
       })
       .catch(error => {

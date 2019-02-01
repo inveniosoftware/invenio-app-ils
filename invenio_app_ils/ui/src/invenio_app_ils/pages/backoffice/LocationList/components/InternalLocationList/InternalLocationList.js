@@ -19,20 +19,20 @@ export default class InternalLocationlist extends Component {
     window.open(`${invenioConfig.editor.url}?url=${url}`, url);
   }
 
-  prepareData(data) {
-    return data.map(row => ({
-      ID: row.metadata.internal_location_pid,
-      Name: row.metadata.name,
-      'Physical Location': row.metadata.physical_location,
-      'Location Email': row.metadata.location.email,
-      'Location Name': row.metadata.location.name,
-      'Location ID': row.metadata.location_pid,
+  prepareData() {
+    return this.props.data.map(row => ({
+      ID: row.internal_location_pid,
+      Name: row.name,
+      'Physical Location': row.physical_location,
+      'Location Email': row.location_email,
+      'Location Name': row.location_name,
+      'Location ID': row.location_pid,
     }));
   }
 
   render() {
     let { data, hasError, isLoading } = this.props;
-    const rows = this.prepareData(data.hits || []);
+    const rows = this.prepareData();
     const errorData = hasError ? data : null;
     const internalLocationsUrl = !_isEmpty(data) ? data.link : null;
     const actionComponent = <Button circular compact icon="edit" />;
@@ -53,7 +53,7 @@ export default class InternalLocationlist extends Component {
 }
 
 InternalLocationlist.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.array.isRequired,
   fetchInternalLocations: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   hasError: PropTypes.bool.isRequired,

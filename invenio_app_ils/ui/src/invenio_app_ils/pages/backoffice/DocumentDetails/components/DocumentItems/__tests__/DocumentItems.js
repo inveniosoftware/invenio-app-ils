@@ -45,9 +45,7 @@ describe('DocumentItems tests', () => {
         fetchDocumentItems={mockedFetchDocumentItems}
       />
     );
-    expect(mockedFetchDocumentItems).toHaveBeenCalledWith(
-      doc.metadata.document_pid
-    );
+    expect(mockedFetchDocumentItems).toHaveBeenCalledWith(doc.document_pid);
   });
 
   it('should render show a message with no items', () => {

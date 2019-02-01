@@ -11,7 +11,7 @@ export default class UserDetails extends Component {
       <Loader isLoading={isLoading}>
         <Error error={errorData}>
           <UserMetadata />
-          <PatronLoans patron={data.id} />
+          <PatronLoans patron={data.user_pid} />
         </Error>
       </Loader>
     );

@@ -26,13 +26,13 @@ export default class UserMetadata extends Component {
         {label}
         <Grid padded columns={2}>
           <Grid.Column width={10}>
-            <Header as="h1">Patron - {data.id}</Header>
+            <Header as="h1">Patron - {data.user_pid}</Header>
           </Grid.Column>
           <Grid.Column>
             <List relaxed size="large">
               <List.Item>
                 <List.Header>Patron PID</List.Header>
-                {data.id}
+                {data.user_pid}
               </List.Item>
               <List.Item>
                 <List.Header>Email</List.Header>

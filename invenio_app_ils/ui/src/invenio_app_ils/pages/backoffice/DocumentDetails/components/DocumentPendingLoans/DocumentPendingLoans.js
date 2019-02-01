@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
-import { toString } from '../../../../../common/api/date';
 import { ResultsTable } from '../../../../../common/components';
 import { loan as loanApi } from '../../../../../common/api';
 
@@ -19,17 +18,15 @@ export default class DocumentPendingLoans extends Component {
   }
 
   componentDidMount() {
-    const { document_pid } = this.props.document.metadata;
+    const { document_pid } = this.props.document;
     this.fetchPendingLoans(document_pid);
   }
-
-  _getFormattedDate = d => (d ? toString(d) : '');
 
   _showDetailsHandler = loan_pid =>
     this.props.history.push(this.showDetailsUrl(loan_pid));
 
   _showAllHandler = () => {
-    const { document_pid } = this.props.document.id;
+    const { document_pid } = this.props.document_pid;
     this.props.history.push(
       this.showAllUrl(
         loanApi
@@ -42,11 +39,7 @@ export default class DocumentPendingLoans extends Component {
   };
 
   prepareData() {
-    return this.props.data.map(row => ({
-      ID: row.loan_pid,
-      'Patron PID': row.patron_pid,
-      'Request created': this._getFormattedDate(row.updated),
-    }));
+    return this.props.data.map(row => loanApi.serializer.toTableView(row));
   }
 
   render() {

@@ -19,7 +19,7 @@ export default class DocumentItems extends Component {
   }
 
   componentDidMount() {
-    const { document_pid } = this.props.document.metadata;
+    const { document_pid } = this.props.document;
     this.fetchDocumentItems(document_pid);
   }
 
@@ -29,7 +29,7 @@ export default class DocumentItems extends Component {
     this.props.history.push(this.showDetailsUrl(item_pid));
 
   _showAllHandler = () => {
-    const { document_pid } = this.props.document.id;
+    const { document_pid } = this.props.document.document_pid;
     this.props.history.push(
       this.showAllUrl(
         itemApi

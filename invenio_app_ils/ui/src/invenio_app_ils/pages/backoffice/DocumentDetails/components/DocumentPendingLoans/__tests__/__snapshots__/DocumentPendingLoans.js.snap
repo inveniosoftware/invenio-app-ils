@@ -66,13 +66,15 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
           Array [
             Object {
               "ID": "loan1",
-              "Patron PID": "patron_1",
-              "Request created": "1/1/2018",
+              "Patron ID": "patron_1",
+              "Request created": "2018-01-01 10:05",
+              "State": undefined,
             },
             Object {
               "ID": "loan2",
-              "Patron PID": "patron_2",
-              "Request created": "1/1/2018",
+              "Patron ID": "patron_2",
+              "Request created": "2018-01-01 10:05",
+              "State": undefined,
             },
           ]
         }
@@ -110,8 +112,9 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                   columns={
                     Array [
                       "ID",
-                      "Patron PID",
                       "Request created",
+                      "Patron ID",
+                      "State",
                     ]
                   }
                 >
@@ -163,21 +166,6 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Patron PID"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Patron PID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
                             key="Request created"
                           >
                             <TableCell
@@ -188,6 +176,36 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                                 className=""
                               >
                                 Request created
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Patron ID"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Patron ID
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="State"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                State
                               </th>
                             </TableCell>
                           </TableHeaderCell>
@@ -202,21 +220,24 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                   columns={
                     Array [
                       "ID",
-                      "Patron PID",
                       "Request created",
+                      "Patron ID",
+                      "State",
                     ]
                   }
                   rows={
                     Array [
                       Object {
                         "ID": "loan1",
-                        "Patron PID": "patron_1",
-                        "Request created": "1/1/2018",
+                        "Patron ID": "patron_1",
+                        "Request created": "2018-01-01 10:05",
+                        "State": undefined,
                       },
                       Object {
                         "ID": "loan2",
-                        "Patron PID": "patron_2",
-                        "Request created": "1/1/2018",
+                        "Patron ID": "patron_2",
+                        "Request created": "2018-01-01 10:05",
+                        "State": undefined,
                       },
                     ]
                   }
@@ -283,26 +304,38 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Patron PID-loan1"
+                            data-test="Request created-loan1"
                             key="1-loan1"
                           >
                             <td
                               className=""
-                              data-test="Patron PID-loan1"
+                              data-test="Request created-loan1"
+                            >
+                              2018-01-01 10:05
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Patron ID-loan1"
+                            key="2-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="Patron ID-loan1"
                             >
                               patron_1
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Request created-loan1"
-                            key="2-loan1"
+                            data-test="State-loan1"
+                            key="3-loan1"
                           >
                             <td
                               className=""
-                              data-test="Request created-loan1"
+                              data-test="State-loan1"
                             >
-                              1/1/2018
+                              -
                             </td>
                           </TableCell>
                         </tr>
@@ -363,26 +396,38 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Patron PID-loan2"
+                            data-test="Request created-loan2"
                             key="1-loan2"
                           >
                             <td
                               className=""
-                              data-test="Patron PID-loan2"
+                              data-test="Request created-loan2"
+                            >
+                              2018-01-01 10:05
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Patron ID-loan2"
+                            key="2-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="Patron ID-loan2"
                             >
                               patron_2
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Request created-loan2"
-                            key="2-loan2"
+                            data-test="State-loan2"
+                            key="3-loan2"
                           >
                             <td
                               className=""
-                              data-test="Request created-loan2"
+                              data-test="State-loan2"
                             >
-                              1/1/2018
+                              -
                             </td>
                           </TableCell>
                         </tr>
@@ -392,7 +437,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={3}
+                  columnsNumber={4}
                   showAllClickHandler={
                     Object {
                       "handler": [Function],
@@ -519,13 +564,15 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
           Array [
             Object {
               "ID": "loan1",
-              "Patron PID": "patron_1",
-              "Request created": "1/1/2018",
+              "Patron ID": "patron_1",
+              "Request created": "2018-01-01 10:05",
+              "State": undefined,
             },
             Object {
               "ID": "loan2",
-              "Patron PID": "patron_2",
-              "Request created": "1/1/2018",
+              "Patron ID": "patron_2",
+              "Request created": "2018-01-01 10:05",
+              "State": undefined,
             },
           ]
         }
@@ -563,8 +610,9 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
                   columns={
                     Array [
                       "ID",
-                      "Patron PID",
                       "Request created",
+                      "Patron ID",
+                      "State",
                     ]
                   }
                 >
@@ -616,21 +664,6 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Patron PID"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Patron PID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
                             key="Request created"
                           >
                             <TableCell
@@ -641,6 +674,36 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
                                 className=""
                               >
                                 Request created
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Patron ID"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Patron ID
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="State"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                State
                               </th>
                             </TableCell>
                           </TableHeaderCell>
@@ -655,16 +718,18 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
                   columns={
                     Array [
                       "ID",
-                      "Patron PID",
                       "Request created",
+                      "Patron ID",
+                      "State",
                     ]
                   }
                   rows={
                     Array [
                       Object {
                         "ID": "loan1",
-                        "Patron PID": "patron_1",
-                        "Request created": "1/1/2018",
+                        "Patron ID": "patron_1",
+                        "Request created": "2018-01-01 10:05",
+                        "State": undefined,
                       },
                     ]
                   }
@@ -731,26 +796,38 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Patron PID-loan1"
+                            data-test="Request created-loan1"
                             key="1-loan1"
                           >
                             <td
                               className=""
-                              data-test="Patron PID-loan1"
+                              data-test="Request created-loan1"
+                            >
+                              2018-01-01 10:05
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Patron ID-loan1"
+                            key="2-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="Patron ID-loan1"
                             >
                               patron_1
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Request created-loan1"
-                            key="2-loan1"
+                            data-test="State-loan1"
+                            key="3-loan1"
                           >
                             <td
                               className=""
-                              data-test="Request created-loan1"
+                              data-test="State-loan1"
                             >
-                              1/1/2018
+                              -
                             </td>
                           </TableCell>
                         </tr>
@@ -760,7 +837,7 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={3}
+                  columnsNumber={4}
                   showAllClickHandler={
                     Object {
                       "handler": [Function],
@@ -792,18 +869,18 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
                           >
                             <TableHeaderCell
                               as="th"
-                              colSpan={4}
+                              colSpan={5}
                               textAlign="right"
                             >
                               <TableCell
                                 as="th"
                                 className=""
-                                colSpan={4}
+                                colSpan={5}
                                 textAlign="right"
                               >
                                 <th
                                   className="right aligned"
-                                  colSpan={4}
+                                  colSpan={5}
                                 >
                                   <span>
                                     Showing first 
