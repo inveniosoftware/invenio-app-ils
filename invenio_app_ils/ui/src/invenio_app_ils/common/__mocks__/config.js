@@ -8,6 +8,9 @@ export const invenioConfig = {
       sortOrder: [],
       aggs: [],
     },
+    available: {
+      status: 'LOANABLE',
+    },
   },
   loans: {
     search: {

@@ -9,7 +9,13 @@ export const fetchAvailableItems = documentPid => {
     });
 
     await itemApi
-      .fetchItemsByDocPid(documentPid, invenioConfig)
+      .list(
+        itemApi
+          .query()
+          .withDocPid(documentPid)
+          .withStatus(invenioConfig.items.available.status)
+          .qs()
+      )
       .then(response => {
         dispatch({
           type: SUCCESS,
