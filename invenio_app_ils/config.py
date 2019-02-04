@@ -57,8 +57,12 @@ from invenio_circulation.transitions.transitions import (  # isort:skip
 )
 
 from .circulation.utils import (  # isort:skip
+    circulation_default_extension_duration,
+    circulation_default_extension_max_count,
+    circulation_default_loan_duration,
     circulation_document_retriever,
     circulation_is_item_available,
+    circulation_is_loan_duration_valid,
     circulation_item_exists,
     circulation_item_location_retriever,
     circulation_items_retriever,
@@ -381,9 +385,18 @@ CIRCULATION_ITEM_EXISTS = circulation_item_exists
 
 CIRCULATION_ITEM_LOCATION_RETRIEVER = circulation_item_location_retriever
 
-CIRCULATION_POLICIES["checkout"][
-    "item_available"
-] = circulation_is_item_available
+CIRCULATION_POLICIES = dict(
+    checkout=dict(
+        duration_default=circulation_default_loan_duration,
+        duration_validate=circulation_is_loan_duration_valid,
+        item_available=circulation_is_item_available
+    ),
+    extension=dict(
+        from_end_date=True,
+        duration_default=circulation_default_extension_duration,
+        max_count=circulation_default_extension_max_count
+    ),
+)
 
 CIRCULATION_ITEM_RESOLVING_PATH = "/api/resolver/circulation/items/<item_pid>"
 

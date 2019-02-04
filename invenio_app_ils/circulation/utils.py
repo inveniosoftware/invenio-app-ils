@@ -9,6 +9,8 @@
 
 from __future__ import absolute_import, print_function
 
+from datetime import timedelta
+
 from flask import current_app
 from invenio_pidstore.errors import PersistentIdentifierError
 
@@ -71,3 +73,25 @@ def circulation_is_item_available(item_pid):
 def circulation_patron_exists(patron_pid):
     """Check if user exists."""
     return True
+
+
+def circulation_default_loan_duration(loan):
+    """Return a default loan duration in number of days."""
+    return 30
+
+
+def circulation_default_extension_duration(loan):
+    """Return a default extension duration in number of days."""
+    return 30
+
+
+def circulation_default_extension_max_count(loan):
+    """Return a default extensions max count."""
+    return float("inf")
+
+
+def circulation_is_loan_duration_valid(loan):
+    """Validate the loan duration."""
+    return loan["end_date"] > loan["start_date"] and loan["end_date"] - loan[
+        "start_date"
+    ] < timedelta(days=60)
