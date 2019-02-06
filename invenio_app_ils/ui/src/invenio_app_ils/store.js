@@ -24,6 +24,9 @@ import {
 import {
   loansCardReducer,
   documentsCardReducer,
+  overbookedDocumentsReducer,
+  overdueLoansReducer,
+  idleLoansReducer,
 } from './pages/backoffice/Home/reducer';
 
 const rootReducer = combineReducers({
@@ -42,6 +45,9 @@ const rootReducer = combineReducers({
   internalLocations: internalLocationListReducer,
   loansCard: loansCardReducer,
   documentsCard: documentsCardReducer,
+  overbookedDocuments: overbookedDocumentsReducer,
+  overdueLoans: overdueLoansReducer,
+  idlePendingLoans: idleLoansReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

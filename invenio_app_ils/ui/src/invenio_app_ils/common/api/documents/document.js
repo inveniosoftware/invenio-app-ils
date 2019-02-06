@@ -32,15 +32,6 @@ class QueryBuilder {
     return this;
   }
 
-  static paramToQuery(param) {
-    if (Array.isArray(param)) {
-      const paramQuery = param.join(' OR ');
-      return `(${paramQuery})`;
-    } else {
-      return param;
-    }
-  }
-
   qs() {
     return this.overbookedQuery
       .concat(this.availableItemsQuery, this.withPendingLoansQuery)
@@ -73,5 +64,6 @@ export const document = {
   list: list,
   count: count,
   query: queryBuilder,
+  serializer: serializer,
   url: documentURL,
 };

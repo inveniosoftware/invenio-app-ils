@@ -1,7 +1,9 @@
 import { http } from '../base';
-import { toISO } from '../date';
+import { toISO, toShortDate } from '../date';
 import { DateTime } from 'luxon';
 import { serializer } from './serializer';
+import _isEmpty from 'lodash/isEmpty';
+import { prepareDateQuery, prepareSumQuery } from '../utils';
 
 const loanListURL = '/circulation/loans/';
 const loanURL = loanPid => `${loanListURL}${loanPid}`;
@@ -59,54 +61,67 @@ class QueryBuilder {
     this.itemQuery = [];
     this.patronQuery = [];
     this.stateQuery = [];
+    this.overdueQuery = [];
+    this.updatedQuery = [];
   }
 
   withDocPid(documentPid) {
-    if (typeof documentPid === 'undefined' || documentPid === '') {
+    if (
+      !documentPid ||
+      (typeof documentPid != 'number' && _isEmpty(documentPid))
+    ) {
       throw TypeError('DocumentPid argument missing');
     }
-    this.documentQuery.push(
-      `document_pid:${QueryBuilder.paramToQuery(documentPid)}`
-    );
+    this.documentQuery.push(`document_pid:${prepareSumQuery(documentPid)}`);
     return this;
   }
 
   withItemPid(itemPid) {
-    if (typeof itemPid === 'undefined' || itemPid === '') {
+    if (!itemPid || (typeof itemPid != 'number' && _isEmpty(itemPid))) {
       throw TypeError('itemPid argument missing');
     }
-    this.itemQuery.push(`item_pid:${QueryBuilder.paramToQuery(itemPid)}`);
+    this.itemQuery.push(`item_pid:${prepareSumQuery(itemPid)}`);
     return this;
   }
 
   withPatronPid(patronPid) {
-    if (typeof patronPid === 'undefined' || patronPid === '') {
+    if (!patronPid || (typeof patronPid != 'number' && _isEmpty(patronPid))) {
       throw TypeError('patronPid argument missing');
     }
-    this.patronQuery.push(`patron_pid:${QueryBuilder.paramToQuery(patronPid)}`);
+    this.patronQuery.push(`patron_pid:${prepareSumQuery(patronPid)}`);
     return this;
   }
 
   withState(state) {
-    if (typeof state === 'undefined' || state === '') {
+    if (!state || _isEmpty(state)) {
       throw TypeError('state argument missing');
     }
-    this.stateQuery.push(`state:${QueryBuilder.paramToQuery(state)}`);
+    this.stateQuery.push(`state:${prepareSumQuery(state)}`);
     return this;
   }
 
-  static paramToQuery(param) {
-    if (Array.isArray(param)) {
-      const paramQuery = param.join(' OR ');
-      return `(${paramQuery})`;
-    } else {
-      return param;
-    }
+  overdue() {
+    let now = toShortDate(DateTime.local());
+    this.overdueQuery.push(encodeURI(`request_expire_date:{* TO ${now}}`));
+    return this;
+  }
+
+  withUpdated(dates) {
+    this.updatedQuery.push(
+      prepareDateQuery('updated', dates.date, dates.from, dates.to)
+    );
+    return this;
   }
 
   qs() {
     return this.documentQuery
-      .concat(this.itemQuery, this.patronQuery, this.stateQuery)
+      .concat(
+        this.itemQuery,
+        this.patronQuery,
+        this.stateQuery,
+        this.overdueQuery,
+        this.updatedQuery
+      )
       .join(' AND ');
   }
 }

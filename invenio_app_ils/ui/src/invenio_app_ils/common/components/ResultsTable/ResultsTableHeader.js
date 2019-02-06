@@ -4,7 +4,15 @@ import { Table } from 'semantic-ui-react';
 
 export default class ResultsTableHeader extends Component {
   _renderHeaderCell = cellName => {
-    return <Table.HeaderCell key={cellName}>{cellName}</Table.HeaderCell>;
+    if (cellName === 'ID') {
+      return (
+        <Table.HeaderCell width={2} key={cellName}>
+          {cellName}
+        </Table.HeaderCell>
+      );
+    } else {
+      return <Table.HeaderCell key={cellName}>{cellName}</Table.HeaderCell>;
+    }
   };
 
   render() {
@@ -15,7 +23,7 @@ export default class ResultsTableHeader extends Component {
     return (
       <Table.Header>
         <Table.Row data-test="header">
-          <Table.HeaderCell width={1} collapsing />
+          <Table.HeaderCell width={2} collapsing />
           {headerColumns}
         </Table.Row>
       </Table.Header>

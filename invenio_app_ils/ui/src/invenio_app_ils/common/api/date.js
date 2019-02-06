@@ -30,3 +30,12 @@ export const toString = date => {
 export const toShortDateTime = date => {
   return date.toFormat('yyyy-MM-dd HH:mm');
 };
+
+/**
+ *  Serializes date for display in short format
+ *  @param {DateTime} date luxon DateTime
+ *  @re
+ */
+export const toShortDate = date => {
+  return date.toFormat('yyyy-MM-dd');
+};

@@ -22,7 +22,7 @@ function serializeResponse(hit) {
 function serializeToTableView(loan) {
   return {
     ID: loan.loan_pid,
-    'Request created': toShortDateTime(loan.updated),
+    'Request created': toShortDateTime(loan.created),
     'Patron ID': loan.patron_pid,
     State: loan.state,
   };

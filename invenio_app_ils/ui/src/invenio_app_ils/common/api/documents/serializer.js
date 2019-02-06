@@ -12,6 +12,16 @@ function serializeResponse(hit) {
   return result;
 }
 
+function toTableView(document) {
+  return {
+    ID: document.document_pid,
+    Title: document.title,
+    'Loan requests': document.circulation.pending_loans,
+    'Loanable items': document.circulation.loanable_items,
+  };
+}
+
 export const serializer = {
   fromJSON: serializeResponse,
+  toTableView: toTableView,
 };

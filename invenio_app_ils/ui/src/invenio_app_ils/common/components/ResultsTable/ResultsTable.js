@@ -14,10 +14,15 @@ export class ResultsTable extends Component {
   }
 
   _renderTable = () => {
-    const { rows, showMaxRows } = this.props;
+    const { rows, showMaxRows, singleLine, fixed } = this.props;
     const columns = rows ? Object.keys(rows[0]) : [];
     return (
-      <Table striped singleLine selectable>
+      <Table
+        striped
+        {...(singleLine ? { singleLine: true } : {})}
+        {...(fixed ? { fixed: true } : {})}
+        selectable
+      >
         <ResultsTableHeader columns={columns} />
         <ResultsTableBody
           columns={columns}
@@ -63,6 +68,7 @@ ResultsTable.propTypes = {
   actionClickHandler: PropTypes.func.isRequired,
   showAllClickHandler: PropTypes.object,
   actionComponent: PropTypes.node,
+  wrapped: PropTypes.bool,
 };
 
 ResultsTable.defaultProps = {

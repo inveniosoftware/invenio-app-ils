@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Grid, Header, Segment, Table } from 'semantic-ui-react';
+import { Grid, Header, Segment } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 export default class RecordsBriefCard extends Component {

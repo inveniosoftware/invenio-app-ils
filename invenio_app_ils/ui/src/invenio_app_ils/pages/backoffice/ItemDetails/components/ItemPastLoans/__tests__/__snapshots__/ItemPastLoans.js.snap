@@ -27,6 +27,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
   data={
     Array [
       Object {
+        "created": "2018-01-01T10:05:00.000Z",
         "end_date": "2018-01-01T10:05:00.000Z",
         "loan_pid": "loan1",
         "patron_pid": "patron_1",
@@ -35,6 +36,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
         "updated": "2018-01-01T10:05:00.000Z",
       },
       Object {
+        "created": "2018-01-01T10:05:00.000Z",
         "end_date": "2018-01-01T10:05:00.000Z",
         "loan_pid": "loan2",
         "patron_pid": "patron_2",
@@ -104,11 +106,10 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
             <Table
               as="table"
               selectable={true}
-              singleLine={true}
               striped={true}
             >
               <table
-                className="ui selectable single line striped table"
+                className="ui selectable striped table"
               >
                 <ResultsTableHeader
                   columns={
@@ -138,29 +139,31 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           <TableHeaderCell
                             as="th"
                             collapsing={true}
-                            width={1}
+                            width={2}
                           >
                             <TableCell
                               as="th"
                               className=""
                               collapsing={true}
-                              width={1}
+                              width={2}
                             >
                               <th
-                                className="collapsing one wide"
+                                className="collapsing two wide"
                               />
                             </TableCell>
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
                             key="ID"
+                            width={2}
                           >
                             <TableCell
                               as="th"
                               className=""
+                              width={2}
                             >
                               <th
-                                className=""
+                                className="two wide"
                               >
                                 ID
                               </th>
