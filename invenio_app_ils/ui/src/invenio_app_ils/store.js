@@ -21,6 +21,10 @@ import {
   locationListReducer,
   internalLocationListReducer,
 } from './pages/backoffice/LocationList/reducer';
+import {
+  loansCardReducer,
+  documentsCardReducer,
+} from './pages/backoffice/Home/reducer';
 
 const rootReducer = combineReducers({
   userSession: userSessionReducer,
@@ -36,6 +40,8 @@ const rootReducer = combineReducers({
   availableItems: availableItemsReducer,
   locations: locationListReducer,
   internalLocations: internalLocationListReducer,
+  loansCard: loansCardReducer,
+  documentsCard: documentsCardReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

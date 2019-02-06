@@ -124,11 +124,19 @@ const list = query => {
   });
 };
 
+const count = query => {
+  return http.get(`${loanURL}?q=${query}`).then(response => {
+    response.data = response.data.hits.total;
+    return response;
+  });
+};
+
 export const loan = {
   assignItemToLoan: assignItemToLoan,
   query: queryBuilder,
   list: list,
   get: get,
+  count: count,
   postAction: postAction,
   serializer: serializer,
   url: loanListURL,

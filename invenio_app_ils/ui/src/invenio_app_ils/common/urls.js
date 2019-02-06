@@ -14,6 +14,9 @@ export const BackOfficeURLS = {
   loanDetails: `${BackOfficeBase}/loans/:loanPid`,
   patronDetails: `${BackOfficeBase}/users/:userPid`,
   locationList: `${BackOfficeBase}/locations`,
+  // TODO after editor create link estabilished
+  newLoan: `${BackOfficeBase}/loans/create`,
+  newDocument: `${BackOfficeBase}/documents/create`,
 };
 
 export const viewLoanDetailsUrl = loanPid => {
