@@ -44,10 +44,17 @@ def jsonresolver_loader(url_map):
             ),
         )
 
+        pending_loans = search_by_pid(document_pid=document_pid,
+                                      filter_states=['PENDING']
+                                      ).execute().hits.total
+
         circulation["number_of_past_loans"] = search.execute().hits.total
         circulation["number_of_items"] = items_count
         circulation["active_loans"] = active_loans_count
         circulation["loanable_items"] = loanable_items_count
+        circulation["pending_loans"] = pending_loans
+        if pending_loans > loanable_items_count:
+            circulation["overbooked"] = True
         return circulation
 
     url_map.add(
