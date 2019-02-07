@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _isEmpty from 'lodash/isEmpty';
+import { internalLocationItemUrl } from '../../../../../common/api/urls';
 import { Error, Loader, ResultsTable } from '../../../../../common/components';
 import { Button } from 'semantic-ui-react';
 import { invenioConfig } from '../../../../../common/config';
@@ -19,8 +19,8 @@ export default class InternalLocationlist extends Component {
     window.open(`${invenioConfig.editor.url}?url=${url}`, url);
   }
 
-  prepareData() {
-    return this.props.data.map(row => ({
+  prepareData(data) {
+    return data.map(row => ({
       ID: row.internal_location_pid,
       Name: row.name,
       'Physical Location': row.physical_location,
@@ -30,23 +30,26 @@ export default class InternalLocationlist extends Component {
     }));
   }
 
-  render() {
-    let { data, hasError, isLoading } = this.props;
-    const rows = this.prepareData();
-    const errorData = hasError ? data : null;
-    const internalLocationsUrl = !_isEmpty(data) ? data.link : null;
+  _renderResults(data) {
+    const rows = this.prepareData(data);
     const actionComponent = <Button circular compact icon="edit" />;
     return (
+      <ResultsTable
+        rows={rows}
+        name={'Internal Locations'}
+        actionClickHandler={id => this.openEditor(internalLocationItemUrl(id))}
+        showMaxRows={this.props.showMaxItems}
+        actionComponent={actionComponent}
+      />
+    );
+  }
+
+  render() {
+    let { data, hasError, isLoading } = this.props;
+    const errorData = hasError ? data : null;
+    return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>
-          <ResultsTable
-            rows={rows}
-            name={'Internal Locations'}
-            actionClickHandler={() => this.openEditor(internalLocationsUrl)}
-            showMaxRows={this.props.showMaxItems}
-            actionComponent={actionComponent}
-          />
-        </Error>
+        <Error error={errorData}>{this._renderResults(data)}</Error>
       </Loader>
     );
   }
