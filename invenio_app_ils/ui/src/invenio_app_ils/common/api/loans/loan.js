@@ -63,6 +63,7 @@ class QueryBuilder {
     this.stateQuery = [];
     this.overdueQuery = [];
     this.updatedQuery = [];
+    this.renewedCountQuery = [];
   }
 
   withDocPid(documentPid) {
@@ -108,8 +109,26 @@ class QueryBuilder {
 
   withUpdated(dates) {
     this.updatedQuery.push(
-      prepareDateQuery('updated', dates.date, dates.from, dates.to)
+      prepareDateQuery('_updated', dates.date, dates.from, dates.to)
     );
+    return this;
+  }
+
+  /**
+   * Combine elasticsearch query for number of renewals
+   * @param renewals string, number or array
+   * when number it asks for exact number
+   * in string there is possibility of passing comparison operators
+   */
+  withRenewedCount(renewals) {
+    if (
+      !renewals ||
+      _isEmpty(renewals) ||
+      !(typeof renewals === 'number' || typeof renewals === 'string')
+    ) {
+      throw TypeError('Renewal argument missing or invalid type');
+    }
+    this.renewedCountQuery.push(`extension_count:${renewals}`);
     return this;
   }
 
@@ -120,7 +139,8 @@ class QueryBuilder {
         this.patronQuery,
         this.stateQuery,
         this.overdueQuery,
-        this.updatedQuery
+        this.updatedQuery,
+        this.renewedCountQuery
       )
       .join(' AND ');
   }

@@ -13,3 +13,6 @@ export {
 export {
   default as idleLoansReducer,
 } from './components/lists/IdleLoansList/state/reducer';
+export {
+  default as renewedLoansReducer,
+} from './components/lists/RenewedLoansList/state/reducer';

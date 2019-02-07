@@ -27,6 +27,7 @@ import {
   overbookedDocumentsReducer,
   overdueLoansReducer,
   idleLoansReducer,
+  renewedLoansReducer,
 } from './pages/backoffice/Home/reducer';
 
 const rootReducer = combineReducers({
@@ -48,6 +49,7 @@ const rootReducer = combineReducers({
   overbookedDocuments: overbookedDocumentsReducer,
   overdueLoans: overdueLoansReducer,
   idlePendingLoans: idleLoansReducer,
+  latestRenewedLoans: renewedLoansReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

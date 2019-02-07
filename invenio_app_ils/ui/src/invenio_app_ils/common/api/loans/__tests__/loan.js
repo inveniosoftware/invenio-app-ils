@@ -72,7 +72,7 @@ describe('Loan query builder tests', () => {
       .query()
       .withUpdated(date)
       .qs();
-    expect(decodeURI(query)).toEqual(`updated:{${date.from} TO ${date.to}}`);
+    expect(decodeURI(query)).toEqual(`_updated:{${date.from} TO ${date.to}}`);
   });
 });
 
