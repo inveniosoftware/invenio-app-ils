@@ -15,13 +15,13 @@ from ..proxies import current_app_ils_extension
 from ..records.api import Item
 
 
-def register_circulation_signals(app):
+def register_circulation_signals():
     """Register Circulation signal."""
     loan_state_changed.connect(
-        index_record_after_loan_change, sender=app, weak=False
+        index_record_after_loan_change, weak=False
     )
     loan_replace_item.connect(
-        index_after_loan_replace_item, sender=app, weak=False
+        index_after_loan_replace_item, weak=False
     )
 
 

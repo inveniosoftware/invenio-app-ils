@@ -84,4 +84,4 @@ class InvenioAppIlsREST(InvenioAppIls):
 
     def _register_signals(self):
         """Register signals."""
-        register_circulation_signals(self.app)
+        register_circulation_signals()
