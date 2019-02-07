@@ -12,7 +12,6 @@ export default class LoanMetadata extends Component {
     this.state = {
       isAvailableItemsVisible: _isEmpty(this.props.loanDetails.item),
     };
-    this.assignItemToLoan = props.assignItemToLoan;
   }
 
   showAvailableItems = (newState = true) => {

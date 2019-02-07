@@ -31,28 +31,6 @@ export const fetchLoanDetails = loanPid => {
   };
 };
 
-export const assignItemToLoan = (itemId, loanId) => {
-  return async dispatch => {
-    dispatch({
-      type: IS_LOADING,
-    });
-    await loanApi
-      .assignItemToLoan(itemId, loanId)
-      .then(response => {
-        dispatch({
-          type: SUCCESS,
-          payload: response.data,
-        });
-      })
-      .catch(error => {
-        dispatch({
-          type: HAS_ERROR,
-          payload: error,
-        });
-      });
-  };
-};
-
 export const performLoanAction = (pid, loan, url) => {
   return async (dispatch, getState) => {
     dispatch({
