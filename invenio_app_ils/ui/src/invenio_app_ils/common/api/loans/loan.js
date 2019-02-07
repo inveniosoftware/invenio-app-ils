@@ -38,13 +38,19 @@ const postAction = (
       `No 'item_pid' or 'document_pid' attached to loan '${pid}'`
     );
   }
-  return http.post(url, payload);
+  return http.post(url, payload).then(response => {
+    response.data = serializer.fromJSON(response.data);
+    return response;
+  });
 };
 
 const assignItemToLoan = (itemPid, loanPid) => {
   const url = getLoanReplaceItemUrl(loanPid);
   const payload = { item_pid: itemPid };
-  return http.post(url, payload);
+  return http.post(url, payload).then(response => {
+    response.data = serializer.fromJSON(response.data);
+    return response;
+  });
 };
 
 class QueryBuilder {

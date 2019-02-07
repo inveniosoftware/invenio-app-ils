@@ -27,8 +27,8 @@ export default class LoanActions extends Component {
 
   render() {
     const {
-      availableActions: actions,
-      id: pid,
+      availableActions,
+      loan_pid: pid,
       document_pid,
       patron_pid,
       item_pid,
@@ -38,15 +38,24 @@ export default class LoanActions extends Component {
       patron_pid: patron_pid,
       item_pid: item_pid,
     };
-    return (
-      <List horizontal>
-        {Object.keys(actions).length ? (
-          this.renderAvailableActions(pid, loan, actions)
-        ) : (
+
+    if (availableActions) {
+      return (
+        <List horizontal>
+          {Object.keys(availableActions).length ? (
+            this.renderAvailableActions(pid, loan, availableActions)
+          ) : (
+            <List.Header as="h3">No actions available</List.Header>
+          )}
+        </List>
+      );
+    } else {
+      return (
+        <List horizontal>
           <List.Header as="h3">No actions available</List.Header>
-        )}
-      </List>
-    );
+        </List>
+      );
+    }
   }
 }
 
