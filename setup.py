@@ -16,7 +16,7 @@ readme = open("README.rst").read()
 tests_require = [
     "check-manifest>=0.35",
     "coverage>=4.4.1",
-    "isort>=4.3.4",
+    "isort>=4.3.11",
     "mock>=2.0.0",
     "pydocstyle>=2.0.0",
     "pytest-cov>=2.5.1",
@@ -64,8 +64,10 @@ install_requires = [
     # https://github.com/inveniosoftware/invenio-indexer/commit/9749c2fe4e2cbaabc167ad7fb12ade945a2d580c
     "redis>=2.10.0,<3.0.0",
     # extra
-    "invenio-circulation>=1.0.0a7,<1.1.0",
+    "invenio-circulation>=1.0.0a8,<1.1.0",
     "invenio-records-editor>=1.0.0a3,<1.1.0",
+    # until flask-sqlalchemy is fixed
+    "SQLAlchemy>=1.2.16,<1.3.0"
 ]
 
 packages = find_packages()

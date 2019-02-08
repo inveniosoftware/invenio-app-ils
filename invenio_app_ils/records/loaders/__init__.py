@@ -7,11 +7,12 @@
 
 """Invenio App ILS loaders."""
 
+from invenio_records_rest.loaders import marshmallow_loader
+
 from .schemas.json.document import DocumentSchemaV1
+from .schemas.json.internal_location import InternalLocationSchemaV1
 from .schemas.json.item import ItemSchemaV1
 from .schemas.json.location import LocationSchemaV1
-from .schemas.json.internal_location import InternalLocationSchemaV1
-from invenio_records_rest.loaders import marshmallow_loader
 
 document_loader = marshmallow_loader(DocumentSchemaV1)
 item_loader = marshmallow_loader(ItemSchemaV1)

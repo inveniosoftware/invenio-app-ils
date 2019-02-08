@@ -9,14 +9,19 @@
 
 from __future__ import absolute_import, print_function
 
+from functools import partial
+
 import mock
 import pytest
+from flask_mail import Message
 from invenio_app.factory import create_api
 from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 
+from invenio_app_ils.circulation.mail.factory import loan_message_factory, \
+    message_factory
 from invenio_app_ils.circulation.receivers import \
     index_record_after_loan_change
 from invenio_app_ils.records.api import Document, InternalLocation, Item, \
@@ -137,3 +142,34 @@ def testdata(app, db, es_clear):
         "items": items,
         "loans": loans,
     }
+
+
+@pytest.fixture()
+def loan_params():
+    """Params for API REST payload."""
+    return dict(
+        transaction_user_pid="user_pid",
+        patron_pid="1",
+        document_pid="docid-1",
+        item_pid="itemid-2",
+        transaction_location_pid="locid-2",
+        transaction_date="2018-02-01T09:30:00+02:00",
+    )
+
+
+@pytest.fixture()
+def loan_msg_factory():
+    """Return a loan message factory."""
+    return loan_message_factory()
+
+
+@pytest.fixture()
+def example_message_factory():
+    """A basic functional test message loader."""
+    def loader(subject, body):
+        return Message(
+            sender="test@test.ch",
+            subject=subject,
+            body=body
+        )
+    return partial(message_factory, loader)
