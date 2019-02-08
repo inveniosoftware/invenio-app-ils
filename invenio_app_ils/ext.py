@@ -9,6 +9,7 @@
 
 from __future__ import absolute_import, print_function
 
+from flask import Blueprint
 from invenio_indexer.api import RecordIndexer
 from werkzeug.utils import cached_property
 
@@ -62,6 +63,13 @@ class InvenioAppIls(object):
         """Flask application initialization."""
         self.init_config(app)
         app.extensions['invenio-app-ils'] = _InvenioAppIlsState(app)
+        app.register_blueprint(
+            Blueprint(
+                "invenio_app_ils_mail",
+                __name__,
+                template_folder="templates"
+            )
+        )
 
     def init_config(self, app):
         """Initialize configuration."""

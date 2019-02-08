@@ -96,3 +96,8 @@ def circulation_is_loan_duration_valid(loan):
     return loan["end_date"] > loan["start_date"] and loan["end_date"] - loan[
         "start_date"
     ] < timedelta(days=60)
+
+
+def circulation_can_be_requested(loan):
+    """Return True if the given record can be requested, False otherwise."""
+    return True

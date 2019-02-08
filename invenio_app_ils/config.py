@@ -23,6 +23,7 @@ from invenio_circulation.search.api import LoansSearch
 from invenio_records_rest.facets import terms_filter
 
 from .indexer import DocumentIndexer, ItemIndexer, LoanIndexer
+from .jwt import ils_jwt_create_token
 from .records.api import Document, InternalLocation, Item, Location
 from .records.jsonresolver.loan import item_resolver
 
@@ -68,9 +69,9 @@ from .circulation.utils import (  # isort:skip
     circulation_items_retriever,
     circulation_patron_exists,
     circulation_build_item_ref,
+    circulation_can_be_requested,
 )
 
-from .jwt import ils_jwt_create_token
 
 from .permissions import (  # isort:skip
     authenticated_user_permission,
@@ -128,6 +129,16 @@ HEADER_TEMPLATE = "invenio_theme/header.html"
 #: Settings base template.
 SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
 
+# Email templates
+# ===============
+#: Loan status email templates
+LOAN_MAIL_TEMPLATES = {}
+
+# Email message loaders
+# ===============
+#: Loan message loader
+LOAN_MSG_LOADER = "invenio_app_ils.circulation.mail.loader:loan_message_loader"
+
 # Theme configuration
 # ===================
 THEME_FRONTPAGE = False
@@ -138,6 +149,15 @@ THEME_FRONTPAGE = False
 SUPPORT_EMAIL = "info@inveniosoftware.org"
 #: Disable email sending by default.
 MAIL_SUPPRESS_SEND = True
+
+# Notification configuration
+# ==========================
+#: Email address for email notification sender.
+MAIL_NOTIFY_SENDER = "noreply@inveniosoftware.org"
+#: Email CC address(es) for email notifications.
+MAIL_NOTIFY_CC = []
+#: Email BCC address(es) for email notification.
+MAIL_NOTIFY_BCC = []
 
 # Assets
 # ======
@@ -401,6 +421,9 @@ CIRCULATION_POLICIES = dict(
         from_end_date=True,
         duration_default=circulation_default_extension_duration,
         max_count=circulation_default_extension_max_count
+    ),
+    request=dict(
+        can_be_requested=circulation_can_be_requested
     ),
 )
 

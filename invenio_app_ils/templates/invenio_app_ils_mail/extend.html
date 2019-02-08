@@ -1,0 +1,13 @@
+{% block subject %}
+Your loan has been extended
+{% endblock %}
+
+
+{% block body %}
+Your loan has been extended to {{ loan.end_date }}.
+{% endblock %}
+
+
+{% block html %}
+Your loan has been extended to <strong>{{ loan.end_date }}</strong>.
+{% endblock %}

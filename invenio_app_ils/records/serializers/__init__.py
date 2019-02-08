@@ -7,10 +7,9 @@
 
 """Ils serializers."""
 
+from invenio_records_rest.schemas import RecordSchemaJSONV1
 from invenio_records_rest.serializers.json import JSONSerializer
 from invenio_records_rest.serializers.response import record_responsify
-from invenio_records_rest.schemas import RecordSchemaJSONV1
-
 
 json_v1 = JSONSerializer(RecordSchemaJSONV1, replace_refs=True)
 """JSON v1 serializer."""
