@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Container } from 'semantic-ui-react';
-import _isEmpty from 'lodash/isEmpty';
+import { locationItemUrl } from '../../../common/api/urls';
 import { InternalLocationList } from './components';
 import { Error, Loader, ResultsTable } from '../../../common/components';
 import { invenioConfig } from '../../../common/config';
@@ -20,8 +20,8 @@ export default class LocationList extends Component {
     window.open(`${invenioConfig.editor.url}?url=${url}`, url);
   }
 
-  prepareData() {
-    return this.props.data.map(row => ({
+  prepareData(data) {
+    return data.map(row => ({
       ID: row.location_pid,
       Address: row.address,
       Email: row.email,
@@ -29,23 +29,28 @@ export default class LocationList extends Component {
     }));
   }
 
+  _renderResults(data) {
+    const rows = this.prepareData(data);
+    const actionComponent = <Button circular compact icon="edit" />;
+    return (
+      <ResultsTable
+        rows={rows}
+        name={'Locations'}
+        actionClickHandler={id => this.openEditor(locationItemUrl(id))}
+        showMaxRows={this.props.showMaxItems}
+        actionComponent={actionComponent}
+      />
+    );
+  }
+
   render() {
     let { data, hasError, isLoading } = this.props;
-    const rows = this.prepareData();
     const errorData = hasError ? data : null;
-    const locationsUrl = !_isEmpty(data) ? data.link : null;
-    const actionComponent = <Button circular compact icon="edit" />;
     return (
       <Loader isLoading={isLoading}>
         <Error error={errorData}>
           <Container>
-            <ResultsTable
-              rows={rows}
-              name={'Locations'}
-              actionClickHandler={() => this.openEditor(locationsUrl)}
-              showMaxRows={this.props.showMaxItems}
-              actionComponent={actionComponent}
-            />
+            {this._renderResults(data)}
             <InternalLocationList />
           </Container>
         </Error>
