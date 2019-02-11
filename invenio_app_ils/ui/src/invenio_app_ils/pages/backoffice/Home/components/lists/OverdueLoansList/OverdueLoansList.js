@@ -24,7 +24,7 @@ export default class OverdueLoansList extends Component {
 
   _showDetailsHandler = loan_pid =>
     this.props.history.push(
-      generatePath(this.showDetailsUrl, { documentPid: loan_pid })
+      generatePath(this.showDetailsUrl, { loanPid: loan_pid })
     );
 
   _showAllHandler = params => {

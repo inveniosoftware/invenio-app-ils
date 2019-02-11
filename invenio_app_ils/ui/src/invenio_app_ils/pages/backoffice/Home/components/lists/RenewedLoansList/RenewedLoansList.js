@@ -26,7 +26,7 @@ export default class RenewedLoansList extends Component {
 
   _showDetailsHandler = loan_pid =>
     this.props.history.push(
-      generatePath(this.showDetailsUrl, { documentPid: loan_pid })
+      generatePath(this.showDetailsUrl, { loanPid: loan_pid })
     );
 
   _showAllHandler = params => {
@@ -55,6 +55,7 @@ export default class RenewedLoansList extends Component {
           params: null,
         }}
         showMaxRows={this.props.showMaxEntries}
+        popup={'Loans renewed more than 3 times - last 7 days'}
       />
     );
   }

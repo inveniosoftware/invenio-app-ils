@@ -6,7 +6,6 @@ export const fetchPendingLoans = () => {
     dispatch({
       type: IS_LOADING,
     });
-
     await loanApi
       .count(
         loanApi

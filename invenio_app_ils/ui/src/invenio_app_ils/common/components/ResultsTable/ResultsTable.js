@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Segment, Message, Header, Table } from 'semantic-ui-react';
+import { Segment, Message, Header, Table, Popup } from 'semantic-ui-react';
 import ResultsTableHeader from './ResultsTableHeader';
 import ResultsTableBody from './ResultsTableBody';
 import ResultsTableFooter from './ResultsTableFooter';
@@ -50,8 +50,16 @@ export class ResultsTable extends Component {
   }
 
   render() {
-    const { name } = this.props;
-
+    const { name, popup } = this.props;
+    if (popup) {
+      const header = <Header as="h3">{name}</Header>;
+      return (
+        <Segment>
+          <Popup content={popup} trigger={header} />
+          {this._renderResultsOrEmpty()}
+        </Segment>
+      );
+    }
     return (
       <Segment>
         <Header as="h3">{name}</Header>
@@ -69,6 +77,7 @@ ResultsTable.propTypes = {
   showAllClickHandler: PropTypes.object,
   actionComponent: PropTypes.node,
   wrapped: PropTypes.bool,
+  popup: PropTypes.string,
 };
 
 ResultsTable.defaultProps = {

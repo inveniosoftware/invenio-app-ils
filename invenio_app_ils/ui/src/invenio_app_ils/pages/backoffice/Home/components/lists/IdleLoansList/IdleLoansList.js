@@ -10,6 +10,11 @@ import {
   loanSearchQueryUrl,
 } from '../../../../../../common/urls';
 import { DateTime } from 'luxon';
+import { Popup } from 'semantic-ui-react';
+import {
+  toShortDate,
+  toShortDateTime,
+} from '../../../../../../common/api/date';
 
 export default class IdleLoansList extends Component {
   constructor(props) {
@@ -25,7 +30,7 @@ export default class IdleLoansList extends Component {
 
   _showDetailsHandler = loan_pid =>
     this.props.history.push(
-      generatePath(this.showDetailsUrl, { documentPid: loan_pid })
+      generatePath(this.showDetailsUrl, { loanPid: loan_pid })
     );
 
   _showAllHandler = params => {
@@ -44,7 +49,7 @@ export default class IdleLoansList extends Component {
     return this.props.data.map(row => {
       let serialized = loanApi.serializer.toTableView(row);
       delete serialized['Request created'];
-      serialized['Last update'] = row.updated;
+      serialized['Last update'] = toShortDateTime(row.updated);
       return serialized;
     });
   }
@@ -61,6 +66,7 @@ export default class IdleLoansList extends Component {
           params: null,
         }}
         showMaxRows={this.props.showMaxEntries}
+        popup={'Loan requests in PENDING state longer than 10 days'}
       />
     );
   }

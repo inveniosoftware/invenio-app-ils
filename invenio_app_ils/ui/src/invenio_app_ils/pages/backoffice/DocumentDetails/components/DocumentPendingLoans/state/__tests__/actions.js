@@ -30,7 +30,7 @@ let store;
 beforeEach(() => {
   mockFetchPendingOnDocument.mockClear();
 
-  store = mockStore({ itemPendingLoans: initialState });
+  store = mockStore({ documentPendingLoans: initialState });
   store.clearActions();
 });
 

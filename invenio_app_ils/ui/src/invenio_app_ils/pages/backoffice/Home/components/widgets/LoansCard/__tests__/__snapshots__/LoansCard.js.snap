@@ -1,0 +1,188 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoansCard tests should load the details component 1`] = `
+<Loader>
+  <Error
+    error={null}
+  >
+    <RecordsBriefCard
+      buttonLeft={
+        <Button
+          as="button"
+          fluid={true}
+          icon={true}
+          onClick={[Function]}
+          positive={true}
+        >
+          <Icon
+            as="i"
+            name="plus"
+          />
+          New
+        </Button>
+      }
+      buttonRight={
+        <Button
+          as="button"
+          fluid={true}
+          onClick={[Function]}
+        >
+          See all
+        </Button>
+      }
+      stats={0}
+      text="new requests"
+      title="Loans"
+    />
+  </Error>
+</Loader>
+`;
+
+exports[`LoansCard tests should render stats with 2 records 1`] = `
+<LoansCard
+  data={2}
+  fetchPendingLoans={
+    [MockFunction] {
+      "calls": Array [
+        Array [],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  history={[Function]}
+>
+  <Loader>
+    <Error
+      error={null}
+    >
+      <RecordsBriefCard
+        buttonLeft={
+          <Button
+            as="button"
+            fluid={true}
+            icon={true}
+            onClick={[Function]}
+            positive={true}
+          >
+            <Icon
+              as="i"
+              name="plus"
+            />
+            New
+          </Button>
+        }
+        buttonRight={
+          <Button
+            as="button"
+            fluid={true}
+            onClick={[Function]}
+          >
+            See all
+          </Button>
+        }
+        stats={2}
+        text="new requests"
+        title="Loans"
+      >
+        <Segment
+          className="brief-card"
+          raised={true}
+        >
+          <div
+            className="ui raised segment brief-card"
+          >
+            <Header
+              as="h3"
+              textAlign="right"
+            >
+              <h3
+                className="ui right aligned header"
+              >
+                Loans
+              </h3>
+            </Header>
+            <p>
+               
+              <span
+                data-test={2}
+              >
+                2
+              </span>
+               
+              new requests
+            </p>
+            <Grid>
+              <div
+                className="ui grid"
+              >
+                <GridRow>
+                  <div
+                    className="row"
+                  >
+                    <GridColumn
+                      width={8}
+                    >
+                      <div
+                        className="eight wide column"
+                      >
+                        <Button
+                          as="button"
+                          fluid={true}
+                          icon={true}
+                          onClick={[Function]}
+                          positive={true}
+                        >
+                          <button
+                            className="ui fluid icon positive button"
+                            onClick={[Function]}
+                          >
+                            <Icon
+                              as="i"
+                              name="plus"
+                            >
+                              <i
+                                aria-hidden="true"
+                                className="plus icon"
+                              />
+                            </Icon>
+                            New
+                          </button>
+                        </Button>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      width={8}
+                    >
+                      <div
+                        className="eight wide column"
+                      >
+                        <Button
+                          as="button"
+                          fluid={true}
+                          onClick={[Function]}
+                        >
+                          <button
+                            className="ui fluid button"
+                            onClick={[Function]}
+                          >
+                            See all
+                          </button>
+                        </Button>
+                      </div>
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
+          </div>
+        </Segment>
+      </RecordsBriefCard>
+    </Error>
+  </Loader>
+</LoansCard>
+`;

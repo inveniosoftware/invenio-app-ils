@@ -6,7 +6,6 @@ export const fetchRequestedWithAvailableItems = () => {
     dispatch({
       type: IS_LOADING,
     });
-
     await documentApi
       .count(
         documentApi

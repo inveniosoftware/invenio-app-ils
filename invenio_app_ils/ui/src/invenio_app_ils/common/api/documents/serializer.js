@@ -13,12 +13,15 @@ function serializeResponse(hit) {
 }
 
 function toTableView(document) {
-  return {
+  const serialized = {
     ID: document.document_pid,
     Title: document.title,
-    'Loan requests': document.circulation.pending_loans,
-    'Loanable items': document.circulation.loanable_items,
   };
+  if (document.circulation) {
+    serialized['Loan requests'] = document.circulation.pending_loans;
+    serialized['Loanable items'] = document.circulation.loanable_items;
+  }
+  return serialized;
 }
 
 export const serializer = {
