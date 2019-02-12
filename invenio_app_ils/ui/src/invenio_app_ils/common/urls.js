@@ -41,3 +41,7 @@ export const viewItemDetailsUrl = itemPid => {
 export const itemSearchQueryUrl = qs => {
   return `${BackOfficeURLS.itemsSearch}?q=${qs}`;
 };
+
+export const documentsSearchQueryUrl = qs => {
+  return `${BackOfficeURLS.documentsSearch}?q=${qs}`;
+};

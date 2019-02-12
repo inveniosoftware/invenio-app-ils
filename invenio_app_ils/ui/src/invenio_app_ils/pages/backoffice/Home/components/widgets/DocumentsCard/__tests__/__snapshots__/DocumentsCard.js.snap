@@ -9,6 +9,7 @@ exports[`DocumentsCard tests should load the details component 1`] = `
       buttonLeft={
         <Button
           as="button"
+          fluid={true}
           icon={true}
           onClick={[Function]}
           positive={true}
@@ -23,7 +24,7 @@ exports[`DocumentsCard tests should load the details component 1`] = `
       buttonRight={
         <Button
           as="button"
-          disabled={true}
+          fluid={true}
           onClick={[Function]}
         >
           See all
@@ -63,6 +64,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
         buttonLeft={
           <Button
             as="button"
+            fluid={true}
             icon={true}
             onClick={[Function]}
             positive={true}
@@ -77,7 +79,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
         buttonRight={
           <Button
             as="button"
-            disabled={true}
+            fluid={true}
             onClick={[Function]}
           >
             See all
@@ -130,12 +132,13 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                       >
                         <Button
                           as="button"
+                          fluid={true}
                           icon={true}
                           onClick={[Function]}
                           positive={true}
                         >
                           <button
-                            className="ui icon positive button"
+                            className="ui fluid icon positive button"
                             onClick={[Function]}
                           >
                             <Icon
@@ -160,14 +163,12 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                       >
                         <Button
                           as="button"
-                          disabled={true}
+                          fluid={true}
                           onClick={[Function]}
                         >
                           <button
-                            className="ui disabled button"
-                            disabled={true}
+                            className="ui fluid button"
                             onClick={[Function]}
-                            tabIndex={-1}
                           >
                             See all
                           </button>

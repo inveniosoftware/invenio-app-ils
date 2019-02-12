@@ -3,16 +3,19 @@ import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../../common/components';
 import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
 
-import { BackOfficeURLS } from '../../../../../../common/urls';
+import {
+  BackOfficeURLS,
+  documentsSearchQueryUrl,
+} from '../../../../../../common/urls';
 import { Button, Icon } from 'semantic-ui-react';
+import { document as documentApi } from '../../../../../../common/api';
 
 export default class DocumentsCard extends Component {
   constructor(props) {
     super(props);
     this.fetchRequestedWithAvailableItems =
       props.fetchRequestedWithAvailableItems;
-    // TODO when #155 solved
-    this.showAllUrl = '';
+    this.showAllUrl = documentsSearchQueryUrl;
     this.newDocumentURL = BackOfficeURLS.newDocument;
   }
 
@@ -21,10 +24,18 @@ export default class DocumentsCard extends Component {
   }
 
   _showAllButton = () => {
-    let handler = () => this.props.history.push(this.showAllUrl);
-    // TODO when #155 solved
+    let handler = () =>
+      this.props.history.push(
+        this.showAllUrl(
+          documentApi
+            .query()
+            .withAvailableItems()
+            .withPendingLoans()
+            .qs()
+        )
+      );
     return (
-      <Button disabled onClick={() => handler()}>
+      <Button fluid onClick={() => handler()}>
         See all
       </Button>
     );
@@ -33,7 +44,7 @@ export default class DocumentsCard extends Component {
   _newDocumentButton = () => {
     let handler = () => this.props.history.push(this.newDocumentURL);
     return (
-      <Button icon positive onClick={() => handler()}>
+      <Button fluid icon positive onClick={() => handler()}>
         <Icon name="plus" />
         New
       </Button>
