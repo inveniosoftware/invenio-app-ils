@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { fetchAvailableItems } from './state/actions';
-import { assignItemToLoan } from '../../state/actions';
+import { assignItemToLoan } from './state/actions';
 import AvailableItemsComponent from './AvailableItems';
 
 const mapStateToProps = state => ({

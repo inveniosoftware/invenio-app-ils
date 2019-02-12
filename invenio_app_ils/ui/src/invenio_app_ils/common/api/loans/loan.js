@@ -3,14 +3,16 @@ import { toISO } from '../date';
 import { DateTime } from 'luxon';
 import { serializer } from './serializer';
 
-const loanURL = '/circulation/loans/';
+const loanListURL = '/circulation/loans/';
+const loanURL = loanPid => `${loanListURL}${loanPid}`;
+
 const get = loanPid =>
-  http.get(`${loanURL}${loanPid}`).then(response => {
+  http.get(`${loanURL(loanPid)}`).then(response => {
     response.data = serializer.fromJSON(response.data);
     return response;
   });
 
-const getLoanReplaceItemUrl = loanPid => `${loanURL}/${loanPid}/replace-item`;
+const getLoanReplaceItemUrl = loanPid => `${loanURL(loanPid)}/replace-item`;
 
 const postAction = (
   url,
@@ -108,7 +110,7 @@ const queryBuilder = () => {
 };
 
 const list = query => {
-  return http.get(`${loanURL}?q=${query}`).then(response => {
+  return http.get(`${loanListURL}?q=${query}`).then(response => {
     response.data = response.data.hits.hits.map(hit =>
       serializer.fromJSON(hit)
     );
@@ -123,5 +125,5 @@ export const loan = {
   get: get,
   postAction: postAction,
   serializer: serializer,
-  url: loanURL,
+  url: loanListURL,
 };
