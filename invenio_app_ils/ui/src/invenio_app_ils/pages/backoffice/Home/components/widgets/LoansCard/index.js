@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import { fetchPendingLoans } from './state/actions';
 import LoansCardComponent from './LoansCard';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = state => ({
   data: state.loansCard.data,
@@ -12,7 +14,10 @@ const mapDispatchToProps = dispatch => ({
   fetchPendingLoans: () => dispatch(fetchPendingLoans()),
 });
 
-export const LoansCard = connect(
-  mapStateToProps,
-  mapDispatchToProps
+export const LoansCard = compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(LoansCardComponent);

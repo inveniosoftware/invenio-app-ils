@@ -44,7 +44,7 @@ export default class DocumentsCard extends Component {
   _newDocumentButton = () => {
     let handler = () => this.props.history.push(this.newDocumentURL);
     return (
-      <Button fluid icon positive onClick={() => handler()}>
+      <Button disabled fluid icon positive onClick={() => handler()}>
         <Icon name="plus" />
         New
       </Button>

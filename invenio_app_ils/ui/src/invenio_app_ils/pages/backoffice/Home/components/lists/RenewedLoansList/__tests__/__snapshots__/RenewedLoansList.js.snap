@@ -11,11 +11,14 @@ exports[`RenewedLoansList tests should load the details component 1`] = `
       name="Frequently renewed loans"
       popup="Loans renewed more than 3 times - last 7 days"
       rows={Array []}
-      showAllClickHandler={
-        Object {
-          "handler": [Function],
-          "params": null,
-        }
+      showAllButton={
+        <Button
+          as="button"
+          onClick={[Function]}
+          size="small"
+        >
+          Show all
+        </Button>
       }
       showMaxRows={5}
     />
@@ -76,11 +79,14 @@ exports[`RenewedLoansList tests should render loans 1`] = `
             },
           ]
         }
-        showAllClickHandler={
-          Object {
-            "handler": [Function],
-            "params": null,
-          }
+        showAllButton={
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="small"
+          >
+            Show all
+          </Button>
         }
         showMaxRows={5}
       >
@@ -531,11 +537,14 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={5}
-                  showAllClickHandler={
-                    Object {
-                      "handler": [Function],
-                      "params": null,
-                    }
+                  showAllButton={
+                    <Button
+                      as="button"
+                      onClick={[Function]}
+                      size="small"
+                    >
+                      Show all
+                    </Button>
                   }
                   showMaxRows={5}
                 />
@@ -566,11 +575,14 @@ exports[`RenewedLoansList tests should render show a message with no loans 1`] =
         name="Frequently renewed loans"
         popup="Loans renewed more than 3 times - last 7 days"
         rows={Array []}
-        showAllClickHandler={
-          Object {
-            "handler": [Function],
-            "params": null,
-          }
+        showAllButton={
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="small"
+          >
+            Show all
+          </Button>
         }
         showMaxRows={5}
       >

@@ -9,6 +9,7 @@ import {
   loanSearchQueryUrl,
   viewLoanDetailsUrl,
 } from '../../../../../common/urls';
+import { Button } from 'semantic-ui-react';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 
 export default class PatronLoans extends Component {
@@ -27,15 +28,29 @@ export default class PatronLoans extends Component {
   _showDetailsHandler = loan_pid =>
     this.props.history.push(this.showDetailsUrl(loan_pid));
 
-  _showAllHandler = patron_id =>
-    this.props.history.push(
-      this.showAllUrl(
-        loanApi
-          .query()
-          .withPatronPid(patron_id)
-          .qs()
-      )
+  _showAllButton = () => {
+    const { patron } = this.props;
+    const _click = () =>
+      this.props.history.push(
+        this.showAllUrl(
+          loanApi
+            .query()
+            .withPatronPid(patron)
+            .qs()
+        )
+      );
+
+    return (
+      <Button
+        size="small"
+        onClick={() => {
+          _click();
+        }}
+      >
+        Show all
+      </Button>
     );
+  };
 
   prepareData() {
     return this.props.data.map(row => {
@@ -56,10 +71,7 @@ export default class PatronLoans extends Component {
             rows={rows}
             name={"User's loan requests"}
             actionClickHandler={this._showDetailsHandler}
-            showAllClickHandler={{
-              handler: this._showAllHandler,
-              params: this.props.patron,
-            }}
+            showAllButton={this._showAllButton()}
             showMaxRows={this.props.showMaxLoans}
           />
         </Error>

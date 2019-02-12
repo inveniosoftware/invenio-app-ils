@@ -11,11 +11,14 @@ exports[`OverbookedDocumentsList tests should load the details component 1`] = `
       fixed={true}
       name="Overbooked documents"
       rows={Array []}
-      showAllClickHandler={
-        Object {
-          "handler": [Function],
-          "params": null,
-        }
+      showAllButton={
+        <Button
+          as="button"
+          onClick={[Function]}
+          size="small"
+        >
+          Show all
+        </Button>
       }
       showMaxRows={5}
       singleLine={true}
@@ -75,11 +78,14 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
             },
           ]
         }
-        showAllClickHandler={
-          Object {
-            "handler": [Function],
-            "params": null,
-          }
+        showAllButton={
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="small"
+          >
+            Show all
+          </Button>
         }
         showMaxRows={5}
         singleLine={true}
@@ -437,11 +443,14 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={4}
-                  showAllClickHandler={
-                    Object {
-                      "handler": [Function],
-                      "params": null,
-                    }
+                  showAllButton={
+                    <Button
+                      as="button"
+                      onClick={[Function]}
+                      size="small"
+                    >
+                      Show all
+                    </Button>
                   }
                   showMaxRows={5}
                 />
@@ -472,11 +481,14 @@ exports[`OverbookedDocumentsList tests should render show a message with no docu
         fixed={true}
         name="Overbooked documents"
         rows={Array []}
-        showAllClickHandler={
-          Object {
-            "handler": [Function],
-            "params": null,
-          }
+        showAllButton={
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="small"
+          >
+            Show all
+          </Button>
         }
         showMaxRows={5}
         singleLine={true}

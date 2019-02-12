@@ -10,6 +10,7 @@ import {
   loanSearchQueryUrl,
 } from '../../../../../../common/urls';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
+import { Button } from 'semantic-ui-react';
 
 export default class OverdueLoansList extends Component {
   constructor(props) {
@@ -28,14 +29,26 @@ export default class OverdueLoansList extends Component {
       generatePath(this.showDetailsUrl, { loanPid: loan_pid })
     );
 
-  _showAllHandler = params => {
-    this.props.history.push(
-      this.showAllUrl(
-        loanApi
-          .query()
-          .overdue()
-          .qs()
-      )
+  _showAllButton = () => {
+    const _click = () =>
+      this.props.history.push(
+        this.showAllUrl(
+          loanApi
+            .query()
+            .overdue()
+            .qs()
+        )
+      );
+
+    return (
+      <Button
+        size="small"
+        onClick={() => {
+          _click();
+        }}
+      >
+        Show all
+      </Button>
     );
   };
 
@@ -55,10 +68,7 @@ export default class OverdueLoansList extends Component {
         rows={rows}
         name={'Overdue loans'}
         actionClickHandler={this._showDetailsHandler}
-        showAllClickHandler={{
-          handler: this._showAllHandler,
-          params: null,
-        }}
+        showAllButton={this._showAllButton()}
         showMaxRows={this.props.showMaxEntries}
       />
     );

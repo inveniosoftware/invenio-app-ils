@@ -10,11 +10,14 @@ exports[`OverdueLoansList tests should load the details component 1`] = `
       actionComponent={null}
       name="Overdue loans"
       rows={Array []}
-      showAllClickHandler={
-        Object {
-          "handler": [Function],
-          "params": null,
-        }
+      showAllButton={
+        <Button
+          as="button"
+          onClick={[Function]}
+          size="small"
+        >
+          Show all
+        </Button>
       }
       showMaxRows={5}
     />
@@ -72,11 +75,14 @@ exports[`OverdueLoansList tests should render loans 1`] = `
             },
           ]
         }
-        showAllClickHandler={
-          Object {
-            "handler": [Function],
-            "params": null,
-          }
+        showAllButton={
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="small"
+          >
+            Show all
+          </Button>
         }
         showMaxRows={5}
       >
@@ -433,11 +439,14 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={4}
-                  showAllClickHandler={
-                    Object {
-                      "handler": [Function],
-                      "params": null,
-                    }
+                  showAllButton={
+                    <Button
+                      as="button"
+                      onClick={[Function]}
+                      size="small"
+                    >
+                      Show all
+                    </Button>
                   }
                   showMaxRows={5}
                 />
@@ -467,11 +476,14 @@ exports[`OverdueLoansList tests should render show a message with no loans 1`] =
         actionComponent={null}
         name="Overdue loans"
         rows={Array []}
-        showAllClickHandler={
-          Object {
-            "handler": [Function],
-            "params": null,
-          }
+        showAllButton={
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="small"
+          >
+            Show all
+          </Button>
         }
         showMaxRows={5}
       >

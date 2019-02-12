@@ -20,7 +20,7 @@ export default class ILLCard extends Component {
     let handler = () => this.props.history.push(this.showAllUrl);
     // TODO when #155 solved
     return (
-      <Button disabled onClick={() => handler()}>
+      <Button fluid disabled onClick={() => handler()}>
         See all
       </Button>
     );
@@ -29,7 +29,7 @@ export default class ILLCard extends Component {
   _newAcqButton = () => {
     let handler = () => this.props.history.push(this.newAcqURL);
     return (
-      <Button disabled icon positive onClick={() => handler()}>
+      <Button fluid disabled icon positive onClick={() => handler()}>
         <Icon name="plus" />
         New
       </Button>

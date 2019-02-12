@@ -40,7 +40,6 @@ exports[`ResultsTable tests should not render the show all button when showing o
       },
     ]
   }
-  showAllClickHandler={Object {}}
   showMaxRows={3}
 >
   <Segment>
@@ -439,7 +438,6 @@ exports[`ResultsTable tests should not render the show all button when showing o
           <ResultsTableFooter
             allRowsNumber={2}
             columnsNumber={5}
-            showAllClickHandler={Object {}}
             showMaxRows={3}
           />
         </table>
@@ -475,11 +473,14 @@ exports[`ResultsTable tests should render the show all button when showing only 
       },
     ]
   }
-  showAllClickHandler={
-    Object {
-      "handler": [MockFunction],
-      "params": 3,
-    }
+  showAllButton={
+    <Button
+      as="button"
+      onClick={[Function]}
+      size="small"
+    >
+      Show all
+    </Button>
   }
   showMaxRows={1}
 >
@@ -798,11 +799,14 @@ exports[`ResultsTable tests should render the show all button when showing only 
           <ResultsTableFooter
             allRowsNumber={2}
             columnsNumber={6}
-            showAllClickHandler={
-              Object {
-                "handler": [MockFunction],
-                "params": 3,
-              }
+            showAllButton={
+              <Button
+                as="button"
+                onClick={[Function]}
+                size="small"
+              >
+                Show all
+              </Button>
             }
             showMaxRows={1}
           >
@@ -848,9 +852,9 @@ exports[`ResultsTable tests should render the show all button when showing only 
                                entries of
                                
                               2
+                               
                             </span>
                             <span>
-                               
                               <Button
                                 as="button"
                                 onClick={[Function]}

@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import { fetchRequestedWithAvailableItems } from './state/actions';
 import DocumentsCardComponent from './DocumentsCard';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = state => ({
   data: state.documentsCard.data,
@@ -13,7 +15,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(fetchRequestedWithAvailableItems()),
 });
 
-export const DocumentsCard = connect(
-  mapStateToProps,
-  mapDispatchToProps
+export const DocumentsCard = compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(DocumentsCardComponent);

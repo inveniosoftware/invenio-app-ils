@@ -42,7 +42,7 @@ export default class LoansCard extends Component {
   _newLoanButton = () => {
     let handler = () => this.props.history.push(this.loanCheckout);
     return (
-      <Button fluid icon positive onClick={() => handler()}>
+      <Button disabled fluid icon positive onClick={() => handler()}>
         <Icon name="plus" />
         New
       </Button>

@@ -11,6 +11,7 @@ import {
 import { listQuery } from './state/listQuery';
 import { toShortDate } from '../../../../../../common/api/date';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
+import { Button } from 'semantic-ui-react';
 
 export default class RenewedLoansList extends Component {
   constructor(props) {
@@ -29,8 +30,21 @@ export default class RenewedLoansList extends Component {
       generatePath(this.showDetailsUrl, { loanPid: loan_pid })
     );
 
-  _showAllHandler = params => {
-    this.props.history.push(this.showAllUrl(listQuery));
+  _showAllButton = () => {
+    const _click = () => {
+      this.props.history.push(this.showAllUrl(listQuery));
+    };
+
+    return (
+      <Button
+        size="small"
+        onClick={() => {
+          _click();
+        }}
+      >
+        Show all
+      </Button>
+    );
   };
 
   prepareData() {
@@ -50,10 +64,7 @@ export default class RenewedLoansList extends Component {
         rows={rows}
         name={'Frequently renewed loans'}
         actionClickHandler={this._showDetailsHandler}
-        showAllClickHandler={{
-          handler: this._showAllHandler,
-          params: null,
-        }}
+        showAllButton={this._showAllButton()}
         showMaxRows={this.props.showMaxEntries}
         popup={'Loans renewed more than 3 times - last 7 days'}
       />
