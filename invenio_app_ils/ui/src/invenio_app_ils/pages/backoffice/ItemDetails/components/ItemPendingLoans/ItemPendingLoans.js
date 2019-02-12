@@ -9,6 +9,7 @@ import {
   loanSearchQueryUrl,
   viewLoanDetailsUrl,
 } from '../../../../../common/urls';
+import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 
 export default class ItemPendingLoans extends Component {
   constructor(props) {
@@ -41,7 +42,7 @@ export default class ItemPendingLoans extends Component {
   };
 
   prepareData() {
-    return this.props.data.map(row => loanApi.serializer.toTableView(row));
+    return this.props.data.map(row => formatter.loan.toTable(row));
   }
 
   render() {

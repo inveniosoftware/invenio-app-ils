@@ -9,6 +9,7 @@ import {
   loanSearchQueryUrl,
   viewLoanDetailsUrl,
 } from '../../../../../common/urls';
+import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 
 export default class PatronLoans extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ export default class PatronLoans extends Component {
 
   prepareData() {
     return this.props.data.map(row => {
-      let tableRow = loanApi.serializer.toTableView(row);
+      let tableRow = formatter.loan.toTable(row);
       delete tableRow['Patron ID'];
       return tableRow;
     });

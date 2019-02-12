@@ -9,6 +9,7 @@ import {
   BackOfficeURLS,
   loanSearchQueryUrl,
 } from '../../../../../../common/urls';
+import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 
 export default class OverdueLoansList extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ export default class OverdueLoansList extends Component {
 
   prepareData() {
     return this.props.data.map(row => {
-      let serialized = loanApi.serializer.toTableView(row);
+      let serialized = formatter.loan.toTable(row);
       delete serialized['Request created'];
       serialized['Expiration date'] = row.request_expire_date;
       return serialized;

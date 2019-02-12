@@ -12,19 +12,6 @@ function serializeResponse(hit) {
   return result;
 }
 
-function toTableView(document) {
-  const serialized = {
-    ID: document.document_pid,
-    Title: document.title,
-  };
-  if (document.circulation) {
-    serialized['Loan requests'] = document.circulation.pending_loans;
-    serialized['Loanable items'] = document.circulation.loanable_items;
-  }
-  return serialized;
-}
-
 export const serializer = {
   fromJSON: serializeResponse,
-  toTableView: toTableView,
 };

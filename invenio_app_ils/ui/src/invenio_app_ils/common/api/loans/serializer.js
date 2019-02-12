@@ -1,5 +1,5 @@
 import _isEmpty from 'lodash/isEmpty';
-import { fromISO, toShortDateTime } from '../date';
+import { fromISO } from '../date';
 
 function serializeResponse(hit) {
   const result = { ...hit.metadata };
@@ -19,16 +19,6 @@ function serializeResponse(hit) {
   return result;
 }
 
-function serializeToTableView(loan) {
-  return {
-    ID: loan.loan_pid,
-    'Request created': toShortDateTime(loan.created),
-    'Patron ID': loan.patron_pid,
-    State: loan.state,
-  };
-}
-
 export const serializer = {
   fromJSON: serializeResponse,
-  toTableView: serializeToTableView,
 };

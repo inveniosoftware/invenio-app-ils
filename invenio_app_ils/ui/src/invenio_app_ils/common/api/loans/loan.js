@@ -160,7 +160,7 @@ const list = query => {
 };
 
 const count = query => {
-  return http.get(`${loanURL}?q=${query}`).then(response => {
+  return http.get(`${loanListURL}?q=${query}`).then(response => {
     response.data = response.data.hits.total;
     return response;
   });

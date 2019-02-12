@@ -53,8 +53,7 @@ def jsonresolver_loader(url_map):
         circulation["active_loans"] = active_loans_count
         circulation["loanable_items"] = loanable_items_count
         circulation["pending_loans"] = pending_loans
-        if pending_loans > loanable_items_count:
-            circulation["overbooked"] = True
+        circulation["overbooked"] = pending_loans > loanable_items_count
         return circulation
 
     url_map.add(

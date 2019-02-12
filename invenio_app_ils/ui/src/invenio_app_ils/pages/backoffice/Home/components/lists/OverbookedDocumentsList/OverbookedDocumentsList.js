@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import { generatePath } from 'react-router';
 import { Loader, Error } from '../../../../../../common/components';
 import { ResultsTable } from '../../../../../../common/components';
-import {
-  loan as loanApi,
-  document as documentApi,
-} from '../../../../../../common/api';
+import { loan as loanApi } from '../../../../../../common/api';
 
 import {
   BackOfficeURLS,
   loanSearchQueryUrl,
 } from '../../../../../../common/urls';
+import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 
 export default class OverbookedDocumentsList extends Component {
   constructor(props) {
@@ -42,7 +40,7 @@ export default class OverbookedDocumentsList extends Component {
   };
 
   prepareData() {
-    return this.props.data.map(row => documentApi.serializer.toTableView(row));
+    return this.props.data.map(row => formatter.document.toTable(row));
   }
 
   _render_table() {

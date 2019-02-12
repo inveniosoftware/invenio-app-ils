@@ -15,7 +15,7 @@ export default class LoansCard extends Component {
     super(props);
     this.fetchPendingLoans = props.fetchPendingLoans;
     this.showAllUrl = loanSearchQueryUrl;
-    this.newLoanURL = BackOfficeURLS.newLoan;
+    this.loanCheckout = BackOfficeURLS.loanCheckout;
   }
 
   componentDidMount() {
@@ -40,7 +40,7 @@ export default class LoansCard extends Component {
   };
 
   _newLoanButton = () => {
-    let handler = () => this.props.history.push(this.newLoanURL);
+    let handler = () => this.props.history.push(this.loanCheckout);
     return (
       <Button fluid icon positive onClick={() => handler()}>
         <Icon name="plus" />

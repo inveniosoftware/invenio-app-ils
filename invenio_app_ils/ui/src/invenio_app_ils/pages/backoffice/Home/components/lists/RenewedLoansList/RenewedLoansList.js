@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { generatePath } from 'react-router';
 import { Loader, Error } from '../../../../../../common/components';
 import { ResultsTable } from '../../../../../../common/components';
-import { loan as loanApi } from '../../../../../../common/api';
 
 import {
   BackOfficeURLS,
@@ -11,6 +10,7 @@ import {
 } from '../../../../../../common/urls';
 import { listQuery } from './state/listQuery';
 import { toShortDate } from '../../../../../../common/api/date';
+import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 
 export default class RenewedLoansList extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ export default class RenewedLoansList extends Component {
 
   prepareData() {
     return this.props.data.map(row => {
-      let serialized = loanApi.serializer.toTableView(row);
+      let serialized = formatter.loan.toTable(row);
       delete serialized['Request created'];
       serialized['Last update'] = toShortDate(row.updated);
       serialized['Renewals'] = row.extension_count;

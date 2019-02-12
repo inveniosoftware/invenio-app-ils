@@ -16,6 +16,9 @@ export const BackOfficeURLS = {
   locationList: `${BackOfficeBase}/locations`,
   // TODO after editor create link estabilished
   newLoan: `${BackOfficeBase}/loans/create`,
+
+  loanRequest: `${BackOfficeBase}/circulation/loans/request`,
+  loanCheckout: `${BackOfficeBase}/circulation/loans/checkout`,
   newDocument: `${BackOfficeBase}/documents/create`,
 };
 

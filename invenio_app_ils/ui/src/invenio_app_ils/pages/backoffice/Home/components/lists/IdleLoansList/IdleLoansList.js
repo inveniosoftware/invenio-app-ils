@@ -10,11 +10,8 @@ import {
   loanSearchQueryUrl,
 } from '../../../../../../common/urls';
 import { DateTime } from 'luxon';
-import { Popup } from 'semantic-ui-react';
-import {
-  toShortDate,
-  toShortDateTime,
-} from '../../../../../../common/api/date';
+import { toShortDateTime } from '../../../../../../common/api/date';
+import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 
 export default class IdleLoansList extends Component {
   constructor(props) {
@@ -47,7 +44,7 @@ export default class IdleLoansList extends Component {
 
   prepareData() {
     return this.props.data.map(row => {
-      let serialized = loanApi.serializer.toTableView(row);
+      let serialized = formatter.loan.toTable(row);
       delete serialized['Request created'];
       serialized['Last update'] = toShortDateTime(row.updated);
       return serialized;
