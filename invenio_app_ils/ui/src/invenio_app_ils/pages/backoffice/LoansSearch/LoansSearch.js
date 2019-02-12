@@ -24,10 +24,8 @@ import {
 import { apiConfig } from '../../../common/api/base';
 import { Error as IlsError } from '../../../common/components';
 import { loan as endpoint } from '../../../common/api/loans/loan';
-import {
-  SearchBar as LoansSearchBar,
-  ResultsList as LoansResultsList,
-} from './components';
+import { SearchBar as LoansSearchBar } from '../../../common/components';
+import { ResultsList as LoansResultsList } from './components';
 import './LoansSearch.scss';
 import { default as config } from './config';
 import { viewLoanDetailsUrl } from '../../../common/urls';
@@ -39,6 +37,7 @@ export class LoansSearch extends Component {
         currentQueryString={queryString}
         onInputChange={onInputChange}
         executeSearch={executeSearch}
+        placeholder={'Search for loans'}
       />
     );
   };

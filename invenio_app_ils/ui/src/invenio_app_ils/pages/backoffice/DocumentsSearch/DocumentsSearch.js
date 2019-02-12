@@ -20,25 +20,26 @@ import {
   Count,
   SortBy,
   SortOrder,
-  Aggregator,
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
 import { BackOfficeURLS } from '../../../common/urls';
-import { Error as IlsError } from '../../../common/components';
-import { item as endpoint } from '../../../common/api/';
-import { SearchBar as ItemsSearchBar } from '../../../common/components';
-import { ResultsList as ItemsResultsList } from './components';
+import {
+  Error as IlsError,
+  SearchBar as DocumentsSearchBar,
+} from '../../../common/components';
+import { document as endpoint } from '../../../common/api/document';
+import { ResultsList as DocumentsResultsList } from './components';
 import { default as config } from './config';
-import './ItemsSearch.scss';
+import './DocumentsSearch.scss';
 
-export class ItemsSearch extends Component {
+export class DocumentsSearch extends Component {
   _renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
     return (
-      <ItemsSearchBar
+      <DocumentsSearchBar
         currentQueryString={queryString}
         onInputChange={onInputChange}
         executeSearch={executeSearch}
-        placeholder={'Search for items'}
+        placeholder={'Search for documents'}
       />
     );
   };
@@ -46,11 +47,11 @@ export class ItemsSearch extends Component {
   _renderResultsList = results => {
     return (
       <div className="results-list">
-        <ItemsResultsList
+        <DocumentsResultsList
           results={results}
-          viewDetailsClickHandler={itemPid => {
-            const path = generatePath(BackOfficeURLS.itemDetails, {
-              itemPid: itemPid,
+          viewDetailsClickHandler={documentPid => {
+            const path = generatePath(BackOfficeURLS.documentDetails, {
+              documentPid: documentPid,
             });
             this.props.history.push(path);
           }}
@@ -113,15 +114,6 @@ export class ItemsSearch extends Component {
     ) : null;
   };
 
-  _renderAggregations = () => {
-    const components = config.AGGREGATIONS.map(agg => (
-      <div className="aggregator" key={agg.field}>
-        <Aggregator title={agg.title} field={agg.field} />
-      </div>
-    ));
-    return <div className="aggregators">{components}</div>;
-  };
-
   _renderHeader = () => {
     return (
       <Grid columns={3} verticalAlign="middle" stackable relaxed>
@@ -154,12 +146,18 @@ export class ItemsSearch extends Component {
           url: endpoint.url,
         }}
       >
-        <Container className="items-search-searchbar">
+        <Container className="documents-search-searchbar">
           <SearchBar renderElement={this._renderSearchBar} />
         </Container>
 
-        <Grid columns={2} stackable relaxed className="items-search-container">
-          <Grid.Column width={3}>{this._renderAggregations()}</Grid.Column>
+        <Grid
+          columns={2}
+          stackable
+          relaxed
+          className="documents-search-container"
+        >
+          {/*<Grid.Column width={3}>{this._renderAggregations()}</Grid.Column> */}
+          <Grid.Column width={3} />
           <Grid.Column width={13}>
             <ResultsLoader>
               <EmptyResults renderElement={this._renderEmptyResults} />

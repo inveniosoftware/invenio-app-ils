@@ -1,4 +1,13 @@
 export const invenioConfig = {
+  documents: {
+    search: {
+      sortBy: {
+        values: [],
+        onEmptyQuery: '',
+      },
+      sortOrder: [],
+    },
+  },
   items: {
     search: {
       sortBy: {

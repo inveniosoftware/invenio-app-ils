@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { SearchBar } from '../components';
+import { SearchBar } from '../SearchBar';
 
 describe('LoansSearch SearchBar tests', () => {
   let component;
@@ -15,6 +15,7 @@ describe('LoansSearch SearchBar tests', () => {
         currentQueryString={currentQueryString}
         onInputChange={() => {}}
         executeSearch={() => {}}
+        placeholder={'Search'}
       />
     );
     expect(component).toMatchSnapshot();
@@ -28,6 +29,7 @@ describe('LoansSearch SearchBar tests', () => {
         currentQueryString={currentQueryString}
         onInputChange={mockedOnInputChange}
         executeSearch={() => {}}
+        placeholder={'Search'}
       />
     );
 
@@ -43,6 +45,7 @@ describe('LoansSearch SearchBar tests', () => {
         currentQueryString={currentQueryString}
         onInputChange={() => {}}
         executeSearch={mockedExecuteSearch}
+        placeholder={'Search'}
       />
     );
 
@@ -63,6 +66,7 @@ describe('LoansSearch SearchBar tests', () => {
         currentQueryString={currentQueryString}
         onInputChange={() => {}}
         executeSearch={mockedExecuteSearch}
+        placeholder={'Search'}
       />
     );
 

@@ -1,0 +1,233 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentsSearch ResultsList tests should not render when empty results 1`] = `
+<ResultsList
+  results={Array []}
+  viewDetailsClickHandler={[Function]}
+/>
+`;
+
+exports[`DocumentsSearch ResultsList tests should render a list of results 1`] = `
+<ResultsList
+  results={
+    Array [
+      Object {
+        "created": "2018-01-01T10:05:00.000Z",
+        "id": 3,
+        "metadata": Object {
+          "abstracts": "This is an abstract",
+          "authors": "Author1",
+          "title": "This is a title",
+        },
+      },
+    ]
+  }
+  viewDetailsClickHandler={[Function]}
+>
+  <Table
+    as="table"
+    selectable={true}
+    singleLine={true}
+    striped={true}
+  >
+    <table
+      className="ui selectable single line striped table"
+    >
+      <TableHeader
+        as="thead"
+      >
+        <thead
+          className=""
+        >
+          <TableRow
+            as="tr"
+            cellAs="td"
+            data-test="header"
+          >
+            <tr
+              className=""
+              data-test="header"
+            >
+              <TableHeaderCell
+                as="th"
+                collapsing={true}
+              >
+                <TableCell
+                  as="th"
+                  className=""
+                  collapsing={true}
+                >
+                  <th
+                    className="collapsing"
+                  />
+                </TableCell>
+              </TableHeaderCell>
+              <TableHeaderCell
+                as="th"
+              >
+                <TableCell
+                  as="th"
+                  className=""
+                >
+                  <th
+                    className=""
+                  >
+                    Document PID
+                  </th>
+                </TableCell>
+              </TableHeaderCell>
+              <TableHeaderCell
+                as="th"
+              >
+                <TableCell
+                  as="th"
+                  className=""
+                >
+                  <th
+                    className=""
+                  >
+                    Title
+                  </th>
+                </TableCell>
+              </TableHeaderCell>
+              <TableHeaderCell
+                as="th"
+              >
+                <TableCell
+                  as="th"
+                  className=""
+                >
+                  <th
+                    className=""
+                  >
+                    Authors
+                  </th>
+                </TableCell>
+              </TableHeaderCell>
+              <TableHeaderCell
+                as="th"
+              >
+                <TableCell
+                  as="th"
+                  className=""
+                >
+                  <th
+                    className=""
+                  >
+                    Abstract
+                  </th>
+                </TableCell>
+              </TableHeaderCell>
+            </tr>
+          </TableRow>
+        </thead>
+      </TableHeader>
+      <TableBody
+        as="tbody"
+      >
+        <tbody
+          className=""
+        >
+          <DocumentRow
+            DocumentRecord={
+              Object {
+                "created": "2018-01-01T10:05:00.000Z",
+                "id": 3,
+                "metadata": Object {
+                  "abstracts": "This is an abstract",
+                  "authors": "Author1",
+                  "title": "This is a title",
+                },
+              }
+            }
+            key="3"
+            viewDetailsClickHandler={[Function]}
+          >
+            <TableRow
+              as="tr"
+              cellAs="td"
+              data-test={3}
+              key="3"
+            >
+              <tr
+                className=""
+                data-test={3}
+              >
+                <TableCell
+                  as="td"
+                  textAlign="center"
+                >
+                  <td
+                    className="center aligned"
+                  >
+                    <Button
+                      as="button"
+                      circular={true}
+                      compact={true}
+                      icon="eye"
+                      onClick={[Function]}
+                    >
+                      <button
+                        className="ui circular compact icon button"
+                        onClick={[Function]}
+                      >
+                        <Icon
+                          as="i"
+                          name="eye"
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="eye icon"
+                          />
+                        </Icon>
+                      </button>
+                    </Button>
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                >
+                  <td
+                    className=""
+                  >
+                    3
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                  data-test="mapped-status"
+                >
+                  <td
+                    className=""
+                    data-test="mapped-status"
+                  >
+                    This is a title
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                >
+                  <td
+                    className=""
+                  >
+                    Author1
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                >
+                  <td
+                    className=""
+                  >
+                    T...
+                  </td>
+                </TableCell>
+              </tr>
+            </TableRow>
+          </DocumentRow>
+        </tbody>
+      </TableBody>
+    </table>
+  </Table>
+</ResultsList>
+`;

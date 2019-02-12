@@ -7,6 +7,7 @@ const BackOfficeBase = '/backoffice';
 export const BackOfficeURLS = {
   home: BackOfficeBase,
   documentDetails: `${BackOfficeBase}/documents/:documentPid`,
+  documentsSearch: `${BackOfficeBase}/documents`,
   itemsSearch: `${BackOfficeBase}/items`,
   itemDetails: `${BackOfficeBase}/items/:itemPid`,
   loansSearch: `${BackOfficeBase}/loans`,

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon, Menu, Dropdown } from 'semantic-ui-react';
 import { BackOfficeURLS } from '../../../../common/urls';
-import Searchbar from './components/SearchBar';
+import SearchBar from './components/SearchBar';
 
 import './Header.scss';
 
@@ -31,7 +31,7 @@ export default class Header extends Component {
           <Link to="/">Library</Link>
         </Menu.Item>
         <Menu.Item>
-          <Searchbar />
+          <SearchBar />
         </Menu.Item>
         <Menu.Item position="right">
           <Dropdown item trigger={trigger}>
