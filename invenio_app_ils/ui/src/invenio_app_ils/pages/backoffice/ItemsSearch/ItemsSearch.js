@@ -26,10 +26,8 @@ import { apiConfig } from '../../../common/api/base';
 import { BackOfficeURLS } from '../../../common/urls';
 import { Error as IlsError } from '../../../common/components';
 import { item as endpoint } from '../../../common/api/';
-import {
-  SearchBar as ItemsSearchBar,
-  ResultsList as ItemsResultsList,
-} from './components';
+import { SearchBar as ItemsSearchBar } from '../../../common/components';
+import { ResultsList as ItemsResultsList } from './components';
 import { default as config } from './config';
 import './ItemsSearch.scss';
 

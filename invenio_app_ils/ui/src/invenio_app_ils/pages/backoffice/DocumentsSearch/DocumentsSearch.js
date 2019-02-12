@@ -156,7 +156,8 @@ export class DocumentsSearch extends Component {
           relaxed
           className="documents-search-container"
         >
-          {/* <Grid.Column width={3}>{this._renderAggregations()}</Grid.Column> */}
+          {/*<Grid.Column width={3}>{this._renderAggregations()}</Grid.Column> */}
+          <Grid.Column width={3} />
           <Grid.Column width={13}>
             <ResultsLoader>
               <EmptyResults renderElement={this._renderEmptyResults} />
