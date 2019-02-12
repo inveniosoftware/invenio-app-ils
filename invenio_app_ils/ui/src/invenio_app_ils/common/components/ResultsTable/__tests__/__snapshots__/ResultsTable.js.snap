@@ -59,11 +59,10 @@ exports[`ResultsTable tests should not render the show all button when showing o
       <Table
         as="table"
         selectable={true}
-        singleLine={true}
         striped={true}
       >
         <table
-          className="ui selectable single line striped table"
+          className="ui selectable striped table"
         >
           <ResultsTableHeader
             columns={
@@ -94,29 +93,31 @@ exports[`ResultsTable tests should not render the show all button when showing o
                     <TableHeaderCell
                       as="th"
                       collapsing={true}
-                      width={1}
+                      width={2}
                     >
                       <TableCell
                         as="th"
                         className=""
                         collapsing={true}
-                        width={1}
+                        width={2}
                       >
                         <th
-                          className="collapsing one wide"
+                          className="collapsing two wide"
                         />
                       </TableCell>
                     </TableHeaderCell>
                     <TableHeaderCell
                       as="th"
                       key="ID"
+                      width={2}
                     >
                       <TableCell
                         as="th"
                         className=""
+                        width={2}
                       >
                         <th
-                          className=""
+                          className="two wide"
                         >
                           ID
                         </th>
@@ -498,11 +499,10 @@ exports[`ResultsTable tests should render the show all button when showing only 
       <Table
         as="table"
         selectable={true}
-        singleLine={true}
         striped={true}
       >
         <table
-          className="ui selectable single line striped table"
+          className="ui selectable striped table"
         >
           <ResultsTableHeader
             columns={
@@ -534,16 +534,16 @@ exports[`ResultsTable tests should render the show all button when showing only 
                     <TableHeaderCell
                       as="th"
                       collapsing={true}
-                      width={1}
+                      width={2}
                     >
                       <TableCell
                         as="th"
                         className=""
                         collapsing={true}
-                        width={1}
+                        width={2}
                       >
                         <th
-                          className="collapsing one wide"
+                          className="collapsing two wide"
                         />
                       </TableCell>
                     </TableHeaderCell>
@@ -565,13 +565,15 @@ exports[`ResultsTable tests should render the show all button when showing only 
                     <TableHeaderCell
                       as="th"
                       key="ID"
+                      width={2}
                     >
                       <TableCell
                         as="th"
                         className=""
+                        width={2}
                       >
                         <th
-                          className=""
+                          className="two wide"
                         >
                           ID
                         </th>

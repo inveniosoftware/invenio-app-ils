@@ -1,0 +1,514 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OverbookedDocumentsList tests should load the details component 1`] = `
+<Loader>
+  <Error
+    error={null}
+  >
+    <ResultsTable
+      actionClickHandler={[Function]}
+      actionComponent={null}
+      fixed={true}
+      name="Overbooked documents"
+      rows={Array []}
+      showAllClickHandler={
+        Object {
+          "handler": [Function],
+          "params": null,
+        }
+      }
+      showMaxRows={5}
+      singleLine={true}
+    />
+  </Error>
+</Loader>
+`;
+
+exports[`OverbookedDocumentsList tests should render documents 1`] = `
+<OverbookedDocumentsList
+  data={
+    Array [
+      Object {
+        "ID": "doc1",
+        "circulation": Object {
+          "loanableItems": 2,
+          "pendingLoans": 1,
+        },
+        "created": "2018-01-01T10:05:00.000Z",
+        "document_pid": "doc1",
+        "title": "X",
+        "updated": "2018-01-01T10:05:00.000Z",
+      },
+      Object {
+        "ID": "doc2",
+        "created": "2018-01-01T10:05:00.000Z",
+        "document_pid": "doc2",
+        "title": "X",
+        "updated": "2018-01-01T10:05:00.000Z",
+      },
+    ]
+  }
+  fetchOverbookedDocuments={[Function]}
+  history={[Function]}
+  showMaxEntries={5}
+>
+  <Loader>
+    <Error
+      error={null}
+    >
+      <ResultsTable
+        actionClickHandler={[Function]}
+        actionComponent={null}
+        fixed={true}
+        name="Overbooked documents"
+        rows={
+          Array [
+            Object {
+              "ID": "doc1",
+              "Loan requests": undefined,
+              "Loanable items": undefined,
+              "Title": "X",
+            },
+            Object {
+              "ID": "doc2",
+              "Title": "X",
+            },
+          ]
+        }
+        showAllClickHandler={
+          Object {
+            "handler": [Function],
+            "params": null,
+          }
+        }
+        showMaxRows={5}
+        singleLine={true}
+      >
+        <Segment>
+          <div
+            className="ui segment"
+          >
+            <Header
+              as="h3"
+            >
+              <h3
+                className="ui header"
+              >
+                Overbooked documents
+              </h3>
+            </Header>
+            <Table
+              as="table"
+              fixed={true}
+              selectable={true}
+              singleLine={true}
+              striped={true}
+            >
+              <table
+                className="ui fixed selectable single line striped table"
+              >
+                <ResultsTableHeader
+                  columns={
+                    Array [
+                      "ID",
+                      "Title",
+                      "Loan requests",
+                      "Loanable items",
+                    ]
+                  }
+                >
+                  <TableHeader
+                    as="thead"
+                  >
+                    <thead
+                      className=""
+                    >
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="header"
+                      >
+                        <tr
+                          className=""
+                          data-test="header"
+                        >
+                          <TableHeaderCell
+                            as="th"
+                            collapsing={true}
+                            width={2}
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                              collapsing={true}
+                              width={2}
+                            >
+                              <th
+                                className="collapsing two wide"
+                              />
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="ID"
+                            width={2}
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                              width={2}
+                            >
+                              <th
+                                className="two wide"
+                              >
+                                ID
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Title"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Title
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Loan requests"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Loan requests
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Loanable items"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Loanable items
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                        </tr>
+                      </TableRow>
+                    </thead>
+                  </TableHeader>
+                </ResultsTableHeader>
+                <ResultsTableBody
+                  actionClickHandler={[Function]}
+                  actionComponent={null}
+                  columns={
+                    Array [
+                      "ID",
+                      "Title",
+                      "Loan requests",
+                      "Loanable items",
+                    ]
+                  }
+                  rows={
+                    Array [
+                      Object {
+                        "ID": "doc1",
+                        "Loan requests": undefined,
+                        "Loanable items": undefined,
+                        "Title": "X",
+                      },
+                      Object {
+                        "ID": "doc2",
+                        "Title": "X",
+                      },
+                    ]
+                  }
+                >
+                  <TableBody
+                    as="tbody"
+                  >
+                    <tbody
+                      className=""
+                    >
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="doc1"
+                        key="doc1"
+                      >
+                        <tr
+                          className=""
+                          data-test="doc1"
+                        >
+                          <TableCell
+                            as="td"
+                            key="details"
+                            textAlign="center"
+                          >
+                            <td
+                              className="center aligned"
+                            >
+                              <Button
+                                as="button"
+                                circular={true}
+                                compact={true}
+                                icon="eye"
+                                onClick={[Function]}
+                              >
+                                <button
+                                  className="ui circular compact icon button"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="eye"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="eye icon"
+                                    />
+                                  </Icon>
+                                </button>
+                              </Button>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="ID-doc1"
+                            key="0-doc1"
+                          >
+                            <td
+                              className=""
+                              data-test="ID-doc1"
+                            >
+                              doc1
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Title-doc1"
+                            key="1-doc1"
+                          >
+                            <td
+                              className=""
+                              data-test="Title-doc1"
+                            >
+                              X
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Loan requests-doc1"
+                            key="2-doc1"
+                          >
+                            <td
+                              className=""
+                              data-test="Loan requests-doc1"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Loanable items-doc1"
+                            key="3-doc1"
+                          >
+                            <td
+                              className=""
+                              data-test="Loanable items-doc1"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                        </tr>
+                      </TableRow>
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="doc2"
+                        key="doc2"
+                      >
+                        <tr
+                          className=""
+                          data-test="doc2"
+                        >
+                          <TableCell
+                            as="td"
+                            key="details"
+                            textAlign="center"
+                          >
+                            <td
+                              className="center aligned"
+                            >
+                              <Button
+                                as="button"
+                                circular={true}
+                                compact={true}
+                                icon="eye"
+                                onClick={[Function]}
+                              >
+                                <button
+                                  className="ui circular compact icon button"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="eye"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="eye icon"
+                                    />
+                                  </Icon>
+                                </button>
+                              </Button>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="ID-doc2"
+                            key="0-doc2"
+                          >
+                            <td
+                              className=""
+                              data-test="ID-doc2"
+                            >
+                              doc2
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Title-doc2"
+                            key="1-doc2"
+                          >
+                            <td
+                              className=""
+                              data-test="Title-doc2"
+                            >
+                              X
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Loan requests-doc2"
+                            key="2-doc2"
+                          >
+                            <td
+                              className=""
+                              data-test="Loan requests-doc2"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Loanable items-doc2"
+                            key="3-doc2"
+                          >
+                            <td
+                              className=""
+                              data-test="Loanable items-doc2"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                        </tr>
+                      </TableRow>
+                    </tbody>
+                  </TableBody>
+                </ResultsTableBody>
+                <ResultsTableFooter
+                  allRowsNumber={2}
+                  columnsNumber={4}
+                  showAllClickHandler={
+                    Object {
+                      "handler": [Function],
+                      "params": null,
+                    }
+                  }
+                  showMaxRows={5}
+                />
+              </table>
+            </Table>
+          </div>
+        </Segment>
+      </ResultsTable>
+    </Error>
+  </Loader>
+</OverbookedDocumentsList>
+`;
+
+exports[`OverbookedDocumentsList tests should render show a message with no documents 1`] = `
+<OverbookedDocumentsList
+  data={Array []}
+  fetchOverbookedDocuments={[Function]}
+  history={[Function]}
+  showMaxEntries={5}
+>
+  <Loader>
+    <Error
+      error={null}
+    >
+      <ResultsTable
+        actionClickHandler={[Function]}
+        actionComponent={null}
+        fixed={true}
+        name="Overbooked documents"
+        rows={Array []}
+        showAllClickHandler={
+          Object {
+            "handler": [Function],
+            "params": null,
+          }
+        }
+        showMaxRows={5}
+        singleLine={true}
+      >
+        <Segment>
+          <div
+            className="ui segment"
+          >
+            <Header
+              as="h3"
+            >
+              <h3
+                className="ui header"
+              >
+                Overbooked documents
+              </h3>
+            </Header>
+            <Message
+              data-test="no-results"
+            >
+              <div
+                className="ui message"
+                data-test="no-results"
+              >
+                There are no 
+                Overbooked documents
+              </div>
+            </Message>
+          </div>
+        </Segment>
+      </ResultsTable>
+    </Error>
+  </Loader>
+</OverbookedDocumentsList>
+`;

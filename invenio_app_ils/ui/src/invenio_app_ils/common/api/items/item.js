@@ -1,5 +1,6 @@
 import { http } from '../base';
 import { serializer } from './serializer';
+import { prepareSumQuery } from '../utils';
 
 const itemURL = '/items/';
 
@@ -20,9 +21,7 @@ class QueryBuilder {
     if (typeof documentPid === 'undefined' || documentPid === '') {
       throw TypeError('DocumentPid argument missing');
     }
-    this.documentQuery.push(
-      `document_pid:${QueryBuilder.paramToQuery(documentPid)}`
-    );
+    this.documentQuery.push(`document_pid:${prepareSumQuery(documentPid)}`);
     return this;
   }
 
@@ -30,17 +29,8 @@ class QueryBuilder {
     if (typeof status === 'undefined' || status === '') {
       throw TypeError('Status argument missing');
     }
-    this.statusQuery.push(`status:${QueryBuilder.paramToQuery(status)}`);
+    this.statusQuery.push(`status:${prepareSumQuery(status)}`);
     return this;
-  }
-
-  static paramToQuery(param) {
-    if (Array.isArray(param)) {
-      const paramQuery = param.join(' OR ');
-      return `(${paramQuery})`;
-    } else {
-      return param;
-    }
   }
 
   qs() {

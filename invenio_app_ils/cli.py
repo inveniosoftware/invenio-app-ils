@@ -142,6 +142,8 @@ def get_loans_for_items(
             current_year, randint(1, 12), randint(1, 28)
         )
         expire_date = transaction_date + timedelta(days=10)
+        start_date = transaction_date + timedelta(days=3)
+        end_date = transaction_date + timedelta(days=13)
 
         loan = {
             Document.pid_field: "{}".format(
@@ -153,6 +155,8 @@ def get_loans_for_items(
             "pickup_location_pid": "{}".format(loc_pid),
             "request_expire_date": expire_date.strftime("%Y-%m-%d"),
             "state": "{}".format(status),
+            "start_date": start_date.strftime("%Y-%m-%d"),
+            "end_date": end_date.strftime("%Y-%m-%d"),
             "transaction_date": transaction_date.strftime("%Y-%m-%d"),
             "transaction_location_pid": "{}".format(loc_pid),
             "transaction_user_pid": "{}".format(librarian_id),

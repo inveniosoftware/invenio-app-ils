@@ -1,0 +1,613 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IdleLoansList tests should load the details component 1`] = `
+<Loader>
+  <Error
+    error={null}
+  >
+    <ResultsTable
+      actionClickHandler={[Function]}
+      actionComponent={null}
+      name="Idle loans"
+      popup="Loan requests in PENDING state longer than 10 days"
+      rows={Array []}
+      showAllClickHandler={
+        Object {
+          "handler": [Function],
+          "params": null,
+        }
+      }
+      showMaxRows={5}
+    />
+  </Error>
+</Loader>
+`;
+
+exports[`IdleLoansList tests should render loans 1`] = `
+<IdleLoansList
+  data={
+    Array [
+      Object {
+        "created": "2018-01-01T10:05:00.000Z",
+        "end_date": "2018-01-01T11:05:00+01:00",
+        "loan_pid": "loan1",
+        "patron_pid": "patron_1",
+        "start_date": "2018-01-01T11:05:00+01:00",
+        "updated": "2018-01-01T10:05:00.000Z",
+      },
+      Object {
+        "created": "2018-01-01T10:05:00.000Z",
+        "end_date": "2018-01-01T11:05:00+01:00",
+        "loan_pid": "loan2",
+        "patron_pid": "patron_2",
+        "start_date": "2018-01-01T11:05:00+01:00",
+        "updated": "2018-01-01T10:05:00.000Z",
+      },
+    ]
+  }
+  fetchIdlePendingLoans={[Function]}
+  history={[Function]}
+  showMaxEntries={5}
+>
+  <Loader>
+    <Error
+      error={null}
+    >
+      <ResultsTable
+        actionClickHandler={[Function]}
+        actionComponent={null}
+        name="Idle loans"
+        popup="Loan requests in PENDING state longer than 10 days"
+        rows={
+          Array [
+            Object {
+              "ID": "loan1",
+              "Last update": "2018-01-01 10:05",
+              "Patron ID": "patron_1",
+              "State": undefined,
+            },
+            Object {
+              "ID": "loan2",
+              "Last update": "2018-01-01 10:05",
+              "Patron ID": "patron_2",
+              "State": undefined,
+            },
+          ]
+        }
+        showAllClickHandler={
+          Object {
+            "handler": [Function],
+            "params": null,
+          }
+        }
+        showMaxRows={5}
+      >
+        <Segment>
+          <div
+            className="ui segment"
+          >
+            <Popup
+              content="Loan requests in PENDING state longer than 10 days"
+              keepInViewPort={true}
+              on="hover"
+              position="top left"
+              trigger={
+                <Header
+                  as="h3"
+                >
+                  Idle loans
+                </Header>
+              }
+            >
+              <Portal
+                closeOnDocumentClick={true}
+                closeOnEscape={true}
+                closeOnTriggerMouseLeave={true}
+                eventPool="default"
+                mouseEnterDelay={50}
+                mouseLeaveDelay={70}
+                onClose={[Function]}
+                onMount={[Function]}
+                onOpen={[Function]}
+                onUnmount={[Function]}
+                openOnTriggerClick={true}
+                openOnTriggerMouseEnter={true}
+                trigger={
+                  <Header
+                    as="h3"
+                  >
+                    Idle loans
+                  </Header>
+                }
+                triggerRef={[Function]}
+              >
+                <Ref
+                  innerRef={[Function]}
+                >
+                  <Header
+                    as="h3"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <h3
+                      className="ui header"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                    >
+                      Idle loans
+                    </h3>
+                  </Header>
+                </Ref>
+              </Portal>
+            </Popup>
+            <Table
+              as="table"
+              selectable={true}
+              striped={true}
+            >
+              <table
+                className="ui selectable striped table"
+              >
+                <ResultsTableHeader
+                  columns={
+                    Array [
+                      "ID",
+                      "Patron ID",
+                      "State",
+                      "Last update",
+                    ]
+                  }
+                >
+                  <TableHeader
+                    as="thead"
+                  >
+                    <thead
+                      className=""
+                    >
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="header"
+                      >
+                        <tr
+                          className=""
+                          data-test="header"
+                        >
+                          <TableHeaderCell
+                            as="th"
+                            collapsing={true}
+                            width={2}
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                              collapsing={true}
+                              width={2}
+                            >
+                              <th
+                                className="collapsing two wide"
+                              />
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="ID"
+                            width={2}
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                              width={2}
+                            >
+                              <th
+                                className="two wide"
+                              >
+                                ID
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Patron ID"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Patron ID
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="State"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                State
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Last update"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Last update
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                        </tr>
+                      </TableRow>
+                    </thead>
+                  </TableHeader>
+                </ResultsTableHeader>
+                <ResultsTableBody
+                  actionClickHandler={[Function]}
+                  actionComponent={null}
+                  columns={
+                    Array [
+                      "ID",
+                      "Patron ID",
+                      "State",
+                      "Last update",
+                    ]
+                  }
+                  rows={
+                    Array [
+                      Object {
+                        "ID": "loan1",
+                        "Last update": "2018-01-01 10:05",
+                        "Patron ID": "patron_1",
+                        "State": undefined,
+                      },
+                      Object {
+                        "ID": "loan2",
+                        "Last update": "2018-01-01 10:05",
+                        "Patron ID": "patron_2",
+                        "State": undefined,
+                      },
+                    ]
+                  }
+                >
+                  <TableBody
+                    as="tbody"
+                  >
+                    <tbody
+                      className=""
+                    >
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="loan1"
+                        key="loan1"
+                      >
+                        <tr
+                          className=""
+                          data-test="loan1"
+                        >
+                          <TableCell
+                            as="td"
+                            key="details"
+                            textAlign="center"
+                          >
+                            <td
+                              className="center aligned"
+                            >
+                              <Button
+                                as="button"
+                                circular={true}
+                                compact={true}
+                                icon="eye"
+                                onClick={[Function]}
+                              >
+                                <button
+                                  className="ui circular compact icon button"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="eye"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="eye icon"
+                                    />
+                                  </Icon>
+                                </button>
+                              </Button>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="ID-loan1"
+                            key="0-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="ID-loan1"
+                            >
+                              loan1
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Patron ID-loan1"
+                            key="1-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="Patron ID-loan1"
+                            >
+                              patron_1
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="State-loan1"
+                            key="2-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="State-loan1"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Last update-loan1"
+                            key="3-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="Last update-loan1"
+                            >
+                              2018-01-01 10:05
+                            </td>
+                          </TableCell>
+                        </tr>
+                      </TableRow>
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="loan2"
+                        key="loan2"
+                      >
+                        <tr
+                          className=""
+                          data-test="loan2"
+                        >
+                          <TableCell
+                            as="td"
+                            key="details"
+                            textAlign="center"
+                          >
+                            <td
+                              className="center aligned"
+                            >
+                              <Button
+                                as="button"
+                                circular={true}
+                                compact={true}
+                                icon="eye"
+                                onClick={[Function]}
+                              >
+                                <button
+                                  className="ui circular compact icon button"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="eye"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="eye icon"
+                                    />
+                                  </Icon>
+                                </button>
+                              </Button>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="ID-loan2"
+                            key="0-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="ID-loan2"
+                            >
+                              loan2
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Patron ID-loan2"
+                            key="1-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="Patron ID-loan2"
+                            >
+                              patron_2
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="State-loan2"
+                            key="2-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="State-loan2"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Last update-loan2"
+                            key="3-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="Last update-loan2"
+                            >
+                              2018-01-01 10:05
+                            </td>
+                          </TableCell>
+                        </tr>
+                      </TableRow>
+                    </tbody>
+                  </TableBody>
+                </ResultsTableBody>
+                <ResultsTableFooter
+                  allRowsNumber={2}
+                  columnsNumber={4}
+                  showAllClickHandler={
+                    Object {
+                      "handler": [Function],
+                      "params": null,
+                    }
+                  }
+                  showMaxRows={5}
+                />
+              </table>
+            </Table>
+          </div>
+        </Segment>
+      </ResultsTable>
+    </Error>
+  </Loader>
+</IdleLoansList>
+`;
+
+exports[`IdleLoansList tests should render show a message with no loans 1`] = `
+<IdleLoansList
+  data={Array []}
+  fetchIdlePendingLoans={[Function]}
+  history={[Function]}
+  showMaxEntries={5}
+>
+  <Loader>
+    <Error
+      error={null}
+    >
+      <ResultsTable
+        actionClickHandler={[Function]}
+        actionComponent={null}
+        name="Idle loans"
+        popup="Loan requests in PENDING state longer than 10 days"
+        rows={Array []}
+        showAllClickHandler={
+          Object {
+            "handler": [Function],
+            "params": null,
+          }
+        }
+        showMaxRows={5}
+      >
+        <Segment>
+          <div
+            className="ui segment"
+          >
+            <Popup
+              content="Loan requests in PENDING state longer than 10 days"
+              keepInViewPort={true}
+              on="hover"
+              position="top left"
+              trigger={
+                <Header
+                  as="h3"
+                >
+                  Idle loans
+                </Header>
+              }
+            >
+              <Portal
+                closeOnDocumentClick={true}
+                closeOnEscape={true}
+                closeOnTriggerMouseLeave={true}
+                eventPool="default"
+                mouseEnterDelay={50}
+                mouseLeaveDelay={70}
+                onClose={[Function]}
+                onMount={[Function]}
+                onOpen={[Function]}
+                onUnmount={[Function]}
+                openOnTriggerClick={true}
+                openOnTriggerMouseEnter={true}
+                trigger={
+                  <Header
+                    as="h3"
+                  >
+                    Idle loans
+                  </Header>
+                }
+                triggerRef={[Function]}
+              >
+                <Ref
+                  innerRef={[Function]}
+                >
+                  <Header
+                    as="h3"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                  >
+                    <h3
+                      className="ui header"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                    >
+                      Idle loans
+                    </h3>
+                  </Header>
+                </Ref>
+              </Portal>
+            </Popup>
+            <Message
+              data-test="no-results"
+            >
+              <div
+                className="ui message"
+                data-test="no-results"
+              >
+                There are no 
+                Idle loans
+              </div>
+            </Message>
+          </div>
+        </Segment>
+      </ResultsTable>
+    </Error>
+  </Loader>
+</IdleLoansList>
+`;

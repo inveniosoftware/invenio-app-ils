@@ -14,6 +14,12 @@ export const BackOfficeURLS = {
   loanDetails: `${BackOfficeBase}/loans/:loanPid`,
   patronDetails: `${BackOfficeBase}/users/:userPid`,
   locationList: `${BackOfficeBase}/locations`,
+  // TODO after editor create link estabilished
+  newLoan: `${BackOfficeBase}/loans/create`,
+
+  loanRequest: `${BackOfficeBase}/circulation/loans/request`,
+  loanCheckout: `${BackOfficeBase}/circulation/loans/checkout`,
+  newDocument: `${BackOfficeBase}/documents/create`,
 };
 
 export const viewLoanDetailsUrl = loanPid => {
@@ -34,4 +40,8 @@ export const viewItemDetailsUrl = itemPid => {
 
 export const itemSearchQueryUrl = qs => {
   return `${BackOfficeURLS.itemsSearch}?q=${qs}`;
+};
+
+export const documentsSearchQueryUrl = qs => {
+  return `${BackOfficeURLS.documentsSearch}?q=${qs}`;
 };

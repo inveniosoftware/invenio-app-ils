@@ -21,6 +21,14 @@ import {
   locationListReducer,
   internalLocationListReducer,
 } from './pages/backoffice/LocationList/reducer';
+import {
+  loansCardReducer,
+  documentsCardReducer,
+  overbookedDocumentsReducer,
+  overdueLoansReducer,
+  idleLoansReducer,
+  renewedLoansReducer,
+} from './pages/backoffice/Home/reducer';
 
 const rootReducer = combineReducers({
   userSession: userSessionReducer,
@@ -36,6 +44,12 @@ const rootReducer = combineReducers({
   availableItems: availableItemsReducer,
   locations: locationListReducer,
   internalLocations: internalLocationListReducer,
+  loansCard: loansCardReducer,
+  documentsCard: documentsCardReducer,
+  overbookedDocuments: overbookedDocumentsReducer,
+  overdueLoans: overdueLoansReducer,
+  idlePendingLoans: idleLoansReducer,
+  latestRenewedLoans: renewedLoansReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

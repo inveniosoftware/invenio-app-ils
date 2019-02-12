@@ -66,11 +66,10 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
         <Table
           as="table"
           selectable={true}
-          singleLine={true}
           striped={true}
         >
           <table
-            className="ui selectable single line striped table"
+            className="ui selectable striped table"
           >
             <ResultsTableHeader
               columns={
@@ -102,29 +101,31 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                       <TableHeaderCell
                         as="th"
                         collapsing={true}
-                        width={1}
+                        width={2}
                       >
                         <TableCell
                           as="th"
                           className=""
                           collapsing={true}
-                          width={1}
+                          width={2}
                         >
                           <th
-                            className="collapsing one wide"
+                            className="collapsing two wide"
                           />
                         </TableCell>
                       </TableHeaderCell>
                       <TableHeaderCell
                         as="th"
                         key="ID"
+                        width={2}
                       >
                         <TableCell
                           as="th"
                           className=""
+                          width={2}
                         >
                           <th
-                            className=""
+                            className="two wide"
                           >
                             ID
                           </th>

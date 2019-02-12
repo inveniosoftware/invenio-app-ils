@@ -1,4 +1,6 @@
 import { loan as loanApi } from '../loan';
+import { toShortDate } from '../../date';
+import { DateTime } from 'luxon';
 
 describe('Loan query builder tests', () => {
   it('should build query string with document PID', () => {
@@ -52,6 +54,25 @@ describe('Loan query builder tests', () => {
         .qs()
         .toThrow();
     });
+  });
+
+  it('should build query for overdue loans', () => {
+    let now = toShortDate(DateTime.local());
+    const query = loanApi
+      .query()
+      .overdue()
+      .qs();
+    expect(decodeURI(query)).toEqual(`request_expire_date:{* TO ${now}}`);
+  });
+
+  it('should build query for update date range', () => {
+    let now = toShortDate(DateTime.local());
+    let date = { from: '2019-02-01', to: '2019-03-01' };
+    const query = loanApi
+      .query()
+      .withUpdated(date)
+      .qs();
+    expect(decodeURI(query)).toEqual(`_updated:{${date.from} TO ${date.to}}`);
   });
 });
 
