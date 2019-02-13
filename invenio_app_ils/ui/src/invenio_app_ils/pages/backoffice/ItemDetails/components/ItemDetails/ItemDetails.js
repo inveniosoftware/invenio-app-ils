@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
-import { ItemMetadata, ItemPastLoans, ItemPendingLoans } from '../';
+import { ItemMetadata, ItemPastLoans } from '../';
 
 export default class ItemDetails extends Component {
   render() {
@@ -11,7 +11,6 @@ export default class ItemDetails extends Component {
       <Loader isLoading={isLoading}>
         <Error error={errorData}>
           <ItemMetadata item={data} />
-          <ItemPendingLoans item={data} />
           <ItemPastLoans item={data} />
         </Error>
       </Loader>

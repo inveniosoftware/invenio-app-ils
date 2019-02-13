@@ -8,6 +8,7 @@ import {
   loanSearchQueryUrl,
   viewLoanDetailsUrl,
 } from '../../../../../common/urls';
+import { Button } from 'semantic-ui-react';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 
 export default class ItemPastLoans extends Component {
@@ -26,16 +27,28 @@ export default class ItemPastLoans extends Component {
   _showDetailsHandler = loan_pid =>
     this.props.history.push(this.showDetailsUrl(loan_pid));
 
-  _showAllHandler = params => {
+  _showAllButton = () => {
     const { item_pid } = this.props.item;
-    this.props.history.push(
-      this.showAllUrl(
-        loanApi
-          .query()
-          .withItemPid(item_pid)
-          .withState(['ITEM_RETURNED', 'CANCELLED'])
-          .qs()
-      )
+    const _click = () =>
+      this.props.history.push(
+        this.showAllUrl(
+          loanApi
+            .query()
+            .withItemPid(item_pid)
+            .withState(['ITEM_RETURNED', 'CANCELLED'])
+            .qs()
+        )
+      );
+
+    return (
+      <Button
+        size="small"
+        onClick={() => {
+          _click();
+        }}
+      >
+        Show all
+      </Button>
     );
   };
 
@@ -54,10 +67,7 @@ export default class ItemPastLoans extends Component {
             rows={rows}
             name={'Loans history'}
             actionClickHandler={this._showDetailsHandler}
-            showAllClickHandler={{
-              handler: this._showAllHandler,
-              params: null,
-            }}
+            showAllButton={this._showAllButton()}
             showMaxRows={this.props.showMaxPastLoans}
           />
         </Error>

@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { generatePath } from 'react-router';
 import { Loader, Error } from '../../../../../../common/components';
 import { ResultsTable } from '../../../../../../common/components';
-import { loan as loanApi } from '../../../../../../common/api';
+import { document as documentApi } from '../../../../../../common/api';
 
 import {
   BackOfficeURLS,
-  loanSearchQueryUrl,
+  documentsSearchQueryUrl,
 } from '../../../../../../common/urls';
+import { Button } from 'semantic-ui-react';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 
 export default class OverbookedDocumentsList extends Component {
@@ -16,7 +17,7 @@ export default class OverbookedDocumentsList extends Component {
     super(props);
     this.fetchOverbookedDocuments = props.fetchOverbookedDocuments;
     this.showDetailsUrl = BackOfficeURLS.documentDetails;
-    this.showAllUrl = loanSearchQueryUrl;
+    this.showAllUrl = documentsSearchQueryUrl;
   }
 
   componentDidMount() {
@@ -28,14 +29,26 @@ export default class OverbookedDocumentsList extends Component {
       generatePath(this.showDetailsUrl, { documentPid: document_pid })
     );
 
-  _showAllHandler = params => {
-    this.props.history.push(
-      this.showAllUrl(
-        loanApi
-          .query()
-          .withState('PENDING')
-          .qs()
-      )
+  _showAllButton = () => {
+    const _click = () =>
+      this.props.history.push(
+        this.showAllUrl(
+          documentApi
+            .query()
+            .overbooked()
+            .qs()
+        )
+      );
+
+    return (
+      <Button
+        size="small"
+        onClick={() => {
+          _click();
+        }}
+      >
+        Show all
+      </Button>
     );
   };
 
@@ -50,10 +63,7 @@ export default class OverbookedDocumentsList extends Component {
         rows={rows}
         name={'Overbooked documents'}
         actionClickHandler={this._showDetailsHandler}
-        showAllClickHandler={{
-          handler: this._showAllHandler,
-          params: null,
-        }}
+        showAllButton={this._showAllButton()}
         showMaxRows={this.props.showMaxEntries}
         fixed
         singleLine

@@ -9,7 +9,7 @@ export class ResultsTable extends Component {
   constructor(props) {
     super(props);
     this.actionClickHandler = this.props.actionClickHandler;
-    this.showAllClickHandler = this.props.showAllClickHandler;
+    this.showAllButton = this.props.showAllButton;
     this.actionComponent = this.props.actionComponent;
   }
 
@@ -33,7 +33,7 @@ export class ResultsTable extends Component {
         <ResultsTableFooter
           allRowsNumber={rows.length}
           showMaxRows={this.props.showMaxRows}
-          showAllClickHandler={this.showAllClickHandler}
+          showAllButton={this.showAllButton}
           columnsNumber={columns.length}
         />
       </Table>
@@ -74,7 +74,7 @@ ResultsTable.propTypes = {
   showMaxRows: PropTypes.number,
   name: PropTypes.string,
   actionClickHandler: PropTypes.func.isRequired,
-  showAllClickHandler: PropTypes.object,
+  showAllButton: PropTypes.node,
   actionComponent: PropTypes.node,
   wrapped: PropTypes.bool,
   popup: PropTypes.string,

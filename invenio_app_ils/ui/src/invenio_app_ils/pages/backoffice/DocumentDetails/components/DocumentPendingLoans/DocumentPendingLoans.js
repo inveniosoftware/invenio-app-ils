@@ -9,6 +9,7 @@ import {
   viewLoanDetailsUrl,
 } from '../../../../../common/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import { Button } from 'semantic-ui-react';
 
 export default class DocumentPendingLoans extends Component {
   constructor(props) {
@@ -26,16 +27,29 @@ export default class DocumentPendingLoans extends Component {
   _showDetailsHandler = loan_pid =>
     this.props.history.push(this.showDetailsUrl(loan_pid));
 
-  _showAllHandler = () => {
-    const { document_pid } = this.props.document_pid;
-    this.props.history.push(
-      this.showAllUrl(
-        loanApi
-          .query()
-          .withDocPid(document_pid)
-          .withState('PENDING')
-          .qs()
-      )
+  _showAllButton = () => {
+    const { document_pid } = this.props.document;
+
+    const _click = () =>
+      this.props.history.push(
+        this.showAllUrl(
+          loanApi
+            .query()
+            .withDocPid(document_pid)
+            .withState('PENDING')
+            .qs()
+        )
+      );
+
+    return (
+      <Button
+        size="small"
+        onClick={() => {
+          _click();
+        }}
+      >
+        Show all
+      </Button>
     );
   };
 
@@ -54,10 +68,7 @@ export default class DocumentPendingLoans extends Component {
             rows={rows}
             name={'Pending loans requests'}
             actionClickHandler={this._showDetailsHandler}
-            showAllClickHandler={{
-              handler: this._showAllHandler,
-              params: null,
-            }}
+            showAllButton={this._showAllButton()}
             showMaxRows={this.props.showMaxPendingLoans}
           />
         </Error>

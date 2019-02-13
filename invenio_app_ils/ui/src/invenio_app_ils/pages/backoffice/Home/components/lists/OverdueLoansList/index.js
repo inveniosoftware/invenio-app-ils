@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import { fetchOverdueLoans } from './state/actions';
 import OverdueLoansListComponent from './OverdueLoansList';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = state => ({
   data: state.overdueLoans.data,
@@ -12,7 +14,10 @@ const mapDispatchToProps = dispatch => ({
   fetchOverdueLoans: () => dispatch(fetchOverdueLoans()),
 });
 
-export const OverdueLoansList = connect(
-  mapStateToProps,
-  mapDispatchToProps
+export const OverdueLoansList = compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(OverdueLoansListComponent);

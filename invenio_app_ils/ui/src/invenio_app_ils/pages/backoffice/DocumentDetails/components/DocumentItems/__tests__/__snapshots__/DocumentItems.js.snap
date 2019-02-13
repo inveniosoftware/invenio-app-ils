@@ -10,11 +10,14 @@ exports[`DocumentItems tests should load the DocumentItems component 1`] = `
       actionComponent={null}
       name="Attached items"
       rows={Array []}
-      showAllClickHandler={
-        Object {
-          "handler": [Function],
-          "params": null,
-        }
+      showAllButton={
+        <Button
+          as="button"
+          onClick={[Function]}
+          size="small"
+        >
+          Show all
+        </Button>
       }
       showMaxRows={5}
     />
@@ -83,11 +86,14 @@ exports[`DocumentItems tests should render item 1`] = `
             },
           ]
         }
-        showAllClickHandler={
-          Object {
-            "handler": [Function],
-            "params": null,
-          }
+        showAllButton={
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="small"
+          >
+            Show all
+          </Button>
         }
         showMaxRows={5}
       >
@@ -573,11 +579,14 @@ exports[`DocumentItems tests should render item 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={7}
-                  showAllClickHandler={
-                    Object {
-                      "handler": [Function],
-                      "params": null,
-                    }
+                  showAllButton={
+                    <Button
+                      as="button"
+                      onClick={[Function]}
+                      size="small"
+                    >
+                      Show all
+                    </Button>
                   }
                   showMaxRows={5}
                 />
@@ -614,11 +623,14 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
         actionComponent={null}
         name="Attached items"
         rows={Array []}
-        showAllClickHandler={
-          Object {
-            "handler": [Function],
-            "params": null,
-          }
+        showAllButton={
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="small"
+          >
+            Show all
+          </Button>
         }
         showMaxRows={5}
       >
@@ -715,11 +727,14 @@ exports[`DocumentItems tests should render the show all button when showing only
             },
           ]
         }
-        showAllClickHandler={
-          Object {
-            "handler": [Function],
-            "params": null,
-          }
+        showAllButton={
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="small"
+          >
+            Show all
+          </Button>
         }
         showMaxRows={1}
       >
@@ -1068,11 +1083,14 @@ exports[`DocumentItems tests should render the show all button when showing only
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={7}
-                  showAllClickHandler={
-                    Object {
-                      "handler": [Function],
-                      "params": null,
-                    }
+                  showAllButton={
+                    <Button
+                      as="button"
+                      onClick={[Function]}
+                      size="small"
+                    >
+                      Show all
+                    </Button>
                   }
                   showMaxRows={1}
                 >
@@ -1118,9 +1136,9 @@ exports[`DocumentItems tests should render the show all button when showing only
                                      entries of
                                      
                                     2
+                                     
                                   </span>
                                   <span>
-                                     
                                     <Button
                                       as="button"
                                       onClick={[Function]}

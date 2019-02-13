@@ -2,6 +2,8 @@ import { shallow, mount } from 'enzyme/build';
 import React from 'react';
 import { ResultsTable } from '../ResultsTable';
 import { Settings } from 'luxon';
+import { loan as loanApi } from '../../../api';
+import { Button } from 'semantic-ui-react';
 
 Settings.defaultZoneName = 'utc';
 
@@ -21,7 +23,6 @@ describe('ResultsTable tests', () => {
       <ResultsTable
         history={() => {}}
         rows={[]}
-        showAllClickHandler={{}}
         actionClickHandler={() => {}}
       />
     );
@@ -29,8 +30,6 @@ describe('ResultsTable tests', () => {
   });
 
   it('should render the show all button when showing only a few rows', () => {
-    const mockedShowAllClickHandler = jest.fn();
-
     const data = [
       {
         loan_pid: 'loan1',
@@ -50,14 +49,19 @@ describe('ResultsTable tests', () => {
       },
     ];
 
+    const button = () => {
+      return (
+        <Button size="small" onClick={() => {}}>
+          Show all
+        </Button>
+      );
+    };
+
     component = mount(
       <ResultsTable
         history={() => {}}
         rows={data}
-        showAllClickHandler={{
-          handler: mockedShowAllClickHandler,
-          params: 3,
-        }}
+        showAllButton={button()}
         actionClickHandler={() => {}}
         showMaxRows={1}
       />
@@ -94,7 +98,6 @@ describe('ResultsTable tests', () => {
       <ResultsTable
         history={() => {}}
         rows={data}
-        showAllClickHandler={{}}
         actionClickHandler={() => {}}
         showMaxRows={3}
       />
@@ -128,11 +131,7 @@ describe('ResultsTable tests', () => {
     ];
 
     component = mount(
-      <ResultsTable
-        rows={results}
-        showAllClickHandler={{}}
-        actionClickHandler={mockedClickHandler}
-      />
+      <ResultsTable rows={results} actionClickHandler={mockedClickHandler} />
     );
     const firstId = results[0].ID;
     const button = component
@@ -145,7 +144,10 @@ describe('ResultsTable tests', () => {
 
   it('should call show all click handler on show all click', () => {
     const mockedClickHandler = jest.fn();
-    const mockedShowAllClickHandler = jest.fn();
+    const mockedHistoryPush = jest.fn();
+    const historyFn = {
+      push: mockedHistoryPush,
+    };
 
     const results = [
       {
@@ -164,19 +166,31 @@ describe('ResultsTable tests', () => {
       },
     ];
 
+    const buttonObj = () => {
+      return (
+        <Button
+          size="small"
+          onClick={() => {
+            mockedHistoryPush();
+          }}
+        >
+          Show all
+        </Button>
+      );
+    };
+
     component = mount(
       <ResultsTable
         rows={results}
         showMaxRows={1}
-        showAllClickHandler={{
-          handler: mockedShowAllClickHandler,
-          params: 3,
-        }}
-        actionClickHandler={mockedClickHandler}
+        history={historyFn}
+        showAllButton={buttonObj()}
+        actionClickHandler={() => {}}
       />
     );
+
     const button = component.find('TableFooter').find('button');
     button.simulate('click');
-    expect(mockedShowAllClickHandler).toHaveBeenCalledWith(3);
+    expect(mockedHistoryPush).toHaveBeenCalled();
   });
 });

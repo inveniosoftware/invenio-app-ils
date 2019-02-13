@@ -9,6 +9,7 @@ exports[`LoansCard tests should load the details component 1`] = `
       buttonLeft={
         <Button
           as="button"
+          disabled={true}
           fluid={true}
           icon={true}
           onClick={[Function]}
@@ -64,6 +65,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
         buttonLeft={
           <Button
             as="button"
+            disabled={true}
             fluid={true}
             icon={true}
             onClick={[Function]}
@@ -132,14 +134,17 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                       >
                         <Button
                           as="button"
+                          disabled={true}
                           fluid={true}
                           icon={true}
                           onClick={[Function]}
                           positive={true}
                         >
                           <button
-                            className="ui fluid icon positive button"
+                            className="ui fluid icon positive disabled button"
+                            disabled={true}
                             onClick={[Function]}
+                            tabIndex={-1}
                           >
                             <Icon
                               as="i"

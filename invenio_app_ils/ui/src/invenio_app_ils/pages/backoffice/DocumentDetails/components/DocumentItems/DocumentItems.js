@@ -9,6 +9,7 @@ import {
   itemSearchQueryUrl,
   viewItemDetailsUrl,
 } from '../../../../../common/urls';
+import { Button } from 'semantic-ui-react';
 
 export default class DocumentItems extends Component {
   constructor(props) {
@@ -28,15 +29,28 @@ export default class DocumentItems extends Component {
   _showDetailsHandler = item_pid =>
     this.props.history.push(this.showDetailsUrl(item_pid));
 
-  _showAllHandler = () => {
-    const { document_pid } = this.props.document.document_pid;
-    this.props.history.push(
-      this.showAllUrl(
-        itemApi
-          .query()
-          .withDocPid(document_pid)
-          .qs()
-      )
+  _showAllButton = () => {
+    const { document_pid } = this.props.document;
+
+    const _click = () =>
+      this.props.history.push(
+        this.showAllUrl(
+          itemApi
+            .query()
+            .withDocPid(document_pid)
+            .qs()
+        )
+      );
+
+    return (
+      <Button
+        size="small"
+        onClick={() => {
+          _click();
+        }}
+      >
+        Show all
+      </Button>
     );
   };
 
@@ -64,10 +78,7 @@ export default class DocumentItems extends Component {
             rows={rows}
             name={'Attached items'}
             actionClickHandler={this._showDetailsHandler}
-            showAllClickHandler={{
-              handler: this._showAllHandler,
-              params: null,
-            }}
+            showAllButton={this._showAllButton()}
             showMaxRows={this.props.showMaxItems}
           />
         </Error>

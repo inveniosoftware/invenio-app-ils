@@ -10,11 +10,14 @@ exports[`PatronLoans tests should load the details component 1`] = `
       actionComponent={null}
       name="User's loan requests"
       rows={Array []}
-      showAllClickHandler={
-        Object {
-          "handler": [Function],
-          "params": 2,
-        }
+      showAllButton={
+        <Button
+          as="button"
+          onClick={[Function]}
+          size="small"
+        >
+          Show all
+        </Button>
       }
       showMaxRows={5}
     />
@@ -86,11 +89,14 @@ exports[`PatronLoans tests should render patron loans 1`] = `
             },
           ]
         }
-        showAllClickHandler={
-          Object {
-            "handler": [Function],
-            "params": 2,
-          }
+        showAllButton={
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="small"
+          >
+            Show all
+          </Button>
         }
         showMaxRows={5}
       >
@@ -404,11 +410,14 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={3}
-                  showAllClickHandler={
-                    Object {
-                      "handler": [Function],
-                      "params": 2,
-                    }
+                  showAllButton={
+                    <Button
+                      as="button"
+                      onClick={[Function]}
+                      size="small"
+                    >
+                      Show all
+                    </Button>
                   }
                   showMaxRows={5}
                 />
@@ -454,11 +463,14 @@ exports[`PatronLoans tests should render show a message with no user loans 1`] =
         actionComponent={null}
         name="User's loan requests"
         rows={Array []}
-        showAllClickHandler={
-          Object {
-            "handler": [Function],
-            "params": 2,
-          }
+        showAllButton={
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="small"
+          >
+            Show all
+          </Button>
         }
         showMaxRows={5}
       >
@@ -557,11 +569,14 @@ exports[`PatronLoans tests should render the show all button when showing only a
             },
           ]
         }
-        showAllClickHandler={
-          Object {
-            "handler": [Function],
-            "params": 2,
-          }
+        showAllButton={
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="small"
+          >
+            Show all
+          </Button>
         }
         showMaxRows={1}
       >
@@ -790,11 +805,14 @@ exports[`PatronLoans tests should render the show all button when showing only a
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={3}
-                  showAllClickHandler={
-                    Object {
-                      "handler": [Function],
-                      "params": 2,
-                    }
+                  showAllButton={
+                    <Button
+                      as="button"
+                      onClick={[Function]}
+                      size="small"
+                    >
+                      Show all
+                    </Button>
                   }
                   showMaxRows={1}
                 >
@@ -840,9 +858,9 @@ exports[`PatronLoans tests should render the show all button when showing only a
                                      entries of
                                      
                                     2
+                                     
                                   </span>
                                   <span>
-                                     
                                     <Button
                                       as="button"
                                       onClick={[Function]}

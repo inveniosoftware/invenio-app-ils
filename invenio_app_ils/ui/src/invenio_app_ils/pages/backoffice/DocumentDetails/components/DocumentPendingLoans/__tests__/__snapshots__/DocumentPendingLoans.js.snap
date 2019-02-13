@@ -10,11 +10,14 @@ exports[`DocumentPendingLoans tests should load the details component 1`] = `
       actionComponent={null}
       name="Pending loans requests"
       rows={Array []}
-      showAllClickHandler={
-        Object {
-          "handler": [Function],
-          "params": null,
-        }
+      showAllButton={
+        <Button
+          as="button"
+          onClick={[Function]}
+          size="small"
+        >
+          Show all
+        </Button>
       }
       showMaxRows={5}
     />
@@ -80,11 +83,14 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
             },
           ]
         }
-        showAllClickHandler={
-          Object {
-            "handler": [Function],
-            "params": null,
-          }
+        showAllButton={
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="small"
+          >
+            Show all
+          </Button>
         }
         showMaxRows={5}
       >
@@ -441,11 +447,14 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={4}
-                  showAllClickHandler={
-                    Object {
-                      "handler": [Function],
-                      "params": null,
-                    }
+                  showAllButton={
+                    <Button
+                      as="button"
+                      onClick={[Function]}
+                      size="small"
+                    >
+                      Show all
+                    </Button>
                   }
                   showMaxRows={5}
                 />
@@ -483,11 +492,14 @@ exports[`DocumentPendingLoans tests should render show a message with no pending
         actionComponent={null}
         name="Pending loans requests"
         rows={Array []}
-        showAllClickHandler={
-          Object {
-            "handler": [Function],
-            "params": null,
-          }
+        showAllButton={
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="small"
+          >
+            Show all
+          </Button>
         }
         showMaxRows={5}
       >
@@ -581,11 +593,14 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
             },
           ]
         }
-        showAllClickHandler={
-          Object {
-            "handler": [Function],
-            "params": null,
-          }
+        showAllButton={
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="small"
+          >
+            Show all
+          </Button>
         }
         showMaxRows={1}
       >
@@ -844,11 +859,14 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={4}
-                  showAllClickHandler={
-                    Object {
-                      "handler": [Function],
-                      "params": null,
-                    }
+                  showAllButton={
+                    <Button
+                      as="button"
+                      onClick={[Function]}
+                      size="small"
+                    >
+                      Show all
+                    </Button>
                   }
                   showMaxRows={1}
                 >
@@ -894,9 +912,9 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
                                      entries of
                                      
                                     2
+                                     
                                   </span>
                                   <span>
-                                     
                                     <Button
                                       as="button"
                                       onClick={[Function]}

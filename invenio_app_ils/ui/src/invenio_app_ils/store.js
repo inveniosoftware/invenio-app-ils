@@ -10,7 +10,6 @@ import {
 } from './pages/backoffice/DocumentDetails/reducer';
 import {
   itemDetailsReducer,
-  itemPendingLoansReducer,
   itemPastLoansReducer,
 } from './pages/backoffice/ItemDetails/reducer';
 import { loanDetailsReducer } from './pages/backoffice/LoanDetails/reducer';
@@ -37,7 +36,6 @@ const rootReducer = combineReducers({
   documentItems: documentItems,
   itemDetails: itemDetailsReducer,
   itemPastLoans: itemPastLoansReducer,
-  itemPendingLoans: itemPendingLoansReducer,
   loanDetails: loanDetailsReducer,
   userDetails: userDetailsReducer,
   patronLoans: patronLoansReducer,
