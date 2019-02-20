@@ -42,7 +42,7 @@ setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
 install_requires = [
     "Flask-BabelEx>=0.9.3",
     "Flask-Debugtoolbar>=0.10.1",
-    "invenio[postgresql,elasticsearch6,base,auth]>=3.1.0.dev20181106",
+    "invenio[postgresql,elasticsearch6,base,auth]==3.1.0.dev20181106",
     # metadata bundle without records UI
     "invenio-indexer>=1.0.1,<1.1.0",
     "invenio-jsonschemas>=1.0.0,<1.1.0",
