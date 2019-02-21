@@ -35,6 +35,10 @@ export class ResultsList extends Component {
         }}
       />
     );
+    const maxRowsToShow =
+      rows.length > ResultsTable.defaultProps.showMaxRows
+        ? rows.length
+        : ResultsTable.defaultProps.showMaxRows;
 
     return rows.length ? (
       <ResultsTable
@@ -42,6 +46,7 @@ export class ResultsList extends Component {
         title={''}
         headerActionComponent={headerActionComponent}
         rowActionClickHandler={this.viewDetailsClickHandler}
+        showMaxRows={maxRowsToShow}
       />
     ) : null;
   }

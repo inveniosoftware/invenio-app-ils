@@ -53,6 +53,7 @@ export default class OverdueLoansList extends Component {
 
   _render_table() {
     const rows = this.prepareData();
+    rows.totalHits = this.props.data.totalHits;
     return (
       <ResultsTable
         rows={rows}
