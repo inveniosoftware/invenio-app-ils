@@ -9,6 +9,8 @@ export class ResultsTable extends Component {
   _renderTable = () => {
     const { rows, showMaxRows, singleLine, fixed } = this.props;
     const columns = rows ? Object.keys(rows[0]) : [];
+    const totalRows =
+      rows.totalHits > rows.length ? rows.totalHits : rows.length;
     return (
       <Table
         striped
@@ -26,7 +28,7 @@ export class ResultsTable extends Component {
           rowActionClickHandler={this.props.rowActionClickHandler}
         />
         <ResultsTableFooter
-          allRowsNumber={rows.length}
+          allRowsNumber={totalRows}
           showMaxRows={this.props.showMaxRows}
           seeAllComponent={this.props.seeAllComponent}
           columnsNumber={columns.length}

@@ -45,9 +45,11 @@ const queryBuilder = () => {
 
 const list = query => {
   return http.get(`${documentURL}?q=${query}`).then(response => {
+    const totalHits = response.data.hits.total;
     response.data = response.data.hits.hits.map(hit =>
       serializer.fromJSON(hit)
     );
+    response.data.totalHits = totalHits;
     return response;
   });
 };
