@@ -12,6 +12,7 @@ export const fetchOverdueLoans = () => {
         loanApi
           .query()
           .overdue()
+          .withState('ITEM_ON_LOAN')
           .qs()
       )
       .then(response => {
