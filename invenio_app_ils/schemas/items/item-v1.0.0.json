@@ -10,7 +10,9 @@
     "status",
     "item_pid",
     "document_pid",
-    "document"
+    "document",
+    "circulation_restriction",
+    "medium"
   ],
   "properties": {
     "$schema": {
@@ -18,11 +20,11 @@
     },
     "item_pid": {
       "type": "string",
-      "title": "Item ID"
+      "title": "The persistent identifier of this Item"
     },
     "document_pid": {
       "type": "string",
-      "title": "Item ID"
+      "title": "The persistent identifier of its Document"
     },
     "document": {
       "type": "object",
@@ -34,7 +36,7 @@
     },
     "internal_location_pid": {
       "type": "string",
-      "title": "Internal Location ID"
+      "title": "The persistent identifier of its Internal Location"
     },
     "internal_location": {
       "type": "object",
@@ -46,37 +48,38 @@
     },
     "legacy_id": {
       "type": "string",
-      "title": "Legacy Item ID"
+      "title": "The previous id of this Item before migration"
     },
     "legacy_library_id": {
       "type": "string",
-      "title": "Legacy Library ID"
+      "title": "The previous id of the location of this Item before migration"
     },
     "barcode": {
       "type": "string",
-      "title": "Item barcode"
+      "title": "The barcode of this Item"
     },
     "shelf": {
       "type": "string",
-      "title": "Item shelf location"
+      "title": "The shelf location of this Item"
     },
     "description": {
       "type": "string",
-      "title": "Extra description for the Item"
+      "title": "Any extra description for this Item"
     },
     "circulation_restriction": {
       "type": "string",
-      "title": "Circulation restriction on the Item"
+      "enum": ["NO_RESTRICTION", "FOR_REFERENCE_ONLY"],
+      "title": "The circulation restriction on this Item"
     },
     "medium": {
       "type": "string",
       "enum": ["NOT_SPECIFIED", "ONLINE", "PAPER", "CDROM", "DVD", "VHS"],
-      "title": "Medium's Item"
+      "title": "The medium of this Item"
     },
     "status": {
       "type": "string",
       "enum": ["LOANABLE", "MISSING", "IN_BINDING", "SCANNING"],
-      "title": "Item's status"
+      "title": "The current status of this Item"
     },
     "circulation_status": {
       "type": "object",

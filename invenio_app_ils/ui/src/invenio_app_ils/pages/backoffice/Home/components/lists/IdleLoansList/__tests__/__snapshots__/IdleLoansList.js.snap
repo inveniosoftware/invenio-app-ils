@@ -6,21 +6,23 @@ exports[`IdleLoansList tests should load the details component 1`] = `
     error={null}
   >
     <ResultsTable
-      actionClickHandler={[Function]}
-      actionComponent={null}
-      name="Idle loans"
-      popup="Loan requests in PENDING state longer than 10 days"
+      fixed={false}
+      headerActionClickHandler={null}
+      headerActionComponent={null}
+      rowActionClickHandler={[Function]}
+      rowActionComponent={null}
       rows={Array []}
-      showAllButton={
-        <Button
-          as="button"
-          onClick={[Function]}
-          size="small"
-        >
-          Show all
-        </Button>
+      seeAllComponent={
+        <SeeAllButton
+          clickHandler={[Function]}
+          disabled={false}
+          fluid={false}
+        />
       }
       showMaxRows={5}
+      singleLine={false}
+      subtitle="Loan requests in PENDING state longer than 10 days."
+      title="Idle loans"
     />
   </Error>
 </Loader>
@@ -57,10 +59,11 @@ exports[`IdleLoansList tests should render loans 1`] = `
       error={null}
     >
       <ResultsTable
-        actionClickHandler={[Function]}
-        actionComponent={null}
-        name="Idle loans"
-        popup="Loan requests in PENDING state longer than 10 days"
+        fixed={false}
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        rowActionClickHandler={[Function]}
+        rowActionComponent={null}
         rows={
           Array [
             Object {
@@ -77,81 +80,71 @@ exports[`IdleLoansList tests should render loans 1`] = `
             },
           ]
         }
-        showAllButton={
-          <Button
-            as="button"
-            onClick={[Function]}
-            size="small"
-          >
-            Show all
-          </Button>
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
         }
         showMaxRows={5}
+        singleLine={false}
+        subtitle="Loan requests in PENDING state longer than 10 days."
+        title="Idle loans"
       >
         <Segment>
           <div
             className="ui segment"
           >
-            <Popup
-              content="Loan requests in PENDING state longer than 10 days"
-              keepInViewPort={true}
-              on="hover"
-              position="top left"
-              trigger={
-                <Header
-                  as="h3"
-                >
-                  Idle loans
-                </Header>
-              }
-            >
-              <Portal
-                closeOnDocumentClick={true}
-                closeOnEscape={true}
-                closeOnTriggerMouseLeave={true}
-                eventPool="default"
-                mouseEnterDelay={50}
-                mouseLeaveDelay={70}
-                onClose={[Function]}
-                onMount={[Function]}
-                onOpen={[Function]}
-                onUnmount={[Function]}
-                openOnTriggerClick={true}
-                openOnTriggerMouseEnter={true}
-                trigger={
-                  <Header
-                    as="h3"
-                  >
-                    Idle loans
-                  </Header>
-                }
-                triggerRef={[Function]}
+            <Grid>
+              <div
+                className="ui grid"
               >
-                <Ref
-                  innerRef={[Function]}
-                >
-                  <Header
-                    as="h3"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
+                <GridRow>
+                  <div
+                    className="row"
                   >
-                    <h3
-                      className="ui header"
-                      onBlur={[Function]}
-                      onClick={[Function]}
-                      onFocus={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
                     >
-                      Idle loans
-                    </h3>
-                  </Header>
-                </Ref>
-              </Portal>
-            </Popup>
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Idle loans"
+                          subheader="Loan requests in PENDING state longer than 10 days."
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Idle loans
+                            <HeaderSubheader
+                              content="Loan requests in PENDING state longer than 10 days."
+                            >
+                              <div
+                                className="sub header"
+                              >
+                                Loan requests in PENDING state longer than 10 days.
+                              </div>
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
             <Table
               as="table"
               selectable={true}
@@ -269,8 +262,6 @@ exports[`IdleLoansList tests should render loans 1`] = `
                   </TableHeader>
                 </ResultsTableHeader>
                 <ResultsTableBody
-                  actionClickHandler={[Function]}
-                  actionComponent={null}
                   columns={
                     Array [
                       "ID",
@@ -279,6 +270,8 @@ exports[`IdleLoansList tests should render loans 1`] = `
                       "Last update",
                     ]
                   }
+                  rowActionClickHandler={[Function]}
+                  rowActionComponent={null}
                   rows={
                     Array [
                       Object {
@@ -492,14 +485,12 @@ exports[`IdleLoansList tests should render loans 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={4}
-                  showAllButton={
-                    <Button
-                      as="button"
-                      onClick={[Function]}
-                      size="small"
-                    >
-                      Show all
-                    </Button>
+                  seeAllComponent={
+                    <SeeAllButton
+                      clickHandler={[Function]}
+                      disabled={false}
+                      fluid={false}
+                    />
                   }
                   showMaxRows={5}
                 />
@@ -525,86 +516,77 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
       error={null}
     >
       <ResultsTable
-        actionClickHandler={[Function]}
-        actionComponent={null}
-        name="Idle loans"
-        popup="Loan requests in PENDING state longer than 10 days"
+        fixed={false}
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        rowActionClickHandler={[Function]}
+        rowActionComponent={null}
         rows={Array []}
-        showAllButton={
-          <Button
-            as="button"
-            onClick={[Function]}
-            size="small"
-          >
-            Show all
-          </Button>
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
         }
         showMaxRows={5}
+        singleLine={false}
+        subtitle="Loan requests in PENDING state longer than 10 days."
+        title="Idle loans"
       >
         <Segment>
           <div
             className="ui segment"
           >
-            <Popup
-              content="Loan requests in PENDING state longer than 10 days"
-              keepInViewPort={true}
-              on="hover"
-              position="top left"
-              trigger={
-                <Header
-                  as="h3"
-                >
-                  Idle loans
-                </Header>
-              }
-            >
-              <Portal
-                closeOnDocumentClick={true}
-                closeOnEscape={true}
-                closeOnTriggerMouseLeave={true}
-                eventPool="default"
-                mouseEnterDelay={50}
-                mouseLeaveDelay={70}
-                onClose={[Function]}
-                onMount={[Function]}
-                onOpen={[Function]}
-                onUnmount={[Function]}
-                openOnTriggerClick={true}
-                openOnTriggerMouseEnter={true}
-                trigger={
-                  <Header
-                    as="h3"
-                  >
-                    Idle loans
-                  </Header>
-                }
-                triggerRef={[Function]}
+            <Grid>
+              <div
+                className="ui grid"
               >
-                <Ref
-                  innerRef={[Function]}
-                >
-                  <Header
-                    as="h3"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
+                <GridRow>
+                  <div
+                    className="row"
                   >
-                    <h3
-                      className="ui header"
-                      onBlur={[Function]}
-                      onClick={[Function]}
-                      onFocus={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
                     >
-                      Idle loans
-                    </h3>
-                  </Header>
-                </Ref>
-              </Portal>
-            </Popup>
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Idle loans"
+                          subheader="Loan requests in PENDING state longer than 10 days."
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Idle loans
+                            <HeaderSubheader
+                              content="Loan requests in PENDING state longer than 10 days."
+                            >
+                              <div
+                                className="sub header"
+                              >
+                                Loan requests in PENDING state longer than 10 days.
+                              </div>
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
             <Message
               data-test="no-results"
             >
@@ -613,7 +595,6 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
                 data-test="no-results"
               >
                 There are no 
-                Idle loans
               </div>
             </Message>
           </div>

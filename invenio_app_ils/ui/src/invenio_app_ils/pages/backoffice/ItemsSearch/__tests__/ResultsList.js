@@ -14,6 +14,7 @@ describe('ItemsSearch ResultsList tests', () => {
       id: 987,
       created: toISO(d),
       metadata: {
+        item_pid: 987,
         barcode: '9865745223',
         document_pid: 1342,
         document: {
@@ -49,13 +50,17 @@ describe('ItemsSearch ResultsList tests', () => {
     const firstResult = results[0];
     const resultRows = component
       .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === firstResult.id);
+      .filterWhere(
+        element => element.prop('data-test') === firstResult.metadata.item_pid
+      );
     expect(resultRows).toHaveLength(1);
 
     const mappedStatusElements = resultRows
       .find('TableCell')
       .filterWhere(
-        element => element.prop('data-test') === 'Status-' + firstResult.id
+        element =>
+          element.prop('data-test') ===
+          'Status-' + firstResult.metadata.item_pid
       );
     expect(mappedStatusElements).toHaveLength(1);
 
@@ -70,7 +75,7 @@ describe('ItemsSearch ResultsList tests', () => {
         viewDetailsClickHandler={mockedClickHandler}
       />
     );
-    const firstId = results[0].id;
+    const firstId = results[0].metadata.item_pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)

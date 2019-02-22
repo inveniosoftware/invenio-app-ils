@@ -9,15 +9,15 @@ import {
   loanSearchQueryUrl,
   viewLoanDetailsUrl,
 } from '../../../../../common/urls';
-import { Button } from 'semantic-ui-react';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import { SeeAllButton } from '../../../components/buttons';
 
 export default class PatronLoans extends Component {
   constructor(props) {
     super(props);
     this.fetchPatronLoans = props.fetchPatronLoans;
     this.showDetailsUrl = viewLoanDetailsUrl;
-    this.showAllUrl = loanSearchQueryUrl;
+    this.seeAllUrl = loanSearchQueryUrl;
   }
 
   componentDidMount() {
@@ -28,28 +28,18 @@ export default class PatronLoans extends Component {
   _showDetailsHandler = loan_pid =>
     this.props.history.push(this.showDetailsUrl(loan_pid));
 
-  _showAllButton = () => {
+  _seeAllButton = () => {
     const { patron } = this.props;
     const _click = () =>
       this.props.history.push(
-        this.showAllUrl(
+        this.seeAllUrl(
           loanApi
             .query()
             .withPatronPid(patron)
             .qs()
         )
       );
-
-    return (
-      <Button
-        size="small"
-        onClick={() => {
-          _click();
-        }}
-      >
-        Show all
-      </Button>
-    );
+    return <SeeAllButton clickHandler={() => _click()} />;
   };
 
   prepareData() {
@@ -69,9 +59,9 @@ export default class PatronLoans extends Component {
         <Error error={errorData}>
           <ResultsTable
             rows={rows}
-            name={"User's loan requests"}
-            actionClickHandler={this._showDetailsHandler}
-            showAllButton={this._showAllButton()}
+            title={"User's loan requests"}
+            rowActionClickHandler={this._showDetailsHandler}
+            seeAllComponent={this._seeAllButton()}
             showMaxRows={this.props.showMaxLoans}
           />
         </Error>

@@ -6,20 +6,23 @@ exports[`OverdueLoansList tests should load the details component 1`] = `
     error={null}
   >
     <ResultsTable
-      actionClickHandler={[Function]}
-      actionComponent={null}
-      name="Overdue loans"
+      fixed={false}
+      headerActionClickHandler={null}
+      headerActionComponent={null}
+      rowActionClickHandler={[Function]}
+      rowActionComponent={null}
       rows={Array []}
-      showAllButton={
-        <Button
-          as="button"
-          onClick={[Function]}
-          size="small"
-        >
-          Show all
-        </Button>
+      seeAllComponent={
+        <SeeAllButton
+          clickHandler={[Function]}
+          disabled={false}
+          fluid={false}
+        />
       }
       showMaxRows={5}
+      singleLine={false}
+      subtitle="Active loans with past due end date."
+      title="Overdue loans"
     />
   </Error>
 </Loader>
@@ -56,9 +59,11 @@ exports[`OverdueLoansList tests should render loans 1`] = `
       error={null}
     >
       <ResultsTable
-        actionClickHandler={[Function]}
-        actionComponent={null}
-        name="Overdue loans"
+        fixed={false}
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        rowActionClickHandler={[Function]}
+        rowActionComponent={null}
         rows={
           Array [
             Object {
@@ -75,30 +80,71 @@ exports[`OverdueLoansList tests should render loans 1`] = `
             },
           ]
         }
-        showAllButton={
-          <Button
-            as="button"
-            onClick={[Function]}
-            size="small"
-          >
-            Show all
-          </Button>
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
         }
         showMaxRows={5}
+        singleLine={false}
+        subtitle="Active loans with past due end date."
+        title="Overdue loans"
       >
         <Segment>
           <div
             className="ui segment"
           >
-            <Header
-              as="h3"
-            >
-              <h3
-                className="ui header"
+            <Grid>
+              <div
+                className="ui grid"
               >
-                Overdue loans
-              </h3>
-            </Header>
+                <GridRow>
+                  <div
+                    className="row"
+                  >
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
+                    >
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Overdue loans"
+                          subheader="Active loans with past due end date."
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Overdue loans
+                            <HeaderSubheader
+                              content="Active loans with past due end date."
+                            >
+                              <div
+                                className="sub header"
+                              >
+                                Active loans with past due end date.
+                              </div>
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
             <Table
               as="table"
               selectable={true}
@@ -216,8 +262,6 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                   </TableHeader>
                 </ResultsTableHeader>
                 <ResultsTableBody
-                  actionClickHandler={[Function]}
-                  actionComponent={null}
                   columns={
                     Array [
                       "ID",
@@ -226,6 +270,8 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                       "Expiration date",
                     ]
                   }
+                  rowActionClickHandler={[Function]}
+                  rowActionComponent={null}
                   rows={
                     Array [
                       Object {
@@ -439,14 +485,12 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={4}
-                  showAllButton={
-                    <Button
-                      as="button"
-                      onClick={[Function]}
-                      size="small"
-                    >
-                      Show all
-                    </Button>
+                  seeAllComponent={
+                    <SeeAllButton
+                      clickHandler={[Function]}
+                      disabled={false}
+                      fluid={false}
+                    />
                   }
                   showMaxRows={5}
                 />
@@ -472,34 +516,77 @@ exports[`OverdueLoansList tests should render show a message with no loans 1`] =
       error={null}
     >
       <ResultsTable
-        actionClickHandler={[Function]}
-        actionComponent={null}
-        name="Overdue loans"
+        fixed={false}
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        rowActionClickHandler={[Function]}
+        rowActionComponent={null}
         rows={Array []}
-        showAllButton={
-          <Button
-            as="button"
-            onClick={[Function]}
-            size="small"
-          >
-            Show all
-          </Button>
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
         }
         showMaxRows={5}
+        singleLine={false}
+        subtitle="Active loans with past due end date."
+        title="Overdue loans"
       >
         <Segment>
           <div
             className="ui segment"
           >
-            <Header
-              as="h3"
-            >
-              <h3
-                className="ui header"
+            <Grid>
+              <div
+                className="ui grid"
               >
-                Overdue loans
-              </h3>
-            </Header>
+                <GridRow>
+                  <div
+                    className="row"
+                  >
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
+                    >
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Overdue loans"
+                          subheader="Active loans with past due end date."
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Overdue loans
+                            <HeaderSubheader
+                              content="Active loans with past due end date."
+                            >
+                              <div
+                                className="sub header"
+                              >
+                                Active loans with past due end date.
+                              </div>
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
             <Message
               data-test="no-results"
             >
@@ -508,7 +595,6 @@ exports[`OverdueLoansList tests should render show a message with no loans 1`] =
                 data-test="no-results"
               >
                 There are no 
-                Overdue loans
               </div>
             </Message>
           </div>

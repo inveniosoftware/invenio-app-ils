@@ -1,39 +1,45 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2019 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Ils Internal Location record resolver."""
+"""Internal Locations related resolvers."""
 
 import jsonresolver
 from invenio_pidstore.errors import PersistentIdentifierError
 from werkzeug.routing import Rule
 
-from ..api import InternalLocation
+from ..api import InternalLocation, Location
+from .resolver import get_field_value_for_record as get_field_value
+
+# Note: there must be only one resolver per file,
+# otherwise only the last one is registered
 
 
 @jsonresolver.hookimpl
 def jsonresolver_loader(url_map):
-    """Resolve the internal location for item record."""
+    """Resolve the referred Location for an Internal Location record."""
     from flask import current_app
 
-    def _internal_location_resolver(internal_loc_pid):
-        """Return the internal location for the given pid or raise exception."""
-        internal_location = {}
+    def location_resolver(internal_loc_pid):
+        """Return the Location record for the given Internal Loc. or raise."""
+        location_pid = get_field_value(InternalLocation, internal_loc_pid,
+                                       Location.pid_field)
+        location = {}
         try:
-            internal_location = InternalLocation.get_record_by_pid(
-                internal_loc_pid
-            )
+            location = Location.get_record_by_pid(location_pid)
         except PersistentIdentifierError as ex:
             current_app.logger.error(ex)
-        return internal_location
+            raise ex
+
+        return location
 
     url_map.add(
         Rule(
-            "/api/resolver/internal-locations/<internal_loc_pid>",
-            endpoint=_internal_location_resolver,
+            "/api/resolver/internal-locations/<internal_loc_pid>/location",
+            endpoint=location_resolver,
             host=current_app.config.get("JSONSCHEMAS_HOST"),
         )
     )

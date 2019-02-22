@@ -108,7 +108,7 @@ describe('DocumentItems tests', () => {
     expect(footer).toHaveLength(0);
   });
 
-  it('should render the show all button when showing only a few items', () => {
+  it('should render the see all button when showing only a few items', () => {
     const data = [
       {
         ID: '1',

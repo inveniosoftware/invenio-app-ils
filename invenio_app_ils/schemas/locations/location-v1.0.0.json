@@ -9,27 +9,27 @@
     },
     "location_pid": {
       "type": "string",
-      "title": "Location ID"
+      "title": "The persistent identifier of this Location"
     },
     "name": {
       "type": "string",
-      "title": "Location name"
+      "title": "The name of this Location"
     },
     "address": {
       "type": "string",
-      "title": "Address of the location"
+      "title": "The address of this Location"
     },
     "email": {
       "type": "string",
-      "title": "Contact email"
+      "title": "A contact email"
     },
     "phone": {
       "type": "string",
-      "title": "Contact phone"
+      "title": "A contact phone"
     },
     "notes": {
       "type": "string",
-      "title": "Extra notes for the location"
+      "title": "Extra notes"
     }
   }
 }

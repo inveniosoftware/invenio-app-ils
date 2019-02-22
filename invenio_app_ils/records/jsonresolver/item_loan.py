@@ -1,33 +1,39 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2019 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Ils Records Items record resolver."""
+"""Item related resolvers."""
 
 import jsonresolver
 from invenio_circulation.api import get_loan_for_item
 from werkzeug.routing import Rule
 
+from ..api import Item
+
+# Note: there must be only one resolver per file,
+# otherwise only the last one is registered
+
 
 @jsonresolver.hookimpl
 def jsonresolver_loader(url_map):
-    """Resolve the loan for item record."""
+    """Resolve the referred Loan for an Item record."""
     from flask import current_app
 
-    def _loan_for_item_resolver(pid_value):
+    def loan_for_item_resolver(item_pid):
         """Return the loan for the given item."""
-        loan = get_loan_for_item(pid_value) or {}
+        loan = get_loan_for_item(item_pid) or {}
+        # remove the `item` field to avoid circular dependencies
         if loan.get("item"):
             del loan["item"]
         return loan
 
     url_map.add(
         Rule(
-            "/api/resolver/circulation/items/<pid_value>/loan",
-            endpoint=_loan_for_item_resolver,
+            "/api/resolver/circulation/items/<item_pid>/loan",
+            endpoint=loan_for_item_resolver,
             host=current_app.config.get("JSONSCHEMAS_HOST"),
         )
     )

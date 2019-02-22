@@ -18,13 +18,13 @@ from ..records.api import Item
 from ..search.api import ItemSearch
 
 
-def circulation_build_item_ref(item_pid):
-    """Build $ref for item."""
+def circulation_build_item_ref(loan_pid):
+    """Build $ref for the Item attached to the Loan."""
     return {
-        "$ref": "{scheme}://{host}/api/resolver/circulation/items/{item_pid}".format(
+        "$ref": "{scheme}://{host}/api/resolver/loans/{loan_pid}/item".format(
             scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
             host=current_app.config["JSONSCHEMAS_HOST"],
-            item_pid=item_pid,
+            loan_pid=loan_pid,
         )
     }
 

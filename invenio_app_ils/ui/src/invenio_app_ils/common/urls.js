@@ -1,4 +1,5 @@
 import { generatePath } from 'react-router-dom';
+import { invenioConfig } from './config';
 
 export const FrontSiteURLS = {};
 
@@ -41,4 +42,8 @@ export const itemSearchQueryUrl = qs => {
 
 export const documentsSearchQueryUrl = qs => {
   return `${BackOfficeURLS.documentsSearch}?q=${qs}`;
+};
+
+export const openRecordEditor = (path, recid = '') => {
+  window.open(`${invenioConfig.editor.url}${path}${recid}`, '_blank');
 };

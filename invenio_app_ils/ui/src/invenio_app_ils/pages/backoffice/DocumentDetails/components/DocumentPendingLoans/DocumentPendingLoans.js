@@ -9,14 +9,14 @@ import {
   viewLoanDetailsUrl,
 } from '../../../../../common/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
-import { Button } from 'semantic-ui-react';
+import { SeeAllButton } from '../../../components/buttons';
 
 export default class DocumentPendingLoans extends Component {
   constructor(props) {
     super(props);
     this.fetchPendingLoans = props.fetchPendingLoans;
     this.showDetailsUrl = viewLoanDetailsUrl;
-    this.showAllUrl = loanSearchQueryUrl;
+    this.seeAllUrl = loanSearchQueryUrl;
   }
 
   componentDidMount() {
@@ -27,12 +27,11 @@ export default class DocumentPendingLoans extends Component {
   _showDetailsHandler = loan_pid =>
     this.props.history.push(this.showDetailsUrl(loan_pid));
 
-  _showAllButton = () => {
+  _seeAllButton = () => {
     const { document_pid } = this.props.document;
-
     const _click = () =>
       this.props.history.push(
-        this.showAllUrl(
+        this.seeAllUrl(
           loanApi
             .query()
             .withDocPid(document_pid)
@@ -40,17 +39,7 @@ export default class DocumentPendingLoans extends Component {
             .qs()
         )
       );
-
-    return (
-      <Button
-        size="small"
-        onClick={() => {
-          _click();
-        }}
-      >
-        Show all
-      </Button>
-    );
+    return <SeeAllButton clickHandler={() => _click()} />;
   };
 
   prepareData() {
@@ -66,9 +55,9 @@ export default class DocumentPendingLoans extends Component {
         <Error error={errorData}>
           <ResultsTable
             rows={rows}
-            name={'Pending loans requests'}
-            actionClickHandler={this._showDetailsHandler}
-            showAllButton={this._showAllButton()}
+            title={'Pending loans requests'}
+            rowActionClickHandler={this._showDetailsHandler}
+            seeAllComponent={this._seeAllButton()}
             showMaxRows={this.props.showMaxPendingLoans}
           />
         </Error>

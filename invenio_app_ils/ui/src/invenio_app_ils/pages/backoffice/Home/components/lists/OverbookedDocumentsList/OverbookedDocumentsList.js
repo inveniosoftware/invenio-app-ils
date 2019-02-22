@@ -4,20 +4,19 @@ import { generatePath } from 'react-router';
 import { Loader, Error } from '../../../../../../common/components';
 import { ResultsTable } from '../../../../../../common/components';
 import { document as documentApi } from '../../../../../../common/api';
-
 import {
   BackOfficeURLS,
   documentsSearchQueryUrl,
 } from '../../../../../../common/urls';
-import { Button } from 'semantic-ui-react';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
+import { SeeAllButton } from '../../../../components/buttons';
 
 export default class OverbookedDocumentsList extends Component {
   constructor(props) {
     super(props);
     this.fetchOverbookedDocuments = props.fetchOverbookedDocuments;
     this.showDetailsUrl = BackOfficeURLS.documentDetails;
-    this.showAllUrl = documentsSearchQueryUrl;
+    this.seeAllUrl = documentsSearchQueryUrl;
   }
 
   componentDidMount() {
@@ -29,10 +28,10 @@ export default class OverbookedDocumentsList extends Component {
       generatePath(this.showDetailsUrl, { documentPid: document_pid })
     );
 
-  _showAllButton = () => {
+  _seeAllButton = () => {
     const _click = () =>
       this.props.history.push(
-        this.showAllUrl(
+        this.seeAllUrl(
           documentApi
             .query()
             .overbooked()
@@ -40,16 +39,7 @@ export default class OverbookedDocumentsList extends Component {
         )
       );
 
-    return (
-      <Button
-        size="small"
-        onClick={() => {
-          _click();
-        }}
-      >
-        Show all
-      </Button>
-    );
+    return <SeeAllButton clickHandler={() => _click()} />;
   };
 
   prepareData() {
@@ -61,9 +51,12 @@ export default class OverbookedDocumentsList extends Component {
     return (
       <ResultsTable
         rows={rows}
-        name={'Overbooked documents'}
-        actionClickHandler={this._showDetailsHandler}
-        showAllButton={this._showAllButton()}
+        title={'Overbooked documents'}
+        subtitle={
+          'Documents with more requests than the number of available items for loan.'
+        }
+        rowActionClickHandler={this._showDetailsHandler}
+        seeAllComponent={this._seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
         fixed
         singleLine

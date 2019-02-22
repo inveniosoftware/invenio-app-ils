@@ -7,29 +7,19 @@ exports[`LoansCard tests should load the details component 1`] = `
   >
     <RecordsBriefCard
       buttonLeft={
-        <Button
-          as="button"
+        <NewButton
+          clickHandler={[Function]}
           disabled={true}
           fluid={true}
-          icon={true}
-          onClick={[Function]}
-          positive={true}
-        >
-          <Icon
-            as="i"
-            name="plus"
-          />
-          New
-        </Button>
+          text="New"
+        />
       }
       buttonRight={
-        <Button
-          as="button"
+        <SeeAllButton
+          clickHandler={[Function]}
+          disabled={true}
           fluid={true}
-          onClick={[Function]}
-        >
-          See all
-        </Button>
+        />
       }
       stats={0}
       text="new requests"
@@ -63,29 +53,19 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
     >
       <RecordsBriefCard
         buttonLeft={
-          <Button
-            as="button"
+          <NewButton
+            clickHandler={[Function]}
             disabled={true}
             fluid={true}
-            icon={true}
-            onClick={[Function]}
-            positive={true}
-          >
-            <Icon
-              as="i"
-              name="plus"
-            />
-            New
-          </Button>
+            text="New"
+          />
         }
         buttonRight={
-          <Button
-            as="button"
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={true}
             fluid={true}
-            onClick={[Function]}
-          >
-            See all
-          </Button>
+          />
         }
         stats={2}
         text="new requests"
@@ -132,32 +112,41 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                       <div
                         className="eight wide column"
                       >
-                        <Button
-                          as="button"
+                        <NewButton
+                          clickHandler={[Function]}
                           disabled={true}
                           fluid={true}
-                          icon={true}
-                          onClick={[Function]}
-                          positive={true}
+                          text="New"
                         >
-                          <button
-                            className="ui fluid icon positive disabled button"
+                          <Button
+                            as="button"
                             disabled={true}
+                            fluid={true}
+                            icon={true}
+                            labelPosition="left"
                             onClick={[Function]}
-                            tabIndex={-1}
+                            positive={true}
+                            size="small"
                           >
-                            <Icon
-                              as="i"
-                              name="plus"
+                            <button
+                              className="ui small fluid icon positive disabled left labeled button"
+                              disabled={true}
+                              onClick={[Function]}
+                              tabIndex={-1}
                             >
-                              <i
-                                aria-hidden="true"
-                                className="plus icon"
-                              />
-                            </Icon>
-                            New
-                          </button>
-                        </Button>
+                              <Icon
+                                as="i"
+                                name="plus"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="plus icon"
+                                />
+                              </Icon>
+                              New
+                            </button>
+                          </Button>
+                        </NewButton>
                       </div>
                     </GridColumn>
                     <GridColumn
@@ -166,18 +155,28 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                       <div
                         className="eight wide column"
                       >
-                        <Button
-                          as="button"
+                        <SeeAllButton
+                          clickHandler={[Function]}
+                          disabled={true}
                           fluid={true}
-                          onClick={[Function]}
                         >
-                          <button
-                            className="ui fluid button"
+                          <Button
+                            as="button"
+                            disabled={true}
+                            fluid={true}
                             onClick={[Function]}
+                            size="small"
                           >
-                            See all
-                          </button>
-                        </Button>
+                            <button
+                              className="ui small fluid disabled button"
+                              disabled={true}
+                              onClick={[Function]}
+                              tabIndex={-1}
+                            >
+                              See all
+                            </button>
+                          </Button>
+                        </SeeAllButton>
                       </div>
                     </GridColumn>
                   </div>

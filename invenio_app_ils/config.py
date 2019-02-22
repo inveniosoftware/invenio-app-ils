@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2019 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -22,9 +22,9 @@ from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_circulation.search.api import LoansSearch
 from invenio_records_rest.facets import terms_filter
 
-from .circulation.resolver import item_resolver_endpoint
 from .indexer import DocumentIndexer, ItemIndexer, LoanIndexer
 from .records.api import Document, InternalLocation, Item, Location
+from .records.jsonresolver.loan import item_resolver
 
 from .records.permissions import (  # isort:skip
     record_create_permission_factory,
@@ -242,18 +242,23 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=DocumentSearch,
         record_class=Document,
         indexer_class=DocumentIndexer,
+        record_loaders={
+            "application/json": (
+                "invenio_app_ils.records.loaders:document_loader"
+            ),
+            "application/json-patch+json": (
+                lambda: request.get_json(force=True)
+            ),
+        },
         record_serializers={
             "application/json": (
-                "invenio_records_rest.serializers:json_v1_response"
-            )
+                "invenio_app_ils.records.serializers:json_v1_response"
+            ),
         },
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
-            ),
-            "application/vnd.ils.refs+json": (
-                "invenio_records_rest.serializers:json_v1_response"
-            ),
+            )
         },
         list_route="/documents/",
         item_route="/documents/<{0}:pid_value>".format(_DOCID_CONVERTER),
@@ -273,7 +278,9 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=Item,
         indexer_class=ItemIndexer,
         record_loaders={
-            "application/json": ("invenio_app_ils.records.loaders:item_loader"),
+            "application/json": (
+                "invenio_app_ils.records.loaders:item_loader"
+            ),
             "application/json-patch+json": (
                 lambda: request.get_json(force=True)
             ),
@@ -281,9 +288,6 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_response"
-            ),
-            "application/vnd.ils.refs+json": (
-                "invenio_records_rest.serializers:json_v1_response"
             ),
         },
         search_serializers={
@@ -311,13 +315,13 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.records.loaders:location_loader"
             ),
+            "application/json-patch+json": (
+                lambda: request.get_json(force=True)
+            ),
         },
         record_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_response"
-            ),
-            "application/vnd.ils.refs+json": (
-                "invenio_records_rest.serializers:json_v1_response"
             ),
         },
         search_serializers={
@@ -345,13 +349,13 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.records.loaders:internal_location_loader"
             ),
+            "application/json-patch+json": (
+                lambda: request.get_json(force=True)
+            ),
         },
         record_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_response"
-            ),
-            "application/vnd.ils.refs+json": (
-                "invenio_records_rest.serializers:json_v1_response"
             ),
         },
         search_serializers={
@@ -398,9 +402,9 @@ CIRCULATION_POLICIES = dict(
     ),
 )
 
-CIRCULATION_ITEM_RESOLVING_PATH = "/api/resolver/circulation/items/<item_pid>"
+CIRCULATION_ITEM_RESOLVING_PATH = "/api/resolver/loans/<loan_pid>/item"
 
-CIRCULATION_ITEM_RESOLVER_ENDPOINT = item_resolver_endpoint
+CIRCULATION_ITEM_RESOLVER_ENDPOINT = item_resolver
 
 CIRCULATION_ITEM_REF_BUILDER = circulation_build_item_ref
 
@@ -577,6 +581,93 @@ ILS_INDEXER_TASK_DELAY = timedelta(seconds=5)
 # ==============
 RECORDS_EDITOR_URL_PREFIX = "/editor"
 """Default URL we want to serve our editor application, i.e /editor."""
+
+RECORDS_EDITOR_UI_CONFIG = {
+    "items": {
+        "recordConfig": {
+            "apiUrl": "api/items/",
+            "schema": "items/item-v1.0.0.json",
+        },
+        "editorConfig": {
+            "schemaOptions": {
+                "alwaysShow": [
+                    "legacy_id",
+                    "shelf",
+                    "description",
+                    "circulation_restriction",
+                    "medium",
+                    "legacy_library_id",
+                ],
+                "properties": {
+                    "$schema": {"hidden": True},
+                    "item_pid": {"hidden": True},
+                    "document": {"hidden": True},
+                    "internal_location": {"hidden": True},
+                    "circulation_status": {"hidden": True},
+                },
+            },
+        },
+    },
+    "documents": {
+        "recordConfig": {
+            "apiUrl": "api/documents/",
+            "schema": "documents/document-v1.0.0.json",
+        },
+        "editorConfig": {
+            "schemaOptions": {
+                "alwaysShow": ["title", "abstracts", "authors"],
+                "properties": {
+                    "$schema": {"hidden": True},
+                    "document_pid": {"hidden": True},
+                    "circulation": {"hidden": True},
+                },
+            },
+        },
+    },
+    "locations": {
+        "recordConfig": {
+            "apiUrl": "api/locations/",
+            "schema": "locations/location-v1.0.0.json",
+        },
+        "editorConfig": {
+            "schemaOptions": {
+                "alwaysShow": [
+                    "name",
+                    "address",
+                    "email",
+                    "phone",
+                    "notes",
+                ],
+                "properties": {
+                    "$schema": {"hidden": True},
+                    "location_pid": {"hidden": True}
+                },
+            },
+        },
+    },
+    "internal-locations": {
+        "recordConfig": {
+            "apiUrl": "api/internal-locations/",
+            "schema": "internal_locations/internal_location-v1.0.0.json",
+        },
+        "editorConfig": {
+            "schemaOptions": {
+                "alwaysShow": [
+                    "legacy_id",
+                    "location_pid",
+                    "name",
+                    "physical_location",
+                    "notes",
+                ],
+                "properties": {
+                    "$schema": {"hidden": True},
+                    "internal_location_pid": {"hidden": True},
+                    "location": {"hidden": True},
+                },
+            },
+        },
+    },
+}
 
 # Accounts REST
 # ==============

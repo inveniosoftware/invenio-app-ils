@@ -7,13 +7,17 @@
 
 """Circulation item resolving endpoint."""
 
-from invenio_app_ils.records.api import Item
+from invenio_circulation.api import Loan
+
+from ..api import Item
+from .resolver import get_field_value_for_record as get_field_value
 
 
-def item_resolver_endpoint(item_pid):
-    """Circulation item resolving view function."""
+def item_resolver(loan_pid):
+    """Resolve an Item given a Loan PID."""
+    item_pid = get_field_value(Loan, loan_pid, Item.pid_field)
     item = Item.get_record_by_pid(item_pid)
-    # To avoid circular dependencies, we remove loan from item.
+    # remove `Document` and `circulation_status` fields to avoid circular deps.
     del item["circulation_status"]
     del item["document"]
     return item
