@@ -25,12 +25,17 @@ export class ResultsList extends Component {
 
   render() {
     const rows = this.prepareData();
+    const numRowsToShow =
+      rows.length > ResultsTable.defaultProps.showMaxRows
+        ? rows.length
+        : ResultsTable.defaultProps.showMaxRows;
 
     return (
       <ResultsTable
         rows={rows}
         name={''}
         actionClickHandler={this.viewDetailsClickHandler}
+        showMaxRows={numRowsToShow}
       />
     );
   }
