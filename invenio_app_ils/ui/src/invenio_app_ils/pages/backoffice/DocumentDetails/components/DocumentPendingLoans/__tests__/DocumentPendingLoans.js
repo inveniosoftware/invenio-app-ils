@@ -111,7 +111,7 @@ describe('DocumentPendingLoans tests', () => {
     expect(footer).toHaveLength(0);
   });
 
-  it('should render the show all button when showing only a few pending loans', () => {
+  it('should render the see all button when showing only a few pending loans', () => {
     const data = [
       {
         loan_pid: 'loan1',

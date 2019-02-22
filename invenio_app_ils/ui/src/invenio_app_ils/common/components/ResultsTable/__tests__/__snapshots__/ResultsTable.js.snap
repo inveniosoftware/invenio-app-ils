@@ -2,26 +2,34 @@
 
 exports[`ResultsTable tests should load the ResultTable component 1`] = `
 <Segment>
-  <Header
-    as="h3"
-  >
-    results
-  </Header>
+  <Grid>
+    <GridRow>
+      <GridColumn
+        verticalAlign="middle"
+        width={13}
+      />
+      <GridColumn
+        textAlign="right"
+        width={3}
+      />
+    </GridRow>
+  </Grid>
   <Message
     data-test="no-results"
   >
     There are no 
-    results
   </Message>
 </Segment>
 `;
 
-exports[`ResultsTable tests should not render the show all button when showing only a few rows 1`] = `
+exports[`ResultsTable tests should not render the see all button when showing only a few rows 1`] = `
 <ResultsTable
-  actionClickHandler={[Function]}
-  actionComponent={null}
+  fixed={false}
+  headerActionClickHandler={null}
+  headerActionComponent={null}
   history={[Function]}
-  name="results"
+  rowActionClickHandler={[Function]}
+  rowActionComponent={null}
   rows={
     Array [
       Object {
@@ -40,21 +48,44 @@ exports[`ResultsTable tests should not render the show all button when showing o
       },
     ]
   }
+  seeAllComponent={null}
   showMaxRows={3}
+  singleLine={false}
+  subtitle=""
+  title=""
 >
   <Segment>
     <div
       className="ui segment"
     >
-      <Header
-        as="h3"
-      >
-        <h3
-          className="ui header"
+      <Grid>
+        <div
+          className="ui grid"
         >
-          results
-        </h3>
-      </Header>
+          <GridRow>
+            <div
+              className="row"
+            >
+              <GridColumn
+                verticalAlign="middle"
+                width={13}
+              >
+                <div
+                  className="middle aligned thirteen wide column"
+                />
+              </GridColumn>
+              <GridColumn
+                textAlign="right"
+                width={3}
+              >
+                <div
+                  className="right aligned three wide column"
+                />
+              </GridColumn>
+            </div>
+          </GridRow>
+        </div>
+      </Grid>
       <Table
         as="table"
         selectable={true}
@@ -188,8 +219,6 @@ exports[`ResultsTable tests should not render the show all button when showing o
             </TableHeader>
           </ResultsTableHeader>
           <ResultsTableBody
-            actionClickHandler={[Function]}
-            actionComponent={null}
             columns={
               Array [
                 "ID",
@@ -199,6 +228,8 @@ exports[`ResultsTable tests should not render the show all button when showing o
                 "end_date",
               ]
             }
+            rowActionClickHandler={[Function]}
+            rowActionComponent={null}
             rows={
               Array [
                 Object {
@@ -438,6 +469,7 @@ exports[`ResultsTable tests should not render the show all button when showing o
           <ResultsTableFooter
             allRowsNumber={2}
             columnsNumber={5}
+            seeAllComponent={null}
             showMaxRows={3}
           />
         </table>
@@ -447,12 +479,14 @@ exports[`ResultsTable tests should not render the show all button when showing o
 </ResultsTable>
 `;
 
-exports[`ResultsTable tests should render the show all button when showing only a few rows 1`] = `
+exports[`ResultsTable tests should render the see all button when showing only a few rows 1`] = `
 <ResultsTable
-  actionClickHandler={[Function]}
-  actionComponent={null}
+  fixed={false}
+  headerActionClickHandler={null}
+  headerActionComponent={null}
   history={[Function]}
-  name="results"
+  rowActionClickHandler={[Function]}
+  rowActionComponent={null}
   rows={
     Array [
       Object {
@@ -473,30 +507,52 @@ exports[`ResultsTable tests should render the show all button when showing only 
       },
     ]
   }
-  showAllButton={
+  seeAllComponent={
     <Button
       as="button"
       onClick={[Function]}
       size="small"
     >
-      Show all
+      See all
     </Button>
   }
   showMaxRows={1}
+  singleLine={false}
+  subtitle=""
+  title=""
 >
   <Segment>
     <div
       className="ui segment"
     >
-      <Header
-        as="h3"
-      >
-        <h3
-          className="ui header"
+      <Grid>
+        <div
+          className="ui grid"
         >
-          results
-        </h3>
-      </Header>
+          <GridRow>
+            <div
+              className="row"
+            >
+              <GridColumn
+                verticalAlign="middle"
+                width={13}
+              >
+                <div
+                  className="middle aligned thirteen wide column"
+                />
+              </GridColumn>
+              <GridColumn
+                textAlign="right"
+                width={3}
+              >
+                <div
+                  className="right aligned three wide column"
+                />
+              </GridColumn>
+            </div>
+          </GridRow>
+        </div>
+      </Grid>
       <Table
         as="table"
         selectable={true}
@@ -646,8 +702,6 @@ exports[`ResultsTable tests should render the show all button when showing only 
             </TableHeader>
           </ResultsTableHeader>
           <ResultsTableBody
-            actionClickHandler={[Function]}
-            actionComponent={null}
             columns={
               Array [
                 "loan_pid",
@@ -658,6 +712,8 @@ exports[`ResultsTable tests should render the show all button when showing only 
                 "end_date",
               ]
             }
+            rowActionClickHandler={[Function]}
+            rowActionComponent={null}
             rows={
               Array [
                 Object {
@@ -799,13 +855,13 @@ exports[`ResultsTable tests should render the show all button when showing only 
           <ResultsTableFooter
             allRowsNumber={2}
             columnsNumber={6}
-            showAllButton={
+            seeAllComponent={
               <Button
                 as="button"
                 onClick={[Function]}
                 size="small"
               >
-                Show all
+                See all
               </Button>
             }
             showMaxRows={1}
@@ -864,7 +920,7 @@ exports[`ResultsTable tests should render the show all button when showing only 
                                   className="ui small button"
                                   onClick={[Function]}
                                 >
-                                  Show all
+                                  See all
                                 </button>
                               </Button>
                             </span>

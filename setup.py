@@ -61,8 +61,8 @@ install_requires = [
     # https://github.com/inveniosoftware/invenio-indexer/commit/9749c2fe4e2cbaabc167ad7fb12ade945a2d580c
     "redis>=2.10.0,<3.0.0",
     # extra
-    "invenio-circulation>=1.0.0a6",
-    "invenio-records-editor>=1.0.0a2",
+    "invenio-circulation>=1.0.0a7",
+    "invenio-records-editor>=1.0.0a3",
 ]
 
 packages = find_packages()
@@ -140,11 +140,14 @@ setup(
         ],
         "invenio_records.jsonresolver": [
             "document = invenio_app_ils.records.jsonresolver.document",
-            "item = invenio_app_ils.records.jsonresolver.item",
-            "location = invenio_app_ils.records.jsonresolver.location",
+            "item_document = "
+            "invenio_app_ils.records.jsonresolver.item_document",
+            "item_internal_location = "
+            "invenio_app_ils.records.jsonresolver.item_internal_location",
+            "item_loan = "
+            "invenio_app_ils.records.jsonresolver.item_loan",
             "internal_location = "
             "invenio_app_ils.records.jsonresolver.internal_location",
-            "circulation = invenio_app_ils.records.jsonresolver.circulation"
         ],
         'invenio_celery.tasks': [
             'indexer = invenio_app_ils.indexer'

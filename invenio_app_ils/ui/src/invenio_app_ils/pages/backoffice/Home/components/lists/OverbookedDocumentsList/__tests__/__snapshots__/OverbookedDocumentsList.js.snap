@@ -6,22 +6,23 @@ exports[`OverbookedDocumentsList tests should load the details component 1`] = `
     error={null}
   >
     <ResultsTable
-      actionClickHandler={[Function]}
-      actionComponent={null}
       fixed={true}
-      name="Overbooked documents"
+      headerActionClickHandler={null}
+      headerActionComponent={null}
+      rowActionClickHandler={[Function]}
+      rowActionComponent={null}
       rows={Array []}
-      showAllButton={
-        <Button
-          as="button"
-          onClick={[Function]}
-          size="small"
-        >
-          Show all
-        </Button>
+      seeAllComponent={
+        <SeeAllButton
+          clickHandler={[Function]}
+          disabled={false}
+          fluid={false}
+        />
       }
       showMaxRows={5}
       singleLine={true}
+      subtitle="Documents with more requests than the number of available items for loan."
+      title="Overbooked documents"
     />
   </Error>
 </Loader>
@@ -60,10 +61,11 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
       error={null}
     >
       <ResultsTable
-        actionClickHandler={[Function]}
-        actionComponent={null}
         fixed={true}
-        name="Overbooked documents"
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        rowActionClickHandler={[Function]}
+        rowActionComponent={null}
         rows={
           Array [
             Object {
@@ -78,31 +80,71 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
             },
           ]
         }
-        showAllButton={
-          <Button
-            as="button"
-            onClick={[Function]}
-            size="small"
-          >
-            Show all
-          </Button>
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
         }
         showMaxRows={5}
         singleLine={true}
+        subtitle="Documents with more requests than the number of available items for loan."
+        title="Overbooked documents"
       >
         <Segment>
           <div
             className="ui segment"
           >
-            <Header
-              as="h3"
-            >
-              <h3
-                className="ui header"
+            <Grid>
+              <div
+                className="ui grid"
               >
-                Overbooked documents
-              </h3>
-            </Header>
+                <GridRow>
+                  <div
+                    className="row"
+                  >
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
+                    >
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Overbooked documents"
+                          subheader="Documents with more requests than the number of available items for loan."
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Overbooked documents
+                            <HeaderSubheader
+                              content="Documents with more requests than the number of available items for loan."
+                            >
+                              <div
+                                className="sub header"
+                              >
+                                Documents with more requests than the number of available items for loan.
+                              </div>
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
             <Table
               as="table"
               fixed={true}
@@ -222,8 +264,6 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                   </TableHeader>
                 </ResultsTableHeader>
                 <ResultsTableBody
-                  actionClickHandler={[Function]}
-                  actionComponent={null}
                   columns={
                     Array [
                       "ID",
@@ -232,6 +272,8 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                       "Loanable items",
                     ]
                   }
+                  rowActionClickHandler={[Function]}
+                  rowActionComponent={null}
                   rows={
                     Array [
                       Object {
@@ -443,14 +485,12 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={4}
-                  showAllButton={
-                    <Button
-                      as="button"
-                      onClick={[Function]}
-                      size="small"
-                    >
-                      Show all
-                    </Button>
+                  seeAllComponent={
+                    <SeeAllButton
+                      clickHandler={[Function]}
+                      disabled={false}
+                      fluid={false}
+                    />
                   }
                   showMaxRows={5}
                 />
@@ -476,36 +516,77 @@ exports[`OverbookedDocumentsList tests should render show a message with no docu
       error={null}
     >
       <ResultsTable
-        actionClickHandler={[Function]}
-        actionComponent={null}
         fixed={true}
-        name="Overbooked documents"
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        rowActionClickHandler={[Function]}
+        rowActionComponent={null}
         rows={Array []}
-        showAllButton={
-          <Button
-            as="button"
-            onClick={[Function]}
-            size="small"
-          >
-            Show all
-          </Button>
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
         }
         showMaxRows={5}
         singleLine={true}
+        subtitle="Documents with more requests than the number of available items for loan."
+        title="Overbooked documents"
       >
         <Segment>
           <div
             className="ui segment"
           >
-            <Header
-              as="h3"
-            >
-              <h3
-                className="ui header"
+            <Grid>
+              <div
+                className="ui grid"
               >
-                Overbooked documents
-              </h3>
-            </Header>
+                <GridRow>
+                  <div
+                    className="row"
+                  >
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
+                    >
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Overbooked documents"
+                          subheader="Documents with more requests than the number of available items for loan."
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Overbooked documents
+                            <HeaderSubheader
+                              content="Documents with more requests than the number of available items for loan."
+                            >
+                              <div
+                                className="sub header"
+                              >
+                                Documents with more requests than the number of available items for loan.
+                              </div>
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
             <Message
               data-test="no-results"
             >
@@ -514,7 +595,6 @@ exports[`OverbookedDocumentsList tests should render show a message with no docu
                 data-test="no-results"
               >
                 There are no 
-                Overbooked documents
               </div>
             </Message>
           </div>

@@ -14,6 +14,7 @@ describe('DocumentsSearch ResultsList tests', () => {
       id: 3,
       created: toISO(d),
       metadata: {
+        document_pid: 3,
         authors: 'Author1',
         title: 'This is a title',
         abstracts: 'This is an abstract',
@@ -41,12 +42,19 @@ describe('DocumentsSearch ResultsList tests', () => {
     const firstResult = results[0];
     const resultRows = component
       .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === firstResult.id);
+      .filterWhere(
+        element =>
+          element.prop('data-test') === firstResult.metadata.document_pid
+      );
     expect(resultRows).toHaveLength(1);
 
     const mappedStatusElements = resultRows
       .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === 'mapped-status');
+      .filterWhere(
+        element =>
+          element.prop('data-test') ===
+          'Title-' + firstResult.metadata.document_pid
+      );
     expect(mappedStatusElements).toHaveLength(1);
 
     expect(mappedStatusElements.text()).toEqual(firstResult.metadata.title);
@@ -60,7 +68,7 @@ describe('DocumentsSearch ResultsList tests', () => {
         viewDetailsClickHandler={mockedClickHandler}
       />
     );
-    const firstId = results[0].id;
+    const firstId = results[0].metadata.document_pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)

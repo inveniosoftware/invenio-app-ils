@@ -27,21 +27,21 @@ def mint_record_pid(pid_type, pid_field, record):
     db.session.commit()
 
 
-def internal_location_ref_builder(app, pid_value):
+def internal_location_ref_builder(app, item_pid):
     """Ref builder for item internal location."""
     path = Item._internal_location_resolver_path
     return path.format(
         scheme=app.config["JSONSCHEMAS_URL_SCHEME"],
         host=app.config["JSONSCHEMAS_HOST"],
-        pid_value=pid_value,
+        item_pid=item_pid,
     )
 
 
-def document_ref_builder(app, pid_value):
+def document_ref_builder(app, item_pid):
     """Ref builder for item document."""
     path = Item._document_resolver_path
     return path.format(
         scheme=app.config["JSONSCHEMAS_URL_SCHEME"],
         host=app.config["JSONSCHEMAS_HOST"],
-        pid_value=pid_value,
+        item_pid=item_pid,
     )

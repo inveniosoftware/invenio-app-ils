@@ -3,11 +3,6 @@ import PropTypes from 'prop-types';
 import { Button, Table } from 'semantic-ui-react';
 
 export default class ResultsTableBody extends Component {
-  constructor(props) {
-    super(props);
-    this.actionClickHandler = this.props.actionClickHandler;
-  }
-
   _renderCell = (cell, column, id, col_index) => {
     return (
       <Table.Cell key={col_index + '-' + id} data-test={column + '-' + id}>
@@ -17,19 +12,19 @@ export default class ResultsTableBody extends Component {
   };
 
   _renderRow = (columns, rows) => {
-    const RowActionComponent = this.props.actionComponent
+    const RowActionComponent = this.props.rowActionComponent
       ? props =>
-          React.cloneElement(this.props.actionComponent, {
-            onClick: props.actionClickHandler,
+          React.cloneElement(this.props.rowActionComponent, {
+            onClick: props.rowActionClickHandler,
           })
       : null;
     return rows.map(row => (
       <Table.Row key={row.ID} data-test={row.ID}>
         <Table.Cell key="details" textAlign="center">
-          {this.props.actionComponent ? (
+          {this.props.rowActionComponent ? (
             <RowActionComponent
-              actionClickHandler={() => {
-                this.actionClickHandler(row.ID);
+              rowActionClickHandler={() => {
+                this.props.rowActionClickHandler(row.ID);
               }}
             />
           ) : (
@@ -38,7 +33,7 @@ export default class ResultsTableBody extends Component {
               compact
               icon="eye"
               onClick={() => {
-                this.actionClickHandler(row.ID);
+                this.props.rowActionClickHandler(row.ID);
               }}
             />
           )}
@@ -61,5 +56,10 @@ export default class ResultsTableBody extends Component {
 
 ResultsTableBody.propTypes = {
   columns: PropTypes.array.isRequired,
-  actionClickHandler: PropTypes.func.isRequired,
+  rowActionClickHandler: PropTypes.func.isRequired,
+  rowActionComponent: PropTypes.node,
+};
+
+ResultsTableBody.defaultProps = {
+  rowActionComponent: null,
 };

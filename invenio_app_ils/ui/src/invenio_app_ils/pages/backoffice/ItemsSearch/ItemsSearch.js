@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import { generatePath } from 'react-router';
-import {
-  Container,
-  Grid,
-  Segment,
-  Icon,
-  Header,
-  Button,
-} from 'semantic-ui-react';
+import { Container, Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
@@ -25,7 +18,9 @@ import {
 import { apiConfig } from '../../../common/api/base';
 import { BackOfficeURLS } from '../../../common/urls';
 import { Error as IlsError } from '../../../common/components';
-import { item as endpoint } from '../../../common/api/';
+import { item as itemApi } from '../../../common/api';
+import { ClearButton, NewButton } from '../components/buttons';
+import { openRecordEditor } from '../../../common/urls';
 import { SearchBar as ItemsSearchBar } from '../../../common/components';
 import { ResultsList as ItemsResultsList } from './components';
 import { default as config } from './config';
@@ -70,10 +65,17 @@ export class ItemsSearch extends Component {
           Current search "{queryString}"
         </div>
         <Segment.Inline>
-          <Button primary onClick={() => resetQuery()}>
-            Clear query
-          </Button>
-          <Button onClick={() => {}}>Add a new item</Button>
+          <ClearButton
+            clickHandler={() => {
+              resetQuery();
+            }}
+          />
+          <NewButton
+            text={'New item'}
+            clickHandler={() => {
+              openRecordEditor(itemApi.url);
+            }}
+          />
         </Segment.Inline>
       </Segment>
     );
@@ -151,7 +153,7 @@ export class ItemsSearch extends Component {
       <ReactSearchKit
         searchConfig={{
           ...apiConfig,
-          url: endpoint.url,
+          url: itemApi.url,
         }}
       >
         <Container className="items-search-searchbar">

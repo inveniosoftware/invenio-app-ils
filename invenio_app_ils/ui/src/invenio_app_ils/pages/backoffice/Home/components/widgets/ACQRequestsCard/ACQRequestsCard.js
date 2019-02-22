@@ -2,37 +2,36 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../../common/components';
 import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
-
-import { Button, Icon } from 'semantic-ui-react';
+import { NewButton, SeeAllButton } from '../../../../components/buttons';
 
 export default class ACQRequestsCard extends Component {
   constructor(props) {
     super(props);
 
     // TODO when acquisition module
-    this.showAllUrl = '';
+    this.seeAllUrl = '';
     this.newAcqURL = '';
   }
 
   componentDidMount() {}
 
-  _showAllButton = () => {
-    let handler = () => this.props.history.push(this.showAllUrl);
-
+  _seeAllButton = () => {
     return (
-      <Button fluid disabled onClick={() => handler()}>
-        See all
-      </Button>
+      <SeeAllButton
+        fluid
+        disabled
+        clickHandler={() => this.props.history.push(this.seeAllUrl)}
+      />
     );
   };
 
   _newAcqButton = () => {
-    let handler = () => this.props.history.push(this.newAcqURL);
     return (
-      <Button fluid disabled icon positive onClick={() => handler()}>
-        <Icon name="plus" />
-        New
-      </Button>
+      <NewButton
+        fluid
+        disabled
+        clickHandler={() => this.props.history.push(this.newAcqURL)}
+      />
     );
   };
 
@@ -43,7 +42,7 @@ export default class ACQRequestsCard extends Component {
         stats={data}
         text={'ongoing'}
         buttonLeft={this._newAcqButton()}
-        buttonRight={this._showAllButton()}
+        buttonRight={this._seeAllButton()}
       />
     );
   };

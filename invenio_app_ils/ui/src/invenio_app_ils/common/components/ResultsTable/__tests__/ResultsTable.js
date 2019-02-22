@@ -2,7 +2,6 @@ import { shallow, mount } from 'enzyme/build';
 import React from 'react';
 import { ResultsTable } from '../ResultsTable';
 import { Settings } from 'luxon';
-import { loan as loanApi } from '../../../api';
 import { Button } from 'semantic-ui-react';
 
 Settings.defaultZoneName = 'utc';
@@ -23,13 +22,13 @@ describe('ResultsTable tests', () => {
       <ResultsTable
         history={() => {}}
         rows={[]}
-        actionClickHandler={() => {}}
+        rowActionClickHandler={() => {}}
       />
     );
     expect(component).toMatchSnapshot();
   });
 
-  it('should render the show all button when showing only a few rows', () => {
+  it('should render the see all button when showing only a few rows', () => {
     const data = [
       {
         loan_pid: 'loan1',
@@ -52,7 +51,7 @@ describe('ResultsTable tests', () => {
     const button = () => {
       return (
         <Button size="small" onClick={() => {}}>
-          Show all
+          See all
         </Button>
       );
     };
@@ -61,8 +60,8 @@ describe('ResultsTable tests', () => {
       <ResultsTable
         history={() => {}}
         rows={data}
-        showAllButton={button()}
-        actionClickHandler={() => {}}
+        seeAllComponent={button()}
+        rowActionClickHandler={() => {}}
         showMaxRows={1}
       />
     );
@@ -71,12 +70,12 @@ describe('ResultsTable tests', () => {
     const footer = component
       .find('TableFooter')
       .filterWhere(element => element.prop('data-test') === 'footer');
-    const showAll = footer.find('button');
+    const seeAll = footer.find('button');
     expect(footer).toHaveLength(1);
-    expect(showAll).toHaveLength(1);
+    expect(seeAll).toHaveLength(1);
   });
 
-  it('should not render the show all button when showing only a few rows', () => {
+  it('should not render the see all button when showing only a few rows', () => {
     const data = [
       {
         ID: 'loan1',
@@ -98,7 +97,7 @@ describe('ResultsTable tests', () => {
       <ResultsTable
         history={() => {}}
         rows={data}
-        actionClickHandler={() => {}}
+        rowActionClickHandler={() => {}}
         showMaxRows={3}
       />
     );
@@ -131,7 +130,7 @@ describe('ResultsTable tests', () => {
     ];
 
     component = mount(
-      <ResultsTable rows={results} actionClickHandler={mockedClickHandler} />
+      <ResultsTable rows={results} rowActionClickHandler={mockedClickHandler} />
     );
     const firstId = results[0].ID;
     const button = component
@@ -142,8 +141,7 @@ describe('ResultsTable tests', () => {
     expect(mockedClickHandler).toHaveBeenCalledWith(firstId);
   });
 
-  it('should call show all click handler on show all click', () => {
-    const mockedClickHandler = jest.fn();
+  it('should call see all click handler on see all click', () => {
     const mockedHistoryPush = jest.fn();
     const historyFn = {
       push: mockedHistoryPush,
@@ -174,7 +172,7 @@ describe('ResultsTable tests', () => {
             mockedHistoryPush();
           }}
         >
-          Show all
+          See all
         </Button>
       );
     };
@@ -184,8 +182,8 @@ describe('ResultsTable tests', () => {
         rows={results}
         showMaxRows={1}
         history={historyFn}
-        showAllButton={buttonObj()}
-        actionClickHandler={() => {}}
+        seeAllComponent={buttonObj()}
+        rowActionClickHandler={() => {}}
       />
     );
 

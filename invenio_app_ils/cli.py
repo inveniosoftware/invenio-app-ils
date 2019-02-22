@@ -20,6 +20,7 @@ from invenio_db import db
 from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
     RecordIdentifier
+from invenio_search import current_search
 
 from .records.api import Document, InternalLocation, Item, Location
 
@@ -37,7 +38,7 @@ LOCATION = {
     "email": "library@cern.ch",
 }
 
-ITEM_CIRCULATION_RESTRICTIONS = [None, "FOR_REFERENCE_ONLY"]
+ITEM_CIRCULATION_RESTRICTIONS = ["NO_RESTRICTION", "FOR_REFERENCE_ONLY"]
 ITEM_MEDIUMS = ["NOT_SPECIFIED", "ONLINE", "PAPER", "CDROM", "DVD", "VHS"]
 ITEM_STATUSES = ["LOANABLE", "MISSING"]
 LOAN_STATUSES = ["PENDING", "ITEM_ON_LOAN", "ITEM_RETURNED", "CANCELLED"]
@@ -310,8 +311,8 @@ def data(n_docs, n_items, n_loans):
     # process queue so documents can resolve circulation correctly
     indexer.process_bulk_queue()
 
-    # sleep to give time for items to be indexed
-    time.sleep(1)
+    # flush all indices after indexing, otherwise ES won't be ready for tests
+    current_search.flush_and_refresh(index=None)
 
     # index documents
     indexer.bulk_index([str(r.id) for r in rec_docs])

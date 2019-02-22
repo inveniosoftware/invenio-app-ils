@@ -3,18 +3,17 @@ import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../../common/components';
 import { loan as loanApi } from '../../../../../../common/api';
 import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
-
 import {
   loanSearchQueryUrl,
   BackOfficeURLS,
 } from '../../../../../../common/urls';
-import { Button, Icon } from 'semantic-ui-react';
+import { NewButton, SeeAllButton } from '../../../../components/buttons';
 
 export default class LoansCard extends Component {
   constructor(props) {
     super(props);
     this.fetchPendingLoans = props.fetchPendingLoans;
-    this.showAllUrl = loanSearchQueryUrl;
+    this.seeAllUrl = loanSearchQueryUrl;
     this.loanCheckout = BackOfficeURLS.loanCheckout;
   }
 
@@ -22,30 +21,26 @@ export default class LoansCard extends Component {
     this.fetchPendingLoans();
   }
 
-  _showAllButton = () => {
-    let handler = () =>
+  _seeAllButton = () => {
+    const handler = () =>
       this.props.history.push(
-        this.showAllUrl(
+        this.seeAllUrl(
           loanApi
             .query()
             .withState('PENDING')
             .qs()
         )
       );
-    return (
-      <Button fluid onClick={() => handler()}>
-        See all
-      </Button>
-    );
+    return <SeeAllButton fluid disabled clickHandler={() => handler()} />;
   };
 
   _newLoanButton = () => {
-    let handler = () => this.props.history.push(this.loanCheckout);
     return (
-      <Button disabled fluid icon positive onClick={() => handler()}>
-        <Icon name="plus" />
-        New
-      </Button>
+      <NewButton
+        fluid
+        disabled
+        clickHandler={() => this.props.history.push(this.loanCheckout)}
+      />
     );
   };
 
@@ -56,7 +51,7 @@ export default class LoansCard extends Component {
         stats={data}
         text={'new requests'}
         buttonLeft={this._newLoanButton()}
-        buttonRight={this._showAllButton()}
+        buttonRight={this._seeAllButton()}
       />
     );
   };

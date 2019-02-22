@@ -6,20 +6,23 @@ exports[`DocumentPendingLoans tests should load the details component 1`] = `
     error={null}
   >
     <ResultsTable
-      actionClickHandler={[Function]}
-      actionComponent={null}
-      name="Pending loans requests"
+      fixed={false}
+      headerActionClickHandler={null}
+      headerActionComponent={null}
+      rowActionClickHandler={[Function]}
+      rowActionComponent={null}
       rows={Array []}
-      showAllButton={
-        <Button
-          as="button"
-          onClick={[Function]}
-          size="small"
-        >
-          Show all
-        </Button>
+      seeAllComponent={
+        <SeeAllButton
+          clickHandler={[Function]}
+          disabled={false}
+          fluid={false}
+        />
       }
       showMaxRows={5}
+      singleLine={false}
+      subtitle=""
+      title="Pending loans requests"
     />
   </Error>
 </Loader>
@@ -64,9 +67,11 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
       error={null}
     >
       <ResultsTable
-        actionClickHandler={[Function]}
-        actionComponent={null}
-        name="Pending loans requests"
+        fixed={false}
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        rowActionClickHandler={[Function]}
+        rowActionComponent={null}
         rows={
           Array [
             Object {
@@ -83,30 +88,69 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
             },
           ]
         }
-        showAllButton={
-          <Button
-            as="button"
-            onClick={[Function]}
-            size="small"
-          >
-            Show all
-          </Button>
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
         }
         showMaxRows={5}
+        singleLine={false}
+        subtitle=""
+        title="Pending loans requests"
       >
         <Segment>
           <div
             className="ui segment"
           >
-            <Header
-              as="h3"
-            >
-              <h3
-                className="ui header"
+            <Grid>
+              <div
+                className="ui grid"
               >
-                Pending loans requests
-              </h3>
-            </Header>
+                <GridRow>
+                  <div
+                    className="row"
+                  >
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
+                    >
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Pending loans requests"
+                          subheader=""
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Pending loans requests
+                            <HeaderSubheader
+                              content=""
+                            >
+                              <div
+                                className="sub header"
+                              />
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
             <Table
               as="table"
               selectable={true}
@@ -224,8 +268,6 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                   </TableHeader>
                 </ResultsTableHeader>
                 <ResultsTableBody
-                  actionClickHandler={[Function]}
-                  actionComponent={null}
                   columns={
                     Array [
                       "ID",
@@ -234,6 +276,8 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                       "State",
                     ]
                   }
+                  rowActionClickHandler={[Function]}
+                  rowActionComponent={null}
                   rows={
                     Array [
                       Object {
@@ -447,14 +491,12 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={4}
-                  showAllButton={
-                    <Button
-                      as="button"
-                      onClick={[Function]}
-                      size="small"
-                    >
-                      Show all
-                    </Button>
+                  seeAllComponent={
+                    <SeeAllButton
+                      clickHandler={[Function]}
+                      disabled={false}
+                      fluid={false}
+                    />
                   }
                   showMaxRows={5}
                 />
@@ -488,34 +530,75 @@ exports[`DocumentPendingLoans tests should render show a message with no pending
       error={null}
     >
       <ResultsTable
-        actionClickHandler={[Function]}
-        actionComponent={null}
-        name="Pending loans requests"
+        fixed={false}
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        rowActionClickHandler={[Function]}
+        rowActionComponent={null}
         rows={Array []}
-        showAllButton={
-          <Button
-            as="button"
-            onClick={[Function]}
-            size="small"
-          >
-            Show all
-          </Button>
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
         }
         showMaxRows={5}
+        singleLine={false}
+        subtitle=""
+        title="Pending loans requests"
       >
         <Segment>
           <div
             className="ui segment"
           >
-            <Header
-              as="h3"
-            >
-              <h3
-                className="ui header"
+            <Grid>
+              <div
+                className="ui grid"
               >
-                Pending loans requests
-              </h3>
-            </Header>
+                <GridRow>
+                  <div
+                    className="row"
+                  >
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
+                    >
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Pending loans requests"
+                          subheader=""
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Pending loans requests
+                            <HeaderSubheader
+                              content=""
+                            >
+                              <div
+                                className="sub header"
+                              />
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
             <Message
               data-test="no-results"
             >
@@ -524,7 +607,6 @@ exports[`DocumentPendingLoans tests should render show a message with no pending
                 data-test="no-results"
               >
                 There are no 
-                Pending loans requests
               </div>
             </Message>
           </div>
@@ -535,7 +617,7 @@ exports[`DocumentPendingLoans tests should render show a message with no pending
 </DocumentPendingLoans>
 `;
 
-exports[`DocumentPendingLoans tests should render the show all button when showing only a few pending loans 1`] = `
+exports[`DocumentPendingLoans tests should render the see all button when showing only a few pending loans 1`] = `
 <DocumentPendingLoans
   data={
     Array [
@@ -574,9 +656,11 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
       error={null}
     >
       <ResultsTable
-        actionClickHandler={[Function]}
-        actionComponent={null}
-        name="Pending loans requests"
+        fixed={false}
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        rowActionClickHandler={[Function]}
+        rowActionComponent={null}
         rows={
           Array [
             Object {
@@ -593,30 +677,69 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
             },
           ]
         }
-        showAllButton={
-          <Button
-            as="button"
-            onClick={[Function]}
-            size="small"
-          >
-            Show all
-          </Button>
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
         }
         showMaxRows={1}
+        singleLine={false}
+        subtitle=""
+        title="Pending loans requests"
       >
         <Segment>
           <div
             className="ui segment"
           >
-            <Header
-              as="h3"
-            >
-              <h3
-                className="ui header"
+            <Grid>
+              <div
+                className="ui grid"
               >
-                Pending loans requests
-              </h3>
-            </Header>
+                <GridRow>
+                  <div
+                    className="row"
+                  >
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
+                    >
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Pending loans requests"
+                          subheader=""
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Pending loans requests
+                            <HeaderSubheader
+                              content=""
+                            >
+                              <div
+                                className="sub header"
+                              />
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
             <Table
               as="table"
               selectable={true}
@@ -734,8 +857,6 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
                   </TableHeader>
                 </ResultsTableHeader>
                 <ResultsTableBody
-                  actionClickHandler={[Function]}
-                  actionComponent={null}
                   columns={
                     Array [
                       "ID",
@@ -744,6 +865,8 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
                       "State",
                     ]
                   }
+                  rowActionClickHandler={[Function]}
+                  rowActionComponent={null}
                   rows={
                     Array [
                       Object {
@@ -859,14 +982,12 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={4}
-                  showAllButton={
-                    <Button
-                      as="button"
-                      onClick={[Function]}
-                      size="small"
-                    >
-                      Show all
-                    </Button>
+                  seeAllComponent={
+                    <SeeAllButton
+                      clickHandler={[Function]}
+                      disabled={false}
+                      fluid={false}
+                    />
                   }
                   showMaxRows={1}
                 >
@@ -915,18 +1036,24 @@ exports[`DocumentPendingLoans tests should render the show all button when showi
                                      
                                   </span>
                                   <span>
-                                    <Button
-                                      as="button"
-                                      onClick={[Function]}
-                                      size="small"
+                                    <SeeAllButton
+                                      clickHandler={[Function]}
+                                      disabled={false}
+                                      fluid={false}
                                     >
-                                      <button
-                                        className="ui small button"
+                                      <Button
+                                        as="button"
                                         onClick={[Function]}
+                                        size="small"
                                       >
-                                        Show all
-                                      </button>
-                                    </Button>
+                                        <button
+                                          className="ui small button"
+                                          onClick={[Function]}
+                                        >
+                                          See all
+                                        </button>
+                                      </Button>
+                                    </SeeAllButton>
                                   </span>
                                 </th>
                               </TableCell>
