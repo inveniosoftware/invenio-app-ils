@@ -42,29 +42,34 @@ export default class PatronLoans extends Component {
     return <SeeAllButton clickHandler={() => _click()} />;
   };
 
-  prepareData() {
-    return this.props.data.map(row => {
+  prepareData(data) {
+    return data.hits.map(row => {
       let tableRow = formatter.loan.toTable(row);
       delete tableRow['Patron ID'];
       return tableRow;
     });
   }
 
+  _render_table(data) {
+    const rows = this.prepareData(data);
+    rows.totalHits = data.total;
+    return (
+      <ResultsTable
+        rows={rows}
+        title={"User's loan requests"}
+        rowActionClickHandler={this._showDetailsHandler}
+        seeAllComponent={this._seeAllButton()}
+        showMaxRows={this.props.showMaxLoans}
+      />
+    );
+  }
+
   render() {
-    const rows = this.prepareData();
     const { data, isLoading, hasError } = this.props;
     const errorData = hasError ? data : null;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>
-          <ResultsTable
-            rows={rows}
-            title={"User's loan requests"}
-            rowActionClickHandler={this._showDetailsHandler}
-            seeAllComponent={this._seeAllButton()}
-            showMaxRows={this.props.showMaxLoans}
-          />
-        </Error>
+        <Error error={errorData}>{this._render_table(data)}</Error>
       </Loader>
     );
   }
@@ -73,7 +78,7 @@ export default class PatronLoans extends Component {
 PatronLoans.propTypes = {
   patron: PropTypes.number,
   fetchPatronLoans: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
   showMaxLoans: PropTypes.number,
 };
 

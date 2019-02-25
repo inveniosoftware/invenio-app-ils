@@ -45,8 +45,8 @@ export default class IdleLoansList extends Component {
     return <SeeAllButton clickHandler={() => _click()} />;
   };
 
-  prepareData() {
-    return this.props.data.map(row => {
+  prepareData(data) {
+    return data.hits.map(row => {
       let serialized = formatter.loan.toTable(row);
       delete serialized['Request created'];
       serialized['Last update'] = toShortDateTime(row.updated);
@@ -54,9 +54,9 @@ export default class IdleLoansList extends Component {
     });
   }
 
-  _render_table() {
-    const rows = this.prepareData();
-    rows.totalHits = this.props.data.totalHits;
+  _render_table(data) {
+    const rows = this.prepareData(data);
+    rows.totalHits = data.total;
     return (
       <ResultsTable
         rows={rows}
@@ -74,7 +74,7 @@ export default class IdleLoansList extends Component {
     const errorData = hasError ? data : null;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>{this._render_table()}</Error>
+        <Error error={errorData}>{this._render_table(data)}</Error>
       </Loader>
     );
   }
@@ -82,7 +82,7 @@ export default class IdleLoansList extends Component {
 
 IdleLoansList.propTypes = {
   fetchIdlePendingLoans: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
   showMaxEntries: PropTypes.number,
 };
 

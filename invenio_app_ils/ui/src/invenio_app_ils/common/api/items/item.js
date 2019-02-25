@@ -44,7 +44,8 @@ const queryBuilder = () => {
 
 const list = query => {
   return http.get(`${itemURL}?q=${query}`).then(response => {
-    response.data = response.data.hits.hits.map(hit =>
+    response.data.total = response.data.hits.total;
+    response.data.hits = response.data.hits.hits.map(hit =>
       serializer.fromJSON(hit)
     );
     return response;

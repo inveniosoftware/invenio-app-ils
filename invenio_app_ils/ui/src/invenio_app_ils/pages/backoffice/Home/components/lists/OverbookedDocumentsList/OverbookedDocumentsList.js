@@ -42,13 +42,13 @@ export default class OverbookedDocumentsList extends Component {
     return <SeeAllButton clickHandler={() => _click()} />;
   };
 
-  prepareData() {
-    return this.props.data.map(row => formatter.document.toTable(row));
+  prepareData(data) {
+    return data.hits.map(row => formatter.document.toTable(row));
   }
 
-  _render_table() {
-    const rows = this.prepareData();
-    rows.totalHits = this.props.data.totalHits;
+  _render_table(data) {
+    const rows = this.prepareData(data);
+    rows.totalHits = data.total;
     return (
       <ResultsTable
         rows={rows}
@@ -70,7 +70,7 @@ export default class OverbookedDocumentsList extends Component {
     const errorData = hasError ? data : null;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>{this._render_table()}</Error>
+        <Error error={errorData}>{this._render_table(data)}</Error>
       </Loader>
     );
   }
@@ -78,7 +78,7 @@ export default class OverbookedDocumentsList extends Component {
 
 OverbookedDocumentsList.propTypes = {
   fetchOverbookedDocuments: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
   showMaxEntries: PropTypes.number,
 };
 

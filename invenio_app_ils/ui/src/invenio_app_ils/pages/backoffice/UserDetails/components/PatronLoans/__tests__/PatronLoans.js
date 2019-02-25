@@ -27,7 +27,7 @@ describe('PatronLoans tests', () => {
     const component = shallow(
       <PatronLoans
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         loanState=""
         patron={patron.patron_pid}
         fetchPatronLoans={mockedFetchPatronLoans}
@@ -42,7 +42,7 @@ describe('PatronLoans tests', () => {
       <PatronLoans
         patron={patron.patron_pid}
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         loanState=""
         fetchPatronLoans={mockedFetchPatronLoans}
       />
@@ -57,24 +57,27 @@ describe('PatronLoans tests', () => {
 
   it('should render patron loans', () => {
     const mockedFetchPatronLoans = jest.fn();
-    const data = [
-      {
-        loan_pid: 'loan1',
-        patron_pid: 'patron_1',
-        updated: d,
-        created: d,
-        start_date: d,
-        end_date: d,
-      },
-      {
-        loan_pid: 'loan2',
-        patron_pid: 'patron_1',
-        updated: d,
-        created: d,
-        start_date: d,
-        end_date: d,
-      },
-    ];
+    const data = {
+      hits: [
+        {
+          loan_pid: 'loan1',
+          patron_pid: 'patron_1',
+          updated: d,
+          created: d,
+          start_date: d,
+          end_date: d,
+        },
+        {
+          loan_pid: 'loan2',
+          patron_pid: 'patron_1',
+          updated: d,
+          created: d,
+          start_date: d,
+          end_date: d,
+        },
+      ],
+      total: 2,
+    };
 
     component = mount(
       <PatronLoans
@@ -104,24 +107,27 @@ describe('PatronLoans tests', () => {
 
   it('should render the see all button when showing only a few patron loans', () => {
     const mockedFetchPatronLoans = jest.fn();
-    const data = [
-      {
-        loan_pid: 'loan1',
-        patron_pid: 'patron_1',
-        updated: d,
-        created: d,
-        start_date: d,
-        end_date: d,
-      },
-      {
-        loan_pid: 'loan2',
-        patron_pid: 'patron_2',
-        updated: d,
-        created: d,
-        start_date: d,
-        end_date: d,
-      },
-    ];
+    const data = {
+      hits: [
+        {
+          loan_pid: 'loan1',
+          patron_pid: 'patron_1',
+          updated: d,
+          created: d,
+          start_date: d,
+          end_date: d,
+        },
+        {
+          loan_pid: 'loan2',
+          patron_pid: 'patron_2',
+          updated: d,
+          created: d,
+          start_date: d,
+          end_date: d,
+        },
+      ],
+      total: 2,
+    };
 
     component = mount(
       <PatronLoans
@@ -146,16 +152,19 @@ describe('PatronLoans tests', () => {
       push: mockedHistoryPush,
     };
 
-    const data = [
-      {
-        loan_pid: 'loan1',
-        patron_pid: 'patron_1',
-        updated: d,
-        created: d,
-        start_date: d,
-        end_date: d,
-      },
-    ];
+    const data = {
+      hits: [
+        {
+          loan_pid: 'loan1',
+          patron_pid: 'patron_1',
+          updated: d,
+          created: d,
+          start_date: d,
+          end_date: d,
+        },
+      ],
+      total: 1,
+    };
 
     const mockedFetchPatronLoans = jest.fn();
     component = mount(
@@ -169,7 +178,7 @@ describe('PatronLoans tests', () => {
       />
     );
 
-    const firstId = data[0].loan_pid;
+    const firstId = data.hits[0].loan_pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)

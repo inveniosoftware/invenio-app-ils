@@ -24,7 +24,7 @@ describe('OverbookedDocumentsList tests', () => {
     const component = shallow(
       <OverbookedDocumentsList
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchOverbookedDocuments={() => {}}
       />
     );
@@ -36,7 +36,7 @@ describe('OverbookedDocumentsList tests', () => {
     component = mount(
       <OverbookedDocumentsList
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchOverbookedDocuments={mockedFetchLoans}
       />
     );
@@ -47,7 +47,7 @@ describe('OverbookedDocumentsList tests', () => {
     component = mount(
       <OverbookedDocumentsList
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchOverbookedDocuments={() => {}}
       />
     );
@@ -60,26 +60,29 @@ describe('OverbookedDocumentsList tests', () => {
   });
 
   it('should render documents', () => {
-    const data = [
-      {
-        ID: 'doc1',
-        document_pid: 'doc1',
-        updated: d,
-        created: d,
-        title: 'X',
-        circulation: {
-          pendingLoans: 1,
-          loanableItems: 2,
+    const data = {
+      hits: [
+        {
+          ID: 'doc1',
+          document_pid: 'doc1',
+          updated: d,
+          created: d,
+          title: 'X',
+          circulation: {
+            pendingLoans: 1,
+            loanableItems: 2,
+          },
         },
-      },
-      {
-        ID: 'doc2',
-        document_pid: 'doc2',
-        updated: d,
-        created: d,
-        title: 'X',
-      },
-    ];
+        {
+          ID: 'doc2',
+          document_pid: 'doc2',
+          updated: d,
+          created: d,
+          title: 'X',
+        },
+      ],
+      total: 2,
+    };
 
     component = mount(
       <OverbookedDocumentsList
@@ -111,15 +114,18 @@ describe('OverbookedDocumentsList tests', () => {
       push: mockedHistoryPush,
     };
 
-    const data = [
-      {
-        ID: 'doc1',
-        document_pid: 'doc1',
-        updated: d,
-        created: d,
-        title: 'X',
-      },
-    ];
+    const data = {
+      hits: [
+        {
+          ID: 'doc1',
+          document_pid: 'doc1',
+          updated: d,
+          created: d,
+          title: 'X',
+        },
+      ],
+      total: 1,
+    };
 
     component = mount(
       <OverbookedDocumentsList
@@ -130,7 +136,7 @@ describe('OverbookedDocumentsList tests', () => {
       />
     );
 
-    const firstId = data[0].document_pid;
+    const firstId = data.hits[0].document_pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)

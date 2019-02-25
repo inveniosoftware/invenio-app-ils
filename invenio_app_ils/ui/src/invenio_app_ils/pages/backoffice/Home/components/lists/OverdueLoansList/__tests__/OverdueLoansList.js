@@ -20,7 +20,7 @@ describe('OverdueLoansList tests', () => {
     const component = shallow(
       <OverdueLoansList
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchOverdueLoans={() => {}}
       />
     );
@@ -32,7 +32,7 @@ describe('OverdueLoansList tests', () => {
     component = mount(
       <OverdueLoansList
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchOverdueLoans={mockedFetchLoans}
       />
     );
@@ -43,7 +43,7 @@ describe('OverdueLoansList tests', () => {
     component = mount(
       <OverdueLoansList
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchOverdueLoans={() => {}}
       />
     );
@@ -56,24 +56,27 @@ describe('OverdueLoansList tests', () => {
   });
 
   it('should render loans', () => {
-    const data = [
-      {
-        loan_pid: 'loan1',
-        patron_pid: 'patron_1',
-        updated: d,
-        created: d,
-        start_date: d,
-        end_date: d,
-      },
-      {
-        loan_pid: 'loan2',
-        patron_pid: 'patron_2',
-        updated: d,
-        created: d,
-        start_date: d,
-        end_date: d,
-      },
-    ];
+    const data = {
+      hits: [
+        {
+          loan_pid: 'loan1',
+          patron_pid: 'patron_1',
+          updated: d,
+          created: d,
+          start_date: d,
+          end_date: d,
+        },
+        {
+          loan_pid: 'loan2',
+          patron_pid: 'patron_2',
+          updated: d,
+          created: d,
+          start_date: d,
+          end_date: d,
+        },
+      ],
+      total: 2,
+    };
 
     component = mount(
       <OverdueLoansList
@@ -105,17 +108,20 @@ describe('OverdueLoansList tests', () => {
       push: mockedHistoryPush,
     };
 
-    const data = [
-      {
-        ID: 'loan1',
-        loan_pid: 'loan1',
-        patron_pid: 'patron_1',
-        updated: d,
-        created: d,
-        start_date: d,
-        end_date: d,
-      },
-    ];
+    const data = {
+      hits: [
+        {
+          ID: 'loan1',
+          loan_pid: 'loan1',
+          patron_pid: 'patron_1',
+          updated: d,
+          created: d,
+          start_date: d,
+          end_date: d,
+        },
+      ],
+      total: 1,
+    };
 
     component = mount(
       <OverdueLoansList
@@ -126,7 +132,7 @@ describe('OverdueLoansList tests', () => {
       />
     );
 
-    const firstId = data[0].loan_pid;
+    const firstId = data.hits[0].loan_pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)

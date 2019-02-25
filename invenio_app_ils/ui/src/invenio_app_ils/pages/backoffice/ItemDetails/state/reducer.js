@@ -5,7 +5,7 @@ import { initialState as newLoanCreateInitialState } from '../components/ItemMet
 export const initialState = {
   isLoading: true,
   hasError: false,
-  data: {},
+  data: { hits: [], total: 0 },
   ...newLoanCreateInitialState,
 };
 

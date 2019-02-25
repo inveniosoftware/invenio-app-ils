@@ -29,7 +29,8 @@ class ItemSearch(RecordsSearch):
         index = "items"
         doc_types = None
 
-    def search_by_document_pid(self, document_pid=None):
+    def search_by_document_pid(self, document_pid=None, filter_states=None,
+                               exclude_states=None):
         """Retrieve items based on the given document pid."""
         search = self
 
@@ -38,7 +39,16 @@ class ItemSearch(RecordsSearch):
         else:
             raise ValueError("Must specify document_pid param")
 
+        if filter_states:
+            search = search.filter("terms", state=filter_states)
+        elif exclude_states:
+            search = search.filter("terms", state=exclude_states)
+
         return search
+
+    def get_unavailable_items_by_document_pid(self, document_pid):
+        """Retrieve items that are unavailable for a loan."""
+        return self.search_by_document_pid(document_pid, exclude_states=["LOANABLE"])
 
 
 class LocationSearch(RecordsSearch):

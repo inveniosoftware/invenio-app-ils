@@ -30,26 +30,29 @@ exports[`ItemPastLoans tests should load the past loans component 1`] = `
 exports[`ItemPastLoans tests should render pending loans 1`] = `
 <ItemPastLoans
   data={
-    Array [
-      Object {
-        "created": "2018-01-01T10:05:00.000Z",
-        "end_date": "2018-01-01T10:05:00.000Z",
-        "loan_pid": "loan1",
-        "patron_pid": "patron_1",
-        "start_date": "2018-01-01T10:05:00.000Z",
-        "state": "ITEM_RETURNED",
-        "updated": "2018-01-01T10:05:00.000Z",
-      },
-      Object {
-        "created": "2018-01-01T10:05:00.000Z",
-        "end_date": "2018-01-01T10:05:00.000Z",
-        "loan_pid": "loan2",
-        "patron_pid": "patron_2",
-        "start_date": "2018-01-01T10:05:00.000Z",
-        "state": "CANCELLED",
-        "updated": "2018-01-01T10:05:00.000Z",
-      },
-    ]
+    Object {
+      "hits": Array [
+        Object {
+          "created": "2018-01-01T10:05:00.000Z",
+          "end_date": "2018-01-01T10:05:00.000Z",
+          "loan_pid": "loan1",
+          "patron_pid": "patron_1",
+          "start_date": "2018-01-01T10:05:00.000Z",
+          "state": "ITEM_RETURNED",
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+        Object {
+          "created": "2018-01-01T10:05:00.000Z",
+          "end_date": "2018-01-01T10:05:00.000Z",
+          "loan_pid": "loan2",
+          "patron_pid": "patron_2",
+          "start_date": "2018-01-01T10:05:00.000Z",
+          "state": "CANCELLED",
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+      ],
+      "total": 2,
+    }
   }
   fetchPastLoans={[Function]}
   history={[Function]}
@@ -514,7 +517,12 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
 
 exports[`ItemPastLoans tests should render show a message with no past loans 1`] = `
 <ItemPastLoans
-  data={Array []}
+  data={
+    Object {
+      "hits": Array [],
+      "total": 0,
+    }
+  }
   fetchPastLoans={[Function]}
   history={[Function]}
   item={
