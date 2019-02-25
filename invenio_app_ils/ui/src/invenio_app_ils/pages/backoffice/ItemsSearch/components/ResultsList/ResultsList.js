@@ -27,6 +27,10 @@ export class ResultsList extends Component {
 
   render() {
     const rows = this.prepareData();
+    const maxRowsToShow =
+      rows.length > ResultsTable.defaultProps.showMaxRows
+        ? rows.length
+        : ResultsTable.defaultProps.showMaxRows;
     const headerActionComponent = (
       <NewButton
         text={'New item'}
@@ -35,10 +39,6 @@ export class ResultsList extends Component {
         }}
       />
     );
-    const maxRowsToShow =
-      rows.length > ResultsTable.defaultProps.showMaxRows
-        ? rows.length
-        : ResultsTable.defaultProps.showMaxRows;
 
     return rows.length ? (
       <ResultsTable

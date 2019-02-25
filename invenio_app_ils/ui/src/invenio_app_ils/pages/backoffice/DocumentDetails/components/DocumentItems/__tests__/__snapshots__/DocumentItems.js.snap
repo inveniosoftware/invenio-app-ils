@@ -30,22 +30,25 @@ exports[`DocumentItems tests should load the DocumentItems component 1`] = `
 exports[`DocumentItems tests should render item 1`] = `
 <DocumentItems
   data={
-    Array [
-      Object {
-        "ID": "item1",
-        "document_pid": "doc1",
-        "item_pid": "item1",
-        "location": "Somewhere",
-        "updated": "2018-01-01T10:05:00.000Z",
-      },
-      Object {
-        "ID": "item2",
-        "document_pid": "doc2",
-        "item_pid": "item2",
-        "location": "Somewhere",
-        "updated": "2018-01-01T10:05:00.000Z",
-      },
-    ]
+    Object {
+      "hits": Array [
+        Object {
+          "ID": "item1",
+          "document_pid": "doc1",
+          "item_pid": "item1",
+          "location": "Somewhere",
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+        Object {
+          "ID": "item2",
+          "document_pid": "doc2",
+          "item_pid": "item2",
+          "location": "Somewhere",
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+      ],
+      "total": 2,
+    }
   }
   document={
     Object {
@@ -644,7 +647,12 @@ exports[`DocumentItems tests should render item 1`] = `
 
 exports[`DocumentItems tests should render show a message with no items 1`] = `
 <DocumentItems
-  data={Array []}
+  data={
+    Object {
+      "hits": Array [],
+      "total": 0,
+    }
+  }
   document={
     Object {
       "metadata": Object {
@@ -750,22 +758,25 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
 exports[`DocumentItems tests should render the see all button when showing only a few items 1`] = `
 <DocumentItems
   data={
-    Array [
-      Object {
-        "ID": "1",
-        "document_pid": "doc1",
-        "item_pid": "item1",
-        "location": "Somewhere",
-        "updated": "2018-01-01T10:05:00.000Z",
-      },
-      Object {
-        "ID": "2",
-        "document_pid": "doc2",
-        "item_pid": "item2",
-        "location": "Somewhere",
-        "updated": "2018-01-01T10:05:00.000Z",
-      },
-    ]
+    Object {
+      "hits": Array [
+        Object {
+          "ID": "1",
+          "document_pid": "doc1",
+          "item_pid": "item1",
+          "location": "Somewhere",
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+        Object {
+          "ID": "2",
+          "document_pid": "doc2",
+          "item_pid": "item2",
+          "location": "Somewhere",
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+      ],
+      "total": 2,
+    }
   }
   document={
     Object {

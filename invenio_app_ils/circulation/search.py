@@ -11,7 +11,7 @@ import re
 
 from elasticsearch_dsl.query import Q
 from flask import abort, current_app, g, request
-from invenio_circulation.search.api import LoansSearch
+from invenio_circulation.search.api import LoansSearch, search_by_pid
 from invenio_records_rest.errors import InvalidQueryRESTError
 from invenio_search.api import DefaultFilter
 
@@ -29,6 +29,28 @@ def loan_permission_filter():
 
 class IlsLoansSearch(LoansSearch):
     """LoanSearch to filter loans."""
+
+    def get_pending_loans_by_doc_pid(self, document_pid):
+        """Return any pending loans for the given document."""
+        return search_by_pid(document_pid=document_pid,
+                             filter_states=["PENDING"]
+                             )
+
+    def get_active_loans_by_doc_pid(self, document_pid):
+        """Return any active loans for the given document."""
+        return search_by_pid(document_pid=document_pid,
+                             filter_states=current_app.config.get(
+                                 "CIRCULATION_STATES_LOAN_ACTIVE", []
+                             ),
+                             )
+
+    def get_past_loans_by_doc_pid(self, document_pid):
+        """Return any past loans for the given document."""
+        return search_by_pid(document_pid=document_pid,
+                             filter_states=current_app.config.get(
+                                 "CIRCULATION_STATES_LOAN_COMPLETED", []
+                             ),
+                             )
 
     class Meta:
         """Define permissions filter."""

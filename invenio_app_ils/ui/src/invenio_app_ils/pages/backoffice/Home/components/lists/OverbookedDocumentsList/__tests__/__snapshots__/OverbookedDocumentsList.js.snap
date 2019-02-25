@@ -30,26 +30,29 @@ exports[`OverbookedDocumentsList tests should load the details component 1`] = `
 exports[`OverbookedDocumentsList tests should render documents 1`] = `
 <OverbookedDocumentsList
   data={
-    Array [
-      Object {
-        "ID": "doc1",
-        "circulation": Object {
-          "loanableItems": 2,
-          "pendingLoans": 1,
+    Object {
+      "hits": Array [
+        Object {
+          "ID": "doc1",
+          "circulation": Object {
+            "loanableItems": 2,
+            "pendingLoans": 1,
+          },
+          "created": "2018-01-01T10:05:00.000Z",
+          "document_pid": "doc1",
+          "title": "X",
+          "updated": "2018-01-01T10:05:00.000Z",
         },
-        "created": "2018-01-01T10:05:00.000Z",
-        "document_pid": "doc1",
-        "title": "X",
-        "updated": "2018-01-01T10:05:00.000Z",
-      },
-      Object {
-        "ID": "doc2",
-        "created": "2018-01-01T10:05:00.000Z",
-        "document_pid": "doc2",
-        "title": "X",
-        "updated": "2018-01-01T10:05:00.000Z",
-      },
-    ]
+        Object {
+          "ID": "doc2",
+          "created": "2018-01-01T10:05:00.000Z",
+          "document_pid": "doc2",
+          "title": "X",
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+      ],
+      "total": 2,
+    }
   }
   fetchOverbookedDocuments={[Function]}
   history={[Function]}
@@ -506,7 +509,12 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
 
 exports[`OverbookedDocumentsList tests should render show a message with no documents 1`] = `
 <OverbookedDocumentsList
-  data={Array []}
+  data={
+    Object {
+      "hits": Array [],
+      "total": 0,
+    }
+  }
   fetchOverbookedDocuments={[Function]}
   history={[Function]}
   showMaxEntries={5}

@@ -21,7 +21,7 @@ describe('IdleLoansList tests', () => {
     const component = shallow(
       <IdleLoansList
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchIdlePendingLoans={() => {}}
       />
     );
@@ -33,7 +33,7 @@ describe('IdleLoansList tests', () => {
     component = mount(
       <IdleLoansList
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchIdlePendingLoans={mockedFetchLoans}
       />
     );
@@ -44,7 +44,7 @@ describe('IdleLoansList tests', () => {
     component = mount(
       <IdleLoansList
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchIdlePendingLoans={() => {}}
       />
     );
@@ -57,24 +57,27 @@ describe('IdleLoansList tests', () => {
   });
 
   it('should render loans', () => {
-    const data = [
-      {
-        loan_pid: 'loan1',
-        patron_pid: 'patron_1',
-        updated: d,
-        created: d,
-        start_date: str_date,
-        end_date: str_date,
-      },
-      {
-        loan_pid: 'loan2',
-        patron_pid: 'patron_2',
-        updated: d,
-        created: d,
-        start_date: str_date,
-        end_date: str_date,
-      },
-    ];
+    const data = {
+      hits: [
+        {
+          loan_pid: 'loan1',
+          patron_pid: 'patron_1',
+          updated: d,
+          created: d,
+          start_date: str_date,
+          end_date: str_date,
+        },
+        {
+          loan_pid: 'loan2',
+          patron_pid: 'patron_2',
+          updated: d,
+          created: d,
+          start_date: str_date,
+          end_date: str_date,
+        },
+      ],
+      total: 2,
+    };
 
     component = mount(
       <IdleLoansList
@@ -106,17 +109,20 @@ describe('IdleLoansList tests', () => {
       push: mockedHistoryPush,
     };
 
-    const data = [
-      {
-        ID: 'loan1',
-        loan_pid: 'loan1',
-        patron_pid: 'patron_1',
-        updated: d,
-        created: d,
-        start_date: str_date,
-        end_date: str_date,
-      },
-    ];
+    const data = {
+      hits: [
+        {
+          ID: 'loan1',
+          loan_pid: 'loan1',
+          patron_pid: 'patron_1',
+          updated: d,
+          created: d,
+          start_date: str_date,
+          end_date: str_date,
+        },
+      ],
+      total: 1,
+    };
 
     component = mount(
       <IdleLoansList
@@ -127,7 +133,7 @@ describe('IdleLoansList tests', () => {
       />
     );
 
-    const firstId = data[0].loan_pid;
+    const firstId = data.hits[0].loan_pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)
