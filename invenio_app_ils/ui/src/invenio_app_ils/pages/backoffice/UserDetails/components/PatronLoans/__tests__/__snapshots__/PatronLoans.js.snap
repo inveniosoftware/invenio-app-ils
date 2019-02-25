@@ -10,7 +10,6 @@ exports[`PatronLoans tests should load the details component 1`] = `
       headerActionClickHandler={null}
       headerActionComponent={null}
       rowActionClickHandler={[Function]}
-      rowActionComponent={null}
       rows={Array []}
       seeAllComponent={
         <SeeAllButton
@@ -79,7 +78,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
         headerActionClickHandler={null}
         headerActionComponent={null}
         rowActionClickHandler={[Function]}
-        rowActionComponent={null}
         rows={
           Array [
             Object {
@@ -173,6 +171,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                       "State",
                     ]
                   }
+                  withRowAction={true}
                 >
                   <TableHeader
                     as="thead"
@@ -266,7 +265,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                     ]
                   }
                   rowActionClickHandler={[Function]}
-                  rowActionComponent={null}
                   rows={
                     Array [
                       Object {
@@ -300,7 +298,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                         >
                           <TableCell
                             as="td"
-                            key="details"
                             textAlign="center"
                           >
                             <td
@@ -310,11 +307,13 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                 as="button"
                                 circular={true}
                                 compact={true}
+                                data-test="btn-view-details-loan1"
                                 icon="eye"
                                 onClick={[Function]}
                               >
                                 <button
                                   className="ui circular compact icon button"
+                                  data-test="btn-view-details-loan1"
                                   onClick={[Function]}
                                 >
                                   <Icon
@@ -380,7 +379,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                         >
                           <TableCell
                             as="td"
-                            key="details"
                             textAlign="center"
                           >
                             <td
@@ -390,11 +388,13 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                 as="button"
                                 circular={true}
                                 compact={true}
+                                data-test="btn-view-details-loan2"
                                 icon="eye"
                                 onClick={[Function]}
                               >
                                 <button
                                   className="ui circular compact icon button"
+                                  data-test="btn-view-details-loan2"
                                   onClick={[Function]}
                                 >
                                   <Icon
@@ -505,7 +505,6 @@ exports[`PatronLoans tests should render show a message with no user loans 1`] =
         headerActionClickHandler={null}
         headerActionComponent={null}
         rowActionClickHandler={[Function]}
-        rowActionComponent={null}
         rows={Array []}
         seeAllComponent={
           <SeeAllButton
@@ -638,7 +637,6 @@ exports[`PatronLoans tests should render the see all button when showing only a 
         headerActionClickHandler={null}
         headerActionComponent={null}
         rowActionClickHandler={[Function]}
-        rowActionComponent={null}
         rows={
           Array [
             Object {
@@ -732,6 +730,7 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                       "State",
                     ]
                   }
+                  withRowAction={true}
                 >
                   <TableHeader
                     as="thead"
@@ -825,7 +824,6 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                     ]
                   }
                   rowActionClickHandler={[Function]}
-                  rowActionComponent={null}
                   rows={
                     Array [
                       Object {
@@ -854,7 +852,6 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                         >
                           <TableCell
                             as="td"
-                            key="details"
                             textAlign="center"
                           >
                             <td
@@ -864,11 +861,13 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                                 as="button"
                                 circular={true}
                                 compact={true}
+                                data-test="btn-view-details-loan1"
                                 icon="eye"
                                 onClick={[Function]}
                               >
                                 <button
                                   className="ui circular compact icon button"
+                                  data-test="btn-view-details-loan1"
                                   onClick={[Function]}
                                 >
                                   <Icon

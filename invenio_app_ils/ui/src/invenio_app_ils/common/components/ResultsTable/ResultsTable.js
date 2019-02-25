@@ -16,12 +16,14 @@ export class ResultsTable extends Component {
         {...(fixed ? { fixed: true } : {})}
         selectable
       >
-        <ResultsTableHeader columns={columns} />
+        <ResultsTableHeader
+          columns={columns}
+          withRowAction={this.props.rowActionClickHandler ? true : false}
+        />
         <ResultsTableBody
           columns={columns}
           rows={rows.slice(0, showMaxRows)}
           rowActionClickHandler={this.props.rowActionClickHandler}
-          rowActionComponent={this.props.rowActionComponent}
         />
         <ResultsTableFooter
           allRowsNumber={rows.length}
@@ -78,8 +80,7 @@ ResultsTable.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   headerActionComponent: PropTypes.node,
-  rowActionComponent: PropTypes.node,
-  rowActionClickHandler: PropTypes.func.isRequired,
+  rowActionClickHandler: PropTypes.func,
   seeAllComponent: PropTypes.node,
   singleLine: PropTypes.bool,
   fixed: PropTypes.bool,
@@ -91,7 +92,7 @@ ResultsTable.defaultProps = {
   subtitle: '',
   headerActionComponent: null,
   headerActionClickHandler: null,
-  rowActionComponent: null,
+  rowActionClickHandler: null,
   seeAllComponent: null,
   singleLine: false,
   fixed: false,

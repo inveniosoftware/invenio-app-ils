@@ -21,15 +21,21 @@ export default class InternalLocationList extends Component {
       ID: row.internal_location_pid,
       Name: row.name,
       'Physical Location': row.physical_location,
-      'Location Email': row.location_email,
       'Location Name': row.location_name,
-      'Location ID': row.location_pid,
+      Actions: (
+        <Button
+          size="small"
+          content={'Edit'}
+          onClick={() =>
+            openRecordEditor(internalLocationApi.url, row.internal_location_pid)
+          }
+        />
+      ),
     }));
   }
 
   _renderResults(data) {
     const rows = this.prepareData(data);
-    const rowActionComponent = <Button circular compact icon="edit" />;
     const headerActionComponent = (
       <NewButton
         clickHandler={() => {
@@ -42,10 +48,6 @@ export default class InternalLocationList extends Component {
         rows={rows}
         title={'Internal Locations'}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={ilocid =>
-          openRecordEditor(internalLocationApi.url, ilocid)
-        }
-        rowActionComponent={rowActionComponent}
         showMaxRows={this.props.showMaxItems}
       />
     );

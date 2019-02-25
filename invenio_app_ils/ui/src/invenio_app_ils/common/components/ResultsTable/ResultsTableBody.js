@@ -12,37 +12,33 @@ export default class ResultsTableBody extends Component {
   };
 
   _renderRow = (columns, rows) => {
-    const RowActionComponent = this.props.rowActionComponent
-      ? props =>
-          React.cloneElement(this.props.rowActionComponent, {
-            onClick: props.rowActionClickHandler,
-          })
-      : null;
-    return rows.map(row => (
-      <Table.Row key={row.ID} data-test={row.ID}>
-        <Table.Cell key="details" textAlign="center">
-          {this.props.rowActionComponent ? (
-            <RowActionComponent
-              rowActionClickHandler={() => {
-                this.props.rowActionClickHandler(row.ID);
-              }}
-            />
-          ) : (
-            <Button
-              circular
-              compact
-              icon="eye"
-              onClick={() => {
-                this.props.rowActionClickHandler(row.ID);
-              }}
-            />
+    return rows.map(row => {
+      const withRowAction = this.props.rowActionClickHandler ? (
+        <Button
+          circular
+          compact
+          icon="eye"
+          onClick={() => {
+            this.props.rowActionClickHandler(row.ID);
+          }}
+          data-test={'btn-view-details-' + row.ID}
+        />
+      ) : null;
+
+      return (
+        <Table.Row key={row.ID} data-test={row.ID}>
+          <Table.Cell textAlign="center">{withRowAction}</Table.Cell>
+          {columns.map((column, idx) =>
+            this._renderCell(
+              row[column] ? row[column] : '-',
+              column,
+              row.ID,
+              idx
+            )
           )}
-        </Table.Cell>
-        {columns.map((column, idx) =>
-          this._renderCell(row[column] ? row[column] : '-', column, row.ID, idx)
-        )}
-      </Table.Row>
-    ));
+        </Table.Row>
+      );
+    });
   };
 
   render() {
@@ -56,10 +52,9 @@ export default class ResultsTableBody extends Component {
 
 ResultsTableBody.propTypes = {
   columns: PropTypes.array.isRequired,
-  rowActionClickHandler: PropTypes.func.isRequired,
-  rowActionComponent: PropTypes.node,
+  rowActionClickHandler: PropTypes.func,
 };
 
 ResultsTableBody.defaultProps = {
-  rowActionComponent: null,
+  rowActionClickHandler: null,
 };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { document as documentApi } from '../../../../../common/api';
-import { fromISO, toString } from '../../../../../common/api/date';
+import { fromISO, toShortDate } from '../../../../../common/api/date';
 import { openRecordEditor } from '../../../../../common/urls';
 import { ResultsTable } from '../../../../../common/components';
 import { NewButton } from '../../../components/buttons';
@@ -12,7 +12,7 @@ export class ResultsList extends Component {
     this.viewDetailsClickHandler = this.props.viewDetailsClickHandler;
   }
 
-  _getFormattedDate = d => (d ? toString(fromISO(d)) : '');
+  _getFormattedDate = d => (d ? toShortDate(fromISO(d)) : '');
 
   prepareData() {
     return this.props.results.map(row => ({

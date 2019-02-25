@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Container } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { location as locationApi } from '../../../common/api';
 import { openRecordEditor } from '../../../common/urls';
 import { InternalLocationList } from './components';
 import { Error, Loader, ResultsTable } from '../../../common/components';
+import { Button } from 'semantic-ui-react';
 import { NewButton } from '../components/buttons';
 
 export default class LocationList extends Component {
@@ -20,15 +21,21 @@ export default class LocationList extends Component {
   prepareData(data) {
     return data.map(row => ({
       ID: row.location_pid,
+      Name: row.name,
       Address: row.address,
       Email: row.email,
-      Name: row.name,
+      Actions: (
+        <Button
+          size="small"
+          content={'Edit'}
+          onClick={() => openRecordEditor(locationApi.url, row.location_pid)}
+        />
+      ),
     }));
   }
 
   _renderResults(data) {
     const rows = this.prepareData(data);
-    const rowActionComponent = <Button circular compact icon="edit" />;
     const headerActionComponent = (
       <NewButton
         clickHandler={() => {
@@ -41,10 +48,6 @@ export default class LocationList extends Component {
         rows={rows}
         title={'Locations'}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={locid =>
-          openRecordEditor(locationApi.url, locid)
-        }
-        rowActionComponent={rowActionComponent}
         showMaxRows={this.props.showMaxItems}
       />
     );

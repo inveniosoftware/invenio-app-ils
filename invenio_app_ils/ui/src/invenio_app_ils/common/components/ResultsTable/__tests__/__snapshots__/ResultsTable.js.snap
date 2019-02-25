@@ -29,7 +29,6 @@ exports[`ResultsTable tests should not render the see all button when showing on
   headerActionComponent={null}
   history={[Function]}
   rowActionClickHandler={[Function]}
-  rowActionComponent={null}
   rows={
     Array [
       Object {
@@ -104,6 +103,7 @@ exports[`ResultsTable tests should not render the see all button when showing on
                 "end_date",
               ]
             }
+            withRowAction={true}
           >
             <TableHeader
               as="thead"
@@ -229,7 +229,6 @@ exports[`ResultsTable tests should not render the see all button when showing on
               ]
             }
             rowActionClickHandler={[Function]}
-            rowActionComponent={null}
             rows={
               Array [
                 Object {
@@ -267,7 +266,6 @@ exports[`ResultsTable tests should not render the see all button when showing on
                   >
                     <TableCell
                       as="td"
-                      key="details"
                       textAlign="center"
                     >
                       <td
@@ -277,11 +275,13 @@ exports[`ResultsTable tests should not render the see all button when showing on
                           as="button"
                           circular={true}
                           compact={true}
+                          data-test="btn-view-details-loan1"
                           icon="eye"
                           onClick={[Function]}
                         >
                           <button
                             className="ui circular compact icon button"
+                            data-test="btn-view-details-loan1"
                             onClick={[Function]}
                           >
                             <Icon
@@ -371,7 +371,6 @@ exports[`ResultsTable tests should not render the see all button when showing on
                   >
                     <TableCell
                       as="td"
-                      key="details"
                       textAlign="center"
                     >
                       <td
@@ -381,11 +380,13 @@ exports[`ResultsTable tests should not render the see all button when showing on
                           as="button"
                           circular={true}
                           compact={true}
+                          data-test="btn-view-details-loan2"
                           icon="eye"
                           onClick={[Function]}
                         >
                           <button
                             className="ui circular compact icon button"
+                            data-test="btn-view-details-loan2"
                             onClick={[Function]}
                           >
                             <Icon
@@ -486,7 +487,6 @@ exports[`ResultsTable tests should render the see all button when showing only a
   headerActionComponent={null}
   history={[Function]}
   rowActionClickHandler={[Function]}
-  rowActionComponent={null}
   rows={
     Array [
       Object {
@@ -572,6 +572,7 @@ exports[`ResultsTable tests should render the see all button when showing only a
                 "end_date",
               ]
             }
+            withRowAction={true}
           >
             <TableHeader
               as="thead"
@@ -713,7 +714,6 @@ exports[`ResultsTable tests should render the see all button when showing only a
               ]
             }
             rowActionClickHandler={[Function]}
-            rowActionComponent={null}
             rows={
               Array [
                 Object {
@@ -745,7 +745,6 @@ exports[`ResultsTable tests should render the see all button when showing only a
                   >
                     <TableCell
                       as="td"
-                      key="details"
                       textAlign="center"
                     >
                       <td
@@ -755,11 +754,13 @@ exports[`ResultsTable tests should render the see all button when showing only a
                           as="button"
                           circular={true}
                           compact={true}
+                          data-test="btn-view-details-1"
                           icon="eye"
                           onClick={[Function]}
                         >
                           <button
                             className="ui circular compact icon button"
+                            data-test="btn-view-details-1"
                             onClick={[Function]}
                           >
                             <Icon

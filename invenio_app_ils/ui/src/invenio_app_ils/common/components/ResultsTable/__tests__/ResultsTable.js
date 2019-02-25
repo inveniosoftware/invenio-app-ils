@@ -191,4 +191,66 @@ describe('ResultsTable tests', () => {
     button.simulate('click');
     expect(mockedHistoryPush).toHaveBeenCalled();
   });
+
+  it('should show the view details button when the rowActionClickHandler prop is defined', () => {
+    const mockedHistoryPush = jest.fn();
+    const historyFn = {
+      push: mockedHistoryPush,
+    };
+
+    const results = [
+      {
+        ID: 'loan1',
+        patron_pid: 'patron_1',
+        updated: d,
+        start_date: d,
+        end_date: d,
+      },
+    ];
+
+    component = mount(
+      <ResultsTable
+        rows={results}
+        history={historyFn}
+        rowActionClickHandler={() => {}}
+      />
+    );
+
+    const firstId = results[0].ID;
+    const button = component
+      .find('TableRow')
+      .find('button')
+      .filterWhere(
+        element => element.prop('data-test') === 'btn-view-details-' + firstId
+      );
+    expect(button).toHaveLength(1);
+  });
+
+  it('should not show the view details button when the rowActionClickHandler prop is not defined', () => {
+    const mockedHistoryPush = jest.fn();
+    const historyFn = {
+      push: mockedHistoryPush,
+    };
+
+    const results = [
+      {
+        ID: 'loan1',
+        patron_pid: 'patron_1',
+        updated: d,
+        start_date: d,
+        end_date: d,
+      },
+    ];
+
+    component = mount(<ResultsTable rows={results} history={historyFn} />);
+
+    const firstId = results[0].ID;
+    const button = component
+      .find('TableRow')
+      .find('button')
+      .filterWhere(
+        element => element.prop('data-test') === 'btn-view-details-' + firstId
+      );
+    expect(button).toHaveLength(0);
+  });
 });

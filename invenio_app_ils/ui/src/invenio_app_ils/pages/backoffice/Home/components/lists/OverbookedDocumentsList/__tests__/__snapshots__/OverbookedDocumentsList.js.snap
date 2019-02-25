@@ -10,7 +10,6 @@ exports[`OverbookedDocumentsList tests should load the details component 1`] = `
       headerActionClickHandler={null}
       headerActionComponent={null}
       rowActionClickHandler={[Function]}
-      rowActionComponent={null}
       rows={Array []}
       seeAllComponent={
         <SeeAllButton
@@ -65,7 +64,6 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
         headerActionClickHandler={null}
         headerActionComponent={null}
         rowActionClickHandler={[Function]}
-        rowActionComponent={null}
         rows={
           Array [
             Object {
@@ -164,6 +162,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                       "Loanable items",
                     ]
                   }
+                  withRowAction={true}
                 >
                   <TableHeader
                     as="thead"
@@ -273,7 +272,6 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                     ]
                   }
                   rowActionClickHandler={[Function]}
-                  rowActionComponent={null}
                   rows={
                     Array [
                       Object {
@@ -307,7 +305,6 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                         >
                           <TableCell
                             as="td"
-                            key="details"
                             textAlign="center"
                           >
                             <td
@@ -317,11 +314,13 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                                 as="button"
                                 circular={true}
                                 compact={true}
+                                data-test="btn-view-details-doc1"
                                 icon="eye"
                                 onClick={[Function]}
                               >
                                 <button
                                   className="ui circular compact icon button"
+                                  data-test="btn-view-details-doc1"
                                   onClick={[Function]}
                                 >
                                   <Icon
@@ -399,7 +398,6 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                         >
                           <TableCell
                             as="td"
-                            key="details"
                             textAlign="center"
                           >
                             <td
@@ -409,11 +407,13 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                                 as="button"
                                 circular={true}
                                 compact={true}
+                                data-test="btn-view-details-doc2"
                                 icon="eye"
                                 onClick={[Function]}
                               >
                                 <button
                                   className="ui circular compact icon button"
+                                  data-test="btn-view-details-doc2"
                                   onClick={[Function]}
                                 >
                                   <Icon
@@ -520,7 +520,6 @@ exports[`OverbookedDocumentsList tests should render show a message with no docu
         headerActionClickHandler={null}
         headerActionComponent={null}
         rowActionClickHandler={[Function]}
-        rowActionComponent={null}
         rows={Array []}
         seeAllComponent={
           <SeeAllButton

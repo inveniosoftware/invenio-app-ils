@@ -10,7 +10,6 @@ exports[`ItemPastLoans tests should load the past loans component 1`] = `
       headerActionClickHandler={null}
       headerActionComponent={null}
       rowActionClickHandler={[Function]}
-      rowActionComponent={null}
       rows={Array []}
       seeAllComponent={
         <SeeAllButton
@@ -73,7 +72,6 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
         headerActionClickHandler={null}
         headerActionComponent={null}
         rowActionClickHandler={[Function]}
-        rowActionComponent={null}
         rows={
           Array [
             Object {
@@ -170,6 +168,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       "State",
                     ]
                   }
+                  withRowAction={true}
                 >
                   <TableHeader
                     as="thead"
@@ -279,7 +278,6 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                     ]
                   }
                   rowActionClickHandler={[Function]}
-                  rowActionComponent={null}
                   rows={
                     Array [
                       Object {
@@ -315,7 +313,6 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                         >
                           <TableCell
                             as="td"
-                            key="details"
                             textAlign="center"
                           >
                             <td
@@ -325,11 +322,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                                 as="button"
                                 circular={true}
                                 compact={true}
+                                data-test="btn-view-details-loan1"
                                 icon="eye"
                                 onClick={[Function]}
                               >
                                 <button
                                   className="ui circular compact icon button"
+                                  data-test="btn-view-details-loan1"
                                   onClick={[Function]}
                                 >
                                   <Icon
@@ -407,7 +406,6 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                         >
                           <TableCell
                             as="td"
-                            key="details"
                             textAlign="center"
                           >
                             <td
@@ -417,11 +415,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                                 as="button"
                                 circular={true}
                                 compact={true}
+                                data-test="btn-view-details-loan2"
                                 icon="eye"
                                 onClick={[Function]}
                               >
                                 <button
                                   className="ui circular compact icon button"
+                                  data-test="btn-view-details-loan2"
                                   onClick={[Function]}
                                 >
                                   <Icon
@@ -536,7 +536,6 @@ exports[`ItemPastLoans tests should render show a message with no past loans 1`]
         headerActionClickHandler={null}
         headerActionComponent={null}
         rowActionClickHandler={[Function]}
-        rowActionComponent={null}
         rows={Array []}
         seeAllComponent={
           <SeeAllButton
