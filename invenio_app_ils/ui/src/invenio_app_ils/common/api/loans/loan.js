@@ -152,7 +152,7 @@ const queryBuilder = () => {
 
 const list = query => {
   return http.get(`${loanListURL}?q=${query}`).then(response => {
-    let totalHits = response.data.hits.total ? response.data.hits.total : 0;
+    const totalHits = response.data.hits.total;
     response.data = response.data.hits.hits.map(hit =>
       serializer.fromJSON(hit)
     );

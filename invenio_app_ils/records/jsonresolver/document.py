@@ -8,7 +8,6 @@
 """Document related resolvers."""
 
 import jsonresolver
-from invenio_circulation.api import is_item_available
 from invenio_circulation.search.api import search_by_pid
 from werkzeug.routing import Rule
 
@@ -27,18 +26,22 @@ def jsonresolver_loader(url_map):
     def circulation_resolver(document_pid):
         """Return circulation info for the given Document."""
         circulation = {}
-        active_loans_count = 0
         loanable_items_count = 0
         items_count = 0
         item_pids = circulation_items_retriever(document_pid)
 
         for pid in item_pids:
             items_count += 1
-            if not is_item_available(pid):
-                active_loans_count += 1
 
             if circulation_is_item_available(pid):
                 loanable_items_count += 1
+
+        active_loans_count = search_by_pid(
+            document_pid=document_pid,
+            filter_states=current_app.config.get(
+                "CIRCULATION_STATES_LOAN_ACTIVE", []
+            ),
+        ).execute().hits.total
 
         search = search_by_pid(
             document_pid=document_pid,

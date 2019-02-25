@@ -25,7 +25,7 @@ export class ResultsList extends Component {
 
   render() {
     const rows = this.prepareData();
-    const numRowsToShow =
+    const maxRowsToShow =
       rows.length > ResultsTable.defaultProps.showMaxRows
         ? rows.length
         : ResultsTable.defaultProps.showMaxRows;
@@ -34,7 +34,7 @@ export class ResultsList extends Component {
       <ResultsTable
         rows={rows}
         rowActionClickHandler={this.viewDetailsClickHandler}
-        showMaxRows={numRowsToShow}
+        showMaxRows={maxRowsToShow}
       />
     );
   }
