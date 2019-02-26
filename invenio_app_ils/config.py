@@ -402,7 +402,8 @@ CIRCULATION_POLICIES = dict(
     ),
 )
 
-CIRCULATION_ITEM_RESOLVING_PATH = "/api/resolver/loans/<loan_pid>/item"
+CIRCULATION_ITEM_RESOLVING_PATH = \
+    "/api/resolver/circulation/loans/<loan_pid>/item"
 
 CIRCULATION_ITEM_RESOLVER_ENDPOINT = item_resolver
 
