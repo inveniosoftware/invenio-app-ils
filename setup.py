@@ -42,7 +42,9 @@ setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
 install_requires = [
     "Flask-BabelEx>=0.9.3",
     "Flask-Debugtoolbar>=0.10.1",
-    "invenio[postgresql,elasticsearch6,base,auth]==3.1.0.dev20181106",
+    "invenio[postgresql,base,auth]==3.1.0.dev20181106",
+    # extra invenio-search
+    'invenio-search[elasticsearch6]>=1.1.0,<1.2.0',
     # metadata bundle without records UI
     "invenio-indexer>=1.0.1,<1.1.0",
     "invenio-jsonschemas>=1.0.0,<1.1.0",
@@ -51,18 +53,19 @@ install_requires = [
     "invenio-records-rest>=1.3.0,<1.4.0",
     "invenio-records>=1.0.0,<1.1.0",
     # upgraded packages
-    "invenio-accounts-rest>=1.0.0a4",
+    "invenio-accounts-rest>=1.0.0a4,<1.1.0",
     "invenio-app>=1.0.4,<1.1.0",
     "invenio-assets>=1.1.1,<1.2.0",
     "invenio-i18n>=1.1.0,<1.2.0",
     "invenio-userprofiles>=1.0.1,<1.1.0",
+    "invenio-search>=1.1.0,<1.2.0",
     # because of https://github.com/requests/requests-oauthlib/commit/1b9fe1a630eb1c91bf12fd70aa2e10ca74ffc0b6
     "oauthlib>=2.1.0,<3.0.0",
     # https://github.com/inveniosoftware/invenio-indexer/commit/9749c2fe4e2cbaabc167ad7fb12ade945a2d580c
     "redis>=2.10.0,<3.0.0",
     # extra
-    "invenio-circulation>=1.0.0a7",
-    "invenio-records-editor>=1.0.0a3",
+    "invenio-circulation>=1.0.0a7,<1.1.0",
+    "invenio-records-editor>=1.0.0a3,<1.1.0",
 ]
 
 packages = find_packages()
