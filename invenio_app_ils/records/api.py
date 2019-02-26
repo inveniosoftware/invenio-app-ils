@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2019 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -48,7 +48,7 @@ class Document(IlsRecord):
     _pid_type = DOCUMENT_PID_TYPE
     _schema = "documents/document-v1.0.0.json"
     _circulation_resolver_path = (
-        "{scheme}://{host}/api/resolver/documents/{pid_value}/circulation"
+        "{scheme}://{host}/api/resolver/documents/{document_pid}/circulation"
     )
 
     @classmethod
@@ -58,7 +58,7 @@ class Document(IlsRecord):
             "$ref": cls._circulation_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
-                pid_value=data[cls.pid_field],
+                document_pid=data[cls.pid_field],
             )
         }
         return super(Document, cls).create(data, id_=id_, **kwargs)
@@ -71,13 +71,13 @@ class Item(IlsRecord):
     _pid_type = ITEM_PID_TYPE
     _schema = "items/item-v1.0.0.json"
     _loan_resolver_path = (
-        "{scheme}://{host}/api/resolver/circulation/items/{pid_value}/loan"
+        "{scheme}://{host}/api/resolver/circulation/items/{item_pid}/loan"
     )
     _internal_location_resolver_path = (
-        "{scheme}://{host}/api/resolver/internal-locations/{pid_value}"
+        "{scheme}://{host}/api/resolver/items/{item_pid}/internal-location"
     )
     _document_resolver_path = (
-        "{scheme}://{host}/api/resolver/items/document/{pid_value}"
+        "{scheme}://{host}/api/resolver/items/{item_pid}/document"
     )
 
     @classmethod
@@ -87,21 +87,21 @@ class Item(IlsRecord):
             "$ref": cls._loan_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
-                pid_value=data[cls.pid_field],
+                item_pid=data[cls.pid_field],
             )
         }
         data["internal_location"] = {
             "$ref": cls._internal_location_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
-                pid_value=data[InternalLocation.pid_field],
+                item_pid=data[cls.pid_field],
             )
         }
         data["document"] = {
             "$ref": cls._document_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
-                pid_value=data[Document.pid_field],
+                item_pid=data[cls.pid_field],
             )
         }
         return super(Item, cls).create(data, id_=id_, **kwargs)
@@ -127,7 +127,8 @@ class InternalLocation(IlsRecord):
     _pid_type = INTERNAL_LOCATION_PID_TYPE
     _schema = "internal_locations/internal_location-v1.0.0.json"
     _location_resolver_path = (
-        "{scheme}://{host}/api/resolver/locations/{pid_value}"
+        "{scheme}://{host}/api/resolver/"
+        "internal-locations/{internal_location_pid}/location"
     )
 
     @classmethod
@@ -137,7 +138,7 @@ class InternalLocation(IlsRecord):
             "$ref": cls._location_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
-                pid_value=data[Location.pid_field],
+                internal_location_pid=data[cls.pid_field],
             )
         }
         return super(InternalLocation, cls).create(data, id_=id_, **kwargs)

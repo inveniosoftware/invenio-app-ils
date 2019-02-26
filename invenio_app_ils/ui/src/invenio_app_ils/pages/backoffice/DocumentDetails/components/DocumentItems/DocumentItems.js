@@ -9,14 +9,14 @@ import {
   itemSearchQueryUrl,
   viewItemDetailsUrl,
 } from '../../../../../common/urls';
-import { Button } from 'semantic-ui-react';
+import { SeeAllButton } from '../../../components/buttons';
 
 export default class DocumentItems extends Component {
   constructor(props) {
     super(props);
     this.fetchDocumentItems = props.fetchDocumentItems;
     this.showDetailsUrl = viewItemDetailsUrl;
-    this.showAllUrl = itemSearchQueryUrl;
+    this.seeAllUrl = itemSearchQueryUrl;
   }
 
   componentDidMount() {
@@ -29,29 +29,18 @@ export default class DocumentItems extends Component {
   _showDetailsHandler = item_pid =>
     this.props.history.push(this.showDetailsUrl(item_pid));
 
-  _showAllButton = () => {
+  _seeAllButton = () => {
     const { document_pid } = this.props.document;
-
     const _click = () =>
       this.props.history.push(
-        this.showAllUrl(
+        this.seeAllUrl(
           itemApi
             .query()
             .withDocPid(document_pid)
             .qs()
         )
       );
-
-    return (
-      <Button
-        size="small"
-        onClick={() => {
-          _click();
-        }}
-      >
-        Show all
-      </Button>
-    );
+    return <SeeAllButton clickHandler={() => _click()} />;
   };
 
   prepareData() {
@@ -76,9 +65,9 @@ export default class DocumentItems extends Component {
         <Error error={errorData}>
           <ResultsTable
             rows={rows}
-            name={'Attached items'}
-            actionClickHandler={this._showDetailsHandler}
-            showAllButton={this._showAllButton()}
+            title={'Attached items'}
+            rowActionClickHandler={this._showDetailsHandler}
+            seeAllComponent={this._seeAllButton()}
             showMaxRows={this.props.showMaxItems}
           />
         </Error>

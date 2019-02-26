@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { fromISO, toString } from '../../../../../common/api/date';
+import { item as itemApi } from '../../../../../common/api';
+import { fromISO, toShortDate } from '../../../../../common/api/date';
+import { openRecordEditor } from '../../../../../common/urls';
 import { ResultsTable } from '../../../../../common/components';
+import { NewButton } from '../../../components/buttons';
 
 export class ResultsList extends Component {
   constructor(props) {
@@ -9,11 +12,11 @@ export class ResultsList extends Component {
     this.viewDetailsClickHandler = this.props.viewDetailsClickHandler;
   }
 
-  _getFormattedDate = d => (d ? toString(fromISO(d)) : '');
+  _getFormattedDate = d => (d ? toShortDate(fromISO(d)) : '');
 
   prepareData() {
     return this.props.results.map(row => ({
-      ID: row.id,
+      ID: row.metadata.item_pid,
       'Document ID': row.metadata.document_pid,
       Status: row.metadata.status,
       'Internal location': row.metadata.internal_location.name,
@@ -24,12 +27,21 @@ export class ResultsList extends Component {
 
   render() {
     const rows = this.prepareData();
+    const headerActionComponent = (
+      <NewButton
+        text={'New item'}
+        clickHandler={() => {
+          openRecordEditor(itemApi.url);
+        }}
+      />
+    );
 
     return rows.length ? (
       <ResultsTable
         rows={rows}
-        name={'All items'}
-        actionClickHandler={this.viewDetailsClickHandler}
+        title={''}
+        headerActionComponent={headerActionComponent}
+        rowActionClickHandler={this.viewDetailsClickHandler}
       />
     ) : null;
   }

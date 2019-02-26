@@ -4,20 +4,19 @@ import { generatePath } from 'react-router';
 import { Loader, Error } from '../../../../../../common/components';
 import { ResultsTable } from '../../../../../../common/components';
 import { loan as loanApi } from '../../../../../../common/api';
-
 import {
   BackOfficeURLS,
   loanSearchQueryUrl,
 } from '../../../../../../common/urls';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
-import { Button } from 'semantic-ui-react';
+import { SeeAllButton } from '../../../../components/buttons';
 
 export default class OverdueLoansList extends Component {
   constructor(props) {
     super(props);
     this.fetchOverdueLoans = props.fetchOverdueLoans;
     this.showDetailsUrl = BackOfficeURLS.loanDetails;
-    this.showAllUrl = loanSearchQueryUrl;
+    this.seeAllUrl = loanSearchQueryUrl;
   }
 
   componentDidMount() {
@@ -29,10 +28,10 @@ export default class OverdueLoansList extends Component {
       generatePath(this.showDetailsUrl, { loanPid: loan_pid })
     );
 
-  _showAllButton = () => {
+  _seeAllButton = () => {
     const _click = () =>
       this.props.history.push(
-        this.showAllUrl(
+        this.seeAllUrl(
           loanApi
             .query()
             .overdue()
@@ -40,16 +39,7 @@ export default class OverdueLoansList extends Component {
         )
       );
 
-    return (
-      <Button
-        size="small"
-        onClick={() => {
-          _click();
-        }}
-      >
-        Show all
-      </Button>
-    );
+    return <SeeAllButton clickHandler={() => _click()} />;
   };
 
   prepareData() {
@@ -66,9 +56,10 @@ export default class OverdueLoansList extends Component {
     return (
       <ResultsTable
         rows={rows}
-        name={'Overdue loans'}
-        actionClickHandler={this._showDetailsHandler}
-        showAllButton={this._showAllButton()}
+        title={'Overdue loans'}
+        subtitle={'Active loans with past due end date.'}
+        rowActionClickHandler={this._showDetailsHandler}
+        seeAllComponent={this._seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
       />
     );

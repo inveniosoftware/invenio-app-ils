@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Segment, Message, Header, Table, Popup } from 'semantic-ui-react';
+import { Segment, Message, Header, Table, Grid } from 'semantic-ui-react';
 import ResultsTableHeader from './ResultsTableHeader';
 import ResultsTableBody from './ResultsTableBody';
 import ResultsTableFooter from './ResultsTableFooter';
 
 export class ResultsTable extends Component {
-  constructor(props) {
-    super(props);
-    this.actionClickHandler = this.props.actionClickHandler;
-    this.showAllButton = this.props.showAllButton;
-    this.actionComponent = this.props.actionComponent;
-  }
-
   _renderTable = () => {
     const { rows, showMaxRows, singleLine, fixed } = this.props;
     const columns = rows ? Object.keys(rows[0]) : [];
@@ -23,17 +16,19 @@ export class ResultsTable extends Component {
         {...(fixed ? { fixed: true } : {})}
         selectable
       >
-        <ResultsTableHeader columns={columns} />
+        <ResultsTableHeader
+          columns={columns}
+          withRowAction={this.props.rowActionClickHandler ? true : false}
+        />
         <ResultsTableBody
           columns={columns}
           rows={rows.slice(0, showMaxRows)}
-          actionClickHandler={this.actionClickHandler}
-          actionComponent={this.actionComponent}
+          rowActionClickHandler={this.props.rowActionClickHandler}
         />
         <ResultsTableFooter
           allRowsNumber={rows.length}
           showMaxRows={this.props.showMaxRows}
-          showAllButton={this.showAllButton}
+          seeAllComponent={this.props.seeAllComponent}
           columnsNumber={columns.length}
         />
       </Table>
@@ -49,20 +44,30 @@ export class ResultsTable extends Component {
     );
   }
 
+  _renderTitle() {
+    const { title, subtitle, headerActionComponent } = this.props;
+    const header = title ? (
+      <Header as="h3" content={title} subheader={subtitle} />
+    ) : null;
+
+    return (
+      <Grid>
+        <Grid.Row>
+          <Grid.Column width={13} verticalAlign={'middle'}>
+            {header}
+          </Grid.Column>
+          <Grid.Column width={3} textAlign={'right'}>
+            {headerActionComponent}
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    );
+  }
+
   render() {
-    const { name, popup } = this.props;
-    if (popup) {
-      const header = <Header as="h3">{name}</Header>;
-      return (
-        <Segment>
-          <Popup content={popup} trigger={header} />
-          {this._renderResultsOrEmpty()}
-        </Segment>
-      );
-    }
     return (
       <Segment>
-        <Header as="h3">{name}</Header>
+        {this._renderTitle()}
         {this._renderResultsOrEmpty()}
       </Segment>
     );
@@ -72,16 +77,23 @@ export class ResultsTable extends Component {
 ResultsTable.propTypes = {
   rows: PropTypes.array.isRequired,
   showMaxRows: PropTypes.number,
-  name: PropTypes.string,
-  actionClickHandler: PropTypes.func.isRequired,
-  showAllButton: PropTypes.node,
-  actionComponent: PropTypes.node,
-  wrapped: PropTypes.bool,
-  popup: PropTypes.string,
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  headerActionComponent: PropTypes.node,
+  rowActionClickHandler: PropTypes.func,
+  seeAllComponent: PropTypes.node,
+  singleLine: PropTypes.bool,
+  fixed: PropTypes.bool,
 };
 
 ResultsTable.defaultProps = {
   showMaxRows: 10,
-  name: 'results',
-  actionComponent: null,
+  title: '',
+  subtitle: '',
+  headerActionComponent: null,
+  headerActionClickHandler: null,
+  rowActionClickHandler: null,
+  seeAllComponent: null,
+  singleLine: false,
+  fixed: false,
 };

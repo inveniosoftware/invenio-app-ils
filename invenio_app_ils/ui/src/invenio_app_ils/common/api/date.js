@@ -14,15 +14,6 @@ export const toISO = date => {
 };
 
 /**
- * Converts datetime object to long datetime string
- * @param date
- * @returns {string}
- */
-export const toString = date => {
-  return date.toLocaleString();
-};
-
-/**
  *  Serializes date for display in short format
  *  @param {DateTime} date luxon DateTime
  *  @re

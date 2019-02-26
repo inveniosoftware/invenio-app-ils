@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Container } from 'semantic-ui-react';
-import { locationItemUrl } from '../../../common/api/urls';
+import { Container } from 'semantic-ui-react';
+import { location as locationApi } from '../../../common/api';
+import { openRecordEditor } from '../../../common/urls';
 import { InternalLocationList } from './components';
 import { Error, Loader, ResultsTable } from '../../../common/components';
-import { invenioConfig } from '../../../common/config';
+import { Button } from 'semantic-ui-react';
+import { NewButton } from '../components/buttons';
 
 export default class LocationList extends Component {
   constructor(props) {
@@ -16,29 +18,37 @@ export default class LocationList extends Component {
     this.fetchLocations();
   }
 
-  openEditor(url) {
-    window.open(`${invenioConfig.editor.url}?url=${url}`, url);
-  }
-
   prepareData(data) {
     return data.map(row => ({
       ID: row.location_pid,
+      Name: row.name,
       Address: row.address,
       Email: row.email,
-      Name: row.name,
+      Actions: (
+        <Button
+          size="small"
+          content={'Edit'}
+          onClick={() => openRecordEditor(locationApi.url, row.location_pid)}
+        />
+      ),
     }));
   }
 
   _renderResults(data) {
     const rows = this.prepareData(data);
-    const actionComponent = <Button circular compact icon="edit" />;
+    const headerActionComponent = (
+      <NewButton
+        clickHandler={() => {
+          openRecordEditor(locationApi.url);
+        }}
+      />
+    );
     return (
       <ResultsTable
         rows={rows}
-        name={'Locations'}
-        actionClickHandler={id => this.openEditor(locationItemUrl(id))}
+        title={'Locations'}
+        headerActionComponent={headerActionComponent}
         showMaxRows={this.props.showMaxItems}
-        actionComponent={actionComponent}
       />
     );
   }

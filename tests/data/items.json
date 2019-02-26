@@ -5,6 +5,8 @@
     "title": "The Gulf: The Making of An American Sea - Item 1",
     "document_pid": "docid-1",
     "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "MISSING"
   },
   {
@@ -13,6 +15,8 @@
     "title": "The Gulf: The Making of An American Sea - Item 2",
     "document_pid": "docid-1",
     "internal_location_pid": "ilocid-2",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "LOANABLE"
   },
   {
@@ -21,6 +25,8 @@
     "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
     "document_pid": "docid-2",
     "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "LOANABLE"
   },
   {
@@ -29,6 +35,8 @@
     "title": "Half-light: Collected Poems 1965-2016",
     "document_pid": "docid-3",
     "internal_location_pid": "ilocid-2",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "LOANABLE"
   },
   {
@@ -37,6 +45,8 @@
     "title": "Half-light: Collected Poems 1965-2016",
     "document_pid": "docid-3",
     "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "LOANABLE"
   },
   {
@@ -45,6 +55,8 @@
     "title": "Half-light: Collected Poems 1965-2016",
     "document_pid": "docid-3",
     "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "LOANABLE"
   },
   {
@@ -53,6 +65,8 @@
     "title": "Less: A Novel",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-2",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "IN_BINDING"
   },
   {
@@ -61,6 +75,8 @@
     "title": "Less: A Novel",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "MISSING"
   },
   {
@@ -69,6 +85,8 @@
     "title": "Less: A Novel",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "LOANABLE"
   },
   {
@@ -77,6 +95,8 @@
     "title": "Less: A Novel",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "LOANABLE"
   },
   {
@@ -85,6 +105,8 @@
     "title": "Less: A Novel",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "LOANABLE",
     "_access": { "update": [1] }
   },
@@ -94,6 +116,8 @@
     "title": "Less: A Novel",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-2",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "LOANABLE",
     "_access": { "delete": ["librarian"] }
   },
@@ -103,6 +127,8 @@
     "title": "Less: A Novel",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "LOANABLE",
     "_access": { "delete": ["1"] }
   },
@@ -112,6 +138,8 @@
     "title": "Less: A Novel",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "LOANABLE",
     "_access": { "update": ["1"] }
   },
@@ -121,6 +149,8 @@
     "title": "Less: A Novel",
     "document_pid": "docid-5",
     "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "LOANABLE",
     "_access": { "read": ["1"] }
   },
@@ -130,6 +160,8 @@
     "title": "The Gulf: The Making of An American Sea - Item 1",
     "document_pid": "docid-1",
     "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
     "status": "MISSING"
   }
 ]

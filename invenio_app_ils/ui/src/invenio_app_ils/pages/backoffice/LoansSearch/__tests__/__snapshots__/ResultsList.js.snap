@@ -6,23 +6,49 @@ exports[`LoansSearch ResultsList tests should not render when empty results 1`] 
   viewDetailsClickHandler={[Function]}
 >
   <ResultsTable
-    actionClickHandler={[Function]}
-    actionComponent={null}
-    name=""
+    fixed={false}
+    headerActionClickHandler={null}
+    headerActionComponent={null}
+    rowActionClickHandler={[Function]}
     rows={Array []}
+    seeAllComponent={null}
     showMaxRows={10}
+    singleLine={false}
+    subtitle=""
+    title=""
   >
     <Segment>
       <div
         className="ui segment"
       >
-        <Header
-          as="h3"
-        >
-          <h3
-            className="ui header"
-          />
-        </Header>
+        <Grid>
+          <div
+            className="ui grid"
+          >
+            <GridRow>
+              <div
+                className="row"
+              >
+                <GridColumn
+                  verticalAlign="middle"
+                  width={13}
+                >
+                  <div
+                    className="middle aligned thirteen wide column"
+                  />
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={3}
+                >
+                  <div
+                    className="right aligned three wide column"
+                  />
+                </GridColumn>
+              </div>
+            </GridRow>
+          </div>
+        </Grid>
         <Message
           data-test="no-results"
         >
@@ -58,13 +84,14 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
   viewDetailsClickHandler={[Function]}
 >
   <ResultsTable
-    actionClickHandler={[Function]}
-    actionComponent={null}
-    name=""
+    fixed={false}
+    headerActionClickHandler={null}
+    headerActionComponent={null}
+    rowActionClickHandler={[Function]}
     rows={
       Array [
         Object {
-          "Created": "1/1/2018",
+          "Created": "2018-01-01",
           "Document ID": undefined,
           "ID": 3,
           "Item ID": undefined,
@@ -74,19 +101,44 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
         },
       ]
     }
+    seeAllComponent={null}
     showMaxRows={10}
+    singleLine={false}
+    subtitle=""
+    title=""
   >
     <Segment>
       <div
         className="ui segment"
       >
-        <Header
-          as="h3"
-        >
-          <h3
-            className="ui header"
-          />
-        </Header>
+        <Grid>
+          <div
+            className="ui grid"
+          >
+            <GridRow>
+              <div
+                className="row"
+              >
+                <GridColumn
+                  verticalAlign="middle"
+                  width={13}
+                >
+                  <div
+                    className="middle aligned thirteen wide column"
+                  />
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={3}
+                >
+                  <div
+                    className="right aligned three wide column"
+                  />
+                </GridColumn>
+              </div>
+            </GridRow>
+          </div>
+        </Grid>
         <Table
           as="table"
           selectable={true}
@@ -107,6 +159,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                   "Transaction date",
                 ]
               }
+              withRowAction={true}
             >
               <TableHeader
                 as="thead"
@@ -252,8 +305,6 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
               </TableHeader>
             </ResultsTableHeader>
             <ResultsTableBody
-              actionClickHandler={[Function]}
-              actionComponent={null}
               columns={
                 Array [
                   "ID",
@@ -265,10 +316,11 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                   "Transaction date",
                 ]
               }
+              rowActionClickHandler={[Function]}
               rows={
                 Array [
                   Object {
-                    "Created": "1/1/2018",
+                    "Created": "2018-01-01",
                     "Document ID": undefined,
                     "ID": 3,
                     "Item ID": undefined,
@@ -297,7 +349,6 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                     >
                       <TableCell
                         as="td"
-                        key="details"
                         textAlign="center"
                       >
                         <td
@@ -307,11 +358,13 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                             as="button"
                             circular={true}
                             compact={true}
+                            data-test="btn-view-details-3"
                             icon="eye"
                             onClick={[Function]}
                           >
                             <button
                               className="ui circular compact icon button"
+                              data-test="btn-view-details-3"
                               onClick={[Function]}
                             >
                               <Icon
@@ -396,7 +449,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                           className=""
                           data-test="Created-3"
                         >
-                          1/1/2018
+                          2018-01-01
                         </td>
                       </TableCell>
                       <TableCell
@@ -419,6 +472,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
             <ResultsTableFooter
               allRowsNumber={1}
               columnsNumber={7}
+              seeAllComponent={null}
               showMaxRows={10}
             />
           </table>

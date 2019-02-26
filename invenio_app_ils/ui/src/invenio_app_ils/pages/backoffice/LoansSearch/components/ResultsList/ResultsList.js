@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { fromISO, toString } from '../../../../../common/api/date';
+import { fromISO, toShortDate } from '../../../../../common/api/date';
 import { ResultsTable } from '../../../../../common/components';
 
 export class ResultsList extends Component {
@@ -9,7 +9,7 @@ export class ResultsList extends Component {
     this.viewDetailsClickHandler = this.props.viewDetailsClickHandler;
   }
 
-  _getFormattedDate = d => (d ? toString(fromISO(d)) : '');
+  _getFormattedDate = d => (d ? toShortDate(fromISO(d)) : '');
 
   prepareData() {
     return this.props.results.map(row => ({
@@ -29,8 +29,7 @@ export class ResultsList extends Component {
     return (
       <ResultsTable
         rows={rows}
-        name={''}
-        actionClickHandler={this.viewDetailsClickHandler}
+        rowActionClickHandler={this.viewDetailsClickHandler}
       />
     );
   }

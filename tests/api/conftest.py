@@ -38,15 +38,18 @@ from invenio_app_ils.pidstore.pids import (  # isort:skip
 def item_record(app):
     """Fixture to return an item payload."""
     return {
+        "item_pid": "itemid-1",
         "document_pid": "docid-1",
-        "document": {"$ref": document_ref_builder(app, "docid-1")},
+        "document": {"$ref": document_ref_builder(app, "itemid-1")},
         "barcode": "123456789",
         "title": "Test item x",
         "internal_location_pid": "ilocid-1",
         "internal_location": {
-            "$ref": internal_location_ref_builder(app, "ilocid-1")
+            "$ref": internal_location_ref_builder(app, "itemid-1")
         },
+        "medium": "NOT_SPECIFIED",
         "status": "LOANABLE",
+        "circulation_restriction": "NO_RESTRICTION"
     }
 
 

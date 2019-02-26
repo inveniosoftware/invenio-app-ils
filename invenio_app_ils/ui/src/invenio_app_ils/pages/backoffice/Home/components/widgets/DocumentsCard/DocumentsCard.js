@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../../common/components';
 import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
-
+import { NewButton, SeeAllButton } from '../../../../components/buttons';
 import {
   BackOfficeURLS,
   documentsSearchQueryUrl,
 } from '../../../../../../common/urls';
-import { Button, Icon } from 'semantic-ui-react';
 import { document as documentApi } from '../../../../../../common/api';
 
 export default class DocumentsCard extends Component {
@@ -15,7 +14,7 @@ export default class DocumentsCard extends Component {
     super(props);
     this.fetchRequestedWithAvailableItems =
       props.fetchRequestedWithAvailableItems;
-    this.showAllUrl = documentsSearchQueryUrl;
+    this.seeAllUrl = documentsSearchQueryUrl;
     this.newDocumentURL = BackOfficeURLS.newDocument;
   }
 
@@ -23,10 +22,10 @@ export default class DocumentsCard extends Component {
     this.fetchRequestedWithAvailableItems();
   }
 
-  _showAllButton = () => {
-    let handler = () =>
+  _seeAllButton = () => {
+    const handler = () =>
       this.props.history.push(
-        this.showAllUrl(
+        this.seeAllUrl(
           documentApi
             .query()
             .withAvailableItems()
@@ -34,20 +33,16 @@ export default class DocumentsCard extends Component {
             .qs()
         )
       );
-    return (
-      <Button fluid onClick={() => handler()}>
-        See all
-      </Button>
-    );
+    return <SeeAllButton fluid disabled clickHandler={() => handler()} />;
   };
 
   _newDocumentButton = () => {
-    let handler = () => this.props.history.push(this.newDocumentURL);
     return (
-      <Button disabled fluid icon positive onClick={() => handler()}>
-        <Icon name="plus" />
-        New
-      </Button>
+      <NewButton
+        fluid
+        disabled
+        clickHandler={() => this.props.history.push(this.newDocumentURL)}
+      />
     );
   };
 
@@ -58,7 +53,7 @@ export default class DocumentsCard extends Component {
         stats={data}
         text={'requested on shelf'}
         buttonLeft={this._newDocumentButton()}
-        buttonRight={this._showAllButton()}
+        buttonRight={this._seeAllButton()}
       />
     );
   };

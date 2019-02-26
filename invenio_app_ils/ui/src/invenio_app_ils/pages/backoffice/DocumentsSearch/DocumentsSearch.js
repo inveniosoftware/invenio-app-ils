@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import { generatePath } from 'react-router';
-import {
-  Container,
-  Grid,
-  Segment,
-  Icon,
-  Header,
-  Button,
-} from 'semantic-ui-react';
+import { Container, Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
@@ -27,7 +20,9 @@ import {
   Error as IlsError,
   SearchBar as DocumentsSearchBar,
 } from '../../../common/components';
-import { document as endpoint } from '../../../common/api/document';
+import { document as documentApi } from '../../../common/api/document';
+import { ClearButton, NewButton } from '../components/buttons';
+import { openRecordEditor } from '../../../common/urls';
 import { ResultsList as DocumentsResultsList } from './components';
 import { default as config } from './config';
 import './DocumentsSearch.scss';
@@ -71,10 +66,17 @@ export class DocumentsSearch extends Component {
           Current search "{queryString}"
         </div>
         <Segment.Inline>
-          <Button primary onClick={() => resetQuery()}>
-            Clear query
-          </Button>
-          <Button onClick={() => {}}>Add a new item</Button>
+          <ClearButton
+            clickHandler={() => {
+              resetQuery();
+            }}
+          />
+          <NewButton
+            text={'New document'}
+            clickHandler={() => {
+              openRecordEditor(documentApi.url);
+            }}
+          />
         </Segment.Inline>
       </Segment>
     );
@@ -143,7 +145,7 @@ export class DocumentsSearch extends Component {
       <ReactSearchKit
         searchConfig={{
           ...apiConfig,
-          url: endpoint.url,
+          url: documentApi.url,
         }}
       >
         <Container className="documents-search-searchbar">

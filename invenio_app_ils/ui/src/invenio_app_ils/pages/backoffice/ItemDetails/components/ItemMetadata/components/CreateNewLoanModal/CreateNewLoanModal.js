@@ -32,13 +32,14 @@ export default class CreateNewLoanModal extends Component {
   triggerButton = (
     <Button
       positive
-      floated="right"
+      icon
+      labelPosition="left"
       size="small"
       onClick={() => this.setState({ open: true })}
       disabled={!this.props.active}
     >
       <Icon name="add" />
-      Create new loan
+      Checkout this item
     </Button>
   );
 
@@ -50,23 +51,26 @@ export default class CreateNewLoanModal extends Component {
   };
 
   render() {
-    let { itemPid, isLoading, data, hasError } = this.props;
-    let loanData = {
+    const { itemPid, itemBarcode, isLoading, data, hasError } = this.props;
+    const loanData = {
       item_pid: itemPid,
       patron_pid: '111', // FIXME: change this to be able to search for the user
     };
-    let showInitialView = !isLoading && !hasError && _isEmpty(data);
-    let showSuccessView = !isLoading && !hasError && !_isEmpty(data);
+    const showInitialView = !isLoading && !hasError && _isEmpty(data);
+    const showSuccessView = !isLoading && !hasError && !_isEmpty(data);
 
     return (
       <Modal trigger={this.triggerButton} size="small" open={this.state.open}>
-        <Header content="Create new loan" />
+        <Header content={`Checkout item ${itemBarcode}`} />
         <Loader isLoading={isLoading}>
           <Modal.Content>
             {showInitialView && (
-              <p>You are about to create a new loan for item {itemPid}</p>
+              <p>
+                You are about to checkout the item with barcode {itemBarcode}{' '}
+                and create a new loan for the patron ID.
+              </p>
             )}
-            {showSuccessView && <p>Your loan created successfully.</p>}
+            {showSuccessView && <p>Loan created successfully.</p>}
           </Modal.Content>
         </Loader>
         <Modal.Actions>
@@ -101,6 +105,7 @@ export default class CreateNewLoanModal extends Component {
 
 CreateNewLoanModal.propTypes = {
   itemPid: PropTypes.string.isRequired,
+  itemBarcode: PropTypes.string.isRequired,
   active: PropTypes.bool,
 };
 

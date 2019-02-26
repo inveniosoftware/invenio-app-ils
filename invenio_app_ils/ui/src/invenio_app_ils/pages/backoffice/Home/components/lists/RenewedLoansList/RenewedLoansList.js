@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { generatePath } from 'react-router';
 import { Loader, Error } from '../../../../../../common/components';
 import { ResultsTable } from '../../../../../../common/components';
-
 import {
   BackOfficeURLS,
   loanSearchQueryUrl,
@@ -11,14 +10,14 @@ import {
 import { listQuery } from './state/listQuery';
 import { toShortDate } from '../../../../../../common/api/date';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
-import { Button } from 'semantic-ui-react';
+import { SeeAllButton } from '../../../../components/buttons';
 
 export default class RenewedLoansList extends Component {
   constructor(props) {
     super(props);
     this.fetchRenewedLoans = props.fetchRenewedLoans;
     this.showDetailsUrl = BackOfficeURLS.loanDetails;
-    this.showAllUrl = loanSearchQueryUrl;
+    this.seeAllUrl = loanSearchQueryUrl;
   }
 
   componentDidMount() {
@@ -30,21 +29,12 @@ export default class RenewedLoansList extends Component {
       generatePath(this.showDetailsUrl, { loanPid: loan_pid })
     );
 
-  _showAllButton = () => {
+  _seeAllButton = () => {
     const _click = () => {
-      this.props.history.push(this.showAllUrl(listQuery));
+      this.props.history.push(this.seeAllUrl(listQuery));
     };
 
-    return (
-      <Button
-        size="small"
-        onClick={() => {
-          _click();
-        }}
-      >
-        Show all
-      </Button>
-    );
+    return <SeeAllButton clickHandler={() => _click()} />;
   };
 
   prepareData() {
@@ -62,11 +52,11 @@ export default class RenewedLoansList extends Component {
     return (
       <ResultsTable
         rows={rows}
-        name={'Frequently renewed loans'}
-        actionClickHandler={this._showDetailsHandler}
-        showAllButton={this._showAllButton()}
+        title={'Frequently renewed loans'}
+        subtitle={'Loans renewed more than 3 times - last 7 days.'}
+        rowActionClickHandler={this._showDetailsHandler}
+        seeAllComponent={this._seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
-        popup={'Loans renewed more than 3 times - last 7 days'}
       />
     );
   }

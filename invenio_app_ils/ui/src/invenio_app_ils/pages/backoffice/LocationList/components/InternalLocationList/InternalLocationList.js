@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { internalLocationItemUrl } from '../../../../../common/api/urls';
+import { internalLocation as internalLocationApi } from '../../../../../common/api';
+import { openRecordEditor } from '../../../../../common/urls';
 import { Error, Loader, ResultsTable } from '../../../../../common/components';
 import { Button } from 'semantic-ui-react';
-import { invenioConfig } from '../../../../../common/config';
+import { NewButton } from '../../../components/buttons';
 
-export default class InternalLocationlist extends Component {
+export default class InternalLocationList extends Component {
   constructor(props) {
     super(props);
     this.fetchInternalLocations = this.props.fetchInternalLocations;
@@ -15,31 +16,39 @@ export default class InternalLocationlist extends Component {
     this.fetchInternalLocations();
   }
 
-  openEditor(url) {
-    window.open(`${invenioConfig.editor.url}?url=${url}`, url);
-  }
-
   prepareData(data) {
     return data.map(row => ({
       ID: row.internal_location_pid,
       Name: row.name,
       'Physical Location': row.physical_location,
-      'Location Email': row.location_email,
       'Location Name': row.location_name,
-      'Location ID': row.location_pid,
+      Actions: (
+        <Button
+          size="small"
+          content={'Edit'}
+          onClick={() =>
+            openRecordEditor(internalLocationApi.url, row.internal_location_pid)
+          }
+        />
+      ),
     }));
   }
 
   _renderResults(data) {
     const rows = this.prepareData(data);
-    const actionComponent = <Button circular compact icon="edit" />;
+    const headerActionComponent = (
+      <NewButton
+        clickHandler={() => {
+          openRecordEditor(internalLocationApi.url);
+        }}
+      />
+    );
     return (
       <ResultsTable
         rows={rows}
-        name={'Internal Locations'}
-        actionClickHandler={id => this.openEditor(internalLocationItemUrl(id))}
+        title={'Internal Locations'}
+        headerActionComponent={headerActionComponent}
         showMaxRows={this.props.showMaxItems}
-        actionComponent={actionComponent}
       />
     );
   }
@@ -55,7 +64,7 @@ export default class InternalLocationlist extends Component {
   }
 }
 
-InternalLocationlist.propTypes = {
+InternalLocationList.propTypes = {
   data: PropTypes.array.isRequired,
   fetchInternalLocations: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
@@ -63,6 +72,6 @@ InternalLocationlist.propTypes = {
   showMaxItems: PropTypes.number,
 };
 
-InternalLocationlist.defaultProps = {
+InternalLocationList.defaultProps = {
   showMaxItems: 10,
 };

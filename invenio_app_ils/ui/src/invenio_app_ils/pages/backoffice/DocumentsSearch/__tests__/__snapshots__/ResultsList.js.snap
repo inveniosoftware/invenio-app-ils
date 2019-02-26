@@ -17,6 +17,7 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
         "metadata": Object {
           "abstracts": "This is an abstract",
           "authors": "Author1",
+          "document_pid": 3,
           "title": "This is a title",
         },
       },
@@ -24,210 +25,379 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
   }
   viewDetailsClickHandler={[Function]}
 >
-  <Table
-    as="table"
-    selectable={true}
-    singleLine={true}
-    striped={true}
+  <ResultsTable
+    fixed={false}
+    headerActionClickHandler={null}
+    headerActionComponent={
+      <NewButton
+        clickHandler={[Function]}
+        disabled={false}
+        fluid={false}
+        text="New item"
+      />
+    }
+    rowActionClickHandler={[Function]}
+    rows={
+      Array [
+        Object {
+          "Authors": "Author1",
+          "Created": "2018-01-01",
+          "ID": 3,
+          "Title": "This is a title",
+          "Updated": "",
+        },
+      ]
+    }
+    seeAllComponent={null}
+    showMaxRows={10}
+    singleLine={false}
+    subtitle=""
+    title=""
   >
-    <table
-      className="ui selectable single line striped table"
-    >
-      <TableHeader
-        as="thead"
+    <Segment>
+      <div
+        className="ui segment"
       >
-        <thead
-          className=""
-        >
-          <TableRow
-            as="tr"
-            cellAs="td"
-            data-test="header"
+        <Grid>
+          <div
+            className="ui grid"
           >
-            <tr
-              className=""
-              data-test="header"
-            >
-              <TableHeaderCell
-                as="th"
-                collapsing={true}
+            <GridRow>
+              <div
+                className="row"
               >
-                <TableCell
-                  as="th"
-                  className=""
-                  collapsing={true}
+                <GridColumn
+                  verticalAlign="middle"
+                  width={13}
                 >
-                  <th
-                    className="collapsing"
+                  <div
+                    className="middle aligned thirteen wide column"
                   />
-                </TableCell>
-              </TableHeaderCell>
-              <TableHeaderCell
-                as="th"
-              >
-                <TableCell
-                  as="th"
-                  className=""
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={3}
                 >
-                  <th
-                    className=""
+                  <div
+                    className="right aligned three wide column"
                   >
-                    Document PID
-                  </th>
-                </TableCell>
-              </TableHeaderCell>
-              <TableHeaderCell
-                as="th"
-              >
-                <TableCell
-                  as="th"
-                  className=""
-                >
-                  <th
-                    className=""
-                  >
-                    Title
-                  </th>
-                </TableCell>
-              </TableHeaderCell>
-              <TableHeaderCell
-                as="th"
-              >
-                <TableCell
-                  as="th"
-                  className=""
-                >
-                  <th
-                    className=""
-                  >
-                    Authors
-                  </th>
-                </TableCell>
-              </TableHeaderCell>
-              <TableHeaderCell
-                as="th"
-              >
-                <TableCell
-                  as="th"
-                  className=""
-                >
-                  <th
-                    className=""
-                  >
-                    Abstract
-                  </th>
-                </TableCell>
-              </TableHeaderCell>
-            </tr>
-          </TableRow>
-        </thead>
-      </TableHeader>
-      <TableBody
-        as="tbody"
-      >
-        <tbody
-          className=""
-        >
-          <DocumentRow
-            DocumentRecord={
-              Object {
-                "created": "2018-01-01T10:05:00.000Z",
-                "id": 3,
-                "metadata": Object {
-                  "abstracts": "This is an abstract",
-                  "authors": "Author1",
-                  "title": "This is a title",
-                },
-              }
-            }
-            key="3"
-            viewDetailsClickHandler={[Function]}
-          >
-            <TableRow
-              as="tr"
-              cellAs="td"
-              data-test={3}
-              key="3"
-            >
-              <tr
-                className=""
-                data-test={3}
-              >
-                <TableCell
-                  as="td"
-                  textAlign="center"
-                >
-                  <td
-                    className="center aligned"
-                  >
-                    <Button
-                      as="button"
-                      circular={true}
-                      compact={true}
-                      icon="eye"
-                      onClick={[Function]}
+                    <NewButton
+                      clickHandler={[Function]}
+                      disabled={false}
+                      fluid={false}
+                      text="New item"
                     >
-                      <button
-                        className="ui circular compact icon button"
+                      <Button
+                        as="button"
+                        icon={true}
+                        labelPosition="left"
                         onClick={[Function]}
+                        positive={true}
+                        size="small"
                       >
-                        <Icon
-                          as="i"
-                          name="eye"
+                        <button
+                          className="ui small icon positive left labeled button"
+                          onClick={[Function]}
                         >
-                          <i
-                            aria-hidden="true"
-                            className="eye icon"
+                          <Icon
+                            as="i"
+                            name="plus"
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="plus icon"
+                            />
+                          </Icon>
+                          New item
+                        </button>
+                      </Button>
+                    </NewButton>
+                  </div>
+                </GridColumn>
+              </div>
+            </GridRow>
+          </div>
+        </Grid>
+        <Table
+          as="table"
+          selectable={true}
+          striped={true}
+        >
+          <table
+            className="ui selectable striped table"
+          >
+            <ResultsTableHeader
+              columns={
+                Array [
+                  "ID",
+                  "Title",
+                  "Authors",
+                  "Created",
+                  "Updated",
+                ]
+              }
+              withRowAction={true}
+            >
+              <TableHeader
+                as="thead"
+              >
+                <thead
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="header"
+                  >
+                    <tr
+                      className=""
+                      data-test="header"
+                    >
+                      <TableHeaderCell
+                        as="th"
+                        collapsing={true}
+                        width={2}
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                          collapsing={true}
+                          width={2}
+                        >
+                          <th
+                            className="collapsing two wide"
                           />
-                        </Icon>
-                      </button>
-                    </Button>
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="ID"
+                        width={2}
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                          width={2}
+                        >
+                          <th
+                            className="two wide"
+                          >
+                            ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Title"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Title
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Authors"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Authors
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Created"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Created
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Updated"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Updated
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                    </tr>
+                  </TableRow>
+                </thead>
+              </TableHeader>
+            </ResultsTableHeader>
+            <ResultsTableBody
+              columns={
+                Array [
+                  "ID",
+                  "Title",
+                  "Authors",
+                  "Created",
+                  "Updated",
+                ]
+              }
+              rowActionClickHandler={[Function]}
+              rows={
+                Array [
+                  Object {
+                    "Authors": "Author1",
+                    "Created": "2018-01-01",
+                    "ID": 3,
+                    "Title": "This is a title",
+                    "Updated": "",
+                  },
+                ]
+              }
+            >
+              <TableBody
+                as="tbody"
+              >
+                <tbody
+                  className=""
                 >
-                  <td
-                    className=""
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test={3}
+                    key="3"
                   >
-                    3
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="mapped-status"
-                >
-                  <td
-                    className=""
-                    data-test="mapped-status"
-                  >
-                    This is a title
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                >
-                  <td
-                    className=""
-                  >
-                    Author1
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                >
-                  <td
-                    className=""
-                  >
-                    T...
-                  </td>
-                </TableCell>
-              </tr>
-            </TableRow>
-          </DocumentRow>
-        </tbody>
-      </TableBody>
-    </table>
-  </Table>
+                    <tr
+                      className=""
+                      data-test={3}
+                    >
+                      <TableCell
+                        as="td"
+                        textAlign="center"
+                      >
+                        <td
+                          className="center aligned"
+                        >
+                          <Button
+                            as="button"
+                            circular={true}
+                            compact={true}
+                            data-test="btn-view-details-3"
+                            icon="eye"
+                            onClick={[Function]}
+                          >
+                            <button
+                              className="ui circular compact icon button"
+                              data-test="btn-view-details-3"
+                              onClick={[Function]}
+                            >
+                              <Icon
+                                as="i"
+                                name="eye"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="eye icon"
+                                />
+                              </Icon>
+                            </button>
+                          </Button>
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="ID-3"
+                        key="0-3"
+                      >
+                        <td
+                          className=""
+                          data-test="ID-3"
+                        >
+                          3
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Title-3"
+                        key="1-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Title-3"
+                        >
+                          This is a title
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Authors-3"
+                        key="2-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Authors-3"
+                        >
+                          Author1
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Created-3"
+                        key="3-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Created-3"
+                        >
+                          2018-01-01
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Updated-3"
+                        key="4-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Updated-3"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                </tbody>
+              </TableBody>
+            </ResultsTableBody>
+            <ResultsTableFooter
+              allRowsNumber={1}
+              columnsNumber={5}
+              seeAllComponent={null}
+              showMaxRows={10}
+            />
+          </table>
+        </Table>
+      </div>
+    </Segment>
+  </ResultsTable>
 </ResultsList>
 `;

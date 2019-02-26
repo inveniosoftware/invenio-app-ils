@@ -102,7 +102,7 @@ describe('PatronLoans tests', () => {
     expect(footer).toHaveLength(0);
   });
 
-  it('should render the show all button when showing only a few patron loans', () => {
+  it('should render the see all button when showing only a few patron loans', () => {
     const mockedFetchPatronLoans = jest.fn();
     const data = [
       {

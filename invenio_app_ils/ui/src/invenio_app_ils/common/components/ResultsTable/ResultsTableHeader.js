@@ -16,14 +16,12 @@ export default class ResultsTableHeader extends Component {
   };
 
   render() {
-    const { columns } = this.props;
-
-    let headerColumns = columns.map(column => this._renderHeaderCell(column));
-
+    const { columns, withRowAction } = this.props;
+    const headerColumns = columns.map(column => this._renderHeaderCell(column));
     return (
       <Table.Header>
         <Table.Row data-test="header">
-          <Table.HeaderCell width={2} collapsing />
+          <Table.HeaderCell width={withRowAction ? 2 : 1} collapsing />
           {headerColumns}
         </Table.Row>
       </Table.Header>
@@ -33,4 +31,9 @@ export default class ResultsTableHeader extends Component {
 
 ResultsTableHeader.propTypes = {
   columns: PropTypes.array.isRequired,
+  withRowAction: PropTypes.bool,
+};
+
+ResultsTableHeader.defaultProps = {
+  withRowAction: false,
 };

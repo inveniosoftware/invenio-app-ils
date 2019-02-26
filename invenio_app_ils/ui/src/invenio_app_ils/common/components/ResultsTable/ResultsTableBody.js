@@ -3,11 +3,6 @@ import PropTypes from 'prop-types';
 import { Button, Table } from 'semantic-ui-react';
 
 export default class ResultsTableBody extends Component {
-  constructor(props) {
-    super(props);
-    this.actionClickHandler = this.props.actionClickHandler;
-  }
-
   _renderCell = (cell, column, id, col_index) => {
     return (
       <Table.Cell key={col_index + '-' + id} data-test={column + '-' + id}>
@@ -17,37 +12,33 @@ export default class ResultsTableBody extends Component {
   };
 
   _renderRow = (columns, rows) => {
-    const RowActionComponent = this.props.actionComponent
-      ? props =>
-          React.cloneElement(this.props.actionComponent, {
-            onClick: props.actionClickHandler,
-          })
-      : null;
-    return rows.map(row => (
-      <Table.Row key={row.ID} data-test={row.ID}>
-        <Table.Cell key="details" textAlign="center">
-          {this.props.actionComponent ? (
-            <RowActionComponent
-              actionClickHandler={() => {
-                this.actionClickHandler(row.ID);
-              }}
-            />
-          ) : (
-            <Button
-              circular
-              compact
-              icon="eye"
-              onClick={() => {
-                this.actionClickHandler(row.ID);
-              }}
-            />
+    return rows.map(row => {
+      const withRowAction = this.props.rowActionClickHandler ? (
+        <Button
+          circular
+          compact
+          icon="eye"
+          onClick={() => {
+            this.props.rowActionClickHandler(row.ID);
+          }}
+          data-test={'btn-view-details-' + row.ID}
+        />
+      ) : null;
+
+      return (
+        <Table.Row key={row.ID} data-test={row.ID}>
+          <Table.Cell textAlign="center">{withRowAction}</Table.Cell>
+          {columns.map((column, idx) =>
+            this._renderCell(
+              row[column] ? row[column] : '-',
+              column,
+              row.ID,
+              idx
+            )
           )}
-        </Table.Cell>
-        {columns.map((column, idx) =>
-          this._renderCell(row[column] ? row[column] : '-', column, row.ID, idx)
-        )}
-      </Table.Row>
-    ));
+        </Table.Row>
+      );
+    });
   };
 
   render() {
@@ -61,5 +52,9 @@ export default class ResultsTableBody extends Component {
 
 ResultsTableBody.propTypes = {
   columns: PropTypes.array.isRequired,
-  actionClickHandler: PropTypes.func.isRequired,
+  rowActionClickHandler: PropTypes.func,
+};
+
+ResultsTableBody.defaultProps = {
+  rowActionClickHandler: null,
 };

@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
 import { loan as loanApi } from '../../../../../common/api/';
 import { ResultsTable } from '../../../../../common/components';
-
 import {
   loanSearchQueryUrl,
   viewLoanDetailsUrl,
 } from '../../../../../common/urls';
-import { Button } from 'semantic-ui-react';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import { SeeAllButton } from '../../../components/buttons';
 
 export default class ItemPastLoans extends Component {
   constructor(props) {
     super(props);
     this.fetchPastLoans = props.fetchPastLoans;
     this.showDetailsUrl = viewLoanDetailsUrl;
-    this.showAllUrl = loanSearchQueryUrl;
+    this.seeAllUrl = loanSearchQueryUrl;
   }
 
   componentDidMount() {
@@ -27,11 +26,11 @@ export default class ItemPastLoans extends Component {
   _showDetailsHandler = loan_pid =>
     this.props.history.push(this.showDetailsUrl(loan_pid));
 
-  _showAllButton = () => {
+  _seeAllButton = () => {
     const { item_pid } = this.props.item;
     const _click = () =>
       this.props.history.push(
-        this.showAllUrl(
+        this.seeAllUrl(
           loanApi
             .query()
             .withItemPid(item_pid)
@@ -39,17 +38,7 @@ export default class ItemPastLoans extends Component {
             .qs()
         )
       );
-
-    return (
-      <Button
-        size="small"
-        onClick={() => {
-          _click();
-        }}
-      >
-        Show all
-      </Button>
-    );
+    return <SeeAllButton clickHandler={() => _click()} />;
   };
 
   prepareData() {
@@ -65,9 +54,9 @@ export default class ItemPastLoans extends Component {
         <Error error={errorData}>
           <ResultsTable
             rows={rows}
-            name={'Loans history'}
-            actionClickHandler={this._showDetailsHandler}
-            showAllButton={this._showAllButton()}
+            title={'Loans history'}
+            rowActionClickHandler={this._showDetailsHandler}
+            seeAllComponent={this._seeAllButton()}
             showMaxRows={this.props.showMaxPastLoans}
           />
         </Error>

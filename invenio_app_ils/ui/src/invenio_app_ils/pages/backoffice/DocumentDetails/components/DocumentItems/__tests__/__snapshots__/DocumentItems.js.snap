@@ -6,20 +6,22 @@ exports[`DocumentItems tests should load the DocumentItems component 1`] = `
     error={null}
   >
     <ResultsTable
-      actionClickHandler={[Function]}
-      actionComponent={null}
-      name="Attached items"
+      fixed={false}
+      headerActionClickHandler={null}
+      headerActionComponent={null}
+      rowActionClickHandler={[Function]}
       rows={Array []}
-      showAllButton={
-        <Button
-          as="button"
-          onClick={[Function]}
-          size="small"
-        >
-          Show all
-        </Button>
+      seeAllComponent={
+        <SeeAllButton
+          clickHandler={[Function]}
+          disabled={false}
+          fluid={false}
+        />
       }
       showMaxRows={5}
+      singleLine={false}
+      subtitle=""
+      title="Attached items"
     />
   </Error>
 </Loader>
@@ -61,9 +63,10 @@ exports[`DocumentItems tests should render item 1`] = `
       error={null}
     >
       <ResultsTable
-        actionClickHandler={[Function]}
-        actionComponent={null}
-        name="Attached items"
+        fixed={false}
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        rowActionClickHandler={[Function]}
         rows={
           Array [
             Object {
@@ -86,30 +89,69 @@ exports[`DocumentItems tests should render item 1`] = `
             },
           ]
         }
-        showAllButton={
-          <Button
-            as="button"
-            onClick={[Function]}
-            size="small"
-          >
-            Show all
-          </Button>
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
         }
         showMaxRows={5}
+        singleLine={false}
+        subtitle=""
+        title="Attached items"
       >
         <Segment>
           <div
             className="ui segment"
           >
-            <Header
-              as="h3"
-            >
-              <h3
-                className="ui header"
+            <Grid>
+              <div
+                className="ui grid"
               >
-                Attached items
-              </h3>
-            </Header>
+                <GridRow>
+                  <div
+                    className="row"
+                  >
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
+                    >
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Attached items"
+                          subheader=""
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Attached items
+                            <HeaderSubheader
+                              content=""
+                            >
+                              <div
+                                className="sub header"
+                              />
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
             <Table
               as="table"
               selectable={true}
@@ -130,6 +172,7 @@ exports[`DocumentItems tests should render item 1`] = `
                       "Shelf",
                     ]
                   }
+                  withRowAction={true}
                 >
                   <TableHeader
                     as="thead"
@@ -275,8 +318,6 @@ exports[`DocumentItems tests should render item 1`] = `
                   </TableHeader>
                 </ResultsTableHeader>
                 <ResultsTableBody
-                  actionClickHandler={[Function]}
-                  actionComponent={null}
                   columns={
                     Array [
                       "ID",
@@ -288,6 +329,7 @@ exports[`DocumentItems tests should render item 1`] = `
                       "Shelf",
                     ]
                   }
+                  rowActionClickHandler={[Function]}
                   rows={
                     Array [
                       Object {
@@ -329,7 +371,6 @@ exports[`DocumentItems tests should render item 1`] = `
                         >
                           <TableCell
                             as="td"
-                            key="details"
                             textAlign="center"
                           >
                             <td
@@ -339,11 +380,13 @@ exports[`DocumentItems tests should render item 1`] = `
                                 as="button"
                                 circular={true}
                                 compact={true}
+                                data-test="btn-view-details-item1"
                                 icon="eye"
                                 onClick={[Function]}
                               >
                                 <button
                                   className="ui circular compact icon button"
+                                  data-test="btn-view-details-item1"
                                   onClick={[Function]}
                                 >
                                   <Icon
@@ -457,7 +500,6 @@ exports[`DocumentItems tests should render item 1`] = `
                         >
                           <TableCell
                             as="td"
-                            key="details"
                             textAlign="center"
                           >
                             <td
@@ -467,11 +509,13 @@ exports[`DocumentItems tests should render item 1`] = `
                                 as="button"
                                 circular={true}
                                 compact={true}
+                                data-test="btn-view-details-item2"
                                 icon="eye"
                                 onClick={[Function]}
                               >
                                 <button
                                   className="ui circular compact icon button"
+                                  data-test="btn-view-details-item2"
                                   onClick={[Function]}
                                 >
                                   <Icon
@@ -579,14 +623,12 @@ exports[`DocumentItems tests should render item 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={7}
-                  showAllButton={
-                    <Button
-                      as="button"
-                      onClick={[Function]}
-                      size="small"
-                    >
-                      Show all
-                    </Button>
+                  seeAllComponent={
+                    <SeeAllButton
+                      clickHandler={[Function]}
+                      disabled={false}
+                      fluid={false}
+                    />
                   }
                   showMaxRows={5}
                 />
@@ -619,34 +661,74 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
       error={null}
     >
       <ResultsTable
-        actionClickHandler={[Function]}
-        actionComponent={null}
-        name="Attached items"
+        fixed={false}
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        rowActionClickHandler={[Function]}
         rows={Array []}
-        showAllButton={
-          <Button
-            as="button"
-            onClick={[Function]}
-            size="small"
-          >
-            Show all
-          </Button>
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
         }
         showMaxRows={5}
+        singleLine={false}
+        subtitle=""
+        title="Attached items"
       >
         <Segment>
           <div
             className="ui segment"
           >
-            <Header
-              as="h3"
-            >
-              <h3
-                className="ui header"
+            <Grid>
+              <div
+                className="ui grid"
               >
-                Attached items
-              </h3>
-            </Header>
+                <GridRow>
+                  <div
+                    className="row"
+                  >
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
+                    >
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Attached items"
+                          subheader=""
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Attached items
+                            <HeaderSubheader
+                              content=""
+                            >
+                              <div
+                                className="sub header"
+                              />
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
             <Message
               data-test="no-results"
             >
@@ -655,7 +737,6 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
                 data-test="no-results"
               >
                 There are no 
-                Attached items
               </div>
             </Message>
           </div>
@@ -666,7 +747,7 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
 </DocumentItems>
 `;
 
-exports[`DocumentItems tests should render the show all button when showing only a few items 1`] = `
+exports[`DocumentItems tests should render the see all button when showing only a few items 1`] = `
 <DocumentItems
   data={
     Array [
@@ -702,9 +783,10 @@ exports[`DocumentItems tests should render the show all button when showing only
       error={null}
     >
       <ResultsTable
-        actionClickHandler={[Function]}
-        actionComponent={null}
-        name="Attached items"
+        fixed={false}
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        rowActionClickHandler={[Function]}
         rows={
           Array [
             Object {
@@ -727,30 +809,69 @@ exports[`DocumentItems tests should render the show all button when showing only
             },
           ]
         }
-        showAllButton={
-          <Button
-            as="button"
-            onClick={[Function]}
-            size="small"
-          >
-            Show all
-          </Button>
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
         }
         showMaxRows={1}
+        singleLine={false}
+        subtitle=""
+        title="Attached items"
       >
         <Segment>
           <div
             className="ui segment"
           >
-            <Header
-              as="h3"
-            >
-              <h3
-                className="ui header"
+            <Grid>
+              <div
+                className="ui grid"
               >
-                Attached items
-              </h3>
-            </Header>
+                <GridRow>
+                  <div
+                    className="row"
+                  >
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
+                    >
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Attached items"
+                          subheader=""
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Attached items
+                            <HeaderSubheader
+                              content=""
+                            >
+                              <div
+                                className="sub header"
+                              />
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
             <Table
               as="table"
               selectable={true}
@@ -771,6 +892,7 @@ exports[`DocumentItems tests should render the show all button when showing only
                       "Shelf",
                     ]
                   }
+                  withRowAction={true}
                 >
                   <TableHeader
                     as="thead"
@@ -916,8 +1038,6 @@ exports[`DocumentItems tests should render the show all button when showing only
                   </TableHeader>
                 </ResultsTableHeader>
                 <ResultsTableBody
-                  actionClickHandler={[Function]}
-                  actionComponent={null}
                   columns={
                     Array [
                       "ID",
@@ -929,6 +1049,7 @@ exports[`DocumentItems tests should render the show all button when showing only
                       "Shelf",
                     ]
                   }
+                  rowActionClickHandler={[Function]}
                   rows={
                     Array [
                       Object {
@@ -961,7 +1082,6 @@ exports[`DocumentItems tests should render the show all button when showing only
                         >
                           <TableCell
                             as="td"
-                            key="details"
                             textAlign="center"
                           >
                             <td
@@ -971,11 +1091,13 @@ exports[`DocumentItems tests should render the show all button when showing only
                                 as="button"
                                 circular={true}
                                 compact={true}
+                                data-test="btn-view-details-item1"
                                 icon="eye"
                                 onClick={[Function]}
                               >
                                 <button
                                   className="ui circular compact icon button"
+                                  data-test="btn-view-details-item1"
                                   onClick={[Function]}
                                 >
                                   <Icon
@@ -1083,14 +1205,12 @@ exports[`DocumentItems tests should render the show all button when showing only
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={7}
-                  showAllButton={
-                    <Button
-                      as="button"
-                      onClick={[Function]}
-                      size="small"
-                    >
-                      Show all
-                    </Button>
+                  seeAllComponent={
+                    <SeeAllButton
+                      clickHandler={[Function]}
+                      disabled={false}
+                      fluid={false}
+                    />
                   }
                   showMaxRows={1}
                 >
@@ -1139,18 +1259,24 @@ exports[`DocumentItems tests should render the show all button when showing only
                                      
                                   </span>
                                   <span>
-                                    <Button
-                                      as="button"
-                                      onClick={[Function]}
-                                      size="small"
+                                    <SeeAllButton
+                                      clickHandler={[Function]}
+                                      disabled={false}
+                                      fluid={false}
                                     >
-                                      <button
-                                        className="ui small button"
+                                      <Button
+                                        as="button"
                                         onClick={[Function]}
+                                        size="small"
                                       >
-                                        Show all
-                                      </button>
-                                    </Button>
+                                        <button
+                                          className="ui small button"
+                                          onClick={[Function]}
+                                        >
+                                          See all
+                                        </button>
+                                      </Button>
+                                    </SeeAllButton>
                                   </span>
                                 </th>
                               </TableCell>

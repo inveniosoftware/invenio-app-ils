@@ -9,11 +9,11 @@
     },
     "internal_location_pid": {
       "type": "string",
-      "title": "Internal Location ID"
+      "title": "The persistent identifier of this Internal Location"
     },
     "location_pid": {
       "type": "string",
-      "title": "Location ID"
+      "title": "The persistent identifier of the Location of this Internal Location"
     },
     "location": {
       "type": "object",
@@ -25,19 +25,19 @@
     },
     "legacy_id": {
       "type": "string",
-      "title": "The legacy id of the internal library in case of a migration"
+      "title": "The previous id of this Internal Location before migration"
     },
     "name": {
       "type": "string",
-      "title": "Name of the internal location"
+      "title": "Name of this Internal Location"
     },
     "physical_location": {
       "type": "string",
-      "title": "Physical location of the internal library"
+      "title": "The physical location of this Internal Location"
     },
     "notes": {
       "type": "string",
-      "title": "Extra notes for the internal location"
+      "title": "Extra notes"
     }
   }
 }
