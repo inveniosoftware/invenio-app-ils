@@ -31,32 +31,26 @@ class IlsLoansSearch(LoansSearch):
     """LoanSearch to filter loans."""
 
     def get_pending_loans_by_doc_pid(self, document_pid):
-        """Return any pending loans for the given item."""
-        pending_loans = search_by_pid(document_pid=document_pid,
-                                      filter_states=['PENDING']
-                                      ).execute().hits
-        for loan in pending_loans:
-            yield loan
+        """Return any pending loans for the given document."""
+        return search_by_pid(document_pid=document_pid,
+                             filter_states=['PENDING']
+                             )
 
     def get_active_loans_by_doc_pid(self, document_pid):
-        """Return any active loans for the given item."""
-        active_loans = search_by_pid(document_pid=document_pid,
-                                     filter_states=current_app.config.get(
-                                         "CIRCULATION_STATES_LOAN_ACTIVE", []
-                                     ),
-                                     ).execute().hits
-        for loan in active_loans:
-            yield loan
+        """Return any active loans for the given document."""
+        return search_by_pid(document_pid=document_pid,
+                             filter_states=current_app.config.get(
+                                 "CIRCULATION_STATES_LOAN_ACTIVE", []
+                             ),
+                             )
 
     def get_past_loans_by_doc_pid(self, document_pid):
-        """Return any past loans for the given item."""
-        past_loans = search_by_pid(document_pid=document_pid,
-                                   filter_states=current_app.config.get(
-                                       "CIRCULATION_STATES_LOAN_COMPLETED", []
-                                   ),
-                                   ).execute().hits
-        for loan in past_loans:
-            yield loan
+        """Return any past loans for the given document."""
+        return search_by_pid(document_pid=document_pid,
+                             filter_states=current_app.config.get(
+                                 "CIRCULATION_STATES_LOAN_COMPLETED", []
+                             ),
+                             )
 
     class Meta:
         """Define permissions filter."""

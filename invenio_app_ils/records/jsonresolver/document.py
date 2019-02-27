@@ -8,11 +8,10 @@
 """Document related resolvers."""
 
 import jsonresolver
-from invenio_circulation.search.api import search_by_pid
 from werkzeug.routing import Rule
 
-from invenio_app_ils.circulation.utils import circulation_is_item_available, \
-    circulation_items_retriever
+from invenio_app_ils.circulation.search import IlsLoansSearch
+from invenio_app_ils.search.api import ItemSearch
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
@@ -26,40 +25,20 @@ def jsonresolver_loader(url_map):
     def circulation_resolver(document_pid):
         """Return circulation info for the given Document."""
         circulation = {}
-        loanable_items_count = 0
-        items_count = 0
-        item_pids = circulation_items_retriever(document_pid)
 
-        for pid in item_pids:
-            items_count += 1
+        items = list(ItemSearch().search_by_document_pid(document_pid).scan())
+        loan_search = IlsLoansSearch()
 
-            if circulation_is_item_available(pid):
-                loanable_items_count += 1
+        past_loans_count = loan_search.get_past_loans_by_doc_pid(document_pid).execute().hits.total
+        active_loans_count = loan_search.get_active_loans_by_doc_pid(document_pid).execute().hits.total
+        pending_loans_count = loan_search.get_pending_loans_by_doc_pid(document_pid).execute().hits.total
 
-        active_loans_count = search_by_pid(
-            document_pid=document_pid,
-            filter_states=current_app.config.get(
-                "CIRCULATION_STATES_LOAN_ACTIVE", []
-            ),
-        ).execute().hits.total
-
-        search = search_by_pid(
-            document_pid=document_pid,
-            filter_states=current_app.config.get(
-                "CIRCULATION_STATES_LOAN_COMPLETED", []
-            ),
-        )
-
-        pending_loans = search_by_pid(document_pid=document_pid,
-                                      filter_states=['PENDING']
-                                      ).execute().hits.total
-
-        circulation["number_of_past_loans"] = search.execute().hits.total
-        circulation["number_of_items"] = items_count
+        circulation["number_of_past_loans"] = past_loans_count
+        circulation["number_of_items"] = len(items)
         circulation["active_loans"] = active_loans_count
-        circulation["loanable_items"] = loanable_items_count
-        circulation["pending_loans"] = pending_loans
-        circulation["overbooked"] = pending_loans > loanable_items_count
+        circulation["loanable_items"] = sum(item["status"] == "LOANABLE" for item in items)
+        circulation["pending_loans"] = pending_loans_count
+        circulation["overbooked"] = pending_loans_count > circulation["loanable_items"]
         return circulation
 
     url_map.add(
