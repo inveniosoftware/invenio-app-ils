@@ -38,7 +38,7 @@ export default class RenewedLoansList extends Component {
   };
 
   prepareData() {
-    return this.props.data.map(row => {
+    return this.props.data.hits.map(row => {
       let serialized = formatter.loan.toTable(row);
       delete serialized['Request created'];
       serialized['Last update'] = toShortDate(row.updated);
@@ -49,7 +49,7 @@ export default class RenewedLoansList extends Component {
 
   _render_table() {
     const rows = this.prepareData();
-    rows.totalHits = this.props.data.totalHits;
+    rows.totalHits = this.props.data.total;
     return (
       <ResultsTable
         rows={rows}
@@ -67,7 +67,9 @@ export default class RenewedLoansList extends Component {
     const errorData = hasError ? data : null;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>{this._render_table()}</Error>
+        <Error error={errorData}>
+          {isLoading ? null : this._render_table()}
+        </Error>
       </Loader>
     );
   }
@@ -75,7 +77,7 @@ export default class RenewedLoansList extends Component {
 
 RenewedLoansList.propTypes = {
   fetchRenewedLoans: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
   showMaxEntries: PropTypes.number,
 };
 

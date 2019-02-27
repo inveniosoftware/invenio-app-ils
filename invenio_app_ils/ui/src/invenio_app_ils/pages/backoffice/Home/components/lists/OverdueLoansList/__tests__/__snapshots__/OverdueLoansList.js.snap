@@ -30,24 +30,27 @@ exports[`OverdueLoansList tests should load the details component 1`] = `
 exports[`OverdueLoansList tests should render loans 1`] = `
 <OverdueLoansList
   data={
-    Array [
-      Object {
-        "created": "2018-01-01T10:05:00.000Z",
-        "end_date": "2018-01-01T10:05:00.000Z",
-        "loan_pid": "loan1",
-        "patron_pid": "patron_1",
-        "start_date": "2018-01-01T10:05:00.000Z",
-        "updated": "2018-01-01T10:05:00.000Z",
-      },
-      Object {
-        "created": "2018-01-01T10:05:00.000Z",
-        "end_date": "2018-01-01T10:05:00.000Z",
-        "loan_pid": "loan2",
-        "patron_pid": "patron_2",
-        "start_date": "2018-01-01T10:05:00.000Z",
-        "updated": "2018-01-01T10:05:00.000Z",
-      },
-    ]
+    Object {
+      "hits": Array [
+        Object {
+          "created": "2018-01-01T10:05:00.000Z",
+          "end_date": "2018-01-01T10:05:00.000Z",
+          "loan_pid": "loan1",
+          "patron_pid": "patron_1",
+          "start_date": "2018-01-01T10:05:00.000Z",
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+        Object {
+          "created": "2018-01-01T10:05:00.000Z",
+          "end_date": "2018-01-01T10:05:00.000Z",
+          "loan_pid": "loan2",
+          "patron_pid": "patron_2",
+          "start_date": "2018-01-01T10:05:00.000Z",
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+      ],
+      "total": 2,
+    }
   }
   fetchOverdueLoans={[Function]}
   history={[Function]}
@@ -506,7 +509,12 @@ exports[`OverdueLoansList tests should render loans 1`] = `
 
 exports[`OverdueLoansList tests should render show a message with no loans 1`] = `
 <OverdueLoansList
-  data={Array []}
+  data={
+    Object {
+      "hits": Array [],
+      "total": 0,
+    }
+  }
   fetchOverdueLoans={[Function]}
   history={[Function]}
   showMaxEntries={5}

@@ -27,7 +27,7 @@ describe('ItemPastLoans tests', () => {
       <ItemPastLoans
         item={item}
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchPastLoans={() => {}}
       />
     );
@@ -40,7 +40,7 @@ describe('ItemPastLoans tests', () => {
       <ItemPastLoans
         item={item}
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchPastLoans={mockedFetchPastLoans}
       />
     );
@@ -52,7 +52,7 @@ describe('ItemPastLoans tests', () => {
       <ItemPastLoans
         item={item}
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchPastLoans={() => {}}
       />
     );
@@ -65,26 +65,29 @@ describe('ItemPastLoans tests', () => {
   });
 
   it('should render pending loans', () => {
-    const data = [
-      {
-        loan_pid: 'loan1',
-        patron_pid: 'patron_1',
-        updated: d,
-        created: d,
-        start_date: d,
-        end_date: d,
-        state: 'ITEM_RETURNED',
-      },
-      {
-        loan_pid: 'loan2',
-        patron_pid: 'patron_2',
-        updated: d,
-        created: d,
-        start_date: d,
-        end_date: d,
-        state: 'CANCELLED',
-      },
-    ];
+    const data = {
+      hits: [
+        {
+          loan_pid: 'loan1',
+          patron_pid: 'patron_1',
+          updated: d,
+          created: d,
+          start_date: d,
+          end_date: d,
+          state: 'ITEM_RETURNED',
+        },
+        {
+          loan_pid: 'loan2',
+          patron_pid: 'patron_2',
+          updated: d,
+          created: d,
+          start_date: d,
+          end_date: d,
+          state: 'CANCELLED',
+        },
+      ],
+      total: 2,
+    };
 
     component = mount(
       <ItemPastLoans

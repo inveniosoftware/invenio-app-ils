@@ -42,11 +42,12 @@ export default class ItemPastLoans extends Component {
   };
 
   prepareData() {
-    return this.props.data.map(row => formatter.loan.toTable(row));
+    return this.props.data.hits.map(row => formatter.loan.toTable(row));
   }
 
   render() {
     const rows = this.prepareData();
+    rows.totalHits = this.props.data.total;
     const { data, isLoading, hasError } = this.props;
     const errorData = hasError ? data : null;
     return (
@@ -68,7 +69,7 @@ export default class ItemPastLoans extends Component {
 ItemPastLoans.propTypes = {
   item: PropTypes.object.isRequired,
   fetchPastLoans: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
   showMaxPastLoans: PropTypes.number,
 };
 

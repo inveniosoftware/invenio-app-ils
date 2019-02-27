@@ -43,12 +43,12 @@ export default class OverbookedDocumentsList extends Component {
   };
 
   prepareData() {
-    return this.props.data.map(row => formatter.document.toTable(row));
+    return this.props.data.hits.map(row => formatter.document.toTable(row));
   }
 
   _render_table() {
     const rows = this.prepareData();
-    rows.totalHits = this.props.data.totalHits;
+    rows.totalHits = this.props.data.total;
     return (
       <ResultsTable
         rows={rows}
@@ -70,7 +70,9 @@ export default class OverbookedDocumentsList extends Component {
     const errorData = hasError ? data : null;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>{this._render_table()}</Error>
+        <Error error={errorData}>
+          {isLoading ? null : this._render_table()}
+        </Error>
       </Loader>
     );
   }
@@ -78,7 +80,7 @@ export default class OverbookedDocumentsList extends Component {
 
 OverbookedDocumentsList.propTypes = {
   fetchOverbookedDocuments: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
   showMaxEntries: PropTypes.number,
 };
 
