@@ -18,6 +18,7 @@ export const BackOfficeURLS = {
   loanRequest: `${BackOfficeBase}/circulation/loans/request`,
   loanCheckout: `${BackOfficeBase}/circulation/loans/checkout`,
   newDocument: `${BackOfficeBase}/documents/create`,
+  multipleLoansCheckout: `${BackOfficeBase}/users/:userPid/multiple-checkout`,
 };
 
 export const viewLoanDetailsUrl = loanPid => {

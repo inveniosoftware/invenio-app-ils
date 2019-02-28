@@ -29,6 +29,12 @@ import {
   renewedLoansReducer,
 } from './pages/backoffice/Home/reducer';
 
+import {
+  itemsBasketReducer,
+  itemsSearchReducer,
+  selectedUserReducer,
+} from './pages/backoffice/MultipleLoansCheckout/reducer';
+
 const rootReducer = combineReducers({
   userSession: userSessionReducer,
   documentDetails: documentDetailsReducer,
@@ -48,6 +54,9 @@ const rootReducer = combineReducers({
   overdueLoans: overdueLoansReducer,
   idlePendingLoans: idleLoansReducer,
   latestRenewedLoans: renewedLoansReducer,
+  selectedUser: selectedUserReducer,
+  itemsSearchInput: itemsSearchReducer,
+  itemsBasket: itemsBasketReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

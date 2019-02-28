@@ -1,0 +1,9 @@
+export const IS_LOADING = 'basketCheckout/IS_LOADING';
+export const SUCCESS = 'basketCheckout/SUCCESS';
+export const HAS_ERROR = 'basketCheckout/HAS_ERROR';
+export const BASKET_ADD_ITEM_IS_LOADING = 'addItemToBasket/IS_LOADING';
+export const BASKET_ADD_ITEM_SUCCESS = 'addItemToBasket/SUCCESS';
+export const BASKET_ADD_ITEM_HAS_ERROR = 'addItemToBasket/HAS_ERROR';
+export const BASKET_REMOVE_ITEM_IS_LOADING = 'removeItemFromBasket/IS_LOADING';
+export const BASKET_REMOVE_ITEM_SUCCESS = 'removeItemFromBasket/SUCCESS';
+export const BASKET_REMOVE_ITEM_HAS_ERROR = 'removeItemFromBasket/HAS_ERROR';

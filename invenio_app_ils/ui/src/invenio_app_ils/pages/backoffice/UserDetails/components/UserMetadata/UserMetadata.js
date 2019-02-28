@@ -22,7 +22,7 @@ export default class UserMetadata extends Component {
     }
 
     return (
-      <Segment className="item-metadata">
+      <Segment className="user-metadata">
         {label}
         <Grid padded columns={2}>
           <Grid.Column width={10}>

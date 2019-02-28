@@ -9,6 +9,7 @@
 
 from __future__ import absolute_import, print_function
 
+import datetime
 from functools import wraps
 
 from flask import Blueprint, abort, current_app, request
@@ -82,6 +83,27 @@ def create_circulation_blueprint(_):
         "/circulation/loans/create", view_func=loan_create, methods=["POST"]
     )
 
+    multiple_checkout_response_serializer = {
+        "application/json": (
+            "invenio_app_ils.records.serializers"
+            ":json_v1_multiple_checkout_response"
+        )
+    }
+
+    multiple_checkout_serializer = {
+        mime: obj_or_import_string(func)
+        for mime, func in multiple_checkout_response_serializer.items()
+    }
+
+    multiple_checkout = MultipleCheckoutResource.as_view(
+        MultipleCheckoutResource.view_name,
+        serializers=multiple_checkout_serializer,
+    )
+
+    blueprint.add_url_rule(
+        "/circulation/loans/multiple-checkout", view_func=multiple_checkout,
+        methods=["POST"]
+    )
     return blueprint
 
 
@@ -118,7 +140,7 @@ class LoanRequestResource(IlsResource):
 
 
 class LoanCreateResource(IlsResource):
-    """Loan create action resource."""
+    """Loan create action resource also known as Checkout."""
 
     view_name = "loan_create"
 
@@ -136,4 +158,48 @@ class LoanCreateResource(IlsResource):
 
         return self.make_response(
             pid, loan, 202, links_factory=self.links_factory
+        )
+
+
+class MultipleCheckoutResource(ContentNegotiatedMethodView):
+    """Multiple loan checkout (create) resource."""
+
+    view_name = 'multiple_loan_checkout'
+
+    @need_permissions('circulation-loan-create')
+    def post(self, **kwargs):
+        """Multiple loan create post method."""
+        loans = []
+        errors = []
+        payload = request.get_json()
+
+        for entry in payload['items']:
+            try:
+                loan_json = {
+                    'item_pid': str(entry['item_pid']),
+                    'document_pid': str(entry['document_pid']),
+                    'transaction_user_pid':
+                        str(payload['transaction_user_pid']),
+                    'transaction_location_pid':
+                        str(payload['transaction_location_pid']),
+                    'patron_pid': str(payload['patron_pid']),
+                    'transaction_date':
+                        datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                }
+                pid, loan = create_loan(loan_json)
+                loan['item_barcode'] = entry['barcode']
+                loans.append(loan)
+            except InvalidCirculationPermission as ex:
+                current_app.logger.exception(ex.msg)
+                return abort(403)
+            except CirculationException as ex:
+                current_app.logger.exception(ex.msg)
+                errors.append({
+                    'error_msg': ex.msg,
+                    'error_code': 400,
+                    'item_barcode': str(entry['barcode'])
+
+                })
+        return self.make_response(
+            loans, errors, 202
         )

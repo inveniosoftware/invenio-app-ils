@@ -119,10 +119,12 @@ def testdata(app, db, es_clear):
         indexer.index(record)
 
     loans = load_json_from_datadir("loans.json")
+    loan_records = []
     for loan in loans:
         record = Loan.create(loan)
         mint_record_pid(CIRCULATION_LOAN_PID_TYPE, Loan.pid_field, record)
         record.commit()
+        loan_records.append(record)
         db.session.commit()
         indexer.index(record)
         # re-index item attached to the loan
@@ -136,4 +138,5 @@ def testdata(app, db, es_clear):
         "documents": documents,
         "items": items,
         "loans": loans,
+        "loan_records": loan_records,
     }

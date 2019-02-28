@@ -12,6 +12,7 @@ import {
   LoanDetailsContainer,
   LocationList,
   UserDetailsContainer,
+  MultipleLoansCheckout,
 } from '../pages/backoffice';
 import './BackOffice.scss';
 
@@ -68,6 +69,12 @@ export class BackOffice extends Component {
             exact
             path={BackOfficeURLS.patronDetails}
             component={UserDetailsContainer}
+          />
+          {/* multiple loans selection page */}
+          <Route
+            exact
+            path={BackOfficeURLS.multipleLoansCheckout}
+            component={MultipleLoansCheckout}
           />
         </div>
       </div>

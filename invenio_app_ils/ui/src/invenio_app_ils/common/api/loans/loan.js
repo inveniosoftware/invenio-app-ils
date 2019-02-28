@@ -4,6 +4,7 @@ import { DateTime } from 'luxon';
 import { serializer } from './serializer';
 import _isEmpty from 'lodash/isEmpty';
 import { prepareDateQuery, prepareSumQuery } from '../utils';
+import { ApiURLS } from '../urls';
 
 const loanListURL = '/circulation/loans/';
 const loanURL = loanPid => `${loanListURL}${loanPid}`;
@@ -24,6 +25,7 @@ const postAction = (
   transactionLocationPid
 ) => {
   const now = DateTime.local();
+
   const payload = {
     transaction_user_pid: transactionUserPid,
     patron_pid: loan.patron_pid,
@@ -44,6 +46,28 @@ const postAction = (
     response.data = serializer.fromJSON(response.data);
     return response;
   });
+};
+
+const multipleLoanCheckout = (
+  patron,
+  items,
+  transactionUserPid,
+  transactionLocationPid
+) => {
+  console.log(patron);
+  const payload = {
+    patron_pid: patron['user_pid'],
+    items: items,
+    transaction_user_pid: transactionUserPid,
+    transaction_location_pid: transactionLocationPid,
+  };
+
+  return http
+    .post(`${ApiURLS.multipleLoansCheckout}`, payload)
+    .then(response => {
+      console.log(response);
+      return response;
+    });
 };
 
 const assignItemToLoan = (itemPid, loanPid) => {
@@ -173,6 +197,7 @@ export const loan = {
   get: get,
   count: count,
   postAction: postAction,
+  multipleLoanCheckout: multipleLoanCheckout,
   serializer: serializer,
   url: loanListURL,
 };

@@ -42,14 +42,14 @@ export default class DocumentPendingLoans extends Component {
     return <SeeAllButton clickHandler={() => _click()} />;
   };
 
-  prepareData() {
-    return this.props.data.map(row => formatter.loan.toTable(row));
+  prepareData(data) {
+    return data.map(row => formatter.loan.toTable(row));
   }
 
   render() {
-    const rows = this.prepareData();
     const { data, isLoading, hasError } = this.props;
     const errorData = hasError ? data : null;
+    const rows = this.prepareData(data);
     return (
       <Loader isLoading={isLoading}>
         <Error error={errorData}>
