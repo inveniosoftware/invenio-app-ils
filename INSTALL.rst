@@ -130,6 +130,15 @@ First of all, you have to create your own personal access token, to be able to G
 
         $ echo 'REACT_APP_JWT_TOKEN=<paste token here>' > ./invenio_app_ils/ui/.env.development
 
+  Additionally you must add the following variables regarding the user authentication to your .env.development:
+
+    .. code-block:: console
+        REACT_APP_USER_ID=1
+        REACT_APP_LOCATION_ID=1
+        REACT_APP_USER_ROLE=admin
+        REACT_APP_JWT_TOKEN_EXPIRATION=11111111111111111111111
+        REACT_APP_JWT_USERNAME=admin
+
 * since the React app is server under a different port (normally, :3000), you need to change extra settings
   on Invenio to allow requests from different domains. In `config.py`, change the following:
 

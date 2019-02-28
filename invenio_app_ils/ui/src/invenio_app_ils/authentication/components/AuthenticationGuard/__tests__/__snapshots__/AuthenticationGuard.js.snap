@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthenticationGuard tests should load the AuthenticationGuard component 1`] = `
+<Component
+  component={[Function]}
+/>
+`;
+
+exports[`AuthenticationGuard tests should render the Authorized component when user does not have the needed roles 1`] = `
+<AuthenticationGuard
+  authorizedComponent={[Function]}
+  roles={
+    Array [
+      "test",
+    ]
+  }
+  unAuthorizedComponent={[Function]}
+>
+  <authorizedButton>
+    <Button
+      as="button"
+      data-test="authorized"
+      onClick={[Function]}
+      size="small"
+    >
+      <button
+        className="ui small button"
+        data-test="authorized"
+        onClick={[Function]}
+      >
+        Authorized
+      </button>
+    </Button>
+  </authorizedButton>
+</AuthenticationGuard>
+`;
+
+exports[`AuthenticationGuard tests should render the UnAuthorized component when user does not have the needed roles 1`] = `
+<AuthenticationGuard
+  authorizedComponent={[Function]}
+  roles={
+    Array [
+      "not_allowed",
+    ]
+  }
+  unAuthorizedComponent={[Function]}
+>
+  <unAuthorizedButton>
+    <Button
+      as="button"
+      data-test="unauthorized"
+      onClick={[Function]}
+      size="small"
+    >
+      <button
+        className="ui small button"
+        data-test="unauthorized"
+        onClick={[Function]}
+      >
+        Unauthorized
+      </button>
+    </Button>
+  </unAuthorizedButton>
+</AuthenticationGuard>
+`;

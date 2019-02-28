@@ -7,6 +7,7 @@ import {
 } from './routes';
 import history from './history';
 import { NotFound } from './common/components';
+import { AuthenticationGuard, UnAuthorized } from './authentication/components';
 
 export default class App extends Component {
   render() {
@@ -14,7 +15,12 @@ export default class App extends Component {
       <Router history={history}>
         <Switch>
           <Route exact path="/" component={FrontSiteRoutes} />
-          <Route path={`${BackOfficeURLS.home}`} component={BackOfficeRoutes} />
+          <AuthenticationGuard
+            path={`${BackOfficeURLS.home}`}
+            authorizedComponent={BackOfficeRoutes}
+            unAuthorizedComponent={UnAuthorized}
+            roles={['admin', 'librarian']}
+          />
           <Route component={NotFound} />
         </Switch>
       </Router>
