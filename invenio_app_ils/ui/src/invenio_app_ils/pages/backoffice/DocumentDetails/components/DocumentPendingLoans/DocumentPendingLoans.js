@@ -42,25 +42,30 @@ export default class DocumentPendingLoans extends Component {
     return <SeeAllButton clickHandler={() => _click()} />;
   };
 
-  prepareData() {
-    return this.props.data.map(row => formatter.loan.toTable(row));
+  prepareData(data) {
+    return data.hits.map(row => formatter.loan.toTable(row));
+  }
+
+  _render_table(data) {
+    const rows = this.prepareData(data);
+    rows.totalHits = data.total;
+    return (
+      <ResultsTable
+        rows={rows}
+        title={'Pending loans requests'}
+        rowActionClickHandler={this._showDetailsHandler}
+        seeAllComponent={this._seeAllButton()}
+        showMaxRows={this.props.showMaxPendingLoans}
+      />
+    );
   }
 
   render() {
-    const rows = this.prepareData();
     const { data, isLoading, hasError } = this.props;
     const errorData = hasError ? data : null;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>
-          <ResultsTable
-            rows={rows}
-            title={'Pending loans requests'}
-            rowActionClickHandler={this._showDetailsHandler}
-            seeAllComponent={this._seeAllButton()}
-            showMaxRows={this.props.showMaxPendingLoans}
-          />
-        </Error>
+        <Error error={errorData}>{this._render_table(data)}</Error>
       </Loader>
     );
   }
@@ -69,7 +74,7 @@ export default class DocumentPendingLoans extends Component {
 DocumentPendingLoans.propTypes = {
   document: PropTypes.object.isRequired,
   fetchPendingLoans: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
   showMaxPendingLoans: PropTypes.number,
 };
 

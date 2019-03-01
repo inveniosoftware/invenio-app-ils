@@ -29,7 +29,7 @@ describe('DocumentPendingLoans tests', () => {
       <DocumentPendingLoans
         document={doc}
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchPendingLoans={() => {}}
       />
     );
@@ -42,7 +42,7 @@ describe('DocumentPendingLoans tests', () => {
       <DocumentPendingLoans
         document={doc}
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchPendingLoans={mockedFetchPendingLoans}
       />
     );
@@ -54,7 +54,7 @@ describe('DocumentPendingLoans tests', () => {
       <DocumentPendingLoans
         document={doc}
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchPendingLoans={() => {}}
       />
     );
@@ -67,25 +67,27 @@ describe('DocumentPendingLoans tests', () => {
   });
 
   it('should render pending loans', () => {
-    const data = [
-      {
-        loan_pid: 'loan1',
-        patron_pid: 'patron_1',
-        updated: d,
-        created: d,
-        start_date: d,
-        end_date: d,
-      },
-      {
-        loan_pid: 'loan2',
-        patron_pid: 'patron_2',
-        updated: d,
-        created: d,
-        start_date: d,
-        end_date: d,
-      },
-    ];
-
+    const data = {
+      hits: [
+        {
+          loan_pid: 'loan1',
+          patron_pid: 'patron_1',
+          updated: d,
+          created: d,
+          start_date: d,
+          end_date: d,
+        },
+        {
+          loan_pid: 'loan2',
+          patron_pid: 'patron_2',
+          updated: d,
+          created: d,
+          start_date: d,
+          end_date: d,
+        },
+      ],
+      total: 2,
+    };
     component = mount(
       <DocumentPendingLoans
         document={doc}
@@ -112,24 +114,27 @@ describe('DocumentPendingLoans tests', () => {
   });
 
   it('should render the see all button when showing only a few pending loans', () => {
-    const data = [
-      {
-        loan_pid: 'loan1',
-        patron_pid: 'patron_1',
-        updated: d,
-        created: d,
-        start_date: d,
-        end_date: d,
-      },
-      {
-        loan_pid: 'loan2',
-        patron_pid: 'patron_2',
-        updated: d,
-        start_date: d,
-        end_date: d,
-        created: d,
-      },
-    ];
+    const data = {
+      hits: [
+        {
+          loan_pid: 'loan1',
+          patron_pid: 'patron_1',
+          updated: d,
+          created: d,
+          start_date: d,
+          end_date: d,
+        },
+        {
+          loan_pid: 'loan2',
+          patron_pid: 'patron_2',
+          updated: d,
+          start_date: d,
+          end_date: d,
+          created: d,
+        },
+      ],
+      total: 2,
+    };
 
     component = mount(
       <DocumentPendingLoans
@@ -154,16 +159,19 @@ describe('DocumentPendingLoans tests', () => {
       push: mockedHistoryPush,
     };
 
-    const data = [
-      {
-        loan_pid: 'loan1',
-        patron_pid: 'patron_1',
-        updated: d,
-        created: d,
-        start_date: d,
-        end_date: d,
-      },
-    ];
+    const data = {
+      hits: [
+        {
+          loan_pid: 'loan1',
+          patron_pid: 'patron_1',
+          updated: d,
+          created: d,
+          start_date: d,
+          end_date: d,
+        },
+      ],
+      total: 1,
+    };
 
     component = mount(
       <DocumentPendingLoans
@@ -175,7 +183,7 @@ describe('DocumentPendingLoans tests', () => {
       />
     );
 
-    const firstId = data[0].loan_pid;
+    const firstId = data.hits[0].loan_pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)
