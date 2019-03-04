@@ -70,6 +70,8 @@ from .circulation.utils import (  # isort:skip
     circulation_build_item_ref,
 )
 
+from .jwt import ils_jwt_create_token
+
 from .permissions import (  # isort:skip
     authenticated_user_permission,
     backoffice_permission,
@@ -680,3 +682,6 @@ ACCOUNTS_REST_UPDATE_USER_PROPERTIES_PERMISSION_FACTORY = backoffice_permission
 
 ACCOUNTS_REST_READ_USERS_LIST_PERMISSION_FACTORY = backoffice_permission
 """Default list users permission factory: reject any request."""
+
+ACCOUNTS_JWT_CREATION_FACTORY = ils_jwt_create_token
+"""ILS Jwt creation factory"""
