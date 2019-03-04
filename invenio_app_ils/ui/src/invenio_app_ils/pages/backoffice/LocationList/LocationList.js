@@ -70,7 +70,7 @@ export default class LocationList extends Component {
 }
 
 LocationList.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
   fetchLocations: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   hasError: PropTypes.bool.isRequired,

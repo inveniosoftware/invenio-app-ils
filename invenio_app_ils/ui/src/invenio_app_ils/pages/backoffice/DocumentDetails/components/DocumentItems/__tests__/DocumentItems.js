@@ -28,7 +28,7 @@ describe('DocumentItems tests', () => {
       <DocumentItems
         document={doc}
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchDocumentItems={() => {}}
       />
     );
@@ -41,7 +41,7 @@ describe('DocumentItems tests', () => {
       <DocumentItems
         document={doc}
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchDocumentItems={mockedFetchDocumentItems}
       />
     );
@@ -53,7 +53,7 @@ describe('DocumentItems tests', () => {
       <DocumentItems
         document={doc}
         history={() => {}}
-        data={[]}
+        data={{ hits: [], total: 0 }}
         fetchDocumentItems={() => {}}
       />
     );
@@ -66,22 +66,25 @@ describe('DocumentItems tests', () => {
   });
 
   it('should render item', () => {
-    const data = [
-      {
-        ID: 'item1',
-        document_pid: 'doc1',
-        item_pid: 'item1',
-        updated: d,
-        location: 'Somewhere',
-      },
-      {
-        ID: 'item2',
-        document_pid: 'doc2',
-        item_pid: 'item2',
-        updated: d,
-        location: 'Somewhere',
-      },
-    ];
+    const data = {
+      hits: [
+        {
+          ID: 'item1',
+          document_pid: 'doc1',
+          item_pid: 'item1',
+          updated: d,
+          location: 'Somewhere',
+        },
+        {
+          ID: 'item2',
+          document_pid: 'doc2',
+          item_pid: 'item2',
+          updated: d,
+          location: 'Somewhere',
+        },
+      ],
+      total: 2,
+    };
 
     component = mount(
       <DocumentItems
@@ -109,22 +112,25 @@ describe('DocumentItems tests', () => {
   });
 
   it('should render the see all button when showing only a few items', () => {
-    const data = [
-      {
-        ID: '1',
-        document_pid: 'doc1',
-        item_pid: 'item1',
-        updated: d,
-        location: 'Somewhere',
-      },
-      {
-        ID: '2',
-        document_pid: 'doc2',
-        item_pid: 'item2',
-        updated: d,
-        location: 'Somewhere',
-      },
-    ];
+    const data = {
+      hits: [
+        {
+          ID: '1',
+          document_pid: 'doc1',
+          item_pid: 'item1',
+          updated: d,
+          location: 'Somewhere',
+        },
+        {
+          ID: '2',
+          document_pid: 'doc2',
+          item_pid: 'item2',
+          updated: d,
+          location: 'Somewhere',
+        },
+      ],
+      total: 2,
+    };
 
     component = mount(
       <DocumentItems
@@ -149,15 +155,18 @@ describe('DocumentItems tests', () => {
       push: mockedHistoryPush,
     };
 
-    const data = [
-      {
-        ID: '1',
-        document_pid: 'doc1',
-        item_pid: 'item1',
-        updated: d,
-        location: 'Somewhere',
-      },
-    ];
+    const data = {
+      hits: [
+        {
+          ID: '1',
+          document_pid: 'doc1',
+          item_pid: 'item1',
+          updated: d,
+          location: 'Somewhere',
+        },
+      ],
+      total: 2,
+    };
 
     component = mount(
       <DocumentItems
@@ -169,7 +178,7 @@ describe('DocumentItems tests', () => {
       />
     );
 
-    const firstId = data[0].item_pid;
+    const firstId = data.hits[0].item_pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)

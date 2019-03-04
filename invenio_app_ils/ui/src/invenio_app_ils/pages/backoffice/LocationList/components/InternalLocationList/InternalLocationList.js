@@ -65,7 +65,7 @@ export default class InternalLocationList extends Component {
 }
 
 InternalLocationList.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
   fetchInternalLocations: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   hasError: PropTypes.bool.isRequired,

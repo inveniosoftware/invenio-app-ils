@@ -9,7 +9,7 @@ import {
 export const initialState = {
   isLoading: true,
   hasError: false,
-  data: {},
+  data: { hits: [], total: 0 },
   sortBy: 'transaction_date',
   sortOrder: 'asc',
 };

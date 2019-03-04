@@ -41,26 +41,30 @@ export default class ItemPastLoans extends Component {
     return <SeeAllButton clickHandler={() => _click()} />;
   };
 
-  prepareData() {
-    return this.props.data.hits.map(row => formatter.loan.toTable(row));
+  prepareData(data) {
+    return data.hits.map(row => formatter.loan.toTable(row));
+  }
+
+  _render_table(data) {
+    const rows = this.prepareData(data);
+    rows.totalHits = data.total;
+    return (
+      <ResultsTable
+        rows={rows}
+        title={'Loans history'}
+        rowActionClickHandler={this._showDetailsHandler}
+        seeAllComponent={this._seeAllButton()}
+        showMaxRows={this.props.showMaxPastLoans}
+      />
+    );
   }
 
   render() {
-    const rows = this.prepareData();
-    rows.totalHits = this.props.data.total;
     const { data, isLoading, hasError } = this.props;
     const errorData = hasError ? data : null;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>
-          <ResultsTable
-            rows={rows}
-            title={'Loans history'}
-            rowActionClickHandler={this._showDetailsHandler}
-            seeAllComponent={this._seeAllButton()}
-            showMaxRows={this.props.showMaxPastLoans}
-          />
-        </Error>
+        <Error error={errorData}>{this._render_table(data)}</Error>
       </Loader>
     );
   }

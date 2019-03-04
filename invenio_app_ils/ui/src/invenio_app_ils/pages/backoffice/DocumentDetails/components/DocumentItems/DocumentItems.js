@@ -44,7 +44,7 @@ export default class DocumentItems extends Component {
   };
 
   prepareData(data) {
-    return data.map(row => ({
+    return data.hits.map(row => ({
       ID: row.item_pid,
       Updated: this._getFormattedDate(row.updated),
       Barcode: row.barcode,
@@ -83,7 +83,7 @@ export default class DocumentItems extends Component {
 DocumentItems.propTypes = {
   document: PropTypes.object.isRequired,
   fetchDocumentItems: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
   showMaxItems: PropTypes.number,
 };
 
