@@ -19,7 +19,7 @@ export default class LocationList extends Component {
   }
 
   prepareData(data) {
-    return data.map(row => ({
+    return data.hits.map(row => ({
       ID: row.location_pid,
       Name: row.name,
       Address: row.address,
