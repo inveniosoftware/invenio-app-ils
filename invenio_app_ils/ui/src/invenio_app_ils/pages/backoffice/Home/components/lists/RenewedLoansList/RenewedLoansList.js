@@ -37,8 +37,8 @@ export default class RenewedLoansList extends Component {
     return <SeeAllButton clickHandler={() => _click()} />;
   };
 
-  prepareData() {
-    return this.props.data.hits.map(row => {
+  prepareData(data) {
+    return data.hits.map(row => {
       let serialized = formatter.loan.toTable(row);
       delete serialized['Request created'];
       serialized['Last update'] = toShortDate(row.updated);
@@ -47,9 +47,9 @@ export default class RenewedLoansList extends Component {
     });
   }
 
-  _render_table() {
-    const rows = this.prepareData();
-    rows.totalHits = this.props.data.total;
+  _render_table(data) {
+    const rows = this.prepareData(data);
+    rows.totalHits = data.total;
     return (
       <ResultsTable
         rows={rows}
@@ -67,9 +67,7 @@ export default class RenewedLoansList extends Component {
     const errorData = hasError ? data : null;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>
-          {isLoading ? null : this._render_table()}
-        </Error>
+        <Error error={errorData}>{this._render_table(data)}</Error>
       </Loader>
     );
   }
