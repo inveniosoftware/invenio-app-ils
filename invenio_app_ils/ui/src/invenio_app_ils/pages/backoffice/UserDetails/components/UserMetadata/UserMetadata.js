@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { Grid, Segment, List, Header, Label } from 'semantic-ui-react';
+import {
+  Grid,
+  Segment,
+  List,
+  Header,
+  Label,
+  Container,
+} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 export default class UserMetadata extends Component {
@@ -24,27 +31,19 @@ export default class UserMetadata extends Component {
     return (
       <Segment className="item-metadata">
         {label}
-        <Grid padded columns={2}>
-          <Grid.Column width={10}>
-            <Header as="h1">Patron - {data.user_pid}</Header>
-          </Grid.Column>
-          <Grid.Column>
-            <List relaxed size="large">
-              <List.Item>
-                <List.Header>Patron PID</List.Header>
-                {data.user_pid}
-              </List.Item>
-              <List.Item>
-                <List.Header>Email</List.Header>
-                {data.email}
-              </List.Item>
-              <List.Item>
-                <List.Header>Active</List.Header>
-                {data.active.toString()}
-              </List.Item>
-            </List>
-          </Grid.Column>
-        </Grid>
+        <Container>
+          <Header as="h1">Patron - #ID {data.user_pid}</Header>
+          <List relaxed size="large">
+            <List.Item>
+              <List.Header>Email</List.Header>
+              {data.email}
+            </List.Item>
+            <List.Item>
+              <List.Header>Full name</List.Header>
+              {data.full_name}
+            </List.Item>
+          </List>
+        </Container>
       </Segment>
     );
   }

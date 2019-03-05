@@ -48,7 +48,7 @@ describe('Loans renewed more then 3 times (last week) fetch tests', () => {
 
     store.dispatch(actions.fetchIdlePendingLoans()).then(() => {
       expect(mockLoanList).toHaveBeenCalledWith(
-        `state:PENDING AND _updated:%7B*%20TO%20${date}%7D`
+        `(state:PENDING AND _updated:%7B*%20TO%20${date}%7D)`
       );
       const actions = store.getActions();
       expect(actions[0]).toEqual(expectedAction);
@@ -66,7 +66,7 @@ describe('Loans renewed more then 3 times (last week) fetch tests', () => {
 
     store.dispatch(actions.fetchIdlePendingLoans()).then(() => {
       expect(mockLoanList).toHaveBeenCalledWith(
-        `state:PENDING AND _updated:%7B*%20TO%20${date}%7D`
+        `(state:PENDING AND _updated:%7B*%20TO%20${date}%7D)`
       );
       const actions = store.getActions();
       expect(actions[1]).toEqual(expectedAction);
@@ -84,7 +84,7 @@ describe('Loans renewed more then 3 times (last week) fetch tests', () => {
 
     store.dispatch(actions.fetchIdlePendingLoans()).then(() => {
       expect(mockLoanList).toHaveBeenCalledWith(
-        `state:PENDING AND _updated:%7B*%20TO%20${date}%7D`
+        `(state:PENDING AND _updated:%7B*%20TO%20${date}%7D)`
       );
       const actions = store.getActions();
       expect(actions[1]).toEqual(expectedAction);

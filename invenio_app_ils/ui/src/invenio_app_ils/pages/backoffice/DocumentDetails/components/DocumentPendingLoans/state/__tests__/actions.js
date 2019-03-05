@@ -45,7 +45,7 @@ describe('Pending loans tests', () => {
 
       store.dispatch(actions.fetchPendingLoans('123')).then(() => {
         expect(mockFetchPendingOnDocument).toHaveBeenCalledWith(
-          'document_pid:123 AND state:PENDING'
+          '(document_pid:123 AND state:PENDING)'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
@@ -63,7 +63,7 @@ describe('Pending loans tests', () => {
 
       store.dispatch(actions.fetchPendingLoans('123')).then(() => {
         expect(mockFetchPendingOnDocument).toHaveBeenCalledWith(
-          'document_pid:123 AND state:PENDING'
+          '(document_pid:123 AND state:PENDING)'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -81,7 +81,7 @@ describe('Pending loans tests', () => {
 
       store.dispatch(actions.fetchPendingLoans('123')).then(() => {
         expect(mockFetchPendingOnDocument).toHaveBeenCalledWith(
-          'document_pid:123 AND state:PENDING'
+          '(document_pid:123 AND state:PENDING)'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);

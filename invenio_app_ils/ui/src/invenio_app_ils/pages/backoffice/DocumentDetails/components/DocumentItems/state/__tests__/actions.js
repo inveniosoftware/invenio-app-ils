@@ -29,7 +29,7 @@ beforeEach(() => {
 
 describe('Document Item tests', () => {
   describe('Fetch document item tests', () => {
-    it('should dispatch a loading action when fetching pending loans', done => {
+    it('should dispatch a loading action when fetching items', done => {
       mockFetchDocumentItems.mockResolvedValue(mockResponse);
 
       const expectedAction = {
@@ -44,7 +44,7 @@ describe('Document Item tests', () => {
       });
     });
 
-    it('should dispatch a success action when pending loans fetch succeeds', done => {
+    it('should dispatch a success action when items fetch succeeds', done => {
       mockFetchDocumentItems.mockResolvedValue(mockResponse);
 
       const expectedAction = {
@@ -62,7 +62,7 @@ describe('Document Item tests', () => {
       });
     });
 
-    it('should dispatch an error action when pending loans fetch fails', done => {
+    it('should dispatch an error action when items fetch fails', done => {
       mockFetchDocumentItems.mockRejectedValue([500, 'Error']);
 
       const expectedAction = {

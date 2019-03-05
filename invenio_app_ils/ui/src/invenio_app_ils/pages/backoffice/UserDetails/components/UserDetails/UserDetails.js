@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
-import { UserMetadata, PatronLoans } from '../';
+import { UserMetadata, PatronPendingLoans } from '../';
+import { Grid } from 'semantic-ui-react';
+import { PatronCurrentLoans } from '../PatronCurrentLoans';
+import { ItemsCheckout } from '../ItemsCheckout';
+import { ItemsSearch } from '../ItemsSearch';
 
 export default class UserDetails extends Component {
   render() {
@@ -10,8 +14,29 @@ export default class UserDetails extends Component {
     return (
       <Loader isLoading={isLoading}>
         <Error error={errorData}>
-          <UserMetadata />
-          <PatronLoans patron={data.user_pid} />
+          <Grid columns={2}>
+            <Grid.Row stretched>
+              <Grid.Column width={6}>
+                <UserMetadata />
+              </Grid.Column>
+              <Grid.Column width={10}>
+                <PatronPendingLoans patron={data.user_pid} />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row columns={1}>
+              <Grid.Column width={16}>
+                <ItemsCheckout patron={data.user_pid} />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row stretched columns={2}>
+              <Grid.Column width={8}>
+                <ItemsSearch patron={data.user_pid} />
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <PatronCurrentLoans patron={data.user_pid} />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         </Error>
       </Loader>
     );

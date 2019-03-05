@@ -38,6 +38,7 @@ class SessionManager {
         id: tokenData['sub'],
         roles: tokenData['roles'] || [],
         username: tokenData['username'],
+        locationPid: tokenData['locationPid'],
       };
       this.token = {
         value: token,

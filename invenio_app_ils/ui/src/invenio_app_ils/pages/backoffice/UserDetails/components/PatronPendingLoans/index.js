@@ -2,22 +2,23 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {
-  fetchPatronLoans,
+  fetchPatronPendingLoans,
   patronLoansChangeSortBy,
   patronLoansChangeSortOrder,
 } from './state/actions';
-import PatronLoansComponent from './PatronLoans';
+import PatronPendingLoansComponent from './PatronPendingLoans';
 
 const mapStateToProps = state => ({
-  data: state.patronLoans.data,
-  isLoading: state.patronLoans.isLoading,
-  hasError: state.patronLoans.hasError,
-  currentSortBy: state.patronLoans.sortBy,
-  currentSortOrder: state.patronLoans.sortOrder,
+  data: state.patronPendingLoans.data,
+  isLoading: state.patronPendingLoans.isLoading,
+  hasError: state.patronPendingLoans.hasError,
+  currentSortBy: state.patronPendingLoans.sortBy,
+  currentSortOrder: state.patronPendingLoans.sortOrder,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPatronLoans: patronPid => dispatch(fetchPatronLoans(patronPid)),
+  fetchPatronPendingLoans: patronPid =>
+    dispatch(fetchPatronPendingLoans(patronPid)),
   patronLoansChangeSortBy: (documentPid, itemPid, loanState, patronPid) =>
     dispatch(
       patronLoansChangeSortBy(documentPid, itemPid, loanState, patronPid)
@@ -28,10 +29,10 @@ const mapDispatchToProps = dispatch => ({
     ),
 });
 
-export const PatronLoans = compose(
+export const PatronPendingLoans = compose(
   withRouter,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(PatronLoansComponent);
+)(PatronPendingLoansComponent);

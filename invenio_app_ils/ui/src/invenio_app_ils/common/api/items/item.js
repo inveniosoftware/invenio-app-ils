@@ -15,6 +15,7 @@ class QueryBuilder {
   constructor() {
     this.documentQuery = [];
     this.statusQuery = [];
+    this.barcodeQuery = [];
   }
 
   withDocPid(documentPid) {
@@ -33,8 +34,18 @@ class QueryBuilder {
     return this;
   }
 
+  withBarcode(barcode) {
+    if (typeof barcode === 'undefined' || barcode === '') {
+      throw TypeError('Barcode argument missing');
+    }
+    this.barcodeQuery.push(`barcode:${prepareSumQuery(barcode)}`);
+    return this;
+  }
+
   qs() {
-    return this.documentQuery.concat(this.statusQuery).join(' AND ');
+    return this.documentQuery
+      .concat(this.statusQuery, this.barcodeQuery)
+      .join(' AND ');
   }
 }
 

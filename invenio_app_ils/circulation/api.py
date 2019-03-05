@@ -59,7 +59,9 @@ def create_loan(params):
             params["document_pid"] = document_pid
     # create a new loan
     record_uuid = uuid.uuid4()
-    new_loan = {}
+    new_loan = {
+        "item_pid": params["item_pid"] if params["item_pid"] else ""
+    }
     pid = loan_pid_minter(record_uuid, data=new_loan)
     loan = Loan.create(data=new_loan, id_=record_uuid)
     # trigger the first transition

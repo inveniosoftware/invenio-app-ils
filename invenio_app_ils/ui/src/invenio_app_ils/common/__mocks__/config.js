@@ -32,7 +32,7 @@ export const invenioConfig = {
     },
   },
   circulation: {
-    loanActiveStates: [],
+    loanActiveStates: ['ITEM_ON_LOAN'],
     loanCompletedStates: [],
   },
 };

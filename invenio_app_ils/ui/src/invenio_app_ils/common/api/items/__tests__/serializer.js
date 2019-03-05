@@ -9,13 +9,21 @@ describe('Patron loans serialization tests', () => {
       id: '123',
       updated: stringDate,
       created: stringDate,
-      metadata: {},
+      metadata: {
+        item_pid: '123',
+        internal_location: {},
+      },
     });
 
     expect(serialized).toEqual({
       item_pid: '123',
       created: fromISO(stringDate),
       updated: fromISO(stringDate),
+      location: '',
+      legacy_id: '',
+      description: '',
+      circulation_status: '',
+      circulation_restriction: '',
     });
   });
 
@@ -25,7 +33,8 @@ describe('Patron loans serialization tests', () => {
       updated: stringDate,
       created: stringDate,
       metadata: {
-        internal_location: { name: 'p' },
+        item_pid: '123',
+        internal_location: { location: { name: 'p' }, name: 'name' },
         medium: 'p',
         status: 'MISSING',
         shelf: '3 on the left',
@@ -37,7 +46,7 @@ describe('Patron loans serialization tests', () => {
       item_pid: '123',
       updated: fromISO(stringDate),
       created: fromISO(stringDate),
-      internal_location: 'p',
+      internal_location: 'name',
       medium: 'p',
       status: 'MISSING',
       shelf: '3 on the left',
@@ -46,7 +55,7 @@ describe('Patron loans serialization tests', () => {
       circulation_status: '',
       description: '',
       legacy_id: '',
-      location: '',
+      location: 'p',
     });
   });
 });

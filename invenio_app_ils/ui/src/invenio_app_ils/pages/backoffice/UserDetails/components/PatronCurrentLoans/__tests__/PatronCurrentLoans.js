@@ -4,7 +4,7 @@ import { generatePath } from 'react-router';
 import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../common/api/date';
 import { BackOfficeURLS } from '../../../../../../common/urls';
-import PatronLoans from '../PatronLoans';
+import PatronCurrentLoans from '../PatronCurrentLoans';
 
 Settings.defaultZoneName = 'utc';
 const d = fromISO('2018-01-01T11:05:00+01:00');
@@ -25,12 +25,12 @@ describe('PatronLoans tests', () => {
     const mockedFetchPatronLoans = jest.fn();
 
     const component = shallow(
-      <PatronLoans
+      <PatronCurrentLoans
         history={() => {}}
-        data={{ hits: [], total: 0 }}
+        data={[]}
         loanState=""
         patron={patron.patron_pid}
-        fetchPatronLoans={mockedFetchPatronLoans}
+        fetchPatronCurrentLoans={mockedFetchPatronLoans}
       />
     );
     expect(component).toMatchSnapshot();
@@ -39,12 +39,12 @@ describe('PatronLoans tests', () => {
   it('should render show a message with no user loans', () => {
     const mockedFetchPatronLoans = jest.fn();
     component = mount(
-      <PatronLoans
+      <PatronCurrentLoans
         patron={patron.patron_pid}
         history={() => {}}
-        data={{ hits: [], total: 0 }}
+        data={[]}
         loanState=""
-        fetchPatronLoans={mockedFetchPatronLoans}
+        fetchPatronCurrentLoans={mockedFetchPatronLoans}
       />
     );
 
@@ -57,35 +57,34 @@ describe('PatronLoans tests', () => {
 
   it('should render patron loans', () => {
     const mockedFetchPatronLoans = jest.fn();
-    const data = {
-      hits: [
-        {
-          loan_pid: 'loan1',
-          patron_pid: 'patron_1',
-          updated: d,
-          created: d,
-          start_date: d,
-          end_date: d,
-        },
-        {
-          loan_pid: 'loan2',
-          patron_pid: 'patron_1',
-          updated: d,
-          created: d,
-          start_date: d,
-          end_date: d,
-        },
-      ],
-      total: 2,
-    };
+    const data = [
+      {
+        loan_pid: 'loan1',
+        patron_pid: 'patron_1',
+        updated: d,
+        created: d,
+        start_date: d,
+        end_date: d,
+        item: { barcode: '12345' },
+      },
+      {
+        loan_pid: 'loan2',
+        patron_pid: 'patron_1',
+        updated: d,
+        created: d,
+        start_date: d,
+        end_date: d,
+        item: { barcode: '12345' },
+      },
+    ];
 
     component = mount(
-      <PatronLoans
+      <PatronCurrentLoans
         patron={patron.patron_pid}
         history={() => {}}
         data={data}
         loanState=""
-        fetchPatronLoans={mockedFetchPatronLoans}
+        fetchPatronCurrentLoans={mockedFetchPatronLoans}
       />
     );
 
@@ -107,34 +106,33 @@ describe('PatronLoans tests', () => {
 
   it('should render the see all button when showing only a few patron loans', () => {
     const mockedFetchPatronLoans = jest.fn();
-    const data = {
-      hits: [
-        {
-          loan_pid: 'loan1',
-          patron_pid: 'patron_1',
-          updated: d,
-          created: d,
-          start_date: d,
-          end_date: d,
-        },
-        {
-          loan_pid: 'loan2',
-          patron_pid: 'patron_2',
-          updated: d,
-          created: d,
-          start_date: d,
-          end_date: d,
-        },
-      ],
-      total: 2,
-    };
+    const data = [
+      {
+        loan_pid: 'loan1',
+        patron_pid: 'patron_1',
+        updated: d,
+        created: d,
+        start_date: d,
+        end_date: d,
+        item: { barcode: '12345' },
+      },
+      {
+        loan_pid: 'loan2',
+        patron_pid: 'patron_2',
+        updated: d,
+        created: d,
+        start_date: d,
+        end_date: d,
+        item: { barcode: '12345' },
+      },
+    ];
 
     component = mount(
-      <PatronLoans
+      <PatronCurrentLoans
         patron={patron.patron_pid}
         history={() => {}}
         data={data}
-        fetchPatronLoans={mockedFetchPatronLoans}
+        fetchPatronCurrentLoans={mockedFetchPatronLoans}
         showMaxLoans={1}
       />
     );
@@ -152,33 +150,31 @@ describe('PatronLoans tests', () => {
       push: mockedHistoryPush,
     };
 
-    const data = {
-      hits: [
-        {
-          loan_pid: 'loan1',
-          patron_pid: 'patron_1',
-          updated: d,
-          created: d,
-          start_date: d,
-          end_date: d,
-        },
-      ],
-      total: 1,
-    };
+    const data = [
+      {
+        loan_pid: 'loan1',
+        patron_pid: 'patron_1',
+        updated: d,
+        created: d,
+        start_date: d,
+        end_date: d,
+        item: { barcode: '12345' },
+      },
+    ];
 
     const mockedFetchPatronLoans = jest.fn();
     component = mount(
-      <PatronLoans
+      <PatronCurrentLoans
         patron={patron.patron_pid}
         history={historyFn}
         data={data}
         loanState=""
-        fetchPatronLoans={mockedFetchPatronLoans}
+        fetchPatronCurrentLoans={mockedFetchPatronLoans}
         showMaxLoans={1}
       />
     );
 
-    const firstId = data.hits[0].loan_pid;
+    const firstId = data[0].loan_pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)
