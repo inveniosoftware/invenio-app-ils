@@ -29,6 +29,8 @@ import {
   renewedLoansReducer,
 } from './pages/backoffice/Home/reducer';
 
+import { bookDetailsReducer } from './pages/frontsite/BookDetails/reducer';
+
 const rootReducer = combineReducers({
   userSession: userSessionReducer,
   documentDetails: documentDetailsReducer,
@@ -48,6 +50,7 @@ const rootReducer = combineReducers({
   overdueLoans: overdueLoansReducer,
   idlePendingLoans: idleLoansReducer,
   latestRenewedLoans: renewedLoansReducer,
+  bookDetails: bookDetailsReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

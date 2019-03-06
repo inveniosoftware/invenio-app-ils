@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
+import { FrontSiteURLS } from './common/urls';
 import { BackOfficeURLS } from './common/urls';
 import {
   FrontSite as FrontSiteRoutes,
@@ -13,7 +14,7 @@ export default class App extends Component {
     return (
       <Router history={history}>
         <Switch>
-          <Route exact path="/" component={FrontSiteRoutes} />
+          <Route path={`${FrontSiteURLS.home}`} component={FrontSiteRoutes} />
           <Route path={`${BackOfficeURLS.home}`} component={BackOfficeRoutes} />
           <Route component={NotFound} />
         </Switch>
