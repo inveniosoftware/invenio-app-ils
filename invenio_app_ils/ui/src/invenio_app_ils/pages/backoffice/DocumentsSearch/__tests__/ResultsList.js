@@ -15,7 +15,7 @@ describe('DocumentsSearch ResultsList tests', () => {
       created: toISO(d),
       metadata: {
         document_pid: 3,
-        authors: 'Author1',
+        authors: ['Author1'],
         title: 'This is a title',
         abstracts: 'This is an abstract',
       },

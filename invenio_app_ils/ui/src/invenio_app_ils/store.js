@@ -28,6 +28,8 @@ import {
   renewedLoansReducer,
 } from './pages/backoffice/Home/reducer';
 
+import { bookDetailsReducer } from './pages/frontsite/BookDetails/reducer';
+
 const rootReducer = combineReducers({
   documentDetails: documentDetailsReducer,
   documentPendingLoans: documentPendingLoans,
@@ -46,6 +48,7 @@ const rootReducer = combineReducers({
   overdueLoans: overdueLoansReducer,
   idlePendingLoans: idleLoansReducer,
   latestRenewedLoans: renewedLoansReducer,
+  bookDetails: bookDetailsReducer,
 });
 
 const composeEnhancers = composeWithDevTools({
