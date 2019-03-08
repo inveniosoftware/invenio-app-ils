@@ -5,12 +5,13 @@ import { BookMetadata } from '../';
 
 export default class BookDetails extends Component {
   render() {
+    console.log(this.props);
     const { isLoading, data, hasError } = this.props;
     const errorData = hasError ? data : null;
     return (
       <Loader isLoading={isLoading}>
         <Error error={errorData}>
-          <BookMetadata />
+          <BookMetadata data={this.props.bookDetails} />
         </Error>
       </Loader>
     );

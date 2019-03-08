@@ -25,7 +25,7 @@ export default class BookDetailsContainer extends Component {
   render() {
     return (
       <Container>
-        <BookDetails />
+        <BookDetails data={this.props.metadata} />
       </Container>
     );
   }
