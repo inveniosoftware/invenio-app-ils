@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Divider, Transition } from 'semantic-ui-react';
+import { Form, Transition } from 'semantic-ui-react';
 
 export default class RequestNewLoanForm extends Component {
   constructor(props) {
@@ -19,25 +19,25 @@ export default class RequestNewLoanForm extends Component {
       patron_pid: '111', // FIXME: change this to be able to search for the user
     };
 
-    const volumeOptions = [
-      { key: '1', value: '1', text: 'Volume 1' },
-      { key: '2', value: '2', text: 'Volume 2' },
-    ];
-    const editionOptions = [
-      { key: '1', value: '1', text: 'Edition 1.2' },
-      { key: '2', value: '2', text: 'Edition 1.3' },
-    ];
+    //    const volumeOptions = [
+    //      { key: '1', value: '1', text: 'Volume 1' },
+    //      { key: '2', value: '2', text: 'Volume 2' },
+    //    ];
+    //    const editionOptions = [
+    //      { key: '1', value: '1', text: 'Edition 1.2' },
+    //      { key: '2', value: '2', text: 'Edition 1.3' },
+    //    ];
     const loanPeriodOptions = [
       { key: '1', value: '1', text: '2 Weeks' },
       { key: '2', value: '2', text: '3 Weeks' },
     ];
-    const deliveryMethodOptions = [
-      { key: '1', value: '1', text: 'Internal Mail' },
-      { key: '2', value: '2', text: 'UPS' },
-    ];
+    //    const deliveryMethodOptions = [
+    //      { key: '1', value: '1', text: 'Internal Mail' },
+    //      { key: '2', value: '2', text: 'UPS' },
+    //    ];
 
     return (
-      <Transition visible={this.props.visible} animation="scale" duration={500}>
+      <Transition visible={visible} animation="scale" duration={500}>
         <Form>
           <Form.Group widths="equal">
             {/*<Form.Select

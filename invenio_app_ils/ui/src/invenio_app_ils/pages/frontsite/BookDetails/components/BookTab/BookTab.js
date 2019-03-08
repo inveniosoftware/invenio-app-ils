@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   Icon,
+  Tab,
   Accordion,
   Segment,
   Menu,
@@ -45,11 +46,7 @@ class BookAccordion extends Component {
           Information
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 1}>
-          <p>
-            There are many breeds of dogs. Each breed varies in size and
-            temperament. Owners often select a breed of dog that they find to be
-            compatible with their own lifestyle and desires from a companion.
-          </p>
+          <p>{this.props.data.keywords}</p>
         </Accordion.Content>
 
         <Accordion.Title
@@ -61,14 +58,7 @@ class BookAccordion extends Component {
           Chapters
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 2}>
-          <p>
-            Three common ways for a prospective owner to acquire a dog is from
-            pet shops, private owners, or shelters. A pet shop may be the most
-            convenient way to buy a dog. Buying a dog from a private owner
-            allows you to assess the pedigree and upbringing of your dog before
-            choosing to take it home. Lastly, finding your dog from a shelter,
-            helps give a good home to a dog who may not find one so readily.
-          </p>
+          <p>{this.props.data.chapters[0]}</p>
         </Accordion.Content>
       </Accordion>
     );
@@ -83,29 +73,36 @@ class BookTabMenu extends Component {
   render() {
     const { activeItem } = this.state;
 
+    const panes = [
+      {
+        menuItem: 'Abstract',
+        render: () => (
+          <Tab.Pane>
+            <p>{this.props.data.abstracts[0]}</p>
+          </Tab.Pane>
+        ),
+      },
+      {
+        menuItem: 'Information',
+        render: () => (
+          <Tab.Pane>
+            <p>{this.props.data.keywords}</p>
+          </Tab.Pane>
+        ),
+      },
+      {
+        menuItem: 'Chapters',
+        render: () => (
+          <Tab.Pane>
+            <p>{this.props.data.chapters[0]}</p>
+          </Tab.Pane>
+        ),
+      },
+    ];
+
     return (
       <div>
-        <Menu attached="top" tabular>
-          <Menu.Item
-            name="abstract"
-            active={activeItem === 'abstract'}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name="information"
-            active={activeItem === 'information'}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name="chapters"
-            active={activeItem === 'chapters'}
-            onClick={this.handleItemClick}
-          />
-        </Menu>
-
-        <Segment attached="bottom">
-          <p>{this.props.data.abstracts[0]}</p>
-        </Segment>
+        <Tab panes={panes} />
       </div>
     );
   }

@@ -6,8 +6,6 @@ import {
   Responsive,
   Container,
   Button,
-  Divider,
-  Transition,
   Header,
   List,
   Icon,
@@ -94,7 +92,6 @@ export default class BookMetadata extends Component {
   }
 
   _render_attachments() {
-    const bookData = this.props.bookDetails;
     return (
       <Grid.Column width={3}>
         <Grid.Row>
