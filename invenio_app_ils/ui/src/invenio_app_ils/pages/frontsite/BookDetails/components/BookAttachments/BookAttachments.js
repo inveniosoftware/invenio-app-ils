@@ -3,6 +3,9 @@ import { Grid, Header, List, Button, Icon } from 'semantic-ui-react';
 
 export default class BookAccordion extends Component {
   render() {
+    const wrapWords = {
+      'overflow-wrap': 'break-word',
+    };
     return (
       <Grid.Column width={3}>
         <Grid.Row>
@@ -31,16 +34,17 @@ export default class BookAccordion extends Component {
 
         <Grid.Row>
           <Header as="h3">Files</Header>
-          <List>
+          <List style={wrapWords}>
             {this.props.data.files.map(file => (
               <List.Item as="a">{file}</List.Item>
             ))}
           </List>
+          <div className="ui divider" />
         </Grid.Row>
 
         <Grid.Row>
           <Header as="h3">Links</Header>
-          <List>
+          <List style={wrapWords}>
             {this.props.data.booklinks.map(link => (
               <List.Item as="a">{link}</List.Item>
             ))}
