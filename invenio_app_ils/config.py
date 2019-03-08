@@ -389,7 +389,7 @@ CIRCULATION_ITEM_EXISTS = circulation_item_exists
 
 CIRCULATION_ITEM_LOCATION_RETRIEVER = circulation_item_location_retriever
 
-CIRCULATION_POLICIES = dict(
+CIRCULATION_POLICIES.update(dict(
     checkout=dict(
         duration_default=circulation_default_loan_duration,
         duration_validate=circulation_is_loan_duration_valid,
@@ -400,7 +400,7 @@ CIRCULATION_POLICIES = dict(
         duration_default=circulation_default_extension_duration,
         max_count=circulation_default_extension_max_count
     ),
-)
+))
 
 CIRCULATION_ITEM_RESOLVING_PATH = \
     "/api/resolver/circulation/loans/<loan_pid>/item"
