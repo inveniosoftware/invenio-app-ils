@@ -36,8 +36,6 @@ export default class RequestNewLoanForm extends Component {
       { key: '2', value: '2', text: 'UPS' },
     ];
 
-    console.log(this.state);
-
     return (
       <Transition visible={this.props.visible} animation="scale" duration={500}>
         <Form>
