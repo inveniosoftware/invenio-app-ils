@@ -9,6 +9,7 @@ import {
 } from '../../../../../common/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
+import { pick } from 'lodash/object';
 
 export default class ItemPastLoans extends Component {
   constructor(props) {
@@ -42,7 +43,19 @@ export default class ItemPastLoans extends Component {
   };
 
   prepareData(data) {
-    return data.hits.map(row => formatter.loan.toTable(row));
+    return data.hits.map(row => {
+      return pick(formatter.loan.toTable(row), [
+        'ID',
+        'Updated',
+        'Patron ID',
+        'Document ID',
+        'State',
+        'Start date',
+        'End date',
+        'Transaction date',
+        'Renewals',
+      ]);
+    });
   }
 
   _render_table(data) {

@@ -17,7 +17,6 @@ export default class RequestNewLoanForm extends Component {
 
     const loanData = {
       document_pid: docPid,
-      patron_pid: '111', // FIXME: change this to be able to search for the user
     };
     const loanPeriodOptions = [
       { key: '1', value: '1', text: '2 Weeks' },

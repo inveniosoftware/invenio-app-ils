@@ -10,8 +10,9 @@ import {
 } from '../../../../../common/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
-import { fromISO, toShortDate } from '../../../../../common/api/date';
+
 import _isEmpty from 'lodash/isEmpty';
+import { pick } from 'lodash/object';
 
 export default class PatronCurrentLoans extends Component {
   constructor(props) {
@@ -47,12 +48,13 @@ export default class PatronCurrentLoans extends Component {
 
   prepareData(data) {
     return data.hits.map(row => {
-      let tableRow = formatter.loan.toTable(row);
-      tableRow['Item barcode'] = row.item.barcode;
-      tableRow['Start date'] = toShortDate(fromISO(row.start_date));
-      delete tableRow['Patron ID'];
-      delete tableRow['State'];
-      return tableRow;
+      return pick(formatter.loan.toTable(row), [
+        'ID',
+        'Item barcode',
+        'Start date',
+        'End date',
+        'Renewals',
+      ]);
     });
   }
 

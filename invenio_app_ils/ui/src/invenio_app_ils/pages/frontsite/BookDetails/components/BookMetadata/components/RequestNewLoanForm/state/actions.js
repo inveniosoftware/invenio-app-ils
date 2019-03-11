@@ -7,11 +7,12 @@ import {
 } from '../../../../../../../../common/components/Notifications';
 
 export const requestNewLoanForBook = (docPid, loan) => {
-  return async (dispatch, getState) => {
+  return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
     const currentUser = sessionManager.user;
+    loan['patron_pid'] = currentUser.id;
     await loanApi
       .postAction(
         `${loanApi.url}request`,

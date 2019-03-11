@@ -3,6 +3,7 @@ export const ApiURLS = {
     loan: '/circulation/loans/:loanPid',
     list: '/circulation/loans/',
     checkout: '/circulation/loans/checkout',
+    request: '/circulation/loans/request',
   },
   items: {},
   documents: {},

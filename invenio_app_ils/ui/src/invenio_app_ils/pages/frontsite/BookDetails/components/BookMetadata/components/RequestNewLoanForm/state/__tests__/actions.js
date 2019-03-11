@@ -5,6 +5,7 @@ import { initialState } from '../reducer';
 import * as types from '../types';
 import { loan as loanApi } from '../../../../../../../../../common/api';
 import { sessionManager } from '../../../../../../../../../authentication/services';
+import { ApiURLS } from '../../../../../../../../../common/api/urls';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -46,9 +47,9 @@ describe('Request new loan actions', () => {
         .dispatch(actions.requestNewLoanForBook('123', { document_pid: '123' }))
         .then(() => {
           expect(mockPost).toHaveBeenCalledWith(
-            '/circulation/loans/request',
+            ApiURLS.loans.request,
             '123',
-            { document_pid: '123' },
+            { document_pid: '123', patron_pid: sessionManager.user.id },
             sessionManager.user.id,
             sessionManager.user.locationPid
           );
@@ -72,9 +73,9 @@ describe('Request new loan actions', () => {
         .dispatch(actions.requestNewLoanForBook('123', { document_pid: '123' }))
         .then(() => {
           expect(mockPost).toHaveBeenCalledWith(
-            '/circulation/loans/request',
+            ApiURLS.loans.request,
             '123',
-            { document_pid: '123' },
+            { document_pid: '123', patron_pid: sessionManager.user.id },
             sessionManager.user.id,
             sessionManager.user.locationPid
           );

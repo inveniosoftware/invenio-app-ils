@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
-import { toShortDateTime } from '../../../../../common/api/date';
 import { ResultsTable } from '../../../../../common/components';
 import { item as itemApi } from '../../../../../common/api';
 
@@ -10,6 +9,8 @@ import {
   viewItemDetailsUrl,
 } from '../../../../../common/urls';
 import { SeeAllButton } from '../../../components/buttons';
+import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import { omit, pick } from 'lodash/object';
 
 export default class DocumentItems extends Component {
   constructor(props) {
@@ -23,8 +24,6 @@ export default class DocumentItems extends Component {
     const { document_pid } = this.props.document;
     this.fetchDocumentItems(document_pid);
   }
-
-  _getFormattedDate = d => (d ? toShortDateTime(d) : '');
 
   _showDetailsHandler = item_pid =>
     this.props.history.push(this.showDetailsUrl(item_pid));
@@ -44,15 +43,17 @@ export default class DocumentItems extends Component {
   };
 
   prepareData(data) {
-    return data.hits.map(row => ({
-      ID: row.item_pid,
-      Updated: this._getFormattedDate(row.updated),
-      Barcode: row.barcode,
-      Medium: row.medium,
-      Status: row.status,
-      Location: row.location ? row.location : '-',
-      Shelf: row.shelf,
-    }));
+    return data.hits.map(row => {
+      const entry = formatter.item.toTable(row);
+      return pick(entry, [
+        'ID',
+        'Barcode',
+        'Status',
+        'Medium',
+        'Location',
+        'Shelf',
+      ]);
+    });
   }
 
   _render_table(data) {

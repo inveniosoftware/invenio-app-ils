@@ -7,7 +7,7 @@ import { BackOfficeURLS } from '../../../../../../common/urls';
 import DocumentPendingLoans from '../DocumentPendingLoans';
 
 Settings.defaultZoneName = 'utc';
-const d = fromISO('2018-01-01T11:05:00+01:00');
+const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 
 describe('DocumentPendingLoans tests', () => {
   let component;
@@ -70,20 +70,30 @@ describe('DocumentPendingLoans tests', () => {
     const data = {
       hits: [
         {
+          id: 1,
+          updated: stringDate,
+          created: stringDate,
           loan_pid: 'loan1',
-          patron_pid: 'patron_1',
-          updated: d,
-          created: d,
-          start_date: d,
-          end_date: d,
+          metadata: {
+            loan_pid: 'loan1',
+            document_pid: 'doc1',
+            patron_pid: 'patron_1',
+            start_date: stringDate,
+            end_date: stringDate,
+          },
         },
         {
+          id: 2,
+          updated: stringDate,
+          created: stringDate,
           loan_pid: 'loan2',
-          patron_pid: 'patron_2',
-          updated: d,
-          created: d,
-          start_date: d,
-          end_date: d,
+          metadata: {
+            loan_pid: 'loan2',
+            document_pid: 'doc1',
+            patron_pid: 'patron_2',
+            start_date: stringDate,
+            end_date: stringDate,
+          },
         },
       ],
       total: 2,
@@ -117,25 +127,34 @@ describe('DocumentPendingLoans tests', () => {
     const data = {
       hits: [
         {
+          id: 1,
+          updated: stringDate,
+          created: stringDate,
           loan_pid: 'loan1',
-          patron_pid: 'patron_1',
-          updated: d,
-          created: d,
-          start_date: d,
-          end_date: d,
+          metadata: {
+            loan_pid: 'loan1',
+            document_pid: 'doc1',
+            patron_pid: 'patron_1',
+            start_date: stringDate,
+            end_date: stringDate,
+          },
         },
         {
+          id: 2,
+          updated: stringDate,
+          created: stringDate,
           loan_pid: 'loan2',
-          patron_pid: 'patron_2',
-          updated: d,
-          start_date: d,
-          end_date: d,
-          created: d,
+          metadata: {
+            loan_pid: 'loan2',
+            document_pid: 'doc1',
+            patron_pid: 'patron_2',
+            start_date: stringDate,
+            end_date: stringDate,
+          },
         },
       ],
       total: 2,
     };
-
     component = mount(
       <DocumentPendingLoans
         document={doc}
@@ -162,15 +181,33 @@ describe('DocumentPendingLoans tests', () => {
     const data = {
       hits: [
         {
+          id: 1,
+          updated: stringDate,
+          created: stringDate,
           loan_pid: 'loan1',
-          patron_pid: 'patron_1',
-          updated: d,
-          created: d,
-          start_date: d,
-          end_date: d,
+          metadata: {
+            loan_pid: 'loan1',
+            document_pid: 'doc1',
+            patron_pid: 'patron_1',
+            start_date: stringDate,
+            end_date: stringDate,
+          },
+        },
+        {
+          id: 2,
+          updated: stringDate,
+          created: stringDate,
+          loan_pid: 'loan2',
+          metadata: {
+            loan_pid: 'loan2',
+            document_pid: 'doc1',
+            patron_pid: 'patron_2',
+            start_date: stringDate,
+            end_date: stringDate,
+          },
         },
       ],
-      total: 1,
+      total: 2,
     };
 
     component = mount(

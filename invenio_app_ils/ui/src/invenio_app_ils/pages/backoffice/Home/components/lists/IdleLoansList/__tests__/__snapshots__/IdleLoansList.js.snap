@@ -32,20 +32,30 @@ exports[`IdleLoansList tests should render loans 1`] = `
     Object {
       "hits": Array [
         Object {
-          "created": "2018-01-01T10:05:00.000Z",
-          "end_date": "2018-01-01T11:05:00+01:00",
+          "created": "2018-01-01T11:05:00+01:00",
+          "id": 1,
           "loan_pid": "loan1",
-          "patron_pid": "patron_1",
-          "start_date": "2018-01-01T11:05:00+01:00",
-          "updated": "2018-01-01T10:05:00.000Z",
+          "metadata": Object {
+            "document_pid": "doc1",
+            "end_date": "2018-01-01T11:05:00+01:00",
+            "loan_pid": "loan1",
+            "patron_pid": "patron_1",
+            "start_date": "2018-01-01T11:05:00+01:00",
+          },
+          "updated": "2018-01-01T11:05:00+01:00",
         },
         Object {
-          "created": "2018-01-01T10:05:00.000Z",
-          "end_date": "2018-01-01T11:05:00+01:00",
+          "created": "2018-01-01T11:05:00+01:00",
+          "id": 2,
           "loan_pid": "loan2",
-          "patron_pid": "patron_2",
-          "start_date": "2018-01-01T11:05:00+01:00",
-          "updated": "2018-01-01T10:05:00.000Z",
+          "metadata": Object {
+            "document_pid": "doc1",
+            "end_date": "2018-01-01T11:05:00+01:00",
+            "loan_pid": "loan2",
+            "patron_pid": "patron_2",
+            "start_date": "2018-01-01T11:05:00+01:00",
+          },
+          "updated": "2018-01-01T11:05:00+01:00",
         },
       ],
       "total": 2,
@@ -66,16 +76,18 @@ exports[`IdleLoansList tests should render loans 1`] = `
         rows={
           Array [
             Object {
+              "Document ID": "doc1",
               "ID": "loan1",
-              "Last update": "2018-01-01 10:05",
               "Patron ID": "patron_1",
-              "State": undefined,
+              "Start date": "2018-01-01 10:05",
+              "Updated": "2018-01-01 10:05",
             },
             Object {
+              "Document ID": "doc1",
               "ID": "loan2",
-              "Last update": "2018-01-01 10:05",
               "Patron ID": "patron_2",
-              "State": undefined,
+              "Start date": "2018-01-01 10:05",
+              "Updated": "2018-01-01 10:05",
             },
           ]
         }
@@ -156,9 +168,10 @@ exports[`IdleLoansList tests should render loans 1`] = `
                   columns={
                     Array [
                       "ID",
+                      "Updated",
                       "Patron ID",
-                      "State",
-                      "Last update",
+                      "Document ID",
+                      "Start date",
                     ]
                   }
                   withRowAction={true}
@@ -213,6 +226,21 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
+                            key="Updated"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Updated
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
                             key="Patron ID"
                           >
                             <TableCell
@@ -228,7 +256,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="State"
+                            key="Document ID"
                           >
                             <TableCell
                               as="th"
@@ -237,13 +265,13 @@ exports[`IdleLoansList tests should render loans 1`] = `
                               <th
                                 className=""
                               >
-                                State
+                                Document ID
                               </th>
                             </TableCell>
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Last update"
+                            key="Start date"
                           >
                             <TableCell
                               as="th"
@@ -252,7 +280,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                               <th
                                 className=""
                               >
-                                Last update
+                                Start date
                               </th>
                             </TableCell>
                           </TableHeaderCell>
@@ -265,25 +293,28 @@ exports[`IdleLoansList tests should render loans 1`] = `
                   columns={
                     Array [
                       "ID",
+                      "Updated",
                       "Patron ID",
-                      "State",
-                      "Last update",
+                      "Document ID",
+                      "Start date",
                     ]
                   }
                   rowActionClickHandler={[Function]}
                   rows={
                     Array [
                       Object {
+                        "Document ID": "doc1",
                         "ID": "loan1",
-                        "Last update": "2018-01-01 10:05",
                         "Patron ID": "patron_1",
-                        "State": undefined,
+                        "Start date": "2018-01-01 10:05",
+                        "Updated": "2018-01-01 10:05",
                       },
                       Object {
+                        "Document ID": "doc1",
                         "ID": "loan2",
-                        "Last update": "2018-01-01 10:05",
                         "Patron ID": "patron_2",
-                        "State": undefined,
+                        "Start date": "2018-01-01 10:05",
+                        "Updated": "2018-01-01 10:05",
                       },
                     ]
                   }
@@ -351,8 +382,20 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Patron ID-loan1"
+                            data-test="Updated-loan1"
                             key="1-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="Updated-loan1"
+                            >
+                              2018-01-01 10:05
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Patron ID-loan1"
+                            key="2-loan1"
                           >
                             <td
                               className=""
@@ -363,24 +406,24 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="State-loan1"
-                            key="2-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="State-loan1"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Last update-loan1"
+                            data-test="Document ID-loan1"
                             key="3-loan1"
                           >
                             <td
                               className=""
-                              data-test="Last update-loan1"
+                              data-test="Document ID-loan1"
+                            >
+                              doc1
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Start date-loan1"
+                            key="4-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="Start date-loan1"
                             >
                               2018-01-01 10:05
                             </td>
@@ -444,8 +487,20 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Patron ID-loan2"
+                            data-test="Updated-loan2"
                             key="1-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="Updated-loan2"
+                            >
+                              2018-01-01 10:05
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Patron ID-loan2"
+                            key="2-loan2"
                           >
                             <td
                               className=""
@@ -456,24 +511,24 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="State-loan2"
-                            key="2-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="State-loan2"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Last update-loan2"
+                            data-test="Document ID-loan2"
                             key="3-loan2"
                           >
                             <td
                               className=""
-                              data-test="Last update-loan2"
+                              data-test="Document ID-loan2"
+                            >
+                              doc1
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Start date-loan2"
+                            key="4-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="Start date-loan2"
                             >
                               2018-01-01 10:05
                             </td>
@@ -485,7 +540,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={4}
+                  columnsNumber={5}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}

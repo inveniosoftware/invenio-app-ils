@@ -8,9 +8,9 @@ import {
   loanSearchQueryUrl,
 } from '../../../../../../common/urls';
 import { listQuery } from './state/listQuery';
-import { toShortDate } from '../../../../../../common/api/date';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
+import { pick } from 'lodash/object';
 
 export default class RenewedLoansList extends Component {
   constructor(props) {
@@ -39,11 +39,14 @@ export default class RenewedLoansList extends Component {
 
   prepareData(data) {
     return data.hits.map(row => {
-      let serialized = formatter.loan.toTable(row);
-      delete serialized['Request created'];
-      serialized['Last update'] = toShortDate(row.updated);
-      serialized['Renewals'] = row.extension_count;
-      return serialized;
+      return pick(formatter.loan.toTable(row), [
+        'ID',
+        'Patron ID',
+        'State',
+        'Item barcode',
+        'End date',
+        'Renewals',
+      ]);
     });
   }
 

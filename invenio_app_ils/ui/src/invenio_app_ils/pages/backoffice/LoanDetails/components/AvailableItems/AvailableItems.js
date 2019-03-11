@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Message, Header, Table, Button } from 'semantic-ui-react';
-import { Loader, Error } from '../../../../../common/components';
+import { Loader, Error, ResultsTable } from '../../../../../common/components';
 import './AvailableItems.scss';
+import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import { item as itemApi } from '../../../../../common/api';
+import { SeeAllButton } from '../../../components/buttons/SeeAllButton';
+import { pick } from 'lodash/object';
 
 export default class AvailableItems extends Component {
   constructor(props) {
@@ -12,72 +16,75 @@ export default class AvailableItems extends Component {
   }
 
   componentDidMount() {
-    const { document_pid } = this.props.loan;
-    this.fetchAvailableItems(document_pid);
+    this.fetchAvailableItems(this.props.loan.metadata.document_pid);
   }
 
-  _renderAvailableItems = availableItems => {
-    const _availableItems = availableItems
-      .slice(0, this.props.showMaxAvailableItems)
-      .map(item => this._renderItem(item));
-    return (
-      <Table singleLine selectable className="document-items">
-        <Table.Header>
-          <Table.Row data-test="header">
-            <Table.HeaderCell />
-            <Table.HeaderCell>Barcode</Table.HeaderCell>
-            <Table.HeaderCell>
-              <span>Status</span>
-            </Table.HeaderCell>
-            <Table.HeaderCell>Location</Table.HeaderCell>
-            <Table.HeaderCell />
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>{_availableItems}</Table.Body>
-      </Table>
-    );
+  _showDetailsHandler = item_pid =>
+    this.props.history.push(this.showDetailsUrl(item_pid));
+
+  _seeAllButton = () => {
+    const { document_pid } = this.props.loan.metadata;
+    const _click = () =>
+      this.props.history.push(
+        this.seeAllUrl(
+          itemApi
+            .query()
+            .withDocPid(document_pid)
+            .qs()
+        )
+      );
+    return <SeeAllButton clickHandler={() => _click()} />;
   };
 
-  _renderItem = item => {
+  _assignItemButton(item) {
     return (
-      <Table.Row key={item.item_pid}>
-        <Table.Cell />
-        <Table.Cell>{item.barcode}</Table.Cell>
-        <Table.Cell>{item.status}</Table.Cell>
-        <Table.Cell>{item.internal_location}</Table.Cell>
-        <Table.Cell textAlign="right">
-          <Button
-            size="mini"
-            color="teal"
-            onClick={() => {
-              this.assignItemToLoan(item.id, this.props.loan.loan_pid);
-            }}
-          >
-            assign
-          </Button>
-        </Table.Cell>
-      </Table.Row>
+      <Button
+        size="mini"
+        color="teal"
+        onClick={() => {
+          this.assignItemToLoan(item.id, this.props.loan.loan_pid);
+        }}
+      >
+        assign
+      </Button>
     );
-  };
+  }
 
-  _renderAvailableItemsOrEmpty = availableItems => {
-    return availableItems.length ? (
-      this._renderAvailableItems(availableItems)
-    ) : (
-      <Message data-test="no-results">
-        There are no available items for this document
-      </Message>
+  prepareData(data) {
+    return data.hits.map(row => {
+      const entry = formatter.item.toTable(row);
+      entry['Actions'] = this._assignItemButton(row);
+      return pick(entry, [
+        'ID',
+        'Barcode',
+        'Status',
+        'Medium',
+        'Location',
+        'Shelf',
+        'Actions',
+      ]);
+    });
+  }
+
+  _renderTable(data) {
+    const rows = this.prepareData(data);
+    rows.totalHits = data.total;
+    return (
+      <ResultsTable
+        rows={rows}
+        title={'Available items'}
+        rowActionClickHandler={this._showDetailsHandler}
+        seeAllComponent={this._seeAllButton()}
+        showMaxRows={this.props.showMaxItems}
+      />
     );
-  };
+  }
 
   render() {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>
-          <Header as="h3">Available items</Header>
-          {this._renderAvailableItemsOrEmpty(data.hits)}
-        </Error>
+        <Error error={error}>{this._renderTable(data)}</Error>
       </Loader>
     );
   }

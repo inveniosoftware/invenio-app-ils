@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { document as documentApi } from '../../../../../common/api';
-import { fromISO, toShortDate } from '../../../../../common/api/date';
 import { openRecordEditor } from '../../../../../common/urls';
 import { ResultsTable } from '../../../../../common/components';
 import { NewButton } from '../../../components/buttons';
+import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import { pick } from 'lodash/object';
 
 export class ResultsList extends Component {
   constructor(props) {
@@ -12,16 +13,16 @@ export class ResultsList extends Component {
     this.viewDetailsClickHandler = this.props.viewDetailsClickHandler;
   }
 
-  _getFormattedDate = d => (d ? toShortDate(fromISO(d)) : '');
-
   prepareData(data) {
-    return data.map(row => ({
-      ID: row.metadata.document_pid,
-      Title: row.metadata.title,
-      Authors: row.metadata.authors,
-      Created: this._getFormattedDate(row.created),
-      Updated: this._getFormattedDate(row.updated),
-    }));
+    return data.map(row => {
+      return pick(formatter.document.toTable(row), [
+        'ID',
+        'Created',
+        'Updated',
+        'Title',
+        'Authors',
+      ]);
+    });
   }
 
   render() {

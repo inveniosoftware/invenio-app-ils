@@ -36,20 +36,20 @@ export default class DocumentMetadata extends Component {
   render() {
     const document = this.props.documentDetails;
     const rows = [
-      { name: 'Title', value: document.title },
-      { name: 'Authors', value: document.authors },
+      { name: 'Title', value: document.metadata.title },
+      { name: 'Authors', value: document.metadata.authors },
     ];
-    if (!_isEmpty(document.keywords)) {
+    if (!_isEmpty(document.metadata.keywords)) {
       rows.push({
         name: 'Keywords',
-        value: this._renderKeywords(document.keywords),
+        value: this._renderKeywords(document.metadata.keywords),
       });
     }
     const header = (
       <Grid.Row>
         <Grid.Column width={14} verticalAlign={'middle'}>
           <Header as="h1">
-            Document #{document.document_pid} - {document.title}
+            Document #{document.document_pid} - {document.metadata.title}
           </Header>
         </Grid.Column>
         <Grid.Column width={2} textAlign={'right'}>
@@ -73,7 +73,7 @@ export default class DocumentMetadata extends Component {
             <Grid.Column>
               <Container>
                 <Header as="h3">Abstract</Header>
-                <p>{document.abstracts}</p>
+                <p>{document.metadata.abstracts}</p>
               </Container>
             </Grid.Column>
           </Grid.Row>

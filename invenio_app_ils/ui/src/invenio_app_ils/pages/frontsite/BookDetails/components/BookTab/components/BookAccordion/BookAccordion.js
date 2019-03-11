@@ -14,7 +14,7 @@ export default class BookAccordion extends Component {
 
   render() {
     const { activeIndex } = this.state;
-
+    const { data } = this.props;
     return (
       <Accordion fluid styled>
         <Accordion.Title
@@ -26,7 +26,7 @@ export default class BookAccordion extends Component {
           Abstract
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>
-          <p>{this.props.data.abstracts[0]}</p>
+          <p>{data.metadata.abstracts[0]}</p>
         </Accordion.Content>
 
         <Accordion.Title
@@ -38,7 +38,7 @@ export default class BookAccordion extends Component {
           Information
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 1}>
-          {this.props.data.keywords.map(keyword => (
+          {data.metadata.keywords.map(keyword => (
             <p key={keyword.keyword_pid}>{keyword.name}</p>
           ))}
         </Accordion.Content>
@@ -52,7 +52,7 @@ export default class BookAccordion extends Component {
           Chapters
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 2}>
-          <p>{this.props.data.chapters[0]}</p>
+          <p>{data.metadata.chapters[0]}</p>
         </Accordion.Content>
       </Accordion>
     );

@@ -6,7 +6,7 @@ import { Button } from 'semantic-ui-react';
 
 Settings.defaultZoneName = 'utc';
 
-const d = '2018-01-01';
+const stringDate = '2018-01-01';
 
 describe('ResultsTable tests', () => {
   let component;
@@ -34,17 +34,17 @@ describe('ResultsTable tests', () => {
         loan_pid: 'loan1',
         ID: '1',
         patron_pid: 'patron_1',
-        updated: d,
-        start_date: d,
-        end_date: d,
+        updated: stringDate,
+        start_date: stringDate,
+        end_date: stringDate,
       },
       {
         loan_pid: 'loan2',
         ID: '2',
         patron_pid: 'patron_2',
-        updated: d,
-        start_date: d,
-        end_date: d,
+        updated: stringDate,
+        start_date: stringDate,
+        end_date: stringDate,
       },
     ];
 
@@ -80,16 +80,16 @@ describe('ResultsTable tests', () => {
       {
         ID: 'loan1',
         patron_pid: 'patron_1',
-        updated: d,
-        start_date: d,
-        end_date: d,
+        updated: stringDate,
+        start_date: stringDate,
+        end_date: stringDate,
       },
       {
         ID: 'loan2',
         patron_pid: 'patron_2',
-        updated: d,
-        start_date: d,
-        end_date: d,
+        updated: stringDate,
+        start_date: stringDate,
+        end_date: stringDate,
       },
     ];
 
@@ -116,16 +116,16 @@ describe('ResultsTable tests', () => {
       {
         ID: 'loan1',
         patron_pid: 'patron_1',
-        updated: d,
-        start_date: d,
-        end_date: d,
+        updated: stringDate,
+        start_date: stringDate,
+        end_date: stringDate,
       },
       {
         ID: 'loan2',
         patron_pid: 'patron_2',
-        updated: d,
-        start_date: d,
-        end_date: d,
+        updated: stringDate,
+        start_date: stringDate,
+        end_date: stringDate,
       },
     ];
 
@@ -151,16 +151,16 @@ describe('ResultsTable tests', () => {
       {
         ID: 'loan1',
         patron_pid: 'patron_1',
-        updated: d,
-        start_date: d,
-        end_date: d,
+        updated: stringDate,
+        start_date: stringDate,
+        end_date: stringDate,
       },
       {
         ID: 'loan2',
         patron_pid: 'patron_2',
-        updated: d,
-        start_date: d,
-        end_date: d,
+        updated: stringDate,
+        start_date: stringDate,
+        end_date: stringDate,
       },
     ];
 
@@ -202,9 +202,9 @@ describe('ResultsTable tests', () => {
       {
         ID: 'loan1',
         patron_pid: 'patron_1',
-        updated: d,
-        start_date: d,
-        end_date: d,
+        updated: stringDate,
+        start_date: stringDate,
+        end_date: stringDate,
       },
     ];
 
@@ -236,9 +236,9 @@ describe('ResultsTable tests', () => {
       {
         ID: 'loan1',
         patron_pid: 'patron_1',
-        updated: d,
-        start_date: d,
-        end_date: d,
+        updated: stringDate,
+        start_date: stringDate,
+        end_date: stringDate,
       },
     ];
 

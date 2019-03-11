@@ -7,12 +7,12 @@ import { ResultsList } from '../components';
 Settings.defaultZoneName = 'utc';
 
 describe('ItemsSearch ResultsList tests', () => {
-  const d = fromISO('2018-01-01T11:05:00+01:00');
+  const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 
   const results = [
     {
       id: 987,
-      created: toISO(d),
+      created: toISO(stringDate),
       metadata: {
         item_pid: 987,
         barcode: '9865745223',

@@ -6,8 +6,7 @@ import { viewLoanDetailsUrl } from '../../../../../../../common/urls';
 import IdleLoansList from '../IdleLoansList';
 
 Settings.defaultZoneName = 'utc';
-const d = fromISO('2018-01-01T11:05:00+01:00');
-const str_date = '2018-01-01T11:05:00+01:00';
+const stringDate = '2018-01-01T11:05:00+01:00';
 
 describe('IdleLoansList tests', () => {
   let component;
@@ -60,20 +59,30 @@ describe('IdleLoansList tests', () => {
     const data = {
       hits: [
         {
+          id: 1,
+          updated: stringDate,
+          created: stringDate,
           loan_pid: 'loan1',
-          patron_pid: 'patron_1',
-          updated: d,
-          created: d,
-          start_date: str_date,
-          end_date: str_date,
+          metadata: {
+            loan_pid: 'loan1',
+            patron_pid: 'patron_1',
+            start_date: stringDate,
+            end_date: stringDate,
+            document_pid: 'doc1',
+          },
         },
         {
+          id: 2,
+          updated: stringDate,
+          created: stringDate,
           loan_pid: 'loan2',
-          patron_pid: 'patron_2',
-          updated: d,
-          created: d,
-          start_date: str_date,
-          end_date: str_date,
+          metadata: {
+            loan_pid: 'loan2',
+            patron_pid: 'patron_2',
+            start_date: stringDate,
+            end_date: stringDate,
+            document_pid: 'doc1',
+          },
         },
       ],
       total: 2,
@@ -112,13 +121,17 @@ describe('IdleLoansList tests', () => {
     const data = {
       hits: [
         {
-          ID: 'loan1',
+          id: 1,
+          updated: stringDate,
+          created: stringDate,
           loan_pid: 'loan1',
-          patron_pid: 'patron_1',
-          updated: d,
-          created: d,
-          start_date: str_date,
-          end_date: str_date,
+          metadata: {
+            loan_pid: 'loan1',
+            document_pid: 'doc1',
+            patron_pid: 'patron_1',
+            start_date: stringDate,
+            end_date: stringDate,
+          },
         },
       ],
       total: 1,
