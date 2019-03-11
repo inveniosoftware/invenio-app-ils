@@ -30,12 +30,24 @@ import './DocumentsSearch.scss';
 
 export class DocumentsSearch extends Component {
   _renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
+    const helperFields = [
+      {
+        name: 'author',
+        field: 'authors.full_name',
+        defaultValue: '"Doe, John"',
+      },
+      {
+        name: 'created',
+        field: '_created',
+      },
+    ];
     return (
       <DocumentsSearchBar
         currentQueryString={queryString}
         onInputChange={onInputChange}
         executeSearch={executeSearch}
         placeholder={'Search for documents'}
+        queryHelperFields={helperFields}
       />
     );
   };
@@ -148,6 +160,15 @@ export class DocumentsSearch extends Component {
         <Grid.Column width={5} />
       </Grid>
     );
+  };
+
+  _renderAggregations = () => {
+    const components = config.AGGREGATIONS.map(agg => (
+      <div className="aggregator" key={agg.field}>
+        <Aggregator title={agg.title} field={agg.field} />
+      </div>
+    ));
+    return <div className="aggregators">{components}</div>;
   };
 
   render() {

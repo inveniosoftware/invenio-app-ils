@@ -71,7 +71,6 @@ from .circulation.utils import (  # isort:skip
     circulation_can_be_requested,
 )
 
-
 from .permissions import (  # isort:skip
     authenticated_user_permission,
     backoffice_permission,
@@ -238,7 +237,6 @@ OAISERVER_ID_PREFIX = "oai:invenio_app_ils.org:"
 DEBUG = True
 DEBUG_TB_ENABLED = True
 DEBUG_TB_INTERCEPT_REDIRECTS = False
-
 
 _DOCID_CONVERTER = (
     'pid(docid, record_class="invenio_app_ils.records.api:Document")'
@@ -492,7 +490,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         pid_fetcher=CIRCULATION_LOAN_FETCHER,
         search_class=LoansSearch,
         search_factory_imp="invenio_app_ils.circulation.search"
-        ":circulation_search_factory",
+                           ":circulation_search_factory",
         record_class="invenio_circulation.api:Loan",
         indexer_class=LoanIndexer,
         record_serializers={
@@ -564,9 +562,17 @@ RECORDS_REST_FACETS = dict(
         aggs=dict(
             keywords=dict(
                 terms=dict(field="keywords.name", size=FACET_KEYWORD_LIMIT),
-            )
+            ),
+            languages=dict(
+                terms=dict(field='languages')
+            ),
+            document_types=dict(
+                terms=dict(field="document_types")
+            ),
         ),
         filters=dict(
+            document_types=terms_filter('document_types'),
+            languages=terms_filter('languages'),
             keywords=terms_filter("keywords.name")
         )
     ),
@@ -582,7 +588,9 @@ RECORDS_REST_FACETS = dict(
             #     terms=dict(field="internal_location.name"),
             # ),
             circulation_status=dict(
-                terms=dict(field="circulation_status.state"),
+                terms=dict(field="circulation_status.state",
+                           missing="N/A",
+                           ),
             ),
         ),
         filters=dict(
@@ -601,7 +609,7 @@ RECORDS_REST_FACETS = dict(
         filters=dict(
             state=terms_filter('state'),
         )
-    )
+    ),
 )
 
 # PIDSTORE

@@ -9,6 +9,7 @@ describe('LoansSearch SearchBar tests', () => {
   });
 
   const currentQueryString = 'The Gulf: The Making of An American Sea';
+
   it('should render the current query string', () => {
     component = mount(
       <SearchBar
@@ -73,5 +74,42 @@ describe('LoansSearch SearchBar tests', () => {
     const input = component.find('Input').find('button');
     input.simulate('click');
     expect(mockedExecuteSearch).toHaveBeenCalled();
+  });
+
+  it('should render search bar with query helper', () => {
+    const helperFields = [
+      {
+        name: 'author',
+        field: 'authors.full_name',
+        defaultValue: '"Doe, John"',
+      },
+      {
+        name: 'created',
+        field: '_created',
+      },
+    ];
+    const mockedExecuteSearch = jest.fn();
+    const mockedOnInputChange = jest.fn();
+    component = mount(
+      <SearchBar
+        currentQueryString={''}
+        onInputChange={mockedOnInputChange}
+        executeSearch={mockedExecuteSearch}
+        placeholder={'Search'}
+        queryHelperFields={helperFields}
+      />
+    );
+
+    expect(component).toMatchSnapshot();
+
+    const listItem = component.find('ListItem');
+    expect(listItem).toHaveLength(2);
+
+    expect(
+      component
+        .find('ListItem')
+        .at(0)
+        .text()
+    ).toEqual('author');
   });
 });
