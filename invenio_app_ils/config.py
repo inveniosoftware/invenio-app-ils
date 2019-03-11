@@ -413,7 +413,7 @@ CIRCULATION_POLICIES = dict(
     checkout=dict(
         duration_default=circulation_default_loan_duration,
         duration_validate=circulation_is_loan_duration_valid,
-        item_available=circulation_is_item_available
+        item_can_circulate=circulation_is_item_available
     ),
     extension=dict(
         from_end_date=True,

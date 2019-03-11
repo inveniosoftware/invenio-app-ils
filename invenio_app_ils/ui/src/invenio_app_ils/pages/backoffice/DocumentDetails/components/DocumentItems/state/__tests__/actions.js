@@ -11,7 +11,7 @@ const mockStore = configureMockStore(middlewares);
 const mockResponse = {
   data: {
     hits: {
-      hits: [{ id: '123', updated: '2018-01-01T11:05:00+01:00', metadata: {} }],
+      hits: [{ id: 123, updated: '2018-01-01T11:05:00+01:00', metadata: {} }],
     },
   },
 };

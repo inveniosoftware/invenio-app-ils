@@ -68,15 +68,6 @@ export class DocumentsSearch extends Component {
     );
   };
 
-  _renderAggregations = () => {
-    const components = config.AGGREGATIONS.map(agg => (
-      <div className="aggregator" key={agg.field}>
-        <Aggregator title={agg.title} field={agg.field} />
-      </div>
-    ));
-    return <div className="aggregators">{components}</div>;
-  };
-
   _renderEmptyResults = (queryString, resetQuery) => {
     return (
       <Segment placeholder textAlign="center">

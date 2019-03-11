@@ -33,18 +33,28 @@ exports[`PatronLoans tests should render patron loans 1`] = `
       "hits": Array [
         Object {
           "created": "2018-01-01T10:05:00.000Z",
-          "end_date": "2018-01-01T10:05:00.000Z",
+          "id": 1,
           "loan_pid": "loan1",
-          "patron_pid": "patron_1",
-          "start_date": "2018-01-01T10:05:00.000Z",
+          "metadata": Object {
+            "document_pid": "doc1",
+            "end_date": "2018-01-01T10:05:00.000Z",
+            "loan_pid": "loan1",
+            "patron_pid": "patron_1",
+            "start_date": "2018-01-01T10:05:00.000Z",
+          },
           "updated": "2018-01-01T10:05:00.000Z",
         },
         Object {
           "created": "2018-01-01T10:05:00.000Z",
-          "end_date": "2018-01-01T10:05:00.000Z",
+          "id": 2,
           "loan_pid": "loan2",
-          "patron_pid": "patron_1",
-          "start_date": "2018-01-01T10:05:00.000Z",
+          "metadata": Object {
+            "document_pid": "doc1",
+            "end_date": "2018-01-01T10:05:00.000Z",
+            "loan_pid": "loan2",
+            "patron_pid": "patron_2",
+            "start_date": "2018-01-01T10:05:00.000Z",
+          },
           "updated": "2018-01-01T10:05:00.000Z",
         },
       ],
@@ -82,16 +92,18 @@ exports[`PatronLoans tests should render patron loans 1`] = `
         rows={
           Array [
             Object {
-              "Document ID": undefined,
+              "Document ID": "doc1",
+              "Expiration date": "Invalid DateTime",
               "ID": "loan1",
-              "Request created": "2018-01-01 10:05",
-              "Start date": "2018-01-01",
+              "Start date": "2018-01-01 10:05",
+              "Updated": "2018-01-01 10:05",
             },
             Object {
-              "Document ID": undefined,
+              "Document ID": "doc1",
+              "Expiration date": "Invalid DateTime",
               "ID": "loan2",
-              "Request created": "2018-01-01 10:05",
-              "Start date": "2018-01-01",
+              "Start date": "2018-01-01 10:05",
+              "Updated": "2018-01-01 10:05",
             },
           ]
         }
@@ -170,9 +182,10 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                   columns={
                     Array [
                       "ID",
-                      "Request created",
+                      "Updated",
                       "Document ID",
                       "Start date",
+                      "Expiration date",
                     ]
                   }
                   withRowAction={true}
@@ -227,7 +240,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Request created"
+                            key="Updated"
                           >
                             <TableCell
                               as="th"
@@ -236,7 +249,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               <th
                                 className=""
                               >
-                                Request created
+                                Updated
                               </th>
                             </TableCell>
                           </TableHeaderCell>
@@ -270,6 +283,21 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               </th>
                             </TableCell>
                           </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Expiration date"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Expiration date
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
                         </tr>
                       </TableRow>
                     </thead>
@@ -279,25 +307,28 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                   columns={
                     Array [
                       "ID",
-                      "Request created",
+                      "Updated",
                       "Document ID",
                       "Start date",
+                      "Expiration date",
                     ]
                   }
                   rowActionClickHandler={[Function]}
                   rows={
                     Array [
                       Object {
-                        "Document ID": undefined,
+                        "Document ID": "doc1",
+                        "Expiration date": "Invalid DateTime",
                         "ID": "loan1",
-                        "Request created": "2018-01-01 10:05",
-                        "Start date": "2018-01-01",
+                        "Start date": "2018-01-01 10:05",
+                        "Updated": "2018-01-01 10:05",
                       },
                       Object {
-                        "Document ID": undefined,
+                        "Document ID": "doc1",
+                        "Expiration date": "Invalid DateTime",
                         "ID": "loan2",
-                        "Request created": "2018-01-01 10:05",
-                        "Start date": "2018-01-01",
+                        "Start date": "2018-01-01 10:05",
+                        "Updated": "2018-01-01 10:05",
                       },
                     ]
                   }
@@ -365,12 +396,12 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Request created-loan1"
+                            data-test="Updated-loan1"
                             key="1-loan1"
                           >
                             <td
                               className=""
-                              data-test="Request created-loan1"
+                              data-test="Updated-loan1"
                             >
                               2018-01-01 10:05
                             </td>
@@ -384,7 +415,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               className=""
                               data-test="Document ID-loan1"
                             >
-                              -
+                              doc1
                             </td>
                           </TableCell>
                           <TableCell
@@ -396,7 +427,19 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               className=""
                               data-test="Start date-loan1"
                             >
-                              2018-01-01
+                              2018-01-01 10:05
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Expiration date-loan1"
+                            key="4-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="Expiration date-loan1"
+                            >
+                              Invalid DateTime
                             </td>
                           </TableCell>
                         </tr>
@@ -458,12 +501,12 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Request created-loan2"
+                            data-test="Updated-loan2"
                             key="1-loan2"
                           >
                             <td
                               className=""
-                              data-test="Request created-loan2"
+                              data-test="Updated-loan2"
                             >
                               2018-01-01 10:05
                             </td>
@@ -477,7 +520,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               className=""
                               data-test="Document ID-loan2"
                             >
-                              -
+                              doc1
                             </td>
                           </TableCell>
                           <TableCell
@@ -489,7 +532,19 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               className=""
                               data-test="Start date-loan2"
                             >
-                              2018-01-01
+                              2018-01-01 10:05
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Expiration date-loan2"
+                            key="4-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="Expiration date-loan2"
+                            >
+                              Invalid DateTime
                             </td>
                           </TableCell>
                         </tr>
@@ -499,7 +554,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={4}
+                  columnsNumber={5}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}
@@ -646,18 +701,28 @@ exports[`PatronLoans tests should render the see all button when showing only a 
       "hits": Array [
         Object {
           "created": "2018-01-01T10:05:00.000Z",
-          "end_date": "2018-01-01T10:05:00.000Z",
+          "id": 1,
           "loan_pid": "loan1",
-          "patron_pid": "patron_1",
-          "start_date": "2018-01-01T10:05:00.000Z",
+          "metadata": Object {
+            "document_pid": "doc1",
+            "end_date": "2018-01-01T10:05:00.000Z",
+            "loan_pid": "loan1",
+            "patron_pid": "patron_1",
+            "start_date": "2018-01-01T10:05:00.000Z",
+          },
           "updated": "2018-01-01T10:05:00.000Z",
         },
         Object {
           "created": "2018-01-01T10:05:00.000Z",
-          "end_date": "2018-01-01T10:05:00.000Z",
+          "id": 2,
           "loan_pid": "loan2",
-          "patron_pid": "patron_2",
-          "start_date": "2018-01-01T10:05:00.000Z",
+          "metadata": Object {
+            "document_pid": "doc1",
+            "end_date": "2018-01-01T10:05:00.000Z",
+            "loan_pid": "loan2",
+            "patron_pid": "patron_2",
+            "start_date": "2018-01-01T10:05:00.000Z",
+          },
           "updated": "2018-01-01T10:05:00.000Z",
         },
       ],
@@ -694,16 +759,18 @@ exports[`PatronLoans tests should render the see all button when showing only a 
         rows={
           Array [
             Object {
-              "Document ID": undefined,
+              "Document ID": "doc1",
+              "Expiration date": "Invalid DateTime",
               "ID": "loan1",
-              "Request created": "2018-01-01 10:05",
-              "Start date": "2018-01-01",
+              "Start date": "2018-01-01 10:05",
+              "Updated": "2018-01-01 10:05",
             },
             Object {
-              "Document ID": undefined,
+              "Document ID": "doc1",
+              "Expiration date": "Invalid DateTime",
               "ID": "loan2",
-              "Request created": "2018-01-01 10:05",
-              "Start date": "2018-01-01",
+              "Start date": "2018-01-01 10:05",
+              "Updated": "2018-01-01 10:05",
             },
           ]
         }
@@ -782,9 +849,10 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                   columns={
                     Array [
                       "ID",
-                      "Request created",
+                      "Updated",
                       "Document ID",
                       "Start date",
+                      "Expiration date",
                     ]
                   }
                   withRowAction={true}
@@ -839,7 +907,7 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Request created"
+                            key="Updated"
                           >
                             <TableCell
                               as="th"
@@ -848,7 +916,7 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                               <th
                                 className=""
                               >
-                                Request created
+                                Updated
                               </th>
                             </TableCell>
                           </TableHeaderCell>
@@ -882,6 +950,21 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                               </th>
                             </TableCell>
                           </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Expiration date"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Expiration date
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
                         </tr>
                       </TableRow>
                     </thead>
@@ -891,19 +974,21 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                   columns={
                     Array [
                       "ID",
-                      "Request created",
+                      "Updated",
                       "Document ID",
                       "Start date",
+                      "Expiration date",
                     ]
                   }
                   rowActionClickHandler={[Function]}
                   rows={
                     Array [
                       Object {
-                        "Document ID": undefined,
+                        "Document ID": "doc1",
+                        "Expiration date": "Invalid DateTime",
                         "ID": "loan1",
-                        "Request created": "2018-01-01 10:05",
-                        "Start date": "2018-01-01",
+                        "Start date": "2018-01-01 10:05",
+                        "Updated": "2018-01-01 10:05",
                       },
                     ]
                   }
@@ -971,12 +1056,12 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Request created-loan1"
+                            data-test="Updated-loan1"
                             key="1-loan1"
                           >
                             <td
                               className=""
-                              data-test="Request created-loan1"
+                              data-test="Updated-loan1"
                             >
                               2018-01-01 10:05
                             </td>
@@ -990,7 +1075,7 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                               className=""
                               data-test="Document ID-loan1"
                             >
-                              -
+                              doc1
                             </td>
                           </TableCell>
                           <TableCell
@@ -1002,7 +1087,19 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                               className=""
                               data-test="Start date-loan1"
                             >
-                              2018-01-01
+                              2018-01-01 10:05
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Expiration date-loan1"
+                            key="4-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="Expiration date-loan1"
+                            >
+                              Invalid DateTime
                             </td>
                           </TableCell>
                         </tr>
@@ -1012,7 +1109,7 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={4}
+                  columnsNumber={5}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}
@@ -1045,18 +1142,18 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                           >
                             <TableHeaderCell
                               as="th"
-                              colSpan={5}
+                              colSpan={6}
                               textAlign="right"
                             >
                               <TableCell
                                 as="th"
                                 className=""
-                                colSpan={5}
+                                colSpan={6}
                                 textAlign="right"
                               >
                                 <th
                                   className="right aligned"
-                                  colSpan={5}
+                                  colSpan={6}
                                 >
                                   <span>
                                     Showing first 

@@ -2,31 +2,35 @@ import _isEmpty from 'lodash/isEmpty';
 import { fromISO } from '../date';
 
 export function serializeInternalLocationResponse(hit) {
-  const result = { ...hit.metadata };
+  let result = {};
   if (!_isEmpty(hit)) {
-    result['internal_location_pid'] = hit.id;
+    result['id'] = hit.id;
     result['created'] = fromISO(hit.created);
     result['updated'] = fromISO(hit.updated);
-    result['link'] = hit.links.self;
-  }
-  const metadata = hit.metadata;
-  if (!_isEmpty(metadata)) {
-    result['name'] = metadata.name;
-    result['physical_location'] = metadata.physical_location;
-    result['location_email'] = metadata.location.email;
-    result['location_name'] = metadata.location.name;
-    result['location_id'] = metadata.location_pid;
+    if (hit.links) {
+      result['links'] = hit.links;
+    }
+    if (!_isEmpty(hit.metadata)) {
+      result['metadata'] = hit.metadata;
+      result['internal_location_pid'] = hit.metadata.internal_location_pid;
+    }
   }
   return result;
 }
 
 export function serializeLocationResponse(hit) {
-  const result = { ...hit.metadata };
+  let result = {};
   if (!_isEmpty(hit)) {
-    result['location_pid'] = hit.id;
+    result['id'] = hit.id;
     result['created'] = fromISO(hit.created);
     result['updated'] = fromISO(hit.updated);
-    result['link'] = hit.links.self;
+    if (hit.links) {
+      result['links'] = hit.links;
+    }
+    if (!_isEmpty(hit.metadata)) {
+      result['metadata'] = hit.metadata;
+      result['location_pid'] = hit.metadata.location_pid;
+    }
   }
   return result;
 }

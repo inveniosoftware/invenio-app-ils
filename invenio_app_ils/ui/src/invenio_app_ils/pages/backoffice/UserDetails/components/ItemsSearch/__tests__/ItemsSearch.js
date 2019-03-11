@@ -3,6 +3,12 @@ import { shallow, mount } from 'enzyme';
 import ItemsSearch from '../ItemsSearch';
 import { invenioConfig } from '../../../../../../common/config';
 import { invenioConfig as config_mock } from '../../../../../../common/__mocks__/config';
+import { fromISO } from '../../../../../../common/api/date';
+import { Settings } from 'luxon';
+
+Settings.defaultZoneName = 'utc';
+
+const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 
 describe('PatronLoans tests', () => {
   let component;
@@ -53,7 +59,22 @@ describe('PatronLoans tests', () => {
 
     const items = {
       hits: [
-        { item_pid: '4', barcode: '3', document_pid: '4', status: 'LOANABLE' },
+        {
+          id: '1',
+          updated: stringDate,
+          created: stringDate,
+          item_pid: 'item1',
+          metadata: {
+            document_pid: 'doc1',
+            item_pid: 'item1',
+            internal_location: { location: { name: 'Somewhere' } },
+            barcode: '44444',
+            shelf: 'P',
+            status: 'LOANABLE',
+            circulation_status: {},
+            medium: 'book',
+          },
+        },
       ],
       total: 1,
     };

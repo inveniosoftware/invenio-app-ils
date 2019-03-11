@@ -95,13 +95,18 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
     rows={
       Array [
         Object {
-          "Created": "2018-01-01",
+          "Created": "2018-01-01 10:05",
           "Document ID": undefined,
+          "End date": "2018-02-01 10:05",
+          "Expiration date": "Invalid DateTime",
           "ID": 3,
-          "Item ID": undefined,
+          "Item barcode": null,
           "Patron ID": 1,
+          "Renewals": undefined,
+          "Start date": "2018-01-02 10:05",
           "State": "ITEM_ON_LOAN",
-          "Transaction date": "",
+          "Transaction date": "Invalid DateTime",
+          "Updated": "Invalid DateTime",
         },
       ]
     }
@@ -155,12 +160,17 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
               columns={
                 Array [
                   "ID",
-                  "State",
-                  "Item ID",
-                  "Document ID",
-                  "Patron ID",
                   "Created",
+                  "Updated",
+                  "Patron ID",
+                  "Document ID",
+                  "State",
+                  "Item barcode",
+                  "Start date",
+                  "End date",
                   "Transaction date",
+                  "Expiration date",
+                  "Renewals",
                 ]
               }
               withRowAction={true}
@@ -215,7 +225,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                       </TableHeaderCell>
                       <TableHeaderCell
                         as="th"
-                        key="State"
+                        key="Created"
                       >
                         <TableCell
                           as="th"
@@ -224,13 +234,13 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                           <th
                             className=""
                           >
-                            State
+                            Created
                           </th>
                         </TableCell>
                       </TableHeaderCell>
                       <TableHeaderCell
                         as="th"
-                        key="Item ID"
+                        key="Updated"
                       >
                         <TableCell
                           as="th"
@@ -239,22 +249,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                           <th
                             className=""
                           >
-                            Item ID
-                          </th>
-                        </TableCell>
-                      </TableHeaderCell>
-                      <TableHeaderCell
-                        as="th"
-                        key="Document ID"
-                      >
-                        <TableCell
-                          as="th"
-                          className=""
-                        >
-                          <th
-                            className=""
-                          >
-                            Document ID
+                            Updated
                           </th>
                         </TableCell>
                       </TableHeaderCell>
@@ -275,7 +270,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                       </TableHeaderCell>
                       <TableHeaderCell
                         as="th"
-                        key="Created"
+                        key="Document ID"
                       >
                         <TableCell
                           as="th"
@@ -284,7 +279,67 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                           <th
                             className=""
                           >
-                            Created
+                            Document ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="State"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            State
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Item barcode"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Item barcode
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Start date"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Start date
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="End date"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            End date
                           </th>
                         </TableCell>
                       </TableHeaderCell>
@@ -303,6 +358,36 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                           </th>
                         </TableCell>
                       </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Expiration date"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Expiration date
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Renewals"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Renewals
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
                     </tr>
                   </TableRow>
                 </thead>
@@ -312,25 +397,35 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
               columns={
                 Array [
                   "ID",
-                  "State",
-                  "Item ID",
-                  "Document ID",
-                  "Patron ID",
                   "Created",
+                  "Updated",
+                  "Patron ID",
+                  "Document ID",
+                  "State",
+                  "Item barcode",
+                  "Start date",
+                  "End date",
                   "Transaction date",
+                  "Expiration date",
+                  "Renewals",
                 ]
               }
               rowActionClickHandler={[Function]}
               rows={
                 Array [
                   Object {
-                    "Created": "2018-01-01",
+                    "Created": "2018-01-01 10:05",
                     "Document ID": undefined,
+                    "End date": "2018-02-01 10:05",
+                    "Expiration date": "Invalid DateTime",
                     "ID": 3,
-                    "Item ID": undefined,
+                    "Item barcode": null,
                     "Patron ID": 1,
+                    "Renewals": undefined,
+                    "Start date": "2018-01-02 10:05",
                     "State": "ITEM_ON_LOAN",
-                    "Transaction date": "",
+                    "Transaction date": "Invalid DateTime",
+                    "Updated": "Invalid DateTime",
                   },
                 ]
               }
@@ -398,44 +493,32 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="State-3"
+                        data-test="Created-3"
                         key="1-3"
                       >
                         <td
                           className=""
-                          data-test="State-3"
+                          data-test="Created-3"
                         >
-                          ITEM_ON_LOAN
+                          2018-01-01 10:05
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Item ID-3"
+                        data-test="Updated-3"
                         key="2-3"
                       >
                         <td
                           className=""
-                          data-test="Item ID-3"
+                          data-test="Updated-3"
                         >
-                          -
-                        </td>
-                      </TableCell>
-                      <TableCell
-                        as="td"
-                        data-test="Document ID-3"
-                        key="3-3"
-                      >
-                        <td
-                          className=""
-                          data-test="Document ID-3"
-                        >
-                          -
+                          Invalid DateTime
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
                         data-test="Patron ID-3"
-                        key="4-3"
+                        key="3-3"
                       >
                         <td
                           className=""
@@ -446,24 +529,96 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Created-3"
+                        data-test="Document ID-3"
+                        key="4-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Document ID-3"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="State-3"
                         key="5-3"
                       >
                         <td
                           className=""
-                          data-test="Created-3"
+                          data-test="State-3"
                         >
-                          2018-01-01
+                          ITEM_ON_LOAN
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Item barcode-3"
+                        key="6-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Item barcode-3"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Start date-3"
+                        key="7-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Start date-3"
+                        >
+                          2018-01-02 10:05
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="End date-3"
+                        key="8-3"
+                      >
+                        <td
+                          className=""
+                          data-test="End date-3"
+                        >
+                          2018-02-01 10:05
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
                         data-test="Transaction date-3"
-                        key="6-3"
+                        key="9-3"
                       >
                         <td
                           className=""
                           data-test="Transaction date-3"
+                        >
+                          Invalid DateTime
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Expiration date-3"
+                        key="10-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Expiration date-3"
+                        >
+                          Invalid DateTime
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Renewals-3"
+                        key="11-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Renewals-3"
                         >
                           -
                         </td>
@@ -475,7 +630,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
             </ResultsTableBody>
             <ResultsTableFooter
               allRowsNumber={1}
-              columnsNumber={7}
+              columnsNumber={12}
               seeAllComponent={null}
               showMaxRows={10}
             />

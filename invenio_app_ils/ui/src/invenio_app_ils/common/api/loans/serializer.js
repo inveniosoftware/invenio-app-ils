@@ -2,23 +2,30 @@ import _isEmpty from 'lodash/isEmpty';
 import { fromISO } from '../date';
 
 function serializeResponse(hit) {
-  const result = { ...hit.metadata };
+  let result = {};
   if (!_isEmpty(hit)) {
-    result['loan_pid'] = hit.id;
-    result['updated'] = fromISO(hit.updated);
+    result['id'] = hit.id;
     result['created'] = fromISO(hit.created);
+    result['updated'] = fromISO(hit.updated);
     result['availableActions'] = hit.links ? hit.links.actions : {};
-    const loan = hit.metadata;
-    if (!_isEmpty(loan)) {
-      result['item_pid'] = loan.item_pid ? loan.item_pid : '';
-      if (!_isEmpty(loan.item)) {
-        result['item'] = loan.item;
-      }
-      result['start_date'] = fromISO(loan.start_date);
-      result['end_date'] = fromISO(loan.start_date);
-      result['transaction_date'] = fromISO(loan.start_date);
+
+    if (hit.links) {
+      result['links'] = hit.links;
+    }
+    if (!_isEmpty(hit.metadata)) {
+      result['metadata'] = hit.metadata;
+      result['loan_pid'] = hit.metadata.loan_pid;
+      result['metadata']['start_date'] = fromISO(hit.metadata.start_date);
+      result['metadata']['end_date'] = fromISO(hit.metadata.end_date);
+      result['metadata']['transaction_date'] = fromISO(
+        hit.metadata.transaction_date
+      );
+      result['metadata']['request_expire_date'] = fromISO(
+        hit.metadata.request_expire_date
+      );
     }
   }
+
   return result;
 }
 

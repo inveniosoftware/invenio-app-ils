@@ -12,6 +12,7 @@ import { DateTime } from 'luxon';
 import { toShortDateTime } from '../../../../../../common/api/date';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
+import { pick } from 'lodash/object';
 
 export default class IdleLoansList extends Component {
   constructor(props) {
@@ -48,9 +49,13 @@ export default class IdleLoansList extends Component {
   prepareData(data) {
     return data.hits.map(row => {
       let serialized = formatter.loan.toTable(row);
-      delete serialized['Request created'];
-      serialized['Last update'] = toShortDateTime(row.updated);
-      return serialized;
+      return pick(serialized, [
+        'ID',
+        'Updated',
+        'Patron ID',
+        'Document ID',
+        'Start date',
+      ]);
     });
   }
 

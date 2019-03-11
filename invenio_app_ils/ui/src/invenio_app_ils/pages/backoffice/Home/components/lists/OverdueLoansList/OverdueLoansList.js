@@ -10,6 +10,7 @@ import {
 } from '../../../../../../common/urls';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
+import { pick } from 'lodash/object';
 
 export default class OverdueLoansList extends Component {
   constructor(props) {
@@ -44,10 +45,12 @@ export default class OverdueLoansList extends Component {
 
   prepareData(data) {
     return data.hits.map(row => {
-      let serialized = formatter.loan.toTable(row);
-      delete serialized['Request created'];
-      serialized['Expiration date'] = row.request_expire_date;
-      return serialized;
+      return pick(formatter.loan.toTable(row), [
+        'ID',
+        'Patron ID',
+        'Item barcode',
+        'End date',
+      ]);
     });
   }
 

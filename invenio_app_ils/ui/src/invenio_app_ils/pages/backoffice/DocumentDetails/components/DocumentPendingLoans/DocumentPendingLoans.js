@@ -10,6 +10,7 @@ import {
 } from '../../../../../common/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
+import { pick } from 'lodash/object';
 
 export default class DocumentPendingLoans extends Component {
   constructor(props) {
@@ -43,7 +44,10 @@ export default class DocumentPendingLoans extends Component {
   };
 
   prepareData(data) {
-    return data.hits.map(row => formatter.loan.toTable(row));
+    return data.hits.map(row => {
+      const serialized = formatter.loan.toTable(row);
+      return pick(serialized, ['ID', 'Updated', 'Patron ID', 'Start date']);
+    });
   }
 
   _render_table(data) {

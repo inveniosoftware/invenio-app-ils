@@ -5,7 +5,7 @@ import { fromISO } from '../../../../../../common/api/date';
 import ItemPastLoans from '../ItemPastLoans';
 
 Settings.defaultZoneName = 'utc';
-const d = fromISO('2018-01-01T11:05:00+01:00');
+const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 
 describe('ItemPastLoans tests', () => {
   let component;
@@ -68,22 +68,28 @@ describe('ItemPastLoans tests', () => {
     const data = {
       hits: [
         {
+          id: 1,
+          updated: stringDate,
+          created: stringDate,
           loan_pid: 'loan1',
-          patron_pid: 'patron_1',
-          updated: d,
-          created: d,
-          start_date: d,
-          end_date: d,
-          state: 'ITEM_RETURNED',
+          metadata: {
+            loan_pid: 'loan1',
+            patron_pid: 'patron_1',
+            start_date: stringDate,
+            end_date: stringDate,
+          },
         },
         {
+          id: 2,
+          updated: stringDate,
+          created: stringDate,
           loan_pid: 'loan2',
-          patron_pid: 'patron_2',
-          updated: d,
-          created: d,
-          start_date: d,
-          end_date: d,
-          state: 'CANCELLED',
+          metadata: {
+            loan_pid: 'loan2',
+            patron_pid: 'patron_2',
+            start_date: stringDate,
+            end_date: stringDate,
+          },
         },
       ],
       total: 2,

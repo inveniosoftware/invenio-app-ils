@@ -7,6 +7,8 @@ import { InternalLocationList } from './components';
 import { Error, Loader, ResultsTable } from '../../../common/components';
 import { Button } from 'semantic-ui-react';
 import { NewButton } from '../components/buttons';
+import { formatter } from '../../../common/components/ResultsTable/formatters';
+import { omit } from 'lodash/object';
 
 export default class LocationList extends Component {
   constructor(props) {
@@ -19,19 +21,17 @@ export default class LocationList extends Component {
   }
 
   prepareData(data) {
-    return data.hits.map(row => ({
-      ID: row.location_pid,
-      Name: row.name,
-      Address: row.address,
-      Email: row.email,
-      Actions: (
+    return data.hits.map(row => {
+      let serialized = formatter.location.toTable(row);
+      serialized['Actions'] = (
         <Button
           size="small"
           content={'Edit'}
           onClick={() => openRecordEditor(locationApi.url, row.location_pid)}
         />
-      ),
-    }));
+      );
+      return omit(serialized, ['Created', 'Updated', 'Link']);
+    });
   }
 
   _renderResults(data) {

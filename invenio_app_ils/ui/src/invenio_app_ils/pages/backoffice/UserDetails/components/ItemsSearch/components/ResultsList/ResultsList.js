@@ -5,6 +5,7 @@ import { Button, Modal, Header, Icon } from 'semantic-ui-react';
 import { ResultsTableFormatter as formatter } from '../../../../../../../common/components';
 import { invenioConfig } from '../../../../../../../common/config';
 import _isEmpty from 'lodash/isEmpty';
+import { pick } from 'lodash/object';
 
 export class ResultsList extends Component {
   constructor(props) {
@@ -91,13 +92,17 @@ export class ResultsList extends Component {
 
   prepareData(data) {
     return data.hits.map(row => {
-      let serialised = formatter.item.toTable(row);
-      serialised['Actions'] = this.actions(row, row.status);
-      delete serialised['Created'];
-      delete serialised['Updated'];
-      delete serialised['Internal location'];
-      delete serialised['Document ID'];
-      return serialised;
+      let serialized = formatter.item.toTable(row);
+      serialized['Actions'] = this.actions(row, row.metadata.status);
+      return pick(serialized, [
+        'ID',
+        'Barcode',
+        'Document ID',
+        'Status',
+        'Medium',
+        'Circulation status',
+        'Actions',
+      ]);
     });
   }
 

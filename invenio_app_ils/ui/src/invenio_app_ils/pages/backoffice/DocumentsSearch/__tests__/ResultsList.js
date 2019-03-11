@@ -1,23 +1,25 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Settings } from 'luxon';
-import { fromISO, toISO } from '../../../../common/api/date';
+import { fromISO } from '../../../../common/api/date';
 import { ResultsList } from '../components';
 
 Settings.defaultZoneName = 'utc';
 
 describe('DocumentsSearch ResultsList tests', () => {
-  const d = fromISO('2018-01-01T11:05:00+01:00');
+  const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 
   const results = [
     {
       id: 3,
-      created: toISO(d),
+      created: stringDate,
+      updated: stringDate,
+      document_pid: '3',
       metadata: {
-        document_pid: 3,
         authors: ['Author1'],
         title: 'This is a title',
         abstracts: 'This is an abstract',
+        document_pid: '3',
       },
     },
   ];
@@ -68,7 +70,7 @@ describe('DocumentsSearch ResultsList tests', () => {
         viewDetailsClickHandler={mockedClickHandler}
       />
     );
-    const firstId = results[0].metadata.document_pid;
+    const firstId = results[0].document_pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)

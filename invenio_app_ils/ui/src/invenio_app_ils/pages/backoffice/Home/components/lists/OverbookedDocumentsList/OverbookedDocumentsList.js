@@ -10,6 +10,7 @@ import {
 } from '../../../../../../common/urls';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
+import { pick } from 'lodash/object';
 
 export default class OverbookedDocumentsList extends Component {
   constructor(props) {
@@ -43,7 +44,10 @@ export default class OverbookedDocumentsList extends Component {
   };
 
   prepareData(data) {
-    return data.hits.map(row => formatter.document.toTable(row));
+    return data.hits.map(row => {
+      let entry = formatter.document.toTable(row);
+      return pick(entry, ['ID', 'Title', 'Requests', 'Items']);
+    });
   }
 
   _render_table(data) {

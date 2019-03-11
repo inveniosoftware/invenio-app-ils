@@ -13,7 +13,7 @@ const mockResponse = {
     hits: {
       hits: [
         {
-          id: '123',
+          id: 123,
           updated: '2018-01-01T11:05:00+01:00',
           created: '2018-01-01T11:05:00+01:00',
           metadata: {},

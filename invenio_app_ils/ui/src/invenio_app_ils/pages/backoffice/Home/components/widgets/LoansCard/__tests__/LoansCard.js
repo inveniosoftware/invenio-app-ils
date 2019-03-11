@@ -5,7 +5,6 @@ import { fromISO } from '../../../../../../../common/api/date';
 import LoansCard from '../LoansCard';
 
 Settings.defaultZoneName = 'utc';
-const d = fromISO('2018-01-01T11:05:00+01:00');
 
 describe('LoansCard tests', () => {
   let component;

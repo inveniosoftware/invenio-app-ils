@@ -33,35 +33,39 @@ export default class LoanMetadata extends Component {
               <Table.Body>
                 <Table.Row>
                   <Table.Cell width={4}>Document pid</Table.Cell>
-                  <Table.Cell width={12}>{data.document_pid}</Table.Cell>
+                  <Table.Cell width={12}>
+                    {data.metadata.document_pid}
+                  </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell width={4}>Item pid</Table.Cell>
-                  <Table.Cell width={12}>{data.item_pid}</Table.Cell>
+                  <Table.Cell width={12}>{data.metadata.item_pid}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell width={4}>Patron pid</Table.Cell>
-                  <Table.Cell width={12}>{data.patron_pid}</Table.Cell>
+                  <Table.Cell width={12}>{data.metadata.patron_pid}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell width={4}>Pickup Location pid</Table.Cell>
-                  <Table.Cell width={12}>{data.pickup_location_pid}</Table.Cell>
+                  <Table.Cell width={12}>
+                    {data.metadata.pickup_location_pid}
+                  </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell width={4}>Transaction Location pid</Table.Cell>
                   <Table.Cell width={12}>
-                    {data.transaction_location_pid}
+                    {data.metadata.transaction_location_pid}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell width={4}>Transaction User pid</Table.Cell>
                   <Table.Cell width={12}>
-                    {data.transaction_user_pid}
+                    {data.metadata.transaction_user_pid}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell width={4}>State</Table.Cell>
-                  <Table.Cell width={12}>{data.state}</Table.Cell>
+                  <Table.Cell width={12}>{data.metadata.state}</Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
@@ -73,12 +77,14 @@ export default class LoanMetadata extends Component {
                 <Table.Row>
                   <Table.Cell width={4}>Transaction date</Table.Cell>
                   <Table.Cell width={12}>
-                    {toShortDateTime(data.transaction_date)}
+                    {toShortDateTime(data.metadata.transaction_date)}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell width={4}>Expire Date</Table.Cell>
-                  <Table.Cell width={12}>{data.request_expire_date}</Table.Cell>
+                  <Table.Cell width={12}>
+                    {toShortDateTime(data.metadata.request_expire_date)}
+                  </Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
@@ -87,14 +93,16 @@ export default class LoanMetadata extends Component {
         <Divider />
         <LoanActions />
         <Divider />
-        {data.item && (
+        {data.metadata.item && (
           <ItemMetadata
-            item={data.item}
-            loanState={data.state}
+            item={data.metadata.item}
+            loanState={data.metadata.state}
             changeItemClickHandler={this.showAvailableItems}
           />
         )}
-        {this.state.isAvailableItemsVisible && data.item && <Divider />}
+        {this.state.isAvailableItemsVisible && data.metadata.item && (
+          <Divider />
+        )}
         {this.state.isAvailableItemsVisible && (
           <AvailableItems loan={this.props.loanDetails} />
         )}

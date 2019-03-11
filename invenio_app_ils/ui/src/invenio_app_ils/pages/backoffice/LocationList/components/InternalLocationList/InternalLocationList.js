@@ -5,6 +5,8 @@ import { openRecordEditor } from '../../../../../common/urls';
 import { Error, Loader, ResultsTable } from '../../../../../common/components';
 import { Button } from 'semantic-ui-react';
 import { NewButton } from '../../../components/buttons';
+import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import { omit } from 'lodash/object';
 
 export default class InternalLocationList extends Component {
   constructor(props) {
@@ -17,12 +19,9 @@ export default class InternalLocationList extends Component {
   }
 
   prepareData(data) {
-    return data.hits.map(row => ({
-      ID: row.internal_location_pid,
-      Name: row.name,
-      'Physical Location': row.physical_location,
-      'Location Name': row.location_name,
-      Actions: (
+    return data.hits.map(row => {
+      let serialized = formatter.internalLocation.toTable(row);
+      serialized['Actions'] = (
         <Button
           size="small"
           content={'Edit'}
@@ -30,8 +29,9 @@ export default class InternalLocationList extends Component {
             openRecordEditor(internalLocationApi.url, row.internal_location_pid)
           }
         />
-      ),
-    }));
+      );
+      return omit(serialized, ['Created', 'Updated', 'Link']);
+    });
   }
 
   _renderResults(data) {

@@ -13,15 +13,17 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
     Array [
       Object {
         "created": "2018-01-01T10:05:00.000Z",
+        "document_pid": "3",
         "id": 3,
         "metadata": Object {
           "abstracts": "This is an abstract",
           "authors": Array [
             "Author1",
           ],
-          "document_pid": 3,
+          "document_pid": "3",
           "title": "This is a title",
         },
+        "updated": "2018-01-01T10:05:00.000Z",
       },
     ]
   }
@@ -47,9 +49,9 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
             "Author1",
           ],
           "Created": "2018-01-01",
-          "ID": 3,
+          "ID": "3",
           "Title": "This is a title",
-          "Updated": "",
+          "Updated": "2018-01-01",
         },
       ]
     }
@@ -135,10 +137,10 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
               columns={
                 Array [
                   "ID",
-                  "Title",
-                  "Authors",
                   "Created",
                   "Updated",
+                  "Title",
+                  "Authors",
                 ]
               }
               withRowAction={true}
@@ -193,36 +195,6 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
                       </TableHeaderCell>
                       <TableHeaderCell
                         as="th"
-                        key="Title"
-                      >
-                        <TableCell
-                          as="th"
-                          className=""
-                        >
-                          <th
-                            className=""
-                          >
-                            Title
-                          </th>
-                        </TableCell>
-                      </TableHeaderCell>
-                      <TableHeaderCell
-                        as="th"
-                        key="Authors"
-                      >
-                        <TableCell
-                          as="th"
-                          className=""
-                        >
-                          <th
-                            className=""
-                          >
-                            Authors
-                          </th>
-                        </TableCell>
-                      </TableHeaderCell>
-                      <TableHeaderCell
-                        as="th"
                         key="Created"
                       >
                         <TableCell
@@ -251,6 +223,36 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
                           </th>
                         </TableCell>
                       </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Title"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Title
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Authors"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Authors
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
                     </tr>
                   </TableRow>
                 </thead>
@@ -260,10 +262,10 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
               columns={
                 Array [
                   "ID",
-                  "Title",
-                  "Authors",
                   "Created",
                   "Updated",
+                  "Title",
+                  "Authors",
                 ]
               }
               rowActionClickHandler={[Function]}
@@ -274,9 +276,9 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
                       "Author1",
                     ],
                     "Created": "2018-01-01",
-                    "ID": 3,
+                    "ID": "3",
                     "Title": "This is a title",
-                    "Updated": "",
+                    "Updated": "2018-01-01",
                   },
                 ]
               }
@@ -290,12 +292,12 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
                   <TableRow
                     as="tr"
                     cellAs="td"
-                    data-test={3}
+                    data-test="3"
                     key="3"
                   >
                     <tr
                       className=""
-                      data-test={3}
+                      data-test="3"
                     >
                       <TableCell
                         as="td"
@@ -344,32 +346,8 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Title-3"
-                        key="1-3"
-                      >
-                        <td
-                          className=""
-                          data-test="Title-3"
-                        >
-                          This is a title
-                        </td>
-                      </TableCell>
-                      <TableCell
-                        as="td"
-                        data-test="Authors-3"
-                        key="2-3"
-                      >
-                        <td
-                          className=""
-                          data-test="Authors-3"
-                        >
-                          Author1
-                        </td>
-                      </TableCell>
-                      <TableCell
-                        as="td"
                         data-test="Created-3"
-                        key="3-3"
+                        key="1-3"
                       >
                         <td
                           className=""
@@ -381,13 +359,37 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
                       <TableCell
                         as="td"
                         data-test="Updated-3"
-                        key="4-3"
+                        key="2-3"
                       >
                         <td
                           className=""
                           data-test="Updated-3"
                         >
-                          -
+                          2018-01-01
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Title-3"
+                        key="3-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Title-3"
+                        >
+                          This is a title
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Authors-3"
+                        key="4-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Authors-3"
+                        >
+                          Author1
                         </td>
                       </TableCell>
                     </tr>

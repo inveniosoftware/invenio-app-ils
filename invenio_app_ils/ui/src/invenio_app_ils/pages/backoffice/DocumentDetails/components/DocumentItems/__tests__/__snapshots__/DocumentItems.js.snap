@@ -32,17 +32,37 @@ exports[`DocumentItems tests should render item 1`] = `
     Object {
       "hits": Array [
         Object {
-          "ID": "item1",
-          "document_pid": "doc1",
+          "ID": "1",
+          "created": "2018-01-01T10:05:00.000Z",
           "item_pid": "item1",
-          "location": "Somewhere",
+          "metadata": Object {
+            "barcode": "44444",
+            "document_pid": "doc1",
+            "internal_location": Object {
+              "location": Object {
+                "name": "Somewhere",
+              },
+            },
+            "item_pid": "item1",
+            "shelf": "P",
+          },
           "updated": "2018-01-01T10:05:00.000Z",
         },
         Object {
-          "ID": "item2",
-          "document_pid": "doc2",
-          "item_pid": "item2",
-          "location": "Somewhere",
+          "created": "2018-01-01T10:05:00.000Z",
+          "id": "2",
+          "item_pid": "item1",
+          "metadata": Object {
+            "barcode": "44444",
+            "document_pid": "doc2",
+            "internal_location": Object {
+              "location": Object {
+                "name": "Somewhere",
+              },
+            },
+            "item_pid": "item1",
+            "shelf": "P",
+          },
           "updated": "2018-01-01T10:05:00.000Z",
         },
       ],
@@ -71,22 +91,20 @@ exports[`DocumentItems tests should render item 1`] = `
         rows={
           Array [
             Object {
-              "Barcode": undefined,
+              "Barcode": "44444",
               "ID": "item1",
               "Location": "Somewhere",
               "Medium": undefined,
-              "Shelf": undefined,
+              "Shelf": "P",
               "Status": undefined,
-              "Updated": "2018-01-01 10:05",
             },
             Object {
-              "Barcode": undefined,
-              "ID": "item2",
+              "Barcode": "44444",
+              "ID": "item1",
               "Location": "Somewhere",
               "Medium": undefined,
-              "Shelf": undefined,
+              "Shelf": "P",
               "Status": undefined,
-              "Updated": "2018-01-01 10:05",
             },
           ]
         }
@@ -165,10 +183,9 @@ exports[`DocumentItems tests should render item 1`] = `
                   columns={
                     Array [
                       "ID",
-                      "Updated",
                       "Barcode",
-                      "Medium",
                       "Status",
+                      "Medium",
                       "Location",
                       "Shelf",
                     ]
@@ -225,21 +242,6 @@ exports[`DocumentItems tests should render item 1`] = `
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Updated"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Updated
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
                             key="Barcode"
                           >
                             <TableCell
@@ -255,21 +257,6 @@ exports[`DocumentItems tests should render item 1`] = `
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Medium"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Medium
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
                             key="Status"
                           >
                             <TableCell
@@ -280,6 +267,21 @@ exports[`DocumentItems tests should render item 1`] = `
                                 className=""
                               >
                                 Status
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Medium"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Medium
                               </th>
                             </TableCell>
                           </TableHeaderCell>
@@ -322,10 +324,9 @@ exports[`DocumentItems tests should render item 1`] = `
                   columns={
                     Array [
                       "ID",
-                      "Updated",
                       "Barcode",
-                      "Medium",
                       "Status",
+                      "Medium",
                       "Location",
                       "Shelf",
                     ]
@@ -334,22 +335,20 @@ exports[`DocumentItems tests should render item 1`] = `
                   rows={
                     Array [
                       Object {
-                        "Barcode": undefined,
+                        "Barcode": "44444",
                         "ID": "item1",
                         "Location": "Somewhere",
                         "Medium": undefined,
-                        "Shelf": undefined,
+                        "Shelf": "P",
                         "Status": undefined,
-                        "Updated": "2018-01-01 10:05",
                       },
                       Object {
-                        "Barcode": undefined,
-                        "ID": "item2",
+                        "Barcode": "44444",
+                        "ID": "item1",
                         "Location": "Somewhere",
                         "Medium": undefined,
-                        "Shelf": undefined,
+                        "Shelf": "P",
                         "Status": undefined,
-                        "Updated": "2018-01-01 10:05",
                       },
                     ]
                   }
@@ -417,24 +416,24 @@ exports[`DocumentItems tests should render item 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Updated-item1"
+                            data-test="Barcode-item1"
                             key="1-item1"
                           >
                             <td
                               className=""
-                              data-test="Updated-item1"
+                              data-test="Barcode-item1"
                             >
-                              2018-01-01 10:05
+                              44444
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Barcode-item1"
+                            data-test="Status-item1"
                             key="2-item1"
                           >
                             <td
                               className=""
-                              data-test="Barcode-item1"
+                              data-test="Status-item1"
                             >
                               -
                             </td>
@@ -453,20 +452,8 @@ exports[`DocumentItems tests should render item 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Status-item1"
-                            key="4-item1"
-                          >
-                            <td
-                              className=""
-                              data-test="Status-item1"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
                             data-test="Location-item1"
-                            key="5-item1"
+                            key="4-item1"
                           >
                             <td
                               className=""
@@ -478,13 +465,13 @@ exports[`DocumentItems tests should render item 1`] = `
                           <TableCell
                             as="td"
                             data-test="Shelf-item1"
-                            key="6-item1"
+                            key="5-item1"
                           >
                             <td
                               className=""
                               data-test="Shelf-item1"
                             >
-                              -
+                              P
                             </td>
                           </TableCell>
                         </tr>
@@ -492,12 +479,12 @@ exports[`DocumentItems tests should render item 1`] = `
                       <TableRow
                         as="tr"
                         cellAs="td"
-                        data-test="item2"
-                        key="item2"
+                        data-test="item1"
+                        key="item1"
                       >
                         <tr
                           className=""
-                          data-test="item2"
+                          data-test="item1"
                         >
                           <TableCell
                             as="td"
@@ -510,13 +497,13 @@ exports[`DocumentItems tests should render item 1`] = `
                                 as="button"
                                 circular={true}
                                 compact={true}
-                                data-test="btn-view-details-item2"
+                                data-test="btn-view-details-item1"
                                 icon="eye"
                                 onClick={[Function]}
                               >
                                 <button
                                   className="ui circular compact icon button"
-                                  data-test="btn-view-details-item2"
+                                  data-test="btn-view-details-item1"
                                   onClick={[Function]}
                                 >
                                   <Icon
@@ -534,86 +521,74 @@ exports[`DocumentItems tests should render item 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="ID-item2"
-                            key="0-item2"
+                            data-test="ID-item1"
+                            key="0-item1"
                           >
                             <td
                               className=""
-                              data-test="ID-item2"
+                              data-test="ID-item1"
                             >
-                              item2
+                              item1
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Updated-item2"
-                            key="1-item2"
+                            data-test="Barcode-item1"
+                            key="1-item1"
                           >
                             <td
                               className=""
-                              data-test="Updated-item2"
+                              data-test="Barcode-item1"
                             >
-                              2018-01-01 10:05
+                              44444
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Barcode-item2"
-                            key="2-item2"
+                            data-test="Status-item1"
+                            key="2-item1"
                           >
                             <td
                               className=""
-                              data-test="Barcode-item2"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Medium-item2"
-                            key="3-item2"
-                          >
-                            <td
-                              className=""
-                              data-test="Medium-item2"
+                              data-test="Status-item1"
                             >
                               -
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Status-item2"
-                            key="4-item2"
+                            data-test="Medium-item1"
+                            key="3-item1"
                           >
                             <td
                               className=""
-                              data-test="Status-item2"
+                              data-test="Medium-item1"
                             >
                               -
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Location-item2"
-                            key="5-item2"
+                            data-test="Location-item1"
+                            key="4-item1"
                           >
                             <td
                               className=""
-                              data-test="Location-item2"
+                              data-test="Location-item1"
                             >
                               Somewhere
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Shelf-item2"
-                            key="6-item2"
+                            data-test="Shelf-item1"
+                            key="5-item1"
                           >
                             <td
                               className=""
-                              data-test="Shelf-item2"
+                              data-test="Shelf-item1"
                             >
-                              -
+                              P
                             </td>
                           </TableCell>
                         </tr>
@@ -623,7 +598,7 @@ exports[`DocumentItems tests should render item 1`] = `
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={7}
+                  columnsNumber={6}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}
@@ -760,17 +735,35 @@ exports[`DocumentItems tests should render the see all button when showing only 
     Object {
       "hits": Array [
         Object {
-          "ID": "1",
-          "document_pid": "doc1",
-          "item_pid": "item1",
-          "location": "Somewhere",
+          "created": "2018-01-01T10:05:00.000Z",
+          "id": "1",
+          "metadata": Object {
+            "barcode": "44444",
+            "document_pid": "doc1",
+            "internal_location": Object {
+              "location": Object {
+                "name": "Somewhere",
+              },
+            },
+            "item_pid": "item1",
+            "shelf": "P",
+          },
           "updated": "2018-01-01T10:05:00.000Z",
         },
         Object {
-          "ID": "2",
-          "document_pid": "doc2",
-          "item_pid": "item2",
-          "location": "Somewhere",
+          "created": "2018-01-01T10:05:00.000Z",
+          "id": "2",
+          "metadata": Object {
+            "barcode": "44444",
+            "document_pid": "doc2",
+            "internal_location": Object {
+              "location": Object {
+                "name": "Somewhere",
+              },
+            },
+            "item_pid": "item1",
+            "shelf": "P",
+          },
           "updated": "2018-01-01T10:05:00.000Z",
         },
       ],
@@ -799,22 +792,20 @@ exports[`DocumentItems tests should render the see all button when showing only 
         rows={
           Array [
             Object {
-              "Barcode": undefined,
-              "ID": "item1",
+              "Barcode": "44444",
+              "ID": "1",
               "Location": "Somewhere",
               "Medium": undefined,
-              "Shelf": undefined,
+              "Shelf": "P",
               "Status": undefined,
-              "Updated": "2018-01-01 10:05",
             },
             Object {
-              "Barcode": undefined,
-              "ID": "item2",
+              "Barcode": "44444",
+              "ID": "2",
               "Location": "Somewhere",
               "Medium": undefined,
-              "Shelf": undefined,
+              "Shelf": "P",
               "Status": undefined,
-              "Updated": "2018-01-01 10:05",
             },
           ]
         }
@@ -893,10 +884,9 @@ exports[`DocumentItems tests should render the see all button when showing only 
                   columns={
                     Array [
                       "ID",
-                      "Updated",
                       "Barcode",
-                      "Medium",
                       "Status",
+                      "Medium",
                       "Location",
                       "Shelf",
                     ]
@@ -953,21 +943,6 @@ exports[`DocumentItems tests should render the see all button when showing only 
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Updated"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Updated
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
                             key="Barcode"
                           >
                             <TableCell
@@ -983,21 +958,6 @@ exports[`DocumentItems tests should render the see all button when showing only 
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Medium"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Medium
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
                             key="Status"
                           >
                             <TableCell
@@ -1008,6 +968,21 @@ exports[`DocumentItems tests should render the see all button when showing only 
                                 className=""
                               >
                                 Status
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Medium"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Medium
                               </th>
                             </TableCell>
                           </TableHeaderCell>
@@ -1050,10 +1025,9 @@ exports[`DocumentItems tests should render the see all button when showing only 
                   columns={
                     Array [
                       "ID",
-                      "Updated",
                       "Barcode",
-                      "Medium",
                       "Status",
+                      "Medium",
                       "Location",
                       "Shelf",
                     ]
@@ -1062,13 +1036,12 @@ exports[`DocumentItems tests should render the see all button when showing only 
                   rows={
                     Array [
                       Object {
-                        "Barcode": undefined,
-                        "ID": "item1",
+                        "Barcode": "44444",
+                        "ID": "1",
                         "Location": "Somewhere",
                         "Medium": undefined,
-                        "Shelf": undefined,
+                        "Shelf": "P",
                         "Status": undefined,
-                        "Updated": "2018-01-01 10:05",
                       },
                     ]
                   }
@@ -1082,12 +1055,12 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       <TableRow
                         as="tr"
                         cellAs="td"
-                        data-test="item1"
-                        key="item1"
+                        data-test="1"
+                        key="1"
                       >
                         <tr
                           className=""
-                          data-test="item1"
+                          data-test="1"
                         >
                           <TableCell
                             as="td"
@@ -1100,13 +1073,13 @@ exports[`DocumentItems tests should render the see all button when showing only 
                                 as="button"
                                 circular={true}
                                 compact={true}
-                                data-test="btn-view-details-item1"
+                                data-test="btn-view-details-1"
                                 icon="eye"
                                 onClick={[Function]}
                               >
                                 <button
                                   className="ui circular compact icon button"
-                                  data-test="btn-view-details-item1"
+                                  data-test="btn-view-details-1"
                                   onClick={[Function]}
                                 >
                                   <Icon
@@ -1124,86 +1097,74 @@ exports[`DocumentItems tests should render the see all button when showing only 
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="ID-item1"
-                            key="0-item1"
+                            data-test="ID-1"
+                            key="0-1"
                           >
                             <td
                               className=""
-                              data-test="ID-item1"
+                              data-test="ID-1"
                             >
-                              item1
+                              1
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Updated-item1"
-                            key="1-item1"
+                            data-test="Barcode-1"
+                            key="1-1"
                           >
                             <td
                               className=""
-                              data-test="Updated-item1"
+                              data-test="Barcode-1"
                             >
-                              2018-01-01 10:05
+                              44444
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Barcode-item1"
-                            key="2-item1"
+                            data-test="Status-1"
+                            key="2-1"
                           >
                             <td
                               className=""
-                              data-test="Barcode-item1"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Medium-item1"
-                            key="3-item1"
-                          >
-                            <td
-                              className=""
-                              data-test="Medium-item1"
+                              data-test="Status-1"
                             >
                               -
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Status-item1"
-                            key="4-item1"
+                            data-test="Medium-1"
+                            key="3-1"
                           >
                             <td
                               className=""
-                              data-test="Status-item1"
+                              data-test="Medium-1"
                             >
                               -
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Location-item1"
-                            key="5-item1"
+                            data-test="Location-1"
+                            key="4-1"
                           >
                             <td
                               className=""
-                              data-test="Location-item1"
+                              data-test="Location-1"
                             >
                               Somewhere
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Shelf-item1"
-                            key="6-item1"
+                            data-test="Shelf-1"
+                            key="5-1"
                           >
                             <td
                               className=""
-                              data-test="Shelf-item1"
+                              data-test="Shelf-1"
                             >
-                              -
+                              P
                             </td>
                           </TableCell>
                         </tr>
@@ -1213,7 +1174,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={7}
+                  columnsNumber={6}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}
@@ -1246,18 +1207,18 @@ exports[`DocumentItems tests should render the see all button when showing only 
                           >
                             <TableHeaderCell
                               as="th"
-                              colSpan={8}
+                              colSpan={7}
                               textAlign="right"
                             >
                               <TableCell
                                 as="th"
                                 className=""
-                                colSpan={8}
+                                colSpan={7}
                                 textAlign="right"
                               >
                                 <th
                                   className="right aligned"
-                                  colSpan={8}
+                                  colSpan={7}
                                 >
                                   <span>
                                     Showing first 

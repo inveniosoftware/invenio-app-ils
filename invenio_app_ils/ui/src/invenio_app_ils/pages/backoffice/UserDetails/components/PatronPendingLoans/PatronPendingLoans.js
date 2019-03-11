@@ -11,7 +11,7 @@ import {
 } from '../../../../../common/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
-import { fromISO, toShortDate } from '../../../../../common/api/date';
+import { pick } from 'lodash/object';
 
 export default class PatronPendingLoans extends Component {
   constructor(props) {
@@ -46,13 +46,13 @@ export default class PatronPendingLoans extends Component {
 
   prepareData(data) {
     return data.hits.map(row => {
-      let tableRow = formatter.loan.toTable(row);
-      tableRow['Document ID'] = row.document_pid;
-      tableRow['Start date'] = toShortDate(fromISO(row.start_date));
-
-      delete tableRow['Patron ID'];
-      delete tableRow['State'];
-      return tableRow;
+      return pick(formatter.loan.toTable(row), [
+        'ID',
+        'Updated',
+        'Document ID',
+        'Start date',
+        'Expiration date',
+      ]);
     });
   }
 

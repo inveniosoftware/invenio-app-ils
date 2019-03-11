@@ -7,7 +7,7 @@ import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../common/api/date';
 
 Settings.defaultZoneName = 'utc';
-const d = fromISO('2018-01-01T11:05:00+01:00');
+const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 
 describe('DocumentItems tests', () => {
   let component;
@@ -69,18 +69,30 @@ describe('DocumentItems tests', () => {
     const data = {
       hits: [
         {
-          ID: 'item1',
-          document_pid: 'doc1',
+          ID: '1',
+          updated: stringDate,
+          created: stringDate,
           item_pid: 'item1',
-          updated: d,
-          location: 'Somewhere',
+          metadata: {
+            document_pid: 'doc1',
+            item_pid: 'item1',
+            internal_location: { location: { name: 'Somewhere' } },
+            barcode: '44444',
+            shelf: 'P',
+          },
         },
         {
-          ID: 'item2',
-          document_pid: 'doc2',
-          item_pid: 'item2',
-          updated: d,
-          location: 'Somewhere',
+          id: '2',
+          updated: stringDate,
+          created: stringDate,
+          item_pid: 'item1',
+          metadata: {
+            document_pid: 'doc2',
+            item_pid: 'item1',
+            internal_location: { location: { name: 'Somewhere' } },
+            barcode: '44444',
+            shelf: 'P',
+          },
         },
       ],
       total: 2,
@@ -115,18 +127,28 @@ describe('DocumentItems tests', () => {
     const data = {
       hits: [
         {
-          ID: '1',
-          document_pid: 'doc1',
-          item_pid: 'item1',
-          updated: d,
-          location: 'Somewhere',
+          id: '1',
+          updated: stringDate,
+          created: stringDate,
+          metadata: {
+            document_pid: 'doc1',
+            item_pid: 'item1',
+            internal_location: { location: { name: 'Somewhere' } },
+            barcode: '44444',
+            shelf: 'P',
+          },
         },
         {
-          ID: '2',
-          document_pid: 'doc2',
-          item_pid: 'item2',
-          updated: d,
-          location: 'Somewhere',
+          id: '2',
+          updated: stringDate,
+          created: stringDate,
+          metadata: {
+            document_pid: 'doc2',
+            item_pid: 'item1',
+            internal_location: { location: { name: 'Somewhere' } },
+            barcode: '44444',
+            shelf: 'P',
+          },
         },
       ],
       total: 2,
@@ -159,10 +181,16 @@ describe('DocumentItems tests', () => {
       hits: [
         {
           ID: '1',
-          document_pid: 'doc1',
+          updated: stringDate,
+          created: stringDate,
           item_pid: 'item1',
-          updated: d,
-          location: 'Somewhere',
+          metadata: {
+            document_pid: 'doc1',
+            item_pid: 'item1',
+            internal_location: { location: { name: 'Somewhere' } },
+            shelf: 'P',
+            barcode: '44444',
+          },
         },
       ],
       total: 2,
