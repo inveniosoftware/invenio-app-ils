@@ -24,14 +24,9 @@ def jsonresolver_loader(url_map):
 
     def get_document(document_pid):
         """Return the Document record."""
-        document = {}
-        try:
-            document = Document.get_record_by_pid(document_pid)
-            # delete `circulation` field, not needed when resolving from Item
-            del document["circulation"]
-        except PersistentIdentifierError as ex:
-            current_app.logger.error(ex)
-            raise ex
+        document = Document.get_record_by_pid(document_pid)
+        # delete `circulation` field, not needed when resolving from Item
+        del document["circulation"]
 
         return document
 

@@ -42,7 +42,6 @@ from .search.api import (  # isort:skip
 )
 
 from invenio_circulation.config import (  # isort:skip
-    CIRCULATION_POLICIES,
     _LOANID_CONVERTER,
 )
 from invenio_circulation.pidstore.pids import (  # isort:skip

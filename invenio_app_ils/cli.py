@@ -7,7 +7,6 @@
 
 """CLI for Invenio App ILS."""
 
-import time
 from datetime import datetime, timedelta
 from random import randint
 

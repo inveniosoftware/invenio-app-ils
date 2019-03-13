@@ -36,17 +36,20 @@ def _get_documents_ui_config():
                    'aggs': []}}}
     documents_index = DocumentSearch.Meta.index
 
-    documents_sort = current_app.config.get('RECORDS_REST_SORT_OPTIONS', {}).get(
-        documents_index, {})
+    documents_sort = current_app.config.get(
+        'RECORDS_REST_SORT_OPTIONS', {}
+    ).get(documents_index, {})
+
     documents_sort_ui = [{
         'field': field,
         'title': documents_sort[field]['title'],
         'order': documents_sort[field]['order']
     } for field in documents_sort.keys()]
 
-    ui_config['documents']['search']['sortBy']['values'] = sorted(documents_sort_ui,
-                                                              key=lambda s: s[
-                                                                  'order'])
+    ui_config['documents']['search']['sortBy']['values'] = sorted(
+        documents_sort_ui, key=lambda s: s['order']
+    )
+
     if 'mostrecent' in documents_sort:
         ui_config['documents']['search']['sortBy']['onEmptyQuery'] = 'mostrecent'
 

@@ -10,13 +10,14 @@
 from __future__ import absolute_import, print_function
 
 from flask import current_app
-from invenio_circulation.errors import CirculationException
 from invenio_circulation.signals import loan_replace_item, loan_state_changed
 
-from ..proxies import current_app_ils_extension
-from ..records.api import Item
-from .mail.factory import loan_message_factory
-from .mail.tasks import send_ils_mail
+from invenio_app_ils.circulation.mail.factory import loan_message_factory
+from invenio_app_ils.circulation.mail.tasks import send_ils_mail
+from invenio_app_ils.errors import MissingRequiredParameterError, \
+    PatronNotFoundError
+from invenio_app_ils.proxies import current_app_ils_extension
+from invenio_app_ils.records.api import Item
 
 
 def register_circulation_signals():
@@ -56,13 +57,10 @@ def send_email_after_loan_change(_, prev_loan, loan, trigger):
     patron = _datastore.get_user(patron_pid)
 
     if not patron:
-        raise CirculationException(
-            "Patron not found with pid {}".format(patron_pid)
-        )
+        raise PatronNotFoundError(patron_pid)
     if not patron.email:
-        raise CirculationException(
-            "Patron with pid {} has no email address".format(patron_pid)
-        )
+        msg = "Patron with PID {} has no email address".format(patron_pid)
+        raise MissingRequiredParameterError(description=msg)
 
     send_ils_mail(
         loan_message_factory(),

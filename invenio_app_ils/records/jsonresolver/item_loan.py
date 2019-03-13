@@ -11,8 +11,6 @@ import jsonresolver
 from invenio_circulation.api import get_loan_for_item
 from werkzeug.routing import Rule
 
-from ..api import Item
-
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
 

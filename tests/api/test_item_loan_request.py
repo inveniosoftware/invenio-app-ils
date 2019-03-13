@@ -15,6 +15,8 @@ from flask import url_for
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
 
+from invenio_app_ils.errors import PatronHasLoanOnItemError
+
 NEW_LOAN = {
     "item_pid": "itemid-10",
     "document_pid": "docid-1",
@@ -66,4 +68,4 @@ def test_patron_cannot_request_loan_on_already_loaned_item(client,
 
     res = client.post(url, headers=json_headers,
                       data=json.dumps(duplicated_loan))
-    assert res.status_code == 400
+    assert res.status_code == PatronHasLoanOnItemError.code
