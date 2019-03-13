@@ -3,6 +3,7 @@ import { performLoanAction } from '../../state/actions';
 import LoanActionsComponent from './LoanActions';
 
 const mapStateToProps = state => ({
+  error: state.loanDetails.error,
   loanDetails: state.loanDetails.data,
 });
 

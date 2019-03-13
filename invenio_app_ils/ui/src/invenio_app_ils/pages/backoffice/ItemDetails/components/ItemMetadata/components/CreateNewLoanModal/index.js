@@ -5,6 +5,7 @@ import CreateNewLoanModalComponent from './CreateNewLoanModal';
 const mapStateToProps = state => ({
   isLoading: state.itemDetails.newLoanCreate.isLoading,
   data: state.itemDetails.newLoanCreate.data,
+  error: state.itemDetails.newLoanCreate.error,
   hasError: state.itemDetails.newLoanCreate.hasError,
 });
 const mapDispatchToProps = dispatch => ({

@@ -2,9 +2,7 @@
 
 exports[`DocumentPendingLoans tests should load the details component 1`] = `
 <Loader>
-  <Error
-    error={null}
-  >
+  <Error>
     <ResultsTable
       fixed={false}
       headerActionClickHandler={null}
@@ -65,9 +63,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
   showMaxPendingLoans={5}
 >
   <Loader>
-    <Error
-      error={null}
-    >
+    <Error>
       <ResultsTable
         fixed={false}
         headerActionClickHandler={null}
@@ -534,9 +530,7 @@ exports[`DocumentPendingLoans tests should render show a message with no pending
   showMaxPendingLoans={5}
 >
   <Loader>
-    <Error
-      error={null}
-    >
+    <Error>
       <ResultsTable
         fixed={false}
         headerActionClickHandler={null}
@@ -662,9 +656,7 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
   showMaxPendingLoans={1}
 >
   <Loader>
-    <Error
-      error={null}
-    >
+    <Error>
       <ResultsTable
         fixed={false}
         headerActionClickHandler={null}

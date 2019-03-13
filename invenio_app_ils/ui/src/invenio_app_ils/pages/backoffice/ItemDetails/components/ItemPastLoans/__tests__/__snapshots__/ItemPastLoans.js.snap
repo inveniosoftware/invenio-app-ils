@@ -2,9 +2,7 @@
 
 exports[`ItemPastLoans tests should load the past loans component 1`] = `
 <Loader>
-  <Error
-    error={null}
-  >
+  <Error>
     <ResultsTable
       fixed={false}
       headerActionClickHandler={null}
@@ -67,9 +65,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
   showMaxPastLoans={5}
 >
   <Loader>
-    <Error
-      error={null}
-    >
+    <Error>
       <ResultsTable
         fixed={false}
         headerActionClickHandler={null}
@@ -536,9 +532,7 @@ exports[`ItemPastLoans tests should render show a message with no past loans 1`]
   showMaxPastLoans={5}
 >
   <Loader>
-    <Error
-      error={null}
-    >
+    <Error>
       <ResultsTable
         fixed={false}
         headerActionClickHandler={null}

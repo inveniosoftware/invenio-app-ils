@@ -2,9 +2,7 @@
 
 exports[`LoansCard tests should load the details component 1`] = `
 <Loader>
-  <Error
-    error={null}
-  >
+  <Error>
     <RecordsBriefCard
       buttonLeft={
         <NewButton
@@ -48,9 +46,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
   history={[Function]}
 >
   <Loader>
-    <Error
-      error={null}
-    >
+    <Error>
       <RecordsBriefCard
         buttonLeft={
           <NewButton

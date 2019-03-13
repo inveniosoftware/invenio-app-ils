@@ -6,6 +6,7 @@ import DocumentPendingLoansComponent from './DocumentPendingLoans';
 
 const mapStateToProps = state => ({
   data: state.documentPendingLoans.data,
+  error: state.documentPendingLoans.error,
   isLoading: state.documentPendingLoans.isLoading,
   hasError: state.documentPendingLoans.hasError,
 });

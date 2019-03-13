@@ -39,7 +39,7 @@ describe('Fetch location details reducer', () => {
       ...initialState,
       isLoading: false,
       hasError: true,
-      data: { response: { status: 404 } },
+      error: { response: { status: 404 } },
     });
   });
 });

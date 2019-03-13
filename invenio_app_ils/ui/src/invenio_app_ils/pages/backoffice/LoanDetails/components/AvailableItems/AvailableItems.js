@@ -71,11 +71,10 @@ export default class AvailableItems extends Component {
   };
 
   render() {
-    const { data, isLoading, hasError } = this.props;
-    const errorData = hasError ? data : null;
+    const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>
+        <Error error={error}>
           <Header as="h3">Available items</Header>
           {this._renderAvailableItemsOrEmpty(data.hits)}
         </Error>

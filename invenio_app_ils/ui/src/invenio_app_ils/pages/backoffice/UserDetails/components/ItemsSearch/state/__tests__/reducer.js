@@ -26,6 +26,7 @@ describe('Fetch Document Item reducer', () => {
       ...initialState,
       isLoading: false,
       data: items,
+      error: {},
       hasError: false,
     });
   });
@@ -38,7 +39,7 @@ describe('Fetch Document Item reducer', () => {
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
       isLoading: false,
-      data: 'Error',
+      error: 'Error',
       hasError: true,
     });
   });

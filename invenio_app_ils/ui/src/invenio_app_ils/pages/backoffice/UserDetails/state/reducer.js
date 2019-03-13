@@ -4,6 +4,7 @@ export const initialState = {
   isLoading: true,
   hasError: false,
   data: {},
+  error: {},
 };
 
 export default (state = initialState, action) => {
@@ -15,13 +16,14 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         data: action.payload,
+        error: {},
         hasError: false,
       };
     case HAS_ERROR:
       return {
         ...state,
         isLoading: false,
-        data: action.payload,
+        error: action.payload,
         hasError: true,
       };
     default:

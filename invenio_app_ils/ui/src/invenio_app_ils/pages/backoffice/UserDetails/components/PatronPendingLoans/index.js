@@ -10,6 +10,7 @@ import PatronPendingLoansComponent from './PatronPendingLoans';
 
 const mapStateToProps = state => ({
   data: state.patronPendingLoans.data,
+  error: state.patronPendingLoans.error,
   isLoading: state.patronPendingLoans.isLoading,
   hasError: state.patronPendingLoans.hasError,
   currentSortBy: state.patronPendingLoans.sortBy,

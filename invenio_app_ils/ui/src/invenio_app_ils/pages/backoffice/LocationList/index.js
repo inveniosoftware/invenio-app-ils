@@ -4,6 +4,7 @@ import LocationListComponent from './LocationList';
 
 const mapStateToProps = state => ({
   data: state.locations.data,
+  error: state.locations.error,
   isLoading: state.locations.isLoading,
   hasError: state.locations.hasError,
 });

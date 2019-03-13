@@ -1,7 +1,7 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR, RESET_STATE } from './types';
 
 export const initialState = {
-  newLoanCreate: { isLoading: false, hasError: false, data: {} },
+  newLoanCreate: { isLoading: false, hasError: false, data: {}, error: {} },
 };
 
 export default (state = initialState, action) => {
@@ -19,6 +19,7 @@ export default (state = initialState, action) => {
         newLoanCreate: {
           isLoading: false,
           data: action.payload,
+          error: {},
           hasError: false,
         },
       };
@@ -27,7 +28,7 @@ export default (state = initialState, action) => {
         ...state,
         newLoanCreate: {
           isLoading: false,
-          data: action.payload,
+          error: action.payload,
           hasError: true,
         },
       };

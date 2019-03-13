@@ -5,6 +5,7 @@ import AvailableItemsComponent from './AvailableItems';
 
 const mapStateToProps = state => ({
   data: state.availableItems.data,
+  error: state.availableItems.error,
   isLoading: state.availableItems.isLoading,
   hasError: state.availableItems.hasError,
 });

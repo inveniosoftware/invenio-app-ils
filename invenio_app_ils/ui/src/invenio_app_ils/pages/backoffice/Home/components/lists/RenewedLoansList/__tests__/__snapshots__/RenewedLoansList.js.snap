@@ -2,9 +2,7 @@
 
 exports[`RenewedLoansList tests should load the details component 1`] = `
 <Loader>
-  <Error
-    error={null}
-  >
+  <Error>
     <ResultsTable
       fixed={false}
       headerActionClickHandler={null}
@@ -57,9 +55,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
   showMaxEntries={5}
 >
   <Loader>
-    <Error
-      error={null}
-    >
+    <Error>
       <ResultsTable
         fixed={false}
         headerActionClickHandler={null}
@@ -565,9 +561,7 @@ exports[`RenewedLoansList tests should render show a message with no loans 1`] =
   showMaxEntries={5}
 >
   <Loader>
-    <Error
-      error={null}
-    >
+    <Error>
       <ResultsTable
         fixed={false}
         headerActionClickHandler={null}

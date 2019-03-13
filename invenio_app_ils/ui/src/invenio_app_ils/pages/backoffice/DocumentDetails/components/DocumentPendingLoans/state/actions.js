@@ -1,5 +1,6 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { loan as loanApi } from '../../../../../../common/api';
+import { sendErrorNotification } from '../../../../../../common/components/Notifications';
 
 export const fetchPendingLoans = documentPid => {
   return async dispatch => {
@@ -26,6 +27,7 @@ export const fetchPendingLoans = documentPid => {
           type: HAS_ERROR,
           payload: error,
         });
+        dispatch(sendErrorNotification(error));
       });
   };
 };

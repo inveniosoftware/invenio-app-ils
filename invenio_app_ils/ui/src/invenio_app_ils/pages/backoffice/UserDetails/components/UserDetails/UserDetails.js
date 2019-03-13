@@ -9,11 +9,10 @@ import { ItemsSearch } from '../ItemsSearch';
 
 export default class UserDetails extends Component {
   render() {
-    const { isLoading, hasError, data } = this.props;
-    const errorData = hasError ? data : null;
+    const { isLoading, error, data } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>
+        <Error error={error}>
           <Grid columns={2}>
             <Grid.Row stretched>
               <Grid.Column width={6}>
@@ -46,5 +45,6 @@ export default class UserDetails extends Component {
 UserDetails.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   data: PropTypes.object,
+  error: PropTypes.object,
   hasError: PropTypes.bool.isRequired,
 };

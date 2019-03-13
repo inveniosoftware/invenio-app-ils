@@ -102,7 +102,7 @@ describe('Loan details tests', () => {
 
       const expectedActions = [
         {
-          type: types.ACTION_IS_LOADING,
+          type: types.IS_LOADING,
         },
       ];
 
@@ -127,7 +127,7 @@ describe('Loan details tests', () => {
 
       const expectedActions = [
         {
-          type: types.ACTION_SUCCESS,
+          type: types.SUCCESS,
           payload: response.data,
         },
       ];
@@ -153,7 +153,7 @@ describe('Loan details tests', () => {
 
       const expectedActions = [
         {
-          type: types.ACTION_HAS_ERROR,
+          type: types.HAS_ERROR,
           payload: [500, 'Error'],
         },
       ];

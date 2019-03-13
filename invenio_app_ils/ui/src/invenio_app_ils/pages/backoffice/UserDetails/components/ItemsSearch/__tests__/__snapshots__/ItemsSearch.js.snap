@@ -35,9 +35,7 @@ exports[`PatronLoans tests should load the ItemsSearch component 1`] = `
       width={16}
     >
       <Loader>
-        <Error
-          error={null}
-        >
+        <Error>
           <Grid
             columns={3}
             relaxed={true}
@@ -49,40 +47,26 @@ exports[`PatronLoans tests should load the ItemsSearch component 1`] = `
               width={5}
             >
               <div>
-                0
                  results
               </div>
             </GridColumn>
           </Grid>
-          <Segment
-            placeholder={true}
-            textAlign="center"
+          <div
+            className="results-list"
           >
-            <Header
-              icon={true}
-            >
-              <Icon
-                as="i"
-                name="search"
-              />
-              Type barcode to search for items and press enter.
-            </Header>
-            <div
-              className="empty-results-current"
-            >
-              Current search phrase "
-              "
-            </div>
-            <SegmentInline>
-              <Button
-                as="button"
-                onClick={[Function]}
-                primary={true}
-              >
-                Clear query
-              </Button>
-            </SegmentInline>
-          </Segment>
+            <ResultsList
+              checkoutItem={[MockFunction]}
+              clearResults={[MockFunction]}
+              fetchPatronCurrentLoans={[MockFunction]}
+              patron="2"
+              results={
+                Object {
+                  "hits": Array [],
+                }
+              }
+              viewDetailsClickHandler={[Function]}
+            />
+          </div>
         </Error>
       </Loader>
     </GridColumn>
@@ -91,21 +75,23 @@ exports[`PatronLoans tests should load the ItemsSearch component 1`] = `
 `;
 
 exports[`PatronLoans tests should render items in search 1`] = `
-<ItemsCheckout
+<ItemsSearch
   checkoutItem={[MockFunction]}
   clearResults={[MockFunction]}
   fetchItems={[MockFunction]}
   fetchPatronCurrentLoans={[MockFunction]}
   history={[Function]}
   items={
-    Array [
-      Object {
-        "barcode": "3",
-        "document_pid": 4,
-        "item_pid": "4",
-        "status": "LOANABLE",
-      },
-    ]
+    Object {
+      "hits": Array [
+        Object {
+          "barcode": "3",
+          "document_pid": "4",
+          "item_pid": "4",
+          "status": "LOANABLE",
+        },
+      ],
+    }
   }
   patron="2"
   queryString=""
@@ -187,9 +173,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
               className="sixteen wide column"
             >
               <Loader>
-                <Error
-                  error={null}
-                >
+                <Error>
                   <Grid
                     columns={3}
                     relaxed={true}
@@ -207,7 +191,6 @@ exports[`PatronLoans tests should render items in search 1`] = `
                           className="left aligned five wide column"
                         >
                           <div>
-                            1
                              results
                           </div>
                         </div>
@@ -223,14 +206,16 @@ exports[`PatronLoans tests should render items in search 1`] = `
                       fetchPatronCurrentLoans={[MockFunction]}
                       patron="2"
                       results={
-                        Array [
-                          Object {
-                            "barcode": "3",
-                            "document_pid": 4,
-                            "item_pid": "4",
-                            "status": "LOANABLE",
-                          },
-                        ]
+                        Object {
+                          "hits": Array [
+                            Object {
+                              "barcode": "3",
+                              "document_pid": "4",
+                              "item_pid": "4",
+                              "status": "LOANABLE",
+                            },
+                          ],
+                        }
                       }
                       viewDetailsClickHandler={[Function]}
                     >
@@ -250,7 +235,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                 onClick={[Function]}
                               />,
                               "Barcode": "3",
-                              "Document ID": 4,
+                              "Document ID": "4",
                               "ID": "4",
                               "Status": "LOANABLE",
                             },
@@ -447,7 +432,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                           onClick={[Function]}
                                         />,
                                         "Barcode": "3",
-                                        "Document ID": 4,
+                                        "Document ID": "4",
                                         "ID": "4",
                                         "Status": "LOANABLE",
                                       },
@@ -575,5 +560,5 @@ exports[`PatronLoans tests should render items in search 1`] = `
       </Grid>
     </div>
   </Segment>
-</ItemsCheckout>
+</ItemsSearch>
 `;

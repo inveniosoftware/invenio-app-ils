@@ -1,6 +1,7 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { loan as loanApi } from '../../../../../../../common/api';
 import { listQuery } from './listQuery';
+import { sendErrorNotification } from '../../../../../../../common/components/Notifications';
 
 export const fetchRenewedLoans = () => {
   return async dispatch => {
@@ -20,6 +21,7 @@ export const fetchRenewedLoans = () => {
           type: HAS_ERROR,
           payload: error,
         });
+        dispatch(sendErrorNotification(error));
       });
   };
 };

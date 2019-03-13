@@ -59,11 +59,10 @@ export default class DocumentsCard extends Component {
   };
 
   render() {
-    const { data, isLoading, hasError } = this.props;
-    const errorData = hasError ? data : null;
+    const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>{this._render_card(data)}</Error>
+        <Error error={error}>{this._render_card(data)}</Error>
       </Loader>
     );
   }

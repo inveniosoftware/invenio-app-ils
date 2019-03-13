@@ -6,6 +6,7 @@ import {
   CLEAR_SEARCH,
 } from './types';
 import { item as itemApi } from '../../../../../../common/api';
+import { sendErrorNotification } from '../../../../../../common/components/Notifications';
 
 export const fetchItems = barcode => {
   return async dispatch => {
@@ -30,6 +31,7 @@ export const fetchItems = barcode => {
           type: HAS_ERROR,
           payload: error,
         });
+        dispatch(sendErrorNotification(error));
       });
   };
 };

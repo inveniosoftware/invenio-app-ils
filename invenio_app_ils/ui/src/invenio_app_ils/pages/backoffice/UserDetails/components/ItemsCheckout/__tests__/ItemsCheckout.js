@@ -35,9 +35,5 @@ describe('PatronLoans tests', () => {
     );
 
     expect(component).toMatchSnapshot();
-    const message = component
-      .find('Message')
-      .filterWhere(element => element.prop('data-test') === 'success');
-    expect(message).toHaveLength(1);
   });
 });

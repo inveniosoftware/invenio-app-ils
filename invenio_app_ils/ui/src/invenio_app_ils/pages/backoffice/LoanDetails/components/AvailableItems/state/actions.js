@@ -1,6 +1,7 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { item as itemApi, loan as loanApi } from '../../../../../../common/api';
 import { invenioConfig } from '../../../../../../common/config';
+import { sendErrorNotification } from '../../../../../../common/components/Notifications';
 
 export const fetchAvailableItems = documentPid => {
   return async dispatch => {
@@ -27,6 +28,7 @@ export const fetchAvailableItems = documentPid => {
           type: HAS_ERROR,
           payload: error,
         });
+        dispatch(sendErrorNotification(error));
       });
   };
 };
@@ -49,6 +51,7 @@ export const assignItemToLoan = (itemId, loanId) => {
           type: HAS_ERROR,
           payload: error,
         });
+        dispatch(sendErrorNotification(error));
       });
   };
 };

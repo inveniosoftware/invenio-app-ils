@@ -6,6 +6,7 @@ import UserDetailsComponent from './UserDetails';
 const mapStateToProps = state => ({
   isLoading: state.userDetails.isLoading,
   data: state.userDetails.data,
+  error: state.userDetails.error,
   hasError: state.userDetails.hasError,
 });
 

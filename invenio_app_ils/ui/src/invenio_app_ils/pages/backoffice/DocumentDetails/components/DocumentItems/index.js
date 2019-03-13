@@ -6,6 +6,7 @@ import DocumentItemsComponent from './DocumentItems';
 
 const mapStateToProps = state => ({
   data: state.documentItems.data,
+  error: state.documentItems.error,
   isLoading: state.documentItems.isLoading,
   hasError: state.documentItems.hasError,
 });

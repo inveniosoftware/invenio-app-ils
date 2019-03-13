@@ -14,12 +14,14 @@ import {
   UserDetailsContainer,
 } from '../pages/backoffice';
 import './BackOffice.scss';
+import { Notifications } from '../common/components/Notifications';
 
 export class BackOffice extends Component {
   render() {
     return (
       <div>
         <Header />
+        <Notifications />
         <div className="container">
           {/* home */}
           <Route exact path={BackOfficeURLS.home} component={Home} />

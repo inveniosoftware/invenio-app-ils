@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = state => ({
   data: state.documentsCard.data,
+  error: state.documentsCard.error,
   isLoading: state.documentsCard.isLoading,
   hasError: state.documentsCard.hasError,
 });

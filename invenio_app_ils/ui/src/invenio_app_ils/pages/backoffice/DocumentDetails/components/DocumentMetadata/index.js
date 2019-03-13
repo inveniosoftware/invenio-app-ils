@@ -6,6 +6,7 @@ import { fetchDocumentDetails } from '../../state/actions';
 
 const mapStateToProps = state => ({
   documentDetails: state.documentDetails.data,
+  error: state.documentDetails.error,
 });
 
 const mapDispatchToProps = dispatch => ({
