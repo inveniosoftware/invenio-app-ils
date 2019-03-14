@@ -46,13 +46,6 @@
       "type": "array",
       "description": ""
     },
-    "keywords": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array",
-      "description": ""
-    },
     "chapters": {
       "items": {
         "type": "string"
@@ -75,6 +68,20 @@
     "document_pid": {
       "type": "string",
       "title": "Document ID"
+    },
+    "keyword_pids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "keywords": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
     }
   }
 }

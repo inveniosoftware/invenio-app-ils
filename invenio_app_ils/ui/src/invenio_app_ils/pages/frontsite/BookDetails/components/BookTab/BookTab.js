@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Grid, Responsive } from 'semantic-ui-react';
-import { invenioConfig } from '../../../../../common/config';
 import BookAccordion from './components/BookAccordion';
 import BookTabMenu from './components/BookTabMenu';
 

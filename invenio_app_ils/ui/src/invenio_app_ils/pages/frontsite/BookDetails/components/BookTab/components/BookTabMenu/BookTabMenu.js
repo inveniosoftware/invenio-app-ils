@@ -16,7 +16,9 @@ export default class BookTabMenu extends Component {
         menuItem: 'Information',
         render: () => (
           <Tab.Pane>
-            <p>{this.props.data.keywords}</p>
+            {this.props.data.keywords.map(keyword => (
+              <p key={keyword.keyword_pid}>{keyword.name}</p>
+            ))}
           </Tab.Pane>
         ),
       },

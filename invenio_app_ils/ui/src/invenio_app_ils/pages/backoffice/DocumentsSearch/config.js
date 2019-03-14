@@ -25,9 +25,17 @@ const sortOrderValues = config.sortOrder.map(sortField => {
   return { text: _capitalize(sortField), value: sortField };
 });
 
+const aggsMappings = {
+  keywords: 'Keywords',
+};
+const aggs = config.aggs.map(agg => {
+  return { title: aggsMappings[agg], field: agg };
+});
+
 export default {
   RESULTS_PER_PAGE: resultsPerPageValues,
   SORT_BY: sortByValues,
   SORT_BY_ON_EMPTY_QUERY: sortByValueOnEmptyQuery,
   SORT_ORDER: sortOrderValues,
+  AGGREGATIONS: aggs,
 };

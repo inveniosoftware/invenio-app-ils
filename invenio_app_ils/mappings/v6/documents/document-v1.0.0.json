@@ -19,6 +19,20 @@
         "items": {
           "type": "keyword"
         },
+        "keywords": {
+          "type": "object",
+          "properties": {
+            "keyword_pid": {
+              "type": "keyword"
+            },
+            "name": {
+              "type": "keyword"
+            },
+            "provenance": {
+              "type": "keyword"
+            }
+          }
+        },
         "_created": {
           "type": "date"
         },

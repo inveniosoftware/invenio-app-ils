@@ -7,9 +7,9 @@
 
 """Circulation minters."""
 
-from ..records.api import Document, InternalLocation, Item, Location
+from ..records.api import Document, InternalLocation, Item, Keyword, Location
 from .providers import DocumentIdProvider, InternalLocationIdProvider, \
-    ItemIdProvider, LocationIdProvider
+    ItemIdProvider, KeywordIdProvider, LocationIdProvider
 
 
 def document_pid_minter(record_uuid, data):
@@ -53,4 +53,15 @@ def internal_location_pid_minter(record_uuid, data):
         object_uuid=record_uuid,
     )
     data[InternalLocation.pid_field] = provider.pid.pid_value
+    return provider.pid
+
+
+def keyword_pid_minter(record_uuid, data):
+    """Mint keyword identifiers."""
+    assert Keyword.pid_field not in data
+    provider = KeywordIdProvider.create(
+        object_type='rec',
+        object_uuid=record_uuid,
+    )
+    data[Keyword.pid_field] = provider.pid.pid_value
     return provider.pid

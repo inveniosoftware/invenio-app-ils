@@ -26,6 +26,8 @@ def jsonresolver_loader(url_map):
         # remove the `item` field to avoid circular dependencies
         if loan.get("item"):
             del loan["item"]
+        if loan.get("$schema"):
+            del loan["$schema"]
         return loan
 
     url_map.add(

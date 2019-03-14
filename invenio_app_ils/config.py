@@ -554,9 +554,22 @@ RECORDS_REST_SORT_OPTIONS = dict(
     ),
 )
 
+
 # RECORDS REST facets
 # =========================
+FACET_KEYWORD_LIMIT = 5
+
 RECORDS_REST_FACETS = dict(
+    documents=dict(  # DocumentSearch.Meta.index
+        aggs=dict(
+            keywords=dict(
+                terms=dict(field="keywords.name", size=FACET_KEYWORD_LIMIT),
+            )
+        ),
+        filters=dict(
+            keywords=terms_filter("keywords.name")
+        )
+    ),
     items=dict(  # ItemSearch.Meta.index
         aggs=dict(
             status=dict(

@@ -25,7 +25,7 @@ from invenio_app_ils.circulation.mail.factory import loan_message_factory, \
 from invenio_app_ils.circulation.receivers import \
     index_record_after_loan_change
 from invenio_app_ils.records.api import Document, InternalLocation, Item, \
-    Location
+    Keyword, Location
 
 from ..helpers import load_json_from_datadir
 from .helpers import document_ref_builder, internal_location_ref_builder, \
@@ -35,6 +35,7 @@ from invenio_app_ils.pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
     ITEM_PID_TYPE,
+    KEYWORD_PID_TYPE,
     LOCATION_PID_TYPE,
 )
 
@@ -133,6 +134,14 @@ def testdata(app, db, es_clear):
         # re-index item attached to the loan
         index_record_after_loan_change(app, record)
 
+    keywords = load_json_from_datadir("keywords.json")
+    for keyword in keywords:
+        record = Keyword.create(keyword)
+        mint_record_pid(KEYWORD_PID_TYPE, Keyword.pid_field, record)
+        record.commit()
+        db.session.commit()
+        indexer.index(record)
+
     # flush all indices after indexing, otherwise ES won't be ready for tests
     current_search.flush_and_refresh(index=None)
 
@@ -141,6 +150,7 @@ def testdata(app, db, es_clear):
         "documents": documents,
         "items": items,
         "loans": loans,
+        "keywords": keywords,
     }
 
 

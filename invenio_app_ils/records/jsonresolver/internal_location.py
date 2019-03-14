@@ -27,6 +27,7 @@ def jsonresolver_loader(url_map):
         location_pid = get_field_value(InternalLocation, internal_loc_pid,
                                        Location.pid_field)
         location = Location.get_record_by_pid(location_pid)
+        del location["$schema"]
 
         return location
 

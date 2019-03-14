@@ -15,6 +15,7 @@ class QueryBuilder {
     this.overbookedQuery = [];
     this.availableItemsQuery = [];
     this.withPendingLoansQuery = [];
+    this.withKeywordQuery = [];
   }
 
   overbooked() {
@@ -32,9 +33,18 @@ class QueryBuilder {
     return this;
   }
 
+  withKeyword(keyword) {
+    this.withKeywordQuery.push(`keywords.name:"${keyword.name}"`);
+    return this;
+  }
+
   qs() {
     return this.overbookedQuery
-      .concat(this.availableItemsQuery, this.withPendingLoansQuery)
+      .concat(
+        this.availableItemsQuery,
+        this.withPendingLoansQuery,
+        this.withKeywordQuery
+      )
       .join(' AND ');
   }
 }

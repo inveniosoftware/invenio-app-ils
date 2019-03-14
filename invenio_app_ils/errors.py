@@ -121,3 +121,14 @@ class NotImplementedConfigurationError(IlsException):
 
 class MissingRequiredParameterError(IlsException):
     """Exception raised when required parameter is missing."""
+
+
+class DocumentKeywordNotFoundError(IlsException):
+    """Raised when trying to remove a non-existing keyword from a document."""
+
+    description = "Document PID '{}' has no keyword with PID '{}'"
+
+    def __init__(self, document_pid, keyword_pid, **kwargs):
+        """Initialize exception."""
+        super(DocumentKeywordNotFoundError, self).__init__(**kwargs)
+        self.description = self.description.format(document_pid, keyword_pid)

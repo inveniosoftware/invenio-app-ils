@@ -14,10 +14,13 @@ from invenio_jsonschemas import current_jsonschemas
 from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
 
+from invenio_app_ils.errors import DocumentKeywordNotFoundError
+
 from ..pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
     ITEM_PID_TYPE,
+    KEYWORD_PID_TYPE,
     LOCATION_PID_TYPE,
 )
 
@@ -50,6 +53,9 @@ class Document(IlsRecord):
     _circulation_resolver_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/circulation"
     )
+    _keyword_resolver_path = (
+        "{scheme}://{host}/api/resolver/documents/{document_pid}/keywords"
+    )
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
@@ -61,7 +67,34 @@ class Document(IlsRecord):
                 document_pid=data[cls.pid_field],
             )
         }
+        data["keywords"] = {
+            "$ref": cls._keyword_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                document_pid=data[cls.pid_field],
+            )
+        }
+        data.setdefault("keyword_pids", [])
         return super(Document, cls).create(data, id_=id_, **kwargs)
+
+    def add_keyword(self, keyword):
+        """Add a new keyword to the document."""
+        if keyword["keyword_pid"] not in self["keyword_pids"]:
+            self["keyword_pids"].append(keyword["keyword_pid"])
+
+    def remove_keyword(self, keyword):
+        """Remove a keyword from the document.
+
+        :returns: True if keyword was removed
+        """
+        if keyword["keyword_pid"] not in self["keyword_pids"]:
+            raise DocumentKeywordNotFoundError(
+                self["document_pid"],
+                keyword["keyword_pid"]
+            )
+
+        self["keyword_pids"].remove(keyword["keyword_pid"])
+        return True
 
 
 class Item(IlsRecord):
@@ -142,3 +175,16 @@ class InternalLocation(IlsRecord):
             )
         }
         return super(InternalLocation, cls).create(data, id_=id_, **kwargs)
+
+
+class Keyword(IlsRecord):
+    """Keyword record class."""
+
+    pid_field = "keyword_pid"
+    _pid_type = KEYWORD_PID_TYPE
+    _schema = "keywords/keyword-v1.0.0.json"
+
+    @classmethod
+    def create(cls, data, id_=None, **kwargs):
+        """Create Keyword record."""
+        return super(Keyword, cls).create(data, id_=id_, **kwargs)

@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Schema for Keyword",
+  "type": "object",
+  "required": ["$schema", "keyword_pid", "name"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "keyword_pid": {
+      "type": "string",
+      "title": "The persistent identifier of this Keyword"
+    },
+    "name": {
+      "description": "The name of this Keyword",
+      "type": "string"
+    },
+    "provenance": {
+      "description": "Specifies the provenance of the keyword",
+      "type": "string"
+    }
+  }
+}
