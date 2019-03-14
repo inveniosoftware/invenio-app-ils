@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container } from 'semantic-ui-react';
+import { Container, Grid, Header } from 'semantic-ui-react';
 import { UserDetails } from './components';
 
 export default class UserDetailsContainer extends Component {
@@ -25,6 +25,12 @@ export default class UserDetailsContainer extends Component {
   render() {
     return (
       <Container>
+        <Grid columns={2}>
+          <Grid.Column width={5}>
+            <Header as="h2">Patron's profile</Header>
+          </Grid.Column>
+          <Grid.Column width={11} />
+        </Grid>
         <UserDetails />
       </Container>
     );

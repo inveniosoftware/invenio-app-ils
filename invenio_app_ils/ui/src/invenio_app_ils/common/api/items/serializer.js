@@ -4,13 +4,13 @@ import { fromISO } from '../date';
 export function serializeResponse(hit) {
   const result = { ...hit.metadata };
   if (!_isEmpty(hit)) {
-    result['item_pid'] = hit.id;
+    result['item_pid'] = hit.metadata.item_pid;
     result['created'] = fromISO(hit.created);
     result['updated'] = fromISO(hit.updated);
   }
   const item = hit.metadata;
   if (!_isEmpty(item)) {
-    result['location'] = item.internal_location.location
+    result['location'] = item.internal_location.hasOwnProperty('location')
       ? item.internal_location.location.name
       : '';
     result['circulation_restriction'] = item.circulation_restriction

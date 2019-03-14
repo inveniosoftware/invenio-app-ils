@@ -7,6 +7,7 @@ import {
   ACTION_HAS_ERROR,
 } from './types';
 import { loan as loanApi } from '../../../../common/api';
+import { sessionManager } from '../../../../authentication/services';
 
 export const fetchLoanDetails = loanPid => {
   return async dispatch => {
@@ -32,19 +33,13 @@ export const fetchLoanDetails = loanPid => {
 };
 
 export const performLoanAction = (pid, loan, url) => {
-  return async (dispatch, getState) => {
+  return async dispatch => {
     dispatch({
       type: ACTION_IS_LOADING,
     });
-    const stateUserSession = getState().userSession;
+    const currentUser = sessionManager.user;
     await loanApi
-      .postAction(
-        url,
-        pid,
-        loan,
-        stateUserSession.userPid,
-        stateUserSession.locationPid
-      )
+      .postAction(url, pid, loan, currentUser.id, currentUser.locationPid)
       .then(details => {
         dispatch({
           type: ACTION_SUCCESS,
