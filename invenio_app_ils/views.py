@@ -30,10 +30,16 @@ blueprint = Blueprint(
 
 def _get_documents_ui_config():
     """Get ui config for documents search page."""
-    ui_config = {'documents': {
-        'search': {'sortBy': {'values': [], 'onEmptyQuery': None},
-                   'sortOrder': ['asc', 'desc'],
-                   'aggs': []}}}
+    ui_config = {
+        "documents": {
+            "search": {
+                "sortBy": {"values": [], "onEmptyQuery": None},
+                "sortOrder": ["asc", "desc"],
+                "aggs": [],
+            },
+            "available": {"status": "LOANABLE"},
+        }
+    }
     documents_index = DocumentSearch.Meta.index
 
     documents_sort = current_app.config.get('RECORDS_REST_SORT_OPTIONS', {}).get(
@@ -45,8 +51,8 @@ def _get_documents_ui_config():
     } for field in documents_sort.keys()]
 
     ui_config['documents']['search']['sortBy']['values'] = sorted(documents_sort_ui,
-                                                              key=lambda s: s[
-                                                                  'order'])
+                                                                  key=lambda s: s[
+                                                                      'order'])
     if 'mostrecent' in documents_sort:
         ui_config['documents']['search']['sortBy']['onEmptyQuery'] = 'mostrecent'
 

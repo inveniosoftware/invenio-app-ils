@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { FrontSiteURLS } from '../common/urls';
-import { Footer, Header, Home, BookDetailsContainer } from '../pages/frontsite';
+import { Footer, Header, Home, BookDetailsContainer, BooksSearch } from '../pages/frontsite';
 import './FrontSite.scss';
 
 export class FrontSite extends Component {
@@ -17,6 +17,12 @@ export class FrontSite extends Component {
             exact
             path={FrontSiteURLS.bookDetails}
             component={BookDetailsContainer}
+          />
+          {/* books */}
+          <Route
+            exact
+            path={FrontSiteURLS.booksSearch}
+            component={BooksSearch}
           />
         </div>
         <Footer />

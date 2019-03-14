@@ -24,6 +24,18 @@
         },
         "_updated": {
           "type": "date"
+        },
+        "publisher": {
+          "type": "keyword"
+        },
+        "publication_date": {
+          "type": "keyword"
+        },
+        "language": {
+          "type": "keyword"
+        },
+        "medium": {
+          "type": "keyword"
         }
       }
     }

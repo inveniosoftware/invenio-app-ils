@@ -1,11 +1,12 @@
 import { generatePath } from 'react-router-dom';
 import { invenioConfig } from './config';
 
-const FrontSiteBase = '/frontsite';
+const FrontSiteBase = '';
 
 export const FrontSiteURLS = {
   home: FrontSiteBase,
   bookDetails: `${FrontSiteBase}/books/:documentPid`,
+  booksSearch: `${FrontSiteBase}/books`,
 };
 
 const BackOfficeBase = '/backoffice';
@@ -51,4 +52,8 @@ export const documentsSearchQueryUrl = qs => {
 
 export const openRecordEditor = (path, recid = '') => {
   window.open(`${invenioConfig.editor.url}${path}${recid}`, '_blank');
+};
+
+export const booksSearchQueryUrl = qs => {
+  return `${FrontSiteURLS.booksSearch}?q=${qs}`;
 };

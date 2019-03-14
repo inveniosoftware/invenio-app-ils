@@ -43,6 +43,10 @@ ITEM_MEDIUMS = ["NOT_SPECIFIED", "ONLINE", "PAPER", "CDROM", "DVD", "VHS"]
 ITEM_STATUSES = ["LOANABLE", "MISSING"]
 LOAN_STATUSES = ["PENDING", "ITEM_ON_LOAN", "ITEM_RETURNED", "CANCELLED"]
 
+PUBLISHER_LIST = ["Simon & Schuster", "Hachette", "Penguin", "Vintage"]
+LANGUAGE_LIST = ["English", "Spanish", "French", "Italian", "Russian", "Chinese"]
+MEDIUM_LIST = ["ONLINE", "PAPER", "CDROM", "DVD", "VHS"]
+
 ITEM_DOCUMENT_MAPPING = {}
 
 
@@ -76,6 +80,10 @@ def get_documents_items(internal_locations, n_docs, n_items):
             "keywords": ["{}".format(lorem.sentence())],
             "chapters": ["{}".format(lorem.sentence())],
             "information": "{}".format(lorem.text()),
+            "publisher": "{}".format(PUBLISHER_LIST[randint(0, len(PUBLISHER_LIST))-1]),
+            "publication_date": "{}".format(randint(1900, 2020)),
+            "language": "{}".format(LANGUAGE_LIST[randint(0, len(LANGUAGE_LIST)-1)]),
+            "medium": "{}".format(MEDIUM_LIST[randint(0, len(MEDIUM_LIST)-1)]),
         }
         for i in range(1, n_docs)
     ]

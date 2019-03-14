@@ -524,6 +524,20 @@ CIRCULATION_REST_ENDPOINTS = dict(
 # RECORDS REST sort options
 # =========================
 RECORDS_REST_SORT_OPTIONS = dict(
+    documents=dict(  # DocumentSearch.Meta.index
+        bestmatch=dict(
+            fields=['-_score'],
+            title='Best match',
+            default_order='asc',
+            order=2
+        ),
+        mostrecent=dict(
+            fields=['_updated'],
+            title='Newest',
+            default_order='asc',
+            order=1
+        )
+    ),
     items=dict(  # ItemSearch.Meta.index
         bestmatch=dict(
             fields=['-_score'],
@@ -557,6 +571,28 @@ RECORDS_REST_SORT_OPTIONS = dict(
 # RECORDS REST facets
 # =========================
 RECORDS_REST_FACETS = dict(
+    documents=dict(  # ItemSearch.Meta.index
+        aggs=dict(
+            publisher=dict(
+                terms=dict(field="publisher"),
+            ),
+            publication_date=dict(
+                terms=dict(field="publication_date"),
+            ),
+            language=dict(
+                terms=dict(field="language"),
+            ),
+            medium=dict(
+                terms=dict(field="medium"),
+            ),
+        ),
+        filters=dict(
+            publisher=terms_filter('publisher'),
+            publication_date=terms_filter('publication_date'),
+            language=terms_filter('language'),
+            medium=terms_filter('medium'),
+        )
+    ),
     items=dict(  # ItemSearch.Meta.index
         aggs=dict(
             status=dict(

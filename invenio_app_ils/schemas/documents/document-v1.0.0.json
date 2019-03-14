@@ -75,6 +75,22 @@
     "document_pid": {
       "type": "string",
       "title": "Document ID"
+    },
+    "publisher": {
+      "type": "string",
+      "description": ""
+    },
+    "publication_date": {
+      "type": "string",
+      "description": ""
+    },
+    "language": {
+      "type": "string",
+      "description": ""
+    },
+    "medium": {
+      "type": "string",
+      "description": ""
     }
   }
 }
