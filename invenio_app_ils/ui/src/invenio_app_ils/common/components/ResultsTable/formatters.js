@@ -1,4 +1,4 @@
-import { toShortDateTime } from '../../api/date';
+import { fromISO, toShortDate, toShortDateTime } from '../../api/date';
 
 function formatLoanToTableView(loan) {
   return {
@@ -21,7 +21,20 @@ function formatDocumentToTableView(document) {
   return serialized;
 }
 
+function formatItemToTableView(item) {
+  return {
+    ID: item.item_pid,
+    Barcode: item.barcode,
+    'Document ID': item.document_pid,
+    Status: item.status,
+    'Internal location': item.internal_location,
+    Created: toShortDate(fromISO(item.created)),
+    Updated: toShortDate(fromISO(item.updated)),
+  };
+}
+
 export const formatter = {
   loan: { toTable: formatLoanToTableView },
   document: { toTable: formatDocumentToTableView },
+  item: { toTable: formatItemToTableView },
 };

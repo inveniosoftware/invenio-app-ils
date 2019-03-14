@@ -8,7 +8,7 @@ describe('Loan query builder tests', () => {
       .query()
       .withDocPid(5)
       .qs();
-    expect(query).toEqual('document_pid:5');
+    expect(query).toEqual('(document_pid:5)');
   });
 
   it('should build query string with document PID 5 and pending state', () => {
@@ -17,7 +17,7 @@ describe('Loan query builder tests', () => {
       .withDocPid(5)
       .withState('PENDING')
       .qs();
-    expect(query).toEqual('document_pid:5 AND state:PENDING');
+    expect(query).toEqual('(document_pid:5 AND state:PENDING)');
   });
 
   it('should build query string with pending state', () => {
@@ -25,7 +25,7 @@ describe('Loan query builder tests', () => {
       .query()
       .withState('PENDING')
       .qs();
-    expect(query).toEqual('state:PENDING');
+    expect(query).toEqual('(state:PENDING)');
   });
 
   it('should build query string with item pid 5 and on loan state', () => {
@@ -34,7 +34,7 @@ describe('Loan query builder tests', () => {
       .withItemPid(5)
       .withState('ON_LOAN')
       .qs();
-    expect(query).toEqual('item_pid:5 AND state:ON_LOAN');
+    expect(query).toEqual('(item_pid:5 AND state:ON_LOAN)');
   });
 
   it('should build query string with itemPid 10 and ITEM_RETURNED or CANCELLED state', () => {
@@ -43,7 +43,9 @@ describe('Loan query builder tests', () => {
       .withItemPid(10)
       .withState(['ITEM_RETURNED', 'CANCELLED'])
       .qs();
-    expect(query).toEqual('item_pid:10 AND state:(ITEM_RETURNED OR CANCELLED)');
+    expect(query).toEqual(
+      '(item_pid:10 AND state:(ITEM_RETURNED OR CANCELLED))'
+    );
   });
 
   it('should not return anything for empty params', () => {
@@ -62,7 +64,7 @@ describe('Loan query builder tests', () => {
       .query()
       .overdue()
       .qs();
-    expect(decodeURI(query)).toEqual(`request_expire_date:{* TO ${now}}`);
+    expect(decodeURI(query)).toEqual(`(request_expire_date:{* TO ${now}})`);
   });
 
   it('should build query for update date range', () => {
@@ -72,7 +74,7 @@ describe('Loan query builder tests', () => {
       .query()
       .withUpdated(date)
       .qs();
-    expect(decodeURI(query)).toEqual(`_updated:{${date.from} TO ${date.to}}`);
+    expect(decodeURI(query)).toEqual(`(_updated:{${date.from} TO ${date.to}})`);
   });
 });
 

@@ -1,5 +1,6 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR, RESET_STATE } from './types';
 import { loan as loanApi } from '../../../../../../../../common/api/loans/loan';
+import { ApiURLS } from '../../../../../../../../common/api/urls';
 
 export const createNewLoanForItem = (itemPid, loan) => {
   return async (dispatch, getState) => {
@@ -9,7 +10,7 @@ export const createNewLoanForItem = (itemPid, loan) => {
     const stateUserSession = getState().userSession;
     await loanApi
       .postAction(
-        `${loanApi.url}create`,
+        `${ApiURLS.loans.list}create`,
         itemPid,
         loan,
         stateUserSession.userPid,

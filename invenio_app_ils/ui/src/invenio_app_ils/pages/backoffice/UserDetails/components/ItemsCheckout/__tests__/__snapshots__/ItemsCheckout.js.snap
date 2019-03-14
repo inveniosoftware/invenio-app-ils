@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PatronLoans tests should load the ItemsCheckout component 1`] = `
+<Loader>
+  <Error
+    error={null}
+  >
+    <Message
+      color="blue"
+    >
+      Scan the barcode to perform a loan for this user.
+    </Message>
+  </Error>
+</Loader>
+`;
+
+exports[`PatronLoans tests should render show a message with added loan 1`] = `
+<ItemsCheckout
+  checkoutItem={[MockFunction]}
+  data={
+    Object {
+      "item_pid": "4",
+      "loan_pid": 2,
+    }
+  }
+  history={[Function]}
+>
+  <Loader>
+    <Error
+      error={null}
+    >
+      <Message
+        color="green"
+        data-test="success"
+      >
+        <div
+          className="ui green message"
+          data-test="success"
+        >
+          The new loan was created.
+        </div>
+      </Message>
+    </Error>
+  </Loader>
+</ItemsCheckout>
+`;

@@ -5,6 +5,7 @@ import { ItemMetadata } from '../ItemMetadata';
 import { LoanActions } from '../LoanActions';
 import { AvailableItems } from '../AvailableItems';
 import _isEmpty from 'lodash/isEmpty';
+import { toISO, toShortDateTime } from '../../../../../common/api/date';
 
 export default class LoanMetadata extends Component {
   constructor(props) {
@@ -71,7 +72,9 @@ export default class LoanMetadata extends Component {
               <Table.Body>
                 <Table.Row>
                   <Table.Cell width={4}>Transaction date</Table.Cell>
-                  <Table.Cell width={12}>{data.transaction_date}</Table.Cell>
+                  <Table.Cell width={12}>
+                    {toShortDateTime(data.transaction_date)}
+                  </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell width={4}>Expire Date</Table.Cell>

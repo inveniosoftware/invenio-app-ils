@@ -1,0 +1,579 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PatronLoans tests should load the ItemsSearch component 1`] = `
+<Segment>
+  <Header
+    as="h3"
+  >
+    Items
+  </Header>
+  <Container>
+    <Input
+      action={
+        Object {
+          "content": "Search",
+          "onClick": [Function],
+        }
+      }
+      fluid={true}
+      focus={true}
+      onChange={[Function]}
+      onKeyPress={[Function]}
+      onPaste={[Function]}
+      placeholder="Search by barcode..."
+      type="text"
+      value=""
+    />
+  </Container>
+  <Grid
+    className="items-search-container"
+    columns={1}
+    relaxed={true}
+    stackable={true}
+  >
+    <GridColumn
+      width={16}
+    >
+      <Loader>
+        <Error
+          error={null}
+        >
+          <Grid
+            columns={3}
+            relaxed={true}
+            stackable={true}
+            verticalAlign="middle"
+          >
+            <GridColumn
+              textAlign="left"
+              width={5}
+            >
+              <div>
+                0
+                 results
+              </div>
+            </GridColumn>
+          </Grid>
+          <Segment
+            placeholder={true}
+            textAlign="center"
+          >
+            <Header
+              icon={true}
+            >
+              <Icon
+                as="i"
+                name="search"
+              />
+              Type barcode to search for items and press enter.
+            </Header>
+            <div
+              className="empty-results-current"
+            >
+              Current search phrase "
+              "
+            </div>
+            <SegmentInline>
+              <Button
+                as="button"
+                onClick={[Function]}
+                primary={true}
+              >
+                Clear query
+              </Button>
+            </SegmentInline>
+          </Segment>
+        </Error>
+      </Loader>
+    </GridColumn>
+  </Grid>
+</Segment>
+`;
+
+exports[`PatronLoans tests should render items in search 1`] = `
+<ItemsCheckout
+  checkoutItem={[MockFunction]}
+  clearResults={[MockFunction]}
+  fetchItems={[MockFunction]}
+  fetchPatronCurrentLoans={[MockFunction]}
+  history={[Function]}
+  items={
+    Array [
+      Object {
+        "barcode": "3",
+        "document_pid": 4,
+        "item_pid": "4",
+        "status": "LOANABLE",
+      },
+    ]
+  }
+  patron="2"
+  queryString=""
+  updateQueryString={[MockFunction]}
+>
+  <Segment>
+    <div
+      className="ui segment"
+    >
+      <Header
+        as="h3"
+      >
+        <h3
+          className="ui header"
+        >
+          Items
+        </h3>
+      </Header>
+      <Container>
+        <div
+          className="ui container"
+        >
+          <Input
+            action={
+              Object {
+                "content": "Search",
+                "onClick": [Function],
+              }
+            }
+            fluid={true}
+            focus={true}
+            onChange={[Function]}
+            onKeyPress={[Function]}
+            onPaste={[Function]}
+            placeholder="Search by barcode..."
+            type="text"
+            value=""
+          >
+            <div
+              className="ui fluid focus action input"
+              onPaste={[Function]}
+            >
+              <input
+                onChange={[Function]}
+                onKeyPress={[Function]}
+                placeholder="Search by barcode..."
+                type="text"
+                value=""
+              />
+              <Button
+                as="button"
+                content="Search"
+                onClick={[Function]}
+              >
+                <button
+                  className="ui button"
+                  onClick={[Function]}
+                >
+                  Search
+                </button>
+              </Button>
+            </div>
+          </Input>
+        </div>
+      </Container>
+      <Grid
+        className="items-search-container"
+        columns={1}
+        relaxed={true}
+        stackable={true}
+      >
+        <div
+          className="ui stackable relaxed one column grid items-search-container"
+        >
+          <GridColumn
+            width={16}
+          >
+            <div
+              className="sixteen wide column"
+            >
+              <Loader>
+                <Error
+                  error={null}
+                >
+                  <Grid
+                    columns={3}
+                    relaxed={true}
+                    stackable={true}
+                    verticalAlign="middle"
+                  >
+                    <div
+                      className="ui stackable relaxed middle aligned three column grid"
+                    >
+                      <GridColumn
+                        textAlign="left"
+                        width={5}
+                      >
+                        <div
+                          className="left aligned five wide column"
+                        >
+                          <div>
+                            1
+                             results
+                          </div>
+                        </div>
+                      </GridColumn>
+                    </div>
+                  </Grid>
+                  <div
+                    className="results-list"
+                  >
+                    <ResultsList
+                      checkoutItem={[MockFunction]}
+                      clearResults={[MockFunction]}
+                      fetchPatronCurrentLoans={[MockFunction]}
+                      patron="2"
+                      results={
+                        Array [
+                          Object {
+                            "barcode": "3",
+                            "document_pid": 4,
+                            "item_pid": "4",
+                            "status": "LOANABLE",
+                          },
+                        ]
+                      }
+                      viewDetailsClickHandler={[Function]}
+                    >
+                      <ResultsTable
+                        actionClickHandler={[Function]}
+                        fixed={false}
+                        headerActionClickHandler={null}
+                        headerActionComponent={null}
+                        name=""
+                        rowActionClickHandler={null}
+                        rows={
+                          Array [
+                            Object {
+                              "Actions": <Button
+                                as="button"
+                                content="Checkout"
+                                onClick={[Function]}
+                              />,
+                              "Barcode": "3",
+                              "Document ID": 4,
+                              "ID": "4",
+                              "Status": "LOANABLE",
+                            },
+                          ]
+                        }
+                        seeAllComponent={null}
+                        showMaxRows={10}
+                        singleLine={false}
+                        subtitle=""
+                        title=""
+                      >
+                        <Segment>
+                          <div
+                            className="ui segment"
+                          >
+                            <Grid>
+                              <div
+                                className="ui grid"
+                              >
+                                <GridRow>
+                                  <div
+                                    className="row"
+                                  >
+                                    <GridColumn
+                                      verticalAlign="middle"
+                                      width={13}
+                                    >
+                                      <div
+                                        className="middle aligned thirteen wide column"
+                                      />
+                                    </GridColumn>
+                                    <GridColumn
+                                      textAlign="right"
+                                      width={3}
+                                    >
+                                      <div
+                                        className="right aligned three wide column"
+                                      />
+                                    </GridColumn>
+                                  </div>
+                                </GridRow>
+                              </div>
+                            </Grid>
+                            <Table
+                              as="table"
+                              selectable={true}
+                              striped={true}
+                            >
+                              <table
+                                className="ui selectable striped table"
+                              >
+                                <ResultsTableHeader
+                                  columns={
+                                    Array [
+                                      "ID",
+                                      "Barcode",
+                                      "Document ID",
+                                      "Status",
+                                      "Actions",
+                                    ]
+                                  }
+                                  withRowAction={false}
+                                >
+                                  <TableHeader
+                                    as="thead"
+                                  >
+                                    <thead
+                                      className=""
+                                    >
+                                      <TableRow
+                                        as="tr"
+                                        cellAs="td"
+                                        data-test="header"
+                                      >
+                                        <tr
+                                          className=""
+                                          data-test="header"
+                                        >
+                                          <TableHeaderCell
+                                            as="th"
+                                            collapsing={true}
+                                            width={1}
+                                          >
+                                            <TableCell
+                                              as="th"
+                                              className=""
+                                              collapsing={true}
+                                              width={1}
+                                            >
+                                              <th
+                                                className="collapsing one wide"
+                                              />
+                                            </TableCell>
+                                          </TableHeaderCell>
+                                          <TableHeaderCell
+                                            as="th"
+                                            key="ID"
+                                            width={2}
+                                          >
+                                            <TableCell
+                                              as="th"
+                                              className=""
+                                              width={2}
+                                            >
+                                              <th
+                                                className="two wide"
+                                              >
+                                                ID
+                                              </th>
+                                            </TableCell>
+                                          </TableHeaderCell>
+                                          <TableHeaderCell
+                                            as="th"
+                                            key="Barcode"
+                                          >
+                                            <TableCell
+                                              as="th"
+                                              className=""
+                                            >
+                                              <th
+                                                className=""
+                                              >
+                                                Barcode
+                                              </th>
+                                            </TableCell>
+                                          </TableHeaderCell>
+                                          <TableHeaderCell
+                                            as="th"
+                                            key="Document ID"
+                                          >
+                                            <TableCell
+                                              as="th"
+                                              className=""
+                                            >
+                                              <th
+                                                className=""
+                                              >
+                                                Document ID
+                                              </th>
+                                            </TableCell>
+                                          </TableHeaderCell>
+                                          <TableHeaderCell
+                                            as="th"
+                                            key="Status"
+                                          >
+                                            <TableCell
+                                              as="th"
+                                              className=""
+                                            >
+                                              <th
+                                                className=""
+                                              >
+                                                Status
+                                              </th>
+                                            </TableCell>
+                                          </TableHeaderCell>
+                                          <TableHeaderCell
+                                            as="th"
+                                            key="Actions"
+                                          >
+                                            <TableCell
+                                              as="th"
+                                              className=""
+                                            >
+                                              <th
+                                                className=""
+                                              >
+                                                Actions
+                                              </th>
+                                            </TableCell>
+                                          </TableHeaderCell>
+                                        </tr>
+                                      </TableRow>
+                                    </thead>
+                                  </TableHeader>
+                                </ResultsTableHeader>
+                                <ResultsTableBody
+                                  columns={
+                                    Array [
+                                      "ID",
+                                      "Barcode",
+                                      "Document ID",
+                                      "Status",
+                                      "Actions",
+                                    ]
+                                  }
+                                  rowActionClickHandler={null}
+                                  rows={
+                                    Array [
+                                      Object {
+                                        "Actions": <Button
+                                          as="button"
+                                          content="Checkout"
+                                          onClick={[Function]}
+                                        />,
+                                        "Barcode": "3",
+                                        "Document ID": 4,
+                                        "ID": "4",
+                                        "Status": "LOANABLE",
+                                      },
+                                    ]
+                                  }
+                                >
+                                  <TableBody
+                                    as="tbody"
+                                  >
+                                    <tbody
+                                      className=""
+                                    >
+                                      <TableRow
+                                        as="tr"
+                                        cellAs="td"
+                                        data-test="4"
+                                        key="4"
+                                      >
+                                        <tr
+                                          className=""
+                                          data-test="4"
+                                        >
+                                          <TableCell
+                                            as="td"
+                                            textAlign="center"
+                                          >
+                                            <td
+                                              className="center aligned"
+                                            />
+                                          </TableCell>
+                                          <TableCell
+                                            as="td"
+                                            data-test="ID-4"
+                                            key="0-4"
+                                          >
+                                            <td
+                                              className=""
+                                              data-test="ID-4"
+                                            >
+                                              4
+                                            </td>
+                                          </TableCell>
+                                          <TableCell
+                                            as="td"
+                                            data-test="Barcode-4"
+                                            key="1-4"
+                                          >
+                                            <td
+                                              className=""
+                                              data-test="Barcode-4"
+                                            >
+                                              3
+                                            </td>
+                                          </TableCell>
+                                          <TableCell
+                                            as="td"
+                                            data-test="Document ID-4"
+                                            key="2-4"
+                                          >
+                                            <td
+                                              className=""
+                                              data-test="Document ID-4"
+                                            >
+                                              4
+                                            </td>
+                                          </TableCell>
+                                          <TableCell
+                                            as="td"
+                                            data-test="Status-4"
+                                            key="3-4"
+                                          >
+                                            <td
+                                              className=""
+                                              data-test="Status-4"
+                                            >
+                                              LOANABLE
+                                            </td>
+                                          </TableCell>
+                                          <TableCell
+                                            as="td"
+                                            data-test="Actions-4"
+                                            key="4-4"
+                                          >
+                                            <td
+                                              className=""
+                                              data-test="Actions-4"
+                                            >
+                                              <Button
+                                                as="button"
+                                                content="Checkout"
+                                                onClick={[Function]}
+                                              >
+                                                <button
+                                                  className="ui button"
+                                                  onClick={[Function]}
+                                                >
+                                                  Checkout
+                                                </button>
+                                              </Button>
+                                            </td>
+                                          </TableCell>
+                                        </tr>
+                                      </TableRow>
+                                    </tbody>
+                                  </TableBody>
+                                </ResultsTableBody>
+                                <ResultsTableFooter
+                                  allRowsNumber={1}
+                                  columnsNumber={5}
+                                  seeAllComponent={null}
+                                  showMaxRows={10}
+                                />
+                              </table>
+                            </Table>
+                          </div>
+                        </Segment>
+                      </ResultsTable>
+                    </ResultsList>
+                  </div>
+                </Error>
+              </Loader>
+            </div>
+          </GridColumn>
+        </div>
+      </Grid>
+    </div>
+  </Segment>
+</ItemsCheckout>
+`;

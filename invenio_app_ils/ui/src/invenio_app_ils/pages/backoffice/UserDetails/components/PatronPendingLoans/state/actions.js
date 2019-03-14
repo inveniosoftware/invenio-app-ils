@@ -7,7 +7,7 @@ import {
 } from './types';
 import { loan as loanApi } from '../../../../../../common/api';
 
-export const fetchPatronLoans = patronPid => {
+export const fetchPatronPendingLoans = patronPid => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
@@ -17,6 +17,7 @@ export const fetchPatronLoans = patronPid => {
         loanApi
           .query()
           .withPatronPid(patronPid)
+          .withState('PENDING')
           .qs()
       )
       .then(response => {
@@ -42,7 +43,7 @@ export const patronLoansChangeSortBy = (
 ) => {
   return async (dispatch, getState) => {
     const newSortBy =
-      getState().patronLoans.sortBy === 'transaction_date'
+      getState().patronPendingLoans.sortBy === 'transaction_date'
         ? 'start_date'
         : 'transaction_date';
 
@@ -52,7 +53,7 @@ export const patronLoansChangeSortBy = (
     });
 
     await dispatch(
-      fetchPatronLoans(documentPid, itemPid, loanState, patronPid)
+      fetchPatronPendingLoans(documentPid, itemPid, loanState, patronPid)
     );
   };
 };
@@ -65,7 +66,7 @@ export const patronLoansChangeSortOrder = (
 ) => {
   return async (dispatch, getState) => {
     const newSortOrder =
-      getState().patronLoans.sortOrder === 'asc' ? 'desc' : 'asc';
+      getState().patronPendingLoans.sortOrder === 'asc' ? 'desc' : 'asc';
 
     dispatch({
       type: CHANGE_SORT_ORDER,
@@ -73,7 +74,7 @@ export const patronLoansChangeSortOrder = (
     });
 
     await dispatch(
-      fetchPatronLoans(documentPid, itemPid, loanState, patronPid)
+      fetchPatronPendingLoans(documentPid, itemPid, loanState, patronPid)
     );
   };
 };
