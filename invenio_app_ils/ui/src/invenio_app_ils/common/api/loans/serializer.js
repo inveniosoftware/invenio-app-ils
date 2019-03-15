@@ -14,6 +14,9 @@ function serializeResponse(hit) {
       if (!_isEmpty(loan.item)) {
         result['item'] = loan.item;
       }
+      result['start_date'] = fromISO(loan.start_date);
+      result['end_date'] = fromISO(loan.start_date);
+      result['transaction_date'] = fromISO(loan.start_date);
     }
   }
   return result;

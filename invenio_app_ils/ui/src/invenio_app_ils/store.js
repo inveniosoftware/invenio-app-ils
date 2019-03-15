@@ -13,8 +13,13 @@ import {
   itemPastLoansReducer,
 } from './pages/backoffice/ItemDetails/reducer';
 import { loanDetailsReducer } from './pages/backoffice/LoanDetails/reducer';
-import { userDetailsReducer } from './pages/backoffice/UserDetails/reducer';
-import { patronLoansReducer } from './pages/backoffice/UserDetails/components/PatronLoans/reducer';
+import {
+  itemsSearchByBarcodeReducer,
+  patronCurrentLoansReducer,
+  userDetailsReducer,
+  patronItemCheckoutReducer,
+} from './pages/backoffice/UserDetails/reducer';
+import { patronPendingLoansReducer } from './pages/backoffice/UserDetails/reducer';
 import {
   locationListReducer,
   internalLocationListReducer,
@@ -38,7 +43,8 @@ const rootReducer = combineReducers({
   itemPastLoans: itemPastLoansReducer,
   loanDetails: loanDetailsReducer,
   userDetails: userDetailsReducer,
-  patronLoans: patronLoansReducer,
+  patronPendingLoans: patronPendingLoansReducer,
+  patronCurrentLoans: patronCurrentLoansReducer,
   availableItems: availableItemsReducer,
   locations: locationListReducer,
   internalLocations: internalLocationListReducer,
@@ -49,6 +55,8 @@ const rootReducer = combineReducers({
   idlePendingLoans: idleLoansReducer,
   latestRenewedLoans: renewedLoansReducer,
   bookDetails: bookDetailsReducer,
+  itemsSearchInput: itemsSearchByBarcodeReducer,
+  patronItemsCheckout: patronItemCheckoutReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

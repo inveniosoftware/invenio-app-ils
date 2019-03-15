@@ -4,9 +4,13 @@ import { DateTime } from 'luxon';
 import { serializer } from './serializer';
 import _isEmpty from 'lodash/isEmpty';
 import { prepareDateQuery, prepareSumQuery } from '../utils';
+import { ApiURLS } from '../urls';
+import { generatePath } from 'react-router-dom';
 
-const loanListURL = '/circulation/loans/';
-const loanURL = loanPid => `${loanListURL}${loanPid}`;
+const loanListURL = ApiURLS.loans.list;
+const loanURL = loanPid => {
+  return generatePath(ApiURLS.loans.loan, { loanPid: loanPid });
+};
 
 const get = loanPid =>
   http.get(`${loanURL(loanPid)}`).then(response => {
@@ -57,6 +61,7 @@ const assignItemToLoan = (itemPid, loanPid) => {
 
 class QueryBuilder {
   constructor() {
+    this.sortBy = '';
     this.documentQuery = [];
     this.itemQuery = [];
     this.patronQuery = [];
@@ -132,8 +137,13 @@ class QueryBuilder {
     return this;
   }
 
+  sortByNewest() {
+    this.sortBy = `&sort=-mostrecent`;
+    return this;
+  }
+
   qs() {
-    return this.documentQuery
+    const searchCriteria = this.documentQuery
       .concat(
         this.itemQuery,
         this.patronQuery,
@@ -143,6 +153,7 @@ class QueryBuilder {
         this.renewedCountQuery
       )
       .join(' AND ');
+    return `(${searchCriteria})${this.sortBy}`;
   }
 }
 

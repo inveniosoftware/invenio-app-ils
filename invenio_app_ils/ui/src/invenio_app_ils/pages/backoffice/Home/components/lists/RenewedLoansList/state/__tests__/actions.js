@@ -48,7 +48,7 @@ describe('Loans renewed more then 3 times (last week) fetch tests', () => {
 
     store.dispatch(actions.fetchRenewedLoans()).then(() => {
       expect(mockLoanList).toHaveBeenCalledWith(
-        `_updated:%7B${date}%20TO%20*%7D AND extension_count:>=3`
+        `(_updated:%7B${date}%20TO%20*%7D AND extension_count:>=3)`
       );
       const actions = store.getActions();
       expect(actions[0]).toEqual(expectedAction);
@@ -66,7 +66,7 @@ describe('Loans renewed more then 3 times (last week) fetch tests', () => {
 
     store.dispatch(actions.fetchRenewedLoans()).then(() => {
       expect(mockLoanList).toHaveBeenCalledWith(
-        `_updated:%7B${date}%20TO%20*%7D AND extension_count:>=3`
+        `(_updated:%7B${date}%20TO%20*%7D AND extension_count:>=3)`
       );
       const actions = store.getActions();
       expect(actions[1]).toEqual(expectedAction);
@@ -84,7 +84,7 @@ describe('Loans renewed more then 3 times (last week) fetch tests', () => {
 
     store.dispatch(actions.fetchRenewedLoans()).then(() => {
       expect(mockLoanList).toHaveBeenCalledWith(
-        `_updated:%7B${date}%20TO%20*%7D AND extension_count:>=3`
+        `(_updated:%7B${date}%20TO%20*%7D AND extension_count:>=3)`
       );
       const actions = store.getActions();
       expect(actions[1]).toEqual(expectedAction);

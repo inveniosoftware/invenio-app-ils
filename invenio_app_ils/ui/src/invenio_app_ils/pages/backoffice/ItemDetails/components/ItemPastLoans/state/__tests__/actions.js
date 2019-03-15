@@ -47,7 +47,7 @@ describe('Past loans tests', () => {
 
       store.dispatch(actions.fetchPastLoans('456')).then(() => {
         expect(mockFetchPastOnDocumentItem).toHaveBeenCalledWith(
-          'item_pid:456 AND state:(ITEM_RETURNED OR CANCELLED)'
+          '(item_pid:456 AND state:(ITEM_RETURNED OR CANCELLED))'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
@@ -65,7 +65,7 @@ describe('Past loans tests', () => {
 
       store.dispatch(actions.fetchPastLoans('456')).then(() => {
         expect(mockFetchPastOnDocumentItem).toHaveBeenCalledWith(
-          'item_pid:456 AND state:(ITEM_RETURNED OR CANCELLED)'
+          '(item_pid:456 AND state:(ITEM_RETURNED OR CANCELLED))'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -83,7 +83,7 @@ describe('Past loans tests', () => {
 
       store.dispatch(actions.fetchPastLoans('456')).then(() => {
         expect(mockFetchPastOnDocumentItem).toHaveBeenCalledWith(
-          'item_pid:456 AND state:(ITEM_RETURNED OR CANCELLED)'
+          '(item_pid:456 AND state:(ITEM_RETURNED OR CANCELLED))'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);

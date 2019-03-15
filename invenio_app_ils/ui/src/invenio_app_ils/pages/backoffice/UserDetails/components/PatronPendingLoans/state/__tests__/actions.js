@@ -16,7 +16,7 @@ const mockResponse = {
           id: '123',
           updated: '2018-01-01T11:05:00+01:00',
           created: '2018-01-01T11:05:00+01:00',
-          metadata: {},
+          metadata: { loan_pid: '123' },
         },
       ],
     },
@@ -30,7 +30,7 @@ let store;
 beforeEach(() => {
   mockFetchUserLoan.mockClear();
 
-  store = mockStore({ patronLoans: initialState });
+  store = mockStore({ patronPendingLoans: initialState });
   store.clearActions();
 });
 
@@ -43,8 +43,10 @@ describe('Patron loans tests', () => {
         type: types.IS_LOADING,
       };
 
-      store.dispatch(actions.fetchPatronLoans(2)).then(() => {
-        expect(mockFetchUserLoan).toHaveBeenCalledWith('patron_pid:2');
+      store.dispatch(actions.fetchPatronPendingLoans(2)).then(() => {
+        expect(mockFetchUserLoan).toHaveBeenCalledWith(
+          '(patron_pid:2 AND state:PENDING)'
+        );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
         done();
@@ -59,8 +61,10 @@ describe('Patron loans tests', () => {
         payload: mockResponse.data,
       };
 
-      store.dispatch(actions.fetchPatronLoans(2)).then(() => {
-        expect(mockFetchUserLoan).toHaveBeenCalledWith('patron_pid:2');
+      store.dispatch(actions.fetchPatronPendingLoans(2)).then(() => {
+        expect(mockFetchUserLoan).toHaveBeenCalledWith(
+          '(patron_pid:2 AND state:PENDING)'
+        );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
         done();
@@ -75,8 +79,10 @@ describe('Patron loans tests', () => {
         payload: [500, 'Error'],
       };
 
-      store.dispatch(actions.fetchPatronLoans(2)).then(() => {
-        expect(mockFetchUserLoan).toHaveBeenCalledWith('patron_pid:2');
+      store.dispatch(actions.fetchPatronPendingLoans(2)).then(() => {
+        expect(mockFetchUserLoan).toHaveBeenCalledWith(
+          '(patron_pid:2 AND state:PENDING)'
+        );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
         done();
@@ -104,7 +110,7 @@ describe('Fetch change sort by when fetching patron loans tests', () => {
 
   it('should dispatch a change sort by action with `transaction_date` when calling patronLoansChangeSortBy the second time', done => {
     mockFetchUserLoan.mockResolvedValue(mockResponse);
-    store.getState().patronLoans.sortBy = 'start_date';
+    store.getState().patronPendingLoans.sortBy = 'start_date';
 
     const expectedAction = {
       type: types.CHANGE_SORT_BY,
@@ -141,7 +147,7 @@ describe('Fetch change sort order when fetching patron loans tests', () => {
 
   it('should dispatch a change sort by action with `asc` when calling patronLoansChangeSortOrder the second time', done => {
     mockFetchUserLoan.mockResolvedValue(mockResponse);
-    store.getState().patronLoans.sortOrder = 'desc';
+    store.getState().patronPendingLoans.sortOrder = 'desc';
 
     const expectedAction = {
       type: types.CHANGE_SORT_ORDER,

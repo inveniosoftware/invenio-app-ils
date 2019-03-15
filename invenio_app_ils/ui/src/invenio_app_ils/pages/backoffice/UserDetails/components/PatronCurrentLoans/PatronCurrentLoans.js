@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
 import { loan as loanApi } from '../../../../../common/api/';
-import './PatronLoans.scss';
 
 import { ResultsTable } from '../../../../../common/components';
 import {
@@ -11,18 +10,19 @@ import {
 } from '../../../../../common/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
+import { fromISO, toShortDate } from '../../../../../common/api/date';
 
-export default class PatronLoans extends Component {
+export default class PatronCurrentLoans extends Component {
   constructor(props) {
     super(props);
-    this.fetchPatronLoans = props.fetchPatronLoans;
+    this.fetchPatronCurrentLoans = props.fetchPatronCurrentLoans;
     this.showDetailsUrl = viewLoanDetailsUrl;
     this.seeAllUrl = loanSearchQueryUrl;
   }
 
   componentDidMount() {
     const patron_pid = this.props.patron ? this.props.patron : null;
-    this.fetchPatronLoans(patron_pid);
+    this.fetchPatronCurrentLoans(patron_pid);
   }
 
   _showDetailsHandler = loan_pid =>
@@ -36,52 +36,52 @@ export default class PatronLoans extends Component {
           loanApi
             .query()
             .withPatronPid(patron)
+            .withState('ITEM_ON_LOAN')
+            .sortByNewest()
             .qs()
         )
       );
     return <SeeAllButton clickHandler={() => _click()} />;
   };
 
-  prepareData(data) {
-    return data.hits.map(row => {
+  prepareData() {
+    return this.props.data.map(row => {
       let tableRow = formatter.loan.toTable(row);
+      tableRow['Item barcode'] = row.item.barcode;
+      tableRow['Start date'] = toShortDate(fromISO(row.start_date));
       delete tableRow['Patron ID'];
+      delete tableRow['State'];
       return tableRow;
     });
-  }
-
-  _render_table(data) {
-    const rows = this.prepareData(data);
-    rows.totalHits = data.total;
-    return (
-      <ResultsTable
-        rows={rows}
-        title={"User's loan requests"}
-        rowActionClickHandler={this._showDetailsHandler}
-        seeAllComponent={this._seeAllButton()}
-        showMaxRows={this.props.showMaxLoans}
-      />
-    );
   }
 
   render() {
     const { data, isLoading, hasError } = this.props;
     const errorData = hasError ? data : null;
+    const rows = !hasError && !isLoading ? this.prepareData() : [];
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>{this._render_table(data)}</Error>
+        <Error error={errorData}>
+          <ResultsTable
+            rows={rows}
+            title={"Patron's current loans"}
+            rowActionClickHandler={this._showDetailsHandler}
+            seeAllComponent={this._seeAllButton()}
+            showMaxRows={this.props.showMaxLoans}
+          />
+        </Error>
       </Loader>
     );
   }
 }
 
-PatronLoans.propTypes = {
+PatronCurrentLoans.propTypes = {
   patron: PropTypes.number,
-  fetchPatronLoans: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
+  fetchPatronCurrentLoans: PropTypes.func.isRequired,
+  data: PropTypes.array.isRequired,
   showMaxLoans: PropTypes.number,
 };
 
-PatronLoans.defaultProps = {
+PatronCurrentLoans.defaultProps = {
   showMaxLoans: 5,
 };
