@@ -5,6 +5,7 @@ const FrontSiteBase = '/';
 
 export const FrontSiteURLS = {
   home: FrontSiteBase,
+  bookDetails: `${FrontSiteBase}/books/:documentPid`,
 };
 
 const BackOfficeBase = '/backoffice';
