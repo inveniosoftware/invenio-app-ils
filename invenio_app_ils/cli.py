@@ -66,8 +66,16 @@ def get_documents_items(internal_locations, n_docs, n_items):
         {
             Document.pid_field: "{}".format(i),
             "title": "{}".format(lorem.sentence()),
-            "authors": "{}".format(lorem.sentence()),
+            "authors": ["{}".format(lorem.sentence())],
             "abstracts": ["{}".format(lorem.text())],
+            "publishers": ["{}".format(lorem.sentence())],
+            "files": ["https://cds.cern.ch/record/2255762/files/CERN-Brochure-2017-002-Eng.pdf",
+                      "https://cds.cern.ch/record/2256277/files/CERN-Brochure-2016-005-Eng.pdf"],
+            "booklinks": ["https://home.cern/science/physics/dark-matter",
+                          "https://home.cern/science/physics/antimatter"],
+            "keywords": ["{}".format(lorem.sentence())],
+            "chapters": ["{}".format(lorem.sentence())],
+            "information": "{}".format(lorem.text()),
         }
         for i in range(1, n_docs)
     ]
