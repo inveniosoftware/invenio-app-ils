@@ -42,6 +42,10 @@ def jsonresolver_loader(url_map):
         circulation["loanable_items"] = all_items_count - active_loans_count - unavailable_items_count
         circulation["pending_loans"] = pending_loans_count
         circulation["overbooked"] = pending_loans_count > circulation["loanable_items"]
+        if circulation["overbooked"] or circulation["active_loans"] >= circulation["loanable_items"]:
+            next_available_loans = loan_search.get_loan_next_available_date(document_pid).execute()
+            if next_available_loans:
+                circulation["next_available_date"] = next_available_loans.hits[0].end_date
         return circulation
 
     url_map.add(
