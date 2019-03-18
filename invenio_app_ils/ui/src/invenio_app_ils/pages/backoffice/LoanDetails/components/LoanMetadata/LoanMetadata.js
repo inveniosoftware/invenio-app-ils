@@ -5,7 +5,7 @@ import { ItemMetadata } from '../ItemMetadata';
 import { LoanActions } from '../LoanActions';
 import { AvailableItems } from '../AvailableItems';
 import _isEmpty from 'lodash/isEmpty';
-import { toISO, toShortDateTime } from '../../../../../common/api/date';
+import { toShortDateTime } from '../../../../../common/api/date';
 
 export default class LoanMetadata extends Component {
   constructor(props) {

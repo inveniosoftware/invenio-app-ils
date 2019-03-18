@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Grid,
-  Segment,
-  List,
-  Header,
-  Label,
-  Container,
-} from 'semantic-ui-react';
+import { Segment, List, Header, Label, Container } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 export default class UserMetadata extends Component {

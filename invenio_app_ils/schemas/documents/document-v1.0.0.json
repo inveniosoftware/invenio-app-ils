@@ -12,7 +12,10 @@
       "description": ""
     },
     "authors": {
-      "type": "string",
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
       "description": ""
     },
     "abstracts": {
@@ -20,6 +23,45 @@
         "type": "string"
       },
       "type": "array",
+      "description": ""
+    },
+    "publishers": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "description": ""
+    },
+    "files": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "description": ""
+    },
+    "links": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "description": ""
+    },
+    "keywords": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "description": ""
+    },
+    "chapters": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "description": ""
+    },
+    "information": {
+      "type": "string",
       "description": ""
     },
     "circulation": {
