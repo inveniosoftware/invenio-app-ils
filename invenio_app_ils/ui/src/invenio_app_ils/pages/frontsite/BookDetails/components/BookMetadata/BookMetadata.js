@@ -143,6 +143,10 @@ export default class BookMetadata extends Component {
           Open eBook
         </Button>
 
+        <Responsive maxWidth={768}>
+          <div className="ui hidden divider" />
+        </Responsive>
+
         <Button
           class="fluid ui button"
           primary
@@ -151,8 +155,59 @@ export default class BookMetadata extends Component {
           content={visible ? 'Close' : 'Request Loan'}
           onClick={this.toggleVisibility}
         />
+
         <div className="ui hidden divider" />
+
         <RequestNewLoanForm docPid={bookData.document_pid} visible={visible} />
+      </div>
+    );
+  }
+
+  _render_circulation_buttons() {
+    const circulation_data = this.props.bookDetails.circulation;
+    const button_color = circulation_data.loanable_items > 0 ? 'green' : 'red';
+    return (
+      <div>
+        <Button
+          color={button_color}
+          content="Available copies"
+          label={{
+            basic: true,
+            color: 'green',
+            pointing: 'left',
+            content: circulation_data.loanable_items,
+          }}
+        />
+
+        <Responsive maxWidth={768}>
+          <div className="ui hidden divider" />
+        </Responsive>
+
+        <Button
+          color="yellow"
+          content="Active loans"
+          label={{
+            basic: true,
+            color: 'yellow',
+            pointing: 'left',
+            content: circulation_data.active_loans,
+          }}
+        />
+
+        <Responsive maxWidth={768}>
+          <div className="ui hidden divider" />
+        </Responsive>
+
+        <Button
+          color="yellow"
+          content="Reservations"
+          label={{
+            basic: true,
+            color: 'yellow',
+            pointing: 'left',
+            content: circulation_data.pending_loans,
+          }}
+        />
       </div>
     );
   }
@@ -181,6 +236,7 @@ export default class BookMetadata extends Component {
                   <div className="ui hidden divider" />
                   {this._render_main_buttons()}
                   <div className="ui hidden divider" />
+                  {this._render_circulation_buttons()}
                 </Grid.Row>
               </Grid.Column>
             </Grid>
