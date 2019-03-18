@@ -2,31 +2,31 @@
   {
     "document_pid": "docid-1",
     "title": "The Gulf: The Making of An American Sea",
-    "authors": "Jack E. Davis",
+    "authors": ["Jack E. Davis"],
     "abstracts": ["This is an abstract"]
   },
   {
     "document_pid": "docid-2",
     "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
-    "authors": "Caroline Fraser",
+    "authors": ["Caroline Fraser"],
     "abstracts": ["This is an abstract"]
   },
   {
     "document_pid": "docid-3",
     "title": "Half-light: Collected Poems 1965-2016",
-    "authors": "Frank Bidart",
+    "authors": ["Frank Bidart"],
     "abstracts": ["This is an abstract"]
   },
   {
     "document_pid": "docid-4",
     "title": "Locking Up Our Own: Crime and Punishment in Black America",
-    "authors": "James Forman Jr.",
+    "authors": ["James Forman Jr."],
     "abstracts": ["This is an abstract"]
   },
   {
     "document_pid": "docid-5",
     "title": "Less: A Novel",
-    "authors": "Andrew Sean Greer",
+    "authors": ["Andrew Sean Greer"],
     "abstracts": ["This is an abstract"]
   }
 ]

@@ -16,7 +16,9 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
         "id": 3,
         "metadata": Object {
           "abstracts": "This is an abstract",
-          "authors": "Author1",
+          "authors": Array [
+            "Author1",
+          ],
           "document_pid": 3,
           "title": "This is a title",
         },
@@ -40,7 +42,9 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
     rows={
       Array [
         Object {
-          "Authors": "Author1",
+          "Authors": Array [
+            "Author1",
+          ],
           "Created": "2018-01-01",
           "ID": 3,
           "Title": "This is a title",
@@ -265,7 +269,9 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
               rows={
                 Array [
                   Object {
-                    "Authors": "Author1",
+                    "Authors": Array [
+                      "Author1",
+                    ],
                     "Created": "2018-01-01",
                     "ID": 3,
                     "Title": "This is a title",

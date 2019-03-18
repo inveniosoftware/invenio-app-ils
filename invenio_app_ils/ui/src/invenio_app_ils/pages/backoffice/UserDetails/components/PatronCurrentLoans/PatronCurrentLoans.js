@@ -45,7 +45,7 @@ export default class PatronCurrentLoans extends Component {
   };
 
   prepareData() {
-    return this.props.data.map(row => {
+    return this.props.data.hits.map(row => {
       let tableRow = formatter.loan.toTable(row);
       tableRow['Item barcode'] = row.item.barcode;
       tableRow['Start date'] = toShortDate(fromISO(row.start_date));
