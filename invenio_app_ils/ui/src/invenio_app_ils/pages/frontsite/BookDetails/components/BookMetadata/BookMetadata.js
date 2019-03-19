@@ -173,7 +173,7 @@ export default class BookMetadata extends Component {
           content="Available copies"
           label={{
             basic: true,
-            color: 'green',
+            color: button_color,
             pointing: 'left',
             content: circulation_data.loanable_items,
           }}
