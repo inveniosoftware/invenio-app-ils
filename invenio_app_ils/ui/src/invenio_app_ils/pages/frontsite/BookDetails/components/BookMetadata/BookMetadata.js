@@ -27,13 +27,17 @@ export default class BookMetadata extends Component {
       <div className="book-info">
         <Header as="h2">{bookData.title}</Header>
         <List>
-          {bookData.authors.map(author => (
-            <List.Item as="h4">Author: {author}</List.Item>
+          {bookData.authors.map((author, index) => (
+            <List.Item as="h4" key={`Key${index}`}>
+              Author: {author}
+            </List.Item>
           ))}
         </List>
         <List>
-          {bookData.publishers.map(publisher => (
-            <List.Item as="h5">Publisher: {publisher}</List.Item>
+          {bookData.publishers.map((publisher, index) => (
+            <List.Item as="h5" key={`Key${index}`}>
+              Publisher: {publisher}
+            </List.Item>
           ))}
         </List>
       </div>
@@ -69,8 +73,10 @@ export default class BookMetadata extends Component {
       <div>
         <Header as="h3">Files</Header>
         <List>
-          {files.map(file => (
-            <List.Item href={file}>{file}</List.Item>
+          {files.map((file, index) => (
+            <List.Item href={file} key={`Key${index}`}>
+              {file}
+            </List.Item>
           ))}
         </List>
       </div>
@@ -83,8 +89,10 @@ export default class BookMetadata extends Component {
       <div>
         <Header as="h3">Links</Header>
         <List>
-          {booklinks.map(link => (
-            <List.Item href={link}>{link}</List.Item>
+          {booklinks.map((link, index) => (
+            <List.Item href={link} key={`Key${index}`}>
+              {link}
+            </List.Item>
           ))}
         </List>
       </div>
@@ -139,7 +147,7 @@ export default class BookMetadata extends Component {
     const { visible } = this.state;
     return (
       <div className="loan-request">
-        <Button disabled class="fluid ui button" size="large" color="blue">
+        <Button disabled className="fluid ui button" size="large" color="blue">
           Open eBook
         </Button>
 
@@ -148,7 +156,7 @@ export default class BookMetadata extends Component {
         </Responsive>
 
         <Button
-          class="fluid ui button"
+          className="fluid ui button"
           primary
           size="large"
           color="blue"
