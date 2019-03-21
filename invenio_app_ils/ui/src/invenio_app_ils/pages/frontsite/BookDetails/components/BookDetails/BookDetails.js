@@ -4,13 +4,17 @@ import { Loader, Error } from '../../../../../common/components';
 import { BookMetadata } from '../';
 
 export default class BookDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.displayWidth = 768;
+  }
   render() {
     const { isLoading, data, hasError } = this.props;
     const errorData = hasError ? data : null;
     return (
       <Loader isLoading={isLoading}>
         <Error error={errorData}>
-          <BookMetadata />
+          <BookMetadata displayWidth={this.displayWidth} />
         </Error>
       </Loader>
     );

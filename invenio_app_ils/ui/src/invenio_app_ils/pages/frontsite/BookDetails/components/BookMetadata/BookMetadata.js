@@ -11,7 +11,6 @@ import {
   Icon,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { invenioConfig } from '../../../../../common/config';
 import BookTab from '../BookTab';
 import { RequestNewLoanForm } from './components/RequestNewLoanForm';
 import '../../BookDetails.scss';
@@ -47,7 +46,7 @@ export default class BookMetadata extends Component {
   _render_share_buttons_large() {
     return (
       <div>
-        <Responsive minWidth={768}>
+        <Responsive minWidth={this.props.displayWidth}>
           <Button
             href="https://www.facebook.com/sharer/sharer.php"
             color="facebook"
@@ -122,7 +121,7 @@ export default class BookMetadata extends Component {
 
   _render_share_buttons() {
     return (
-      <Responsive maxWidth={768}>
+      <Responsive maxWidth={this.props.displayWidth}>
         <div>
           <Button
             href="https://www.facebook.com/sharer/sharer.php"
@@ -147,16 +146,15 @@ export default class BookMetadata extends Component {
     const { visible } = this.state;
     return (
       <div className="loan-request">
-        <Button disabled className="fluid ui button" size="large" color="blue">
+        <Button primary disabled size="large" color="blue">
           Open eBook
         </Button>
 
-        <Responsive maxWidth={768}>
+        <Responsive maxWidth={this.props.displayWidth}>
           <div className="ui hidden divider" />
         </Responsive>
 
         <Button
-          className="fluid ui button"
           primary
           size="large"
           color="blue"
@@ -187,7 +185,7 @@ export default class BookMetadata extends Component {
           }}
         />
 
-        <Responsive maxWidth={768}>
+        <Responsive maxWidth={this.props.displayWidth}>
           <div className="ui hidden divider" />
         </Responsive>
 
@@ -202,7 +200,7 @@ export default class BookMetadata extends Component {
           }}
         />
 
-        <Responsive maxWidth={768}>
+        <Responsive maxWidth={this.props.displayWidth}>
           <div className="ui hidden divider" />
         </Responsive>
 
@@ -251,15 +249,18 @@ export default class BookMetadata extends Component {
           </Grid.Row>
 
           <Grid.Row>
-            <Responsive as={Container} minWidth={768}>
+            <Responsive as={Container} minWidth={this.props.displayWidth}>
               <Grid columns={2}>
                 {this._render_attachments()}
-                <BookTab data={bookData} />
+                <BookTab
+                  data={bookData}
+                  displayWidth={this.props.displayWidth}
+                />
               </Grid>
             </Responsive>
 
-            <Responsive as={Container} maxWidth={768}>
-              <BookTab data={bookData} />
+            <Responsive as={Container} maxWidth={this.props.displayWidth}>
+              <BookTab data={bookData} displayWidth={this.props.displayWidth} />
               {this._render_attachments()}
             </Responsive>
           </Grid.Row>
