@@ -1,4 +1,4 @@
-import { IS_LOADING, SUCCESS, HAS_ERROR, RESET_STATE } from './types';
+import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { loan as loanApi } from '../../../../../../../../common/api/loans/loan';
 
 export const requestNewLoanForBook = (docPid, loan) => {
@@ -29,5 +29,3 @@ export const requestNewLoanForBook = (docPid, loan) => {
       });
   };
 };
-
-export const resetNewLoanState = () => ({ type: RESET_STATE });

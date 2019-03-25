@@ -1,12 +1,12 @@
 import { generatePath } from 'react-router-dom';
 import { invenioConfig } from './config';
 
-const FrontSiteBase = '';
+const FrontSiteBase = '/';
 
 export const FrontSiteURLS = {
   home: FrontSiteBase,
-  bookDetails: `${FrontSiteBase}/books/:documentPid`,
   booksSearch: `${FrontSiteBase}/books`,
+  bookDetails: `${FrontSiteBase}books/:documentPid`,
 };
 
 const BackOfficeBase = '/backoffice';

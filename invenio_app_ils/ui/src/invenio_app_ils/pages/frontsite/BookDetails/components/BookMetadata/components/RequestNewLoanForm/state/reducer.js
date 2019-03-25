@@ -1,4 +1,4 @@
-import { IS_LOADING, SUCCESS, HAS_ERROR, RESET_STATE } from './types';
+import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 
 export const initialState = {
   newLoanRequest: { isLoading: false, hasError: false, data: {} },
@@ -30,11 +30,6 @@ export default (state = initialState, action) => {
           data: action.payload,
           hasError: true,
         },
-      };
-    case RESET_STATE:
-      return {
-        ...state,
-        ...initialState,
       };
     default:
       return state;

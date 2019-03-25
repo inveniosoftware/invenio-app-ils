@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { requestNewLoanForBook, resetNewLoanState } from './state/actions';
+import { requestNewLoanForBook } from './state/actions';
 import RequestNewLoanFormComponent from './RequestNewLoanForm';
 
 const mapStateToProps = state => ({
@@ -10,7 +10,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   requestNewLoanForBook: (pid, loan, url) =>
     dispatch(requestNewLoanForBook(pid, loan, url)),
-  resetNewLoanState: () => dispatch(resetNewLoanState()),
 });
 
 export const RequestNewLoanForm = connect(

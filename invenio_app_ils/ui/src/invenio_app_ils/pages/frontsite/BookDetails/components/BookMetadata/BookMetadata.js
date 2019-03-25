@@ -21,6 +21,7 @@ export default class BookMetadata extends Component {
   toggleVisibility = () => this.setState({ visible: !this.state.visible });
 
   _render_book_info() {
+    console.log(this.props);
     const bookData = this.props.bookDetails;
     return (
       <div className="book-info">
@@ -67,35 +68,35 @@ export default class BookMetadata extends Component {
   }
 
   _render_files() {
-    const files = this.props.bookDetails.files;
-    return (
+    return this.props.bookDetails.files ? (
       <div>
         <Header as="h3">Files</Header>
         <List>
-          {files.map((file, index) => (
+          {this.props.bookDetails.files.map((file, index) => (
             <List.Item href={file} key={`Key${index}`}>
               {file}
             </List.Item>
           ))}
         </List>
+        <div className="ui divider" />
       </div>
-    );
+    ) : null;
   }
 
   _render_links() {
-    const booklinks = this.props.bookDetails.booklinks;
-    return (
+    this.props.bookDetails.booklinks = null;
+    return this.props.bookDetails.booklinks ? (
       <div>
         <Header as="h3">Links</Header>
         <List>
-          {booklinks.map((link, index) => (
+          {this.props.bookDetails.booklinks.map((link, index) => (
             <List.Item href={link} key={`Key${index}`}>
               {link}
             </List.Item>
           ))}
         </List>
       </div>
-    );
+    ) : null;
   }
 
   _render_attachments() {
@@ -109,10 +110,7 @@ export default class BookMetadata extends Component {
           <div className="ui divider" />
         </Grid.Row>
 
-        <Grid.Row>
-          {this._render_files()}
-          <div className="ui divider" />
-        </Grid.Row>
+        <Grid.Row>{this._render_files()}</Grid.Row>
 
         <Grid.Row>{this._render_links()}</Grid.Row>
       </Grid.Column>
