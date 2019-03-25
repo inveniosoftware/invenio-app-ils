@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import BookTab from '../BookTab';
 import { RequestNewLoanForm } from './components/RequestNewLoanForm';
 import '../../BookDetails.scss';
+import { invenioConfig } from '../../../../../common/config';
 
 export default class BookMetadata extends Component {
   state = { visible: false };
@@ -47,7 +48,7 @@ export default class BookMetadata extends Component {
   _render_share_buttons_large() {
     return (
       <div>
-        <Responsive minWidth={this.props.displayWidth}>
+        <Responsive minWidth={invenioConfig.MOBILE_DISPLAY_SWITCH_WIDTH}>
           <Button
             href="https://www.facebook.com/sharer/sharer.php"
             color="facebook"
@@ -84,7 +85,6 @@ export default class BookMetadata extends Component {
   }
 
   _render_links() {
-    this.props.bookDetails.booklinks = null;
     return this.props.bookDetails.booklinks ? (
       <div>
         <Header as="h3">Links</Header>
@@ -119,7 +119,7 @@ export default class BookMetadata extends Component {
 
   _render_share_buttons() {
     return (
-      <Responsive maxWidth={this.props.displayWidth}>
+      <Responsive maxWidth={invenioConfig.MOBILE_DISPLAY_SWITCH_WIDTH}>
         <div>
           <Button
             href="https://www.facebook.com/sharer/sharer.php"
@@ -148,7 +148,7 @@ export default class BookMetadata extends Component {
           Open eBook
         </Button>
 
-        <Responsive maxWidth={this.props.displayWidth}>
+        <Responsive maxWidth={invenioConfig.MOBILE_DISPLAY_SWITCH_WIDTH}>
           <div className="ui hidden divider" />
         </Responsive>
 
@@ -183,7 +183,7 @@ export default class BookMetadata extends Component {
           }}
         />
 
-        <Responsive maxWidth={this.props.displayWidth}>
+        <Responsive maxWidth={invenioConfig.MOBILE_DISPLAY_SWITCH_WIDTH}>
           <div className="ui hidden divider" />
         </Responsive>
 
@@ -198,7 +198,7 @@ export default class BookMetadata extends Component {
           }}
         />
 
-        <Responsive maxWidth={this.props.displayWidth}>
+        <Responsive maxWidth={invenioConfig.MOBILE_DISPLAY_SWITCH_WIDTH}>
           <div className="ui hidden divider" />
         </Responsive>
 
@@ -247,18 +247,21 @@ export default class BookMetadata extends Component {
           </Grid.Row>
 
           <Grid.Row>
-            <Responsive as={Container} minWidth={this.props.displayWidth}>
+            <Responsive
+              as={Container}
+              minWidth={invenioConfig.MOBILE_DISPLAY_SWITCH_WIDTH}
+            >
               <Grid columns={2}>
                 {this._render_attachments()}
-                <BookTab
-                  data={bookData}
-                  displayWidth={this.props.displayWidth}
-                />
+                <BookTab data={bookData} />
               </Grid>
             </Responsive>
 
-            <Responsive as={Container} maxWidth={this.props.displayWidth}>
-              <BookTab data={bookData} displayWidth={this.props.displayWidth} />
+            <Responsive
+              as={Container}
+              maxWidth={invenioConfig.MOBILE_DISPLAY_SWITCH_WIDTH}
+            >
+              <BookTab data={bookData} />
               {this._render_attachments()}
             </Responsive>
           </Grid.Row>
