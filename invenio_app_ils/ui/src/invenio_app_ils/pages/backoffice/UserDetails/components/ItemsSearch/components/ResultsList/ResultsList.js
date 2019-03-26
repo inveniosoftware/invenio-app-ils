@@ -37,11 +37,24 @@ export class ResultsList extends Component {
         />
       );
     }
-    return <Button disabled content={'Force checkout'} />;
+    return (
+      <Button
+        color="red"
+        content={'Force checkout'}
+        onClick={() => {
+          this.checkoutItem(item, this.props.patron).then(() => {
+            this.clearResults();
+            setTimeout(() => {
+              this.fetchPatronCurrentLoans(this.props.patron);
+            }, 3000);
+          });
+        }}
+      />
+    );
   }
 
-  prepareData() {
-    return this.props.results.map(row => {
+  prepareData(data) {
+    return data.hits.map(row => {
       let serialised = formatter.item.toTable(row);
       serialised['Actions'] = this.actions(row, row.status);
       delete serialised['Created'];
@@ -52,7 +65,7 @@ export class ResultsList extends Component {
   }
 
   render() {
-    const rows = this.prepareData();
+    const rows = this.prepareData(this.props.results);
     return rows.length ? (
       <ResultsTable
         rows={rows}
@@ -64,7 +77,7 @@ export class ResultsList extends Component {
 }
 
 ResultsList.propTypes = {
-  results: PropTypes.array.isRequired,
+  results: PropTypes.object.isRequired,
   viewDetailsClickHandler: PropTypes.func.isRequired,
   clearResults: PropTypes.func.isRequired,
   checkoutItem: PropTypes.func.isRequired,

@@ -67,7 +67,7 @@ def circulation_is_item_available(item_pid):
     """Check if item is available."""
     item = Item.get_record_by_pid(item_pid)
     if item:
-        return item["status"] == "LOANABLE"
+        return item["status"] in ["LOANABLE", "MISSING"]
     return False
 
 

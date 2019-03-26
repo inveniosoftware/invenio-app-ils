@@ -98,14 +98,17 @@ exports[`PatronLoans tests should render items in search 1`] = `
   fetchPatronCurrentLoans={[MockFunction]}
   history={[Function]}
   items={
-    Array [
-      Object {
-        "barcode": "3",
-        "document_pid": 4,
-        "item_pid": "4",
-        "status": "LOANABLE",
-      },
-    ]
+    Object {
+      "hits": Array [
+        Object {
+          "barcode": "3",
+          "document_pid": 4,
+          "item_pid": "4",
+          "status": "LOANABLE",
+        },
+      ],
+      "total": 1,
+    }
   }
   patron="2"
   queryString=""
@@ -207,7 +210,6 @@ exports[`PatronLoans tests should render items in search 1`] = `
                           className="left aligned five wide column"
                         >
                           <div>
-                            1
                              results
                           </div>
                         </div>
@@ -223,14 +225,17 @@ exports[`PatronLoans tests should render items in search 1`] = `
                       fetchPatronCurrentLoans={[MockFunction]}
                       patron="2"
                       results={
-                        Array [
-                          Object {
-                            "barcode": "3",
-                            "document_pid": 4,
-                            "item_pid": "4",
-                            "status": "LOANABLE",
-                          },
-                        ]
+                        Object {
+                          "hits": Array [
+                            Object {
+                              "barcode": "3",
+                              "document_pid": 4,
+                              "item_pid": "4",
+                              "status": "LOANABLE",
+                            },
+                          ],
+                          "total": 1,
+                        }
                       }
                       viewDetailsClickHandler={[Function]}
                     >

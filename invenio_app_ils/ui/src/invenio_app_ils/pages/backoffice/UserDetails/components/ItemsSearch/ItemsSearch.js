@@ -43,6 +43,15 @@ export default class ItemsCheckout extends Component {
     }
   };
 
+  requestCheckout = (item, patron) => {
+    this.checkoutItem(item, patron).then(() => {
+      this.clearResults();
+      setTimeout(() => {
+        this.fetchPatronCurrentLoans(patron);
+      }, 3000);
+    });
+  };
+
   _renderSearchBar = () => {
     return (
       <Input
@@ -61,14 +70,10 @@ export default class ItemsCheckout extends Component {
         onPaste={e => {
           let queryString = e.clipboardData.getData('Text');
           this.executeSearch(queryString).then(data => {
-            this.checkoutItem(this.props.items[0], this.props.patron).then(
-              () => {
-                this.clearResults();
-                setTimeout(() => {
-                  this.fetchPatronCurrentLoans(this.props.patron);
-                }, 3000);
-              }
-            );
+            if (this.props.items.hits[0].status === 'MISSING') {
+              return; // abandon automatic loan creation, display the force checkout button
+            } else
+              this.requestCheckout(this.props.items.hits[0], this.props.patron);
           });
         }}
         value={this.props.queryString}
@@ -163,7 +168,7 @@ export default class ItemsCheckout extends Component {
 ItemsCheckout.propTypes = {
   queryString: PropTypes.string,
   updateQueryString: PropTypes.func.isRequired,
-  items: PropTypes.array,
+  items: PropTypes.object,
   fetchItems: PropTypes.func.isRequired,
   fetchPatronCurrentLoans: PropTypes.func.isRequired,
   clearResults: PropTypes.func.isRequired,

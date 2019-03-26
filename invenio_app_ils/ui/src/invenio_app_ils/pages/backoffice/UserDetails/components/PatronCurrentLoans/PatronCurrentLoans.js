@@ -44,8 +44,8 @@ export default class PatronCurrentLoans extends Component {
     return <SeeAllButton clickHandler={() => _click()} />;
   };
 
-  prepareData() {
-    return this.props.data.hits.map(row => {
+  prepareData(data) {
+    return data.hits.map(row => {
       let tableRow = formatter.loan.toTable(row);
       tableRow['Item barcode'] = row.item.barcode;
       tableRow['Start date'] = toShortDate(fromISO(row.start_date));
@@ -58,7 +58,9 @@ export default class PatronCurrentLoans extends Component {
   render() {
     const { data, isLoading, hasError } = this.props;
     const errorData = hasError ? data : null;
-    const rows = !hasError && !isLoading ? this.prepareData() : [];
+    const rows =
+      !hasError && !isLoading ? this.prepareData(this.props.data) : [];
+    rows.totalHits = data.total;
     return (
       <Loader isLoading={isLoading}>
         <Error error={errorData}>
@@ -78,7 +80,7 @@ export default class PatronCurrentLoans extends Component {
 PatronCurrentLoans.propTypes = {
   patron: PropTypes.number,
   fetchPatronCurrentLoans: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
   showMaxLoans: PropTypes.number,
 };
 
