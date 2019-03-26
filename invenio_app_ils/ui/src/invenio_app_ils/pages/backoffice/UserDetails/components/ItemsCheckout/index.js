@@ -5,7 +5,8 @@ import ItemsCheckoutComponent from './ItemsCheckout';
 import { checkoutItem } from './state/actions';
 
 const mapDispatchToProps = dispatch => ({
-  checkoutItem: (item, patron_pid) => dispatch(checkoutItem(item, patron_pid)),
+  checkoutItem: (item, patron_pid, shouldForceCheckout) =>
+    dispatch(checkoutItem(item, patron_pid, shouldForceCheckout)),
 });
 
 const mapStateToProps = state => ({

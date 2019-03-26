@@ -11,8 +11,8 @@ export class ResultsList extends Component {
 
   _getFormattedDate = d => (d ? toShortDate(fromISO(d)) : '');
 
-  prepareData() {
-    return this.props.results.map(row => ({
+  prepareData(data) {
+    return data.map(row => ({
       ID: row.id,
       State: row.metadata.state,
       'Item ID': row.metadata.item_pid,
@@ -24,7 +24,7 @@ export class ResultsList extends Component {
   }
 
   render() {
-    const rows = this.prepareData();
+    const rows = this.prepareData(this.props.results);
     const maxRowsToShow =
       rows.length > ResultsTable.defaultProps.showMaxRows
         ? rows.length

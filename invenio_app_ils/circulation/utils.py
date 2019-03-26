@@ -11,7 +11,9 @@ from __future__ import absolute_import, print_function
 
 from datetime import timedelta
 
-from flask import current_app
+from flask import current_app, url_for
+from invenio_db import db
+from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.errors import PersistentIdentifierError
 
 from ..records.api import Item
@@ -28,6 +30,15 @@ def circulation_build_item_ref(loan_pid):
                     loan_pid=loan_pid,
                 )
     }
+
+
+def circulation_item_patcher(item_pid, **kwargs):
+    """Patch an item's field(s) and commit the changes."""
+    item = Item.get_record_by_pid(item_pid)
+    item = item.patch([kwargs])
+    item.commit()
+    db.session.commit()
+    RecordIndexer().index(item)
 
 
 def circulation_items_retriever(document_pid):

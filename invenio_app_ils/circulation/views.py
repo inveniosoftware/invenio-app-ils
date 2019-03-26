@@ -111,7 +111,9 @@ class LoanCreateResource(IlsResource):
     @need_permissions('circulation-loan-create')
     def post(self, **kwargs):
         """Loan create post method."""
-        pid, loan = create_loan(request.get_json())
+        params = request.get_json()
+        should_force_checkout = params.pop("force_checkout")
+        pid, loan = create_loan(params, should_force_checkout)
 
         return self.make_response(
             pid, loan, 202, links_factory=self.links_factory

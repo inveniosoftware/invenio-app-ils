@@ -13,9 +13,12 @@ from invenio_circulation.api import Loan, patron_has_active_loan_on_item
 from invenio_circulation.pidstore.minters import loan_pid_minter
 from invenio_circulation.proxies import current_circulation
 
-from invenio_app_ils.circulation.utils import circulation_document_retriever
+from invenio_app_ils.circulation.utils import circulation_document_retriever, \
+    circulation_item_patcher
 from invenio_app_ils.errors import MissingRequiredParameterError, \
     PatronHasLoanOnItemError
+
+from ..records.api import Item
 
 
 def request_loan(params):
@@ -45,7 +48,7 @@ def request_loan(params):
     return pid, loan
 
 
-def create_loan(params):
+def create_loan(params, should_force_checkout):
     """Create a loan for behalf of a user."""
     if "patron_pid" not in params:
         raise MissingRequiredParameterError(
@@ -62,6 +65,15 @@ def create_loan(params):
         document_pid = circulation_document_retriever(params["item_pid"])
         if document_pid:
             params["document_pid"] = document_pid
+
+    if should_force_checkout:
+        item = Item.get_record_by_pid(params['item_pid'])
+        if item["status"] != "LOANABLE":
+            circulation_item_patcher(item_pid=params['item_pid'],
+                                     op="replace",
+                                     path="/status",
+                                     value="LOANABLE")
+
     # create a new loan
     record_uuid = uuid.uuid4()
     new_loan = {

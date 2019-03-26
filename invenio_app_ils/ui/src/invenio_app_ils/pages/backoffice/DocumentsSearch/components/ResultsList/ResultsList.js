@@ -14,8 +14,8 @@ export class ResultsList extends Component {
 
   _getFormattedDate = d => (d ? toShortDate(fromISO(d)) : '');
 
-  prepareData() {
-    return this.props.results.map(row => ({
+  prepareData(data) {
+    return data.map(row => ({
       ID: row.metadata.document_pid,
       Title: row.metadata.title,
       Authors: row.metadata.authors,
@@ -25,7 +25,7 @@ export class ResultsList extends Component {
   }
 
   render() {
-    const rows = this.prepareData();
+    const rows = this.prepareData(this.props.results);
     const headerActionComponent = (
       <NewButton
         text={'New document'}

@@ -47,12 +47,14 @@ export default class ItemsSearch extends Component {
   _onPasteHandler = e => {
     let queryString = e.clipboardData.getData('Text');
     this.executeSearch(queryString).then(data => {
-      this.checkoutItem(this.props.items.hits[0], this.props.patron).then(
-        () => {
-          this.clearResults();
-          this.fetchUpdatedCurrentLoans(this.props.patron);
-        }
-      );
+      if (this.props.items.hits[0].status === 'LOANABLE') {
+        this.checkoutItem(this.props.items.hits[0], this.props.patron).then(
+          () => {
+            this.clearResults();
+            this.fetchUpdatedCurrentLoans(this.props.patron);
+          }
+        );
+      }
     });
   };
 

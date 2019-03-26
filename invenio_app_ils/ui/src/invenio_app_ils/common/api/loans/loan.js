@@ -24,7 +24,8 @@ const postAction = (
   pid,
   loan,
   transactionUserPid,
-  transactionLocationPid
+  transactionLocationPid,
+  shouldForceCheckout
 ) => {
   const now = DateTime.local();
   const payload = {
@@ -32,6 +33,7 @@ const postAction = (
     patron_pid: loan.patron_pid,
     transaction_location_pid: transactionLocationPid,
     transaction_date: toISO(now),
+    force_checkout: shouldForceCheckout,
   };
 
   if ('item_pid' in loan) {

@@ -96,6 +96,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
           "status": "LOANABLE",
         },
       ],
+      "total": 1,
     }
   }
   patron={2}
@@ -213,6 +214,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                               "status": "LOANABLE",
                             },
                           ],
+                          "total": 1,
                         }
                       }
                       viewDetailsClickHandler={[Function]}

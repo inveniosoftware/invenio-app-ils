@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ResultsTable } from '../../../../../../../common/components';
-import { Button } from 'semantic-ui-react';
+import { Button, Modal, Header, Icon } from 'semantic-ui-react';
 import { ResultsTableFormatter as formatter } from '../../../../../../../common/components';
 import { invenioConfig } from '../../../../../../../common/config';
 import _isEmpty from 'lodash/isEmpty';
@@ -15,33 +15,82 @@ export class ResultsList extends Component {
     this.fetchPatronCurrentLoans = this.props.fetchPatronCurrentLoans;
   }
 
+  state = { isModalOpen: false };
+
+  toggleModal = () => this.setState({ isModalOpen: !this.state.isModalOpen });
+
+  _onClickCheckoutHandler = (item, patron, shouldForceCheckout) =>
+    this.checkoutItem(item, patron, shouldForceCheckout).then(() => {
+      this.clearResults();
+      setTimeout(() => {
+        this.fetchPatronCurrentLoans(patron);
+      }, 3000);
+    });
+
   actions(item, itemState) {
+    const buttonCheckout = (
+      <Button
+        content={'Checkout'}
+        onClick={() =>
+          this._onClickCheckoutHandler(item, this.props.patron, false)
+        }
+      />
+    );
+
     const circulationStatus = !_isEmpty(item.circulation_status)
       ? item.circulation_status
       : null;
-    if (
-      !invenioConfig.circulation.loanActiveStates.includes(circulationStatus) &&
-      invenioConfig.items.available.status.includes(itemState)
-    ) {
-      return (
-        <Button
-          content={'Checkout'}
-          onClick={() => {
-            this.checkoutItem(item, this.props.patron).then(() => {
-              this.clearResults();
-              setTimeout(() => {
-                this.fetchPatronCurrentLoans(this.props.patron);
-              }, 3000);
-            });
-          }}
-        />
-      );
-    }
-    return <Button disabled content={'Force checkout'} />;
+
+    return !invenioConfig.circulation.loanActiveStates.includes(
+      circulationStatus
+    ) && invenioConfig.items.available.status.includes(itemState)
+      ? buttonCheckout
+      : this._renderForceCheckoutModal(item);
   }
 
-  prepareData() {
-    return this.props.results.hits.map(row => {
+  _renderForceCheckoutModal = item => {
+    const { isModalOpen } = this.state;
+
+    return (
+      <Modal
+        trigger={
+          <Button color="yellow" onClick={this.toggleModal}>
+            Force Checkout
+          </Button>
+        }
+        open={isModalOpen}
+        onClose={this.toggleModal}
+        closeIcon
+      >
+        <Header
+          icon="exclamation triangle"
+          content="Force Checkout of Missing Item"
+        />
+        <Modal.Content>
+          <p>
+            You are creating a loan for a missing item, would you like to
+            continue?
+          </p>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color="red" onClick={this.toggleModal}>
+            <Icon name="remove" /> No
+          </Button>
+          <Button
+            color="green"
+            onClick={() =>
+              this._onClickCheckoutHandler(item, this.props.patron, true)
+            }
+          >
+            <Icon name="checkmark" /> Yes
+          </Button>
+        </Modal.Actions>
+      </Modal>
+    );
+  };
+
+  prepareData(data) {
+    return data.hits.map(row => {
       let serialised = formatter.item.toTable(row);
       serialised['Actions'] = this.actions(row, row.status);
       delete serialised['Created'];
@@ -53,7 +102,7 @@ export class ResultsList extends Component {
   }
 
   render() {
-    const rows = this.prepareData();
+    const rows = this.prepareData(this.props.results);
     return rows.length ? (
       <ResultsTable
         rows={rows}
