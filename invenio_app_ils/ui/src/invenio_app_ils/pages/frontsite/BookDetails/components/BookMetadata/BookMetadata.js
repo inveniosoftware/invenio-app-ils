@@ -16,24 +16,27 @@ import { RequestNewLoanForm } from './components/RequestNewLoanForm';
 import '../../BookDetails.scss';
 
 export default class BookMetadata extends Component {
+  constructor(props) {
+    super(props);
+    this.book = this.props.bookDetails;
+  }
   state = { visible: false };
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible });
 
   _render_book_info() {
-    const bookData = this.props.bookDetails;
     return (
       <div className="book-info">
-        <Header as="h2">{bookData.title}</Header>
+        <Header as="h2">{this.book.metadata.title}</Header>
         <List>
-          {bookData.authors.map((author, index) => (
+          {this.book.metadata.authors.map((author, index) => (
             <List.Item as="h4" key={`Key${index}`}>
               Author: {author}
             </List.Item>
           ))}
         </List>
         <List>
-          {bookData.publishers.map((publisher, index) => (
+          {this.book.metadata.publishers.map((publisher, index) => (
             <List.Item as="h5" key={`Key${index}`}>
               Publisher: {publisher}
             </List.Item>
@@ -67,11 +70,11 @@ export default class BookMetadata extends Component {
   }
 
   _render_files() {
-    return this.props.bookDetails.files ? (
+    return this.book.metadata.files ? (
       <div>
         <Header as="h3">Files</Header>
         <List>
-          {this.props.bookDetails.files.map((file, index) => (
+          {this.book.metadata.files.map((file, index) => (
             <List.Item href={file} key={`Key${index}`}>
               {file}
             </List.Item>
@@ -83,11 +86,11 @@ export default class BookMetadata extends Component {
   }
 
   _render_links() {
-    return this.props.bookDetails.booklinks ? (
+    return this.book.metadata.booklinks ? (
       <div>
         <Header as="h3">Links</Header>
         <List>
-          {this.props.bookDetails.booklinks.map((link, index) => (
+          {this.book.metadata.booklinks.map((link, index) => (
             <List.Item href={link} key={`Key${index}`}>
               {link}
             </List.Item>
@@ -115,7 +118,7 @@ export default class BookMetadata extends Component {
     );
   }
 
-  _render_share_buttons() {
+  _renderShareButtons() {
     return (
       <Responsive {...Responsive.onlyMobile}>
         <div>
@@ -138,7 +141,6 @@ export default class BookMetadata extends Component {
   }
 
   _render_main_buttons() {
-    const bookData = this.props.bookDetails;
     const { visible } = this.state;
     return (
       <div className="loan-request">
@@ -160,13 +162,16 @@ export default class BookMetadata extends Component {
 
         <div className="ui hidden divider" />
 
-        <RequestNewLoanForm docPid={bookData.document_pid} visible={visible} />
+        <RequestNewLoanForm
+          docPid={this.book.metadata.document_pid}
+          visible={visible}
+        />
       </div>
     );
   }
 
   _render_circulation_buttons() {
-    const circulation_data = this.props.bookDetails.metadata.circulation;
+    const circulation_data = this.book.metadata.circulation;
     const button_color =
       circulation_data.items_available_for_loan > 0 ? 'green' : 'red';
     return (
@@ -222,7 +227,6 @@ export default class BookMetadata extends Component {
 
   render() {
     const cover = 'https://assets.thalia.media/img/46276899-00-00.jpg';
-    const bookData = this.props.bookDetails;
     return (
       <Segment className="book-metadata">
         <Grid>
@@ -230,7 +234,7 @@ export default class BookMetadata extends Component {
             <Grid stackable columns={2}>
               <Grid.Column width={3}>
                 <Image src={cover} size="medium" />
-                {this._render_share_buttons()}
+                {this._renderShareButtons()}
               </Grid.Column>
 
               <Grid.Column width={13}>
@@ -254,12 +258,12 @@ export default class BookMetadata extends Component {
             <Responsive as={Container} {...Responsive.onlyComputer}>
               <Grid columns={2}>
                 {this._render_attachments()}
-                <BookTab data={bookData} />
+                <BookTab bookData={this.book.metadata} />
               </Grid>
             </Responsive>
 
             <Responsive as={Container} {...Responsive.onlyMobile}>
-              <BookTab data={bookData} />
+              <BookTab bookData={this.book.metadata} />
               {this._render_attachments()}
             </Responsive>
           </Grid.Row>

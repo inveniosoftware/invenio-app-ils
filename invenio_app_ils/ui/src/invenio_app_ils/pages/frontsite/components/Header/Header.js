@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon, Menu, Dropdown } from 'semantic-ui-react';
 import { BackOfficeURLS } from '../../../../common/urls';
-import SearchBar from './components/SearchBar';
 import {
   authenticationService,
   sessionManager,
@@ -73,9 +72,6 @@ export default class Header extends Component {
       >
         <Menu.Item header className="logo">
           <Link to="/">Library</Link>
-        </Menu.Item>
-        <Menu.Item>
-          <SearchBar />
         </Menu.Item>
         <Menu.Item position="right">{this.renderRightMenuItem()}</Menu.Item>
       </Menu>

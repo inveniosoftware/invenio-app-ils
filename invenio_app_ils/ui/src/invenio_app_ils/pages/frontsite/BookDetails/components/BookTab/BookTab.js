@@ -11,12 +11,12 @@ export default class BookTab extends Component {
           <Responsive
             as={BookTabMenu}
             {...Responsive.onlyComputer}
-            data={this.props.data}
+            bookData={this.props.bookData}
           />
           <Responsive
             as={BookAccordion}
             {...Responsive.onlyMobile}
-            data={this.props.data}
+            bookData={this.props.bookData}
           />
           <div className="ui hidden divider" />
         </Grid.Row>
