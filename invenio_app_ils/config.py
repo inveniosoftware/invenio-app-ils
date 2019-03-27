@@ -22,7 +22,7 @@ from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_circulation.search.api import LoansSearch
 from invenio_records_rest.facets import terms_filter
 
-from .indexer import DocumentIndexer, ItemIndexer, LoanIndexer
+from .indexer import DocumentIndexer, ItemIndexer, LoanIndexer, LocationIndexer
 from .jwt import ils_jwt_create_token
 from .records.api import Document, InternalLocation, Item, Location
 from .records.jsonresolver.loan import item_resolver
@@ -332,6 +332,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher=LOCATION_PID_FETCHER,
         search_class=LocationSearch,
         record_class=Location,
+        indexer_class=LocationIndexer,
         record_loaders={
             "application/json": (
                 "invenio_app_ils.records.loaders:location_loader"
