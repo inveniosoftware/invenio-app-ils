@@ -10,11 +10,11 @@
 import re
 
 from elasticsearch_dsl.query import Q
-from flask import abort, current_app, g, request
+from flask import current_app, g, request
 from invenio_circulation.search.api import LoansSearch, search_by_pid
-from invenio_records_rest.errors import InvalidQueryRESTError
 from invenio_search.api import DefaultFilter
 
+from invenio_app_ils.errors import SearchQueryError, UnauthorizedSearchError
 from invenio_app_ils.permissions import backoffice_permission
 
 
@@ -60,10 +60,6 @@ class IlsLoansSearch(LoansSearch):
         default_filter = DefaultFilter(loan_permission_filter)
 
 
-class UnauthorizedSearch(Exception):
-    """The user performing the search is not authorized."""
-
-
 def circulation_search_factory(self, search, query_parser=None):
     """Parse query using elasticsearch DSL query.
 
@@ -86,29 +82,19 @@ def circulation_search_factory(self, search, query_parser=None):
     # if the logged in user in not librarian or admin, validate the query
     if not backoffice_permission().allows(g.identity):
         # patron can find only his loans
-        try:
-            if not query_string:
-                # force query to be patron_pid:<logged in user>
-                only_patron_loans = 'patron_pid:{}'.format(g.identity.id)
-                query = _default_parser(qstr=only_patron_loans)
-            else:
-                # check for patron_pid query value
-                match = re.match(r"patron_pid:(?P<pid>\d)", query_string)
-                if match and match.group('pid') != str(g.identity.id):
-                    raise UnauthorizedSearch()
-        except UnauthorizedSearch:
-            current_app.logger.debug(
-                "Search for `{0}` not allowed by `patron_pid:{1}`".format(
-                    query_string, str(g.identity.id))
-            )
-            abort(403)
-
+        if not query_string:
+            # force query to be patron_pid:<logged in user>
+            only_patron_loans = 'patron_pid:{}'.format(g.identity.id)
+            query = _default_parser(qstr=only_patron_loans)
+        else:
+            # check for patron_pid query value
+            match = re.match(r"patron_pid:(?P<pid>\d)", query_string)
+            if match and match.group('pid') != str(g.identity.id):
+                raise UnauthorizedSearchError(query_string, g.identity.id)
     try:
         search = search.query(query)
     except SyntaxError:
-        current_app.logger.debug(
-            "Failed parsing query: {0}".format(query_string), exc_info=True)
-        raise InvalidQueryRESTError()
+        raise SearchQueryError(query_string)
 
     search_index = search._index[0]
     search, urlkwargs = default_facets_factory(search, search_index)

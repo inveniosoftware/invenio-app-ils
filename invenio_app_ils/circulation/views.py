@@ -11,11 +11,8 @@ from __future__ import absolute_import, print_function
 
 from functools import wraps
 
-from flask import Blueprint, abort, current_app, request
-from invenio_circulation.errors import CirculationException, \
-    InvalidCirculationPermission
+from flask import Blueprint, current_app, request
 from invenio_circulation.links import loan_links_factory
-from invenio_circulation.views import create_error_handlers
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_rest import ContentNegotiatedMethodView
 
@@ -36,9 +33,7 @@ def need_permissions(action):
                 current_app.config["ILS_VIEWS_PERMISSIONS_FACTORY"](action)
             )
             return f(*args, **kwargs)
-
         return decorate
-
     return decorator_builder
 
 
@@ -49,8 +44,6 @@ def create_circulation_blueprint(_):
         __name__,
         url_prefix="",
     )
-
-    create_error_handlers(blueprint)
 
     rec_serializers = {
         "application/json": (
@@ -103,14 +96,7 @@ class LoanRequestResource(IlsResource):
     @need_permissions('circulation-loan-request')
     def post(self, **kwargs):
         """Loan request post method."""
-        try:
-            pid, loan = request_loan(request.get_json())
-        except InvalidCirculationPermission as ex:
-            current_app.logger.exception(ex.msg)
-            return abort(403)
-        except CirculationException as ex:
-            current_app.logger.exception(ex.msg)
-            return abort(400)
+        pid, loan = request_loan(request.get_json())
 
         return self.make_response(
             pid, loan, 202, links_factory=self.links_factory
@@ -125,14 +111,7 @@ class LoanCreateResource(IlsResource):
     @need_permissions('circulation-loan-create')
     def post(self, **kwargs):
         """Loan create post method."""
-        try:
-            pid, loan = create_loan(request.get_json())
-        except InvalidCirculationPermission as ex:
-            current_app.logger.exception(ex.msg)
-            return abort(403)
-        except CirculationException as ex:
-            current_app.logger.exception(ex.msg)
-            return abort(400)
+        pid, loan = create_loan(request.get_json())
 
         return self.make_response(
             pid, loan, 202, links_factory=self.links_factory
