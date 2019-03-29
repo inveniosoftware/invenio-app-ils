@@ -93,10 +93,18 @@ function formatInternalLocationToTableView(internal_loc) {
   return entry;
 }
 
+function formatPatronToTableView(patron) {
+  return {
+    ID: patron.metadata.id,
+    Name: patron.metadata.name,
+    Email: patron.metadata.email,
+  };
+}
 export const formatter = {
   loan: { toTable: formatLoanToTableView },
   document: { toTable: formatDocumentToTableView },
   item: { toTable: formatItemToTableView },
   location: { toTable: formatLocationToTableView },
   internalLocation: { toTable: formatInternalLocationToTableView },
+  patron: { toTable: formatPatronToTableView },
 };

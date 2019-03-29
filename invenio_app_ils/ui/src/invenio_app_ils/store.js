@@ -16,10 +16,10 @@ import { loanDetailsReducer } from './pages/backoffice/LoanDetails/reducer';
 import {
   itemsSearchByBarcodeReducer,
   patronCurrentLoansReducer,
-  userDetailsReducer,
+  patronDetailsReducer,
   patronItemCheckoutReducer,
-} from './pages/backoffice/UserDetails/reducer';
-import { patronPendingLoansReducer } from './pages/backoffice/UserDetails/reducer';
+} from './pages/backoffice/PatronDetails/reducer';
+import { patronPendingLoansReducer } from './pages/backoffice/PatronDetails/reducer';
 import {
   locationListReducer,
   internalLocationListReducer,
@@ -43,7 +43,7 @@ const rootReducer = combineReducers({
   itemDetails: itemDetailsReducer,
   itemPastLoans: itemPastLoansReducer,
   loanDetails: loanDetailsReducer,
-  userDetails: userDetailsReducer,
+  patronDetails: patronDetailsReducer,
   patronPendingLoans: patronPendingLoansReducer,
   patronCurrentLoans: patronCurrentLoansReducer,
   availableItems: availableItemsReducer,

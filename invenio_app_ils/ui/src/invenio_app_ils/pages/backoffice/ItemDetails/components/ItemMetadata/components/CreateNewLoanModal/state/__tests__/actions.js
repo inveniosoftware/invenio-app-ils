@@ -43,7 +43,7 @@ describe('Request new loan actions', () => {
         .dispatch(actions.createNewLoanForItem('123', { item_pid: '123' }))
         .then(() => {
           expect(mockPost).toHaveBeenCalledWith(
-            '/circulation/loans/create',
+            '/circulation/loans/request',
             '123',
             { item_pid: '123' },
             '1',
@@ -69,7 +69,7 @@ describe('Request new loan actions', () => {
         .dispatch(actions.createNewLoanForItem('123', { item_pid: '123' }))
         .then(() => {
           expect(mockPost).toHaveBeenCalledWith(
-            '/circulation/loans/create',
+            '/circulation/loans/request',
             '123',
             { item_pid: '123' },
             '1',

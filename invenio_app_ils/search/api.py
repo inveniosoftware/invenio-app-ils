@@ -95,3 +95,13 @@ class InternalLocationSearch(RecordsSearch):
             search = search.filter("terms", state=exclude_states)
 
         return search
+
+
+class PatronsSearch(RecordsSearch):
+    """Search for patrons."""
+
+    class Meta:
+        """Search only on items index."""
+
+        index = "patrons"
+        doc_types = None

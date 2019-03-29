@@ -92,7 +92,10 @@ setup(
     platforms="any",
     entry_points={
         "console_scripts": ["ils = invenio_app.cli:cli"],
-        "flask.commands": ["demo = invenio_app_ils.cli:demo"],
+        "flask.commands": [
+            "demo = invenio_app_ils.cli:demo",
+            "patrons = invenio_app_ils.cli:patrons"
+        ],
         "invenio_base.apps": [
             "invenio_app_ils_ui = invenio_app_ils.ext:InvenioAppIlsUI"
         ],
@@ -122,6 +125,7 @@ setup(
             "locations = invenio_app_ils.mappings",
             "internal_locations = invenio_app_ils.mappings",
             "keywords = invenio_app_ils.mappings",
+            "patrons = invenio_app_ils.mappings"
         ],
         "invenio_pidstore.fetchers": [
             "docid = invenio_app_ils.pidstore.fetchers:document_pid_fetcher",
@@ -130,6 +134,7 @@ setup(
             "ilocid = "
             "invenio_app_ils.pidstore.fetchers:internal_location_pid_fetcher",
             "keyid = invenio_app_ils.pidstore.fetchers:keyword_pid_fetcher",
+            "patid = invenio_app_ils.pidstore.fetchers:patron_pid_fetcher"
         ],
         "invenio_pidstore.minters": [
             "docid = invenio_app_ils.pidstore.minters:document_pid_minter",
@@ -138,6 +143,7 @@ setup(
             "ilocid = "
             "invenio_app_ils.pidstore.minters:internal_location_pid_minter",
             "keyid = invenio_app_ils.pidstore.minters:keyword_pid_minter",
+            "patid = invenio_app_ils.pidstore.minters:patron_pid_minter"
         ],
         "invenio_access.actions": [
             "backoffice_access_action = "

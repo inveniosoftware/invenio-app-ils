@@ -33,5 +33,7 @@ ils roles add librarian@test.ch librarian
 ils access allow superuser-access role admin
 ils access allow ils-backoffice-access role librarian
 
+#index users
+ils patrons index
 # Create demo data
 ils demo data

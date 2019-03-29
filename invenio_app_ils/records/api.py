@@ -10,9 +10,12 @@
 from __future__ import absolute_import, print_function
 
 from flask import current_app
+from invenio_accounts.models import User
 from invenio_jsonschemas import current_jsonschemas
+from invenio_oauthclient.models import RemoteAccount
 from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
+from invenio_userprofiles.api import UserProfile
 
 from invenio_app_ils.errors import DocumentKeywordNotFoundError
 
@@ -188,3 +191,31 @@ class Keyword(IlsRecord):
     def create(cls, data, id_=None, **kwargs):
         """Create Keyword record."""
         return super(Keyword, cls).create(data, id_=id_, **kwargs)
+
+
+class Patron():
+    """Patron record class."""
+
+    _index = "patrons-patron-v1.0.0"
+    _doc_type = "patron-v1.0.0"
+
+    def __init__(self, id, revision_id=None):
+        """Create a `Patron` instance.
+
+        Patron instances are not stored in the database
+        but are indexed in elasticsearch.
+        """
+        self.user = User.query.filter_by(id=id).one()
+        self.id = self.user.id
+        # set revision as it is needed by the indexer but always to the same
+        # value as we dont need it
+        self.revision_id = 1
+        self.profile = UserProfile.get_by_userid(id)
+
+    def dumps(self):
+        """Return python representation of Patron meatadata."""
+        return dict(
+            id=self.id,
+            name=self.profile.full_name if self.profile else '',
+            email=self.user.email,
+        )

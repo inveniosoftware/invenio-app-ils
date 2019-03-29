@@ -21,7 +21,7 @@ import {
   Error as IlsError,
   SearchBar as DocumentsSearchBar,
 } from '../../../common/components';
-import { document as documentApi } from '../../../common/api/document';
+import { document as documentApi } from '../../../common/api/documents/document';
 import { ClearButton, NewButton } from '../components/buttons';
 import { openRecordEditor } from '../../../common/urls';
 import { ResultsList as DocumentsResultsList } from './components';

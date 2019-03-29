@@ -8,5 +8,4 @@ export const ApiURLS = {
   items: {},
   documents: {},
   locations: {},
-  users: {},
 };

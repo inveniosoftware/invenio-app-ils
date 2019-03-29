@@ -16,7 +16,8 @@ from .pids import (  # isort:skip
     INTERNAL_LOCATION_PID_TYPE,
     ITEM_PID_TYPE,
     KEYWORD_PID_TYPE,
-    LOCATION_PID_TYPE
+    LOCATION_PID_TYPE,
+    PATRON_PID_TYPE
 )
 
 
@@ -62,4 +63,13 @@ def keyword_pid_fetcher(record_uuid, data):
         provider=None,
         pid_type=KEYWORD_PID_TYPE,
         pid_value=str(data[Keyword.pid_field])
+    )
+
+
+def patron_pid_fetcher(record_uuid, data):
+    """Dummy patron fetcher."""
+    return FetchedPID(
+        provider=None,
+        pid_type=PATRON_PID_TYPE,
+        pid_value=str(data['id']),
     )
