@@ -17,7 +17,7 @@ from invenio_userprofiles.api import current_userprofile
 def ils_jwt_create_token():
     """JWT creation factory."""
     user_id = current_user.get_id()
-    additional_data = {"locationPid": 1}
+    additional_data = {"locationPid": "1"}
     if user_id:
         roles = [role.name for role in current_user.roles]
         username = current_userprofile.username or current_user.email
