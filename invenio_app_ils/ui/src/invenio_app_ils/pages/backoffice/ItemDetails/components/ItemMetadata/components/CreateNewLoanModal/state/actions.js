@@ -2,20 +2,20 @@ import { IS_LOADING, SUCCESS, HAS_ERROR, RESET_STATE } from './types';
 import { loan as loanApi } from '../../../../../../../../common/api/loans/loan';
 import { ApiURLS } from '../../../../../../../../common/api/urls';
 import { sendErrorNotification } from '../../../../../../../../common/components/Notifications';
+import { sessionManager } from '../../../../../../../../authentication/services';
 
 export const createNewLoanForItem = (itemPid, loan) => {
   return async (dispatch, getState) => {
     dispatch({
       type: IS_LOADING,
     });
-    const stateUserSession = getState().userSession;
     await loanApi
       .postAction(
         `${ApiURLS.loans.list}create`,
         itemPid,
         loan,
-        stateUserSession.userPid,
-        stateUserSession.locationPid
+        sessionManager.user.id,
+        sessionManager.user.locationPid
       )
       .then(response => {
         dispatch({
