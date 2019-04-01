@@ -14,13 +14,13 @@ export default class App extends Component {
     return (
       <Router history={history}>
         <Switch>
-          <Route exact path="/" component={FrontSiteRoutes} />
           <AuthenticationGuard
             path={`${BackOfficeURLS.home}`}
             authorizedComponent={BackOfficeRoutes}
             unAuthorizedComponent={UnAuthorized}
             roles={['admin', 'librarian']}
           />
+          <FrontSiteRoutes />
           <Route component={NotFound} />
         </Switch>
       </Router>
