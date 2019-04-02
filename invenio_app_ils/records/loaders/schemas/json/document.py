@@ -18,3 +18,4 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     title = fields.Str()
     authors = fields.Str()
     circulation = fields.Str()
+    keywords = fields.List(fields.Str())

@@ -9,9 +9,9 @@
 
 import pytest
 
-from invenio_app_ils.errors import NotImplementedConfigurationError, \
-    PatronHasLoanOnItemError, PatronNotFoundError, SearchQueryError, \
-    UnauthorizedSearchError
+from invenio_app_ils.errors import DocumentKeywordNotFoundError, \
+    NotImplementedConfigurationError, PatronHasLoanOnItemError, \
+    PatronNotFoundError, SearchQueryError, UnauthorizedSearchError
 
 
 def test_unauthorized_search(app):
@@ -69,3 +69,14 @@ def test_patron_has_loan_on_item(app):
     assert ex.value.code == PatronHasLoanOnItemError.code
     assert ex.value.description == msg.format(
         patron_pid=patron_pid, item_pid=item_pid)
+
+
+def test_document_keyword_not_found_error(app):
+    """Test DocumentKeywordNotFoundError."""
+    document_pid = "1"
+    keyword_pid = "2"
+    msg = "Document PID '{}' has no keyword with PID '{}'"
+    with pytest.raises(DocumentKeywordNotFoundError) as ex:
+        raise DocumentKeywordNotFoundError(document_pid, keyword_pid)
+    assert ex.value.code == DocumentKeywordNotFoundError.code
+    assert ex.value.description == msg.format(document_pid, keyword_pid)

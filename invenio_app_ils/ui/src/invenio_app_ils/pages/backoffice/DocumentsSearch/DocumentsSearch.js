@@ -13,6 +13,7 @@ import {
   Count,
   SortBy,
   SortOrder,
+  Aggregator,
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
 import { BackOfficeURLS } from '../../../common/urls';
@@ -53,6 +54,15 @@ export class DocumentsSearch extends Component {
         />
       </div>
     );
+  };
+
+  _renderAggregations = () => {
+    const components = config.AGGREGATIONS.map(agg => (
+      <div className="aggregator" key={agg.field}>
+        <Aggregator title={agg.title} field={agg.field} />
+      </div>
+    ));
+    return <div className="aggregators">{components}</div>;
   };
 
   _renderEmptyResults = (queryString, resetQuery) => {
@@ -158,8 +168,7 @@ export class DocumentsSearch extends Component {
           relaxed
           className="documents-search-container"
         >
-          {/*<Grid.Column width={3}>{this._renderAggregations()}</Grid.Column> */}
-          <Grid.Column width={3} />
+          <Grid.Column width={3}>{this._renderAggregations()}</Grid.Column>
           <Grid.Column width={13}>
             <ResultsLoader>
               <EmptyResults renderElement={this._renderEmptyResults} />

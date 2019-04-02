@@ -38,7 +38,9 @@ export default class BookAccordion extends Component {
           Information
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 1}>
-          <p>{this.props.data.keywords}</p>
+          {this.props.data.keywords.map(keyword => (
+            <p key={keyword.keyword_pid}>{keyword.name}</p>
+          ))}
         </Accordion.Content>
 
         <Accordion.Title

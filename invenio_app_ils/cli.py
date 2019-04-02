@@ -8,7 +8,7 @@
 """CLI for Invenio App ILS."""
 
 from datetime import datetime, timedelta
-from random import randint
+from random import randint, sample
 
 import click
 import lorem
@@ -21,12 +21,13 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
     RecordIdentifier
 from invenio_search import current_search
 
-from .records.api import Document, InternalLocation, Item, Location
+from .records.api import Document, InternalLocation, Item, Keyword, Location
 
 from .pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
     ITEM_PID_TYPE,
+    KEYWORD_PID_TYPE,
     LOCATION_PID_TYPE,
 )
 
@@ -59,6 +60,17 @@ def get_internal_locations(location):
     ]
 
 
+def get_keywords(n_keywords):
+    """Return random keywords."""
+    return [
+        {
+            Keyword.pid_field: "{}".format(i),
+            "name": "Keyword {}".format(i),
+        }
+        for i in range(1, n_keywords)
+    ]
+
+
 def get_documents_items(internal_locations, n_docs, n_items):
     """Return random document and items."""
     documents = [
@@ -72,7 +84,6 @@ def get_documents_items(internal_locations, n_docs, n_items):
                       "https://cds.cern.ch/record/2256277/files/CERN-Brochure-2016-005-Eng.pdf"],
             "booklinks": ["https://home.cern/science/physics/dark-matter",
                           "https://home.cern/science/physics/antimatter"],
-            "keywords": ["{}".format(lorem.sentence())],
             "chapters": ["{}".format(lorem.sentence())],
             "information": "{}".format(lorem.text()),
         }
@@ -213,6 +224,16 @@ def create_iloc_record(internal_location, loc_pid):
     return record
 
 
+def create_keyword_record(keyword):
+    """Create Keyword record."""
+    record = Keyword.create(keyword)
+    _mint_record_pid(
+        KEYWORD_PID_TYPE, Keyword.pid_field, record
+    )
+    record.commit()
+    return record
+
+
 def create_doc_record(document):
     """Create Document record."""
     record = Document.create(document)
@@ -247,8 +268,9 @@ def demo():
 @click.option("--docs", "n_docs", default=20)
 @click.option("--items", "n_items", default=50)
 @click.option("--loans", "n_loans", default=100)
+@click.option("--keywords", "n_keywords", default=10)
 @with_appcontext
-def data(n_docs, n_items, n_loans):
+def data(n_docs, n_items, n_loans, n_keywords):
     """Insert demo data."""
     indexer = RecordIndexer()
 
@@ -264,6 +286,16 @@ def data(n_docs, n_items, n_loans):
             rec = create_iloc_record(iloc, rec_location[Location.pid_field])
             rec_int_locs.append(rec)
 
+    rec_keywords = []
+    random_keywords = get_keywords(n_keywords)
+    with click.progressbar(random_keywords, label="Keywords") as keywords:
+        for keyword in keywords:
+            rec = create_keyword_record(keyword)
+            rec_keywords.append(rec)
+    indexer.bulk_index([str(r.id) for r in rec_keywords])
+    click.echo(
+        'Sent to the indexing queue {0} keywords'.format(len(rec_keywords)))
+
     documents, items = get_documents_items(
         rec_int_locs, n_docs=n_docs, n_items=n_items
     )
@@ -271,6 +303,9 @@ def data(n_docs, n_items, n_loans):
     with click.progressbar(documents, label="Documents") as docs:
         for doc in docs:
             rec = create_doc_record(doc)
+            for keyword in sample(rec_keywords, randint(1, n_keywords-1)):
+                rec.add_keyword(keyword)
+            rec.commit()
             rec_docs.append(rec)
 
     rec_items = []

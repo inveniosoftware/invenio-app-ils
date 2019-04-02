@@ -6,6 +6,7 @@ export const invenioConfig = {
         onEmptyQuery: '',
       },
       sortOrder: [],
+      aggs: [],
     },
   },
   items: {

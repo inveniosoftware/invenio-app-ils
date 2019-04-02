@@ -14,7 +14,6 @@ import PropTypes from 'prop-types';
 import BookTab from '../BookTab';
 import { RequestNewLoanForm } from './components/RequestNewLoanForm';
 import '../../BookDetails.scss';
-import { invenioConfig } from '../../../../../common/config';
 
 export default class BookMetadata extends Component {
   state = { visible: false };
@@ -22,7 +21,6 @@ export default class BookMetadata extends Component {
   toggleVisibility = () => this.setState({ visible: !this.state.visible });
 
   _render_book_info() {
-    console.log(this.props);
     const bookData = this.props.bookDetails;
     return (
       <div className="book-info">

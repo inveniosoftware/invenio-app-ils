@@ -27,6 +27,7 @@ def jsonresolver_loader(url_map):
         internal_location = InternalLocation.get_record_by_pid(
             internal_location_pid
         )
+        del internal_location["$schema"]
 
         return internal_location
 

@@ -124,6 +124,7 @@ setup(
             "items = invenio_app_ils.mappings",
             "locations = invenio_app_ils.mappings",
             "internal_locations = invenio_app_ils.mappings",
+            "keywords = invenio_app_ils.mappings",
         ],
         "invenio_pidstore.fetchers": [
             "docid = invenio_app_ils.pidstore.fetchers:document_pid_fetcher",
@@ -131,6 +132,7 @@ setup(
             "locid = invenio_app_ils.pidstore.fetchers:location_pid_fetcher",
             "ilocid = "
             "invenio_app_ils.pidstore.fetchers:internal_location_pid_fetcher",
+            "keyid = invenio_app_ils.pidstore.fetchers:keyword_pid_fetcher",
         ],
         "invenio_pidstore.minters": [
             "docid = invenio_app_ils.pidstore.minters:document_pid_minter",
@@ -138,6 +140,7 @@ setup(
             "locid = invenio_app_ils.pidstore.minters:location_pid_minter",
             "ilocid = "
             "invenio_app_ils.pidstore.minters:internal_location_pid_minter",
+            "keyid = invenio_app_ils.pidstore.minters:keyword_pid_minter",
         ],
         "invenio_access.actions": [
             "backoffice_access_action = "
@@ -153,6 +156,7 @@ setup(
             "invenio_app_ils.records.jsonresolver.item_loan",
             "internal_location = "
             "invenio_app_ils.records.jsonresolver.internal_location",
+            "keyword = invenio_app_ils.records.jsonresolver.keyword",
         ],
         'invenio_celery.tasks': [
             'indexer = invenio_app_ils.indexer'
