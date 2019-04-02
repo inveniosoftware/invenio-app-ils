@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import LoanMetadataComponent from './LoanMetadata';
 
 const mapStateToProps = state => ({
+  error: state.loanDetails.error,
   loanDetails: state.loanDetails.data,
 });
 

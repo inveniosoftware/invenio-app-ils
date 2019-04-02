@@ -38,7 +38,7 @@ describe('Loans Card fetch reducer tests', () => {
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
       isLoading: false,
-      data: 'Error',
+      error: 'Error',
       hasError: true,
     });
   });

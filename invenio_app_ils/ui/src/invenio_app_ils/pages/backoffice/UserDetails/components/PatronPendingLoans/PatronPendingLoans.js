@@ -71,11 +71,10 @@ export default class PatronPendingLoans extends Component {
   }
 
   render() {
-    const { data, isLoading, hasError } = this.props;
-    const errorData = hasError ? data : null;
+    const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>{this._render_table(data)}</Error>
+        <Error error={error}>{this._render_table(data)}</Error>
       </Loader>
     );
   }

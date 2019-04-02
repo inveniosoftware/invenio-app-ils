@@ -32,6 +32,7 @@ import {
   idleLoansReducer,
   renewedLoansReducer,
 } from './pages/backoffice/Home/reducer';
+import { notificationsReducer } from './common/components/Notifications/reducer';
 
 import { bookDetailsReducer } from './pages/frontsite/BookDetails/reducer';
 
@@ -57,6 +58,7 @@ const rootReducer = combineReducers({
   bookDetails: bookDetailsReducer,
   itemsSearchInput: itemsSearchByBarcodeReducer,
   patronItemsCheckout: patronItemCheckoutReducer,
+  notifications: notificationsReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

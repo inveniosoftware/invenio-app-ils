@@ -1,5 +1,6 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { item } from '../../../../common/api';
+import { sendErrorNotification } from '../../../../common/components/Notifications';
 
 export const fetchItemDetails = itemPid => {
   return async dispatch => {
@@ -20,6 +21,7 @@ export const fetchItemDetails = itemPid => {
           type: HAS_ERROR,
           payload: error,
         });
+        dispatch(sendErrorNotification(error));
       });
   };
 };

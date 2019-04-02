@@ -11,6 +11,7 @@ import {
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
 import { fromISO, toShortDate } from '../../../../../common/api/date';
+import _isEmpty from 'lodash/isEmpty';
 
 export default class PatronCurrentLoans extends Component {
   constructor(props) {
@@ -56,12 +57,12 @@ export default class PatronCurrentLoans extends Component {
   }
 
   render() {
-    const { data, isLoading, hasError } = this.props;
-    const errorData = hasError ? data : null;
-    const rows = !hasError && !isLoading ? this.prepareData() : [];
+    const { data, isLoading, hasError, error } = this.props;
+    const rows =
+      !hasError && !isLoading && !_isEmpty(data) ? this.prepareData() : [];
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>
+        <Error error={error}>
           <ResultsTable
             rows={rows}
             title={"Patron's current loans"}
@@ -78,7 +79,7 @@ export default class PatronCurrentLoans extends Component {
 PatronCurrentLoans.propTypes = {
   patron: PropTypes.number,
   fetchPatronCurrentLoans: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
   showMaxLoans: PropTypes.number,
 };
 

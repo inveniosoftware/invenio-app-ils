@@ -2,9 +2,7 @@
 
 exports[`PatronLoans tests should load the ItemsCheckout component 1`] = `
 <Loader>
-  <Error
-    error={null}
-  >
+  <Error>
     <Message
       color="blue"
     >
@@ -26,18 +24,14 @@ exports[`PatronLoans tests should render show a message with added loan 1`] = `
   history={[Function]}
 >
   <Loader>
-    <Error
-      error={null}
-    >
+    <Error>
       <Message
-        color="green"
-        data-test="success"
+        color="blue"
       >
         <div
-          className="ui green message"
-          data-test="success"
+          className="ui blue message"
         >
-          The new loan was created.
+          Scan the barcode to perform a loan for this user.
         </div>
       </Message>
     </Error>

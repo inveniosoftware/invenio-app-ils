@@ -2,6 +2,7 @@ import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { loan as loanApi } from '../../../../../../../common/api';
 import { DateTime } from 'luxon';
 import { toShortDate } from '../../../../../../../common/api/date';
+import { sendErrorNotification } from '../../../../../../../common/components/Notifications';
 
 export const fetchIdlePendingLoans = () => {
   return async dispatch => {
@@ -29,6 +30,7 @@ export const fetchIdlePendingLoans = () => {
           type: HAS_ERROR,
           payload: error,
         });
+        dispatch(sendErrorNotification(error));
       });
   };
 };

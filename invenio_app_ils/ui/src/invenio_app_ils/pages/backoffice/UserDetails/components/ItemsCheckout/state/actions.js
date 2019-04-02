@@ -2,6 +2,10 @@ import { HAS_ERROR, IS_LOADING, SUCCESS } from './types';
 import { loan as loanApi } from '../../../../../../common/api';
 import { ApiURLS } from '../../../../../../common/api/urls';
 import { sessionManager } from '../../../../../../authentication/services';
+import {
+  sendErrorNotification,
+  sendSuccessNotification,
+} from '../../../../../../common/components/Notifications';
 
 export const checkoutItem = (item, patron_pid) => {
   return async dispatch => {
@@ -22,12 +26,19 @@ export const checkoutItem = (item, patron_pid) => {
           type: SUCCESS,
           payload: response.data,
         });
+        dispatch(
+          sendSuccessNotification(
+            'Loan Created',
+            'The new loan was successfully created.'
+          )
+        );
       })
       .catch(error => {
         dispatch({
           type: HAS_ERROR,
           payload: error,
         });
+        dispatch(sendErrorNotification(error));
       });
   };
 };

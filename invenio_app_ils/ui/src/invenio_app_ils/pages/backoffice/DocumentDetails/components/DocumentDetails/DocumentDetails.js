@@ -7,11 +7,10 @@ import { DocumentItems } from '../DocumentItems';
 
 export default class DocumentDetails extends Component {
   render() {
-    const { isLoading, data, hasError } = this.props;
-    const errorData = hasError ? data : null;
+    const { isLoading, data, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>
+        <Error error={error}>
           <DocumentMetadata />
           <DocumentPendingLoans document={data} />
           <DocumentItems document={data} />

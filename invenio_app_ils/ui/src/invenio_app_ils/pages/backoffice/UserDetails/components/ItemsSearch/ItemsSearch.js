@@ -15,7 +15,7 @@ import { Error, Loader } from '../../../../../common/components';
 import { ResultsList as ItemsResultsList } from './components';
 import _isEmpty from 'lodash/isEmpty';
 
-export default class ItemsCheckout extends Component {
+export default class ItemsSearch extends Component {
   constructor(props) {
     super(props);
     this.fetchItems = this.props.fetchItems;
@@ -61,7 +61,7 @@ export default class ItemsCheckout extends Component {
         onPaste={e => {
           let queryString = e.clipboardData.getData('Text');
           this.executeSearch(queryString).then(data => {
-            this.checkoutItem(this.props.items[0], this.props.patron).then(
+            this.checkoutItem(this.props.items.hits[0], this.props.patron).then(
               () => {
                 this.clearResults();
                 setTimeout(() => {
@@ -134,8 +134,7 @@ export default class ItemsCheckout extends Component {
   };
 
   render() {
-    const { items, isLoading, hasError, queryString } = this.props;
-    const errorData = hasError ? items : null;
+    const { items, isLoading, hasError, queryString, error } = this.props;
     return (
       <Segment>
         <Header as={'h3'}>Items</Header>
@@ -143,7 +142,7 @@ export default class ItemsCheckout extends Component {
         <Grid columns={1} stackable relaxed className="items-search-container">
           <Grid.Column width={16}>
             <Loader isLoading={isLoading}>
-              <Error error={errorData}>
+              <Error error={error}>
                 {this._renderHeader(items.length)}
                 {!(_isEmpty(items) && !hasError)
                   ? this._renderResultsList(items)
@@ -160,10 +159,10 @@ export default class ItemsCheckout extends Component {
   }
 }
 
-ItemsCheckout.propTypes = {
+ItemsSearch.propTypes = {
   queryString: PropTypes.string,
   updateQueryString: PropTypes.func.isRequired,
-  items: PropTypes.array,
+  items: PropTypes.object,
   fetchItems: PropTypes.func.isRequired,
   fetchPatronCurrentLoans: PropTypes.func.isRequired,
   clearResults: PropTypes.func.isRequired,
@@ -171,6 +170,6 @@ ItemsCheckout.propTypes = {
   patron: PropTypes.number.isRequired,
 };
 
-ItemsCheckout.defaultProps = {
+ItemsSearch.defaultProps = {
   queryString: '',
 };

@@ -31,7 +31,7 @@ describe('PatronLoans tests', () => {
     const component = shallow(
       <ItemsSearch
         history={() => {}}
-        items={[]}
+        items={{ hits: [] }}
         queryString={''}
         updateQueryString={mockedUpdateString}
         fetchItems={mockedFetchItems}
@@ -51,9 +51,11 @@ describe('PatronLoans tests', () => {
     const mockedClear = jest.fn();
     const mockedCheckoutItem = jest.fn();
 
-    const items = [
-      { item_pid: '4', barcode: '3', document_pid: 4, status: 'LOANABLE' },
-    ];
+    const items = {
+      hits: [
+        { item_pid: '4', barcode: '3', document_pid: '4', status: 'LOANABLE' },
+      ],
+    };
     component = mount(
       <ItemsSearch
         history={() => {}}
@@ -71,7 +73,9 @@ describe('PatronLoans tests', () => {
     expect(component).toMatchSnapshot();
     const tableRow = component
       .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === items[0].item_pid);
+      .filterWhere(
+        element => element.prop('data-test') === items.hits[0].item_pid
+      );
     expect(tableRow).toHaveLength(1);
   });
 });

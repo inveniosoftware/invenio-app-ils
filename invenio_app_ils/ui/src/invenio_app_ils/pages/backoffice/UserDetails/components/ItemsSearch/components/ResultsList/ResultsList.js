@@ -41,7 +41,7 @@ export class ResultsList extends Component {
   }
 
   prepareData() {
-    return this.props.results.map(row => {
+    return this.props.results.hits.map(row => {
       let serialised = formatter.item.toTable(row);
       serialised['Actions'] = this.actions(row, row.status);
       delete serialised['Created'];
@@ -64,7 +64,7 @@ export class ResultsList extends Component {
 }
 
 ResultsList.propTypes = {
-  results: PropTypes.array.isRequired,
+  results: PropTypes.object.isRequired,
   viewDetailsClickHandler: PropTypes.func.isRequired,
   clearResults: PropTypes.func.isRequired,
   checkoutItem: PropTypes.func.isRequired,

@@ -11,6 +11,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   isLoading: state.patronItemsCheckout.isLoading,
   data: state.patronItemsCheckout.data,
+  error: state.patronItemsCheckout.error,
   hasError: state.patronItemsCheckout.hasError,
 });
 

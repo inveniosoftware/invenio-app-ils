@@ -2,9 +2,7 @@
 
 exports[`DocumentItems tests should load the DocumentItems component 1`] = `
 <Loader>
-  <Error
-    error={null}
-  >
+  <Error>
     <ResultsTable
       fixed={false}
       headerActionClickHandler={null}
@@ -62,9 +60,7 @@ exports[`DocumentItems tests should render item 1`] = `
   showMaxItems={5}
 >
   <Loader>
-    <Error
-      error={null}
-    >
+    <Error>
       <ResultsTable
         fixed={false}
         headerActionClickHandler={null}
@@ -665,9 +661,7 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
   showMaxItems={5}
 >
   <Loader>
-    <Error
-      error={null}
-    >
+    <Error>
       <ResultsTable
         fixed={false}
         headerActionClickHandler={null}
@@ -790,9 +784,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
   showMaxItems={1}
 >
   <Loader>
-    <Error
-      error={null}
-    >
+    <Error>
       <ResultsTable
         fixed={false}
         headerActionClickHandler={null}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Transition } from 'semantic-ui-react';
+import { Error } from '../../../../../../../common/components/Error';
 
 export default class RequestNewLoanForm extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export default class RequestNewLoanForm extends Component {
   };
 
   render() {
-    const { docPid, visible } = this.props;
+    const { docPid, visible, error } = this.props;
 
     const loanData = {
       document_pid: docPid,
@@ -24,23 +25,25 @@ export default class RequestNewLoanForm extends Component {
     ];
 
     return (
-      <Transition visible={visible} animation="scale" duration={500}>
-        <Form>
-          <Form.Group widths="equal">
-            <Form.Select
-              fluid
-              label="Loan Period"
-              options={loanPeriodOptions}
-              placeholder="Loan Period*"
-            />
-          </Form.Group>
-          <Form.TextArea label="Comments" placeholder="Comments..." />
-          <Form.Button onClick={() => this.requestNewLoan(docPid, loanData)}>
-            Submit Loan Request
-          </Form.Button>
-          <div className="ui hidden divider" />
-        </Form>
-      </Transition>
+      <Error error={error}>
+        <Transition visible={visible} animation="scale" duration={500}>
+          <Form>
+            <Form.Group widths="equal">
+              <Form.Select
+                fluid
+                label="Loan Period"
+                options={loanPeriodOptions}
+                placeholder="Loan Period*"
+              />
+            </Form.Group>
+            <Form.TextArea label="Comments" placeholder="Comments..." />
+            <Form.Button onClick={() => this.requestNewLoan(docPid, loanData)}>
+              Submit Loan Request
+            </Form.Button>
+            <div className="ui hidden divider" />
+          </Form>
+        </Transition>
+      </Error>
     );
   }
 }

@@ -10,7 +10,8 @@ export const initialState = {
   isLoading: true,
   hasError: false,
   itemCheckoutQueryString: '',
-  data: [],
+  data: {},
+  error: {},
 };
 
 export default (state = initialState, action) => {
@@ -22,19 +23,20 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         data: action.payload,
+        error: {},
         hasError: false,
       };
     case HAS_ERROR:
       return {
         ...state,
         isLoading: false,
-        data: action.payload,
+        error: action.payload,
         hasError: true,
       };
     case QUERY_STRING_UPDATE:
       return { ...state, itemCheckoutQueryString: action.queryString };
     case CLEAR_SEARCH:
-      return { ...state, itemCheckoutQueryString: '', data: [] };
+      return { ...state, itemCheckoutQueryString: '', data: {} };
     default:
       return state;
   }

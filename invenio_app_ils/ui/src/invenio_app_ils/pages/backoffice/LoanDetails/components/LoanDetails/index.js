@@ -5,10 +5,9 @@ import LoanDetailsComponent from './LoanDetails';
 
 const mapStateToProps = state => ({
   isLoading: state.loanDetails.isLoading,
-  isActionLoading: state.loanDetails.isActionLoading,
   data: state.loanDetails.data,
+  error: state.loanDetails.error,
   hasError: state.loanDetails.hasError,
-  actionHasError: state.loanDetails.actionHasError,
 });
 
 export const LoanDetails = compose(

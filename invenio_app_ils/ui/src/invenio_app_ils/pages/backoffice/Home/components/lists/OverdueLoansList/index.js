@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = state => ({
   data: state.overdueLoans.data,
+  error: state.overdueLoans.error,
   isLoading: state.overdueLoans.isLoading,
   hasError: state.overdueLoans.hasError,
 });

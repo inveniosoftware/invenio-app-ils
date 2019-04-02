@@ -2,9 +2,7 @@
 
 exports[`OverbookedDocumentsList tests should load the details component 1`] = `
 <Loader>
-  <Error
-    error={null}
-  >
+  <Error>
     <ResultsTable
       fixed={true}
       headerActionClickHandler={null}
@@ -59,9 +57,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
   showMaxEntries={5}
 >
   <Loader>
-    <Error
-      error={null}
-    >
+    <Error>
       <ResultsTable
         fixed={true}
         headerActionClickHandler={null}
@@ -520,9 +516,7 @@ exports[`OverbookedDocumentsList tests should render show a message with no docu
   showMaxEntries={5}
 >
   <Loader>
-    <Error
-      error={null}
-    >
+    <Error>
       <ResultsTable
         fixed={true}
         headerActionClickHandler={null}

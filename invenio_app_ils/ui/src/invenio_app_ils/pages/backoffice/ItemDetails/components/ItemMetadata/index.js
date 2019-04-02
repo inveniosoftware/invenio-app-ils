@@ -5,6 +5,7 @@ import ItemMetadataComponent from './ItemMetadata';
 import { fetchItemDetails } from '../../state/actions';
 
 const mapStateToProps = state => ({
+  error: state.itemDetails.error,
   itemDetails: state.itemDetails.data,
 });
 

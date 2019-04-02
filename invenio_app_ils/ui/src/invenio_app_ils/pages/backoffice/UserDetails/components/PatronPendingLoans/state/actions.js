@@ -6,6 +6,7 @@ import {
   CHANGE_SORT_ORDER,
 } from './types';
 import { loan as loanApi } from '../../../../../../common/api';
+import { sendErrorNotification } from '../../../../../../common/components/Notifications';
 
 export const fetchPatronPendingLoans = patronPid => {
   return async dispatch => {
@@ -31,6 +32,7 @@ export const fetchPatronPendingLoans = patronPid => {
           type: HAS_ERROR,
           payload: error,
         });
+        dispatch(sendErrorNotification(error));
       });
   };
 };

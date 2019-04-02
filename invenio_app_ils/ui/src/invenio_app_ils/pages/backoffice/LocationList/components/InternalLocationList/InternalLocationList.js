@@ -54,11 +54,10 @@ export default class InternalLocationList extends Component {
   }
 
   render() {
-    let { data, hasError, isLoading } = this.props;
-    const errorData = hasError ? data : null;
+    let { data, error, isLoading } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={errorData}>{this._renderResults(data)}</Error>
+        <Error error={error}>{this._renderResults(data)}</Error>
       </Loader>
     );
   }

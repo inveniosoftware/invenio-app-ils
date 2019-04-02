@@ -6,18 +6,10 @@ import { LoanMetadata } from '../';
 
 export default class LoanDetails extends Component {
   render() {
-    const {
-      isLoading,
-      isActionLoading,
-      data,
-      hasError,
-      actionHasError,
-    } = this.props;
-    const errorData = hasError || actionHasError ? data : null;
-    const anyIsLoading = isLoading || isActionLoading;
+    const { isLoading, error } = this.props;
     return (
-      <Loader isLoading={anyIsLoading}>
-        <Error error={errorData}>
+      <Loader isLoading={isLoading}>
+        <Error error={error}>
           <Container>
             <LoanMetadata />
           </Container>
@@ -29,8 +21,7 @@ export default class LoanDetails extends Component {
 
 LoanDetails.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  isActionLoading: PropTypes.bool.isRequired,
   data: PropTypes.object,
   hasError: PropTypes.bool.isRequired,
-  actionHasError: PropTypes.bool.isRequired,
+  error: PropTypes.object,
 };

@@ -38,51 +38,8 @@ describe('Fetch loan details reducer', () => {
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
       isLoading: false,
-      data: 'Error',
+      error: 'Error',
       hasError: true,
-    });
-  });
-});
-
-describe('Loan action reducer', () => {
-  it('should have initial state', () => {
-    expect(reducer(undefined, {})).toEqual(initialState);
-  });
-
-  it('should change loading state on loading action', () => {
-    const action = {
-      type: types.ACTION_IS_LOADING,
-    };
-    expect(reducer(initialState, action)).toEqual({
-      ...initialState,
-      isActionLoading: true,
-    });
-  });
-
-  it('should change data state on success action', () => {
-    const loan = { field: '123' };
-    const action = {
-      type: types.ACTION_SUCCESS,
-      payload: loan,
-    };
-    expect(reducer(initialState, action)).toEqual({
-      ...initialState,
-      isActionLoading: false,
-      data: loan,
-      actionHasError: false,
-    });
-  });
-
-  it('should change error state on error action', () => {
-    const action = {
-      type: types.ACTION_HAS_ERROR,
-      payload: 'Error',
-    };
-    expect(reducer(initialState, action)).toEqual({
-      ...initialState,
-      isActionLoading: false,
-      data: 'Error',
-      actionHasError: true,
     });
   });
 });

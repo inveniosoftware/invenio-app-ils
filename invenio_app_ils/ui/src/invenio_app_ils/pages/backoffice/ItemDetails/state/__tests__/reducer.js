@@ -38,7 +38,7 @@ describe('Fetch item details reducer', () => {
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
       isLoading: false,
-      data: 'Error',
+      error: 'Error',
       hasError: true,
     });
   });

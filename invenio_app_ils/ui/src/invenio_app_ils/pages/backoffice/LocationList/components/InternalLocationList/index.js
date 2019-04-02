@@ -4,6 +4,7 @@ import InternalLocationListComponent from './InternalLocationList';
 
 const mapStateToProps = state => ({
   data: state.internalLocations.data,
+  error: state.internalLocations.error,
   isLoading: state.internalLocations.isLoading,
   hasError: state.internalLocations.hasError,
 });
