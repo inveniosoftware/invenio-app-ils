@@ -24,6 +24,7 @@ from invenio_app_ils.records.api import Document, InternalLocation, Item, \
 from invenio_app_ils.search.api import InternalLocationSearch
 
 indexer = RecordIndexer()
+MESSAGE = "{}: started indexing {} record with id: {}"
 
 
 @shared_task(ignore_result=True)
@@ -31,9 +32,14 @@ def index_loans_after_item_indexed(item_pid):
     """Index loan to refresh item reference."""
     loan_search = search_by_pid(item_pid=item_pid)
     for loan in loan_search.scan():
-        record = Loan.get_record_by_pid(loan[Loan.pid_field])
-        if record:
-            indexer.index(record)
+        loan = Loan.get_record_by_pid(loan[Loan.pid_field])
+        if loan:
+            current_app.logger.info(MESSAGE.format(
+                'index_loans_after_item_indexed',
+                'loan',
+                loan[Loan.pid_field]
+            ))
+            indexer.index(loan)
 
 
 @shared_task(ignore_result=True)
@@ -42,6 +48,11 @@ def index_document_after_item_indexed(item_pid):
     document_pid = circulation_document_retriever(item_pid)
     document = Document.get_record_by_pid(document_pid)
     if document:
+        current_app.logger.info(MESSAGE.format(
+            'index_document_after_item_indexed',
+            'document',
+            document[Document.pid_field]
+        ))
         indexer.index(document)
 
 
@@ -67,9 +78,14 @@ def index_item_after_document_indexed(document_pid):
     """Index item to refresh document reference."""
     item_pids = circulation_items_retriever(document_pid)
     for pid in item_pids:
-        record = Item.get_record_by_pid(pid)
-        if record:
-            indexer.index(record)
+        item = Item.get_record_by_pid(pid)
+        if item:
+            current_app.logger.info(MESSAGE.format(
+                'index_item_after_document_indexed',
+                'item',
+                item[Item.pid_field]
+            ))
+            indexer.index(item)
 
 
 class DocumentIndexer(RecordIndexer):
@@ -91,6 +107,8 @@ def index_item_after_loan_indexed(item_pid):
     if item_pid:
         item = Item.get_record_by_pid(item_pid)
         if item:
+            current_app.logger.info(MESSAGE.format(
+                'index_item_after_loan_indexed', 'item', item[Item.pid_field]))
             indexer.index(item)
 
 
@@ -100,6 +118,11 @@ def index_document_after_loan_indexed(document_pid):
     if document_pid:
         document = Document.get_record_by_pid(document_pid)
         if document:
+            current_app.logger.info(MESSAGE.format(
+                'index_document_after_loan_indexed',
+                'document',
+                document[Document.pid_field],
+            ))
             indexer.index(document)
 
 
@@ -126,11 +149,16 @@ def index_internal_location_after_location_indexed(loc_pid):
     iloc_search = InternalLocationSearch()
     iloc_records = iloc_search.search_by_location_pid(location_pid=loc_pid)
     for iloc in iloc_records.scan():
-        record = InternalLocation.get_record_by_pid(
+        iloc_rec = InternalLocation.get_record_by_pid(
             iloc[InternalLocation.pid_field]
         )
-        if record:
-            indexer.index(record)
+        if iloc_rec:
+            current_app.logger.info(MESSAGE.format(
+                'index_internal_location_after_location_indexed',
+                'internal-location',
+                iloc_rec[InternalLocation.pid_field],
+            ))
+            indexer.index(iloc_rec)
 
 
 class LocationIndexer(RecordIndexer):
