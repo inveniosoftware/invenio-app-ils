@@ -29,8 +29,6 @@ const aggsMappings = {
   status: 'Status',
   medium: 'Medium',
   circulation_status: 'Circulation Status',
-  document_type: 'Document type',
-  keywords: 'Keywords',
 };
 const aggs = config.aggs.map(agg => {
   return { title: aggsMappings[agg], field: agg };

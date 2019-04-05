@@ -34,6 +34,9 @@ class QueryBuilder {
   }
 
   withKeyword(keyword) {
+    if (!keyword) {
+      throw TypeError('Keyword argument missing');
+    }
     this.withKeywordQuery.push(`keywords.name:"${keyword.name}"`);
     return this;
   }

@@ -22,7 +22,7 @@ export default class ItemsSearch extends Component {
     this.updateQueryString = this.props.updateQueryString;
     this.clearResults = this.props.clearResults;
     this.checkoutItem = this.props.checkoutItem;
-    this.fetchPatronCurrentLoans = this.props.fetchPatronCurrentLoans;
+    this.fetchUpdatedCurrentLoans = this.props.fetchUpdatedCurrentLoans;
   }
 
   componentDidMount() {
@@ -43,6 +43,24 @@ export default class ItemsSearch extends Component {
     }
   };
 
+  _onPasteHandler = e => {
+    let queryString = e.clipboardData.getData('Text');
+    this.executeSearch(queryString).then(data => {
+      this.checkoutItem(this.props.items.hits[0], this.props.patron).then(
+        () => {
+          this.clearResults();
+          this.fetchUpdatedCurrentLoans(this.props.patron);
+        }
+      );
+    });
+  };
+
+  _onKeyPressHandler = e => {
+    if (e.key === 'Enter') {
+      this.executeSearch();
+    }
+  };
+
   _renderSearchBar = () => {
     return (
       <Input
@@ -59,23 +77,11 @@ export default class ItemsSearch extends Component {
           this.onInputChange(value);
         }}
         onPaste={e => {
-          let queryString = e.clipboardData.getData('Text');
-          this.executeSearch(queryString).then(data => {
-            this.checkoutItem(this.props.items.hits[0], this.props.patron).then(
-              () => {
-                this.clearResults();
-                setTimeout(() => {
-                  this.fetchPatronCurrentLoans(this.props.patron);
-                }, 3000);
-              }
-            );
-          });
+          this._onPasteHandler(e);
         }}
         value={this.props.queryString}
         onKeyPress={event => {
-          if (event.key === 'Enter') {
-            this.executeSearch();
-          }
+          this._onKeyPressHandler(event);
         }}
         ref={input => {
           this.searchInput = input;
@@ -92,7 +98,7 @@ export default class ItemsSearch extends Component {
           clearResults={this.clearResults}
           results={results}
           checkoutItem={this.checkoutItem}
-          fetchPatronCurrentLoans={this.fetchPatronCurrentLoans}
+          fetchPatronCurrentLoans={this.fetchUpdatedCurrentLoans}
           viewDetailsClickHandler={itemPid => {
             const path = generatePath(BackOfficeURLS.itemDetails, {
               itemPid: itemPid,
@@ -164,10 +170,10 @@ ItemsSearch.propTypes = {
   updateQueryString: PropTypes.func.isRequired,
   items: PropTypes.object,
   fetchItems: PropTypes.func.isRequired,
-  fetchPatronCurrentLoans: PropTypes.func.isRequired,
+  fetchUpdatedCurrentLoans: PropTypes.func.isRequired,
   clearResults: PropTypes.func.isRequired,
   checkoutItem: PropTypes.func.isRequired,
-  patron: PropTypes.string.isRequired,
+  patron: PropTypes.number.isRequired,
 };
 
 ItemsSearch.defaultProps = {

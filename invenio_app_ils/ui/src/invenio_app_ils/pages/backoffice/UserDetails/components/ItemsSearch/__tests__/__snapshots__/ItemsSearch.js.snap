@@ -58,7 +58,7 @@ exports[`PatronLoans tests should load the ItemsSearch component 1`] = `
               checkoutItem={[MockFunction]}
               clearResults={[MockFunction]}
               fetchPatronCurrentLoans={[MockFunction]}
-              patron="2"
+              patron={2}
               results={
                 Object {
                   "hits": Array [],
@@ -79,7 +79,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
   checkoutItem={[MockFunction]}
   clearResults={[MockFunction]}
   fetchItems={[MockFunction]}
-  fetchPatronCurrentLoans={[MockFunction]}
+  fetchUpdatedCurrentLoans={[MockFunction]}
   history={[Function]}
   items={
     Object {
@@ -93,7 +93,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
       ],
     }
   }
-  patron="2"
+  patron={2}
   queryString=""
   updateQueryString={[MockFunction]}
 >
@@ -204,7 +204,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                       checkoutItem={[MockFunction]}
                       clearResults={[MockFunction]}
                       fetchPatronCurrentLoans={[MockFunction]}
-                      patron="2"
+                      patron={2}
                       results={
                         Object {
                           "hits": Array [
@@ -235,6 +235,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                 onClick={[Function]}
                               />,
                               "Barcode": "3",
+                              "Circulation status": undefined,
                               "Document ID": "4",
                               "ID": "4",
                               "Status": "LOANABLE",
@@ -294,6 +295,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                       "Barcode",
                                       "Document ID",
                                       "Status",
+                                      "Circulation status",
                                       "Actions",
                                     ]
                                   }
@@ -394,6 +396,21 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                           </TableHeaderCell>
                                           <TableHeaderCell
                                             as="th"
+                                            key="Circulation status"
+                                          >
+                                            <TableCell
+                                              as="th"
+                                              className=""
+                                            >
+                                              <th
+                                                className=""
+                                              >
+                                                Circulation status
+                                              </th>
+                                            </TableCell>
+                                          </TableHeaderCell>
+                                          <TableHeaderCell
+                                            as="th"
                                             key="Actions"
                                           >
                                             <TableCell
@@ -419,6 +436,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                       "Barcode",
                                       "Document ID",
                                       "Status",
+                                      "Circulation status",
                                       "Actions",
                                     ]
                                   }
@@ -432,6 +450,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                           onClick={[Function]}
                                         />,
                                         "Barcode": "3",
+                                        "Circulation status": undefined,
                                         "Document ID": "4",
                                         "ID": "4",
                                         "Status": "LOANABLE",
@@ -513,8 +532,20 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                           </TableCell>
                                           <TableCell
                                             as="td"
-                                            data-test="Actions-4"
+                                            data-test="Circulation status-4"
                                             key="4-4"
+                                          >
+                                            <td
+                                              className=""
+                                              data-test="Circulation status-4"
+                                            >
+                                              -
+                                            </td>
+                                          </TableCell>
+                                          <TableCell
+                                            as="td"
+                                            data-test="Actions-4"
+                                            key="5-4"
                                           >
                                             <td
                                               className=""
@@ -541,7 +572,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                 </ResultsTableBody>
                                 <ResultsTableFooter
                                   allRowsNumber={1}
-                                  columnsNumber={5}
+                                  columnsNumber={6}
                                   seeAllComponent={null}
                                   showMaxRows={10}
                                 />

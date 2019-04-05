@@ -7,7 +7,6 @@ import { prepareDateQuery, prepareSumQuery } from '../utils';
 import { ApiURLS } from '../urls';
 import { generatePath } from 'react-router-dom';
 
-const loanListURL = ApiURLS.loans.list;
 const loanURL = loanPid => {
   return generatePath(ApiURLS.loans.loan, { loanPid: loanPid });
 };
@@ -162,7 +161,7 @@ const queryBuilder = () => {
 };
 
 const list = query => {
-  return http.get(`${loanListURL}?q=${query}`).then(response => {
+  return http.get(`${ApiURLS.loans.list}?q=${query}`).then(response => {
     response.data.total = response.data.hits.total;
     response.data.hits = response.data.hits.hits.map(hit =>
       serializer.fromJSON(hit)
@@ -172,7 +171,7 @@ const list = query => {
 };
 
 const count = query => {
-  return http.get(`${loanListURL}?q=${query}`).then(response => {
+  return http.get(`${ApiURLS.loans.list}?q=${query}`).then(response => {
     response.data = response.data.hits.total;
     return response;
   });
@@ -186,5 +185,5 @@ export const loan = {
   count: count,
   postAction: postAction,
   serializer: serializer,
-  url: loanListURL,
+  url: ApiURLS.loans.list,
 };

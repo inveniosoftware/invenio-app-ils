@@ -2,12 +2,9 @@ import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { loan as loanApi } from '../../../../../../common/api';
 import { sendErrorNotification } from '../../../../../../common/components/Notifications';
 
-export const fetchPatronCurrentLoans = patronPid => {
-  return async dispatch => {
-    dispatch({
-      type: IS_LOADING,
-    });
-    await loanApi
+export const fetchPatronCurrentLoans = (patronPid, delay = 0) => {
+  const fetchLoans = (patronPid, dispatch) => {
+    loanApi
       .list(
         loanApi
           .query()
@@ -29,5 +26,14 @@ export const fetchPatronCurrentLoans = patronPid => {
         });
         dispatch(sendErrorNotification(error));
       });
+  };
+
+  return async dispatch => {
+    dispatch({
+      type: IS_LOADING,
+    });
+    await setTimeout(() => {
+      fetchLoans(patronPid, dispatch);
+    }, delay);
   };
 };
