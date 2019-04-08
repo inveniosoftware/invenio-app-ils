@@ -70,7 +70,7 @@ export class LoansSearch extends Component {
       <Segment placeholder textAlign="center">
         <Header icon>
           <Icon name="search" />
-          No items found!
+          No loans found!
         </Header>
         <div className="empty-results-current">
           Current search "{queryString}"

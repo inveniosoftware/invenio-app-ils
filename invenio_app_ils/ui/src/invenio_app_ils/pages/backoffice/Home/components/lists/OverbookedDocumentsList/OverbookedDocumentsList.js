@@ -56,6 +56,7 @@ export default class OverbookedDocumentsList extends Component {
         subtitle={
           'Documents with more requests than the number of available items for loan.'
         }
+        name={'overbooked documents'}
         rowActionClickHandler={this._showDetailsHandler}
         seeAllComponent={this._seeAllButton()}
         showMaxRows={this.props.showMaxEntries}

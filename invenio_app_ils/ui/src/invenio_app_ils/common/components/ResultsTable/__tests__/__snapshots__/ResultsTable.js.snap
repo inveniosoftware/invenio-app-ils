@@ -18,6 +18,7 @@ exports[`ResultsTable tests should load the ResultTable component 1`] = `
     data-test="no-results"
   >
     There are no 
+    .
   </Message>
 </Segment>
 `;

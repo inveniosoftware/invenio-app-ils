@@ -62,6 +62,7 @@ export default class DocumentItems extends Component {
       <ResultsTable
         rows={rows}
         title={'Attached items'}
+        name={'attached items'}
         rowActionClickHandler={this._showDetailsHandler}
         seeAllComponent={this._seeAllButton()}
         showMaxRows={this.props.showMaxItems}

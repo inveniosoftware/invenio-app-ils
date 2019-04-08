@@ -53,6 +53,7 @@ export default class DocumentPendingLoans extends Component {
       <ResultsTable
         rows={rows}
         title={'Pending loans requests'}
+        name={'pending loan requests'}
         rowActionClickHandler={this._showDetailsHandler}
         seeAllComponent={this._seeAllButton()}
         showMaxRows={this.props.showMaxPendingLoans}

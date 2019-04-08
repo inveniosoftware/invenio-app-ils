@@ -33,6 +33,7 @@ export class ResultsList extends Component {
     return (
       <ResultsTable
         rows={rows}
+        name={'loans'}
         rowActionClickHandler={this.viewDetailsClickHandler}
         showMaxRows={maxRowsToShow}
       />

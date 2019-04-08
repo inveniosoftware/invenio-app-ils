@@ -55,6 +55,7 @@ export default class RenewedLoansList extends Component {
         rows={rows}
         title={'Frequently renewed loans'}
         subtitle={'Loans renewed more than 3 times - last 7 days.'}
+        name={'frequently renewed loans'}
         rowActionClickHandler={this._showDetailsHandler}
         seeAllComponent={this._seeAllButton()}
         showMaxRows={this.props.showMaxEntries}

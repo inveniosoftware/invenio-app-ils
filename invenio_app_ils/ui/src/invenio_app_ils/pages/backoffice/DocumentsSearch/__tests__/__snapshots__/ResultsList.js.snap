@@ -38,6 +38,7 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
         text="New document"
       />
     }
+    name="documents"
     rowActionClickHandler={[Function]}
     rows={
       Array [

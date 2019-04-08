@@ -7,6 +7,7 @@ exports[`ItemPastLoans tests should load the past loans component 1`] = `
       fixed={false}
       headerActionClickHandler={null}
       headerActionComponent={null}
+      name="loans"
       rowActionClickHandler={[Function]}
       rows={Array []}
       seeAllComponent={
@@ -70,6 +71,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
+        name="loans"
         rowActionClickHandler={[Function]}
         rows={
           Array [
@@ -537,6 +539,7 @@ exports[`ItemPastLoans tests should render show a message with no past loans 1`]
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
+        name="loans"
         rowActionClickHandler={[Function]}
         rows={Array []}
         seeAllComponent={
@@ -610,6 +613,8 @@ exports[`ItemPastLoans tests should render show a message with no past loans 1`]
                 data-test="no-results"
               >
                 There are no 
+                loans
+                .
               </div>
             </Message>
           </div>

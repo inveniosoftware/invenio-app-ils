@@ -42,7 +42,7 @@ export class ResultsTable extends Component {
     return rows.length ? (
       this._renderTable(rows)
     ) : (
-      <Message data-test="no-results">There are no {name}</Message>
+      <Message data-test="no-results">There are no {name}.</Message>
     );
   }
 
@@ -81,6 +81,7 @@ ResultsTable.propTypes = {
   showMaxRows: PropTypes.number,
   title: PropTypes.string,
   subtitle: PropTypes.string,
+  name: PropTypes.string,
   headerActionComponent: PropTypes.node,
   rowActionClickHandler: PropTypes.func,
   seeAllComponent: PropTypes.node,

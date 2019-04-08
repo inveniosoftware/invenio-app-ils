@@ -47,6 +47,7 @@ export default class InternalLocationList extends Component {
       <ResultsTable
         rows={rows}
         title={'Internal Locations'}
+        name={'internal locations'}
         headerActionComponent={headerActionComponent}
         showMaxRows={this.props.showMaxItems}
       />

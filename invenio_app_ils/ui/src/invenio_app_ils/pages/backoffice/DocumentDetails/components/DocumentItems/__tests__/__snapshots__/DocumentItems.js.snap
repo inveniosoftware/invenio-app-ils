@@ -7,6 +7,7 @@ exports[`DocumentItems tests should load the DocumentItems component 1`] = `
       fixed={false}
       headerActionClickHandler={null}
       headerActionComponent={null}
+      name="attached items"
       rowActionClickHandler={[Function]}
       rows={Array []}
       seeAllComponent={
@@ -65,6 +66,7 @@ exports[`DocumentItems tests should render item 1`] = `
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
+        name="attached items"
         rowActionClickHandler={[Function]}
         rows={
           Array [
@@ -666,6 +668,7 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
+        name="attached items"
         rowActionClickHandler={[Function]}
         rows={Array []}
         seeAllComponent={
@@ -739,6 +742,8 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
                 data-test="no-results"
               >
                 There are no 
+                attached items
+                .
               </div>
             </Message>
           </div>
@@ -789,6 +794,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
+        name="attached items"
         rowActionClickHandler={[Function]}
         rows={
           Array [

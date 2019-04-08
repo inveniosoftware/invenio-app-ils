@@ -52,6 +52,7 @@ export default class ItemPastLoans extends Component {
       <ResultsTable
         rows={rows}
         title={'Loans history'}
+        name={'loans'}
         rowActionClickHandler={this._showDetailsHandler}
         seeAllComponent={this._seeAllButton()}
         showMaxRows={this.props.showMaxPastLoans}

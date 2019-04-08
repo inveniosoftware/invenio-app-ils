@@ -7,6 +7,7 @@ exports[`OverbookedDocumentsList tests should load the details component 1`] = `
       fixed={true}
       headerActionClickHandler={null}
       headerActionComponent={null}
+      name="overbooked documents"
       rowActionClickHandler={[Function]}
       rows={Array []}
       seeAllComponent={
@@ -62,6 +63,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
         fixed={true}
         headerActionClickHandler={null}
         headerActionComponent={null}
+        name="overbooked documents"
         rowActionClickHandler={[Function]}
         rows={
           Array [
@@ -521,6 +523,7 @@ exports[`OverbookedDocumentsList tests should render show a message with no docu
         fixed={true}
         headerActionClickHandler={null}
         headerActionComponent={null}
+        name="overbooked documents"
         rowActionClickHandler={[Function]}
         rows={Array []}
         seeAllComponent={
@@ -596,6 +599,8 @@ exports[`OverbookedDocumentsList tests should render show a message with no docu
                 data-test="no-results"
               >
                 There are no 
+                overbooked documents
+                .
               </div>
             </Message>
           </div>
