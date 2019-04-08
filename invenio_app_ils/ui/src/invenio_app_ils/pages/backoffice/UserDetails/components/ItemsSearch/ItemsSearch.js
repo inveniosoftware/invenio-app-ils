@@ -14,6 +14,7 @@ import { BackOfficeURLS } from '../../../../../common/urls';
 import { Error, Loader } from '../../../../../common/components';
 import { ResultsList as ItemsResultsList } from './components';
 import _isEmpty from 'lodash/isEmpty';
+import './ItemsSearch.scss';
 
 export default class ItemsSearch extends Component {
   constructor(props) {
@@ -93,6 +94,7 @@ export default class ItemsSearch extends Component {
   _renderResultsList = results => {
     return (
       <div className="results-list">
+        {this._renderHeader(results.hits.length)}
         <ItemsResultsList
           patron={this.props.patron}
           clearResults={this.clearResults}
@@ -115,7 +117,7 @@ export default class ItemsSearch extends Component {
       <Segment placeholder textAlign="center">
         <Header icon>
           <Icon name="search" />
-          Type barcode to search for items and press enter.
+          Found no items matching this barcode.
         </Header>
         <div className="empty-results-current">
           Current search phrase "{queryString}"
@@ -130,27 +132,23 @@ export default class ItemsSearch extends Component {
   };
 
   _renderHeader = totalResults => {
-    return (
-      <Grid columns={3} verticalAlign="middle" stackable relaxed>
-        <Grid.Column width={5} textAlign="left">
-          <div>{totalResults} results</div>
-        </Grid.Column>
-      </Grid>
-    );
+    return <p>Found {totalResults} item(s).</p>;
   };
 
   render() {
-    const { items, isLoading, hasError, queryString, error } = this.props;
+    const { items, isLoading, queryString, error } = this.props;
     return (
-      <Segment>
+      <Segment className={'patron-items'}>
         <Header as={'h3'}>Items</Header>
-        <Container>{this._renderSearchBar()}</Container>
+        <Header.Subheader>Search items by barcode.</Header.Subheader>
+        <Container className={'search-bar'}>
+          {this._renderSearchBar()}
+        </Container>
         <Grid columns={1} stackable relaxed className="items-search-container">
           <Grid.Column width={16}>
             <Loader isLoading={isLoading}>
               <Error error={error}>
-                {this._renderHeader(items.length)}
-                {!(_isEmpty(items) && !hasError)
+                {!_isEmpty(items) && items.hits.length > 0
                   ? this._renderResultsList(items)
                   : this._renderEmptyResults(
                       queryString,
