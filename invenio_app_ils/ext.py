@@ -9,13 +9,22 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint
+import logging
+
+from flask import Blueprint, current_app
 from invenio_indexer.api import RecordIndexer
+from invenio_rest.errors import RESTException
 from werkzeug.utils import cached_property
 
 from . import config
 from .circulation.receivers import register_circulation_signals
 from .pidstore.pids import DOCUMENT_PID_TYPE, ITEM_PID_TYPE
+
+
+def handle_rest_exceptions(exception):
+    """Handle Invenio REST exceptions."""
+    current_app.logger.exception(exception)
+    return exception.get_response()
 
 
 class _InvenioAppIlsState(object):
@@ -70,6 +79,8 @@ class InvenioAppIls(object):
                 template_folder="templates"
             )
         )
+        # disable warnings being logged to Sentry
+        logging.getLogger("py.warnings").propagate = False
 
     def init_config(self, app):
         """Initialize configuration."""
@@ -89,6 +100,7 @@ class InvenioAppIlsREST(InvenioAppIls):
         """Flask application initialization."""
         super(InvenioAppIlsREST, self).init_app(app)
         self._register_signals()
+        app.errorhandler(RESTException)(handle_rest_exceptions)
 
     def _register_signals(self):
         """Register signals."""

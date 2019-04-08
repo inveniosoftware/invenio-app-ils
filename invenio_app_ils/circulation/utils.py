@@ -69,7 +69,6 @@ def circulation_item_exists(item_pid):
     try:
         Item.get_record_by_pid(item_pid)
     except PersistentIdentifierError as ex:
-        current_app.logger.error(ex)
         return False
     return True
 
