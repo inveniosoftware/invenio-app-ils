@@ -67,7 +67,7 @@ def test_post_partial_internal_location(client, json_headers, testdata, users):
 def test_post_item(client, json_headers, testdata, users, item_record):
     """Test POST of an item."""
     user_login("admin", client, users)
-    url = url_for("invenio_records_rest.itemid_list")
+    url = url_for("invenio_records_rest.pitmid_list")
     del item_record["item_pid"]
     res = _test_response(client, "post", url, json_headers, item_record, 201)
     data = json.loads(res.data.decode("utf-8"))["metadata"]

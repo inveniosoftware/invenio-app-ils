@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2019 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -10,58 +10,82 @@
 from __future__ import absolute_import, print_function
 
 from datetime import datetime
+from functools import partial
 
 import elasticsearch
 from celery import shared_task
 from flask import current_app
 from invenio_circulation.api import Loan
-from invenio_circulation.search.api import search_by_pid
+from invenio_circulation.search.api import search_by_pid as search_loans_by_pid
 from invenio_indexer.api import RecordIndexer
 
-from invenio_app_ils.circulation.utils import circulation_document_retriever, \
-    circulation_items_retriever
-from invenio_app_ils.records.api import Document, InternalLocation, Item, \
-    Location
-from invenio_app_ils.search.api import InternalLocationSearch
+from invenio_app_ils.records.api import Document, EItem, InternalLocation, \
+    Item, Location
+from invenio_app_ils.search.api import EItemSearch, InternalLocationSearch, \
+    ItemSearch
 
 indexer = RecordIndexer()
-MESSAGE = "{}: started indexing {} record with id: {}"
+MSG_ORIGIN = "ils-indexer: {origin_rec_type} #{origin_recid} indexed, trigger"\
+             " indexing of referenced records"
+MSG_BEFORE = "ils-indexer: indexing {dest_rec_type} #{dest_recid}" \
+             " referenced from {origin_rec_type} #{origin_recid}"
+MSG_AFTER = "ils-indexer: indexed {dest_rec_type} #{dest_recid} referenced" \
+            " from {origin_rec_type} #{origin_recid}"
+
+
+def _log(msg, origin_rec_type, origin_recid, dest_rec_type, dest_recid=None):
+    """Log the indexing operation."""
+    current_app.logger.info(msg.format(
+        origin_rec_type=origin_rec_type,
+        origin_recid=origin_recid,
+        dest_rec_type=dest_rec_type,
+        dest_recid=dest_recid,
+    ))
+
+
+def _index_record_by_pid(record_cls, recid, log_func):
+    """Fetched record by recid and index while logging the operation."""
+    record = record_cls.get_record_by_pid(recid)
+    if record:
+        log_func(msg=MSG_BEFORE, dest_recid=recid)
+        indexer.index(record)
+        log_func(msg=MSG_AFTER, dest_recid=recid)
 
 
 @shared_task(ignore_result=True)
 def index_loans_after_item_indexed(item_pid):
     """Index loan to refresh item reference."""
-    loan_search = search_by_pid(item_pid=item_pid)
-    for loan in loan_search.scan():
-        loan = Loan.get_record_by_pid(loan[Loan.pid_field])
-        if loan:
-            current_app.logger.info(MESSAGE.format(
-                'index_loans_after_item_indexed',
-                'loan',
-                loan[Loan.pid_field]
-            ))
-            indexer.index(loan)
+    log_func = partial(
+        _log,
+        origin_rec_type='Item',
+        origin_recid=item_pid,
+        dest_rec_type='Loan')
+
+    log_func(msg=MSG_ORIGIN)
+    for loan in search_loans_by_pid(item_pid=item_pid).scan():
+        loan_pid = loan[Loan.pid_field]
+        _index_record_by_pid(Loan, loan_pid, log_func)
 
 
 @shared_task(ignore_result=True)
 def index_document_after_item_indexed(item_pid):
     """Index document to re-compute circulation information."""
-    document_pid = circulation_document_retriever(item_pid)
-    document = Document.get_record_by_pid(document_pid)
-    if document:
-        current_app.logger.info(MESSAGE.format(
-            'index_document_after_item_indexed',
-            'document',
-            document[Document.pid_field]
-        ))
-        indexer.index(document)
+    log_func = partial(
+        _log,
+        origin_rec_type='Item',
+        origin_recid=item_pid,
+        dest_rec_type='Document')
+
+    log_func(msg=MSG_ORIGIN)
+    document_pid = Item.get_document_pid(item_pid)
+    _index_record_by_pid(Document, document_pid, log_func)
 
 
 class ItemIndexer(RecordIndexer):
-    """Indexer class for `Item`."""
+    """Indexer class for Item record."""
 
     def index(self, item):
-        """Index an item."""
+        """Index an Item."""
         super(ItemIndexer, self).index(item)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_loans_after_item_indexed.apply_async(
@@ -75,71 +99,134 @@ class ItemIndexer(RecordIndexer):
 
 
 @shared_task(ignore_result=True)
+def index_document_after_eitem_indexed(item_pid):
+    """Index document to re-compute eitem information."""
+    log_func = partial(
+        _log,
+        origin_rec_type='EItem',
+        origin_recid=item_pid,
+        dest_rec_type='Document')
+
+    log_func(msg=MSG_ORIGIN)
+    document_pid = EItem.get_document_pid(item_pid)
+    _index_record_by_pid(Document, document_pid, log_func)
+
+
+class EItemIndexer(RecordIndexer):
+    """Indexer class for EItem record."""
+
+    def index(self, item):
+        """Index an EItem."""
+        super(EItemIndexer, self).index(item)
+        eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
+        index_document_after_eitem_indexed.apply_async(
+            (item[EItem.pid_field],),
+            eta=eta,
+        )
+
+
+@shared_task(ignore_result=True)
 def index_item_after_document_indexed(document_pid):
-    """Index item to refresh document reference."""
-    item_pids = circulation_items_retriever(document_pid)
-    for pid in item_pids:
-        item = Item.get_record_by_pid(pid)
-        if item:
-            current_app.logger.info(MESSAGE.format(
-                'index_item_after_document_indexed',
-                'item',
-                item[Item.pid_field]
-            ))
-            indexer.index(item)
+    """Index items to refresh document reference."""
+    log_func = partial(
+        _log,
+        origin_rec_type='Document',
+        origin_recid=document_pid,
+        dest_rec_type='Item')
+
+    log_func(msg=MSG_ORIGIN)
+    for item in ItemSearch().search_by_document_pid(
+            document_pid=document_pid).scan():
+        item_pid = item[Item.pid_field]
+        _index_record_by_pid(Item, item_pid, log_func)
+
+
+@shared_task(ignore_result=True)
+def index_eitem_after_document_indexed(document_pid):
+    """Index eitems to refresh document reference."""
+    log_func = partial(
+        _log,
+        origin_rec_type='Document',
+        origin_recid=document_pid,
+        dest_rec_type='EItem')
+
+    log_func(msg=MSG_ORIGIN)
+    for eitem in EItemSearch().search_by_document_pid(
+            document_pid=document_pid).scan():
+        eitem_pid = eitem[EItem.pid_field]
+        _index_record_by_pid(EItem, eitem_pid, log_func)
 
 
 class DocumentIndexer(RecordIndexer):
-    """Indexer class for `Document`."""
+    """Indexer class for Document record."""
 
     def index(self, document):
-        """Index a document."""
+        """Index a Document."""
         super(DocumentIndexer, self).index(document)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_item_after_document_indexed.apply_async(
             (document[Document.pid_field],),
             eta=eta,
         )
+        index_eitem_after_document_indexed.apply_async(
+            (document[Document.pid_field],),
+            eta=eta,
+        )
 
 
 @shared_task(ignore_result=True)
-def index_item_after_loan_indexed(item_pid):
+def index_item_after_loan_indexed(loan):
     """Index item to re-compute circulation reference."""
-    if item_pid:
-        item = Item.get_record_by_pid(item_pid)
-        if item:
-            current_app.logger.info(MESSAGE.format(
-                'index_item_after_loan_indexed', 'item', item[Item.pid_field]))
-            indexer.index(item)
+    if not loan.get('item_pid', None):
+        msg = "ils-indexer: item_pid not found in loan " \
+              "{0}".format(loan[Loan.pid_field])
+        current_app.logger.warning(msg)
+        return
+
+    log_func = partial(
+        _log,
+        origin_rec_type='Loan',
+        origin_recid=loan_pid,
+        dest_rec_type='Item')
+
+    log_func(msg=MSG_ORIGIN)
+    item_pid = loan['item_pid']
+    _index_record_by_pid(Item, item_pid, log_func)
 
 
 @shared_task(ignore_result=True)
-def index_document_after_loan_indexed(document_pid):
-    """Index documentt to re-compute circulation information."""
-    if document_pid:
-        document = Document.get_record_by_pid(document_pid)
-        if document:
-            current_app.logger.info(MESSAGE.format(
-                'index_document_after_loan_indexed',
-                'document',
-                document[Document.pid_field],
-            ))
-            indexer.index(document)
+def index_document_after_loan_indexed(loan):
+    """Index document to re-compute circulation information."""
+    if not loan.get(Document.pid_field, None):
+        msg = "ils-indexer: Document PID not found in loan " \
+              "{0}".format(loan[Loan.pid_field])
+        current_app.logger.warning(msg)
+        return
+
+    log_func = partial(
+        _log,
+        origin_rec_type='Loan',
+        origin_recid=loan_pid,
+        dest_rec_type='Document')
+
+    log_func(msg=MSG_ORIGIN)
+    item_pid = loan[Document.pid_field]
+    _index_record_by_pid(Document, item_pid, log_func)
 
 
 class LoanIndexer(RecordIndexer):
-    """Indexer class for `Loan`."""
+    """Indexer class for Loan record."""
 
     def index(self, loan):
-        """Index a loan."""
+        """Index a Loan."""
         super(LoanIndexer, self).index(loan)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_item_after_loan_indexed.apply_async(
-            (loan.get(Item.pid_field, ""),),
+            (loan,),
             eta=eta,
         )
         index_document_after_loan_indexed.apply_async(
-            (loan.get(Document.pid_field, ""),),
+            (loan,),
             eta=eta,
         )
 
@@ -147,26 +234,24 @@ class LoanIndexer(RecordIndexer):
 @shared_task(ignore_result=True)
 def index_internal_location_after_location_indexed(loc_pid):
     """Index internal locations pointing to location."""
-    iloc_search = InternalLocationSearch()
-    iloc_records = iloc_search.search_by_location_pid(location_pid=loc_pid)
-    for iloc in iloc_records.scan():
-        iloc_rec = InternalLocation.get_record_by_pid(
-            iloc[InternalLocation.pid_field]
-        )
-        if iloc_rec:
-            current_app.logger.info(MESSAGE.format(
-                'index_internal_location_after_location_indexed',
-                'internal-location',
-                iloc_rec[InternalLocation.pid_field],
-            ))
-            indexer.index(iloc_rec)
+    log_func = partial(
+        _log,
+        origin_rec_type='Location',
+        origin_recid=loc_pid,
+        dest_rec_type='InternalLocation')
+
+    log_func(msg=MSG_ORIGIN)
+    for iloc in InternalLocationSearch().search_by_location_pid(
+            location_pid=loc_pid).scan():
+        iloc_pid = iloc[InternalLocation.pid_field]
+        _index_record_by_pid(InternalLocation, iloc_pid, log_func)
 
 
 class LocationIndexer(RecordIndexer):
-    """Indexer class for `Location`."""
+    """Indexer class for Location record."""
 
     def index(self, location):
-        """Index location."""
+        """Index a Location."""
         super(LocationIndexer, self).index(location)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_internal_location_after_location_indexed.apply_async(

@@ -34,6 +34,9 @@
         "description": {
           "type": "text"
         },
+        "_internal_notes": {
+          "type": "text"
+        },
         "circulation_restriction": {
           "type": "keyword"
         },

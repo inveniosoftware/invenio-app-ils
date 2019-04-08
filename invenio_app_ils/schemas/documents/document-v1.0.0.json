@@ -291,6 +291,14 @@
       "title": "List of languages of the document",
       "type": "array",
       "uniqueItems": true
+    },
+    "_items": {
+      "type": "object",
+      "properties": {
+        "electronic": {
+          "type": "string"
+        }
+      }
     }
   }
 }

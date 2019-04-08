@@ -8,7 +8,7 @@
 """Test circulation utils."""
 
 from invenio_app_ils.circulation.utils import (  # isort:skip
-    circulation_document_retriever,
+    circulation_document_pid_retriever,
     circulation_item_exists,
     circulation_item_location_retriever,
     circulation_items_retriever,
@@ -23,10 +23,10 @@ def test_circulation_items_retriever(testdata):
     assert len(list(items_pids)) == 3
 
 
-def test_circulation_document_retriever(testdata):
+def test_circulation_document_pid_retriever(testdata):
     """Test retrieve Document PID for the given Item."""
     first_item_pid = testdata["items"][0][Item.pid_field]
-    doc_pid = circulation_document_retriever(first_item_pid)
+    doc_pid = circulation_document_pid_retriever(first_item_pid)
     assert doc_pid == "docid-1"
 
 

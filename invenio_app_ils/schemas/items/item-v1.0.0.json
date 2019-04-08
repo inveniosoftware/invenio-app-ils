@@ -64,7 +64,11 @@
     },
     "description": {
       "type": "string",
-      "title": "Any extra description for this Item"
+      "title": "Any extra description for this ItItemem"
+    },
+    "_internal_notes": {
+      "type": "string",
+      "title": "Any extra description for this Item reserved for library usage"
     },
     "circulation_restriction": {
       "type": "string",

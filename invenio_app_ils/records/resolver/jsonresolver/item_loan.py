@@ -5,7 +5,7 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Item related resolvers."""
+"""Resolve the Loan referenced in the Item."""
 
 import jsonresolver
 from invenio_circulation.api import get_loan_for_item
@@ -32,7 +32,7 @@ def jsonresolver_loader(url_map):
 
     url_map.add(
         Rule(
-            "/api/resolver/circulation/items/<item_pid>/loan",
+            "/api/resolver/items/<item_pid>/loan",
             endpoint=loan_for_item_resolver,
             host=current_app.config.get("JSONSCHEMAS_HOST"),
         )

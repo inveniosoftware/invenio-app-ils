@@ -7,13 +7,15 @@
 
 """Circulation minters."""
 
-from ..records.api import Document, InternalLocation, Item, Keyword, Location
-from .providers import DocumentIdProvider, InternalLocationIdProvider, \
-    ItemIdProvider, KeywordIdProvider, LocationIdProvider
+from ..records.api import Document, EItem, InternalLocation, Item, Keyword, \
+    Location
+from .providers import DocumentIdProvider, EItemIdProvider, \
+    InternalLocationIdProvider, ItemIdProvider, KeywordIdProvider, \
+    LocationIdProvider
 
 
 def document_pid_minter(record_uuid, data):
-    """Mint DOCUMENT identifiers."""
+    """Mint Document identifiers."""
     assert Document.pid_field not in data
     provider = DocumentIdProvider.create(
         object_type='rec',
@@ -24,13 +26,24 @@ def document_pid_minter(record_uuid, data):
 
 
 def item_pid_minter(record_uuid, data):
-    """Mint item identifiers."""
+    """Mint Item identifiers."""
     assert Item.pid_field not in data
     provider = ItemIdProvider.create(
         object_type='rec',
         object_uuid=record_uuid,
     )
     data[Item.pid_field] = provider.pid.pid_value
+    return provider.pid
+
+
+def eitem_pid_minter(record_uuid, data):
+    """Mint EItem identifiers."""
+    assert EItem.pid_field not in data
+    provider = EItemIdProvider.create(
+        object_type='rec',
+        object_uuid=record_uuid,
+    )
+    data[EItem.pid_field] = provider.pid.pid_value
     return provider.pid
 
 

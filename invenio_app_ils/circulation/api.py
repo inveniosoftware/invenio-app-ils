@@ -12,11 +12,12 @@ import uuid
 from invenio_circulation.api import Loan, patron_has_active_loan_on_item
 from invenio_circulation.pidstore.minters import loan_pid_minter
 from invenio_circulation.proxies import current_circulation
+from invenio_db import db
 
-from invenio_app_ils.circulation.utils import circulation_document_retriever, \
-    circulation_item_patcher
 from invenio_app_ils.errors import MissingRequiredParameterError, \
     PatronHasLoanOnItemError
+from invenio_app_ils.proxies import current_app_ils_extension
+from invenio_app_ils.records.api import Item
 
 from ..records.api import Item
 
@@ -32,8 +33,8 @@ def request_loan(params):
 
     if patron_has_active_loan_on_item(patron_pid=params["patron_pid"],
                                       item_pid=params["item_pid"]):
-        raise PatronHasLoanOnItemError(params["patron_pid"], params["item_pid"]
-                                       )
+        raise PatronHasLoanOnItemError(params["patron_pid"],
+                                       params["item_pid"])
 
     # create a new loan
     record_uuid = uuid.uuid4()
@@ -49,14 +50,25 @@ def request_loan(params):
     return pid, loan
 
 
+def _ensure_item_can_circulate(item_pid):
+    """Change the item status to CAN_CIRCULATE if different."""
+    item = Item.get_record_by_pid(params['item_pid'])
+    if item["status"] != "CAN_CIRCULATE":
+        item = item.patch([{'op': 'replace', 'path': '/status',
+                            'value': 'CAN_CIRCULATE'}])
+        item.commit()
+        db.session.commit()
+        current_app_ils_extension.item_indexer.index(item)
+
+
 def create_loan(params, should_force_checkout):
-    """Create a loan for behalf of a user."""
+    """Create a loan on behalf of a user."""
     if "patron_pid" not in params:
         raise MissingRequiredParameterError(
-            description="'patron_pid' is required on loan request")
+            description="'patron_pid' is required when creating a loan")
     if "item_pid" not in params:
         raise MissingRequiredParameterError(
-            description="'item_pid' is required on loan request")
+            description="'item_pid' is required when creating a loan")
 
     if patron_has_active_loan_on_item(patron_pid=params["patron_pid"],
                                       item_pid=params["item_pid"]):
@@ -64,22 +76,17 @@ def create_loan(params, should_force_checkout):
                                        params["item_pid"])
 
     if "document_pid" not in params:
-        document_pid = circulation_document_retriever(params["item_pid"])
+        document_pid = Item.get_document_pid(params["item_pid"])
         if document_pid:
             params["document_pid"] = document_pid
 
     if should_force_checkout:
-        item = Item.get_record_by_pid(params['item_pid'])
-        if item["status"] != "CAN_CIRCULATE":
-            circulation_item_patcher(item_pid=params['item_pid'],
-                                     op="replace",
-                                     path="/status",
-                                     value="CAN_CIRCULATE")
+        _ensure_item_can_circulate(params['item_pid'])
 
     # create a new loan
     record_uuid = uuid.uuid4()
     new_loan = {
-        "item_pid": params["item_pid"] if params["item_pid"] else ""
+        "item_pid": params["item_pid"]
     }
     pid = loan_pid_minter(record_uuid, data=new_loan)
     loan = Loan.create(data=new_loan, id_=record_uuid)

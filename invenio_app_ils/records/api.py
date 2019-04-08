@@ -23,10 +23,11 @@ from invenio_app_ils.search.api import DocumentSearch, \
 
 from ..pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
-    INTERNAL_LOCATION_PID_TYPE,
     ITEM_PID_TYPE,
-    KEYWORD_PID_TYPE,
+    EITEM_PID_TYPE,
     LOCATION_PID_TYPE,
+    INTERNAL_LOCATION_PID_TYPE,
+    KEYWORD_PID_TYPE,
 )
 
 
@@ -61,10 +62,13 @@ class Document(IlsRecord):
     _keyword_resolver_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/keywords"
     )
+    _eitem_resolver_path = (
+        "{scheme}://{host}/api/resolver/documents/{document_pid}/eitems"
+    )
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
-        """Create Item record."""
+        """Create Document record."""
         data["circulation"] = {
             "$ref": cls._circulation_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
@@ -80,6 +84,13 @@ class Document(IlsRecord):
             )
         }
         data.setdefault("keyword_pids", [])
+        data["eitems"] = {
+            "$ref": cls._eitem_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                document_pid=data[cls.pid_field],
+            )
+        }
         return super(Document, cls).create(data, id_=id_, **kwargs)
 
     def add_keyword(self, keyword):
@@ -102,14 +113,27 @@ class Document(IlsRecord):
         return True
 
 
-class Item(IlsRecord):
+class _Item(IlsRecord):
+    """Base class for items."""
+
+    @classmethod
+    def get_document_pid(cls, item_pid):
+        """Retrieve the referenced document PID of the given item PID."""
+        item = cls.get_record_by_pid(item_pid)
+        item = item.replace_refs()
+        if item.get("document") and item["document"].get(Document.pid_field):
+            return item["document"][Document.pid_field]
+        return None
+
+
+class Item(_Item):
     """Item record class."""
 
     pid_field = "item_pid"
     _pid_type = ITEM_PID_TYPE
     _schema = "items/item-v1.0.0.json"
     _loan_resolver_path = (
-        "{scheme}://{host}/api/resolver/circulation/items/{item_pid}/loan"
+        "{scheme}://{host}/api/resolver/items/{item_pid}/loan"
     )
     _internal_location_resolver_path = (
         "{scheme}://{host}/api/resolver/items/{item_pid}/internal-location"
@@ -143,6 +167,29 @@ class Item(IlsRecord):
             )
         }
         return super(Item, cls).create(data, id_=id_, **kwargs)
+
+
+class EItem(_Item):
+    """EItem record class."""
+
+    pid_field = "eitem_pid"
+    _pid_type = EITEM_PID_TYPE
+    _schema = "eitems/eitem-v1.0.0.json"
+    _document_resolver_path = (
+        "{scheme}://{host}/api/resolver/eitems/{eitem_pid}/document"
+    )
+
+    @classmethod
+    def create(cls, data, id_=None, **kwargs):
+        """Create EItem record."""
+        data["document"] = {
+            "$ref": cls._document_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                eitem_pid=data[cls.pid_field],
+            )
+        }
+        return super(EItem, cls).create(data, id_=id_, **kwargs)
 
 
 class Location(IlsRecord):
