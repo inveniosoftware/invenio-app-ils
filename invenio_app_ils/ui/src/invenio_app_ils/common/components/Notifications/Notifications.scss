@@ -1,6 +1,10 @@
 #notifications {
   position: fixed;
-  right: 20px;
-  top: 20px;
+  right: 1em;
+  top: 1em;
   z-index: 1000;
+
+  .message {
+    padding-right: 2.5em;
+  }
 }
