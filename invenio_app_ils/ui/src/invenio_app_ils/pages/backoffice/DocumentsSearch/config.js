@@ -29,6 +29,7 @@ const aggsMappings = {
   document_types: 'Document types',
   keywords: 'Keywords',
   languages: 'Languages',
+  available_items: 'Available items',
 };
 const aggs = config.aggs.map(agg => {
   return { title: aggsMappings[agg], field: agg };
