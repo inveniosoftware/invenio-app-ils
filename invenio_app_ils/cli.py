@@ -6,7 +6,8 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """CLI for Invenio App ILS."""
-
+import random
+import time
 from datetime import datetime, timedelta
 from random import randint, sample
 
@@ -42,6 +43,10 @@ ITEM_CIRCULATION_RESTRICTIONS = ["NO_RESTRICTION", "FOR_REFERENCE_ONLY"]
 ITEM_MEDIUMS = ["NOT_SPECIFIED", "ONLINE", "PAPER", "CDROM", "DVD", "VHS"]
 ITEM_STATUSES = ["LOANABLE", "MISSING"]
 LOAN_STATUSES = ["PENDING", "ITEM_ON_LOAN", "ITEM_RETURNED", "CANCELLED"]
+DOCUMENT_TYPES = ["BOOK", "STANDARD", "PROCEEDINGS"]
+
+
+LANGUAGES = ["en", "fr", "it", "el", "pl", "ro", "sv", "es"]
 
 ITEM_DOCUMENT_MAPPING = {}
 
@@ -79,6 +84,11 @@ def get_documents_items(internal_locations, n_docs, n_items):
             "title": "{}".format(lorem.sentence()),
             "authors": ["{}".format(lorem.sentence())],
             "abstracts": ["{}".format(lorem.text())],
+            "document_types": [random.choice(DOCUMENT_TYPES)],
+            "languages":list(set([random.choice(LANGUAGES)
+                                  for _ in
+                                  range(0, randint(1, len(LANGUAGES)))])),
+
             "publishers": ["{}".format(lorem.sentence())],
             "files": ["https://cds.cern.ch/record/2255762/files/CERN-Brochure-2017-002-Eng.pdf",
                       "https://cds.cern.ch/record/2256277/files/CERN-Brochure-2016-005-Eng.pdf"],
@@ -335,7 +345,7 @@ def data(n_docs, n_items, n_loans, n_keywords):
     # index locations
     indexer.bulk_index([str(r.id) for r in rec_int_locs])
     click.echo('Sent to the indexing queue {0} locations'.format(len(
-                                                                rec_int_locs)))
+        rec_int_locs)))
 
     # index loans
     indexer.bulk_index([str(r.id) for r in rec_loans])
@@ -359,7 +369,7 @@ def data(n_docs, n_items, n_loans, n_keywords):
     # index documents
     indexer.bulk_index([str(r.id) for r in rec_docs])
     click.echo('Sent to the indexing queue {0} documents'.format(len(
-                                                                    rec_docs)))
+        rec_docs)))
 
     click.secho('Now indexing...', fg='green')
     indexer.process_bulk_queue()

@@ -35,7 +35,7 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
         clickHandler={[Function]}
         disabled={false}
         fluid={false}
-        text="New item"
+        text="New document"
       />
     }
     rowActionClickHandler={[Function]}
@@ -89,7 +89,7 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
                       clickHandler={[Function]}
                       disabled={false}
                       fluid={false}
-                      text="New item"
+                      text="New document"
                     >
                       <Button
                         as="button"
@@ -112,7 +112,7 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
                               className="plus icon"
                             />
                           </Icon>
-                          New item
+                          New document
                         </button>
                       </Button>
                     </NewButton>

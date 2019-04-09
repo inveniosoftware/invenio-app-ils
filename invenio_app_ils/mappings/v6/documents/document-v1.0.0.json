@@ -16,6 +16,12 @@
         "abstracts": {
           "type": "keyword"
         },
+        "document_types": {
+          "type": "keyword"
+        },
+        "languages": {
+          "type": "keyword"
+        },
         "items": {
           "type": "keyword"
         },

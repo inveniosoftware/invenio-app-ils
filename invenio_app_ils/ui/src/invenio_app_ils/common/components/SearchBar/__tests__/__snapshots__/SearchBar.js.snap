@@ -1,5 +1,143 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`LoansSearch SearchBar tests should render search bar with query helper 1`] = `
+<SearchBar
+  currentQueryString=""
+  executeSearch={[MockFunction]}
+  onInputChange={[MockFunction]}
+  placeholder="Search"
+  queryHelperFields={
+    Array [
+      Object {
+        "defaultValue": "\\"Doe, John\\"",
+        "field": "authors.full_name",
+        "name": "author",
+      },
+      Object {
+        "field": "_created",
+        "name": "created",
+      },
+    ]
+  }
+>
+  <Input
+    action={
+      Object {
+        "content": "Search",
+        "onClick": [Function],
+      }
+    }
+    fluid={true}
+    onChange={[Function]}
+    onKeyPress={[Function]}
+    placeholder="Search"
+    type="text"
+    value=""
+  >
+    <div
+      className="ui fluid action input"
+    >
+      <input
+        onChange={[Function]}
+        onKeyPress={[Function]}
+        placeholder="Search"
+        type="text"
+        value=""
+      />
+      <Button
+        as="button"
+        content="Search"
+        onClick={[Function]}
+      >
+        <button
+          className="ui button"
+          onClick={[Function]}
+        >
+          Search
+        </button>
+      </Button>
+    </div>
+  </Input>
+  <QueryBuildHelper
+    currentQueryString=""
+    fields={
+      Array [
+        Object {
+          "defaultValue": "\\"Doe, John\\"",
+          "field": "authors.full_name",
+          "name": "author",
+        },
+        Object {
+          "field": "_created",
+          "name": "created",
+        },
+      ]
+    }
+    updateQueryString={[MockFunction]}
+  >
+    <Grid>
+      <div
+        className="ui grid"
+      >
+        <GridRow
+          columns={1}
+        >
+          <div
+            className="one column row"
+          >
+            <GridColumn
+              width={16}
+            >
+              <div
+                className="sixteen wide column"
+              >
+                Search by: 
+                <List
+                  bulleted={true}
+                  horizontal={true}
+                >
+                  <div
+                    className="ui bulleted horizontal list"
+                    role="list"
+                  >
+                    <ListItem
+                      as="a"
+                      key="authors.full_name"
+                      onClick={[Function]}
+                    >
+                      <a
+                        className="item"
+                        onClick={[Function]}
+                        role="listitem"
+                      >
+                        author
+                      </a>
+                    </ListItem>
+                    <ListItem
+                      as="a"
+                      key="_created"
+                      onClick={[Function]}
+                    >
+                      <a
+                        className="item"
+                        onClick={[Function]}
+                        role="listitem"
+                      >
+                        created
+                      </a>
+                    </ListItem>
+                  </div>
+                </List>
+              </div>
+            </GridColumn>
+          </div>
+        </GridRow>
+      </div>
+    </Grid>
+  </QueryBuildHelper>
+</SearchBar>
+`;
+
 exports[`LoansSearch SearchBar tests should render the current query string 1`] = `
 <SearchBar
   currentQueryString="The Gulf: The Making of An American Sea"

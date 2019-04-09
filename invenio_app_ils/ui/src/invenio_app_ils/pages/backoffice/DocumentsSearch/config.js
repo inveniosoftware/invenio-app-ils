@@ -26,7 +26,9 @@ const sortOrderValues = config.sortOrder.map(sortField => {
 });
 
 const aggsMappings = {
+  document_types: 'Document types',
   keywords: 'Keywords',
+  languages: 'Languages',
 };
 const aggs = config.aggs.map(agg => {
   return { title: aggsMappings[agg], field: agg };

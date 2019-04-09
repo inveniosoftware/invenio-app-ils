@@ -56,6 +56,7 @@ def _get_documents_ui_config():
     documents_aggs = current_app.config.get('RECORDS_REST_FACETS', {}).get(
         documents_index, {}).get('aggs', {})
     ui_config['documents']['search']['aggs'] = list(documents_aggs.keys())
+
     return ui_config
 
 

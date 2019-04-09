@@ -28,7 +28,7 @@ export class ResultsList extends Component {
     const rows = this.prepareData();
     const headerActionComponent = (
       <NewButton
-        text={'New item'}
+        text={'New document'}
         clickHandler={() => {
           openRecordEditor(documentApi.url);
         }}
