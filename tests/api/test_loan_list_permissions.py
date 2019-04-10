@@ -11,9 +11,14 @@ from __future__ import absolute_import, print_function
 
 import json
 
+import pytest
 from flask import url_for
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
+
+from invenio_app_ils.circulation.search import IlsLoansSearch, \
+    circulation_search_factory
+from invenio_app_ils.errors import UnauthorizedSearchError
 
 NEW_LOAN = {
     "item_pid": "200",
@@ -48,6 +53,13 @@ def test_admin_or_librarian_can_search_any_loan(client, json_headers, users,
         assert res.status_code == 200
         hits = json.loads(res.data.decode('utf-8'))
         assert len(hits['hits']['hits']) == len(testdata['loans'])
+
+
+def test_anonymous_loans_search(app):
+    """Test that not logged in users are unable to search."""
+    with app.test_request_context("/"):
+        with pytest.raises(UnauthorizedSearchError):
+            circulation_search_factory(None, IlsLoansSearch())
 
 
 def test_patrons_can_search_their_own_loans(client, json_headers, users,

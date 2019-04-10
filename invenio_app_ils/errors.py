@@ -52,13 +52,15 @@ class UnauthorizedSearchError(IlsException):
     code = 403
     description = "Search `{query}` not allowed by `patron_pid:{pid}`"
 
-    def __init__(self, query, patron_pid, **kwargs):
+    def __init__(self, query, patron_pid=None, **kwargs):
         """Initialize UnauthorizedSearchError exception.
 
         :param query: Unauthorized search query.
         :param patron_pid: Patron that performed the unauthorized search.
         """
         super(UnauthorizedSearchError, self).__init__(**kwargs)
+        if not patron_pid:
+            self.code = 401
         self.description = self.description.format(query=query, pid=patron_pid)
 
 

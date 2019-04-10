@@ -11,6 +11,7 @@ import re
 
 from elasticsearch_dsl.query import Q
 from flask import current_app, g, request
+from flask_login import current_user
 from invenio_circulation.search.api import LoansSearch, search_by_pid
 from invenio_search.api import DefaultFilter
 
@@ -86,7 +87,12 @@ def circulation_search_factory(self, search, query_parser=None):
     from invenio_records_rest.sorter import default_sorter_factory
 
     query_string = request.values.get('q', '')
-    query = _default_parser(qstr=query_string)
+
+    if not current_user.is_authenticated:
+        raise UnauthorizedSearchError(query_string)
+
+    parser = query_parser or _default_parser
+    query = parser(qstr=query_string)
 
     # if the logged in user in not librarian or admin, validate the query
     if not backoffice_permission().allows(g.identity):
