@@ -5,6 +5,7 @@ import { fromISO, toShortDate } from '../../../../../common/api/date';
 import { openRecordEditor } from '../../../../../common/urls';
 import { ResultsTable } from '../../../../../common/components';
 import { NewButton } from '../../../components/buttons';
+import _isEmpty from 'lodash/isEmpty';
 
 export class ResultsList extends Component {
   constructor(props) {
@@ -15,14 +16,21 @@ export class ResultsList extends Component {
   _getFormattedDate = d => (d ? toShortDate(fromISO(d)) : '');
 
   prepareData() {
-    return this.props.results.map(row => ({
-      ID: row.metadata.item_pid,
-      'Document ID': row.metadata.document_pid,
-      Status: row.metadata.status,
-      'Internal location': row.metadata.internal_location.name,
-      Created: this._getFormattedDate(row.created),
-      Updated: this._getFormattedDate(row.updated),
-    }));
+    return this.props.results.map(row => {
+      const entry = {
+        ID: row.metadata.item_pid,
+        'Document ID': row.metadata.document_pid,
+        Status: row.metadata.status,
+        'Circulation status': '-',
+        'Internal location': row.metadata.internal_location.name,
+        Created: this._getFormattedDate(row.created),
+        Updated: this._getFormattedDate(row.updated),
+      };
+      if (!_isEmpty(row.metadata.circulation_status)) {
+        entry['Circulation status'] = row.metadata.circulation_status.state;
+      }
+      return entry;
+    });
   }
 
   render() {

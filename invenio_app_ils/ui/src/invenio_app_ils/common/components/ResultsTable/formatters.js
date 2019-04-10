@@ -27,6 +27,7 @@ function formatItemToTableView(item) {
     Barcode: item.barcode,
     'Document ID': item.document_pid,
     Status: item.status,
+    'Circulation status': item.circulation_status,
     'Internal location': item.internal_location,
     Created: toShortDate(fromISO(item.created)),
     Updated: toShortDate(fromISO(item.updated)),

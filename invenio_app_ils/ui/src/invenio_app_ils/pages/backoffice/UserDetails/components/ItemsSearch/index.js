@@ -2,17 +2,21 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ItemsSearchComponent from './ItemsSearch';
-import { clearResults, fetchItems, updateQueryString } from './state/actions';
+import {
+  clearResults,
+  fetchItems,
+  fetchUpdatedCurrentLoans,
+  updateQueryString,
+} from './state/actions';
 import { checkoutItem } from '../ItemsCheckout/state/actions';
-import { fetchPatronCurrentLoans } from '../PatronCurrentLoans/state/actions';
 
 const mapDispatchToProps = dispatch => ({
   fetchItems: barcode => dispatch(fetchItems(barcode)),
   updateQueryString: qs => dispatch(updateQueryString(qs)),
   clearResults: () => dispatch(clearResults()),
-  checkoutItem: (item, patron_pid) => dispatch(checkoutItem(item, patron_pid)),
-  fetchPatronCurrentLoans: patronPid =>
-    dispatch(fetchPatronCurrentLoans(patronPid)),
+  checkoutItem: (item, patronPid) => dispatch(checkoutItem(item, patronPid)),
+  fetchUpdatedCurrentLoans: patronPid =>
+    dispatch(fetchUpdatedCurrentLoans(patronPid)),
 });
 
 const mapStateToProps = state => ({

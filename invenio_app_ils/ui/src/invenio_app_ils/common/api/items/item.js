@@ -19,7 +19,7 @@ class QueryBuilder {
   }
 
   withDocPid(documentPid) {
-    if (typeof documentPid === 'undefined' || documentPid === '') {
+    if (!documentPid) {
       throw TypeError('DocumentPid argument missing');
     }
     this.documentQuery.push(`document_pid:${prepareSumQuery(documentPid)}`);
@@ -27,7 +27,7 @@ class QueryBuilder {
   }
 
   withStatus(status) {
-    if (typeof status === 'undefined' || status === '') {
+    if (!status) {
       throw TypeError('Status argument missing');
     }
     this.statusQuery.push(`status:${prepareSumQuery(status)}`);
@@ -35,7 +35,7 @@ class QueryBuilder {
   }
 
   withBarcode(barcode) {
-    if (typeof barcode === 'undefined' || barcode === '') {
+    if (!barcode) {
       throw TypeError('Barcode argument missing');
     }
     this.barcodeQuery.push(`barcode:${prepareSumQuery(barcode)}`);

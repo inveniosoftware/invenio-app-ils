@@ -35,10 +35,10 @@ describe('PatronLoans tests', () => {
         queryString={''}
         updateQueryString={mockedUpdateString}
         fetchItems={mockedFetchItems}
-        fetchPatronCurrentLoans={mockedFetchCurrent}
+        fetchUpdatedCurrentLoans={mockedFetchCurrent}
         clearResults={mockedClear}
         checkoutItem={mockedCheckoutItem}
-        patron={'2'}
+        patron={2}
       />
     );
     expect(component).toMatchSnapshot();
@@ -63,10 +63,10 @@ describe('PatronLoans tests', () => {
         queryString={''}
         updateQueryString={mockedUpdateString}
         fetchItems={mockedFetchItems}
-        fetchPatronCurrentLoans={mockedFetchCurrent}
+        fetchUpdatedCurrentLoans={mockedFetchCurrent}
         clearResults={mockedClear}
         checkoutItem={mockedCheckoutItem}
-        patron={'2'}
+        patron={2}
       />
     );
 

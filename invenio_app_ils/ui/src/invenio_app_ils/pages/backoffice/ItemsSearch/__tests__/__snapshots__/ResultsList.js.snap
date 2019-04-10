@@ -48,6 +48,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
     rows={
       Array [
         Object {
+          "Circulation status": "-",
           "Created": "2018-01-01",
           "Document ID": 1342,
           "ID": 987,
@@ -141,6 +142,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                   "ID",
                   "Document ID",
                   "Status",
+                  "Circulation status",
                   "Internal location",
                   "Created",
                   "Updated",
@@ -228,6 +230,21 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                       </TableHeaderCell>
                       <TableHeaderCell
                         as="th"
+                        key="Circulation status"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Circulation status
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
                         key="Internal location"
                       >
                         <TableCell
@@ -282,6 +299,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                   "ID",
                   "Document ID",
                   "Status",
+                  "Circulation status",
                   "Internal location",
                   "Created",
                   "Updated",
@@ -291,6 +309,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
               rows={
                 Array [
                   Object {
+                    "Circulation status": "-",
                     "Created": "2018-01-01",
                     "Document ID": 1342,
                     "ID": 987,
@@ -388,8 +407,20 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Internal location-987"
+                        data-test="Circulation status-987"
                         key="3-987"
+                      >
+                        <td
+                          className=""
+                          data-test="Circulation status-987"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Internal location-987"
+                        key="4-987"
                       >
                         <td
                           className=""
@@ -401,7 +432,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                       <TableCell
                         as="td"
                         data-test="Created-987"
-                        key="4-987"
+                        key="5-987"
                       >
                         <td
                           className=""
@@ -413,7 +444,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                       <TableCell
                         as="td"
                         data-test="Updated-987"
-                        key="5-987"
+                        key="6-987"
                       >
                         <td
                           className=""
@@ -429,7 +460,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
             </ResultsTableBody>
             <ResultsTableFooter
               allRowsNumber={1}
-              columnsNumber={6}
+              columnsNumber={7}
               seeAllComponent={null}
               showMaxRows={10}
             />
