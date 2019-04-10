@@ -28,12 +28,18 @@ export const fetchPatronCurrentLoans = (patronPid, delay = 0) => {
       });
   };
 
+  function delayedFetch(patronPid, dispatch) {
+    return new Promise(function(resolve, reject) {
+      setTimeout(() => {
+        resolve(fetchLoans(patronPid, dispatch));
+      }, delay);
+    });
+  }
+
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
-    await setTimeout(() => {
-      fetchLoans(patronPid, dispatch);
-    }, delay);
+    await delayedFetch(patronPid, dispatch);
   };
 };

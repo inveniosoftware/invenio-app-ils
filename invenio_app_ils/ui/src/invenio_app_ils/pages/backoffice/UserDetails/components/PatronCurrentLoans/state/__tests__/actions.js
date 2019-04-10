@@ -88,5 +88,22 @@ describe('Patron current loans tests', () => {
         done();
       });
     });
+
+    it('should dispatch a delayed loading action when fetching patron loans', done => {
+      mockFetchPatronCurrentLoans.mockResolvedValue(mockResponse);
+
+      const expectedAction = {
+        type: types.IS_LOADING,
+      };
+
+      store.dispatch(actions.fetchPatronCurrentLoans(2, 3000)).then(e => {
+        expect(mockFetchPatronCurrentLoans).toHaveBeenCalledWith(
+          '(patron_pid:2 AND state:ITEM_ON_LOAN)&sort=-mostrecent'
+        );
+        const actions = store.getActions();
+        expect(actions[0]).toEqual(expectedAction);
+        done();
+      });
+    });
   });
 });
