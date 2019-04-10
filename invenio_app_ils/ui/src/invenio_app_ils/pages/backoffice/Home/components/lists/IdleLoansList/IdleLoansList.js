@@ -62,6 +62,7 @@ export default class IdleLoansList extends Component {
         rows={rows}
         title={'Idle loans'}
         subtitle={'Loan requests in PENDING state longer than 10 days.'}
+        name={'idle loans'}
         rowActionClickHandler={this._showDetailsHandler}
         seeAllComponent={this._seeAllButton()}
         showMaxRows={this.props.showMaxEntries}

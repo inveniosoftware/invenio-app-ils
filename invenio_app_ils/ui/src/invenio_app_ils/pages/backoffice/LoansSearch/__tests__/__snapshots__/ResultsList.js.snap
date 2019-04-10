@@ -9,6 +9,7 @@ exports[`LoansSearch ResultsList tests should not render when empty results 1`] 
     fixed={false}
     headerActionClickHandler={null}
     headerActionComponent={null}
+    name="loans"
     rowActionClickHandler={[Function]}
     rows={Array []}
     seeAllComponent={null}
@@ -57,6 +58,8 @@ exports[`LoansSearch ResultsList tests should not render when empty results 1`] 
             data-test="no-results"
           >
             There are no 
+            loans
+            .
           </div>
         </Message>
       </div>
@@ -87,6 +90,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
     fixed={false}
     headerActionClickHandler={null}
     headerActionComponent={null}
+    name="loans"
     rowActionClickHandler={[Function]}
     rows={
       Array [

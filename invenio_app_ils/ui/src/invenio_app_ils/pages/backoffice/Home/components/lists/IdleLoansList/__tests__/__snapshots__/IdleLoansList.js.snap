@@ -7,6 +7,7 @@ exports[`IdleLoansList tests should load the details component 1`] = `
       fixed={false}
       headerActionClickHandler={null}
       headerActionComponent={null}
+      name="idle loans"
       rowActionClickHandler={[Function]}
       rows={Array []}
       seeAllComponent={
@@ -60,6 +61,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
+        name="idle loans"
         rowActionClickHandler={[Function]}
         rows={
           Array [
@@ -521,6 +523,7 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
+        name="idle loans"
         rowActionClickHandler={[Function]}
         rows={Array []}
         seeAllComponent={
@@ -596,6 +599,8 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
                 data-test="no-results"
               >
                 There are no 
+                idle loans
+                .
               </div>
             </Message>
           </div>

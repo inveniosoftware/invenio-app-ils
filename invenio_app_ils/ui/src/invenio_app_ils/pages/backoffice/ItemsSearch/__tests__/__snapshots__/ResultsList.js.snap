@@ -44,6 +44,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
         text="New item"
       />
     }
+    name="items"
     rowActionClickHandler={[Function]}
     rows={
       Array [

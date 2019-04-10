@@ -56,7 +56,7 @@ export class ResultsList extends Component {
     return rows.length ? (
       <ResultsTable
         rows={rows}
-        name={''}
+        name={'items'}
         actionClickHandler={this.viewDetailsClickHandler}
       />
     ) : null;

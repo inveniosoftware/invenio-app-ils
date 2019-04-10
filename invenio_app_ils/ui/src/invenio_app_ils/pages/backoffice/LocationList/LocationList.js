@@ -47,6 +47,7 @@ export default class LocationList extends Component {
       <ResultsTable
         rows={rows}
         title={'Locations'}
+        name={'locations'}
         headerActionComponent={headerActionComponent}
         showMaxRows={this.props.showMaxItems}
       />

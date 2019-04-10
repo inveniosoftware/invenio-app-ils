@@ -63,6 +63,7 @@ export default class PatronPendingLoans extends Component {
       <ResultsTable
         rows={rows}
         title={"User's loan requests"}
+        name={'loan requests'}
         rowActionClickHandler={this._showDetailsHandler}
         seeAllComponent={this._seeAllButton()}
         showMaxRows={this.props.showMaxLoans}

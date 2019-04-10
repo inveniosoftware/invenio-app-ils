@@ -59,6 +59,7 @@ export default class OverdueLoansList extends Component {
         rows={rows}
         title={'Overdue loans'}
         subtitle={'Active loans with past due end date.'}
+        name={'overdue loans'}
         rowActionClickHandler={this._showDetailsHandler}
         seeAllComponent={this._seeAllButton()}
         showMaxRows={this.props.showMaxEntries}

@@ -39,6 +39,7 @@ export class ResultsList extends Component {
       <ResultsTable
         rows={rows}
         title={''}
+        name={'documents'}
         headerActionComponent={headerActionComponent}
         rowActionClickHandler={this.viewDetailsClickHandler}
       />

@@ -52,6 +52,7 @@ export class ResultsList extends Component {
       <ResultsTable
         rows={rows}
         title={''}
+        name={'items'}
         headerActionComponent={headerActionComponent}
         rowActionClickHandler={this.viewDetailsClickHandler}
         showMaxRows={maxRowsToShow}

@@ -224,7 +224,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                         fixed={false}
                         headerActionClickHandler={null}
                         headerActionComponent={null}
-                        name=""
+                        name="items"
                         rowActionClickHandler={null}
                         rows={
                           Array [
