@@ -55,7 +55,9 @@ describe('PatronLoans tests', () => {
       hits: [
         { item_pid: '4', barcode: '3', document_pid: '4', status: 'LOANABLE' },
       ],
+      total: 1,
     };
+
     component = mount(
       <ItemsSearch
         history={() => {}}

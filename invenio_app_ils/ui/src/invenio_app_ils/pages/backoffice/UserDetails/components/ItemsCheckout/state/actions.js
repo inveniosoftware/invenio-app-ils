@@ -7,7 +7,7 @@ import {
   sendSuccessNotification,
 } from '../../../../../../common/components/Notifications';
 
-export const checkoutItem = (item, patron_pid) => {
+export const checkoutItem = (item, patron_pid, shouldForceCheckout = false) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
@@ -19,7 +19,8 @@ export const checkoutItem = (item, patron_pid) => {
         item.item_pid,
         { item_pid: item.item_pid, patron_pid: String(patron_pid) },
         currentUser.id,
-        currentUser.locationPid
+        currentUser.locationPid,
+        shouldForceCheckout
       )
       .then(response => {
         dispatch({

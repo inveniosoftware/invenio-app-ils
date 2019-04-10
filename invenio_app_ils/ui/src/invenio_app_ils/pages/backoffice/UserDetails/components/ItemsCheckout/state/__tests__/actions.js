@@ -17,6 +17,8 @@ const expectedPayload = {};
 
 const item = { item_pid: '2' };
 const user_pid = '2';
+const shouldForceCheckout = false;
+const doForceCheckout = true;
 const postURL = `${ApiURLS.loans.list}create`;
 import { sessionManager } from '../../../../../../../authentication/services';
 
@@ -49,13 +51,41 @@ describe('ItemsCheckout actions tests', () => {
           item.item_pid,
           loan,
           sessionManager.user.id,
-          sessionManager.user.locationPid
+          sessionManager.user.locationPid,
+          shouldForceCheckout
         );
 
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedActions[0]);
         done();
       });
+    });
+
+    it('should dispatch an action when forcing checkout', done => {
+      mockPOST.mockResolvedValue(response);
+
+      const expectedActions = [
+        {
+          type: types.IS_LOADING,
+        },
+      ];
+
+      store
+        .dispatch(actions.checkoutItem(item, user_pid, doForceCheckout))
+        .then(() => {
+          expect(mockPOST).toHaveBeenCalledWith(
+            postURL,
+            item.item_pid,
+            loan,
+            sessionManager.user.id,
+            sessionManager.user.locationPid,
+            doForceCheckout
+          );
+
+          const actions = store.getActions();
+          expect(actions[0]).toEqual(expectedActions[0]);
+          done();
+        });
     });
 
     it('should dispatch an action when user fetch succeeds', done => {
@@ -74,7 +104,8 @@ describe('ItemsCheckout actions tests', () => {
           item.item_pid,
           loan,
           sessionManager.user.id,
-          sessionManager.user.locationPid
+          sessionManager.user.locationPid,
+          shouldForceCheckout
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
@@ -98,7 +129,8 @@ describe('ItemsCheckout actions tests', () => {
           item.item_pid,
           loan,
           sessionManager.user.id,
-          sessionManager.user.locationPid
+          sessionManager.user.locationPid,
+          shouldForceCheckout
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
