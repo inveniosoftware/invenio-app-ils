@@ -47,6 +47,7 @@ export class ResultsList extends Component {
       delete serialised['Created'];
       delete serialised['Updated'];
       delete serialised['Internal location'];
+      delete serialised['Document ID'];
       return serialised;
     });
   }

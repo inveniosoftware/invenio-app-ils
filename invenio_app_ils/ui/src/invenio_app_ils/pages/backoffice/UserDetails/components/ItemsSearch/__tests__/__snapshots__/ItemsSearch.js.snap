@@ -1,13 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PatronLoans tests should load the ItemsSearch component 1`] = `
-<Segment>
+<Segment
+  className="patron-items"
+>
   <Header
     as="h3"
   >
     Items
   </Header>
-  <Container>
+  <HeaderSubheader>
+    Search items by barcode.
+  </HeaderSubheader>
+  <Container
+    className="search-bar"
+  >
     <Input
       action={
         Object {
@@ -36,37 +43,35 @@ exports[`PatronLoans tests should load the ItemsSearch component 1`] = `
     >
       <Loader>
         <Error>
-          <Grid
-            columns={3}
-            relaxed={true}
-            stackable={true}
-            verticalAlign="middle"
+          <Segment
+            placeholder={true}
+            textAlign="center"
           >
-            <GridColumn
-              textAlign="left"
-              width={5}
+            <Header
+              icon={true}
             >
-              <div>
-                 results
-              </div>
-            </GridColumn>
-          </Grid>
-          <div
-            className="results-list"
-          >
-            <ResultsList
-              checkoutItem={[MockFunction]}
-              clearResults={[MockFunction]}
-              fetchPatronCurrentLoans={[MockFunction]}
-              patron={2}
-              results={
-                Object {
-                  "hits": Array [],
-                }
-              }
-              viewDetailsClickHandler={[Function]}
-            />
-          </div>
+              <Icon
+                as="i"
+                name="search"
+              />
+              Found no items matching this barcode.
+            </Header>
+            <div
+              className="empty-results-current"
+            >
+              Current search phrase "
+              "
+            </div>
+            <SegmentInline>
+              <Button
+                as="button"
+                onClick={[Function]}
+                primary={true}
+              >
+                Clear query
+              </Button>
+            </SegmentInline>
+          </Segment>
         </Error>
       </Loader>
     </GridColumn>
@@ -97,9 +102,11 @@ exports[`PatronLoans tests should render items in search 1`] = `
   queryString=""
   updateQueryString={[MockFunction]}
 >
-  <Segment>
+  <Segment
+    className="patron-items"
+  >
     <div
-      className="ui segment"
+      className="ui segment patron-items"
     >
       <Header
         as="h3"
@@ -110,9 +117,18 @@ exports[`PatronLoans tests should render items in search 1`] = `
           Items
         </h3>
       </Header>
-      <Container>
+      <HeaderSubheader>
         <div
-          className="ui container"
+          className="sub header"
+        >
+          Search items by barcode.
+        </div>
+      </HeaderSubheader>
+      <Container
+        className="search-bar"
+      >
+        <div
+          className="ui container search-bar"
         >
           <Input
             action={
@@ -174,32 +190,14 @@ exports[`PatronLoans tests should render items in search 1`] = `
             >
               <Loader>
                 <Error>
-                  <Grid
-                    columns={3}
-                    relaxed={true}
-                    stackable={true}
-                    verticalAlign="middle"
-                  >
-                    <div
-                      className="ui stackable relaxed middle aligned three column grid"
-                    >
-                      <GridColumn
-                        textAlign="left"
-                        width={5}
-                      >
-                        <div
-                          className="left aligned five wide column"
-                        >
-                          <div>
-                             results
-                          </div>
-                        </div>
-                      </GridColumn>
-                    </div>
-                  </Grid>
                   <div
                     className="results-list"
                   >
+                    <p>
+                      Found 
+                      1
+                       item(s).
+                    </p>
                     <ResultsList
                       checkoutItem={[MockFunction]}
                       clearResults={[MockFunction]}
@@ -236,7 +234,6 @@ exports[`PatronLoans tests should render items in search 1`] = `
                               />,
                               "Barcode": "3",
                               "Circulation status": undefined,
-                              "Document ID": "4",
                               "ID": "4",
                               "Status": "LOANABLE",
                             },
@@ -293,7 +290,6 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                     Array [
                                       "ID",
                                       "Barcode",
-                                      "Document ID",
                                       "Status",
                                       "Circulation status",
                                       "Actions",
@@ -366,21 +362,6 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                           </TableHeaderCell>
                                           <TableHeaderCell
                                             as="th"
-                                            key="Document ID"
-                                          >
-                                            <TableCell
-                                              as="th"
-                                              className=""
-                                            >
-                                              <th
-                                                className=""
-                                              >
-                                                Document ID
-                                              </th>
-                                            </TableCell>
-                                          </TableHeaderCell>
-                                          <TableHeaderCell
-                                            as="th"
                                             key="Status"
                                           >
                                             <TableCell
@@ -434,7 +415,6 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                     Array [
                                       "ID",
                                       "Barcode",
-                                      "Document ID",
                                       "Status",
                                       "Circulation status",
                                       "Actions",
@@ -451,7 +431,6 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                         />,
                                         "Barcode": "3",
                                         "Circulation status": undefined,
-                                        "Document ID": "4",
                                         "ID": "4",
                                         "Status": "LOANABLE",
                                       },
@@ -508,20 +487,8 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                           </TableCell>
                                           <TableCell
                                             as="td"
-                                            data-test="Document ID-4"
-                                            key="2-4"
-                                          >
-                                            <td
-                                              className=""
-                                              data-test="Document ID-4"
-                                            >
-                                              4
-                                            </td>
-                                          </TableCell>
-                                          <TableCell
-                                            as="td"
                                             data-test="Status-4"
-                                            key="3-4"
+                                            key="2-4"
                                           >
                                             <td
                                               className=""
@@ -533,7 +500,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                           <TableCell
                                             as="td"
                                             data-test="Circulation status-4"
-                                            key="4-4"
+                                            key="3-4"
                                           >
                                             <td
                                               className=""
@@ -545,7 +512,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                           <TableCell
                                             as="td"
                                             data-test="Actions-4"
-                                            key="5-4"
+                                            key="4-4"
                                           >
                                             <td
                                               className=""
@@ -572,7 +539,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                 </ResultsTableBody>
                                 <ResultsTableFooter
                                   allRowsNumber={1}
-                                  columnsNumber={6}
+                                  columnsNumber={5}
                                   seeAllComponent={null}
                                   showMaxRows={10}
                                 />
