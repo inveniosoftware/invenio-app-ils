@@ -555,6 +555,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
 
 # RECORDS REST facets
 # =========================
+#: Number of keywords to display in the DocumentsSearch facet
 FACET_KEYWORD_LIMIT = 5
 
 RECORDS_REST_FACETS = dict(
@@ -569,11 +570,18 @@ RECORDS_REST_FACETS = dict(
             document_types=dict(
                 terms=dict(field="document_types")
             ),
+            available_items=dict(
+                terms=dict(
+                    field="circulation.loanable_items",
+                    order=dict(_key="asc")
+                )
+            ),
         ),
         filters=dict(
             document_types=terms_filter('document_types'),
             languages=terms_filter('languages'),
-            keywords=terms_filter("keywords.name")
+            keywords=terms_filter("keywords.name"),
+            available_items=terms_filter("circulation.loanable_items"),
         )
     ),
     items=dict(  # ItemSearch.Meta.index
