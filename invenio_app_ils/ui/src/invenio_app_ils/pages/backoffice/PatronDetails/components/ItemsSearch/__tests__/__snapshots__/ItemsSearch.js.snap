@@ -105,7 +105,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
             "item_pid": "item1",
             "medium": "book",
             "shelf": "P",
-            "status": "LOANABLE",
+            "status": "CAN_CIRCULATE",
           },
           "updated": "2018-01-01T10:05:00.000Z",
         },
@@ -237,7 +237,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                 "item_pid": "item1",
                                 "medium": "book",
                                 "shelf": "P",
-                                "status": "LOANABLE",
+                                "status": "CAN_CIRCULATE",
                               },
                               "updated": "2018-01-01T10:05:00.000Z",
                             },
@@ -267,7 +267,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                               "Document ID": "doc1",
                               "ID": "item1",
                               "Medium": "book",
-                              "Status": "LOANABLE",
+                              "Status": "CAN_CIRCULATE",
                             },
                           ]
                         }
@@ -500,7 +500,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                         "Document ID": "doc1",
                                         "ID": "item1",
                                         "Medium": "book",
-                                        "Status": "LOANABLE",
+                                        "Status": "CAN_CIRCULATE",
                                       },
                                     ]
                                   }
@@ -574,7 +574,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                               className=""
                                               data-test="Status-item1"
                                             >
-                                              LOANABLE
+                                              CAN_CIRCULATE
                                             </td>
                                           </TableCell>
                                           <TableCell

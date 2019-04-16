@@ -43,7 +43,7 @@ LOCATION = {
 
 ITEM_CIRCULATION_RESTRICTIONS = ["NO_RESTRICTION", "FOR_REFERENCE_ONLY"]
 ITEM_MEDIUMS = ["NOT_SPECIFIED", "ONLINE", "PAPER", "CDROM", "DVD", "VHS"]
-ITEM_STATUSES = ["LOANABLE", "MISSING"]
+ITEM_STATUSES = ["CAN_CIRCULATE", "MISSING"]
 LOAN_STATUSES = ["PENDING", "ITEM_ON_LOAN", "ITEM_RETURNED", "CANCELLED"]
 DOCUMENT_TYPES = ["BOOK", "STANDARD", "PROCEEDINGS"]
 
@@ -92,8 +92,10 @@ def get_documents_items(internal_locations, n_docs, n_items):
                                   range(0, randint(1, len(LANGUAGES)))])),
 
             "publishers": ["{}".format(lorem.sentence())],
-            "files": ["https://cds.cern.ch/record/2255762/files/CERN-Brochure-2017-002-Eng.pdf",
-                      "https://cds.cern.ch/record/2256277/files/CERN-Brochure-2016-005-Eng.pdf"],
+            "files": ["https://cds.cern.ch/record/2255762/"
+                      "files/CERN-Brochure-2017-002-Eng.pdf",
+                      "https://cds.cern.ch/record/2256277/"
+                      "files/CERN-Brochure-2016-005-Eng.pdf"],
             "booklinks": ["https://home.cern/science/physics/dark-matter",
                           "https://home.cern/science/physics/antimatter"],
             "chapters": ["{}".format(lorem.sentence())],
@@ -147,11 +149,11 @@ def get_loans_for_items(
     LEN_LOAN_STATUSES = len(LOAN_STATUSES) - 1
     current_year = datetime.now().year
 
-    def _get_loanable_item(items):
-        """Return an item that is loanable."""
+    def _get_item_can_circulate(items):
+        """Return an item that can circulate."""
         item = items[randint(1, len_items)]
-        if item["status"] != "LOANABLE":
-            return _get_loanable_item(items)
+        if item["status"] != "CAN_CIRCULATE":
+            return _get_item_can_circulate(items)
         return item
 
     def _get_valid_status(item, items_on_loans):
@@ -166,7 +168,7 @@ def get_loans_for_items(
     loans = []
     items_on_loans = []
     for i in range(1, n_loans):
-        item = _get_loanable_item(items)
+        item = _get_item_can_circulate(items)
         status = _get_valid_status(item, items_on_loans)
         patron_id = randint(1, len_patron_ids)
         transaction_date = datetime(

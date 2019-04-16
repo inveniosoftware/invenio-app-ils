@@ -47,7 +47,7 @@ export default class ItemsSearch extends Component {
   _onPasteHandler = e => {
     let queryString = e.clipboardData.getData('Text');
     this.executeSearch(queryString).then(data => {
-      if (this.props.items.hits[0].status === 'LOANABLE') {
+      if (this.props.items.hits[0].status === 'CAN_CIRCULATE') {
         this.checkoutItem(this.props.items.hits[0], this.props.patron).then(
           () => {
             this.clearResults();

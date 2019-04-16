@@ -54,7 +54,7 @@ class IlsLoansSearch(LoansSearch):
                              )
 
     def get_loan_next_available_date(self, document_pid):
-        """Return any active loans sorted by the earliest end date, for the given document."""
+        """Return active loans on document sorted by the earliest end date."""
         return search_by_pid(document_pid=document_pid,
                              filter_states=current_app.config.get(
                                  "CIRCULATION_STATES_LOAN_ACTIVE", []

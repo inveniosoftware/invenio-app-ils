@@ -27,7 +27,7 @@ const response = {
             document: {
               document_pid: 1342,
             },
-            status: 'LOANABLE',
+            status: 'CAN_CIRCULATE',
             internal_location_pid: 1,
             internal_location: {
               name: 'A library',
@@ -45,7 +45,7 @@ const response = {
             document: {
               document_pid: 1342,
             },
-            status: 'LOANABLE',
+            status: 'CAN_CIRCULATE',
             internal_location_pid: 1,
             internal_location: {
               name: 'A library',
@@ -79,7 +79,7 @@ describe('Available items tests', () => {
 
       store.dispatch(actions.fetchAvailableItems('1342')).then(() => {
         expect(mockList).toHaveBeenCalledWith(
-          'document_pid:1342 AND status:LOANABLE'
+          'document_pid:1342 AND status:CAN_CIRCULATE'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedActions[0]);
@@ -99,7 +99,7 @@ describe('Available items tests', () => {
 
       store.dispatch(actions.fetchAvailableItems('1342')).then(() => {
         expect(mockList).toHaveBeenCalledWith(
-          'document_pid:1342 AND status:LOANABLE'
+          'document_pid:1342 AND status:CAN_CIRCULATE'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
@@ -119,7 +119,7 @@ describe('Available items tests', () => {
 
       store.dispatch(actions.fetchAvailableItems('456')).then(() => {
         expect(mockList).toHaveBeenCalledWith(
-          'document_pid:456 AND status:LOANABLE'
+          'document_pid:456 AND status:CAN_CIRCULATE'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);

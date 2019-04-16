@@ -78,7 +78,7 @@
     },
     "status": {
       "type": "string",
-      "enum": ["LOANABLE", "MISSING", "IN_BINDING", "SCANNING"],
+      "enum": ["CAN_CIRCULATE", "MISSING", "IN_BINDING", "SCANNING"],
       "title": "The current status of this Item"
     },
     "circulation_status": {

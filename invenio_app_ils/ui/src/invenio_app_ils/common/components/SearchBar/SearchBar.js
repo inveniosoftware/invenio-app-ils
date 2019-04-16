@@ -4,10 +4,6 @@ import { Input } from 'semantic-ui-react';
 import { QueryBuildHelper } from './components/QueryBuildHelper/';
 
 export class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   onChangeHandler = (e, { value }, onInputChange) => {
     onInputChange(value);
   };

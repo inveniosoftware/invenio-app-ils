@@ -70,7 +70,7 @@ describe('PatronLoans tests', () => {
             internal_location: { location: { name: 'Somewhere' } },
             barcode: '44444',
             shelf: 'P',
-            status: 'LOANABLE',
+            status: 'CAN_CIRCULATE',
             circulation_status: {},
             medium: 'book',
           },
