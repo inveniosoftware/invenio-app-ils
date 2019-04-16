@@ -63,7 +63,7 @@ from .circulation.utils import (  # isort:skip
     circulation_default_extension_max_count,
     circulation_default_loan_duration,
     circulation_document_retriever,
-    circulation_is_item_available,
+    circulation_item_can_circulate,
     circulation_is_loan_duration_valid,
     circulation_item_exists,
     circulation_item_location_retriever,
@@ -445,7 +445,7 @@ CIRCULATION_POLICIES = dict(
     checkout=dict(
         duration_default=circulation_default_loan_duration,
         duration_validate=circulation_is_loan_duration_valid,
-        item_can_circulate=circulation_is_item_available
+        item_can_circulate=circulation_item_can_circulate,
     ),
     extension=dict(
         from_end_date=True,
@@ -602,9 +602,9 @@ RECORDS_REST_FACETS = dict(
             document_types=dict(
                 terms=dict(field="document_types")
             ),
-            available_items=dict(
+            items_available_for_loan=dict(
                 terms=dict(
-                    field="circulation.loanable_items",
+                    field="circulation.items_available_for_loan",
                     order=dict(_key="asc")
                 )
             ),
@@ -613,7 +613,8 @@ RECORDS_REST_FACETS = dict(
             document_types=terms_filter('document_types'),
             languages=terms_filter('languages'),
             keywords=terms_filter("keywords.name"),
-            available_items=terms_filter("circulation.loanable_items"),
+            items_available_for_loan=terms_filter(
+                "circulation.items_available_for_loan"),
         )
     ),
     items=dict(  # ItemSearch.Meta.index

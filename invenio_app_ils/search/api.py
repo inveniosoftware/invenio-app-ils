@@ -54,7 +54,7 @@ class ItemSearch(RecordsSearch):
         """Retrieve items that are unavailable for a loan."""
         return self.search_by_document_pid(
             document_pid,
-            exclude_states=["LOANABLE"]
+            exclude_states=["CAN_CIRCULATE"]
         )
 
 

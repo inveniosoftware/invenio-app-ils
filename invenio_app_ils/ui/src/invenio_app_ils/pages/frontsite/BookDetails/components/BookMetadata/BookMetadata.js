@@ -167,7 +167,8 @@ export default class BookMetadata extends Component {
 
   _render_circulation_buttons() {
     const circulation_data = this.props.bookDetails.metadata.circulation;
-    const button_color = circulation_data.loanable_items > 0 ? 'green' : 'red';
+    const button_color =
+      circulation_data.items_available_for_loan > 0 ? 'green' : 'red';
     return (
       <div>
         <Button
@@ -177,7 +178,7 @@ export default class BookMetadata extends Component {
             basic: true,
             color: button_color,
             pointing: 'left',
-            content: circulation_data.loanable_items,
+            content: circulation_data.items_available_for_loan,
           }}
         />
 

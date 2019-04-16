@@ -68,11 +68,11 @@ def create_loan(params, should_force_checkout):
 
     if should_force_checkout:
         item = Item.get_record_by_pid(params['item_pid'])
-        if item["status"] != "LOANABLE":
+        if item["status"] != "CAN_CIRCULATE":
             circulation_item_patcher(item_pid=params['item_pid'],
                                      op="replace",
                                      path="/status",
-                                     value="LOANABLE")
+                                     value="CAN_CIRCULATE")
 
     # create a new loan
     record_uuid = uuid.uuid4()

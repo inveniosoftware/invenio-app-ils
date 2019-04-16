@@ -70,7 +70,7 @@ def _get_items_ui_config():
                 "sortOrder": ["asc", "desc"],
                 "aggs": [],
             },
-            "available": {"status": "LOANABLE"},
+            "available": {"status": "CAN_CIRCULATE"},
         }
     }
     items_index = ItemSearch.Meta.index

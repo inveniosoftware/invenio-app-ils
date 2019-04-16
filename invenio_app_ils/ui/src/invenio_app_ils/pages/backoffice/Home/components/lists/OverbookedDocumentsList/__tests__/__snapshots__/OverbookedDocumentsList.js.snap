@@ -41,8 +41,8 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
               "Author1",
             ],
             "circulation": Object {
-              "loanableItems": 2,
-              "pendingLoans": 1,
+              "items_available_for_loan": 2,
+              "pending_loans": 1,
             },
             "title": "X",
           },
@@ -81,8 +81,8 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
           Array [
             Object {
               "ID": "doc1",
-              "Items": undefined,
-              "Requests": undefined,
+              "Items": 2,
+              "Requests": 1,
               "Title": "X",
             },
             Object {
@@ -289,8 +289,8 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                     Array [
                       Object {
                         "ID": "doc1",
-                        "Items": undefined,
-                        "Requests": undefined,
+                        "Items": 2,
+                        "Requests": 1,
                         "Title": "X",
                       },
                       Object {
@@ -382,7 +382,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                               className=""
                               data-test="Requests-doc1"
                             >
-                              -
+                              1
                             </td>
                           </TableCell>
                           <TableCell
@@ -394,7 +394,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                               className=""
                               data-test="Items-doc1"
                             >
-                              -
+                              2
                             </td>
                           </TableCell>
                         </tr>

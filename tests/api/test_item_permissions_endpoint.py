@@ -156,7 +156,7 @@ def test_patch_item_endpoint(
     expected_resp_code,
 ):
     """Test PATCH permission of an item."""
-    patch = [{"op": "replace", "path": "/status", "value": "LOANABLE"}]
+    patch = [{"op": "replace", "path": "/status", "value": "CAN_CIRCULATE"}]
     url = url_for("invenio_records_rest.itemid_item", pid_value=res_id)
     user_login(user_id, client, users)
     res = _test_response(
@@ -167,7 +167,7 @@ def test_patch_item_endpoint(
         data=patch,
         expected_resp_code=expected_resp_code,
     )
-    _test_data("status", "LOANABLE", res)
+    _test_data("status", "CAN_CIRCULATE", res)
 
 
 @pytest.mark.parametrize(

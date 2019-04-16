@@ -26,7 +26,7 @@ describe('Fetch available items reducer', () => {
           document: {
             document_pid: 1342,
           },
-          status: 'LOANABLE',
+          status: 'CAN_CIRCULATE',
           internal_location_pid: 1,
           internal_location: {
             name: 'A library',
@@ -42,7 +42,7 @@ describe('Fetch available items reducer', () => {
           document: {
             document_pid: 1342,
           },
-          status: 'LOANABLE',
+          status: 'CAN_CIRCULATE',
           internal_location_pid: 1,
           internal_location: {
             name: 'A library',

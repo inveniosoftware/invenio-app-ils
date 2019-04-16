@@ -17,22 +17,22 @@ describe('Document query builder tests', () => {
     expect(query).toEqual('circulation.pending_loans:>0');
   });
 
-  it('should build query with loanable items', () => {
+  it('should build query with items available for loan', () => {
     const query = documentApi
       .query()
       .withAvailableItems()
       .qs();
-    expect(query).toEqual('circulation.loanable_items:>0');
+    expect(query).toEqual('circulation.items_available_for_loan:>0');
   });
 
-  it('should build query string with loanable items and pending loans stats', () => {
+  it('should build query string with items available for loan and pending loans stats', () => {
     const query = documentApi
       .query()
       .withAvailableItems()
       .withPendingLoans()
       .qs();
     expect(query).toEqual(
-      'circulation.loanable_items:>0 AND circulation.pending_loans:>0'
+      'circulation.items_available_for_loan:>0 AND circulation.pending_loans:>0'
     );
   });
 });

@@ -32,9 +32,10 @@ function formatDocumentToTableView(document) {
   if (!_isEmpty(document.metadata)) {
     serialized['Title'] = document.metadata.title;
     serialized['Authors'] = document.metadata.authors;
-    if (!_isEmpty(document.metadata.circulation)) {
+    if (document.metadata.circulation) {
       serialized['Requests'] = document.metadata.circulation.pending_loans;
-      serialized['Items'] = document.metadata.circulation.loanable_items;
+      serialized['Items'] =
+        document.metadata.circulation.items_available_for_loan;
     }
   }
   return serialized;

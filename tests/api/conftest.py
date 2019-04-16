@@ -54,7 +54,7 @@ def item_record(app):
             "$ref": internal_location_ref_builder(app, "itemid-1")
         },
         "medium": "NOT_SPECIFIED",
-        "status": "LOANABLE",
+        "status": "CAN_CIRCULATE",
         "circulation_restriction": "NO_RESTRICTION"
     }
 

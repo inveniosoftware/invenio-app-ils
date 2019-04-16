@@ -19,7 +19,7 @@ export const invenioConfig = {
       aggs: [],
     },
     available: {
-      status: 'LOANABLE',
+      status: 'CAN_CIRCULATE',
     },
   },
   loans: {
