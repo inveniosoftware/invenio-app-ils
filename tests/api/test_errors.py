@@ -14,15 +14,25 @@ from invenio_app_ils.errors import DocumentKeywordNotFoundError, \
     PatronNotFoundError, SearchQueryError, UnauthorizedSearchError
 
 
-def test_unauthorized_search(app):
-    """Test UnauthorizedSearchError."""
+def test_unauthorized_search_with_patron_pid(app):
+    """Test UnauthorizedSearchError with patron_pid defined."""
     query = "test query"
     pid = "1"
     msg = "Search `{query}` not allowed by `patron_pid:{patron_pid}`"
     with pytest.raises(UnauthorizedSearchError) as ex:
         raise UnauthorizedSearchError(query=query, patron_pid=pid)
-    assert ex.value.code == UnauthorizedSearchError.code
+    assert ex.value.code == 403
     assert ex.value.description == msg.format(query=query, patron_pid=pid)
+
+
+def test_unauthorized_search_without_patron_pid(app):
+    """Test UnauthorizedSearchError without patron_pid defined."""
+    query = "test query"
+    msg = "Search `{query}` not allowed by `patron_pid:None`"
+    with pytest.raises(UnauthorizedSearchError) as ex:
+        raise UnauthorizedSearchError(query=query)
+    assert ex.value.code == 401
+    assert ex.value.description == msg.format(query=query)
 
 
 def test_invalid_search_query(app):
