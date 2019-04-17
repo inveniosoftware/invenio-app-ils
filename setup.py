@@ -63,8 +63,8 @@ install_requires = [
     # extra
     "invenio-circulation>=1.0.0a11,<1.1.0",
     "invenio-records-editor>=1.0.0a3,<1.1.0",
-    # until flask-sqlalchemy is fixed
-    "SQLAlchemy>=1.2.16,<1.3.0"
+    # # until flask-sqlalchemy is fixed
+    # "SQLAlchemy>=1.2.16,<1.3.0"
 ]
 
 packages = find_packages()
