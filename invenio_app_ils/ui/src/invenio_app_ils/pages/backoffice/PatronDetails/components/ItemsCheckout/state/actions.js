@@ -15,7 +15,7 @@ export const checkoutItem = (item, patron_pid, shouldForceCheckout = false) => {
     const currentUser = sessionManager.user;
     await loanApi
       .postAction(
-        ApiURLS.loans.request,
+        ApiURLS.loans.create,
         item.item_pid,
         { item_pid: item.item_pid, patron_pid: String(patron_pid) },
         currentUser.id,

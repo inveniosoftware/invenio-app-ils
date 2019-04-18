@@ -24,6 +24,7 @@ export default class ItemsSearch extends Component {
     this.clearResults = this.props.clearResults;
     this.checkoutItem = this.props.checkoutItem;
     this.fetchUpdatedCurrentLoans = this.props.fetchUpdatedCurrentLoans;
+    this.state = { prevSearchQuery: '' };
   }
 
   componentDidMount() {
@@ -37,29 +38,34 @@ export default class ItemsSearch extends Component {
   };
 
   executeSearch = queryString => {
+    queryString = queryString || this.props.queryString;
+    this.setState({ prevSearchQuery: queryString });
+
+    return this.fetchItems(queryString);
+  };
+
+  _onPasteHandler = async event => {
+    let queryString = event.clipboardData.getData('Text');
+
     if (queryString) {
-      return this.fetchItems(queryString);
-    } else {
-      return this.fetchItems(this.props.queryString);
+      await this.executeSearch(queryString);
+
+      const { hits } = this.props.items;
+      const hasOneHit =
+        !_isEmpty(hits) &&
+        hits.length === 1 &&
+        hits[0].metadata.status === 'CAN_CIRCULATE';
+      if (hasOneHit) {
+        await this.checkoutItem(hits[0], this.props.patron);
+        this.clearResults();
+        this.fetchUpdatedCurrentLoans(this.props.patron);
+        this.setState({ prevSearchQuery: '' });
+      }
     }
   };
 
-  _onPasteHandler = e => {
-    let queryString = e.clipboardData.getData('Text');
-    this.executeSearch(queryString).then(data => {
-      if (this.props.items.hits[0].status === 'CAN_CIRCULATE') {
-        this.checkoutItem(this.props.items.hits[0], this.props.patron).then(
-          () => {
-            this.clearResults();
-            this.fetchUpdatedCurrentLoans(this.props.patron);
-          }
-        );
-      }
-    });
-  };
-
   _onKeyPressHandler = e => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && this.props.queryString) {
       this.executeSearch();
     }
   };
@@ -138,7 +144,8 @@ export default class ItemsSearch extends Component {
   };
 
   render() {
-    const { items, isLoading, queryString, error } = this.props;
+    const { items, isLoading, error } = this.props;
+    const { prevSearchQuery } = this.state;
     return (
       <Segment className={'patron-items'}>
         <Header as={'h3'}>Items</Header>
@@ -150,10 +157,10 @@ export default class ItemsSearch extends Component {
           <Grid.Column width={16}>
             <Loader isLoading={isLoading}>
               <Error error={error}>
-                {!_isEmpty(items) && items.hits.length > 0
+                {!_isEmpty(items.hits)
                   ? this._renderResultsList(items)
                   : this._renderEmptyResults(
-                      queryString,
+                      prevSearchQuery,
                       this.updateQueryString
                     )}
               </Error>
