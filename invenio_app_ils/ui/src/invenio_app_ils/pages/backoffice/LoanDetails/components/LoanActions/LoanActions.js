@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List, Button } from 'semantic-ui-react';
+import { omit } from 'lodash/object';
 
 export default class LoanActions extends Component {
   constructor(props) {
@@ -9,6 +10,9 @@ export default class LoanActions extends Component {
   }
 
   renderAvailableActions(pid, loan, actions = {}) {
+    if ('checkout' in actions && loan.metadata.state === 'PENDING') {
+      actions = omit(actions, 'checkout');
+    }
     return Object.keys(actions).map(action => {
       return (
         <List.Item key={action}>
@@ -26,19 +30,21 @@ export default class LoanActions extends Component {
   }
 
   render() {
+    const { availableActions, loan_pid: pid } = this.props.loanDetails;
     const {
-      availableActions,
-      loan_pid: pid,
       document_pid,
       patron_pid,
       item_pid,
-    } = this.props.loanDetails;
+      state,
+    } = this.props.loanDetails.metadata;
     const loan = {
-      document_pid: document_pid,
-      patron_pid: patron_pid,
-      item_pid: item_pid,
+      metadata: {
+        document_pid: document_pid,
+        patron_pid: patron_pid,
+        item_pid: item_pid,
+        state: state,
+      },
     };
-
     if (availableActions) {
       return (
         <List horizontal>

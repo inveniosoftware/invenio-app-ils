@@ -32,7 +32,8 @@ def request_loan(params):
 
     if patron_has_active_loan_on_item(patron_pid=params["patron_pid"],
                                       item_pid=params["item_pid"]):
-        raise PatronHasLoanOnItemError(params["patron_pid"], params["item_pid"])
+        raise PatronHasLoanOnItemError(params["patron_pid"], params["item_pid"]
+                                       )
 
     # create a new loan
     record_uuid = uuid.uuid4()

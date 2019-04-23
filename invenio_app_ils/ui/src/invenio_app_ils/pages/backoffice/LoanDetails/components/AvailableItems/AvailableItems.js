@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Message, Header, Table, Button } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import { Loader, Error, ResultsTable } from '../../../../../common/components';
 import './AvailableItems.scss';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { item as itemApi } from '../../../../../common/api';
 import { SeeAllButton } from '../../../components/buttons/SeeAllButton';
 import { pick } from 'lodash/object';
+import { viewItemDetailsUrl } from '../../../../../common/urls';
 
 export default class AvailableItems extends Component {
   constructor(props) {
     super(props);
     this.fetchAvailableItems = props.fetchAvailableItems;
     this.assignItemToLoan = props.assignItemToLoan;
+    this.assignItemAndCheckout = props.assignItemAndCheckout;
+    this.showDetailsUrl = viewItemDetailsUrl;
   }
 
   componentDidMount() {
     this.fetchAvailableItems(this.props.loan.metadata.document_pid);
   }
 
-  _showDetailsHandler = item_pid =>
-    this.props.history.push(this.showDetailsUrl(item_pid));
+  _showDetailsHandler = itemPid =>
+    this.props.history.push(this.showDetailsUrl(itemPid));
 
   _seeAllButton = () => {
     const { document_pid } = this.props.loan.metadata;
@@ -42,7 +45,10 @@ export default class AvailableItems extends Component {
         size="mini"
         color="teal"
         onClick={() => {
-          this.assignItemToLoan(item.id, this.props.loan.loan_pid);
+          this.assignItemToLoan(
+            item.metadata.item_pid,
+            this.props.loan.loan_pid
+          );
         }}
       >
         assign
@@ -50,10 +56,29 @@ export default class AvailableItems extends Component {
     );
   }
 
+  _checkoutItemButton(item, loan) {
+    return (
+      <Button
+        size="mini"
+        color="teal"
+        onClick={() => {
+          this.assignItemAndCheckout(
+            this.props.loan.loan_pid,
+            loan,
+            loan.availableActions.checkout,
+            item.metadata.item_pid
+          );
+        }}
+      >
+        checkout
+      </Button>
+    );
+  }
+
   prepareData(data) {
     return data.hits.map(row => {
       const entry = formatter.item.toTable(row);
-      entry['Actions'] = this._assignItemButton(row);
+      entry['Actions'] = this._rowActionButton(row);
       return pick(entry, [
         'ID',
         'Barcode',
@@ -78,6 +103,15 @@ export default class AvailableItems extends Component {
         showMaxRows={this.props.showMaxItems}
       />
     );
+  }
+
+  _rowActionButton(row) {
+    const { loan } = this.props;
+    if (loan.metadata.state === 'PENDING') {
+      return this._checkoutItemButton(row, loan);
+    } else {
+      return this._assignItemButton(row);
+    }
   }
 
   render() {
