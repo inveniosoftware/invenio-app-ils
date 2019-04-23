@@ -28,3 +28,27 @@ def test_delete_location(client, users, json_headers, testdata):
     url = url_for('invenio_records_rest.locid_item', pid_value=location_pid)
     res = client.delete(url, headers=json_headers)
     assert res.status_code == 204
+
+
+def test_delete_internal_location(client, users, json_headers, testdata):
+    """Test DELETE existing internal_location."""
+    login_user_via_session(
+        client,
+        email=User.query.get(users["admin"].id).email
+    )
+
+    internal_location_pid = 'ilocid-1'
+    url = url_for(
+        'invenio_records_rest.ilocid_item',
+        pid_value=internal_location_pid
+    )
+    res = client.delete(url, headers=json_headers)
+    assert res.status_code == 400
+
+    internal_location_pid = 'ilocid-3'
+    url = url_for(
+        'invenio_records_rest.ilocid_item',
+        pid_value=internal_location_pid
+    )
+    res = client.delete(url, headers=json_headers)
+    assert res.status_code == 204
