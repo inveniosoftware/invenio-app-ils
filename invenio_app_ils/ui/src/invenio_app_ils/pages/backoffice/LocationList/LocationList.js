@@ -38,9 +38,10 @@ export default class LocationList extends Component {
             title={'Edit Record'}
           />
           <DeleteRecordModal
-            headerContent={`Are you sure you want to delete the record Location
+            headerContent={`Are you sure you want to delete the Location
               record with ID ${row.location_pid}?`}
             deleteFunction={() => this._requestDelete(row.location_pid)}
+            refType={'Internal Location'}
             refApiUrl={internalLocationApi.url}
             checkRefs={() =>
               internalLocationApi.list(`location_pid:${row.location_pid}`)

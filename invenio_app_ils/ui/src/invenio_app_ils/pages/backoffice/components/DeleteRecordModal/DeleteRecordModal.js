@@ -33,7 +33,7 @@ export default class DeleteRecordModal extends Component {
   }
 
   _renderReferences = data => {
-    const { refApiUrl } = this.props;
+    const { refType, refApiUrl } = this.props;
     const rows = data.hits.map((hit, i) => (
       <List.Item
         onClick={() => openRecordEditor(refApiUrl, hit.id)}
@@ -43,7 +43,7 @@ export default class DeleteRecordModal extends Component {
         <Button icon>
           <Icon name="edit" />
         </Button>
-        {hit.metadata.name}
+        &nbsp;{refType} - {hit.id}
       </List.Item>
     ));
     return (
@@ -61,7 +61,7 @@ export default class DeleteRecordModal extends Component {
   };
 
   render() {
-    const { isLoading, error, data, headerContent } = this.props;
+    const { isLoading, error, data, headerContent, refType } = this.props;
     const canDelete = data.total === 0;
     return (
       <Modal
@@ -76,7 +76,7 @@ export default class DeleteRecordModal extends Component {
           content={
             canDelete
               ? headerContent
-              : 'You cannot delete the record, there are references to it'
+              : `You cannot delete the record, the following ${refType} records use it!`
           }
         />
         <Loader isLoading={isLoading}>

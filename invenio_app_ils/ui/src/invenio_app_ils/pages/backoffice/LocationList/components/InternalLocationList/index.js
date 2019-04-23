@@ -1,5 +1,8 @@
 import { connect } from 'react-redux';
-import { fetchInternalLocations } from './state/actions';
+import {
+  fetchInternalLocations,
+  deleteInternalLocation,
+} from './state/actions';
 import InternalLocationListComponent from './InternalLocationList';
 
 const mapStateToProps = state => ({
@@ -11,6 +14,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchInternalLocations: () => dispatch(fetchInternalLocations()),
+  deleteInternalLocation: ilocPid => dispatch(deleteInternalLocation(ilocPid)),
 });
 
 export const InternalLocationList = connect(

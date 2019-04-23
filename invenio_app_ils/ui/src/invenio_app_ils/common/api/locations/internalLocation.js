@@ -11,6 +11,11 @@ const get = async internalLocationPid => {
   return response;
 };
 
+const del = async ilocPid => {
+  const response = await http.delete(`${internalLocationURL}${ilocPid}`);
+  return response;
+};
+
 const list = async (query = '') => {
   const response = await http.get(`${internalLocationURL}?q=${query}`);
   response.data.total = response.data.hits.total;
@@ -23,5 +28,6 @@ const list = async (query = '') => {
 export const internalLocation = {
   list: list,
   get: get,
+  del: del,
   url: internalLocationURL,
 };
