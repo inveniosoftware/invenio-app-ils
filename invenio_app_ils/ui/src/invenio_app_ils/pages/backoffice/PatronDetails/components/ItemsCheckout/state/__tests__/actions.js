@@ -33,7 +33,7 @@ beforeEach(() => {
 
 describe('ItemsCheckout actions tests', () => {
   describe('POST Loan for checkout', () => {
-    const loan = { ...item, patron_pid: user_pid };
+    const loan = { metadata: { ...item, patron_pid: user_pid } };
 
     it('should dispatch an action when checkout', done => {
       mockPOST.mockResolvedValue(response);

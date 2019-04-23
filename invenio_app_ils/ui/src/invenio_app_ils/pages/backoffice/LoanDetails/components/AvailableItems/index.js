@@ -1,7 +1,9 @@
 import { connect } from 'react-redux';
-import { fetchAvailableItems } from './state/actions';
+import { assignItemAndCheckout, fetchAvailableItems } from './state/actions';
 import { assignItemToLoan } from './state/actions';
 import AvailableItemsComponent from './AvailableItems';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 
 const mapStateToProps = state => ({
   data: state.availableItems.data,
@@ -15,9 +17,14 @@ const mapDispatchToProps = dispatch => ({
     dispatch(fetchAvailableItems(documentPid)),
   assignItemToLoan: (itemPid, loanPid) =>
     dispatch(assignItemToLoan(itemPid, loanPid)),
+  assignItemAndCheckout: (loanPid, loan, url, itemPid) =>
+    dispatch(assignItemAndCheckout(loanPid, loan, url, itemPid)),
 });
 
-export const AvailableItems = connect(
-  mapStateToProps,
-  mapDispatchToProps
+export const AvailableItems = compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(AvailableItemsComponent);

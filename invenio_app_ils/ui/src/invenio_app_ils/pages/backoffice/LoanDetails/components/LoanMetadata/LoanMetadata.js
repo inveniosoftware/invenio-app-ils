@@ -11,7 +11,7 @@ export default class LoanMetadata extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAvailableItemsVisible: _isEmpty(this.props.loanDetails.item),
+      isAvailableItemsVisible: _isEmpty(this.props.loanDetails.metadata.item),
     };
   }
 

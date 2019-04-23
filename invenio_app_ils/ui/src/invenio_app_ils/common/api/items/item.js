@@ -16,6 +16,7 @@ class QueryBuilder {
     this.documentQuery = [];
     this.statusQuery = [];
     this.barcodeQuery = [];
+    this.availableForCheckoutQuery = [];
   }
 
   withDocPid(documentPid) {
@@ -34,6 +35,11 @@ class QueryBuilder {
     return this;
   }
 
+  availableForCheckout() {
+    this.availableForCheckoutQuery.push('NOT circulation_status:*');
+    return this;
+  }
+
   withBarcode(barcode) {
     if (!barcode) {
       throw TypeError('Barcode argument missing');
@@ -44,7 +50,11 @@ class QueryBuilder {
 
   qs() {
     return this.documentQuery
-      .concat(this.statusQuery, this.barcodeQuery)
+      .concat(
+        this.statusQuery,
+        this.barcodeQuery,
+        this.availableForCheckoutQuery
+      )
       .join(' AND ');
   }
 }

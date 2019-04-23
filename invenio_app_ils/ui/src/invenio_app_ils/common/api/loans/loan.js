@@ -30,16 +30,16 @@ const postAction = (
   const now = DateTime.local();
   const payload = {
     transaction_user_pid: transactionUserPid,
-    patron_pid: loan.patron_pid,
+    patron_pid: loan.metadata.patron_pid,
     transaction_location_pid: transactionLocationPid,
     transaction_date: toISO(now),
     force_checkout: shouldForceCheckout,
   };
 
-  if ('item_pid' in loan) {
-    payload['item_pid'] = loan.item_pid;
-  } else if ('document_pid' in loan) {
-    payload['document_pid'] = loan.document_pid;
+  if ('item_pid' in loan.metadata) {
+    payload['item_pid'] = loan.metadata.item_pid;
+  } else if ('document_pid' in loan.metadata) {
+    payload['document_pid'] = loan.metadata.document_pid;
   } else {
     throw new Error(
       `No 'item_pid' or 'document_pid' attached to loan '${pid}'`
