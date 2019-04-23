@@ -60,7 +60,12 @@ export default class CreateNewLoanModal extends Component {
     const showSuccessView = !isLoading && !hasError && !_isEmpty(data);
 
     return (
-      <Modal trigger={this.triggerButton} size="small" open={this.state.open}>
+      <Modal
+        trigger={this.triggerButton}
+        size="small"
+        open={this.state.open}
+        basic
+      >
         <Header content={`Checkout item ${itemBarcode}`} />
         <Loader isLoading={isLoading}>
           <Modal.Content>

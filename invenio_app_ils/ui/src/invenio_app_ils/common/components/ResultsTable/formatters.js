@@ -1,6 +1,6 @@
 import { fromISO, toShortDate, toShortDateTime } from '../../api/date';
 import _isEmpty from 'lodash/isEmpty';
-import assign from 'lodash/object';
+import assign from 'lodash/assign';
 
 function formatLoanToTableView(loan) {
   return {

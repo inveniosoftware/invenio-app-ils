@@ -5,14 +5,9 @@ import {
   QUERY_STRING_UPDATE,
   CLEAR_SEARCH,
 } from './types';
-import {
-  IS_LOADING as CURRENT_LOANS_LOADING,
-  SUCCESS as CURRENT_LOANS_SUCCESS,
-} from '../../PatronCurrentLoans/state/types';
 import { item as itemApi } from '../../../../../../common/api';
 import { fetchPatronCurrentLoans } from '../../PatronCurrentLoans/state/actions';
 import { sendErrorNotification } from '../../../../../../common/components/Notifications';
-import store from '../../../../../../store';
 
 export const fetchItems = barcode => {
   return async dispatch => {

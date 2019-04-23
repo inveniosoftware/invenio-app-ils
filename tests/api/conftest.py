@@ -11,7 +11,6 @@ from __future__ import absolute_import, print_function
 
 from functools import partial
 
-import mock
 import pytest
 from flask_mail import Message
 from invenio_app.factory import create_api
@@ -97,14 +96,12 @@ def testdata(app, db, es_clear):
         indexer.index(record)
 
     internal_locations = load_json_from_datadir("internal_locations.json")
-    iloc_records = []
     for internal_location in internal_locations:
         record = InternalLocation.create(internal_location)
         mint_record_pid(
             INTERNAL_LOCATION_PID_TYPE, InternalLocation.pid_field, record
         )
         record.commit()
-        iloc_records.append(record)
         db.session.commit()
         indexer.index(record)
 
@@ -147,6 +144,7 @@ def testdata(app, db, es_clear):
 
     return {
         "locations": locations,
+        "internal_locations": internal_locations,
         "documents": documents,
         "items": items,
         "loans": loans,

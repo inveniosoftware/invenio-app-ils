@@ -1,22 +1,15 @@
-import {
-  IS_LOADING,
-  SUCCESS,
-  HAS_ERROR,
-  DELETE_IS_LOADING,
-  DELETE_SUCCESS,
-  DELETE_HAS_ERROR,
-} from './types';
+import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 
 export const initialState = {
-  isLoading: true,
-  hasError: false,
   data: { hits: [], total: 0 },
   error: {},
+  hasError: false,
+  isLoading: false,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case IS_LOADING || DELETE_IS_LOADING:
+    case IS_LOADING:
       return { ...state, isLoading: true };
     case SUCCESS:
       return {
@@ -30,20 +23,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload,
-        hasError: true,
-      };
-    case DELETE_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        error: {},
-        hasError: false,
-      };
-    case DELETE_HAS_ERROR:
-      return {
-        ...state,
-        isLoading: false,
+        data: { hits: [], total: 0 },
         error: action.payload,
         hasError: true,
       };

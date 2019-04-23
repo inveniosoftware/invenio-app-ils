@@ -12,7 +12,7 @@ import { formatter } from '../../../../../common/components/ResultsTable/formatt
 import { SeeAllButton } from '../../../components/buttons';
 
 import _isEmpty from 'lodash/isEmpty';
-import { pick } from 'lodash/object';
+import pick from 'lodash/pick';
 
 export default class PatronCurrentLoans extends Component {
   constructor(props) {
@@ -61,7 +61,9 @@ export default class PatronCurrentLoans extends Component {
   render() {
     const { data, isLoading, hasError, error } = this.props;
     const rows =
-      !hasError && !isLoading && !_isEmpty(data) ? this.prepareData(this.props.data) : [];
+      !hasError && !isLoading && !_isEmpty(data)
+        ? this.prepareData(this.props.data)
+        : [];
     rows.totalHits = data.total;
     return (
       <Loader isLoading={isLoading}>

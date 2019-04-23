@@ -5,6 +5,7 @@ import { initialState } from '../reducer';
 import * as types from '../types';
 import { loan as loanApi } from '../../../../../../../common/api';
 import { ApiURLS } from '../../../../../../../common/api/urls';
+import { sessionManager } from '../../../../../../../authentication/services';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -20,7 +21,6 @@ const user_pid = '2';
 const shouldForceCheckout = false;
 const doForceCheckout = true;
 const postURL = `${ApiURLS.loans.list}create`;
-import { sessionManager } from '../../../../../../../authentication/services';
 
 sessionManager.user = { id: '2', locationPid: '2' };
 

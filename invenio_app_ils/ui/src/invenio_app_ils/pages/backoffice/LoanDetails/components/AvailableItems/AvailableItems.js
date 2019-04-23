@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Message, Header, Table, Button } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import { Loader, Error, ResultsTable } from '../../../../../common/components';
 import './AvailableItems.scss';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { item as itemApi } from '../../../../../common/api';
 import { SeeAllButton } from '../../../components/buttons/SeeAllButton';
-import { pick } from 'lodash/object';
+import pick from 'lodash/pick';
 
 export default class AvailableItems extends Component {
   constructor(props) {

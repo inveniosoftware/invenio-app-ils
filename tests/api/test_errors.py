@@ -11,7 +11,8 @@ import pytest
 
 from invenio_app_ils.errors import DocumentKeywordNotFoundError, \
     NotImplementedConfigurationError, PatronHasLoanOnItemError, \
-    PatronNotFoundError, SearchQueryError, UnauthorizedSearchError
+    PatronNotFoundError, RecordHasReferencesError, SearchQueryError, \
+    UnauthorizedSearchError
 
 
 def test_unauthorized_search_with_patron_pid(app):
@@ -90,3 +91,12 @@ def test_document_keyword_not_found_error(app):
         raise DocumentKeywordNotFoundError(document_pid, keyword_pid)
     assert ex.value.code == DocumentKeywordNotFoundError.code
     assert ex.value.description == msg.format(document_pid, keyword_pid)
+
+
+def test_record_has_references_error(app):
+    """Test RecordHasReferencesError."""
+    msg = "Cannot delete the record because it has references."
+    with pytest.raises(RecordHasReferencesError) as ex:
+        raise RecordHasReferencesError()
+    assert ex.value.code == DocumentKeywordNotFoundError.code
+    assert ex.value.description == msg
