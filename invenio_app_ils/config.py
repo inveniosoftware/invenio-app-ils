@@ -21,6 +21,7 @@ from flask import request
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_circulation.search.api import LoansSearch
 from invenio_records_rest.facets import terms_filter
+from invenio_records_rest.utils import deny_all
 
 from .indexer import DocumentIndexer, ItemIndexer, LoanIndexer, LocationIndexer
 from .jwt import ils_jwt_create_token
@@ -39,6 +40,7 @@ from .search.api import (  # isort:skip
     InternalLocationSearch,
     ItemSearch,
     LocationSearch,
+    PatronsSearch
 )
 
 from invenio_circulation.config import (  # isort:skip
@@ -90,6 +92,9 @@ from .pidstore.pids import (  # isort:skip
     LOCATION_PID_FETCHER,
     LOCATION_PID_MINTER,
     LOCATION_PID_TYPE,
+    PATRON_PID_FETCHER,
+    PATRON_PID_MINTER,
+    PATRON_PID_TYPE,
 )
 
 
@@ -253,6 +258,8 @@ _ILOCID_CONVERTER = (
 
 # RECORDS REST
 # ============
+_RECORDS_REST_MAX_RESULT_WINDOW = 10000
+
 RECORDS_REST_ENDPOINTS = dict(
     docid=dict(
         pid_type=DOCUMENT_PID_TYPE,
@@ -282,7 +289,7 @@ RECORDS_REST_ENDPOINTS = dict(
         list_route="/documents/",
         item_route="/documents/<{0}:pid_value>".format(_DOCID_CONVERTER),
         default_media_type="application/json",
-        max_result_window=10000,
+        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
         create_permission_factory_imp=record_create_permission_factory,
@@ -317,7 +324,7 @@ RECORDS_REST_ENDPOINTS = dict(
         list_route="/items/",
         item_route="/items/<{0}:pid_value>".format(_ITEMID_CONVERTER),
         default_media_type="application/json",
-        max_result_window=10000,
+        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
         create_permission_factory_imp=record_create_permission_factory,
@@ -352,7 +359,7 @@ RECORDS_REST_ENDPOINTS = dict(
         list_route="/locations/",
         item_route="/locations/<{0}:pid_value>".format(_LOCID_CONVERTER),
         default_media_type="application/json",
-        max_result_window=10000,
+        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
         create_permission_factory_imp=record_create_permission_factory,
@@ -388,12 +395,37 @@ RECORDS_REST_ENDPOINTS = dict(
             _ILOCID_CONVERTER
         ),
         default_media_type="application/json",
-        max_result_window=10000,
+        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
         create_permission_factory_imp=record_create_permission_factory,
         update_permission_factory_imp=record_update_permission_factory,
         delete_permission_factory_imp=record_delete_permission_factory,
+    ),
+    patid=dict(
+        pid_type=PATRON_PID_TYPE,
+        pid_minter=PATRON_PID_MINTER,
+        pid_fetcher=PATRON_PID_FETCHER,
+        search_class=PatronsSearch,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            "application/json": (
+                "invenio_records_rest.serializers:json_v1_search"
+            )
+        },
+        item_route='/patrons/<pid({}):pid_value>'.format(PATRON_PID_TYPE),
+        list_route="/patrons/",
+        default_media_type="application/json",
+        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        error_handlers=dict(),
+        list_permission_factory_imp=backoffice_permission,
+        read_permission_factory_imp=deny_all,
+        create_permission_factory_imp=deny_all,
+        update_permission_factory_imp=deny_all,
+        delete_permission_factory_imp=deny_all,
     ),
 )
 

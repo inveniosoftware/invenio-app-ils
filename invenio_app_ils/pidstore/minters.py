@@ -65,3 +65,8 @@ def keyword_pid_minter(record_uuid, data):
     )
     data[Keyword.pid_field] = provider.pid.pid_value
     return provider.pid
+
+
+def patron_pid_minter(record_uuid, data):
+    """Dummy patron minter."""
+    return None

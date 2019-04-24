@@ -10,15 +10,14 @@ class Header extends Component {
   };
 
   render() {
-    const activePath = this.props.location.pathname;
-    const itemsActive =
-      activePath && activePath.indexOf(BackOfficeURLS.itemsSearch) > -1;
-    const loansActive =
-      activePath && activePath.indexOf(BackOfficeURLS.loansSearch) > -1;
+    const activePath = this.props.location.pathname || '';
+    const itemsActive = activePath.indexOf(BackOfficeURLS.itemsSearch) > -1;
+    const loansActive = activePath.indexOf(BackOfficeURLS.loansSearch) > -1;
     const locationsActive =
-      activePath && activePath.indexOf(BackOfficeURLS.locationList) > -1;
+      activePath.indexOf(BackOfficeURLS.locationList) > -1;
     const documentsActive =
-      activePath && activePath.indexOf(BackOfficeURLS.documentsSearch) > -1;
+      activePath.indexOf(BackOfficeURLS.documentsSearch) > -1;
+    const patronsActive = activePath.indexOf(BackOfficeURLS.patronsSearch) > -1;
     return (
       <Segment inverted vertical className="header">
         <Grid verticalAlign="middle">
@@ -61,6 +60,13 @@ class Header extends Component {
                   onClick={(e, { location }) => this.goTo(location)}
                 >
                   Locations
+                </Menu.Item>
+                <Menu.Item
+                  location={BackOfficeURLS.patronsSearch}
+                  active={patronsActive}
+                  onClick={(e, { location }) => this.goTo(location)}
+                >
+                  Patrons
                 </Menu.Item>
               </Menu>
             </Grid.Column>

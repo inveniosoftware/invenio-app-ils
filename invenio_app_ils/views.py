@@ -17,7 +17,8 @@ from __future__ import absolute_import, print_function
 from flask import Blueprint, current_app, render_template
 from invenio_circulation.search.api import LoansSearch
 
-from invenio_app_ils.search.api import DocumentSearch, ItemSearch
+from invenio_app_ils.search.api import DocumentSearch, ItemSearch, \
+    PatronsSearch
 
 blueprint = Blueprint(
     "invenio_app_ils_ui",
@@ -149,6 +150,38 @@ def _get_loans_ui_config():
     return ui_config
 
 
+def _get_patrons_ui_config():
+    """Get ui config for patrons search page."""
+    ui_config = {'patrons': {
+        'search': {'sortBy': {'values': [], 'onEmptyQuery': None},
+                   'sortOrder': ['asc', 'desc'],
+                   'aggs': []}}}
+    patrons_index = PatronsSearch.Meta.index
+
+    patrons_sort = current_app.config.get(
+        'RECORDS_REST_SORT_OPTIONS', {}
+    ).get(patrons_index, {})
+
+    patrons_sort_ui = [{
+        'field': field,
+        'title': patrons_sort[field]['title'],
+        'order': patrons_sort[field]['order']
+    } for field in patrons_sort.keys()]
+
+    ui_config['patrons']['search']['sortBy']['values'] = sorted(
+        patrons_sort_ui, key=lambda s: s['order']
+    )
+
+    if 'mostrecent' in patrons_sort:
+        ui_config['patrons']['search']['sortBy']['onEmptyQuery'] = 'mostrecent'
+
+    patrons_aggs = current_app.config.get('RECORDS_REST_FACETS', {}).get(
+        patrons_index, {}).get('aggs', {})
+    ui_config['patrons']['search']['aggs'] = list(patrons_aggs.keys())
+
+    return ui_config
+
+
 @blueprint.route("/ping", methods=["HEAD", "GET"])
 def ping():
     """Ping blueprint used by loadbalancer."""
@@ -162,6 +195,7 @@ def index(path=None):
     ui_config = _get_documents_ui_config()
     ui_config.update(_get_items_ui_config())
     ui_config.update(_get_loans_ui_config())
+    ui_config.update(_get_patrons_ui_config())
     ui_config.update(
         {"editor": {"url": current_app.config["RECORDS_EDITOR_URL_PREFIX"]}}
     )

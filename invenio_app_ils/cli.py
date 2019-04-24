@@ -7,13 +7,13 @@
 
 """CLI for Invenio App ILS."""
 import random
-import time
 from datetime import datetime, timedelta
 from random import randint, sample
 
 import click
 import lorem
 from flask.cli import with_appcontext
+from invenio_accounts.models import User
 from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_db import db
@@ -22,7 +22,9 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
     RecordIdentifier
 from invenio_search import current_search
 
-from .records.api import Document, InternalLocation, Item, Keyword, Location
+from .indexer import PatronsIndexer
+from .records.api import Document, InternalLocation, Item, Keyword, Location, \
+    Patron
 
 from .pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
@@ -373,3 +375,21 @@ def data(n_docs, n_items, n_loans, n_keywords):
 
     click.secho('Now indexing...', fg='green')
     indexer.process_bulk_queue()
+
+
+@click.group()
+def patrons():
+    """Patrons data CLI."""
+
+@patrons.command()
+@with_appcontext
+def index():
+    """Index patrons."""
+    patrons  = User.query.all()
+    indexer = PatronsIndexer()
+
+    click.secho('Now indexing {0} patrons'.format(len(patrons)),  fg='green')
+
+    for pat in patrons:
+        patron = Patron(pat.id)
+        indexer.index(patron)

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PatronDetailsContainer tests should load the details component 1`] = `
+<Container>
+  <Grid
+    columns={2}
+  >
+    <GridColumn
+      width={5}
+    >
+      <Header
+        as="h2"
+      >
+        Patron's profile
+      </Header>
+    </GridColumn>
+    <GridColumn
+      width={11}
+    />
+  </Grid>
+  <PatronDetails />
+</Container>
+`;
