@@ -383,11 +383,12 @@ def data(n_docs, n_items, n_loans, n_keywords):
 def patrons():
     """Patrons data CLI."""
 
+
 @patrons.command()
 @with_appcontext
 def index():
     """Index patrons."""
-    patrons  = User.query.all()
+    patrons = User.query.all()
     indexer = PatronsIndexer()
 
     click.secho('Now indexing {0} patrons'.format(len(patrons)),  fg='green')

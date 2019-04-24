@@ -55,7 +55,7 @@ install_requires = [
     # upgraded packages
     "invenio-accounts-rest>=1.0.0a4,<1.1.0",
     "invenio-app>=1.1.0,<1.2.0",
-    "invenio-assets>=1.1.1,<1.2.0",
+    "invenio-assets>=1.1.2,<1.2.0",
     "invenio-i18n>=1.1.0,<1.2.0",
     "invenio-userprofiles>=1.0.1,<1.1.0",
     "invenio-search>=1.1.0,<1.2.0",
