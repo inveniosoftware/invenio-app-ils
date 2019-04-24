@@ -70,8 +70,10 @@ describe('LoansSearch SearchBar tests', () => {
         placeholder={'Search'}
       />
     );
-
-    const input = component.find('Input').find('button');
+    const input = component
+      .find('Input')
+      .find('Icon')
+      .find('i');
     input.simulate('click');
     expect(mockedExecuteSearch).toHaveBeenCalled();
   });

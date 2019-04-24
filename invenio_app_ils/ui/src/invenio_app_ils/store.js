@@ -35,6 +35,10 @@ import {
 } from './pages/backoffice/Home/reducer';
 import { notificationsReducer } from './common/components/Notifications/reducer';
 
+import {
+  mostLoanedDocumentsReducer,
+  mostRecentDocumentsReducer,
+} from './pages/frontsite/Home/reducer';
 import { documentsDetailsReducer } from './pages/frontsite/DocumentsDetails/reducer';
 
 const rootReducer = combineReducers({
@@ -61,6 +65,8 @@ const rootReducer = combineReducers({
   itemsSearchInput: itemsSearchByBarcodeReducer,
   patronItemsCheckout: patronItemCheckoutReducer,
   notifications: notificationsReducer,
+  mostLoanedDocuments: mostLoanedDocumentsReducer,
+  mostRecentDocuments: mostRecentDocumentsReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

@@ -10,6 +10,7 @@ const FrontSiteRoutesList = {
 };
 
 const FrontSiteRoutesGenerators = {
+  documentsListWithQuery: qs => `${FrontSiteRoutesList.documentsList}?q=${qs}`,
   documentDetailsFor: documentPid =>
     generatePath(FrontSiteRoutesList.documentDetails, {
       documentPid: documentPid,

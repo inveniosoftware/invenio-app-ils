@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Input } from 'semantic-ui-react';
+import { Input, Icon } from 'semantic-ui-react';
 import { QueryBuildHelper } from './components/QueryBuildHelper/';
 
 export class SearchBar extends Component {
@@ -25,12 +25,17 @@ export class SearchBar extends Component {
     return (
       <>
         <Input
-          action={{
-            content: 'Search',
-            onClick: () => {
-              executeSearch();
-            },
-          }}
+          icon={
+            <Icon
+              onClick={executeSearch}
+              name="search"
+              inverted
+              circular
+              link
+            />
+          }
+          iconPosition="left"
+          size="massive"
           fluid
           placeholder={placeholder}
           onChange={(e, { value }) =>

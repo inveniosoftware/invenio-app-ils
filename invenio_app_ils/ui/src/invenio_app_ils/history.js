@@ -1,3 +1,10 @@
 import { createBrowserHistory } from 'history';
 
-export default createBrowserHistory();
+const history = createBrowserHistory();
+
+export const goTo = path => e => {
+  history.push(path);
+  history.go();
+};
+
+export default history;

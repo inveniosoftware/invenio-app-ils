@@ -112,7 +112,8 @@ class LoanCreateResource(IlsResource):
     def post(self, **kwargs):
         """Loan create post method."""
         params = request.get_json()
-        should_force_checkout = params.pop("force_checkout")
+        should_force_checkout = params.pop("force_checkout")\
+            if "force_checkout" in params else False
         pid, loan = create_loan(params, should_force_checkout)
 
         return self.make_response(

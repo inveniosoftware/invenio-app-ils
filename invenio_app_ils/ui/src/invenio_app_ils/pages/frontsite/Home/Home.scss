@@ -31,7 +31,6 @@ $margin-20: 20px;
 
     margin: 0 $margin-10;
 
-    background-image: url('../../../static/images/home.jpg');
     background-position: center;
 
     justify-content: center;
@@ -45,5 +44,9 @@ $margin-20: 20px;
     .home-description {
       font-size: 1.5em;
     }
+  }
+
+  .ui.cards {
+    padding-left: 100px;
   }
 }
