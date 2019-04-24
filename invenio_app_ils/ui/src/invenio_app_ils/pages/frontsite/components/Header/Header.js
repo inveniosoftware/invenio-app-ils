@@ -68,11 +68,12 @@ export default class Header extends Component {
         fixed="top"
         inverted
         className="header-menu"
+        widths={3}
       >
-        <Menu.Item header className="logo">
-          <Link to="/">Library</Link>
+        <Menu.Item>
+          <Link to="/">ILS</Link>
         </Menu.Item>
-        <Menu.Item position="right">{this.renderRightMenuItem()}</Menu.Item>
+        <Menu.Item>{this.renderRightMenuItem()}</Menu.Item>
       </Menu>
     );
   }

@@ -13,13 +13,20 @@ const get = documentPid => {
 class QueryBuilder {
   constructor() {
     this.overbookedQuery = [];
+    this.currentlyOnLoanQuery = [];
     this.availableItemsQuery = [];
     this.withPendingLoansQuery = [];
     this.withKeywordQuery = [];
+    this.withSortQuery = [];
   }
 
   overbooked() {
     this.overbookedQuery.push(`circulation.overbooked:true`);
+    return this;
+  }
+
+  currentlyOnLoan() {
+    this.currentlyOnLoanQuery.push('circulation.active_loans:>0&');
     return this;
   }
 
@@ -41,12 +48,19 @@ class QueryBuilder {
     return this;
   }
 
+  withSort(order = 'bestmatch') {
+    this.withSortQuery.push(`&sort=${order}`);
+    return this;
+  }
+
   qs() {
     return this.overbookedQuery
       .concat(
+        this.currentlyOnLoanQuery,
         this.availableItemsQuery,
         this.withPendingLoansQuery,
-        this.withKeywordQuery
+        this.withKeywordQuery,
+        this.withSortQuery
       )
       .join(' AND ');
   }

@@ -21,21 +21,27 @@ exports[`LoansSearch SearchBar tests should render search bar with query helper 
   }
 >
   <Input
-    action={
-      Object {
-        "content": "Search",
-        "onClick": [Function],
-      }
-    }
     fluid={true}
+    icon={
+      <Icon
+        as="i"
+        circular={true}
+        inverted={true}
+        link={true}
+        name="search"
+        onClick={[MockFunction]}
+      />
+    }
+    iconPosition="left"
     onChange={[Function]}
     onKeyPress={[Function]}
     placeholder="Search"
+    size="massive"
     type="text"
     value=""
   >
     <div
-      className="ui fluid action input"
+      className="ui massive fluid left icon input"
     >
       <input
         onChange={[Function]}
@@ -44,18 +50,20 @@ exports[`LoansSearch SearchBar tests should render search bar with query helper 
         type="text"
         value=""
       />
-      <Button
-        as="button"
-        content="Search"
-        onClick={[Function]}
+      <Icon
+        as="i"
+        circular={true}
+        inverted={true}
+        link={true}
+        name="search"
+        onClick={[MockFunction]}
       >
-        <button
-          className="ui button"
-          onClick={[Function]}
-        >
-          Search
-        </button>
-      </Button>
+        <i
+          aria-hidden="true"
+          className="search circular inverted link icon"
+          onClick={[MockFunction]}
+        />
+      </Icon>
     </div>
   </Input>
   <QueryBuildHelper
@@ -146,21 +154,27 @@ exports[`LoansSearch SearchBar tests should render the current query string 1`] 
   placeholder="Search"
 >
   <Input
-    action={
-      Object {
-        "content": "Search",
-        "onClick": [Function],
-      }
-    }
     fluid={true}
+    icon={
+      <Icon
+        as="i"
+        circular={true}
+        inverted={true}
+        link={true}
+        name="search"
+        onClick={[Function]}
+      />
+    }
+    iconPosition="left"
     onChange={[Function]}
     onKeyPress={[Function]}
     placeholder="Search"
+    size="massive"
     type="text"
     value="The Gulf: The Making of An American Sea"
   >
     <div
-      className="ui fluid action input"
+      className="ui massive fluid left icon input"
     >
       <input
         onChange={[Function]}
@@ -169,18 +183,20 @@ exports[`LoansSearch SearchBar tests should render the current query string 1`] 
         type="text"
         value="The Gulf: The Making of An American Sea"
       />
-      <Button
-        as="button"
-        content="Search"
+      <Icon
+        as="i"
+        circular={true}
+        inverted={true}
+        link={true}
+        name="search"
         onClick={[Function]}
       >
-        <button
-          className="ui button"
+        <i
+          aria-hidden="true"
+          className="search circular inverted link icon"
           onClick={[Function]}
-        >
-          Search
-        </button>
-      </Button>
+        />
+      </Icon>
     </div>
   </Input>
 </SearchBar>
