@@ -23,6 +23,7 @@ from invenio_circulation.search.api import LoansSearch
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import deny_all
 
+from .facets import keyed_range_filter
 from .indexer import DocumentIndexer, ItemIndexer, LoanIndexer, LocationIndexer
 from .jwt import ils_jwt_create_token
 from .records.api import Document, InternalLocation, Item, Location
@@ -603,9 +604,12 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(field="document_types")
             ),
             items_available_for_loan=dict(
-                terms=dict(
+                range=dict(
                     field="circulation.items_available_for_loan",
-                    order=dict(_key="asc")
+                    ranges=[
+                        {"key": "None", "to": 1},
+                        {"key": "1+", "from": 1},
+                    ]
                 )
             ),
         ),
@@ -613,9 +617,14 @@ RECORDS_REST_FACETS = dict(
             document_types=terms_filter('document_types'),
             languages=terms_filter('languages'),
             keywords=terms_filter("keywords.name"),
-            items_available_for_loan=terms_filter(
-                "circulation.items_available_for_loan"),
-        )
+            items_available_for_loan=keyed_range_filter(
+                "circulation.items_available_for_loan",
+                {
+                    "None": {"lt": 1},
+                    "1+": {"gte": 1}
+                }
+            ),
+        ),
     ),
     items=dict(  # ItemSearch.Meta.index
         aggs=dict(
