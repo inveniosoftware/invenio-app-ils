@@ -16,7 +16,18 @@ const get = patronPid => {
   });
 };
 
+const list = queryText => {
+  return http.get(`${listUrl}?q=${queryText}*`).then(response => {
+    response.data.total = response.data.hits.total;
+    response.data.hits = response.data.hits.hits.map(hit =>
+      serializer.fromJSON(hit)
+    );
+    return response;
+  });
+};
+
 export const patron = {
   url: listUrl,
   get: get,
+  list: list,
 };

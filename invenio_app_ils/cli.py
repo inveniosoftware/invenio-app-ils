@@ -302,6 +302,7 @@ class DocumentGenerator(Generator):
             "authors": ["{}".format(lorem.sentence())],
             "abstracts": ["{}".format(lorem.text())],
             "document_types": [random.choice(self.DOCUMENT_TYPES)],
+            "_access": {},
             "languages":list(set([random.choice(self.LANGUAGES)
                                   for _ in
                                   range(0, randint(1, len(self.LANGUAGES)))])),

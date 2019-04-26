@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Segment, Container, Header, List } from 'semantic-ui-react';
+import {
+  Grid,
+  Segment,
+  Container,
+  Header,
+  List,
+  Label,
+  Icon,
+} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import { invenioConfig } from '../../../../../common/config';
@@ -13,6 +21,13 @@ import {
 } from '../../../../../common/api';
 import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
+import { DocumentAccessRestrictions } from '../DocumentAccessRestrictions';
+
+const getReadAccessSet = document => {
+  if (document.metadata._access && document.metadata._access.read) {
+    return new Set(document.metadata._access.read);
+  } else return new Set([]);
+};
 
 export default class DocumentMetadata extends Component {
   constructor(props) {
@@ -116,8 +131,42 @@ export default class DocumentMetadata extends Component {
     return rows;
   }
 
+  renderPublicAccessRights() {
+    return (
+      <Segment inverted color="green">
+        <Header>
+          <Icon name="lock open" />
+          Publicly Accessible
+        </Header>
+      </Segment>
+    );
+  }
+
+  renderRestrictedAccessRights(readAccessSet) {
+    if (readAccessSet.size > 0) {
+      const userAccessList = Array.from(readAccessSet).map(email => (
+        <Label color="blue" key={email}>
+          {email}
+        </Label>
+      ));
+      return (
+        <Segment color="yellow">
+          <Header>
+            <Icon name="lock" />
+            Visible only to:
+          </Header>
+          {userAccessList}
+        </Segment>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     const document = this.props.documentDetails;
+    const readAccessSet = getReadAccessSet(document);
+    const isReadRestricted = !isEmpty(document.metadata._access.read);
     const rows = this.prepareData(document);
     return (
       <Segment className="document-metadata">
@@ -126,6 +175,14 @@ export default class DocumentMetadata extends Component {
           <Grid.Row>
             <Grid.Column>
               <MetadataTable rows={rows} />
+              {isReadRestricted
+                ? this.renderRestrictedAccessRights(readAccessSet)
+                : this.renderPublicAccessRights()}
+              <DocumentAccessRestrictions
+                document={document}
+                readAccessSet={readAccessSet}
+                maxSelection={1}
+              />
             </Grid.Column>
             <Grid.Column>
               <Container>

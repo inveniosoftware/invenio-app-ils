@@ -11,7 +11,7 @@ export default class DocumentDetails extends Component {
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
-          <DocumentMetadata />
+          <DocumentMetadata document={data} />
           <DocumentPendingLoans document={data} />
           <DocumentItems document={data} />
         </Error>
