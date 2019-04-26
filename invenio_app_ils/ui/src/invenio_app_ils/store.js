@@ -35,7 +35,7 @@ import {
 } from './pages/backoffice/Home/reducer';
 import { notificationsReducer } from './common/components/Notifications/reducer';
 
-import { bookDetailsReducer } from './pages/frontsite/BookDetails/reducer';
+import { documentsDetailsReducer } from './pages/frontsite/DocumentsDetails/reducer';
 
 const rootReducer = combineReducers({
   deleteRecordModal: deleteRecordModalReducer,
@@ -57,7 +57,7 @@ const rootReducer = combineReducers({
   overdueLoans: overdueLoansReducer,
   idlePendingLoans: idleLoansReducer,
   latestRenewedLoans: renewedLoansReducer,
-  bookDetails: bookDetailsReducer,
+  documentsDetails: documentsDetailsReducer,
   itemsSearchInput: itemsSearchByBarcodeReducer,
   patronItemsCheckout: patronItemCheckoutReducer,
   notifications: notificationsReducer,

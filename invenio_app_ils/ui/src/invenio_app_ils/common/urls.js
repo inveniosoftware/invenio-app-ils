@@ -5,8 +5,8 @@ const FrontSiteBase = '/';
 
 export const FrontSiteURLS = {
   home: FrontSiteBase,
-  booksSearch: `${FrontSiteBase}books`,
-  bookDetails: `${FrontSiteBase}books/:documentPid`,
+  documentsSearch: `${FrontSiteBase}search`,
+  documentsDetails: `${FrontSiteBase}records/:documentPid`,
 };
 
 const BackOfficeBase = '/backoffice';
@@ -55,6 +55,6 @@ export const openRecordEditor = (path, recid = '') => {
   window.open(`${invenioConfig.editor.url}${path}${recid}`, '_blank');
 };
 
-export const booksSearchQueryUrl = qs => {
-  return `${FrontSiteURLS.booksSearch}?q=${qs}`;
+export const recordsSearchQueryUrl = qs => {
+  return `${FrontSiteURLS.documentsSearch}?q=${qs}`;
 };

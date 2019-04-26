@@ -1,4 +1,4 @@
 export * from './components';
 export { Home } from './Home';
-export { BookDetailsContainer } from './BookDetails';
-export { BooksSearch } from './BooksSearch';
+export { DocumentsDetailsContainer } from './DocumentsDetails';
+export { DocumentsSearch } from './DocumentsSearch';
