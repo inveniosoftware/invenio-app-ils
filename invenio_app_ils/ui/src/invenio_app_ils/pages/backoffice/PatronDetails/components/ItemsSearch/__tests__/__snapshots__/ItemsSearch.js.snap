@@ -264,6 +264,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                               />,
                               "Circulation status": undefined,
                               "ID": "item1",
+                              "Medium": "book",
                               "Status": "CAN_CIRCULATE",
                             },
                           ]
@@ -318,8 +319,8 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                   columns={
                                     Array [
                                       "ID",
-                                      "Barcode",
                                       "Status",
+                                      "Medium",
                                       "Circulation status",
                                       "Actions",
                                     ]
@@ -391,6 +392,21 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                           </TableHeaderCell>
                                           <TableHeaderCell
                                             as="th"
+                                            key="Medium"
+                                          >
+                                            <TableCell
+                                              as="th"
+                                              className=""
+                                            >
+                                              <th
+                                                className=""
+                                              >
+                                                Medium
+                                              </th>
+                                            </TableCell>
+                                          </TableHeaderCell>
+                                          <TableHeaderCell
+                                            as="th"
                                             key="Circulation status"
                                           >
                                             <TableCell
@@ -445,6 +461,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                         />,
                                         "Circulation status": undefined,
                                         "ID": "item1",
+                                        "Medium": "book",
                                         "Status": "CAN_CIRCULATE",
                                       },
                                     ]
