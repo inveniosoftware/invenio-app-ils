@@ -10,7 +10,7 @@ import {
 import { listQuery } from './state/listQuery';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
-import { pick } from 'lodash/object';
+import pick from 'lodash/pick';
 
 export default class RenewedLoansList extends Component {
   constructor(props) {

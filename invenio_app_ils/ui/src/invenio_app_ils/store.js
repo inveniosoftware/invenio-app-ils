@@ -8,6 +8,7 @@ import {
   documentPendingLoans,
   documentItems,
 } from './pages/backoffice/DocumentDetails/reducer';
+import { deleteRecordModalReducer } from './pages/backoffice/components/DeleteRecordModal/reducer';
 import {
   itemDetailsReducer,
   itemPastLoansReducer,
@@ -37,6 +38,7 @@ import { notificationsReducer } from './common/components/Notifications/reducer'
 import { bookDetailsReducer } from './pages/frontsite/BookDetails/reducer';
 
 const rootReducer = combineReducers({
+  deleteRecordModal: deleteRecordModalReducer,
   documentDetails: documentDetailsReducer,
   documentPendingLoans: documentPendingLoans,
   documentItems: documentItems,

@@ -12,7 +12,7 @@ import { formatter } from '../../../../../common/components/ResultsTable/formatt
 import { SeeAllButton } from '../../../components/buttons';
 
 import _isEmpty from 'lodash/isEmpty';
-import { pick } from 'lodash/object';
+import pick from 'lodash/pick';
 
 export default class PatronCurrentLoans extends Component {
   constructor(props) {

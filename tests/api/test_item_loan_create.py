@@ -114,7 +114,7 @@ def test_loan_can_be_created_on_missing_item_by_force(client, json_headers,
             current_item_status = Item.get_record_by_pid(
                 NEW_FORCED_LOAN["item_pid"])["status"]
             assert current_item_status == Item.get_record_by_pid(
-                                        NEW_FORCED_LOAN["item_pid"])["status"]
+                NEW_FORCED_LOAN["item_pid"])["status"]
         elif item_exists:
             res = client.post(url,
                               headers=json_headers,

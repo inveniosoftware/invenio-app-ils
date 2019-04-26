@@ -10,7 +10,7 @@ import {
 } from '../../../../../common/urls';
 import { SeeAllButton } from '../../../components/buttons';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
-import { omit, pick } from 'lodash/object';
+import pick from 'lodash/pick';
 
 export default class DocumentItems extends Component {
   constructor(props) {

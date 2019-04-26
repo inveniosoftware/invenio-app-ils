@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchLocations } from './state/actions';
+import { fetchLocations, deleteLocation } from './state/actions';
 import LocationListComponent from './LocationList';
 
 const mapStateToProps = state => ({
@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchLocations: () => dispatch(fetchLocations()),
+  deleteLocation: locationPid => dispatch(deleteLocation(locationPid)),
 });
 
 export const LocationList = connect(

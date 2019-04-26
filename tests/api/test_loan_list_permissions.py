@@ -65,7 +65,6 @@ def test_anonymous_loans_search(app):
 def test_patrons_can_search_their_own_loans(client, json_headers, users,
                                             testdata):
     """Test that patrons can search their own loans."""
-
     def _validate_only_patron_loans(res, user):
         """Assert that result loans belong to the given user only."""
         patron_loans = [l for l in testdata['loans'] if

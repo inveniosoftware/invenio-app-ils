@@ -2,5 +2,9 @@
   {
     "location_pid": "locid-1",
     "name": "Main Library"
+  },
+  {
+    "location_pid": "locid-2",
+    "name": "Library of Alexandria"
   }
 ]

@@ -317,7 +317,7 @@ def data(n_docs, n_items, n_loans, n_keywords):
     with click.progressbar(documents, label="Documents") as docs:
         for doc in docs:
             rec = create_doc_record(doc)
-            for keyword in sample(rec_keywords, randint(1, n_keywords-1)):
+            for keyword in sample(rec_keywords, randint(1, n_keywords - 1)):
                 rec.add_keyword(keyword)
             rec.commit()
             rec_docs.append(rec)

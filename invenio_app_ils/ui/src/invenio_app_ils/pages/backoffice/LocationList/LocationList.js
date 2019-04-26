@@ -1,37 +1,65 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
-import { location as locationApi } from '../../../common/api';
+import {
+  location as locationApi,
+  internalLocation as internalLocationApi,
+} from '../../../common/api';
 import { openRecordEditor } from '../../../common/urls';
 import { InternalLocationList } from './components';
 import { Error, Loader, ResultsTable } from '../../../common/components';
+import { DeleteRecordModal } from '../../backoffice/components';
 import { Button } from 'semantic-ui-react';
 import { NewButton } from '../components/buttons';
 import { formatter } from '../../../common/components/ResultsTable/formatters';
-import { omit } from 'lodash/object';
+import omit from 'lodash/omit';
 
 export default class LocationList extends Component {
   constructor(props) {
     super(props);
-    this.fetchLocations = this.props.fetchLocations;
+    this.fetchLocations = props.fetchLocations;
+    this.deleteLocation = props.deleteLocation;
   }
 
   componentDidMount() {
     this.fetchLocations();
   }
 
-  prepareData(data) {
-    return data.hits.map(row => {
-      let serialized = formatter.location.toTable(row);
-      serialized['Actions'] = (
+  _handleOnRefClick(iLocPid) {
+    openRecordEditor(internalLocationApi.url, iLocPid);
+  }
+
+  _rowActions(locationPid) {
+    return (
+      <>
         <Button
+          icon={'edit'}
+          onClick={() => openRecordEditor(locationApi.url, locationPid)}
           size="small"
-          content={'Edit'}
-          onClick={() => openRecordEditor(locationApi.url, row.location_pid)}
+          title={'Edit Record'}
         />
-      );
+        <DeleteRecordModal
+          headerContent={`Are you sure you want to delete the Location
+              record with ID ${locationPid}?`}
+          deleteFunction={() => this.deleteLocation(locationPid)}
+          refType={'Internal Location'}
+          onRefClick={this._handleOnRefClick}
+          checkRefs={() =>
+            internalLocationApi.list(`location_pid:${locationPid}`)
+          }
+        />
+      </>
+    );
+  }
+
+  prepareData(data) {
+    const rows = data.hits.map(row => {
+      let serialized = formatter.location.toTable(row);
+      serialized['Actions'] = this._rowActions(row.location_pid);
       return omit(serialized, ['Created', 'Updated', 'Link']);
     });
+    rows.totalHits = data.total;
+    return rows;
   }
 
   _renderResults(data) {
@@ -57,14 +85,12 @@ export default class LocationList extends Component {
   render() {
     let { data, isLoading, error } = this.props;
     return (
-      <Loader isLoading={isLoading}>
-        <Error error={error}>
-          <Container>
-            {this._renderResults(data)}
-            <InternalLocationList />
-          </Container>
-        </Error>
-      </Loader>
+      <Container>
+        <Loader isLoading={isLoading}>
+          <Error error={error}>{this._renderResults(data)}</Error>
+        </Loader>
+        <InternalLocationList />
+      </Container>
     );
   }
 }
@@ -72,6 +98,7 @@ export default class LocationList extends Component {
 LocationList.propTypes = {
   data: PropTypes.object.isRequired,
   fetchLocations: PropTypes.func.isRequired,
+  deleteLocation: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   hasError: PropTypes.bool.isRequired,
   showMaxItems: PropTypes.number,

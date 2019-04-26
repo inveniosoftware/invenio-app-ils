@@ -11,7 +11,7 @@ from __future__ import absolute_import, print_function
 
 from datetime import timedelta
 
-from flask import current_app, url_for
+from flask import current_app
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.errors import PersistentIdentifierError

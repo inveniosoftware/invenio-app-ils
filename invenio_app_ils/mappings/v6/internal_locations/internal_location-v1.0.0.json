@@ -13,6 +13,9 @@
         "location": {
           "type": "object"
         },
+        "location_pid": {
+          "type": "keyword"
+        },
         "legacy_id": {
           "type": "keyword"
         },

@@ -10,7 +10,7 @@ import {
 } from '../../../../../../common/urls';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
-import { pick } from 'lodash/object';
+import pick from 'lodash/pick';
 
 export default class OverbookedDocumentsList extends Component {
   constructor(props) {
