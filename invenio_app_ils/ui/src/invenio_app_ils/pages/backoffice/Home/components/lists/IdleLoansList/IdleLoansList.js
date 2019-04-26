@@ -9,10 +9,9 @@ import {
   loanSearchQueryUrl,
 } from '../../../../../../common/urls';
 import { DateTime } from 'luxon';
-import { toShortDateTime } from '../../../../../../common/api/date';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
-import { pick } from 'lodash/object';
+import pick from 'lodash/pick';
 
 export default class IdleLoansList extends Component {
   constructor(props) {

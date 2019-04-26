@@ -6,7 +6,7 @@ import './AvailableItems.scss';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { item as itemApi } from '../../../../../common/api';
 import { SeeAllButton } from '../../../components/buttons/SeeAllButton';
-import { pick } from 'lodash/object';
+import pick from 'lodash/pick';
 import { viewItemDetailsUrl } from '../../../../../common/urls';
 
 export default class AvailableItems extends Component {

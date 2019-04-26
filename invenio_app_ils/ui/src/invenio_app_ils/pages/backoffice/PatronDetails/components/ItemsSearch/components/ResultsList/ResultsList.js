@@ -5,7 +5,7 @@ import { Button, Modal, Header, Icon } from 'semantic-ui-react';
 import { ResultsTableFormatter as formatter } from '../../../../../../../common/components';
 import { invenioConfig } from '../../../../../../../common/config';
 import _isEmpty from 'lodash/isEmpty';
-import { pick } from 'lodash/object';
+import pick from 'lodash/pick';
 
 export class ResultsList extends Component {
   constructor(props) {

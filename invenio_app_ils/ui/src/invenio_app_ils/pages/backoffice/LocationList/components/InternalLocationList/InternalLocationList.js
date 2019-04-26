@@ -6,7 +6,7 @@ import { Error, Loader, ResultsTable } from '../../../../../common/components';
 import { Button } from 'semantic-ui-react';
 import { NewButton } from '../../../components/buttons';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
-import { omit } from 'lodash/object';
+import omit from 'lodash/omit';
 
 export default class InternalLocationList extends Component {
   constructor(props) {

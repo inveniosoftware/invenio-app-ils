@@ -78,6 +78,25 @@ class SearchQueryError(IlsException):
         self.description = self.description.format(query=query)
 
 
+class RecordHasReferencesError(IlsException):
+    """The record which we are trying to delete has references."""
+
+    description = (
+        "Cannot delete the {record_type} {record_id} record because it has "
+        "references from {ref_type} records with ids: {ref_ids}."
+    )
+
+    def __init__(self, record_type, record_id, ref_type, ref_ids, **kwargs):
+        """Initialize RecordHasReferencesError exception."""
+        super(RecordHasReferencesError, self).__init__(**kwargs)
+        self.description = self.description.format(
+            record_type=record_type,
+            record_id=record_id,
+            ref_type=ref_type,
+            ref_ids=ref_ids
+        )
+
+
 class PatronNotFoundError(IlsException):
     """A patron could not be found."""
 

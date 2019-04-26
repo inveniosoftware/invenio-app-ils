@@ -5,7 +5,7 @@ import { openRecordEditor } from '../../../../../common/urls';
 import { ResultsTable } from '../../../../../common/components';
 import { NewButton } from '../../../components/buttons';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
-import { pick } from 'lodash/object';
+import pick from 'lodash/pick';
 
 export class ResultsList extends Component {
   constructor(props) {

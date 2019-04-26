@@ -17,7 +17,9 @@ from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
 from invenio_userprofiles.api import UserProfile
 
-from invenio_app_ils.errors import DocumentKeywordNotFoundError
+from invenio_app_ils.errors import DocumentKeywordNotFoundError, \
+    RecordHasReferencesError
+from invenio_app_ils.search.api import InternalLocationSearch
 
 from ..pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
@@ -154,6 +156,22 @@ class Location(IlsRecord):
     def create(cls, data, id_=None, **kwargs):
         """Create Location record."""
         return super(Location, cls).create(data, id_=id_, **kwargs)
+
+    def delete(self, **kwargs):
+        """Delete Location record."""
+        iloc_search = InternalLocationSearch()
+        iloc_search_res = iloc_search.search_by_location_pid(
+            location_pid=self[Location.pid_field]
+        )
+        if iloc_search_res.count():
+            raise RecordHasReferencesError(
+                record_type='Location',
+                record_id=self[Location.pid_field],
+                ref_type='Internal Location',
+                ref_ids=sorted([res[InternalLocation.pid_field]
+                                for res in iloc_search_res.scan()])
+            )
+        return super(Location, self).delete(**kwargs)
 
 
 class InternalLocation(IlsRecord):
