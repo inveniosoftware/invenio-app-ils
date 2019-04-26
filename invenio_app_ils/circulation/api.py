@@ -60,7 +60,8 @@ def create_loan(params, should_force_checkout):
 
     if patron_has_active_loan_on_item(patron_pid=params["patron_pid"],
                                       item_pid=params["item_pid"]):
-        raise PatronHasLoanOnItemError(params["patron_pid"], params["item_pid"])
+        raise PatronHasLoanOnItemError(params["patron_pid"],
+                                       params["item_pid"])
 
     if "document_pid" not in params:
         document_pid = circulation_document_retriever(params["item_pid"])
