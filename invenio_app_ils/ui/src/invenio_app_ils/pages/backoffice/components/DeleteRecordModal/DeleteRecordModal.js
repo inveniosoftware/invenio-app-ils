@@ -11,13 +11,13 @@ export default class DeleteRecordModal extends Component {
   constructor(props) {
     super(props);
     this.fetchReferences = props.fetchReferences;
-    this.deleteFunction = props.deleteFunction;
+    this.onDelete = props.onDelete;
   }
 
   toggleModal = () => this.setState({ isModalOpen: !this.state.isModalOpen });
 
   _handleDeleteClick() {
-    this.deleteFunction();
+    this.onDelete();
     this.toggleModal();
   }
 

@@ -50,6 +50,32 @@ class ItemSearch(RecordsSearch):
 
         return search
 
+    def search_by_internal_location_pid(
+        self,
+        internal_location_pid=None,
+        filter_states=None,
+        exclude_states=None
+    ):
+        """Retrieve internal locations based on the given location pid."""
+        search = self
+
+        if internal_location_pid:
+            search = search.filter(
+                "term",
+                internal_location_pid=internal_location_pid
+            )
+        else:
+            raise MissingRequiredParameterError(
+                description="internal_location_pid is required"
+            )
+
+        if filter_states:
+            search = search.filter("terms", state=filter_states)
+        elif exclude_states:
+            search = search.filter("terms", state=exclude_states)
+
+        return search
+
     def get_unavailable_items_by_document_pid(self, document_pid):
         """Retrieve items that are unavailable for a loan."""
         return self.search_by_document_pid(

@@ -41,7 +41,7 @@ export default class LocationList extends Component {
         <DeleteRecordModal
           headerContent={`Are you sure you want to delete the Location
               record with ID ${locationPid}?`}
-          deleteFunction={() => this.deleteLocation(locationPid)}
+          onDelete={() => this.deleteLocation(locationPid)}
           refType={'Internal Location'}
           onRefClick={this._handleOnRefClick}
           checkRefs={() =>

@@ -12,14 +12,13 @@ from __future__ import absolute_import, print_function
 from flask import current_app
 from invenio_accounts.models import User
 from invenio_jsonschemas import current_jsonschemas
-from invenio_oauthclient.models import RemoteAccount
 from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
 from invenio_userprofiles.api import UserProfile
 
 from invenio_app_ils.errors import DocumentKeywordNotFoundError, \
     RecordHasReferencesError
-from invenio_app_ils.search.api import InternalLocationSearch
+from invenio_app_ils.search.api import InternalLocationSearch, ItemSearch
 
 from ..pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
@@ -196,6 +195,23 @@ class InternalLocation(IlsRecord):
             )
         }
         return super(InternalLocation, cls).create(data, id_=id_, **kwargs)
+
+    def delete(self, **kwargs):
+        """Delete Location record."""
+        item_search = ItemSearch()
+        item_search_res = item_search.search_by_internal_location_pid(
+            internal_location_pid=self[InternalLocation.pid_field]
+        )
+
+        if item_search_res.count():
+            raise RecordHasReferencesError(
+                record_type='Internal Location',
+                record_id=self[InternalLocation.pid_field],
+                ref_type='Item',
+                ref_ids=sorted([res[Item.pid_field]
+                                for res in item_search_res.scan()])
+            )
+        return super(InternalLocation, self).delete(**kwargs)
 
 
 class Keyword(IlsRecord):

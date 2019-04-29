@@ -44,7 +44,7 @@ export const deleteLocation = locationPid => {
     });
 
     await locationApi
-      .del(locationPid)
+      .delete(locationPid)
       .then(response => {
         dispatch({
           type: DELETE_SUCCESS,
