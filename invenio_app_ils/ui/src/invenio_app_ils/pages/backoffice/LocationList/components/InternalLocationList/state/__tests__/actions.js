@@ -3,13 +3,15 @@ import thunk from 'redux-thunk';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as types from '../types';
-import { internalLocation as locationApi } from '../../../../../../../common/api';
+import { internalLocation as internalLocationApi } from '../../../../../../../common/api';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 const mockFetchInternalLocations = jest.fn();
-locationApi.list = mockFetchInternalLocations;
+const mockDelete = jest.fn();
+internalLocationApi.list = mockFetchInternalLocations;
+internalLocationApi.delete = mockDelete;
 
 const response = {
   data: {
@@ -30,64 +32,88 @@ const response = {
 let store;
 beforeEach(() => {
   mockFetchInternalLocations.mockClear();
+  mockDelete.mockClear();
 
   store = mockStore(initialState);
   store.clearActions();
 });
 
-describe('Internal Location details actions', () => {
-  describe('Fetch internal location details tests', () => {
-    it('should dispatch an action when fetching internal locations', done => {
+describe('Internal Location actions', () => {
+  describe('Fetch internal location details', () => {
+    it('should dispatch an action when fetching internal locations', async () => {
       mockFetchInternalLocations.mockResolvedValue(response);
+      const expectedAction = {
+        type: types.IS_LOADING,
+      };
 
-      const expectedActions = [
-        {
-          type: types.IS_LOADING,
-        },
-      ];
-
-      store.dispatch(actions.fetchInternalLocations()).then(() => {
-        expect(mockFetchInternalLocations).toHaveBeenCalled();
-        const actions = store.getActions();
-        expect(actions[0]).toEqual(expectedActions[0]);
-        done();
-      });
+      await store.dispatch(actions.fetchInternalLocations());
+      expect(mockFetchInternalLocations).toHaveBeenCalled();
+      expect(store.getActions()[0]).toEqual(expectedAction);
     });
 
-    it('should dispatch an action when internal location fetch succeeds', done => {
+    it('should dispatch an action when internal location fetch succeeds', async () => {
       mockFetchInternalLocations.mockResolvedValue(response);
+      const expectedAction = {
+        type: types.SUCCESS,
+        payload: response.data,
+      };
 
-      const expectedActions = [
-        {
-          type: types.SUCCESS,
-          payload: response.data,
-        },
-      ];
-
-      store.dispatch(actions.fetchInternalLocations()).then(() => {
-        expect(mockFetchInternalLocations).toHaveBeenCalled();
-        const actions = store.getActions();
-        expect(actions[1]).toEqual(expectedActions[0]);
-        done();
-      });
+      await store.dispatch(actions.fetchInternalLocations());
+      expect(mockFetchInternalLocations).toHaveBeenCalled();
+      expect(store.getActions()[1]).toEqual(expectedAction);
     });
 
-    it('should dispatch an action when internal location fetch fails', done => {
+    it('should dispatch an action when internal location fetch fails', async () => {
       mockFetchInternalLocations.mockRejectedValue([500, 'Error']);
 
-      const expectedActions = [
-        {
-          type: types.HAS_ERROR,
-          payload: [500, 'Error'],
-        },
-      ];
+      const expectedActions = {
+        type: types.HAS_ERROR,
+        payload: [500, 'Error'],
+      };
 
-      store.dispatch(actions.fetchInternalLocations()).then(() => {
-        expect(mockFetchInternalLocations).toHaveBeenCalled();
-        const actions = store.getActions();
-        expect(actions[1]).toEqual(expectedActions[0]);
-        done();
-      });
+      await store.dispatch(actions.fetchInternalLocations());
+      expect(mockFetchInternalLocations).toHaveBeenCalled();
+      expect(store.getActions()[1]).toEqual(expectedActions);
+    });
+  });
+
+  describe('Delete Internal Location', () => {
+    it('should dispatch an action when trigger delete internal location', async () => {
+      const expectedAction = {
+        type: types.DELETE_IS_LOADING,
+      };
+
+      store.dispatch(actions.deleteInternalLocation(1));
+      expect(mockDelete).toHaveBeenCalled();
+      expect(store.getActions()[0]).toEqual(expectedAction);
+    });
+
+    it('should dispatch an action when location delete succeeds', async () => {
+      mockDelete.mockResolvedValue({ data: { internalLocationPid: 1 } });
+      const expectedAction = {
+        type: types.DELETE_SUCCESS,
+        payload: { internalLocationPid: 1 },
+      };
+
+      await store.dispatch(actions.deleteInternalLocation(1));
+      expect(mockDelete).toHaveBeenCalled();
+      expect(store.getActions()[1]).toEqual(expectedAction);
+    });
+
+    it('should dispatch an action when intenral location delete has error', async () => {
+      const error = {
+        error: { status: 500, message: 'error' },
+      };
+      mockDelete.mockRejectedValue(error);
+
+      const expectedAction = {
+        type: types.DELETE_HAS_ERROR,
+        payload: error,
+      };
+
+      await store.dispatch(actions.deleteInternalLocation(1));
+      expect(mockDelete).toHaveBeenCalled();
+      expect(store.getActions()[1]).toEqual(expectedAction);
     });
   });
 });

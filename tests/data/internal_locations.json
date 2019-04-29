@@ -8,5 +8,10 @@
     "internal_location_pid": "ilocid-2",
     "location_pid": "locid-1",
     "name": "Internal Library 2"
+  },
+  {
+    "internal_location_pid": "ilocid-3",
+    "location_pid": "locid-1",
+    "name": "Unused Internal Library"
   }
 ]

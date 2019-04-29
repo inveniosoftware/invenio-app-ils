@@ -11,7 +11,7 @@ const mockStore = configureMockStore(middlewares);
 const mockList = jest.fn();
 const mockDelete = jest.fn();
 locationApi.list = mockList;
-locationApi.del = mockDelete;
+locationApi.delete = mockDelete;
 
 const response = {
   data: {

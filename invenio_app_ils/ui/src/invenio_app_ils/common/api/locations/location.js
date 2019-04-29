@@ -26,6 +26,6 @@ const list = async (query = '') => {
 export const location = {
   list: list,
   get: get,
-  del: del,
+  delete: del,
   url: locationURL,
 };
