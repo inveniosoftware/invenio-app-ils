@@ -29,22 +29,19 @@ beforeEach(() => {
 
 describe('Document Item tests', () => {
   describe('Fetch document item tests', () => {
-    it('should dispatch a loading action when fetching items', done => {
+    it('should dispatch a loading action when fetching items', async () => {
       mockFetchDocumentItems.mockResolvedValue(mockResponse);
 
       const expectedAction = {
         type: types.IS_LOADING,
       };
 
-      store.dispatch(actions.fetchDocumentItems('123')).then(() => {
-        expect(mockFetchDocumentItems).toHaveBeenCalledWith('document_pid:123');
-        const actions = store.getActions();
-        expect(actions[0]).toEqual(expectedAction);
-        done();
-      });
+      store.dispatch(actions.fetchDocumentItems('123'));
+      expect(mockFetchDocumentItems).toHaveBeenCalledWith('document_pid:123');
+      expect(store.getActions()[0]).toEqual(expectedAction);
     });
 
-    it('should dispatch a success action when items fetch succeeds', done => {
+    it('should dispatch a success action when items fetch succeeds', async () => {
       mockFetchDocumentItems.mockResolvedValue(mockResponse);
 
       const expectedAction = {
@@ -52,17 +49,12 @@ describe('Document Item tests', () => {
         payload: mockResponse.data,
       };
 
-      store.dispatch(actions.fetchDocumentItems('123')).then(() => {
-        expect(mockFetchDocumentItems).toHaveBeenCalledWith('document_pid:123');
-        const actions = store.getActions();
-        expect(JSON.stringify(actions[1])).toEqual(
-          JSON.stringify(expectedAction)
-        );
-        done();
-      });
+      await store.dispatch(actions.fetchDocumentItems('123'));
+      expect(mockFetchDocumentItems).toHaveBeenCalledWith('document_pid:123');
+      expect(store.getActions()[1]).toEqual(expectedAction);
     });
 
-    it('should dispatch an error action when items fetch fails', done => {
+    it('should dispatch an error action when items fetch fails', async () => {
       mockFetchDocumentItems.mockRejectedValue([500, 'Error']);
 
       const expectedAction = {
@@ -70,12 +62,9 @@ describe('Document Item tests', () => {
         payload: [500, 'Error'],
       };
 
-      store.dispatch(actions.fetchDocumentItems('123')).then(() => {
-        expect(mockFetchDocumentItems).toHaveBeenCalledWith('document_pid:123');
-        const actions = store.getActions();
-        expect(actions[1]).toEqual(expectedAction);
-        done();
-      });
+      await store.dispatch(actions.fetchDocumentItems('123'));
+      expect(mockFetchDocumentItems).toHaveBeenCalledWith('document_pid:123');
+      expect(store.getActions()[1]).toEqual(expectedAction);
     });
   });
 });

@@ -68,7 +68,7 @@ beforeEach(() => {
 
 describe('Available items tests', () => {
   describe('Fetch available items tests', () => {
-    it('should dispatch a loading action when fetching available items', done => {
+    it('should dispatch a loading action when fetching available items', async () => {
       mockList.mockResolvedValue(response);
 
       const expectedActions = [
@@ -77,14 +77,11 @@ describe('Available items tests', () => {
         },
       ];
 
-      store.dispatch(actions.fetchAvailableItems('1342')).then(() => {
-        expect(mockList).toHaveBeenCalledWith(
-          'document_pid:1342 AND status:CAN_CIRCULATE AND NOT circulation_status:*'
-        );
-        const actions = store.getActions();
-        expect(actions[0]).toEqual(expectedActions[0]);
-        done();
-      });
+      store.dispatch(actions.fetchAvailableItems('1342'));
+      expect(mockList).toHaveBeenCalledWith(
+        'document_pid:1342 AND status:CAN_CIRCULATE AND NOT circulation_status:*'
+      );
+      expect(store.getActions()[0]).toEqual(expectedActions[0]);
     });
 
     it('should dispatch a success action when available items fetch succeeds', done => {

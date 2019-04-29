@@ -7,6 +7,7 @@ export default class ItemDetailsContainer extends Component {
   constructor(props) {
     super(props);
     this.fetchItemDetails = this.props.fetchItemDetails;
+    this.deleteItem = this.props.deleteItem;
   }
 
   componentDidMount() {
@@ -33,4 +34,5 @@ export default class ItemDetailsContainer extends Component {
 
 ItemDetailsContainer.propTypes = {
   fetchItemDetails: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
 };

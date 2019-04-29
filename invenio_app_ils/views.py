@@ -199,5 +199,8 @@ def index(path=None):
     ui_config.update(
         {"editor": {"url": current_app.config["RECORDS_EDITOR_URL_PREFIX"]}}
     )
+    ui_config.update(
+        {"support_email": current_app.config["SUPPORT_EMAIL"]}
+    )
 
     return render_template("invenio_app_ils/index.html", ui_config=ui_config)
