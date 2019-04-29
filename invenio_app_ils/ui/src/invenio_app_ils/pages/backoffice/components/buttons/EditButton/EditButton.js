@@ -11,6 +11,7 @@ export default class EditButton extends Component {
         {...(disabled ? { disabled: true } : {})}
         {...(fluid ? { fluid: true } : {})}
         primary
+        icon
         labelPosition="left"
         onClick={this.props.clickHandler}
       >

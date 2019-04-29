@@ -3,14 +3,25 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Segment, Container, Header, Table } from 'semantic-ui-react';
 import { CreateNewLoanModal } from './components/CreateNewLoanModal';
-import { openRecordEditor } from '../../../../../routes/urls';
-import { item as itemApi } from '../../../../../common/api';
+import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
+import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
+import { loan as loanApi, item as itemApi } from '../../../../../common/api';
 import { invenioConfig } from '../../../../../common/config';
 import { EditButton } from '../../../components/buttons';
 
 import './ItemMetadata.scss';
 
 export default class ItemMetadata extends Component {
+  constructor(props) {
+    super(props);
+    this.deleteItem = props.deleteItem;
+  }
+
+  _handleOnRefClick(loanPid) {
+    const navUrl = BackOfficeRoutes.loanDetailsFor(loanPid);
+    window.open(navUrl, `_loan_${loanPid}`);
+  }
+
   render() {
     const { item } = this.props;
     const header = (
@@ -31,6 +42,22 @@ export default class ItemMetadata extends Component {
           />
           <EditButton
             clickHandler={() => openRecordEditor(itemApi.url, item.item_pid)}
+          />
+          <DeleteRecordModal
+            headerContent={`Are you sure you want to delete the Item
+            record with ID ${item.item_pid}?`}
+            onDelete={() => this.deleteItem(item.item_pid)}
+            refType={'Loan'}
+            onRefClick={this._handleOnRefClick}
+            checkRefs={() =>
+              loanApi.list(
+                loanApi
+                  .query()
+                  .withItemPid(item.item_pid)
+                  .withState(invenioConfig.circulation.loanActiveStates)
+                  .qs()
+              )
+            }
           />
         </Grid.Column>
       </Grid.Row>

@@ -98,6 +98,7 @@ export default class AvailableItems extends Component {
       <ResultsTable
         rows={rows}
         title={'Available items'}
+        name={'available items'}
         rowActionClickHandler={this._showDetailsHandler}
         seeAllComponent={this._seeAllButton()}
         showMaxRows={this.props.showMaxItems}

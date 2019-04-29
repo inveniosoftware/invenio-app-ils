@@ -11,6 +11,8 @@ from __future__ import absolute_import, print_function
 
 from flask import current_app
 from invenio_accounts.models import User
+from invenio_circulation.api import Loan
+from invenio_circulation.search.api import search_by_pid
 from invenio_jsonschemas import current_jsonschemas
 from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
@@ -166,6 +168,22 @@ class Item(_Item):
             )
         }
         return super(Item, cls).create(data, id_=id_, **kwargs)
+
+    def delete(self, **kwargs):
+        """Delete Item record."""
+        loan_search_res = search_by_pid(
+            item_pid=self[Item.pid_field],
+            filter_states=current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
+        )
+        if loan_search_res.count():
+            raise RecordHasReferencesError(
+                record_type='Item',
+                record_id=self[Item.pid_field],
+                ref_type='Loan',
+                ref_ids=sorted([res[Loan.pid_field]
+                                for res in loan_search_res.scan()])
+            )
+        return super(Item, self).delete(**kwargs)
 
 
 class EItem(_Item):

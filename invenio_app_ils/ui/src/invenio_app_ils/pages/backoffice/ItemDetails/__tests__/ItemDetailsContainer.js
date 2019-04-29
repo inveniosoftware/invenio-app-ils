@@ -33,6 +33,7 @@ describe('ItemDetailsContainer tests', () => {
         history={routerHistory}
         match={routerUrlParams}
         fetchItemDetails={() => {}}
+        deleteItem={() => {}}
       />
     );
     expect(component).toMatchSnapshot();
@@ -45,6 +46,7 @@ describe('ItemDetailsContainer tests', () => {
         history={routerHistory}
         match={routerUrlParams}
         fetchItemDetails={mockedFetchItemDetails}
+        deleteItem={() => {}}
       />
     );
     expect(mockedFetchItemDetails).toHaveBeenCalledWith(

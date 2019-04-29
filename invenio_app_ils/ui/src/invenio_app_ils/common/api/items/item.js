@@ -4,11 +4,24 @@ import { prepareSumQuery } from '../utils';
 
 const itemURL = '/items/';
 
-const get = itemPid => {
-  return http.get(`${itemURL}${itemPid}`).then(response => {
-    response.data = serializer.fromJSON(response.data);
-    return response;
-  });
+const get = async itemPid => {
+  const response = await http.get(`${itemURL}${itemPid}`);
+  response.data = serializer.fromJSON(response.data);
+  return response;
+};
+
+const del = async itemPid => {
+  const response = await http.delete(`${itemURL}${itemPid}`);
+  return response;
+};
+
+const list = async query => {
+  const response = await http.get(`${itemURL}?q=${query}`);
+  response.data.total = response.data.hits.total;
+  response.data.hits = response.data.hits.hits.map(hit =>
+    serializer.fromJSON(hit)
+  );
+  return response;
 };
 
 class QueryBuilder {
@@ -63,19 +76,10 @@ const queryBuilder = () => {
   return new QueryBuilder();
 };
 
-const list = query => {
-  return http.get(`${itemURL}?q=${query}`).then(response => {
-    response.data.total = response.data.hits.total;
-    response.data.hits = response.data.hits.hits.map(hit =>
-      serializer.fromJSON(hit)
-    );
-    return response;
-  });
-};
-
 export const item = {
   query: queryBuilder,
   list: list,
   get: get,
+  delete: del,
   url: itemURL,
 };
