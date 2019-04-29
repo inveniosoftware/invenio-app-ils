@@ -96,8 +96,6 @@ export class ResultsList extends Component {
       serialized['Actions'] = this.actions(row, row.metadata.status);
       return pick(serialized, [
         'ID',
-        'Barcode',
-        'Document ID',
         'Status',
         'Medium',
         'Circulation status',

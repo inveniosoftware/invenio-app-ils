@@ -6,7 +6,7 @@ import _isEmpty from 'lodash/isEmpty';
 import { DefaultFallbackComponent } from './DefaultFallbackComponent';
 
 const isAPIError = error => {
-  return _get(error, 'response.data.error_module') !== undefined;
+  return _get(error, 'response.data.message') !== undefined;
 };
 
 export const shouldShowErrorPage = error => {

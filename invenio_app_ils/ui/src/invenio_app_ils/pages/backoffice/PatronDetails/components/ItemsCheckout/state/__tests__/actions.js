@@ -20,7 +20,6 @@ const item = { item_pid: '2' };
 const user_pid = '2';
 const shouldForceCheckout = false;
 const doForceCheckout = true;
-const postURL = ApiURLS.loans.request;
 
 sessionManager.user = { id: '2', locationPid: '2' };
 
@@ -47,7 +46,7 @@ describe('ItemsCheckout actions tests', () => {
 
       store.dispatch(actions.checkoutItem(item, user_pid)).then(() => {
         expect(mockPOST).toHaveBeenCalledWith(
-          postURL,
+          ApiURLS.loans.create,
           item.item_pid,
           loan,
           sessionManager.user.id,
@@ -74,7 +73,7 @@ describe('ItemsCheckout actions tests', () => {
         .dispatch(actions.checkoutItem(item, user_pid, doForceCheckout))
         .then(() => {
           expect(mockPOST).toHaveBeenCalledWith(
-            postURL,
+            ApiURLS.loans.create,
             item.item_pid,
             loan,
             sessionManager.user.id,
@@ -100,7 +99,7 @@ describe('ItemsCheckout actions tests', () => {
 
       store.dispatch(actions.checkoutItem(item, user_pid)).then(() => {
         expect(mockPOST).toHaveBeenCalledWith(
-          postURL,
+          ApiURLS.loans.create,
           item.item_pid,
           loan,
           sessionManager.user.id,
@@ -125,7 +124,7 @@ describe('ItemsCheckout actions tests', () => {
 
       store.dispatch(actions.checkoutItem(item, user_pid)).then(() => {
         expect(mockPOST).toHaveBeenCalledWith(
-          postURL,
+          ApiURLS.loans.create,
           item.item_pid,
           loan,
           sessionManager.user.id,

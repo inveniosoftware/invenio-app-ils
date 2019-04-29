@@ -23,6 +23,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   isLoading: state.patronDetails.isLoading,
   items: state.itemsSearchInput.data,
+  error: state.itemsSearchInput.error,
   hasError: state.itemsSearchInput.hasError,
   queryString: state.itemsSearchInput.itemCheckoutQueryString,
 });

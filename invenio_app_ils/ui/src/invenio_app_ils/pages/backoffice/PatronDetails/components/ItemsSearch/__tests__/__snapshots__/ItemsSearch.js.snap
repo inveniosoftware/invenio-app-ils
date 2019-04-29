@@ -262,9 +262,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                 content="Checkout"
                                 onClick={[Function]}
                               />,
-                              "Barcode": "44444",
                               "Circulation status": undefined,
-                              "Document ID": "doc1",
                               "ID": "item1",
                               "Medium": "book",
                               "Status": "CAN_CIRCULATE",
@@ -321,8 +319,6 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                   columns={
                                     Array [
                                       "ID",
-                                      "Barcode",
-                                      "Document ID",
                                       "Status",
                                       "Medium",
                                       "Circulation status",
@@ -376,36 +372,6 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                                 className="two wide"
                                               >
                                                 ID
-                                              </th>
-                                            </TableCell>
-                                          </TableHeaderCell>
-                                          <TableHeaderCell
-                                            as="th"
-                                            key="Barcode"
-                                          >
-                                            <TableCell
-                                              as="th"
-                                              className=""
-                                            >
-                                              <th
-                                                className=""
-                                              >
-                                                Barcode
-                                              </th>
-                                            </TableCell>
-                                          </TableHeaderCell>
-                                          <TableHeaderCell
-                                            as="th"
-                                            key="Document ID"
-                                          >
-                                            <TableCell
-                                              as="th"
-                                              className=""
-                                            >
-                                              <th
-                                                className=""
-                                              >
-                                                Document ID
                                               </th>
                                             </TableCell>
                                           </TableHeaderCell>
@@ -478,8 +444,6 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                   columns={
                                     Array [
                                       "ID",
-                                      "Barcode",
-                                      "Document ID",
                                       "Status",
                                       "Medium",
                                       "Circulation status",
@@ -495,9 +459,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                           content="Checkout"
                                           onClick={[Function]}
                                         />,
-                                        "Barcode": "44444",
                                         "Circulation status": undefined,
-                                        "Document ID": "doc1",
                                         "ID": "item1",
                                         "Medium": "book",
                                         "Status": "CAN_CIRCULATE",
@@ -543,32 +505,8 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                           </TableCell>
                                           <TableCell
                                             as="td"
-                                            data-test="Barcode-item1"
-                                            key="1-item1"
-                                          >
-                                            <td
-                                              className=""
-                                              data-test="Barcode-item1"
-                                            >
-                                              44444
-                                            </td>
-                                          </TableCell>
-                                          <TableCell
-                                            as="td"
-                                            data-test="Document ID-item1"
-                                            key="2-item1"
-                                          >
-                                            <td
-                                              className=""
-                                              data-test="Document ID-item1"
-                                            >
-                                              doc1
-                                            </td>
-                                          </TableCell>
-                                          <TableCell
-                                            as="td"
                                             data-test="Status-item1"
-                                            key="3-item1"
+                                            key="1-item1"
                                           >
                                             <td
                                               className=""
@@ -580,7 +518,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                           <TableCell
                                             as="td"
                                             data-test="Medium-item1"
-                                            key="4-item1"
+                                            key="2-item1"
                                           >
                                             <td
                                               className=""
@@ -592,7 +530,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                           <TableCell
                                             as="td"
                                             data-test="Circulation status-item1"
-                                            key="5-item1"
+                                            key="3-item1"
                                           >
                                             <td
                                               className=""
@@ -604,7 +542,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                           <TableCell
                                             as="td"
                                             data-test="Actions-item1"
-                                            key="6-item1"
+                                            key="4-item1"
                                           >
                                             <td
                                               className=""
@@ -631,7 +569,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                 </ResultsTableBody>
                                 <ResultsTableFooter
                                   allRowsNumber={1}
-                                  columnsNumber={7}
+                                  columnsNumber={5}
                                   seeAllComponent={null}
                                   showMaxRows={10}
                                 />
