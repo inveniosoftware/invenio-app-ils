@@ -244,6 +244,7 @@ DEBUG = True
 DEBUG_TB_ENABLED = True
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
+
 _DOCID_CONVERTER = (
     'pid(docid, record_class="invenio_app_ils.records.api:Document")'
 )
@@ -555,6 +556,20 @@ CIRCULATION_REST_ENDPOINTS = dict(
 # RECORDS REST sort options
 # =========================
 RECORDS_REST_SORT_OPTIONS = dict(
+    documents=dict(  # DocumentSearch.Meta.index
+        bestmatch=dict(
+            fields=['-_score'],
+            title='Best match',
+            default_order='asc',
+            order=2
+        ),
+        mostrecent=dict(
+            fields=['_updated'],
+            title='Newest',
+            default_order='asc',
+            order=1
+        )
+    ),
     items=dict(  # ItemSearch.Meta.index
         bestmatch=dict(
             fields=['-_score'],
@@ -584,7 +599,6 @@ RECORDS_REST_SORT_OPTIONS = dict(
         )
     ),
 )
-
 
 # RECORDS REST facets
 # =========================

@@ -14,7 +14,7 @@ export default class Home extends Component {
           <Grid.Column width={2} className="sidebar-container">
             <MenuSidebar menuItems={SIDEBAR_MENU_ITEMS} />
           </Grid.Column>
-          <Grid.Column className="book-list-container">
+          <Grid.Column className="document-list-container">
             <div className="home-banner">
               <div className="home-title">CERN Library</div>
               <div className="home-description">

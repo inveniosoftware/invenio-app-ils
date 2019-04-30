@@ -29,7 +29,7 @@ ils = WebpackBundle(
         "react-redux": "^5.1.0",
         "react-router-dom": "^4.3.1",
         "react-scripts": "2.1.1",
-        "react-searchkit": "0.3.0",
+        "react-searchkit": "0.4.0",
         "redux": "^4.0.1",
         "redux-thunk": "^2.3.0",
         "semantic-ui-css": "^2.4.1",

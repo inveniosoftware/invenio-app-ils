@@ -1,3 +1,4 @@
 export * from './components';
 export { Home } from './Home';
-export { BookDetailsContainer } from './BookDetails';
+export { DocumentsDetailsContainer } from './DocumentsDetails';
+export { DocumentsSearch } from './DocumentsSearch';
