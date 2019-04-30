@@ -1,5 +1,5 @@
 import { location as locationApi } from '../../../../common/api';
-import { TIMEOUT_DELAY } from '../../../../common/config';
+import { ES_DELAY } from '../../../../common/config';
 import {
   IS_LOADING,
   SUCCESS,
@@ -58,7 +58,7 @@ export const deleteLocation = locationPid => {
               `The location ${locationPid} has been deleted.`
             )
           );
-        }, TIMEOUT_DELAY);
+        }, ES_DELAY);
       })
       .catch(error => {
         dispatch({

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ResultsTable } from '../../../../../../../common/components';
 import { Button, Modal, Header, Icon } from 'semantic-ui-react';
 import { ResultsTableFormatter as formatter } from '../../../../../../../common/components';
-import { invenioConfig } from '../../../../../../../common/config';
+import { invenioConfig, ES_DELAY } from '../../../../../../../common/config';
 import _isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
 
@@ -25,7 +25,7 @@ export class ResultsList extends Component {
       this.clearResults();
       setTimeout(() => {
         this.fetchPatronCurrentLoans(patron);
-      }, 3000);
+      }, ES_DELAY);
     });
 
   actions(item, itemState) {

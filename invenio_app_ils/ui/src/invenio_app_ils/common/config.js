@@ -8,4 +8,4 @@ export const invenioConfig = getInvenioConfig();
 
 // NOTE: the delay that is used when we fire a request with setTimeOut
 // in order to give some time to elastic search to index.
-export const TIMEOUT_DELAY = 3000;
+export const ES_DELAY = 3000;

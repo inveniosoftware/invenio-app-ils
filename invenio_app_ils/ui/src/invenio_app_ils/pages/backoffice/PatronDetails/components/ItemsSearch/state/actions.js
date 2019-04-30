@@ -5,6 +5,7 @@ import {
   QUERY_STRING_UPDATE,
   CLEAR_SEARCH,
 } from './types';
+import { ES_DELAY } from '../../../../../../common/config';
 import { item as itemApi } from '../../../../../../common/api';
 import { fetchPatronCurrentLoans } from '../../PatronCurrentLoans/state/actions';
 import { sendErrorNotification } from '../../../../../../common/components/Notifications';
@@ -55,5 +56,5 @@ export const clearResults = () => {
 };
 
 export const fetchUpdatedCurrentLoans = patronPid => {
-  return fetchPatronCurrentLoans(patronPid, 3000);
+  return fetchPatronCurrentLoans(patronPid, ES_DELAY);
 };
