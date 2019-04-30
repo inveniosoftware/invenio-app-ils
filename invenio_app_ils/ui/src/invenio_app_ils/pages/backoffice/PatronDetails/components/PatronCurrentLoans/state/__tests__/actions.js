@@ -4,6 +4,7 @@ import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as types from '../types';
 import { loan as loanApi } from '../../../../../../../common/api';
+import { ES_DELAY } from '../../../../../../../common/config';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -96,7 +97,7 @@ describe('Patron current loans tests', () => {
         type: types.IS_LOADING,
       };
 
-      store.dispatch(actions.fetchPatronCurrentLoans(2, 3000)).then(e => {
+      store.dispatch(actions.fetchPatronCurrentLoans(2, ES_DELAY)).then(e => {
         expect(mockFetchPatronCurrentLoans).toHaveBeenCalledWith(
           '(patron_pid:2 AND state:ITEM_ON_LOAN)&sort=-mostrecent'
         );
