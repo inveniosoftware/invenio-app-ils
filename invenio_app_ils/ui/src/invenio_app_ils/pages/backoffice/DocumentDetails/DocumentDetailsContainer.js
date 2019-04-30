@@ -6,6 +6,7 @@ import { DocumentDetails } from './components';
 export default class DocumentDetailsContainer extends Component {
   constructor(props) {
     super(props);
+    this.deleteDocument = this.props.deleteDocument;
     this.fetchDocumentDetails = this.props.fetchDocumentDetails;
   }
 
@@ -32,5 +33,6 @@ export default class DocumentDetailsContainer extends Component {
 }
 
 DocumentDetailsContainer.propTypes = {
+  deleteDocument: PropTypes.func.isRequired,
   fetchDocumentDetails: PropTypes.func.isRequired,
 };

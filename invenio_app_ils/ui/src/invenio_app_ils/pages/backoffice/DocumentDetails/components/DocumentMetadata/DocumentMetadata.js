@@ -5,8 +5,12 @@ import PropTypes from 'prop-types';
 import _isEmpty from 'lodash/isEmpty';
 import { MetadataTable } from '../../../components/MetadataTable';
 import { EditButton } from '../../../components/buttons';
-import { document as documentApi } from '../../../../../common/api';
+import {
+  document as documentApi,
+  loan as loanApi,
+} from '../../../../../common/api';
 import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
+import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 
 export default class DocumentMetadata extends Component {
   _renderKeywords(keywords) {
@@ -30,6 +34,11 @@ export default class DocumentMetadata extends Component {
     );
   }
 
+  _handleOnRefClick(loanPid) {
+    const navUrl = BackOfficeRoutes.loanDetailsFor(loanPid);
+    window.open(navUrl, `_loan_${loanPid}`);
+  }
+
   render() {
     const document = this.props.documentDetails;
     const rows = [
@@ -44,15 +53,29 @@ export default class DocumentMetadata extends Component {
     }
     const header = (
       <Grid.Row>
-        <Grid.Column width={14} verticalAlign={'middle'}>
+        <Grid.Column width={13} verticalAlign={'middle'}>
           <Header as="h1">
             Document #{document.document_pid} - {document.metadata.title}
           </Header>
         </Grid.Column>
-        <Grid.Column width={2} textAlign={'right'}>
+        <Grid.Column width={3} textAlign={'right'}>
           <EditButton
             clickHandler={() =>
               openRecordEditor(documentApi.url, document.document_pid)
+            }
+          />
+          <DeleteRecordModal
+            headerContent={`Are you sure you want to delete the Document
+            record with ID ${document.document_pid}?`}
+            onDelete={() => this.deleteDocument(document.document_pid)}
+            refType={'Loan'}
+            onRefClick={this._handleOnRefClick}
+            checkRefs={() =>
+              loanApi.list(
+                `document_pid:${
+                  document.document_pid
+                } AND state:(PENDING OR ITEM_ON_LOAN)`
+              )
             }
           />
         </Grid.Column>
