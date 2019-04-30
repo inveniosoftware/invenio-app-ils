@@ -25,6 +25,9 @@ ils users create patron1@test.ch -a --password=123456 # ID 1
 ils users create patron2@test.ch -a --password=123456 # ID 2
 ils users create admin@test.ch -a --password=123456 # ID 3
 ils users create librarian@test.ch -a --password=123456 # ID 4
+ils users create patron3@test.ch -a --password=123456 # ID 5
+ils users create patron4@test.ch -a --password=123456 # ID 6
+
 
 # assign roles
 ils roles add admin@test.ch admin

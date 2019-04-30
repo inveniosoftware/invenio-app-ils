@@ -27,6 +27,14 @@ const postAction = (
   transactionLocationPid,
   params = {}
 ) => {
+  if (
+    !loan.metadata.hasOwnProperty('item_pid') ||
+    !loan.metadata.hasOwnProperty('document_pid')
+  ) {
+    throw new Error(
+      `No 'item_pid' and 'document_pid' attached to loan '${pid}'`
+    );
+  }
   const now = DateTime.local();
   const payload = {
     transaction_user_pid: transactionUserPid,
@@ -36,15 +44,6 @@ const postAction = (
     ...params,
   };
 
-  if ('item_pid' in loan.metadata) {
-    payload['item_pid'] = loan.metadata.item_pid;
-  } else if ('document_pid' in loan.metadata) {
-    payload['document_pid'] = loan.metadata.document_pid;
-  } else {
-    throw new Error(
-      `No 'item_pid' or 'document_pid' attached to loan '${pid}'`
-    );
-  }
   return http.post(url, payload).then(response => {
     response.data = serializer.fromJSON(response.data);
     return response;
