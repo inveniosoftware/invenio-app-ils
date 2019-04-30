@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { generatePath } from 'react-router';
-import { Button, Header, Icon, Modal } from 'semantic-ui-react';
+import { Button, Header, Icon, Modal, Segment } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Loader } from '../../../../../../../common/components/Loader';
 import { BackOfficeURLS } from '../../../../../../../common/urls';
 import history from '../../../../../../../history';
 import _isEmpty from 'lodash/isEmpty';
+import { PatronsSearch } from './PatronsSearch';
 
 export default class CreateNewLoanModal extends Component {
   constructor(props) {
@@ -53,10 +54,11 @@ export default class CreateNewLoanModal extends Component {
   render() {
     const { itemPid, itemBarcode, isLoading, data, hasError } = this.props;
     const loanData = {
-      item_pid: itemPid,
-      patron_pid: '111', // FIXME: change this to be able to search for the user
+      metadata: {
+        item_pid: itemPid,
+      },
     };
-    const showInitialView = !isLoading && !hasError && _isEmpty(data);
+    const showInitialView = !isLoading;
     const showSuccessView = !isLoading && !hasError && !_isEmpty(data);
 
     return (
@@ -71,10 +73,13 @@ export default class CreateNewLoanModal extends Component {
           <Modal.Content>
             {showInitialView && (
               <p>
-                You are about to checkout the item with barcode {itemBarcode}{' '}
-                and create a new loan for the patron ID.
+                You are about to checkout the item with barcode {itemBarcode} .
+                Search for the patron below to assign to the loan:
               </p>
             )}
+            <Segment>
+              <PatronsSearch searchOnLoad={false} />
+            </Segment>
             {showSuccessView && <p>Loan created successfully.</p>}
           </Modal.Content>
         </Loader>

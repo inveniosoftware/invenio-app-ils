@@ -1,0 +1,1 @@
+export { PatronsSearch } from './PatronsSearch';

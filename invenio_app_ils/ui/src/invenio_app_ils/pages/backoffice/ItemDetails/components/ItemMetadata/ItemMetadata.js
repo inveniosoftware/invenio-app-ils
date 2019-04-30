@@ -25,6 +25,9 @@ export default class ItemMetadata extends Component {
             active={
               !invenioConfig.circulation.loanActiveStates.includes(
                 item.metadata.circulation_status.state
+              ) &&
+              invenioConfig.items.available.status.includes(
+                item.metadata.status
               )
             }
             onLoanCreatedCallback={this.props.fetchItemDetails}
@@ -52,7 +55,7 @@ export default class ItemMetadata extends Component {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell width={4}>Item Status</Table.Cell>
-                    <Table.Cell width={12}>{item.status}</Table.Cell>
+                    <Table.Cell width={12}>{item.metadata.status}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Barcode</Table.Cell>
@@ -64,7 +67,9 @@ export default class ItemMetadata extends Component {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Circulation Restriction</Table.Cell>
-                    <Table.Cell>{item.circulation_restriction}</Table.Cell>
+                    <Table.Cell>
+                      {item.metadata.circulation_restriction}
+                    </Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Shelf</Table.Cell>
