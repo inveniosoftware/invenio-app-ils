@@ -1,7 +1,7 @@
 import reducer, { initialState } from '../reducer';
 import * as types from '../types';
 
-describe('Create new loan request for item reducer', () => {
+describe('Create new loan for item reducer', () => {
   it('should have initial state', () => {
     expect(reducer(undefined, {})).toEqual(initialState);
   });
@@ -17,16 +17,22 @@ describe('Create new loan request for item reducer', () => {
   });
 
   it('should change data state on success action', () => {
-    const loan = { item_pid: '1232423' };
+    const response = {
+      created: '2019',
+      id: 123,
+      updated: '2019',
+      links: {},
+      metadata: {},
+    };
     const action = {
       type: types.SUCCESS,
-      payload: loan,
+      payload: response,
     };
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
       newLoanCreate: {
         isLoading: false,
-        data: loan,
+        data: response,
         error: {},
         hasError: false,
       },

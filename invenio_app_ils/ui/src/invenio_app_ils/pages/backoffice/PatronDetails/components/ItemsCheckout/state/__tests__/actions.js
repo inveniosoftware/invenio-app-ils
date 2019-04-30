@@ -16,8 +16,9 @@ loanApi.postAction = mockPOST;
 const response = { data: {} };
 const expectedPayload = {};
 
-const item = { item_pid: '2' };
-const userPid = '2';
+const patronPid = '2';
+const documentPid = '123';
+const item = { item_pid: '2', metadata: { document_pid: documentPid } };
 const shouldForceCheckout = false;
 const doForceCheckout = true;
 
@@ -33,7 +34,13 @@ beforeEach(() => {
 
 describe('ItemsCheckout actions tests', () => {
   describe('POST Loan for checkout', () => {
-    const loan = { metadata: { ...item, patron_pid: userPid } };
+    const loan = {
+      metadata: {
+        item_pid: item.item_pid,
+        patron_pid: patronPid,
+        document_pid: documentPid,
+      },
+    };
 
     it('should dispatch an action when checkout', done => {
       mockPOST.mockResolvedValue(response);
@@ -44,7 +51,7 @@ describe('ItemsCheckout actions tests', () => {
         },
       ];
 
-      store.dispatch(actions.checkoutItem(item, userPid)).then(() => {
+      store.dispatch(actions.checkoutItem(item, patronPid)).then(() => {
         expect(mockPOST).toHaveBeenCalledWith(
           ApiURLS.loans.create,
           item.item_pid,
@@ -72,7 +79,7 @@ describe('ItemsCheckout actions tests', () => {
       ];
 
       store
-        .dispatch(actions.checkoutItem(item, userPid, doForceCheckout))
+        .dispatch(actions.checkoutItem(item, patronPid, doForceCheckout))
         .then(() => {
           expect(mockPOST).toHaveBeenCalledWith(
             ApiURLS.loans.create,
@@ -101,7 +108,7 @@ describe('ItemsCheckout actions tests', () => {
         },
       ];
 
-      store.dispatch(actions.checkoutItem(item, userPid)).then(() => {
+      store.dispatch(actions.checkoutItem(item, patronPid)).then(() => {
         expect(mockPOST).toHaveBeenCalledWith(
           ApiURLS.loans.create,
           item.item_pid,
@@ -128,7 +135,7 @@ describe('ItemsCheckout actions tests', () => {
         },
       ];
 
-      store.dispatch(actions.checkoutItem(item, userPid)).then(() => {
+      store.dispatch(actions.checkoutItem(item, patronPid)).then(() => {
         expect(mockPOST).toHaveBeenCalledWith(
           ApiURLS.loans.create,
           item.item_pid,

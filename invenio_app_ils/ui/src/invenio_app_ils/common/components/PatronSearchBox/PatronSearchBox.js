@@ -68,6 +68,7 @@ export class PatronSearchBox extends Component {
         onSearchChange={this.handleSearchChange}
         results={results}
         value={value}
+        disabled={this.props.disabledSearch}
       />
     );
   };
@@ -80,4 +81,9 @@ export class PatronSearchBox extends Component {
 PatronSearchBox.propTypes = {
   minCharacters: PropTypes.number.isRequired,
   handleUpdateSelection: PropTypes.func.isRequired,
+  disabledSearch: PropTypes.bool,
+};
+
+PatronSearchBox.defaultPropTypes = {
+  disabledSearch: false,
 };
