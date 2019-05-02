@@ -8,10 +8,12 @@ import {
 } from './types';
 
 export const initialState = {
-  isLoading: true,
-  hasError: false,
-  data: {},
-  error: {},
+  document: {
+    isLoading: true,
+    hasError: false,
+    data: {},
+    error: {},
+  },
 };
 
 export default (state = initialState, action) => {
@@ -21,31 +23,37 @@ export default (state = initialState, action) => {
     case SUCCESS:
       return {
         ...state,
-        isLoading: false,
-        data: action.payload,
-        error: {},
-        hasError: false,
+        document: {
+          isLoading: false,
+          data: action.payload,
+          error: {},
+          hasError: false,
+        },
       };
     case HAS_ERROR:
       return {
         ...state,
-        isLoading: false,
-        error: action.payload,
-        hasError: true,
+        document: {
+          isLoading: false,
+          error: action.payload,
+          hasError: true,
+        },
       };
     case DELETE_IS_LOADING:
-      return { ...state, isLoading: true };
+      return { ...state, document: { isLoading: true } };
     case DELETE_SUCCESS:
       return {
         ...state,
-        isLoading: true,
+        document: { isLoading: true },
       };
     case DELETE_HAS_ERROR:
       return {
         ...state,
-        isLoading: false,
-        error: action.payload,
-        hasError: true,
+        document: {
+          isLoading: false,
+          error: action.payload,
+          hasError: true,
+        },
       };
     default:
       return state;

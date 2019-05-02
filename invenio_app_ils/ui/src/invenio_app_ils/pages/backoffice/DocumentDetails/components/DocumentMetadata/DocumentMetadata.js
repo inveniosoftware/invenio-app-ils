@@ -12,7 +12,7 @@ import {
 import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 
-export default class DocumentMetadata extends Component {
+export class DocumentMetadata extends Component {
   _renderKeywords(keywords) {
     return (
       <List horizontal>
@@ -40,7 +40,7 @@ export default class DocumentMetadata extends Component {
   }
 
   render() {
-    const document = this.props.documentDetails;
+    const document = this.props.data;
     const rows = [
       { name: 'Title', value: document.metadata.title },
       { name: 'Authors', value: document.metadata.authors },
@@ -104,5 +104,21 @@ export default class DocumentMetadata extends Component {
 }
 
 DocumentMetadata.propTypes = {
-  documentDetails: PropTypes.object.isRequired,
+  data: PropTypes.oneOfType([
+    () => null,
+    PropTypes.shape({
+      document_pid: PropTypes.string.isRequired,
+      metadata: PropTypes.shape({
+        abstracts: PropTypes.arrayOf(PropTypes.string).isRequired,
+        authors: PropTypes.arrayOf(PropTypes.string).isRequired,
+        title: PropTypes.string.isRequired,
+        keywords: PropTypes.arrayOf(
+          PropTypes.shape({
+            keyword_pid: PropTypes.string,
+            name: PropTypes.string,
+          })
+        ),
+      }).isRequired,
+    }).isRequired,
+  ]).isRequired,
 };

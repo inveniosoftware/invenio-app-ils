@@ -4,7 +4,14 @@ import { withRouter } from 'react-router-dom';
 import { deleteDocument, fetchDocumentDetails } from './state/actions';
 import DocumentDetailsContainerComponent from './DocumentDetailsContainer';
 
-const mapDispatchToProps = dispatch => ({
+const mapStateToProps = state => ({
+  isLoading: state.documentDetails.isLoading,
+  data: state.documentDetails.data,
+  error: state.documentDetails.error,
+  hasError: state.documentDetails.hasError,
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchDocumentDetails: documentPid =>
     dispatch(fetchDocumentDetails(documentPid)),
   deleteDocument: documentPid => dispatch(deleteDocument(documentPid)),
@@ -13,7 +20,7 @@ const mapDispatchToProps = dispatch => ({
 export const DocumentDetailsContainer = compose(
   withRouter,
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )
 )(DocumentDetailsContainerComponent);

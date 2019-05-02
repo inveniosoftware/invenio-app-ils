@@ -20,7 +20,6 @@ export const fetchDocumentDetails = documentPid => {
     dispatch({
       type: IS_LOADING,
     });
-
     await documentApi
       .get(documentPid)
       .then(response => {
