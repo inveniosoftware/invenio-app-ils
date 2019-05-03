@@ -40,6 +40,19 @@ class DocumentSearch(RecordsSearch):
 
         return search
 
+    def search_by_series_pid(self, series_pid=None):
+        """Retrieve documents with the given series_pid."""
+        search = self
+
+        if series_pid:
+            search = search.filter("term", series__series_pid=series_pid)
+        else:
+            raise MissingRequiredParameterError(
+                description="series_pid is required"
+            )
+
+        return search
+
 
 class _ItemSearch(RecordsSearch):
     """Base search class for items."""
@@ -154,6 +167,16 @@ class InternalLocationSearch(RecordsSearch):
             search = search.filter("terms", state=exclude_states)
 
         return search
+
+
+class SeriesSearch(RecordsSearch):
+    """RecordsSearch for series."""
+
+    class Meta:
+        """Search only on series index."""
+
+        index = "series"
+        doc_types = None
 
 
 class PatronsSearch(RecordsSearch):

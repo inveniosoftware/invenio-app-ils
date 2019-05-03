@@ -1,10 +1,23 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Document",
+  "title": "Series",
   "type": "object",
-  "required": ["$schema", "document_pid"],
+  "required": ["$schema", "series_pid"],
   "properties": {
     "$schema": {
+      "type": "string"
+    },
+    "series_pid": {
+      "title": "Series PID",
+      "type": "string"
+    },
+    "mode_of_issuance": {
+      "title": "Mode of issuance",
+      "type": "string",
+      "enum": ["MULTIPART_MONOGRAPH", "SERIAL"]
+    },
+    "issn": {
+      "title": "ISSN",
       "type": "string"
     },
     "title": {
@@ -57,18 +70,6 @@
       "type": "string",
       "description": ""
     },
-    "circulation": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      }
-    },
-    "document_pid": {
-      "type": "string",
-      "title": "Document ID"
-    },
     "keyword_pids": {
       "type": "array",
       "items": {
@@ -76,40 +77,6 @@
       }
     },
     "keywords": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      }
-    },
-    "document_types": {
-      "items": {
-        "type": "string",
-        "enum": ["BOOK", "PROCEEDINGS", "STANDARD"],
-        "default": "BOOK"
-      },
-      "minItems": 1,
-      "title": "Document types",
-      "type": "array",
-      "uniqueItems": true
-    },
-    "series_objs": {
-      "type": "array",
-      "title": "Series items",
-      "items": {
-        "type": "object",
-        "properties": {
-          "pid": {
-            "type": "string"
-          },
-          "volume": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "series": {
       "type": "object",
       "properties": {
         "$ref": {
@@ -314,18 +281,6 @@
       "title": "List of languages of the document",
       "type": "array",
       "uniqueItems": true
-    },
-    "_computed": {
-      "type": "object",
-      "properties": {
-        "eitems": {
-          "properties": {
-            "$ref": {
-              "type": "string"
-            }
-          }
-        }
-      }
     }
   }
 }

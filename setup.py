@@ -126,6 +126,7 @@ setup(
             "locations = invenio_app_ils.mappings",
             "internal_locations = invenio_app_ils.mappings",
             "keywords = invenio_app_ils.mappings",
+            "series = invenio_app_ils.mappings",
             "patrons = invenio_app_ils.mappings"
         ],
         "invenio_pidstore.fetchers": [
@@ -138,6 +139,8 @@ setup(
             "ilocid = "
             "invenio_app_ils.pidstore.fetchers:internal_location_pid_fetcher",
             "keyid = invenio_app_ils.pidstore.fetchers:keyword_pid_fetcher",
+            "serid = "
+            "invenio_app_ils.pidstore.fetchers:series_pid_fetcher",
             "patid = invenio_app_ils.pidstore.fetchers:patron_pid_fetcher"
         ],
         "invenio_pidstore.minters": [
@@ -150,6 +153,8 @@ setup(
             "ilocid = "
             "invenio_app_ils.pidstore.minters:internal_location_pid_minter",
             "keyid = invenio_app_ils.pidstore.minters:keyword_pid_minter",
+            "serid = "
+            "invenio_app_ils.pidstore.minters:series_pid_minter",
             "patid = invenio_app_ils.pidstore.minters:patron_pid_minter"
         ],
         "invenio_access.actions": [
@@ -160,11 +165,13 @@ setup(
             "document_circulation = invenio_app_ils.records.resolver.jsonresolver.document_circulation",
             "document_eitem = invenio_app_ils.records.resolver.jsonresolver.document_eitem",
             "document_keyword = invenio_app_ils.records.resolver.jsonresolver.document_keyword",
+            "document_series = invenio_app_ils.records.resolver.jsonresolver.document_series",
             "eitem = invenio_app_ils.records.resolver.jsonresolver.eitem",
             "internal_location = invenio_app_ils.records.resolver.jsonresolver.internal_location",
             "item_document = invenio_app_ils.records.resolver.jsonresolver.item_document",
             "item_internal_location = invenio_app_ils.records.resolver.jsonresolver.item_internal_location",
             "item_loan = invenio_app_ils.records.resolver.jsonresolver.item_loan",
+            "series_keyword = invenio_app_ils.records.resolver.jsonresolver.series_keyword",
         ],
         'invenio_celery.tasks': [
             'indexer = invenio_app_ils.indexer'

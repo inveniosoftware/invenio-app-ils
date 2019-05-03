@@ -44,6 +44,7 @@ from .records.api import (  # isort:skip
     Keyword,
     Location,
     InternalLocation,
+    Series,
 )
 
 from .records.permissions import (  # isort:skip
@@ -60,6 +61,7 @@ from .search.api import (  # isort:skip
     KeywordSearch,
     LocationSearch,
     InternalLocationSearch,
+    SeriesSearch,
     PatronsSearch
 )
 
@@ -112,6 +114,9 @@ from .pidstore.pids import (  # isort:skip
     LOCATION_PID_FETCHER,
     LOCATION_PID_MINTER,
     LOCATION_PID_TYPE,
+    SERIES_PID_FETCHER,
+    SERIES_PID_MINTER,
+    SERIES_PID_TYPE,
     PATRON_PID_FETCHER,
     PATRON_PID_MINTER,
     PATRON_PID_TYPE,
@@ -282,6 +287,9 @@ _ILOCID_CONVERTER = (
 _KEYID_CONVERTER = (
     'pid(keyid, record_class="invenio_app_ils.records.api:Keyword")'
 )
+_SERID_CONVERTER = (
+    'pid(serid, record_class="invenio_app_ils.records.api:Series")'
+)
 
 # RECORDS REST
 # ============
@@ -420,6 +428,42 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         list_route="/locations/",
         item_route="/locations/<{0}:pid_value>".format(_LOCID_CONVERTER),
+        default_media_type="application/json",
+        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        error_handlers=dict(),
+        read_permission_factory_imp=record_read_permission_factory,
+        create_permission_factory_imp=record_create_permission_factory,
+        update_permission_factory_imp=record_update_permission_factory,
+        delete_permission_factory_imp=record_delete_permission_factory,
+    ),
+    serid=dict(
+        pid_type=SERIES_PID_TYPE,
+        pid_minter=SERIES_PID_MINTER,
+        pid_fetcher=SERIES_PID_FETCHER,
+        search_class=SeriesSearch,
+        record_class=Series,
+        record_loaders={
+            "application/json": (
+                "invenio_app_ils.records.loaders:series_loader"
+            ),
+            "application/json-patch+json": (
+                lambda: request.get_json(force=True)
+            ),
+        },
+        record_serializers={
+            "application/json": (
+                "invenio_app_ils.records.serializers:json_v1_response"
+            ),
+        },
+        search_serializers={
+            "application/json": (
+                "invenio_records_rest.serializers:json_v1_search"
+            )
+        },
+        list_route="/series/",
+        item_route="/series/<{0}:pid_value>".format(
+            _SERID_CONVERTER
+        ),
         default_media_type="application/json",
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),

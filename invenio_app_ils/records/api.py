@@ -30,6 +30,7 @@ from ..pidstore.pids import (  # isort:skip
     LOCATION_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
     KEYWORD_PID_TYPE,
+    SERIES_PID_TYPE,
 )
 
 
@@ -67,6 +68,9 @@ class Document(IlsRecord):
     _eitem_resolver_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/eitems"
     )
+    _series_resolver_path = (
+        "{scheme}://{host}/api/resolver/documents/{document_pid}/series"
+    )
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
@@ -78,6 +82,7 @@ class Document(IlsRecord):
                 document_pid=data[cls.pid_field],
             )
         }
+        data.setdefault("keyword_pids", [])
         data["keywords"] = {
             "$ref": cls._keyword_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
@@ -85,7 +90,14 @@ class Document(IlsRecord):
                 document_pid=data[cls.pid_field],
             )
         }
-        data.setdefault("keyword_pids", [])
+        data.setdefault("series_objs", [])
+        data["series"] = {
+            "$ref": cls._series_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                document_pid=data[cls.pid_field],
+            )
+        }
 
         data.setdefault("_computed", {})
         data['_computed']["eitems"] = {
@@ -369,3 +381,28 @@ class Patron:
             name=self.profile.full_name if self.profile else "",
             email=self.user.email,
         )
+
+
+class Series(IlsRecord):
+    """Series record class."""
+
+    pid_field = "series_pid"
+    _pid_type = SERIES_PID_TYPE
+    _schema = "series/series-v1.0.0.json"
+
+    _keyword_resolver_path = (
+        "{scheme}://{host}/api/resolver/series/{series_pid}/keywords"
+    )
+
+    @classmethod
+    def create(cls, data, id_=None, **kwargs):
+        """Create Series record."""
+        data["keywords"] = {
+            "$ref": cls._keyword_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                series_pid=data[cls.pid_field],
+            )
+        }
+        data.setdefault("keyword_pids", [])
+        return super(Series, cls).create(data, id_=id_, **kwargs)

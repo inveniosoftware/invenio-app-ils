@@ -39,6 +39,26 @@
             }
           }
         },
+        "series": {
+          "type": "object",
+          "properties": {
+            "series_pid": {
+              "type": "keyword"
+            },
+            "issn": {
+              "type": "keyword"
+            },
+            "mode_of_issuance": {
+              "type": "keyword"
+            },
+            "title": {
+              "type": "keyword"
+            },
+            "volume": {
+              "type": "keyword"
+            }
+          }
+        },
         "_computed": {
           "type": "object",
           "properties": {

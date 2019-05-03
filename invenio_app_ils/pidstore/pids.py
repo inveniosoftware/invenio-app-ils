@@ -50,6 +50,13 @@ KEYWORD_PID_MINTER = "keyid"
 KEYWORD_PID_FETCHER = "keyid"
 """Fetcher PID for Keywords."""
 
+SERIES_PID_TYPE = "serid"
+"""Persistent Identifier for Series."""
+SERIES_PID_MINTER = "serid"
+"""Minter PID for Series."""
+SERIES_PID_FETCHER = "serid"
+"""Fetcher PID for Series."""
+
 PATRON_PID_TYPE = "patid"
 """Persistent Identifier for patrons."""
 PATRON_PID_MINTER = "patid"
