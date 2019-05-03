@@ -38,6 +38,8 @@ const BackOfficeRoutesList = {
   patronsList: `${BackOfficeBase}/patrons`,
   patronDetails: `${BackOfficeBase}/patrons/:patronPid`,
   locationsList: `${BackOfficeBase}/locations`,
+  seriesList: `${BackOfficeBase}/series`,
+  seriesDetails: `${BackOfficeBase}/series/:seriesPid`,
 };
 
 const BackOfficeRouteGenerators = {
@@ -56,6 +58,9 @@ const BackOfficeRouteGenerators = {
     generatePath(BackOfficeRoutesList.loanDetails, { loanPid: loanPid }),
   patronDetailsFor: patronPid =>
     generatePath(BackOfficeRoutesList.patronDetails, { patronPid: patronPid }),
+  seriesListWithQuery: qs => `${BackOfficeRoutesList.seriesList}?q=${qs}`,
+  seriesDetailsFor: seriesPid =>
+    generatePath(BackOfficeRoutesList.seriesDetails, { seriesPid: seriesPid }),
 };
 
 export const BackOfficeRoutes = {

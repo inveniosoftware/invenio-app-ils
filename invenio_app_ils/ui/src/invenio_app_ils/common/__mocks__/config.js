@@ -46,6 +46,16 @@ export const invenioConfig = {
     loanActiveStates: ['ITEM_ON_LOAN'],
     loanCompletedStates: [],
   },
+  series: {
+    search: {
+      sortBy: {
+        values: [],
+        onEmptyQuery: '',
+      },
+      sortOrder: [],
+      aggs: [],
+    },
+  },
   patrons: {
     search: {
       sortBy: {

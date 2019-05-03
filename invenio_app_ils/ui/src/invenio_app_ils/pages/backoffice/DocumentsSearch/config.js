@@ -30,6 +30,7 @@ const aggsMappings = {
   keywords: 'Keywords',
   languages: 'Languages',
   items_available_for_loan: 'Available items',
+  moi: 'Series: Mode of Issuance',
 };
 const aggs = config.aggs.map(agg => {
   return { title: aggsMappings[agg], field: agg };

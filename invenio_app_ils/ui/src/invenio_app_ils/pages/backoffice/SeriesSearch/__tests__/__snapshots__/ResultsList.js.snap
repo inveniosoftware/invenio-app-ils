@@ -1,0 +1,443 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SeriesSearch ResultsList tests should not render when empty results 1`] = `
+<ResultsList
+  results={Array []}
+  viewDetailsClickHandler={[Function]}
+/>
+`;
+
+exports[`SeriesSearch ResultsList tests should render a list of results 1`] = `
+<ResultsList
+  results={
+    Array [
+      Object {
+        "created": "2018-01-01T10:05:00.000Z",
+        "id": 3,
+        "metadata": Object {
+          "abstracts": "This is an abstract",
+          "authors": Array [
+            "Author1",
+          ],
+          "series_pid": "3",
+          "title": "This is a title",
+        },
+        "series_pid": "3",
+        "updated": "2018-01-01T10:05:00.000Z",
+      },
+    ]
+  }
+  viewDetailsClickHandler={[Function]}
+>
+  <ResultsTable
+    fixed={false}
+    headerActionClickHandler={null}
+    headerActionComponent={
+      <NewButton
+        clickHandler={[Function]}
+        disabled={false}
+        fluid={false}
+        text="New series"
+      />
+    }
+    name="series"
+    rowActionClickHandler={[Function]}
+    rows={
+      Array [
+        Object {
+          "Authors": Array [
+            "Author1",
+          ],
+          "Created": "2018-01-01",
+          "ID": "3",
+          "Mode of Issuance": undefined,
+          "Title": "This is a title",
+          "Updated": "2018-01-01",
+        },
+      ]
+    }
+    seeAllComponent={null}
+    showMaxRows={10}
+    singleLine={false}
+    subtitle=""
+    title=""
+  >
+    <Segment>
+      <div
+        className="ui segment"
+      >
+        <Grid>
+          <div
+            className="ui grid"
+          >
+            <GridRow>
+              <div
+                className="row"
+              >
+                <GridColumn
+                  verticalAlign="middle"
+                  width={13}
+                >
+                  <div
+                    className="middle aligned thirteen wide column"
+                  />
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={3}
+                >
+                  <div
+                    className="right aligned three wide column"
+                  >
+                    <NewButton
+                      clickHandler={[Function]}
+                      disabled={false}
+                      fluid={false}
+                      text="New series"
+                    >
+                      <Button
+                        as="button"
+                        icon={true}
+                        labelPosition="left"
+                        onClick={[Function]}
+                        positive={true}
+                        size="small"
+                      >
+                        <button
+                          className="ui small icon positive left labeled button"
+                          onClick={[Function]}
+                        >
+                          <Icon
+                            as="i"
+                            name="plus"
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="plus icon"
+                            />
+                          </Icon>
+                          New series
+                        </button>
+                      </Button>
+                    </NewButton>
+                  </div>
+                </GridColumn>
+              </div>
+            </GridRow>
+          </div>
+        </Grid>
+        <Table
+          as="table"
+          selectable={true}
+          striped={true}
+        >
+          <table
+            className="ui selectable striped table"
+          >
+            <ResultsTableHeader
+              columns={
+                Array [
+                  "ID",
+                  "Created",
+                  "Updated",
+                  "Mode of Issuance",
+                  "Title",
+                  "Authors",
+                ]
+              }
+              withRowAction={true}
+            >
+              <TableHeader
+                as="thead"
+              >
+                <thead
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="header"
+                  >
+                    <tr
+                      className=""
+                      data-test="header"
+                    >
+                      <TableHeaderCell
+                        as="th"
+                        collapsing={true}
+                        width={2}
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                          collapsing={true}
+                          width={2}
+                        >
+                          <th
+                            className="collapsing two wide"
+                          />
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="ID"
+                        width={2}
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                          width={2}
+                        >
+                          <th
+                            className="two wide"
+                          >
+                            ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Created"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Created
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Updated"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Updated
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Mode of Issuance"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Mode of Issuance
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Title"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Title
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Authors"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Authors
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                    </tr>
+                  </TableRow>
+                </thead>
+              </TableHeader>
+            </ResultsTableHeader>
+            <ResultsTableBody
+              columns={
+                Array [
+                  "ID",
+                  "Created",
+                  "Updated",
+                  "Mode of Issuance",
+                  "Title",
+                  "Authors",
+                ]
+              }
+              rowActionClickHandler={[Function]}
+              rows={
+                Array [
+                  Object {
+                    "Authors": Array [
+                      "Author1",
+                    ],
+                    "Created": "2018-01-01",
+                    "ID": "3",
+                    "Mode of Issuance": undefined,
+                    "Title": "This is a title",
+                    "Updated": "2018-01-01",
+                  },
+                ]
+              }
+            >
+              <TableBody
+                as="tbody"
+              >
+                <tbody
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="3"
+                    key="3"
+                  >
+                    <tr
+                      className=""
+                      data-test="3"
+                    >
+                      <TableCell
+                        as="td"
+                        textAlign="center"
+                      >
+                        <td
+                          className="center aligned"
+                        >
+                          <Button
+                            as="button"
+                            circular={true}
+                            compact={true}
+                            data-test="btn-view-details-3"
+                            icon="eye"
+                            onClick={[Function]}
+                          >
+                            <button
+                              className="ui circular compact icon button"
+                              data-test="btn-view-details-3"
+                              onClick={[Function]}
+                            >
+                              <Icon
+                                as="i"
+                                name="eye"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="eye icon"
+                                />
+                              </Icon>
+                            </button>
+                          </Button>
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="ID-3"
+                        key="0-3"
+                      >
+                        <td
+                          className=""
+                          data-test="ID-3"
+                        >
+                          3
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Created-3"
+                        key="1-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Created-3"
+                        >
+                          2018-01-01
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Updated-3"
+                        key="2-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Updated-3"
+                        >
+                          2018-01-01
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Mode of Issuance-3"
+                        key="3-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Mode of Issuance-3"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Title-3"
+                        key="4-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Title-3"
+                        >
+                          This is a title
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Authors-3"
+                        key="5-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Authors-3"
+                        >
+                          Author1
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                </tbody>
+              </TableBody>
+            </ResultsTableBody>
+            <ResultsTableFooter
+              allRowsNumber={1}
+              columnsNumber={6}
+              seeAllComponent={null}
+              showMaxRows={10}
+            />
+          </table>
+        </Table>
+      </div>
+    </Segment>
+  </ResultsTable>
+</ResultsList>
+`;

@@ -35,7 +35,8 @@ from .indexer import (  # isort:skip
     ItemIndexer,
     EItemIndexer,
     LoanIndexer,
-    LocationIndexer
+    LocationIndexer,
+    SeriesIndexer,
 )
 from .records.api import (  # isort:skip
     Document,
@@ -442,6 +443,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher=SERIES_PID_FETCHER,
         search_class=SeriesSearch,
         record_class=Series,
+        indexer_class=SeriesIndexer,
         record_loaders={
             "application/json": (
                 "invenio_app_ils.records.loaders:series_loader"
@@ -744,6 +746,20 @@ RECORDS_REST_SORT_OPTIONS = dict(
             order=1
         )
     ),
+    series=dict(  # SeriesSearch.Meta.index
+        bestmatch=dict(
+            fields=['-_score'],
+            title='Best match',
+            default_order='asc',
+            order=2
+        ),
+        mostrecent=dict(
+            fields=['_updated'],
+            title='Newest',
+            default_order='asc',
+            order=1
+        )
+    ),
 )
 
 # RECORDS REST facets
@@ -772,6 +788,9 @@ RECORDS_REST_FACETS = dict(
                     ]
                 )
             ),
+            moi=dict(
+                terms=dict(field="series.mode_of_issuance")
+            ),
         ),
         filters=dict(
             document_types=terms_filter('document_types'),
@@ -784,6 +803,9 @@ RECORDS_REST_FACETS = dict(
                     "1+": {"gte": 1}
                 }
             ),
+        ),
+        post_filters=dict(
+            moi=terms_filter("series.mode_of_issuance"),
         ),
     ),
     items=dict(  # ItemSearch.Meta.index
@@ -819,6 +841,26 @@ RECORDS_REST_FACETS = dict(
         filters=dict(
             state=terms_filter('state'),
         )
+    ),
+    series=dict(  # SeriesSearch.Meta.index
+        aggs=dict(
+            moi=dict(
+                terms=dict(field="mode_of_issuance")
+            ),
+            keywords=dict(
+                terms=dict(field="keywords.name", size=FACET_KEYWORD_LIMIT),
+            ),
+            languages=dict(
+                terms=dict(field='languages')
+            ),
+        ),
+        filters=dict(
+            languages=terms_filter('languages'),
+            keywords=terms_filter("keywords.name"),
+        ),
+        post_filters=dict(
+            moi=terms_filter("mode_of_issuance"),
+        ),
     ),
 )
 
@@ -868,11 +910,13 @@ RECORDS_EDITOR_UI_CONFIG = {
         },
         "editorConfig": {
             "schemaOptions": {
-                "alwaysShow": ["title", "abstracts", "authors"],
+                "alwaysShow": ["title", "abstracts", "authors", "series_objs"],
                 "properties": {
                     "$schema": {"hidden": True},
                     "document_pid": {"hidden": True},
                     "circulation": {"hidden": True},
+                    "keywords": {"hidden": True},
+                    "series": {"hidden": True},
                 },
             },
         },
@@ -916,6 +960,27 @@ RECORDS_EDITOR_UI_CONFIG = {
                     "$schema": {"hidden": True},
                     "internal_location_pid": {"hidden": True},
                     "location": {"hidden": True},
+                },
+            },
+        },
+    },
+    "series": {
+        "recordConfig": {
+            "apiUrl": "api/series/",
+            "schema": "series/series-v1.0.0.json",
+        },
+        "editorConfig": {
+            "schemaOptions": {
+                "alwaysShow": [
+                    "mode_of_issuance",
+                    "title",
+                    "abstracts",
+                    "authors"
+                ],
+                "properties": {
+                    "$schema": {"hidden": True},
+                    "series_pid": {"hidden": True},
+                    "keywords": {"hidden": True},
                 },
             },
         },

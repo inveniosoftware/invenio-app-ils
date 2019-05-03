@@ -1,5 +1,6 @@
 import { http } from '../base';
 import { serializer } from './serializer';
+import { prepareSumQuery } from '../utils';
 
 const documentURL = '/documents/';
 
@@ -31,6 +32,7 @@ class QueryBuilder {
     this.withPendingLoansQuery = [];
     this.withKeywordQuery = [];
     this.withSortQuery = [];
+    this.withSeriesQuery = [];
   }
 
   overbooked() {
@@ -66,6 +68,16 @@ class QueryBuilder {
     return this;
   }
 
+  withSeriesPid(seriesPid) {
+    if (!seriesPid) {
+      throw TypeError('Series PID argument missing');
+    }
+    this.withSeriesQuery.push(
+      `series.series_pid:${prepareSumQuery(seriesPid)}`
+    );
+    return this;
+  }
+
   qs() {
     return this.overbookedQuery
       .concat(
@@ -73,7 +85,8 @@ class QueryBuilder {
         this.availableItemsQuery,
         this.withPendingLoansQuery,
         this.withKeywordQuery,
-        this.withSortQuery
+        this.withSortQuery,
+        this.withSeriesQuery
       )
       .join(' AND ');
   }

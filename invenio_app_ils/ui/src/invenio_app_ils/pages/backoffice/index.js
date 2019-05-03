@@ -11,3 +11,5 @@ export { PatronDetailsContainer } from './PatronDetails';
 export { PatronsSearch } from './PatronsSearch';
 export { DocumentsSearch } from './DocumentsSearch';
 export { LocationList } from './LocationList';
+export { SeriesDetailsContainer } from './SeriesDetails';
+export { SeriesSearch } from './SeriesSearch';

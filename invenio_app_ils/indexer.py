@@ -20,9 +20,9 @@ from invenio_circulation.search.api import search_by_pid as search_loans_by_pid
 from invenio_indexer.api import RecordIndexer
 
 from invenio_app_ils.records.api import Document, EItem, InternalLocation, \
-    Item, Location
-from invenio_app_ils.search.api import EItemSearch, InternalLocationSearch, \
-    ItemSearch
+    Item, Location, Series
+from invenio_app_ils.search.api import DocumentSearch, EItemSearch, \
+    InternalLocationSearch, ItemSearch
 
 indexer = RecordIndexer()
 MSG_ORIGIN = "ils-indexer: {origin_rec_type} #{origin_recid} indexed, trigger"\
@@ -294,3 +294,32 @@ class PatronsIndexer(RecordIndexer):
         """
         index = self._prefix_index(current_app, record._index)
         return (index, record._doc_type)
+
+
+@shared_task(ignore_result=True)
+def index_documents_after_series_indexed(series_pid):
+    """Index document to re-compute series information."""
+    log_func = partial(
+        _log,
+        origin_rec_type='Series',
+        origin_recid=series_pid,
+        dest_rec_type='Document')
+
+    log_func(msg=MSG_ORIGIN)
+    search = DocumentSearch()
+    for document in search.search_by_series_pid(series_pid).scan():
+        document_pid = document[Document.pid_field]
+        _index_record_by_pid(Document, document_pid, log_func)
+
+
+class SeriesIndexer(RecordIndexer):
+    """Indexer class for Series record."""
+
+    def index(self, series):
+        """Index a Series."""
+        super(SeriesIndexer, self).index(series)
+        eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
+        index_documents_after_series_indexed.apply_async(
+            (series[Series.pid_field],),
+            eta=eta,
+        )

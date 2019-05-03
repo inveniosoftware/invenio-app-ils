@@ -23,7 +23,7 @@ function formatLoanToTableView(loan) {
   };
 }
 
-function formatDocumentToTableView(document) {
+function formatDocumentToTableView(document, seriesPid = null) {
   let serialized = {
     ID: document.document_pid ? document.document_pid : document.id,
     Created: toShortDate(fromISO(document.created)),
@@ -36,6 +36,13 @@ function formatDocumentToTableView(document) {
       serialized['Requests'] = document.metadata.circulation.pending_loans;
       serialized['Items'] =
         document.metadata.circulation.items_available_for_loan;
+    }
+    // Include volume number for series if it's given
+    if (seriesPid) {
+      const seriesObj = document.metadata.series_objs.find(
+        obj => obj.pid === seriesPid
+      );
+      serialized['Volume'] = seriesObj ? seriesObj.volume : '';
     }
   }
   return serialized;
@@ -108,6 +115,20 @@ function formatInternalLocationToTableView(internalLoc) {
   return entry;
 }
 
+function formatSeriesToTableView(series) {
+  let serialized = {
+    ID: series.series_pid ? series.series_pid : series.id,
+    Created: toShortDate(fromISO(series.created)),
+    Updated: toShortDate(fromISO(series.updated)),
+  };
+  if (!isEmpty(series.metadata)) {
+    serialized['Title'] = series.metadata.title;
+    serialized['Authors'] = series.metadata.authors;
+    serialized['Mode of Issuance'] = series.metadata.mode_of_issuance;
+  }
+  return serialized;
+}
+
 function formatPatronToTableView(patron) {
   return {
     ID: patron.metadata.id,
@@ -122,5 +143,6 @@ export const formatter = {
   eitem: { toTable: formatEItemToTableView },
   location: { toTable: formatLocationToTableView },
   internalLocation: { toTable: formatInternalLocationToTableView },
+  series: { toTable: formatSeriesToTableView },
   patron: { toTable: formatPatronToTableView },
 };

@@ -1,0 +1,33 @@
+.series-search-searchbar {
+  margin-bottom: 2em;
+}
+
+.series-search-container {
+  .sorting {
+    .before {
+      margin-right: 0.5em;
+    }
+    .middle {
+      padding: 0 0.5em;
+    }
+  }
+
+  .empty-results-current {
+    font-style: italic;
+    margin-bottom: 1em;
+  }
+
+  .results-list {
+    margin: 2em 0 !important;
+  }
+
+  .aggregators {
+    display: flex;
+    flex-direction: column;
+
+    .aggregator {
+      margin-left: auto;
+      margin-bottom: 1em;
+    }
+  }
+}

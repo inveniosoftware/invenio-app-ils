@@ -1,0 +1,1104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SeriesDocuments tests should load the SeriesDocuments component 1`] = `
+<Loader>
+  <Error>
+    <ResultsTable
+      fixed={false}
+      headerActionClickHandler={null}
+      headerActionComponent={null}
+      name="documents"
+      rowActionClickHandler={[Function]}
+      rows={Array []}
+      seeAllComponent={
+        <SeeAllButton
+          clickHandler={[Function]}
+          disabled={false}
+          fluid={false}
+        />
+      }
+      showMaxRows={5}
+      singleLine={false}
+      subtitle=""
+      title="Documents"
+    />
+  </Error>
+</Loader>
+`;
+
+exports[`SeriesDocuments tests should render document 1`] = `
+<SeriesDocuments
+  data={
+    Object {
+      "hits": Array [
+        Object {
+          "ID": "1",
+          "created": "2018-01-01T10:05:00.000Z",
+          "document_pid": "document1",
+          "metadata": Object {
+            "barcode": "44444",
+            "document_pid": "document1",
+            "internal_location": Object {
+              "location": Object {
+                "name": "Somewhere",
+              },
+            },
+            "series_objs": Array [],
+            "series_pid": "doc1",
+            "shelf": "P",
+          },
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+        Object {
+          "created": "2018-01-01T10:05:00.000Z",
+          "document_pid": "document2",
+          "id": "2",
+          "metadata": Object {
+            "barcode": "44444",
+            "document_pid": "document2",
+            "internal_location": Object {
+              "location": Object {
+                "name": "Somewhere",
+              },
+            },
+            "series_objs": Array [],
+            "series_pid": "doc2",
+            "shelf": "P",
+          },
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+      ],
+      "total": 2,
+    }
+  }
+  fetchSeriesDocuments={[Function]}
+  series={
+    Object {
+      "metadata": Object {
+        "series_pid": 111,
+      },
+      "series_pid": 111,
+    }
+  }
+  showMaxDocuments={5}
+>
+  <Loader>
+    <Error>
+      <ResultsTable
+        fixed={false}
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        name="documents"
+        rowActionClickHandler={[Function]}
+        rows={
+          Array [
+            Object {
+              "Authors": undefined,
+              "ID": "document1",
+              "Title": undefined,
+              "Volume": "",
+            },
+            Object {
+              "Authors": undefined,
+              "ID": "document2",
+              "Title": undefined,
+              "Volume": "",
+            },
+          ]
+        }
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
+        }
+        showMaxRows={5}
+        singleLine={false}
+        subtitle=""
+        title="Documents"
+      >
+        <Segment>
+          <div
+            className="ui segment"
+          >
+            <Grid>
+              <div
+                className="ui grid"
+              >
+                <GridRow>
+                  <div
+                    className="row"
+                  >
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
+                    >
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Documents"
+                          subheader=""
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Documents
+                            <HeaderSubheader
+                              content=""
+                            >
+                              <div
+                                className="sub header"
+                              />
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
+            <Table
+              as="table"
+              selectable={true}
+              striped={true}
+            >
+              <table
+                className="ui selectable striped table"
+              >
+                <ResultsTableHeader
+                  columns={
+                    Array [
+                      "ID",
+                      "Volume",
+                      "Title",
+                      "Authors",
+                    ]
+                  }
+                  withRowAction={true}
+                >
+                  <TableHeader
+                    as="thead"
+                  >
+                    <thead
+                      className=""
+                    >
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="header"
+                      >
+                        <tr
+                          className=""
+                          data-test="header"
+                        >
+                          <TableHeaderCell
+                            as="th"
+                            collapsing={true}
+                            width={2}
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                              collapsing={true}
+                              width={2}
+                            >
+                              <th
+                                className="collapsing two wide"
+                              />
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="ID"
+                            width={2}
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                              width={2}
+                            >
+                              <th
+                                className="two wide"
+                              >
+                                ID
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Volume"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Volume
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Title"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Title
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Authors"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Authors
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                        </tr>
+                      </TableRow>
+                    </thead>
+                  </TableHeader>
+                </ResultsTableHeader>
+                <ResultsTableBody
+                  columns={
+                    Array [
+                      "ID",
+                      "Volume",
+                      "Title",
+                      "Authors",
+                    ]
+                  }
+                  rowActionClickHandler={[Function]}
+                  rows={
+                    Array [
+                      Object {
+                        "Authors": undefined,
+                        "ID": "document1",
+                        "Title": undefined,
+                        "Volume": "",
+                      },
+                      Object {
+                        "Authors": undefined,
+                        "ID": "document2",
+                        "Title": undefined,
+                        "Volume": "",
+                      },
+                    ]
+                  }
+                >
+                  <TableBody
+                    as="tbody"
+                  >
+                    <tbody
+                      className=""
+                    >
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="document1"
+                        key="document1"
+                      >
+                        <tr
+                          className=""
+                          data-test="document1"
+                        >
+                          <TableCell
+                            as="td"
+                            textAlign="center"
+                          >
+                            <td
+                              className="center aligned"
+                            >
+                              <Button
+                                as="button"
+                                circular={true}
+                                compact={true}
+                                data-test="btn-view-details-document1"
+                                icon="eye"
+                                onClick={[Function]}
+                              >
+                                <button
+                                  className="ui circular compact icon button"
+                                  data-test="btn-view-details-document1"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="eye"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="eye icon"
+                                    />
+                                  </Icon>
+                                </button>
+                              </Button>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="ID-document1"
+                            key="0-document1"
+                          >
+                            <td
+                              className=""
+                              data-test="ID-document1"
+                            >
+                              document1
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Volume-document1"
+                            key="1-document1"
+                          >
+                            <td
+                              className=""
+                              data-test="Volume-document1"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Title-document1"
+                            key="2-document1"
+                          >
+                            <td
+                              className=""
+                              data-test="Title-document1"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Authors-document1"
+                            key="3-document1"
+                          >
+                            <td
+                              className=""
+                              data-test="Authors-document1"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                        </tr>
+                      </TableRow>
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="document2"
+                        key="document2"
+                      >
+                        <tr
+                          className=""
+                          data-test="document2"
+                        >
+                          <TableCell
+                            as="td"
+                            textAlign="center"
+                          >
+                            <td
+                              className="center aligned"
+                            >
+                              <Button
+                                as="button"
+                                circular={true}
+                                compact={true}
+                                data-test="btn-view-details-document2"
+                                icon="eye"
+                                onClick={[Function]}
+                              >
+                                <button
+                                  className="ui circular compact icon button"
+                                  data-test="btn-view-details-document2"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="eye"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="eye icon"
+                                    />
+                                  </Icon>
+                                </button>
+                              </Button>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="ID-document2"
+                            key="0-document2"
+                          >
+                            <td
+                              className=""
+                              data-test="ID-document2"
+                            >
+                              document2
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Volume-document2"
+                            key="1-document2"
+                          >
+                            <td
+                              className=""
+                              data-test="Volume-document2"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Title-document2"
+                            key="2-document2"
+                          >
+                            <td
+                              className=""
+                              data-test="Title-document2"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Authors-document2"
+                            key="3-document2"
+                          >
+                            <td
+                              className=""
+                              data-test="Authors-document2"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                        </tr>
+                      </TableRow>
+                    </tbody>
+                  </TableBody>
+                </ResultsTableBody>
+                <ResultsTableFooter
+                  allRowsNumber={2}
+                  columnsNumber={4}
+                  seeAllComponent={
+                    <SeeAllButton
+                      clickHandler={[Function]}
+                      disabled={false}
+                      fluid={false}
+                    />
+                  }
+                  showMaxRows={5}
+                />
+              </table>
+            </Table>
+          </div>
+        </Segment>
+      </ResultsTable>
+    </Error>
+  </Loader>
+</SeriesDocuments>
+`;
+
+exports[`SeriesDocuments tests should render show a message with no documents 1`] = `
+<SeriesDocuments
+  data={
+    Object {
+      "hits": Array [],
+      "total": 0,
+    }
+  }
+  fetchSeriesDocuments={[Function]}
+  series={
+    Object {
+      "metadata": Object {
+        "series_pid": 111,
+      },
+      "series_pid": 111,
+    }
+  }
+  showMaxDocuments={5}
+>
+  <Loader>
+    <Error>
+      <ResultsTable
+        fixed={false}
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        name="documents"
+        rowActionClickHandler={[Function]}
+        rows={Array []}
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
+        }
+        showMaxRows={5}
+        singleLine={false}
+        subtitle=""
+        title="Documents"
+      >
+        <Segment>
+          <div
+            className="ui segment"
+          >
+            <Grid>
+              <div
+                className="ui grid"
+              >
+                <GridRow>
+                  <div
+                    className="row"
+                  >
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
+                    >
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Documents"
+                          subheader=""
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Documents
+                            <HeaderSubheader
+                              content=""
+                            >
+                              <div
+                                className="sub header"
+                              />
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
+            <Message
+              data-test="no-results"
+            >
+              <div
+                className="ui message"
+                data-test="no-results"
+              >
+                There are no 
+                documents
+                .
+              </div>
+            </Message>
+          </div>
+        </Segment>
+      </ResultsTable>
+    </Error>
+  </Loader>
+</SeriesDocuments>
+`;
+
+exports[`SeriesDocuments tests should render the see all button when showing only a few documents 1`] = `
+<SeriesDocuments
+  data={
+    Object {
+      "hits": Array [
+        Object {
+          "created": "2018-01-01T10:05:00.000Z",
+          "id": 1,
+          "metadata": Object {
+            "document_pid": "1",
+            "series_objs": Array [],
+            "title": "Test",
+          },
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+        Object {
+          "created": "2018-01-01T10:05:00.000Z",
+          "id": 2,
+          "metadata": Object {
+            "document_pid": "2",
+            "series_objs": Array [],
+            "title": "Test 2",
+          },
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+      ],
+      "total": 2,
+    }
+  }
+  fetchSeriesDocuments={[Function]}
+  series={
+    Object {
+      "metadata": Object {
+        "series_pid": 111,
+      },
+      "series_pid": 111,
+    }
+  }
+  showMaxDocuments={1}
+>
+  <Loader>
+    <Error>
+      <ResultsTable
+        fixed={false}
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        name="documents"
+        rowActionClickHandler={[Function]}
+        rows={
+          Array [
+            Object {
+              "Authors": undefined,
+              "ID": 1,
+              "Title": "Test",
+              "Volume": "",
+            },
+            Object {
+              "Authors": undefined,
+              "ID": 2,
+              "Title": "Test 2",
+              "Volume": "",
+            },
+          ]
+        }
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
+        }
+        showMaxRows={1}
+        singleLine={false}
+        subtitle=""
+        title="Documents"
+      >
+        <Segment>
+          <div
+            className="ui segment"
+          >
+            <Grid>
+              <div
+                className="ui grid"
+              >
+                <GridRow>
+                  <div
+                    className="row"
+                  >
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
+                    >
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Documents"
+                          subheader=""
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Documents
+                            <HeaderSubheader
+                              content=""
+                            >
+                              <div
+                                className="sub header"
+                              />
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
+            <Table
+              as="table"
+              selectable={true}
+              striped={true}
+            >
+              <table
+                className="ui selectable striped table"
+              >
+                <ResultsTableHeader
+                  columns={
+                    Array [
+                      "ID",
+                      "Volume",
+                      "Title",
+                      "Authors",
+                    ]
+                  }
+                  withRowAction={true}
+                >
+                  <TableHeader
+                    as="thead"
+                  >
+                    <thead
+                      className=""
+                    >
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="header"
+                      >
+                        <tr
+                          className=""
+                          data-test="header"
+                        >
+                          <TableHeaderCell
+                            as="th"
+                            collapsing={true}
+                            width={2}
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                              collapsing={true}
+                              width={2}
+                            >
+                              <th
+                                className="collapsing two wide"
+                              />
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="ID"
+                            width={2}
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                              width={2}
+                            >
+                              <th
+                                className="two wide"
+                              >
+                                ID
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Volume"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Volume
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Title"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Title
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Authors"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Authors
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                        </tr>
+                      </TableRow>
+                    </thead>
+                  </TableHeader>
+                </ResultsTableHeader>
+                <ResultsTableBody
+                  columns={
+                    Array [
+                      "ID",
+                      "Volume",
+                      "Title",
+                      "Authors",
+                    ]
+                  }
+                  rowActionClickHandler={[Function]}
+                  rows={
+                    Array [
+                      Object {
+                        "Authors": undefined,
+                        "ID": 1,
+                        "Title": "Test",
+                        "Volume": "",
+                      },
+                    ]
+                  }
+                >
+                  <TableBody
+                    as="tbody"
+                  >
+                    <tbody
+                      className=""
+                    >
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test={1}
+                        key="1"
+                      >
+                        <tr
+                          className=""
+                          data-test={1}
+                        >
+                          <TableCell
+                            as="td"
+                            textAlign="center"
+                          >
+                            <td
+                              className="center aligned"
+                            >
+                              <Button
+                                as="button"
+                                circular={true}
+                                compact={true}
+                                data-test="btn-view-details-1"
+                                icon="eye"
+                                onClick={[Function]}
+                              >
+                                <button
+                                  className="ui circular compact icon button"
+                                  data-test="btn-view-details-1"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="eye"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="eye icon"
+                                    />
+                                  </Icon>
+                                </button>
+                              </Button>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="ID-1"
+                            key="0-1"
+                          >
+                            <td
+                              className=""
+                              data-test="ID-1"
+                            >
+                              1
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Volume-1"
+                            key="1-1"
+                          >
+                            <td
+                              className=""
+                              data-test="Volume-1"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Title-1"
+                            key="2-1"
+                          >
+                            <td
+                              className=""
+                              data-test="Title-1"
+                            >
+                              Test
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Authors-1"
+                            key="3-1"
+                          >
+                            <td
+                              className=""
+                              data-test="Authors-1"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                        </tr>
+                      </TableRow>
+                    </tbody>
+                  </TableBody>
+                </ResultsTableBody>
+                <ResultsTableFooter
+                  allRowsNumber={2}
+                  columnsNumber={4}
+                  seeAllComponent={
+                    <SeeAllButton
+                      clickHandler={[Function]}
+                      disabled={false}
+                      fluid={false}
+                    />
+                  }
+                  showMaxRows={1}
+                >
+                  <TableFooter
+                    as="tfoot"
+                    data-test="footer"
+                    fullWidth={true}
+                  >
+                    <TableHeader
+                      as="tfoot"
+                      data-test="footer"
+                      fullWidth={true}
+                    >
+                      <tfoot
+                        className="full-width"
+                        data-test="footer"
+                      >
+                        <TableRow
+                          as="tr"
+                          cellAs="td"
+                        >
+                          <tr
+                            className=""
+                          >
+                            <TableHeaderCell
+                              as="th"
+                              colSpan={5}
+                              textAlign="right"
+                            >
+                              <TableCell
+                                as="th"
+                                className=""
+                                colSpan={5}
+                                textAlign="right"
+                              >
+                                <th
+                                  className="right aligned"
+                                  colSpan={5}
+                                >
+                                  <span>
+                                    Showing first 
+                                    1
+                                     entries of
+                                     
+                                    2
+                                     
+                                  </span>
+                                  <span>
+                                    <SeeAllButton
+                                      clickHandler={[Function]}
+                                      disabled={false}
+                                      fluid={false}
+                                    >
+                                      <Button
+                                        as="button"
+                                        onClick={[Function]}
+                                        size="small"
+                                      >
+                                        <button
+                                          className="ui small button"
+                                          onClick={[Function]}
+                                        >
+                                          See all
+                                        </button>
+                                      </Button>
+                                    </SeeAllButton>
+                                  </span>
+                                </th>
+                              </TableCell>
+                            </TableHeaderCell>
+                          </tr>
+                        </TableRow>
+                      </tfoot>
+                    </TableHeader>
+                  </TableFooter>
+                </ResultsTableFooter>
+              </table>
+            </Table>
+          </div>
+        </Segment>
+      </ResultsTable>
+    </Error>
+  </Loader>
+</SeriesDocuments>
+`;
