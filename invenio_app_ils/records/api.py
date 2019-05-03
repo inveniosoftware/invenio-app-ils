@@ -18,7 +18,8 @@ from invenio_userprofiles.api import UserProfile
 
 from invenio_app_ils.errors import DocumentKeywordNotFoundError, \
     RecordHasReferencesError
-from invenio_app_ils.search.api import InternalLocationSearch, ItemSearch
+from invenio_app_ils.search.api import DocumentSearch, \
+    InternalLocationSearch, ItemSearch
 
 from ..pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
@@ -225,6 +226,22 @@ class Keyword(IlsRecord):
     def create(cls, data, id_=None, **kwargs):
         """Create Keyword record."""
         return super(Keyword, cls).create(data, id_=id_, **kwargs)
+
+    def delete(self, **kwargs):
+        """Delete Keyword record."""
+        doc_search = DocumentSearch()
+        doc_search_res = doc_search.search_by_keyword_pid(
+            keyword_pid=self[Keyword.pid_field]
+        )
+        if doc_search_res.count():
+            raise RecordHasReferencesError(
+                record_type='Keyword',
+                record_id=self[Keyword.pid_field],
+                ref_type='Document',
+                ref_ids=sorted([res[Document.pid_field]
+                                for res in doc_search_res.scan()])
+            )
+        return super(Keyword, self).delete(**kwargs)
 
 
 class Patron():

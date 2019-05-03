@@ -52,3 +52,16 @@ def test_delete_internal_location(client, users, json_headers, testdata):
     )
     res = client.delete(url, headers=json_headers)
     assert res.status_code == 204
+
+
+def test_delete_keyword(client, users, json_headers, testdata):
+    """Test DELETE existing keyword."""
+    login_user_via_session(
+        client,
+        email=User.query.get(users["admin"].id).email
+    )
+
+    keyword_pid = 'keyid-1'
+    url = url_for('invenio_records_rest.keyid_item', pid_value=keyword_pid)
+    res = client.delete(url, headers=json_headers)
+    assert res.status_code == 204

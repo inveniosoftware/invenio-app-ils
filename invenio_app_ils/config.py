@@ -26,7 +26,7 @@ from invenio_records_rest.utils import deny_all
 from .facets import keyed_range_filter
 from .indexer import DocumentIndexer, ItemIndexer, LoanIndexer, LocationIndexer
 from .jwt import ils_jwt_create_token
-from .records.api import Document, InternalLocation, Item, Location
+from .records.api import Document, InternalLocation, Item, Keyword, Location
 from .records.jsonresolver.loan import item_resolver
 
 from .records.permissions import (  # isort:skip
@@ -40,6 +40,7 @@ from .search.api import (  # isort:skip
     DocumentSearch,
     InternalLocationSearch,
     ItemSearch,
+    KeywordSearch,
     LocationSearch,
     PatronsSearch
 )
@@ -90,6 +91,9 @@ from .pidstore.pids import (  # isort:skip
     ITEM_PID_FETCHER,
     ITEM_PID_MINTER,
     ITEM_PID_TYPE,
+    KEYWORD_PID_TYPE,
+    KEYWORD_PID_MINTER,
+    KEYWORD_PID_FETCHER,
     LOCATION_PID_FETCHER,
     LOCATION_PID_MINTER,
     LOCATION_PID_TYPE,
@@ -256,6 +260,9 @@ _LOCID_CONVERTER = (
 )
 _ILOCID_CONVERTER = (
     'pid(ilocid, record_class="invenio_app_ils.records.api:InternalLocation")'
+)
+_KEYID_CONVERTER = (
+    'pid(keyid, record_class="invenio_app_ils.records.api:Keyword")'
 )
 
 # RECORDS REST
@@ -428,6 +435,34 @@ RECORDS_REST_ENDPOINTS = dict(
         create_permission_factory_imp=deny_all,
         update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all,
+    ),
+    keyid=dict(
+        pid_type=KEYWORD_PID_TYPE,
+        pid_minter=KEYWORD_PID_MINTER,
+        pid_fetcher=KEYWORD_PID_FETCHER,
+        search_class=KeywordSearch,
+        record_class=Keyword,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            "application/json": (
+                "invenio_records_rest.serializers:json_v1_search"
+            )
+        },
+        item_route="/keywords/<{0}:pid_value>".format(
+            _KEYID_CONVERTER
+        ),
+        list_route="/keywords/",
+        default_media_type="application/json",
+        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        error_handlers=dict(),
+        list_permission_factory_imp=backoffice_permission,
+        read_permission_factory_imp=record_read_permission_factory,
+        create_permission_factory_imp=record_create_permission_factory,
+        update_permission_factory_imp=deny_all,
+        delete_permission_factory_imp=backoffice_permission,
     ),
 )
 
