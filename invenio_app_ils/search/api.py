@@ -21,6 +21,25 @@ class DocumentSearch(RecordsSearch):
         index = "documents"
         doc_types = None
 
+    def search_by_keyword_pid(self, keyword_pid=None, filter_states=None,
+                              exclude_states=None):
+        """Retrieve documents based on the given keyword pid."""
+        search = self
+
+        if keyword_pid:
+            search = search.filter("term", keyword_pids=keyword_pid)
+        else:
+            raise MissingRequiredParameterError(
+                description="keyword_pid is required"
+            )
+
+        if filter_states:
+            search = search.filter("terms", state=filter_states)
+        elif exclude_states:
+            search = search.filter("terms", state=exclude_states)
+
+        return search
+
 
 class ItemSearch(RecordsSearch):
     """RecordsSearch for items."""
@@ -130,4 +149,14 @@ class PatronsSearch(RecordsSearch):
         """Search only on items index."""
 
         index = "patrons"
+        doc_types = None
+
+
+class KeywordSearch(RecordsSearch):
+    """Search for keywords."""
+
+    class Meta:
+        """Search only on keywords index."""
+
+        index = "keywords"
         doc_types = None
