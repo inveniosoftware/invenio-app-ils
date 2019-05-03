@@ -4,10 +4,7 @@ import { Loader, Error } from '../../../../../common/components';
 import { ResultsTable } from '../../../../../common/components';
 import { loan as loanApi } from '../../../../../common/api';
 
-import {
-  loanSearchQueryUrl,
-  viewLoanDetailsUrl,
-} from '../../../../../common/urls';
+import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
 import pick from 'lodash/pick';
@@ -16,8 +13,8 @@ export default class DocumentPendingLoans extends Component {
   constructor(props) {
     super(props);
     this.fetchPendingLoans = props.fetchPendingLoans;
-    this.showDetailsUrl = viewLoanDetailsUrl;
-    this.seeAllUrl = loanSearchQueryUrl;
+    this.showDetailsUrl = BackOfficeRoutes.loanDetailsFor;
+    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
   }
 
   componentDidMount() {

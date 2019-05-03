@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AuthenticationGuard tests should load the AuthenticationGuard component 1`] = `
-<Component
-  component={[Function]}
-/>
-`;
+exports[`AuthenticationGuard tests should load the AuthenticationGuard component 1`] = `<authorizedButton />`;
 
 exports[`AuthenticationGuard tests should render the Authorized component when user does not have the needed roles 1`] = `
 <AuthenticationGuard

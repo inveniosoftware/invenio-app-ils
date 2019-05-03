@@ -4,6 +4,8 @@ import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../../common/api/date';
 import LoansCard from '../LoansCard';
 
+jest.mock('../../../../../../../common/config');
+
 Settings.defaultZoneName = 'utc';
 
 describe('LoansCard tests', () => {

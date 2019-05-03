@@ -4,7 +4,7 @@ import {
   internalLocation as internalLocationApi,
   item as itemApi,
 } from '../../../../../common/api';
-import { openRecordEditor } from '../../../../../common/urls';
+import { openRecordEditor } from '../../../../../routes/urls';
 import { Error, Loader, ResultsTable } from '../../../../../common/components';
 import { Button } from 'semantic-ui-react';
 import { NewButton } from '../../../components/buttons';

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon, Menu, Dropdown } from 'semantic-ui-react';
-import { BackOfficeURLS } from '../../../../common/urls';
 import {
   authenticationService,
   sessionManager,
 } from '../../../../authentication/services';
-import { FrontSiteURLS } from '../../../../common/urls';
+import { FrontSiteRoutes, BackOfficeRoutes } from '../../../../routes/urls';
 import { LoginButton } from '../../../../common/components';
 import './Header.scss';
 
@@ -30,7 +29,7 @@ export default class Header extends Component {
           <Dropdown.Divider />
           <Dropdown.Item
             onClick={() => {
-              this.props.history.push(BackOfficeURLS.home);
+              this.props.history.push(BackOfficeRoutes.home);
             }}
           >
             Backoffice
@@ -38,7 +37,7 @@ export default class Header extends Component {
           <Dropdown.Divider />
           <Dropdown.Item
             onClick={() => {
-              authenticationService.logout(FrontSiteURLS.home);
+              authenticationService.logout(FrontSiteRoutes.home);
             }}
           >
             Sign out
@@ -53,7 +52,7 @@ export default class Header extends Component {
     return !sessionManager.authenticated ? (
       <LoginButton
         clickHandler={() => {
-          authenticationService.login(FrontSiteURLS.home);
+          authenticationService.login(FrontSiteRoutes.home);
         }}
       />
     ) : (

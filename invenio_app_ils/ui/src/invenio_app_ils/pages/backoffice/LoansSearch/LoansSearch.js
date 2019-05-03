@@ -28,7 +28,7 @@ import { SearchBar as LoansSearchBar } from '../../../common/components';
 import { ResultsList as LoansResultsList } from './components';
 import './LoansSearch.scss';
 import { default as config } from './config';
-import { viewLoanDetailsUrl } from '../../../common/urls';
+import { BackOfficeRoutes } from '../../../routes/urls';
 
 export class LoansSearch extends Component {
   _renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
@@ -47,10 +47,9 @@ export class LoansSearch extends Component {
       <div className="results-list">
         <LoansResultsList
           results={results}
-          viewDetailsClickHandler={loanPid => {
-            const path = viewLoanDetailsUrl(loanPid);
-            this.props.history.push(path);
-          }}
+          viewDetailsClickHandler={loanPid =>
+            this.props.history.push(BackOfficeRoutes.loanDetailsFor(loanPid))
+          }
         />
       </div>
     );

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { BackOfficeURLS } from '../../../common/urls';
+import { BackOfficeRoutes } from '../../../routes/urls';
 
 export class UnAuthorized extends Component {
   render() {
-    return <Redirect to={BackOfficeURLS.home} data-test="unauthorized" />;
+    return <Redirect to={BackOfficeRoutes.home} data-test="unauthorized" />;
   }
 }

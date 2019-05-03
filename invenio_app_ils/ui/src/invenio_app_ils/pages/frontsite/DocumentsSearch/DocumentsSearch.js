@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { generatePath } from 'react-router';
 import {
   Container,
   Grid,
@@ -8,7 +7,6 @@ import {
   Header,
   Responsive,
   Accordion,
-  Dropdown,
   Menu,
 } from 'semantic-ui-react';
 import {
@@ -26,7 +24,7 @@ import {
   Aggregator,
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
-import { FrontSiteURLS } from '../../../common/urls';
+import { FrontSiteRoutes } from '../../../routes/urls';
 import { Error as IlsError } from '../../../common/components';
 import { document as documentApi } from '../../../common/api';
 import { SearchBar as DocumentsSearchBar } from '../../../common/components';
@@ -88,9 +86,7 @@ export class DocumentsSearch extends Component {
         <RecordsResultsList
           results={results}
           viewDetailsClickHandler={documentPid => {
-            const path = generatePath(FrontSiteURLS.documentsDetails, {
-              documentPid: documentPid,
-            });
+            const path = FrontSiteRoutes.documentDetailsFor(documentPid);
             this.props.history.push(path);
           }}
         />

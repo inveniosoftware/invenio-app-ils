@@ -6,10 +6,7 @@ import _isEmpty from 'lodash/isEmpty';
 import { MetadataTable } from '../../../components/MetadataTable';
 import { EditButton } from '../../../components/buttons';
 import { document as documentApi } from '../../../../../common/api';
-import {
-  documentsSearchQueryUrl,
-  openRecordEditor,
-} from '../../../../../common/urls';
+import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
 
 export default class DocumentMetadata extends Component {
   _renderKeywords(keywords) {
@@ -18,7 +15,7 @@ export default class DocumentMetadata extends Component {
         {keywords.map(keyword => (
           <List.Item key={keyword.name}>
             <Link
-              to={documentsSearchQueryUrl(
+              to={BackOfficeRoutes.documentsListWithQuery(
                 documentApi
                   .query()
                   .withKeyword(keyword)

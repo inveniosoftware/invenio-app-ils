@@ -51,7 +51,7 @@ exports[`DocumentItems tests should render item 1`] = `
         Object {
           "created": "2018-01-01T10:05:00.000Z",
           "id": "2",
-          "item_pid": "item1",
+          "item_pid": "item2",
           "metadata": Object {
             "barcode": "44444",
             "document_pid": "doc2",
@@ -60,7 +60,7 @@ exports[`DocumentItems tests should render item 1`] = `
                 "name": "Somewhere",
               },
             },
-            "item_pid": "item1",
+            "item_pid": "item2",
             "shelf": "P",
           },
           "updated": "2018-01-01T10:05:00.000Z",
@@ -100,7 +100,7 @@ exports[`DocumentItems tests should render item 1`] = `
             },
             Object {
               "Barcode": "44444",
-              "ID": "item1",
+              "ID": "item2",
               "Location": "Somewhere",
               "Medium": undefined,
               "Shelf": "P",
@@ -344,7 +344,7 @@ exports[`DocumentItems tests should render item 1`] = `
                       },
                       Object {
                         "Barcode": "44444",
-                        "ID": "item1",
+                        "ID": "item2",
                         "Location": "Somewhere",
                         "Medium": undefined,
                         "Shelf": "P",
@@ -479,12 +479,12 @@ exports[`DocumentItems tests should render item 1`] = `
                       <TableRow
                         as="tr"
                         cellAs="td"
-                        data-test="item1"
-                        key="item1"
+                        data-test="item2"
+                        key="item2"
                       >
                         <tr
                           className=""
-                          data-test="item1"
+                          data-test="item2"
                         >
                           <TableCell
                             as="td"
@@ -497,13 +497,13 @@ exports[`DocumentItems tests should render item 1`] = `
                                 as="button"
                                 circular={true}
                                 compact={true}
-                                data-test="btn-view-details-item1"
+                                data-test="btn-view-details-item2"
                                 icon="eye"
                                 onClick={[Function]}
                               >
                                 <button
                                   className="ui circular compact icon button"
-                                  data-test="btn-view-details-item1"
+                                  data-test="btn-view-details-item2"
                                   onClick={[Function]}
                                 >
                                   <Icon
@@ -521,72 +521,72 @@ exports[`DocumentItems tests should render item 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="ID-item1"
-                            key="0-item1"
+                            data-test="ID-item2"
+                            key="0-item2"
                           >
                             <td
                               className=""
-                              data-test="ID-item1"
+                              data-test="ID-item2"
                             >
-                              item1
+                              item2
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Barcode-item1"
-                            key="1-item1"
+                            data-test="Barcode-item2"
+                            key="1-item2"
                           >
                             <td
                               className=""
-                              data-test="Barcode-item1"
+                              data-test="Barcode-item2"
                             >
                               44444
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Status-item1"
-                            key="2-item1"
+                            data-test="Status-item2"
+                            key="2-item2"
                           >
                             <td
                               className=""
-                              data-test="Status-item1"
+                              data-test="Status-item2"
                             >
                               -
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Medium-item1"
-                            key="3-item1"
+                            data-test="Medium-item2"
+                            key="3-item2"
                           >
                             <td
                               className=""
-                              data-test="Medium-item1"
+                              data-test="Medium-item2"
                             >
                               -
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Location-item1"
-                            key="4-item1"
+                            data-test="Location-item2"
+                            key="4-item2"
                           >
                             <td
                               className=""
-                              data-test="Location-item1"
+                              data-test="Location-item2"
                             >
                               Somewhere
                             </td>
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Shelf-item1"
-                            key="5-item1"
+                            data-test="Shelf-item2"
+                            key="5-item2"
                           >
                             <td
                               className=""
-                              data-test="Shelf-item1"
+                              data-test="Shelf-item2"
                             >
                               P
                             </td>
@@ -761,7 +761,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
                 "name": "Somewhere",
               },
             },
-            "item_pid": "item1",
+            "item_pid": "item2",
             "shelf": "P",
           },
           "updated": "2018-01-01T10:05:00.000Z",

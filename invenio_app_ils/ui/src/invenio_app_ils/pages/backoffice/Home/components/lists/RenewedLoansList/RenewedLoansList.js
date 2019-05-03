@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { generatePath } from 'react-router';
 import { Loader, Error } from '../../../../../../common/components';
 import { ResultsTable } from '../../../../../../common/components';
-import {
-  BackOfficeURLS,
-  loanSearchQueryUrl,
-} from '../../../../../../common/urls';
+import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { listQuery } from './state/listQuery';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
@@ -16,8 +12,8 @@ export default class RenewedLoansList extends Component {
   constructor(props) {
     super(props);
     this.fetchRenewedLoans = props.fetchRenewedLoans;
-    this.showDetailsUrl = BackOfficeURLS.loanDetails;
-    this.seeAllUrl = loanSearchQueryUrl;
+    this.showDetailsUrl = BackOfficeRoutes.loanDetailsFor;
+    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
   }
 
   componentDidMount() {
@@ -25,9 +21,7 @@ export default class RenewedLoansList extends Component {
   }
 
   _showDetailsHandler = loan_pid =>
-    this.props.history.push(
-      generatePath(this.showDetailsUrl, { loanPid: loan_pid })
-    );
+    this.props.history.push(this.showDetailsUrl(loan_pid));
 
   _seeAllButton = () => {
     const _click = () => {

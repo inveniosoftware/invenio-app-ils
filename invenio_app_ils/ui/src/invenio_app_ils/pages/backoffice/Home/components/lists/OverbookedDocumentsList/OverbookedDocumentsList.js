@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { generatePath } from 'react-router';
 import { Loader, Error } from '../../../../../../common/components';
 import { ResultsTable } from '../../../../../../common/components';
 import { document as documentApi } from '../../../../../../common/api';
-import {
-  BackOfficeURLS,
-  documentsSearchQueryUrl,
-} from '../../../../../../common/urls';
+import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
 import pick from 'lodash/pick';
@@ -16,8 +12,8 @@ export default class OverbookedDocumentsList extends Component {
   constructor(props) {
     super(props);
     this.fetchOverbookedDocuments = props.fetchOverbookedDocuments;
-    this.showDetailsUrl = BackOfficeURLS.documentDetails;
-    this.seeAllUrl = documentsSearchQueryUrl;
+    this.showDetailsUrl = BackOfficeRoutes.documentDetailsFor;
+    this.seeAllUrl = BackOfficeRoutes.documentsListWithQuery;
   }
 
   componentDidMount() {
@@ -25,9 +21,7 @@ export default class OverbookedDocumentsList extends Component {
   }
 
   _showDetailsHandler = document_pid =>
-    this.props.history.push(
-      generatePath(this.showDetailsUrl, { documentPid: document_pid })
-    );
+    this.props.history.push(this.showDetailsUrl(document_pid));
 
   _seeAllButton = () => {
     const _click = () =>

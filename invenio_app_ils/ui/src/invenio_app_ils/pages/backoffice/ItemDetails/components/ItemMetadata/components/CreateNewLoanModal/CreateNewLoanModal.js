@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { generatePath } from 'react-router';
 import { Button, Header, Icon, Modal } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Loader } from '../../../../../../../common/components/Loader';
-import { BackOfficeURLS } from '../../../../../../../common/urls';
+import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import history from '../../../../../../../history';
 import _isEmpty from 'lodash/isEmpty';
 
@@ -43,12 +42,8 @@ export default class CreateNewLoanModal extends Component {
     </Button>
   );
 
-  gotoDetailsPage = loanPid => {
-    const path = generatePath(BackOfficeURLS.loanDetails, {
-      loanPid: loanPid,
-    });
-    history.push(path);
-  };
+  gotoDetailsPage = loanPid =>
+    history.push(BackOfficeRoutes.loanDetailsFor(loanPid));
 
   render() {
     const { itemPid, itemBarcode, isLoading, data, hasError } = this.props;

@@ -2,9 +2,10 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Settings } from 'luxon';
 import { fromISO, toISO } from '../../../../../../../common/api/date';
-import { BackOfficeURLS } from '../../../../../../../common/urls';
+import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import OverbookedDocumentsList from '../OverbookedDocumentsList';
-import { generatePath } from 'react-router-dom';
+
+jest.mock('../../../../../../../common/config');
 
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
@@ -152,9 +153,7 @@ describe('OverbookedDocumentsList tests', () => {
       .find('i');
     button.simulate('click');
 
-    const expectedParam = generatePath(BackOfficeURLS.documentDetails, {
-      documentPid: firstId,
-    });
+    const expectedParam = BackOfficeRoutes.documentDetailsFor(firstId);
     expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam);
   });
 });
