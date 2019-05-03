@@ -12,10 +12,6 @@ from __future__ import absolute_import, print_function
 from datetime import timedelta
 
 from flask import current_app
-from invenio_pidstore.errors import PersistentIdentifierError
-
-from ..records.api import Item
-from ..search.api import ItemSearch
 
 
 def circulation_build_item_ref(loan_pid):
@@ -28,47 +24,6 @@ def circulation_build_item_ref(loan_pid):
                     loan_pid=loan_pid,
                 )
     }
-
-
-def circulation_items_retriever(document_pid):
-    """Retrieve items given a document."""
-    search = ItemSearch().search_by_document_pid(document_pid)
-    for item in search.scan():
-        yield item["item_pid"]
-
-
-def circulation_document_pid_retriever(item_pid):
-    """Retrieve the referenced document PID of the given item PID."""
-    return Item.get_document_pid(item_pid)
-
-
-def circulation_item_location_retriever(item_pid):
-    """Retrieve location pid given an item."""
-    item_rec = Item.get_record_by_pid(item_pid)
-    item = item_rec.replace_refs()
-    return item["internal_location"]["location"]["location_pid"]
-
-
-def circulation_item_exists(item_pid):
-    """Retrieve location pid given an item."""
-    try:
-        Item.get_record_by_pid(item_pid)
-    except PersistentIdentifierError as ex:
-        return False
-    return True
-
-
-def circulation_item_can_circulate(item_pid):
-    """Check if item is available."""
-    item = Item.get_record_by_pid(item_pid)
-    if item:
-        return item["status"] == "CAN_CIRCULATE"
-    return False
-
-
-def circulation_patron_exists(patron_pid):
-    """Check if user exists."""
-    return True
 
 
 def circulation_default_loan_duration(loan):
@@ -94,5 +49,5 @@ def circulation_is_loan_duration_valid(loan):
 
 
 def circulation_can_be_requested(loan):
-    """Return True if the given record can be requested, False otherwise."""
+    """Return True if the Document/Item for the given Loan can be requested."""
     return True

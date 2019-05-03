@@ -23,6 +23,9 @@ from invenio_circulation.search.api import LoansSearch
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import deny_all
 
+from .api import can_item_circulate, get_document_pid_by_item_pid, \
+    get_item_pids_by_document_pid, get_location_pid_by_item_pid, item_exists, \
+    patron_exists
 from .facets import keyed_range_filter
 from .jwt import ils_jwt_create_token
 from .records.resolver.loan import item_resolver
@@ -79,13 +82,7 @@ from .circulation.utils import (  # isort:skip
     circulation_default_extension_duration,
     circulation_default_extension_max_count,
     circulation_default_loan_duration,
-    circulation_document_pid_retriever,
-    circulation_item_can_circulate,
     circulation_is_loan_duration_valid,
-    circulation_item_exists,
-    circulation_item_location_retriever,
-    circulation_items_retriever,
-    circulation_patron_exists,
     circulation_build_item_ref,
     circulation_can_be_requested,
 )
@@ -524,21 +521,21 @@ RECORDS_REST_ENDPOINTS = dict(
 
 # CIRCULATION
 # ===========
-CIRCULATION_ITEMS_RETRIEVER_FROM_DOCUMENT = circulation_items_retriever
+CIRCULATION_ITEMS_RETRIEVER_FROM_DOCUMENT = get_item_pids_by_document_pid
 
-CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = circulation_document_pid_retriever
+CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = get_document_pid_by_item_pid
 
-CIRCULATION_PATRON_EXISTS = circulation_patron_exists
+CIRCULATION_PATRON_EXISTS = patron_exists
 
-CIRCULATION_ITEM_EXISTS = circulation_item_exists
+CIRCULATION_ITEM_EXISTS = item_exists
 
-CIRCULATION_ITEM_LOCATION_RETRIEVER = circulation_item_location_retriever
+CIRCULATION_ITEM_LOCATION_RETRIEVER = get_location_pid_by_item_pid
 
 CIRCULATION_POLICIES = dict(
     checkout=dict(
         duration_default=circulation_default_loan_duration,
         duration_validate=circulation_is_loan_duration_valid,
-        item_can_circulate=circulation_item_can_circulate,
+        item_can_circulate=can_item_circulate,
     ),
     extension=dict(
         from_end_date=True,
@@ -850,7 +847,7 @@ RECORDS_EDITOR_UI_CONFIG = {
     "internal-locations": {
         "recordConfig": {
             "apiUrl": "api/internal-locations/",
-            "schema": "internal-locations/internal_location-v1.0.0.json",
+            "schema": "internal_locations/internal_location-v1.0.0.json",
         },
         "editorConfig": {
             "schemaOptions": {

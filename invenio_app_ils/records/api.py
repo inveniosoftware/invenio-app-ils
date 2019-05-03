@@ -120,10 +120,7 @@ class _Item(IlsRecord):
     def get_document_pid(cls, item_pid):
         """Retrieve the referenced document PID of the given item PID."""
         item = cls.get_record_by_pid(item_pid)
-        item = item.replace_refs()
-        if item.get("document") and item["document"].get(Document.pid_field):
-            return item["document"][Document.pid_field]
-        return None
+        return item.get(Document.pid_field)
 
 
 class Item(_Item):
