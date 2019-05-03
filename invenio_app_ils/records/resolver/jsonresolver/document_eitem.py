@@ -29,11 +29,12 @@ def jsonresolver_loader(url_map):
         eitems = []
         for hit in EItemSearch().search_by_document_pid(document_pid).scan():
             eitem = hit.to_dict()
-            del eitem["$schema"]
-            del eitem["document_pid"]
-            del eitem["document"]
-            eitems.append(eitem)
-
+            eitems.append({
+                "eitem_pid": eitem.get("eitem_pid"),
+                "description": eitem.get("description"),
+                "internal_notes": eitem.get("internal_notes"),
+                "open_access": eitem.get("open_access"),
+            })
         return eitems
 
     url_map.add(

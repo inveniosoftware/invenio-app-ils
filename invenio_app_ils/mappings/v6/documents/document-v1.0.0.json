@@ -39,23 +39,25 @@
             }
           }
         },
-        "eitems": {
+        "_computed": {
           "type": "object",
           "properties": {
-            "eitem_pid": {
-              "type": "keyword"
-            },
-            "description": {
-              "type": "text"
-            },
-            "_internal_notes": {
-              "type": "text"
-            },
-            "open_access": {
-              "type": "boolean"
-            },
-            "urls": {
-              "type": "text"
+            "eitems": {
+              "type": "object",
+              "properties": {
+                "eitem_pid": {
+                  "type": "keyword"
+                },
+                "description": {
+                  "type": "text"
+                },
+                "internal_notes": {
+                  "type": "text"
+                },
+                "open_access": {
+                  "type": "boolean"
+                }
+              }
             }
           }
         },

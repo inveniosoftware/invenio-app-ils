@@ -49,14 +49,8 @@
         "circulation_status": {
           "type": "object",
           "properties": {
-            "$schema": {
-              "type": "keyword"
-            },
             "loan_pid": {
               "type": "keyword"
-            },
-            "transaction_date": {
-              "type": "date"
             },
             "patron_pid": {
               "type": "keyword"
@@ -67,32 +61,20 @@
             "item_pid": {
               "type": "keyword"
             },
-            "end_date": {
-              "type": "date"
-            },
             "state": {
               "type": "keyword"
             },
             "start_date": {
               "type": "date"
             },
+            "end_date": {
+              "type": "date"
+            },
             "request_expire_date": {
               "type": "date"
             },
-            "pickup_location_pid": {
-              "type": "keyword"
-            },
-            "transaction_location_pid": {
-              "type": "keyword"
-            },
-            "transaction_user_pid": {
-              "type": "keyword"
-            },
-            "_created": {
-              "type": "date"
-            },
-            "_updated": {
-              "type": "date"
+            "extension_count": {
+              "type": "short"
             }
           }
         },
@@ -100,6 +82,12 @@
           "type": "object",
           "properties": {
             "document_pid": {
+              "type": "keyword"
+            },
+            "title": {
+              "type": "keyword"
+            },
+            "authors": {
               "type": "keyword"
             }
           }

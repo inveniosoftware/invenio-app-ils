@@ -24,14 +24,11 @@
         "description": {
           "type": "text"
         },
-        "_internal_notes": {
+        "internal_notes": {
           "type": "text"
         },
         "open_access": {
           "type": "boolean"
-        },
-        "urls": {
-          "type": "text"
         },
         "_created": {
           "type": "date"

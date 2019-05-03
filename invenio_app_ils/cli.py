@@ -238,7 +238,10 @@ class EItemGenerator(Generator):
             Document.pid_field: "{}".format(randint(1, total_docs-1)),
             EItem.pid_field: "{}".format(i),
             "description": "{}".format(lorem.text()),
-            "_internal_notes": "{}".format(lorem.text()),
+            "internal_notes": "{}".format(lorem.text()),
+            "urls": ["https://home.cern/science/physics/dark-matter",
+                     "https://home.cern/science/physics/antimatter"],
+            "open_access": bool(random.getrandbits(1))
         } for i in range(1, size)]
 
         self.holder.eitems['objs'] = objs

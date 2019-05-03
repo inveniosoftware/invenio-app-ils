@@ -84,7 +84,9 @@ class Document(IlsRecord):
             )
         }
         data.setdefault("keyword_pids", [])
-        data["eitems"] = {
+
+        data.setdefault("_computed", {})
+        data['_computed']["eitems"] = {
             "$ref": cls._eitem_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],

@@ -25,11 +25,11 @@ def jsonresolver_loader(url_map):
     def get_document(document_pid):
         """Return the Document record."""
         document = Document.get_record_by_pid(document_pid)
-        # delete `circulation` field, not needed when resolving from Item
-        del document["$schema"]
-        del document["circulation"]
-
-        return document
+        return {
+            "document_pid": document.get("document_pid"),
+            "title": document.get("title"),
+            "authors": document.get("authors"),
+        }
 
     def document_resolver(item_pid):
         """Return the Document record for the given Item or raise."""

@@ -292,11 +292,15 @@
       "type": "array",
       "uniqueItems": true
     },
-    "_items": {
+    "_computed": {
       "type": "object",
       "properties": {
-        "electronic": {
-          "type": "string"
+        "eitems": {
+          "properties": {
+            "$ref": {
+              "type": "string"
+            }
+          }
         }
       }
     }

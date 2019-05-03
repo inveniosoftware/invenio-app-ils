@@ -10,6 +10,7 @@
 from __future__ import absolute_import, print_function
 
 from invenio_pidstore.errors import PersistentIdentifierError
+
 from .records.api import Item, Location
 from .search.api import ItemSearch
 

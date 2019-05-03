@@ -27,17 +27,16 @@
       "type": "string",
       "title": "Any extra description for this EItem"
     },
-    "_internal_notes": {
+    "internal_notes": {
       "type": "string",
       "title": "Any extra description for this EItem reserved for internal usage"
     },
     "urls": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      }
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "description": "A list of urls."
     },
     "open_access": {
       "type": "boolean",
