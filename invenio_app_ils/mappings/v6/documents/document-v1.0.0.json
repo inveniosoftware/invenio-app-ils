@@ -39,6 +39,28 @@
             }
           }
         },
+        "_computed": {
+          "type": "object",
+          "properties": {
+            "eitems": {
+              "type": "object",
+              "properties": {
+                "eitem_pid": {
+                  "type": "keyword"
+                },
+                "description": {
+                  "type": "text"
+                },
+                "internal_notes": {
+                  "type": "text"
+                },
+                "open_access": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
         "_created": {
           "type": "date"
         },

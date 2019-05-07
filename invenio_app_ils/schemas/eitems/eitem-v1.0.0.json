@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Schema EItem",
+  "type": "object",
+  "required": ["$schema", "eitem_pid", "document_pid", "document"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "eitem_pid": {
+      "type": "string",
+      "title": "The persistent identifier of this EItem"
+    },
+    "document_pid": {
+      "type": "string",
+      "title": "The persistent identifier of its Document"
+    },
+    "document": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
+    },
+    "description": {
+      "type": "string",
+      "title": "Any extra description for this EItem"
+    },
+    "internal_notes": {
+      "type": "string",
+      "title": "Any extra description for this EItem reserved for internal usage"
+    },
+    "urls": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "description": "A list of urls."
+    },
+    "open_access": {
+      "type": "boolean",
+      "title": "Indicate if the access to this EItem is open or not"
+    }
+  }
+}

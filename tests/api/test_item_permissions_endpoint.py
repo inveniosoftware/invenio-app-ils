@@ -5,7 +5,7 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Test accesibility of resource endpoints."""
+"""Test accessibility of resource endpoints."""
 
 from __future__ import unicode_literals
 
@@ -63,7 +63,7 @@ def test_get_item_endpoint(
 ):
     """Test GET permissions."""
     user_login(user_id, client, users)
-    url = url_for("invenio_records_rest.itemid_item", pid_value=res_id)
+    url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
     _test_response(client, "get", url, json_headers, None, expected_resp_code)
 
 
@@ -82,7 +82,7 @@ def test_post_item_endpoint(
 ):
     """Test POST permissions of an item."""
     user_login(user_id, client, users)
-    url = url_for("invenio_records_rest.itemid_list")
+    url = url_for("invenio_records_rest.pitmid_list")
     ITEM = copy.deepcopy(item_record)
     if "item_pid" in ITEM:
         del ITEM["item_pid"]
@@ -120,7 +120,7 @@ def test_put_item_endpoint(
     item_record,
 ):
     """Test PUT permissions of an item."""
-    url = url_for("invenio_records_rest.itemid_item", pid_value=res_id)
+    url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
     user_login(user_id, client, users)
     ITEM = copy.deepcopy(item_record)
     res = _test_response(
@@ -157,7 +157,7 @@ def test_patch_item_endpoint(
 ):
     """Test PATCH permission of an item."""
     patch = [{"op": "replace", "path": "/status", "value": "CAN_CIRCULATE"}]
-    url = url_for("invenio_records_rest.itemid_item", pid_value=res_id)
+    url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
     user_login(user_id, client, users)
     res = _test_response(
         client,
@@ -195,7 +195,7 @@ def test_delete_item_endpoint(
 ):
     """Test DELETE permissions of an item."""
     user_login(user_id, client, users)
-    url = url_for("invenio_records_rest.itemid_item", pid_value=res_id)
+    url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
     _test_response(
         client,
         "delete",

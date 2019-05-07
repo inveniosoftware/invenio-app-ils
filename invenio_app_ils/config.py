@@ -23,11 +23,28 @@ from invenio_circulation.search.api import LoansSearch
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import deny_all
 
+from .api import can_item_circulate, get_document_pid_by_item_pid, \
+    get_item_pids_by_document_pid, get_location_pid_by_item_pid, item_exists, \
+    patron_exists
 from .facets import keyed_range_filter
-from .indexer import DocumentIndexer, ItemIndexer, LoanIndexer, LocationIndexer
 from .jwt import ils_jwt_create_token
-from .records.api import Document, InternalLocation, Item, Keyword, Location
-from .records.jsonresolver.loan import item_resolver
+from .records.resolver.loan import item_resolver
+
+from .indexer import (  # isort:skip
+    DocumentIndexer,
+    ItemIndexer,
+    EItemIndexer,
+    LoanIndexer,
+    LocationIndexer
+)
+from .records.api import (  # isort:skip
+    Document,
+    Item,
+    EItem,
+    Keyword,
+    Location,
+    InternalLocation,
+)
 
 from .records.permissions import (  # isort:skip
     record_create_permission_factory,
@@ -38,10 +55,11 @@ from .records.permissions import (  # isort:skip
 
 from .search.api import (  # isort:skip
     DocumentSearch,
-    InternalLocationSearch,
     ItemSearch,
+    EItemSearch,
     KeywordSearch,
     LocationSearch,
+    InternalLocationSearch,
     PatronsSearch
 )
 
@@ -64,13 +82,7 @@ from .circulation.utils import (  # isort:skip
     circulation_default_extension_duration,
     circulation_default_extension_max_count,
     circulation_default_loan_duration,
-    circulation_document_retriever,
-    circulation_item_can_circulate,
     circulation_is_loan_duration_valid,
-    circulation_item_exists,
-    circulation_item_location_retriever,
-    circulation_items_retriever,
-    circulation_patron_exists,
     circulation_build_item_ref,
     circulation_can_be_requested,
 )
@@ -91,6 +103,9 @@ from .pidstore.pids import (  # isort:skip
     ITEM_PID_FETCHER,
     ITEM_PID_MINTER,
     ITEM_PID_TYPE,
+    EITEM_PID_FETCHER,
+    EITEM_PID_MINTER,
+    EITEM_PID_TYPE,
     KEYWORD_PID_TYPE,
     KEYWORD_PID_MINTER,
     KEYWORD_PID_FETCHER,
@@ -252,8 +267,11 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 _DOCID_CONVERTER = (
     'pid(docid, record_class="invenio_app_ils.records.api:Document")'
 )
-_ITEMID_CONVERTER = (
-    'pid(itemid, record_class="invenio_app_ils.records.api:Item")'
+_PITMID_CONVERTER = (
+    'pid(pitmid, record_class="invenio_app_ils.records.api:Item")'
+)
+_EITMID_CONVERTER = (
+    'pid(eitmid, record_class="invenio_app_ils.records.api:EItem")'
 )
 _LOCID_CONVERTER = (
     'pid(locid, record_class="invenio_app_ils.records.api:Location")'
@@ -305,7 +323,7 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=record_update_permission_factory,
         delete_permission_factory_imp=record_delete_permission_factory,
     ),
-    itemid=dict(
+    pitmid=dict(
         pid_type=ITEM_PID_TYPE,
         pid_minter=ITEM_PID_MINTER,
         pid_fetcher=ITEM_PID_FETCHER,
@@ -331,7 +349,42 @@ RECORDS_REST_ENDPOINTS = dict(
             )
         },
         list_route="/items/",
-        item_route="/items/<{0}:pid_value>".format(_ITEMID_CONVERTER),
+        item_route="/items/<{0}:pid_value>".format(_PITMID_CONVERTER),
+        default_media_type="application/json",
+        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        error_handlers=dict(),
+        read_permission_factory_imp=record_read_permission_factory,
+        create_permission_factory_imp=record_create_permission_factory,
+        update_permission_factory_imp=record_update_permission_factory,
+        delete_permission_factory_imp=record_delete_permission_factory,
+    ),
+    eitmid=dict(
+        pid_type=EITEM_PID_TYPE,
+        pid_minter=EITEM_PID_MINTER,
+        pid_fetcher=EITEM_PID_FETCHER,
+        search_class=EItemSearch,
+        record_class=EItem,
+        indexer_class=EItemIndexer,
+        record_loaders={
+            "application/json": (
+                "invenio_app_ils.records.loaders:eitem_loader"
+            ),
+            "application/json-patch+json": (
+                lambda: request.get_json(force=True)
+            ),
+        },
+        record_serializers={
+            "application/json": (
+                "invenio_app_ils.records.serializers:json_v1_response"
+            ),
+        },
+        search_serializers={
+            "application/json": (
+                "invenio_records_rest.serializers:json_v1_search"
+            )
+        },
+        list_route="/eitems/",
+        item_route="/eitems/<{0}:pid_value>".format(_EITMID_CONVERTER),
         default_media_type="application/json",
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
@@ -468,21 +521,21 @@ RECORDS_REST_ENDPOINTS = dict(
 
 # CIRCULATION
 # ===========
-CIRCULATION_ITEMS_RETRIEVER_FROM_DOCUMENT = circulation_items_retriever
+CIRCULATION_ITEMS_RETRIEVER_FROM_DOCUMENT = get_item_pids_by_document_pid
 
-CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = circulation_document_retriever
+CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = get_document_pid_by_item_pid
 
-CIRCULATION_PATRON_EXISTS = circulation_patron_exists
+CIRCULATION_PATRON_EXISTS = patron_exists
 
-CIRCULATION_ITEM_EXISTS = circulation_item_exists
+CIRCULATION_ITEM_EXISTS = item_exists
 
-CIRCULATION_ITEM_LOCATION_RETRIEVER = circulation_item_location_retriever
+CIRCULATION_ITEM_LOCATION_RETRIEVER = get_location_pid_by_item_pid
 
 CIRCULATION_POLICIES = dict(
     checkout=dict(
         duration_default=circulation_default_loan_duration,
         duration_validate=circulation_is_loan_duration_valid,
-        item_can_circulate=circulation_item_can_circulate,
+        item_can_circulate=can_item_circulate,
     ),
     extension=dict(
         from_end_date=True,
@@ -578,7 +631,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         ),
         default_media_type="application/json",
         links_factory_imp="invenio_circulation.links:loan_links_factory",
-        max_result_window=10000,
+        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=LoanOwnerPermission,
         create_permission_factory_imp=backoffice_permission,

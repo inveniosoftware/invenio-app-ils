@@ -28,7 +28,7 @@ def mint_record_pid(pid_type, pid_field, record):
 
 
 def internal_location_ref_builder(app, item_pid):
-    """Ref builder for item internal location."""
+    """Ref builder for item InternalLocation."""
     path = Item._internal_location_resolver_path
     return path.format(
         scheme=app.config["JSONSCHEMAS_URL_SCHEME"],
@@ -38,7 +38,7 @@ def internal_location_ref_builder(app, item_pid):
 
 
 def document_ref_builder(app, item_pid):
-    """Ref builder for item document."""
+    """Ref builder for item Document."""
     path = Item._document_resolver_path
     return path.format(
         scheme=app.config["JSONSCHEMAS_URL_SCHEME"],

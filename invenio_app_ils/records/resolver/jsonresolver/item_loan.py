@@ -5,7 +5,7 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Item related resolvers."""
+"""Resolve the Loan referenced in the Item."""
 
 import jsonresolver
 from invenio_circulation.api import get_loan_for_item
@@ -23,16 +23,21 @@ def jsonresolver_loader(url_map):
     def loan_for_item_resolver(item_pid):
         """Return the loan for the given item."""
         loan = get_loan_for_item(item_pid) or {}
-        # remove the `item` field to avoid circular dependencies
-        if loan.get("item"):
-            del loan["item"]
-        if loan.get("$schema"):
-            del loan["$schema"]
-        return loan
+        return {
+            "loan_pid": loan.get("loan_pid"),
+            "patron_pid": loan.get("patron_pid"),
+            "document_pid": loan.get("document_pid"),
+            "item_pid": loan.get("item_pid"),
+            "state": loan.get("state"),
+            "start_date": loan.get("start_date"),
+            "end_date": loan.get("end_date"),
+            "request_expire_date": loan.get("request_expire_date"),
+            "extension_count": loan.get("extension_count"),
+        }
 
     url_map.add(
         Rule(
-            "/api/resolver/circulation/items/<item_pid>/loan",
+            "/api/resolver/items/<item_pid>/loan",
             endpoint=loan_for_item_resolver,
             host=current_app.config.get("JSONSCHEMAS_HOST"),
         )

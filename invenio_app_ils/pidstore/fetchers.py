@@ -9,14 +9,16 @@
 
 from invenio_pidstore.fetchers import FetchedPID
 
-from ..records.api import Document, InternalLocation, Item, Keyword, Location
+from ..records.api import Document, EItem, InternalLocation, Item, Keyword, \
+    Location
 
 from .pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
-    INTERNAL_LOCATION_PID_TYPE,
     ITEM_PID_TYPE,
-    KEYWORD_PID_TYPE,
+    EITEM_PID_TYPE,
     LOCATION_PID_TYPE,
+    INTERNAL_LOCATION_PID_TYPE,
+    KEYWORD_PID_TYPE,
     PATRON_PID_TYPE
 )
 
@@ -39,6 +41,15 @@ def item_pid_fetcher(record_uuid, data):
     )
 
 
+def eitem_pid_fetcher(record_uuid, data):
+    """Return EItem PID fetcher."""
+    return FetchedPID(
+        provider=None,
+        pid_type=EITEM_PID_TYPE,
+        pid_value=str(data[EItem.pid_field])
+    )
+
+
 def location_pid_fetcher(record_uuid, data):
     """Return Location PID fetcher."""
     return FetchedPID(
@@ -49,7 +60,7 @@ def location_pid_fetcher(record_uuid, data):
 
 
 def internal_location_pid_fetcher(record_uuid, data):
-    """Return Internal location PID fetcher."""
+    """Return InternalLocation PID fetcher."""
     return FetchedPID(
         provider=None,
         pid_type=INTERNAL_LOCATION_PID_TYPE,

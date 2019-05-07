@@ -5,13 +5,13 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Keywords related resolvers."""
+"""Resolve the Keyword referenced in the Document."""
 
 import jsonresolver
 from werkzeug.routing import Rule
 
-from ..api import Document, Keyword
-from .resolver import get_field_value_for_record as get_field_value
+from ...api import Document, Keyword
+from ..resolver import get_field_value_for_record as get_field_value
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
@@ -30,6 +30,7 @@ def jsonresolver_loader(url_map):
         for keyword_pid in keyword_pids:
             keyword = Keyword.get_record_by_pid(keyword_pid)
             del keyword["$schema"]
+
             keywords.append(keyword)
 
         return keywords

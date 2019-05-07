@@ -291,6 +291,18 @@
       "title": "List of languages of the document",
       "type": "array",
       "uniqueItems": true
+    },
+    "_computed": {
+      "type": "object",
+      "properties": {
+        "eitems": {
+          "properties": {
+            "$ref": {
+              "type": "string"
+            }
+          }
+        }
+      }
     }
   }
 }

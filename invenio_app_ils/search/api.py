@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2019 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -41,14 +41,8 @@ class DocumentSearch(RecordsSearch):
         return search
 
 
-class ItemSearch(RecordsSearch):
-    """RecordsSearch for items."""
-
-    class Meta:
-        """Search only on items index."""
-
-        index = "items"
-        doc_types = None
+class _ItemSearch(RecordsSearch):
+    """Base search class for items."""
 
     def search_by_document_pid(self, document_pid=None, filter_states=None,
                                exclude_states=None):
@@ -95,12 +89,32 @@ class ItemSearch(RecordsSearch):
 
         return search
 
+
+class ItemSearch(_ItemSearch):
+    """RecordsSearch for Item."""
+
+    class Meta:
+        """Search only on items index."""
+
+        index = "items"
+        doc_types = None
+
     def get_unavailable_items_by_document_pid(self, document_pid):
         """Retrieve items that are unavailable for a loan."""
         return self.search_by_document_pid(
             document_pid,
             exclude_states=["CAN_CIRCULATE"]
         )
+
+
+class EItemSearch(_ItemSearch):
+    """RecordsSearch for EItem."""
+
+    class Meta:
+        """Search only on items index."""
+
+        index = "eitems"
+        doc_types = None
 
 
 class LocationSearch(RecordsSearch):
