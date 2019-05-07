@@ -2,13 +2,10 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchPendingLoans } from './state/actions';
-import DocumentPendingLoansComponent from './DocumentPendingLoans';
+import { DocumentPendingLoansContainer } from './DocumentPendingLoansContainer';
 
 const mapStateToProps = state => ({
-  data: state.documentPendingLoans.data,
-  error: state.documentPendingLoans.error,
-  isLoading: state.documentPendingLoans.isLoading,
-  hasError: state.documentPendingLoans.hasError,
+  ...state.documentPendingLoans,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -21,4 +18,4 @@ export const DocumentPendingLoans = compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(DocumentPendingLoansComponent);
+)(DocumentPendingLoansContainer);

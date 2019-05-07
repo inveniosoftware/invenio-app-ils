@@ -1,16 +1,22 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import DocumentDetailsComponent from './DocumentDetails';
+import { fetchDocumentDetails } from './state/actions';
+import { DocumentDetailsContainer } from './DocumentDetailsContainer';
 
 const mapStateToProps = state => ({
-  isLoading: state.documentDetails.isLoading,
-  data: state.documentDetails.data,
-  error: state.documentDetails.error,
-  hasError: state.documentDetails.hasError,
+  ...state.documentDetails,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchDocumentDetails: documentPid =>
+    dispatch(fetchDocumentDetails(documentPid)),
 });
 
 export const DocumentDetails = compose(
   withRouter,
-  connect(mapStateToProps)
-)(DocumentDetailsComponent);
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)(DocumentDetailsContainer);

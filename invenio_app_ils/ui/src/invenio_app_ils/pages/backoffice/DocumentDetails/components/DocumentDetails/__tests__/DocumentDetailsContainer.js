@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import DocumentDetailsContainer from '../DocumentDetailsContainer';
-jest.mock('../components/DocumentDetails', () => {
+import { DocumentDetailsContainer } from '../DocumentDetailsContainer';
+
+jest.mock('../DocumentDetails', () => {
   return {
     DocumentDetails: () => null,
   };
@@ -18,6 +19,7 @@ describe('DocumentDetailsContainer tests', () => {
   const routerHistory = {
     listen: () => () => {},
   };
+
   const routerUrlParams = {
     params: {
       documentPid: 111,
@@ -29,6 +31,10 @@ describe('DocumentDetailsContainer tests', () => {
       <DocumentDetailsContainer
         history={routerHistory}
         match={routerUrlParams}
+        isLoading={false}
+        hasError={false}
+        data={{}}
+        error={{}}
         fetchDocumentDetails={() => {}}
       />
     );
@@ -41,6 +47,10 @@ describe('DocumentDetailsContainer tests', () => {
       <DocumentDetailsContainer
         history={routerHistory}
         match={routerUrlParams}
+        isLoading={false}
+        hasError={false}
+        data={{}}
+        error={{}}
         fetchDocumentDetails={mockedFetchDocumentDetails}
       />
     );

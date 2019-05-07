@@ -4,7 +4,7 @@ import { BackOfficeURLS } from '../common/urls';
 import {
   Header,
   Home,
-  DocumentDetailsContainer,
+  DocumentDetailsPage,
   DocumentsSearch,
   ItemsSearch,
   ItemDetailsContainer,
@@ -30,7 +30,7 @@ export class BackOffice extends Component {
           <Route
             exact
             path={BackOfficeURLS.documentDetails}
-            component={DocumentDetailsContainer}
+            component={DocumentDetailsPage}
           />
           {/* documents */}
           <Route

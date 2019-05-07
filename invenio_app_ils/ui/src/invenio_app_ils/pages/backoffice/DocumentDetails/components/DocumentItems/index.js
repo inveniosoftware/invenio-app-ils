@@ -2,13 +2,10 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchDocumentItems } from './state/actions';
-import DocumentItemsComponent from './DocumentItems';
+import { DocumentItemsContainer } from './DocumentItemsContainer';
 
 const mapStateToProps = state => ({
-  data: state.documentItems.data,
-  error: state.documentItems.error,
-  isLoading: state.documentItems.isLoading,
-  hasError: state.documentItems.hasError,
+  ...state.documentItems,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -21,4 +18,4 @@ export const DocumentItems = compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(DocumentItemsComponent);
+)(DocumentItemsContainer);

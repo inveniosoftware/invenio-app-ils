@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../common/components';
 import { ResultsTable } from '../../../../../common/components';
 import { item as itemApi } from '../../../../../common/api';
-
+import history from '../../../../../history';
 import {
   itemSearchQueryUrl,
   viewItemDetailsUrl,
@@ -12,82 +11,71 @@ import { SeeAllButton } from '../../../components/buttons';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import pick from 'lodash/pick';
 
-export default class DocumentItems extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchDocumentItems = props.fetchDocumentItems;
-    this.showDetailsUrl = viewItemDetailsUrl;
-    this.seeAllUrl = itemSearchQueryUrl;
-  }
+const showDetailsHandler = item_pid => {
+  history.push(viewItemDetailsUrl(item_pid));
+};
 
-  componentDidMount() {
-    const { document_pid } = this.props.document;
-    this.fetchDocumentItems(document_pid);
-  }
-
-  _showDetailsHandler = item_pid =>
-    this.props.history.push(this.showDetailsUrl(item_pid));
-
-  _seeAllButton = () => {
-    const { document_pid } = this.props.document;
-    const _click = () =>
-      this.props.history.push(
-        this.seeAllUrl(
-          itemApi
-            .query()
-            .withDocPid(document_pid)
-            .qs()
-        )
-      );
-    return <SeeAllButton clickHandler={() => _click()} />;
-  };
-
-  prepareData(data) {
-    return data.hits.map(row => {
-      const entry = formatter.item.toTable(row);
-      return pick(entry, [
-        'ID',
-        'Barcode',
-        'Status',
-        'Medium',
-        'Location',
-        'Shelf',
-      ]);
-    });
-  }
-
-  _render_table(data) {
-    const rows = this.prepareData(data);
-    rows.totalHits = data.total;
-    return (
-      <ResultsTable
-        rows={rows}
-        title={'Attached items'}
-        name={'attached items'}
-        rowActionClickHandler={this._showDetailsHandler}
-        seeAllComponent={this._seeAllButton()}
-        showMaxRows={this.props.showMaxItems}
-      />
+const seeAllButton = documentPid => {
+  const _click = () =>
+    history.push(
+      itemSearchQueryUrl(
+        itemApi
+          .query()
+          .withDocPid(documentPid)
+          .qs()
+      )
     );
-  }
+  return <SeeAllButton clickHandler={() => _click()} />;
+};
 
-  render() {
-    const { data, isLoading, error } = this.props;
-    return (
-      <Loader isLoading={isLoading}>
-        <Error error={error}>{this._render_table(data)}</Error>
-      </Loader>
-    );
-  }
-}
+const prepareData = data => {
+  return data.hits.map(row => {
+    const entry = formatter.item.toTable(row);
+    return pick(entry, [
+      'ID',
+      'Barcode',
+      'Status',
+      'Medium',
+      'Location',
+      'Shelf',
+    ]);
+  });
+};
+
+export const DocumentItems = ({ data, documentPid, showMaxRows }) => {
+  const rows = prepareData(data);
+  rows.totalHits = data.total;
+  return (
+    <ResultsTable
+      rows={rows}
+      title={'Attached items'}
+      name={'attached items'}
+      rowActionClickHandler={showDetailsHandler}
+      seeAllComponent={seeAllButton(documentPid)}
+      showMaxRows={showMaxRows}
+    />
+  );
+};
 
 DocumentItems.propTypes = {
-  document: PropTypes.object.isRequired,
-  fetchDocumentItems: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
-  showMaxItems: PropTypes.number,
+  showMaxRows: PropTypes.number.isRequired,
+  documentPid: PropTypes.string.isRequired,
+  data: PropTypes.oneOfType([
+    () => null,
+    PropTypes.shape({
+      total: PropTypes.number.isRequired,
+      hits: PropTypes.shape({
+        hits: PropTypes.arrayOf(
+          PropTypes.shape({
+            item_pid: PropTypes.string.isRequired,
+            metadata: PropTypes.object.isRequired, // Replace with item metadata
+          })
+        ),
+      }).isRequired,
+    }),
+  ]).isRequired,
 };
 
 DocumentItems.defaultProps = {
-  showMaxItems: 5,
+  showMaxRows: 5,
 };

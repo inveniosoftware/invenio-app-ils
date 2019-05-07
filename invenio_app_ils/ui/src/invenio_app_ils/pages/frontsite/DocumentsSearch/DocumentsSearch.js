@@ -8,7 +8,6 @@ import {
   Header,
   Responsive,
   Accordion,
-  Dropdown,
   Menu,
 } from 'semantic-ui-react';
 import {

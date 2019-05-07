@@ -7,7 +7,6 @@ export const fetchPendingLoans = documentPid => {
     dispatch({
       type: IS_LOADING,
     });
-
     await loanApi
       .list(
         loanApi

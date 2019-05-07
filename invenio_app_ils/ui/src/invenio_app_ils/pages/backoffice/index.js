@@ -2,7 +2,7 @@ export * from './components';
 export { Home } from './Home';
 export { ItemDetailsContainer } from './ItemDetails';
 export { ItemsSearch } from './ItemsSearch';
-export { DocumentDetailsContainer } from './DocumentDetails';
+export { DocumentDetailsPage } from './DocumentDetails';
 export { LoanDetailsContainer } from './LoanDetails';
 export { LoansSearch } from './LoansSearch';
 export { PatronDetailsContainer } from './PatronDetails';
