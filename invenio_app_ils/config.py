@@ -764,10 +764,6 @@ RECORDS_REST_FACETS = dict(
     ),
 )
 
-# PIDSTORE
-# =========================
-PIDSTORE_RECID_FIELD = Item.pid_field
-
 # ILS
 # ===
 ILS_VIEWS_PERMISSIONS_FACTORY = views_permissions_factory

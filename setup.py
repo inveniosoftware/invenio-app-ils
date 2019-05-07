@@ -50,7 +50,7 @@ install_requires = [
     "invenio-jsonschemas>=1.0.0,<1.1.0",
     "invenio-oaiserver>=1.0.3,<1.1.0",
     "invenio-pidstore>=1.0.0,<1.1.0",
-    "invenio-records-rest>=1.4.0,<1.5.0",
+    "invenio-records-rest>=1.4.2,<1.5.0",
     "invenio-records>=1.1.0,<1.2.0",
     # upgraded packages
     "invenio-accounts-rest>=1.0.0a4,<1.1.0",

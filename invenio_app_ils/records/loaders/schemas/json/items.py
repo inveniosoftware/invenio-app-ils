@@ -10,9 +10,15 @@
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import fields
 
+from invenio_app_ils.records.api import EItem, Item
+
 
 class ItemSchemaV1(RecordMetadataSchemaJSONV1):
     """Item schema."""
+
+    def get_pid_field(self):
+        """Return pid_field value."""
+        return Item.pid_field
 
     document_pid = fields.Str(required=True)  # TODO: validate
     internal_location_pid = fields.Str(required=True)  # TODO: validate
@@ -29,6 +35,10 @@ class ItemSchemaV1(RecordMetadataSchemaJSONV1):
 
 class EItemSchemaV1(RecordMetadataSchemaJSONV1):
     """EItem schema."""
+
+    def get_pid_field(self):
+        """Return pid_field value."""
+        return EItem.pid_field
 
     document_pid = fields.Str(required=True)  # TODO: validate
     description = fields.Str()
