@@ -10,9 +10,15 @@
 from invenio_records_rest.schemas.fields import PersistentIdentifier
 from marshmallow import Schema, fields
 
+from invenio_app_ils.records.api import Keyword
+
 
 class KeywordSchemaV1(Schema):
     """Keyword schema."""
+
+    def get_pid_field(self):
+        """Return pid_field value."""
+        return Keyword.pid_field
 
     pid = PersistentIdentifier()
     name = fields.Str()

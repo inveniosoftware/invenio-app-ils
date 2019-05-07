@@ -10,9 +10,15 @@
 from invenio_records_rest.schemas.fields import PersistentIdentifier
 from marshmallow import Schema, fields
 
+from invenio_app_ils.records.api import InternalLocation
+
 
 class InternalLocationSchemaV1(Schema):
     """Internal Location schema."""
+
+    def get_pid_field(self):
+        """Return pid_field value."""
+        return InternalLocation.pid_field
 
     pid = PersistentIdentifier()
     location_pid = fields.Str(required=True)
