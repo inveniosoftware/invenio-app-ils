@@ -2,8 +2,10 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../../common/api/date';
-import { viewLoanDetailsUrl } from '../../../../../../../common/urls';
+import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import RenewedLoansList from '../RenewedLoansList';
+
+jest.mock('../../../../../../../common/config');
 
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
@@ -150,7 +152,7 @@ describe('RenewedLoansList tests', () => {
       .find('i');
     button.simulate('click');
 
-    const expectedParam = viewLoanDetailsUrl(firstId);
+    const expectedParam = BackOfficeRoutes.loanDetailsFor(firstId);
     expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam);
   });
 });

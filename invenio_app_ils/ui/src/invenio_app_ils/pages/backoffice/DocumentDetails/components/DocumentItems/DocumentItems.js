@@ -4,10 +4,7 @@ import { Loader, Error } from '../../../../../common/components';
 import { ResultsTable } from '../../../../../common/components';
 import { item as itemApi } from '../../../../../common/api';
 
-import {
-  itemSearchQueryUrl,
-  viewItemDetailsUrl,
-} from '../../../../../common/urls';
+import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { SeeAllButton } from '../../../components/buttons';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import pick from 'lodash/pick';
@@ -16,8 +13,8 @@ export default class DocumentItems extends Component {
   constructor(props) {
     super(props);
     this.fetchDocumentItems = props.fetchDocumentItems;
-    this.showDetailsUrl = viewItemDetailsUrl;
-    this.seeAllUrl = itemSearchQueryUrl;
+    this.showDetailsUrl = BackOfficeRoutes.itemDetailsFor;
+    this.seeAllUrl = BackOfficeRoutes.itemsListWithQuery;
   }
 
   componentDidMount() {
@@ -25,8 +22,8 @@ export default class DocumentItems extends Component {
     this.fetchDocumentItems(document_pid);
   }
 
-  _showDetailsHandler = item_pid =>
-    this.props.history.push(this.showDetailsUrl(item_pid));
+  _showDetailsHandler = itemPid =>
+    this.props.history.push(this.showDetailsUrl(itemPid));
 
   _seeAllButton = () => {
     const { document_pid } = this.props.document;

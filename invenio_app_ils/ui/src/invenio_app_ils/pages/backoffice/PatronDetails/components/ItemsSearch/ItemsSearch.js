@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { generatePath } from 'react-router';
 import {
   Container,
   Grid,
@@ -10,7 +9,7 @@ import {
   Button,
   Input,
 } from 'semantic-ui-react';
-import { BackOfficeURLS } from '../../../../../common/urls';
+import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { Error, Loader } from '../../../../../common/components';
 import { ResultsList as ItemsResultsList } from './components';
 import _isEmpty from 'lodash/isEmpty';
@@ -109,12 +108,9 @@ export default class ItemsSearch extends Component {
           results={results}
           checkoutItem={this.checkoutItem}
           fetchPatronCurrentLoans={this.fetchUpdatedCurrentLoans}
-          viewDetailsClickHandler={itemPid => {
-            const path = generatePath(BackOfficeURLS.itemDetails, {
-              itemPid: itemPid,
-            });
-            this.props.history.push(path);
-          }}
+          viewDetailsClickHandler={itemPid =>
+            this.props.history.push(BackOfficeRoutes.itemDetailsFor(itemPid))
+          }
         />
       </div>
     );

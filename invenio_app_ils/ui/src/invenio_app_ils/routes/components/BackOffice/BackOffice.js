@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { BackOfficeURLS } from '../common/urls';
+import { BackOfficeRoutes } from '../../urls';
 import {
   Header,
   Home,
@@ -13,9 +13,9 @@ import {
   LocationList,
   PatronDetailsContainer,
   PatronsSearch,
-} from '../pages/backoffice';
+} from '../../../pages/backoffice';
 import './BackOffice.scss';
-import { Notifications } from '../common/components/Notifications';
+import { Notifications } from '../../../common/components/Notifications';
 
 export class BackOffice extends Component {
   render() {
@@ -25,56 +25,56 @@ export class BackOffice extends Component {
         <Notifications />
         <div className="container">
           {/* home */}
-          <Route exact path={BackOfficeURLS.home} component={Home} />
+          <Route exact path={BackOfficeRoutes.home} component={Home} />
           {/* documents */}
           <Route
             exact
-            path={BackOfficeURLS.documentDetails}
+            path={BackOfficeRoutes.documentDetails}
             component={DocumentDetailsContainer}
           />
           {/* documents */}
           <Route
             exact
-            path={BackOfficeURLS.documentsSearch}
+            path={BackOfficeRoutes.documentsList}
             component={DocumentsSearch}
           />
           {/* items */}
           <Route
             exact
-            path={BackOfficeURLS.itemsSearch}
+            path={BackOfficeRoutes.itemsList}
             component={ItemsSearch}
           />
           <Route
             exact
-            path={BackOfficeURLS.itemDetails}
+            path={BackOfficeRoutes.itemDetails}
             component={ItemDetailsContainer}
           />
           {/* loans */}
           <Route
             exact
-            path={BackOfficeURLS.loansSearch}
+            path={BackOfficeRoutes.loansList}
             component={LoansSearch}
           />
           <Route
             exact
-            path={BackOfficeURLS.loanDetails}
+            path={BackOfficeRoutes.loanDetails}
             component={LoanDetailsContainer}
           />
           {/* locations */}
           <Route
             exact
-            path={BackOfficeURLS.locationList}
+            path={BackOfficeRoutes.locationsList}
             component={LocationList}
           />
           {/* patrons */}
           <Route
             exact
-            path={BackOfficeURLS.patronsSearch}
+            path={BackOfficeRoutes.patronsList}
             component={PatronsSearch}
           />
           <Route
             exact
-            path={BackOfficeURLS.patronDetails}
+            path={BackOfficeRoutes.patronDetails}
             component={PatronDetailsContainer}
           />
         </div>

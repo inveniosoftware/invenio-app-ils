@@ -3,18 +3,14 @@ import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../../common/components';
 import { loan as loanApi } from '../../../../../../common/api';
 import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
-import {
-  loanSearchQueryUrl,
-  BackOfficeURLS,
-} from '../../../../../../common/urls';
+import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { NewButton, SeeAllButton } from '../../../../components/buttons';
 
 export default class LoansCard extends Component {
   constructor(props) {
     super(props);
     this.fetchPendingLoans = props.fetchPendingLoans;
-    this.seeAllUrl = loanSearchQueryUrl;
-    this.loanCheckout = BackOfficeURLS.loanCheckout;
+    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
   }
 
   componentDidMount() {
@@ -39,7 +35,9 @@ export default class LoansCard extends Component {
       <NewButton
         fluid
         disabled
-        clickHandler={() => this.props.history.push(this.loanCheckout)}
+        clickHandler={() => {
+          /* not implemented */
+        }}
       />
     );
   };

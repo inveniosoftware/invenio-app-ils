@@ -7,7 +7,7 @@ import { formatter } from '../../../../../common/components/ResultsTable/formatt
 import { item as itemApi } from '../../../../../common/api';
 import { SeeAllButton } from '../../../components/buttons/SeeAllButton';
 import pick from 'lodash/pick';
-import { viewItemDetailsUrl } from '../../../../../common/urls';
+import { BackOfficeRoutes } from '../../../../../routes/urls';
 
 export default class AvailableItems extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ export default class AvailableItems extends Component {
     this.fetchAvailableItems = props.fetchAvailableItems;
     this.assignItemToLoan = props.assignItemToLoan;
     this.assignItemAndCheckout = props.assignItemAndCheckout;
-    this.showDetailsUrl = viewItemDetailsUrl;
+    this.showDetailsUrl = BackOfficeRoutes.itemDetailsFor;
   }
 
   componentDidMount() {

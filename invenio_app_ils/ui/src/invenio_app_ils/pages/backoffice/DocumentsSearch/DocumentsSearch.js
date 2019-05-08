@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { generatePath } from 'react-router';
 import { Container, Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import {
   ReactSearchKit,
@@ -16,14 +15,13 @@ import {
   Aggregator,
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
-import { BackOfficeURLS } from '../../../common/urls';
 import {
   Error as IlsError,
   SearchBar as DocumentsSearchBar,
 } from '../../../common/components';
 import { document as documentApi } from '../../../common/api/documents/document';
 import { ClearButton, NewButton } from '../components/buttons';
-import { openRecordEditor } from '../../../common/urls';
+import { BackOfficeRoutes, openRecordEditor } from '../../../routes/urls';
 import { ResultsList as DocumentsResultsList } from './components';
 import { default as config } from './config';
 import './DocumentsSearch.scss';
@@ -57,12 +55,11 @@ export class DocumentsSearch extends Component {
       <div className="results-list">
         <DocumentsResultsList
           results={results}
-          viewDetailsClickHandler={documentPid => {
-            const path = generatePath(BackOfficeURLS.documentDetails, {
-              documentPid: documentPid,
-            });
-            this.props.history.push(path);
-          }}
+          viewDetailsClickHandler={documentPid =>
+            this.props.history.push(
+              BackOfficeRoutes.documentDetailsFor(documentPid)
+            )
+          }
         />
       </div>
     );

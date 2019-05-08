@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../../common/components';
 import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
 import { NewButton, SeeAllButton } from '../../../../components/buttons';
-import {
-  BackOfficeURLS,
-  documentsSearchQueryUrl,
-} from '../../../../../../common/urls';
+import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { document as documentApi } from '../../../../../../common/api';
 
 export default class DocumentsCard extends Component {
@@ -14,8 +11,8 @@ export default class DocumentsCard extends Component {
     super(props);
     this.fetchRequestedWithAvailableItems =
       props.fetchRequestedWithAvailableItems;
-    this.seeAllUrl = documentsSearchQueryUrl;
-    this.newDocumentURL = BackOfficeURLS.newDocument;
+    this.seeAllUrl = BackOfficeRoutes.documentsListWithQuery;
+    this.newDocumentURL = BackOfficeRoutes.documentsCreate;
   }
 
   componentDidMount() {

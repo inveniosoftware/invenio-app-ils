@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { item as itemApi } from '../../../../../common/api';
-import { openRecordEditor } from '../../../../../common/urls';
+import { openRecordEditor } from '../../../../../routes/urls';
 import { ResultsTable } from '../../../../../common/components';
 import { NewButton } from '../../../components/buttons';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';

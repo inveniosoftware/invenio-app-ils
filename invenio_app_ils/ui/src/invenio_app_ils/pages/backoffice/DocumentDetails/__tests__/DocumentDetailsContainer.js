@@ -1,6 +1,9 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import DocumentDetailsContainer from '../DocumentDetailsContainer';
+
+jest.mock('../../../../common/config');
+
 jest.mock('../components/DocumentDetails', () => {
   return {
     DocumentDetails: () => null,

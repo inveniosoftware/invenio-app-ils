@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { generatePath } from 'react-router';
 import { Loader, Error } from '../../../../../../common/components';
 import { ResultsTable } from '../../../../../../common/components';
 import { loan as loanApi } from '../../../../../../common/api';
-import {
-  BackOfficeURLS,
-  loanSearchQueryUrl,
-} from '../../../../../../common/urls';
+import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
 import pick from 'lodash/pick';
@@ -16,8 +12,8 @@ export default class OverdueLoansList extends Component {
   constructor(props) {
     super(props);
     this.fetchOverdueLoans = props.fetchOverdueLoans;
-    this.showDetailsUrl = BackOfficeURLS.loanDetails;
-    this.seeAllUrl = loanSearchQueryUrl;
+    this.showDetailsUrl = BackOfficeRoutes.loanDetailsFor;
+    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
   }
 
   componentDidMount() {
@@ -25,9 +21,7 @@ export default class OverdueLoansList extends Component {
   }
 
   _showDetailsHandler = loan_pid =>
-    this.props.history.push(
-      generatePath(this.showDetailsUrl, { loanPid: loan_pid })
-    );
+    this.props.history.push(this.showDetailsUrl(loan_pid));
 
   _seeAllButton = () => {
     const _click = () =>

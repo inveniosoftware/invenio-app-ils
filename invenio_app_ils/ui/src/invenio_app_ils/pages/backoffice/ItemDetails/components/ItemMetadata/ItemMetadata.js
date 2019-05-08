@@ -3,7 +3,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Segment, Container, Header, Table } from 'semantic-ui-react';
 import { CreateNewLoanModal } from './components/CreateNewLoanModal';
-import { openRecordEditor } from '../../../../../common/urls';
+import { openRecordEditor } from '../../../../../routes/urls';
 import { item as itemApi } from '../../../../../common/api';
 import { invenioConfig } from '../../../../../common/config';
 import { EditButton } from '../../../components/buttons';

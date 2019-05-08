@@ -13,15 +13,26 @@ describe('AuthenticationGuard tests', () => {
   });
 
   it('should load the AuthenticationGuard component', () => {
-    const button = () => {
+    const authorizedButton = () => {
       return (
         <Button size="small" onClick={() => {}}>
           Authorized
         </Button>
       );
     };
+    const unAuthorizedButton = () => {
+      return (
+        <Button size="small" onClick={() => {}} data-test="unauthorized">
+          Unauthorized
+        </Button>
+      );
+    };
     const component = shallow(
-      <AuthenticationGuard component={button} roles={['test']} />
+      <AuthenticationGuard
+        authorizedComponent={authorizedButton}
+        unAuthorizedComponent={unAuthorizedButton}
+        roles={['test']}
+      />
     );
     expect(component).toMatchSnapshot();
   });

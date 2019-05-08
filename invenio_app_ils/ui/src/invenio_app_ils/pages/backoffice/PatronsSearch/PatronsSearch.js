@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { generatePath } from 'react-router';
 import { Container, Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import {
   ReactSearchKit,
@@ -15,7 +14,7 @@ import {
   SortOrder,
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
-import { BackOfficeURLS } from '../../../common/urls';
+import { BackOfficeRoutes } from '../../../routes/urls';
 import {
   Error as IlsError,
   SearchBar as PatronsSearchBar,
@@ -44,9 +43,7 @@ export class PatronsSearch extends Component {
         <PatronsResultsList
           results={results}
           viewDetailsClickHandler={patronPid => {
-            const path = generatePath(BackOfficeURLS.patronDetails, {
-              patronPid: patronPid,
-            });
+            const path = BackOfficeRoutes.patronDetailsFor(patronPid);
             this.props.history.push(path);
           }}
         />

@@ -4,10 +4,7 @@ import { Loader, Error } from '../../../../../common/components';
 import { loan as loanApi } from '../../../../../common/api/';
 
 import { ResultsTable } from '../../../../../common/components';
-import {
-  loanSearchQueryUrl,
-  viewLoanDetailsUrl,
-} from '../../../../../common/urls';
+import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
 
@@ -18,8 +15,8 @@ export default class PatronCurrentLoans extends Component {
   constructor(props) {
     super(props);
     this.fetchPatronCurrentLoans = props.fetchPatronCurrentLoans;
-    this.showDetailsUrl = viewLoanDetailsUrl;
-    this.seeAllUrl = loanSearchQueryUrl;
+    this.showDetailsUrl = BackOfficeRoutes.loanDetailsFor;
+    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
   }
 
   componentDidMount() {

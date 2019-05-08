@@ -5,7 +5,7 @@ import {
   location as locationApi,
   internalLocation as internalLocationApi,
 } from '../../../common/api';
-import { openRecordEditor } from '../../../common/urls';
+import { openRecordEditor } from '../../../routes/urls';
 import { InternalLocationList } from './components';
 import { Error, Loader, ResultsTable } from '../../../common/components';
 import { DeleteRecordModal } from '../../backoffice/components';

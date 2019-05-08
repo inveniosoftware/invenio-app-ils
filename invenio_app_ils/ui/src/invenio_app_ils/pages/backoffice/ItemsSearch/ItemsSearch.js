@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { generatePath } from 'react-router';
 import { Container, Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import {
   ReactSearchKit,
@@ -16,11 +15,10 @@ import {
   Aggregator,
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
-import { BackOfficeURLS } from '../../../common/urls';
 import { Error as IlsError } from '../../../common/components';
 import { item as itemApi } from '../../../common/api';
 import { ClearButton, NewButton } from '../components/buttons';
-import { openRecordEditor } from '../../../common/urls';
+import { BackOfficeRoutes, openRecordEditor } from '../../../routes/urls';
 import { SearchBar as ItemsSearchBar } from '../../../common/components';
 import { ResultsList as ItemsResultsList } from './components';
 import { default as config } from './config';
@@ -44,10 +42,7 @@ export class ItemsSearch extends Component {
         <ItemsResultsList
           results={results}
           viewDetailsClickHandler={itemPid => {
-            const path = generatePath(BackOfficeURLS.itemDetails, {
-              itemPid: itemPid,
-            });
-            this.props.history.push(path);
+            this.props.history.push(BackOfficeRoutes.itemDetailsFor(itemPid));
           }}
         />
       </div>

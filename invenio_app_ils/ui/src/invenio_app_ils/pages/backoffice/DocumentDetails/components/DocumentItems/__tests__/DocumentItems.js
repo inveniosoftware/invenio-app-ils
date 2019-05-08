@@ -1,10 +1,11 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { generatePath } from 'react-router';
-import { BackOfficeURLS } from '../../../../../../common/urls';
+import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import DocumentItems from '../DocumentItems';
 import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../common/api/date';
+
+jest.mock('../../../../../../common/config');
 
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
@@ -85,10 +86,10 @@ describe('DocumentItems tests', () => {
           id: '2',
           updated: stringDate,
           created: stringDate,
-          item_pid: 'item1',
+          item_pid: 'item2',
           metadata: {
             document_pid: 'doc2',
-            item_pid: 'item1',
+            item_pid: 'item2',
             internal_location: { location: { name: 'Somewhere' } },
             barcode: '44444',
             shelf: 'P',
@@ -144,7 +145,7 @@ describe('DocumentItems tests', () => {
           created: stringDate,
           metadata: {
             document_pid: 'doc2',
-            item_pid: 'item1',
+            item_pid: 'item2',
             internal_location: { location: { name: 'Somewhere' } },
             barcode: '44444',
             shelf: 'P',
@@ -213,9 +214,7 @@ describe('DocumentItems tests', () => {
       .find('i');
     button.simulate('click');
 
-    const expectedParam = generatePath(BackOfficeURLS.itemDetails, {
-      itemPid: firstId,
-    });
+    const expectedParam = BackOfficeRoutes.itemDetailsFor(firstId);
     expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam);
   });
 });
