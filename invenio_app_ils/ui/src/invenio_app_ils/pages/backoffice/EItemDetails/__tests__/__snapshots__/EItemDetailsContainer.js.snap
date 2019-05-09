@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EItemDetailsContainer tests should load the details component 1`] = `
+<Container>
+  <EItemDetails />
+</Container>
+`;

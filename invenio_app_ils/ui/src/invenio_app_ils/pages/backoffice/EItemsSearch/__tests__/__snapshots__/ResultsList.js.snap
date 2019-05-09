@@ -1,0 +1,407 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EItemsSearch ResultsList tests should not render when empty results 1`] = `
+<ResultsList
+  results={Array []}
+  viewDetailsClickHandler={[Function]}
+/>
+`;
+
+exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
+<ResultsList
+  results={
+    Array [
+      Object {
+        "created": "2018-01-01T10:05:00.000Z",
+        "id": 987,
+        "metadata": Object {
+          "description": "A description.",
+          "document": Object {
+            "document_pid": 1342,
+          },
+          "document_pid": 1342,
+          "eitem_pid": 987,
+          "internal_notes": "Internal notes.",
+        },
+      },
+    ]
+  }
+  viewDetailsClickHandler={[Function]}
+>
+  <ResultsTable
+    fixed={false}
+    headerActionClickHandler={null}
+    headerActionComponent={
+      <NewButton
+        clickHandler={[Function]}
+        disabled={false}
+        fluid={false}
+        text="New eitem"
+      />
+    }
+    name="eitems"
+    rowActionClickHandler={[Function]}
+    rows={
+      Array [
+        Object {
+          "Description": "A description.",
+          "Document ID": 1342,
+          "ID": 987,
+          "Internal Notes": "Internal notes.",
+          "Open access": false,
+        },
+      ]
+    }
+    seeAllComponent={null}
+    showMaxRows={10}
+    singleLine={false}
+    subtitle=""
+    title=""
+  >
+    <Segment>
+      <div
+        className="ui segment"
+      >
+        <Grid>
+          <div
+            className="ui grid"
+          >
+            <GridRow>
+              <div
+                className="row"
+              >
+                <GridColumn
+                  verticalAlign="middle"
+                  width={13}
+                >
+                  <div
+                    className="middle aligned thirteen wide column"
+                  />
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={3}
+                >
+                  <div
+                    className="right aligned three wide column"
+                  >
+                    <NewButton
+                      clickHandler={[Function]}
+                      disabled={false}
+                      fluid={false}
+                      text="New eitem"
+                    >
+                      <Button
+                        as="button"
+                        icon={true}
+                        labelPosition="left"
+                        onClick={[Function]}
+                        positive={true}
+                        size="small"
+                      >
+                        <button
+                          className="ui small icon positive left labeled button"
+                          onClick={[Function]}
+                        >
+                          <Icon
+                            as="i"
+                            name="plus"
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="plus icon"
+                            />
+                          </Icon>
+                          New eitem
+                        </button>
+                      </Button>
+                    </NewButton>
+                  </div>
+                </GridColumn>
+              </div>
+            </GridRow>
+          </div>
+        </Grid>
+        <Table
+          as="table"
+          selectable={true}
+          striped={true}
+        >
+          <table
+            className="ui selectable striped table"
+          >
+            <ResultsTableHeader
+              columns={
+                Array [
+                  "ID",
+                  "Document ID",
+                  "Open access",
+                  "Description",
+                  "Internal Notes",
+                ]
+              }
+              withRowAction={true}
+            >
+              <TableHeader
+                as="thead"
+              >
+                <thead
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="header"
+                  >
+                    <tr
+                      className=""
+                      data-test="header"
+                    >
+                      <TableHeaderCell
+                        as="th"
+                        collapsing={true}
+                        width={2}
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                          collapsing={true}
+                          width={2}
+                        >
+                          <th
+                            className="collapsing two wide"
+                          />
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="ID"
+                        width={2}
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                          width={2}
+                        >
+                          <th
+                            className="two wide"
+                          >
+                            ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Document ID"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Document ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Open access"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Open access
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Description"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Description
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Internal Notes"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Internal Notes
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                    </tr>
+                  </TableRow>
+                </thead>
+              </TableHeader>
+            </ResultsTableHeader>
+            <ResultsTableBody
+              columns={
+                Array [
+                  "ID",
+                  "Document ID",
+                  "Open access",
+                  "Description",
+                  "Internal Notes",
+                ]
+              }
+              rowActionClickHandler={[Function]}
+              rows={
+                Array [
+                  Object {
+                    "Description": "A description.",
+                    "Document ID": 1342,
+                    "ID": 987,
+                    "Internal Notes": "Internal notes.",
+                    "Open access": false,
+                  },
+                ]
+              }
+            >
+              <TableBody
+                as="tbody"
+              >
+                <tbody
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test={987}
+                    key="987"
+                  >
+                    <tr
+                      className=""
+                      data-test={987}
+                    >
+                      <TableCell
+                        as="td"
+                        textAlign="center"
+                      >
+                        <td
+                          className="center aligned"
+                        >
+                          <Button
+                            as="button"
+                            circular={true}
+                            compact={true}
+                            data-test="btn-view-details-987"
+                            icon="eye"
+                            onClick={[Function]}
+                          >
+                            <button
+                              className="ui circular compact icon button"
+                              data-test="btn-view-details-987"
+                              onClick={[Function]}
+                            >
+                              <Icon
+                                as="i"
+                                name="eye"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="eye icon"
+                                />
+                              </Icon>
+                            </button>
+                          </Button>
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="ID-987"
+                        key="0-987"
+                      >
+                        <td
+                          className=""
+                          data-test="ID-987"
+                        >
+                          987
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Document ID-987"
+                        key="1-987"
+                      >
+                        <td
+                          className=""
+                          data-test="Document ID-987"
+                        >
+                          1342
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Open access-987"
+                        key="2-987"
+                      >
+                        <td
+                          className=""
+                          data-test="Open access-987"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Description-987"
+                        key="3-987"
+                      >
+                        <td
+                          className=""
+                          data-test="Description-987"
+                        >
+                          A description.
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Internal Notes-987"
+                        key="4-987"
+                      >
+                        <td
+                          className=""
+                          data-test="Internal Notes-987"
+                        >
+                          Internal notes.
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                </tbody>
+              </TableBody>
+            </ResultsTableBody>
+            <ResultsTableFooter
+              allRowsNumber={1}
+              columnsNumber={5}
+              seeAllComponent={null}
+              showMaxRows={10}
+            />
+          </table>
+        </Table>
+      </div>
+    </Segment>
+  </ResultsTable>
+</ResultsList>
+`;

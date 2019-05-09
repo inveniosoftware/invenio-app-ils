@@ -658,6 +658,20 @@ RECORDS_REST_SORT_OPTIONS = dict(
             order=1
         )
     ),
+    eitems=dict(  # ItemSearch.Meta.index
+        bestmatch=dict(
+            fields=['-_score'],
+            title='Best match',
+            default_order='asc',
+            order=2
+        ),
+        mostrecent=dict(
+            fields=['_updated'],
+            title='Newest',
+            default_order='asc',
+            order=1
+        )
+    ),
     items=dict(  # ItemSearch.Meta.index
         bestmatch=dict(
             fields=['-_score'],

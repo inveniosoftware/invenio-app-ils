@@ -63,6 +63,20 @@ function formatItemToTableView(item) {
   };
 }
 
+function formatEItemToTableView(eitem) {
+  return {
+    ID: eitem.eitem_pid ? eitem.eitem_pid : eitem.id,
+    'Document ID': eitem.metadata.document_pid,
+    'Open access': eitem.metadata.open_access
+      ? eitem.metadata.open_access
+      : false,
+    Created: toShortDate(fromISO(eitem.created)),
+    Updated: toShortDate(fromISO(eitem.updated)),
+    Description: eitem.metadata.description,
+    'Internal Notes': eitem.metadata.internal_notes,
+  };
+}
+
 function formatLocationToTableView(location) {
   return {
     ID: location.location_pid ? location.location_pid : location.id,
@@ -105,6 +119,7 @@ export const formatter = {
   loan: { toTable: formatLoanToTableView },
   document: { toTable: formatDocumentToTableView },
   item: { toTable: formatItemToTableView },
+  eitem: { toTable: formatEItemToTableView },
   location: { toTable: formatLocationToTableView },
   internalLocation: { toTable: formatInternalLocationToTableView },
   patron: { toTable: formatPatronToTableView },
