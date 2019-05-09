@@ -56,7 +56,7 @@ export const deleteItem = itemPid => {
           type: DELETE_SUCCESS,
           payload: { itemPid: itemPid },
         });
-        history.push(BackOfficeRoutes.itemsSearch);
+        history.push(BackOfficeRoutes.itemsList);
       }, ES_DELAY);
     } catch (error) {
       dispatch({
