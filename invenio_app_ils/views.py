@@ -17,8 +17,8 @@ from __future__ import absolute_import, print_function
 from flask import Blueprint, current_app, render_template
 from invenio_circulation.search.api import LoansSearch
 
-from invenio_app_ils.search.api import DocumentSearch, ItemSearch, \
-    PatronsSearch
+from invenio_app_ils.search.api import DocumentSearch, EItemSearch, \
+    ItemSearch, PatronsSearch
 
 blueprint = Blueprint(
     "invenio_app_ils_ui",
@@ -99,6 +99,41 @@ def _get_items_ui_config():
         .get("aggs", {})
     )
     ui_config["items"]["search"]["aggs"] = list(items_aggs.keys())
+    return ui_config
+
+
+def _get_eitems_ui_config():
+    """Get ui config for eitems search page."""
+    ui_config = {
+        "eitems": {
+            "search": {
+                "sortBy": {"values": [], "onEmptyQuery": None},
+                "sortOrder": ["asc", "desc"],
+                "aggs": [],
+            },
+            "available": {"status": "CAN_CIRCULATE"},
+        }
+    }
+    eitems_index = EItemSearch.Meta.index
+
+    eitems_sort = current_app.config.get("RECORDS_REST_SORT_OPTIONS", {}).get(
+        eitems_index, {}
+    )
+    eitems_sort_ui = [
+        {
+            "field": field,
+            "title": eitems_sort[field]["title"],
+            "order": eitems_sort[field]["order"],
+        }
+        for field in eitems_sort.keys()
+    ]
+
+    ui_config["eitems"]["search"]["sortBy"]["values"] = sorted(
+        eitems_sort_ui, key=lambda s: s["order"]
+    )
+    if "mostrecent" in eitems_sort:
+        ui_config["eitems"]["search"]["sortBy"]["onEmptyQuery"] = "mostrecent"
+
     return ui_config
 
 
@@ -193,6 +228,7 @@ def ping():
 def index(path=None):
     """UI base view."""
     ui_config = _get_documents_ui_config()
+    ui_config.update(_get_eitems_ui_config())
     ui_config.update(_get_items_ui_config())
     ui_config.update(_get_loans_ui_config())
     ui_config.update(_get_patrons_ui_config())

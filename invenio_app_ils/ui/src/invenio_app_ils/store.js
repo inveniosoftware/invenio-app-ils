@@ -9,6 +9,7 @@ import {
   documentItems,
 } from './pages/backoffice/DocumentDetails/reducer';
 import { deleteRecordModalReducer } from './pages/backoffice/components/DeleteRecordModal/reducer';
+import { eitemDetailsReducer } from './pages/backoffice/EItemDetails/reducer';
 import {
   itemDetailsReducer,
   itemPastLoansReducer,
@@ -46,6 +47,7 @@ const rootReducer = combineReducers({
   documentDetails: documentDetailsReducer,
   documentPendingLoans: documentPendingLoans,
   documentItems: documentItems,
+  eitemDetails: eitemDetailsReducer,
   itemDetails: itemDetailsReducer,
   itemPastLoans: itemPastLoansReducer,
   loanDetails: loanDetailsReducer,

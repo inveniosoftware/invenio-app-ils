@@ -16,7 +16,7 @@ const resultsPerPageValues = [
   },
 ];
 
-const config = invenioConfig.items.search;
+const config = invenioConfig.eitems.search;
 
 const sortByValues = config.sortBy.values.map(sortField => {
   return { text: sortField.title, value: sortField.field };
@@ -26,19 +26,9 @@ const sortOrderValues = config.sortOrder.map(sortField => {
   return { text: _capitalize(sortField), value: sortField };
 });
 
-const aggsMappings = {
-  status: 'Status',
-  medium: 'Medium',
-  circulation_status: 'Circulation Status',
-};
-const aggs = config.aggs.map(agg => {
-  return { title: aggsMappings[agg], field: agg };
-});
-
 export default {
   RESULTS_PER_PAGE: resultsPerPageValues,
   SORT_BY: sortByValues,
   SORT_BY_ON_EMPTY_QUERY: sortByValueOnEmptyQuery,
   SORT_ORDER: sortOrderValues,
-  AGGREGATIONS: aggs,
 };

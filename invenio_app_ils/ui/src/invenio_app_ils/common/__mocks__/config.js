@@ -9,6 +9,16 @@ export const invenioConfig = {
       aggs: [],
     },
   },
+  eitems: {
+    search: {
+      sortBy: {
+        values: [],
+        onEmptyQuery: '',
+      },
+      sortOrder: [],
+      aggs: [],
+    },
+  },
   items: {
     search: {
       sortBy: {
