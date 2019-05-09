@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Message } from 'semantic-ui-react';
-
-const SUCCESS_AUTO_DISMISS_SECONDS = 60 * 10;
+import { SUCCESS_AUTO_DISMISS_SECONDS } from '../../../common/config';
 
 export class IlsMessage extends Component {
   componentDidMount() {
