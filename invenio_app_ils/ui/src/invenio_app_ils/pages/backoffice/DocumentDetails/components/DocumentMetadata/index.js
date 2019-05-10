@@ -2,7 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import DocumentMetadataComponent from './DocumentMetadata';
-import { fetchDocumentDetails } from '../../state/actions';
+import { deleteDocument, fetchDocumentDetails } from '../../state/actions';
 
 const mapStateToProps = state => ({
   documentDetails: state.documentDetails.data,
@@ -10,7 +10,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchDocumentDetails: itemPid => dispatch(fetchDocumentDetails(itemPid)),
+  fetchDocumentDetails: documentPid =>
+    dispatch(fetchDocumentDetails(documentPid)),
+  deleteDocument: documentPid => dispatch(deleteDocument(documentPid)),
 });
 
 export const DocumentMetadata = compose(

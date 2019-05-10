@@ -45,6 +45,10 @@ export const deleteItem = itemPid => {
 
     try {
       await itemApi.delete(itemPid);
+      dispatch({
+        type: DELETE_SUCCESS,
+        payload: { itemPid: itemPid },
+      });
       dispatch(
         sendSuccessNotification(
           'Success!',
@@ -52,10 +56,6 @@ export const deleteItem = itemPid => {
         )
       );
       setTimeout(() => {
-        dispatch({
-          type: DELETE_SUCCESS,
-          payload: { itemPid: itemPid },
-        });
         history.push(BackOfficeRoutes.itemsList);
       }, ES_DELAY);
     } catch (error) {

@@ -50,14 +50,14 @@ export const deleteLocation = locationPid => {
           type: DELETE_SUCCESS,
           payload: { locationPid: locationPid },
         });
+        dispatch(
+          sendSuccessNotification(
+            'Success!',
+            `The location ${locationPid} has been deleted.`
+          )
+        );
         setTimeout(() => {
           dispatch(fetchLocations());
-          dispatch(
-            sendSuccessNotification(
-              'Success!',
-              `The location ${locationPid} has been deleted.`
-            )
-          );
         }, ES_DELAY);
       })
       .catch(error => {

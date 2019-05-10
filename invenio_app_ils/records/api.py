@@ -97,6 +97,38 @@ class Document(IlsRecord):
         }
         return super(Document, cls).create(data, id_=id_, **kwargs)
 
+    def delete(self, **kwargs):
+        """Delete Document record."""
+        loan_search_res = search_by_pid(
+            document_pid=self[Document.pid_field],
+            filter_states=['PENDING'] +
+            current_app.config['CIRCULATION_STATES_LOAN_ACTIVE'],
+        )
+        if loan_search_res.count():
+            raise RecordHasReferencesError(
+                record_type="Document",
+                record_id=self[Document.pid_field],
+                ref_type="Loan",
+                ref_ids=sorted(
+                    [res[Loan.pid_field] for res in loan_search_res.scan()]
+                ),
+            )
+
+        item_search = ItemSearch()
+        item_search_res = item_search.search_by_document_pid(
+            document_pid=self[Document.pid_field]
+        )
+        if item_search_res.count():
+            raise RecordHasReferencesError(
+                record_type="Document",
+                record_id=self[Document.pid_field],
+                ref_type="Item",
+                ref_ids=sorted(
+                    [res[Item.pid_field] for res in item_search_res.scan()]
+                ),
+            )
+        return super(Document, self).delete(**kwargs)
+
     def add_keyword(self, keyword):
         """Add a new keyword to the document."""
         if keyword["keyword_pid"] not in self["keyword_pids"]:
@@ -109,8 +141,7 @@ class Document(IlsRecord):
         """
         if keyword["keyword_pid"] not in self["keyword_pids"]:
             raise DocumentKeywordNotFoundError(
-                self["document_pid"],
-                keyword["keyword_pid"]
+                self["document_pid"], keyword["keyword_pid"]
             )
 
         self["keyword_pids"].remove(keyword["keyword_pid"])
@@ -229,11 +260,15 @@ class Location(IlsRecord):
         )
         if iloc_search_res.count():
             raise RecordHasReferencesError(
-                record_type='Location',
+                record_type="Location",
                 record_id=self[Location.pid_field],
-                ref_type='Internal Location',
-                ref_ids=sorted([res[InternalLocation.pid_field]
-                                for res in iloc_search_res.scan()])
+                ref_type="Internal Location",
+                ref_ids=sorted(
+                    [
+                        res[InternalLocation.pid_field]
+                        for res in iloc_search_res.scan()
+                    ]
+                ),
             )
         return super(Location, self).delete(**kwargs)
 
@@ -308,7 +343,7 @@ class Keyword(IlsRecord):
         return super(Keyword, self).delete(**kwargs)
 
 
-class Patron():
+class Patron:
     """Patron record class."""
 
     _index = "patrons-patron-v1.0.0"
@@ -331,6 +366,6 @@ class Patron():
         """Return python representation of Patron meatadata."""
         return dict(
             id=self.id,
-            name=self.profile.full_name if self.profile else '',
+            name=self.profile.full_name if self.profile else "",
             email=self.user.email,
         )

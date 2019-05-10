@@ -1,7 +1,7 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 
 export const initialState = {
-  data: { hits: [], total: 0 },
+  data: [],
   error: {},
   hasError: false,
   isLoading: false,
@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        data: { hits: [], total: 0 },
+        data: [],
         error: action.payload,
         hasError: true,
       };

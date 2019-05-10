@@ -10,6 +10,11 @@ const get = documentPid => {
   });
 };
 
+const del = async docPid => {
+  const response = await http.delete(`${documentURL}${docPid}`);
+  return response;
+};
+
 class QueryBuilder {
   constructor() {
     this.overbookedQuery = [];
@@ -89,6 +94,7 @@ const count = query => {
 
 export const document = {
   get: get,
+  delete: del,
   list: list,
   count: count,
   query: queryBuilder,

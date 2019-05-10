@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchReferences: checkRefs => dispatch(fetchReferences(checkRefs)),
+  fetchReferences: promiseArray => dispatch(fetchReferences(promiseArray)),
 });
 
 export const DeleteRecordModal = connect(

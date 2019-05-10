@@ -17,9 +17,26 @@ export default class ItemMetadata extends Component {
     this.deleteItem = props.deleteItem;
   }
 
-  _handleOnRefClick(loanPid) {
+  handleOnRefClick(loanPid) {
     const navUrl = BackOfficeRoutes.loanDetailsFor(loanPid);
     window.open(navUrl, `_loan_${loanPid}`);
+  }
+
+  createRefProps(itemPid) {
+    return [
+      {
+        refType: 'Loan',
+        onRefClick: this.handleOnRefClick,
+        getRefData: () =>
+          loanApi.list(
+            loanApi
+              .query()
+              .withItemPid(itemPid)
+              .withState(invenioConfig.circulation.loanActiveStates)
+              .qs()
+          ),
+      },
+    ];
   }
 
   render() {
@@ -44,20 +61,10 @@ export default class ItemMetadata extends Component {
             clickHandler={() => openRecordEditor(itemApi.url, item.item_pid)}
           />
           <DeleteRecordModal
-            headerContent={`Are you sure you want to delete the Item
+            deleteHeader={`Are you sure you want to delete the Item
             record with ID ${item.item_pid}?`}
             onDelete={() => this.deleteItem(item.item_pid)}
-            refType={'Loan'}
-            onRefClick={this._handleOnRefClick}
-            checkRefs={() =>
-              loanApi.list(
-                loanApi
-                  .query()
-                  .withItemPid(item.item_pid)
-                  .withState(invenioConfig.circulation.loanActiveStates)
-                  .qs()
-              )
-            }
+            refProps={this.createRefProps(item.item_pid)}
           />
         </Grid.Column>
       </Grid.Row>
