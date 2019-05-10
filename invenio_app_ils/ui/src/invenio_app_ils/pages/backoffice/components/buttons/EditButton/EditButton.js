@@ -7,12 +7,12 @@ export default class EditButton extends Component {
     const { fluid, disabled } = this.props;
     return (
       <Button
+        icon
+        primary
         size="small"
+        labelPosition="left"
         {...(disabled ? { disabled: true } : {})}
         {...(fluid ? { fluid: true } : {})}
-        primary
-        icon
-        labelPosition="left"
         onClick={this.props.clickHandler}
       >
         <Icon name="edit" />

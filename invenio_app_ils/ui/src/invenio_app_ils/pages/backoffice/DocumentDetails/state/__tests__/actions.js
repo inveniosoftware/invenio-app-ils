@@ -9,7 +9,10 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 const mockGet = jest.fn();
+const mockDelete = jest.fn();
+
 documentApi.get = mockGet;
+documentApi.delete = mockDelete;
 
 const response = { data: {} };
 const expectedPayload = {};
@@ -17,6 +20,7 @@ const expectedPayload = {};
 let store;
 beforeEach(() => {
   mockGet.mockClear();
+  mockDelete.mockClear();
 
   store = mockStore(initialState);
   store.clearActions();
@@ -24,7 +28,7 @@ beforeEach(() => {
 
 describe('Document details actions', () => {
   describe('Fetch document details tests', () => {
-    it('should dispatch an action when fetching an item', done => {
+    it('should dispatch an action when fetching an document', done => {
       mockGet.mockResolvedValue(response);
 
       const expectedActions = [
@@ -75,6 +79,46 @@ describe('Document details actions', () => {
         expect(actions[1]).toEqual(expectedActions[0]);
         done();
       });
+    });
+  });
+
+  describe('Delete document tests', () => {
+    it('should dispatch an action when trigger delete document', async () => {
+      const expectedAction = {
+        type: types.DELETE_IS_LOADING,
+      };
+
+      store.dispatch(actions.deleteDocument(1));
+      expect(mockDelete).toHaveBeenCalled();
+      expect(store.getActions()[0]).toEqual(expectedAction);
+    });
+
+    it('should dispatch an action when document delete succeeds', async () => {
+      mockDelete.mockResolvedValue({ data: { documentPid: 1 } });
+      const expectedAction = {
+        type: types.DELETE_SUCCESS,
+        payload: { documentPid: 1 },
+      };
+
+      await store.dispatch(actions.deleteDocument(1));
+      expect(mockDelete).toHaveBeenCalled();
+      expect(store.getActions()[1]).toEqual(expectedAction);
+    });
+
+    it('should dispatch an action when document delete has error', async () => {
+      const error = {
+        error: { status: 500, message: 'error' },
+      };
+      mockDelete.mockRejectedValue(error);
+
+      const expectedAction = {
+        type: types.DELETE_HAS_ERROR,
+        payload: error,
+      };
+
+      await store.dispatch(actions.deleteDocument(1));
+      expect(mockDelete).toHaveBeenCalled();
+      expect(store.getActions()[1]).toEqual(expectedAction);
     });
   });
 });

@@ -18,31 +18,40 @@ beforeEach(() => {
 
 describe('Delete Record Modal', () => {
   describe('Fetch References', () => {
-    it('should dispatch an action when fetching record references', () => {
+    it('should dispatch an action when fetching record references', async () => {
       const expectedAction = {
         type: types.IS_LOADING,
       };
 
-      store.dispatch(actions.fetchReferences(mockReferences)).then(() => {
-        expect(mockReferences).toHaveBeenCalled();
-        expect(store.getActions()[0]).toEqual(expectedAction);
-      });
+      store.dispatch(actions.fetchReferences([mockReferences()]));
+      expect(mockReferences).toHaveBeenCalled();
+      expect(store.getActions()[0]).toEqual(expectedAction);
     });
 
-    it('should dispatch an action when references fetch succeeds', () => {
-      mockReferences.mockResolvedValue({ data: { hits: [{ id: 1 }] } });
+    it('should dispatch an action when references fetch succeeds', async () => {
+      mockReferences.mockResolvedValue({
+        data: {
+          hits: [{ id: 1 }],
+          total: 1,
+        },
+      });
+
       const expectedAction = {
         type: types.SUCCESS,
-        payload: { hits: [{ id: 1 }] },
+        payload: [
+          {
+            hits: [{ id: 1 }],
+            total: 1,
+          },
+        ],
       };
 
-      store.dispatch(actions.fetchReferences(mockReferences)).then(() => {
-        expect(mockReferences).toHaveBeenCalled();
-        expect(store.getActions()[1]).toEqual(expectedAction);
-      });
+      await store.dispatch(actions.fetchReferences([mockReferences()]));
+      expect(mockReferences).toHaveBeenCalled();
+      expect(store.getActions()[1]).toEqual(expectedAction);
     });
 
-    it('should dispatch an action when fetch references has error', () => {
+    it('should dispatch an action when fetch references has error', async () => {
       const error = {
         error: { status: 500, message: 'error' },
       };
@@ -53,10 +62,9 @@ describe('Delete Record Modal', () => {
         payload: error,
       };
 
-      store.dispatch(actions.fetchReferences(mockReferences)).then(() => {
-        expect(mockReferences).toHaveBeenCalled();
-        expect(store.getActions()[1]).toEqual(expectedAction);
-      });
+      await store.dispatch(actions.fetchReferences([mockReferences()]));
+      expect(mockReferences).toHaveBeenCalled();
+      expect(store.getActions()[1]).toEqual(expectedAction);
     });
   });
 });

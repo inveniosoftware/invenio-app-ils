@@ -49,14 +49,14 @@ export const deleteInternalLocation = ilocPid => {
           type: DELETE_SUCCESS,
           payload: { internalLocationPid: ilocPid },
         });
+        dispatch(
+          sendSuccessNotification(
+            'Success!',
+            `The internal location ${ilocPid} has been deleted.`
+          )
+        );
         setTimeout(() => {
           dispatch(fetchInternalLocations());
-          dispatch(
-            sendSuccessNotification(
-              'Success!',
-              `The internal location ${ilocPid} has been deleted.`
-            )
-          );
         }, ES_DELAY);
       })
       .catch(error => {

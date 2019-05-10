@@ -23,11 +23,21 @@ export default class InternalLocationList extends Component {
     this.fetchInternalLocations();
   }
 
-  _handleOnRefClick(itemPid) {
+  handleOnRefClick(itemPid) {
     openRecordEditor(itemApi.url, itemPid);
   }
 
-  _rowActions(ilocPid) {
+  createRefProps(ilocPid) {
+    return [
+      {
+        refType: 'Item',
+        onRefClick: this.handleOnRefClick,
+        getRefData: () => itemApi.list(`internal_location_pid:${ilocPid}`),
+      },
+    ];
+  }
+
+  rowActions(ilocPid) {
     return (
       <>
         <Button
@@ -37,12 +47,10 @@ export default class InternalLocationList extends Component {
           onClick={() => openRecordEditor(internalLocationApi.url, ilocPid)}
         />
         <DeleteRecordModal
-          headerContent={`Are you sure you want to delete the Internal Location
-            record with ID ${ilocPid}?`}
+          refProps={this.createRefProps(ilocPid)}
           onDelete={() => this.deleteInternalLocation(ilocPid)}
-          refType={'Item'}
-          onRefClick={this._handleOnRefClick}
-          checkRefs={() => itemApi.list(`internal_location_pid:${ilocPid}`)}
+          deleteHeader={`Are you sure you want to delete the Internal Location
+          record with ID ${ilocPid}?`}
         />
       </>
     );
@@ -51,14 +59,14 @@ export default class InternalLocationList extends Component {
   prepareData(data) {
     const rows = data.hits.map(row => {
       let serialized = formatter.internalLocation.toTable(row);
-      serialized['Actions'] = this._rowActions(row.internal_location_pid);
+      serialized['Actions'] = this.rowActions(row.internal_location_pid);
       return omit(serialized, ['Created', 'Updated', 'Link']);
     });
     rows.totalHits = data.total;
     return rows;
   }
 
-  _renderResults(data) {
+  renderResults(data) {
     const rows = this.prepareData(data);
     const headerActionComponent = (
       <NewButton
@@ -82,7 +90,7 @@ export default class InternalLocationList extends Component {
     let { data, error, isLoading } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this._renderResults(data)}</Error>
+        <Error error={error}>{this.renderResults(data)}</Error>
       </Loader>
     );
   }

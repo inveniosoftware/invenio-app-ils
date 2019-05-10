@@ -25,11 +25,19 @@ export default class LocationList extends Component {
     this.fetchLocations();
   }
 
-  _handleOnRefClick(iLocPid) {
-    openRecordEditor(internalLocationApi.url, iLocPid);
+  createRefProps(locationPid) {
+    return [
+      {
+        refType: 'Internal Location',
+        onRefClick: iLocPid =>
+          openRecordEditor(internalLocationApi.url, iLocPid),
+        getRefData: () =>
+          internalLocationApi.list(`location_pid:${locationPid}`),
+      },
+    ];
   }
 
-  _rowActions(locationPid) {
+  rowActions(locationPid) {
     return (
       <>
         <Button
@@ -39,14 +47,10 @@ export default class LocationList extends Component {
           title={'Edit Record'}
         />
         <DeleteRecordModal
-          headerContent={`Are you sure you want to delete the Location
-              record with ID ${locationPid}?`}
+          deleteHeader={`Are you sure you want to delete the Location
+          record with ID ${locationPid}?`}
           onDelete={() => this.deleteLocation(locationPid)}
-          refType={'Internal Location'}
-          onRefClick={this._handleOnRefClick}
-          checkRefs={() =>
-            internalLocationApi.list(`location_pid:${locationPid}`)
-          }
+          refProps={this.createRefProps(locationPid)}
         />
       </>
     );
@@ -55,14 +59,14 @@ export default class LocationList extends Component {
   prepareData(data) {
     const rows = data.hits.map(row => {
       let serialized = formatter.location.toTable(row);
-      serialized['Actions'] = this._rowActions(row.location_pid);
+      serialized['Actions'] = this.rowActions(row.location_pid);
       return omit(serialized, ['Created', 'Updated', 'Link']);
     });
     rows.totalHits = data.total;
     return rows;
   }
 
-  _renderResults(data) {
+  renderResults(data) {
     const rows = this.prepareData(data);
     const headerActionComponent = (
       <NewButton
@@ -87,7 +91,7 @@ export default class LocationList extends Component {
     return (
       <Container>
         <Loader isLoading={isLoading}>
-          <Error error={error}>{this._renderResults(data)}</Error>
+          <Error error={error}>{this.renderResults(data)}</Error>
         </Loader>
         <InternalLocationList />
       </Container>

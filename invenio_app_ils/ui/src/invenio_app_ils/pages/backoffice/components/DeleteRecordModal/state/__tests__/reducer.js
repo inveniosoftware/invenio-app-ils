@@ -17,7 +17,7 @@ describe('Create delete record modal reducer', () => {
   });
 
   it('should change data state on success action', () => {
-    const response = { data: { hits: [{ id: 1, metadata: {} }], total: 0 } };
+    const response = { data: [], total: 0 };
     const action = {
       type: types.SUCCESS,
       payload: response,
