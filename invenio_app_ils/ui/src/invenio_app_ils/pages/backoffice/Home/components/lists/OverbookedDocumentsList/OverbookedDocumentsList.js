@@ -20,11 +20,11 @@ export default class OverbookedDocumentsList extends Component {
     this.fetchOverbookedDocuments();
   }
 
-  _showDetailsHandler = document_pid =>
+  showDetailsHandler = document_pid =>
     this.props.history.push(this.showDetailsUrl(document_pid));
 
-  _seeAllButton = () => {
-    const _click = () =>
+  seeAllButton = () => {
+    const click = () =>
       this.props.history.push(
         this.seeAllUrl(
           documentApi
@@ -34,7 +34,7 @@ export default class OverbookedDocumentsList extends Component {
         )
       );
 
-    return <SeeAllButton clickHandler={() => _click()} />;
+    return <SeeAllButton clickHandler={() => click()} />;
   };
 
   prepareData(data) {
@@ -44,7 +44,7 @@ export default class OverbookedDocumentsList extends Component {
     });
   }
 
-  _render_table(data) {
+  render_table(data) {
     const rows = this.prepareData(data);
     rows.totalHits = data.total;
     return (
@@ -55,8 +55,8 @@ export default class OverbookedDocumentsList extends Component {
           'Documents with more requests than the number of available items for loan.'
         }
         name={'overbooked documents'}
-        rowActionClickHandler={this._showDetailsHandler}
-        seeAllComponent={this._seeAllButton()}
+        rowActionClickHandler={this.showDetailsHandler}
+        seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
         fixed
         singleLine
@@ -68,7 +68,7 @@ export default class OverbookedDocumentsList extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this._render_table(data)}</Error>
+        <Error error={error}>{this.render_table(data)}</Error>
       </Loader>
     );
   }

@@ -1,5 +1,5 @@
 import { invenioConfig } from '../../../common/config';
-import _capitalize from 'lodash/capitalize';
+import capitalize from 'lodash/capitalize';
 
 const resultsPerPageValues = [
   {
@@ -23,7 +23,7 @@ const sortByValues = config.sortBy.values.map(sortField => {
 });
 const sortByValueOnEmptyQuery = config.sortBy.onEmptyQuery;
 const sortOrderValues = config.sortOrder.map(sortField => {
-  return { text: _capitalize(sortField), value: sortField };
+  return { text: capitalize(sortField), value: sortField };
 });
 
 const aggsMappings = {

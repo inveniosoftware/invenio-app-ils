@@ -1,5 +1,5 @@
 import { fromISO, toShortDate, toShortDateTime } from '../../api/date';
-import _isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 import assign from 'lodash/assign';
 
 function formatLoanToTableView(loan) {
@@ -29,7 +29,7 @@ function formatDocumentToTableView(document) {
     Created: toShortDate(fromISO(document.created)),
     Updated: toShortDate(fromISO(document.updated)),
   };
-  if (!_isEmpty(document.metadata)) {
+  if (!isEmpty(document.metadata)) {
     serialized['Title'] = document.metadata.title;
     serialized['Authors'] = document.metadata.authors;
     if (document.metadata.circulation) {
@@ -96,7 +96,7 @@ function formatInternalLocationToTableView(internal_loc) {
     Updated: toShortDate(fromISO(internal_loc.updated)),
     Link: internal_loc.links.self,
   };
-  if (!_isEmpty(internal_loc.metadata)) {
+  if (!isEmpty(internal_loc.metadata)) {
     assign(entry, {
       Name: internal_loc.metadata.name,
       'Physical location': internal_loc.metadata.physical_location,

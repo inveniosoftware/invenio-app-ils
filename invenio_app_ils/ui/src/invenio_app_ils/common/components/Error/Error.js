@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Message } from 'semantic-ui-react';
-import _get from 'lodash/get';
-import _isEmpty from 'lodash/isEmpty';
+import get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
 import { DefaultFallbackComponent } from './DefaultFallbackComponent';
 
 const isAPIError = error => {
-  return _get(error, 'response.data.message') !== undefined;
+  return get(error, 'response.data.message') !== undefined;
 };
 
 export const shouldShowErrorPage = error => {
@@ -27,11 +27,11 @@ export class Error extends Component {
     super(props);
 
     if (props.boundary) {
-      this.componentDidCatch = this._componentDidCatch;
+      this.componentDidCatch = this.componentDidCatch;
     }
   }
 
-  _componentDidCatch(error, info) {
+  componentDidCatch(error, info) {
     const { onUIError } = this.props;
 
     if (typeof onUIError === 'function') {
@@ -41,10 +41,10 @@ export class Error extends Component {
     this.setState({ error, info });
   }
 
-  _renderErrorMessage(error) {
-    let message = _get(error, 'response.data.message');
+  renderErrorMessage(error) {
+    let message = get(error, 'response.data.message');
     if (!message) {
-      message = _get(error, 'message');
+      message = get(error, 'message');
       if (!message) {
         message = 'Unknown error';
       }
@@ -65,8 +65,8 @@ export class Error extends Component {
 
     if (boundary && this.state.error) {
       return <Fallback {...this.state} />;
-    } else if (!_isEmpty(error) && shouldShowErrorPage(error)) {
-      return this._renderErrorMessage(error);
+    } else if (!isEmpty(error) && shouldShowErrorPage(error)) {
+      return this.renderErrorMessage(error);
     } else {
       return this.props.children;
     }

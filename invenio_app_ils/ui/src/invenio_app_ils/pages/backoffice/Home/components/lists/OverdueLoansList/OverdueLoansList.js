@@ -20,11 +20,11 @@ export default class OverdueLoansList extends Component {
     this.fetchOverdueLoans();
   }
 
-  _showDetailsHandler = loan_pid =>
+  showDetailsHandler = loan_pid =>
     this.props.history.push(this.showDetailsUrl(loan_pid));
 
-  _seeAllButton = () => {
-    const _click = () =>
+  seeAllButton = () => {
+    const click = () =>
       this.props.history.push(
         this.seeAllUrl(
           loanApi
@@ -34,7 +34,7 @@ export default class OverdueLoansList extends Component {
         )
       );
 
-    return <SeeAllButton clickHandler={() => _click()} />;
+    return <SeeAllButton clickHandler={() => click()} />;
   };
 
   prepareData(data) {
@@ -48,7 +48,7 @@ export default class OverdueLoansList extends Component {
     });
   }
 
-  _render_table(data) {
+  render_table(data) {
     const rows = this.prepareData(data);
     rows.totalHits = data.total;
     return (
@@ -57,8 +57,8 @@ export default class OverdueLoansList extends Component {
         title={'Overdue loans'}
         subtitle={'Active loans with past due end date.'}
         name={'overdue loans'}
-        rowActionClickHandler={this._showDetailsHandler}
-        seeAllComponent={this._seeAllButton()}
+        rowActionClickHandler={this.showDetailsHandler}
+        seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
       />
     );
@@ -68,7 +68,7 @@ export default class OverdueLoansList extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this._render_table(data)}</Error>
+        <Error error={error}>{this.render_table(data)}</Error>
       </Loader>
     );
   }

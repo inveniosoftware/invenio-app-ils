@@ -21,11 +21,11 @@ export default class IdleLoansList extends Component {
     this.fetchIdlePendingLoans();
   }
 
-  _showDetailsHandler = loan_pid =>
+  showDetailsHandler = loan_pid =>
     this.props.history.push(this.showDetailsUrl(loan_pid));
 
-  _seeAllButton = () => {
-    const _click = () =>
+  seeAllButton = () => {
+    const click = () =>
       this.props.history.push(
         this.seeAllUrl(
           loanApi
@@ -36,7 +36,7 @@ export default class IdleLoansList extends Component {
         )
       );
 
-    return <SeeAllButton clickHandler={() => _click()} />;
+    return <SeeAllButton clickHandler={() => click()} />;
   };
 
   prepareData(data) {
@@ -52,7 +52,7 @@ export default class IdleLoansList extends Component {
     });
   }
 
-  _render_table(data) {
+  render_table(data) {
     const rows = this.prepareData(data);
     rows.totalHits = data.total;
     return (
@@ -61,8 +61,8 @@ export default class IdleLoansList extends Component {
         title={'Idle loans'}
         subtitle={'Loan requests in PENDING state longer than 10 days.'}
         name={'idle loans'}
-        rowActionClickHandler={this._showDetailsHandler}
-        seeAllComponent={this._seeAllButton()}
+        rowActionClickHandler={this.showDetailsHandler}
+        seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
       />
     );
@@ -72,7 +72,7 @@ export default class IdleLoansList extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this._render_table(data)}</Error>
+        <Error error={error}>{this.render_table(data)}</Error>
       </Loader>
     );
   }

@@ -3,7 +3,7 @@ import { Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 export default class MetadataTable extends Component {
-  _renderRows() {
+  renderRows() {
     const labelWidth = this.props.labelWidth;
     const dataColWidth = this.props.dataColumnWidth;
 
@@ -18,7 +18,7 @@ export default class MetadataTable extends Component {
   render() {
     return (
       <Table basic="very" definition className="metadata-table">
-        <Table.Body>{this._renderRows()}</Table.Body>
+        <Table.Body>{this.renderRows()}</Table.Body>
       </Table>
     );
   }

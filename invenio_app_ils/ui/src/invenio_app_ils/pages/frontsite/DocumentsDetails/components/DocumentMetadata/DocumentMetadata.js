@@ -24,7 +24,7 @@ export default class DocumentMetadata extends Component {
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible });
 
-  _render_book_info() {
+  render_book_info() {
     return (
       <div className="document-info">
         <Header as="h2">{this.document.metadata.title}</Header>
@@ -46,7 +46,7 @@ export default class DocumentMetadata extends Component {
     );
   }
 
-  _render_share_buttons_large() {
+  render_share_buttons_large() {
     return (
       <div>
         <Responsive {...Responsive.onlyComputer}>
@@ -69,7 +69,7 @@ export default class DocumentMetadata extends Component {
     );
   }
 
-  _render_files() {
+  render_files() {
     return this.document.metadata.files ? (
       <div>
         <Header as="h3">Files</Header>
@@ -85,7 +85,7 @@ export default class DocumentMetadata extends Component {
     ) : null;
   }
 
-  _render_links() {
+  render_links() {
     return this.document.metadata.booklinks ? (
       <div>
         <Header as="h3">Links</Header>
@@ -100,25 +100,25 @@ export default class DocumentMetadata extends Component {
     ) : null;
   }
 
-  _render_attachments() {
+  render_attachments() {
     return (
       <Grid.Column width={3}>
         <Grid.Row>
           <Header as="h3">Share and Export</Header>
-          {this._render_share_buttons_large()}
+          {this.render_share_buttons_large()}
           <div className="ui hidden divider" />
           <div className="ui hidden divider" />
           <div className="ui divider" />
         </Grid.Row>
 
-        <Grid.Row>{this._render_files()}</Grid.Row>
+        <Grid.Row>{this.render_files()}</Grid.Row>
 
-        <Grid.Row>{this._render_links()}</Grid.Row>
+        <Grid.Row>{this.render_links()}</Grid.Row>
       </Grid.Column>
     );
   }
 
-  _renderShareButtons() {
+  renderShareButtons() {
     return (
       <Responsive {...Responsive.onlyMobile}>
         <div>
@@ -140,7 +140,7 @@ export default class DocumentMetadata extends Component {
     );
   }
 
-  _render_main_buttons() {
+  render_main_buttons() {
     const { visible } = this.state;
     return (
       <div className="loan-request">
@@ -170,7 +170,7 @@ export default class DocumentMetadata extends Component {
     );
   }
 
-  _render_circulation_buttons() {
+  render_circulation_buttons() {
     const circulation_data = this.document.metadata.circulation;
     const button_color =
       circulation_data.items_available_for_loan > 0 ? 'green' : 'red';
@@ -234,21 +234,21 @@ export default class DocumentMetadata extends Component {
             <Grid stackable columns={2}>
               <Grid.Column width={3}>
                 <Image src={cover} size="medium" />
-                {this._renderShareButtons()}
+                {this.renderShareButtons()}
               </Grid.Column>
 
               <Grid.Column width={13}>
                 <Grid.Row>
                   <div className="ui hidden divider" />
-                  {this._render_book_info()}
+                  {this.render_book_info()}
                   <div className="ui hidden divider" />
                 </Grid.Row>
 
                 <Grid.Row>
                   <div className="ui hidden divider" />
-                  {this._render_main_buttons()}
+                  {this.render_main_buttons()}
                   <div className="ui hidden divider" />
-                  {this._render_circulation_buttons()}
+                  {this.render_circulation_buttons()}
                 </Grid.Row>
               </Grid.Column>
             </Grid>
@@ -257,14 +257,14 @@ export default class DocumentMetadata extends Component {
           <Grid.Row>
             <Responsive as={Container} {...Responsive.onlyComputer}>
               <Grid columns={2}>
-                {this._render_attachments()}
+                {this.render_attachments()}
                 <DocumentTab documentData={this.document.metadata} />
               </Grid>
             </Responsive>
 
             <Responsive as={Container} {...Responsive.onlyMobile}>
               <DocumentTab documentData={this.document.metadata} />
-              {this._render_attachments()}
+              {this.render_attachments()}
             </Responsive>
           </Grid.Row>
         </Grid>

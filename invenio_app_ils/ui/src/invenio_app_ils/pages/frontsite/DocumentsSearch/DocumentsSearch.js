@@ -69,7 +69,7 @@ export class DocumentsSearch extends Component {
     ) : null;
   };
 
-  _renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
+  renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
     return (
       <DocumentsSearchBar
         currentQueryString={queryString}
@@ -80,7 +80,7 @@ export class DocumentsSearch extends Component {
     );
   };
 
-  _renderResultsList = results => {
+  renderResultsList = results => {
     return (
       <div className="results-list">
         <RecordsResultsList
@@ -94,7 +94,7 @@ export class DocumentsSearch extends Component {
     );
   };
 
-  _renderEmptyResults = (queryString, resetQuery) => {
+  renderEmptyResults = (queryString, resetQuery) => {
     return (
       <Segment placeholder textAlign="center">
         <Header icon>
@@ -108,19 +108,19 @@ export class DocumentsSearch extends Component {
     );
   };
 
-  _renderError = error => {
+  renderError = error => {
     return <IlsError error={error} />;
   };
 
-  _renderPagination = () => {
+  renderPagination = () => {
     return <Pagination />;
   };
 
-  _renderCount = totalResults => {
+  renderCount = totalResults => {
     return <div>{totalResults} results</div>;
   };
 
-  _renderResultsSorting = () => {
+  renderResultsSorting = () => {
     return config.SORT_BY.length ? (
       <div className="sorting">
         <span className="before">Show </span>
@@ -143,7 +143,7 @@ export class DocumentsSearch extends Component {
     ) : null;
   };
 
-  _renderAggregations = () => {
+  renderAggregations = () => {
     const accordionPanels = config.AGGREGATIONS.map((agg, idx) => (
       <div className="aggregator" key={agg.field}>
         <Aggregator
@@ -169,25 +169,25 @@ export class DocumentsSearch extends Component {
     );
   };
 
-  _renderHeader = () => {
+  renderHeader = () => {
     return (
       <Grid columns={3} verticalAlign="middle" stackable relaxed>
         <Grid.Column width={5} textAlign="left">
-          <Count renderElement={this._renderCount} />
+          <Count renderElement={this.renderCount} />
         </Grid.Column>
-        <Grid.Column width={6}>{this._renderPagination()}</Grid.Column>
+        <Grid.Column width={6}>{this.renderPagination()}</Grid.Column>
         <Grid.Column width={5} textAlign="right">
-          {this._renderResultsSorting()}
+          {this.renderResultsSorting()}
         </Grid.Column>
       </Grid>
     );
   };
 
-  _renderFooter = () => {
+  renderFooter = () => {
     return (
       <Grid columns={3} verticalAlign="middle" stackable relaxed>
         <Grid.Column width={5} />
-        <Grid.Column width={6}>{this._renderPagination()}</Grid.Column>
+        <Grid.Column width={6}>{this.renderPagination()}</Grid.Column>
         <Grid.Column width={5} />
       </Grid>
     );
@@ -202,7 +202,7 @@ export class DocumentsSearch extends Component {
         }}
       >
         <Container className="documents-search-searchbar">
-          <SearchBar renderElement={this._renderSearchBar} />
+          <SearchBar renderElement={this.renderSearchBar} />
         </Container>
 
         <Grid
@@ -211,14 +211,14 @@ export class DocumentsSearch extends Component {
           relaxed
           className="documents-search-container"
         >
-          <Grid.Column width={3}>{this._renderAggregations()}</Grid.Column>
+          <Grid.Column width={3}>{this.renderAggregations()}</Grid.Column>
           <Grid.Column width={13}>
             <ResultsLoader>
-              <EmptyResults renderElement={this._renderEmptyResults} />
-              <Error renderElement={this._renderError} />
-              {this._renderHeader()}
-              <ResultsList renderElement={this._renderResultsList} />
-              {this._renderFooter()}
+              <EmptyResults renderElement={this.renderEmptyResults} />
+              <Error renderElement={this.renderError} />
+              {this.renderHeader()}
+              <ResultsList renderElement={this.renderResultsList} />
+              {this.renderFooter()}
             </ResultsLoader>
           </Grid.Column>
         </Grid>

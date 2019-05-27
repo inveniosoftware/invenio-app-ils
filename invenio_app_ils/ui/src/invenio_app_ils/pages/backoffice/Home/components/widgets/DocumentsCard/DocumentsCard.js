@@ -19,7 +19,7 @@ export default class DocumentsCard extends Component {
     this.fetchRequestedWithAvailableItems();
   }
 
-  _seeAllButton = () => {
+  seeAllButton = () => {
     const handler = () =>
       this.props.history.push(
         this.seeAllUrl(
@@ -33,7 +33,7 @@ export default class DocumentsCard extends Component {
     return <SeeAllButton fluid disabled clickHandler={() => handler()} />;
   };
 
-  _newDocumentButton = () => {
+  newDocumentButton = () => {
     return (
       <NewButton
         fluid
@@ -43,14 +43,14 @@ export default class DocumentsCard extends Component {
     );
   };
 
-  _render_card = data => {
+  render_card = data => {
     return (
       <RecordsBriefCard
         title={'Documents'}
         stats={data}
         text={'requested on shelf'}
-        buttonLeft={this._newDocumentButton()}
-        buttonRight={this._seeAllButton()}
+        buttonLeft={this.newDocumentButton()}
+        buttonRight={this.seeAllButton()}
       />
     );
   };
@@ -59,7 +59,7 @@ export default class DocumentsCard extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this._render_card(data)}</Error>
+        <Error error={error}>{this.render_card(data)}</Error>
       </Loader>
     );
   }

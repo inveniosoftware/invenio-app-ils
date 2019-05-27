@@ -22,12 +22,12 @@ export default class DocumentItems extends Component {
     this.fetchDocumentItems(document_pid);
   }
 
-  _showDetailsHandler = itemPid =>
+  showDetailsHandler = itemPid =>
     this.props.history.push(this.showDetailsUrl(itemPid));
 
-  _seeAllButton = () => {
+  seeAllButton = () => {
     const { document_pid } = this.props.document;
-    const _click = () =>
+    const click = () =>
       this.props.history.push(
         this.seeAllUrl(
           itemApi
@@ -36,7 +36,7 @@ export default class DocumentItems extends Component {
             .qs()
         )
       );
-    return <SeeAllButton clickHandler={() => _click()} />;
+    return <SeeAllButton clickHandler={() => click()} />;
   };
 
   prepareData(data) {
@@ -53,7 +53,7 @@ export default class DocumentItems extends Component {
     });
   }
 
-  _render_table(data) {
+  render_table(data) {
     const rows = this.prepareData(data);
     rows.totalHits = data.total;
     return (
@@ -61,8 +61,8 @@ export default class DocumentItems extends Component {
         rows={rows}
         title={'Attached items'}
         name={'attached items'}
-        rowActionClickHandler={this._showDetailsHandler}
-        seeAllComponent={this._seeAllButton()}
+        rowActionClickHandler={this.showDetailsHandler}
+        seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxItems}
       />
     );
@@ -72,7 +72,7 @@ export default class DocumentItems extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this._render_table(data)}</Error>
+        <Error error={error}>{this.render_table(data)}</Error>
       </Loader>
     );
   }

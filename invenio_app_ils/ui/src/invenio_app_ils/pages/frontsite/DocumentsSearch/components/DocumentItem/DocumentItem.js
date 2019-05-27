@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { truncate } from 'lodash/string';
 
 export default class RecordItem extends Component {
-  _renderShareButtons() {
+  renderShareButtons() {
     return (
       <div className="document-share-buttons">
         <Button
@@ -36,7 +36,7 @@ export default class RecordItem extends Component {
           <Item>
             <Item.Image src={cover} size="small" floated="left" />
             <Responsive {...Responsive.onlyMobile}>
-              {this._renderShareButtons()}
+              {this.renderShareButtons()}
             </Responsive>
             <Item.Content>
               <Item.Header>{metadata.Title}</Item.Header>
@@ -88,7 +88,7 @@ export default class RecordItem extends Component {
           </Item>
         </Item.Group>
         <Responsive {...Responsive.onlyComputer}>
-          {this._renderShareButtons()}
+          {this.renderShareButtons()}
         </Responsive>
       </Segment>
     );

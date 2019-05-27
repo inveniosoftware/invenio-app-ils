@@ -9,7 +9,7 @@ export class ResultsList extends Component {
     this.viewDetailsClickHandler = this.props.viewDetailsClickHandler;
   }
 
-  _getFormattedDate = d => (d ? toShortDate(fromISO(d)) : '');
+  getFormattedDate = d => (d ? toShortDate(fromISO(d)) : '');
 
   prepareData(rows) {
     return rows.map(row => ({
@@ -18,8 +18,8 @@ export class ResultsList extends Component {
       Authors: row.metadata.authors[0],
       Publishers: row.metadata.publishers[0],
       Abstracts: row.metadata.abstracts[0],
-      Created: this._getFormattedDate(row.created),
-      Updated: this._getFormattedDate(row.updated),
+      Created: this.getFormattedDate(row.created),
+      Updated: this.getFormattedDate(row.updated),
     }));
   }
 
