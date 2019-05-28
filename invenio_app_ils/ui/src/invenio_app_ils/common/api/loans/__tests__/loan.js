@@ -68,7 +68,6 @@ describe('Loan query builder tests', () => {
   });
 
   it('should build query for update date range', () => {
-    let now = toShortDate(DateTime.local());
     let date = { from: '2019-02-01', to: '2019-03-01' };
     const query = loanApi
       .query()

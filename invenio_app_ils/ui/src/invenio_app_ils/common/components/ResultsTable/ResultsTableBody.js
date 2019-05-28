@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Button, Table } from 'semantic-ui-react';
 
 export default class ResultsTableBody extends Component {
-  renderCell = (cell, column, id, col_index) => {
+  renderCell = (cell, column, id, colIndex) => {
     return (
-      <Table.Cell key={col_index + '-' + id} data-test={column + '-' + id}>
+      <Table.Cell key={colIndex + '-' + id} data-test={column + '-' + id}>
         {cell}
       </Table.Cell>
     );

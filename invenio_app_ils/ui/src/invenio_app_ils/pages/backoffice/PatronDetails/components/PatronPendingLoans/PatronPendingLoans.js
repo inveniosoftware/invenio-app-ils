@@ -19,12 +19,12 @@ export default class PatronPendingLoans extends Component {
   }
 
   componentDidMount() {
-    const patron_pid = this.props.patron ? this.props.patron : null;
-    this.fetchPatronPendingLoans(patron_pid);
+    const patronPid = this.props.patron ? this.props.patron : null;
+    this.fetchPatronPendingLoans(patronPid);
   }
 
-  showDetailsHandler = loan_pid =>
-    this.props.history.push(this.showDetailsUrl(loan_pid));
+  showDetailsHandler = loanPid =>
+    this.props.history.push(this.showDetailsUrl(loanPid));
 
   seeAllButton = () => {
     const { patron } = this.props;
@@ -53,7 +53,7 @@ export default class PatronPendingLoans extends Component {
     });
   }
 
-  render_table(data) {
+  renderTable(data) {
     const rows = this.prepareData(data);
     rows.totalHits = data.total;
     return (
@@ -72,7 +72,7 @@ export default class PatronPendingLoans extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this.render_table(data)}</Error>
+        <Error error={error}>{this.renderTable(data)}</Error>
       </Loader>
     );
   }

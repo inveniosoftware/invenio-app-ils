@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Settings } from 'luxon';
-import { fromISO } from '../../../../../../../common/api/date';
 import LoansCard from '../LoansCard';
 
 jest.mock('../../../../../../../common/config');

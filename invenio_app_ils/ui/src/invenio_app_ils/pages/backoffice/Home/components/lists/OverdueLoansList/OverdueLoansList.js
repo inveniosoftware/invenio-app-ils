@@ -20,8 +20,8 @@ export default class OverdueLoansList extends Component {
     this.fetchOverdueLoans();
   }
 
-  showDetailsHandler = loan_pid =>
-    this.props.history.push(this.showDetailsUrl(loan_pid));
+  showDetailsHandler = loanPid =>
+    this.props.history.push(this.showDetailsUrl(loanPid));
 
   seeAllButton = () => {
     const click = () =>
@@ -48,7 +48,7 @@ export default class OverdueLoansList extends Component {
     });
   }
 
-  render_table(data) {
+  renderTable(data) {
     const rows = this.prepareData(data);
     rows.totalHits = data.total;
     return (
@@ -68,7 +68,7 @@ export default class OverdueLoansList extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this.render_table(data)}</Error>
+        <Error error={error}>{this.renderTable(data)}</Error>
       </Loader>
     );
   }

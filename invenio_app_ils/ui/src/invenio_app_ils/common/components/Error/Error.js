@@ -27,11 +27,13 @@ export class Error extends Component {
     super(props);
 
     if (props.boundary) {
-      this.componentDidCatch = this.componentDidCatch;
+      // NOTE: componentDidCatch is React internal and if it finds it it makes
+      // it an error boundary.
+      this.componentDidCatch = this.customComponentDidCatch;
     }
   }
 
-  componentDidCatch(error, info) {
+  customComponentDidCatch(error, info) {
     const { onUIError } = this.props;
 
     if (typeof onUIError === 'function') {

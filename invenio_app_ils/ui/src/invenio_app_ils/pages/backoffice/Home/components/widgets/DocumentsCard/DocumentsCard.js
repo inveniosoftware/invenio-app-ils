@@ -43,7 +43,7 @@ export default class DocumentsCard extends Component {
     );
   };
 
-  render_card = data => {
+  renderCard = data => {
     return (
       <RecordsBriefCard
         title={'Documents'}
@@ -59,7 +59,7 @@ export default class DocumentsCard extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this.render_card(data)}</Error>
+        <Error error={error}>{this.renderCard(data)}</Error>
       </Loader>
     );
   }

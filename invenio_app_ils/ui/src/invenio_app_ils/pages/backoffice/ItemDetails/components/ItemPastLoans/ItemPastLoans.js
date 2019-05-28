@@ -21,8 +21,8 @@ export default class ItemPastLoans extends Component {
     this.fetchPastLoans(item_pid);
   }
 
-  showDetailsHandler = loan_pid =>
-    this.props.history.push(this.showDetailsUrl(loan_pid));
+  showDetailsHandler = loanPid =>
+    this.props.history.push(this.showDetailsUrl(loanPid));
 
   seeAllButton = () => {
     const { item_pid } = this.props.item;
@@ -55,7 +55,7 @@ export default class ItemPastLoans extends Component {
     });
   }
 
-  render_table(data) {
+  renderTable(data) {
     const rows = this.prepareData(data);
     rows.totalHits = data.total;
     return (
@@ -74,7 +74,7 @@ export default class ItemPastLoans extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this.render_table(data)}</Error>
+        <Error error={error}>{this.renderTable(data)}</Error>
       </Loader>
     );
   }

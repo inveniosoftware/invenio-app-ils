@@ -20,12 +20,12 @@ export default class PatronCurrentLoans extends Component {
   }
 
   componentDidMount() {
-    const patron_pid = this.props.patron ? this.props.patron : null;
-    this.fetchPatronCurrentLoans(patron_pid);
+    const patronPid = this.props.patron ? this.props.patron : null;
+    this.fetchPatronCurrentLoans(patronPid);
   }
 
-  showDetailsHandler = loan_pid =>
-    this.props.history.push(this.showDetailsUrl(loan_pid));
+  showDetailsHandler = loanPid =>
+    this.props.history.push(this.showDetailsUrl(loanPid));
 
   seeAllButton = () => {
     const { patron } = this.props;

@@ -1,5 +1,5 @@
 const maxItemsToDisplay = 8;
-const document_type = 'BOOK';
+const documentType = 'BOOK';
 
 const helperFields = [
   {
@@ -15,6 +15,6 @@ const helperFields = [
 
 export default {
   MAX_ITEMS_TO_DISPLAY: maxItemsToDisplay,
-  DOCUMENT_TYPE: document_type,
+  DOCUMENT_TYPE: documentType,
   HELPER_FIELDS: helperFields,
 };

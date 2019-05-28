@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import RecordsBriefCard from '../RecordsBriefCard';
-import PropTypes from 'prop-types';
 import { Button, Icon } from 'semantic-ui-react';
 
 describe('RecordsBriefCard tests', () => {

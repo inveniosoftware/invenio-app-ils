@@ -20,8 +20,8 @@ export default class OverbookedDocumentsList extends Component {
     this.fetchOverbookedDocuments();
   }
 
-  showDetailsHandler = document_pid =>
-    this.props.history.push(this.showDetailsUrl(document_pid));
+  showDetailsHandler = documentPid =>
+    this.props.history.push(this.showDetailsUrl(documentPid));
 
   seeAllButton = () => {
     const click = () =>
@@ -44,7 +44,7 @@ export default class OverbookedDocumentsList extends Component {
     });
   }
 
-  render_table(data) {
+  renderTable(data) {
     const rows = this.prepareData(data);
     rows.totalHits = data.total;
     return (
@@ -68,7 +68,7 @@ export default class OverbookedDocumentsList extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this.render_table(data)}</Error>
+        <Error error={error}>{this.renderTable(data)}</Error>
       </Loader>
     );
   }

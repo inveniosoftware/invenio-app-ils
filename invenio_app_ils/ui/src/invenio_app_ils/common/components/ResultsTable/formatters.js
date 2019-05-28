@@ -89,20 +89,20 @@ function formatLocationToTableView(location) {
   };
 }
 
-function formatInternalLocationToTableView(internal_loc) {
+function formatInternalLocationToTableView(internalLoc) {
   let entry = {
-    ID: internal_loc.item_pid ? internal_loc.item_pid : internal_loc.id,
-    Created: toShortDate(fromISO(internal_loc.created)),
-    Updated: toShortDate(fromISO(internal_loc.updated)),
-    Link: internal_loc.links.self,
+    ID: internalLoc.item_pid ? internalLoc.item_pid : internalLoc.id,
+    Created: toShortDate(fromISO(internalLoc.created)),
+    Updated: toShortDate(fromISO(internalLoc.updated)),
+    Link: internalLoc.links.self,
   };
-  if (!isEmpty(internal_loc.metadata)) {
+  if (!isEmpty(internalLoc.metadata)) {
     assign(entry, {
-      Name: internal_loc.metadata.name,
-      'Physical location': internal_loc.metadata.physical_location,
-      'Location e-mail': internal_loc.metadata.location.email,
-      'Location name': internal_loc.metadata.location.name,
-      'Location id': internal_loc.metadata.location.location_pid,
+      Name: internalLoc.metadata.name,
+      'Physical location': internalLoc.metadata.physical_location,
+      'Location e-mail': internalLoc.metadata.location.email,
+      'Location name': internalLoc.metadata.location.name,
+      'Location id': internalLoc.metadata.location.location_pid,
     });
   }
   return entry;

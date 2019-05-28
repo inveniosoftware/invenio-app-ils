@@ -35,7 +35,7 @@ export default class ACQRequestsCard extends Component {
     );
   };
 
-  render_card = data => {
+  renderCard = data => {
     return (
       <RecordsBriefCard
         title={'ACQ Requests'}
@@ -51,7 +51,7 @@ export default class ACQRequestsCard extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this.render_card(data)}</Error>
+        <Error error={error}>{this.renderCard(data)}</Error>
       </Loader>
     );
   }
