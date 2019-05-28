@@ -7,7 +7,7 @@ import {
   documentDetailsReducer,
   documentPendingLoans,
   documentItems,
-} from './pages/backoffice/DocumentDetails/reducer';
+} from './pages/backoffice/DocumentDetailsPage/reducer';
 import { deleteRecordModalReducer } from './pages/backoffice/components/DeleteRecordModal/reducer';
 import { eitemDetailsReducer } from './pages/backoffice/EItemDetails/reducer';
 import {

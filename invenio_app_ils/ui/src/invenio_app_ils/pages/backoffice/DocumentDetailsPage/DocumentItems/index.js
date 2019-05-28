@@ -1,14 +1,12 @@
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { withDataContainer } from '../../../../common/components/DataContainer';
 import { fetchDocumentItems } from './state/actions';
 import DocumentItemsComponent from './DocumentItems';
 
 const mapStateToProps = state => ({
-  data: state.documentItems.data,
-  error: state.documentItems.error,
-  isLoading: state.documentItems.isLoading,
-  hasError: state.documentItems.hasError,
+  ...state.documentItems,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -20,5 +18,8 @@ export const DocumentItems = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
+  ),
+  withDataContainer(props =>
+    props.fetchDocumentItems(props.match.params.documentPid)
   )
 )(DocumentItemsComponent);
