@@ -21,12 +21,12 @@ export default class ItemPastLoans extends Component {
     this.fetchPastLoans(item_pid);
   }
 
-  _showDetailsHandler = loan_pid =>
-    this.props.history.push(this.showDetailsUrl(loan_pid));
+  showDetailsHandler = loanPid =>
+    this.props.history.push(this.showDetailsUrl(loanPid));
 
-  _seeAllButton = () => {
+  seeAllButton = () => {
     const { item_pid } = this.props.item;
-    const _click = () =>
+    const click = () =>
       this.props.history.push(
         this.seeAllUrl(
           loanApi
@@ -36,7 +36,7 @@ export default class ItemPastLoans extends Component {
             .qs()
         )
       );
-    return <SeeAllButton clickHandler={() => _click()} />;
+    return <SeeAllButton clickHandler={() => click()} />;
   };
 
   prepareData(data) {
@@ -55,7 +55,7 @@ export default class ItemPastLoans extends Component {
     });
   }
 
-  _render_table(data) {
+  renderTable(data) {
     const rows = this.prepareData(data);
     rows.totalHits = data.total;
     return (
@@ -63,8 +63,8 @@ export default class ItemPastLoans extends Component {
         rows={rows}
         title={'Loans history'}
         name={'loans'}
-        rowActionClickHandler={this._showDetailsHandler}
-        seeAllComponent={this._seeAllButton()}
+        rowActionClickHandler={this.showDetailsHandler}
+        seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxPastLoans}
       />
     );
@@ -74,7 +74,7 @@ export default class ItemPastLoans extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this._render_table(data)}</Error>
+        <Error error={error}>{this.renderTable(data)}</Error>
       </Loader>
     );
   }

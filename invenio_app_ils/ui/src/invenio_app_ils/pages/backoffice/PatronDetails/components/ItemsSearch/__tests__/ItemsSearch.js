@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import ItemsSearch from '../ItemsSearch';
 import { invenioConfig } from '../../../../../../common/config';
-import { invenioConfig as config_mock } from '../../../../../../common/__mocks__/config';
+import { invenioConfig as configMock } from '../../../../../../common/__mocks__/config';
 import { fromISO } from '../../../../../../common/api/date';
 import { Settings } from 'luxon';
 
@@ -21,11 +21,11 @@ describe('PatronLoans tests', () => {
   });
 
   invenioConfig['circulation'] = {
-    loanActiveStates: config_mock.circulation.loanActiveStates,
+    loanActiveStates: configMock.circulation.loanActiveStates,
   };
   invenioConfig['items'] = {
     available: {
-      status: config_mock.items.available.status,
+      status: configMock.items.available.status,
     },
   };
 

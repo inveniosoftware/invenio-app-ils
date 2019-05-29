@@ -6,7 +6,7 @@ import ResultsTableBody from './ResultsTableBody';
 import ResultsTableFooter from './ResultsTableFooter';
 
 export class ResultsTable extends Component {
-  _renderTable = () => {
+  renderTable = () => {
     const { rows, showMaxRows, singleLine, fixed } = this.props;
     const columns = rows ? Object.keys(rows[0]) : [];
     const totalRows =
@@ -37,16 +37,16 @@ export class ResultsTable extends Component {
     );
   };
 
-  _renderResultsOrEmpty() {
+  renderResultsOrEmpty() {
     const { rows, name } = this.props;
     return rows.length ? (
-      this._renderTable(rows)
+      this.renderTable(rows)
     ) : (
       <Message data-test="no-results">There are no {name}.</Message>
     );
   }
 
-  _renderTitle() {
+  renderTitle() {
     const { title, subtitle, headerActionComponent } = this.props;
     const header = title ? (
       <Header as="h3" content={title} subheader={subtitle} />
@@ -69,8 +69,8 @@ export class ResultsTable extends Component {
   render() {
     return (
       <Segment>
-        {this._renderTitle()}
-        {this._renderResultsOrEmpty()}
+        {this.renderTitle()}
+        {this.renderResultsOrEmpty()}
       </Segment>
     );
   }

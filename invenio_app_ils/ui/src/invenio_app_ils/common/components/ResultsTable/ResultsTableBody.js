@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { Button, Table } from 'semantic-ui-react';
 
 export default class ResultsTableBody extends Component {
-  _renderCell = (cell, column, id, col_index) => {
+  renderCell = (cell, column, id, colIndex) => {
     return (
-      <Table.Cell key={col_index + '-' + id} data-test={column + '-' + id}>
+      <Table.Cell key={colIndex + '-' + id} data-test={column + '-' + id}>
         {cell}
       </Table.Cell>
     );
   };
 
-  _renderRow = (columns, rows) => {
+  renderRow = (columns, rows) => {
     return rows.map(row => {
       const withRowAction = this.props.rowActionClickHandler ? (
         <Button
@@ -29,7 +29,7 @@ export default class ResultsTableBody extends Component {
         <Table.Row key={row.ID} data-test={row.ID}>
           <Table.Cell textAlign="center">{withRowAction}</Table.Cell>
           {columns.map((column, idx) =>
-            this._renderCell(
+            this.renderCell(
               row[column] ? row[column] : '-',
               column,
               row.ID,
@@ -44,9 +44,7 @@ export default class ResultsTableBody extends Component {
   render() {
     const { columns, rows, detailsURL } = this.props;
 
-    return (
-      <Table.Body>{this._renderRow(columns, rows, detailsURL)}</Table.Body>
-    );
+    return <Table.Body>{this.renderRow(columns, rows, detailsURL)}</Table.Body>;
   }
 }
 

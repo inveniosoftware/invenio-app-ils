@@ -28,12 +28,12 @@ export default class LoanMetadata extends Component {
     this.setState({ isAvailableItemsVisible: newState });
   };
 
-  _isItemDeleted = () => {
+  isItemDeleted = () => {
     const data = this.props.loanDetails;
     return isEmpty(data.metadata.item) && data.metadata.item_pid !== '';
   };
 
-  _renderItem() {
+  renderItem() {
     const data = this.props.loanDetails;
     return (
       !isEmpty(data.metadata.item) && (
@@ -46,10 +46,10 @@ export default class LoanMetadata extends Component {
     );
   }
 
-  _renderDeletedItem() {
+  renderDeletedItem() {
     const data = this.props.loanDetails;
     return (
-      this._isItemDeleted() && (
+      this.isItemDeleted() && (
         <Message
           warning
           icon="trash alternate"
@@ -73,7 +73,7 @@ export default class LoanMetadata extends Component {
     );
   }
 
-  _prepareLeftData(data) {
+  prepareLeftData(data) {
     const rows = [
       { name: 'Document pid', value: data.metadata.document_pid },
       { name: 'Item pid', value: data.metadata.item_pid },
@@ -88,7 +88,7 @@ export default class LoanMetadata extends Component {
     return rows;
   }
 
-  _prepareRightData(data) {
+  prepareRightData(data) {
     const rows = [
       {
         name: 'Transaction date',
@@ -102,10 +102,10 @@ export default class LoanMetadata extends Component {
     return rows;
   }
 
-  _renderLoan() {
+  renderLoan() {
     const data = this.props.loanDetails;
-    const leftRows = this._prepareLeftData(data);
-    const rightRows = this._prepareRightData(data);
+    const leftRows = this.prepareLeftData(data);
+    const rightRows = this.prepareRightData(data);
     return (
       <Grid padded columns={2}>
         <Grid.Column width={16}>
@@ -121,7 +121,7 @@ export default class LoanMetadata extends Component {
     );
   }
 
-  _renderAvailableItems() {
+  renderAvailableItems() {
     return (
       this.state.isAvailableItemsVisible && (
         <>
@@ -135,13 +135,13 @@ export default class LoanMetadata extends Component {
   render() {
     return (
       <Segment>
-        {this._renderLoan()}
+        {this.renderLoan()}
         <Divider />
         <LoanActions />
         <Divider />
-        {this._renderItem()}
-        {this._renderDeletedItem()}
-        {this._renderAvailableItems()}
+        {this.renderItem()}
+        {this.renderDeletedItem()}
+        {this.renderAvailableItems()}
       </Segment>
     );
   }

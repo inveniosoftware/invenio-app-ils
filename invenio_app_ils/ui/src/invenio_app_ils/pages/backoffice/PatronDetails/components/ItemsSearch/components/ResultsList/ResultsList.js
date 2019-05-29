@@ -4,7 +4,7 @@ import { ResultsTable } from '../../../../../../../common/components';
 import { Button, Modal, Header, Icon } from 'semantic-ui-react';
 import { ResultsTableFormatter as formatter } from '../../../../../../../common/components';
 import { invenioConfig, ES_DELAY } from '../../../../../../../common/config';
-import _isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
 
 export class ResultsList extends Component {
@@ -20,7 +20,7 @@ export class ResultsList extends Component {
 
   toggleModal = () => this.setState({ isModalOpen: !this.state.isModalOpen });
 
-  _onClickCheckoutHandler = (item, patron, shouldForceCheckout) =>
+  onClickCheckoutHandler = (item, patron, shouldForceCheckout) =>
     this.checkoutItem(item, patron, shouldForceCheckout).then(() => {
       this.clearResults();
       setTimeout(() => {
@@ -33,12 +33,12 @@ export class ResultsList extends Component {
       <Button
         content={'Checkout'}
         onClick={() =>
-          this._onClickCheckoutHandler(item, this.props.patron, false)
+          this.onClickCheckoutHandler(item, this.props.patron, false)
         }
       />
     );
 
-    const circulationStatus = !_isEmpty(item.circulation_status)
+    const circulationStatus = !isEmpty(item.circulation_status)
       ? item.circulation_status
       : null;
 
@@ -46,10 +46,10 @@ export class ResultsList extends Component {
       circulationStatus
     ) && invenioConfig.items.available.status.includes(itemState)
       ? buttonCheckout
-      : this._renderForceCheckoutModal(item);
+      : this.renderForceCheckoutModal(item);
   }
 
-  _renderForceCheckoutModal = item => {
+  renderForceCheckoutModal = item => {
     const { isModalOpen } = this.state;
 
     return (
@@ -80,7 +80,7 @@ export class ResultsList extends Component {
           <Button
             color="green"
             onClick={() =>
-              this._onClickCheckoutHandler(item, this.props.patron, true)
+              this.onClickCheckoutHandler(item, this.props.patron, true)
             }
           >
             <Icon name="checkmark" /> Yes

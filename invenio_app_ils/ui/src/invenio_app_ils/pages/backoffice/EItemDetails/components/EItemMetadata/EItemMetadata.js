@@ -9,13 +9,13 @@ import { EditButton } from '../../../components/buttons';
 import './EItemMetadata.scss';
 
 export default class EItemMetadata extends Component {
-  _renderUrlLinks = urls =>
+  renderUrlLinks = urls =>
     urls.map((url, index) => (
       <a href={url} key={url} target="_blank" rel="noopener noreferrer">
         Link {index + 1}
       </a>
     ));
-  _renderHeader = () => (
+  renderHeader = () => (
     <Grid.Row>
       <Grid.Column width={10} verticalAlign={'middle'}>
         <Header as="h1">EItem - {this.props.eitem.metadata.eitem_pid}</Header>
@@ -35,7 +35,7 @@ export default class EItemMetadata extends Component {
     return (
       <Segment className="eitem-metadata">
         <Grid padded columns={2}>
-          {this._renderHeader()}
+          {this.renderHeader()}
           <Grid.Row>
             <Grid.Column>
               <Table basic="very" definition className="metadata-table">
@@ -47,7 +47,7 @@ export default class EItemMetadata extends Component {
                   <Table.Row>
                     <Table.Cell>Available urls</Table.Cell>
                     <Table.Cell>
-                      {this._renderUrlLinks(eitem.metadata.urls)}
+                      {this.renderUrlLinks(eitem.metadata.urls)}
                     </Table.Cell>
                   </Table.Row>
                   <Table.Row>

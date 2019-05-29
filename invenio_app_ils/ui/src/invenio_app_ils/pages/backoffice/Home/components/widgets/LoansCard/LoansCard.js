@@ -17,7 +17,7 @@ export default class LoansCard extends Component {
     this.fetchPendingLoans();
   }
 
-  _seeAllButton = () => {
+  seeAllButton = () => {
     const handler = () =>
       this.props.history.push(
         this.seeAllUrl(
@@ -30,7 +30,7 @@ export default class LoansCard extends Component {
     return <SeeAllButton fluid disabled clickHandler={() => handler()} />;
   };
 
-  _newLoanButton = () => {
+  newLoanButton = () => {
     return (
       <NewButton
         fluid
@@ -42,14 +42,14 @@ export default class LoansCard extends Component {
     );
   };
 
-  _render_card = data => {
+  renderCard = data => {
     return (
       <RecordsBriefCard
         title={'Loans'}
         stats={data}
         text={'new requests'}
-        buttonLeft={this._newLoanButton()}
-        buttonRight={this._seeAllButton()}
+        buttonLeft={this.newLoanButton()}
+        buttonRight={this.seeAllButton()}
       />
     );
   };
@@ -58,7 +58,7 @@ export default class LoansCard extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this._render_card(data)}</Error>
+        <Error error={error}>{this.renderCard(data)}</Error>
       </Loader>
     );
   }

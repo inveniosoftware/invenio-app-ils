@@ -8,7 +8,7 @@ import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
 
-import _isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
 
 export default class PatronCurrentLoans extends Component {
@@ -20,16 +20,16 @@ export default class PatronCurrentLoans extends Component {
   }
 
   componentDidMount() {
-    const patron_pid = this.props.patron ? this.props.patron : null;
-    this.fetchPatronCurrentLoans(patron_pid);
+    const patronPid = this.props.patron ? this.props.patron : null;
+    this.fetchPatronCurrentLoans(patronPid);
   }
 
-  _showDetailsHandler = loan_pid =>
-    this.props.history.push(this.showDetailsUrl(loan_pid));
+  showDetailsHandler = loanPid =>
+    this.props.history.push(this.showDetailsUrl(loanPid));
 
-  _seeAllButton = () => {
+  seeAllButton = () => {
     const { patron } = this.props;
-    const _click = () =>
+    const click = () =>
       this.props.history.push(
         this.seeAllUrl(
           loanApi
@@ -40,7 +40,7 @@ export default class PatronCurrentLoans extends Component {
             .qs()
         )
       );
-    return <SeeAllButton clickHandler={() => _click()} />;
+    return <SeeAllButton clickHandler={() => click()} />;
   };
 
   prepareData(data) {
@@ -58,7 +58,7 @@ export default class PatronCurrentLoans extends Component {
   render() {
     const { data, isLoading, hasError, error } = this.props;
     const rows =
-      !hasError && !isLoading && !_isEmpty(data)
+      !hasError && !isLoading && !isEmpty(data)
         ? this.prepareData(this.props.data)
         : [];
     rows.totalHits = data.total;
@@ -69,8 +69,8 @@ export default class PatronCurrentLoans extends Component {
             rows={rows}
             title={"Patron's current loans"}
             name={'current loans'}
-            rowActionClickHandler={this._showDetailsHandler}
-            seeAllComponent={this._seeAllButton()}
+            rowActionClickHandler={this.showDetailsHandler}
+            seeAllComponent={this.seeAllButton()}
             showMaxRows={this.props.showMaxLoans}
           />
         </Error>

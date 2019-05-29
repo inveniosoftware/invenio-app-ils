@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Settings } from 'luxon';
-import { fromISO, toISO } from '../../../../../../../common/api/date';
+import { fromISO } from '../../../../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import OverbookedDocumentsList from '../OverbookedDocumentsList';
 

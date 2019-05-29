@@ -15,7 +15,7 @@ export default class ACQRequestsCard extends Component {
 
   componentDidMount() {}
 
-  _seeAllButton = () => {
+  seeAllButton = () => {
     return (
       <SeeAllButton
         fluid
@@ -25,7 +25,7 @@ export default class ACQRequestsCard extends Component {
     );
   };
 
-  _newAcqButton = () => {
+  newAcqButton = () => {
     return (
       <NewButton
         fluid
@@ -35,14 +35,14 @@ export default class ACQRequestsCard extends Component {
     );
   };
 
-  _render_card = data => {
+  renderCard = data => {
     return (
       <RecordsBriefCard
         title={'ACQ Requests'}
         stats={data}
         text={'ongoing'}
-        buttonLeft={this._newAcqButton()}
-        buttonRight={this._seeAllButton()}
+        buttonLeft={this.newAcqButton()}
+        buttonRight={this.seeAllButton()}
       />
     );
   };
@@ -51,7 +51,7 @@ export default class ACQRequestsCard extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this._render_card(data)}</Error>
+        <Error error={error}>{this.renderCard(data)}</Error>
       </Loader>
     );
   }

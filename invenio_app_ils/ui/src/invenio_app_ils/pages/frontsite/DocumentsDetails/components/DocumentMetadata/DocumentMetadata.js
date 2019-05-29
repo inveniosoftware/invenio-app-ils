@@ -24,7 +24,7 @@ export default class DocumentMetadata extends Component {
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible });
 
-  _render_book_info() {
+  renderBookInfo() {
     return (
       <div className="document-info">
         <Header as="h2">{this.document.metadata.title}</Header>
@@ -46,7 +46,7 @@ export default class DocumentMetadata extends Component {
     );
   }
 
-  _render_share_buttons_large() {
+  renderShareButtonsLarge() {
     return (
       <div>
         <Responsive {...Responsive.onlyComputer}>
@@ -69,7 +69,7 @@ export default class DocumentMetadata extends Component {
     );
   }
 
-  _render_files() {
+  renderFiles() {
     return this.document.metadata.files ? (
       <div>
         <Header as="h3">Files</Header>
@@ -85,7 +85,7 @@ export default class DocumentMetadata extends Component {
     ) : null;
   }
 
-  _render_links() {
+  renderLinks() {
     return this.document.metadata.booklinks ? (
       <div>
         <Header as="h3">Links</Header>
@@ -100,25 +100,25 @@ export default class DocumentMetadata extends Component {
     ) : null;
   }
 
-  _render_attachments() {
+  renderAttachments() {
     return (
       <Grid.Column width={3}>
         <Grid.Row>
           <Header as="h3">Share and Export</Header>
-          {this._render_share_buttons_large()}
+          {this.renderShareButtonsLarge()}
           <div className="ui hidden divider" />
           <div className="ui hidden divider" />
           <div className="ui divider" />
         </Grid.Row>
 
-        <Grid.Row>{this._render_files()}</Grid.Row>
+        <Grid.Row>{this.renderFiles()}</Grid.Row>
 
-        <Grid.Row>{this._render_links()}</Grid.Row>
+        <Grid.Row>{this.renderLinks()}</Grid.Row>
       </Grid.Column>
     );
   }
 
-  _renderShareButtons() {
+  renderShareButtons() {
     return (
       <Responsive {...Responsive.onlyMobile}>
         <div>
@@ -140,7 +140,7 @@ export default class DocumentMetadata extends Component {
     );
   }
 
-  _render_main_buttons() {
+  renderMainButtons() {
     const { visible } = this.state;
     return (
       <div className="loan-request">
@@ -170,20 +170,20 @@ export default class DocumentMetadata extends Component {
     );
   }
 
-  _render_circulation_buttons() {
-    const circulation_data = this.document.metadata.circulation;
-    const button_color =
-      circulation_data.items_available_for_loan > 0 ? 'green' : 'red';
+  renderCirculationButtons() {
+    const circulationData = this.document.metadata.circulation;
+    const buttonColor =
+      circulationData.items_available_for_loan > 0 ? 'green' : 'red';
     return (
       <div>
         <Button
-          color={button_color}
+          color={buttonColor}
           content="Available copies"
           label={{
             basic: true,
-            color: button_color,
+            color: buttonColor,
             pointing: 'left',
-            content: circulation_data.items_available_for_loan,
+            content: circulationData.items_available_for_loan,
           }}
         />
 
@@ -194,7 +194,7 @@ export default class DocumentMetadata extends Component {
             basic: true,
             color: 'yellow',
             pointing: 'left',
-            content: circulation_data.active_loans,
+            content: circulationData.active_loans,
           }}
         />
 
@@ -205,11 +205,11 @@ export default class DocumentMetadata extends Component {
             basic: true,
             color: 'yellow',
             pointing: 'left',
-            content: circulation_data.pending_loans,
+            content: circulationData.pending_loans,
           }}
         />
 
-        {typeof circulation_data.next_available_date !== 'undefined' ? (
+        {typeof circulationData.next_available_date !== 'undefined' ? (
           <Button
             color="yellow"
             content="Available from"
@@ -217,7 +217,7 @@ export default class DocumentMetadata extends Component {
               basic: true,
               color: 'yellow',
               pointing: 'left',
-              content: circulation_data.next_available_date,
+              content: circulationData.next_available_date,
             }}
           />
         ) : null}
@@ -234,21 +234,21 @@ export default class DocumentMetadata extends Component {
             <Grid stackable columns={2}>
               <Grid.Column width={3}>
                 <Image src={cover} size="medium" />
-                {this._renderShareButtons()}
+                {this.renderShareButtons()}
               </Grid.Column>
 
               <Grid.Column width={13}>
                 <Grid.Row>
                   <div className="ui hidden divider" />
-                  {this._render_book_info()}
+                  {this.renderBookInfo()}
                   <div className="ui hidden divider" />
                 </Grid.Row>
 
                 <Grid.Row>
                   <div className="ui hidden divider" />
-                  {this._render_main_buttons()}
+                  {this.renderMainButtons()}
                   <div className="ui hidden divider" />
-                  {this._render_circulation_buttons()}
+                  {this.renderCirculationButtons()}
                 </Grid.Row>
               </Grid.Column>
             </Grid>
@@ -257,14 +257,14 @@ export default class DocumentMetadata extends Component {
           <Grid.Row>
             <Responsive as={Container} {...Responsive.onlyComputer}>
               <Grid columns={2}>
-                {this._render_attachments()}
+                {this.renderAttachments()}
                 <DocumentTab documentData={this.document.metadata} />
               </Grid>
             </Responsive>
 
             <Responsive as={Container} {...Responsive.onlyMobile}>
               <DocumentTab documentData={this.document.metadata} />
-              {this._render_attachments()}
+              {this.renderAttachments()}
             </Responsive>
           </Grid.Row>
         </Grid>

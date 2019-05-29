@@ -7,7 +7,7 @@ import {
   sendSuccessNotification,
 } from '../../../../../../common/components/Notifications';
 
-export const checkoutItem = (item, patron_pid, shouldForceCheckout = false) => {
+export const checkoutItem = (item, patronPid, shouldForceCheckout = false) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
@@ -18,7 +18,7 @@ export const checkoutItem = (item, patron_pid, shouldForceCheckout = false) => {
         ApiURLS.loans.create,
         item.item_pid,
         {
-          metadata: { item_pid: item.item_pid, patron_pid: String(patron_pid) },
+          metadata: { item_pid: item.item_pid, patron_pid: String(patronPid) },
         },
         currentUser.id,
         currentUser.locationPid,

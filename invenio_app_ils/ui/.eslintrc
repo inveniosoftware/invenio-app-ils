@@ -1,6 +1,12 @@
 {
-  "extends": [
-    "react-app",
-    "plugin:prettier/recommended"
-  ]
+  "extends": ["react-app", "plugin:prettier/recommended"],
+  "rules": {
+    "camelcase": [
+      "error",
+      {
+        "properties": "never",
+        "ignoreDestructuring": true
+      }
+    ]
+  }
 }

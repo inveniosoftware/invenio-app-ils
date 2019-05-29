@@ -2,7 +2,7 @@ import { http } from '../base';
 import { toISO, toShortDate } from '../date';
 import { DateTime } from 'luxon';
 import { serializer } from './serializer';
-import _isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 import { prepareDateQuery, prepareSumQuery } from '../utils';
 import { ApiURLS } from '../urls';
 import { generatePath } from 'react-router-dom';
@@ -75,7 +75,7 @@ class QueryBuilder {
   withDocPid(documentPid) {
     if (
       !documentPid ||
-      (typeof documentPid != 'number' && _isEmpty(documentPid))
+      (typeof documentPid != 'number' && isEmpty(documentPid))
     ) {
       throw TypeError('DocumentPid argument missing');
     }
@@ -84,7 +84,7 @@ class QueryBuilder {
   }
 
   withItemPid(itemPid) {
-    if (!itemPid || (typeof itemPid != 'number' && _isEmpty(itemPid))) {
+    if (!itemPid || (typeof itemPid != 'number' && isEmpty(itemPid))) {
       throw TypeError('itemPid argument missing');
     }
     this.itemQuery.push(`item_pid:${prepareSumQuery(itemPid)}`);
@@ -92,7 +92,7 @@ class QueryBuilder {
   }
 
   withPatronPid(patronPid) {
-    if (!patronPid || (typeof patronPid != 'number' && _isEmpty(patronPid))) {
+    if (!patronPid || (typeof patronPid != 'number' && isEmpty(patronPid))) {
       throw TypeError('patronPid argument missing');
     }
     this.patronQuery.push(`patron_pid:${prepareSumQuery(patronPid)}`);
@@ -100,7 +100,7 @@ class QueryBuilder {
   }
 
   withState(state) {
-    if (!state || _isEmpty(state)) {
+    if (!state || isEmpty(state)) {
       throw TypeError('state argument missing');
     }
     this.stateQuery.push(`state:${prepareSumQuery(state)}`);
@@ -129,7 +129,7 @@ class QueryBuilder {
   withRenewedCount(renewals) {
     if (
       !renewals ||
-      _isEmpty(renewals) ||
+      isEmpty(renewals) ||
       !(typeof renewals === 'number' || typeof renewals === 'string')
     ) {
       throw TypeError('Renewal argument missing or invalid type');

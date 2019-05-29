@@ -4,6 +4,7 @@ import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as types from '../types';
 import { loan as loanApi } from '../../../../../common/api';
+import { sessionManager } from '../../../../../authentication/services';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -12,7 +13,6 @@ const mockGet = jest.fn();
 loanApi.get = mockGet;
 const mockPostAction = jest.fn();
 loanApi.postAction = mockPostAction;
-import { sessionManager } from '../../../../../authentication/services';
 
 sessionManager.user = { id: '2', locationPid: '2' };
 

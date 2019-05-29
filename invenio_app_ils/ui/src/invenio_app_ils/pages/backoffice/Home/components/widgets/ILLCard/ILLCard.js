@@ -15,7 +15,7 @@ export default class ILLCard extends Component {
 
   componentDidMount() {}
 
-  _seeAllButton = () => {
+  seeAllButton = () => {
     // TODO when #155 solved
     return (
       <SeeAllButton
@@ -26,7 +26,7 @@ export default class ILLCard extends Component {
     );
   };
 
-  _newAcqButton = () => {
+  newAcqButton = () => {
     return (
       <NewButton
         fluid
@@ -36,14 +36,14 @@ export default class ILLCard extends Component {
     );
   };
 
-  _render_card = data => {
+  renderCard = data => {
     return (
       <RecordsBriefCard
         title={'ILL Requests'}
         stats={data}
         text={'ongoing'}
-        buttonLeft={this._newAcqButton()}
-        buttonRight={this._seeAllButton()}
+        buttonLeft={this.newAcqButton()}
+        buttonRight={this.seeAllButton()}
       />
     );
   };
@@ -52,7 +52,7 @@ export default class ILLCard extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this._render_card(data)}</Error>
+        <Error error={error}>{this.renderCard(data)}</Error>
       </Loader>
     );
   }

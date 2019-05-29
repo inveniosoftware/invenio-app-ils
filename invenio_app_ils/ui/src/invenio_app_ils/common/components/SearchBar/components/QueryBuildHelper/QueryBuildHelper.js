@@ -8,7 +8,7 @@ export default class QueryBuildHelper extends Component {
     this.updateQueryString = this.props.updateQueryString;
   }
 
-  _addToQuery = field => {
+  addToQuery = field => {
     const defaultVal = field.defaultValue ? field.defaultValue : '*';
     const newCriteriaString = `${field.field}:${defaultVal}`;
     const previousQueryString = this.props.currentQueryString;
@@ -22,16 +22,16 @@ export default class QueryBuildHelper extends Component {
     }
   };
 
-  _renderListItems = fields => {
-    let _components = [];
+  renderListItems = fields => {
+    let components = [];
 
     for (let i = 0; i < fields.length; i++) {
-      _components.push(
+      components.push(
         <List.Item
           key={fields[i].field}
           as="a"
           onClick={() => {
-            this._addToQuery(fields[i]);
+            this.addToQuery(fields[i]);
           }}
         >
           {fields[i].name}
@@ -39,13 +39,13 @@ export default class QueryBuildHelper extends Component {
       );
     }
 
-    return _components;
+    return components;
   };
 
-  _renderHelperFields = fields => {
+  renderHelperFields = fields => {
     return (
       <List bulleted horizontal>
-        {this._renderListItems(fields)}
+        {this.renderListItems(fields)}
       </List>
     );
   };
@@ -56,7 +56,7 @@ export default class QueryBuildHelper extends Component {
       <Grid>
         <Grid.Row columns={1}>
           <Grid.Column width={16}>
-            Search by: {this._renderHelperFields(fields)}
+            Search by: {this.renderHelperFields(fields)}
           </Grid.Column>
         </Grid.Row>
       </Grid>

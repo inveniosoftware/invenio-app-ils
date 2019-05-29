@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Loader } from '../../../../../../../common/components/Loader';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import history from '../../../../../../../history';
-import _isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 
 export default class CreateNewLoanModal extends Component {
   constructor(props) {
@@ -51,8 +51,8 @@ export default class CreateNewLoanModal extends Component {
       item_pid: itemPid,
       patron_pid: '111', // FIXME: change this to be able to search for the user
     };
-    const showInitialView = !isLoading && !hasError && _isEmpty(data);
-    const showSuccessView = !isLoading && !hasError && !_isEmpty(data);
+    const showInitialView = !isLoading && !hasError && isEmpty(data);
+    const showSuccessView = !isLoading && !hasError && !isEmpty(data);
 
     return (
       <Modal

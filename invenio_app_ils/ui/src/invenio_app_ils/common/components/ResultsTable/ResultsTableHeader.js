@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 
 export default class ResultsTableHeader extends Component {
-  _renderHeaderCell = cellName => {
+  renderHeaderCell = cellName => {
     if (cellName === 'ID') {
       return (
         <Table.HeaderCell width={2} key={cellName}>
@@ -17,7 +17,7 @@ export default class ResultsTableHeader extends Component {
 
   render() {
     const { columns, withRowAction } = this.props;
-    const headerColumns = columns.map(column => this._renderHeaderCell(column));
+    const headerColumns = columns.map(column => this.renderHeaderCell(column));
     return (
       <Table.Header>
         <Table.Row data-test="header">

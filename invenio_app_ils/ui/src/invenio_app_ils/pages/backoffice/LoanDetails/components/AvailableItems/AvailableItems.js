@@ -22,12 +22,12 @@ export default class AvailableItems extends Component {
     this.fetchAvailableItems(this.props.loan.metadata.document_pid);
   }
 
-  _showDetailsHandler = itemPid =>
+  showDetailsHandler = itemPid =>
     this.props.history.push(this.showDetailsUrl(itemPid));
 
-  _seeAllButton = () => {
+  seeAllButton = () => {
     const { document_pid } = this.props.loan.metadata;
-    const _click = () =>
+    const click = () =>
       this.props.history.push(
         this.seeAllUrl(
           itemApi
@@ -36,10 +36,10 @@ export default class AvailableItems extends Component {
             .qs()
         )
       );
-    return <SeeAllButton clickHandler={() => _click()} />;
+    return <SeeAllButton clickHandler={() => click()} />;
   };
 
-  _assignItemButton(item) {
+  assignItemButton(item) {
     return (
       <Button
         size="mini"
@@ -56,7 +56,7 @@ export default class AvailableItems extends Component {
     );
   }
 
-  _checkoutItemButton(item, loan) {
+  checkoutItemButton(item, loan) {
     return (
       <Button
         size="mini"
@@ -78,7 +78,7 @@ export default class AvailableItems extends Component {
   prepareData(data) {
     return data.hits.map(row => {
       const entry = formatter.item.toTable(row);
-      entry['Actions'] = this._rowActionButton(row);
+      entry['Actions'] = this.rowActionButton(row);
       return pick(entry, [
         'ID',
         'Barcode',
@@ -91,7 +91,7 @@ export default class AvailableItems extends Component {
     });
   }
 
-  _renderTable(data) {
+  renderTable(data) {
     const rows = this.prepareData(data);
     rows.totalHits = data.total;
     return (
@@ -99,19 +99,19 @@ export default class AvailableItems extends Component {
         rows={rows}
         title={'Available items'}
         name={'available items'}
-        rowActionClickHandler={this._showDetailsHandler}
-        seeAllComponent={this._seeAllButton()}
+        rowActionClickHandler={this.showDetailsHandler}
+        seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxItems}
       />
     );
   }
 
-  _rowActionButton(row) {
+  rowActionButton(row) {
     const { loan } = this.props;
     if (loan.metadata.state === 'PENDING') {
-      return this._checkoutItemButton(row, loan);
+      return this.checkoutItemButton(row, loan);
     } else {
-      return this._assignItemButton(row);
+      return this.assignItemButton(row);
     }
   }
 
@@ -119,7 +119,7 @@ export default class AvailableItems extends Component {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this._renderTable(data)}</Error>
+        <Error error={error}>{this.renderTable(data)}</Error>
       </Loader>
     );
   }

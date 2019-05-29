@@ -12,7 +12,7 @@ import {
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { Error, Loader } from '../../../../../common/components';
 import { ResultsList as ItemsResultsList } from './components';
-import _isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 import './ItemsSearch.scss';
 
 export default class ItemsSearch extends Component {
@@ -43,7 +43,7 @@ export default class ItemsSearch extends Component {
     return this.fetchItems(queryString);
   };
 
-  _onPasteHandler = async event => {
+  onPasteHandler = async event => {
     let queryString = event.clipboardData.getData('Text');
 
     if (queryString) {
@@ -51,7 +51,7 @@ export default class ItemsSearch extends Component {
 
       const { hits } = this.props.items;
       const hasOneHit =
-        !_isEmpty(hits) &&
+        !isEmpty(hits) &&
         hits.length === 1 &&
         hits[0].metadata.status === 'CAN_CIRCULATE';
       if (hasOneHit) {
@@ -63,13 +63,13 @@ export default class ItemsSearch extends Component {
     }
   };
 
-  _onKeyPressHandler = e => {
+  onKeyPressHandler = e => {
     if (e.key === 'Enter' && this.props.queryString) {
       this.executeSearch();
     }
   };
 
-  _renderSearchBar = () => {
+  renderSearchBar = () => {
     return (
       <Input
         action={{
@@ -85,11 +85,11 @@ export default class ItemsSearch extends Component {
           this.onInputChange(value);
         }}
         onPaste={e => {
-          this._onPasteHandler(e);
+          this.onPasteHandler(e);
         }}
         value={this.props.queryString}
         onKeyPress={event => {
-          this._onKeyPressHandler(event);
+          this.onKeyPressHandler(event);
         }}
         ref={input => {
           this.searchInput = input;
@@ -98,10 +98,10 @@ export default class ItemsSearch extends Component {
     );
   };
 
-  _renderResultsList = results => {
+  renderResultsList = results => {
     return (
       <div className="results-list">
-        {this._renderHeader(results.hits.length)}
+        {this.renderHeader(results.hits.length)}
         <ItemsResultsList
           patron={this.props.patron}
           clearResults={this.clearResults}
@@ -116,7 +116,7 @@ export default class ItemsSearch extends Component {
     );
   };
 
-  _renderEmptyResults = (queryString, resetQuery) => {
+  renderEmptyResults = (queryString, resetQuery) => {
     return (
       <Segment placeholder textAlign="center">
         <Header icon>
@@ -135,7 +135,7 @@ export default class ItemsSearch extends Component {
     );
   };
 
-  _renderHeader = totalResults => {
+  renderHeader = totalResults => {
     return <p>Found {totalResults} item(s).</p>;
   };
 
@@ -146,16 +146,14 @@ export default class ItemsSearch extends Component {
       <Segment className={'patron-items'}>
         <Header as={'h3'}>Items</Header>
         <Header.Subheader>Search items by barcode.</Header.Subheader>
-        <Container className={'search-bar'}>
-          {this._renderSearchBar()}
-        </Container>
+        <Container className={'search-bar'}>{this.renderSearchBar()}</Container>
         <Grid columns={1} stackable relaxed className="items-search-container">
           <Grid.Column width={16}>
             <Loader isLoading={isLoading}>
               <Error error={error}>
-                {!_isEmpty(items.hits)
-                  ? this._renderResultsList(items)
-                  : this._renderEmptyResults(
+                {!isEmpty(items.hits)
+                  ? this.renderResultsList(items)
+                  : this.renderEmptyResults(
                       prevSearchQuery,
                       this.updateQueryString
                     )}

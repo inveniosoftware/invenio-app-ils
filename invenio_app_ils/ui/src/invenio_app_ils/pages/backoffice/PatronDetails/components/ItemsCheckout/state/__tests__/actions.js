@@ -17,7 +17,7 @@ const response = { data: {} };
 const expectedPayload = {};
 
 const item = { item_pid: '2' };
-const user_pid = '2';
+const userPid = '2';
 const shouldForceCheckout = false;
 const doForceCheckout = true;
 
@@ -33,7 +33,7 @@ beforeEach(() => {
 
 describe('ItemsCheckout actions tests', () => {
   describe('POST Loan for checkout', () => {
-    const loan = { metadata: { ...item, patron_pid: user_pid } };
+    const loan = { metadata: { ...item, patron_pid: userPid } };
 
     it('should dispatch an action when checkout', done => {
       mockPOST.mockResolvedValue(response);
@@ -44,7 +44,7 @@ describe('ItemsCheckout actions tests', () => {
         },
       ];
 
-      store.dispatch(actions.checkoutItem(item, user_pid)).then(() => {
+      store.dispatch(actions.checkoutItem(item, userPid)).then(() => {
         expect(mockPOST).toHaveBeenCalledWith(
           ApiURLS.loans.create,
           item.item_pid,
@@ -70,7 +70,7 @@ describe('ItemsCheckout actions tests', () => {
       ];
 
       store
-        .dispatch(actions.checkoutItem(item, user_pid, doForceCheckout))
+        .dispatch(actions.checkoutItem(item, userPid, doForceCheckout))
         .then(() => {
           expect(mockPOST).toHaveBeenCalledWith(
             ApiURLS.loans.create,
@@ -97,7 +97,7 @@ describe('ItemsCheckout actions tests', () => {
         },
       ];
 
-      store.dispatch(actions.checkoutItem(item, user_pid)).then(() => {
+      store.dispatch(actions.checkoutItem(item, userPid)).then(() => {
         expect(mockPOST).toHaveBeenCalledWith(
           ApiURLS.loans.create,
           item.item_pid,
@@ -122,7 +122,7 @@ describe('ItemsCheckout actions tests', () => {
         },
       ];
 
-      store.dispatch(actions.checkoutItem(item, user_pid)).then(() => {
+      store.dispatch(actions.checkoutItem(item, userPid)).then(() => {
         expect(mockPOST).toHaveBeenCalledWith(
           ApiURLS.loans.create,
           item.item_pid,
