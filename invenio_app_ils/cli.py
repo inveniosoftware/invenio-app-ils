@@ -280,18 +280,19 @@ class DocumentGenerator(Generator):
         total_keywords = self.holder.keywords['total']
         total_series = self.holder.series['total']
         series_objs = self.holder.series['objs']
-        keyword_pids = [kw['keyword_pid'] for kw in self.holder.keywords['objs']]
+        keywords = self.holder.keywords['objs']
+        keyword_pids = [keyword['keyword_pid'] for keyword in keywords]
         serial_pids = [series['series_pid'] for series in series_objs if series['mode_of_issuance'] == 'SERIAL']
         multipart_pids = [series['series_pid'] for series in series_objs if series['mode_of_issuance'] == 'MULTIPART_MONOGRAPH']
 
         def random_series():
             data = []
-            for pid in random.sample(multipart_pids, randint(0, 1)):
+            for pid in random.sample(multipart_pids, randint(0, len(multipart_pids)-1)):
                 data.append(dict(
                     pid=pid,
                     volume=str(randint(1, 100))
                 ))
-            for pid in random.sample(serial_pids, randint(0, 3)):
+            for pid in random.sample(serial_pids, randint(0, len(serial_pids)-1)):
                 data.append(dict(
                     pid=pid,
                     volume=str(randint(1, 100))

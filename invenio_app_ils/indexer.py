@@ -263,7 +263,8 @@ class LocationIndexer(RecordIndexer):
 class PatronsIndexer(RecordIndexer):
     """Indexer class for `Patron`."""
 
-    def _prepare_record(self, record, index, doc_type):
+    @staticmethod
+    def _prepare_record(record, index, doc_type, arguments=None, **kwargs):
         """Prepare record data for indexing.
 
         :param record: The record to prepare.

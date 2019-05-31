@@ -73,7 +73,8 @@
       "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "uniqueItems": true
     },
     "keywords": {
       "type": "object",

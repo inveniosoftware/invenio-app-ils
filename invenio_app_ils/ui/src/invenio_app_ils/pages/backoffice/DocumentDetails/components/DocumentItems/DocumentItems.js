@@ -18,21 +18,19 @@ export default class DocumentItems extends Component {
   }
 
   componentDidMount() {
-    const documentPid = this.props.document.document_pid;
-    this.fetchDocumentItems(documentPid);
+    this.fetchDocumentItems(this.props.document.document_pid);
   }
 
   showDetailsHandler = itemPid =>
     this.props.history.push(this.showDetailsUrl(itemPid));
 
   seeAllButton = () => {
-    const documentPid = this.props.document.document_pid;
     const click = () =>
       this.props.history.push(
         this.seeAllUrl(
           itemApi
             .query()
-            .withDocPid(documentPid)
+            .withDocPid(this.props.document.document_pid)
             .qs()
         )
       );
