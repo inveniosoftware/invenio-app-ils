@@ -406,3 +406,23 @@ class Series(IlsRecord):
         }
         data.setdefault("keyword_pids", [])
         return super(Series, cls).create(data, id_=id_, **kwargs)
+
+    def delete(self, **kwargs):
+        """Delete Series record."""
+        doc_search = DocumentSearch()
+        doc_search_res = doc_search.search_by_series_pid(
+            series_pid=self[Series.pid_field]
+        )
+        if doc_search_res.count():
+            raise RecordHasReferencesError(
+                record_type="Series",
+                record_id=self[Series.pid_field],
+                ref_type="Document",
+                ref_ids=sorted(
+                    [
+                        res[Document.pid_field]
+                        for res in doc_search_res.scan()
+                    ]
+                ),
+            )
+        return super(Series, self).delete(**kwargs)

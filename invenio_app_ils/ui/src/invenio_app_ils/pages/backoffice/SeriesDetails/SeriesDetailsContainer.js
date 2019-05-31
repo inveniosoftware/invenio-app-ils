@@ -6,6 +6,7 @@ import { SeriesDetails } from './components';
 export default class SeriesDetailsContainer extends Component {
   constructor(props) {
     super(props);
+    this.deleteSeries = this.props.deleteSeries;
     this.fetchSeriesDetails = this.props.fetchSeriesDetails;
   }
 
@@ -23,5 +24,6 @@ export default class SeriesDetailsContainer extends Component {
 }
 
 SeriesDetailsContainer.propTypes = {
+  deleteSeries: PropTypes.func.isRequired,
   fetchSeriesDetails: PropTypes.func.isRequired,
 };

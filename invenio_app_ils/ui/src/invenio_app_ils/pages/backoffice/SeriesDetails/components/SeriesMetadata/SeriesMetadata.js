@@ -5,10 +5,36 @@ import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import { MetadataTable } from '../../../components/MetadataTable';
 import { EditButton } from '../../../components/buttons';
-import { series as seriesApi } from '../../../../../common/api';
+import {
+  document as documentApi,
+  series as seriesApi,
+} from '../../../../../common/api';
 import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
+import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 
 export default class SeriesMetadata extends Component {
+  constructor(props) {
+    super(props);
+    this.deleteSeries = props.deleteSeries;
+  }
+
+  createRefProps(seriesPid) {
+    return [
+      {
+        refType: 'Document',
+        onRefClick: documentPid =>
+          openRecordEditor(documentApi.url, documentPid),
+        getRefData: () =>
+          documentApi.list(
+            documentApi
+              .query()
+              .withSeriesPid(seriesPid)
+              .qs()
+          ),
+      },
+    ];
+  }
+
   renderKeywords(keywords) {
     return (
       <List horizontal>
@@ -43,6 +69,12 @@ export default class SeriesMetadata extends Component {
             clickHandler={() =>
               openRecordEditor(seriesApi.url, series.series_pid)
             }
+          />
+          <DeleteRecordModal
+            deleteHeader={`Are you sure you want to delete the Series record
+            with ID ${series.series_pid}?`}
+            refProps={this.createRefProps(series.series_pid)}
+            onDelete={() => this.deleteSeries(series.series_pid)}
           />
         </Grid.Column>
       </Grid.Row>
