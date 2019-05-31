@@ -146,9 +146,9 @@ export default class DocumentMetadata extends Component {
           />
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Document
-            record with ID ${document.documentPid}?`}
+            record with ID ${document.document_pid}?`}
             refProps={this.createRefProps(document.document_pid)}
-            onDelete={() => this.deleteDocument(document.documentPid)}
+            onDelete={() => this.deleteDocument(document.document_pid)}
           />
         </Grid.Column>
       </Grid.Row>

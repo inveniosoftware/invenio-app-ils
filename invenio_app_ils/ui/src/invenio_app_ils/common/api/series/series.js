@@ -10,6 +10,11 @@ const get = seriesPid => {
   });
 };
 
+const del = async seriesPid => {
+  const response = await http.delete(`${seriesURL}${seriesPid}`);
+  return response;
+};
+
 class QueryBuilder {
   constructor() {
     this.withKeywordQuery = [];
@@ -51,6 +56,7 @@ const count = query => {
 
 export const series = {
   get: get,
+  delete: del,
   list: list,
   count: count,
   query: queryBuilder,

@@ -33,6 +33,7 @@ describe('SeriesDetailsContainer tests', () => {
         history={routerHistory}
         match={routerUrlParams}
         fetchSeriesDetails={() => {}}
+        deleteSeries={() => {}}
       />
     );
     expect(component).toMatchSnapshot();
@@ -40,11 +41,13 @@ describe('SeriesDetailsContainer tests', () => {
 
   it('should fetch item details on mount', () => {
     const mockedFetchSeriesDetails = jest.fn();
+    const mockDeleteSeries = jest.fn();
     component = mount(
       <SeriesDetailsContainer
         history={routerHistory}
         match={routerUrlParams}
         fetchSeriesDetails={mockedFetchSeriesDetails}
+        deleteSeries={mockDeleteSeries}
       />
     );
     expect(mockedFetchSeriesDetails).toHaveBeenCalledWith(

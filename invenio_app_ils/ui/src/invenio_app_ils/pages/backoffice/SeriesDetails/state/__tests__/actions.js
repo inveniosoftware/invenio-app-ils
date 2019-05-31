@@ -9,8 +9,10 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 const mockGet = jest.fn();
+const mockDelete = jest.fn();
 
 seriesApi.get = mockGet;
+seriesApi.delete = mockDelete;
 
 const response = { data: {} };
 const expectedPayload = {};
@@ -76,6 +78,46 @@ describe('Series details actions', () => {
         expect(actions[1]).toEqual(expectedActions[0]);
         done();
       });
+    });
+  });
+
+  describe('Delete series tests', () => {
+    it('should dispatch an action when trigger delete series', async () => {
+      const expectedAction = {
+        type: types.DELETE_IS_LOADING,
+      };
+
+      store.dispatch(actions.deleteSeries(1));
+      expect(mockDelete).toHaveBeenCalled();
+      expect(store.getActions()[0]).toEqual(expectedAction);
+    });
+
+    it('should dispatch an action when series delete succeeds', async () => {
+      mockDelete.mockResolvedValue({ data: { seriesPid: 1 } });
+      const expectedAction = {
+        type: types.DELETE_SUCCESS,
+        payload: { seriesPid: 1 },
+      };
+
+      await store.dispatch(actions.deleteSeries(1));
+      expect(mockDelete).toHaveBeenCalled();
+      expect(store.getActions()[1]).toEqual(expectedAction);
+    });
+
+    it('should dispatch an action when series delete has error', async () => {
+      const error = {
+        error: { status: 500, message: 'error' },
+      };
+      mockDelete.mockRejectedValue(error);
+
+      const expectedAction = {
+        type: types.DELETE_HAS_ERROR,
+        payload: error,
+      };
+
+      await store.dispatch(actions.deleteSeries(1));
+      expect(mockDelete).toHaveBeenCalled();
+      expect(store.getActions()[1]).toEqual(expectedAction);
     });
   });
 });
