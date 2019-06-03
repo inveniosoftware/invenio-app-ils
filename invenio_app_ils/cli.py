@@ -19,7 +19,8 @@ from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
+    RecordIdentifier
 from invenio_search import current_search
 
 from .indexer import PatronsIndexer
@@ -47,6 +48,7 @@ def minter(pid_type, pid_field, record):
         object_uuid=record.id,
         status=PIDStatus.REGISTERED,
     )
+    RecordIdentifier.next()
 
 
 class Holder():
