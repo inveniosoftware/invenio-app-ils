@@ -24,6 +24,13 @@ export default class DeleteRecordModal extends Component {
     this.toggleModal();
   }
 
+  handleOpen() {
+    const { refProps } = this.props;
+    if (!isEmpty(refProps)) {
+      this.fetchReferences(refProps.map(entry => entry.getRefData()));
+    }
+  }
+
   renderDeleteHeader = () => {
     const { deleteHeader } = this.props;
     return (
@@ -89,7 +96,8 @@ export default class DeleteRecordModal extends Component {
 
   renderAll() {
     const { data, refProps } = this.props;
-    const canDelete = sumBy(data, 'total') === 0;
+    const canDelete = isEmpty(refProps) || sumBy(data, 'total') === 0;
+
     if (canDelete) {
       return [this.renderDeleteHeader(), this.renderActions(canDelete)];
     }
@@ -112,19 +120,17 @@ export default class DeleteRecordModal extends Component {
   }
 
   render() {
-    const { isLoading, data, error, refProps } = this.props;
+    const { isLoading, error } = this.props;
     return (
       <Modal
         trigger={<DeleteButton onClick={this.toggleModal} />}
         open={this.state.isModalOpen}
-        onOpen={() =>
-          this.fetchReferences(refProps.map(entry => entry.getRefData()))
-        }
+        onOpen={() => this.handleOpen()}
         onClose={this.toggleModal}
         basic
       >
         <Loader isLoading={isLoading}>
-          <Error error={error}>{isEmpty(data) ? null : this.renderAll()}</Error>
+          <Error error={error}>{this.renderAll()}</Error>
         </Loader>
       </Modal>
     );
@@ -140,5 +146,9 @@ DeleteRecordModal.propTypes = {
       onRefClick: PropTypes.func.isRequired,
       getRefData: PropTypes.func.isRequired,
     })
-  ).isRequired,
+  ),
+};
+
+DeleteRecordModal.defaultProps = {
+  refProps: [],
 };
