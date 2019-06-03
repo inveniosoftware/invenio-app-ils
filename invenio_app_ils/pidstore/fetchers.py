@@ -10,7 +10,7 @@
 from invenio_pidstore.fetchers import FetchedPID
 
 from ..records.api import Document, EItem, InternalLocation, Item, Keyword, \
-    Location
+    Location, Series
 
 from .pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
@@ -19,6 +19,7 @@ from .pids import (  # isort:skip
     LOCATION_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
     KEYWORD_PID_TYPE,
+    SERIES_PID_TYPE,
     PATRON_PID_TYPE
 )
 
@@ -74,6 +75,15 @@ def keyword_pid_fetcher(record_uuid, data):
         provider=None,
         pid_type=KEYWORD_PID_TYPE,
         pid_value=str(data[Keyword.pid_field])
+    )
+
+
+def series_pid_fetcher(record_uuid, data):
+    """Return Series PID fetcher."""
+    return FetchedPID(
+        provider=None,
+        pid_type=SERIES_PID_TYPE,
+        pid_value=str(data[Series.pid_field])
     )
 
 

@@ -17,6 +17,7 @@ from .pids import (  # isort:skip
     LOCATION_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
     KEYWORD_PID_TYPE,
+    SERIES_PID_TYPE,
 )
 
 
@@ -109,6 +110,23 @@ class KeywordIdProvider(RecordIdProvider):
     """Keyword identifier provider."""
 
     pid_type = KEYWORD_PID_TYPE
+    """Type of persistent identifier."""
+
+    pid_provider = None
+    """Provider name.
+
+    The provider name is not recorded in the PID since the provider does not
+    provide any additional features besides creation of record ids.
+    """
+
+    default_status = PIDStatus.REGISTERED
+    """Record IDs are by default registered immediately."""
+
+
+class SeriesIdProvider(RecordIdProvider):
+    """Series identifier provider."""
+
+    pid_type = SERIES_PID_TYPE
     """Type of persistent identifier."""
 
     pid_provider = None

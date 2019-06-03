@@ -3,7 +3,13 @@
     "document_pid": "docid-1",
     "title": "The Gulf: The Making of An American Sea",
     "authors": ["Jack E. Davis"],
-    "abstracts": ["This is an abstract"]
+    "abstracts": ["This is an abstract"],
+    "series_objs": [
+      {
+        "pid": "mvol-1",
+        "volume": "1"
+      }
+    ]
   },
   {
     "document_pid": "docid-2",
@@ -21,7 +27,13 @@
     "document_pid": "docid-4",
     "title": "Locking Up Our Own: Crime and Punishment in Black America",
     "authors": ["James Forman Jr."],
-    "abstracts": ["This is an abstract"]
+    "abstracts": ["This is an abstract"],
+    "series_objs": [
+      {
+        "pid": "mvol-2",
+        "volume": "2"
+      }
+    ]
   },
   {
     "document_pid": "docid-5",

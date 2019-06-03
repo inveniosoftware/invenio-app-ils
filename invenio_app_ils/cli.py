@@ -24,7 +24,7 @@ from invenio_search import current_search
 
 from .indexer import PatronsIndexer
 from .records.api import Document, EItem, InternalLocation, Item, Keyword, \
-    Location, Patron
+    Location, Patron, Series
 
 from .pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
@@ -33,7 +33,8 @@ from .pidstore.pids import (  # isort:skip
     LOCATION_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
     KEYWORD_PID_TYPE,
-    PATRON_PID_TYPE
+    PATRON_PID_TYPE,
+    SERIES_PID_TYPE,
 )
 
 
@@ -59,7 +60,8 @@ class Holder():
                  total_items,
                  total_eitems,
                  total_documents,
-                 total_loans):
+                 total_loans,
+                 total_series):
         """Constructor."""
         self.patrons_pids = patrons_pids
         self.librarian_pid = librarian_pid
@@ -88,6 +90,10 @@ class Holder():
         self.loans = {
             'objs': [],
             'total': total_loans
+        }
+        self.series = {
+            'objs': [],
+            'total': total_series
         }
 
 
@@ -270,6 +276,25 @@ class DocumentGenerator(Generator):
         """Generate."""
         size = self.holder.documents['total']
         total_keywords = self.holder.keywords['total']
+        total_series = self.holder.series['total']
+        series_objs = self.holder.series['objs']
+        keyword_pids = [kw['keyword_pid'] for kw in self.holder.keywords['objs']]
+        serial_pids = [series['series_pid'] for series in series_objs if series['mode_of_issuance'] == 'SERIAL']
+        multipart_pids = [series['series_pid'] for series in series_objs if series['mode_of_issuance'] == 'MULTIPART_MONOGRAPH']
+
+        def random_series():
+            data = []
+            for pid in random.sample(multipart_pids, randint(0, 1)):
+                data.append(dict(
+                    pid=pid,
+                    volume=str(randint(1, 100))
+                ))
+            for pid in random.sample(serial_pids, randint(0, 3)):
+                data.append(dict(
+                    pid=pid,
+                    volume=str(randint(1, 100))
+                ))
+            return data
 
         objs = [{
             Document.pid_field: "{}".format(i),
@@ -290,7 +315,8 @@ class DocumentGenerator(Generator):
                           "https://home.cern/science/physics/antimatter"],
             "chapters": ["{}".format(lorem.sentence())],
             "information": "{}".format(lorem.text()),
-            "keyword_pids": [str(randint(1, total_keywords-1)) for i in range(0, 5)],
+            "keyword_pids": random.sample(keyword_pids, randint(0, 5)),
+            "series_objs": random_series(),
         } for i in range(1, size)]
 
         self.holder.documents['objs'] = objs
@@ -388,6 +414,62 @@ class LoanGenerator(Generator):
         return recs
 
 
+class SeriesGenerator(Generator):
+    """Series Generator."""
+
+    DOCUMENT_TYPES = ["BOOK", "STANDARD", "PROCEEDINGS"]
+    LANGUAGES = ["en", "fr", "it", "el", "pl", "ro", "sv", "es"]
+    MODE_OF_ISSUANCE = ["MULTIPART_MONOGRAPH", "SERIAL"]
+
+    def random_issn(self):
+        """Generate a random ISSN."""
+        random_4digit = [randint(1000, 9999), randint(1000, 9999)]
+        return '-'.join(str(r) for r in random_4digit)
+
+    def generate(self):
+        """Generate."""
+        size = self.holder.series['total']
+        total_keywords = self.holder.keywords['total']
+        keyword_pids = [kw['keyword_pid'] for kw in self.holder.keywords['objs']]
+
+        objs = [{
+            Series.pid_field: "{}".format(i),
+            "mode_of_issuance": random.choice(self.MODE_OF_ISSUANCE),
+            "issn": self.random_issn(),
+            "title": "{}".format(lorem.sentence()),
+            "authors": ["{}".format(lorem.sentence())],
+            "abstracts": ["{}".format(lorem.text())],
+            "languages":list(set([random.choice(self.LANGUAGES)
+                                  for _ in
+                                  range(0, randint(1, len(self.LANGUAGES)))])),
+            "publishers": ["{}".format(lorem.sentence())],
+            "files": ["https://cds.cern.ch/record/2255762/"
+                      "files/CERN-Brochure-2017-002-Eng.pdf",
+                      "https://cds.cern.ch/record/2256277/"
+                      "files/CERN-Brochure-2016-005-Eng.pdf"],
+            "booklinks": ["https://home.cern/science/physics/dark-matter",
+                          "https://home.cern/science/physics/antimatter"],
+            "chapters": ["{}".format(lorem.sentence())],
+            "information": "{}".format(lorem.text()),
+            "keyword_pids": random.sample(keyword_pids, randint(0, 5)),
+        } for i in range(1, size)]
+
+        self.holder.series['objs'] = objs
+
+    def persist(self):
+        """Persist."""
+        recs = []
+        for obj in self.holder.series['objs']:
+            rec = self._persist(
+                SERIES_PID_TYPE,
+                Series.pid_field,
+                Series.create(obj)
+            )
+            recs.append(rec)
+        db.session.commit()
+        return recs
+
+
 @click.group()
 def demo():
     """Demo data CLI."""
@@ -400,8 +482,9 @@ def demo():
 @click.option("--loans", "n_loans", default=100)
 @click.option("--keywords", "n_keywords", default=40)
 @click.option("--internal-locations", "n_intlocs", default=10)
+@click.option("--series", "n_series", default=10)
 @with_appcontext
-def data(n_docs, n_items, n_eitems, n_loans, n_keywords, n_intlocs):
+def data(n_docs, n_items, n_eitems, n_loans, n_keywords, n_intlocs, n_series):
     """Insert demo data."""
     click.secho('Generating demo data', fg='yellow')
 
@@ -415,7 +498,8 @@ def data(n_docs, n_items, n_eitems, n_loans, n_keywords, n_intlocs):
         total_items=n_items,
         total_eitems=n_eitems,
         total_documents=n_docs,
-        total_loans=n_loans
+        total_loans=n_loans,
+        total_series=n_series,
     )
 
     click.echo('Creating locations...')
@@ -447,6 +531,12 @@ def data(n_docs, n_items, n_eitems, n_loans, n_keywords, n_intlocs):
     eitems_generator.generate()
     rec_eitems = eitems_generator.persist()
 
+    # Series
+    click.echo('Creating series...')
+    series_generator = SeriesGenerator(holder, minter)
+    series_generator.generate()
+    rec_series = series_generator.persist()
+
     # Documents
     click.echo('Creating documents...')
     documents_generator = DocumentGenerator(holder, minter)
@@ -468,6 +558,13 @@ def data(n_docs, n_items, n_eitems, n_loans, n_keywords, n_intlocs):
     indexer.bulk_index([str(r.id) for r in rec_keywords])
     click.echo('Sent to the indexing queue {0} keywords'.format(
         len(rec_keywords)))
+    # process queue so series can resolve keywords correctly
+    indexer.process_bulk_queue()
+
+    # index series
+    indexer.bulk_index([str(r.id) for r in rec_series])
+    click.echo('Sent to the indexing queue {0} series'.format(
+        len(rec_series)))
 
     # index loans
     indexer.bulk_index([str(r.id) for r in rec_loans])
