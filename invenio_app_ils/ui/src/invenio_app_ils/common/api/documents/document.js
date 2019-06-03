@@ -15,6 +15,14 @@ const del = async docPid => {
   return response;
 };
 
+const patch = async (documentPid, ops) => {
+  const response = await http.patch(`${documentURL}${documentPid}`, ops, {
+    headers: { 'Content-Type': 'application/json-patch+json' },
+  });
+  response.data = serializer.fromJSON(response.data);
+  return response;
+};
+
 class QueryBuilder {
   constructor() {
     this.overbookedQuery = [];
@@ -95,6 +103,7 @@ const count = query => {
 export const document = {
   get: get,
   delete: del,
+  patch: patch,
   list: list,
   count: count,
   query: queryBuilder,

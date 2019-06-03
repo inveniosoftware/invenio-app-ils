@@ -117,6 +117,14 @@
         }
       }
     },
+    "_access": {
+      "type": "object",
+      "properties": {
+        "read": {
+          "type": "array"
+        }
+      }
+    },
     "language": {
       "items": {
         "enum": [

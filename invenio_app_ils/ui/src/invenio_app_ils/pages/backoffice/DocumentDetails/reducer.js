@@ -5,3 +5,6 @@ export {
 export {
   default as documentItems,
 } from './components/DocumentItems/state/reducer';
+export {
+  default as documentRestrictionsReducer,
+} from './components/DocumentAccessRestrictions/state/reducer';

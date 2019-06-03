@@ -59,6 +59,14 @@
             }
           }
         },
+        "_access": {
+          "type": "object",
+          "properties": {
+            "read": {
+              "type": "keyword"
+            }
+          }
+        },
         "_computed": {
           "type": "object",
           "properties": {

@@ -3,6 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 import { availableItemsReducer } from './pages/backoffice/LoanDetails/reducer';
+import { documentRestrictionsReducer } from './pages/backoffice/DocumentDetails/reducer';
 import {
   documentDetailsReducer,
   documentPendingLoans,
@@ -55,6 +56,7 @@ const rootReducer = combineReducers({
   patronPendingLoans: patronPendingLoansReducer,
   patronCurrentLoans: patronCurrentLoansReducer,
   availableItems: availableItemsReducer,
+  documentRestrictions: documentRestrictionsReducer,
   locations: locationListReducer,
   internalLocations: internalLocationListReducer,
   loansCard: loansCardReducer,
