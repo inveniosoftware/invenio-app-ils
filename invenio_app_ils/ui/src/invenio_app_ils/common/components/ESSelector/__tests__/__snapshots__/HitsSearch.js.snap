@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HitsSearch tests should load the selector component 1`] = `
+<Search
+  className={null}
+  fluid={true}
+  icon="search"
+  input={
+    Object {
+      "ref": [Function],
+    }
+  }
+  loading={false}
+  minCharacters={1}
+  noResultsMessage="No results found."
+  onResultSelect={[Function]}
+  onSearchChange={[Function]}
+  resultRenderer={[Function]}
+  results={Array []}
+  showNoResults={true}
+  value=""
+/>
+`;

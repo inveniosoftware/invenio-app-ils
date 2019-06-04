@@ -69,3 +69,33 @@ export const deleteDocument = documentPid => {
     }
   };
 };
+
+export const updateDocument = (documentPid, path, value) => {
+  return async dispatch => {
+    dispatch({
+      type: IS_LOADING,
+    });
+
+    await documentApi
+      .patch(documentPid, [
+        {
+          op: 'replace',
+          path: path,
+          value: value,
+        },
+      ])
+      .then(response => {
+        dispatch({
+          type: SUCCESS,
+          payload: response.data,
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: HAS_ERROR,
+          payload: error,
+        });
+        dispatch(sendErrorNotification(error));
+      });
+  };
+};

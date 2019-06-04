@@ -36,6 +36,7 @@ import {
   renewedLoansReducer,
 } from './pages/backoffice/Home/reducer';
 import { notificationsReducer } from './common/components/Notifications/reducer';
+import { esSelectorReducer } from './common/components/ESSelector/reducer';
 
 import {
   mostLoanedDocumentsReducer,
@@ -71,6 +72,7 @@ const rootReducer = combineReducers({
   notifications: notificationsReducer,
   mostLoanedDocuments: mostLoanedDocumentsReducer,
   mostRecentDocuments: mostRecentDocumentsReducer,
+  esSelector: esSelectorReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

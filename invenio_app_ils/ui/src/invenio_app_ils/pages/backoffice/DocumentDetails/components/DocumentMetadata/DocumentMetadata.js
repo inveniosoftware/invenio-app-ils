@@ -8,6 +8,7 @@ import {
   List,
   Label,
   Icon,
+  Button,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
@@ -18,9 +19,12 @@ import {
   document as documentApi,
   loan as loanApi,
   item as itemApi,
+  keyword as keywordApi,
 } from '../../../../../common/api';
 import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
+import { ESSelectorModal } from '../../../../../common/components/ESSelector';
+import { serializeKeyword } from '../../../../../common/components/ESSelector/serializer';
 import { DocumentAccessRestrictions } from '../DocumentAccessRestrictions';
 
 const getReadAccessSet = document => {
@@ -35,7 +39,14 @@ export default class DocumentMetadata extends Component {
     this.deleteDocument = props.deleteDocument;
   }
 
+  updateKeywords = results => {
+    const documentPid = this.props.documentDetails.metadata.document_pid;
+    const keywordPids = results.map(result => result.metadata.keyword_pid);
+    this.props.updateDocument(documentPid, '/keyword_pids', keywordPids);
+  };
+
   renderKeywords(keywords) {
+    const keywordSelection = keywords.map(serializeKeyword);
     return (
       <List horizontal>
         {keywords.map(keyword => (
@@ -52,6 +63,16 @@ export default class DocumentMetadata extends Component {
             </Link>
           </List.Item>
         ))}
+        <List.Item>
+          <ESSelectorModal
+            multiple
+            initialSelections={keywordSelection}
+            trigger={<Button basic color="blue" size="small" content="edit" />}
+            query={keywordApi.list}
+            title="Select Keywords"
+            onSave={this.updateKeywords}
+          />
+        </List.Item>
       </List>
     );
   }
@@ -121,13 +142,11 @@ export default class DocumentMetadata extends Component {
     const rows = [
       { name: 'Title', value: document.metadata.title },
       { name: 'Authors', value: document.metadata.authors },
-    ];
-    if (!isEmpty(document.metadata.keywords)) {
-      rows.push({
+      {
         name: 'Keywords',
         value: this.renderKeywords(document.metadata.keywords),
-      });
-    }
+      },
+    ];
     return rows;
   }
 

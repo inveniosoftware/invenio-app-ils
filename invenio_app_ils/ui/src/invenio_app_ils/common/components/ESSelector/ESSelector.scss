@@ -1,0 +1,30 @@
+$es_red: #d41414;
+
+#es-selector {
+  .input {
+    width: 100% !important;
+  }
+
+  .error {
+    .input {
+      color: $es_red;
+    }
+
+    input {
+      border-color: $es_red;
+    }
+
+    .results .title {
+      color: $es_red;
+    }
+  }
+
+  .result-selections {
+    .extra {
+      color: #21ba45;
+      float: right;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+  }
+}
