@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CancelLoanModal tests should load the cancel loan modal component 1`] = `
+<Modal
+  basic={true}
+  centered={true}
+  closeOnDimmerClick={true}
+  closeOnDocumentClick={false}
+  dimmer={true}
+  eventPool="Modal"
+  onClose={[Function]}
+  open={false}
+  size="small"
+  trigger={
+    <Button
+      as="button"
+      content="cancel"
+      onClick={[Function]}
+      primary={true}
+    />
+  }
+>
+  <Header
+    content="Cancel Loan #1"
+  />
+  <ModalContent>
+    <p>
+      You are about to cancel loan #
+      1
+      . Please enter a reason for cancelling this loan.
+    </p>
+    <Input
+      fluid={true}
+      focus={true}
+      onChange={[Function]}
+      placeholder="Enter a cancel reason..."
+      type="text"
+      value=""
+    />
+    <Popup
+      content="Please specify a reason."
+      keepInViewPort={true}
+      on="hover"
+      open={false}
+      position="bottom left"
+    />
+  </ModalContent>
+  <ModalActions>
+    <Button
+      as="button"
+      basic={true}
+      color="black"
+      inverted={true}
+      onClick={[Function]}
+    >
+      Back
+    </Button>
+    <Button
+      as="button"
+      color="red"
+      inverted={true}
+      onClick={[Function]}
+    >
+      <Icon
+        as="i"
+        name="remove"
+      />
+       Cancel Loan
+    </Button>
+  </ModalActions>
+</Modal>
+`;

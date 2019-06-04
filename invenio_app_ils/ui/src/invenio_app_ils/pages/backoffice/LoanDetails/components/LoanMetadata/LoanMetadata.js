@@ -89,6 +89,7 @@ export default class LoanMetadata extends Component {
   }
 
   prepareRightData(data) {
+    const { cancel_reason: reason, state } = data.metadata;
     const rows = [
       {
         name: 'Transaction date',
@@ -99,6 +100,12 @@ export default class LoanMetadata extends Component {
         value: toShortDateTime(data.metadata.request_expire_date),
       },
     ];
+    if (state === 'CANCELLED' && !isEmpty(reason)) {
+      rows.push({
+        name: 'Cancel Reason',
+        value: reason,
+      });
+    }
     return rows;
   }
 

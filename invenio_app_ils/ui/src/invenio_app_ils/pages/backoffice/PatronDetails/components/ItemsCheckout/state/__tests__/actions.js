@@ -51,7 +51,9 @@ describe('ItemsCheckout actions tests', () => {
           loan,
           sessionManager.user.id,
           sessionManager.user.locationPid,
-          shouldForceCheckout
+          {
+            force_checkout: shouldForceCheckout,
+          }
         );
 
         const actions = store.getActions();
@@ -78,7 +80,9 @@ describe('ItemsCheckout actions tests', () => {
             loan,
             sessionManager.user.id,
             sessionManager.user.locationPid,
-            doForceCheckout
+            {
+              force_checkout: doForceCheckout,
+            }
           );
 
           const actions = store.getActions();
@@ -104,7 +108,9 @@ describe('ItemsCheckout actions tests', () => {
           loan,
           sessionManager.user.id,
           sessionManager.user.locationPid,
-          shouldForceCheckout
+          {
+            force_checkout: shouldForceCheckout,
+          }
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
@@ -129,7 +135,9 @@ describe('ItemsCheckout actions tests', () => {
           loan,
           sessionManager.user.id,
           sessionManager.user.locationPid,
-          shouldForceCheckout
+          {
+            force_checkout: shouldForceCheckout,
+          }
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
