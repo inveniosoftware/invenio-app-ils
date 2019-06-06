@@ -220,7 +220,9 @@ export default class DocumentMetadata extends Component {
   render() {
     const document = this.props.documentDetails;
     const readAccessSet = getReadAccessSet(document);
-    const isReadRestricted = !isEmpty(document.metadata._access.read);
+    const isReadRestricted =
+      !isEmpty(document.metadata._access) &&
+      !isEmpty(document.metadata._access.read);
     const rows = this.prepareData(document);
     return (
       <Segment className="document-metadata">
