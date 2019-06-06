@@ -1,8 +1,6 @@
-import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import EItemMetadataComponent from './EItemMetadata';
-import { fetchEItemDetails } from '../../state/actions';
+import { deleteEItem } from '../../state/actions';
 
 const mapStateToProps = state => ({
   error: state.eitemDetails.error,
@@ -10,13 +8,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchItemDetails: eitemPid => dispatch(fetchEItemDetails(eitemPid)),
+  deleteEItem: eitemPid => dispatch(deleteEItem(eitemPid)),
 });
 
-export const EItemMetadata = compose(
-  withRouter,
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
+export const EItemMetadata = connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(EItemMetadataComponent);

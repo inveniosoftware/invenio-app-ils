@@ -10,6 +10,11 @@ const get = async eitemPid => {
   return response;
 };
 
+const del = async eitemPid => {
+  const response = await http.delete(`${eitemURL}${eitemPid}`);
+  return response;
+};
+
 const list = async query => {
   const response = await http.get(`${eitemURL}?q=${query}`);
   response.data.total = response.data.hits.total;
@@ -45,5 +50,6 @@ export const eitem = {
   query: queryBuilder,
   list: list,
   get: get,
+  delete: del,
   url: eitemURL,
 };

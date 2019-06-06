@@ -48,7 +48,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
           "Document ID": 1342,
           "ID": 987,
           "Internal Notes": "Internal notes.",
-          "Open access": false,
+          "Open access": "No",
         },
       ]
     }
@@ -273,7 +273,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
                     "Document ID": 1342,
                     "ID": 987,
                     "Internal Notes": "Internal notes.",
-                    "Open access": false,
+                    "Open access": "No",
                   },
                 ]
               }
@@ -360,7 +360,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
                           className=""
                           data-test="Open access-987"
                         >
-                          -
+                          No
                         </td>
                       </TableCell>
                       <TableCell

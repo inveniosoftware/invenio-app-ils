@@ -11,6 +11,7 @@ const mockStore = configureMockStore(middlewares);
 const mockGet = jest.fn();
 const mockDelete = jest.fn();
 eitemApi.get = mockGet;
+eitemApi.delete = mockDelete;
 
 const response = { data: {} };
 const expectedPayload = {};
@@ -61,6 +62,46 @@ describe('EItem details actions', () => {
 
       await store.dispatch(actions.fetchEItemDetails('456'));
       expect(mockGet).toHaveBeenCalledWith('456');
+      expect(store.getActions()[1]).toEqual(expectedAction);
+    });
+  });
+
+  describe('Delete EItem tests', () => {
+    it('should dispatch an action when trigger delete eitem', async () => {
+      const expectedAction = {
+        type: types.DELETE_IS_LOADING,
+      };
+
+      store.dispatch(actions.deleteEItem(1));
+      expect(mockDelete).toHaveBeenCalled();
+      expect(store.getActions()[0]).toEqual(expectedAction);
+    });
+
+    it('should dispatch an action when eitem delete succeeds', async () => {
+      mockDelete.mockResolvedValue({ data: { eitemPid: 1 } });
+      const expectedAction = {
+        type: types.DELETE_SUCCESS,
+        payload: { eitemPid: 1 },
+      };
+
+      await store.dispatch(actions.deleteEItem(1));
+      expect(mockDelete).toHaveBeenCalled();
+      expect(store.getActions()[1]).toEqual(expectedAction);
+    });
+
+    it('should dispatch an action when eitem delete has error', async () => {
+      const error = {
+        error: { status: 500, message: 'error' },
+      };
+      mockDelete.mockRejectedValue(error);
+
+      const expectedAction = {
+        type: types.DELETE_HAS_ERROR,
+        payload: error,
+      };
+
+      await store.dispatch(actions.deleteEItem(1));
+      expect(mockDelete).toHaveBeenCalled();
       expect(store.getActions()[1]).toEqual(expectedAction);
     });
   });

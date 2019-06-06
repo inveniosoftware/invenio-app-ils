@@ -1,6 +1,4 @@
-import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import EItemDetailsComponent from './EItemDetails';
 
 const mapStateToProps = state => ({
@@ -8,7 +6,4 @@ const mapStateToProps = state => ({
   error: state.eitemDetails.error,
 });
 
-export const EItemDetails = compose(
-  withRouter,
-  connect(mapStateToProps)
-)(EItemDetailsComponent);
+export const EItemDetails = connect(mapStateToProps)(EItemDetailsComponent);

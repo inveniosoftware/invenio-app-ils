@@ -985,6 +985,28 @@ RECORDS_EDITOR_UI_CONFIG = {
             },
         },
     },
+    "eitems": {
+        "recordConfig": {
+            "apiUrl": "api/eitems/",
+            "schema": "eitems/eitem-v1.0.0.json",
+        },
+        "editorConfig": {
+            "schemaOptions": {
+                "alwaysShow": [
+                    "description",
+                    "document_pid",
+                    "internal_notes",
+                    "open_access",
+                    "urls",
+                ],
+                "properties": {
+                    "$schema": {"hidden": True},
+                    "eitem_pid": {"hidden": True},
+                    "document": {"hidden": True},
+                },
+            },
+        },
+    },
 }
 
 # Accounts REST
