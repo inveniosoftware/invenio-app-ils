@@ -28,6 +28,7 @@ describe('EItemDetailsContainer tests', () => {
     const component = shallow(
       <EItemDetailsContainer
         match={routerUrlParams}
+        deleteEItem={() => {}}
         fetchEItemDetails={() => {}}
       />
     );
@@ -36,9 +37,11 @@ describe('EItemDetailsContainer tests', () => {
 
   it('should fetch eitem details on mount', () => {
     const mockedFetchEItemDetails = jest.fn();
+    const mockedDeleteEItem = jest.fn();
     component = mount(
       <EItemDetailsContainer
         match={routerUrlParams}
+        deleteEItem={mockedDeleteEItem}
         fetchEItemDetails={mockedFetchEItemDetails}
       />
     );

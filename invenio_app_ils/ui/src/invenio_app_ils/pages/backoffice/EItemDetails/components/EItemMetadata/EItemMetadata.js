@@ -5,6 +5,7 @@ import { Grid, Segment, Container, Header, Table } from 'semantic-ui-react';
 import { openRecordEditor } from '../../../../../routes/urls';
 import { eitem as eitemApi } from '../../../../../common/api';
 import { EditButton } from '../../../components/buttons';
+import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 
 import './EItemMetadata.scss';
 
@@ -15,6 +16,7 @@ export default class EItemMetadata extends Component {
         Link {index + 1}
       </a>
     ));
+
   renderHeader = () => (
     <Grid.Row>
       <Grid.Column width={10} verticalAlign={'middle'}>
@@ -26,9 +28,15 @@ export default class EItemMetadata extends Component {
             openRecordEditor(eitemApi.url, this.props.eitem.eitem_pid)
           }
         />
+        <DeleteRecordModal
+          deleteHeader={`Are you sure you want to delete the EItem record
+            with ID ${this.props.eitem.eitem_pid}?`}
+          onDelete={() => this.props.deleteEItem(this.props.eitem.eitem_pid)}
+        />
       </Grid.Column>
     </Grid.Row>
   );
+
   render() {
     const { eitem } = this.props;
 

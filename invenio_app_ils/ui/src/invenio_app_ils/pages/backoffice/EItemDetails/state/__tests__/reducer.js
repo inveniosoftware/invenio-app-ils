@@ -43,3 +43,43 @@ describe('Fetch eitem details reducer', () => {
     });
   });
 });
+
+describe('Delete eitem reducer', () => {
+  it('should have initial state', () => {
+    expect(reducer(undefined, {})).toEqual(initialState);
+  });
+
+  it('should change loading state on eitem delete', () => {
+    const action = {
+      type: types.DELETE_IS_LOADING,
+    };
+    expect(reducer(initialState, action)).toEqual({
+      ...initialState,
+      isLoading: true,
+    });
+  });
+
+  it('should keep loading to re-fetch eitem on deleted eitem success', () => {
+    const action = {
+      type: types.DELETE_SUCCESS,
+      payload: { eitemPid: 1 },
+    };
+    expect(reducer(initialState, action)).toEqual({
+      ...initialState,
+      isLoading: true,
+    });
+  });
+
+  it('should change error state on delete eitem error', () => {
+    const action = {
+      type: types.DELETE_HAS_ERROR,
+      payload: { response: { status: 404 } },
+    };
+    expect(reducer(initialState, action)).toEqual({
+      ...initialState,
+      isLoading: false,
+      hasError: true,
+      error: { response: { status: 404 } },
+    });
+  });
+});

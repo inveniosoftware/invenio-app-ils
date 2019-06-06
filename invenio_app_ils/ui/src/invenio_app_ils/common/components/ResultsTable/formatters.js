@@ -74,9 +74,7 @@ function formatEItemToTableView(eitem) {
   return {
     ID: eitem.eitem_pid ? eitem.eitem_pid : eitem.id,
     'Document ID': eitem.metadata.document_pid,
-    'Open access': eitem.metadata.open_access
-      ? eitem.metadata.open_access
-      : false,
+    'Open access': eitem.metadata.open_access ? 'Yes' : 'No',
     Created: toShortDate(fromISO(eitem.created)),
     Updated: toShortDate(fromISO(eitem.updated)),
     Description: eitem.metadata.description,
