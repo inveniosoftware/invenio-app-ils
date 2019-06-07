@@ -29,14 +29,22 @@ export const fetchLoanDetails = loanPid => {
   };
 };
 
-export const performLoanAction = (pid, loan, url) => {
+export const performLoanAction = (pid, loan, url, cancelReason = null) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
     const currentUser = sessionManager.user;
+    const params = cancelReason ? { cancel_reason: cancelReason } : {};
     await loanApi
-      .postAction(url, pid, loan, currentUser.id, currentUser.locationPid)
+      .postAction(
+        url,
+        pid,
+        loan,
+        currentUser.id,
+        currentUser.locationPid,
+        params
+      )
       .then(details => {
         dispatch({
           type: SUCCESS,

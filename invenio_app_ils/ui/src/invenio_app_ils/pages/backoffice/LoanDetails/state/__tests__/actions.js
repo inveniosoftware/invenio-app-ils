@@ -114,7 +114,8 @@ describe('Loan details tests', () => {
             '123',
             loan,
             sessionManager.user.id,
-            sessionManager.user.locationPid
+            sessionManager.user.locationPid,
+            {}
           );
           const actions = store.getActions();
           expect(actions[0]).toEqual(expectedActions[0]);
@@ -140,7 +141,8 @@ describe('Loan details tests', () => {
             '123',
             loan,
             sessionManager.user.id,
-            sessionManager.user.locationPid
+            sessionManager.user.locationPid,
+            {}
           );
           const actions = store.getActions();
           expect(actions[1]).toEqual(expectedActions[0]);
@@ -166,7 +168,8 @@ describe('Loan details tests', () => {
             '123',
             loan,
             sessionManager.user.id,
-            sessionManager.user.locationPid
+            sessionManager.user.locationPid,
+            {}
           );
           const actions = store.getActions();
           expect(actions[1]).toEqual(expectedActions[0]);

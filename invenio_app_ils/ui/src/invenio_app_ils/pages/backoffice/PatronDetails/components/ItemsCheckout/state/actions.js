@@ -22,7 +22,9 @@ export const checkoutItem = (item, patronPid, shouldForceCheckout = false) => {
         },
         currentUser.id,
         currentUser.locationPid,
-        shouldForceCheckout
+        {
+          force_checkout: shouldForceCheckout,
+        }
       )
       .then(response => {
         dispatch({

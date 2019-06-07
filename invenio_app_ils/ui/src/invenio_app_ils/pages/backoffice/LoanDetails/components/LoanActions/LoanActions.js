@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List, Button } from 'semantic-ui-react';
 import { omit } from 'lodash/object';
+import { CancelLoanModal } from '../CancelLoanModal';
 
 export default class LoanActions extends Component {
   constructor(props) {
@@ -14,16 +15,20 @@ export default class LoanActions extends Component {
       actions = omit(actions, 'checkout');
     }
     return Object.keys(actions).map(action => {
+      const loanAction = (cancelReason = null) =>
+        this.performLoanAction(pid, loan, actions[action], cancelReason);
       return (
         <List.Item key={action}>
-          <Button
-            primary
-            onClick={() => {
-              this.performLoanAction(pid, loan, actions[action]);
-            }}
-          >
-            {action}
-          </Button>
+          {action === 'cancel' ? (
+            <CancelLoanModal
+              loan={this.props.loanDetails}
+              action={loanAction}
+            />
+          ) : (
+            <Button primary onClick={loanAction}>
+              {action}
+            </Button>
+          )}
         </List.Item>
       );
     });
