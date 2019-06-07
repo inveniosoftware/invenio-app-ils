@@ -15,6 +15,8 @@ import {
   LocationList,
   PatronDetailsContainer,
   PatronsSearch,
+  SeriesDetailsContainer,
+  SeriesSearch,
 } from '../../../pages/backoffice';
 import './BackOffice.scss';
 import { Notifications } from '../../../common/components/Notifications';
@@ -89,6 +91,17 @@ export class BackOffice extends Component {
             exact
             path={BackOfficeRoutes.patronDetails}
             component={PatronDetailsContainer}
+          />
+          {/* series */}
+          <Route
+            exact
+            path={BackOfficeRoutes.seriesList}
+            component={SeriesSearch}
+          />
+          <Route
+            exact
+            path={BackOfficeRoutes.seriesDetails}
+            component={SeriesDetailsContainer}
           />
         </div>
       </div>

@@ -89,6 +89,12 @@ export const updateDocument = (documentPid, path, value) => {
           type: SUCCESS,
           payload: response.data,
         });
+        dispatch(
+          sendSuccessNotification(
+            'Success!',
+            `The document ${documentPid} has been updated.`
+          )
+        );
       })
       .catch(error => {
         dispatch({

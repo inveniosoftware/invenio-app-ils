@@ -12,6 +12,7 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
+import truncate from 'lodash/truncate';
 import { invenioConfig } from '../../../../../common/config';
 import { MetadataTable } from '../../../components/MetadataTable';
 import { EditButton } from '../../../components/buttons';
@@ -77,6 +78,22 @@ export default class DocumentMetadata extends Component {
     );
   }
 
+  renderSeries(series) {
+    const bulleted = series.length > 1;
+    return (
+      <List bulleted={bulleted}>
+        {series.map(({ series_pid, title, volume }) => (
+          <List.Item key={series_pid}>
+            <Link to={BackOfficeRoutes.seriesDetailsFor(series_pid)}>
+              {truncate(title, { length: 40 })}
+            </Link>
+            &nbsp;(vol. {volume || '?'})
+          </List.Item>
+        ))}
+      </List>
+    );
+  }
+
   handleOnRefClick(loanPid) {
     const navUrl = BackOfficeRoutes.loanDetailsFor(loanPid);
     window.open(navUrl, `_loan_${loanPid}`);
@@ -138,6 +155,21 @@ export default class DocumentMetadata extends Component {
     );
   }
 
+  prepareSeries(rows, series) {
+    if (!isEmpty(series.serial)) {
+      rows.push({
+        name: 'Serials',
+        value: this.renderSeries(series.serial),
+      });
+    }
+    if (!isEmpty(series.multipart)) {
+      rows.push({
+        name: 'Multipart Monograph',
+        value: this.renderSeries(series.multipart),
+      });
+    }
+  }
+
   prepareData(document) {
     const rows = [
       { name: 'Title', value: document.metadata.title },
@@ -147,6 +179,9 @@ export default class DocumentMetadata extends Component {
         value: this.renderKeywords(document.metadata.keywords),
       },
     ];
+    if (!isEmpty(document.metadata.series)) {
+      this.prepareSeries(rows, document.metadata.series);
+    }
     return rows;
   }
 

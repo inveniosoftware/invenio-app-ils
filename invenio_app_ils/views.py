@@ -18,7 +18,7 @@ from flask import Blueprint, current_app, render_template
 from invenio_circulation.search.api import LoansSearch
 
 from invenio_app_ils.search.api import DocumentSearch, EItemSearch, \
-    ItemSearch, PatronsSearch
+    ItemSearch, PatronsSearch, SeriesSearch
 
 blueprint = Blueprint(
     "invenio_app_ils_ui",
@@ -185,6 +185,40 @@ def _get_loans_ui_config():
     return ui_config
 
 
+def _get_series_ui_config():
+    """Get ui config for series search page."""
+    ui_config = {'series': {
+        'search': {'sortBy': {'values': [], 'onEmptyQuery': None},
+                   'sortOrder': ['asc', 'desc'],
+                   'aggs': []}}}
+    series_index = SeriesSearch.Meta.index
+
+    series_sort = current_app.config.get(
+        'RECORDS_REST_SORT_OPTIONS', {}
+    ).get(series_index, {})
+
+    series_sort_ui = [{
+        'field': field,
+        'title': series_sort[field]['title'],
+        'order': series_sort[field]['order']
+    } for field in series_sort.keys()]
+
+    ui_config['series']['search']['sortBy']['values'] = sorted(
+        series_sort_ui, key=lambda s: s['order']
+    )
+
+    if 'mostrecent' in series_sort:
+        ui_config['series']['search']['sortBy']['onEmptyQuery'] = \
+            'mostrecent'
+
+    series_aggs = current_app.config.get('RECORDS_REST_FACETS', {}).get(
+        series_index, {}).get('aggs', {})
+    ui_config['series']['search']['aggs'] = \
+        list(series_aggs.keys())
+
+    return ui_config
+
+
 def _get_patrons_ui_config():
     """Get ui config for patrons search page."""
     ui_config = {'patrons': {
@@ -231,6 +265,7 @@ def index(path=None):
     ui_config.update(_get_eitems_ui_config())
     ui_config.update(_get_items_ui_config())
     ui_config.update(_get_loans_ui_config())
+    ui_config.update(_get_series_ui_config())
     ui_config.update(_get_patrons_ui_config())
     ui_config.update(
         {"editor": {"url": current_app.config["RECORDS_EDITOR_URL_PREFIX"]}}

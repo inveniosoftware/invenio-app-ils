@@ -21,6 +21,7 @@ export class ResultsList extends Component {
         'Updated',
         'Title',
         'Authors',
+        'Series',
       ]);
     });
   }
