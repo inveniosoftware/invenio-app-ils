@@ -15,6 +15,9 @@ import DocumentTab from '../DocumentTab';
 import { RequestNewLoanForm } from './components/RequestNewLoanForm';
 import '../../DocumentsDetails.scss';
 import isEmpty from 'lodash/isEmpty';
+import { goTo } from '../../../../../history';
+import { FrontSiteRoutes } from '../../../../../routes/urls';
+import { document as documentApi } from '../../../../../common/api';
 
 export default class DocumentMetadata extends Component {
   constructor(props) {
@@ -24,6 +27,16 @@ export default class DocumentMetadata extends Component {
   state = { visible: false };
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible });
+
+  goToSeriesList = seriesPid =>
+    goTo(
+      FrontSiteRoutes.documentsListWithQuery(
+        documentApi
+          .query()
+          .withSeriesPid(seriesPid)
+          .qs()
+      )
+    );
 
   renderBookInfo() {
     return (
@@ -45,6 +58,54 @@ export default class DocumentMetadata extends Component {
         </List>
       </div>
     );
+  }
+
+  renderSerials() {
+    if (
+      !isEmpty(this.document.metadata.series) &&
+      !isEmpty(this.document.metadata.series.serial)
+    ) {
+      return (
+        <div>
+          <Header as="h4">Part of the following series:</Header>
+          <List>
+            {this.document.metadata.series.serial.map((serie, index) => (
+              <List.Item
+                as="a"
+                key={`Key${index}`}
+                onClick={this.goToSeriesList(serie.series_pid)}
+              >
+                {serie.title}
+              </List.Item>
+            ))}
+          </List>
+        </div>
+      );
+    }
+  }
+
+  renderMultiparts() {
+    if (
+      !isEmpty(this.document.metadata.series) &&
+      !isEmpty(this.document.metadata.series.multipart)
+    ) {
+      return (
+        <div>
+          <Header as="h4">Part of the following multipart monograph:</Header>
+          <List>
+            {this.document.metadata.series.multipart.map((serie, index) => (
+              <List.Item
+                as="a"
+                key={`Key${index}`}
+                onClick={this.goToSeriesList(serie.series_pid)}
+              >
+                {serie.title}
+              </List.Item>
+            ))}
+          </List>
+        </div>
+      );
+    }
   }
 
   renderShareButtonsLarge() {
@@ -244,6 +305,9 @@ export default class DocumentMetadata extends Component {
                   <div className="ui hidden divider" />
                   {this.renderBookInfo()}
                   <div className="ui hidden divider" />
+                  {this.renderSerials()}
+                  <div className="ui hidden divider" />
+                  {this.renderMultiparts()}
                 </Grid.Row>
 
                 <Grid.Row>
