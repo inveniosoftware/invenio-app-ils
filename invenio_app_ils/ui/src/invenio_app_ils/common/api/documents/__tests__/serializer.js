@@ -29,6 +29,9 @@ describe('Document object serialization', () => {
         document_pid: '123',
         authors: ['A', 'B'],
         title: 'p',
+        circulation: {
+          next_available_date: stringDate,
+        },
       },
     });
 
@@ -42,6 +45,9 @@ describe('Document object serialization', () => {
         document_pid: '123',
         authors: ['A', 'B'],
         title: 'p',
+        circulation: {
+          next_available_date: new Date(stringDate).toDateString(),
+        },
       },
     });
   });
