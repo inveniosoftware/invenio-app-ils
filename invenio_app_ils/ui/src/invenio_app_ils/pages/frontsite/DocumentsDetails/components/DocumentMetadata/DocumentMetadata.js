@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import DocumentTab from '../DocumentTab';
 import { RequestNewLoanForm } from './components/RequestNewLoanForm';
 import '../../DocumentsDetails.scss';
+import isEmpty from 'lodash/isEmpty';
 
 export default class DocumentMetadata extends Component {
   constructor(props) {
@@ -209,7 +210,8 @@ export default class DocumentMetadata extends Component {
           }}
         />
 
-        {typeof circulationData.next_available_date !== 'undefined' ? (
+        {!isEmpty(circulationData.next_available_date) &&
+        circulationData.items_available_for_loan === 0 ? (
           <Button
             color="yellow"
             content="Available from"

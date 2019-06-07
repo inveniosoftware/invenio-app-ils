@@ -19,6 +19,11 @@ function serializeResponse(hit) {
     }
     if (!isEmpty(hit.metadata)) {
       result['metadata'] = hit.metadata;
+      if (!isEmpty(hit.metadata.circulation.next_available_date)) {
+        result['metadata']['circulation']['next_available_date'] = new Date(
+          result['metadata']['circulation']['next_available_date']
+        ).toDateString();
+      }
       if (!isEmpty(hit.metadata.series)) {
         // Split the series based on mode of issuance - requested by the library
         result['metadata']['series'] = serializeSeries(hit.metadata.series);
