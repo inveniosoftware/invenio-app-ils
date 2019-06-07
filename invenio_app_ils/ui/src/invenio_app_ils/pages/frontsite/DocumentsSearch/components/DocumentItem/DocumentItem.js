@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { Button, Item, Label, Segment, Responsive } from 'semantic-ui-react';
+import {
+  Button,
+  Item,
+  Label,
+  Segment,
+  Responsive,
+  Icon,
+} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { truncate } from 'lodash/string';
 
@@ -64,20 +71,11 @@ export default class RecordItem extends Component {
                 </Button>
                 <Button
                   primary
-                  size="small"
-                  color="blue"
                   onClick={() => {
                     this.props.rowActionClickHandler(metadata.ID);
                   }}
                 >
-                  Loan Book
-                </Button>
-                <Button
-                  circular
-                  onClick={() => {
-                    this.props.rowActionClickHandler(metadata.ID);
-                  }}
-                >
+                  <Icon name="eye" />
                   View Details
                 </Button>
               </Item.Extra>
