@@ -4,6 +4,7 @@ import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import OverbookedDocumentsList from '../OverbookedDocumentsList';
+import history from '../../../../../../../history';
 
 jest.mock('../../../../../../../common/config');
 
@@ -21,7 +22,6 @@ describe('OverbookedDocumentsList tests', () => {
   it('should load the details component', () => {
     const component = shallow(
       <OverbookedDocumentsList
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchOverbookedDocuments={() => {}}
       />
@@ -33,7 +33,6 @@ describe('OverbookedDocumentsList tests', () => {
     const mockedFetchLoans = jest.fn();
     component = mount(
       <OverbookedDocumentsList
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchOverbookedDocuments={mockedFetchLoans}
       />
@@ -44,7 +43,6 @@ describe('OverbookedDocumentsList tests', () => {
   it('should render show a message with no documents', () => {
     component = mount(
       <OverbookedDocumentsList
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchOverbookedDocuments={() => {}}
       />
@@ -92,7 +90,6 @@ describe('OverbookedDocumentsList tests', () => {
 
     component = mount(
       <OverbookedDocumentsList
-        history={() => {}}
         data={data}
         fetchOverbookedDocuments={() => {}}
       />
@@ -116,10 +113,7 @@ describe('OverbookedDocumentsList tests', () => {
 
   it('should go to loan details when clicking on a document', () => {
     const mockedHistoryPush = jest.fn();
-    const historyFn = {
-      push: mockedHistoryPush,
-    };
-
+    history.push = mockedHistoryPush;
     const data = {
       hits: [
         {
@@ -139,7 +133,6 @@ describe('OverbookedDocumentsList tests', () => {
 
     component = mount(
       <OverbookedDocumentsList
-        history={historyFn}
         data={data}
         fetchOverbookedDocuments={() => {}}
         showMaxEntries={1}

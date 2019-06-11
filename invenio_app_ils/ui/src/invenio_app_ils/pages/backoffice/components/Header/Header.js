@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { Menu, Segment, Grid } from 'semantic-ui-react';
 import { BackOfficeRoutes } from '../../../../routes/urls';
-import { goTo } from '../../../../history';
+import { goToHandler } from '../../../../history';
+import has from 'lodash/has';
 import './Header.scss';
 
 class Header extends Component {
   render() {
-    const activePath = this.props.location.pathname || '';
+    const activePath = has(this.props, 'location.pathname')
+      ? this.props.location.pathname
+      : '';
     const itemsActive = activePath.indexOf(BackOfficeRoutes.itemsList) > -1;
     const eitemsActive = activePath.indexOf(BackOfficeRoutes.eitemsList) > -1;
     const loansActive = activePath.indexOf(BackOfficeRoutes.loansList) > -1;
@@ -22,7 +24,7 @@ class Header extends Component {
         <Grid verticalAlign="middle">
           <Grid columns={2}>
             <Grid.Column width={4} textAlign="center">
-              <h1 className="logo" onClick={goTo(BackOfficeRoutes.home)}>
+              <h1 className="logo" onClick={goToHandler(BackOfficeRoutes.home)}>
                 Invenio APP ILS
               </h1>
             </Grid.Column>
@@ -30,43 +32,43 @@ class Header extends Component {
               <Menu inverted pointing secondary size="large">
                 <Menu.Item
                   active={documentsActive}
-                  onClick={goTo(BackOfficeRoutes.documentsList)}
+                  onClick={goToHandler(BackOfficeRoutes.documentsList)}
                 >
                   Documents
                 </Menu.Item>
                 <Menu.Item
                   active={itemsActive}
-                  onClick={goTo(BackOfficeRoutes.itemsList)}
+                  onClick={goToHandler(BackOfficeRoutes.itemsList)}
                 >
                   Items
                 </Menu.Item>
                 <Menu.Item
                   active={eitemsActive}
-                  onClick={goTo(BackOfficeRoutes.eitemsList)}
+                  onClick={goToHandler(BackOfficeRoutes.eitemsList)}
                 >
                   EItems
                 </Menu.Item>
                 <Menu.Item
                   active={loansActive}
-                  onClick={goTo(BackOfficeRoutes.loansList)}
+                  onClick={goToHandler(BackOfficeRoutes.loansList)}
                 >
                   Loans
                 </Menu.Item>
                 <Menu.Item
                   active={locationsActive}
-                  onClick={goTo(BackOfficeRoutes.locationsList)}
+                  onClick={goToHandler(BackOfficeRoutes.locationsList)}
                 >
                   Locations
                 </Menu.Item>
                 <Menu.Item
                   active={patronsActive}
-                  onClick={goTo(BackOfficeRoutes.patronsList)}
+                  onClick={goToHandler(BackOfficeRoutes.patronsList)}
                 >
                   Patrons
                 </Menu.Item>
                 <Menu.Item
                   active={seriesActive}
-                  onClick={goTo(BackOfficeRoutes.seriesList)}
+                  onClick={goToHandler(BackOfficeRoutes.seriesList)}
                 >
                   Series
                 </Menu.Item>
@@ -79,4 +81,4 @@ class Header extends Component {
   }
 }
 
-export default withRouter(Header);
+export default Header;

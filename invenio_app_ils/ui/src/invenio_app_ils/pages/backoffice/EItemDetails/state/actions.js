@@ -33,7 +33,9 @@ export const deleteEItem = eitemPid => {
           `The EItem ${eitemPid} has been deleted.`
         )
       );
-      setTimeout(goTo(BackOfficeRoutes.eitemsList), ES_DELAY);
+      setTimeout(() => {
+        goTo(BackOfficeRoutes.eitemsList);
+      }, ES_DELAY);
     } catch (error) {
       dispatch({
         type: DELETE_HAS_ERROR,

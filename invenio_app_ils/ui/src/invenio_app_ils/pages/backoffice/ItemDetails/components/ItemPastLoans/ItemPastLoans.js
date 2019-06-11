@@ -6,6 +6,7 @@ import { ResultsTable } from '../../../../../common/components';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
+import { goTo, goToHandler } from '../../../../../history';
 import pick from 'lodash/pick';
 
 export default class ItemPastLoans extends Component {
@@ -21,22 +22,16 @@ export default class ItemPastLoans extends Component {
     this.fetchPastLoans(item_pid);
   }
 
-  showDetailsHandler = loanPid =>
-    this.props.history.push(this.showDetailsUrl(loanPid));
-
   seeAllButton = () => {
     const { item_pid } = this.props.item;
-    const click = () =>
-      this.props.history.push(
-        this.seeAllUrl(
-          loanApi
-            .query()
-            .withItemPid(item_pid)
-            .withState(['ITEM_RETURNED', 'CANCELLED'])
-            .qs()
-        )
-      );
-    return <SeeAllButton clickHandler={() => click()} />;
+    const path = this.seeAllUrl(
+      loanApi
+        .query()
+        .withItemPid(item_pid)
+        .withState(['ITEM_RETURNED', 'CANCELLED'])
+        .qs()
+    );
+    return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
   prepareData(data) {
@@ -63,7 +58,7 @@ export default class ItemPastLoans extends Component {
         rows={rows}
         title={'Loans history'}
         name={'loans'}
-        rowActionClickHandler={this.showDetailsHandler}
+        rowActionClickHandler={loanPid => goTo(this.showDetailsUrl(loanPid))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxPastLoans}
       />

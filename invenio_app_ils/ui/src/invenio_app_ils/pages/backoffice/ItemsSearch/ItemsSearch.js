@@ -22,6 +22,7 @@ import { BackOfficeRoutes, openRecordEditor } from '../../../routes/urls';
 import { SearchBar as ItemsSearchBar } from '../../../common/components';
 import { ResultsList as ItemsResultsList } from './components';
 import { default as config } from './config';
+import { goTo } from '../../../history';
 import './ItemsSearch.scss';
 
 export class ItemsSearch extends Component {
@@ -42,7 +43,7 @@ export class ItemsSearch extends Component {
         <ItemsResultsList
           results={results}
           viewDetailsClickHandler={itemPid => {
-            this.props.history.push(BackOfficeRoutes.itemDetailsFor(itemPid));
+            goTo(BackOfficeRoutes.itemDetailsFor(itemPid));
           }}
         />
       </div>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../../common/components';
 import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
 import { NewButton, SeeAllButton } from '../../../../components/buttons';
+import { goToHandler } from '../../../../../../history';
 
 export default class ILLCard extends Component {
   constructor(props) {
@@ -18,21 +19,13 @@ export default class ILLCard extends Component {
   seeAllButton = () => {
     // TODO when #155 solved
     return (
-      <SeeAllButton
-        fluid
-        disabled
-        clickHandler={() => this.props.history.push(this.seeAllUrl)}
-      />
+      <SeeAllButton fluid disabled clickHandler={goToHandler(this.seeAllUrl)} />
     );
   };
 
   newAcqButton = () => {
     return (
-      <NewButton
-        fluid
-        disabled
-        clickHandler={() => this.props.history.push(this.newILLUrl)}
-      />
+      <NewButton fluid disabled clickHandler={goToHandler(this.newILLUrl)} />
     );
   };
 

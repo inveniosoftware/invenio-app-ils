@@ -6,8 +6,9 @@ import './AvailableItems.scss';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { item as itemApi } from '../../../../../common/api';
 import { SeeAllButton } from '../../../components/buttons/SeeAllButton';
-import pick from 'lodash/pick';
+import { goTo, goToHandler } from '../../../../../history';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
+import pick from 'lodash/pick';
 
 export default class AvailableItems extends Component {
   constructor(props) {
@@ -16,27 +17,22 @@ export default class AvailableItems extends Component {
     this.assignItemToLoan = props.assignItemToLoan;
     this.assignItemAndCheckout = props.assignItemAndCheckout;
     this.showDetailsUrl = BackOfficeRoutes.itemDetailsFor;
+    this.seeAllUrl = BackOfficeRoutes.itemsListWithQuery;
   }
 
   componentDidMount() {
     this.fetchAvailableItems(this.props.loan.metadata.document_pid);
   }
 
-  showDetailsHandler = itemPid =>
-    this.props.history.push(this.showDetailsUrl(itemPid));
-
   seeAllButton = () => {
     const { document_pid } = this.props.loan.metadata;
-    const click = () =>
-      this.props.history.push(
-        this.seeAllUrl(
-          itemApi
-            .query()
-            .withDocPid(document_pid)
-            .qs()
-        )
-      );
-    return <SeeAllButton clickHandler={() => click()} />;
+    const path = this.seeAllUrl(
+      itemApi
+        .query()
+        .withDocPid(document_pid)
+        .qs()
+    );
+    return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
   assignItemButton(item) {
@@ -99,7 +95,7 @@ export default class AvailableItems extends Component {
         rows={rows}
         title={'Available items'}
         name={'available items'}
-        rowActionClickHandler={this.showDetailsHandler}
+        rowActionClickHandler={itemPid => goTo(this.showDetailsUrl(itemPid))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxItems}
       />

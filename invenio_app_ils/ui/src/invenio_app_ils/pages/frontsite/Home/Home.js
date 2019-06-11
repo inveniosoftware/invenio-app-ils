@@ -8,7 +8,7 @@ import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
 import { MostLoanedDocuments } from './components/MostLoanedDocuments';
 import { MostRecentDocuments } from './components/MostRecentDocuments';
 import { default as config } from './config';
-import { goTo } from '../../../history';
+import { goToHandler } from '../../../history';
 
 export default class Home extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ export default class Home extends Component {
           <Grid.Row centered columns={2}>
             <Container className="books-search-searchbar">
               <Form
-                onSubmit={goTo(
+                onSubmit={goToHandler(
                   FrontSiteRoutes.documentsListWithQuery(this.state.query)
                 )}
               >
@@ -42,7 +42,7 @@ export default class Home extends Component {
                       inverted
                       circular
                       link
-                      onClick={goTo(
+                      onClick={goToHandler(
                         FrontSiteRoutes.documentsListWithQuery(this.state.query)
                       )}
                     />

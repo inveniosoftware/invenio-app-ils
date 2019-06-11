@@ -30,6 +30,7 @@ import { document as documentApi } from '../../../common/api';
 import { SearchBar as DocumentsSearchBar } from '../../../common/components';
 import { ResultsList as RecordsResultsList } from './components';
 import { default as config } from './config';
+import { goTo } from '../../../history';
 import './DocumentsSearch.scss';
 
 export class DocumentsSearch extends Component {
@@ -85,10 +86,9 @@ export class DocumentsSearch extends Component {
       <div className="results-list">
         <RecordsResultsList
           results={results}
-          viewDetailsClickHandler={documentPid => {
-            const path = FrontSiteRoutes.documentDetailsFor(documentPid);
-            this.props.history.push(path);
-          }}
+          viewDetailsClickHandler={documentPid =>
+            goTo(FrontSiteRoutes.documentDetailsFor(documentPid))
+          }
         />
       </div>
     );

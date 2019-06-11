@@ -1,6 +1,4 @@
-import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import ItemsSearchComponent from './ItemsSearch';
 import {
   clearResults,
@@ -28,10 +26,7 @@ const mapStateToProps = state => ({
   queryString: state.itemsSearchInput.itemCheckoutQueryString,
 });
 
-export const ItemsSearch = compose(
-  withRouter,
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
+export const ItemsSearch = connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(ItemsSearchComponent);

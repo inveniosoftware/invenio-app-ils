@@ -1,6 +1,4 @@
-import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import ItemsCheckoutComponent from './ItemsCheckout';
 import { checkoutItem } from './state/actions';
 
@@ -16,10 +14,7 @@ const mapStateToProps = state => ({
   hasError: state.patronItemsCheckout.hasError,
 });
 
-export const ItemsCheckout = compose(
-  withRouter,
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
+export const ItemsCheckout = connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(ItemsCheckoutComponent);

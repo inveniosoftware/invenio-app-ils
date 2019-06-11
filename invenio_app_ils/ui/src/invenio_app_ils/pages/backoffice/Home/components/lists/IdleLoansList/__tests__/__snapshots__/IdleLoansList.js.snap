@@ -62,7 +62,6 @@ exports[`IdleLoansList tests should render loans 1`] = `
     }
   }
   fetchIdlePendingLoans={[Function]}
-  history={[Function]}
   showMaxEntries={5}
 >
   <Loader>
@@ -569,7 +568,6 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
     }
   }
   fetchIdlePendingLoans={[Function]}
-  history={[Function]}
   showMaxEntries={5}
 >
   <Loader>

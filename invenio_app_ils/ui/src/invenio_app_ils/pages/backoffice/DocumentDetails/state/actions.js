@@ -7,7 +7,7 @@ import {
   HAS_ERROR,
 } from './types';
 import { ES_DELAY } from '../../../../common/config';
-import history from '../../../../history';
+import { goTo } from '../../../../history';
 import { document as documentApi } from '../../../../common/api';
 import { BackOfficeRoutes } from '../../../../routes/urls';
 import {
@@ -58,7 +58,7 @@ export const deleteDocument = documentPid => {
         )
       );
       setTimeout(() => {
-        history.push(BackOfficeRoutes.documentsList);
+        goTo(BackOfficeRoutes.documentsList);
       }, ES_DELAY);
     } catch (error) {
       dispatch({

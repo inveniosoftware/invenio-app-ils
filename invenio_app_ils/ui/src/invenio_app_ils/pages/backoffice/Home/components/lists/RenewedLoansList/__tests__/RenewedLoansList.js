@@ -4,6 +4,7 @@ import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import RenewedLoansList from '../RenewedLoansList';
+import history from '../../../../../../../history';
 
 jest.mock('../../../../../../../common/config');
 
@@ -21,7 +22,6 @@ describe('RenewedLoansList tests', () => {
   it('should load the details component', () => {
     const component = shallow(
       <RenewedLoansList
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchRenewedLoans={() => {}}
       />
@@ -33,7 +33,6 @@ describe('RenewedLoansList tests', () => {
     const mockedFetchLoans = jest.fn();
     component = mount(
       <RenewedLoansList
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchRenewedLoans={mockedFetchLoans}
       />
@@ -44,7 +43,6 @@ describe('RenewedLoansList tests', () => {
   it('should render show a message with no loans', () => {
     component = mount(
       <RenewedLoansList
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchRenewedLoans={() => {}}
       />
@@ -89,11 +87,7 @@ describe('RenewedLoansList tests', () => {
     };
 
     component = mount(
-      <RenewedLoansList
-        history={() => {}}
-        data={data}
-        fetchRenewedLoans={() => {}}
-      />
+      <RenewedLoansList data={data} fetchRenewedLoans={() => {}} />
     );
 
     expect(component).toMatchSnapshot();
@@ -114,10 +108,7 @@ describe('RenewedLoansList tests', () => {
 
   it('should go to loan details when clicking on a loan', () => {
     const mockedHistoryPush = jest.fn();
-    const historyFn = {
-      push: mockedHistoryPush,
-    };
-
+    history.push = mockedHistoryPush;
     const data = {
       hits: [
         {
@@ -138,7 +129,6 @@ describe('RenewedLoansList tests', () => {
 
     component = mount(
       <RenewedLoansList
-        history={historyFn}
         data={data}
         fetchRenewedLoans={() => {}}
         showMaxEntries={1}

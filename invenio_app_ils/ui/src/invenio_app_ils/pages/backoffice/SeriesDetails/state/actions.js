@@ -7,7 +7,7 @@ import {
   HAS_ERROR,
 } from './types';
 import { ES_DELAY } from '../../../../common/config';
-import history from '../../../../history';
+import { goTo } from '../../../../history';
 import { series as seriesApi } from '../../../../common/api';
 import { BackOfficeRoutes } from '../../../../routes/urls';
 import {
@@ -34,7 +34,7 @@ export const deleteSeries = seriesPid => {
         )
       );
       setTimeout(() => {
-        history.push(BackOfficeRoutes.seriesList);
+        goTo(BackOfficeRoutes.seriesList);
       }, ES_DELAY);
     } catch (error) {
       dispatch({

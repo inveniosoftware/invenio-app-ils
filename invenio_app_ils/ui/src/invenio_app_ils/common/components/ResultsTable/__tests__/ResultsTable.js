@@ -3,6 +3,8 @@ import React from 'react';
 import { ResultsTable } from '../ResultsTable';
 import { Settings } from 'luxon';
 import { Button } from 'semantic-ui-react';
+import history from '../../../../history';
+import { BackOfficeRoutes } from '../../../../routes/urls';
 
 Settings.defaultZoneName = 'utc';
 
@@ -19,11 +21,7 @@ describe('ResultsTable tests', () => {
 
   it('should load the ResultTable component', () => {
     const component = shallow(
-      <ResultsTable
-        history={() => {}}
-        rows={[]}
-        rowActionClickHandler={() => {}}
-      />
+      <ResultsTable rows={[]} rowActionClickHandler={() => {}} />
     );
     expect(component).toMatchSnapshot();
   });
@@ -58,7 +56,6 @@ describe('ResultsTable tests', () => {
 
     component = mount(
       <ResultsTable
-        history={() => {}}
         rows={data}
         seeAllComponent={button()}
         rowActionClickHandler={() => {}}
@@ -95,7 +92,6 @@ describe('ResultsTable tests', () => {
 
     component = mount(
       <ResultsTable
-        history={() => {}}
         rows={data}
         rowActionClickHandler={() => {}}
         showMaxRows={3}
@@ -143,10 +139,7 @@ describe('ResultsTable tests', () => {
 
   it('should call see all click handler on see all click', () => {
     const mockedHistoryPush = jest.fn();
-    const historyFn = {
-      push: mockedHistoryPush,
-    };
-
+    history.push = mockedHistoryPush;
     const results = [
       {
         ID: 'loan1',
@@ -166,12 +159,7 @@ describe('ResultsTable tests', () => {
 
     const buttonObj = () => {
       return (
-        <Button
-          size="small"
-          onClick={() => {
-            mockedHistoryPush();
-          }}
-        >
+        <Button size="small" onClick={() => mockedHistoryPush()}>
           See all
         </Button>
       );
@@ -181,7 +169,6 @@ describe('ResultsTable tests', () => {
       <ResultsTable
         rows={results}
         showMaxRows={1}
-        history={historyFn}
         seeAllComponent={buttonObj()}
         rowActionClickHandler={() => {}}
       />
@@ -193,11 +180,6 @@ describe('ResultsTable tests', () => {
   });
 
   it('should show the view details button when the rowActionClickHandler prop is defined', () => {
-    const mockedHistoryPush = jest.fn();
-    const historyFn = {
-      push: mockedHistoryPush,
-    };
-
     const results = [
       {
         ID: 'loan1',
@@ -209,11 +191,7 @@ describe('ResultsTable tests', () => {
     ];
 
     component = mount(
-      <ResultsTable
-        rows={results}
-        history={historyFn}
-        rowActionClickHandler={() => {}}
-      />
+      <ResultsTable rows={results} rowActionClickHandler={() => {}} />
     );
 
     const firstId = results[0].ID;
@@ -227,11 +205,6 @@ describe('ResultsTable tests', () => {
   });
 
   it('should not show the view details button when the rowActionClickHandler prop is not defined', () => {
-    const mockedHistoryPush = jest.fn();
-    const historyFn = {
-      push: mockedHistoryPush,
-    };
-
     const results = [
       {
         ID: 'loan1',
@@ -242,7 +215,7 @@ describe('ResultsTable tests', () => {
       },
     ];
 
-    component = mount(<ResultsTable rows={results} history={historyFn} />);
+    component = mount(<ResultsTable rows={results} />);
 
     const firstId = results[0].ID;
     const button = component

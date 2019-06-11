@@ -1,6 +1,4 @@
-import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import DocumentsDetailsComponent from './DocumentsDetails';
 
 const mapStateToProps = state => ({
@@ -9,7 +7,6 @@ const mapStateToProps = state => ({
   hasError: state.documentsDetails.hasError,
 });
 
-export const DocumentsDetails = compose(
-  withRouter,
-  connect(mapStateToProps)
-)(DocumentsDetailsComponent);
+export const DocumentsDetails = connect(mapStateToProps)(
+  DocumentsDetailsComponent
+);

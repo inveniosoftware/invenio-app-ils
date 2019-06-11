@@ -5,6 +5,7 @@ import { loan as loanApi } from '../../../../../../common/api';
 import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { NewButton, SeeAllButton } from '../../../../components/buttons';
+import { goToHandler } from '../../../../../../history';
 
 export default class LoansCard extends Component {
   constructor(props) {
@@ -18,16 +19,13 @@ export default class LoansCard extends Component {
   }
 
   seeAllButton = () => {
-    const handler = () =>
-      this.props.history.push(
-        this.seeAllUrl(
-          loanApi
-            .query()
-            .withState('PENDING')
-            .qs()
-        )
-      );
-    return <SeeAllButton fluid disabled clickHandler={() => handler()} />;
+    const path = this.seeAllUrl(
+      loanApi
+        .query()
+        .withState('PENDING')
+        .qs()
+    );
+    return <SeeAllButton fluid disabled clickHandler={goToHandler(path)} />;
   };
 
   newLoanButton = () => {

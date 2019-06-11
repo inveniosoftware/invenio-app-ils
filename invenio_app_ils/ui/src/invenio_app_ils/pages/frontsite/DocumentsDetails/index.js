@@ -1,6 +1,4 @@
-import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { fetchDocumentsDetails } from './state/actions';
 import DocumentsDetailsContainerComponent from './DocumentsDetailsContainer';
 
@@ -9,10 +7,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(fetchDocumentsDetails(documentPid)),
 });
 
-export const DocumentsDetailsContainer = compose(
-  withRouter,
-  connect(
-    null,
-    mapDispatchToProps
-  )
+export const DocumentsDetailsContainer = connect(
+  null,
+  mapDispatchToProps
 )(DocumentsDetailsContainerComponent);

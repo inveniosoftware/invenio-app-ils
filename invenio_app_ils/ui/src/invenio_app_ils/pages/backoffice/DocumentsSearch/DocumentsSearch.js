@@ -24,6 +24,7 @@ import { ClearButton, NewButton } from '../components/buttons';
 import { BackOfficeRoutes, openRecordEditor } from '../../../routes/urls';
 import { ResultsList as DocumentsResultsList } from './components';
 import { default as config } from './config';
+import { goTo } from '../../../history';
 import './DocumentsSearch.scss';
 
 export class DocumentsSearch extends Component {
@@ -56,9 +57,7 @@ export class DocumentsSearch extends Component {
         <DocumentsResultsList
           results={results}
           viewDetailsClickHandler={documentPid =>
-            this.props.history.push(
-              BackOfficeRoutes.documentDetailsFor(documentPid)
-            )
+            goTo(BackOfficeRoutes.documentDetailsFor(documentPid))
           }
         />
       </div>

@@ -6,6 +6,7 @@ import { document as documentApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
+import { goTo, goToHandler } from '../../../../../../history';
 import pick from 'lodash/pick';
 
 export default class OverbookedDocumentsList extends Component {
@@ -20,21 +21,15 @@ export default class OverbookedDocumentsList extends Component {
     this.fetchOverbookedDocuments();
   }
 
-  showDetailsHandler = documentPid =>
-    this.props.history.push(this.showDetailsUrl(documentPid));
-
   seeAllButton = () => {
-    const click = () =>
-      this.props.history.push(
-        this.seeAllUrl(
-          documentApi
-            .query()
-            .overbooked()
-            .qs()
-        )
-      );
+    const path = this.seeAllUrl(
+      documentApi
+        .query()
+        .overbooked()
+        .qs()
+    );
 
-    return <SeeAllButton clickHandler={() => click()} />;
+    return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
   prepareData(data) {
@@ -55,7 +50,9 @@ export default class OverbookedDocumentsList extends Component {
           'Documents with more requests than the number of available items for loan.'
         }
         name={'overbooked documents'}
-        rowActionClickHandler={this.showDetailsHandler}
+        rowActionClickHandler={documentPid =>
+          goTo(this.showDetailsUrl(documentPid))
+        }
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
         fixed

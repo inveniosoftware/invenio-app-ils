@@ -7,6 +7,8 @@ import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { DateTime } from 'luxon';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
+import { goTo, goToHandler } from '../../../../../../history';
+import { toShortDate } from '../../../../../../common/api/date';
 import pick from 'lodash/pick';
 
 export default class IdleLoansList extends Component {
@@ -21,22 +23,15 @@ export default class IdleLoansList extends Component {
     this.fetchIdlePendingLoans();
   }
 
-  showDetailsHandler = loanPid =>
-    this.props.history.push(this.showDetailsUrl(loanPid));
-
   seeAllButton = () => {
-    const click = () =>
-      this.props.history.push(
-        this.seeAllUrl(
-          loanApi
-            .query()
-            .withState('PENDING')
-            .withUpdated({ to: DateTime.local().minus({ days: 10 }) })
-            .qs()
-        )
-      );
-
-    return <SeeAllButton clickHandler={() => click()} />;
+    const path = this.seeAllUrl(
+      loanApi
+        .query()
+        .withState('PENDING')
+        .withUpdated({ to: toShortDate(DateTime.local().minus({ days: 10 })) })
+        .qs()
+    );
+    return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
   prepareData(data) {
@@ -61,7 +56,7 @@ export default class IdleLoansList extends Component {
         title={'Idle loans'}
         subtitle={'Loan requests in PENDING state longer than 10 days.'}
         name={'idle loans'}
-        rowActionClickHandler={this.showDetailsHandler}
+        rowActionClickHandler={loanPid => goTo(this.showDetailsUrl(loanPid))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
       />

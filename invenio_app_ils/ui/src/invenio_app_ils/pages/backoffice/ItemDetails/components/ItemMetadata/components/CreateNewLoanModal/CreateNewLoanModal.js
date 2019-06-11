@@ -3,7 +3,7 @@ import { Button, Header, Icon, Modal } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Loader } from '../../../../../../../common/components/Loader';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
-import history from '../../../../../../../history';
+import { goTo } from '../../../../../../../history';
 import isEmpty from 'lodash/isEmpty';
 
 export default class CreateNewLoanModal extends Component {
@@ -42,8 +42,7 @@ export default class CreateNewLoanModal extends Component {
     </Button>
   );
 
-  gotoDetailsPage = loanPid =>
-    history.push(BackOfficeRoutes.loanDetailsFor(loanPid));
+  gotoDetailsPage = loanPid => goTo(BackOfficeRoutes.loanDetailsFor(loanPid));
 
   render() {
     const { itemPid, itemBarcode, isLoading, data, hasError } = this.props;

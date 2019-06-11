@@ -29,6 +29,7 @@ import { ResultsList as LoansResultsList } from './components';
 import './LoansSearch.scss';
 import { default as config } from './config';
 import { BackOfficeRoutes } from '../../../routes/urls';
+import { goTo } from '../../../history';
 
 export class LoansSearch extends Component {
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
@@ -48,7 +49,7 @@ export class LoansSearch extends Component {
         <LoansResultsList
           results={results}
           viewDetailsClickHandler={loanPid =>
-            this.props.history.push(BackOfficeRoutes.loanDetailsFor(loanPid))
+            goTo(BackOfficeRoutes.loanDetailsFor(loanPid))
           }
         />
       </div>

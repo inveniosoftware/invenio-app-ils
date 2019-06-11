@@ -14,6 +14,7 @@ import { Error, Loader } from '../../../../../common/components';
 import { ResultsList as ItemsResultsList } from './components';
 import isEmpty from 'lodash/isEmpty';
 import './ItemsSearch.scss';
+import { goTo } from '../../../../../history';
 
 export default class ItemsSearch extends Component {
   constructor(props) {
@@ -109,7 +110,7 @@ export default class ItemsSearch extends Component {
           checkoutItem={this.checkoutItem}
           fetchPatronCurrentLoans={this.fetchUpdatedCurrentLoans}
           viewDetailsClickHandler={itemPid =>
-            this.props.history.push(BackOfficeRoutes.itemDetailsFor(itemPid))
+            goTo(BackOfficeRoutes.itemDetailsFor(itemPid))
           }
         />
       </div>

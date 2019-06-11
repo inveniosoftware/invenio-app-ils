@@ -13,7 +13,7 @@ import {
   sendErrorNotification,
   sendSuccessNotification,
 } from '../../../../common/components/Notifications';
-import history from '../../../../history';
+import { goTo } from '../../../../history';
 
 export const fetchItemDetails = itemPid => {
   return async dispatch => {
@@ -56,7 +56,7 @@ export const deleteItem = itemPid => {
         )
       );
       setTimeout(() => {
-        history.push(BackOfficeRoutes.itemsList);
+        goTo(BackOfficeRoutes.itemsList);
       }, ES_DELAY);
     } catch (error) {
       dispatch({

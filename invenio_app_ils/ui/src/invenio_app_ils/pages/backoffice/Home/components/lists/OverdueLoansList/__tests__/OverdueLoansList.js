@@ -4,6 +4,7 @@ import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import OverdueLoansList from '../OverdueLoansList';
+import history from '../../../../../../../history';
 
 jest.mock('../../../../../../../common/config');
 
@@ -21,7 +22,6 @@ describe('OverdueLoansList tests', () => {
   it('should load the details component', () => {
     const component = shallow(
       <OverdueLoansList
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchOverdueLoans={() => {}}
       />
@@ -33,7 +33,6 @@ describe('OverdueLoansList tests', () => {
     const mockedFetchLoans = jest.fn();
     component = mount(
       <OverdueLoansList
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchOverdueLoans={mockedFetchLoans}
       />
@@ -44,7 +43,6 @@ describe('OverdueLoansList tests', () => {
   it('should render show a message with no loans', () => {
     component = mount(
       <OverdueLoansList
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchOverdueLoans={() => {}}
       />
@@ -90,11 +88,7 @@ describe('OverdueLoansList tests', () => {
       total: 2,
     };
     component = mount(
-      <OverdueLoansList
-        history={() => {}}
-        data={data}
-        fetchOverdueLoans={() => {}}
-      />
+      <OverdueLoansList data={data} fetchOverdueLoans={() => {}} />
     );
 
     expect(component).toMatchSnapshot();
@@ -115,10 +109,7 @@ describe('OverdueLoansList tests', () => {
 
   it('should go to loan details when clicking on a loan', () => {
     const mockedHistoryPush = jest.fn();
-    const historyFn = {
-      push: mockedHistoryPush,
-    };
-
+    history.push = mockedHistoryPush;
     const data = {
       hits: [
         {
@@ -140,7 +131,6 @@ describe('OverdueLoansList tests', () => {
 
     component = mount(
       <OverdueLoansList
-        history={historyFn}
         data={data}
         fetchOverdueLoans={() => {}}
         showMaxEntries={1}
