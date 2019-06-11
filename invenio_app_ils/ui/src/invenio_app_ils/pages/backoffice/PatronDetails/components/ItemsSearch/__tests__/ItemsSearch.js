@@ -38,7 +38,6 @@ describe('PatronLoans tests', () => {
 
     const component = shallow(
       <ItemsSearch
-        history={() => {}}
         items={{ hits: [] }}
         queryString={''}
         updateQueryString={mockedUpdateString}
@@ -83,7 +82,6 @@ describe('PatronLoans tests', () => {
 
     component = mount(
       <ItemsSearch
-        history={() => {}}
         items={items}
         queryString={''}
         updateQueryString={mockedUpdateString}

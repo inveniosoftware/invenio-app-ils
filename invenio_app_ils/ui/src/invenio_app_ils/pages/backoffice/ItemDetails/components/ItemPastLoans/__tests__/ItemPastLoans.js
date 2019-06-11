@@ -18,6 +18,7 @@ describe('ItemPastLoans tests', () => {
   });
 
   const item = {
+    item_pid: 222,
     metadata: {
       document_pid: 111,
       item_pid: 222,
@@ -28,7 +29,6 @@ describe('ItemPastLoans tests', () => {
     const component = shallow(
       <ItemPastLoans
         item={item}
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchPastLoans={() => {}}
       />
@@ -41,7 +41,6 @@ describe('ItemPastLoans tests', () => {
     component = mount(
       <ItemPastLoans
         item={item}
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchPastLoans={mockedFetchPastLoans}
       />
@@ -53,7 +52,6 @@ describe('ItemPastLoans tests', () => {
     component = mount(
       <ItemPastLoans
         item={item}
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchPastLoans={() => {}}
       />
@@ -98,12 +96,7 @@ describe('ItemPastLoans tests', () => {
     };
 
     component = mount(
-      <ItemPastLoans
-        item={item}
-        history={() => {}}
-        data={data}
-        fetchPastLoans={() => {}}
-      />
+      <ItemPastLoans item={item} data={data} fetchPastLoans={() => {}} />
     );
 
     expect(component).toMatchSnapshot();

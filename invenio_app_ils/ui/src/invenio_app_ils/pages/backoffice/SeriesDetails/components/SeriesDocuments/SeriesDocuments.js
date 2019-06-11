@@ -7,7 +7,7 @@ import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { SeeAllButton } from '../../../components/buttons';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import pick from 'lodash/pick';
-import { goTo } from '../../../../../history';
+import { goTo, goToHandler } from '../../../../../history';
 
 export default class SeriesDocuments extends Component {
   constructor(props) {
@@ -21,18 +21,14 @@ export default class SeriesDocuments extends Component {
     this.fetchSeriesDocuments(this.props.series.series_pid);
   }
 
-  showDetailsHandler = documentPid => goTo(this.showDetailsUrl(documentPid))();
-
   seeAllButton = () => {
-    const onClick = goTo(
-      this.seeAllUrl(
-        documentApi
-          .query()
-          .withSeriesPid(this.props.series.series_pid)
-          .qs()
-      )
+    const path = this.seeAllUrl(
+      documentApi
+        .query()
+        .withSeriesPid(this.props.series.series_pid)
+        .qs()
     );
-    return <SeeAllButton clickHandler={onClick} />;
+    return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
   prepareData(data) {
@@ -51,7 +47,9 @@ export default class SeriesDocuments extends Component {
         rows={rows}
         title={'Documents'}
         name={'documents'}
-        rowActionClickHandler={this.showDetailsHandler}
+        rowActionClickHandler={documentPid =>
+          goTo(this.showDetailsUrl(documentPid))
+        }
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxDocuments}
       />

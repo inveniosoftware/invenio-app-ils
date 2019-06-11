@@ -64,7 +64,6 @@ exports[`RecordsBriefCard tests should render with buttons 1`] = `
       New
     </Button>
   }
-  history={[Function]}
   stats={3}
   text="test test test"
   title="Test"
@@ -175,7 +174,6 @@ exports[`RecordsBriefCard tests should render with buttons 1`] = `
 
 exports[`RecordsBriefCard tests should render without buttons 1`] = `
 <RecordsBriefCard
-  history={[Function]}
   stats={3}
   text="test test test"
   title="Test"

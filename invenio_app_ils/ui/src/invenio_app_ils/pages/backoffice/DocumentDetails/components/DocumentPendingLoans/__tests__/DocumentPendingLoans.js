@@ -4,6 +4,7 @@ import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import DocumentPendingLoans from '../DocumentPendingLoans';
+import history from '../../../../../../history';
 
 jest.mock('../../../../../../common/config');
 
@@ -19,6 +20,7 @@ describe('DocumentPendingLoans tests', () => {
   });
 
   const doc = {
+    document_pid: 111,
     metadata: {
       document_pid: 111,
       item_pid: 222,
@@ -29,7 +31,6 @@ describe('DocumentPendingLoans tests', () => {
     const component = shallow(
       <DocumentPendingLoans
         document={doc}
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchPendingLoans={() => {}}
       />
@@ -42,7 +43,6 @@ describe('DocumentPendingLoans tests', () => {
     component = mount(
       <DocumentPendingLoans
         document={doc}
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchPendingLoans={mockedFetchPendingLoans}
       />
@@ -54,7 +54,6 @@ describe('DocumentPendingLoans tests', () => {
     component = mount(
       <DocumentPendingLoans
         document={doc}
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchPendingLoans={() => {}}
       />
@@ -102,7 +101,6 @@ describe('DocumentPendingLoans tests', () => {
     component = mount(
       <DocumentPendingLoans
         document={doc}
-        history={() => {}}
         data={data}
         fetchPendingLoans={() => {}}
       />
@@ -159,7 +157,6 @@ describe('DocumentPendingLoans tests', () => {
     component = mount(
       <DocumentPendingLoans
         document={doc}
-        history={() => {}}
         data={data}
         fetchPendingLoans={() => {}}
         showMaxPendingLoans={1}
@@ -175,10 +172,7 @@ describe('DocumentPendingLoans tests', () => {
 
   it('should go to loan details when clicking on a pending loan', () => {
     const mockedHistoryPush = jest.fn();
-    const historyFn = {
-      push: mockedHistoryPush,
-    };
-
+    history.push = mockedHistoryPush;
     const data = {
       hits: [
         {
@@ -214,7 +208,6 @@ describe('DocumentPendingLoans tests', () => {
     component = mount(
       <DocumentPendingLoans
         document={doc}
-        history={historyFn}
         data={data}
         fetchPendingLoans={() => {}}
         showMaxPendingLoans={1}

@@ -4,6 +4,7 @@ import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import PatronPendingLoans from '../PatronPendingLoans';
+import history from '../../../../../../history';
 
 jest.mock('../../../../../../common/config');
 
@@ -27,7 +28,6 @@ describe('PatronLoans tests', () => {
 
     const component = shallow(
       <PatronPendingLoans
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         loanState=""
         patron={patron.patron_pid}
@@ -42,7 +42,6 @@ describe('PatronLoans tests', () => {
     component = mount(
       <PatronPendingLoans
         patron={patron.patron_pid}
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         loanState=""
         fetchPatronPendingLoans={mockedFetchPatronLoans}
@@ -93,7 +92,6 @@ describe('PatronLoans tests', () => {
     component = mount(
       <PatronPendingLoans
         patron={patron.patron_pid}
-        history={() => {}}
         data={data}
         loanState=""
         fetchPatronPendingLoans={mockedFetchPatronLoans}
@@ -152,7 +150,6 @@ describe('PatronLoans tests', () => {
     component = mount(
       <PatronPendingLoans
         patron={patron.patron_pid}
-        history={() => {}}
         data={data}
         fetchPatronPendingLoans={mockedFetchPatronLoans}
         showMaxLoans={1}
@@ -168,10 +165,7 @@ describe('PatronLoans tests', () => {
 
   it('should go to loan details when clicking on a patron loan', () => {
     const mockedHistoryPush = jest.fn();
-    const historyFn = {
-      push: mockedHistoryPush,
-    };
-
+    history.push = mockedHistoryPush;
     const data = {
       hits: [
         {
@@ -195,7 +189,6 @@ describe('PatronLoans tests', () => {
     component = mount(
       <PatronPendingLoans
         patron={patron.patron_pid}
-        history={historyFn}
         data={data}
         loanState=""
         fetchPatronPendingLoans={mockedFetchPatronLoans}

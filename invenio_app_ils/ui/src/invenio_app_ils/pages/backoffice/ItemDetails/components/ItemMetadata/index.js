@@ -1,6 +1,5 @@
-import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+
 import ItemMetadataComponent from './ItemMetadata';
 import { deleteItem, fetchItemDetails } from '../../state/actions';
 
@@ -14,10 +13,7 @@ const mapDispatchToProps = dispatch => ({
   deleteItem: itemPid => dispatch(deleteItem(itemPid)),
 });
 
-export const ItemMetadata = compose(
-  withRouter,
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
+export const ItemMetadata = connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(ItemMetadataComponent);

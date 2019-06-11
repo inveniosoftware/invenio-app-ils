@@ -13,12 +13,7 @@ describe('RecordsBriefCard tests', () => {
 
   it('should load the details component', () => {
     const component = shallow(
-      <RecordsBriefCard
-        history={() => {}}
-        title={'Test'}
-        stats={3}
-        text={'test test test'}
-      />
+      <RecordsBriefCard title={'Test'} stats={3} text={'test test test'} />
     );
     expect(component).toMatchSnapshot();
   });
@@ -32,7 +27,6 @@ describe('RecordsBriefCard tests', () => {
     );
     component = mount(
       <RecordsBriefCard
-        history={() => {}}
         title={'Test'}
         stats={3}
         text={'test test test'}
@@ -49,12 +43,7 @@ describe('RecordsBriefCard tests', () => {
 
   it('should render without buttons', () => {
     component = mount(
-      <RecordsBriefCard
-        history={() => {}}
-        title={'Test'}
-        stats={3}
-        text={'test test test'}
-      />
+      <RecordsBriefCard title={'Test'} stats={3} text={'test test test'} />
     );
 
     const testButton = component.find('Button');

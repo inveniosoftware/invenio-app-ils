@@ -21,7 +21,6 @@ exports[`PatronLoans tests should render show a message with added loan 1`] = `
       "loan_pid": 2,
     }
   }
-  history={[Function]}
 >
   <Loader>
     <Error>

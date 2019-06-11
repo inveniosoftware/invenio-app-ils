@@ -5,6 +5,7 @@ import { RecordsBriefCard } from '../../../../components/statistics/RecordsBrief
 import { NewButton, SeeAllButton } from '../../../../components/buttons';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { document as documentApi } from '../../../../../../common/api';
+import { goToHandler } from '../../../../../../history';
 
 export default class DocumentsCard extends Component {
   constructor(props) {
@@ -20,17 +21,14 @@ export default class DocumentsCard extends Component {
   }
 
   seeAllButton = () => {
-    const handler = () =>
-      this.props.history.push(
-        this.seeAllUrl(
-          documentApi
-            .query()
-            .withAvailableItems()
-            .withPendingLoans()
-            .qs()
-        )
-      );
-    return <SeeAllButton fluid disabled clickHandler={() => handler()} />;
+    const path = this.seeAllUrl(
+      documentApi
+        .query()
+        .withAvailableItems()
+        .withPendingLoans()
+        .qs()
+    );
+    return <SeeAllButton fluid disabled clickHandler={goToHandler(path)} />;
   };
 
   newDocumentButton = () => {
@@ -38,7 +36,7 @@ export default class DocumentsCard extends Component {
       <NewButton
         fluid
         disabled
-        clickHandler={() => this.props.history.push(this.newDocumentURL)}
+        clickHandler={goToHandler(this.newDocumentURL)}
       />
     );
   };

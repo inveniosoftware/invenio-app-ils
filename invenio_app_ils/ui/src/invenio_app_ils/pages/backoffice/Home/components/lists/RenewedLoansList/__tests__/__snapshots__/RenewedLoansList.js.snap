@@ -60,7 +60,6 @@ exports[`RenewedLoansList tests should render loans 1`] = `
     }
   }
   fetchRenewedLoans={[Function]}
-  history={[Function]}
   showMaxEntries={5}
 >
   <Loader>
@@ -612,7 +611,6 @@ exports[`RenewedLoansList tests should render show a message with no loans 1`] =
     }
   }
   fetchRenewedLoans={[Function]}
-  history={[Function]}
   showMaxEntries={5}
 >
   <Loader>

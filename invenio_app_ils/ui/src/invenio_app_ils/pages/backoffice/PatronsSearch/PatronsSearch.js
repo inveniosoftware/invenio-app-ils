@@ -23,6 +23,7 @@ import { ClearButton } from '../components/buttons';
 import { patron } from '../../../common/api';
 import { ResultsList as PatronsResultsList } from './components';
 import { default as config } from './config';
+import { goTo } from '../../../history';
 import './PatronsSearch.scss';
 
 export class PatronsSearch extends Component {
@@ -42,10 +43,9 @@ export class PatronsSearch extends Component {
       <div className="results-list">
         <PatronsResultsList
           results={results}
-          viewDetailsClickHandler={patronPid => {
-            const path = BackOfficeRoutes.patronDetailsFor(patronPid);
-            this.props.history.push(path);
-          }}
+          viewDetailsClickHandler={patronPid =>
+            goTo(BackOfficeRoutes.patronDetailsFor(patronPid))
+          }
         />
       </div>
     );

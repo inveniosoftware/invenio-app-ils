@@ -62,7 +62,6 @@ exports[`OverdueLoansList tests should render loans 1`] = `
     }
   }
   fetchOverdueLoans={[Function]}
-  history={[Function]}
   showMaxEntries={5}
 >
   <Loader>
@@ -524,7 +523,6 @@ exports[`OverdueLoansList tests should render show a message with no loans 1`] =
     }
   }
   fetchOverdueLoans={[Function]}
-  history={[Function]}
   showMaxEntries={5}
 >
   <Loader>

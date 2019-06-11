@@ -17,7 +17,6 @@ describe('DocumentsCard tests', () => {
 
     const component = shallow(
       <DocumentsCard
-        history={() => {}}
         data={0}
         fetchRequestedWithAvailableItems={mockedFetchDocuments}
       />
@@ -31,7 +30,6 @@ describe('DocumentsCard tests', () => {
 
     component = mount(
       <DocumentsCard
-        history={() => {}}
         data={data}
         fetchRequestedWithAvailableItems={mockedFetchDocuments}
       />

@@ -4,6 +4,7 @@ import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import DocumentItems from '../DocumentItems';
 import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../common/api/date';
+import history from '../../../../../../history';
 
 jest.mock('../../../../../../common/config');
 
@@ -19,6 +20,7 @@ describe('DocumentItems tests', () => {
   });
 
   const doc = {
+    document_pid: 111,
     metadata: {
       document_pid: 111,
     },
@@ -28,7 +30,6 @@ describe('DocumentItems tests', () => {
     const component = shallow(
       <DocumentItems
         document={doc}
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchDocumentItems={() => {}}
       />
@@ -41,7 +42,6 @@ describe('DocumentItems tests', () => {
     component = mount(
       <DocumentItems
         document={doc}
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchDocumentItems={mockedFetchDocumentItems}
       />
@@ -53,7 +53,6 @@ describe('DocumentItems tests', () => {
     component = mount(
       <DocumentItems
         document={doc}
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchDocumentItems={() => {}}
       />
@@ -100,12 +99,7 @@ describe('DocumentItems tests', () => {
     };
 
     component = mount(
-      <DocumentItems
-        document={doc}
-        history={() => {}}
-        data={data}
-        fetchDocumentItems={() => {}}
-      />
+      <DocumentItems document={doc} data={data} fetchDocumentItems={() => {}} />
     );
 
     expect(component).toMatchSnapshot();
@@ -158,7 +152,6 @@ describe('DocumentItems tests', () => {
     component = mount(
       <DocumentItems
         document={doc}
-        history={() => {}}
         data={data}
         fetchDocumentItems={() => {}}
         showMaxItems={1}
@@ -174,10 +167,7 @@ describe('DocumentItems tests', () => {
 
   it('should go to items details when clicking on a item row', () => {
     const mockedHistoryPush = jest.fn();
-    const historyFn = {
-      push: mockedHistoryPush,
-    };
-
+    history.push = mockedHistoryPush;
     const data = {
       hits: [
         {
@@ -200,7 +190,6 @@ describe('DocumentItems tests', () => {
     component = mount(
       <DocumentItems
         document={doc}
-        history={historyFn}
         data={data}
         fetchDocumentItems={() => {}}
         showMaxItems={1}

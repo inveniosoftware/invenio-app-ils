@@ -15,7 +15,7 @@ import DocumentTab from '../DocumentTab';
 import { RequestNewLoanForm } from './components/RequestNewLoanForm';
 import '../../DocumentsDetails.scss';
 import isEmpty from 'lodash/isEmpty';
-import { goTo } from '../../../../../history';
+import { goToHandler } from '../../../../../history';
 import { FrontSiteRoutes } from '../../../../../routes/urls';
 import { document as documentApi } from '../../../../../common/api';
 
@@ -29,7 +29,7 @@ export default class DocumentMetadata extends Component {
   toggleVisibility = () => this.setState({ visible: !this.state.visible });
 
   goToSeriesList = seriesPid =>
-    goTo(
+    goToHandler(
       FrontSiteRoutes.documentsListWithQuery(
         documentApi
           .query()

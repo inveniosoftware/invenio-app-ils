@@ -85,7 +85,6 @@ exports[`PatronLoans tests should render items in search 1`] = `
   clearResults={[MockFunction]}
   fetchItems={[MockFunction]}
   fetchUpdatedCurrentLoans={[MockFunction]}
-  history={[Function]}
   items={
     Object {
       "hits": Array [

@@ -6,6 +6,7 @@ import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { listQuery } from './state/listQuery';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
+import { goTo, goToHandler } from '../../../../../../history';
 import pick from 'lodash/pick';
 
 export default class RenewedLoansList extends Component {
@@ -20,15 +21,10 @@ export default class RenewedLoansList extends Component {
     this.fetchRenewedLoans();
   }
 
-  showDetailsHandler = loanPid =>
-    this.props.history.push(this.showDetailsUrl(loanPid));
-
   seeAllButton = () => {
-    const click = () => {
-      this.props.history.push(this.seeAllUrl(listQuery));
-    };
-
-    return <SeeAllButton clickHandler={() => click()} />;
+    return (
+      <SeeAllButton clickHandler={goToHandler(this.seeAllUrl(listQuery))} />
+    );
   };
 
   prepareData(data) {
@@ -53,7 +49,7 @@ export default class RenewedLoansList extends Component {
         title={'Frequently renewed loans'}
         subtitle={'Loans renewed more than 3 times - last 7 days.'}
         name={'frequently renewed loans'}
-        rowActionClickHandler={this.showDetailsHandler}
+        rowActionClickHandler={loanPid => goTo(this.showDetailsUrl(loanPid))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
       />

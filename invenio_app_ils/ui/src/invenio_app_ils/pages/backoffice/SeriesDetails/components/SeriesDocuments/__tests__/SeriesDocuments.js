@@ -170,7 +170,6 @@ describe('SeriesDocuments tests', () => {
   it('should go to documents details when clicking on a document row', () => {
     const mockedHistoryPush = jest.fn();
     history.push = mockedHistoryPush;
-
     const data = {
       hits: [
         {

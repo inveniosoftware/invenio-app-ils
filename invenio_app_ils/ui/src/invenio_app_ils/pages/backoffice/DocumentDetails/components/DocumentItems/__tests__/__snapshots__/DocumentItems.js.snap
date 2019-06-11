@@ -71,13 +71,13 @@ exports[`DocumentItems tests should render item 1`] = `
   }
   document={
     Object {
+      "document_pid": 111,
       "metadata": Object {
         "document_pid": 111,
       },
     }
   }
   fetchDocumentItems={[Function]}
-  history={[Function]}
   showMaxItems={5}
 >
   <Loader>
@@ -628,13 +628,13 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
   }
   document={
     Object {
+      "document_pid": 111,
       "metadata": Object {
         "document_pid": 111,
       },
     }
   }
   fetchDocumentItems={[Function]}
-  history={[Function]}
   showMaxItems={5}
 >
   <Loader>
@@ -772,13 +772,13 @@ exports[`DocumentItems tests should render the see all button when showing only 
   }
   document={
     Object {
+      "document_pid": 111,
       "metadata": Object {
         "document_pid": 111,
       },
     }
   }
   fetchDocumentItems={[Function]}
-  history={[Function]}
   showMaxItems={1}
 >
   <Loader>

@@ -24,6 +24,7 @@ import { ClearButton, NewButton } from '../components/buttons';
 import { BackOfficeRoutes, openRecordEditor } from '../../../routes/urls';
 import { ResultsList as SeriesResultsList } from './components';
 import { default as config } from './config';
+import { goTo } from '../../../history';
 import './SeriesSearch.scss';
 
 export class SeriesSearch extends Component {
@@ -61,9 +62,7 @@ export class SeriesSearch extends Component {
         <SeriesResultsList
           results={results}
           viewDetailsClickHandler={seriesPid =>
-            this.props.history.push(
-              BackOfficeRoutes.seriesDetailsFor(seriesPid)
-            )
+            goTo(BackOfficeRoutes.seriesDetailsFor(seriesPid))
           }
         />
       </div>

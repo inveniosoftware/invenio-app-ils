@@ -6,6 +6,7 @@ import { loan as loanApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
+import { goTo, goToHandler } from '../../../../../../history';
 import pick from 'lodash/pick';
 
 export default class OverdueLoansList extends Component {
@@ -20,21 +21,14 @@ export default class OverdueLoansList extends Component {
     this.fetchOverdueLoans();
   }
 
-  showDetailsHandler = loanPid =>
-    this.props.history.push(this.showDetailsUrl(loanPid));
-
   seeAllButton = () => {
-    const click = () =>
-      this.props.history.push(
-        this.seeAllUrl(
-          loanApi
-            .query()
-            .overdue()
-            .qs()
-        )
-      );
-
-    return <SeeAllButton clickHandler={() => click()} />;
+    const path = this.seeAllUrl(
+      loanApi
+        .query()
+        .overdue()
+        .qs()
+    );
+    return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
   prepareData(data) {
@@ -57,7 +51,7 @@ export default class OverdueLoansList extends Component {
         title={'Overdue loans'}
         subtitle={'Active loans with past due end date.'}
         name={'overdue loans'}
-        rowActionClickHandler={this.showDetailsHandler}
+        rowActionClickHandler={loanPid => goTo(this.showDetailsUrl(loanPid))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
       />

@@ -7,6 +7,7 @@ import {
 } from '../../../../authentication/services';
 import { FrontSiteRoutes, BackOfficeRoutes } from '../../../../routes/urls';
 import { LoginButton } from '../../../../common/components';
+import { goToHandler } from '../../../../history';
 import './Header.scss';
 
 export default class Header extends Component {
@@ -27,11 +28,7 @@ export default class Header extends Component {
           <Dropdown.Item>Your Loans</Dropdown.Item>
           <Dropdown.Item>Profile</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item
-            onClick={() => {
-              this.props.history.push(BackOfficeRoutes.home);
-            }}
-          >
+          <Dropdown.Item onClick={goToHandler(BackOfficeRoutes.home)}>
             Backoffice
           </Dropdown.Item>
           <Dropdown.Divider />

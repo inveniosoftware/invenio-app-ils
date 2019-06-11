@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { Settings } from 'luxon';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import IdleLoansList from '../IdleLoansList';
+import history from '../../../../../../../history';
 
 jest.mock('../../../../../../../common/config');
 
@@ -20,7 +21,6 @@ describe('IdleLoansList tests', () => {
   it('should load the details component', () => {
     const component = shallow(
       <IdleLoansList
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchIdlePendingLoans={() => {}}
       />
@@ -32,7 +32,6 @@ describe('IdleLoansList tests', () => {
     const mockedFetchLoans = jest.fn();
     component = mount(
       <IdleLoansList
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchIdlePendingLoans={mockedFetchLoans}
       />
@@ -43,7 +42,6 @@ describe('IdleLoansList tests', () => {
   it('should render show a message with no loans', () => {
     component = mount(
       <IdleLoansList
-        history={() => {}}
         data={{ hits: [], total: 0 }}
         fetchIdlePendingLoans={() => {}}
       />
@@ -90,11 +88,7 @@ describe('IdleLoansList tests', () => {
     };
 
     component = mount(
-      <IdleLoansList
-        history={() => {}}
-        data={data}
-        fetchIdlePendingLoans={() => {}}
-      />
+      <IdleLoansList data={data} fetchIdlePendingLoans={() => {}} />
     );
 
     expect(component).toMatchSnapshot();
@@ -115,10 +109,7 @@ describe('IdleLoansList tests', () => {
 
   it('should go to loan details when clicking on a loan', () => {
     const mockedHistoryPush = jest.fn();
-    const historyFn = {
-      push: mockedHistoryPush,
-    };
-
+    history.push = mockedHistoryPush;
     const data = {
       hits: [
         {
@@ -140,7 +131,6 @@ describe('IdleLoansList tests', () => {
 
     component = mount(
       <IdleLoansList
-        history={historyFn}
         data={data}
         fetchIdlePendingLoans={() => {}}
         showMaxEntries={1}

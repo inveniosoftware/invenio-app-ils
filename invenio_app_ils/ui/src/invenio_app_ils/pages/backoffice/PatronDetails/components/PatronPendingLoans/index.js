@@ -1,6 +1,4 @@
-import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import {
   fetchPatronPendingLoans,
   patronLoansChangeSortBy,
@@ -30,10 +28,7 @@ const mapDispatchToProps = dispatch => ({
     ),
 });
 
-export const PatronPendingLoans = compose(
-  withRouter,
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
+export const PatronPendingLoans = connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(PatronPendingLoansComponent);

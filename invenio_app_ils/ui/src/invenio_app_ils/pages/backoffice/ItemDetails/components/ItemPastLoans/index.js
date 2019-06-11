@@ -1,6 +1,5 @@
-import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+
 import { fetchPastLoans } from './state/actions';
 import ItemPastLoansComponent from './ItemPastLoans';
 
@@ -15,10 +14,7 @@ const mapDispatchToProps = dispatch => ({
   fetchPastLoans: itemPid => dispatch(fetchPastLoans(itemPid)),
 });
 
-export const ItemPastLoans = compose(
-  withRouter,
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
+export const ItemPastLoans = connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(ItemPastLoansComponent);

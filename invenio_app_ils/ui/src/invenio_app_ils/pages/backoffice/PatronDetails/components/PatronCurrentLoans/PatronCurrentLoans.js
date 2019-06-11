@@ -7,6 +7,7 @@ import { ResultsTable } from '../../../../../common/components';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
+import { goTo, goToHandler } from '../../../../../history';
 
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
@@ -24,23 +25,17 @@ export default class PatronCurrentLoans extends Component {
     this.fetchPatronCurrentLoans(patronPid);
   }
 
-  showDetailsHandler = loanPid =>
-    this.props.history.push(this.showDetailsUrl(loanPid));
-
   seeAllButton = () => {
     const { patron } = this.props;
-    const click = () =>
-      this.props.history.push(
-        this.seeAllUrl(
-          loanApi
-            .query()
-            .withPatronPid(patron)
-            .withState('ITEM_ON_LOAN')
-            .sortByNewest()
-            .qs()
-        )
-      );
-    return <SeeAllButton clickHandler={() => click()} />;
+    const path = this.seeAllUrl(
+      loanApi
+        .query()
+        .withPatronPid(patron)
+        .withState('ITEM_ON_LOAN')
+        .sortByNewest()
+        .qs()
+    );
+    return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
   prepareData(data) {
@@ -69,7 +64,9 @@ export default class PatronCurrentLoans extends Component {
             rows={rows}
             title={"Patron's current loans"}
             name={'current loans'}
-            rowActionClickHandler={this.showDetailsHandler}
+            rowActionClickHandler={loanPid =>
+              goTo(this.showDetailsUrl(loanPid))
+            }
             seeAllComponent={this.seeAllButton()}
             showMaxRows={this.props.showMaxLoans}
           />

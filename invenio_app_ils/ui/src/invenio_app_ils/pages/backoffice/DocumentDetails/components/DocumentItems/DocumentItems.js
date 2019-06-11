@@ -7,6 +7,7 @@ import { item as itemApi } from '../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { SeeAllButton } from '../../../components/buttons';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import { goTo, goToHandler } from '../../../../../history';
 import pick from 'lodash/pick';
 
 export default class DocumentItems extends Component {
@@ -21,20 +22,14 @@ export default class DocumentItems extends Component {
     this.fetchDocumentItems(this.props.document.document_pid);
   }
 
-  showDetailsHandler = itemPid =>
-    this.props.history.push(this.showDetailsUrl(itemPid));
-
   seeAllButton = () => {
-    const click = () =>
-      this.props.history.push(
-        this.seeAllUrl(
-          itemApi
-            .query()
-            .withDocPid(this.props.document.document_pid)
-            .qs()
-        )
-      );
-    return <SeeAllButton clickHandler={() => click()} />;
+    const path = this.seeAllUrl(
+      itemApi
+        .query()
+        .withDocPid(this.props.document.document_pid)
+        .qs()
+    );
+    return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
   prepareData(data) {
@@ -59,7 +54,7 @@ export default class DocumentItems extends Component {
         rows={rows}
         title={'Attached items'}
         name={'attached items'}
-        rowActionClickHandler={this.showDetailsHandler}
+        rowActionClickHandler={itemPid => goTo(this.showDetailsUrl(itemPid))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxItems}
       />

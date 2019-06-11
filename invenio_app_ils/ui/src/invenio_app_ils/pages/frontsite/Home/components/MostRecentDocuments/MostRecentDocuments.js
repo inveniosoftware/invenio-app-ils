@@ -5,7 +5,7 @@ import { FrontSiteRoutes } from '../../../../../routes/urls';
 import { Card, Button, Divider } from 'semantic-ui-react';
 import { DocumentCard } from '../DocumentCard';
 import { truncate } from 'lodash/string';
-import { goTo } from '../../../../../history';
+import { goToHandler } from '../../../../../history';
 
 export default class MostRecentDocuments extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ export default class MostRecentDocuments extends Component {
           authors: truncate(document.metadata.authors.join('\n')),
           imageSize: 'small',
           imageCover: 'https://assets.thalia.media/img/46276899-00-00.jpg',
-          onClick: goTo(
+          onClick: goToHandler(
             FrontSiteRoutes.documentDetailsFor(document.metadata.document_pid)
           ),
         };
@@ -54,7 +54,7 @@ export default class MostRecentDocuments extends Component {
         <Error error={error}>
           <div>
             <Button
-              onClick={goTo(
+              onClick={goToHandler(
                 FrontSiteRoutes.documentsListWithQuery('&sort=-mostrecent')
               )}
             >

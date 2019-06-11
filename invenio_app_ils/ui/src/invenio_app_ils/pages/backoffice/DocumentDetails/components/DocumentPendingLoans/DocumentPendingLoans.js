@@ -7,6 +7,7 @@ import { loan as loanApi } from '../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
+import { goTo, goToHandler } from '../../../../../history';
 import pick from 'lodash/pick';
 
 export default class DocumentPendingLoans extends Component {
@@ -22,22 +23,16 @@ export default class DocumentPendingLoans extends Component {
     this.fetchPendingLoans(document_pid);
   }
 
-  showDetailsHandler = loanPid =>
-    this.props.history.push(this.showDetailsUrl(loanPid));
-
   seeAllButton = () => {
     const { document_pid } = this.props.document;
-    const click = () =>
-      this.props.history.push(
-        this.seeAllUrl(
-          loanApi
-            .query()
-            .withDocPid(document_pid)
-            .withState('PENDING')
-            .qs()
-        )
-      );
-    return <SeeAllButton clickHandler={() => click()} />;
+    const path = this.seeAllUrl(
+      loanApi
+        .query()
+        .withDocPid(document_pid)
+        .withState('PENDING')
+        .qs()
+    );
+    return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
   prepareData(data) {
@@ -55,7 +50,7 @@ export default class DocumentPendingLoans extends Component {
         rows={rows}
         title={'Pending loans requests'}
         name={'pending loan requests'}
-        rowActionClickHandler={this.showDetailsHandler}
+        rowActionClickHandler={loanPid => goTo(this.showDetailsUrl(loanPid))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxPendingLoans}
       />

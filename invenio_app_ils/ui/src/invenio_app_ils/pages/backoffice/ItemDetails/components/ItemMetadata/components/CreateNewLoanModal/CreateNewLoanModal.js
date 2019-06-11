@@ -11,7 +11,7 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
-import history from '../../../../../../../history';
+import { goTo } from '../../../../../../../history';
 import isEmpty from 'lodash/isEmpty';
 import { PatronSearchBox } from '../../../../../../../common/components/PatronSearchBox';
 
@@ -52,8 +52,7 @@ export default class CreateNewLoanModal extends Component {
     </Button>
   );
 
-  gotoDetailsPage = loanPid =>
-    history.push(BackOfficeRoutes.loanDetailsFor(loanPid));
+  gotoDetailsPage = loanPid => goTo(BackOfficeRoutes.loanDetailsFor(loanPid));
 
   handleUpdateSelection = selected => {
     this.setState({

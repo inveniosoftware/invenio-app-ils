@@ -19,11 +19,7 @@ describe('LoansCard tests', () => {
     const mockedFetchLoans = jest.fn();
 
     const component = shallow(
-      <LoansCard
-        history={() => {}}
-        data={0}
-        fetchPendingLoans={mockedFetchLoans}
-      />
+      <LoansCard data={0} fetchPendingLoans={mockedFetchLoans} />
     );
     expect(component).toMatchSnapshot();
   });
@@ -33,11 +29,7 @@ describe('LoansCard tests', () => {
     const data = 2;
 
     component = mount(
-      <LoansCard
-        history={() => {}}
-        data={data}
-        fetchPendingLoans={mockedFetchLoans}
-      />
+      <LoansCard data={data} fetchPendingLoans={mockedFetchLoans} />
     );
 
     expect(component).toMatchSnapshot();

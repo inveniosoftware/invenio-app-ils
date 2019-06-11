@@ -14,11 +14,7 @@ describe('PatronLoans tests', () => {
     const mockedCheckoutItem = jest.fn();
 
     const component = shallow(
-      <ItemsCheckout
-        history={() => {}}
-        data={{}}
-        checkoutItem={mockedCheckoutItem}
-      />
+      <ItemsCheckout data={{}} checkoutItem={mockedCheckoutItem} />
     );
     expect(component).toMatchSnapshot();
   });
@@ -27,11 +23,7 @@ describe('PatronLoans tests', () => {
     const mockedCheckoutItem = jest.fn();
     const loan = { loan_pid: 2, item_pid: '4' };
     component = mount(
-      <ItemsCheckout
-        history={() => {}}
-        data={loan}
-        checkoutItem={mockedCheckoutItem}
-      />
+      <ItemsCheckout data={loan} checkoutItem={mockedCheckoutItem} />
     );
 
     expect(component).toMatchSnapshot();
