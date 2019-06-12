@@ -1,4 +1,4 @@
 export { DocumentDetails } from './DocumentDetails';
-export { DocumentMetadata } from './DocumentMetadata';
+export { DocumentItems } from './DocumentItems';
 export { DocumentPendingLoans } from './DocumentPendingLoans';
 export { DocumentAccessRestrictions } from './DocumentAccessRestrictions';

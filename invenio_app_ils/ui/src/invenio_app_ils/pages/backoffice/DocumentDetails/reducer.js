@@ -1,9 +1,11 @@
-export { default as documentDetailsReducer } from './state/reducer';
 export {
-  default as documentPendingLoans,
+  default as documentDetailsReducer,
+} from './components/DocumentDetails/state/reducer';
+export {
+  default as documentPendingLoansReducer,
 } from './components/DocumentPendingLoans/state/reducer';
 export {
-  default as documentItems,
+  default as documentItemsReducer,
 } from './components/DocumentItems/state/reducer';
 export {
   default as documentRestrictionsReducer,

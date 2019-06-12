@@ -8,7 +8,7 @@ import {
   sendErrorNotification,
   sendSuccessNotification,
 } from '../../../../../../common/components/Notifications';
-import { fetchDocumentDetails } from '../../../state/actions';
+import { fetchDocumentDetails } from '../../DocumentDetails/state/actions';
 import { ES_DELAY } from '../../../../../../common/config';
 import isEmpty from 'lodash/isEmpty';
 

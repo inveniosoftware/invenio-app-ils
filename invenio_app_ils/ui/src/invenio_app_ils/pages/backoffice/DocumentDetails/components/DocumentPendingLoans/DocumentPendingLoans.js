@@ -1,84 +1,74 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../common/components';
+import history from '../../../../../history';
 import { ResultsTable } from '../../../../../common/components';
 import { loan as loanApi } from '../../../../../common/api';
-
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
 import pick from 'lodash/pick';
 
-export default class DocumentPendingLoans extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchPendingLoans = props.fetchPendingLoans;
-    this.showDetailsUrl = BackOfficeRoutes.loanDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
-  }
+const showDetailsHandler = loanPid => {
+  history.push(BackOfficeRoutes.loanDetailsFor(loanPid));
+};
 
-  componentDidMount() {
-    const { document_pid } = this.props.document;
-    this.fetchPendingLoans(document_pid);
-  }
-
-  showDetailsHandler = loanPid =>
-    this.props.history.push(this.showDetailsUrl(loanPid));
-
-  seeAllButton = () => {
-    const { document_pid } = this.props.document;
-    const click = () =>
-      this.props.history.push(
-        this.seeAllUrl(
-          loanApi
-            .query()
-            .withDocPid(document_pid)
-            .withState('PENDING')
-            .qs()
-        )
-      );
-    return <SeeAllButton clickHandler={() => click()} />;
-  };
-
-  prepareData(data) {
-    return data.hits.map(row => {
-      const serialized = formatter.loan.toTable(row);
-      return pick(serialized, ['ID', 'Updated', 'Patron ID', 'Start date']);
-    });
-  }
-
-  renderTable(data) {
-    const rows = this.prepareData(data);
-    rows.totalHits = data.total;
-    return (
-      <ResultsTable
-        rows={rows}
-        title={'Pending loans requests'}
-        name={'pending loan requests'}
-        rowActionClickHandler={this.showDetailsHandler}
-        seeAllComponent={this.seeAllButton()}
-        showMaxRows={this.props.showMaxPendingLoans}
-      />
+const seeAllButton = documentPid => {
+  const click = () =>
+    history.push(
+      BackOfficeRoutes.loansListWithQuery(
+        loanApi
+          .query()
+          .withDocPid(documentPid)
+          .withState('PENDING')
+          .qs()
+      )
     );
-  }
+  return <SeeAllButton clickHandler={() => click()} />;
+};
 
-  render() {
-    const { data, isLoading, error } = this.props;
-    return (
-      <Loader isLoading={isLoading}>
-        <Error error={error}>{this.renderTable(data)}</Error>
-      </Loader>
-    );
-  }
-}
+const prepareData = data => {
+  return data.hits.map(row => {
+    const serialized = formatter.loan.toTable(row);
+    return pick(serialized, ['ID', 'Updated', 'Patron ID', 'Start date']);
+  });
+};
+
+const DocumentPendingLoans = ({ data, documentPid, showMaxRows }) => {
+  const rows = prepareData(data);
+  rows.totalHits = data.total;
+  return (
+    <ResultsTable
+      rows={rows}
+      title={'Pending loans requests'}
+      name={'pending loan requests'}
+      rowActionClickHandler={showDetailsHandler}
+      seeAllComponent={seeAllButton(documentPid)}
+      showMaxRows={showMaxRows}
+    />
+  );
+};
 
 DocumentPendingLoans.propTypes = {
-  document: PropTypes.object.isRequired,
-  fetchPendingLoans: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
-  showMaxPendingLoans: PropTypes.number,
+  documentPid: PropTypes.string.isRequired,
+  showMaxRows: PropTypes.number.isRequired,
+  data: PropTypes.oneOfType([
+    () => null,
+    PropTypes.shape({
+      total: PropTypes.number.isRequired,
+      hits: PropTypes.shape({
+        hits: PropTypes.arrayOf(
+          PropTypes.shape({
+            item_pid: PropTypes.string.isRequired,
+            metadata: PropTypes.object.isRequired, // Replace with loan metadata
+          })
+        ),
+      }).isRequired,
+    }),
+  ]).isRequired,
 };
 
 DocumentPendingLoans.defaultProps = {
-  showMaxPendingLoans: 5,
+  showMaxRows: 2,
 };
+
+export default DocumentPendingLoans;

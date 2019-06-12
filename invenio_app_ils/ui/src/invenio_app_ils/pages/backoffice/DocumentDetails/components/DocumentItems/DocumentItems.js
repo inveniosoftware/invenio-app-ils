@@ -1,88 +1,80 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../common/components';
 import { ResultsTable } from '../../../../../common/components';
 import { item as itemApi } from '../../../../../common/api';
-
+import history from '../../../../../history';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { SeeAllButton } from '../../../components/buttons';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import pick from 'lodash/pick';
 
-export default class DocumentItems extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchDocumentItems = props.fetchDocumentItems;
-    this.showDetailsUrl = BackOfficeRoutes.itemDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.itemsListWithQuery;
-  }
+const showDetailsHandler = itemPid => {
+  history.push(BackOfficeRoutes.itemDetailsFor(itemPid));
+};
 
-  componentDidMount() {
-    this.fetchDocumentItems(this.props.document.document_pid);
-  }
-
-  showDetailsHandler = itemPid =>
-    this.props.history.push(this.showDetailsUrl(itemPid));
-
-  seeAllButton = () => {
-    const click = () =>
-      this.props.history.push(
-        this.seeAllUrl(
-          itemApi
-            .query()
-            .withDocPid(this.props.document.document_pid)
-            .qs()
-        )
-      );
-    return <SeeAllButton clickHandler={() => click()} />;
-  };
-
-  prepareData(data) {
-    return data.hits.map(row => {
-      const entry = formatter.item.toTable(row);
-      return pick(entry, [
-        'ID',
-        'Barcode',
-        'Status',
-        'Medium',
-        'Location',
-        'Shelf',
-      ]);
-    });
-  }
-
-  renderTable(data) {
-    const rows = this.prepareData(data);
-    rows.totalHits = data.total;
-    return (
-      <ResultsTable
-        rows={rows}
-        title={'Attached items'}
-        name={'attached items'}
-        rowActionClickHandler={this.showDetailsHandler}
-        seeAllComponent={this.seeAllButton()}
-        showMaxRows={this.props.showMaxItems}
-      />
+const seeAllButton = documentPid => {
+  const _click = () =>
+    history.push(
+      BackOfficeRoutes.itemListWithQuery(
+        itemApi
+          .query()
+          .withDocPid(documentPid)
+          .qs()
+      )
     );
-  }
+  return <SeeAllButton clickHandler={() => _click()} />;
+};
 
-  render() {
-    const { data, isLoading, error } = this.props;
-    return (
-      <Loader isLoading={isLoading}>
-        <Error error={error}>{this.renderTable(data)}</Error>
-      </Loader>
-    );
-  }
-}
+const prepareData = data => {
+  return data.hits.map(row => {
+    const entry = formatter.item.toTable(row);
+    return pick(entry, [
+      'ID',
+      'Barcode',
+      'Status',
+      'Medium',
+      'Location',
+      'Shelf',
+    ]);
+  });
+};
+
+const DocumentItems = ({ data, documentPid, showMaxRows }) => {
+  const rows = prepareData(data);
+  rows.totalHits = data.total;
+  return (
+    <ResultsTable
+      rows={rows}
+      title={'Attached items'}
+      name={'attached items'}
+      rowActionClickHandler={showDetailsHandler}
+      seeAllComponent={seeAllButton(documentPid)}
+      showMaxRows={showMaxRows}
+    />
+  );
+};
 
 DocumentItems.propTypes = {
-  document: PropTypes.object.isRequired,
-  fetchDocumentItems: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
-  showMaxItems: PropTypes.number,
+  showMaxRows: PropTypes.number.isRequired,
+  documentPid: PropTypes.string.isRequired,
+  data: PropTypes.oneOfType([
+    () => null,
+    PropTypes.shape({
+      total: PropTypes.number.isRequired,
+      hits: PropTypes.shape({
+        hits: PropTypes.arrayOf(
+          PropTypes.shape({
+            item_pid: PropTypes.string.isRequired,
+            metadata: PropTypes.object.isRequired, // Replace with item metadata
+          })
+        ),
+      }).isRequired,
+    }),
+  ]).isRequired,
 };
 
 DocumentItems.defaultProps = {
-  showMaxItems: 5,
+  showMaxRows: 5,
 };
+
+export default DocumentItems;

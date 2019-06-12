@@ -16,8 +16,6 @@ import { isEmpty } from 'lodash';
 export default class DocumentAccessRestrictions extends Component {
   constructor(props) {
     super(props);
-    this.setRestrictionsOnDocument = props.setRestrictionsOnDocument;
-    this.pid = props.document.document_pid;
     this.state = {
       isModalOpen: false,
       currentAccessList: props.readAccessSet,
@@ -79,8 +77,8 @@ export default class DocumentAccessRestrictions extends Component {
           toggle
           color="green"
           onClick={() => {
-            this.setRestrictionsOnDocument(
-              this.pid,
+            this.props.setRestrictionsOnDocument(
+              this.props.document.document_pid,
               Array.from(this.state.currentAccessList)
             );
             this.toggleModal();

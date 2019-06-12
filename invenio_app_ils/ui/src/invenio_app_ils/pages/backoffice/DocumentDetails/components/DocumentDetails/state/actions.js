@@ -6,14 +6,14 @@ import {
   SUCCESS,
   HAS_ERROR,
 } from './types';
-import { ES_DELAY } from '../../../../common/config';
-import history from '../../../../history';
-import { document as documentApi } from '../../../../common/api';
-import { BackOfficeRoutes } from '../../../../routes/urls';
+import { ES_DELAY } from '../../../../../../common/config';
+import history from '../../../../../../history';
+import { document as documentApi } from '../../../../../../common/api';
+import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import {
   sendErrorNotification,
   sendSuccessNotification,
-} from '../../../../common/components/Notifications';
+} from '../../../../../../common/components/Notifications';
 
 export const fetchDocumentDetails = documentPid => {
   return async dispatch => {
