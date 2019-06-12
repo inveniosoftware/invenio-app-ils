@@ -349,12 +349,12 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
+                "invenio_app_ils.records.serializers:item_v1_response"
             ),
         },
         search_serializers={
             "application/json": (
-                "invenio_records_rest.serializers:json_v1_search"
+                "invenio_app_ils.records.serializers:item_v1_search"
             )
         },
         list_route="/items/",

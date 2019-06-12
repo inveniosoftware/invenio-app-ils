@@ -204,3 +204,41 @@ def test_delete_item_endpoint(
         data=item_record,
         expected_resp_code=expected_resp_code,
     )
+
+
+@pytest.mark.parametrize(
+    "user_id,res_id,expected_resp_code,filtered",
+    [
+        ("patron1", "itemid-56", 200, False),
+        ("patron2", "itemid-56", 200, True),
+        ("patron1", "itemid-57", 200, True),
+        ("patron2", "itemid-57", 200, False),
+        ("librarian", "itemid-56", 200, False),
+        ("admin", "itemid-57", 200, False),
+    ]
+)
+def test_item_circulation_status(client, json_headers, testdata, users,
+                                 user_id, res_id, expected_resp_code,
+                                 filtered):
+    """Test item circulation_status filtering."""
+    user_login(user_id, client, users)
+    url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
+    res = _test_response(
+        client,
+        "get",
+        url,
+        json_headers,
+        None,
+        expected_resp_code
+    )
+    circulation_status = res.json["metadata"]["circulation_status"]
+    filter_keys = [
+        "loan_pid",
+        "patron_pid",
+    ]
+    if filtered:
+        for key in filter_keys:
+            assert key not in circulation_status
+    else:
+        for key in filter_keys:
+            assert key in circulation_status
