@@ -39,6 +39,8 @@ const postAction = (
   const payload = {
     transaction_user_pid: transactionUserPid,
     patron_pid: loan.metadata.patron_pid,
+    document_pid: loan.metadata.document_pid,
+    item_pid: loan.metadata.item_pid,
     transaction_location_pid: transactionLocationPid,
     transaction_date: toISO(now),
     ...params,
