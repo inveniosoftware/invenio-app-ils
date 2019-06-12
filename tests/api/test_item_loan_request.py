@@ -19,7 +19,7 @@ from invenio_app_ils.errors import PatronHasLoanOnItemError
 
 NEW_LOAN = {
     "item_pid": "itemid-10",
-    "document_pid": "docid-1",
+    "document_pid": "docid-11",
     "patron_pid": "1",
     "transaction_date": "2018-06-29",
     "transaction_location_pid": "locid-1",

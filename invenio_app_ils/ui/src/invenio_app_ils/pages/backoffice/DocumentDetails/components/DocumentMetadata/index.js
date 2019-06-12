@@ -5,6 +5,7 @@ import {
   deleteDocument,
   fetchDocumentDetails,
   updateDocument,
+  requestLoanForDocument,
 } from '../../state/actions';
 
 const mapStateToProps = state => ({
@@ -18,6 +19,8 @@ const mapDispatchToProps = dispatch => ({
   deleteDocument: documentPid => dispatch(deleteDocument(documentPid)),
   updateDocument: (documentPid, path, value) =>
     dispatch(updateDocument(documentPid, path, value)),
+  requestLoanForDocument: (docPid, patronPid, url) =>
+    dispatch(requestLoanForDocument(docPid, patronPid, url)),
 });
 
 export const DocumentMetadata = connect(

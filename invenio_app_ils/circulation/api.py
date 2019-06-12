@@ -15,9 +15,8 @@ from invenio_circulation.proxies import current_circulation
 from invenio_db import db
 
 from invenio_app_ils.errors import MissingRequiredParameterError, \
-    PatronHasLoanOnItemError
+    PatronHasLoanOnDocumentError, PatronHasLoanOnItemError
 from invenio_app_ils.proxies import current_app_ils_extension
-from invenio_app_ils.records.api import Item
 
 
 def request_loan(params):
@@ -30,13 +29,17 @@ def request_loan(params):
             description="'document_pid' is required on loan request")
 
     if patron_has_active_loan_on_item(patron_pid=params["patron_pid"],
-                                      item_pid=params["item_pid"]):
-        raise PatronHasLoanOnItemError(params["patron_pid"],
-                                       params["item_pid"])
+                                      document_pid=params["document_pid"]):
+        raise PatronHasLoanOnDocumentError(params["patron_pid"],
+                                           params["document_pid"])
 
     # create a new loan
     record_uuid = uuid.uuid4()
-    new_loan = {}
+    new_loan = {
+        "document_pid": params["document_pid"],
+        "patron_pid": params["patron_pid"],
+    }
+
     pid = loan_pid_minter(record_uuid, data=new_loan)
     loan = Loan.create(data=new_loan, id_=record_uuid)
 

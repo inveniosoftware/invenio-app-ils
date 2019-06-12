@@ -21,6 +21,7 @@ import {
   loan as loanApi,
   item as itemApi,
   keyword as keywordApi,
+  patron as patronApi,
 } from '../../../../../common/api';
 import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
@@ -44,6 +45,12 @@ export default class DocumentMetadata extends Component {
     const documentPid = this.props.documentDetails.metadata.document_pid;
     const keywordPids = results.map(result => result.metadata.keyword_pid);
     this.props.updateDocument(documentPid, '/keyword_pids', keywordPids);
+  };
+
+  requestLoan = results => {
+    const documentPid = this.props.documentDetails.metadata.document_pid;
+    const patronPid = results[0].metadata.id.toString();
+    this.props.requestLoanForDocument(documentPid, patronPid);
   };
 
   renderKeywords(keywords) {
@@ -217,6 +224,16 @@ export default class DocumentMetadata extends Component {
     }
   }
 
+  requestLoanButton = (
+    <Button
+      positive
+      icon="add"
+      labelPosition="left"
+      size="small"
+      content="Request"
+    />
+  );
+
   render() {
     const document = this.props.documentDetails;
     const readAccessSet = getReadAccessSet(document);
@@ -228,6 +245,12 @@ export default class DocumentMetadata extends Component {
       <Segment className="document-metadata">
         <Grid padded columns={2}>
           {this.renderHeader(document)}
+          <ESSelectorModal
+            trigger={this.requestLoanButton}
+            query={patronApi.list}
+            title={`Request a loan for document ${document.document_pid}`}
+            onSave={this.requestLoan}
+          />
           <Grid.Row>
             <Grid.Column>
               <MetadataTable rows={rows} />
