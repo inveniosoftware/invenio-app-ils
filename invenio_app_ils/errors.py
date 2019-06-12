@@ -140,6 +140,24 @@ class PatronHasLoanOnItemError(IlsException):
             patron_pid=patron_pid, item_pid=item_pid)
 
 
+class PatronHasLoanOnDocumentError(IlsException):
+    """A patron already has an active loan or a loan request on a document."""
+
+    description = ("Patron `patron_pid:{patron_pid}` already has an active "
+                   "loan or a loan request on document "
+                   "`document_pid:{document_pid}`")
+
+    def __init__(self, patron_pid, document_pid, **kwargs):
+        """Initialize PatronHasActiveLoanOnDocument exception.
+
+        :param loan_params: Loan request parameters.
+        :param prop: Missing property from loan request.
+        """
+        super(PatronHasLoanOnDocumentError, self).__init__(**kwargs)
+        self.description = self.description.format(
+            patron_pid=patron_pid, document_pid=document_pid)
+
+
 class NotImplementedConfigurationError(IlsException):
     """Exception raised when function is not implemented."""
 

@@ -8,12 +8,17 @@ import {
 } from './types';
 import { ES_DELAY } from '../../../../common/config';
 import { goTo } from '../../../../history';
-import { document as documentApi } from '../../../../common/api';
+import {
+  document as documentApi,
+  loan as loanApi,
+} from '../../../../common/api';
 import { BackOfficeRoutes } from '../../../../routes/urls';
 import {
   sendErrorNotification,
   sendSuccessNotification,
 } from '../../../../common/components/Notifications';
+import { sessionManager } from '../../../../authentication/services';
+import { ApiURLS } from '../../../../common/api/urls';
 
 export const fetchDocumentDetails = documentPid => {
   return async dispatch => {
@@ -103,5 +108,38 @@ export const updateDocument = (documentPid, path, value) => {
         });
         dispatch(sendErrorNotification(error));
       });
+  };
+};
+
+export const requestLoanForDocument = (docPid, patronPid) => {
+  return async dispatch => {
+    dispatch({
+      type: IS_LOADING,
+    });
+    const currentUser = sessionManager.user;
+    try {
+      const response = await loanApi.requestLoanOnDocument(
+        ApiURLS.loans.request,
+        docPid,
+        patronPid,
+        currentUser.id,
+        currentUser.locationPid
+      );
+      dispatch(
+        sendSuccessNotification(
+          'Success!',
+          `The loan has been requested. You can now view the loan details.`
+        )
+      );
+      setTimeout(() => {
+        dispatch(fetchDocumentDetails(docPid));
+      }, ES_DELAY);
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
   };
 };
