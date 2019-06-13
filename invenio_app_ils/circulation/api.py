@@ -19,8 +19,6 @@ from invenio_app_ils.errors import MissingRequiredParameterError, \
 from invenio_app_ils.proxies import current_app_ils_extension
 from invenio_app_ils.records.api import Item
 
-from ..records.api import Item
-
 
 def request_loan(params):
     """Create a loan and trigger the first transition to create a request."""
@@ -52,7 +50,7 @@ def request_loan(params):
 
 def _ensure_item_can_circulate(item_pid):
     """Change the item status to CAN_CIRCULATE if different."""
-    item = Item.get_record_by_pid(params['item_pid'])
+    item = Item.get_record_by_pid(item_pid)
     if item["status"] != "CAN_CIRCULATE":
         item = item.patch([{'op': 'replace', 'path': '/status',
                             'value': 'CAN_CIRCULATE'}])

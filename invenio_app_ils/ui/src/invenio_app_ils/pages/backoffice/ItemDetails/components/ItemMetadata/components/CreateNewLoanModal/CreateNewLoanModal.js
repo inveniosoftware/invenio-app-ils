@@ -7,7 +7,6 @@ import {
   Segment,
   Grid,
   Label,
-  Message,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
