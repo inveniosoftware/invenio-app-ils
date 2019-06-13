@@ -7,20 +7,13 @@
 
 """Test email notifications."""
 
-import json
-
 import pytest
-from celery.utils.log import get_task_logger
-from flask import current_app, url_for
 from flask_security import login_user
-from invenio_accounts.models import User
-from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
 from invenio_mail.tasks import send_email
 from jinja2.exceptions import TemplateError, TemplateNotFound
 
-from invenio_app_ils.circulation.mail.factory import message_factory
 from invenio_app_ils.circulation.mail.messages import BlockTemplatedMessage
 from invenio_app_ils.circulation.mail.tasks import send_ils_mail
 

@@ -9,10 +9,13 @@
 
 from invenio_app_ils.api import (  # isort:skip
     get_document_pid_by_item_pid,
-    item_exists,
-    get_location_pid_by_item_pid,
     get_item_pids_by_document_pid,
+    get_location_pid_by_item_pid,
+    item_exists,
+    patron_exists,
 )
+from invenio_accounts.models import User
+
 from invenio_app_ils.records.api import Document, Item
 
 
@@ -46,3 +49,10 @@ def test_item_exists(testdata):
 def test_circulation_item_not_exist(testdata):
     """Test return False if item does not exist."""
     assert not item_exists("not-existing-item-pid")
+
+
+def test_patron_exists(users):
+    """Test return True if item exists."""
+    test_patron = User.query.all()[0]
+    assert patron_exists(test_patron.id)
+    assert not patron_exists('not-existing-patron-pid')

@@ -9,6 +9,7 @@
 
 from __future__ import absolute_import, print_function
 
+from invenio_accounts.models import User
 from invenio_pidstore.errors import PersistentIdentifierError
 
 from .records.api import Item, Location
@@ -53,4 +54,4 @@ def item_exists(item_pid):
 
 def patron_exists(patron_pid):
     """Return True if the Patron exists given a PID."""
-    return True
+    return User.query.filter_by(id=patron_pid).first() is not None
