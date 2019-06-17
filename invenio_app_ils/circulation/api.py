@@ -17,6 +17,7 @@ from invenio_db import db
 from invenio_app_ils.errors import MissingRequiredParameterError, \
     PatronHasLoanOnDocumentError, PatronHasLoanOnItemError
 from invenio_app_ils.proxies import current_app_ils_extension
+from invenio_app_ils.records.api import Item
 
 
 def request_loan(params):

@@ -19,7 +19,7 @@ from invenio_app_ils.errors import PatronHasLoanOnItemError
 
 NEW_LOAN = {
     "item_pid": "itemid-10",
-    "document_pid": "docid-11",
+    "document_pid": "docid-3",
     "patron_pid": "1",
     "transaction_date": "2018-06-29",
     "transaction_location_pid": "locid-1",
@@ -57,15 +57,15 @@ def test_patron_cannot_request_loan_on_already_loaned_item(client,
         """Return an item PID of an existing loan for the given user."""
         for t in testdata['loans']:
             if t['patron_pid'] == user_id:
-                return t['item_pid']
+                return t['item_pid'], t['document_pid']
 
     user = users['patron1']
     login_user_via_session(client, email=User.query.get(user.id).email)
     url = url_for('invenio_app_ils_circulation.loan_request')
 
     duplicated_loan = dict(NEW_LOAN)
-    duplicated_loan['item_pid'] = _get_duplicated(str(user.id))
-
+    duplicated_loan['item_pid'], duplicated_loan['document_pid'] = \
+        _get_duplicated(str(user.id))
     res = client.post(url, headers=json_headers,
                       data=json.dumps(duplicated_loan))
     assert res.status_code == PatronHasLoanOnItemError.code

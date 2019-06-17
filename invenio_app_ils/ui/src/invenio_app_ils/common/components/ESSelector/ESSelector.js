@@ -42,6 +42,12 @@ export default class ESSelector extends Component {
     </Container>
   );
 
+  renderSelectionInfoText = () => {
+    return this.props.selections && this.props.selections.length !== 0
+      ? this.props.selectionInfoText
+      : this.props.emptySelectionInfoText;
+  };
+
   render() {
     return (
       <div id="es-selector">
@@ -57,6 +63,7 @@ export default class ESSelector extends Component {
           }
           ref={element => (this.searchRef = element)}
         />
+        <p>{this.renderSelectionInfoText()}</p>
         {!isEmpty(this.props.selections) && this.renderSelections()}
       </div>
     );
