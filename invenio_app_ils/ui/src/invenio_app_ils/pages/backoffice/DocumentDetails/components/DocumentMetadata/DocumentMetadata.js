@@ -9,6 +9,8 @@ import {
   Label,
   Icon,
   Button,
+  Divider,
+  Popup,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
@@ -27,30 +29,35 @@ import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 import { ESSelectorModal } from '../../../../../common/components/ESSelector';
 import { serializeKeyword } from '../../../../../common/components/ESSelector/serializer';
-import { DocumentAccessRestrictions } from '../DocumentAccessRestrictions';
-
-const getReadAccessSet = document => {
-  if (document.metadata._access && document.metadata._access.read) {
-    return new Set(document.metadata._access.read);
-  } else return new Set([]);
-};
+import has from 'lodash/has';
 
 export default class DocumentMetadata extends Component {
   constructor(props) {
     super(props);
     this.deleteDocument = props.deleteDocument;
+    this.documentPid = this.props.documentDetails.metadata.document_pid;
   }
 
+  getReadAccessList = document => {
+    return has(document, 'metadata._access.read')
+      ? document.metadata._access.read.map(this.serializePatron)
+      : [];
+  };
+
+  serializePatron = email => ({
+    id: email,
+    key: email,
+    title: email,
+  });
+
   updateKeywords = results => {
-    const documentPid = this.props.documentDetails.metadata.document_pid;
     const keywordPids = results.map(result => result.metadata.keyword_pid);
-    this.props.updateDocument(documentPid, '/keyword_pids', keywordPids);
+    this.props.updateDocument(this.documentPid, '/keyword_pids', keywordPids);
   };
 
   requestLoan = results => {
-    const documentPid = this.props.documentDetails.metadata.document_pid;
     const patronPid = results[0].metadata.id.toString();
-    this.props.requestLoanForDocument(documentPid, patronPid);
+    this.props.requestLoanForDocument(this.documentPid, patronPid);
   };
 
   renderKeywords(keywords) {
@@ -192,29 +199,32 @@ export default class DocumentMetadata extends Component {
     return rows;
   }
 
-  renderPublicAccessRights() {
-    return (
-      <Segment inverted color="green">
-        <Header>
-          <Icon name="lock open" />
-          Publicly Accessible
-        </Header>
-      </Segment>
-    );
+  renderPublicAccessRights(readAccessSet) {
+    if (!readAccessSet.length) {
+      return (
+        <Label
+          icon="lock open"
+          size="large"
+          inverted
+          color="green"
+          content="Publicly Accessible"
+        />
+      );
+    } else {
+      return null;
+    }
   }
 
   renderRestrictedAccessRights(readAccessSet) {
-    if (readAccessSet.size > 0) {
-      const userAccessList = Array.from(readAccessSet).map(email => (
-        <Label color="blue" key={email}>
-          {email}
-        </Label>
+    if (readAccessSet.length > 0) {
+      const userAccessList = readAccessSet.map(patron => (
+        <Label color="blue" key={patron.title} content={patron.title} />
       ));
       return (
         <Segment color="yellow">
           <Header>
             <Icon name="lock" />
-            Visible only to:
+            The document can be read by:
           </Header>
           {userAccessList}
         </Segment>
@@ -224,22 +234,32 @@ export default class DocumentMetadata extends Component {
     }
   }
 
+  setRestrictions = selections => {
+    const selectedIds = selections.map(selection =>
+      selection.title.toLowerCase()
+    );
+    this.props.setRestrictionsOnDocument(this.documentPid, selectedIds);
+  };
+
   requestLoanButton = (
-    <Button
-      positive
-      icon="add"
-      labelPosition="left"
-      size="small"
-      content="Request"
-    />
+    <div>
+      <Button
+        positive
+        icon="add"
+        labelPosition="left"
+        size="small"
+        content="New Loan Request"
+      />
+      <Popup
+        content="Request a loan on this document on behalf of a patron"
+        trigger={<Icon name="info circle" size="large" />}
+      />
+    </div>
   );
 
   render() {
     const document = this.props.documentDetails;
-    const readAccessSet = getReadAccessSet(document);
-    const isReadRestricted =
-      !isEmpty(document.metadata._access) &&
-      !isEmpty(document.metadata._access.read);
+    const readAccessSet = this.getReadAccessList(document);
     const rows = this.prepareData(document);
     return (
       <Segment className="document-metadata">
@@ -249,18 +269,42 @@ export default class DocumentMetadata extends Component {
             trigger={this.requestLoanButton}
             query={patronApi.list}
             title={`Request a loan for document ${document.document_pid}`}
+            content={
+              'Search for the patron to whom the loan should be assigned'
+            }
+            selectionInfoText={
+              'The loan will be assigned to the following patron'
+            }
+            emptySelectionInfoText={'No patrons selected yet'}
             onSave={this.requestLoan}
+            saveButtonContent={'Perform request'}
           />
           <Grid.Row>
             <Grid.Column>
               <MetadataTable rows={rows} />
-              {isReadRestricted
-                ? this.renderRestrictedAccessRights(readAccessSet)
-                : this.renderPublicAccessRights()}
-              <DocumentAccessRestrictions
-                document={document}
-                readAccessSet={readAccessSet}
-                maxSelection={1}
+              {this.renderRestrictedAccessRights(readAccessSet)}
+              {this.renderPublicAccessRights(readAccessSet)}
+              <Divider hidden />
+              <ESSelectorModal
+                multiple
+                initialSelections={readAccessSet}
+                trigger={
+                  <Button
+                    icon="privacy"
+                    color="yellow"
+                    content="Set Acccess Restrictions"
+                    onClick={this.toggleModal}
+                  />
+                }
+                query={patronApi.list}
+                title={'Modify access restrictions'}
+                content={'Search for patrons:'}
+                selectionInfoText={
+                  'The patron(s) listed below will have read access:'
+                }
+                emptySelectionInfoText={'Document will be made public'}
+                onSave={this.setRestrictions}
+                saveButtonContent={'Set access restrictions'}
               />
             </Grid.Column>
             <Grid.Column>

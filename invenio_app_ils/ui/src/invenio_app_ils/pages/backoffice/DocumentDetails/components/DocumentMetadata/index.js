@@ -6,6 +6,7 @@ import {
   fetchDocumentDetails,
   updateDocument,
   requestLoanForDocument,
+  setRestrictionsOnDocument,
 } from '../../state/actions';
 
 const mapStateToProps = state => ({
@@ -21,6 +22,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateDocument(documentPid, path, value)),
   requestLoanForDocument: (docPid, patronPid, url) =>
     dispatch(requestLoanForDocument(docPid, patronPid, url)),
+  setRestrictionsOnDocument: (pid, accessList) =>
+    dispatch(setRestrictionsOnDocument(pid, accessList)),
 });
 
 export const DocumentMetadata = connect(

@@ -1,3 +1,5 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   DELETE_IS_LOADING,
   DELETE_SUCCESS,
@@ -19,6 +21,38 @@ import {
 } from '../../../../common/components/Notifications';
 import { sessionManager } from '../../../../authentication/services';
 import { ApiURLS } from '../../../../common/api/urls';
+import isEmpty from 'lodash/isEmpty';
+
+export const setRestrictionsOnDocument = (pid, accessList) => {
+  const operation = isEmpty(accessList) ? 'remove' : 'add';
+  const ops = [{ op: operation, path: '/_access/read', value: accessList }];
+
+  return async dispatch => {
+    dispatch({
+      type: IS_LOADING,
+    });
+    try {
+      const response = await documentApi.patch(pid, ops);
+      dispatch({
+        type: SUCCESS,
+        payload: response.data,
+      });
+      dispatch(
+        sendSuccessNotification(
+          'Success!',
+          `The access restrictions have been set.`
+        )
+      );
+      dispatch(fetchDocumentDetails(pid));
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
+  };
+};
 
 export const fetchDocumentDetails = documentPid => {
   return async dispatch => {
@@ -125,12 +159,16 @@ export const requestLoanForDocument = (docPid, patronPid) => {
         currentUser.id,
         currentUser.locationPid
       );
-      dispatch(
-        sendSuccessNotification(
-          'Success!',
-          `The loan has been requested. You can now view the loan details.`
-        )
+      const loanPid = response.data.loan_pid;
+      const linkToLoan = (
+        <p>
+          The loan {loanPid} has been requested.
+          <Link to={BackOfficeRoutes.loanDetailsFor(loanPid)}>
+            You can now view the loan details.
+          </Link>
+        </p>
       );
+      dispatch(sendSuccessNotification('Success!', linkToLoan));
       setTimeout(() => {
         dispatch(fetchDocumentDetails(docPid));
       }, ES_DELAY);

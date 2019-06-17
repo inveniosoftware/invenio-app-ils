@@ -23,7 +23,7 @@ export default class ESSelectorModal extends Component {
   };
 
   render() {
-    const { title } = this.props;
+    const { title, content } = this.props;
     const trigger = React.cloneElement(this.props.trigger, {
       onClick: this.toggle,
     });
@@ -39,6 +39,7 @@ export default class ESSelectorModal extends Component {
       >
         <Modal.Header>{title}</Modal.Header>
         <Modal.Content>
+          <p>{content}</p>
           <ESSelector {...this.props} />
         </Modal.Content>
         <Modal.Actions>
@@ -49,7 +50,11 @@ export default class ESSelectorModal extends Component {
             positive
             icon="checkmark"
             labelPosition="right"
-            content="Save"
+            content={
+              this.props.saveButtonContent
+                ? this.props.saveButtonContent
+                : 'Save'
+            }
             onClick={this.save}
           />
         </Modal.Actions>
