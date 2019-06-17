@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { Menu, Segment, Grid } from 'semantic-ui-react';
 import { BackOfficeRoutes } from '../../../../routes/urls';
 import { goToHandler } from '../../../../history';
@@ -81,4 +82,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default withRouter(Header);
