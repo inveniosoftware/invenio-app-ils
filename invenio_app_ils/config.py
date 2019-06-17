@@ -19,13 +19,13 @@ from datetime import timedelta
 
 from flask import request
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
-from invenio_circulation.search.api import LoansSearch
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import deny_all
 
 from .api import can_item_circulate, get_document_pid_by_item_pid, \
     get_item_pids_by_document_pid, get_location_pid_by_item_pid, item_exists, \
     patron_exists
+from .circulation.search import IlsLoansSearch
 from .facets import keyed_range_filter
 from .jwt import ils_jwt_create_token
 from .records.resolver.loan import item_resolver
@@ -656,7 +656,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         pid_type=CIRCULATION_LOAN_PID_TYPE,
         pid_minter=CIRCULATION_LOAN_MINTER,
         pid_fetcher=CIRCULATION_LOAN_FETCHER,
-        search_class=LoansSearch,
+        search_class=IlsLoansSearch,
         search_factory_imp="invenio_app_ils.circulation.search"
                            ":circulation_search_factory",
         record_class="invenio_circulation.api:Loan",
@@ -732,7 +732,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
             order=1
         )
     ),
-    loans=dict(  # LoansSearch.Meta.index
+    loans=dict(  # IlsLoansSearch.Meta.index
         bestmatch=dict(
             fields=['-_score'],
             title='Best match',
@@ -832,7 +832,7 @@ RECORDS_REST_FACETS = dict(
             circulation_status=terms_filter('circulation_status.state'),
         )
     ),
-    loans=dict(  # LoansSearch.Meta.index
+    loans=dict(  # IlsLoansSearch.Meta.index
         aggs=dict(
             state=dict(
                 terms=dict(field="state"),

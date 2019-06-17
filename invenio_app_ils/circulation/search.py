@@ -10,22 +10,13 @@
 import re
 
 from elasticsearch_dsl.query import Q
-from flask import current_app, g, request
+from flask import current_app, g, has_request_context, request
 from flask_login import current_user
 from invenio_circulation.search.api import LoansSearch, search_by_pid
 from invenio_search.api import DefaultFilter
 
 from invenio_app_ils.errors import SearchQueryError, UnauthorizedSearchError
 from invenio_app_ils.permissions import backoffice_permission
-
-
-def loan_permission_filter():
-    """Filter loans by owner."""
-    if backoffice_permission().allows(g.identity):
-        return Q()
-
-    # Filter loans where the user is owner
-    return Q('match', **{'patron_pid': g.identity.id})
 
 
 class IlsLoansSearch(LoansSearch):
@@ -67,7 +58,6 @@ class IlsLoansSearch(LoansSearch):
 
         index = "loans"
         doc_types = None
-        default_filter = DefaultFilter(loan_permission_filter)
 
 
 def circulation_search_factory(self, search, query_parser=None):
@@ -95,7 +85,7 @@ def circulation_search_factory(self, search, query_parser=None):
     query = parser(qstr=query_string)
 
     # if the logged in user in not librarian or admin, validate the query
-    if not backoffice_permission().allows(g.identity):
+    if has_request_context() and not backoffice_permission().allows(g.identity):
         # patron can find only his loans
         if not query_string:
             # force query to be patron_pid:<logged in user>

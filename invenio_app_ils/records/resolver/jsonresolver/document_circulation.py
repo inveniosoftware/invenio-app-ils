@@ -8,10 +8,11 @@
 """Resolve the circulation status referenced in the Document."""
 
 import jsonresolver
+from invenio_circulation.proxies import current_circulation
+from invenio_records_rest.utils import obj_or_import_string
 from werkzeug.routing import Rule
 
-from invenio_app_ils.circulation.search import IlsLoansSearch
-from invenio_app_ils.search.api import ItemSearch
+from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
@@ -24,8 +25,14 @@ def jsonresolver_loader(url_map):
 
     def circulation_resolver(document_pid):
         """Return circulation info for the given Document."""
+        rest_cfg = current_app.config["CIRCULATION_REST_ENDPOINTS"]
+
+        loan_search = current_circulation.loan_search
+
+        record_cfg = current_app.config["RECORDS_REST_ENDPOINTS"]
+        ItemSearch = obj_or_import_string(
+            record_cfg[ITEM_PID_TYPE]["search_class"])
         item_search = ItemSearch()
-        loan_search = IlsLoansSearch()
 
         all_items_count = item_search.search_by_document_pid(
             document_pid).execute().hits.total
