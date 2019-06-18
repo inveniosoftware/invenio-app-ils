@@ -196,3 +196,11 @@ class ItemDocumentNotFoundError(IlsException):
         """Initialize exception."""
         super(ItemDocumentNotFoundError, self).__init__(**kwargs)
         self.description = self.description.format(document_pid)
+
+
+class RelatedRecordError(IlsException):
+    """Raised when an error occurrs with related records."""
+
+    def __init__(self, description):
+        """Initialize exception."""
+        super(RelatedRecordError, self).__init__(description=description)

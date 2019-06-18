@@ -64,7 +64,8 @@ install_requires = [
     "invenio-circulation>=1.0.0a14,<1.1.0",
     "invenio-records-editor>=1.0.0a3,<1.1.0",
     # until flask-sqlalchemy is fixed
-    "SQLAlchemy>=1.2.16,<1.3.0"
+    "SQLAlchemy>=1.2.16,<1.3.0",
+    "invenio-pidrelations>=1.0.0a5,<1.1.0",
 ]
 
 packages = find_packages()
@@ -108,7 +109,9 @@ setup(
         ],
         "invenio_base.api_blueprints": [
             "invenio_app_ils_circulation = "
-            "invenio_app_ils.circulation.views:create_circulation_blueprint"
+            "invenio_app_ils.circulation.views:create_circulation_blueprint",
+            "invenio_app_ils_relations = "
+            "invenio_app_ils.records.views:create_relations_blueprint",
         ],
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config"

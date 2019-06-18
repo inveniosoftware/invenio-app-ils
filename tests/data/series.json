@@ -1,12 +1,12 @@
 [
   {
-    "series_pid": "ser-1",
+    "series_pid": "serid-1",
     "title": "The Gulf: The Making of An American Sea",
     "authors": ["Jack E. Davis"],
     "abstracts": ["This is an abstract"]
   },
   {
-    "series_pid": "ser-2",
+    "series_pid": "serid-2",
     "title": "The Gulf: The Making of An American Sea",
     "authors": ["Jack E. Davis"],
     "abstracts": ["This is an abstract"]
