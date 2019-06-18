@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RelatedRecords tests should load the RelatedRecords component 1`] = `
+<Loader>
+  <Error>
+    <Grid>
+      <GridRow>
+        <GridColumn
+          width={8}
+        >
+          <ResultsTable
+            fixed={false}
+            headerActionClickHandler={null}
+            headerActionComponent={null}
+            name="related editions"
+            rowActionClickHandler={[Function]}
+            rows={Array []}
+            seeAllComponent={
+              <SeeAllButton
+                clickHandler={[Function]}
+                disabled={false}
+                fluid={false}
+              />
+            }
+            showMaxRows={5}
+            singleLine={false}
+            subtitle=""
+            title="Related editions"
+          />
+        </GridColumn>
+        <GridColumn
+          width={8}
+        >
+          <ResultsTable
+            fixed={false}
+            headerActionClickHandler={null}
+            headerActionComponent={null}
+            name="related translations"
+            rowActionClickHandler={[Function]}
+            rows={Array []}
+            seeAllComponent={
+              <SeeAllButton
+                clickHandler={[Function]}
+                disabled={false}
+                fluid={false}
+              />
+            }
+            showMaxRows={5}
+            singleLine={false}
+            subtitle=""
+            title="Related translations"
+          />
+        </GridColumn>
+      </GridRow>
+      <GridRow>
+        <GridColumn
+          width={13}
+        />
+        <GridColumn
+          width={3}
+        >
+          <Modal
+            centered={true}
+            closeOnDimmerClick={true}
+            closeOnDocumentClick={false}
+            content="Select related documents/series and their type of relation."
+            dimmer={true}
+            eventPool="Modal"
+            initialSelections={Array []}
+            multiple={true}
+            onRemoveSelection={[Function]}
+            onSave={[Function]}
+            selectorComponent={[Function]}
+            size="small"
+            title="Select Related"
+            trigger={
+              <Button
+                as="button"
+                color="blue"
+                content="Manage related"
+              />
+            }
+          />
+        </GridColumn>
+      </GridRow>
+    </Grid>
+  </Error>
+</Loader>
+`;

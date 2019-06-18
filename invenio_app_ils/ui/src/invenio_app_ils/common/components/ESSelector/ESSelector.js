@@ -26,38 +26,57 @@ export default class ESSelector extends Component {
     if (this.searchRef) {
       this.searchRef.searchInputRef.focus();
     }
+    if (this.props.onRemoveSelection) {
+      this.props.onRemoveSelection(selection);
+    }
     this.props.removeSelection(selection);
   };
 
-  renderSelections = () => (
+  renderSelection = selection => (
+    <List.Item key={selection.id}>
+      <List.Icon name="angle right" size="small" verticalAlign="middle" />
+      <List.Content onClick={() => this.removeSelection(selection)}>
+        <List.Header as="a">
+          <span className="extra">{selection.extra}</span>
+          {selection.title}
+          <Icon name="delete" />
+        </List.Header>
+        <List.Description as="a">{selection.description}</List.Description>
+      </List.Content>
+    </List.Item>
+  );
+
+  renderSelections = (selections, renderSelection) => (
     <Container className="result-selections">
       <List divided relaxed>
-        {this.props.selections.map(selection => (
-          <List.Item key={selection.id}>
-            <List.Icon name="angle right" size="small" verticalAlign="middle" />
-            <List.Content onClick={() => this.removeSelection(selection)}>
-              <List.Header as="a">
-                <span className="extra">{selection.extra}</span>
-                {selection.title}
-                <Icon name="delete" />
-              </List.Header>
-              <List.Description as="a">
-                {selection.description}
-              </List.Description>
-            </List.Content>
-          </List.Item>
-        ))}
+        {selections.map(selection => renderSelection(selection))}
       </List>
     </Container>
   );
 
   renderSelectionInfoText = () => {
-    return this.props.selections && this.props.selections.length !== 0
-      ? this.props.selectionInfoText
-      : this.props.emptySelectionInfoText;
+    const {
+      selections,
+      selectionInfoText,
+      emptySelectionInfoText,
+    } = this.props;
+    if (!isEmpty(selections) && (selectionInfoText || emptySelectionInfoText)) {
+      return (
+        <p>
+          {selections.length > 0 ? selectionInfoText : emptySelectionInfoText}
+        </p>
+      );
+    }
   };
 
   render() {
+    const { selections } = this.props;
+    const renderSelection = this.props.renderSelection
+      ? this.props.renderSelection
+      : this.renderSelection;
+    const renderSelections = this.props.renderSelections
+      ? this.props.renderSelections
+      : this.renderSelections;
     return (
       <div id="es-selector">
         <HitsSearch
@@ -68,8 +87,8 @@ export default class ESSelector extends Component {
           onSelect={this.onSelectResult}
           ref={element => (this.searchRef = element)}
         />
-        <p>{this.renderSelectionInfoText()}</p>
-        {!isEmpty(this.props.selections) && this.renderSelections()}
+        {this.renderSelectionInfoText()}
+        {renderSelections(selections, renderSelection)}
       </div>
     );
   }
@@ -83,9 +102,13 @@ ESSelector.propTypes = {
   multiple: PropTypes.bool,
   query: PropTypes.func.isRequired,
   onSelectResult: PropTypes.func,
+  onRemoveSelection: PropTypes.func,
+  renderSelections: PropTypes.func,
+  renderSelection: PropTypes.func,
 };
 
 ESSelector.defaultProps = {
   delay: 250,
+  initialSelections: [],
   minCharacters: 3,
 };

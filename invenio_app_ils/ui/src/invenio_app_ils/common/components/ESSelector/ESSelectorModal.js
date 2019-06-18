@@ -23,24 +23,25 @@ export default class ESSelectorModal extends Component {
   };
 
   render() {
-    const { title, content } = this.props;
+    const { title, content, selectorComponent, size } = this.props;
     const trigger = React.cloneElement(this.props.trigger, {
       onClick: this.toggle,
     });
+    const Selector = selectorComponent ? selectorComponent : ESSelector;
 
     return (
       <Modal
         id="es-selector-modal"
         open={this.state.visible}
         trigger={trigger}
-        size="tiny"
+        size={size}
         centered={false}
         onClose={this.toggle}
       >
         <Modal.Header>{title}</Modal.Header>
         <Modal.Content>
           <p>{content}</p>
-          <ESSelector {...this.props} />
+          <Selector {...this.props} />
         </Modal.Content>
         <Modal.Actions>
           <Button color="black" onClick={this.toggle}>
@@ -68,5 +69,14 @@ ESSelectorModal.propTypes = {
   multiple: PropTypes.bool,
   trigger: PropTypes.node.isRequired,
   title: PropTypes.string,
+  size: PropTypes.string,
   initialSelections: PropTypes.array,
+  onSelectResult: PropTypes.func,
+  onRemoveSelection: PropTypes.func,
+  renderSelections: PropTypes.func,
+  renderSelection: PropTypes.func,
+};
+
+ESSelectorModal.defaultProps = {
+  size: 'tiny',
 };

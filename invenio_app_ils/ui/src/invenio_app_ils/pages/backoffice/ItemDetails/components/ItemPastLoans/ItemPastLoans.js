@@ -58,7 +58,7 @@ export default class ItemPastLoans extends Component {
         rows={rows}
         title={'Loans history'}
         name={'loans'}
-        rowActionClickHandler={loanPid => goTo(this.showDetailsUrl(loanPid))}
+        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxPastLoans}
       />

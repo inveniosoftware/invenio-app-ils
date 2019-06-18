@@ -5,6 +5,8 @@ import { DocumentMetadata } from '../';
 import { DocumentPendingLoans } from '../DocumentPendingLoans';
 import { DocumentItems } from '../DocumentItems';
 import { DocumentStats } from '../DocumentStats';
+import { RelatedRecords } from '../../../../../common/components/RelatedRecords';
+import { ESSelectorModal } from '../../../../../common/components/ESSelector';
 
 export default class DocumentDetails extends Component {
   render() {
@@ -15,6 +17,7 @@ export default class DocumentDetails extends Component {
           <DocumentMetadata document={data} />
           <DocumentPendingLoans document={data} />
           <DocumentItems document={data} />
+          <RelatedRecords record={data} SelectorModal={ESSelectorModal} />
           <DocumentStats document={data} />
         </Error>
       </Loader>

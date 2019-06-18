@@ -54,7 +54,7 @@ export default class DocumentItems extends Component {
         rows={rows}
         title={'Attached items'}
         name={'attached items'}
-        rowActionClickHandler={itemPid => goTo(this.showDetailsUrl(itemPid))}
+        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxItems}
       />

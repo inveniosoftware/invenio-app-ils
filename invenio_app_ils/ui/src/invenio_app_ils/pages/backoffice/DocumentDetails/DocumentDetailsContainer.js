@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
 import { DocumentDetails } from './components';
+import history from '../../../history';
 
 export default class DocumentDetailsContainer extends Component {
   constructor(props) {
@@ -11,7 +12,16 @@ export default class DocumentDetailsContainer extends Component {
   }
 
   componentDidMount() {
+    this.unlisten = history.listen(loc => {
+      if (loc.state && loc.state.pid && loc.state.type === 'Document') {
+        this.fetchDocumentDetails(loc.state.pid);
+      }
+    });
     this.fetchDocumentDetails(this.props.match.params.documentPid);
+  }
+
+  componentWillUnmount() {
+    this.unlisten();
   }
 
   render() {

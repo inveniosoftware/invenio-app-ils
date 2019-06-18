@@ -47,9 +47,7 @@ export default class SeriesDocuments extends Component {
         rows={rows}
         title={'Documents'}
         name={'documents'}
-        rowActionClickHandler={documentPid =>
-          goTo(this.showDetailsUrl(documentPid))
-        }
+        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxDocuments}
       />

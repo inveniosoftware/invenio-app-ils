@@ -95,7 +95,7 @@ export default class AvailableItems extends Component {
         rows={rows}
         title={'Available items'}
         name={'available items'}
-        rowActionClickHandler={itemPid => goTo(this.showDetailsUrl(itemPid))}
+        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxItems}
       />

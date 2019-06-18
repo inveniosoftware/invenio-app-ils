@@ -29,3 +29,14 @@ export const prepareSumQuery = param => {
     return param;
   }
 };
+
+export const recordToPid = record => {
+  const schema = record.metadata['$schema'];
+  if (schema.includes('/documents/document-')) {
+    return [record['document_pid'], 'docid'];
+  } else if (schema.includes('/series/series-')) {
+    return [record['series_pid'], 'serid'];
+  }
+
+  throw Error(`Failed to find pid type of record: ${record}`);
+};

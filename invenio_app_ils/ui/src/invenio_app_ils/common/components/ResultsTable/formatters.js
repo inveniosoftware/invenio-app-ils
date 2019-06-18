@@ -1,6 +1,7 @@
 import { fromISO, toShortDate, toShortDateTime } from '../../api/date';
 import isEmpty from 'lodash/isEmpty';
 import assign from 'lodash/assign';
+import { RelationTypes } from '../ESSelector/ESRelatedSelector';
 
 function formatLoanToTableView(loan) {
   return {
@@ -133,6 +134,40 @@ function formatPatronToTableView(patron) {
     Email: patron.metadata.email,
   };
 }
+
+function formatPidTypeToName(pidType) {
+  switch (pidType) {
+    case 'docid':
+      return 'Document';
+    case 'serid':
+      return 'Series';
+    default:
+      console.warn(`Unknown pid type: ${pidType}`);
+  }
+}
+
+function formatRelatedToTableView(related) {
+  let relation;
+  const relationType = related.relation_type;
+
+  if (relationType === RelationTypes.EDITION.id) {
+    relation = RelationTypes.EDITION.text;
+  } else if (relationType === RelationTypes.LANGUAGE.id) {
+    relation = RelationTypes.LANGUAGE.text;
+  } else {
+    console.warn(`Unknown relation type: ${relationType}`);
+  }
+
+  return {
+    ID: related.pid,
+    Type: formatPidTypeToName(related.pid_type),
+    Title: related.title,
+    Edition: related.edition,
+    Language: related.language,
+    Relation: relation,
+  };
+}
+
 export const formatter = {
   loan: { toTable: formatLoanToTableView },
   document: { toTable: formatDocumentToTableView },
@@ -142,4 +177,5 @@ export const formatter = {
   internalLocation: { toTable: formatInternalLocationToTableView },
   series: { toTable: formatSeriesToTableView },
   patron: { toTable: formatPatronToTableView },
+  related: { toTable: formatRelatedToTableView },
 };

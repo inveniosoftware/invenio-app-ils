@@ -5,6 +5,7 @@ import { Settings } from 'luxon';
 import { Button } from 'semantic-ui-react';
 import history from '../../../../history';
 import { BackOfficeRoutes } from '../../../../routes/urls';
+import { formatter } from '../formatters';
 
 Settings.defaultZoneName = 'utc';
 
@@ -134,7 +135,7 @@ describe('ResultsTable tests', () => {
       .filterWhere(element => element.prop('data-test') === firstId)
       .find('button');
     button.simulate('click');
-    expect(mockedClickHandler).toHaveBeenCalledWith(firstId);
+    expect(mockedClickHandler).toHaveBeenCalledWith(results[0]);
   });
 
   it('should call see all click handler on see all click', () => {

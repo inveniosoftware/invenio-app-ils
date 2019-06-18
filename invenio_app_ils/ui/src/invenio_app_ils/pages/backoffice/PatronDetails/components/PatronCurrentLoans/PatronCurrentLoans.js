@@ -64,9 +64,7 @@ export default class PatronCurrentLoans extends Component {
             rows={rows}
             title={"Patron's current loans"}
             name={'current loans'}
-            rowActionClickHandler={loanPid =>
-              goTo(this.showDetailsUrl(loanPid))
-            }
+            rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
             seeAllComponent={this.seeAllButton()}
             showMaxRows={this.props.showMaxLoans}
           />

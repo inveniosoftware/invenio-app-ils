@@ -48,8 +48,8 @@ export class LoansSearch extends Component {
       <div className="results-list">
         <LoansResultsList
           results={results}
-          viewDetailsClickHandler={loanPid =>
-            goTo(BackOfficeRoutes.loanDetailsFor(loanPid))
+          viewDetailsClickHandler={row =>
+            goTo(BackOfficeRoutes.loanDetailsFor(row.ID))
           }
         />
       </div>

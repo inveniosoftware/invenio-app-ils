@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { ResultsList } from '../components';
+import { formatter } from '../../../../common/components/ResultsTable/formatters';
 
 describe('PatronsSearch ResultsList tests', () => {
   const results = [
@@ -72,6 +73,7 @@ describe('PatronsSearch ResultsList tests', () => {
       .filterWhere(element => element.prop('data-test') === firstId)
       .find('button');
     button.simulate('click');
-    expect(mockedClickHandler).toHaveBeenCalledWith(firstId);
+    const expected = formatter.patron.toTable(results[0]);
+    expect(mockedClickHandler).toHaveBeenCalledWith(expected);
   });
 });

@@ -214,15 +214,15 @@ def related_record(testdata):
     doc8 = Document.get_record_by_pid(docs[6]["document_pid"])
     doc9 = Document.get_record_by_pid(docs[7]["document_pid"])
 
-    doc1.add_related_edition(doc2)
-    doc1.add_related_edition(doc3)
-    doc1.add_related_edition(doc4)
-    doc1.add_related_edition(ser5)
+    doc1.related.add_edition(doc2)
+    doc1.related.add_edition(doc3)
+    doc1.related.add_edition(doc4)
+    doc1.related.add_edition(ser5)
 
-    doc1.add_related_language(doc6)
-    doc6.add_related_edition(doc7)
-    doc6.add_related_edition(doc8)
+    doc1.related.add_language(doc6)
+    doc6.related.add_edition(doc7)
+    doc6.related.add_edition(doc8)
 
-    doc1.add_related_language(doc9)
+    doc1.related.add_language(doc9)
 
     return doc1

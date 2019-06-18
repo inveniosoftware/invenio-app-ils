@@ -86,8 +86,8 @@ export class DocumentsSearch extends Component {
       <div className="results-list">
         <RecordsResultsList
           results={results}
-          viewDetailsClickHandler={documentPid =>
-            goTo(FrontSiteRoutes.documentDetailsFor(documentPid))
+          viewDetailsClickHandler={row =>
+            goTo(FrontSiteRoutes.documentDetailsFor(row.ID))
           }
         />
       </div>

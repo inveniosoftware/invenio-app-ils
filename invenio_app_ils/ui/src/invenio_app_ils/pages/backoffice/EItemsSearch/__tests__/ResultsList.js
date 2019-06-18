@@ -1,8 +1,10 @@
 import React from 'react';
+import omit from 'lodash/omit';
 import { mount } from 'enzyme';
 import { Settings } from 'luxon';
 import { fromISO, toISO } from '../../../../common/api/date';
 import { ResultsList } from '../components';
+import { formatter } from '../../../../common/components/ResultsTable/formatters';
 
 Settings.defaultZoneName = 'utc';
 
@@ -13,6 +15,7 @@ describe('EItemsSearch ResultsList tests', () => {
     {
       id: 987,
       created: toISO(stringDate),
+      updated: toISO(stringDate),
       metadata: {
         eitem_pid: 987,
         description: 'A description.',
@@ -78,6 +81,10 @@ describe('EItemsSearch ResultsList tests', () => {
       .filterWhere(element => element.prop('data-test') === firstId)
       .find('button');
     button.simulate('click');
-    expect(mockedClickHandler).toHaveBeenCalledWith(firstId);
+    const expected = omit(formatter.eitem.toTable(results[0]), [
+      'Created',
+      'Updated',
+    ]);
+    expect(mockedClickHandler).toHaveBeenCalledWith(expected);
   });
 });

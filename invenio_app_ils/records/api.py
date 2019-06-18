@@ -16,7 +16,6 @@ from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
 from invenio_db import db
 from invenio_jsonschemas import current_jsonschemas
-from invenio_pidrelations.api import PIDNode
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_pidstore.resolver import Resolver
@@ -25,7 +24,8 @@ from invenio_userprofiles.api import UserProfile
 
 from invenio_app_ils.errors import DocumentKeywordNotFoundError, \
     ItemDocumentNotFoundError, ItemHasActiveLoanError, \
-    RecordHasReferencesError, RelatedRecordError
+    RecordHasReferencesError
+from invenio_app_ils.records.related import RelatedRecords
 from invenio_app_ils.search.api import DocumentSearch, \
     InternalLocationSearch, ItemSearch
 
@@ -93,161 +93,25 @@ class IlsRecord(Record):
 class IlsRecordWithRelations(IlsRecord):
     """Ils records class with relations."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, data, model=None):
         """Initialize ILS record with relations."""
-        super(IlsRecordWithRelations, self).__init__(*args, **kwargs)
-        self.updated_related_records = []
-
-    @staticmethod
-    def edition_relation():
-        """Get edition relation type."""
-        return current_app.config["EDITION_RELATION"]
-
-    @staticmethod
-    def language_relation():
-        """Get language relation type."""
-        return current_app.config["LANGUAGE_RELATION"]
-
-    @staticmethod
-    def get_relation_by_id(relation_id):
-        """Get the relation_type by id."""
-        for relation in current_app.config["PIDRELATIONS_RELATION_TYPES"]:
-            if relation.id == relation_id:
-                return relation
-        raise RelatedRecordError(
-            "No relation type with id: {}".format(relation_id)
-        )
+        super(IlsRecordWithRelations, self).__init__(data, model=model)
+        self._related = RelatedRecords(self)
 
     @property
-    def editions(self):
-        """Get related editions."""
-        return self._get_related(self.edition_relation())
-
-    @property
-    def languages(self):
-        """Get related languages."""
-        return self._get_related(self.language_relation())
-
-    def get_node(self, relation_type):
-        """Get PIDNode for this record."""
-        return PIDNode(pid=self.pid, relation_type=relation_type)
-
-    def add_related_edition(self, record):
-        """Add record as a related edition record."""
-        self.add_related(record, self.edition_relation())
-
-    def remove_related_edition(self, record):
-        """Remove related edition record."""
-        self.remove_related(record, self.edition_relation())
-
-    def add_related_language(self, record):
-        """Add record as a related language record."""
-        self.add_related(record, self.language_relation())
-
-    def remove_related_language(self, record):
-        """Remove related language record."""
-        self.remove_related(record, self.language_relation())
-
-    def add_related(self, record, relation_type):
-        """Add related record with a relation."""
-        self._add_related_record(
-            record,
-            relation_type,
-            parent_node=self._parent_node(relation_type)
-        )
-
-    def remove_related(self, record, relation_type):
-        """Remove related record with a relation."""
-        self._remove_related_record(
-            record,
-            relation_type,
-            parent_node=self._parent_node(relation_type)
-        )
-
-    def _add_related_record(self, record, relation_type, parent_node=None):
-        """Add related record with a relation."""
-        record_node = record.get_node(relation_type)
-        if record_node.is_parent or record_node.is_child:
-            raise RelatedRecordError(
-                "failed to add related record because it already has relations"
-            )
-        if parent_node is None:
-            parent_node = self.get_node(relation_type)
-        self.dump_related_add(record, relation_type, update_related=True)
-        parent_node.insert_child(record.pid)
-
-    def _remove_related_record(self, record, relation_type, parent_node=None):
-        """Remove related record with a relation."""
-        if parent_node is None:
-            parent_node = self.get_node(relation_type)
-        parent_node.remove_child(record.pid)
-        self.dump_related_remove(record, relation_type, update_related=True)
-
-    def dump_related_add(self, record, relation, update_related=False):
-        """Add record to related records dump."""
-        obj = self.record_to_dump(record, relation)
-        related_records = self["related_records"]
-        if obj not in related_records:
-            related_records.append(obj)
-            record.dump_related_add(self, relation)
-            self.updated_related_records.append(record)
-
-            if update_related:
-                for related in self._get_related(relation):
-                    self.updated_related_records.append(related)
-                    related.dump_related_add(record, relation)
-
-    def dump_related_remove(self, record, relation, update_related=False):
-        """Add record to related records dump."""
-        obj = self.record_to_dump(record, relation)
-        related_records = self["related_records"]
-        if obj in related_records:
-            related_records.remove(obj)
-            record.dump_related_remove(self, relation)
-            self.updated_related_records.append(record)
-
-            if update_related:
-                for related in self._get_related(relation):
-                    self.updated_related_records.append(related)
-                    related.dump_related_remove(record, relation)
-
-    @classmethod
-    def record_to_dump(cls, record, relation_type):
-        """Convert a record to a dictionary dump."""
-        return dict(
-            pid=record[record.pid_field],
-            pid_type=record._pid_type,
-            relation_type=relation_type.id
-        )
+    def related(self):
+        """Get related proxy."""
+        return self._related
 
     def commit(self, commit_related=True, **kwargs):
         """Store changes of the current record instance in the database."""
         with db.session.begin_nested():
             if commit_related:
-                for related in self.updated_related_records:
+                for related in self.related.changed_related_records:
                     related.commit(commit_related=False)
             record = super(IlsRecordWithRelations, self).commit(**kwargs)
-            self.updated_related_records = []
+            self.related.changed_related_records = []
             return record
-
-    def _parent_node(self, relation_type):
-        """Get the parent node with the given relation_type."""
-        node = self.get_node(relation_type)
-        parents = list(node.parents)
-        is_child = len(parents) > 0
-        if is_child:
-            return PIDNode(pid=parents[0], relation_type=relation_type)
-        return self.get_node(relation_type)
-
-    def _get_related(self, relation_type):
-        """Get all related records with a specific relation type."""
-        node = self._parent_node(relation_type)
-        children = [node.pid] + list(node.children)
-        return [
-            self.get_record_by_pid(child.pid_value, pid_type=child.pid_type)
-            for child in children
-            if child.pid_value != self[self.pid_field]
-        ]
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):

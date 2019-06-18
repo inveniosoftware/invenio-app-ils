@@ -5,6 +5,7 @@ import { fromISO } from '../../../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import PatronPendingLoans from '../PatronPendingLoans';
 import history from '../../../../../../history';
+import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 
 jest.mock('../../../../../../common/config');
 
@@ -203,7 +204,7 @@ describe('PatronLoans tests', () => {
       .find('i');
     button.simulate('click');
 
-    const expectedParam = BackOfficeRoutes.loanDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam);
+    const expected = BackOfficeRoutes.loanDetailsFor(firstId);
+    expect(mockedHistoryPush).toHaveBeenCalledWith(expected, {});
   });
 });

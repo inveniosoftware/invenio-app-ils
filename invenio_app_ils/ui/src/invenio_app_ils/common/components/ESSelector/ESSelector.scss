@@ -1,6 +1,8 @@
 $es_red: #d41414;
 
 #es-selector {
+  width: 100%;
+
   .input {
     width: 100% !important;
   }
@@ -20,6 +22,8 @@ $es_red: #d41414;
   }
 
   .result-selections {
+    padding-bottom: 0;
+
     .extra {
       color: #21ba45;
       float: right;
