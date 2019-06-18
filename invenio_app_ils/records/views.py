@@ -17,7 +17,8 @@ from invenio_records_rest.views import pass_record
 from invenio_app_ils.circulation.views import IlsResource
 from invenio_app_ils.errors import RelatedRecordError
 from invenio_app_ils.pidstore.pids import DOCUMENT_PID_TYPE, SERIES_PID_TYPE
-from invenio_app_ils.records.api import IlsRecordWithRelations
+from invenio_app_ils.records.api import IlsRecord
+from invenio_app_ils.records.related import RelatedRecords
 
 
 def create_relations_blueprint(app):
@@ -63,7 +64,7 @@ class RelationResource(IlsResource):
     def _extend_related_records(self, record):
         """Extend record's related_record data with more fields."""
         for obj in record["related_records"]:
-            related = IlsRecordWithRelations.get_record_by_pid(
+            related = IlsRecord.get_record_by_pid(
                 obj["pid"],
                 pid_type=obj["pid_type"]
             )
@@ -85,18 +86,18 @@ class RelationResource(IlsResource):
     def post(self, record, **kwargs):
         """Update relations."""
         for obj in request.get_json():
-            related = IlsRecordWithRelations.get_record_by_pid(
+            related = IlsRecord.get_record_by_pid(
                 obj["pid"],
                 pid_type=obj["pid_type"]
             )
-            relation_type = IlsRecordWithRelations.get_relation_by_id(
+            relation_type = RelatedRecords.get_relation_by_id(
                 obj["relation_type"]
             )
             action = obj.get("action", "")
             if action == "add":
-                record.add_related(related, relation_type)
+                record.related.add(related, relation_type)
             elif action == "remove":
-                record.remove_related(related, relation_type)
+                record.related.remove(related, relation_type)
             else:
                 raise RelatedRecordError(
                     ("Failed to update related records - "

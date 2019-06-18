@@ -109,8 +109,8 @@ export default class ItemsSearch extends Component {
           results={results}
           checkoutItem={this.checkoutItem}
           fetchPatronCurrentLoans={this.fetchUpdatedCurrentLoans}
-          viewDetailsClickHandler={itemPid =>
-            goTo(BackOfficeRoutes.itemDetailsFor(itemPid))
+          viewDetailsClickHandler={row =>
+            goTo(BackOfficeRoutes.itemDetailsFor(row.ID))
           }
         />
       </div>

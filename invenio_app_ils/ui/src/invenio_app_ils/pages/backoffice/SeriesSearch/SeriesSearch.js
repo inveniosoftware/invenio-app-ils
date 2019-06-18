@@ -61,8 +61,8 @@ export class SeriesSearch extends Component {
       <div className="results-list">
         <SeriesResultsList
           results={results}
-          viewDetailsClickHandler={seriesPid =>
-            goTo(BackOfficeRoutes.seriesDetailsFor(seriesPid))
+          viewDetailsClickHandler={row =>
+            goTo(BackOfficeRoutes.seriesDetailsFor(row.ID))
           }
         />
       </div>

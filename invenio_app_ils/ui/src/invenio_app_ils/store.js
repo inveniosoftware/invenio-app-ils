@@ -51,6 +51,7 @@ import {
   mostRecentEbooksReducer,
 } from './pages/frontsite/Home/reducer';
 import { documentsDetailsReducer } from './pages/frontsite/DocumentsDetails/reducer';
+import relatedRecordsReducer from './common/components/RelatedRecords/state/reducer';
 
 const rootReducer = combineReducers({
   availableItems: availableItemsReducer,
@@ -85,6 +86,7 @@ const rootReducer = combineReducers({
   patronPendingLoans: patronPendingLoansReducer,
   seriesDetails: seriesDetailsReducer,
   seriesDocuments: seriesDocumentsReducer,
+  relatedRecords: relatedRecordsReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

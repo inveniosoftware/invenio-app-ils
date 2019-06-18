@@ -19,7 +19,7 @@ export default class ResultsTableBody extends Component {
           compact
           icon="eye"
           onClick={() => {
-            this.props.rowActionClickHandler(row.ID);
+            this.props.rowActionClickHandler(row);
           }}
           data-test={'btn-view-details-' + row.ID}
         />

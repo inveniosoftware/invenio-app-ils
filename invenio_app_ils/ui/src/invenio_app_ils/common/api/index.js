@@ -8,3 +8,4 @@ export { location } from './locations/location';
 export { internalLocation } from './locations/internalLocation';
 export { keyword } from './keywords/keyword';
 export { series } from './series/series';
+export { related } from './related/related';

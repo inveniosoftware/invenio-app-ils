@@ -43,8 +43,8 @@ export class PatronsSearch extends Component {
       <div className="results-list">
         <PatronsResultsList
           results={results}
-          viewDetailsClickHandler={patronPid =>
-            goTo(BackOfficeRoutes.patronDetailsFor(patronPid))
+          viewDetailsClickHandler={row =>
+            goTo(BackOfficeRoutes.patronDetailsFor(row.ID))
           }
         />
       </div>

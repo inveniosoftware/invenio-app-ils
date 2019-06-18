@@ -38,11 +38,6 @@ from .pidstore.pids import (  # isort:skip
 )
 
 
-def next_pid():
-    """Get the next PID."""
-    return str(RecordIdentifier.next())
-
-
 def minter(pid_type, pid_field, record):
     """Mint the given PID for the given record."""
     PersistentIdentifier.create(
@@ -52,6 +47,7 @@ def minter(pid_type, pid_field, record):
         object_uuid=record.id,
         status=PIDStatus.REGISTERED,
     )
+    RecordIdentifier.next()
 
 
 class Holder():
@@ -131,7 +127,7 @@ class LocationGenerator(Generator):
     def generate(self):
         """Generate."""
         self.holder.location = {
-            Location.pid_field: next_pid(),
+            Location.pid_field: "1",
             "name": "Central Library",
             "address": "Rue de Meyrin",
             "email": "library@cern.ch",
@@ -151,13 +147,13 @@ class InternalLocationGenerator(Generator):
         size = self.holder.internal_locations['total']
         location_pid_value = self.holder.location[Location.pid_field]
         objs = [{
-            InternalLocation.pid_field: next_pid(),
+            InternalLocation.pid_field: str(pid),
             "legacy_id": "{}".format(randint(100000, 999999)),
             "name": "Building {}".format(randint(1, 10)),
             "notes": lorem.sentence(),
             "physical_location": lorem.sentence(),
             Location.pid_field: location_pid_value
-        } for _ in range(size)]
+        } for pid in range(1, size+1)]
 
         self.holder.internal_locations['objs'] = objs
 
@@ -182,10 +178,10 @@ class KeywordGenerator(Generator):
         """Generate."""
         size = self.holder.keywords['total']
         objs = [{
-            Keyword.pid_field: next_pid(),
+            Keyword.pid_field: str(pid),
             "name": lorem.sentence().split()[0],
             "provenance": lorem.sentence(),
-        } for _ in range(size)]
+        } for pid in range(1, size+1)]
 
         self.holder.keywords['objs'] = objs
 
@@ -216,7 +212,7 @@ class ItemGenerator(Generator):
         iloc_pids = self.holder.pids('internal_locations', InternalLocation.pid_field)
         doc_pids = self.holder.pids('documents', Document.pid_field)
         objs = [{
-            Item.pid_field: next_pid(),
+            Item.pid_field: str(pid),
             Document.pid_field: random.choice(doc_pids),
             InternalLocation.pid_field: random.choice(iloc_pids),
             "legacy_id": "{}".format(randint(100000, 999999)),
@@ -228,7 +224,7 @@ class ItemGenerator(Generator):
             "medium": random.choice(self.ITEM_MEDIUMS),
             "status": random.choice(self.ITEM_STATUSES),
             "circulation_restriction": random.choice(self.ITEM_CIRCULATION_RESTRICTIONS),
-        } for _ in range(size)]
+        } for pid in range(1, size+1)]
 
         self.holder.items['objs'] = objs
 
@@ -255,14 +251,14 @@ class EItemGenerator(Generator):
         doc_pids = self.holder.pids('documents', Document.pid_field)
 
         objs = [{
-            EItem.pid_field: next_pid(),
+            EItem.pid_field: str(pid),
             Document.pid_field: random.choice(doc_pids),
             "description": "{}".format(lorem.text()),
             "internal_notes": "{}".format(lorem.text()),
             "urls": ["https://home.cern/science/physics/dark-matter",
                      "https://home.cern/science/physics/antimatter"],
             "open_access": bool(random.getrandbits(1))
-        } for _ in range(size)]
+        } for pid in range(1, size+1)]
 
         self.holder.eitems['objs'] = objs
 
@@ -311,7 +307,7 @@ class DocumentGenerator(Generator):
             return data
 
         objs = [{
-            Document.pid_field: next_pid(),
+            Document.pid_field: str(pid),
             "title": "{}".format(lorem.sentence()),
             "authors": ["{}".format(lorem.sentence())],
             "abstracts": ["{}".format(lorem.text())],
@@ -329,7 +325,7 @@ class DocumentGenerator(Generator):
             "information": "{}".format(lorem.text()),
             "keyword_pids": random.sample(keyword_pids, randint(0, 5)),
             "series_objs": random_series(),
-        } for _ in range(size)]
+        } for pid in range(1, size+1)]
 
         self.holder.documents['objs'] = objs
 
@@ -379,7 +375,7 @@ class LoanGenerator(Generator):
 
         current_year = datetime.now().year
         items_on_loans = []
-        for _ in range(size):
+        for pid in range(1, size+1):
             item = self._get_item_can_circulate(items)
             status = self._get_valid_status(item, items_on_loans)
             patron_id = random.choice(patrons_pids)
@@ -391,7 +387,7 @@ class LoanGenerator(Generator):
             end_date = transaction_date + timedelta(days=13)
 
             loan = {
-                Loan.pid_field: next_pid(),
+                Loan.pid_field: str(pid),
                 Document.pid_field: random.choice(doc_pids),
                 "extension_count": randint(0, 3),
                 "patron_pid": "{}".format(patron_id),
@@ -445,7 +441,7 @@ class SeriesGenerator(Generator):
         keyword_pids = self.holder.pids('keywords', Keyword.pid_field)
 
         objs = [{
-            Series.pid_field: next_pid(),
+            Series.pid_field: str(pid),
             "mode_of_issuance": random.choice(self.MODE_OF_ISSUANCE),
             "issn": self.random_issn(),
             "title": "{}".format(lorem.sentence()),
@@ -462,7 +458,7 @@ class SeriesGenerator(Generator):
             "chapters": ["{}".format(lorem.sentence())],
             "information": "{}".format(lorem.text()),
             "keyword_pids": random.sample(keyword_pids, randint(0, 5)),
-        } for _ in range(size)]
+        } for pid in range(1, size+1)]
 
         self.holder.series['objs'] = objs
 
@@ -488,7 +484,7 @@ class RelatedRecordsGenerator(Generator):
         language_parents = random.sample(rec_docs, randint(2, 4))
         objs = [language_parents[0]]
         for record in language_parents[1:]:
-            language_parents[0].add_related_language(record)
+            language_parents[0].related.add_language(record)
             objs.append(record)
 
         editions = rec_docs + rec_series
@@ -497,7 +493,7 @@ class RelatedRecordsGenerator(Generator):
             while num_editions:
                 try:
                     edition = editions.pop()
-                    parent.add_related_edition(edition)
+                    parent.related.add_edition(edition)
                     objs.append(edition)
                     num_editions -= 1
                 except RelatedRecordError:

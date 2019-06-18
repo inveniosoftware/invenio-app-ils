@@ -42,8 +42,8 @@ export class ItemsSearch extends Component {
       <div className="results-list">
         <ItemsResultsList
           results={results}
-          viewDetailsClickHandler={itemPid => {
-            goTo(BackOfficeRoutes.itemDetailsFor(itemPid));
+          viewDetailsClickHandler={row => {
+            goTo(BackOfficeRoutes.itemDetailsFor(row.ID));
           }}
         />
       </div>

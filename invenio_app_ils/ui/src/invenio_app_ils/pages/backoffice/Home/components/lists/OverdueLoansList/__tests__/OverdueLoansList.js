@@ -145,6 +145,6 @@ describe('OverdueLoansList tests', () => {
     button.simulate('click');
 
     const expectedParam = BackOfficeRoutes.loanDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam);
+    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
   });
 });

@@ -50,9 +50,7 @@ export default class OverbookedDocumentsList extends Component {
           'Documents with more requests than the number of available items for loan.'
         }
         name={'overbooked documents'}
-        rowActionClickHandler={documentPid =>
-          goTo(this.showDetailsUrl(documentPid))
-        }
+        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
         fixed

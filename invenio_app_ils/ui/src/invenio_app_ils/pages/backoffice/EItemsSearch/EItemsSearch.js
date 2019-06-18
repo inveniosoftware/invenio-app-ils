@@ -41,8 +41,8 @@ export class EItemsSearch extends Component {
       <div className="results-list">
         <EItemsResultsList
           results={results}
-          viewDetailsClickHandler={eitemPid =>
-            goTo(BackOfficeRoutes.eitemDetailsFor(eitemPid))
+          viewDetailsClickHandler={row =>
+            goTo(BackOfficeRoutes.eitemDetailsFor(row.ID))
           }
         />
       </div>

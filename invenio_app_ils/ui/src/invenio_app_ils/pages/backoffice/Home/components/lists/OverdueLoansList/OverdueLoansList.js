@@ -51,7 +51,7 @@ export default class OverdueLoansList extends Component {
         title={'Overdue loans'}
         subtitle={'Active loans with past due end date.'}
         name={'overdue loans'}
-        rowActionClickHandler={loanPid => goTo(this.showDetailsUrl(loanPid))}
+        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
       />

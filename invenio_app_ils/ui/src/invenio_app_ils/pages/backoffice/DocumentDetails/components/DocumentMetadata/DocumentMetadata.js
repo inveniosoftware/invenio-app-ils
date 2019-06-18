@@ -253,7 +253,7 @@ export default class DocumentMetadata extends Component {
     </div>
   );
 
-  onSelectResult = result => {
+  onSelectPatronResult = result => {
     result['metadata']['email'] = result['metadata']['email'].toLowerCase();
     result['id'] = result['metadata']['email'];
     result['title'] = result['metadata']['email'];
@@ -307,7 +307,7 @@ export default class DocumentMetadata extends Component {
                 emptySelectionInfoText={'Document will be made public'}
                 onSave={this.setRestrictions}
                 saveButtonContent={'Set access restrictions'}
-                onSelectResult={this.onSelectResult}
+                onSelectResult={this.onSelectPatronResult}
               />
             </Grid.Column>
             <Grid.Column>

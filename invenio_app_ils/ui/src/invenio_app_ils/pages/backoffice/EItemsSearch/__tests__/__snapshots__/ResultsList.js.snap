@@ -23,6 +23,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
           "eitem_pid": 987,
           "internal_notes": "Internal notes.",
         },
+        "updated": "2018-01-01T10:05:00.000Z",
       },
     ]
   }

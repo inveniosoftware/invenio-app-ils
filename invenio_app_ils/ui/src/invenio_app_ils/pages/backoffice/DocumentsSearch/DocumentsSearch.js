@@ -56,8 +56,8 @@ export class DocumentsSearch extends Component {
       <div className="results-list">
         <DocumentsResultsList
           results={results}
-          viewDetailsClickHandler={documentPid =>
-            goTo(BackOfficeRoutes.documentDetailsFor(documentPid))
+          viewDetailsClickHandler={row =>
+            goTo(BackOfficeRoutes.documentDetailsFor(row.ID))
           }
         />
       </div>

@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import { Settings } from 'luxon';
 import { fromISO } from '../../../../common/api/date';
 import { ResultsList } from '../components';
+import { formatter } from '../../../../common/components/ResultsTable/formatters';
 
 Settings.defaultZoneName = 'utc';
 
@@ -75,6 +76,7 @@ describe('SeriesSearch ResultsList tests', () => {
       .filterWhere(element => element.prop('data-test') === firstId)
       .find('button');
     button.simulate('click');
-    expect(mockedClickHandler).toHaveBeenCalledWith(firstId);
+    const expected = formatter.series.toTable(results[0]);
+    expect(mockedClickHandler).toHaveBeenCalledWith(expected);
   });
 });

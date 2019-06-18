@@ -147,6 +147,6 @@ describe('OverbookedDocumentsList tests', () => {
     button.simulate('click');
 
     const expectedParam = BackOfficeRoutes.documentDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam);
+    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
   });
 });

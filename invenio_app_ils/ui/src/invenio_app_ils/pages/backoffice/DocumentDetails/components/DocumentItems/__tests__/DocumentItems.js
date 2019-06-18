@@ -204,6 +204,6 @@ describe('DocumentItems tests', () => {
     button.simulate('click');
 
     const expectedParam = BackOfficeRoutes.itemDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam);
+    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
   });
 });
