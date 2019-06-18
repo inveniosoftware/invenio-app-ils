@@ -13,7 +13,6 @@ from elasticsearch_dsl.query import Q
 from flask import current_app, g, has_request_context, request
 from flask_login import current_user
 from invenio_circulation.search.api import LoansSearch, search_by_pid
-from invenio_search.api import DefaultFilter
 
 from invenio_app_ils.errors import SearchQueryError, UnauthorizedSearchError
 from invenio_app_ils.permissions import backoffice_permission

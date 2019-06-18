@@ -7,6 +7,12 @@
 
 """Test ILS APIs."""
 
+import pytest
+from invenio_accounts.models import User
+
+from invenio_app_ils.records.api import Document, IlsRecord, Item, Keyword, \
+    Series
+
 from invenio_app_ils.api import (  # isort:skip
     get_document_pid_by_item_pid,
     get_item_pids_by_document_pid,
@@ -14,9 +20,6 @@ from invenio_app_ils.api import (  # isort:skip
     item_exists,
     patron_exists,
 )
-from invenio_accounts.models import User
-
-from invenio_app_ils.records.api import Document, Item
 
 
 def test_get_item_pids_by_document_pid(testdata):
@@ -56,3 +59,37 @@ def test_patron_exists(users):
     test_patron = User.query.all()[0]
     assert patron_exists(test_patron.id)
     assert not patron_exists('not-existing-patron-pid')
+
+
+@pytest.mark.parametrize(
+    "pid, cls",
+    [
+        ('docid-1', Document),
+        ('keyid-1', Keyword),
+        ('serid-1', Series),
+    ]
+)
+def test_get_record_by_pid(testdata, pid, cls):
+    """Test get_record_by_pid."""
+    record = cls.get_record_by_pid(pid)
+
+    assert isinstance(record, cls)
+    assert record[record.pid_field] == pid
+    assert record._pid_type == cls._pid_type
+
+
+@pytest.mark.parametrize(
+    "pid, pid_type, expected_cls",
+    [
+        ('docid-1', 'docid', Document),
+        ('keyid-1', 'keyid', Keyword),
+        ('serid-1', 'serid', Series),
+    ]
+)
+def test_get_record_by_pid_and_pid_type(testdata, pid, pid_type, expected_cls):
+    """Test get_record_by_pid with pid_type."""
+    record = IlsRecord.get_record_by_pid(pid, pid_type=pid_type)
+
+    assert isinstance(record, expected_cls)
+    assert record[record.pid_field] == pid
+    assert record._pid_type == pid_type

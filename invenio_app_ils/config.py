@@ -19,6 +19,7 @@ from datetime import timedelta
 
 from flask import request
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
+from invenio_pidrelations.config import RelationType
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import deny_all
 
@@ -47,7 +48,6 @@ from .records.api import (  # isort:skip
     InternalLocation,
     Series,
 )
-
 from .records.permissions import (  # isort:skip
     record_create_permission_factory,
     record_delete_permission_factory,
@@ -1062,3 +1062,13 @@ ACCOUNTS_REST_READ_USERS_LIST_PERMISSION_FACTORY = backoffice_permission
 
 ACCOUNTS_JWT_CREATION_FACTORY = ils_jwt_create_token
 """ILS Jwt creation factory"""
+
+# PID Relations
+# ==============
+LANGUAGE_RELATION = RelationType(0, "language", "Language", "", "")
+EDITION_RELATION = RelationType(1, "edition", "Edition", "", "")
+
+PIDRELATIONS_RELATION_TYPES = [
+    LANGUAGE_RELATION,
+    EDITION_RELATION,
+]

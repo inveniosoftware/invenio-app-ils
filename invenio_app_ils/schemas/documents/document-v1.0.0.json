@@ -118,6 +118,23 @@
         }
       }
     },
+    "related_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pid": {
+            "type": "string"
+          },
+          "pid_type": {
+            "type": "string"
+          },
+          "relation_type": {
+            "type": "integer"
+          }
+        }
+      }
+    },
     "_access": {
       "type": "object",
       "properties": {

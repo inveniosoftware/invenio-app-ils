@@ -40,5 +40,23 @@
     "title": "Less: A Novel",
     "authors": ["Andrew Sean Greer"],
     "abstracts": ["This is an abstract"]
+  },
+  {
+    "document_pid": "docid-6",
+    "title": "Less: A Novel",
+    "authors": ["Andrew Sean Greer"],
+    "abstracts": ["This is an abstract"]
+  },
+  {
+    "document_pid": "docid-7",
+    "title": "Less: A Novel",
+    "authors": ["Andrew Sean Greer"],
+    "abstracts": ["This is an abstract"]
+  },
+  {
+    "document_pid": "docid-8",
+    "title": "Less: A Novel",
+    "authors": ["Andrew Sean Greer"],
+    "abstracts": ["This is an abstract"]
   }
 ]

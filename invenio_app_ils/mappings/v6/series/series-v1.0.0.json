@@ -44,6 +44,20 @@
             }
           }
         },
+        "related_records": {
+          "type": "object",
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            },
+            "pid_type": {
+              "type": "keyword"
+            },
+            "relation_type": {
+              "type": "integer"
+            }
+          }
+        },
         "_created": {
           "type": "date"
         },

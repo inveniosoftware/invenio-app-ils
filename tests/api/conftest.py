@@ -163,7 +163,7 @@ def testdata(app, db, es_clear):
         "items": items,
         "loans": loans,
         "keywords": keywords,
-        "series": series,
+        "series": series_data,
     }
 
 
@@ -196,3 +196,33 @@ def example_message_factory():
             body=body
         )
     return partial(message_factory, loader)
+
+
+@pytest.fixture()
+def related_record(testdata):
+    """An example of a record with several relations."""
+    docs = testdata["documents"]
+    series = testdata["series"]
+
+    doc1 = Document.get_record_by_pid(docs[0]["document_pid"])
+    doc2 = Document.get_record_by_pid(docs[1]["document_pid"])
+    doc3 = Document.get_record_by_pid(docs[2]["document_pid"])
+    doc4 = Document.get_record_by_pid(docs[3]["document_pid"])
+    ser5 = Series.get_record_by_pid(series[0]["series_pid"])
+    doc6 = Document.get_record_by_pid(docs[4]["document_pid"])
+    doc7 = Document.get_record_by_pid(docs[5]["document_pid"])
+    doc8 = Document.get_record_by_pid(docs[6]["document_pid"])
+    doc9 = Document.get_record_by_pid(docs[7]["document_pid"])
+
+    doc1.add_related_edition(doc2)
+    doc1.add_related_edition(doc3)
+    doc1.add_related_edition(doc4)
+    doc1.add_related_edition(ser5)
+
+    doc1.add_related_language(doc6)
+    doc6.add_related_edition(doc7)
+    doc6.add_related_edition(doc8)
+
+    doc1.add_related_language(doc9)
+
+    return doc1
