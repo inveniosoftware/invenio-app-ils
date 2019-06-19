@@ -18,7 +18,7 @@ ils = WebpackBundle(
         'app_ils': './invenio_app_ils/index.js',
     },
     dependencies={
-        "axios": "^0.18.0",
+        "axios": "^0.18.1",
         "lodash": "^4.17.11",
         "luxon": "^1.7.1",
         "node-sass": "^4.10.0",
