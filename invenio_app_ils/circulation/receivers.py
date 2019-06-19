@@ -23,9 +23,6 @@ from invenio_app_ils.records.api import Item
 def register_circulation_signals():
     """Register Circulation signal."""
     loan_state_changed.connect(
-        index_record_after_loan_change, weak=False
-    )
-    loan_state_changed.connect(
         send_email_after_loan_change, weak=False
     )
     loan_replace_item.connect(
@@ -42,11 +39,6 @@ def index_after_loan_replace_item(_, old_item_pid, new_item_pid):
     if new_item_pid:
         item = Item.get_record_by_pid(new_item_pid)
         current_app_ils_extension.item_indexer.index(item)
-
-
-def index_record_after_loan_change(_, loan, prev_loan=None, trigger=None):
-    """Reindex item when attached loan changes."""
-    current_app_ils_extension.loan_indexer.index(loan)
 
 
 def send_email_after_loan_change(_, prev_loan, loan, trigger):
