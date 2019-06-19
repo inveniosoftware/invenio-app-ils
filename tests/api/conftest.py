@@ -21,8 +21,6 @@ from invenio_search import current_search
 
 from invenio_app_ils.circulation.mail.factory import loan_message_factory, \
     message_factory
-from invenio_app_ils.circulation.receivers import \
-    index_record_after_loan_change
 from invenio_app_ils.records.api import Document, EItem, InternalLocation, \
     Item, Keyword, Location, Series
 
@@ -107,6 +105,14 @@ def testdata(app, db, es_clear):
         db.session.commit()
         indexer.index(record)
 
+    keywords = load_json_from_datadir("keywords.json")
+    for keyword in keywords:
+        record = Keyword.create(keyword)
+        mint_record_pid(KEYWORD_PID_TYPE, Keyword.pid_field, record)
+        record.commit()
+        db.session.commit()
+        indexer.index(record)
+
     series_data = load_json_from_datadir("series.json")
     for series in series_data:
         record = Series.create(series)
@@ -143,16 +149,6 @@ def testdata(app, db, es_clear):
     for loan in loans:
         record = Loan.create(loan)
         mint_record_pid(CIRCULATION_LOAN_PID_TYPE, Loan.pid_field, record)
-        record.commit()
-        db.session.commit()
-        indexer.index(record)
-        # re-index item attached to the loan
-        index_record_after_loan_change(app, record)
-
-    keywords = load_json_from_datadir("keywords.json")
-    for keyword in keywords:
-        record = Keyword.create(keyword)
-        mint_record_pid(KEYWORD_PID_TYPE, Keyword.pid_field, record)
         record.commit()
         db.session.commit()
         indexer.index(record)

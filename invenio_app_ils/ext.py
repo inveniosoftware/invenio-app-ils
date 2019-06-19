@@ -12,6 +12,7 @@ from __future__ import absolute_import, print_function
 import logging
 
 from flask import Blueprint, current_app
+from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_indexer.api import RecordIndexer
 from invenio_rest.errors import RESTException
 from werkzeug.utils import cached_property
@@ -54,7 +55,7 @@ class _InvenioAppIlsState(object):
     def loan_indexer(self):
         """Return a loan indexer instance."""
         endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', [])
-        pid_type = DOCUMENT_PID_TYPE
+        pid_type = CIRCULATION_LOAN_PID_TYPE
         _cls = endpoints.get(pid_type, {}).get('indexer_class', RecordIndexer)
         return _cls()
 
