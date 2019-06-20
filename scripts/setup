@@ -6,37 +6,4 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-set -e
-
-# Clean redis
-ils shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
-ils db destroy --yes-i-know
-ils db init create
-ils index destroy --force --yes-i-know
-ils index init --force
-ils index queue init purge
-
-# Create roles to restrict access
-ils roles create admin
-ils roles create librarian
-
-# create users
-ils users create patron1@test.ch -a --password=123456 # ID 1
-ils users create patron2@test.ch -a --password=123456 # ID 2
-ils users create admin@test.ch -a --password=123456 # ID 3
-ils users create librarian@test.ch -a --password=123456 # ID 4
-ils users create patron3@test.ch -a --password=123456 # ID 5
-ils users create patron4@test.ch -a --password=123456 # ID 6
-
-
-# assign roles
-ils roles add admin@test.ch admin
-ils roles add librarian@test.ch librarian
-# assign actions
-ils access allow superuser-access role admin
-ils access allow ils-backoffice-access role librarian
-
-#index users
-ils patrons index
-# Create demo data
-ils demo data
+ils setup --verbose

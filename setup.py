@@ -94,7 +94,8 @@ setup(
         "console_scripts": ["ils = invenio_app.cli:cli"],
         "flask.commands": [
             "demo = invenio_app_ils.cli:demo",
-            "patrons = invenio_app_ils.cli:patrons"
+            "patrons = invenio_app_ils.cli:patrons",
+            "setup = invenio_app_ils.cli:setup",
         ],
         "invenio_base.apps": [
             "invenio_app_ils_ui = invenio_app_ils.ext:InvenioAppIlsUI"

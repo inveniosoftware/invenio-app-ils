@@ -619,3 +619,69 @@ def index():
     for pat in patrons:
         patron = Patron(pat.id)
         indexer.index(patron)
+
+
+@click.command()
+@click.option('--skip-db-destroy', is_flag=True, help='Skip destroying DB.')
+@click.option('--skip-demo-data', is_flag=True, help='Skip creating demo data.')
+@click.option('--skip-patrons', is_flag=True, help='Skip creating patrons.')
+@click.option('--verbose', is_flag=True, help='Verbose output.')
+@with_appcontext
+def setup(skip_db_destroy, skip_demo_data, skip_patrons, verbose):
+    """ILS setup command."""
+    from flask import current_app
+    from invenio_base.app import create_cli
+    import redis
+
+    click.secho('ils setup started...', fg='blue')
+
+    # Clean redis
+    redis.StrictRedis.from_url(current_app.config['CACHE_REDIS_URL']).flushall()
+    click.secho('redis cache cleared...', fg='red')
+
+    cli = create_cli()
+    runner = current_app.test_cli_runner()
+
+    def run_command(command, catch_exceptions=False):
+        click.secho('ils {}...'.format(command), fg='green')
+        res = runner.invoke(cli, command, catch_exceptions=catch_exceptions)
+        if verbose:
+            click.secho(res.output)
+
+    # Remove and create db and indexes
+    if not skip_db_destroy:
+        run_command('db destroy --yes-i-know', catch_exceptions=True)
+    run_command('db init create')
+    run_command('index destroy --force --yes-i-know')
+    run_command('index init --force')
+    run_command('index queue init purge')
+
+    # Create roles to restrict access
+    run_command('roles create admin')
+    run_command('roles create librarian')
+
+    if not skip_patrons:
+        # Create users
+        run_command('users create patron1@test.ch -a --password=123456')  # ID 1
+        run_command('users create patron2@test.ch -a --password=123456')  # ID 2
+        run_command('users create admin@test.ch -a --password=123456')  # ID 3
+        run_command('users create librarian@test.ch -a --password=123456')  # ID 4
+        run_command('users create patron3@test.ch -a --password=123456')  # ID 5
+        run_command('users create patron4@test.ch -a --password=123456')  # ID 6
+
+        # Assign roles
+        run_command('roles add admin@test.ch admin')
+        run_command('roles add librarian@test.ch librarian')
+
+    # Assign actions
+    run_command('access allow superuser-access role admin')
+    run_command('access allow ils-backoffice-access role librarian')
+
+    # Index patrons
+    run_command('patrons index')
+
+    # Generate demo data
+    if not skip_demo_data:
+        run_command('demo data')
+
+    click.secho('ils setup finished successfully', fg='blue')
