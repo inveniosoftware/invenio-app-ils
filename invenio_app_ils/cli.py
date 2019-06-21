@@ -8,7 +8,6 @@
 """CLI for Invenio App ILS."""
 import random
 from datetime import datetime, timedelta
-from functools import partial
 from random import randint
 
 import click
@@ -34,7 +33,6 @@ from .pidstore.pids import (  # isort:skip
     LOCATION_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
     KEYWORD_PID_TYPE,
-    PATRON_PID_TYPE,
     SERIES_PID_TYPE,
 )
 
@@ -204,9 +202,9 @@ class ItemGenerator(Generator):
         total_intlocs = self.holder.internal_locations['total']
         total_docs = self.holder.documents['total']
         objs = [{
-            Document.pid_field: "{}".format(randint(1, total_docs-1)),
+            Document.pid_field: "{}".format(randint(1, total_docs - 1)),
             Item.pid_field: "{}".format(i),
-            InternalLocation.pid_field: "{}".format(randint(1, total_intlocs-1)),
+            InternalLocation.pid_field: "{}".format(randint(1, total_intlocs - 1)),
             "legacy_id": "{}".format(randint(100000, 999999)),
             "legacy_library_id": "{}".format(randint(5, 50)),
             "barcode": "{}".format(randint(10000000, 99999999)),
@@ -243,7 +241,7 @@ class EItemGenerator(Generator):
         total_docs = self.holder.documents['total']
 
         objs = [{
-            Document.pid_field: "{}".format(randint(1, total_docs-1)),
+            Document.pid_field: "{}".format(randint(1, total_docs - 1)),
             EItem.pid_field: "{}".format(i),
             "description": "{}".format(lorem.text()),
             "internal_notes": "{}".format(lorem.text()),
@@ -277,8 +275,6 @@ class DocumentGenerator(Generator):
     def generate(self):
         """Generate."""
         size = self.holder.documents['total']
-        total_keywords = self.holder.keywords['total']
-        total_series = self.holder.series['total']
         series_objs = self.holder.series['objs']
         keywords = self.holder.keywords['objs']
         keyword_pids = [keyword['keyword_pid'] for keyword in keywords]
@@ -308,7 +304,7 @@ class DocumentGenerator(Generator):
             "abstracts": ["{}".format(lorem.text())],
             "document_types": [random.choice(self.DOCUMENT_TYPES)],
             "_access": {},
-            "languages":list(set([random.choice(self.LANGUAGES)
+            "languages": list(set([random.choice(self.LANGUAGES)
                                   for _ in
                                   range(0, randint(1, len(self.LANGUAGES)))])),
 
@@ -348,7 +344,7 @@ class LoanGenerator(Generator):
 
     def _get_item_can_circulate(self, items):
         """Return an item that can circulate."""
-        item = items[randint(1, len(items)-1)]
+        item = items[randint(1, len(items) - 1)]
         if item["status"] != "CAN_CIRCULATE":
             return self._get_item_can_circulate(items)
         return item
@@ -385,8 +381,9 @@ class LoanGenerator(Generator):
             end_date = transaction_date + timedelta(days=13)
 
             loan = {
-                Document.pid_field: "{}".format(randint(1, total_docs-1)),
+                Document.pid_field: "{}".format(randint(1, total_docs - 1)),
                 Loan.pid_field: "{}".format(i),
+                "extension_count": randint(0, 3),
                 "patron_pid": "{}".format(patron_id),
                 "pickup_location_pid": "{}".format(loc_pid),
                 "request_expire_date": expire_date.strftime("%Y-%m-%d"),
@@ -435,7 +432,6 @@ class SeriesGenerator(Generator):
     def generate(self):
         """Generate."""
         size = self.holder.series['total']
-        total_keywords = self.holder.keywords['total']
         keyword_pids = [kw['keyword_pid'] for kw in self.holder.keywords['objs']]
 
         objs = [{
@@ -616,7 +612,7 @@ def index():
     patrons = User.query.all()
     indexer = PatronsIndexer()
 
-    click.secho('Now indexing {0} patrons'.format(len(patrons)),  fg='green')
+    click.secho('Now indexing {0} patrons'.format(len(patrons)), fg='green')
 
     for pat in patrons:
         patron = Patron(pat.id)

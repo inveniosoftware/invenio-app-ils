@@ -44,7 +44,7 @@ export const invenioConfig = {
   },
   circulation: {
     loanActiveStates: ['ITEM_ON_LOAN'],
-    loanCompletedStates: [],
+    loanCompletedStates: ['ITEM_RETURNED'],
   },
   series: {
     search: {

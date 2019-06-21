@@ -87,14 +87,15 @@ const assignItemToLoan = (itemPid, loanPid) => {
 
 class QueryBuilder {
   constructor() {
-    this.sortBy = '';
     this.documentQuery = [];
     this.itemQuery = [];
-    this.patronQuery = [];
-    this.stateQuery = [];
     this.overdueQuery = [];
-    this.updatedQuery = [];
+    this.patronQuery = [];
     this.renewedCountQuery = [];
+    this.sortBy = '';
+    this.startDateQuery = [];
+    this.stateQuery = [];
+    this.updatedQuery = [];
   }
 
   withDocPid(documentPid) {
@@ -145,6 +146,14 @@ class QueryBuilder {
     return this;
   }
 
+  withStartDate({ fromDate, toDate }) {
+    if (fromDate || toDate)
+      this.startDateQuery.push(
+        prepareDateQuery('start_date', null, fromDate, toDate)
+      );
+    return this;
+  }
+
   /**
    * Combine elasticsearch query for number of renewals
    * @param renewals string, number or array
@@ -176,7 +185,8 @@ class QueryBuilder {
         this.stateQuery,
         this.overdueQuery,
         this.updatedQuery,
-        this.renewedCountQuery
+        this.renewedCountQuery,
+        this.startDateQuery
       )
       .join(' AND ');
     return `(${searchCriteria})${this.sortBy}`;
