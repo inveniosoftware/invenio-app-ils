@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import { availableItemsReducer } from './pages/backoffice/LoanDetails/reducer';
 import {
   documentDetailsReducer,
+  documentStatsReducer,
   documentPendingLoans,
   documentItems,
 } from './pages/backoffice/DocumentDetails/reducer';
@@ -51,6 +52,7 @@ const rootReducer = combineReducers({
   deleteRecordModal: deleteRecordModalReducer,
   documentDetails: documentDetailsReducer,
   documentPendingLoans: documentPendingLoans,
+  documentStats: documentStatsReducer,
   documentItems: documentItems,
   eitemDetails: eitemDetailsReducer,
   itemDetails: itemDetailsReducer,

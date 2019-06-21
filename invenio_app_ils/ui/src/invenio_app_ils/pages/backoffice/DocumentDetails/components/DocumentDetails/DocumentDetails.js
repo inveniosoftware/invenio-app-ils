@@ -4,6 +4,7 @@ import { Loader, Error } from '../../../../../common/components';
 import { DocumentMetadata } from '../';
 import { DocumentPendingLoans } from '../DocumentPendingLoans';
 import { DocumentItems } from '../DocumentItems';
+import { DocumentStats } from '../DocumentStats';
 
 export default class DocumentDetails extends Component {
   render() {
@@ -14,6 +15,7 @@ export default class DocumentDetails extends Component {
           <DocumentMetadata document={data} />
           <DocumentPendingLoans document={data} />
           <DocumentItems document={data} />
+          <DocumentStats document={data} />
         </Error>
       </Loader>
     );

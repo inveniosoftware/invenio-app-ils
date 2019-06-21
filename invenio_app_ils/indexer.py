@@ -12,7 +12,6 @@ from __future__ import absolute_import, print_function
 from datetime import datetime
 from functools import partial
 
-import elasticsearch
 from celery import shared_task
 from flask import current_app
 from invenio_circulation.api import Loan
