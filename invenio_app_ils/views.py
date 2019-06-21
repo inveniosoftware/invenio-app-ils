@@ -15,7 +15,7 @@ this file.
 from __future__ import absolute_import, print_function
 
 from flask import Blueprint, current_app, render_template
-from invenio_circulation.search.api import LoansSearch
+from invenio_circulation.proxies import current_circulation
 
 from invenio_app_ils.search.api import DocumentSearch, EItemSearch, \
     ItemSearch, PatronsSearch, SeriesSearch
@@ -149,7 +149,7 @@ def _get_loans_ui_config():
         },
         "circulation": {"loanActiveStates": [], "loanCompletedStates": []},
     }
-    loans_index = LoansSearch.Meta.index
+    loans_index = current_circulation.loan_search.Meta.index
 
     loans_sort = current_app.config.get("RECORDS_REST_SORT_OPTIONS", {}).get(
         loans_index, {}
