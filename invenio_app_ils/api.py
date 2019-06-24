@@ -12,7 +12,7 @@ from __future__ import absolute_import, print_function
 from invenio_accounts.models import User
 from invenio_pidstore.errors import PersistentIdentifierError
 
-from .records.api import Item, Location
+from .records.api import Document, Item, Location
 from .search.api import ItemSearch
 
 
@@ -47,6 +47,15 @@ def item_exists(item_pid):
     """Return True if the Item exists given a PID."""
     try:
         Item.get_record_by_pid(item_pid)
+    except PersistentIdentifierError as ex:
+        return False
+    return True
+
+
+def document_exists(document_pid):
+    """Return True if the Document exists given a PID."""
+    try:
+        Document.get_record_by_pid(document_pid)
     except PersistentIdentifierError as ex:
         return False
     return True

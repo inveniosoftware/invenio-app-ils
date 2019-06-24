@@ -10,9 +10,9 @@
 import pytest
 
 from invenio_app_ils.errors import DocumentKeywordNotFoundError, \
-    NotImplementedConfigurationError, PatronHasLoanOnItemError, \
-    PatronNotFoundError, RecordHasReferencesError, SearchQueryError, \
-    UnauthorizedSearchError
+    ItemHasActiveLoanError, NotImplementedConfigurationError, \
+    PatronHasLoanOnItemError, PatronNotFoundError, RecordHasReferencesError, \
+    SearchQueryError, UnauthorizedSearchError
 
 
 def test_unauthorized_search_with_patron_pid(app):
@@ -117,4 +117,18 @@ def test_record_has_references_error(app):
             ref_ids=ref_ids
         )
     assert ex.value.code == RecordHasReferencesError.code
+    assert ex.value.description == msg
+
+
+def test_item_has_active_loan_error(app):
+    loan_pid = "1"
+    msg = (
+        "Could not update item because it has an active loan with "
+        "pid: {loan_pid}."
+    ).format(
+        loan_pid=loan_pid
+    )
+    with pytest.raises(ItemHasActiveLoanError) as ex:
+        raise ItemHasActiveLoanError(loan_pid=loan_pid)
+    assert ex.value.code == ItemHasActiveLoanError.code
     assert ex.value.description == msg

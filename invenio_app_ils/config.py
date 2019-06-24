@@ -22,9 +22,9 @@ from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import deny_all
 
-from .api import can_item_circulate, get_document_pid_by_item_pid, \
-    get_item_pids_by_document_pid, get_location_pid_by_item_pid, item_exists, \
-    patron_exists
+from .api import can_item_circulate, document_exists, \
+    get_document_pid_by_item_pid, get_item_pids_by_document_pid, \
+    get_location_pid_by_item_pid, item_exists, patron_exists
 from .circulation.search import IlsLoansSearch
 from .facets import keyed_range_filter
 from .jwt import ils_jwt_create_token
@@ -574,6 +574,8 @@ CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = get_document_pid_by_item_pid
 CIRCULATION_PATRON_EXISTS = patron_exists
 
 CIRCULATION_ITEM_EXISTS = item_exists
+
+CIRCULATION_DOCUMENT_EXISTS = document_exists
 
 CIRCULATION_ITEM_LOCATION_RETRIEVER = get_location_pid_by_item_pid
 
