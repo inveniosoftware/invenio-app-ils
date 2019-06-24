@@ -97,6 +97,20 @@ class RecordHasReferencesError(IlsException):
         )
 
 
+class ItemHasActiveLoanError(IlsException):
+    """The item which we are trying to update has an active loan."""
+
+    description = (
+        "Could not update item because it has an active loan with "
+        "pid: {loan_pid}."
+    )
+
+    def __init__(self, loan_pid, **kwargs):
+        """Initialize ItemHasActiveLoanError exception."""
+        super(ItemHasActiveLoanError, self).__init__(**kwargs)
+        self.description = self.description.format(loan_pid=loan_pid)
+
+
 class PatronNotFoundError(IlsException):
     """A patron could not be found."""
 

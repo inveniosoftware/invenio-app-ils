@@ -186,7 +186,7 @@ def index_item_after_loan_indexed(loan):
     log_func = partial(
         _log,
         origin_rec_type='Loan',
-        origin_recid=loan_pid,
+        origin_recid=loan[Loan.pid_field],
         dest_rec_type='Item')
 
     log_func(msg=MSG_ORIGIN)
@@ -206,7 +206,7 @@ def index_document_after_loan_indexed(loan):
     log_func = partial(
         _log,
         origin_rec_type='Loan',
-        origin_recid=loan_pid,
+        origin_recid=loan[Loan.pid_field],
         dest_rec_type='Document')
 
     log_func(msg=MSG_ORIGIN)

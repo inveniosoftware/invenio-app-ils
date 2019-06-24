@@ -12,6 +12,7 @@ from __future__ import absolute_import, print_function
 from flask import current_app
 from invenio_accounts.models import User
 from invenio_circulation.api import Loan
+from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
 from invenio_jsonschemas import current_jsonschemas
 from invenio_pidstore.resolver import Resolver
@@ -19,7 +20,7 @@ from invenio_records.api import Record
 from invenio_userprofiles.api import UserProfile
 
 from invenio_app_ils.errors import DocumentKeywordNotFoundError, \
-    RecordHasReferencesError
+    ItemHasActiveLoanError, RecordHasReferencesError
 from invenio_app_ils.search.api import DocumentSearch, \
     InternalLocationSearch, ItemSearch
 
@@ -211,6 +212,19 @@ class Item(_Item):
             )
         }
         return super(Item, cls).create(data, id_=id_, **kwargs)
+
+    def ensure_item_can_be_updated(self):
+        """Raises an exception if the item's status cannot be updated."""
+        loan_search = current_circulation.loan_search
+        active_loan = loan_search\
+            .get_active_loan_by_item_pid(self[Item.pid_field]).execute().hits
+        if self["status"] == "CAN_CIRCULATE" and active_loan.total > 0:
+            raise ItemHasActiveLoanError(active_loan[0][Loan.pid_field])
+
+    def patch(self, patch):
+        """Update Item record."""
+        self.ensure_item_can_be_updated()
+        return super(Item, self).patch(patch=patch)
 
     def delete(self, **kwargs):
         """Delete Item record."""

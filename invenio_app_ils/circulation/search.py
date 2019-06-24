@@ -24,34 +24,47 @@ class IlsLoansSearch(LoansSearch):
 
     def get_pending_loans_by_doc_pid(self, document_pid):
         """Return any pending loans for the given document."""
-        return search_by_pid(document_pid=document_pid,
-                             filter_states=["PENDING"]
-                             )
+        return search_by_pid(
+            document_pid=document_pid,
+            filter_states=["PENDING"]
+        )
 
     def get_active_loans_by_doc_pid(self, document_pid):
         """Return any active loans for the given document."""
-        return search_by_pid(document_pid=document_pid,
-                             filter_states=current_app.config.get(
-                                 "CIRCULATION_STATES_LOAN_ACTIVE", []
-                             ),
-                             )
+        return search_by_pid(
+            document_pid=document_pid,
+            filter_states=current_app.config.get(
+                "CIRCULATION_STATES_LOAN_ACTIVE", []
+            ),
+        )
 
     def get_past_loans_by_doc_pid(self, document_pid):
         """Return any past loans for the given document."""
-        return search_by_pid(document_pid=document_pid,
-                             filter_states=current_app.config.get(
-                                 "CIRCULATION_STATES_LOAN_COMPLETED", []
-                             ),
-                             )
+        return search_by_pid(
+            document_pid=document_pid,
+            filter_states=current_app.config.get(
+                "CIRCULATION_STATES_LOAN_COMPLETED", []
+            ),
+        )
 
     def get_loan_next_available_date(self, document_pid):
         """Return active loans on document sorted by the earliest end date."""
-        return search_by_pid(document_pid=document_pid,
-                             filter_states=current_app.config.get(
-                                 "CIRCULATION_STATES_LOAN_ACTIVE", []
-                             ),
-                             sort_by_field="end_date",
-                             )
+        return search_by_pid(
+            document_pid=document_pid,
+            filter_states=current_app.config.get(
+                "CIRCULATION_STATES_LOAN_ACTIVE", []
+            ),
+            sort_by_field="end_date",
+        )
+
+    def get_active_loan_by_item_pid(self, item_pid):
+        """Return any active loans for the given item."""
+        return search_by_pid(
+            item_pid=item_pid,
+            filter_states=current_app.config.get(
+                "CIRCULATION_STATES_LOAN_ACTIVE", []
+            ),
+        )
 
     class Meta:
         """Define permissions filter."""
