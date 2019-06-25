@@ -219,7 +219,7 @@ export default class DocumentMetadata extends Component {
   renderCirculationButtons() {
     const circulationData = this.document.metadata.circulation;
     const buttonColor =
-      circulationData.items_available_for_loan > 0 ? 'green' : 'red';
+      circulationData.has_items_for_loan > 0 ? 'green' : 'red';
     return (
       <div>
         <Button
@@ -229,7 +229,7 @@ export default class DocumentMetadata extends Component {
             basic: true,
             color: buttonColor,
             pointing: 'left',
-            content: circulationData.items_available_for_loan,
+            content: circulationData.has_items_for_loan,
           }}
         />
 
@@ -256,7 +256,7 @@ export default class DocumentMetadata extends Component {
         />
 
         {!isEmpty(circulationData.next_available_date) &&
-        circulationData.items_available_for_loan === 0 ? (
+        circulationData.has_items_for_loan === 0 ? (
           <Button
             color="yellow"
             content="Available from"

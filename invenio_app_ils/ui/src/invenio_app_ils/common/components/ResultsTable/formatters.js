@@ -34,8 +34,7 @@ function formatDocumentToTableView(document, seriesPid = null) {
     serialized['Authors'] = document.metadata.authors;
     if (document.metadata.circulation) {
       serialized['Requests'] = document.metadata.circulation.pending_loans;
-      serialized['Items'] =
-        document.metadata.circulation.items_available_for_loan;
+      serialized['Items'] = document.metadata.circulation.has_items_for_loan;
     }
     // Include volume number for series if it's given
     if (seriesPid) {

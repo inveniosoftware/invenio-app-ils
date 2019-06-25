@@ -41,7 +41,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
               "Author1",
             ],
             "circulation": Object {
-              "items_available_for_loan": 2,
+              "has_items_for_loan": 2,
               "pending_loans": 1,
             },
             "title": "X",

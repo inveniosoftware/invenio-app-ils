@@ -46,7 +46,7 @@ class QueryBuilder {
   }
 
   withAvailableItems() {
-    this.availableItemsQuery.push('circulation.items_available_for_loan:>0');
+    this.availableItemsQuery.push('circulation.has_items_for_loan:>0');
     return this;
   }
 

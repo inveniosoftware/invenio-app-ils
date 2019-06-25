@@ -693,17 +693,29 @@ CIRCULATION_REST_ENDPOINTS = dict(
 # =========================
 RECORDS_REST_SORT_OPTIONS = dict(
     documents=dict(  # DocumentSearch.Meta.index
+        mostrecent=dict(
+            fields=['_updated'],
+            title='Newest',
+            default_order='asc',
+            order=1
+        ),
         bestmatch=dict(
             fields=['-_score'],
             title='Best match',
             default_order='asc',
             order=2
         ),
-        mostrecent=dict(
-            fields=['_updated'],
-            title='Newest',
-            default_order='asc',
-            order=1
+        available_items=dict(
+            fields=['circulation.has_items_for_loan'],
+            title='Available Items',
+            default_order='desc',
+            order=3
+        ),
+        mostloaned=dict(
+            fields=['circulation.number_of_past_loans'],
+            title='Most loaned',
+            default_order='desc',
+            order=4
         )
     ),
     eitems=dict(  # ItemSearch.Meta.index
@@ -776,34 +788,60 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(field="keywords.name", size=FACET_KEYWORD_LIMIT),
             ),
             languages=dict(
-                terms=dict(field='languages')
+                terms=dict(field="languages")
             ),
             document_types=dict(
                 terms=dict(field="document_types")
             ),
-            items_available_for_loan=dict(
-                range=dict(
-                    field="circulation.items_available_for_loan",
-                    ranges=[
-                        {"key": "None", "to": 1},
-                        {"key": "1+", "from": 1},
-                    ]
-                )
-            ),
             moi=dict(
                 terms=dict(field="series.mode_of_issuance")
             ),
+            has_items=dict(
+                range=dict(
+                    field="circulation.has_items",
+                    ranges=[
+                        {"key": "printed versions", "from": 1},
+                    ]
+                ),
+            ),
+            has_eitems=dict(
+                range=dict(
+                    field="circulation.has_eitems",
+                    ranges=[
+                        {"key": "electronic versions", "from": 1},
+                    ]
+                )
+            ),
+            has_items_for_loan=dict(
+                range=dict(
+                    field="circulation.has_items_for_loan",
+                    ranges=[
+                        {"key": "printed versions available", "from": 1},
+                    ],
+                )
+            ),
         ),
         filters=dict(
-            document_types=terms_filter('document_types'),
-            languages=terms_filter('languages'),
+            document_types=terms_filter("document_types"),
+            languages=terms_filter("languages"),
             keywords=terms_filter("keywords.name"),
-            items_available_for_loan=keyed_range_filter(
-                "circulation.items_available_for_loan",
+            has_items=keyed_range_filter(
+                "circulation.has_items",
                 {
-                    "None": {"lt": 1},
-                    "1+": {"gte": 1}
-                }
+                    "printed versions": {"gt": 0},
+                },
+            ),
+            has_eitems=keyed_range_filter(
+                "circulation.has_eitems",
+                {
+                    "electronic versions": {"gt": 0},
+                },
+            ),
+            has_items_for_loan=keyed_range_filter(
+                "circulation.has_items_for_loan",
+                {
+                    "printed versions available": {"gt": 0},
+                },
             ),
         ),
         post_filters=dict(

@@ -27,11 +27,14 @@ const sortOrderValues = config.sortOrder.map(sortField => {
 
 const aggsMappings = {
   document_types: 'Document types',
+  has_eitems: 'Select books with',
+  has_items_for_loan: 'Select books with',
+  has_items: 'Select books with',
   keywords: 'Keywords',
   languages: 'Languages',
-  items_available_for_loan: 'Available items',
   moi: 'Series: Mode of Issuance',
 };
+
 const aggs = config.aggs.map(agg => {
   return { title: aggsMappings[agg], field: agg };
 });
