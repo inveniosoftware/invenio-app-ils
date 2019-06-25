@@ -23,7 +23,7 @@ def test_get_item_pids_by_document_pid(testdata):
     """Test retrieve Items PIDs for the given Document PID."""
     first_doc_pid = testdata["documents"][0][Document.pid_field]
     items_pids = get_item_pids_by_document_pid(first_doc_pid)
-    assert len(list(items_pids)) == 3
+    assert len(list(items_pids)) == 4
 
 
 def test_get_document_pid_by_item_pid(testdata):

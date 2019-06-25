@@ -287,16 +287,18 @@ class DocumentGenerator(Generator):
 
         def random_series():
             data = []
-            for pid in random.sample(multipart_pids, randint(0, len(multipart_pids)-1)):
-                data.append(dict(
-                    pid=pid,
-                    volume=str(randint(1, 100))
-                ))
-            for pid in random.sample(serial_pids, randint(0, len(serial_pids)-1)):
-                data.append(dict(
-                    pid=pid,
-                    volume=str(randint(1, 100))
-                ))
+            if multipart_pids:
+                for pid in random.sample(multipart_pids, randint(0, len(multipart_pids) - 1)):
+                    data.append(dict(
+                        pid=pid,
+                        volume=str(randint(1, 100))
+                    ))
+            if serial_pids:
+                for pid in random.sample(serial_pids, randint(0, len(serial_pids) - 1)):
+                    data.append(dict(
+                        pid=pid,
+                        volume=str(randint(1, 100))
+                    ))
             return data
 
         objs = [{
@@ -374,7 +376,7 @@ class LoanGenerator(Generator):
         for i in range(1, size):
             item = self._get_item_can_circulate(items)
             status = self._get_valid_status(item, items_on_loans)
-            patron_id = randint(1, len(patrons_pids)-1)
+            patron_id = random.choice(patrons_pids)
             transaction_date = datetime(
                 current_year, randint(1, 12), randint(1, 28)
             )
@@ -495,7 +497,7 @@ def data(n_docs, n_items, n_eitems, n_loans, n_keywords, n_intlocs, n_series):
     indexer = RecordIndexer()
 
     holder = Holder(
-        patrons_pids=["1", "2"],
+        patrons_pids=["1", "2", "5", "6"],
         librarian_pid="4",
         total_intloc=n_intlocs,
         total_keywords=n_keywords,

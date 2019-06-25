@@ -163,5 +163,25 @@
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
     "status": "MISSING"
+  },
+  {
+    "item_pid": "itemid-56",
+    "barcode": "123456789-54",
+    "title": "Less: A Novel",
+    "document_pid": "docid-5",
+    "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
+    "status": "CAN_CIRCULATE"
+  },
+  {
+    "item_pid": "itemid-57",
+    "barcode": "123456789-55",
+    "title": "The Gulf: The Making of An American Sea - Item 1",
+    "document_pid": "docid-1",
+    "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
+    "status": "CAN_CIRCULATE"
   }
 ]

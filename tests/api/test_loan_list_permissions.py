@@ -65,10 +65,12 @@ def test_anonymous_loans_search(app):
 def test_patrons_can_search_their_own_loans(client, json_headers, users,
                                             testdata):
     """Test that patrons can search their own loans."""
-    def _validate_only_patron_loans(res, user):
+    def _validate_only_patron_loans(res, user, state):
         """Assert that result loans belong to the given user only."""
-        patron_loans = [l for l in testdata['loans'] if
-                        l['patron_pid'] == str(user.id)]
+        patron_loans = [
+            l for l in testdata['loans']
+            if l['patron_pid'] == str(user.id) and l['state'] == state
+        ]
 
         assert res.status_code == 200
         hits = json.loads(res.data.decode('utf-8'))
@@ -76,16 +78,18 @@ def test_patrons_can_search_their_own_loans(client, json_headers, users,
         for hit in hits['hits']['hits']:
             assert hit['metadata']['patron_pid'] == str(user.id)
 
+    state = 'PENDING'
     for user in [users['patron1'], users['patron2']]:
         # search with no params
-        res = _search_loans(client, json_headers, user=user)
-        _validate_only_patron_loans(res, user)
+        res = _search_loans(client, json_headers, user=user,
+                            state=state)
+        _validate_only_patron_loans(res, user, state)
 
         # search with params
         res = _search_loans(client, json_headers, user=user,
-                            state='PENDING',  # test extra query
+                            state=state,  # test extra query
                             q="patron_pid:{}".format(str(user.id)))
-        _validate_only_patron_loans(res, user)
+        _validate_only_patron_loans(res, user, state)
 
 
 def test_patrons_cannot_search_other_loans(client, json_headers, users,
