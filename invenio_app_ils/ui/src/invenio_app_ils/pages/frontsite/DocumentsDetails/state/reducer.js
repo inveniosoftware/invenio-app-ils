@@ -1,13 +1,10 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import requestLoanReducer from '../components/DocumentMetadata/components/RequestNewLoanForm/state/reducer';
-import { initialState as newLoanRequestInitialState } from '../components/DocumentMetadata/components/RequestNewLoanForm/state/reducer';
 
 export const initialState = {
   isLoading: true,
   hasError: false,
   data: { hits: [], total: 0 },
   error: {},
-  ...newLoanRequestInitialState,
 };
 
 export default (state = initialState, action) => {
@@ -30,6 +27,6 @@ export default (state = initialState, action) => {
         hasError: true,
       };
     default:
-      return requestLoanReducer(state, action);
+      return state;
   }
 };
