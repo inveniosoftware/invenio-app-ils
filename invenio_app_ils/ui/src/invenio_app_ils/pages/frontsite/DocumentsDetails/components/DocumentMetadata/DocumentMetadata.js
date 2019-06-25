@@ -9,10 +9,10 @@ import {
   Header,
   List,
   Icon,
+  Popup,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import DocumentTab from '../DocumentTab';
-import { RequestNewLoanForm } from './components/RequestNewLoanForm';
 import '../../DocumentsDetails.scss';
 import isEmpty from 'lodash/isEmpty';
 import { goToHandler } from '../../../../../history';
@@ -24,9 +24,6 @@ export default class DocumentMetadata extends Component {
     super(props);
     this.document = this.props.documentsDetails;
   }
-  state = { visible: false };
-
-  toggleVisibility = () => this.setState({ visible: !this.state.visible });
 
   goToSeriesList = seriesPid =>
     goToHandler(
@@ -37,6 +34,11 @@ export default class DocumentMetadata extends Component {
           .qs()
       )
     );
+
+  requestLoan = () => {
+    const documentPid = this.document.document_pid;
+    this.props.requestLoanForDocument(documentPid);
+  };
 
   renderBookInfo() {
     return (
@@ -203,31 +205,13 @@ export default class DocumentMetadata extends Component {
   }
 
   renderMainButtons() {
-    const { visible } = this.state;
     return (
       <div className="loan-request">
-        <Button primary disabled size="large" color="blue">
-          Open eBook
-        </Button>
-
         <Responsive {...Responsive.onlyMobile}>
           <div className="ui hidden divider" />
         </Responsive>
 
-        <Button
-          primary
-          size="large"
-          color="blue"
-          content={visible ? 'Close' : 'Request Loan'}
-          onClick={this.toggleVisibility}
-        />
-
         <div className="ui hidden divider" />
-
-        <RequestNewLoanForm
-          docPid={this.document.metadata.document_pid}
-          visible={visible}
-        />
       </div>
     );
   }
@@ -288,6 +272,21 @@ export default class DocumentMetadata extends Component {
     );
   }
 
+  requestLoanButton = (
+    <div>
+      <Button
+        positive
+        size="small"
+        content="Request Loan"
+        onClick={this.requestLoan}
+      />
+      <Popup
+        content="Request a loan on this document"
+        trigger={<Icon name="info circle" size="large" />}
+      />
+    </div>
+  );
+
   render() {
     const cover = 'https://assets.thalia.media/img/46276899-00-00.jpg';
     return (
@@ -304,6 +303,8 @@ export default class DocumentMetadata extends Component {
                 <Grid.Row>
                   <div className="ui hidden divider" />
                   {this.renderBookInfo()}
+                  <div className="ui hidden divider" />
+                  {this.requestLoanButton}
                   <div className="ui hidden divider" />
                   {this.renderSerials()}
                   <div className="ui hidden divider" />
