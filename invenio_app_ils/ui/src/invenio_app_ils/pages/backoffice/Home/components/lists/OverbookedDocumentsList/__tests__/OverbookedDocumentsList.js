@@ -69,7 +69,7 @@ describe('OverbookedDocumentsList tests', () => {
             abstracts: 'This is an abstract',
             circulation: {
               pending_loans: 1,
-              items_available_for_loan: 2,
+              has_items_for_loan: 2,
             },
           },
         },

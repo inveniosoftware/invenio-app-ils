@@ -22,6 +22,7 @@ export class ResultsList extends Component {
         'Title',
         'Authors',
         'Series',
+        'Items',
       ]);
     });
   }

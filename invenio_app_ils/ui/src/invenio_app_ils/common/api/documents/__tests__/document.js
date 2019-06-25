@@ -22,7 +22,7 @@ describe('Document query builder tests', () => {
       .query()
       .withAvailableItems()
       .qs();
-    expect(query).toEqual('circulation.items_available_for_loan:>0');
+    expect(query).toEqual('circulation.has_items_for_loan:>0');
   });
 
   it('should build query string with items available for loan and pending loans stats', () => {
@@ -32,7 +32,7 @@ describe('Document query builder tests', () => {
       .withPendingLoans()
       .qs();
     expect(query).toEqual(
-      'circulation.items_available_for_loan:>0 AND circulation.pending_loans:>0'
+      'circulation.has_items_for_loan:>0 AND circulation.pending_loans:>0'
     );
   });
 });
