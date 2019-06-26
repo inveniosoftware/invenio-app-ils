@@ -1,3 +1,5 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { ES_DELAY } from '../../../../common/config';
 import {
   IS_LOADING,
@@ -7,13 +9,15 @@ import {
   DELETE_SUCCESS,
   DELETE_HAS_ERROR,
 } from './types';
-import { item as itemApi } from '../../../../common/api';
+import { item as itemApi, loan as loanApi } from '../../../../common/api';
 import { BackOfficeRoutes } from '../../../../routes/urls';
 import {
   sendErrorNotification,
   sendSuccessNotification,
 } from '../../../../common/components/Notifications';
 import { goTo } from '../../../../history';
+import { sessionManager } from '../../../../authentication/services';
+import { ApiURLS } from '../../../../common/api/urls';
 
 export const fetchItemDetails = itemPid => {
   return async dispatch => {
@@ -61,6 +65,44 @@ export const deleteItem = itemPid => {
     } catch (error) {
       dispatch({
         type: DELETE_HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
+  };
+};
+
+export const createNewLoanForItem = loanData => {
+  return async dispatch => {
+    dispatch({
+      type: IS_LOADING,
+    });
+    const currentUser = sessionManager.user;
+    try {
+      const response = await loanApi.postAction(
+        ApiURLS.loans.create,
+        loanData.metadata.item_pid,
+        loanData,
+        currentUser.id,
+        currentUser.locationPid
+      );
+      const { loan_pid, item_pid, patron_pid } = response.data.metadata;
+      const linkToLoan = (
+        <p>
+          The loan {loan_pid} has been requested on behalf of patron{' '}
+          {patron_pid}.
+          <Link to={BackOfficeRoutes.loanDetailsFor(loan_pid)}>
+            You can now view the loan details.
+          </Link>
+        </p>
+      );
+      dispatch(sendSuccessNotification('Success!', linkToLoan));
+      setTimeout(() => {
+        dispatch(fetchItemDetails(item_pid));
+      }, ES_DELAY);
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
         payload: error,
       });
       dispatch(sendErrorNotification(error));

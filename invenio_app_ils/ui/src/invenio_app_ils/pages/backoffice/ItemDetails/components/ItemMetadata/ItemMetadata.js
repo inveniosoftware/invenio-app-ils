@@ -1,15 +1,25 @@
 import React from 'react';
 import { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Grid, Segment, Container, Header, Table } from 'semantic-ui-react';
-import { CreateNewLoanModal } from './components/CreateNewLoanModal';
+import {
+  Grid,
+  Segment,
+  Container,
+  Header,
+  Table,
+  Button,
+} from 'semantic-ui-react';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
-import { loan as loanApi, item as itemApi } from '../../../../../common/api';
+import {
+  loan as loanApi,
+  item as itemApi,
+  patron as patronApi,
+} from '../../../../../common/api';
 import { invenioConfig } from '../../../../../common/config';
 import { EditButton } from '../../../components/buttons';
 
 import './ItemMetadata.scss';
+import { ESSelectorModal } from '../../../../../common/components/ESSelector';
 
 export default class ItemMetadata extends Component {
   constructor(props) {
@@ -39,36 +49,71 @@ export default class ItemMetadata extends Component {
     ];
   }
 
+  checkoutItemButton = (
+    <Button
+      positive
+      icon="add"
+      labelPosition="left"
+      size="small"
+      content="Checkout this item"
+      onClick={() => this.setState({ open: true })}
+      disabled={
+        invenioConfig.circulation.loanActiveStates.includes(
+          this.props.itemDetails.metadata.circulation_status.state
+        ) ||
+        !invenioConfig.items.available.status.includes(
+          this.props.itemDetails.metadata.status
+        )
+      }
+    />
+  );
+
+  requestLoan = results => {
+    const loanData = {
+      metadata: {
+        document_pid: this.props.itemDetails.metadata.document_pid,
+        item_pid: this.props.itemDetails.metadata.item_pid,
+        patron_pid: results[0].metadata.id.toString(),
+      },
+    };
+    this.props.createNewLoanForItem(loanData);
+  };
+
   render() {
-    const { item } = this.props;
+    const { itemDetails } = this.props;
+
     const header = (
       <Grid.Row>
         <Grid.Column width={10} verticalAlign={'middle'}>
-          <Header as="h1">Item - {item.metadata.barcode}</Header>
+          <Header as="h1">Item - {itemDetails.metadata.barcode}</Header>
         </Grid.Column>
         <Grid.Column width={6} textAlign={'right'}>
-          <CreateNewLoanModal
-            documentPid={`${item.metadata.document_pid}`}
-            itemPid={`${item.item_pid}`}
-            itemBarcode={`${item.metadata.barcode}`}
-            active={
-              !invenioConfig.circulation.loanActiveStates.includes(
-                item.metadata.circulation_status.state
-              ) &&
-              invenioConfig.items.available.status.includes(
-                item.metadata.status
-              )
+          <ESSelectorModal
+            trigger={this.checkoutItemButton}
+            query={patronApi.list}
+            title={`You are about to checkout the item with
+                    barcode ${itemDetails.metadata.barcode}.`}
+            content={
+              'Search for the patron to whom the loan should be assigned:'
             }
-            onLoanCreatedCallback={this.props.fetchItemDetails}
+            selectionInfoText={
+              'The loan will be assigned to the following patron:'
+            }
+            emptySelectionInfoText={'No patron selected yet'}
+            onSave={this.requestLoan}
+            saveButtonContent={'Checkout item'}
           />
+
           <EditButton
-            clickHandler={() => openRecordEditor(itemApi.url, item.item_pid)}
+            clickHandler={() =>
+              openRecordEditor(itemApi.url, itemDetails.item_pid)
+            }
           />
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Item
-            record with ID ${item.item_pid}?`}
-            onDelete={() => this.deleteItem(item.item_pid)}
-            refProps={this.createRefProps(item.item_pid)}
+            record with ID ${itemDetails.item_pid}?`}
+            onDelete={() => this.deleteItem(itemDetails.item_pid)}
+            refProps={this.createRefProps(itemDetails.item_pid)}
           />
         </Grid.Column>
       </Grid.Row>
@@ -85,49 +130,51 @@ export default class ItemMetadata extends Component {
                   <Table.Row>
                     <Table.Cell width={4}>Circulation Status</Table.Cell>
                     <Table.Cell width={12}>
-                      {item.metadata.circulation_status.state}
+                      {itemDetails.metadata.circulation_status.state}
                     </Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell width={4}>Item Status</Table.Cell>
-                    <Table.Cell width={12}>{item.metadata.status}</Table.Cell>
+                    <Table.Cell width={12}>
+                      {itemDetails.metadata.status}
+                    </Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Barcode</Table.Cell>
-                    <Table.Cell>{item.metadata.barcode}</Table.Cell>
+                    <Table.Cell>{itemDetails.metadata.barcode}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Medium</Table.Cell>
-                    <Table.Cell>{item.metadata.medium}</Table.Cell>
+                    <Table.Cell>{itemDetails.metadata.medium}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Circulation Restriction</Table.Cell>
                     <Table.Cell>
-                      {item.metadata.circulation_restriction}
+                      {itemDetails.metadata.circulation_restriction}
                     </Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Shelf</Table.Cell>
-                    <Table.Cell>{item.metadata.shelf}</Table.Cell>
+                    <Table.Cell>{itemDetails.metadata.shelf}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Legacy ID</Table.Cell>
-                    <Table.Cell>{item.metadata.legacy_id}</Table.Cell>
+                    <Table.Cell>{itemDetails.metadata.legacy_id}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Document</Table.Cell>
-                    <Table.Cell>{item.metadata.document_pid}</Table.Cell>
+                    <Table.Cell>{itemDetails.metadata.document_pid}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Library</Table.Cell>
                     <Table.Cell>
-                      {item.metadata.internal_location.name}
+                      {itemDetails.metadata.internal_location.name}
                     </Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Location</Table.Cell>
                     <Table.Cell>
-                      {item.metadata.internal_location.location.name}
+                      {itemDetails.metadata.internal_location.location.name}
                     </Table.Cell>
                   </Table.Row>
                 </Table.Body>
@@ -137,7 +184,7 @@ export default class ItemMetadata extends Component {
             <Grid.Column>
               <Container>
                 <Header as="h4">Description</Header>
-                <p>{item.metadata.description}</p>
+                <p>{itemDetails.metadata.description}</p>
               </Container>
             </Grid.Column>
           </Grid.Row>
@@ -146,7 +193,3 @@ export default class ItemMetadata extends Component {
     );
   }
 }
-
-ItemMetadata.propTypes = {
-  item: PropTypes.object.isRequired,
-};
