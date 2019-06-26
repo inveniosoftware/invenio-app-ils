@@ -43,8 +43,9 @@ import {
 } from './pages/backoffice/SeriesDetails/reducer';
 
 import {
-  mostLoanedDocumentsReducer,
-  mostRecentDocumentsReducer,
+  mostLoanedBooksReducer,
+  mostRecentBooksReducer,
+  mostRecentEbooksReducer,
 } from './pages/frontsite/Home/reducer';
 import { documentsDetailsReducer } from './pages/frontsite/DocumentsDetails/reducer';
 
@@ -74,8 +75,9 @@ const rootReducer = combineReducers({
   itemsSearchInput: itemsSearchByBarcodeReducer,
   patronItemsCheckout: patronItemCheckoutReducer,
   notifications: notificationsReducer,
-  mostLoanedDocuments: mostLoanedDocumentsReducer,
-  mostRecentDocuments: mostRecentDocumentsReducer,
+  mostLoanedBooks: mostLoanedBooksReducer,
+  mostRecentBooks: mostRecentBooksReducer,
+  mostRecentEbooks: mostRecentEbooksReducer,
   esSelector: esSelectorReducer,
   seriesDetails: seriesDetailsReducer,
   seriesDocuments: seriesDocumentsReducer,

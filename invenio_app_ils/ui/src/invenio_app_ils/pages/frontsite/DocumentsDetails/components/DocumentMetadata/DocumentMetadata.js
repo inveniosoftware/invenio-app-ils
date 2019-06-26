@@ -18,6 +18,7 @@ import isEmpty from 'lodash/isEmpty';
 import { goToHandler } from '../../../../../history';
 import { FrontSiteRoutes } from '../../../../../routes/urls';
 import { document as documentApi } from '../../../../../common/api';
+import { EitemsButton } from '../../../components/EitemsButton';
 
 export default class DocumentMetadata extends Component {
   constructor(props) {
@@ -288,6 +289,7 @@ export default class DocumentMetadata extends Component {
   );
 
   render() {
+    const eitems = this.props.documentsDetails.metadata._computed.eitems;
     const cover = 'https://assets.thalia.media/img/46276899-00-00.jpg';
     return (
       <Segment className="document-metadata">
@@ -314,6 +316,8 @@ export default class DocumentMetadata extends Component {
                 <Grid.Row>
                   <div className="ui hidden divider" />
                   {this.renderMainButtons()}
+                  <div className="ui hidden divider" />
+                  <EitemsButton eitems={eitems} />
                   <div className="ui hidden divider" />
                   {this.renderCirculationButtons()}
                 </Grid.Row>

@@ -5,8 +5,9 @@ import Statistics from './components/Statistics';
 import './Home.scss';
 import { FrontSiteRoutes } from '../../../routes/urls';
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
-import { MostLoanedDocuments } from './components/MostLoanedDocuments';
-import { MostRecentDocuments } from './components/MostRecentDocuments';
+import { MostLoanedBooks } from './components/MostLoanedBooks';
+import { MostRecentBooks } from './components/MostRecentBooks';
+import { MostRecentEbooks } from './components/MostRecentEbooks';
 import { default as config } from './config';
 import { goToHandler } from '../../../history';
 
@@ -25,7 +26,7 @@ export default class Home extends Component {
     return (
       <div className="home-container">
         <Grid centered columns={2}>
-          <Header size="huge">What would you like to find?</Header>
+          <Header size="huge">CERN Library</Header>
 
           <Grid.Row centered columns={2}>
             <Container className="books-search-searchbar">
@@ -57,19 +58,18 @@ export default class Home extends Component {
           </Grid.Row>
 
           <Grid.Row centered columns={2}>
-            <Header size="medium">Most Loaned Documents</Header>
-            <MostLoanedDocuments
-              maxDisplayedItems={config.MAX_ITEMS_TO_DISPLAY}
-              filter={config.DOCUMENT_TYPE}
-            />
+            <Header size="medium">Most Loaned Books</Header>
+            <MostLoanedBooks maxDisplayedItems={config.MAX_ITEMS_TO_DISPLAY} />
           </Grid.Row>
 
           <Grid.Row centered columns={2}>
-            <Header size="medium">Most Recent Documents</Header>
-            <MostRecentDocuments
-              maxDisplayedItems={config.MAX_ITEMS_TO_DISPLAY}
-              filter={config.DOCUMENT_TYPE}
-            />
+            <Header size="medium">Most Recent Books</Header>
+            <MostRecentBooks maxDisplayedItems={config.MAX_ITEMS_TO_DISPLAY} />
+          </Grid.Row>
+
+          <Grid.Row centered columns={2}>
+            <Header size="medium">Most Recent E-books</Header>
+            <MostRecentEbooks maxDisplayedItems={config.MAX_ITEMS_TO_DISPLAY} />
           </Grid.Row>
 
           <Grid.Row centered columns={2}>

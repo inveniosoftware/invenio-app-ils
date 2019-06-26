@@ -31,17 +31,19 @@ class QueryBuilder {
     this.availableItemsQuery = [];
     this.withPendingLoansQuery = [];
     this.withKeywordQuery = [];
-    this.withSortQuery = [];
+    this.withDocumentTypeQuery = [];
+    this.withEitemsQuery = [];
     this.withSeriesQuery = [];
+    this.sortByQuery = '';
   }
 
   overbooked() {
-    this.overbookedQuery.push(`circulation.overbooked:true`);
+    this.overbookedQuery.push('circulation.overbooked:true');
     return this;
   }
 
   currentlyOnLoan() {
-    this.currentlyOnLoanQuery.push('circulation.active_loans:>0&');
+    this.currentlyOnLoanQuery.push('circulation.active_loans:>0');
     return this;
   }
 
@@ -63,8 +65,16 @@ class QueryBuilder {
     return this;
   }
 
-  withSort(order = 'bestmatch') {
-    this.withSortQuery.push(`&sort=${order}`);
+  withDocumentType(documentType) {
+    if (!documentType) {
+      throw TypeError('documentType argument missing');
+    }
+    this.withDocumentTypeQuery.push(`document_types:"${documentType}"`);
+    return this;
+  }
+
+  withEitems() {
+    this.withEitemsQuery.push('circulation.has_eitems:>0');
     return this;
   }
 
@@ -78,17 +88,24 @@ class QueryBuilder {
     return this;
   }
 
+  sortBy(order = 'bestmatch') {
+    this.sortByQuery = `&sort=${order}`;
+    return this;
+  }
+
   qs() {
-    return this.overbookedQuery
+    const searchCriteria = this.overbookedQuery
       .concat(
         this.currentlyOnLoanQuery,
         this.availableItemsQuery,
         this.withPendingLoansQuery,
         this.withKeywordQuery,
-        this.withSortQuery,
+        this.withDocumentTypeQuery,
+        this.withEitemsQuery,
         this.withSeriesQuery
       )
       .join(' AND ');
+    return `${searchCriteria}${this.sortByQuery}`;
   }
 }
 

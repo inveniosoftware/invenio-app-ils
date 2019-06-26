@@ -9,6 +9,7 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { truncate } from 'lodash/string';
+import { EitemsButton } from '../../../components/EitemsButton';
 
 export default class RecordItem extends Component {
   renderShareButtons() {
@@ -46,33 +47,31 @@ export default class RecordItem extends Component {
               {this.renderShareButtons()}
             </Responsive>
             <Item.Content>
-              <Item.Header>{metadata.Title}</Item.Header>
+              <Item.Header>{metadata.title}</Item.Header>
               <Item.Meta>
-                <span className="author">Author: {metadata.Authors}</span>
+                <span className="author">Author: {metadata.authors}</span>
               </Item.Meta>
               <Item.Meta>
                 <span className="edition">
-                  Publisher: {metadata.Publishers}
+                  Publisher: {metadata.publishers}
                 </span>
               </Item.Meta>
               <Responsive {...Responsive.onlyMobile}>
                 <Item.Description>
-                  {truncate(metadata.Abstracts, { length: maxTextLength })}
+                  {truncate(metadata.abstracts, { length: maxTextLength })}
                 </Item.Description>
               </Responsive>
               <Responsive {...Responsive.onlyComputer}>
                 <Item.Description>
-                  {truncate(metadata.Abstracts, { length: maxTextLength })}
+                  {truncate(metadata.abstracts, { length: maxTextLength })}
                 </Item.Description>
               </Responsive>
               <Item.Extra>
-                <Button disabled primary size="small" color="blue">
-                  Open eBook
-                </Button>
+                <EitemsButton eitems={metadata._computed.eitems} />
                 <Button
                   primary
                   onClick={() => {
-                    this.props.rowActionClickHandler(metadata.ID);
+                    this.props.rowActionClickHandler(metadata.document_pid);
                   }}
                 >
                   <Icon name="eye" />

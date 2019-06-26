@@ -8,24 +8,24 @@ import { document as documentApi } from '../../../../../../../common/api';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-const mockFetchMostLoanedDocs = jest.fn();
-documentApi.list = mockFetchMostLoanedDocs;
+const mockFetchMostLoanedBooks = jest.fn();
+documentApi.list = mockFetchMostLoanedBooks;
 
 const response = { data: {} };
 const expectedPayload = {};
 
 let store;
 beforeEach(() => {
-  mockFetchMostLoanedDocs.mockClear();
+  mockFetchMostLoanedBooks.mockClear();
 
   store = mockStore(initialState);
   store.clearActions();
 });
 
-describe('Most loaned documents actions', () => {
-  describe('Fetch most loaned documents tests', () => {
-    it('should dispatch an action when fetching most loaned documents', done => {
-      mockFetchMostLoanedDocs.mockResolvedValue(response);
+describe('Most loaned books actions', () => {
+  describe('Fetch most loaned books tests', () => {
+    it('should dispatch an action when fetching most loaned books', done => {
+      mockFetchMostLoanedBooks.mockResolvedValue(response);
 
       const expectedActions = [
         {
@@ -33,9 +33,9 @@ describe('Most loaned documents actions', () => {
         },
       ];
 
-      store.dispatch(actions.fetchMostLoanedDocuments()).then(() => {
-        expect(mockFetchMostLoanedDocs).toHaveBeenCalledWith(
-          'circulation.active_loans:>0& AND &sort=mostloaned'
+      store.dispatch(actions.fetchMostLoanedBooks()).then(() => {
+        expect(mockFetchMostLoanedBooks).toHaveBeenCalledWith(
+          'circulation.active_loans:>0 AND document_types:"BOOK"&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedActions[0]);
@@ -43,8 +43,8 @@ describe('Most loaned documents actions', () => {
       });
     });
 
-    it('should dispatch an action when most loaned documents fetch succeeds', done => {
-      mockFetchMostLoanedDocs.mockResolvedValue(response);
+    it('should dispatch an action when most loaned books fetch succeeds', done => {
+      mockFetchMostLoanedBooks.mockResolvedValue(response);
 
       const expectedActions = [
         {
@@ -53,9 +53,9 @@ describe('Most loaned documents actions', () => {
         },
       ];
 
-      store.dispatch(actions.fetchMostLoanedDocuments()).then(() => {
-        expect(mockFetchMostLoanedDocs).toHaveBeenCalledWith(
-          'circulation.active_loans:>0& AND &sort=mostloaned'
+      store.dispatch(actions.fetchMostLoanedBooks()).then(() => {
+        expect(mockFetchMostLoanedBooks).toHaveBeenCalledWith(
+          'circulation.active_loans:>0 AND document_types:"BOOK"&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
@@ -63,8 +63,8 @@ describe('Most loaned documents actions', () => {
       });
     });
 
-    it('should dispatch an action when most loaned documents fetch fails', done => {
-      mockFetchMostLoanedDocs.mockRejectedValue([500, 'Error']);
+    it('should dispatch an action when most loaned books fetch fails', done => {
+      mockFetchMostLoanedBooks.mockRejectedValue([500, 'Error']);
 
       const expectedActions = [
         {
@@ -73,9 +73,9 @@ describe('Most loaned documents actions', () => {
         },
       ];
 
-      store.dispatch(actions.fetchMostLoanedDocuments()).then(() => {
-        expect(mockFetchMostLoanedDocs).toHaveBeenCalledWith(
-          'circulation.active_loans:>0& AND &sort=mostloaned'
+      store.dispatch(actions.fetchMostLoanedBooks()).then(() => {
+        expect(mockFetchMostLoanedBooks).toHaveBeenCalledWith(
+          'circulation.active_loans:>0 AND document_types:"BOOK"&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
