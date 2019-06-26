@@ -2,7 +2,7 @@ import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { document as documentApi } from '../../../../../../common/api';
 import { sendErrorNotification } from '../../../../../../common/components/Notifications';
 
-export const fetchMostLoanedDocuments = () => {
+export const fetchMostRecentBooks = () => {
   return async dispatch => {
     try {
       dispatch({
@@ -11,8 +11,8 @@ export const fetchMostLoanedDocuments = () => {
       const response = await documentApi.list(
         documentApi
           .query()
-          .currentlyOnLoan()
-          .withSort('mostloaned')
+          .withDocumentType('BOOK')
+          .sortBy('-mostrecent')
           .qs()
       );
       dispatch({

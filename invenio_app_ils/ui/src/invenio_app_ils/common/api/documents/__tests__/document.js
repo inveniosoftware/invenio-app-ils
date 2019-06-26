@@ -1,7 +1,7 @@
 import { document as documentApi } from '../document';
 
 describe('Document query builder tests', () => {
-  it('should build query string with overbooked documents', () => {
+  it('should build the query string for overbooked documents', () => {
     const query = documentApi
       .query()
       .overbooked()
@@ -9,7 +9,15 @@ describe('Document query builder tests', () => {
     expect(query).toEqual('circulation.overbooked:true');
   });
 
-  it('should build query string pending loans stats', () => {
+  it('should build the query string for the documents with items on loan', () => {
+    const query = documentApi
+      .query()
+      .currentlyOnLoan()
+      .qs();
+    expect(query).toEqual('circulation.active_loans:>0');
+  });
+
+  it('should build the query string for documents with pending loans', () => {
     const query = documentApi
       .query()
       .withPendingLoans()
@@ -17,7 +25,7 @@ describe('Document query builder tests', () => {
     expect(query).toEqual('circulation.pending_loans:>0');
   });
 
-  it('should build query with items available for loan', () => {
+  it('should build query for documents with items available for loan', () => {
     const query = documentApi
       .query()
       .withAvailableItems()
@@ -25,7 +33,7 @@ describe('Document query builder tests', () => {
     expect(query).toEqual('circulation.has_items_for_loan:>0');
   });
 
-  it('should build query string with items available for loan and pending loans stats', () => {
+  it('should build the query string for documents with items available for loan and pending loans stats', () => {
     const query = documentApi
       .query()
       .withAvailableItems()
@@ -35,6 +43,47 @@ describe('Document query builder tests', () => {
       'circulation.has_items_for_loan:>0 AND circulation.pending_loans:>0'
     );
   });
-});
 
-describe('Loan list url request test', () => {});
+  it('should build the query string for documents with keywords', () => {
+    const query = documentApi
+      .query()
+      .withKeyword({ name: 'keyword1' })
+      .withKeyword({ name: 'keyword2' })
+      .qs();
+    expect(query).toEqual(
+      'keywords.name:"keyword1" AND keywords.name:"keyword2"'
+    );
+  });
+
+  it('should build the query string for documents of a type', () => {
+    const query = documentApi
+      .query()
+      .withDocumentType('BOOK')
+      .qs();
+    expect(query).toEqual('document_types:"BOOK"');
+  });
+
+  it('should build the query string for documents with eitems', () => {
+    const query = documentApi
+      .query()
+      .withEitems()
+      .qs();
+    expect(query).toEqual('circulation.has_eitems:>0');
+  });
+
+  it('should build the query string for documents that belong to a series', () => {
+    const query = documentApi
+      .query()
+      .withSeriesPid('123')
+      .qs();
+    expect(query).toEqual('series.series_pid:123');
+  });
+
+  it('should build the query string for documents that belong to multiple series', () => {
+    const query = documentApi
+      .query()
+      .withSeriesPid(['123', '567'])
+      .qs();
+    expect(query).toEqual('series.series_pid:(123 OR 567)');
+  });
+});

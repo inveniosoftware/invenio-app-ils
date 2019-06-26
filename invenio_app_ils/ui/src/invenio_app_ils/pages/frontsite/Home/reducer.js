@@ -1,7 +1,11 @@
 export {
-  default as mostLoanedDocumentsReducer,
-} from './components/MostLoanedDocuments/state/reducer';
+  default as mostLoanedBooksReducer,
+} from './components/MostLoanedBooks/state/reducer';
 
 export {
-  default as mostRecentDocumentsReducer,
-} from './components/MostRecentDocuments/state/reducer';
+  default as mostRecentBooksReducer,
+} from './components/MostRecentBooks/state/reducer';
+
+export {
+  default as mostRecentEbooksReducer,
+} from './components/MostRecentEbooks/state/reducer';

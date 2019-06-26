@@ -8,24 +8,24 @@ import { document as documentApi } from '../../../../../../../common/api';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-const mockFetchRecentlyAddedDocs = jest.fn();
-documentApi.list = mockFetchRecentlyAddedDocs;
+const mockFetchMostRecentBooks = jest.fn();
+documentApi.list = mockFetchMostRecentBooks;
 
 const response = { data: {} };
 const expectedPayload = {};
 
 let store;
 beforeEach(() => {
-  mockFetchRecentlyAddedDocs.mockClear();
+  mockFetchMostRecentBooks.mockClear();
 
   store = mockStore(initialState);
   store.clearActions();
 });
 
-describe('Recently added documents actions', () => {
-  describe('Fetch most recently added documents tests', () => {
-    it('should dispatch an action when fetching most recently added documents', done => {
-      mockFetchRecentlyAddedDocs.mockResolvedValue(response);
+describe('Recently added books actions', () => {
+  describe('Fetch most recently added books tests', () => {
+    it('should dispatch an action when fetching most recently added books', done => {
+      mockFetchMostRecentBooks.mockResolvedValue(response);
 
       const expectedActions = [
         {
@@ -33,9 +33,9 @@ describe('Recently added documents actions', () => {
         },
       ];
 
-      store.dispatch(actions.fetchMostRecentDocuments()).then(() => {
-        expect(mockFetchRecentlyAddedDocs).toHaveBeenCalledWith(
-          '&sort=-mostrecent'
+      store.dispatch(actions.fetchMostRecentBooks()).then(() => {
+        expect(mockFetchMostRecentBooks).toHaveBeenCalledWith(
+          'document_types:"BOOK"&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedActions[0]);
@@ -43,8 +43,8 @@ describe('Recently added documents actions', () => {
       });
     });
 
-    it('should dispatch an action when most recently added documents fetch succeeds', done => {
-      mockFetchRecentlyAddedDocs.mockResolvedValue(response);
+    it('should dispatch an action when most recently added books fetch succeeds', done => {
+      mockFetchMostRecentBooks.mockResolvedValue(response);
 
       const expectedActions = [
         {
@@ -53,9 +53,9 @@ describe('Recently added documents actions', () => {
         },
       ];
 
-      store.dispatch(actions.fetchMostRecentDocuments()).then(() => {
-        expect(mockFetchRecentlyAddedDocs).toHaveBeenCalledWith(
-          '&sort=-mostrecent'
+      store.dispatch(actions.fetchMostRecentBooks()).then(() => {
+        expect(mockFetchMostRecentBooks).toHaveBeenCalledWith(
+          'document_types:"BOOK"&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
@@ -63,8 +63,8 @@ describe('Recently added documents actions', () => {
       });
     });
 
-    it('should dispatch an action when most recently added documents fetch fails', done => {
-      mockFetchRecentlyAddedDocs.mockRejectedValue([500, 'Error']);
+    it('should dispatch an action when most recently added books fetch fails', done => {
+      mockFetchMostRecentBooks.mockRejectedValue([500, 'Error']);
 
       const expectedActions = [
         {
@@ -73,9 +73,9 @@ describe('Recently added documents actions', () => {
         },
       ];
 
-      store.dispatch(actions.fetchMostRecentDocuments()).then(() => {
-        expect(mockFetchRecentlyAddedDocs).toHaveBeenCalledWith(
-          '&sort=-mostrecent'
+      store.dispatch(actions.fetchMostRecentBooks()).then(() => {
+        expect(mockFetchMostRecentBooks).toHaveBeenCalledWith(
+          'document_types:"BOOK"&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
