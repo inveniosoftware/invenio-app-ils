@@ -8,7 +8,7 @@ export default class BookCard extends Component {
   render() {
     const bookData = this.props.bookData;
     return (
-      <Card onClick={bookData.onClick}>
+      <Card onClick={bookData.onClick} data-test={bookData.pid}>
         <Image size={bookData.imageSize} src={bookData.imageCover} />
         <Card.Content>
           <Card.Header>{bookData.title}</Card.Header>

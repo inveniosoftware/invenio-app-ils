@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly when book contains only both series types 1`] = `
+<div>
+  <div>
+    <h4
+      className="ui header"
+    >
+      Part of the following series:
+    </h4>
+    <div
+      className="ui list"
+      role="list"
+    >
+      <a
+        className="item"
+        onClick={[Function]}
+        role="listitem"
+      >
+        Lorem Ipsum
+      </a>
+    </div>
+  </div>
+  <div
+    className="ui hidden divider"
+  />
+</div>
+`;
+
+exports[`should render correctly when the book contains only multiparts 1`] = `
+<div>
+  <div
+    className="ui hidden divider"
+  />
+</div>
+`;
+
+exports[`should render correctly when the book contains only serials 1`] = `
+<div>
+  <div>
+    <h4
+      className="ui header"
+    >
+      Part of the following series:
+    </h4>
+    <div
+      className="ui list"
+      role="list"
+    >
+      <a
+        className="item"
+        onClick={[Function]}
+        role="listitem"
+      >
+        Lorem Ipsum
+      </a>
+    </div>
+  </div>
+  <div
+    className="ui hidden divider"
+  />
+</div>
+`;
+
+exports[`should render nothing when the book does not contain any series 1`] = `
+<div>
+  <div
+    className="ui hidden divider"
+  />
+</div>
+`;

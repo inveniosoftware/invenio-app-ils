@@ -1,0 +1,624 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MostRecentEbooks tests should go to book details when clicking on a book 1`] = `
+<MostRecentEbooks
+  data={
+    Object {
+      "hits": Array [
+        Object {
+          "metadata": Object {
+            "_computed": Object {
+              "eitems": Array [
+                Object {
+                  "description": "Lorem ipsum",
+                  "document_pid": "doc1",
+                  "eitem_pid": "eitem1",
+                  "image_cover": "",
+                  "image_size": "",
+                  "onClick": [MockFunction],
+                  "open_access": true,
+                  "title": "title1",
+                },
+              ],
+            },
+            "document_pid": "123",
+            "title": "Dolore",
+          },
+        },
+        Object {
+          "metadata": Object {
+            "_computed": Object {
+              "eitems": Array [
+                Object {
+                  "description": "Lorem ipsum",
+                  "document_pid": "doc2",
+                  "eitem_pid": "eitem2",
+                  "image_cover": "",
+                  "image_size": "",
+                  "onClick": [MockFunction],
+                  "open_access": false,
+                  "title": "title2",
+                },
+              ],
+            },
+            "document_pid": "456",
+            "title": "Ipsum",
+          },
+        },
+      ],
+      "total": 2,
+    }
+  }
+  fetchMostRecentEbooks={[Function]}
+  maxItemsToDisplay={1}
+>
+  <Loader>
+    <Error>
+      <div>
+        <Button
+          as="button"
+          content="See All"
+          onClick={[Function]}
+        >
+          <button
+            className="ui button"
+            onClick={[Function]}
+          >
+            See All
+          </button>
+        </Button>
+        <Divider
+          hidden={true}
+        >
+          <div
+            className="ui hidden divider"
+          />
+        </Divider>
+        <CardGroup>
+          <div
+            className="ui cards"
+          >
+            <EbookCard
+              ebookData={
+                Object {
+                  "description": "Lorem ipsum",
+                  "document_pid": "123",
+                  "eitem_pid": "eitem1",
+                  "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
+                  "imageSize": "small",
+                  "onClick": [Function],
+                  "open_access": true,
+                  "title": "Dolore",
+                }
+              }
+              key="eitem1"
+            >
+              <Card
+                data-test="eitem1"
+                onClick={[Function]}
+              >
+                <a
+                  className="ui card"
+                  data-test="eitem1"
+                  onClick={[Function]}
+                >
+                  <Image
+                    as="img"
+                    size="small"
+                    src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    ui={true}
+                  >
+                    <img
+                      className="ui small image"
+                      src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    />
+                  </Image>
+                  <CardContent>
+                    <div
+                      className="content"
+                    >
+                      <CardHeader>
+                        <div
+                          className="header"
+                        >
+                          Dolore
+                        </div>
+                      </CardHeader>
+                      <CardMeta>
+                        <div
+                          className="meta"
+                        >
+                          Lorem ipsum
+                        </div>
+                      </CardMeta>
+                    </div>
+                  </CardContent>
+                </a>
+              </Card>
+            </EbookCard>
+            <EbookCard
+              ebookData={
+                Object {
+                  "description": "Lorem ipsum",
+                  "document_pid": "456",
+                  "eitem_pid": "eitem2",
+                  "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
+                  "imageSize": "small",
+                  "onClick": [Function],
+                  "open_access": false,
+                  "title": "Ipsum",
+                }
+              }
+              key="eitem2"
+            >
+              <Card
+                data-test="eitem2"
+                onClick={[Function]}
+              >
+                <a
+                  className="ui card"
+                  data-test="eitem2"
+                  onClick={[Function]}
+                >
+                  <Image
+                    as="img"
+                    size="small"
+                    src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    ui={true}
+                  >
+                    <img
+                      className="ui small image"
+                      src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    />
+                  </Image>
+                  <CardContent>
+                    <div
+                      className="content"
+                    >
+                      <CardHeader>
+                        <div
+                          className="header"
+                        >
+                          Ipsum
+                        </div>
+                      </CardHeader>
+                      <CardMeta>
+                        <div
+                          className="meta"
+                        >
+                          Lorem ipsum
+                        </div>
+                      </CardMeta>
+                    </div>
+                  </CardContent>
+                </a>
+              </Card>
+            </EbookCard>
+          </div>
+        </CardGroup>
+      </div>
+    </Error>
+  </Loader>
+</MostRecentEbooks>
+`;
+
+exports[`MostRecentEbooks tests should load the most recent ebooks component 1`] = `
+<Loader>
+  <Error>
+    <div>
+      <Button
+        as="button"
+        content="See All"
+        onClick={[Function]}
+      />
+      <Divider
+        hidden={true}
+      />
+      <CardGroup />
+    </div>
+  </Error>
+</Loader>
+`;
+
+exports[`MostRecentEbooks tests should render pending loans 1`] = `
+<MostRecentEbooks
+  data={
+    Object {
+      "hits": Array [
+        Object {
+          "metadata": Object {
+            "_computed": Object {
+              "eitems": Array [
+                Object {
+                  "description": "Lorem ipsum",
+                  "document_pid": "doc1",
+                  "eitem_pid": "eitem1",
+                  "image_cover": "",
+                  "image_size": "",
+                  "onClick": [MockFunction],
+                  "open_access": true,
+                  "title": "title1",
+                },
+              ],
+            },
+            "document_pid": "123",
+            "title": "Dolore",
+          },
+        },
+        Object {
+          "metadata": Object {
+            "_computed": Object {
+              "eitems": Array [
+                Object {
+                  "description": "Lorem ipsum",
+                  "document_pid": "doc2",
+                  "eitem_pid": "eitem2",
+                  "image_cover": "",
+                  "image_size": "",
+                  "onClick": [MockFunction],
+                  "open_access": false,
+                  "title": "title2",
+                },
+              ],
+            },
+            "document_pid": "456",
+            "title": "Ipsum",
+          },
+        },
+      ],
+      "total": 2,
+    }
+  }
+  fetchMostRecentEbooks={[Function]}
+>
+  <Loader>
+    <Error>
+      <div>
+        <Button
+          as="button"
+          content="See All"
+          onClick={[Function]}
+        >
+          <button
+            className="ui button"
+            onClick={[Function]}
+          >
+            See All
+          </button>
+        </Button>
+        <Divider
+          hidden={true}
+        >
+          <div
+            className="ui hidden divider"
+          />
+        </Divider>
+        <CardGroup>
+          <div
+            className="ui cards"
+          >
+            <EbookCard
+              ebookData={
+                Object {
+                  "description": "Lorem ipsum",
+                  "document_pid": "123",
+                  "eitem_pid": "eitem1",
+                  "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
+                  "imageSize": "small",
+                  "onClick": [Function],
+                  "open_access": true,
+                  "title": "Dolore",
+                }
+              }
+              key="eitem1"
+            >
+              <Card
+                data-test="eitem1"
+                onClick={[Function]}
+              >
+                <a
+                  className="ui card"
+                  data-test="eitem1"
+                  onClick={[Function]}
+                >
+                  <Image
+                    as="img"
+                    size="small"
+                    src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    ui={true}
+                  >
+                    <img
+                      className="ui small image"
+                      src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    />
+                  </Image>
+                  <CardContent>
+                    <div
+                      className="content"
+                    >
+                      <CardHeader>
+                        <div
+                          className="header"
+                        >
+                          Dolore
+                        </div>
+                      </CardHeader>
+                      <CardMeta>
+                        <div
+                          className="meta"
+                        >
+                          Lorem ipsum
+                        </div>
+                      </CardMeta>
+                    </div>
+                  </CardContent>
+                </a>
+              </Card>
+            </EbookCard>
+            <EbookCard
+              ebookData={
+                Object {
+                  "description": "Lorem ipsum",
+                  "document_pid": "456",
+                  "eitem_pid": "eitem2",
+                  "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
+                  "imageSize": "small",
+                  "onClick": [Function],
+                  "open_access": false,
+                  "title": "Ipsum",
+                }
+              }
+              key="eitem2"
+            >
+              <Card
+                data-test="eitem2"
+                onClick={[Function]}
+              >
+                <a
+                  className="ui card"
+                  data-test="eitem2"
+                  onClick={[Function]}
+                >
+                  <Image
+                    as="img"
+                    size="small"
+                    src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    ui={true}
+                  >
+                    <img
+                      className="ui small image"
+                      src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    />
+                  </Image>
+                  <CardContent>
+                    <div
+                      className="content"
+                    >
+                      <CardHeader>
+                        <div
+                          className="header"
+                        >
+                          Ipsum
+                        </div>
+                      </CardHeader>
+                      <CardMeta>
+                        <div
+                          className="meta"
+                        >
+                          Lorem ipsum
+                        </div>
+                      </CardMeta>
+                    </div>
+                  </CardContent>
+                </a>
+              </Card>
+            </EbookCard>
+          </div>
+        </CardGroup>
+      </div>
+    </Error>
+  </Loader>
+</MostRecentEbooks>
+`;
+
+exports[`MostRecentEbooks tests should render the see all button when showing most recent ebooks 1`] = `
+<MostRecentEbooks
+  data={
+    Object {
+      "hits": Array [
+        Object {
+          "metadata": Object {
+            "_computed": Object {
+              "eitems": Array [
+                Object {
+                  "description": "Lorem ipsum",
+                  "document_pid": "doc1",
+                  "eitem_pid": "eitem1",
+                  "image_cover": "",
+                  "image_size": "",
+                  "onClick": [MockFunction],
+                  "open_access": true,
+                  "title": "title1",
+                },
+              ],
+            },
+            "document_pid": "123",
+            "title": "Dolore",
+          },
+        },
+        Object {
+          "metadata": Object {
+            "_computed": Object {
+              "eitems": Array [
+                Object {
+                  "description": "Lorem ipsum",
+                  "document_pid": "doc2",
+                  "eitem_pid": "eitem2",
+                  "image_cover": "",
+                  "image_size": "",
+                  "onClick": [MockFunction],
+                  "open_access": false,
+                  "title": "title2",
+                },
+              ],
+            },
+            "document_pid": "456",
+            "title": "Ipsum",
+          },
+        },
+      ],
+      "total": 2,
+    }
+  }
+  fetchMostRecentEbooks={[Function]}
+  maxItemsToDisplay={1}
+>
+  <Loader>
+    <Error>
+      <div>
+        <Button
+          as="button"
+          content="See All"
+          onClick={[Function]}
+        >
+          <button
+            className="ui button"
+            onClick={[Function]}
+          >
+            See All
+          </button>
+        </Button>
+        <Divider
+          hidden={true}
+        >
+          <div
+            className="ui hidden divider"
+          />
+        </Divider>
+        <CardGroup>
+          <div
+            className="ui cards"
+          >
+            <EbookCard
+              ebookData={
+                Object {
+                  "description": "Lorem ipsum",
+                  "document_pid": "123",
+                  "eitem_pid": "eitem1",
+                  "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
+                  "imageSize": "small",
+                  "onClick": [Function],
+                  "open_access": true,
+                  "title": "Dolore",
+                }
+              }
+              key="eitem1"
+            >
+              <Card
+                data-test="eitem1"
+                onClick={[Function]}
+              >
+                <a
+                  className="ui card"
+                  data-test="eitem1"
+                  onClick={[Function]}
+                >
+                  <Image
+                    as="img"
+                    size="small"
+                    src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    ui={true}
+                  >
+                    <img
+                      className="ui small image"
+                      src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    />
+                  </Image>
+                  <CardContent>
+                    <div
+                      className="content"
+                    >
+                      <CardHeader>
+                        <div
+                          className="header"
+                        >
+                          Dolore
+                        </div>
+                      </CardHeader>
+                      <CardMeta>
+                        <div
+                          className="meta"
+                        >
+                          Lorem ipsum
+                        </div>
+                      </CardMeta>
+                    </div>
+                  </CardContent>
+                </a>
+              </Card>
+            </EbookCard>
+            <EbookCard
+              ebookData={
+                Object {
+                  "description": "Lorem ipsum",
+                  "document_pid": "456",
+                  "eitem_pid": "eitem2",
+                  "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
+                  "imageSize": "small",
+                  "onClick": [Function],
+                  "open_access": false,
+                  "title": "Ipsum",
+                }
+              }
+              key="eitem2"
+            >
+              <Card
+                data-test="eitem2"
+                onClick={[Function]}
+              >
+                <a
+                  className="ui card"
+                  data-test="eitem2"
+                  onClick={[Function]}
+                >
+                  <Image
+                    as="img"
+                    size="small"
+                    src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    ui={true}
+                  >
+                    <img
+                      className="ui small image"
+                      src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    />
+                  </Image>
+                  <CardContent>
+                    <div
+                      className="content"
+                    >
+                      <CardHeader>
+                        <div
+                          className="header"
+                        >
+                          Ipsum
+                        </div>
+                      </CardHeader>
+                      <CardMeta>
+                        <div
+                          className="meta"
+                        >
+                          Lorem ipsum
+                        </div>
+                      </CardMeta>
+                    </div>
+                  </CardContent>
+                </a>
+              </Card>
+            </EbookCard>
+          </div>
+        </CardGroup>
+      </div>
+    </Error>
+  </Loader>
+</MostRecentEbooks>
+`;

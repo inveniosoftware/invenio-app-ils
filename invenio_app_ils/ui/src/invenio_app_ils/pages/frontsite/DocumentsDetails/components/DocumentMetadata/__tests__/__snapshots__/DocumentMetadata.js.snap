@@ -1,0 +1,964 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentMetadata tests should render the document correctly 1`] = `
+<DocumentMetadata
+  documentsDetails={
+    Object {
+      "created": "2019-07-08T10:44:02.366+02:00",
+      "id": 71,
+      "links": Object {
+        "self": "https://127.0.0.1:5000/api/documents/71",
+      },
+      "metadata": Object {
+        "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+        "_access": Object {},
+        "_computed": Object {
+          "eitems": Array [
+            Object {
+              "description": "Non ipsum",
+              "eitem_pid": "145",
+              "open_access": true,
+            },
+          ],
+        },
+        "abstracts": Array [],
+        "authors": Array [
+          "Est sit magnam quiquia.",
+        ],
+        "booklinks": Array [],
+        "chapters": Array [],
+        "circulation": Object {},
+        "document_pid": "71",
+        "document_types": Array [
+          "BOOK",
+        ],
+        "files": Array [],
+        "keyword_pids": Array [
+          "24",
+        ],
+        "keywords": Array [],
+        "languages": Array [
+          "el",
+          "ro",
+          "fr",
+          "it",
+          "es",
+        ],
+        "publishers": Array [
+          "Quiquia amet consectetur velit.",
+        ],
+        "related_records": Array [],
+        "series": Object {},
+      },
+      "updated": "2019-07-08T10:44:18.354+02:00",
+    }
+  }
+>
+  <Segment
+    className="document-metadata"
+    data-test="71"
+  >
+    <div
+      className="ui segment document-metadata"
+      data-test="71"
+    >
+      <Grid>
+        <div
+          className="ui grid"
+        >
+          <GridRow>
+            <div
+              className="row"
+            >
+              <Grid
+                columns={2}
+                stackable={true}
+              >
+                <div
+                  className="ui stackable two column grid"
+                >
+                  <GridColumn
+                    width={3}
+                  >
+                    <div
+                      className="three wide column"
+                    >
+                      <Image
+                        as="img"
+                        size="medium"
+                        src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                        ui={true}
+                      >
+                        <img
+                          className="ui medium image"
+                          src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                        />
+                      </Image>
+                      <ShareButtons
+                        type="mobile"
+                      >
+                        <div>
+                          <Button
+                            as="button"
+                            circular={true}
+                            color="facebook"
+                            href="https://www.facebook.com/sharer/sharer.php"
+                            icon="facebook"
+                          >
+                            <a
+                              className="ui facebook circular icon button"
+                              href="https://www.facebook.com/sharer/sharer.php"
+                              onClick={[Function]}
+                              role="button"
+                            >
+                              <Icon
+                                as="i"
+                                name="facebook"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="facebook icon"
+                                />
+                              </Icon>
+                            </a>
+                          </Button>
+                          <Button
+                            as="button"
+                            circular={true}
+                            color="twitter"
+                            href="https://twitter.com/intent/tweet"
+                            icon="twitter"
+                          >
+                            <a
+                              className="ui twitter circular icon button"
+                              href="https://twitter.com/intent/tweet"
+                              onClick={[Function]}
+                              role="button"
+                            >
+                              <Icon
+                                as="i"
+                                name="twitter"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="twitter icon"
+                                />
+                              </Icon>
+                            </a>
+                          </Button>
+                          <Button
+                            as="button"
+                            circular={true}
+                            color="linkedin"
+                            icon="linkedin"
+                          >
+                            <button
+                              className="ui linkedin circular icon button"
+                              onClick={[Function]}
+                            >
+                              <Icon
+                                as="i"
+                                name="linkedin"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="linkedin icon"
+                                />
+                              </Icon>
+                            </button>
+                          </Button>
+                        </div>
+                      </ShareButtons>
+                    </div>
+                  </GridColumn>
+                  <GridColumn
+                    width={13}
+                  >
+                    <div
+                      className="thirteen wide column"
+                    >
+                      <GridRow>
+                        <div
+                          className="row"
+                        >
+                          <div
+                            className="ui hidden divider"
+                          />
+                          <BookInfo
+                            documentMetadata={
+                              Object {
+                                "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                                "_access": Object {},
+                                "_computed": Object {
+                                  "eitems": Array [
+                                    Object {
+                                      "description": "Non ipsum",
+                                      "eitem_pid": "145",
+                                      "open_access": true,
+                                    },
+                                  ],
+                                },
+                                "abstracts": Array [],
+                                "authors": Array [
+                                  "Est sit magnam quiquia.",
+                                ],
+                                "booklinks": Array [],
+                                "chapters": Array [],
+                                "circulation": Object {},
+                                "document_pid": "71",
+                                "document_types": Array [
+                                  "BOOK",
+                                ],
+                                "files": Array [],
+                                "keyword_pids": Array [
+                                  "24",
+                                ],
+                                "keywords": Array [],
+                                "languages": Array [
+                                  "el",
+                                  "ro",
+                                  "fr",
+                                  "it",
+                                  "es",
+                                ],
+                                "publishers": Array [
+                                  "Quiquia amet consectetur velit.",
+                                ],
+                                "related_records": Array [],
+                                "series": Object {},
+                              }
+                            }
+                          >
+                            <div
+                              className="document-info"
+                            >
+                              <Header
+                                as="h2"
+                              >
+                                <h2
+                                  className="ui header"
+                                />
+                              </Header>
+                              <List>
+                                <div
+                                  className="ui list"
+                                  role="list"
+                                >
+                                  <ListItem
+                                    as="h4"
+                                    key="Key0"
+                                  >
+                                    <h4
+                                      className="item"
+                                      onClick={[Function]}
+                                      role="listitem"
+                                    >
+                                      Author: 
+                                      Est sit magnam quiquia.
+                                    </h4>
+                                  </ListItem>
+                                </div>
+                              </List>
+                              <List>
+                                <div
+                                  className="ui list"
+                                  role="list"
+                                >
+                                  <ListItem
+                                    as="h5"
+                                    key="Key0"
+                                  >
+                                    <h5
+                                      className="item"
+                                      onClick={[Function]}
+                                      role="listitem"
+                                    >
+                                      Publisher: 
+                                      Quiquia amet consectetur velit.
+                                    </h5>
+                                  </ListItem>
+                                </div>
+                              </List>
+                            </div>
+                          </BookInfo>
+                          <div
+                            className="ui hidden divider"
+                          />
+                          <EitemsButton
+                            eitems={
+                              Array [
+                                Object {
+                                  "description": "Non ipsum",
+                                  "eitem_pid": "145",
+                                  "open_access": true,
+                                },
+                              ]
+                            }
+                          >
+                            <Button
+                              as="button"
+                              color="green"
+                              content="Access eBook"
+                              positive={true}
+                              size="small"
+                            >
+                              <button
+                                className="ui green small positive button"
+                                onClick={[Function]}
+                              >
+                                Access eBook
+                              </button>
+                            </Button>
+                          </EitemsButton>
+                          <Button
+                            as="button"
+                            content="Request Loan"
+                            onClick={[Function]}
+                            positive={true}
+                            size="small"
+                          >
+                            <button
+                              className="ui small positive button"
+                              onClick={[Function]}
+                            >
+                              Request Loan
+                            </button>
+                          </Button>
+                          <Popup
+                            content="Request a loan on this document"
+                            keepInViewPort={true}
+                            on="hover"
+                            position="top left"
+                            trigger={
+                              <Icon
+                                as="i"
+                                name="info circle"
+                                size="large"
+                              />
+                            }
+                          >
+                            <Portal
+                              closeOnDocumentClick={true}
+                              closeOnEscape={true}
+                              closeOnTriggerMouseLeave={true}
+                              eventPool="default"
+                              mouseEnterDelay={50}
+                              mouseLeaveDelay={70}
+                              onClose={[Function]}
+                              onMount={[Function]}
+                              onOpen={[Function]}
+                              onUnmount={[Function]}
+                              openOnTriggerClick={true}
+                              openOnTriggerMouseEnter={true}
+                              trigger={
+                                <Icon
+                                  as="i"
+                                  name="info circle"
+                                  size="large"
+                                />
+                              }
+                              triggerRef={[Function]}
+                            >
+                              <Ref
+                                innerRef={[Function]}
+                              >
+                                <Icon
+                                  as="i"
+                                  name="info circle"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  size="large"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    className="info circle large icon"
+                                    onBlur={[Function]}
+                                    onClick={[Function]}
+                                    onFocus={[Function]}
+                                    onMouseEnter={[Function]}
+                                    onMouseLeave={[Function]}
+                                  />
+                                </Icon>
+                              </Ref>
+                            </Portal>
+                          </Popup>
+                          <div
+                            className="ui hidden divider"
+                          />
+                          <BookSeries
+                            goToSeriesList={[Function]}
+                            series={Object {}}
+                          >
+                            <div>
+                              <div
+                                className="ui hidden divider"
+                              />
+                            </div>
+                          </BookSeries>
+                        </div>
+                      </GridRow>
+                      <GridRow>
+                        <div
+                          className="row"
+                        >
+                          <div
+                            className="ui hidden divider"
+                          />
+                          <Label
+                            color="red"
+                            content="Available copies"
+                          >
+                            <div
+                              className="ui red label"
+                              onClick={[Function]}
+                            >
+                              Available copies
+                            </div>
+                          </Label>
+                          <div
+                            className="ui hidden divider"
+                          />
+                        </div>
+                      </GridRow>
+                    </div>
+                  </GridColumn>
+                </div>
+              </Grid>
+            </div>
+          </GridRow>
+          <GridRow>
+            <div
+              className="row"
+            >
+              <Responsive
+                as={[Function]}
+                getWidth={[Function]}
+                minWidth={992}
+              >
+                <Container>
+                  <div
+                    className="ui container"
+                  >
+                    <Grid
+                      columns={2}
+                    >
+                      <div
+                        className="ui two column grid"
+                      >
+                        <BookAttachments
+                          displayOption="desktop"
+                          documentData={
+                            Object {
+                              "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                              "_access": Object {},
+                              "_computed": Object {
+                                "eitems": Array [
+                                  Object {
+                                    "description": "Non ipsum",
+                                    "eitem_pid": "145",
+                                    "open_access": true,
+                                  },
+                                ],
+                              },
+                              "abstracts": Array [],
+                              "authors": Array [
+                                "Est sit magnam quiquia.",
+                              ],
+                              "booklinks": Array [],
+                              "chapters": Array [],
+                              "circulation": Object {},
+                              "document_pid": "71",
+                              "document_types": Array [
+                                "BOOK",
+                              ],
+                              "files": Array [],
+                              "keyword_pids": Array [
+                                "24",
+                              ],
+                              "keywords": Array [],
+                              "languages": Array [
+                                "el",
+                                "ro",
+                                "fr",
+                                "it",
+                                "es",
+                              ],
+                              "publishers": Array [
+                                "Quiquia amet consectetur velit.",
+                              ],
+                              "related_records": Array [],
+                              "series": Object {},
+                            }
+                          }
+                        >
+                          <GridColumn
+                            width={3}
+                          >
+                            <div
+                              className="three wide column"
+                            >
+                              <GridRow>
+                                <div
+                                  className="row"
+                                >
+                                  <Header
+                                    as="h3"
+                                  >
+                                    <h3
+                                      className="ui header"
+                                    >
+                                      Share and Export
+                                    </h3>
+                                  </Header>
+                                  <ShareButtons
+                                    type="desktop"
+                                  >
+                                    <div>
+                                      <Button
+                                        as="button"
+                                        color="facebook"
+                                        content="Facebook"
+                                        href="https://www.facebook.com/sharer/sharer.php"
+                                        icon="facebook"
+                                      >
+                                        <a
+                                          className="ui facebook button"
+                                          href="https://www.facebook.com/sharer/sharer.php"
+                                          onClick={[Function]}
+                                          role="button"
+                                        >
+                                          <Icon
+                                            as="i"
+                                            name="facebook"
+                                          >
+                                            <i
+                                              aria-hidden="true"
+                                              className="facebook icon"
+                                            />
+                                          </Icon>
+                                          Facebook
+                                        </a>
+                                      </Button>
+                                      <div
+                                        className="ui hidden divider"
+                                      />
+                                      <Button
+                                        as="button"
+                                        color="twitter"
+                                        content="Twitter"
+                                        href="https://twitter.com/intent/tweet"
+                                        icon="twitter"
+                                      >
+                                        <a
+                                          className="ui twitter button"
+                                          href="https://twitter.com/intent/tweet"
+                                          onClick={[Function]}
+                                          role="button"
+                                        >
+                                          <Icon
+                                            as="i"
+                                            name="twitter"
+                                          >
+                                            <i
+                                              aria-hidden="true"
+                                              className="twitter icon"
+                                            />
+                                          </Icon>
+                                          Twitter
+                                        </a>
+                                      </Button>
+                                      <div
+                                        className="ui hidden divider"
+                                      />
+                                      <Button
+                                        as="button"
+                                        color="linkedin"
+                                        content="LinkedIn"
+                                        icon="linkedin"
+                                      >
+                                        <button
+                                          className="ui linkedin button"
+                                          onClick={[Function]}
+                                        >
+                                          <Icon
+                                            as="i"
+                                            name="linkedin"
+                                          >
+                                            <i
+                                              aria-hidden="true"
+                                              className="linkedin icon"
+                                            />
+                                          </Icon>
+                                          LinkedIn
+                                        </button>
+                                      </Button>
+                                    </div>
+                                  </ShareButtons>
+                                  <div
+                                    className="ui hidden divider"
+                                  />
+                                  <div
+                                    className="ui hidden divider"
+                                  />
+                                  <div
+                                    className="ui divider"
+                                  />
+                                </div>
+                              </GridRow>
+                              <GridRow>
+                                <div
+                                  className="row"
+                                />
+                              </GridRow>
+                              <GridRow>
+                                <div
+                                  className="row"
+                                />
+                              </GridRow>
+                            </div>
+                          </GridColumn>
+                        </BookAttachments>
+                        <DocumentTab
+                          documentMetadata={
+                            Object {
+                              "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                              "_access": Object {},
+                              "_computed": Object {
+                                "eitems": Array [
+                                  Object {
+                                    "description": "Non ipsum",
+                                    "eitem_pid": "145",
+                                    "open_access": true,
+                                  },
+                                ],
+                              },
+                              "abstracts": Array [],
+                              "authors": Array [
+                                "Est sit magnam quiquia.",
+                              ],
+                              "booklinks": Array [],
+                              "chapters": Array [],
+                              "circulation": Object {},
+                              "document_pid": "71",
+                              "document_types": Array [
+                                "BOOK",
+                              ],
+                              "files": Array [],
+                              "keyword_pids": Array [
+                                "24",
+                              ],
+                              "keywords": Array [],
+                              "languages": Array [
+                                "el",
+                                "ro",
+                                "fr",
+                                "it",
+                                "es",
+                              ],
+                              "publishers": Array [
+                                "Quiquia amet consectetur velit.",
+                              ],
+                              "related_records": Array [],
+                              "series": Object {},
+                            }
+                          }
+                        >
+                          <GridColumn
+                            width={13}
+                          >
+                            <div
+                              className="thirteen wide column"
+                            >
+                              <GridRow>
+                                <div
+                                  className="row"
+                                >
+                                  <Responsive
+                                    as={[Function]}
+                                    documentMetadata={
+                                      Object {
+                                        "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                                        "_access": Object {},
+                                        "_computed": Object {
+                                          "eitems": Array [
+                                            Object {
+                                              "description": "Non ipsum",
+                                              "eitem_pid": "145",
+                                              "open_access": true,
+                                            },
+                                          ],
+                                        },
+                                        "abstracts": Array [],
+                                        "authors": Array [
+                                          "Est sit magnam quiquia.",
+                                        ],
+                                        "booklinks": Array [],
+                                        "chapters": Array [],
+                                        "circulation": Object {},
+                                        "document_pid": "71",
+                                        "document_types": Array [
+                                          "BOOK",
+                                        ],
+                                        "files": Array [],
+                                        "keyword_pids": Array [
+                                          "24",
+                                        ],
+                                        "keywords": Array [],
+                                        "languages": Array [
+                                          "el",
+                                          "ro",
+                                          "fr",
+                                          "it",
+                                          "es",
+                                        ],
+                                        "publishers": Array [
+                                          "Quiquia amet consectetur velit.",
+                                        ],
+                                        "related_records": Array [],
+                                        "series": Object {},
+                                      }
+                                    }
+                                    getWidth={[Function]}
+                                    minWidth={992}
+                                  >
+                                    <DocumentTabMenu
+                                      documentMetadata={
+                                        Object {
+                                          "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                                          "_access": Object {},
+                                          "_computed": Object {
+                                            "eitems": Array [
+                                              Object {
+                                                "description": "Non ipsum",
+                                                "eitem_pid": "145",
+                                                "open_access": true,
+                                              },
+                                            ],
+                                          },
+                                          "abstracts": Array [],
+                                          "authors": Array [
+                                            "Est sit magnam quiquia.",
+                                          ],
+                                          "booklinks": Array [],
+                                          "chapters": Array [],
+                                          "circulation": Object {},
+                                          "document_pid": "71",
+                                          "document_types": Array [
+                                            "BOOK",
+                                          ],
+                                          "files": Array [],
+                                          "keyword_pids": Array [
+                                            "24",
+                                          ],
+                                          "keywords": Array [],
+                                          "languages": Array [
+                                            "el",
+                                            "ro",
+                                            "fr",
+                                            "it",
+                                            "es",
+                                          ],
+                                          "publishers": Array [
+                                            "Quiquia amet consectetur velit.",
+                                          ],
+                                          "related_records": Array [],
+                                          "series": Object {},
+                                        }
+                                      }
+                                    >
+                                      <div>
+                                        <Tab
+                                          data-test="71"
+                                          grid={
+                                            Object {
+                                              "paneWidth": 12,
+                                              "tabWidth": 4,
+                                            }
+                                          }
+                                          menu={
+                                            Object {
+                                              "attached": true,
+                                              "tabular": true,
+                                            }
+                                          }
+                                          panes={
+                                            Array [
+                                              Object {
+                                                "menuItem": "Abstract",
+                                                "render": [Function],
+                                              },
+                                              Object {
+                                                "menuItem": "Information",
+                                                "render": [Function],
+                                              },
+                                              Object {
+                                                "menuItem": "Chapters",
+                                                "render": [Function],
+                                              },
+                                            ]
+                                          }
+                                          renderActiveOnly={true}
+                                        >
+                                          <div
+                                            data-test="71"
+                                          >
+                                            <Menu
+                                              activeIndex={0}
+                                              attached={true}
+                                              items={
+                                                Array [
+                                                  "Abstract",
+                                                  "Information",
+                                                  "Chapters",
+                                                ]
+                                              }
+                                              onItemClick={[Function]}
+                                              tabular={true}
+                                            >
+                                              <div
+                                                className="ui attached tabular menu"
+                                              >
+                                                <MenuItem
+                                                  active={true}
+                                                  content="Abstract"
+                                                  index={0}
+                                                  key="Abstract"
+                                                  name="Abstract"
+                                                  onClick={[Function]}
+                                                >
+                                                  <a
+                                                    className="active item"
+                                                    onClick={[Function]}
+                                                  >
+                                                    Abstract
+                                                  </a>
+                                                </MenuItem>
+                                                <MenuItem
+                                                  active={false}
+                                                  content="Information"
+                                                  index={1}
+                                                  key="Information"
+                                                  name="Information"
+                                                  onClick={[Function]}
+                                                >
+                                                  <a
+                                                    className="item"
+                                                    onClick={[Function]}
+                                                  >
+                                                    Information
+                                                  </a>
+                                                </MenuItem>
+                                                <MenuItem
+                                                  active={false}
+                                                  content="Chapters"
+                                                  index={2}
+                                                  key="Chapters"
+                                                  name="Chapters"
+                                                  onClick={[Function]}
+                                                >
+                                                  <a
+                                                    className="item"
+                                                    onClick={[Function]}
+                                                  >
+                                                    Chapters
+                                                  </a>
+                                                </MenuItem>
+                                              </div>
+                                            </Menu>
+                                            <TabPane
+                                              active={true}
+                                              as={[Function]}
+                                            >
+                                              <Segment
+                                                attached="bottom"
+                                                className="active tab"
+                                              >
+                                                <div
+                                                  className="ui bottom attached segment active tab"
+                                                />
+                                              </Segment>
+                                            </TabPane>
+                                          </div>
+                                        </Tab>
+                                      </div>
+                                    </DocumentTabMenu>
+                                  </Responsive>
+                                  <Responsive
+                                    as={[Function]}
+                                    documentMetadata={
+                                      Object {
+                                        "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                                        "_access": Object {},
+                                        "_computed": Object {
+                                          "eitems": Array [
+                                            Object {
+                                              "description": "Non ipsum",
+                                              "eitem_pid": "145",
+                                              "open_access": true,
+                                            },
+                                          ],
+                                        },
+                                        "abstracts": Array [],
+                                        "authors": Array [
+                                          "Est sit magnam quiquia.",
+                                        ],
+                                        "booklinks": Array [],
+                                        "chapters": Array [],
+                                        "circulation": Object {},
+                                        "document_pid": "71",
+                                        "document_types": Array [
+                                          "BOOK",
+                                        ],
+                                        "files": Array [],
+                                        "keyword_pids": Array [
+                                          "24",
+                                        ],
+                                        "keywords": Array [],
+                                        "languages": Array [
+                                          "el",
+                                          "ro",
+                                          "fr",
+                                          "it",
+                                          "es",
+                                        ],
+                                        "publishers": Array [
+                                          "Quiquia amet consectetur velit.",
+                                        ],
+                                        "related_records": Array [],
+                                        "series": Object {},
+                                      }
+                                    }
+                                    getWidth={[Function]}
+                                    maxWidth={767}
+                                    minWidth={320}
+                                  />
+                                  <div
+                                    className="ui hidden divider"
+                                  />
+                                </div>
+                              </GridRow>
+                            </div>
+                          </GridColumn>
+                        </DocumentTab>
+                      </div>
+                    </Grid>
+                  </div>
+                </Container>
+              </Responsive>
+              <Responsive
+                as={[Function]}
+                getWidth={[Function]}
+                maxWidth={767}
+                minWidth={320}
+              />
+            </div>
+          </GridRow>
+        </div>
+      </Grid>
+    </div>
+  </Segment>
+</DocumentMetadata>
+`;

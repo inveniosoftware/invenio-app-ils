@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Icon, Accordion } from 'semantic-ui-react';
+import { isEmpty } from 'lodash';
 
 export default class DocumentAccordion extends Component {
   state = { activeIndex: 0 };
@@ -14,9 +15,9 @@ export default class DocumentAccordion extends Component {
 
   render() {
     const { activeIndex } = this.state;
-    const { documentData } = this.props;
+    const { documentMetadata } = this.props;
     return (
-      <Accordion fluid styled>
+      <Accordion fluid styled data-test={documentMetadata.document_pid}>
         <Accordion.Title
           active={activeIndex === 0}
           index={0}
@@ -26,7 +27,11 @@ export default class DocumentAccordion extends Component {
           Abstract
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>
-          <p>{documentData.abstracts[0]}</p>
+          {!isEmpty(documentMetadata.abstracts)
+            ? documentMetadata.abstracts.map((abstract, index) => (
+                <p key={index}>{abstract}</p>
+              ))
+            : null}
         </Accordion.Content>
 
         <Accordion.Title
@@ -38,9 +43,11 @@ export default class DocumentAccordion extends Component {
           Information
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 1}>
-          {documentData.keywords.map(keyword => (
-            <p key={keyword.keyword_pid}>{keyword.name}</p>
-          ))}
+          {!isEmpty(documentMetadata.keywords)
+            ? documentMetadata.keywords.map(keyword => (
+                <p key={keyword.keyword_pid}>{keyword.name}</p>
+              ))
+            : null}
         </Accordion.Content>
 
         <Accordion.Title
@@ -52,7 +59,11 @@ export default class DocumentAccordion extends Component {
           Chapters
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 2}>
-          <p>{documentData.chapters[0]}</p>
+          {!isEmpty(documentMetadata.chapters)
+            ? documentMetadata.chapters.map((chapter, index) => (
+                <p key={index}>{chapter}</p>
+              ))
+            : null}
         </Accordion.Content>
       </Accordion>
     );

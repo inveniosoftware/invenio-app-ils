@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly 1`] = `
+<div
+  className="ui segment"
+>
+  <div
+    className="ui divided items"
+  >
+    <div
+      className="item"
+    >
+      <div
+        className="ui small left floated image"
+      >
+        <img
+          src="https://assets.thalia.media/img/46276899-00-00.jpg"
+        />
+      </div>
+      <div
+        className="content"
+      >
+        <div
+          className="header"
+        >
+          Lorem ipsum
+        </div>
+        <div
+          className="meta"
+        >
+          <span
+            className="author"
+          >
+            Author: 
+            Jack Kerouac
+            Kurt Vonnegut
+          </span>
+        </div>
+        <div
+          className="meta"
+        >
+          <span
+            className="edition"
+          >
+            Publisher: 
+            Penguin
+            Orion
+          </span>
+        </div>
+        <div>
+          <div
+            className="description"
+          >
+            Dolore ipsum
+          </div>
+        </div>
+        <div
+          className="extra"
+        >
+          <button
+            className="ui primary button"
+            onClick={[Function]}
+          >
+            <i
+              aria-hidden="true"
+              className="eye icon"
+            />
+            View Details
+          </button>
+        </div>
+        <div
+          className="extra"
+        >
+          <div
+            className="ui label"
+            onClick={[Function]}
+          >
+            Non-Fiction
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      className="document-share-buttons"
+    >
+      <div>
+        <a
+          className="ui facebook circular icon button"
+          href="https://www.facebook.com/sharer/sharer.php"
+          onClick={[Function]}
+          role="button"
+        >
+          <i
+            aria-hidden="true"
+            className="facebook icon"
+          />
+        </a>
+        <a
+          className="ui twitter circular icon button"
+          href="https://twitter.com/intent/tweet"
+          onClick={[Function]}
+          role="button"
+        >
+          <i
+            aria-hidden="true"
+            className="twitter icon"
+          />
+        </a>
+        <button
+          className="ui linkedin circular icon button"
+          onClick={[Function]}
+        >
+          <i
+            aria-hidden="true"
+            className="linkedin icon"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

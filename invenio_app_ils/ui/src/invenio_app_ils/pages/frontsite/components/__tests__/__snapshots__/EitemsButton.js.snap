@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly when there are multiple eitems 1`] = `
+<div
+  aria-expanded={false}
+  className="ui item simple dropdown button positive"
+  onBlur={[Function]}
+  onChange={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onMouseDown={[Function]}
+  role="listbox"
+  tabIndex={0}
+>
+  <div
+    aria-live="polite"
+    className="text"
+    role="alert"
+  >
+    2 eBooks
+  </div>
+  <i
+    aria-hidden="true"
+    className="dropdown icon"
+    onClick={[Function]}
+  />
+  <div
+    className="menu transition"
+  >
+    <div
+      aria-checked={false}
+      aria-selected={true}
+      className="selected item"
+      onClick={[Function]}
+      role="option"
+      style={
+        Object {
+          "pointerEvents": "all",
+        }
+      }
+    >
+      <span
+        className="text"
+      >
+        Lorem Ipsum
+      </span>
+    </div>
+    <div
+      aria-checked={false}
+      aria-selected={false}
+      className="item"
+      onClick={[Function]}
+      role="option"
+      style={
+        Object {
+          "pointerEvents": "all",
+        }
+      }
+    >
+      <span
+        className="text"
+      >
+        Est dolore
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render correctly when there is one eitem 1`] = `
+<button
+  className="ui green small positive button"
+  onClick={[Function]}
+>
+  Access eBook
+</button>
+`;
+
+exports[`should render nothing when there are no eitems 1`] = `null`;

@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EbookCard tests should render the document correctly 1`] = `
+<EbookCard
+  ebookData={
+    Object {
+      "authors": "Author1, Author2",
+      "eitem_pid": "123",
+      "eitems": Array [],
+      "imageCover": "",
+      "imageSize": "small",
+      "onClick": [MockFunction],
+      "title": "Lorem",
+    }
+  }
+>
+  <Card
+    data-test="123"
+    onClick={[MockFunction]}
+  >
+    <a
+      className="ui card"
+      data-test="123"
+      onClick={[Function]}
+    >
+      <Image
+        as="img"
+        size="small"
+        src=""
+        ui={true}
+      >
+        <img
+          className="ui small image"
+          src=""
+        />
+      </Image>
+      <CardContent>
+        <div
+          className="content"
+        >
+          <CardHeader>
+            <div
+              className="header"
+            >
+              Lorem
+            </div>
+          </CardHeader>
+          <CardMeta>
+            <div
+              className="meta"
+            />
+          </CardMeta>
+        </div>
+      </CardContent>
+    </a>
+  </Card>
+</EbookCard>
+`;

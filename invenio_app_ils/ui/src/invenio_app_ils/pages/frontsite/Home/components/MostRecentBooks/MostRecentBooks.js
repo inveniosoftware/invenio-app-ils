@@ -50,14 +50,13 @@ export default class MostRecentBooks extends Component {
         <Error error={error}>
           <div>
             <Button
+              content="See All"
               onClick={goToHandler(
                 FrontSiteRoutes.documentsListWithQuery(
                   '&sort=mostrecent&order=desc'
                 )
               )}
-            >
-              See All
-            </Button>
+            />
             <Divider hidden />
             {this.renderCards(documents)}
           </div>

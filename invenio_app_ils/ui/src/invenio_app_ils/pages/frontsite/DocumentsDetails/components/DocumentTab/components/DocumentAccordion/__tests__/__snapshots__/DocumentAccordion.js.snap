@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentAccordion tests should render the document correctly 1`] = `
+<DocumentAccordion
+  documentMetadata={
+    Object {
+      "_access": Object {},
+      "_computed": Object {
+        "eitems": Array [
+          Object {
+            "description": "Non ipsum",
+            "eitem_pid": "145",
+            "open_access": true,
+          },
+        ],
+      },
+      "abstracts": Array [],
+      "authors": Array [
+        "Est sit magnam quiquia.",
+      ],
+      "booklinks": Array [],
+      "chapters": Array [],
+      "circulation": Object {},
+      "document_pid": "71",
+      "document_types": Array [
+        "BOOK",
+      ],
+      "files": Array [],
+      "keyword_pids": Array [
+        "24",
+      ],
+      "keywords": Array [],
+      "languages": Array [
+        "el",
+        "ro",
+        "fr",
+        "it",
+        "es",
+      ],
+      "publishers": Array [
+        "Quiquia amet consectetur velit.",
+      ],
+      "related_records": Array [],
+      "series": Object {},
+    }
+  }
+>
+  <Accordion
+    data-test="71"
+    fluid={true}
+    styled={true}
+  >
+    <AccordionAccordion
+      className="ui fluid styled"
+      data-test="71"
+      exclusive={true}
+    >
+      <div
+        className="accordion ui fluid styled"
+        data-test="71"
+      >
+        <AccordionTitle
+          active={true}
+          index={0}
+          onClick={[Function]}
+        >
+          <div
+            className="active title"
+            onClick={[Function]}
+          >
+            <Icon
+              as="i"
+              name="dropdown"
+            >
+              <i
+                aria-hidden="true"
+                className="dropdown icon"
+              />
+            </Icon>
+            Abstract
+          </div>
+        </AccordionTitle>
+        <AccordionContent
+          active={true}
+        >
+          <div
+            className="content active"
+          />
+        </AccordionContent>
+        <AccordionTitle
+          active={false}
+          index={1}
+          onClick={[Function]}
+        >
+          <div
+            className="title"
+            onClick={[Function]}
+          >
+            <Icon
+              as="i"
+              name="dropdown"
+            >
+              <i
+                aria-hidden="true"
+                className="dropdown icon"
+              />
+            </Icon>
+            Information
+          </div>
+        </AccordionTitle>
+        <AccordionContent
+          active={false}
+        >
+          <div
+            className="content"
+          />
+        </AccordionContent>
+        <AccordionTitle
+          active={false}
+          index={2}
+          onClick={[Function]}
+        >
+          <div
+            className="title"
+            onClick={[Function]}
+          >
+            <Icon
+              as="i"
+              name="dropdown"
+            >
+              <i
+                aria-hidden="true"
+                className="dropdown icon"
+              />
+            </Icon>
+            Chapters
+          </div>
+        </AccordionTitle>
+        <AccordionContent
+          active={false}
+        >
+          <div
+            className="content"
+          />
+        </AccordionContent>
+      </div>
+    </AccordionAccordion>
+  </Accordion>
+</DocumentAccordion>
+`;
