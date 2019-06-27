@@ -50,14 +50,13 @@ export default class MostLoanedBooks extends Component {
         <Error error={error}>
           <div>
             <Button
+              content="See All"
               onClick={goToHandler(
                 FrontSiteRoutes.documentsListWithQuery(
                   '&sort=mostloaned&order=desc'
                 )
               )}
-            >
-              See All
-            </Button>
+            />
             <Divider hidden />
             {this.renderCards(books)}
           </div>

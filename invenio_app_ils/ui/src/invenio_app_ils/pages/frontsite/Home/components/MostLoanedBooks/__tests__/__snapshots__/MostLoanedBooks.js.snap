@@ -1,0 +1,564 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MostLoanedBooks tests should go to book details when clicking on a book 1`] = `
+<MostLoanedBooks
+  data={
+    Object {
+      "hits": Array [
+        Object {
+          "metadata": Object {
+            "_computed": Object {
+              "eitems": Array [],
+            },
+            "authors": Array [],
+            "document_pid": "doc1",
+            "title": "patron_1",
+          },
+        },
+        Object {
+          "metadata": Object {
+            "_computed": Object {
+              "eitems": Array [],
+            },
+            "authors": Array [],
+            "document_pid": "doc2",
+            "title": "patron_2",
+          },
+        },
+      ],
+      "total": 2,
+    }
+  }
+  fetchMostLoanedBooks={[Function]}
+  maxItemsToDisplay={1}
+>
+  <Loader>
+    <Error>
+      <div>
+        <Button
+          as="button"
+          content="See All"
+          onClick={[Function]}
+        >
+          <button
+            className="ui button"
+            onClick={[Function]}
+          >
+            See All
+          </button>
+        </Button>
+        <Divider
+          hidden={true}
+        >
+          <div
+            className="ui hidden divider"
+          />
+        </Divider>
+        <CardGroup>
+          <div
+            className="ui cards"
+          >
+            <BookCard
+              bookData={
+                Object {
+                  "authors": "",
+                  "eitems": Array [],
+                  "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
+                  "imageSize": "small",
+                  "onClick": [Function],
+                  "pid": "doc1",
+                  "title": "patron_1",
+                }
+              }
+              key="doc1"
+            >
+              <Card
+                data-test="doc1"
+                onClick={[Function]}
+              >
+                <a
+                  className="ui card"
+                  data-test="doc1"
+                  onClick={[Function]}
+                >
+                  <Image
+                    as="img"
+                    size="small"
+                    src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    ui={true}
+                  >
+                    <img
+                      className="ui small image"
+                      src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    />
+                  </Image>
+                  <CardContent>
+                    <div
+                      className="content"
+                    >
+                      <CardHeader>
+                        <div
+                          className="header"
+                        >
+                          patron_1
+                        </div>
+                      </CardHeader>
+                      <CardMeta>
+                        <div
+                          className="meta"
+                        />
+                      </CardMeta>
+                    </div>
+                  </CardContent>
+                  <EitemsButton
+                    eitems={Array []}
+                  />
+                </a>
+              </Card>
+            </BookCard>
+            <BookCard
+              bookData={
+                Object {
+                  "authors": "",
+                  "eitems": Array [],
+                  "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
+                  "imageSize": "small",
+                  "onClick": [Function],
+                  "pid": "doc2",
+                  "title": "patron_2",
+                }
+              }
+              key="doc2"
+            >
+              <Card
+                data-test="doc2"
+                onClick={[Function]}
+              >
+                <a
+                  className="ui card"
+                  data-test="doc2"
+                  onClick={[Function]}
+                >
+                  <Image
+                    as="img"
+                    size="small"
+                    src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    ui={true}
+                  >
+                    <img
+                      className="ui small image"
+                      src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    />
+                  </Image>
+                  <CardContent>
+                    <div
+                      className="content"
+                    >
+                      <CardHeader>
+                        <div
+                          className="header"
+                        >
+                          patron_2
+                        </div>
+                      </CardHeader>
+                      <CardMeta>
+                        <div
+                          className="meta"
+                        />
+                      </CardMeta>
+                    </div>
+                  </CardContent>
+                  <EitemsButton
+                    eitems={Array []}
+                  />
+                </a>
+              </Card>
+            </BookCard>
+          </div>
+        </CardGroup>
+      </div>
+    </Error>
+  </Loader>
+</MostLoanedBooks>
+`;
+
+exports[`MostLoanedBooks tests should load the most loaned books component 1`] = `
+<Loader>
+  <Error>
+    <div>
+      <Button
+        as="button"
+        content="See All"
+        onClick={[Function]}
+      />
+      <Divider
+        hidden={true}
+      />
+      <CardGroup />
+    </div>
+  </Error>
+</Loader>
+`;
+
+exports[`MostLoanedBooks tests should render pending loans 1`] = `
+<MostLoanedBooks
+  data={
+    Object {
+      "hits": Array [
+        Object {
+          "metadata": Object {
+            "_computed": Object {
+              "eitems": Array [],
+            },
+            "authors": Array [],
+            "document_pid": "doc1",
+            "title": "patron_1",
+          },
+        },
+        Object {
+          "metadata": Object {
+            "_computed": Object {
+              "eitems": Array [],
+            },
+            "authors": Array [],
+            "document_pid": "doc2",
+            "title": "patron_2",
+          },
+        },
+      ],
+      "total": 2,
+    }
+  }
+  fetchMostLoanedBooks={[Function]}
+>
+  <Loader>
+    <Error>
+      <div>
+        <Button
+          as="button"
+          content="See All"
+          onClick={[Function]}
+        >
+          <button
+            className="ui button"
+            onClick={[Function]}
+          >
+            See All
+          </button>
+        </Button>
+        <Divider
+          hidden={true}
+        >
+          <div
+            className="ui hidden divider"
+          />
+        </Divider>
+        <CardGroup>
+          <div
+            className="ui cards"
+          >
+            <BookCard
+              bookData={
+                Object {
+                  "authors": "",
+                  "eitems": Array [],
+                  "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
+                  "imageSize": "small",
+                  "onClick": [Function],
+                  "pid": "doc1",
+                  "title": "patron_1",
+                }
+              }
+              key="doc1"
+            >
+              <Card
+                data-test="doc1"
+                onClick={[Function]}
+              >
+                <a
+                  className="ui card"
+                  data-test="doc1"
+                  onClick={[Function]}
+                >
+                  <Image
+                    as="img"
+                    size="small"
+                    src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    ui={true}
+                  >
+                    <img
+                      className="ui small image"
+                      src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    />
+                  </Image>
+                  <CardContent>
+                    <div
+                      className="content"
+                    >
+                      <CardHeader>
+                        <div
+                          className="header"
+                        >
+                          patron_1
+                        </div>
+                      </CardHeader>
+                      <CardMeta>
+                        <div
+                          className="meta"
+                        />
+                      </CardMeta>
+                    </div>
+                  </CardContent>
+                  <EitemsButton
+                    eitems={Array []}
+                  />
+                </a>
+              </Card>
+            </BookCard>
+            <BookCard
+              bookData={
+                Object {
+                  "authors": "",
+                  "eitems": Array [],
+                  "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
+                  "imageSize": "small",
+                  "onClick": [Function],
+                  "pid": "doc2",
+                  "title": "patron_2",
+                }
+              }
+              key="doc2"
+            >
+              <Card
+                data-test="doc2"
+                onClick={[Function]}
+              >
+                <a
+                  className="ui card"
+                  data-test="doc2"
+                  onClick={[Function]}
+                >
+                  <Image
+                    as="img"
+                    size="small"
+                    src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    ui={true}
+                  >
+                    <img
+                      className="ui small image"
+                      src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    />
+                  </Image>
+                  <CardContent>
+                    <div
+                      className="content"
+                    >
+                      <CardHeader>
+                        <div
+                          className="header"
+                        >
+                          patron_2
+                        </div>
+                      </CardHeader>
+                      <CardMeta>
+                        <div
+                          className="meta"
+                        />
+                      </CardMeta>
+                    </div>
+                  </CardContent>
+                  <EitemsButton
+                    eitems={Array []}
+                  />
+                </a>
+              </Card>
+            </BookCard>
+          </div>
+        </CardGroup>
+      </div>
+    </Error>
+  </Loader>
+</MostLoanedBooks>
+`;
+
+exports[`MostLoanedBooks tests should render the see all button when showing most loaned books 1`] = `
+<MostLoanedBooks
+  data={
+    Object {
+      "hits": Array [
+        Object {
+          "metadata": Object {
+            "_computed": Object {
+              "eitems": Array [],
+            },
+            "authors": Array [],
+            "document_pid": "doc1",
+            "title": "patron_1",
+          },
+        },
+        Object {
+          "metadata": Object {
+            "_computed": Object {
+              "eitems": Array [],
+            },
+            "authors": Array [],
+            "document_pid": "doc2",
+            "title": "patron_2",
+          },
+        },
+      ],
+      "total": 2,
+    }
+  }
+  fetchMostLoanedBooks={[Function]}
+  maxItemsToDisplay={1}
+>
+  <Loader>
+    <Error>
+      <div>
+        <Button
+          as="button"
+          content="See All"
+          onClick={[Function]}
+        >
+          <button
+            className="ui button"
+            onClick={[Function]}
+          >
+            See All
+          </button>
+        </Button>
+        <Divider
+          hidden={true}
+        >
+          <div
+            className="ui hidden divider"
+          />
+        </Divider>
+        <CardGroup>
+          <div
+            className="ui cards"
+          >
+            <BookCard
+              bookData={
+                Object {
+                  "authors": "",
+                  "eitems": Array [],
+                  "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
+                  "imageSize": "small",
+                  "onClick": [Function],
+                  "pid": "doc1",
+                  "title": "patron_1",
+                }
+              }
+              key="doc1"
+            >
+              <Card
+                data-test="doc1"
+                onClick={[Function]}
+              >
+                <a
+                  className="ui card"
+                  data-test="doc1"
+                  onClick={[Function]}
+                >
+                  <Image
+                    as="img"
+                    size="small"
+                    src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    ui={true}
+                  >
+                    <img
+                      className="ui small image"
+                      src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    />
+                  </Image>
+                  <CardContent>
+                    <div
+                      className="content"
+                    >
+                      <CardHeader>
+                        <div
+                          className="header"
+                        >
+                          patron_1
+                        </div>
+                      </CardHeader>
+                      <CardMeta>
+                        <div
+                          className="meta"
+                        />
+                      </CardMeta>
+                    </div>
+                  </CardContent>
+                  <EitemsButton
+                    eitems={Array []}
+                  />
+                </a>
+              </Card>
+            </BookCard>
+            <BookCard
+              bookData={
+                Object {
+                  "authors": "",
+                  "eitems": Array [],
+                  "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
+                  "imageSize": "small",
+                  "onClick": [Function],
+                  "pid": "doc2",
+                  "title": "patron_2",
+                }
+              }
+              key="doc2"
+            >
+              <Card
+                data-test="doc2"
+                onClick={[Function]}
+              >
+                <a
+                  className="ui card"
+                  data-test="doc2"
+                  onClick={[Function]}
+                >
+                  <Image
+                    as="img"
+                    size="small"
+                    src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    ui={true}
+                  >
+                    <img
+                      className="ui small image"
+                      src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                    />
+                  </Image>
+                  <CardContent>
+                    <div
+                      className="content"
+                    >
+                      <CardHeader>
+                        <div
+                          className="header"
+                        >
+                          patron_2
+                        </div>
+                      </CardHeader>
+                      <CardMeta>
+                        <div
+                          className="meta"
+                        />
+                      </CardMeta>
+                    </div>
+                  </CardContent>
+                  <EitemsButton
+                    eitems={Array []}
+                  />
+                </a>
+              </Card>
+            </BookCard>
+          </div>
+        </CardGroup>
+      </div>
+    </Error>
+  </Loader>
+</MostLoanedBooks>
+`;

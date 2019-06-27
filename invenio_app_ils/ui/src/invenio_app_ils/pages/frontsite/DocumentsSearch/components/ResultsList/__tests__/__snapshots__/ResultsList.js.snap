@@ -1,0 +1,289 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentsSearch ResultsList tests should not render when empty results 1`] = `
+<ResultsList
+  results={Array []}
+  viewDetailsClickHandler={[Function]}
+/>
+`;
+
+exports[`DocumentsSearch ResultsList tests should render a list of results 1`] = `
+<ResultsList
+  results={
+    Array [
+      Object {
+        "created": "2018-01-01T10:05:00.000Z",
+        "document_pid": "3",
+        "id": 3,
+        "metadata": Object {
+          "_computed": Object {
+            "eitems": Array [],
+          },
+          "abstracts": "This is an abstract",
+          "authors": Array [
+            "Author1",
+          ],
+          "document_pid": "3",
+          "title": "This is a title",
+        },
+        "updated": "2018-01-01T10:05:00.000Z",
+      },
+    ]
+  }
+  viewDetailsClickHandler={[Function]}
+>
+  <div>
+    <DocumentItem
+      data-test="3"
+      key="3"
+      metadata={
+        Object {
+          "_computed": Object {
+            "eitems": Array [],
+          },
+          "abstracts": "This is an abstract",
+          "authors": Array [
+            "Author1",
+          ],
+          "document_pid": "3",
+          "title": "This is a title",
+        }
+      }
+      rowActionClickHandler={[Function]}
+    >
+      <Segment>
+        <div
+          className="ui segment"
+        >
+          <ItemGroup
+            divided={true}
+          >
+            <div
+              className="ui divided items"
+            >
+              <Item>
+                <div
+                  className="item"
+                >
+                  <ItemImage
+                    floated="left"
+                    size="small"
+                    src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                  >
+                    <Image
+                      as="img"
+                      floated="left"
+                      size="small"
+                      src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                      ui={true}
+                      wrapped={true}
+                    >
+                      <div
+                        className="ui small left floated image"
+                      >
+                        <img
+                          src="https://assets.thalia.media/img/46276899-00-00.jpg"
+                        />
+                      </div>
+                    </Image>
+                  </ItemImage>
+                  <Responsive
+                    getWidth={[Function]}
+                    maxWidth={767}
+                    minWidth={320}
+                  />
+                  <ItemContent>
+                    <div
+                      className="content"
+                    >
+                      <ItemHeader>
+                        <div
+                          className="header"
+                        >
+                          This is a title
+                        </div>
+                      </ItemHeader>
+                      <ItemMeta>
+                        <div
+                          className="meta"
+                        >
+                          <span
+                            className="author"
+                          >
+                            Author: 
+                            Author1
+                          </span>
+                        </div>
+                      </ItemMeta>
+                      <ItemMeta>
+                        <div
+                          className="meta"
+                        >
+                          <span
+                            className="edition"
+                          >
+                            Publisher: 
+                          </span>
+                        </div>
+                      </ItemMeta>
+                      <Responsive
+                        getWidth={[Function]}
+                        maxWidth={767}
+                        minWidth={320}
+                      />
+                      <Responsive
+                        getWidth={[Function]}
+                        minWidth={992}
+                      >
+                        <div>
+                          <ItemDescription>
+                            <div
+                              className="description"
+                            >
+                              This is an abstract
+                            </div>
+                          </ItemDescription>
+                        </div>
+                      </Responsive>
+                      <ItemExtra>
+                        <div
+                          className="extra"
+                        >
+                          <EitemsButton
+                            eitems={Array []}
+                          />
+                          <Button
+                            as="button"
+                            onClick={[Function]}
+                            primary={true}
+                          >
+                            <button
+                              className="ui primary button"
+                              onClick={[Function]}
+                            >
+                              <Icon
+                                as="i"
+                                name="eye"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="eye icon"
+                                />
+                              </Icon>
+                              View Details
+                            </button>
+                          </Button>
+                        </div>
+                      </ItemExtra>
+                      <ItemExtra>
+                        <div
+                          className="extra"
+                        >
+                          <Label>
+                            <div
+                              className="ui label"
+                              onClick={[Function]}
+                            >
+                              Non-Fiction
+                            </div>
+                          </Label>
+                        </div>
+                      </ItemExtra>
+                    </div>
+                  </ItemContent>
+                </div>
+              </Item>
+            </div>
+          </ItemGroup>
+          <Responsive
+            getWidth={[Function]}
+            minWidth={992}
+          >
+            <div>
+              <div
+                className="document-share-buttons"
+              >
+                <ShareButtons
+                  type="mobile"
+                >
+                  <div>
+                    <Button
+                      as="button"
+                      circular={true}
+                      color="facebook"
+                      href="https://www.facebook.com/sharer/sharer.php"
+                      icon="facebook"
+                    >
+                      <a
+                        className="ui facebook circular icon button"
+                        href="https://www.facebook.com/sharer/sharer.php"
+                        onClick={[Function]}
+                        role="button"
+                      >
+                        <Icon
+                          as="i"
+                          name="facebook"
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="facebook icon"
+                          />
+                        </Icon>
+                      </a>
+                    </Button>
+                    <Button
+                      as="button"
+                      circular={true}
+                      color="twitter"
+                      href="https://twitter.com/intent/tweet"
+                      icon="twitter"
+                    >
+                      <a
+                        className="ui twitter circular icon button"
+                        href="https://twitter.com/intent/tweet"
+                        onClick={[Function]}
+                        role="button"
+                      >
+                        <Icon
+                          as="i"
+                          name="twitter"
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="twitter icon"
+                          />
+                        </Icon>
+                      </a>
+                    </Button>
+                    <Button
+                      as="button"
+                      circular={true}
+                      color="linkedin"
+                      icon="linkedin"
+                    >
+                      <button
+                        className="ui linkedin circular icon button"
+                        onClick={[Function]}
+                      >
+                        <Icon
+                          as="i"
+                          name="linkedin"
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="linkedin icon"
+                          />
+                        </Icon>
+                      </button>
+                    </Button>
+                  </div>
+                </ShareButtons>
+              </div>
+            </div>
+          </Responsive>
+        </div>
+      </Segment>
+    </DocumentItem>
+  </div>
+</ResultsList>
+`;

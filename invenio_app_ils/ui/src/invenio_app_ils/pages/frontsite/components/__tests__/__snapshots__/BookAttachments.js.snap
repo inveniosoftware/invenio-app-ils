@@ -1,0 +1,409 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly 1`] = `
+<div
+  className="three wide column"
+>
+  <div
+    className="row"
+  >
+    <h3
+      className="ui header"
+    >
+      Share and Export
+    </h3>
+    <div>
+      <a
+        className="ui facebook button"
+        href="https://www.facebook.com/sharer/sharer.php"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="facebook icon"
+        />
+        Facebook
+      </a>
+      <div
+        className="ui hidden divider"
+      />
+      <a
+        className="ui twitter button"
+        href="https://twitter.com/intent/tweet"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="twitter icon"
+        />
+        Twitter
+      </a>
+      <div
+        className="ui hidden divider"
+      />
+      <button
+        className="ui linkedin button"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden="true"
+          className="linkedin icon"
+        />
+        LinkedIn
+      </button>
+    </div>
+    <div
+      className="ui hidden divider"
+    />
+    <div
+      className="ui hidden divider"
+    />
+    <div
+      className="ui divider"
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <div>
+      <h3
+        className="ui header"
+      >
+        Files
+      </h3>
+      <div
+        className="ui list"
+        role="list"
+      >
+        <a
+          className="item"
+          href="file1"
+          onClick={[Function]}
+          role="listitem"
+        >
+          file1
+        </a>
+        <a
+          className="item"
+          href="file2"
+          onClick={[Function]}
+          role="listitem"
+        >
+          file2
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div>
+      <h3
+        className="ui header"
+      >
+        Links
+      </h3>
+      <div
+        className="ui list"
+        role="list"
+      >
+        <a
+          className="item"
+          href="link1"
+          onClick={[Function]}
+          role="listitem"
+        >
+          link1
+        </a>
+        <a
+          className="item"
+          href="link2"
+          onClick={[Function]}
+          role="listitem"
+        >
+          link2
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render correctly when there are no files 1`] = `
+<div
+  className="three wide column"
+>
+  <div
+    className="row"
+  >
+    <h3
+      className="ui header"
+    >
+      Share and Export
+    </h3>
+    <div>
+      <a
+        className="ui facebook button"
+        href="https://www.facebook.com/sharer/sharer.php"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="facebook icon"
+        />
+        Facebook
+      </a>
+      <div
+        className="ui hidden divider"
+      />
+      <a
+        className="ui twitter button"
+        href="https://twitter.com/intent/tweet"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="twitter icon"
+        />
+        Twitter
+      </a>
+      <div
+        className="ui hidden divider"
+      />
+      <button
+        className="ui linkedin button"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden="true"
+          className="linkedin icon"
+        />
+        LinkedIn
+      </button>
+    </div>
+    <div
+      className="ui hidden divider"
+    />
+    <div
+      className="ui hidden divider"
+    />
+    <div
+      className="ui divider"
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <div>
+      <h3
+        className="ui header"
+      >
+        Files
+      </h3>
+      <div
+        className="ui list"
+        role="list"
+      >
+        <a
+          className="item"
+          href="file1"
+          onClick={[Function]}
+          role="listitem"
+        >
+          file1
+        </a>
+        <a
+          className="item"
+          href="file2"
+          onClick={[Function]}
+          role="listitem"
+        >
+          file2
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    className="row"
+  />
+</div>
+`;
+
+exports[`should render correctly when there are no links 1`] = `
+<div
+  className="three wide column"
+>
+  <div
+    className="row"
+  >
+    <h3
+      className="ui header"
+    >
+      Share and Export
+    </h3>
+    <div>
+      <a
+        className="ui facebook button"
+        href="https://www.facebook.com/sharer/sharer.php"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="facebook icon"
+        />
+        Facebook
+      </a>
+      <div
+        className="ui hidden divider"
+      />
+      <a
+        className="ui twitter button"
+        href="https://twitter.com/intent/tweet"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="twitter icon"
+        />
+        Twitter
+      </a>
+      <div
+        className="ui hidden divider"
+      />
+      <button
+        className="ui linkedin button"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden="true"
+          className="linkedin icon"
+        />
+        LinkedIn
+      </button>
+    </div>
+    <div
+      className="ui hidden divider"
+    />
+    <div
+      className="ui hidden divider"
+    />
+    <div
+      className="ui divider"
+    />
+  </div>
+  <div
+    className="row"
+  />
+  <div
+    className="row"
+  >
+    <div>
+      <h3
+        className="ui header"
+      >
+        Links
+      </h3>
+      <div
+        className="ui list"
+        role="list"
+      >
+        <a
+          className="item"
+          href="link1"
+          onClick={[Function]}
+          role="listitem"
+        >
+          link1
+        </a>
+        <a
+          className="item"
+          href="link2"
+          onClick={[Function]}
+          role="listitem"
+        >
+          link2
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render nothing when the book does not contain attachments 1`] = `
+<div
+  className="three wide column"
+>
+  <div
+    className="row"
+  >
+    <h3
+      className="ui header"
+    >
+      Share and Export
+    </h3>
+    <div>
+      <a
+        className="ui facebook button"
+        href="https://www.facebook.com/sharer/sharer.php"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="facebook icon"
+        />
+        Facebook
+      </a>
+      <div
+        className="ui hidden divider"
+      />
+      <a
+        className="ui twitter button"
+        href="https://twitter.com/intent/tweet"
+        onClick={[Function]}
+        role="button"
+      >
+        <i
+          aria-hidden="true"
+          className="twitter icon"
+        />
+        Twitter
+      </a>
+      <div
+        className="ui hidden divider"
+      />
+      <button
+        className="ui linkedin button"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden="true"
+          className="linkedin icon"
+        />
+        LinkedIn
+      </button>
+    </div>
+    <div
+      className="ui hidden divider"
+    />
+    <div
+      className="ui hidden divider"
+    />
+    <div
+      className="ui divider"
+    />
+  </div>
+  <div
+    className="row"
+  />
+  <div
+    className="row"
+  />
+</div>
+`;

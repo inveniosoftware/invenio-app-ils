@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly for desktop 1`] = `
+<div>
+  <a
+    className="ui facebook button"
+    href="https://www.facebook.com/sharer/sharer.php"
+    onClick={[Function]}
+    role="button"
+  >
+    <i
+      aria-hidden="true"
+      className="facebook icon"
+    />
+    Facebook
+  </a>
+  <div
+    className="ui hidden divider"
+  />
+  <a
+    className="ui twitter button"
+    href="https://twitter.com/intent/tweet"
+    onClick={[Function]}
+    role="button"
+  >
+    <i
+      aria-hidden="true"
+      className="twitter icon"
+    />
+    Twitter
+  </a>
+  <div
+    className="ui hidden divider"
+  />
+  <button
+    className="ui linkedin button"
+    onClick={[Function]}
+  >
+    <i
+      aria-hidden="true"
+      className="linkedin icon"
+    />
+    LinkedIn
+  </button>
+</div>
+`;
+
+exports[`should render correctly for mobile 1`] = `
+<div>
+  <a
+    className="ui facebook circular icon button"
+    href="https://www.facebook.com/sharer/sharer.php"
+    onClick={[Function]}
+    role="button"
+  >
+    <i
+      aria-hidden="true"
+      className="facebook icon"
+    />
+  </a>
+  <a
+    className="ui twitter circular icon button"
+    href="https://twitter.com/intent/tweet"
+    onClick={[Function]}
+    role="button"
+  >
+    <i
+      aria-hidden="true"
+      className="twitter icon"
+    />
+  </a>
+  <button
+    className="ui linkedin circular icon button"
+    onClick={[Function]}
+  >
+    <i
+      aria-hidden="true"
+      className="linkedin icon"
+    />
+  </button>
+</div>
+`;

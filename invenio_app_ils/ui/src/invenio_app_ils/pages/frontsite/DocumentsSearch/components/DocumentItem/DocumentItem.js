@@ -9,69 +9,59 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { truncate } from 'lodash/string';
-import { EitemsButton } from '../../../components/EitemsButton';
+import { EitemsButton, ShareButtons } from '../../../components';
+import config from '../../../../frontsite/DocumentsSearch/config';
 
-export default class RecordItem extends Component {
-  renderShareButtons() {
-    return (
-      <div className="document-share-buttons">
-        <Button
-          href="https://www.facebook.com/sharer/sharer.php"
-          circular
-          color="facebook"
-          icon="facebook"
-          size="mini"
-        />
-        <Button
-          href="https://twitter.com/intent/tweet"
-          circular
-          color="twitter"
-          icon="twitter"
-          size="mini"
-        />
-        <Button circular color="linkedin" icon="linkedin" size="mini" />
-      </div>
-    );
+export default class DocumentItem extends Component {
+  constructor(props) {
+    super(props);
+    this.metadata = props.metadata;
   }
 
   render() {
     const cover = 'https://assets.thalia.media/img/46276899-00-00.jpg';
-    const { metadata } = this.props;
-    const maxTextLength = 100;
     return (
       <Segment>
         <Item.Group divided>
           <Item>
             <Item.Image src={cover} size="small" floated="left" />
             <Responsive {...Responsive.onlyMobile}>
-              {this.renderShareButtons()}
+              <div className="document-share-buttons">
+                <ShareButtons type="mobile" />
+              </div>
             </Responsive>
             <Item.Content>
-              <Item.Header>{metadata.title}</Item.Header>
+              <Item.Header>{this.metadata.title}</Item.Header>
               <Item.Meta>
-                <span className="author">Author: {metadata.authors}</span>
+                <span className="author">Author: {this.metadata.authors}</span>
               </Item.Meta>
               <Item.Meta>
                 <span className="edition">
-                  Publisher: {metadata.publishers}
+                  Publisher: {this.metadata.publishers}
                 </span>
               </Item.Meta>
               <Responsive {...Responsive.onlyMobile}>
                 <Item.Description>
-                  {truncate(metadata.abstracts, { length: maxTextLength })}
+                  {truncate(this.metadata.abstracts, {
+                    length: config.MAX_TEXT_LENGTH,
+                  })}
                 </Item.Description>
               </Responsive>
               <Responsive {...Responsive.onlyComputer}>
                 <Item.Description>
-                  {truncate(metadata.abstracts, { length: maxTextLength })}
+                  {truncate(this.metadata.abstracts, {
+                    length: config.MAX_TEXT_LENGTH,
+                  })}
                 </Item.Description>
               </Responsive>
               <Item.Extra>
-                <EitemsButton eitems={metadata._computed.eitems} />
+                <EitemsButton eitems={this.metadata._computed.eitems} />
                 <Button
                   primary
                   onClick={() => {
-                    this.props.rowActionClickHandler(metadata.document_pid);
+                    this.props.rowActionClickHandler(
+                      this.metadata.document_pid
+                    );
                   }}
                 >
                   <Icon name="eye" />
@@ -85,13 +75,15 @@ export default class RecordItem extends Component {
           </Item>
         </Item.Group>
         <Responsive {...Responsive.onlyComputer}>
-          {this.renderShareButtons()}
+          <div className="document-share-buttons">
+            <ShareButtons type="mobile" />
+          </div>
         </Responsive>
       </Segment>
     );
   }
 }
 
-RecordItem.propTypes = {
+DocumentItem.propTypes = {
   metadata: PropTypes.object.isRequired,
 };

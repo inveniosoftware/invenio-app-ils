@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly 1`] = `
+<div
+  className="document-info"
+>
+  <h2
+    className="ui header"
+  >
+    Lorem Ipsum
+  </h2>
+  <div
+    className="ui list"
+    role="list"
+  >
+    <h4
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      Author: 
+      Isaac Asimov
+    </h4>
+    <h4
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      Author: 
+      Stanislaw Lem
+    </h4>
+  </div>
+  <div
+    className="ui list"
+    role="list"
+  >
+    <h5
+      className="item"
+      onClick={[Function]}
+      role="listitem"
+    >
+      Publisher: 
+      Hachette
+    </h5>
+  </div>
+</div>
+`;

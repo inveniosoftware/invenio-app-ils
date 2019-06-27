@@ -13,12 +13,12 @@ export class ResultsList extends Component {
     return rows.length ? (
       <div>
         {rows.map(row => (
-          <div key={row.metadata.document_pid}>
-            <DocumentItem
-              metadata={row.metadata}
-              rowActionClickHandler={this.viewDetailsClickHandler}
-            />
-          </div>
+          <DocumentItem
+            key={row.metadata.document_pid}
+            data-test={row.metadata.document_pid}
+            metadata={row.metadata}
+            rowActionClickHandler={this.viewDetailsClickHandler}
+          />
         ))}
       </div>
     ) : null;

@@ -1,0 +1,164 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentTabMenu tests should render the document correctly 1`] = `
+<DocumentTabMenu
+  documentMetadata={
+    Object {
+      "_access": Object {},
+      "_computed": Object {
+        "eitems": Array [
+          Object {
+            "description": "Non ipsum",
+            "eitem_pid": "145",
+            "open_access": true,
+          },
+        ],
+      },
+      "abstracts": Array [],
+      "authors": Array [
+        "Est sit magnam quiquia.",
+      ],
+      "booklinks": Array [],
+      "chapters": Array [],
+      "circulation": Object {},
+      "document_pid": "71",
+      "document_types": Array [
+        "BOOK",
+      ],
+      "files": Array [],
+      "keyword_pids": Array [
+        "24",
+      ],
+      "keywords": Array [],
+      "languages": Array [
+        "el",
+        "ro",
+        "fr",
+        "it",
+        "es",
+      ],
+      "publishers": Array [
+        "Quiquia amet consectetur velit.",
+      ],
+      "related_records": Array [],
+      "series": Object {},
+    }
+  }
+>
+  <div>
+    <Tab
+      data-test="71"
+      grid={
+        Object {
+          "paneWidth": 12,
+          "tabWidth": 4,
+        }
+      }
+      menu={
+        Object {
+          "attached": true,
+          "tabular": true,
+        }
+      }
+      panes={
+        Array [
+          Object {
+            "menuItem": "Abstract",
+            "render": [Function],
+          },
+          Object {
+            "menuItem": "Information",
+            "render": [Function],
+          },
+          Object {
+            "menuItem": "Chapters",
+            "render": [Function],
+          },
+        ]
+      }
+      renderActiveOnly={true}
+    >
+      <div
+        data-test="71"
+      >
+        <Menu
+          activeIndex={0}
+          attached={true}
+          items={
+            Array [
+              "Abstract",
+              "Information",
+              "Chapters",
+            ]
+          }
+          onItemClick={[Function]}
+          tabular={true}
+        >
+          <div
+            className="ui attached tabular menu"
+          >
+            <MenuItem
+              active={true}
+              content="Abstract"
+              index={0}
+              key="Abstract"
+              name="Abstract"
+              onClick={[Function]}
+            >
+              <a
+                className="active item"
+                onClick={[Function]}
+              >
+                Abstract
+              </a>
+            </MenuItem>
+            <MenuItem
+              active={false}
+              content="Information"
+              index={1}
+              key="Information"
+              name="Information"
+              onClick={[Function]}
+            >
+              <a
+                className="item"
+                onClick={[Function]}
+              >
+                Information
+              </a>
+            </MenuItem>
+            <MenuItem
+              active={false}
+              content="Chapters"
+              index={2}
+              key="Chapters"
+              name="Chapters"
+              onClick={[Function]}
+            >
+              <a
+                className="item"
+                onClick={[Function]}
+              >
+                Chapters
+              </a>
+            </MenuItem>
+          </div>
+        </Menu>
+        <TabPane
+          active={true}
+          as={[Function]}
+        >
+          <Segment
+            attached="bottom"
+            className="active tab"
+          >
+            <div
+              className="ui bottom attached segment active tab"
+            />
+          </Segment>
+        </TabPane>
+      </div>
+    </Tab>
+  </div>
+</DocumentTabMenu>
+`;

@@ -11,12 +11,12 @@ export default class DocumentTab extends Component {
           <Responsive
             as={DocumentTabMenu}
             {...Responsive.onlyComputer}
-            documentData={this.props.documentData}
+            documentMetadata={this.props.documentMetadata}
           />
           <Responsive
             as={DocumentAccordion}
             {...Responsive.onlyMobile}
-            documentData={this.props.documentData}
+            documentMetadata={this.props.documentMetadata}
           />
           <div className="ui hidden divider" />
         </Grid.Row>

@@ -5,25 +5,26 @@ import {
   Image,
   Responsive,
   Container,
+  Label,
   Button,
-  Header,
-  List,
-  Icon,
   Popup,
+  Icon,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import DocumentTab from '../DocumentTab';
 import '../../DocumentsDetails.scss';
-import isEmpty from 'lodash/isEmpty';
 import { goToHandler } from '../../../../../history';
 import { FrontSiteRoutes } from '../../../../../routes/urls';
 import { document as documentApi } from '../../../../../common/api';
+import { BookAttachments, ShareButtons } from '../../../components';
+import { BookInfo } from '../../../components/BookInfo';
+import { BookSeries } from '../../../components/BookSeries';
 import { EitemsButton } from '../../../components/EitemsButton';
 
 export default class DocumentMetadata extends Component {
   constructor(props) {
     super(props);
-    this.document = this.props.documentsDetails;
+    this.document = props.documentsDetails;
   }
 
   goToSeriesList = seriesPid =>
@@ -41,285 +42,80 @@ export default class DocumentMetadata extends Component {
     this.props.requestLoanForDocument(documentPid);
   };
 
-  renderBookInfo() {
-    return (
-      <div className="document-info">
-        <Header as="h2">{this.document.metadata.title}</Header>
-        <List>
-          {this.document.metadata.authors.map((author, index) => (
-            <List.Item as="h4" key={`Key${index}`}>
-              Author: {author}
-            </List.Item>
-          ))}
-        </List>
-        <List>
-          {this.document.metadata.publishers.map((publisher, index) => (
-            <List.Item as="h5" key={`Key${index}`}>
-              Publisher: {publisher}
-            </List.Item>
-          ))}
-        </List>
-      </div>
-    );
-  }
-
-  renderSerials() {
-    if (
-      !isEmpty(this.document.metadata.series) &&
-      !isEmpty(this.document.metadata.series.serial)
-    ) {
-      return (
-        <div>
-          <Header as="h4">Part of the following series:</Header>
-          <List>
-            {this.document.metadata.series.serial.map((serie, index) => (
-              <List.Item
-                as="a"
-                key={`Key${index}`}
-                onClick={this.goToSeriesList(serie.series_pid)}
-              >
-                {serie.title}
-              </List.Item>
-            ))}
-          </List>
-        </div>
-      );
-    }
-  }
-
-  renderMultiparts() {
-    if (
-      !isEmpty(this.document.metadata.series) &&
-      !isEmpty(this.document.metadata.series.multipart)
-    ) {
-      return (
-        <div>
-          <Header as="h4">Part of the following multipart monograph:</Header>
-          <List>
-            {this.document.metadata.series.multipart.map((serie, index) => (
-              <List.Item
-                as="a"
-                key={`Key${index}`}
-                onClick={this.goToSeriesList(serie.series_pid)}
-              >
-                {serie.title}
-              </List.Item>
-            ))}
-          </List>
-        </div>
-      );
-    }
-  }
-
-  renderShareButtonsLarge() {
-    return (
-      <div>
-        <Responsive {...Responsive.onlyComputer}>
-          <Button
-            href="https://www.facebook.com/sharer/sharer.php"
-            color="facebook"
-          >
-            <Icon name="facebook" /> Facebook
-          </Button>
-          <div className="ui hidden divider" />
-          <Button href="https://twitter.com/intent/tweet" color="twitter">
-            <Icon name="twitter" /> Twitter
-          </Button>
-          <div className="ui hidden divider" />
-          <Button color="linkedin">
-            <Icon name="linkedin" /> LinkedIn
-          </Button>
-        </Responsive>
-      </div>
-    );
-  }
-
-  renderFiles() {
-    return this.document.metadata.files ? (
-      <div>
-        <Header as="h3">Files</Header>
-        <List>
-          {this.document.metadata.files.map((file, index) => (
-            <List.Item href={file} key={`Key${index}`}>
-              {file}
-            </List.Item>
-          ))}
-        </List>
-        <div className="ui divider" />
-      </div>
-    ) : null;
-  }
-
-  renderLinks() {
-    return this.document.metadata.booklinks ? (
-      <div>
-        <Header as="h3">Links</Header>
-        <List>
-          {this.document.metadata.booklinks.map((link, index) => (
-            <List.Item href={link} key={`Key${index}`}>
-              {link}
-            </List.Item>
-          ))}
-        </List>
-      </div>
-    ) : null;
-  }
-
-  renderAttachments() {
-    return (
-      <Grid.Column width={3}>
-        <Grid.Row>
-          <Header as="h3">Share and Export</Header>
-          {this.renderShareButtonsLarge()}
-          <div className="ui hidden divider" />
-          <div className="ui hidden divider" />
-          <div className="ui divider" />
-        </Grid.Row>
-
-        <Grid.Row>{this.renderFiles()}</Grid.Row>
-
-        <Grid.Row>{this.renderLinks()}</Grid.Row>
-      </Grid.Column>
-    );
-  }
-
-  renderShareButtons() {
-    return (
-      <Responsive {...Responsive.onlyMobile}>
-        <div>
-          <Button
-            href="https://www.facebook.com/sharer/sharer.php"
-            circular
-            color="facebook"
-            icon="facebook"
-          />
-          <Button
-            href="https://twitter.com/intent/tweet"
-            circular
-            color="twitter"
-            icon="twitter"
-          />
-          <Button circular color="linkedin" icon="linkedin" />
-        </div>
-      </Responsive>
-    );
-  }
-
-  renderMainButtons() {
-    return (
-      <div className="loan-request">
-        <Responsive {...Responsive.onlyMobile}>
-          <div className="ui hidden divider" />
-        </Responsive>
-
-        <div className="ui hidden divider" />
-      </div>
-    );
-  }
-
-  renderCirculationButtons() {
-    const circulationData = this.document.metadata.circulation;
-    const buttonColor =
-      circulationData.has_items_for_loan > 0 ? 'green' : 'red';
-    return (
-      <div>
-        <Button
-          color={buttonColor}
-          content="Available copies"
-          label={{
-            basic: true,
-            color: buttonColor,
-            pointing: 'left',
-            content: circulationData.has_items_for_loan,
-          }}
-        />
-
-        <Button
-          color="yellow"
-          content="Active loans"
-          label={{
-            basic: true,
-            color: 'yellow',
-            pointing: 'left',
-            content: circulationData.active_loans,
-          }}
-        />
-
-        <Button
-          color="yellow"
-          content="Reservations"
-          label={{
-            basic: true,
-            color: 'yellow',
-            pointing: 'left',
-            content: circulationData.pending_loans,
-          }}
-        />
-
-        {!isEmpty(circulationData.next_available_date) &&
-        circulationData.has_items_for_loan === 0 ? (
-          <Button
-            color="yellow"
-            content="Available from"
-            label={{
-              basic: true,
-              color: 'yellow',
-              pointing: 'left',
-              content: circulationData.next_available_date,
-            }}
-          />
-        ) : null}
-      </div>
-    );
-  }
-
   requestLoanButton = (
-    <div>
-      <Button
-        positive
-        size="small"
-        content="Request Loan"
-        onClick={this.requestLoan}
-      />
-      <Popup
-        content="Request a loan on this document"
-        trigger={<Icon name="info circle" size="large" />}
-      />
-    </div>
+    <Button
+      positive
+      size="small"
+      content="Request Loan"
+      onClick={this.requestLoan}
+    />
   );
 
+  requestLoanPopup = (
+    <Popup
+      content="Request a loan on this document"
+      trigger={<Icon name="info circle" size="large" />}
+    />
+  );
+
+  renderBookAvailabilityLabel = () => {
+    const circulationData = this.document.metadata.circulation;
+    return (
+      <Label
+        color={circulationData.has_items_for_loan ? 'green' : 'red'}
+        content="Available copies"
+        detail={circulationData.has_items_for_loan}
+      />
+    );
+  };
+
+  renderNextAvailableDateLabel = () => {
+    const circulationData = this.document.metadata.circulation;
+    return circulationData.next_available_date ? (
+      <Label
+        color="yellow"
+        content="Available from"
+        detail={circulationData.next_available_date}
+      />
+    ) : null;
+  };
+
   render() {
-    const eitems = this.props.documentsDetails.metadata._computed.eitems;
+    const eitems = this.document.metadata._computed.eitems;
     const cover = 'https://assets.thalia.media/img/46276899-00-00.jpg';
     return (
-      <Segment className="document-metadata">
+      <Segment
+        className="document-metadata"
+        data-test={this.document.metadata.document_pid}
+      >
         <Grid>
           <Grid.Row>
             <Grid stackable columns={2}>
               <Grid.Column width={3}>
                 <Image src={cover} size="medium" />
-                {this.renderShareButtons()}
+                <ShareButtons type="mobile" />
               </Grid.Column>
 
               <Grid.Column width={13}>
                 <Grid.Row>
                   <div className="ui hidden divider" />
-                  {this.renderBookInfo()}
+                  <BookInfo documentMetadata={this.document.metadata} />
                   <div className="ui hidden divider" />
+                  <EitemsButton eitems={eitems} />
                   {this.requestLoanButton}
+                  {this.requestLoanPopup}
                   <div className="ui hidden divider" />
-                  {this.renderSerials()}
-                  <div className="ui hidden divider" />
-                  {this.renderMultiparts()}
+                  <BookSeries
+                    series={this.document.metadata.series}
+                    goToSeriesList={this.goToSeriesList}
+                  />
                 </Grid.Row>
 
                 <Grid.Row>
                   <div className="ui hidden divider" />
-                  {this.renderMainButtons()}
+                  {this.renderBookAvailabilityLabel()}
                   <div className="ui hidden divider" />
-                  <EitemsButton eitems={eitems} />
-                  <div className="ui hidden divider" />
-                  {this.renderCirculationButtons()}
+                  {this.renderNextAvailableDateLabel()}
                 </Grid.Row>
               </Grid.Column>
             </Grid>
@@ -328,14 +124,21 @@ export default class DocumentMetadata extends Component {
           <Grid.Row>
             <Responsive as={Container} {...Responsive.onlyComputer}>
               <Grid columns={2}>
-                {this.renderAttachments()}
-                <DocumentTab documentData={this.document.metadata} />
+                <BookAttachments
+                  documentData={this.document.metadata}
+                  displayOption="desktop"
+                />
+
+                <DocumentTab documentMetadata={this.document.metadata} />
               </Grid>
             </Responsive>
 
             <Responsive as={Container} {...Responsive.onlyMobile}>
-              <DocumentTab documentData={this.document.metadata} />
-              {this.renderAttachments()}
+              <DocumentTab documentMetadata={this.document.metadata} />
+              <BookAttachments
+                documentData={this.document.metadata}
+                displayOption="mobile"
+              />
             </Responsive>
           </Grid.Row>
         </Grid>

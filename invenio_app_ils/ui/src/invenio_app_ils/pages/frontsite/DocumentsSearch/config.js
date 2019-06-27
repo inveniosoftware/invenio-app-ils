@@ -45,4 +45,5 @@ export default {
   SORT_BY_ON_EMPTY_QUERY: sortByValueOnEmptyQuery,
   SORT_ORDER: sortOrderValues,
   AGGREGATIONS: aggs,
+  MAX_TEXT_LENGTH: 100,
 };
