@@ -9,7 +9,7 @@ export default class ItemDetails extends Component {
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
-          <ItemMetadata item={data} />
+          <ItemMetadata />
           <ItemPastLoans item={data} />
         </Error>
       </Loader>

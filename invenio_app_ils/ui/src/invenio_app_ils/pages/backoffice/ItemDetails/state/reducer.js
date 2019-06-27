@@ -6,15 +6,12 @@ import {
   DELETE_SUCCESS,
   DELETE_HAS_ERROR,
 } from './types';
-import createLoanReducer from '../components/ItemMetadata/components/CreateNewLoanModal/state/reducer';
-import { initialState as newLoanCreateInitialState } from '../components/ItemMetadata/components/CreateNewLoanModal/state/reducer';
 
 export const initialState = {
   isLoading: true,
   hasError: false,
   data: { hits: [], total: 0 },
   error: {},
-  ...newLoanCreateInitialState,
 };
 
 export default (state = initialState, action) => {
@@ -51,6 +48,6 @@ export default (state = initialState, action) => {
         hasError: true,
       };
     default:
-      return createLoanReducer(state, action);
+      return state;
   }
 };
