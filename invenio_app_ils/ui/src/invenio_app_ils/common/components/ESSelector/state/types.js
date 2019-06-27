@@ -1,4 +1,1 @@
 export const UPDATE_SELECTIONS = 'esSelector/UPDATE_SELECTIONS';
-export const ADD_MULTI_SELECTION = 'esSelector/ADD_MULTI_SELECTION';
-export const ADD_SINGLE_SELECTION = 'esSelector/ADD_SINGLE_SELECTION';
-export const REMOVE_SELECTION = 'esSelector/REMOVE_SELECTION';

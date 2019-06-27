@@ -137,3 +137,9 @@ export const serializeHit = hit => {
     ...result,
   };
 };
+
+export const serializeAccessList = email => ({
+  id: email,
+  key: email,
+  title: email,
+});
