@@ -1,26 +1,40 @@
-import {
-  ADD_SINGLE_SELECTION,
-  ADD_MULTI_SELECTION,
-  REMOVE_SELECTION,
-  UPDATE_SELECTIONS,
-} from './types';
+import find from 'lodash/find';
+import { REMOVE_SELECTION, UPDATE_SELECTIONS } from './types';
 
 export const updateSelections = selections => ({
   type: UPDATE_SELECTIONS,
   payload: selections,
 });
 
-export const addMultiSelection = selection => ({
-  type: ADD_MULTI_SELECTION,
-  payload: selection,
-});
+export const addMultiSelection = selection => {
+  return (dispatch, getState) => {
+    let currentSelections = getState().esSelector.selections;
+    let hasMatch = find(currentSelections, sel => sel.id === selection.id);
 
-export const addSingleSelection = selection => ({
-  type: ADD_SINGLE_SELECTION,
-  payload: selection,
-});
+    if (!hasMatch) {
+      return dispatch({
+        type: UPDATE_SELECTIONS,
+        payload: [...currentSelections, selection],
+      });
+    }
+  };
+};
 
-export const removeSelection = selection => ({
-  type: REMOVE_SELECTION,
-  payload: selection,
-});
+export const addSingleSelection = selection => {
+  return {
+    type: UPDATE_SELECTIONS,
+    payload: [selection],
+  };
+};
+
+export const removeSelection = selection => {
+  return (dispatch, getState) => {
+    let currentSelections = getState().esSelector.selections;
+    return dispatch({
+      type: UPDATE_SELECTIONS,
+      payload: currentSelections.filter(
+        currentSelection => currentSelection.id !== selection.id
+      ),
+    });
+  };
+};

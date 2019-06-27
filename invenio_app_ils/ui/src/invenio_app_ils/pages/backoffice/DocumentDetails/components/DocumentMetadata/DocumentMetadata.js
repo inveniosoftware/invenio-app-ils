@@ -28,7 +28,10 @@ import {
 import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 import { ESSelectorModal } from '../../../../../common/components/ESSelector';
-import { serializeKeyword } from '../../../../../common/components/ESSelector/serializer';
+import {
+  serializeKeyword,
+  serializeAccessList,
+} from '../../../../../common/components/ESSelector/serializer';
 import has from 'lodash/has';
 
 export default class DocumentMetadata extends Component {
@@ -40,15 +43,9 @@ export default class DocumentMetadata extends Component {
 
   getReadAccessList = document => {
     return has(document, 'metadata._access.read')
-      ? document.metadata._access.read.map(this.serializePatron)
+      ? document.metadata._access.read.map(serializeAccessList)
       : [];
   };
-
-  serializePatron = email => ({
-    id: email,
-    key: email,
-    title: email,
-  });
 
   updateKeywords = results => {
     const keywordPids = results.map(result => result.metadata.keyword_pid);
@@ -257,6 +254,12 @@ export default class DocumentMetadata extends Component {
     </div>
   );
 
+  onSelectResult = result => {
+    result['metadata']['email'] = result['metadata']['email'].toLowerCase();
+    result['id'] = result['metadata']['email'];
+    result['title'] = result['metadata']['email'];
+  };
+
   render() {
     const document = this.props.documentDetails;
     const readAccessSet = this.getReadAccessList(document);
@@ -305,6 +308,7 @@ export default class DocumentMetadata extends Component {
                 emptySelectionInfoText={'Document will be made public'}
                 onSave={this.setRestrictions}
                 saveButtonContent={'Set access restrictions'}
+                onSelectResult={this.onSelectResult}
               />
             </Grid.Column>
             <Grid.Column>

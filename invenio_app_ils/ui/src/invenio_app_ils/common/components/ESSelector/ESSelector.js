@@ -13,6 +13,15 @@ export default class ESSelector extends Component {
     this.props.updateSelections(props.initialSelections);
   }
 
+  onSelectResult = result => {
+    if (this.props.onSelectResult) {
+      this.props.onSelectResult(result);
+    }
+    return this.props.multiple
+      ? this.props.addMultiSelection(result)
+      : this.props.addSingleSelection(result);
+  };
+
   removeSelection = selection => {
     if (this.searchRef) {
       this.searchRef.searchInputRef.focus();
@@ -56,11 +65,7 @@ export default class ESSelector extends Component {
           delay={this.props.delay}
           alwaysWildcard={this.props.alwaysWildcard}
           minCharacters={this.props.minCharacters}
-          onSelect={result =>
-            this.props.multiple
-              ? this.props.addMultiSelection(result)
-              : this.props.addSingleSelection(result)
-          }
+          onSelect={this.onSelectResult}
           ref={element => (this.searchRef = element)}
         />
         <p>{this.renderSelectionInfoText()}</p>
@@ -77,6 +82,7 @@ ESSelector.propTypes = {
   minCharacters: PropTypes.number,
   multiple: PropTypes.bool,
   query: PropTypes.func.isRequired,
+  onSelectResult: PropTypes.func,
 };
 
 ESSelector.defaultProps = {
