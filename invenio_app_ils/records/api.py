@@ -51,7 +51,18 @@ class IlsRecord(Record):
     def create(cls, data, id_=None, **kwargs):
         """Create Document record."""
         data["$schema"] = current_jsonschemas.path_to_url(cls._schema)
+        getattr(cls, 'validate_create', lambda x: x)(data)
         return super(IlsRecord, cls).create(data, id_=id_, **kwargs)
+
+    def patch(self, patch):
+        """Validate patch metadata."""
+        getattr(self, 'validate_patch', lambda x: x)(patch)
+        return super(IlsRecord, self).patch(patch)
+
+    def update(self, data):
+        """Validate update metadata."""
+        getattr(self, 'validate_update', lambda x: x)(data)
+        super(IlsRecord, self).update(data)
 
 
 class Document(IlsRecord):
