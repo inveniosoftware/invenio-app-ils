@@ -5,6 +5,7 @@ import {
   deleteItem,
   fetchItemDetails,
   createNewLoanForItem,
+  updateItem,
 } from '../../state/actions';
 
 const mapStateToProps = state => ({
@@ -17,6 +18,8 @@ const mapDispatchToProps = dispatch => ({
   deleteItem: itemPid => dispatch(deleteItem(itemPid)),
   createNewLoanForItem: (loanData, url) =>
     dispatch(createNewLoanForItem(loanData, url)),
+  updateItem: (itemPid, path, value) =>
+    dispatch(updateItem(itemPid, path, value)),
 });
 
 export const ItemMetadata = connect(

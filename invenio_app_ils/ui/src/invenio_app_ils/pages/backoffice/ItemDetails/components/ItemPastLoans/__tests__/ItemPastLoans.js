@@ -28,7 +28,7 @@ describe('ItemPastLoans tests', () => {
   it('should load the past loans component', () => {
     const component = shallow(
       <ItemPastLoans
-        item={item}
+        itemDetails={item}
         data={{ hits: [], total: 0 }}
         fetchPastLoans={() => {}}
       />
@@ -40,7 +40,7 @@ describe('ItemPastLoans tests', () => {
     const mockedFetchPastLoans = jest.fn();
     component = mount(
       <ItemPastLoans
-        item={item}
+        itemDetails={item}
         data={{ hits: [], total: 0 }}
         fetchPastLoans={mockedFetchPastLoans}
       />
@@ -51,7 +51,7 @@ describe('ItemPastLoans tests', () => {
   it('should render show a message with no past loans', () => {
     component = mount(
       <ItemPastLoans
-        item={item}
+        itemDetails={item}
         data={{ hits: [], total: 0 }}
         fetchPastLoans={() => {}}
       />
@@ -96,7 +96,7 @@ describe('ItemPastLoans tests', () => {
     };
 
     component = mount(
-      <ItemPastLoans item={item} data={data} fetchPastLoans={() => {}} />
+      <ItemPastLoans itemDetails={item} data={data} fetchPastLoans={() => {}} />
     );
 
     expect(component).toMatchSnapshot();

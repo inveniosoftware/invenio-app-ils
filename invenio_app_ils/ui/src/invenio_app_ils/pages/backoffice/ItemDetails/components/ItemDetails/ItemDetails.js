@@ -5,12 +5,12 @@ import { ItemMetadata, ItemPastLoans } from '../';
 
 export default class ItemDetails extends Component {
   render() {
-    const { isLoading, data, error } = this.props;
+    const { isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <ItemMetadata />
-          <ItemPastLoans item={data} />
+          <ItemPastLoans />
         </Error>
       </Loader>
     );
@@ -19,6 +19,5 @@ export default class ItemDetails extends Component {
 
 ItemDetails.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  data: PropTypes.object,
   hasError: PropTypes.bool.isRequired,
 };

@@ -60,7 +60,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
     }
   }
   fetchPastLoans={[Function]}
-  item={
+  itemDetails={
     Object {
       "item_pid": 222,
       "metadata": Object {
@@ -753,7 +753,7 @@ exports[`ItemPastLoans tests should render show a message with no past loans 1`]
     }
   }
   fetchPastLoans={[Function]}
-  item={
+  itemDetails={
     Object {
       "item_pid": 222,
       "metadata": Object {

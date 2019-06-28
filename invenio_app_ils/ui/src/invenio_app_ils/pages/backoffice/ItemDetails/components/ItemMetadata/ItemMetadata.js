@@ -7,12 +7,14 @@ import {
   Header,
   Table,
   Button,
+  List,
 } from 'semantic-ui-react';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
 import {
   loan as loanApi,
   item as itemApi,
+  document as documentApi,
   patron as patronApi,
 } from '../../../../../common/api';
 import { invenioConfig } from '../../../../../common/config';
@@ -20,11 +22,13 @@ import { EditButton } from '../../../components/buttons';
 
 import './ItemMetadata.scss';
 import { ESSelectorModal } from '../../../../../common/components/ESSelector';
+import { serializeDocument } from '../../../../../common/components/ESSelector/serializer';
 
 export default class ItemMetadata extends Component {
   constructor(props) {
     super(props);
     this.deleteItem = props.deleteItem;
+    this.itemPid = this.props.itemDetails.metadata.item_pid;
   }
 
   handleOnRefClick(loanPid) {
@@ -79,9 +83,16 @@ export default class ItemMetadata extends Component {
     this.props.createNewLoanForItem(loanData);
   };
 
+  updateDocument = results => {
+    const newDocumentPid = results[0].metadata.document_pid;
+    this.props.updateItem(this.itemPid, '/document_pid', newDocumentPid);
+  };
+
   render() {
     const { itemDetails } = this.props;
-
+    const selectedDocument = new Array(
+      serializeDocument(itemDetails.metadata.document)
+    );
     const header = (
       <Grid.Row>
         <Grid.Column width={10} verticalAlign={'middle'}>
@@ -163,7 +174,30 @@ export default class ItemMetadata extends Component {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Document</Table.Cell>
-                    <Table.Cell>{itemDetails.metadata.document_pid}</Table.Cell>
+                    <Table.Cell>
+                      <List horizontal>
+                        <List.Item>
+                          {itemDetails.metadata.document_pid}
+                        </List.Item>
+                        <List.Item>
+                          <ESSelectorModal
+                            initialSelections={selectedDocument}
+                            trigger={
+                              <Button
+                                basic
+                                color="blue"
+                                size="small"
+                                content="edit"
+                              />
+                            }
+                            minCharacters={1}
+                            query={documentApi.list}
+                            title="Select Document"
+                            onSave={this.updateDocument}
+                          />
+                        </List.Item>
+                      </List>
+                    </Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Library</Table.Cell>

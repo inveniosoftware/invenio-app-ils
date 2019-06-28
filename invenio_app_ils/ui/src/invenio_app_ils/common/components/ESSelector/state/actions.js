@@ -1,5 +1,5 @@
 import find from 'lodash/find';
-import { REMOVE_SELECTION, UPDATE_SELECTIONS } from './types';
+import { UPDATE_SELECTIONS } from './types';
 
 export const updateSelections = selections => ({
   type: UPDATE_SELECTIONS,

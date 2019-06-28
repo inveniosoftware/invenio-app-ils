@@ -15,12 +15,14 @@ from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
 from invenio_jsonschemas import current_jsonschemas
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
 from invenio_userprofiles.api import UserProfile
 
 from invenio_app_ils.errors import DocumentKeywordNotFoundError, \
-    ItemHasActiveLoanError, RecordHasReferencesError
+    ItemDocumentNotFoundError, ItemHasActiveLoanError, \
+    RecordHasReferencesError
 from invenio_app_ils.search.api import DocumentSearch, \
     InternalLocationSearch, ItemSearch
 
@@ -223,6 +225,19 @@ class Item(_Item):
             )
         }
         return super(Item, cls).create(data, id_=id_, **kwargs)
+
+    def ensure_document_exists(self, document_pid):
+        """Ensure document exists or raise."""
+        try:
+            Document.get_record_by_pid(document_pid)
+        except PIDDoesNotExistError:
+            raise ItemDocumentNotFoundError(document_pid)
+
+    def validate_patch(self, patch):
+        """Validate patch for Document."""
+        for change in patch:
+            if change['path'] == "/document_pid":
+                self.ensure_document_exists(change['value'])
 
     def ensure_item_can_be_updated(self):
         """Raises an exception if the item's status cannot be updated."""
