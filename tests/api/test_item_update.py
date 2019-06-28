@@ -14,7 +14,8 @@ from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
 
-from invenio_app_ils.errors import IlsException, ItemHasActiveLoanError
+from invenio_app_ils.errors import IlsException, ItemDocumentNotFoundError, \
+    ItemHasActiveLoanError
 from invenio_app_ils.records.api import Item
 
 
@@ -53,4 +54,29 @@ def test_update_item_status(client, users, json_patch_headers,
 
     assert res.status_code == ItemHasActiveLoanError.code
     assert res.json['error_class'] == "ItemHasActiveLoanError"
+    assert res.json['message'] == msg
+
+
+def test_update_item_document(client, users, json_patch_headers, json_headers,
+                              testdata, db):
+    """Test REPLACE document pid on item."""
+    login_user_via_session(
+        client,
+        email=User.query.get(users["admin"].id).email
+    )
+    patch_op = [{
+        "op": "replace", "path": "/document_pid", "value": "not_found_doc"
+    }]
+    url = url_for('invenio_records_rest.pitmid_item', pid_value="itemid-1")
+
+    res = client.patch(url,
+                       headers=json_patch_headers,
+                       data=json.dumps(patch_op))
+
+    msg = ("Document PID '{document_pid}' was not found").format(
+        document_pid="not_found_doc"
+    )
+
+    assert res.status_code == ItemDocumentNotFoundError.code
+    assert res.json['error_class'] == "ItemDocumentNotFoundError"
     assert res.json['message'] == msg

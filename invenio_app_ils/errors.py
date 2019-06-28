@@ -185,3 +185,14 @@ class DocumentKeywordNotFoundError(IlsException):
         """Initialize exception."""
         super(DocumentKeywordNotFoundError, self).__init__(**kwargs)
         self.description = self.description.format(document_pid, keyword_pid)
+
+
+class ItemDocumentNotFoundError(IlsException):
+    """Raised when trying to attach a non-existing document in an item."""
+
+    description = "Document PID '{}' was not found"
+
+    def __init__(self, document_pid, **kwargs):
+        """Initialize exception."""
+        super(ItemDocumentNotFoundError, self).__init__(**kwargs)
+        self.description = self.description.format(document_pid)

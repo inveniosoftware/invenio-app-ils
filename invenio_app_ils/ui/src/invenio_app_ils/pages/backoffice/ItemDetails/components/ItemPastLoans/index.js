@@ -5,6 +5,7 @@ import ItemPastLoansComponent from './ItemPastLoans';
 
 const mapStateToProps = state => ({
   data: state.itemPastLoans.data,
+  itemDetails: state.itemDetails.data,
   error: state.itemPastLoans.error,
   isLoading: state.itemPastLoans.isLoading,
   hasError: state.itemPastLoans.hasError,

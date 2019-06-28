@@ -18,12 +18,12 @@ export default class ItemPastLoans extends Component {
   }
 
   componentDidMount() {
-    const { item_pid } = this.props.item;
+    const { item_pid } = this.props.itemDetails;
     this.fetchPastLoans(item_pid);
   }
 
   seeAllButton = () => {
-    const { item_pid } = this.props.item;
+    const { item_pid } = this.props.itemDetails;
     const path = this.seeAllUrl(
       loanApi
         .query()
@@ -76,7 +76,7 @@ export default class ItemPastLoans extends Component {
 }
 
 ItemPastLoans.propTypes = {
-  item: PropTypes.object.isRequired,
+  itemDetails: PropTypes.object.isRequired,
   fetchPastLoans: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   showMaxPastLoans: PropTypes.number,

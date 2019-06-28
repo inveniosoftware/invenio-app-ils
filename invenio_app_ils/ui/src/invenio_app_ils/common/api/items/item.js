@@ -15,6 +15,14 @@ const del = async itemPid => {
   return response;
 };
 
+const patch = async (itemPid, ops) => {
+  const response = await http.patch(`${itemURL}${itemPid}`, ops, {
+    headers: { 'Content-Type': 'application/json-patch+json' },
+  });
+  response.data = serializer.fromJSON(response.data);
+  return response;
+};
+
 const list = async query => {
   const response = await http.get(`${itemURL}?q=${query}`);
   response.data.total = response.data.hits.total;
@@ -79,6 +87,7 @@ const queryBuilder = () => {
 export const item = {
   query: queryBuilder,
   list: list,
+  patch: patch,
   get: get,
   delete: del,
   url: itemURL,

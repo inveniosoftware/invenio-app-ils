@@ -10,7 +10,6 @@ import {
   sendSuccessNotification,
 } from '../../../../common/components/Notifications';
 import { ES_DELAY } from '../../../../common/config';
-import React from 'react';
 
 export const fetchDocumentsDetails = documentPid => {
   return async dispatch => {
