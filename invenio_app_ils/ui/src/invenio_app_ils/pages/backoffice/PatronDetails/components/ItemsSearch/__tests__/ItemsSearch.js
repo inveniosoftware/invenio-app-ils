@@ -45,7 +45,7 @@ describe('PatronLoans tests', () => {
         fetchUpdatedCurrentLoans={mockedFetchCurrent}
         clearResults={mockedClear}
         checkoutItem={mockedCheckoutItem}
-        patron={2}
+        patron={'2'}
       />
     );
     expect(component).toMatchSnapshot();

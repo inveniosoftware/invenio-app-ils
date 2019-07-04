@@ -5,22 +5,27 @@ import {
   CHANGE_SORT_BY,
   CHANGE_SORT_ORDER,
 } from './types';
-import { loan as loanApi } from '../../../../../../common/api';
-import { sendErrorNotification } from '../../../../../../common/components/Notifications';
+import { loan as loanApi } from '../../api';
+import { sendErrorNotification } from '../../components/Notifications';
 
-export const fetchPatronPendingLoans = patronPid => {
+const selectQuery = (patronPid, query) => {
+  if (query === undefined) {
+    query = loanApi
+      .query()
+      .withPatronPid(patronPid)
+      .withState('PENDING')
+      .qs();
+  }
+  return query;
+};
+
+export const fetchPatronPendingLoans = (patronPid, query = undefined) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
     await loanApi
-      .list(
-        loanApi
-          .query()
-          .withPatronPid(patronPid)
-          .withState('PENDING')
-          .qs()
-      )
+      .list(selectQuery(patronPid, query))
       .then(response => {
         dispatch({
           type: SUCCESS,

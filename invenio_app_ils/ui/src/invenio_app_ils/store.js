@@ -2,6 +2,11 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
+import {
+  patronCurrentLoansReducer,
+  patronPastLoansReducer,
+  patronPendingLoansReducer,
+} from './common/state';
 import { availableItemsReducer } from './pages/backoffice/LoanDetails/reducer';
 import {
   documentDetailsReducer,
@@ -18,11 +23,9 @@ import {
 import { loanDetailsReducer } from './pages/backoffice/LoanDetails/reducer';
 import {
   itemsSearchByBarcodeReducer,
-  patronCurrentLoansReducer,
   patronDetailsReducer,
   patronItemCheckoutReducer,
 } from './pages/backoffice/PatronDetails/reducer';
-import { patronPendingLoansReducer } from './pages/backoffice/PatronDetails/reducer';
 import {
   locationListReducer,
   internalLocationListReducer,
@@ -50,35 +53,36 @@ import {
 import { documentsDetailsReducer } from './pages/frontsite/DocumentsDetails/reducer';
 
 const rootReducer = combineReducers({
+  availableItems: availableItemsReducer,
   deleteRecordModal: deleteRecordModalReducer,
   documentDetails: documentDetailsReducer,
-  documentPendingLoans: documentPendingLoans,
-  documentStats: documentStatsReducer,
   documentItems: documentItems,
+  documentPendingLoans: documentPendingLoans,
+  documentsCard: documentsCardReducer,
+  documentsDetails: documentsDetailsReducer,
+  documentStats: documentStatsReducer,
   eitemDetails: eitemDetailsReducer,
+  esSelector: esSelectorReducer,
+  idlePendingLoans: idleLoansReducer,
+  internalLocations: internalLocationListReducer,
   itemDetails: itemDetailsReducer,
   itemPastLoans: itemPastLoansReducer,
-  loanDetails: loanDetailsReducer,
-  patronDetails: patronDetailsReducer,
-  patronPendingLoans: patronPendingLoansReducer,
-  patronCurrentLoans: patronCurrentLoansReducer,
-  availableItems: availableItemsReducer,
-  locations: locationListReducer,
-  internalLocations: internalLocationListReducer,
-  loansCard: loansCardReducer,
-  documentsCard: documentsCardReducer,
-  overbookedDocuments: overbookedDocumentsReducer,
-  overdueLoans: overdueLoansReducer,
-  idlePendingLoans: idleLoansReducer,
-  latestRenewedLoans: renewedLoansReducer,
-  documentsDetails: documentsDetailsReducer,
   itemsSearchInput: itemsSearchByBarcodeReducer,
-  patronItemsCheckout: patronItemCheckoutReducer,
-  notifications: notificationsReducer,
+  latestRenewedLoans: renewedLoansReducer,
+  loanDetails: loanDetailsReducer,
+  loansCard: loansCardReducer,
+  locations: locationListReducer,
   mostLoanedBooks: mostLoanedBooksReducer,
   mostRecentBooks: mostRecentBooksReducer,
-  mostRecentEbooks: mostRecentEbooksReducer,
-  esSelector: esSelectorReducer,
+  mostRecentEBooks: mostRecentEbooksReducer,
+  notifications: notificationsReducer,
+  overbookedDocuments: overbookedDocumentsReducer,
+  overdueLoans: overdueLoansReducer,
+  patronCurrentLoans: patronCurrentLoansReducer,
+  patronDetails: patronDetailsReducer,
+  patronItemsCheckout: patronItemCheckoutReducer,
+  patronPastLoans: patronPastLoansReducer,
+  patronPendingLoans: patronPendingLoansReducer,
   seriesDetails: seriesDetailsReducer,
   seriesDocuments: seriesDocumentsReducer,
 });

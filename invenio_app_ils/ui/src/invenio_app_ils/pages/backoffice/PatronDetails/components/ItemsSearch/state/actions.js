@@ -7,7 +7,7 @@ import {
 } from './types';
 import { ES_DELAY } from '../../../../../../common/config';
 import { item as itemApi } from '../../../../../../common/api';
-import { fetchPatronCurrentLoans } from '../../PatronCurrentLoans/state/actions';
+import { fetchPatronCurrentLoans } from '../../../../../../common/state/PatronCurrentLoans/actions';
 import { sendErrorNotification } from '../../../../../../common/components/Notifications';
 
 export const fetchItems = barcode => {

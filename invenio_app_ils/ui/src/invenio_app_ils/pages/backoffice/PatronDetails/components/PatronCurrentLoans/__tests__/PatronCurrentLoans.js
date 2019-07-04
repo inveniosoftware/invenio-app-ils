@@ -20,7 +20,7 @@ describe('PatronLoans tests', () => {
   });
 
   const patron = {
-    patron_pid: 2,
+    patron_pid: '2',
   };
 
   it('should load the details component', () => {

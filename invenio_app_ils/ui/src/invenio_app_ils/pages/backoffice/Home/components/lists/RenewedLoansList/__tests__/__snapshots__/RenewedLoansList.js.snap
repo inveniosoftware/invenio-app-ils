@@ -73,7 +73,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
         rows={
           Array [
             Object {
-              "End date": "2018-01-01 10:05",
+              "End date": "2018-01-01",
               "ID": "loan1",
               "Item barcode": null,
               "Patron ID": "patron_1",
@@ -81,7 +81,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
               "State": undefined,
             },
             Object {
-              "End date": "2018-01-01 10:05",
+              "End date": "2018-01-01",
               "ID": "loan2",
               "Item barcode": null,
               "Patron ID": "patron_2",
@@ -319,7 +319,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                   rows={
                     Array [
                       Object {
-                        "End date": "2018-01-01 10:05",
+                        "End date": "2018-01-01",
                         "ID": "loan1",
                         "Item barcode": null,
                         "Patron ID": "patron_1",
@@ -327,7 +327,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                         "State": undefined,
                       },
                       Object {
-                        "End date": "2018-01-01 10:05",
+                        "End date": "2018-01-01",
                         "ID": "loan2",
                         "Item barcode": null,
                         "Patron ID": "patron_2",
@@ -443,7 +443,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                               className=""
                               data-test="End date-loan1"
                             >
-                              2018-01-01 10:05
+                              2018-01-01
                             </td>
                           </TableCell>
                           <TableCell
@@ -560,7 +560,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                               className=""
                               data-test="End date-loan2"
                             >
-                              2018-01-01 10:05
+                              2018-01-01
                             </td>
                           </TableCell>
                           <TableCell

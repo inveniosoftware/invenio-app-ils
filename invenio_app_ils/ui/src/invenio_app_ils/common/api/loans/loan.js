@@ -92,6 +92,7 @@ class QueryBuilder {
     this.overdueQuery = [];
     this.patronQuery = [];
     this.renewedCountQuery = [];
+    this.size = '';
     this.sortBy = '';
     this.startDateQuery = [];
     this.stateQuery = [];
@@ -172,6 +173,11 @@ class QueryBuilder {
     return this;
   }
 
+  withSize(size) {
+    if (size > 0) this.size = `&size=${size}`;
+    return this;
+  }
+
   sortByNewest() {
     this.sortBy = `&sort=-mostrecent`;
     return this;
@@ -189,7 +195,7 @@ class QueryBuilder {
         this.startDateQuery
       )
       .join(' AND ');
-    return `(${searchCriteria})${this.sortBy}`;
+    return `(${searchCriteria})${this.sortBy}${this.size}`;
   }
 }
 

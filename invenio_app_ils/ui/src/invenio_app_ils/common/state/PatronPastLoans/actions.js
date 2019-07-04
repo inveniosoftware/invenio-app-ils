@@ -1,18 +1,28 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { loan as loanApi } from '../../../../../../common/api';
-import { sendErrorNotification } from '../../../../../../common/components/Notifications';
+import { invenioConfig } from '../../config';
+import { loan as loanApi } from '../../api';
+import { sendErrorNotification } from '../../components/Notifications';
 
-export const fetchPatronCurrentLoans = (patronPid, delay = 0) => {
+const selectQuery = (patronPid, query) => {
+  if (query === undefined) {
+    query = loanApi
+      .query()
+      .withPatronPid(patronPid)
+      .withState(invenioConfig.circulation.loanCompletedStates)
+      .sortByNewest()
+      .qs();
+  }
+  return query;
+};
+
+export const fetchPatronPastLoans = (
+  patronPid,
+  delay = 0,
+  query = undefined
+) => {
   const fetchLoans = (patronPid, dispatch) => {
     loanApi
-      .list(
-        loanApi
-          .query()
-          .withPatronPid(patronPid)
-          .withState('ITEM_ON_LOAN')
-          .sortByNewest()
-          .qs()
-      )
+      .list(selectQuery(patronPid, query))
       .then(response => {
         dispatch({
           type: SUCCESS,

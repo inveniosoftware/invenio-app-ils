@@ -1,30 +1,13 @@
 $header-height: 80px;
-$margin-60: 60px;
 
 .app {
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
 }
 
 .app-content {
-  flex-direction: column;
-
-  min-height: 100vh;
-  padding-top: $header-height;
-
+  flex: 1;
+  margin-top: $header-height;
   justify-content: space-between;
-
-  padding-bottom: 50px;
-
-  .six.wide.column {
-    padding-top: 30px;
-  }
-
-  .div.thirteen.wide.column {
-    padding-right: 30px;
-  }
-
-  .right.aligned.five.wide.column {
-    margin-bottom: 10px;
-  }
 }

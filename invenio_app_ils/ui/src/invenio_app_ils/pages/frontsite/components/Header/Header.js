@@ -26,7 +26,9 @@ export default class Header extends Component {
         <Dropdown.Menu>
           <Dropdown.Item>Your Requests</Dropdown.Item>
           <Dropdown.Item>Your Loans</Dropdown.Item>
-          <Dropdown.Item>Profile</Dropdown.Item>
+          <Dropdown.Item onClick={goToHandler(FrontSiteRoutes.profile)}>
+            Profile
+          </Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item onClick={goToHandler(BackOfficeRoutes.home)}>
             Backoffice
