@@ -1,6 +1,10 @@
 import { connect } from 'react-redux';
 import SeriesMetadataComponent from './SeriesMetadata';
-import { deleteSeries, fetchSeriesDetails } from '../../state/actions';
+import {
+  deleteSeries,
+  fetchSeriesDetails,
+  updateSeries,
+} from '../../state/actions';
 
 const mapStateToProps = state => ({
   seriesDetails: state.seriesDetails.data,
@@ -10,6 +14,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchSeriesDetails: seriesPid => dispatch(fetchSeriesDetails(seriesPid)),
   deleteSeries: seriesPid => dispatch(deleteSeries(seriesPid)),
+  updateSeries: (seriesPid, path, value) =>
+    dispatch(updateSeries(seriesPid, path, value)),
 });
 
 export const SeriesMetadata = connect(

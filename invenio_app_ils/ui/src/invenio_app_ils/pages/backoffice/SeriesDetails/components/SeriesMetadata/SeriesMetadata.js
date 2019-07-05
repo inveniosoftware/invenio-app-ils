@@ -1,21 +1,32 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Segment, Container, Header, List } from 'semantic-ui-react';
+import {
+  Grid,
+  Segment,
+  Container,
+  Header,
+  List,
+  Button,
+} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import { MetadataTable } from '../../../components/MetadataTable';
 import { EditButton } from '../../../components/buttons';
 import {
   document as documentApi,
+  keyword as keywordApi,
   series as seriesApi,
 } from '../../../../../common/api';
 import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
+import { ESSelectorModal } from '../../../../../common/components/ESSelector';
+import { serializeKeyword } from '../../../../../common/components/ESSelector/serializer';
 
 export default class SeriesMetadata extends Component {
   constructor(props) {
     super(props);
     this.deleteSeries = props.deleteSeries;
+    this.seriesPid = this.props.seriesDetails.metadata.series_pid;
   }
 
   createRefProps(seriesPid) {
@@ -35,7 +46,13 @@ export default class SeriesMetadata extends Component {
     ];
   }
 
+  updateKeywords = results => {
+    const keywordPids = results.map(result => result.metadata.keyword_pid);
+    this.props.updateSeries(this.seriesPid, '/keyword_pids', keywordPids);
+  };
+
   renderKeywords(keywords) {
+    const keywordSelection = keywords.map(serializeKeyword);
     return (
       <List horizontal>
         {keywords.map(keyword => (
@@ -52,6 +69,16 @@ export default class SeriesMetadata extends Component {
             </Link>
           </List.Item>
         ))}
+        <List.Item>
+          <ESSelectorModal
+            multiple
+            initialSelections={keywordSelection}
+            trigger={<Button basic color="blue" size="small" content="edit" />}
+            query={keywordApi.list}
+            title="Select Keywords"
+            onSave={this.updateKeywords}
+          />
+        </List.Item>
       </List>
     );
   }

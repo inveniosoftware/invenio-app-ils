@@ -69,3 +69,39 @@ export const fetchSeriesDetails = seriesPid => {
       });
   };
 };
+
+export const updateSeries = (seriesPid, path, value) => {
+  return async dispatch => {
+    dispatch({
+      type: IS_LOADING,
+    });
+
+    await seriesApi
+      .patch(seriesPid, [
+        {
+          op: 'replace',
+          path: path,
+          value: value,
+        },
+      ])
+      .then(response => {
+        dispatch({
+          type: SUCCESS,
+          payload: response.data,
+        });
+        dispatch(
+          sendSuccessNotification(
+            'Success!',
+            `The series ${seriesPid} has been updated.`
+          )
+        );
+      })
+      .catch(error => {
+        dispatch({
+          type: HAS_ERROR,
+          payload: error,
+        });
+        dispatch(sendErrorNotification(error));
+      });
+  };
+};

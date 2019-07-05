@@ -19,9 +19,9 @@ from invenio_circulation.search.api import search_by_pid as search_loans_by_pid
 from invenio_indexer.api import RecordIndexer
 
 from invenio_app_ils.records.api import Document, EItem, InternalLocation, \
-    Item, Location, Series
+    Item, Keyword, Location, Series
 from invenio_app_ils.search.api import DocumentSearch, EItemSearch, \
-    InternalLocationSearch, ItemSearch
+    InternalLocationSearch, ItemSearch, SeriesSearch
 
 indexer = RecordIndexer()
 MSG_ORIGIN = "ils-indexer: {origin_rec_type} #{origin_recid} indexed, trigger"\
@@ -320,5 +320,37 @@ class SeriesIndexer(RecordIndexer):
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_documents_after_series_indexed.apply_async(
             (series[Series.pid_field],),
+            eta=eta,
+        )
+
+
+@shared_task(ignore_result=True)
+def index_documents_and_series_after_keyword_indexed(keyword_pid):
+    """Index documents and series to re-compute keyword information."""
+    def index_record(cls, search):
+        log_func = partial(
+            _log,
+            origin_rec_type='Keyword',
+            origin_recid=keyword_pid,
+            dest_rec_type=cls.__name__)
+
+        log_func(msg=MSG_ORIGIN)
+        for record in search.search_by_keyword_pid(keyword_pid).scan():
+            pid = record[cls.pid_field]
+            _index_record_by_pid(cls, pid, log_func)
+
+    index_record(Document, DocumentSearch())
+    index_record(Series, SeriesSearch())
+
+
+class KeywordIndexer(RecordIndexer):
+    """Indexer class for Keyword record."""
+
+    def index(self, keyword):
+        """Index a keyword."""
+        super(KeywordIndexer, self).index(keyword)
+        eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
+        index_documents_and_series_after_keyword_indexed.apply_async(
+            (keyword[Keyword.pid_field],),
             eta=eta,
         )

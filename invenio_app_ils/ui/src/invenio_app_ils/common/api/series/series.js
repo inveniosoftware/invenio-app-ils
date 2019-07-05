@@ -15,6 +15,14 @@ const del = async seriesPid => {
   return response;
 };
 
+const patch = async (seriesPid, ops) => {
+  const response = await http.patch(`${seriesURL}${seriesPid}`, ops, {
+    headers: { 'Content-Type': 'application/json-patch+json' },
+  });
+  response.data = serializer.fromJSON(response.data);
+  return response;
+};
+
 class QueryBuilder {
   constructor() {
     this.withKeywordQuery = [];
@@ -57,6 +65,7 @@ const count = query => {
 export const series = {
   get: get,
   delete: del,
+  patch: patch,
   list: list,
   count: count,
   query: queryBuilder,
