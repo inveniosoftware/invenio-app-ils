@@ -202,7 +202,6 @@ export default class DocumentMetadata extends Component {
         <Label
           icon="lock open"
           size="large"
-          inverted
           color="green"
           content="Publicly Accessible"
         />

@@ -35,6 +35,7 @@ from .indexer import (  # isort:skip
     DocumentIndexer,
     ItemIndexer,
     EItemIndexer,
+    KeywordIndexer,
     LoanIndexer,
     LocationIndexer,
     SeriesIndexer,
@@ -541,6 +542,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher=KEYWORD_PID_FETCHER,
         search_class=KeywordSearch,
         record_class=Keyword,
+        indexer_class=KeywordIndexer,
         record_serializers={
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_response'),
@@ -560,7 +562,7 @@ RECORDS_REST_ENDPOINTS = dict(
         list_permission_factory_imp=backoffice_permission,
         read_permission_factory_imp=record_read_permission_factory,
         create_permission_factory_imp=record_create_permission_factory,
-        update_permission_factory_imp=deny_all,
+        update_permission_factory_imp=record_update_permission_factory,
         delete_permission_factory_imp=backoffice_permission,
     ),
 )
@@ -1043,6 +1045,24 @@ RECORDS_EDITOR_UI_CONFIG = {
                     "$schema": {"hidden": True},
                     "eitem_pid": {"hidden": True},
                     "document": {"hidden": True},
+                },
+            },
+        },
+    },
+    "keywords": {
+        "recordConfig": {
+            "apiUrl": "api/keywords/",
+            "schema": "keywords/keyword-v1.0.0.json",
+        },
+        "editorConfig": {
+            "schemaOptions": {
+                "alwaysShow": [
+                    "name",
+                    "provenance"
+                ],
+                "properties": {
+                    "$schema": {"hidden": True},
+                    "keyword_pid": {"hidden": True},
                 },
             },
         },

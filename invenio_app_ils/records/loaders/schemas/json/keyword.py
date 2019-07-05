@@ -7,7 +7,6 @@
 
 """Keyword schema for marshmallow loader."""
 
-from invenio_records_rest.schemas.fields import PersistentIdentifier
 from marshmallow import Schema, fields
 
 from invenio_app_ils.records.api import Keyword
@@ -20,6 +19,6 @@ class KeywordSchemaV1(Schema):
         """Return pid_field value."""
         return Keyword.pid_field
 
-    pid = PersistentIdentifier()
-    name = fields.Str()
+    keyword_pid = fields.Str(required=True)
+    name = fields.Str(required=True)
     provenance = fields.Str()

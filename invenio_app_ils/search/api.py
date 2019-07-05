@@ -25,20 +25,12 @@ class DocumentSearch(RecordsSearch):
                               exclude_states=None):
         """Retrieve documents based on the given keyword pid."""
         search = self
-
-        if keyword_pid:
-            search = search.filter("term", keyword_pids=keyword_pid)
-        else:
-            raise MissingRequiredParameterError(
-                description="keyword_pid is required"
-            )
-
-        if filter_states:
-            search = search.filter("terms", state=filter_states)
-        elif exclude_states:
-            search = search.filter("terms", state=exclude_states)
-
-        return search
+        return KeywordSearch.filter_by_keyword_pid(
+            search,
+            keyword_pid,
+            filter_states,
+            exclude_states
+        )
 
     def search_by_series_pid(self, series_pid=None):
         """Retrieve documents with the given series_pid."""
@@ -178,6 +170,17 @@ class SeriesSearch(RecordsSearch):
         index = "series"
         doc_types = None
 
+    def search_by_keyword_pid(self, keyword_pid=None, filter_states=None,
+                              exclude_states=None):
+        """Retrieve series with the given keyword pid."""
+        search = self
+        return KeywordSearch.filter_by_keyword_pid(
+            search,
+            keyword_pid,
+            filter_states,
+            exclude_states
+        )
+
 
 class PatronsSearch(RecordsSearch):
     """Search for patrons."""
@@ -197,3 +200,21 @@ class KeywordSearch(RecordsSearch):
 
         index = "keywords"
         doc_types = None
+
+    @classmethod
+    def filter_by_keyword_pid(cls, search, keyword_pid, filter_states=None,
+                              exclude_states=None):
+        """Filter a search by keyword PID."""
+        if keyword_pid:
+            search = search.filter("term", keyword_pids=keyword_pid)
+        else:
+            raise MissingRequiredParameterError(
+                description="keyword_pid is required"
+            )
+
+        if filter_states:
+            search = search.filter("terms", state=filter_states)
+        elif exclude_states:
+            search = search.filter("terms", state=exclude_states)
+
+        return search
