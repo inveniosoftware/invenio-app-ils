@@ -130,7 +130,7 @@
             "type": "string"
           },
           "relation_type": {
-            "type": "integer"
+            "type": "string"
           }
         }
       }

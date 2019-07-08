@@ -21,6 +21,7 @@ describe('SeriesSearch ResultsList tests', () => {
         title: 'This is a title',
         abstracts: 'This is an abstract',
         series_pid: '3',
+        related_records: [],
       },
     },
   ];

@@ -8,6 +8,7 @@ exports[`DocumentItems tests should load the DocumentItems component 1`] = `
       headerActionClickHandler={null}
       headerActionComponent={null}
       name="attached items"
+      renderSegment={true}
       rowActionClickHandler={[Function]}
       rows={Array []}
       seeAllComponent={
@@ -87,6 +88,7 @@ exports[`DocumentItems tests should render item 1`] = `
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="attached items"
+        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
           Array [
@@ -644,6 +646,7 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="attached items"
+        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={Array []}
         seeAllComponent={
@@ -788,6 +791,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="attached items"
+        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
           Array [

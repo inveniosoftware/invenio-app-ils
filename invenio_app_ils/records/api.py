@@ -25,7 +25,7 @@ from invenio_userprofiles.api import UserProfile
 from invenio_app_ils.errors import DocumentKeywordNotFoundError, \
     ItemDocumentNotFoundError, ItemHasActiveLoanError, \
     RecordHasReferencesError
-from invenio_app_ils.records.related import RelatedRecords
+from invenio_app_ils.records.related.api import RelatedRecords
 from invenio_app_ils.search.api import DocumentSearch, \
     InternalLocationSearch, ItemSearch
 

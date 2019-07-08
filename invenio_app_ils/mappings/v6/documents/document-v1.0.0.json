@@ -69,7 +69,7 @@
               "type": "keyword"
             },
             "relation_type": {
-              "type": "integer"
+              "type": "keyword"
             }
           }
         },

@@ -29,6 +29,7 @@ exports[`PatronsSearch ResultsList tests should render a list of results 1`] = `
     fixed={false}
     headerActionClickHandler={null}
     headerActionComponent={null}
+    renderSegment={true}
     rowActionClickHandler={[Function]}
     rows={
       Array [

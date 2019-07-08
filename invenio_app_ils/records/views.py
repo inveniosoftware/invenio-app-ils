@@ -9,7 +9,7 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, request
+from flask import Blueprint, current_app, request
 from invenio_db import db
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_records_rest.views import pass_record
@@ -18,7 +18,7 @@ from invenio_app_ils.circulation.views import IlsResource
 from invenio_app_ils.errors import RelatedRecordError
 from invenio_app_ils.pidstore.pids import DOCUMENT_PID_TYPE, SERIES_PID_TYPE
 from invenio_app_ils.records.api import IlsRecord
-from invenio_app_ils.records.related import RelatedRecords
+from invenio_app_ils.records.related.api import RelatedRecords
 
 
 def create_relations_blueprint(app):
@@ -61,9 +61,21 @@ class RelationResource(IlsResource):
 
     view_name = "{0}_relations"
 
-    def _extend_related_records(self, record):
+    def get_size(self, record):
+        """Get the size for number of related records to return per type."""
+        return int(request.args.get("size", len(record["related_records"])))
+
+    def _extend_related_records(self, record, size):
         """Extend record's related_record data with more fields."""
+        count = {
+            relation.name: 0
+            for relation in current_app.config["PIDRELATIONS_RELATION_TYPES"]
+        }
+        related_records = []
         for obj in record["related_records"]:
+            count[obj["relation_type"]] += 1
+            if count[obj["relation_type"]] > size:
+                continue
             related = IlsRecord.get_record_by_pid(
                 obj["pid"],
                 pid_type=obj["pid_type"]
@@ -71,14 +83,18 @@ class RelationResource(IlsResource):
             obj["title"] = related.get("title", "")
             obj["edition"] = related.get("edition", "")
             obj["language"] = related.get("language", "")
+            related_records.append(obj)
+        record["related_records"] = related_records
+        record["related_records_count"] = count
 
     @pass_record
     def get(self, record, **kwargs):
         """Get related records."""
-        self._extend_related_records(record)
+        size = self.get_size(record)
+        self._extend_related_records(record, size)
         pid = record[record.pid_field]
         for key in list(record.keys()):
-            if key != "related_records":
+            if not key.startswith("related_records"):
                 del record[key]
         return self.make_response(pid, record, 200)
 
@@ -90,7 +106,7 @@ class RelationResource(IlsResource):
                 obj["pid"],
                 pid_type=obj["pid_type"]
             )
-            relation_type = RelatedRecords.get_relation_by_id(
+            relation_type = RelatedRecords.get_relation_by_name(
                 obj["relation_type"]
             )
             action = obj.get("action", "")
@@ -105,5 +121,6 @@ class RelationResource(IlsResource):
                 )
         record.commit()
         db.session.commit()
-        self._extend_related_records(record)
+        size = self.get_size(record)
+        self._extend_related_records(record, size)
         return self.make_response(record[record.pid_field], record, 200)

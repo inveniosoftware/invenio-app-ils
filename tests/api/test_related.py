@@ -13,7 +13,7 @@ import pytest
 
 from invenio_app_ils.errors import RelatedRecordError
 from invenio_app_ils.records.api import Document, Series
-from invenio_app_ils.records.related import RelatedRecords, \
+from invenio_app_ils.records.related.api import RelatedRecords, \
     record_to_relation_dump
 
 
@@ -36,8 +36,8 @@ def test_related_add_editions_to_parent(app, testdata):
     child_editions = child2.related.editions
     assert len(parent_editions) == 2
     assert len(child_editions) == 2
-    assert parent_editions[0] == child2
-    assert parent_editions[1] == doc2
+    assert parent_editions[0] == doc2
+    assert parent_editions[1] == child2
     assert child_editions[0] == doc1
     assert child_editions[1] == doc2
 
@@ -59,12 +59,12 @@ def test_related_add_editions_to_child(app, testdata):
     assert len(child1_editions) == 2
     assert len(child2_editions) == 2
 
-    assert parent_editions[0] == ser3
-    assert parent_editions[1] == doc2
+    assert parent_editions[0] == doc2
+    assert parent_editions[1] == ser3
     assert child1_editions[0] == doc1
     assert child1_editions[1] == ser3
-    assert child2_editions[0] == doc1
-    assert child2_editions[1] == doc2
+    assert child2_editions[0] == doc2
+    assert child2_editions[1] == doc1
 
 
 def test_related_add_language(app, testdata):

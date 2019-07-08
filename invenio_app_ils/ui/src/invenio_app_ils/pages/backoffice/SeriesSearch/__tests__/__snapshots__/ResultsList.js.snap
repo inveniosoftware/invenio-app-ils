@@ -19,6 +19,7 @@ exports[`SeriesSearch ResultsList tests should render a list of results 1`] = `
           "authors": Array [
             "Author1",
           ],
+          "related_records": Array [],
           "series_pid": "3",
           "title": "This is a title",
         },
@@ -41,6 +42,7 @@ exports[`SeriesSearch ResultsList tests should render a list of results 1`] = `
       />
     }
     name="series"
+    renderSegment={true}
     rowActionClickHandler={[Function]}
     rows={
       Array [

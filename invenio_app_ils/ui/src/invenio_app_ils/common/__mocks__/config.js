@@ -66,4 +66,21 @@ export const invenioConfig = {
       aggs: [],
     },
   },
+  relationTypes: [
+    {
+      id: 0,
+      name: 'language',
+      label: 'Language',
+    },
+    {
+      id: 1,
+      name: 'edition',
+      label: 'Edition',
+    },
+    {
+      id: 2,
+      name: 'other',
+      label: 'Other',
+    },
+  ],
 };

@@ -37,7 +37,11 @@ describe('Related records tests', () => {
       };
 
       store.dispatch(actions.fetchRelatedRecords('123', 'docid'));
-      expect(mockFetchRelatedRecords).toHaveBeenCalledWith('123', 'docid');
+      expect(mockFetchRelatedRecords).toHaveBeenCalledWith(
+        '123',
+        'docid',
+        undefined
+      );
       expect(store.getActions()[0]).toEqual(expectedAction);
     });
 
@@ -50,7 +54,11 @@ describe('Related records tests', () => {
       };
 
       await store.dispatch(actions.fetchRelatedRecords('123', 'docid'));
-      expect(mockFetchRelatedRecords).toHaveBeenCalledWith('123', 'docid');
+      expect(mockFetchRelatedRecords).toHaveBeenCalledWith(
+        '123',
+        'docid',
+        undefined
+      );
       expect(store.getActions()[1]).toEqual(expectedAction);
     });
 
@@ -63,7 +71,11 @@ describe('Related records tests', () => {
       };
 
       await store.dispatch(actions.fetchRelatedRecords('123', 'docid'));
-      expect(mockFetchRelatedRecords).toHaveBeenCalledWith('123', 'docid');
+      expect(mockFetchRelatedRecords).toHaveBeenCalledWith(
+        '123',
+        'docid',
+        undefined
+      );
       expect(store.getActions()[1]).toEqual(expectedAction);
     });
   });

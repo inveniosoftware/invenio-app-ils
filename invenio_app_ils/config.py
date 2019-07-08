@@ -1085,10 +1085,24 @@ ACCOUNTS_JWT_CREATION_FACTORY = ils_jwt_create_token
 
 # PID Relations
 # ==============
-LANGUAGE_RELATION = RelationType(0, "language", "Language", "", "")
-EDITION_RELATION = RelationType(1, "edition", "Edition", "", "")
+LANGUAGE_RELATION = RelationType(
+    0, "language", "Language",
+    "invenio_app_ils.records.related.nodes:PIDNodeRelated",
+    "invenio_pidrelations.serializers.schemas.RelationSchema"
+)
+EDITION_RELATION = RelationType(
+    1, "edition", "Edition",
+    "invenio_app_ils.records.related.nodes:PIDNodeRelated",
+    "invenio_pidrelations.serializers.schemas.RelationSchema"
+)
+OTHER_RELATION = RelationType(
+    2, "other", "Other",
+    "invenio_app_ils.records.related.nodes:PIDNodeRelated",
+    "invenio_pidrelations.serializers.schemas.RelationSchema"
+)
 
 PIDRELATIONS_RELATION_TYPES = [
     LANGUAGE_RELATION,
     EDITION_RELATION,
+    OTHER_RELATION,
 ]

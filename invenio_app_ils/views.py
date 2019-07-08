@@ -273,5 +273,8 @@ def index(path=None):
     ui_config.update(
         {"support_email": current_app.config["SUPPORT_EMAIL"]}
     )
+    ui_config.update(
+        {"relationTypes": current_app.config["PIDRELATIONS_RELATION_TYPES"]}
+    )
 
     return render_template("invenio_app_ils/index.html", ui_config=ui_config)

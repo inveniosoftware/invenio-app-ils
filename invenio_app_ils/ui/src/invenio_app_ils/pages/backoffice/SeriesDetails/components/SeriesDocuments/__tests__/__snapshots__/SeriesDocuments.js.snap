@@ -8,6 +8,7 @@ exports[`SeriesDocuments tests should load the SeriesDocuments component 1`] = `
       headerActionClickHandler={null}
       headerActionComponent={null}
       name="documents"
+      renderSegment={true}
       rowActionClickHandler={[Function]}
       rows={Array []}
       seeAllComponent={
@@ -89,6 +90,7 @@ exports[`SeriesDocuments tests should render document 1`] = `
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="documents"
+        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
           Array [
@@ -556,6 +558,7 @@ exports[`SeriesDocuments tests should render show a message with no documents 1`
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="documents"
+        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={Array []}
         seeAllComponent={
@@ -688,6 +691,7 @@ exports[`SeriesDocuments tests should render the see all button when showing onl
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="documents"
+        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
           Array [

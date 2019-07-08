@@ -103,6 +103,7 @@ export class HitsSearch extends Component {
         results={results}
         value={value}
         resultRenderer={ResultRenderer}
+        placeholder={this.props.placeholder}
         input={{ ref: element => (this.searchInputRef = element) }}
       />
     );
@@ -111,4 +112,5 @@ export class HitsSearch extends Component {
 
 HitsSearch.propTypes = {
   delay: PropTypes.number.isRequired,
+  placeholder: PropTypes.string,
 };

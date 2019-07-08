@@ -10,7 +10,6 @@ import { Modal } from 'semantic-ui-react';
 jest.mock('../../../config');
 
 Settings.defaultZoneName = 'utc';
-const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 
 describe('RelatedRecords tests', () => {
   let component;
@@ -64,7 +63,7 @@ describe('RelatedRecords tests', () => {
     const message = component
       .find('Message')
       .filterWhere(element => element.prop('data-test') === 'no-results');
-    expect(message).toHaveLength(2);
+    expect(message).toHaveLength(1);
   });
 
   it('should render related record', () => {
@@ -74,7 +73,7 @@ describe('RelatedRecords tests', () => {
           {
             pid: 'docid-1',
             pid_type: 'docid',
-            relation_type: 0,
+            relation_type: 'language',
           },
         ],
       },
@@ -107,22 +106,22 @@ describe('RelatedRecords tests', () => {
           {
             pid: 'docid-1',
             pid_type: 'docid',
-            relation_type: 0,
+            relation_type: 'edition',
           },
           {
             pid: 'docid-2',
             pid_type: 'docid',
-            relation_type: 0,
+            relation_type: 'edition',
           },
           {
             pid: 'docid-3',
             pid_type: 'docid',
-            relation_type: 1,
+            relation_type: 'language',
           },
           {
             pid: 'docid-4',
             pid_type: 'docid',
-            relation_type: 1,
+            relation_type: 'language',
           },
         ],
       },
@@ -154,12 +153,7 @@ describe('RelatedRecords tests', () => {
           {
             pid: 'docid-1',
             pid_type: 'docid',
-            relation_type: 0,
-          },
-          {
-            pid: 'docid-2',
-            pid_type: 'docid',
-            relation_type: 1,
+            relation_type: 'language',
           },
         ],
       },

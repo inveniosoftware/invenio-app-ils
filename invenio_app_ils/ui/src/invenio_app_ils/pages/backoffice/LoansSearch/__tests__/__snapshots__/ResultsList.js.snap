@@ -10,6 +10,7 @@ exports[`LoansSearch ResultsList tests should not render when empty results 1`] 
     headerActionClickHandler={null}
     headerActionComponent={null}
     name="loans"
+    renderSegment={true}
     rowActionClickHandler={[Function]}
     rows={Array []}
     seeAllComponent={null}
@@ -91,6 +92,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
     headerActionClickHandler={null}
     headerActionComponent={null}
     name="loans"
+    renderSegment={true}
     rowActionClickHandler={[Function]}
     rows={
       Array [

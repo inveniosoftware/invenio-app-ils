@@ -67,12 +67,21 @@ export class ResultsTable extends Component {
   }
 
   render() {
-    return (
-      <Segment>
-        {this.renderTitle()}
-        {this.renderResultsOrEmpty()}
-      </Segment>
-    );
+    if (this.props.renderSegment) {
+      return (
+        <Segment>
+          {this.renderTitle()}
+          {this.renderResultsOrEmpty()}
+        </Segment>
+      );
+    } else {
+      return (
+        <>
+          {this.renderTitle()}
+          {this.renderResultsOrEmpty()}
+        </>
+      );
+    }
   }
 }
 
@@ -82,6 +91,7 @@ ResultsTable.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   name: PropTypes.string,
+  renderSegment: PropTypes.bool,
   headerActionComponent: PropTypes.node,
   rowActionClickHandler: PropTypes.func,
   seeAllComponent: PropTypes.node,
@@ -93,6 +103,7 @@ ResultsTable.defaultProps = {
   showMaxRows: 10,
   title: '',
   subtitle: '',
+  renderSegment: true,
   headerActionComponent: null,
   headerActionClickHandler: null,
   rowActionClickHandler: null,
