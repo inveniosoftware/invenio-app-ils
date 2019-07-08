@@ -11,10 +11,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchRelatedRecords: (pid, pidType) =>
-    dispatch(fetchRelatedRecords(pid, pidType)),
-  updateRelatedRecords: (pid, pidType, data) =>
-    dispatch(updateRelatedRecords(pid, pidType, data)),
+  fetchRelatedRecords: (pid, pidType, size) =>
+    dispatch(fetchRelatedRecords(pid, pidType, size)),
+  updateRelatedRecords: (pid, pidType, data, size) =>
+    dispatch(updateRelatedRecords(pid, pidType, data, size)),
 });
 
 export const RelatedRecords = connect(

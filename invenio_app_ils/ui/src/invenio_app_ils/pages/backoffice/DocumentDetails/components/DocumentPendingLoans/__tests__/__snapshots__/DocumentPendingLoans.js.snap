@@ -8,6 +8,7 @@ exports[`DocumentPendingLoans tests should load the details component 1`] = `
       headerActionClickHandler={null}
       headerActionComponent={null}
       name="pending loan requests"
+      renderSegment={true}
       rowActionClickHandler={[Function]}
       rows={Array []}
       seeAllComponent={
@@ -80,6 +81,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="pending loan requests"
+        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
           Array [
@@ -548,6 +550,7 @@ exports[`DocumentPendingLoans tests should render show a message with no pending
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="pending loan requests"
+        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={Array []}
         seeAllComponent={
@@ -687,6 +690,7 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="pending loan requests"
+        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
           Array [

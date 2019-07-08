@@ -28,6 +28,7 @@ exports[`ResultsTable tests should not render the see all button when showing on
   fixed={false}
   headerActionClickHandler={null}
   headerActionComponent={null}
+  renderSegment={true}
   rowActionClickHandler={[Function]}
   rows={
     Array [
@@ -485,6 +486,7 @@ exports[`ResultsTable tests should render the see all button when showing only a
   fixed={false}
   headerActionClickHandler={null}
   headerActionComponent={null}
+  renderSegment={true}
   rowActionClickHandler={[Function]}
   rows={
     Array [

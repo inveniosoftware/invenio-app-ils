@@ -70,7 +70,7 @@ export default class ESSelector extends Component {
   };
 
   render() {
-    const { selections } = this.props;
+    const { placeholder, selections } = this.props;
     const renderSelection = this.props.renderSelection
       ? this.props.renderSelection
       : this.renderSelection;
@@ -84,6 +84,7 @@ export default class ESSelector extends Component {
           delay={this.props.delay}
           alwaysWildcard={this.props.alwaysWildcard}
           minCharacters={this.props.minCharacters}
+          placeholder={placeholder}
           onSelect={this.onSelectResult}
           ref={element => (this.searchRef = element)}
         />
@@ -100,6 +101,7 @@ ESSelector.propTypes = {
   initialSelections: PropTypes.array,
   minCharacters: PropTypes.number,
   multiple: PropTypes.bool,
+  placeholder: PropTypes.string,
   query: PropTypes.func.isRequired,
   onSelectResult: PropTypes.func,
   onRemoveSelection: PropTypes.func,

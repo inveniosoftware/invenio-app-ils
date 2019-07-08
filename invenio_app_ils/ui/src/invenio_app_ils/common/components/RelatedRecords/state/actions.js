@@ -5,14 +5,14 @@ import {
   sendSuccessNotification,
 } from '../../Notifications';
 
-export const fetchRelatedRecords = (pid, pidType) => {
+export const fetchRelatedRecords = (pid, pidType, size) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
 
     await relatedApi
-      .get(pid, pidType)
+      .get(pid, pidType, size)
       .then(response => {
         dispatch({
           type: SUCCESS,
@@ -29,14 +29,14 @@ export const fetchRelatedRecords = (pid, pidType) => {
   };
 };
 
-export const updateRelatedRecords = (pid, pidType, data) => {
+export const updateRelatedRecords = (pid, pidType, data, size) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
 
     await relatedApi
-      .post(pid, pidType, data)
+      .post(pid, pidType, data, size)
       .then(response => {
         dispatch({
           type: SUCCESS,

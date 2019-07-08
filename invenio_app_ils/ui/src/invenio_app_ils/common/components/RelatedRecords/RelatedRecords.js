@@ -7,10 +7,17 @@ import { SeeAllButton } from '../../../pages/backoffice/components/buttons';
 import { goTo } from '../../../history';
 import { formatter } from '../ResultsTable/formatters';
 import pick from 'lodash/pick';
-import truncate from 'lodash/truncate';
-import { Grid, Button } from 'semantic-ui-react';
+import { Button, Tab, Label, Container } from 'semantic-ui-react';
 import { recordToPid } from '../../api/utils';
 import ESRelatedSelector from '../ESSelector/ESRelatedSelector';
+import './RelatedRecords.scss';
+import {
+  EditionRelation,
+  LanguageRelation,
+  getRelationTypes,
+  getIconByRelation,
+  getRelationTypeByName,
+} from './config';
 
 export default class RelatedRecords extends Component {
   constructor(props) {
@@ -20,26 +27,23 @@ export default class RelatedRecords extends Component {
     this.seeAllUrl = BackOfficeRoutes.itemsListWithQuery;
     this.state = {
       removedRelatedRecords: [],
-      showMaxRelatedEditions: props.showMaxRelatedRecords,
-      showMaxRelatedTranslations: props.showMaxRelatedRecords,
+      showMaxRelatedRecords: this.props.showMaxRelatedRecords,
     };
   }
 
   componentDidMount() {
     const [pid, pidType] = recordToPid(this.props.record);
-    this.fetchRelatedRecords(pid, pidType);
+    this.fetchRelatedRecords(pid, pidType, this.props.showMaxRelatedRecords);
   }
 
-  onAllEditionsClick = () => {
-    this.setState({ showMaxRelatedEditions: 10 });
+  onSeeAllClick = () => {
+    const [pid, pidType] = recordToPid(this.props.record);
+    this.setState({ showMaxRelatedRecords: 1000 });
+    this.fetchRelatedRecords(pid, pidType);
   };
 
-  onAllTranslationsClick = () => {
-    this.setState({ showMaxRelatedTranslations: 10 });
-  };
-
-  seeAllButton = onClick => {
-    return <SeeAllButton clickHandler={onClick} />;
+  seeAllButton = () => {
+    return <SeeAllButton clickHandler={this.onSeeAllClick} />;
   };
 
   onRelatedClick = row => {
@@ -86,23 +90,36 @@ export default class RelatedRecords extends Component {
   };
 
   prepareData(data) {
-    const editions = [];
-    const translations = [];
+    const records = {};
+    const count = data.metadata.related_records_count;
+    for (const type of getRelationTypes()) {
+      records[type.name] = [];
+      if (count) {
+        records[type.name].totalHits = count[type.name];
+      }
+    }
     const initialSelections = [];
     for (let obj of data.metadata.related_records) {
-      const record = formatter.related.toTable(obj);
-      if (record.Relation === 'Edition') {
-        editions.push(pick(record, ['ID', 'Type', 'Title', 'Edition']));
-      } else if (record.Relation === 'Translation') {
-        translations.push(pick(record, ['ID', 'Type', 'Title', 'Language']));
+      const record = formatter.related.toTable(
+        obj,
+        getRelationTypeByName(obj.relation_type)
+      );
+      if (obj.relation_type === EditionRelation.name) {
+        records[obj.relation_type].push(
+          pick(record, ['ID', 'Type', 'Title', 'Edition'])
+        );
+      } else if (obj.relation_type === LanguageRelation.name) {
+        records[obj.relation_type].push(
+          pick(record, ['ID', 'Type', 'Title', 'Language'])
+        );
       } else {
-        console.warn(`Unknown record relation: ${record}`);
+        records[obj.relation_type].push(pick(record, ['ID', 'Type', 'Title']));
       }
       const id = `${obj.pid}-${obj.pid_type}-${obj.relation_type}`;
       initialSelections.push({
         id: id,
         key: id,
-        title: truncate(obj.title, { length: 50 }),
+        title: obj.title,
         description: `${record.Type}`,
         extra: `PID: ${obj.pid}`,
         metadata: {
@@ -112,65 +129,73 @@ export default class RelatedRecords extends Component {
         },
       });
     }
-    return [editions, translations, initialSelections];
+    return [records, initialSelections];
+  }
+
+  renderTab = (records, name) => (
+    <Tab.Pane>
+      <ResultsTable
+        rows={records}
+        name={`related ${name}s`}
+        renderSegment={false}
+        rowActionClickHandler={this.onRelatedClick}
+        seeAllComponent={this.seeAllButton()}
+        showMaxRows={this.state.showMaxRelatedRecords}
+      />
+    </Tab.Pane>
+  );
+
+  getTabPanes(records) {
+    return getRelationTypes().map(relation => ({
+      menuItem: {
+        key: relation.name,
+        icon: getIconByRelation(relation),
+        content: (
+          <>
+            {relation.label} <Label>{records[relation.name].totalHits}</Label>
+          </>
+        ),
+      },
+      render: () => this.renderTab(records[relation.name], relation.name),
+    }));
   }
 
   renderTable(data) {
-    const [editions, translations, initialSelections] = this.prepareData(data);
-    const seeAllEditions = this.seeAllButton(
-      this.onAllEditionsClick,
-      editions.length
-    );
-    const seeAllTranslations = this.seeAllButton(
-      this.onAllTranslationsClick,
-      translations.length
-    );
+    const [records, initialSelections] = this.prepareData(data);
     const { SelectorModal } = this.props;
+    const menu = {
+      secondary: true,
+      pointing: true,
+      activeIndex: this.state.tabIndex,
+    };
+    const panes = this.getTabPanes(records);
+    panes.push({
+      menuItem: (
+        <React.Fragment key="manage-related">
+          <SelectorModal
+            multiple
+            selectorComponent={ESRelatedSelector}
+            initialSelections={initialSelections}
+            trigger={
+              <Container>
+                <Button color="blue" content="Manage related" />
+              </Container>
+            }
+            title="Select Related"
+            size="small"
+            content={
+              'Select related documents/series and their type of relation.'
+            }
+            onRemoveSelection={this.onRemoveRelatedSelection}
+            onSave={this.updateRelatedRecords}
+          />
+        </React.Fragment>
+      ),
+    });
     return (
-      <Grid>
-        <Grid.Row>
-          <Grid.Column width={8}>
-            <ResultsTable
-              rows={editions}
-              title={'Related editions'}
-              name={'related editions'}
-              rowActionClickHandler={this.onRelatedClick}
-              seeAllComponent={seeAllEditions}
-              showMaxRows={this.state.showMaxRelatedEditions}
-            />
-          </Grid.Column>
-          <Grid.Column width={8}>
-            <ResultsTable
-              rows={translations}
-              title={'Related translations'}
-              name={'related translations'}
-              rowActionClickHandler={this.onRelatedClick}
-              seeAllComponent={seeAllTranslations}
-              showMaxRows={this.state.showMaxRelatedTranslations}
-            />
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={13} />
-          <Grid.Column width={3}>
-            {SelectorModal && (
-              <SelectorModal
-                multiple
-                selectorComponent={ESRelatedSelector}
-                initialSelections={initialSelections}
-                trigger={<Button color="blue" content="Manage related" />}
-                title="Select Related"
-                size="small"
-                content={
-                  'Select related documents/series and their type of relation.'
-                }
-                onRemoveSelection={this.onRemoveRelatedSelection}
-                onSave={this.updateRelatedRecords}
-              />
-            )}
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <>
+        <Tab menu={menu} panes={panes} />
+      </>
     );
   }
 

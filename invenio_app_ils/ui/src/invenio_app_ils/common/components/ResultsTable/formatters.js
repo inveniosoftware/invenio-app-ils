@@ -1,7 +1,6 @@
 import { fromISO, toShortDate, toShortDateTime } from '../../api/date';
 import isEmpty from 'lodash/isEmpty';
 import assign from 'lodash/assign';
-import { RelationTypes } from '../ESSelector/ESRelatedSelector';
 
 function formatLoanToTableView(loan) {
   return {
@@ -146,25 +145,14 @@ function formatPidTypeToName(pidType) {
   }
 }
 
-function formatRelatedToTableView(related) {
-  let relation;
-  const relationType = related.relation_type;
-
-  if (relationType === RelationTypes.EDITION.id) {
-    relation = RelationTypes.EDITION.text;
-  } else if (relationType === RelationTypes.LANGUAGE.id) {
-    relation = RelationTypes.LANGUAGE.text;
-  } else {
-    console.warn(`Unknown relation type: ${relationType}`);
-  }
-
+function formatRelatedToTableView(related, relation) {
   return {
     ID: related.pid,
     Type: formatPidTypeToName(related.pid_type),
     Title: related.title,
     Edition: related.edition,
     Language: related.language,
-    Relation: relation,
+    Relation: relation.label,
   };
 }
 

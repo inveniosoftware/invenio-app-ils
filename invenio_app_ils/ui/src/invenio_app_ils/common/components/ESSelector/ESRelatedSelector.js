@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { List, Grid, Container, Form, Dropdown } from 'semantic-ui-react';
+import { List, Form, Dropdown, Tab, Label } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
-import truncate from 'lodash/truncate';
 import { ESSelector } from './';
 import { document as documentApi, series as seriesApi } from '../../api/';
 import './ESRelatedSelector.scss';
-
-export const RelationTypes = Object.freeze({
-  EDITION: { id: 0, text: 'Edition' },
-  LANGUAGE: { id: 1, text: 'Translation' },
-});
+import {
+  LanguageRelation,
+  getRelationTypes,
+  getRelationTypeByName,
+  getIconByRelation,
+  getRelationTypeById,
+} from '../RelatedRecords/config';
 
 export default class ESRelatedSelector extends Component {
-  state = {
-    pidType: 'docid',
-    relationType: RelationTypes.EDITION.id,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      pidType: 'docid',
+      relationType: LanguageRelation.name,
+    };
+  }
 
   get query() {
     switch (this.state.pidType) {
@@ -30,30 +34,20 @@ export default class ESRelatedSelector extends Component {
   }
 
   get relationOptions() {
-    const edition = RelationTypes.EDITION;
-    const language = RelationTypes.LANGUAGE;
-    return [
-      {
-        key: edition.id,
-        value: edition.id,
-        text: edition.text,
+    const options = [];
+    for (const relation of getRelationTypes()) {
+      options.push({
+        key: relation.name,
+        value: relation.name,
+        text: relation.label,
         disabled: false,
-      },
-      {
-        key: language.id,
-        value: language.id,
-        text: language.text,
-        disabled: this.state.pidType === 'serid',
-      },
-    ];
+      });
+    }
+    return options;
   }
 
   onPidTypeChange = (e, { value }) => {
-    const stateChanges = { pidType: value };
-    if (value === 'serid') {
-      stateChanges.relationType = RelationTypes.EDITION.id;
-    }
-    this.setState(stateChanges);
+    this.setState({ pidType: value });
   };
 
   onRelationTypeChange = (e, { value }) => {
@@ -73,68 +67,71 @@ export default class ESRelatedSelector extends Component {
     result.key = relatedId;
   };
 
+  onTabChange = (e, { activeIndex }) => {
+    const relation = getRelationTypeById(activeIndex);
+    this.setState({ relationType: relation.name });
+  };
+
   renderSelectionsGroup = (selections, renderSelection) => (
-    <List.List>
+    <List>
       {isEmpty(selections) ? (
         <List.Item>None</List.Item>
       ) : (
-        selections.map(selection => {
-          selection.title = truncate(selection.title, { length: 30 });
-          return renderSelection(selection);
-        })
+        selections.map(selection => renderSelection(selection))
       )}
-    </List.List>
+    </List>
   );
 
+  getTabPanes = (records, renderSelection) => {
+    return getRelationTypes().map(relation => ({
+      menuItem: {
+        key: relation.name,
+        icon: getIconByRelation(relation),
+        content: (
+          <>
+            {relation.label} <Label>{records[relation.name].length}</Label>
+          </>
+        ),
+      },
+      render: () => (
+        <Tab.Pane>
+          {this.renderSelectionsGroup(records[relation.name], renderSelection)}
+        </Tab.Pane>
+      ),
+    }));
+  };
+
+  prepareSelections(selections) {
+    const records = {};
+    for (const relation of getRelationTypes()) {
+      records[relation.name] = [];
+    }
+    for (const selection of selections) {
+      records[selection.metadata.relationType].push(selection);
+    }
+    return records;
+  }
+
   renderSelections = (selections, renderSelection) => {
-    const editions = this.renderSelectionsGroup(
-      selections.filter(
-        x => x.metadata.relationType === RelationTypes.EDITION.id
-      ),
-      renderSelection
-    );
-    const translations = this.renderSelectionsGroup(
-      selections.filter(
-        x => x.metadata.relationType === RelationTypes.LANGUAGE.id
-      ),
-      renderSelection
-    );
+    const activeTab = getRelationTypeByName(this.state.relationType).id;
+    const records = this.prepareSelections(selections);
+    const menu = {
+      secondary: true,
+      pointing: true,
+    };
     return (
-      <Container className="result-selections">
-        <Grid>
-          <Grid.Row>
-            <Grid.Column width={8}>
-              <List>
-                <List.Item>
-                  <List.Icon name="book" />
-                  <List.Content>
-                    <List.Header>Editions</List.Header>
-                    {editions}
-                  </List.Content>
-                </List.Item>
-              </List>
-            </Grid.Column>
-            <Grid.Column width={8}>
-              <List>
-                <List.Item>
-                  <List.Icon name="book" />
-                  <List.Content>
-                    <List.Header>Translations</List.Header>
-                    {translations}
-                  </List.Content>
-                </List.Item>
-              </List>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Container>
+      <Tab
+        menu={menu}
+        panes={this.getTabPanes(records, renderSelection)}
+        activeIndex={activeTab}
+        onTabChange={this.onTabChange}
+      />
     );
   };
 
   render() {
     const { pidType, relationType } = this.state;
     const relationOptions = this.relationOptions;
-    const relationTypeValue = relationOptions[relationType].value;
     return (
       <Form className="related-records-form">
         <Form.Group inline>
@@ -160,7 +157,7 @@ export default class ESRelatedSelector extends Component {
             selection
             options={relationOptions}
             onChange={this.onRelationTypeChange}
-            value={relationTypeValue}
+            value={relationType}
           />
         </Form.Group>
         <Form.Group className="related-search-form-group">
@@ -169,8 +166,11 @@ export default class ESRelatedSelector extends Component {
             <ESSelector
               query={this.query}
               onSelectResult={this.onSelectResult}
-              renderSelections={this.renderSelections}
+              renderSelections={(selections, render) =>
+                this.renderSelections(selections, render)
+              }
               onRemoveSelection={this.onRemoveSelection}
+              placeholder="Search for a related record..."
               {...this.props}
             />
           </Form.Field>

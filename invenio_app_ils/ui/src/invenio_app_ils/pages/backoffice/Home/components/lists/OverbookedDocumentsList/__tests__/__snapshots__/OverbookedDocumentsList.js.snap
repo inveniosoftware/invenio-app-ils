@@ -8,6 +8,7 @@ exports[`OverbookedDocumentsList tests should load the details component 1`] = `
       headerActionClickHandler={null}
       headerActionComponent={null}
       name="overbooked documents"
+      renderSegment={true}
       rowActionClickHandler={[Function]}
       rows={Array []}
       seeAllComponent={
@@ -75,6 +76,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="overbooked documents"
+        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
           Array [
@@ -534,6 +536,7 @@ exports[`OverbookedDocumentsList tests should render show a message with no docu
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="overbooked documents"
+        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={Array []}
         seeAllComponent={

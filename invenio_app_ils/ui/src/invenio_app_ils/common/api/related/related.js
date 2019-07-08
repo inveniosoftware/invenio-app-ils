@@ -1,26 +1,27 @@
 import { http } from '../base';
 import { serializer } from './serializer';
 
-const getUrl = (pid, pidType) => {
+const getUrl = (pid, pidType, size) => {
+  const sizeParam = size ? `?size=${size}` : '';
   switch (pidType) {
     case 'docid':
-      return `/documents/${pid}/relations`;
+      return `/documents/${pid}/relations${sizeParam}`;
     case 'serid':
-      return `/series/${pid}/relations`;
+      return `/series/${pid}/relations${sizeParam}`;
     default:
       throw Error(`Invalid PID type: ${pidType}`);
   }
 };
 
-const get = (pid, pidType) => {
-  return http.get(getUrl(pid, pidType)).then(response => {
+const get = (pid, pidType, size) => {
+  return http.get(getUrl(pid, pidType, size)).then(response => {
     response.data = serializer.fromJSON(response.data);
     return response;
   });
 };
 
-const post = async (pid, pidType, data) => {
-  const response = await http.post(getUrl(pid, pidType), data);
+const post = async (pid, pidType, data, size) => {
+  const response = await http.post(getUrl(pid, pidType, size), data);
   response.data = serializer.fromJSON(response.data);
   return response;
 };
