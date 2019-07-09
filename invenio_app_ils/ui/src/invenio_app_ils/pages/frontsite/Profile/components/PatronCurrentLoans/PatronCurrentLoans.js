@@ -72,6 +72,7 @@ export default class PatronCurrentLoans extends Component {
 }
 
 PatronCurrentLoans.propTypes = {
+  patronPid: PropTypes.string.isRequired,
   fetchPatronCurrentLoans: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   showMaxRows: PropTypes.number,

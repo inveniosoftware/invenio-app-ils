@@ -36,7 +36,7 @@ export class FrontSite extends Component {
           />
           <Route
             exact
-            path={FrontSiteRoutes.profile}
+            path={FrontSiteRoutes.patronProfile}
             component={ProfileContainer}
           />
         </Container>

@@ -74,7 +74,7 @@ const rootReducer = combineReducers({
   locations: locationListReducer,
   mostLoanedBooks: mostLoanedBooksReducer,
   mostRecentBooks: mostRecentBooksReducer,
-  mostRecentEBooks: mostRecentEbooksReducer,
+  mostRecentEbooks: mostRecentEbooksReducer,
   notifications: notificationsReducer,
   overbookedDocuments: overbookedDocumentsReducer,
   overdueLoans: overdueLoansReducer,

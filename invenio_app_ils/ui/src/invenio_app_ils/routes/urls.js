@@ -5,7 +5,7 @@ const FrontSiteBase = '/';
 
 const FrontSiteRoutesList = {
   home: FrontSiteBase,
-  profile: `${FrontSiteBase}profile`,
+  patronProfile: `${FrontSiteBase}profile`,
   documentsList: `${FrontSiteBase}search`,
   documentDetails: `${FrontSiteBase}records/:documentPid`,
 };

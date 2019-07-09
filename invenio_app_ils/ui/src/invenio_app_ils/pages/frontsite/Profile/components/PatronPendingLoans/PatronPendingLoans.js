@@ -71,7 +71,7 @@ export default class PatronPendingLoans extends Component {
 }
 
 PatronPendingLoans.propTypes = {
-  patronPid: PropTypes.string,
+  patronPid: PropTypes.string.isRequired,
   fetchPatronPendingLoans: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
 };
