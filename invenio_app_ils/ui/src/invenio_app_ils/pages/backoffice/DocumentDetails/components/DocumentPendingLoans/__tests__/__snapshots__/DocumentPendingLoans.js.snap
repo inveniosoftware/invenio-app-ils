@@ -86,13 +86,13 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
             Object {
               "ID": "loan1",
               "Patron ID": "patron_1",
-              "Start date": "2018-01-01 10:05",
+              "Start date": "2018-01-01",
               "Updated": "2018-01-01 10:05",
             },
             Object {
               "ID": "loan2",
               "Patron ID": "patron_2",
-              "Start date": "2018-01-01 10:05",
+              "Start date": "2018-01-01",
               "Updated": "2018-01-01 10:05",
             },
           ]
@@ -292,13 +292,13 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                       Object {
                         "ID": "loan1",
                         "Patron ID": "patron_1",
-                        "Start date": "2018-01-01 10:05",
+                        "Start date": "2018-01-01",
                         "Updated": "2018-01-01 10:05",
                       },
                       Object {
                         "ID": "loan2",
                         "Patron ID": "patron_2",
-                        "Start date": "2018-01-01 10:05",
+                        "Start date": "2018-01-01",
                         "Updated": "2018-01-01 10:05",
                       },
                     ]
@@ -398,7 +398,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                               className=""
                               data-test="Start date-loan1"
                             >
-                              2018-01-01 10:05
+                              2018-01-01
                             </td>
                           </TableCell>
                         </tr>
@@ -491,7 +491,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                               className=""
                               data-test="Start date-loan2"
                             >
-                              2018-01-01 10:05
+                              2018-01-01
                             </td>
                           </TableCell>
                         </tr>
@@ -693,13 +693,13 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
             Object {
               "ID": "loan1",
               "Patron ID": "patron_1",
-              "Start date": "2018-01-01 10:05",
+              "Start date": "2018-01-01",
               "Updated": "2018-01-01 10:05",
             },
             Object {
               "ID": "loan2",
               "Patron ID": "patron_2",
-              "Start date": "2018-01-01 10:05",
+              "Start date": "2018-01-01",
               "Updated": "2018-01-01 10:05",
             },
           ]
@@ -899,7 +899,7 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                       Object {
                         "ID": "loan1",
                         "Patron ID": "patron_1",
-                        "Start date": "2018-01-01 10:05",
+                        "Start date": "2018-01-01",
                         "Updated": "2018-01-01 10:05",
                       },
                     ]
@@ -999,7 +999,7 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                               className=""
                               data-test="Start date-loan1"
                             >
-                              2018-01-01 10:05
+                              2018-01-01
                             </td>
                           </TableCell>
                         </tr>

@@ -122,36 +122,37 @@ First of all, you have to create your own personal access token, to be able to G
 
         $ ./scripts/server
 
-* visit `https://127.0.0.1:5000/account/settings/applications/`, login as admin
+* visit ``https://127.0.0.1:5000/account/settings/applications/``, login as admin
+
 * create a personal access token
-* create a file `.env.development` in `invenio_app_ils/ui/` and add the token:
+
+* create a file ``.env.development`` in ``invenio_app_ils/ui/`` and add the token:
 
     .. code-block:: console
 
         $ echo 'REACT_APP_JWT_TOKEN=<paste token here>' > ./invenio_app_ils/ui/.env.development
 
-  Additionally you must add the following variables regarding the user authentication to your .env.development:
+* In ``.env.development`` also add the following variables regarding the user authentication:
 
     .. code-block:: console
+
         REACT_APP_USER_ID=1
         REACT_APP_LOCATION_ID=1
         REACT_APP_USER_ROLE=admin
         REACT_APP_JWT_TOKEN_EXPIRATION=11111111111111111111111
         REACT_APP_JWT_USERNAME=admin
 
-* since the React app is server under a different port (normally, :3000), you need to change extra settings
-  on Invenio to allow requests from different domains. In `config.py`, change the following:
+* | since the React app is server under a different port (normally, :3000), you
+  | need to configure Invenio to allow requests from different domains. In your
+  | virtual environment navigate to ``~/.virtualenvs/ils/var/instance``, if there
+  | is no file ``invenio.cfg`` create one and add the following configuration,
+  | which will override the existing configuration we have in ``config.py``
 
     .. code-block:: python
 
-        # CORS
-        # ====
-        # change this only while developing
         CORS_SEND_WILDCARD = False
         CORS_SUPPORTS_CREDENTIALS = True
 
-You won't need these changes in production because the token is automatically retrieved by the current logged in user
-and the React app will be served from the same domain.
 
 Production environment
 ----------------------

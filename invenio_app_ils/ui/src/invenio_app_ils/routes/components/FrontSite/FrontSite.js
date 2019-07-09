@@ -5,9 +5,11 @@ import {
   Footer,
   Header,
   Home,
+  ProfileContainer,
   DocumentsDetailsContainer,
   DocumentsSearch,
 } from '../../../pages/frontsite';
+import { Container } from 'semantic-ui-react';
 import './FrontSite.scss';
 import { Notifications } from '../../../common/components/Notifications';
 
@@ -17,7 +19,7 @@ export class FrontSite extends Component {
       <div className="app">
         <Header />
         <Notifications />
-        <div className="app-content">
+        <Container fluid className="app-content">
           {/* home */}
           <Route exact path={FrontSiteRoutes.home} component={Home} />
           {/* documents */}
@@ -32,7 +34,12 @@ export class FrontSite extends Component {
             path={FrontSiteRoutes.documentsList}
             component={DocumentsSearch}
           />
-        </div>
+          <Route
+            exact
+            path={FrontSiteRoutes.patronProfile}
+            component={ProfileContainer}
+          />
+        </Container>
         <Footer />
       </div>
     );

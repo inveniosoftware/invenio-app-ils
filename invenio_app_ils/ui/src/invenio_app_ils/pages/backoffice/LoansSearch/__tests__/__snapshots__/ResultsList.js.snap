@@ -97,13 +97,13 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
         Object {
           "Created": "2018-01-01 10:05",
           "Document ID": undefined,
-          "End date": "2018-02-01 10:05",
+          "End date": "2018-02-01",
           "Expiration date": "Invalid DateTime",
           "ID": 3,
           "Item barcode": null,
           "Patron ID": 1,
           "Renewals": undefined,
-          "Start date": "2018-01-02 10:05",
+          "Start date": "2018-01-02",
           "State": "ITEM_ON_LOAN",
           "Transaction date": "Invalid DateTime",
           "Updated": "Invalid DateTime",
@@ -416,13 +416,13 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                   Object {
                     "Created": "2018-01-01 10:05",
                     "Document ID": undefined,
-                    "End date": "2018-02-01 10:05",
+                    "End date": "2018-02-01",
                     "Expiration date": "Invalid DateTime",
                     "ID": 3,
                     "Item barcode": null,
                     "Patron ID": 1,
                     "Renewals": undefined,
-                    "Start date": "2018-01-02 10:05",
+                    "Start date": "2018-01-02",
                     "State": "ITEM_ON_LOAN",
                     "Transaction date": "Invalid DateTime",
                     "Updated": "Invalid DateTime",
@@ -572,7 +572,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                           className=""
                           data-test="Start date-3"
                         >
-                          2018-01-02 10:05
+                          2018-01-02
                         </td>
                       </TableCell>
                       <TableCell
@@ -584,7 +584,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                           className=""
                           data-test="End date-3"
                         >
-                          2018-02-01 10:05
+                          2018-02-01
                         </td>
                       </TableCell>
                       <TableCell

@@ -175,7 +175,7 @@ ItemsSearch.propTypes = {
   fetchUpdatedCurrentLoans: PropTypes.func.isRequired,
   clearResults: PropTypes.func.isRequired,
   checkoutItem: PropTypes.func.isRequired,
-  patron: PropTypes.number.isRequired,
+  patron: PropTypes.string.isRequired,
 };
 
 ItemsSearch.defaultProps = {

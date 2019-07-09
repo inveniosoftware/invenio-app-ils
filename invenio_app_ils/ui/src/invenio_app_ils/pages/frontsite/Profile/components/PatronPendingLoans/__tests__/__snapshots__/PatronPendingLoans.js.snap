@@ -1,68 +1,85 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`IdleLoansList tests should load the details component 1`] = `
+exports[`PatronLoans tests should load the details component 1`] = `
 <Loader>
   <Error>
     <ResultsTable
       fixed={false}
       headerActionClickHandler={null}
       headerActionComponent={null}
-      name="idle loans"
-      rowActionClickHandler={[Function]}
+      name="loan requests"
+      rowActionClickHandler={null}
       rows={Array []}
       seeAllComponent={
-        <SeeAllButton
-          clickHandler={[Function]}
-          disabled={false}
-          fluid={false}
-        />
+        <Button
+          as="button"
+          onClick={[Function]}
+          size="tiny"
+        >
+          Show all
+        </Button>
       }
-      showMaxRows={5}
+      showMaxRows={10}
       singleLine={false}
-      subtitle="Loan requests in PENDING state longer than 10 days."
-      title="Idle loans"
+      subtitle=""
+      title="Your loan requests"
     />
   </Error>
 </Loader>
 `;
 
-exports[`IdleLoansList tests should render loans 1`] = `
-<IdleLoansList
+exports[`PatronLoans tests should render patron loans 1`] = `
+<PatronPendingLoans
   data={
     Object {
       "hits": Array [
         Object {
-          "created": "2018-01-01T11:05:00+01:00",
+          "created": "2018-01-01T10:05:00.000Z",
           "id": 1,
           "loan_pid": "loan1",
           "metadata": Object {
             "document_pid": "doc1",
-            "end_date": "2018-01-01T11:05:00+01:00",
+            "end_date": "2018-01-01T10:05:00.000Z",
             "loan_pid": "loan1",
             "patron_pid": "patron_1",
-            "start_date": "2018-01-01T11:05:00+01:00",
+            "start_date": "2018-01-01T10:05:00.000Z",
           },
-          "updated": "2018-01-01T11:05:00+01:00",
+          "updated": "2018-01-01T10:05:00.000Z",
         },
         Object {
-          "created": "2018-01-01T11:05:00+01:00",
+          "created": "2018-01-01T10:05:00.000Z",
           "id": 2,
           "loan_pid": "loan2",
           "metadata": Object {
             "document_pid": "doc1",
-            "end_date": "2018-01-01T11:05:00+01:00",
+            "end_date": "2018-01-01T10:05:00.000Z",
             "loan_pid": "loan2",
             "patron_pid": "patron_2",
-            "start_date": "2018-01-01T11:05:00+01:00",
+            "start_date": "2018-01-01T10:05:00.000Z",
           },
-          "updated": "2018-01-01T11:05:00+01:00",
+          "updated": "2018-01-01T10:05:00.000Z",
         },
       ],
       "total": 2,
     }
   }
-  fetchIdlePendingLoans={[Function]}
-  showMaxEntries={5}
+  fetchPatronPendingLoans={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          undefined,
+        ],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  loanState=""
+  patron="2"
 >
   <Loader>
     <Error>
@@ -70,37 +87,39 @@ exports[`IdleLoansList tests should render loans 1`] = `
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
-        name="idle loans"
-        rowActionClickHandler={[Function]}
+        name="loan requests"
+        rowActionClickHandler={null}
         rows={
           Array [
             Object {
               "Document ID": "doc1",
+              "Expiration date": "Invalid DateTime",
               "ID": "loan1",
-              "Patron ID": "patron_1",
               "Start date": "2018-01-01",
               "Updated": "2018-01-01 10:05",
             },
             Object {
               "Document ID": "doc1",
+              "Expiration date": "Invalid DateTime",
               "ID": "loan2",
-              "Patron ID": "patron_2",
               "Start date": "2018-01-01",
               "Updated": "2018-01-01 10:05",
             },
           ]
         }
         seeAllComponent={
-          <SeeAllButton
-            clickHandler={[Function]}
-            disabled={false}
-            fluid={false}
-          />
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="tiny"
+          >
+            Show all
+          </Button>
         }
-        showMaxRows={5}
+        showMaxRows={10}
         singleLine={false}
-        subtitle="Loan requests in PENDING state longer than 10 days."
-        title="Idle loans"
+        subtitle=""
+        title="Your loan requests"
       >
         <Segment>
           <div
@@ -123,21 +142,19 @@ exports[`IdleLoansList tests should render loans 1`] = `
                       >
                         <Header
                           as="h3"
-                          content="Idle loans"
-                          subheader="Loan requests in PENDING state longer than 10 days."
+                          content="Your loan requests"
+                          subheader=""
                         >
                           <h3
                             className="ui header"
                           >
-                            Idle loans
+                            Your loan requests
                             <HeaderSubheader
-                              content="Loan requests in PENDING state longer than 10 days."
+                              content=""
                             >
                               <div
                                 className="sub header"
-                              >
-                                Loan requests in PENDING state longer than 10 days.
-                              </div>
+                              />
                             </HeaderSubheader>
                           </h3>
                         </Header>
@@ -168,12 +185,12 @@ exports[`IdleLoansList tests should render loans 1`] = `
                     Array [
                       "ID",
                       "Updated",
-                      "Patron ID",
                       "Document ID",
                       "Start date",
+                      "Expiration date",
                     ]
                   }
-                  withRowAction={true}
+                  withRowAction={false}
                 >
                   <TableHeader
                     as="thead"
@@ -193,16 +210,16 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           <TableHeaderCell
                             as="th"
                             collapsing={true}
-                            width={2}
+                            width={1}
                           >
                             <TableCell
                               as="th"
                               className=""
                               collapsing={true}
-                              width={2}
+                              width={1}
                             >
                               <th
-                                className="collapsing two wide"
+                                className="collapsing one wide"
                               />
                             </TableCell>
                           </TableHeaderCell>
@@ -240,21 +257,6 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Patron ID"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Patron ID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
                             key="Document ID"
                           >
                             <TableCell
@@ -283,6 +285,21 @@ exports[`IdleLoansList tests should render loans 1`] = `
                               </th>
                             </TableCell>
                           </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Expiration date"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Expiration date
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
                         </tr>
                       </TableRow>
                     </thead>
@@ -293,25 +310,25 @@ exports[`IdleLoansList tests should render loans 1`] = `
                     Array [
                       "ID",
                       "Updated",
-                      "Patron ID",
                       "Document ID",
                       "Start date",
+                      "Expiration date",
                     ]
                   }
-                  rowActionClickHandler={[Function]}
+                  rowActionClickHandler={null}
                   rows={
                     Array [
                       Object {
                         "Document ID": "doc1",
+                        "Expiration date": "Invalid DateTime",
                         "ID": "loan1",
-                        "Patron ID": "patron_1",
                         "Start date": "2018-01-01",
                         "Updated": "2018-01-01 10:05",
                       },
                       Object {
                         "Document ID": "doc1",
+                        "Expiration date": "Invalid DateTime",
                         "ID": "loan2",
-                        "Patron ID": "patron_2",
                         "Start date": "2018-01-01",
                         "Updated": "2018-01-01 10:05",
                       },
@@ -340,32 +357,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           >
                             <td
                               className="center aligned"
-                            >
-                              <Button
-                                as="button"
-                                circular={true}
-                                compact={true}
-                                data-test="btn-view-details-loan1"
-                                icon="eye"
-                                onClick={[Function]}
-                              >
-                                <button
-                                  className="ui circular compact icon button"
-                                  data-test="btn-view-details-loan1"
-                                  onClick={[Function]}
-                                >
-                                  <Icon
-                                    as="i"
-                                    name="eye"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      className="eye icon"
-                                    />
-                                  </Icon>
-                                </button>
-                              </Button>
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -393,20 +385,8 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Patron ID-loan1"
-                            key="2-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Patron ID-loan1"
-                            >
-                              patron_1
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
                             data-test="Document ID-loan1"
-                            key="3-loan1"
+                            key="2-loan1"
                           >
                             <td
                               className=""
@@ -418,13 +398,25 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           <TableCell
                             as="td"
                             data-test="Start date-loan1"
-                            key="4-loan1"
+                            key="3-loan1"
                           >
                             <td
                               className=""
                               data-test="Start date-loan1"
                             >
                               2018-01-01
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Expiration date-loan1"
+                            key="4-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="Expiration date-loan1"
+                            >
+                              Invalid DateTime
                             </td>
                           </TableCell>
                         </tr>
@@ -445,32 +437,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           >
                             <td
                               className="center aligned"
-                            >
-                              <Button
-                                as="button"
-                                circular={true}
-                                compact={true}
-                                data-test="btn-view-details-loan2"
-                                icon="eye"
-                                onClick={[Function]}
-                              >
-                                <button
-                                  className="ui circular compact icon button"
-                                  data-test="btn-view-details-loan2"
-                                  onClick={[Function]}
-                                >
-                                  <Icon
-                                    as="i"
-                                    name="eye"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      className="eye icon"
-                                    />
-                                  </Icon>
-                                </button>
-                              </Button>
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -498,20 +465,8 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Patron ID-loan2"
-                            key="2-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="Patron ID-loan2"
-                            >
-                              patron_2
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
                             data-test="Document ID-loan2"
-                            key="3-loan2"
+                            key="2-loan2"
                           >
                             <td
                               className=""
@@ -523,13 +478,25 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           <TableCell
                             as="td"
                             data-test="Start date-loan2"
-                            key="4-loan2"
+                            key="3-loan2"
                           >
                             <td
                               className=""
                               data-test="Start date-loan2"
                             >
                               2018-01-01
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Expiration date-loan2"
+                            key="4-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="Expiration date-loan2"
+                            >
+                              Invalid DateTime
                             </td>
                           </TableCell>
                         </tr>
@@ -541,13 +508,15 @@ exports[`IdleLoansList tests should render loans 1`] = `
                   allRowsNumber={2}
                   columnsNumber={5}
                   seeAllComponent={
-                    <SeeAllButton
-                      clickHandler={[Function]}
-                      disabled={false}
-                      fluid={false}
-                    />
+                    <Button
+                      as="button"
+                      onClick={[Function]}
+                      size="tiny"
+                    >
+                      Show all
+                    </Button>
                   }
-                  showMaxRows={5}
+                  showMaxRows={10}
                 />
               </table>
             </Table>
@@ -556,19 +525,34 @@ exports[`IdleLoansList tests should render loans 1`] = `
       </ResultsTable>
     </Error>
   </Loader>
-</IdleLoansList>
+</PatronPendingLoans>
 `;
 
-exports[`IdleLoansList tests should render show a message with no loans 1`] = `
-<IdleLoansList
+exports[`PatronLoans tests should render show a message with no user loans 1`] = `
+<PatronPendingLoans
   data={
     Object {
       "hits": Array [],
       "total": 0,
     }
   }
-  fetchIdlePendingLoans={[Function]}
-  showMaxEntries={5}
+  fetchPatronPendingLoans={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          undefined,
+        ],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  loanState=""
+  patron="2"
 >
   <Loader>
     <Error>
@@ -576,20 +560,22 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
-        name="idle loans"
-        rowActionClickHandler={[Function]}
+        name="loan requests"
+        rowActionClickHandler={null}
         rows={Array []}
         seeAllComponent={
-          <SeeAllButton
-            clickHandler={[Function]}
-            disabled={false}
-            fluid={false}
-          />
+          <Button
+            as="button"
+            onClick={[Function]}
+            size="tiny"
+          >
+            Show all
+          </Button>
         }
-        showMaxRows={5}
+        showMaxRows={10}
         singleLine={false}
-        subtitle="Loan requests in PENDING state longer than 10 days."
-        title="Idle loans"
+        subtitle=""
+        title="Your loan requests"
       >
         <Segment>
           <div
@@ -612,21 +598,19 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
                       >
                         <Header
                           as="h3"
-                          content="Idle loans"
-                          subheader="Loan requests in PENDING state longer than 10 days."
+                          content="Your loan requests"
+                          subheader=""
                         >
                           <h3
                             className="ui header"
                           >
-                            Idle loans
+                            Your loan requests
                             <HeaderSubheader
-                              content="Loan requests in PENDING state longer than 10 days."
+                              content=""
                             >
                               <div
                                 className="sub header"
-                              >
-                                Loan requests in PENDING state longer than 10 days.
-                              </div>
+                              />
                             </HeaderSubheader>
                           </h3>
                         </Header>
@@ -652,7 +636,7 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
                 data-test="no-results"
               >
                 There are no 
-                idle loans
+                loan requests
                 .
               </div>
             </Message>
@@ -661,5 +645,5 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
       </ResultsTable>
     </Error>
   </Loader>
-</IdleLoansList>
+</PatronPendingLoans>
 `;

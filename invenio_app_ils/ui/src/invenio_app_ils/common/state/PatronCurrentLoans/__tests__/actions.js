@@ -3,8 +3,12 @@ import thunk from 'redux-thunk';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as types from '../types';
-import { loan as loanApi } from '../../../../../../../common/api';
-import { ES_DELAY } from '../../../../../../../common/config';
+import { loan as loanApi } from '../../../api';
+import { ES_DELAY } from '../../../config';
+import { invenioConfig } from '../../../config';
+import { invenioConfig as configMock } from '../../../__mocks__/config';
+
+invenioConfig['circulation'] = configMock.circulation;
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -46,7 +50,7 @@ describe('Patron current loans tests', () => {
 
       store.dispatch(actions.fetchPatronCurrentLoans(2)).then(() => {
         expect(mockFetchPatronCurrentLoans).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:ITEM_ON_LOAN)&sort=-mostrecent'
+          '(patron_pid:2 AND state:(ITEM_ON_LOAN))&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
@@ -64,7 +68,7 @@ describe('Patron current loans tests', () => {
 
       store.dispatch(actions.fetchPatronCurrentLoans(2)).then(() => {
         expect(mockFetchPatronCurrentLoans).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:ITEM_ON_LOAN)&sort=-mostrecent'
+          '(patron_pid:2 AND state:(ITEM_ON_LOAN))&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -82,7 +86,7 @@ describe('Patron current loans tests', () => {
 
       store.dispatch(actions.fetchPatronCurrentLoans(2)).then(() => {
         expect(mockFetchPatronCurrentLoans).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:ITEM_ON_LOAN)&sort=-mostrecent'
+          '(patron_pid:2 AND state:(ITEM_ON_LOAN))&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -99,7 +103,7 @@ describe('Patron current loans tests', () => {
 
       store.dispatch(actions.fetchPatronCurrentLoans(2, ES_DELAY)).then(e => {
         expect(mockFetchPatronCurrentLoans).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:ITEM_ON_LOAN)&sort=-mostrecent'
+          '(patron_pid:2 AND state:(ITEM_ON_LOAN))&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);

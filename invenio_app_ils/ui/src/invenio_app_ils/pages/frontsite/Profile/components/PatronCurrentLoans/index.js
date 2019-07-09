@@ -3,10 +3,7 @@ import { fetchPatronCurrentLoans } from '../../../../../common/state/PatronCurre
 import PatronCurrentLoansComponent from './PatronCurrentLoans';
 
 const mapStateToProps = state => ({
-  data: state.patronCurrentLoans.data,
-  error: state.patronCurrentLoans.error,
-  isLoading: state.patronCurrentLoans.isLoading,
-  hasError: state.patronCurrentLoans.hasError,
+  ...state.patronCurrentLoans,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -3,16 +3,11 @@ import {
   fetchPatronPendingLoans,
   patronLoansChangeSortBy,
   patronLoansChangeSortOrder,
-} from './state/actions';
+} from '../../../../../common/state/PatronPendingLoans/actions';
 import PatronPendingLoansComponent from './PatronPendingLoans';
 
 const mapStateToProps = state => ({
-  data: state.patronPendingLoans.data,
-  error: state.patronPendingLoans.error,
-  isLoading: state.patronPendingLoans.isLoading,
-  hasError: state.patronPendingLoans.hasError,
-  currentSortBy: state.patronPendingLoans.sortBy,
-  currentSortOrder: state.patronPendingLoans.sortOrder,
+  ...state.patronPendingLoans,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -83,22 +83,22 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
           Array [
             Object {
               "Document ID": undefined,
-              "End date": "2018-01-01 10:05",
+              "End date": "2018-01-01",
               "ID": "loan1",
               "Patron ID": "patron_1",
               "Renewals": undefined,
-              "Start date": "2018-01-01 10:05",
+              "Start date": "2018-01-01",
               "State": undefined,
               "Transaction date": "Invalid DateTime",
               "Updated": "2018-01-01 10:05",
             },
             Object {
               "Document ID": undefined,
-              "End date": "2018-01-01 10:05",
+              "End date": "2018-01-01",
               "ID": "loan2",
               "Patron ID": "patron_2",
               "Renewals": undefined,
-              "Start date": "2018-01-01 10:05",
+              "Start date": "2018-01-01",
               "State": undefined,
               "Transaction date": "Invalid DateTime",
               "Updated": "2018-01-01 10:05",
@@ -384,22 +384,22 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                     Array [
                       Object {
                         "Document ID": undefined,
-                        "End date": "2018-01-01 10:05",
+                        "End date": "2018-01-01",
                         "ID": "loan1",
                         "Patron ID": "patron_1",
                         "Renewals": undefined,
-                        "Start date": "2018-01-01 10:05",
+                        "Start date": "2018-01-01",
                         "State": undefined,
                         "Transaction date": "Invalid DateTime",
                         "Updated": "2018-01-01 10:05",
                       },
                       Object {
                         "Document ID": undefined,
-                        "End date": "2018-01-01 10:05",
+                        "End date": "2018-01-01",
                         "ID": "loan2",
                         "Patron ID": "patron_2",
                         "Renewals": undefined,
-                        "Start date": "2018-01-01 10:05",
+                        "Start date": "2018-01-01",
                         "State": undefined,
                         "Transaction date": "Invalid DateTime",
                         "Updated": "2018-01-01 10:05",
@@ -525,7 +525,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                               className=""
                               data-test="Start date-loan1"
                             >
-                              2018-01-01 10:05
+                              2018-01-01
                             </td>
                           </TableCell>
                           <TableCell
@@ -537,7 +537,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                               className=""
                               data-test="End date-loan1"
                             >
-                              2018-01-01 10:05
+                              2018-01-01
                             </td>
                           </TableCell>
                           <TableCell
@@ -678,7 +678,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                               className=""
                               data-test="Start date-loan2"
                             >
-                              2018-01-01 10:05
+                              2018-01-01
                             </td>
                           </TableCell>
                           <TableCell
@@ -690,7 +690,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                               className=""
                               data-test="End date-loan2"
                             >
-                              2018-01-01 10:05
+                              2018-01-01
                             </td>
                           </TableCell>
                           <TableCell

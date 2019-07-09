@@ -11,8 +11,8 @@ function formatLoanToTableView(loan) {
     'Document ID': loan.metadata.document_pid,
     State: loan.metadata.state,
     'Item barcode': loan.metadata.item ? loan.metadata.item.barcode : null,
-    'Start date': toShortDateTime(fromISO(loan.metadata.start_date)),
-    'End date': toShortDateTime(fromISO(loan.metadata.end_date)),
+    'Start date': toShortDate(fromISO(loan.metadata.start_date)),
+    'End date': toShortDate(fromISO(loan.metadata.end_date)),
     'Transaction date': toShortDateTime(
       fromISO(loan.metadata.transaction_date)
     ),
