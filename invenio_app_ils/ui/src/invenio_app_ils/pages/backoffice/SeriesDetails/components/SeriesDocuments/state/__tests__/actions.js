@@ -37,9 +37,7 @@ describe('Series Document tests', () => {
       };
 
       store.dispatch(actions.fetchSeriesDocuments('123'));
-      expect(mockFetchSeriesDocuments).toHaveBeenCalledWith(
-        'series.series_pid:123'
-      );
+      expect(mockFetchSeriesDocuments).toHaveBeenCalledWith('series.pid:123');
       expect(store.getActions()[0]).toEqual(expectedAction);
     });
 
@@ -52,9 +50,7 @@ describe('Series Document tests', () => {
       };
 
       await store.dispatch(actions.fetchSeriesDocuments('123'));
-      expect(mockFetchSeriesDocuments).toHaveBeenCalledWith(
-        'series.series_pid:123'
-      );
+      expect(mockFetchSeriesDocuments).toHaveBeenCalledWith('series.pid:123');
       expect(store.getActions()[1]).toEqual(expectedAction);
     });
 
@@ -67,9 +63,7 @@ describe('Series Document tests', () => {
       };
 
       await store.dispatch(actions.fetchSeriesDocuments('123'));
-      expect(mockFetchSeriesDocuments).toHaveBeenCalledWith(
-        'series.series_pid:123'
-      );
+      expect(mockFetchSeriesDocuments).toHaveBeenCalledWith('series.pid:123');
       expect(store.getActions()[1]).toEqual(expectedAction);
     });
   });

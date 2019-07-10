@@ -59,9 +59,7 @@ export default class DocumentItem extends Component {
                 <Button
                   primary
                   onClick={() => {
-                    this.props.rowActionClickHandler(
-                      this.metadata.document_pid
-                    );
+                    this.props.rowActionClickHandler(this.metadata.pid);
                   }}
                 >
                   <Icon name="eye" />

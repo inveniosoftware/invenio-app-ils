@@ -18,7 +18,7 @@ describe('PatronLoans tests', () => {
   });
 
   const patron = {
-    patron_pid: '2',
+    pid: '2',
   };
 
   it('should load the details component', () => {
@@ -28,7 +28,7 @@ describe('PatronLoans tests', () => {
       <PatronPendingLoans
         data={{ hits: [], total: 0 }}
         loanState=""
-        patron={patron.patron_pid}
+        patron={patron.pid}
         fetchPatronPendingLoans={mockedFetchPatronLoans}
       />
     );
@@ -39,7 +39,7 @@ describe('PatronLoans tests', () => {
     const mockedFetchPatronLoans = jest.fn();
     component = mount(
       <PatronPendingLoans
-        patron={patron.patron_pid}
+        patron={patron.pid}
         data={{ hits: [], total: 0 }}
         loanState=""
         fetchPatronPendingLoans={mockedFetchPatronLoans}
@@ -61,9 +61,9 @@ describe('PatronLoans tests', () => {
           id: 1,
           updated: stringDate,
           created: stringDate,
-          loan_pid: 'loan1',
+          pid: 'loan1',
           metadata: {
-            loan_pid: 'loan1',
+            pid: 'loan1',
             document_pid: 'doc1',
             patron_pid: 'patron_1',
             start_date: stringDate,
@@ -74,9 +74,9 @@ describe('PatronLoans tests', () => {
           id: 2,
           updated: stringDate,
           created: stringDate,
-          loan_pid: 'loan2',
+          pid: 'loan2',
           metadata: {
-            loan_pid: 'loan2',
+            pid: 'loan2',
             document_pid: 'doc1',
             patron_pid: 'patron_2',
             start_date: stringDate,
@@ -89,7 +89,7 @@ describe('PatronLoans tests', () => {
 
     component = mount(
       <PatronPendingLoans
-        patron={patron.patron_pid}
+        patron={patron.pid}
         data={data}
         loanState=""
         fetchPatronPendingLoans={mockedFetchPatronLoans}

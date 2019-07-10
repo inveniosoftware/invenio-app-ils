@@ -28,7 +28,7 @@ export default class ItemMetadata extends Component {
   constructor(props) {
     super(props);
     this.deleteItem = props.deleteItem;
-    this.itemPid = this.props.itemDetails.metadata.item_pid;
+    this.itemPid = this.props.itemDetails.metadata.pid;
   }
 
   handleOnRefClick(loanPid) {
@@ -76,7 +76,7 @@ export default class ItemMetadata extends Component {
     const loanData = {
       metadata: {
         document_pid: this.props.itemDetails.metadata.document_pid,
-        item_pid: this.props.itemDetails.metadata.item_pid,
+        item_pid: this.props.itemDetails.metadata.pid,
         patron_pid: results[0].metadata.id.toString(),
       },
     };
@@ -84,7 +84,7 @@ export default class ItemMetadata extends Component {
   };
 
   updateDocument = results => {
-    const newDocumentPid = results[0].metadata.document_pid;
+    const newDocumentPid = results[0].metadata.pid;
     this.props.updateItem(this.itemPid, '/document_pid', newDocumentPid);
   };
 
@@ -116,15 +116,13 @@ export default class ItemMetadata extends Component {
           />
 
           <EditButton
-            clickHandler={() =>
-              openRecordEditor(itemApi.url, itemDetails.item_pid)
-            }
+            clickHandler={() => openRecordEditor(itemApi.url, itemDetails.pid)}
           />
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Item
-            record with ID ${itemDetails.item_pid}?`}
-            onDelete={() => this.deleteItem(itemDetails.item_pid)}
-            refProps={this.createRefProps(itemDetails.item_pid)}
+            record with ID ${itemDetails.pid}?`}
+            onDelete={() => this.deleteItem(itemDetails.pid)}
+            refProps={this.createRefProps(itemDetails.pid)}
           />
         </Grid.Column>
       </Grid.Row>

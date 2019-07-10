@@ -35,37 +35,35 @@ exports[`SeriesDocuments tests should render document 1`] = `
         Object {
           "ID": "1",
           "created": "2018-01-01T10:05:00.000Z",
-          "document_pid": "document1",
           "metadata": Object {
             "barcode": "44444",
-            "document_pid": "document1",
             "internal_location": Object {
               "location": Object {
                 "name": "Somewhere",
               },
             },
+            "pid": "document1",
             "series_objs": Array [],
-            "series_pid": "doc1",
             "shelf": "P",
           },
+          "pid": "document1",
           "updated": "2018-01-01T10:05:00.000Z",
         },
         Object {
           "created": "2018-01-01T10:05:00.000Z",
-          "document_pid": "document2",
           "id": "2",
           "metadata": Object {
             "barcode": "44444",
-            "document_pid": "document2",
             "internal_location": Object {
               "location": Object {
                 "name": "Somewhere",
               },
             },
+            "pid": "document2",
             "series_objs": Array [],
-            "series_pid": "doc2",
             "shelf": "P",
           },
+          "pid": "document2",
           "updated": "2018-01-01T10:05:00.000Z",
         },
       ],
@@ -76,9 +74,9 @@ exports[`SeriesDocuments tests should render document 1`] = `
   series={
     Object {
       "metadata": Object {
-        "series_pid": 111,
+        "pid": 111,
       },
-      "series_pid": 111,
+      "pid": 111,
     }
   }
   showMaxDocuments={5}
@@ -544,9 +542,9 @@ exports[`SeriesDocuments tests should render show a message with no documents 1`
   series={
     Object {
       "metadata": Object {
-        "series_pid": 111,
+        "pid": 111,
       },
-      "series_pid": 111,
+      "pid": 111,
     }
   }
   showMaxDocuments={5}
@@ -653,7 +651,7 @@ exports[`SeriesDocuments tests should render the see all button when showing onl
           "created": "2018-01-01T10:05:00.000Z",
           "id": 1,
           "metadata": Object {
-            "document_pid": "1",
+            "pid": "1",
             "series_objs": Array [],
             "title": "Test",
           },
@@ -663,7 +661,7 @@ exports[`SeriesDocuments tests should render the see all button when showing onl
           "created": "2018-01-01T10:05:00.000Z",
           "id": 2,
           "metadata": Object {
-            "document_pid": "2",
+            "pid": "2",
             "series_objs": Array [],
             "title": "Test 2",
           },
@@ -677,9 +675,9 @@ exports[`SeriesDocuments tests should render the see all button when showing onl
   series={
     Object {
       "metadata": Object {
-        "series_pid": 111,
+        "pid": 111,
       },
-      "series_pid": 111,
+      "pid": 111,
     }
   }
   showMaxDocuments={1}

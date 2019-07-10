@@ -27,7 +27,6 @@ const sortOrderValues = config.sortOrder.map(sortField => {
 
 const aggsMappings = {
   moi: 'Mode of Issuance',
-  keywords: 'Keywords',
   languages: 'Languages',
 };
 const aggs = config.aggs.map(agg => {

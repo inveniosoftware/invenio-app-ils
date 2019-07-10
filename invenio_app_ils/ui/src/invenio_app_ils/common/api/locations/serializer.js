@@ -12,7 +12,7 @@ export function serializeInternalLocationResponse(hit) {
     }
     if (!isEmpty(hit.metadata)) {
       result['metadata'] = hit.metadata;
-      result['internal_location_pid'] = hit.metadata.internal_location_pid;
+      result['pid'] = hit.metadata.pid;
     }
   }
   return result;
@@ -29,7 +29,7 @@ export function serializeLocationResponse(hit) {
     }
     if (!isEmpty(hit.metadata)) {
       result['metadata'] = hit.metadata;
-      result['location_pid'] = hit.metadata.location_pid;
+      result['pid'] = hit.metadata.pid;
     }
   }
   return result;

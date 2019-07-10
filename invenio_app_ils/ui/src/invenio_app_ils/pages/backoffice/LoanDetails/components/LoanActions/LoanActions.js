@@ -37,7 +37,7 @@ export default class LoanActions extends Component {
   }
 
   render() {
-    const { availableActions, loan_pid: pid } = this.props.loanDetails;
+    const { availableActions, pid } = this.props.loanDetails;
     const {
       document_pid,
       patron_pid,

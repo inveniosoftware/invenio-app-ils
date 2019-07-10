@@ -28,7 +28,7 @@ function serializeResponse(hit) {
         // Split the series based on mode of issuance - requested by the library
         result['metadata']['series'] = serializeSeries(hit.metadata.series);
       }
-      result['document_pid'] = hit.metadata.document_pid;
+      result['pid'] = hit.metadata.pid;
     }
   }
   return result;

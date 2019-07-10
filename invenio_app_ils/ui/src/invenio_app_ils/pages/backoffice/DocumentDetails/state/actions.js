@@ -159,7 +159,7 @@ export const requestLoanForDocument = (docPid, patronPid) => {
         currentUser.id,
         currentUser.locationPid
       );
-      const loanPid = response.data.loan_pid;
+      const loanPid = response.data.pid;
       const linkToLoan = (
         <p>
           The loan {loanPid} has been requested.

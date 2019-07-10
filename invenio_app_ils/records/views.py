@@ -92,7 +92,7 @@ class RelationResource(IlsResource):
         """Get related records."""
         size = self.get_size(record)
         self._extend_related_records(record, size)
-        pid = record[record.pid_field]
+        pid = record["pid"]
         for key in list(record.keys()):
             if not key.startswith("related_records"):
                 del record[key]
@@ -123,4 +123,4 @@ class RelationResource(IlsResource):
         db.session.commit()
         size = self.get_size(record)
         self._extend_related_records(record, size)
-        return self.make_response(record[record.pid_field], record, 200)
+        return self.make_response(record["pid"], record, 200)

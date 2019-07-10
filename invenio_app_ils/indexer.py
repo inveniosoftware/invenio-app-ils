@@ -19,7 +19,7 @@ from invenio_circulation.search.api import search_by_pid as search_loans_by_pid
 from invenio_indexer.api import RecordIndexer
 
 from invenio_app_ils.records.api import Document, EItem, InternalLocation, \
-    Item, Keyword, Location, Series
+    Item, Series
 from invenio_app_ils.search.api import DocumentSearch, EItemSearch, \
     InternalLocationSearch, ItemSearch, SeriesSearch
 
@@ -62,7 +62,7 @@ def index_loans_after_item_indexed(item_pid):
 
     log_func(msg=MSG_ORIGIN)
     for loan in search_loans_by_pid(item_pid=item_pid).scan():
-        loan_pid = loan[Loan.pid_field]
+        loan_pid = loan["pid"]
         _index_record_by_pid(Loan, loan_pid, log_func)
 
 
@@ -88,11 +88,11 @@ class ItemIndexer(RecordIndexer):
         super(ItemIndexer, self).index(item)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_loans_after_item_indexed.apply_async(
-            (item[Item.pid_field],),
+            (item["pid"],),
             eta=eta,
         )
         index_document_after_item_indexed.apply_async(
-            (item[Item.pid_field],),
+            (item["pid"],),
             eta=eta,
         )
 
@@ -119,7 +119,7 @@ class EItemIndexer(RecordIndexer):
         super(EItemIndexer, self).index(item)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_document_after_eitem_indexed.apply_async(
-            (item[EItem.pid_field],),
+            (item["pid"],),
             eta=eta,
         )
 
@@ -136,7 +136,7 @@ def index_item_after_document_indexed(document_pid):
     log_func(msg=MSG_ORIGIN)
     for item in ItemSearch().search_by_document_pid(
             document_pid=document_pid).scan():
-        item_pid = item[Item.pid_field]
+        item_pid = item["pid"]
         _index_record_by_pid(Item, item_pid, log_func)
 
 
@@ -152,7 +152,7 @@ def index_eitem_after_document_indexed(document_pid):
     log_func(msg=MSG_ORIGIN)
     for eitem in EItemSearch().search_by_document_pid(
             document_pid=document_pid).scan():
-        eitem_pid = eitem[EItem.pid_field]
+        eitem_pid = eitem["pid"]
         _index_record_by_pid(EItem, eitem_pid, log_func)
 
 
@@ -164,11 +164,11 @@ class DocumentIndexer(RecordIndexer):
         super(DocumentIndexer, self).index(document)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_item_after_document_indexed.apply_async(
-            (document[Document.pid_field],),
+            (document["pid"],),
             eta=eta,
         )
         index_eitem_after_document_indexed.apply_async(
-            (document[Document.pid_field],),
+            (document["pid"],),
             eta=eta,
         )
 
@@ -178,14 +178,14 @@ def index_item_after_loan_indexed(loan):
     """Index item to re-compute circulation reference."""
     if not loan.get('item_pid', None):
         msg = "ils-indexer: item_pid not found in loan " \
-              "{0}".format(loan[Loan.pid_field])
+              "{0}".format(loan["pid"])
         current_app.logger.warning(msg)
         return
 
     log_func = partial(
         _log,
         origin_rec_type='Loan',
-        origin_recid=loan[Loan.pid_field],
+        origin_recid=loan["pid"],
         dest_rec_type='Item')
 
     log_func(msg=MSG_ORIGIN)
@@ -196,20 +196,20 @@ def index_item_after_loan_indexed(loan):
 @shared_task(ignore_result=True)
 def index_document_after_loan_indexed(loan):
     """Index document to re-compute circulation information."""
-    if not loan.get(Document.pid_field, None):
+    if not loan.get("document_pid", None):
         msg = "ils-indexer: Document PID not found in loan " \
-              "{0}".format(loan[Loan.pid_field])
+              "{0}".format(loan["pid"])
         current_app.logger.warning(msg)
         return
 
     log_func = partial(
         _log,
         origin_rec_type='Loan',
-        origin_recid=loan[Loan.pid_field],
+        origin_recid=loan["pid"],
         dest_rec_type='Document')
 
     log_func(msg=MSG_ORIGIN)
-    item_pid = loan[Document.pid_field]
+    item_pid = loan["document_pid"]
     _index_record_by_pid(Document, item_pid, log_func)
 
 
@@ -242,7 +242,7 @@ def index_internal_location_after_location_indexed(loc_pid):
     log_func(msg=MSG_ORIGIN)
     for iloc in InternalLocationSearch().search_by_location_pid(
             location_pid=loc_pid).scan():
-        iloc_pid = iloc[InternalLocation.pid_field]
+        iloc_pid = iloc["pid"]
         _index_record_by_pid(InternalLocation, iloc_pid, log_func)
 
 
@@ -254,7 +254,7 @@ class LocationIndexer(RecordIndexer):
         super(LocationIndexer, self).index(location)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_internal_location_after_location_indexed.apply_async(
-            (location[Location.pid_field],),
+            (location["pid"],),
             eta=eta
         )
 
@@ -307,7 +307,7 @@ def index_documents_after_series_indexed(series_pid):
     log_func(msg=MSG_ORIGIN)
     search = DocumentSearch()
     for document in search.search_by_series_pid(series_pid).scan():
-        document_pid = document[Document.pid_field]
+        document_pid = document["pid"]
         _index_record_by_pid(Document, document_pid, log_func)
 
 
@@ -319,7 +319,7 @@ class SeriesIndexer(RecordIndexer):
         super(SeriesIndexer, self).index(series)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_documents_after_series_indexed.apply_async(
-            (series[Series.pid_field],),
+            (series["pid"],),
             eta=eta,
         )
 
@@ -336,7 +336,7 @@ def index_documents_and_series_after_keyword_indexed(keyword_pid):
 
         log_func(msg=MSG_ORIGIN)
         for record in search.search_by_keyword_pid(keyword_pid).scan():
-            pid = record[cls.pid_field]
+            pid = record["pid"]
             _index_record_by_pid(cls, pid, log_func)
 
     index_record(Document, DocumentSearch())
@@ -351,6 +351,6 @@ class KeywordIndexer(RecordIndexer):
         super(KeywordIndexer, self).index(keyword)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_documents_and_series_after_keyword_indexed.apply_async(
-            (keyword[Keyword.pid_field],),
+            (keyword["pid"],),
             eta=eta,
         )

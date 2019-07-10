@@ -17,10 +17,10 @@ from invenio_app_ils.records.api import Document, Keyword
 
 def test_document_add_keywords(app, testdata):
     """Test adding new keywords to document record."""
-    document_pid = testdata["documents"][0]["document_pid"]
+    document_pid = testdata["documents"][0]["pid"]
     keyword_data = testdata["keywords"]
     keywords = [
-        Keyword.get_record_by_pid(kw["keyword_pid"])
+        Keyword.get_record_by_pid(kw["pid"])
         for kw in keyword_data
     ]
     document = Document.get_record_by_pid(document_pid)
@@ -44,9 +44,9 @@ def test_document_add_keywords(app, testdata):
 
 def test_document_remove_keyword(app, testdata):
     """Test removing keywords from document record."""
-    document_pid = testdata["documents"][0]["document_pid"]
+    document_pid = testdata["documents"][0]["pid"]
     keywords = [
-        Keyword.get_record_by_pid(kw["keyword_pid"])
+        Keyword.get_record_by_pid(kw["pid"])
         for kw in testdata["keywords"]
     ]
     document = Document.get_record_by_pid(document_pid)

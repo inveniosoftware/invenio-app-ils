@@ -17,11 +17,11 @@ describe('EItemsSearch ResultsList tests', () => {
       created: toISO(stringDate),
       updated: toISO(stringDate),
       metadata: {
-        eitem_pid: 987,
+        pid: 987,
         description: 'A description.',
         document_pid: 1342,
         document: {
-          document_pid: 1342,
+          pid: 1342,
         },
         internal_notes: 'Internal notes.',
       },
@@ -49,7 +49,7 @@ describe('EItemsSearch ResultsList tests', () => {
     const resultRows = component
       .find('TableRow')
       .filterWhere(
-        element => element.prop('data-test') === firstResult.metadata.eitem_pid
+        element => element.prop('data-test') === firstResult.metadata.pid
       );
     expect(resultRows).toHaveLength(1);
 
@@ -58,7 +58,7 @@ describe('EItemsSearch ResultsList tests', () => {
       .filterWhere(
         element =>
           element.prop('data-test') ===
-          'Description-' + firstResult.metadata.eitem_pid
+          'Description-' + firstResult.metadata.pid
       );
     expect(mappedStatusElements).toHaveLength(1);
 
@@ -75,7 +75,7 @@ describe('EItemsSearch ResultsList tests', () => {
         viewDetailsClickHandler={mockedClickHandler}
       />
     );
-    const firstId = results[0].metadata.eitem_pid;
+    const firstId = results[0].metadata.pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)

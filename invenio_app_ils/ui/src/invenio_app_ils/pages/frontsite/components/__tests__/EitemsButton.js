@@ -12,7 +12,7 @@ it('should render correctly when there is one eitem', () => {
   const eitems = [
     {
       description: 'Lorem Ipsum',
-      eitem_pid: '145',
+      pid: '145',
       internal_notes: 'Sed dolore',
       open_access: true,
     },
@@ -25,13 +25,13 @@ it('should render correctly when there are multiple eitems', () => {
   const eitems = [
     {
       description: 'Lorem Ipsum',
-      eitem_pid: '145',
+      pid: '145',
       internal_notes: 'Sed dolore',
       open_access: true,
     },
     {
       description: 'Est dolore',
-      eitem_pid: '257',
+      pid: '257',
       internal_notes: 'Voluptatem numquam',
       open_access: false,
     },

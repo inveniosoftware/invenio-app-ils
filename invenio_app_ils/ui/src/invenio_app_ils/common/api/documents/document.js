@@ -82,9 +82,7 @@ class QueryBuilder {
     if (!seriesPid) {
       throw TypeError('Series PID argument missing');
     }
-    this.withSeriesQuery.push(
-      `series.series_pid:${prepareSumQuery(seriesPid)}`
-    );
+    this.withSeriesQuery.push(`series.pid:${prepareSumQuery(seriesPid)}`);
     return this;
   }
 

@@ -24,28 +24,28 @@ from invenio_app_ils.api import (  # isort:skip
 
 def test_get_item_pids_by_document_pid(testdata):
     """Test retrieve Items PIDs for the given Document PID."""
-    first_doc_pid = testdata["documents"][0][Document.pid_field]
+    first_doc_pid = testdata["documents"][0]["pid"]
     items_pids = get_item_pids_by_document_pid(first_doc_pid)
     assert len(list(items_pids)) == 4
 
 
 def test_get_document_pid_by_item_pid(testdata):
     """Test retrieve Document PID for the given Item."""
-    first_item_pid = testdata["items"][0][Item.pid_field]
+    first_item_pid = testdata["items"][0]["pid"]
     doc_pid = get_document_pid_by_item_pid(first_item_pid)
     assert doc_pid == "docid-1"
 
 
 def test_get_location_pid_by_item_pid(testdata):
     """Test retrieve Location PID for the given Item."""
-    first_item_pid = testdata["items"][0][Item.pid_field]
+    first_item_pid = testdata["items"][0]["pid"]
     loc_pid = get_location_pid_by_item_pid(first_item_pid)
     assert loc_pid == "locid-1"
 
 
 def test_item_exists(testdata):
     """Test return True if item exists."""
-    first_item_pid = testdata["items"][0][Item.pid_field]
+    first_item_pid = testdata["items"][0]["pid"]
     assert item_exists(first_item_pid)
 
 
@@ -74,7 +74,7 @@ def test_get_record_by_pid(testdata, pid, cls):
     record = cls.get_record_by_pid(pid)
 
     assert isinstance(record, cls)
-    assert record[record.pid_field] == pid
+    assert record["pid"] == pid
     assert record._pid_type == cls._pid_type
 
 
@@ -91,5 +91,5 @@ def test_get_record_by_pid_and_pid_type(testdata, pid, pid_type, expected_cls):
     record = IlsRecord.get_record_by_pid(pid, pid_type=pid_type)
 
     assert isinstance(record, expected_cls)
-    assert record[record.pid_field] == pid
+    assert record["pid"] == pid
     assert record._pid_type == pid_type

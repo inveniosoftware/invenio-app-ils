@@ -20,9 +20,9 @@ describe('DocumentItems tests', () => {
   });
 
   const doc = {
-    document_pid: 111,
+    pid: 111,
     metadata: {
-      document_pid: 111,
+      pid: 111,
     },
   };
 
@@ -46,7 +46,7 @@ describe('DocumentItems tests', () => {
         fetchDocumentItems={mockedFetchDocumentItems}
       />
     );
-    expect(mockedFetchDocumentItems).toHaveBeenCalledWith(doc.document_pid);
+    expect(mockedFetchDocumentItems).toHaveBeenCalledWith(doc.pid);
   });
 
   it('should render show a message with no items', () => {
@@ -72,10 +72,10 @@ describe('DocumentItems tests', () => {
           ID: '1',
           updated: stringDate,
           created: stringDate,
-          item_pid: 'item1',
+          pid: 'item1',
           metadata: {
             document_pid: 'doc1',
-            item_pid: 'item1',
+            pid: 'item1',
             internal_location: { location: { name: 'Somewhere' } },
             barcode: '44444',
             shelf: 'P',
@@ -85,10 +85,10 @@ describe('DocumentItems tests', () => {
           id: '2',
           updated: stringDate,
           created: stringDate,
-          item_pid: 'item2',
+          pid: 'item2',
           metadata: {
             document_pid: 'doc2',
-            item_pid: 'item2',
+            pid: 'item2',
             internal_location: { location: { name: 'Somewhere' } },
             barcode: '44444',
             shelf: 'P',
@@ -127,7 +127,7 @@ describe('DocumentItems tests', () => {
           created: stringDate,
           metadata: {
             document_pid: 'doc1',
-            item_pid: 'item1',
+            pid: 'item1',
             internal_location: { location: { name: 'Somewhere' } },
             barcode: '44444',
             shelf: 'P',
@@ -139,7 +139,7 @@ describe('DocumentItems tests', () => {
           created: stringDate,
           metadata: {
             document_pid: 'doc2',
-            item_pid: 'item2',
+            pid: 'item2',
             internal_location: { location: { name: 'Somewhere' } },
             barcode: '44444',
             shelf: 'P',
@@ -174,10 +174,10 @@ describe('DocumentItems tests', () => {
           ID: '1',
           updated: stringDate,
           created: stringDate,
-          item_pid: 'item1',
+          pid: 'item1',
           metadata: {
             document_pid: 'doc1',
-            item_pid: 'item1',
+            pid: 'item1',
             internal_location: { location: { name: 'Somewhere' } },
             shelf: 'P',
             barcode: '44444',
@@ -196,7 +196,7 @@ describe('DocumentItems tests', () => {
       />
     );
 
-    const firstId = data.hits[0].item_pid;
+    const firstId = data.hits[0].pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)

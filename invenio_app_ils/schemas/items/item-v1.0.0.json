@@ -8,7 +8,7 @@
     "internal_location_pid",
     "barcode",
     "status",
-    "item_pid",
+    "pid",
     "document_pid",
     "document",
     "circulation_restriction",
@@ -18,7 +18,7 @@
     "$schema": {
       "type": "string"
     },
-    "item_pid": {
+    "pid": {
       "type": "string",
       "title": "The persistent identifier of this Item"
     },

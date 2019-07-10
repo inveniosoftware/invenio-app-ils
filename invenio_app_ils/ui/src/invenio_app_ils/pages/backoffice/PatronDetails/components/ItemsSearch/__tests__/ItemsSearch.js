@@ -64,10 +64,10 @@ describe('PatronLoans tests', () => {
           id: '1',
           updated: stringDate,
           created: stringDate,
-          item_pid: 'item1',
+          pid: 'item1',
           metadata: {
             document_pid: 'doc1',
-            item_pid: 'item1',
+            pid: 'item1',
             internal_location: { location: { name: 'Somewhere' } },
             barcode: '44444',
             shelf: 'P',
@@ -96,9 +96,7 @@ describe('PatronLoans tests', () => {
     expect(component).toMatchSnapshot();
     const tableRow = component
       .find('TableRow')
-      .filterWhere(
-        element => element.prop('data-test') === items.hits[0].item_pid
-      );
+      .filterWhere(element => element.prop('data-test') === items.hits[0].pid);
     expect(tableRow).toHaveLength(1);
   });
 });

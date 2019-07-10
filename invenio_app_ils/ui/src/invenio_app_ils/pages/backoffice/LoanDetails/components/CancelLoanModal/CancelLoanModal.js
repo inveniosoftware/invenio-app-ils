@@ -48,11 +48,11 @@ export default class CancelLoanModal extends Component {
         open={this.state.open}
         onClose={this.hide}
       >
-        <Header content={`Cancel Loan #${loan.loan_pid}`} />
+        <Header content={`Cancel Loan #${loan.pid}`} />
         <Modal.Content>
           <p>
-            You are about to cancel loan #{loan.loan_pid}. Please enter a reason
-            for cancelling this loan.
+            You are about to cancel loan #{loan.pid}. Please enter a reason for
+            cancelling this loan.
           </p>
           <Input
             focus

@@ -41,10 +41,7 @@ export default class AvailableItems extends Component {
         size="mini"
         color="teal"
         onClick={() => {
-          this.assignItemToLoan(
-            item.metadata.item_pid,
-            this.props.loan.loan_pid
-          );
+          this.assignItemToLoan(item.metadata.pid, this.props.loan.pid);
         }}
       >
         assign
@@ -59,10 +56,10 @@ export default class AvailableItems extends Component {
         color="teal"
         onClick={() => {
           this.assignItemAndCheckout(
-            this.props.loan.loan_pid,
+            this.props.loan.pid,
             loan,
             loan.availableActions.checkout,
-            item.metadata.item_pid
+            item.metadata.pid
           );
         }}
       >

@@ -35,27 +35,27 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
         Object {
           "created": "2018-01-01T10:05:00.000Z",
           "id": 1,
-          "loan_pid": "loan1",
           "metadata": Object {
             "document_pid": "doc1",
             "end_date": "2018-01-01T10:05:00.000Z",
-            "loan_pid": "loan1",
             "patron_pid": "patron_1",
+            "pid": "loan1",
             "start_date": "2018-01-01T10:05:00.000Z",
           },
+          "pid": "loan1",
           "updated": "2018-01-01T10:05:00.000Z",
         },
         Object {
           "created": "2018-01-01T10:05:00.000Z",
           "id": 2,
-          "loan_pid": "loan2",
           "metadata": Object {
             "document_pid": "doc1",
             "end_date": "2018-01-01T10:05:00.000Z",
-            "loan_pid": "loan2",
             "patron_pid": "patron_2",
+            "pid": "loan2",
             "start_date": "2018-01-01T10:05:00.000Z",
           },
+          "pid": "loan2",
           "updated": "2018-01-01T10:05:00.000Z",
         },
       ],
@@ -64,11 +64,11 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
   }
   document={
     Object {
-      "document_pid": 111,
       "metadata": Object {
-        "document_pid": 111,
         "item_pid": 222,
+        "pid": 111,
       },
+      "pid": 111,
     }
   }
   fetchPendingLoans={[Function]}
@@ -533,11 +533,11 @@ exports[`DocumentPendingLoans tests should render show a message with no pending
   }
   document={
     Object {
-      "document_pid": 111,
       "metadata": Object {
-        "document_pid": 111,
         "item_pid": 222,
+        "pid": 111,
       },
+      "pid": 111,
     }
   }
   fetchPendingLoans={[Function]}
@@ -644,27 +644,27 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
         Object {
           "created": "2018-01-01T10:05:00.000Z",
           "id": 1,
-          "loan_pid": "loan1",
           "metadata": Object {
             "document_pid": "doc1",
             "end_date": "2018-01-01T10:05:00.000Z",
-            "loan_pid": "loan1",
             "patron_pid": "patron_1",
+            "pid": "loan1",
             "start_date": "2018-01-01T10:05:00.000Z",
           },
+          "pid": "loan1",
           "updated": "2018-01-01T10:05:00.000Z",
         },
         Object {
           "created": "2018-01-01T10:05:00.000Z",
           "id": 2,
-          "loan_pid": "loan2",
           "metadata": Object {
             "document_pid": "doc1",
             "end_date": "2018-01-01T10:05:00.000Z",
-            "loan_pid": "loan2",
             "patron_pid": "patron_2",
+            "pid": "loan2",
             "start_date": "2018-01-01T10:05:00.000Z",
           },
+          "pid": "loan2",
           "updated": "2018-01-01T10:05:00.000Z",
         },
       ],
@@ -673,11 +673,11 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
   }
   document={
     Object {
-      "document_pid": 111,
       "metadata": Object {
-        "document_pid": 111,
         "item_pid": 222,
+        "pid": 111,
       },
+      "pid": 111,
     }
   }
   fetchPendingLoans={[Function]}

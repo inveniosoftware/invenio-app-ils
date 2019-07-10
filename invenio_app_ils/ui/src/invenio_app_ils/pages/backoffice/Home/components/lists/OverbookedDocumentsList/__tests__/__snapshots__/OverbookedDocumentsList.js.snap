@@ -34,7 +34,6 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
       "hits": Array [
         Object {
           "created": "2018-01-01T10:05:00.000Z",
-          "document_pid": "doc1",
           "id": 1,
           "metadata": Object {
             "abstracts": "This is an abstract",
@@ -47,11 +46,11 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
             },
             "title": "X",
           },
+          "pid": "doc1",
           "updated": "2018-01-01T10:05:00.000Z",
         },
         Object {
           "created": "2018-01-01T10:05:00.000Z",
-          "document_pid": "doc2",
           "id": 2,
           "metadata": Object {
             "abstracts": "This is an abstract",
@@ -60,6 +59,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
             ],
             "title": "X",
           },
+          "pid": "doc2",
           "updated": "2018-01-01T10:05:00.000Z",
         },
       ],

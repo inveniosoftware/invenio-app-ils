@@ -22,15 +22,15 @@ export default class MostRecentEbooks extends Component {
     const ebooks = data.hits.slice(0, this.maxItemsToDisplay).map(book => {
       return book.metadata._computed.eitems.map(ebook => {
         return {
-          document_pid: book.metadata.document_pid,
-          eitem_pid: ebook.eitem_pid,
+          document_pid: book.metadata.pid,
+          pid: ebook.pid,
           title: book.metadata.title,
           description: truncate(ebook.description),
           open_access: ebook.open_access,
           imageSize: 'small',
           imageCover: 'https://assets.thalia.media/img/46276899-00-00.jpg',
           onClick: goToHandler(
-            FrontSiteRoutes.documentDetailsFor(book.metadata.document_pid)
+            FrontSiteRoutes.documentDetailsFor(book.metadata.pid)
           ),
         };
       });
@@ -45,7 +45,7 @@ export default class MostRecentEbooks extends Component {
 
   renderCards(ebooks) {
     const cards = ebooks.map(ebook => {
-      return <EbookCard key={ebook.eitem_pid} ebookData={ebook} />;
+      return <EbookCard key={ebook.pid} ebookData={ebook} />;
     });
 
     return <Card.Group>{cards}</Card.Group>;

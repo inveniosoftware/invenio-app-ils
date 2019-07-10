@@ -12,7 +12,7 @@ from invenio_circulation.api import Loan
 
 def test_loan_item_resolver(app, testdata):
     """Test item resolving from loan."""
-    loan_pid = testdata["loans"][0]["loan_pid"]
+    loan_pid = testdata["loans"][0]["pid"]
     loan = Loan.get_record_by_pid(loan_pid)
     loan = loan.replace_refs()
-    assert loan["item"]["item_pid"] == loan["item_pid"]
+    assert loan["item"]["pid"] == loan["item_pid"]

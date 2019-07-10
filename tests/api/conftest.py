@@ -43,7 +43,7 @@ from invenio_app_ils.pidstore.pids import (  # isort:skip
 def item_record(app):
     """Fixture to return an Item payload."""
     return {
-        "item_pid": "itemid-1",
+        "pid": "itemid-1",
         "document_pid": "docid-1",
         "document": {"$ref": document_ref_builder(app, "itemid-1")},
         "barcode": "123456789-1",
@@ -90,7 +90,7 @@ def testdata(app, db, es_clear):
     locations = load_json_from_datadir("locations.json")
     for location in locations:
         record = Location.create(location)
-        mint_record_pid(LOCATION_PID_TYPE, Location.pid_field, record)
+        mint_record_pid(LOCATION_PID_TYPE, "pid", record)
         record.commit()
         db.session.commit()
         indexer.index(record)
@@ -99,7 +99,7 @@ def testdata(app, db, es_clear):
     for internal_location in internal_locations:
         record = InternalLocation.create(internal_location)
         mint_record_pid(
-            INTERNAL_LOCATION_PID_TYPE, InternalLocation.pid_field, record
+            INTERNAL_LOCATION_PID_TYPE, "pid", record
         )
         record.commit()
         db.session.commit()
@@ -108,7 +108,7 @@ def testdata(app, db, es_clear):
     keywords = load_json_from_datadir("keywords.json")
     for keyword in keywords:
         record = Keyword.create(keyword)
-        mint_record_pid(KEYWORD_PID_TYPE, Keyword.pid_field, record)
+        mint_record_pid(KEYWORD_PID_TYPE, "pid", record)
         record.commit()
         db.session.commit()
         indexer.index(record)
@@ -116,7 +116,7 @@ def testdata(app, db, es_clear):
     series_data = load_json_from_datadir("series.json")
     for series in series_data:
         record = Series.create(series)
-        mint_record_pid(SERIES_PID_TYPE, Series.pid_field, record)
+        mint_record_pid(SERIES_PID_TYPE, "pid", record)
         record.commit()
         db.session.commit()
         indexer.index(record)
@@ -124,7 +124,7 @@ def testdata(app, db, es_clear):
     documents = load_json_from_datadir("documents.json")
     for doc in documents:
         record = Document.create(doc)
-        mint_record_pid(DOCUMENT_PID_TYPE, Document.pid_field, record)
+        mint_record_pid(DOCUMENT_PID_TYPE, "pid", record)
         record.commit()
         db.session.commit()
         indexer.index(record)
@@ -132,7 +132,7 @@ def testdata(app, db, es_clear):
     items = load_json_from_datadir("items.json")
     for item in items:
         record = Item.create(item)
-        mint_record_pid(ITEM_PID_TYPE, Item.pid_field, record)
+        mint_record_pid(ITEM_PID_TYPE, "pid", record)
         record.commit()
         db.session.commit()
         indexer.index(record)
@@ -140,7 +140,7 @@ def testdata(app, db, es_clear):
     eitems = load_json_from_datadir("eitems.json")
     for eitem in eitems:
         record = EItem.create(eitem)
-        mint_record_pid(EITEM_PID_TYPE, EItem.pid_field, record)
+        mint_record_pid(EITEM_PID_TYPE, "pid", record)
         record.commit()
         db.session.commit()
         indexer.index(record)
@@ -148,7 +148,7 @@ def testdata(app, db, es_clear):
     loans = load_json_from_datadir("loans.json")
     for loan in loans:
         record = Loan.create(loan)
-        mint_record_pid(CIRCULATION_LOAN_PID_TYPE, Loan.pid_field, record)
+        mint_record_pid(CIRCULATION_LOAN_PID_TYPE, "pid", record)
         record.commit()
         db.session.commit()
         indexer.index(record)
@@ -204,15 +204,15 @@ def related_record(testdata):
     docs = testdata["documents"]
     series = testdata["series"]
 
-    doc1 = Document.get_record_by_pid(docs[0]["document_pid"])
-    doc2 = Document.get_record_by_pid(docs[1]["document_pid"])
-    doc3 = Document.get_record_by_pid(docs[2]["document_pid"])
-    doc4 = Document.get_record_by_pid(docs[3]["document_pid"])
-    ser5 = Series.get_record_by_pid(series[0]["series_pid"])
-    doc6 = Document.get_record_by_pid(docs[4]["document_pid"])
-    doc7 = Document.get_record_by_pid(docs[5]["document_pid"])
-    doc8 = Document.get_record_by_pid(docs[6]["document_pid"])
-    doc9 = Document.get_record_by_pid(docs[7]["document_pid"])
+    doc1 = Document.get_record_by_pid(docs[0]["pid"])
+    doc2 = Document.get_record_by_pid(docs[1]["pid"])
+    doc3 = Document.get_record_by_pid(docs[2]["pid"])
+    doc4 = Document.get_record_by_pid(docs[3]["pid"])
+    ser5 = Series.get_record_by_pid(series[0]["pid"])
+    doc6 = Document.get_record_by_pid(docs[4]["pid"])
+    doc7 = Document.get_record_by_pid(docs[5]["pid"])
+    doc8 = Document.get_record_by_pid(docs[6]["pid"])
+    doc9 = Document.get_record_by_pid(docs[7]["pid"])
 
     doc1.related.add_edition(doc2)
     doc1.related.add_edition(doc3)

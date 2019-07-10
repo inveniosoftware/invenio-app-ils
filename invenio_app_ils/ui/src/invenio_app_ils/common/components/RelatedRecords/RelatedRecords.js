@@ -8,7 +8,7 @@ import { goTo } from '../../../history';
 import { formatter } from '../ResultsTable/formatters';
 import pick from 'lodash/pick';
 import { Button, Tab, Label, Container } from 'semantic-ui-react';
-import { recordToPid } from '../../api/utils';
+import { schemaToPidType } from '../../api/utils';
 import ESRelatedSelector from '../ESSelector/ESRelatedSelector';
 import './RelatedRecords.scss';
 import {
@@ -32,12 +32,14 @@ export default class RelatedRecords extends Component {
   }
 
   componentDidMount() {
-    const [pid, pidType] = recordToPid(this.props.record);
+    const pid = this.props.record.pid;
+    const pidType = schemaToPidType(this.props.record.metadata['$schema']);
     this.fetchRelatedRecords(pid, pidType, this.props.showMaxRelatedRecords);
   }
 
   onSeeAllClick = () => {
-    const [pid, pidType] = recordToPid(this.props.record);
+    const pid = this.props.record.pid;
+    const pidType = schemaToPidType(this.props.record['$schema']);
     this.setState({ showMaxRelatedRecords: 1000 });
     this.fetchRelatedRecords(pid, pidType);
   };
@@ -84,7 +86,8 @@ export default class RelatedRecords extends Component {
         updatedRecords.push(resultToAction(result, 'remove'));
       }
     }
-    const [pid, pidType] = recordToPid(this.props.record);
+    const pid = this.props.record.pid;
+    const pidType = schemaToPidType(this.props.record['$schema']);
     this.props.updateRelatedRecords(pid, pidType, updatedRecords);
     this.setState({ removedRelatedRecords: [] });
   };

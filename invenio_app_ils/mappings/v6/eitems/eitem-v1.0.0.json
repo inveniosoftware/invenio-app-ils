@@ -7,7 +7,7 @@
         "$schema": {
           "type": "keyword"
         },
-        "eitem_pid": {
+        "pid": {
           "type": "keyword"
         },
         "document_pid": {
@@ -16,7 +16,7 @@
         "document": {
           "type": "object",
           "properties": {
-            "document_pid": {
+            "pid": {
               "type": "keyword"
             }
           }

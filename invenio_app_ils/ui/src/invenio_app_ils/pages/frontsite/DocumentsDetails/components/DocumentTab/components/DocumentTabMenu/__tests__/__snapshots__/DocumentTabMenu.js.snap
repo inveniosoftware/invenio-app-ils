@@ -9,8 +9,8 @@ exports[`DocumentTabMenu tests should render the document correctly 1`] = `
         "eitems": Array [
           Object {
             "description": "Non ipsum",
-            "eitem_pid": "145",
             "open_access": true,
+            "pid": "145",
           },
         ],
       },
@@ -21,7 +21,6 @@ exports[`DocumentTabMenu tests should render the document correctly 1`] = `
       "booklinks": Array [],
       "chapters": Array [],
       "circulation": Object {},
-      "document_pid": "71",
       "document_types": Array [
         "BOOK",
       ],
@@ -37,6 +36,7 @@ exports[`DocumentTabMenu tests should render the document correctly 1`] = `
         "it",
         "es",
       ],
+      "pid": "71",
       "publishers": Array [
         "Quiquia amet consectetur velit.",
       ],

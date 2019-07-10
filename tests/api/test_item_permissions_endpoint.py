@@ -84,12 +84,12 @@ def test_post_item_endpoint(
     user_login(user_id, client, users)
     url = url_for("invenio_records_rest.pitmid_list")
     ITEM = copy.deepcopy(item_record)
-    if "item_pid" in ITEM:
-        del ITEM["item_pid"]
+    if "pid" in ITEM:
+        del ITEM["pid"]
     res = _test_response(
         client, "post", url, json_headers, ITEM, expected_resp_code
     )
-    _test_data("item_pid", "1", res)
+    _test_data("pid", "1", res)
 
 
 @pytest.mark.parametrize(
@@ -126,7 +126,7 @@ def test_put_item_endpoint(
     res = _test_response(
         client, "put", url, json_headers, ITEM, expected_resp_code
     )
-    _test_data("item_pid", res_id, res)
+    _test_data("pid", res_id, res)
 
 
 @pytest.mark.parametrize(

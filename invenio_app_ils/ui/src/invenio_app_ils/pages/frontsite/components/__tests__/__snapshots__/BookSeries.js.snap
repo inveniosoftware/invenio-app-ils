@@ -16,9 +16,7 @@ exports[`should render correctly when book contains only both series types 1`] =
         className="item"
         onClick={[Function]}
         role="listitem"
-      >
-        Lorem Ipsum
-      </a>
+      />
     </div>
   </div>
   <div
@@ -51,9 +49,7 @@ exports[`should render correctly when the book contains only serials 1`] = `
         className="item"
         onClick={[Function]}
         role="listitem"
-      >
-        Lorem Ipsum
-      </a>
+      />
     </div>
   </div>
   <div

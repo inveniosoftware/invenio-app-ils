@@ -18,16 +18,16 @@ export default class ItemPastLoans extends Component {
   }
 
   componentDidMount() {
-    const { item_pid } = this.props.itemDetails;
-    this.fetchPastLoans(item_pid);
+    const { pid } = this.props.itemDetails;
+    this.fetchPastLoans(pid);
   }
 
   seeAllButton = () => {
-    const { item_pid } = this.props.itemDetails;
+    const { pid } = this.props.itemDetails;
     const path = this.seeAllUrl(
       loanApi
         .query()
-        .withItemPid(item_pid)
+        .withItemPid(pid)
         .withState(['ITEM_RETURNED', 'CANCELLED'])
         .qs()
     );

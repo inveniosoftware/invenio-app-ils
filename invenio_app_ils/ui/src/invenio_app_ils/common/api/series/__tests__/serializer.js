@@ -26,7 +26,7 @@ describe('Series object serialization', () => {
       created: stringDate,
       links: 'test',
       metadata: {
-        series_pid: '123',
+        pid: '123',
         mode_of_issuance: 'SERIAL',
         authors: ['A', 'B'],
         title: 'p',
@@ -34,13 +34,13 @@ describe('Series object serialization', () => {
     });
 
     expect(serialized).toEqual({
-      series_pid: '123',
+      pid: '123',
       id: 123,
       updated: fromISO(stringDate),
       created: fromISO(stringDate),
       links: 'test',
       metadata: {
-        series_pid: '123',
+        pid: '123',
         mode_of_issuance: 'SERIAL',
         authors: ['A', 'B'],
         title: 'p',

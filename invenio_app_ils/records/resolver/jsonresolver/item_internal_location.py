@@ -34,7 +34,7 @@ def jsonresolver_loader(url_map):
     def internal_location_resolver(item_pid):
         """Return the IntLoc record for the given Item or raise."""
         internal_loc_pid = get_field_value(Item, item_pid,
-                                           InternalLocation.pid_field)
+                                           "internal_location_pid")
         return get_internal_location(internal_loc_pid)
 
     url_map.add(

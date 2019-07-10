@@ -127,7 +127,7 @@ class LocationGenerator(Generator):
     def generate(self):
         """Generate."""
         self.holder.location = {
-            Location.pid_field: "1",
+            "pid": "1",
             "name": "Central Library",
             "address": "Rue de Meyrin",
             "email": "library@cern.ch",
@@ -136,7 +136,7 @@ class LocationGenerator(Generator):
     def persist(self):
         """Persist."""
         record = Location.create(self.holder.location)
-        return self._persist(LOCATION_PID_TYPE, Location.pid_field, record)
+        return self._persist(LOCATION_PID_TYPE, "pid", record)
 
 
 class InternalLocationGenerator(Generator):
@@ -145,14 +145,14 @@ class InternalLocationGenerator(Generator):
     def generate(self):
         """Generate."""
         size = self.holder.internal_locations['total']
-        location_pid_value = self.holder.location[Location.pid_field]
+        location_pid_value = self.holder.location["pid"]
         objs = [{
-            InternalLocation.pid_field: str(pid),
+            "pid": str(pid),
             "legacy_id": "{}".format(randint(100000, 999999)),
             "name": "Building {}".format(randint(1, 10)),
             "notes": lorem.sentence(),
             "physical_location": lorem.sentence(),
-            Location.pid_field: location_pid_value
+            "location_pid": location_pid_value
         } for pid in range(1, size+1)]
 
         self.holder.internal_locations['objs'] = objs
@@ -163,7 +163,7 @@ class InternalLocationGenerator(Generator):
         for obj in self.holder.internal_locations['objs']:
             rec = self._persist(
                 INTERNAL_LOCATION_PID_TYPE,
-                InternalLocation.pid_field,
+                "pid",
                 InternalLocation.create(obj)
             )
             recs.append(rec)
@@ -178,7 +178,7 @@ class KeywordGenerator(Generator):
         """Generate."""
         size = self.holder.keywords['total']
         objs = [{
-            Keyword.pid_field: str(pid),
+            "pid": str(pid),
             "name": lorem.sentence().split()[0],
             "provenance": lorem.sentence(),
         } for pid in range(1, size+1)]
@@ -191,7 +191,7 @@ class KeywordGenerator(Generator):
         for obj in self.holder.keywords['objs']:
             rec = self._persist(
                 KEYWORD_PID_TYPE,
-                Keyword.pid_field,
+                "pid",
                 Keyword.create(obj)
             )
             recs.append(rec)
@@ -209,12 +209,12 @@ class ItemGenerator(Generator):
     def generate(self):
         """Generate."""
         size = self.holder.items['total']
-        iloc_pids = self.holder.pids('internal_locations', InternalLocation.pid_field)
-        doc_pids = self.holder.pids('documents', Document.pid_field)
+        iloc_pids = self.holder.pids('internal_locations', "pid")
+        doc_pids = self.holder.pids('documents', "pid")
         objs = [{
-            Item.pid_field: str(pid),
-            Document.pid_field: random.choice(doc_pids),
-            InternalLocation.pid_field: random.choice(iloc_pids),
+            "pid": str(pid),
+            "document_pid": random.choice(doc_pids),
+            "internal_location_pid": random.choice(iloc_pids),
             "legacy_id": "{}".format(randint(100000, 999999)),
             "legacy_library_id": "{}".format(randint(5, 50)),
             "barcode": "{}".format(randint(10000000, 99999999)),
@@ -234,7 +234,7 @@ class ItemGenerator(Generator):
         for obj in self.holder.items['objs']:
             rec = self._persist(
                 ITEM_PID_TYPE,
-                Item.pid_field,
+                "pid",
                 Item.create(obj)
             )
             recs.append(rec)
@@ -248,11 +248,11 @@ class EItemGenerator(Generator):
     def generate(self):
         """Generate."""
         size = self.holder.eitems['total']
-        doc_pids = self.holder.pids('documents', Document.pid_field)
+        doc_pids = self.holder.pids('documents', "pid")
 
         objs = [{
-            EItem.pid_field: str(pid),
-            Document.pid_field: random.choice(doc_pids),
+            "pid": str(pid),
+            "document_pid": random.choice(doc_pids),
             "description": "{}".format(lorem.text()),
             "internal_notes": "{}".format(lorem.text()),
             "urls": ["https://home.cern/science/physics/dark-matter",
@@ -268,7 +268,7 @@ class EItemGenerator(Generator):
         for obj in self.holder.eitems['objs']:
             rec = self._persist(
                 EITEM_PID_TYPE,
-                EItem.pid_field,
+                "pid",
                 EItem.create(obj)
             )
             recs.append(rec)
@@ -285,10 +285,10 @@ class DocumentGenerator(Generator):
     def generate(self):
         """Generate."""
         size = self.holder.documents['total']
-        keyword_pids = self.holder.pids('keywords', Keyword.pid_field)
+        keyword_pids = self.holder.pids('keywords', "pid")
         series_objs = self.holder.series['objs']
-        serial_pids = [series[Series.pid_field] for series in series_objs if series['mode_of_issuance'] == 'SERIAL']
-        multipart_pids = [series[Series.pid_field] for series in series_objs if series['mode_of_issuance'] == 'MULTIPART_MONOGRAPH']
+        serial_pids = [series["pid"] for series in series_objs if series['mode_of_issuance'] == 'SERIAL']
+        multipart_pids = [series["pid"] for series in series_objs if series['mode_of_issuance'] == 'MULTIPART_MONOGRAPH']
 
         def random_series():
             data = []
@@ -307,7 +307,7 @@ class DocumentGenerator(Generator):
             return data
 
         objs = [{
-            Document.pid_field: str(pid),
+            "pid": str(pid),
             "title": "{}".format(lorem.sentence()),
             "authors": ["{}".format(lorem.sentence())],
             "abstracts": ["{}".format(lorem.text())],
@@ -335,7 +335,7 @@ class DocumentGenerator(Generator):
         for obj in self.holder.documents['objs']:
             rec = self._persist(
                 DOCUMENT_PID_TYPE,
-                Document.pid_field,
+                "pid",
                 Document.create(obj)
             )
             recs.append(rec)
@@ -358,7 +358,7 @@ class LoanGenerator(Generator):
     def _get_valid_status(self, item, items_on_loans):
         """Return valid loan status for the item to avoid inconsistencies."""
         # cannot have 2 loans in the same item
-        if item[Item.pid_field] in items_on_loans:
+        if item["pid"] in items_on_loans:
             status = self.LOAN_STATUSES[0]
         else:
             status = self.LOAN_STATUSES[randint(0, 3)]
@@ -367,11 +367,11 @@ class LoanGenerator(Generator):
     def generate(self):
         """Generate."""
         size = self.holder.loans['total']
-        loc_pid = self.holder.location[Location.pid_field]
+        loc_pid = self.holder.location["pid"]
         items = self.holder.items['objs']
         patrons_pids = self.holder.patrons_pids
         librarian_pid = self.holder.librarian_pid
-        doc_pids = self.holder.pids('documents', Document.pid_field)
+        doc_pids = self.holder.pids('documents', "pid")
 
         current_year = datetime.now().year
         items_on_loans = []
@@ -387,8 +387,8 @@ class LoanGenerator(Generator):
             end_date = transaction_date + timedelta(days=13)
 
             loan = {
-                Loan.pid_field: str(pid),
-                Document.pid_field: random.choice(doc_pids),
+                "pid": str(pid),
+                "document_pid": random.choice(doc_pids),
                 "extension_count": randint(0, 3),
                 "patron_pid": "{}".format(patron_id),
                 "pickup_location_pid": "{}".format(loc_pid),
@@ -402,10 +402,10 @@ class LoanGenerator(Generator):
             }
 
             if status == "PENDING":
-                loan[Item.pid_field] = ""
+                loan["item_pid"] = ""
             else:
-                loan[Item.pid_field] = "{}".format(item[Item.pid_field])
-                items_on_loans.append(item[Item.pid_field])
+                loan["item_pid"] = "{}".format(item["pid"])
+                items_on_loans.append(item["pid"])
 
             self.holder.loans['objs'].append(loan)
 
@@ -415,7 +415,7 @@ class LoanGenerator(Generator):
         for obj in self.holder.loans['objs']:
             rec = self._persist(
                 CIRCULATION_LOAN_PID_TYPE,
-                Loan.pid_field,
+                "pid",
                 Loan.create(obj)
             )
             recs.append(rec)
@@ -438,10 +438,10 @@ class SeriesGenerator(Generator):
     def generate(self):
         """Generate."""
         size = self.holder.series['total']
-        keyword_pids = self.holder.pids('keywords', Keyword.pid_field)
+        keyword_pids = self.holder.pids('keywords', "pid")
 
         objs = [{
-            Series.pid_field: str(pid),
+            "pid": str(pid),
             "mode_of_issuance": random.choice(self.MODE_OF_ISSUANCE),
             "issn": self.random_issn(),
             "title": {"title": "{}".format(lorem.sentence())},
@@ -459,7 +459,7 @@ class SeriesGenerator(Generator):
         for obj in self.holder.series['objs']:
             rec = self._persist(
                 SERIES_PID_TYPE,
-                Series.pid_field,
+                "pid",
                 Series.create(obj)
             )
             recs.append(rec)

@@ -16,7 +16,7 @@ describe('DocumentAccordion tests', () => {
       eitems: [
         {
           description: 'Non ipsum',
-          eitem_pid: '145',
+          pid: '145',
           open_access: true,
         },
       ],
@@ -26,7 +26,7 @@ describe('DocumentAccordion tests', () => {
     booklinks: [],
     chapters: [],
     circulation: {},
-    document_pid: '71',
+    pid: '71',
     document_types: ['BOOK'],
     files: [],
     keyword_pids: ['24'],
@@ -47,7 +47,7 @@ describe('DocumentAccordion tests', () => {
       .find('DocumentAccordion')
       .find('Accordion')
       .filterWhere(
-        element => element.prop('data-test') === documentMetadata.document_pid
+        element => element.prop('data-test') === documentMetadata.pid
       );
     expect(rows).toHaveLength(1);
   });

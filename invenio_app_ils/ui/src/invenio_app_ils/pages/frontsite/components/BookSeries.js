@@ -35,9 +35,9 @@ export class BookSeries extends Component {
             <List.Item
               as="a"
               key={`Key${index}`}
-              onClick={this.goToSeriesList(serie.series_pid)}
+              onClick={this.goToSeriesList(serie.pid)}
             >
-              {serie.title}
+              {serie.title.title}
             </List.Item>
           ))}
         </List>

@@ -25,13 +25,13 @@ const response = {
             barcode: '9865745223',
             document_pid: 1342,
             document: {
-              document_pid: 1342,
+              pid: 1342,
             },
             status: 'CAN_CIRCULATE',
             internal_location_pid: 1,
             internal_location: {
               name: 'A library',
-              internal_location_pid: 1,
+              pid: 1,
             },
           },
         },
@@ -43,13 +43,13 @@ const response = {
             barcode: '9865745224',
             document_pid: 1342,
             document: {
-              document_pid: 1342,
+              pid: 1342,
             },
             status: 'CAN_CIRCULATE',
             internal_location_pid: 1,
             internal_location: {
               name: 'A library',
-              internal_location_pid: 1,
+              pid: 1,
             },
           },
         },

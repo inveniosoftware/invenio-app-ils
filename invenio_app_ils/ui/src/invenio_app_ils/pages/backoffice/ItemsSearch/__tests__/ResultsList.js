@@ -16,17 +16,17 @@ describe('ItemsSearch ResultsList tests', () => {
       id: 987,
       created: toISO(stringDate),
       metadata: {
-        item_pid: 987,
+        pid: 987,
         barcode: '9865745223',
         document_pid: 1342,
         document: {
-          document_pid: 1342,
+          pid: 1342,
         },
         status: 'IN_BINDING',
         internal_location_pid: 1,
         internal_location: {
           name: 'A library',
-          internal_location_pid: 1,
+          pid: 1,
         },
       },
     },
@@ -53,7 +53,7 @@ describe('ItemsSearch ResultsList tests', () => {
     const resultRows = component
       .find('TableRow')
       .filterWhere(
-        element => element.prop('data-test') === firstResult.metadata.item_pid
+        element => element.prop('data-test') === firstResult.metadata.pid
       );
     expect(resultRows).toHaveLength(1);
 
@@ -61,8 +61,7 @@ describe('ItemsSearch ResultsList tests', () => {
       .find('TableCell')
       .filterWhere(
         element =>
-          element.prop('data-test') ===
-          'Status-' + firstResult.metadata.item_pid
+          element.prop('data-test') === 'Status-' + firstResult.metadata.pid
       );
     expect(mappedStatusElements).toHaveLength(1);
 
@@ -77,7 +76,7 @@ describe('ItemsSearch ResultsList tests', () => {
         viewDetailsClickHandler={mockedClickHandler}
       />
     );
-    const firstId = results[0].metadata.item_pid;
+    const firstId = results[0].metadata.pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)

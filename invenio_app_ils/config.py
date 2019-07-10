@@ -31,42 +31,6 @@ from .facets import keyed_range_filter
 from .jwt import ils_jwt_create_token
 from .records.resolver.loan import item_resolver
 
-from .indexer import (  # isort:skip
-    DocumentIndexer,
-    ItemIndexer,
-    EItemIndexer,
-    KeywordIndexer,
-    LoanIndexer,
-    LocationIndexer,
-    SeriesIndexer,
-)
-from .records.api import (  # isort:skip
-    Document,
-    Item,
-    EItem,
-    Keyword,
-    Location,
-    InternalLocation,
-    Series,
-)
-from .records.permissions import (  # isort:skip
-    record_create_permission_factory,
-    record_delete_permission_factory,
-    record_read_permission_factory,
-    record_update_permission_factory,
-)
-
-from .search.api import (  # isort:skip
-    DocumentSearch,
-    ItemSearch,
-    EItemSearch,
-    KeywordSearch,
-    LocationSearch,
-    InternalLocationSearch,
-    SeriesSearch,
-    PatronsSearch
-)
-
 from invenio_circulation.config import (  # isort:skip
     _LOANID_CONVERTER,
 )
@@ -90,7 +54,15 @@ from .circulation.utils import (  # isort:skip
     circulation_build_item_ref,
     circulation_can_be_requested,
 )
-
+from .indexer import (  # isort:skip
+    DocumentIndexer,
+    ItemIndexer,
+    EItemIndexer,
+    KeywordIndexer,
+    LoanIndexer,
+    LocationIndexer,
+    SeriesIndexer,
+)
 from .permissions import (  # isort:skip
     authenticated_user_permission,
     backoffice_permission,
@@ -122,6 +94,31 @@ from .pidstore.pids import (  # isort:skip
     PATRON_PID_FETCHER,
     PATRON_PID_MINTER,
     PATRON_PID_TYPE,
+)
+from .records.api import (  # isort:skip
+    Document,
+    Item,
+    EItem,
+    Keyword,
+    Location,
+    InternalLocation,
+    Series,
+)
+from .records.permissions import (  # isort:skip
+    record_create_permission_factory,
+    record_delete_permission_factory,
+    record_read_permission_factory,
+    record_update_permission_factory,
+)
+from .search.api import (  # isort:skip
+    DocumentSearch,
+    ItemSearch,
+    EItemSearch,
+    KeywordSearch,
+    LocationSearch,
+    InternalLocationSearch,
+    SeriesSearch,
+    PatronsSearch
 )
 
 
@@ -889,9 +886,6 @@ RECORDS_REST_FACETS = dict(
             moi=dict(
                 terms=dict(field="mode_of_issuance")
             ),
-            keywords=dict(
-                terms=dict(field="keywords.name", size=FACET_KEYWORD_LIMIT),
-            ),
             languages=dict(
                 terms=dict(field='languages')
             ),
@@ -937,7 +931,7 @@ RECORDS_EDITOR_UI_CONFIG = {
                 ],
                 "properties": {
                     "$schema": {"hidden": True},
-                    "item_pid": {"hidden": True},
+                    "pid": {"hidden": True},
                     "document": {"hidden": True},
                     "internal_location": {"hidden": True},
                     "circulation_status": {"hidden": True},
@@ -955,7 +949,7 @@ RECORDS_EDITOR_UI_CONFIG = {
                 "alwaysShow": ["title", "abstracts", "authors", "series_objs"],
                 "properties": {
                     "$schema": {"hidden": True},
-                    "document_pid": {"hidden": True},
+                    "pid": {"hidden": True},
                     "circulation": {"hidden": True},
                     "keywords": {"hidden": True},
                     "series": {"hidden": True},
@@ -979,7 +973,7 @@ RECORDS_EDITOR_UI_CONFIG = {
                 ],
                 "properties": {
                     "$schema": {"hidden": True},
-                    "location_pid": {"hidden": True}
+                    "pid": {"hidden": True}
                 },
             },
         },
@@ -1000,7 +994,7 @@ RECORDS_EDITOR_UI_CONFIG = {
                 ],
                 "properties": {
                     "$schema": {"hidden": True},
-                    "internal_location_pid": {"hidden": True},
+                    "pid": {"hidden": True},
                     "location": {"hidden": True},
                 },
             },
@@ -1021,7 +1015,7 @@ RECORDS_EDITOR_UI_CONFIG = {
                 ],
                 "properties": {
                     "$schema": {"hidden": True},
-                    "series_pid": {"hidden": True},
+                    "pid": {"hidden": True},
                     "keywords": {"hidden": True},
                 },
             },
@@ -1043,7 +1037,7 @@ RECORDS_EDITOR_UI_CONFIG = {
                 ],
                 "properties": {
                     "$schema": {"hidden": True},
-                    "eitem_pid": {"hidden": True},
+                    "pid": {"hidden": True},
                     "document": {"hidden": True},
                 },
             },
@@ -1062,7 +1056,7 @@ RECORDS_EDITOR_UI_CONFIG = {
                 ],
                 "properties": {
                     "$schema": {"hidden": True},
-                    "keyword_pid": {"hidden": True},
+                    "pid": {"hidden": True},
                 },
             },
         },

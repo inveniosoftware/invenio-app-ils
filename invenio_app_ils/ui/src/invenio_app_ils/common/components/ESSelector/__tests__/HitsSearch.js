@@ -57,11 +57,11 @@ describe('HitsSearch tests', () => {
           hits: [
             {
               id: 1,
-              keyword_pid: '1',
+              pid: '1',
               metadata: {
                 $schema:
                   'https://127.0.0.1:5000/schemas/keywords/keyword-v1.0.0.json',
-                keyword_pid: '1',
+                pid: '1',
                 name: 'Dolorem',
                 provenance: 'Quaerat',
               },

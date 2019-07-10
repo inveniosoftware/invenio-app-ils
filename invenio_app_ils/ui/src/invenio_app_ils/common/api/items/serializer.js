@@ -12,7 +12,7 @@ export function serializeResponse(hit) {
     }
     if (!isEmpty(hit.metadata)) {
       result['metadata'] = hit.metadata;
-      result['item_pid'] = hit.metadata.item_pid;
+      result['pid'] = hit.metadata.pid;
     }
   }
   return result;

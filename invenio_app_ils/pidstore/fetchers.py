@@ -9,9 +9,6 @@
 
 from invenio_pidstore.fetchers import FetchedPID
 
-from ..records.api import Document, EItem, InternalLocation, Item, Keyword, \
-    Location, Series
-
 from .pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
     ITEM_PID_TYPE,
@@ -29,7 +26,7 @@ def document_pid_fetcher(record_uuid, data):
     return FetchedPID(
         provider=None,
         pid_type=DOCUMENT_PID_TYPE,
-        pid_value=str(data[Document.pid_field])
+        pid_value=str(data["pid"])
     )
 
 
@@ -38,7 +35,7 @@ def item_pid_fetcher(record_uuid, data):
     return FetchedPID(
         provider=None,
         pid_type=ITEM_PID_TYPE,
-        pid_value=str(data[Item.pid_field])
+        pid_value=str(data["pid"])
     )
 
 
@@ -47,7 +44,7 @@ def eitem_pid_fetcher(record_uuid, data):
     return FetchedPID(
         provider=None,
         pid_type=EITEM_PID_TYPE,
-        pid_value=str(data[EItem.pid_field])
+        pid_value=str(data["pid"])
     )
 
 
@@ -56,7 +53,7 @@ def location_pid_fetcher(record_uuid, data):
     return FetchedPID(
         provider=None,
         pid_type=LOCATION_PID_TYPE,
-        pid_value=str(data[Location.pid_field])
+        pid_value=str(data["pid"])
     )
 
 
@@ -65,7 +62,7 @@ def internal_location_pid_fetcher(record_uuid, data):
     return FetchedPID(
         provider=None,
         pid_type=INTERNAL_LOCATION_PID_TYPE,
-        pid_value=str(data[InternalLocation.pid_field])
+        pid_value=str(data["pid"])
     )
 
 
@@ -74,7 +71,7 @@ def keyword_pid_fetcher(record_uuid, data):
     return FetchedPID(
         provider=None,
         pid_type=KEYWORD_PID_TYPE,
-        pid_value=str(data[Keyword.pid_field])
+        pid_value=str(data["pid"])
     )
 
 
@@ -83,7 +80,7 @@ def series_pid_fetcher(record_uuid, data):
     return FetchedPID(
         provider=None,
         pid_type=SERIES_PID_TYPE,
-        pid_value=str(data[Series.pid_field])
+        pid_value=str(data["pid"])
     )
 
 

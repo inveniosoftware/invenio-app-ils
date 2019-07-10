@@ -12,7 +12,7 @@ from __future__ import absolute_import, print_function
 from invenio_accounts.models import User
 from invenio_pidstore.errors import PersistentIdentifierError
 
-from .records.api import Document, Item, Location
+from .records.api import Document, Item
 from .search.api import ItemSearch
 
 
@@ -20,7 +20,7 @@ def get_item_pids_by_document_pid(document_pid):
     """Retrieve Items PIDs given a Document PID."""
     search = ItemSearch().search_by_document_pid(document_pid)
     for item in search.scan():
-        yield item["item_pid"]
+        yield item["pid"]
 
 
 def can_item_circulate(item_pid):
@@ -40,7 +40,7 @@ def get_location_pid_by_item_pid(item_pid):
     """Retrieve Location PID given an Item PID."""
     item_rec = Item.get_record_by_pid(item_pid)
     item = item_rec.replace_refs()
-    return item["internal_location"]["location"][Location.pid_field]
+    return item["internal_location"]["location"]["pid"]
 
 
 def item_exists(item_pid):

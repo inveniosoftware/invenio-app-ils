@@ -59,7 +59,7 @@ export default class LocationList extends Component {
   prepareData(data) {
     const rows = data.hits.map(row => {
       let serialized = formatter.location.toTable(row);
-      serialized['Actions'] = this.rowActions(row.location_pid);
+      serialized['Actions'] = this.rowActions(row.pid);
       return omit(serialized, ['Created', 'Updated', 'Link']);
     });
     rows.totalHits = data.total;

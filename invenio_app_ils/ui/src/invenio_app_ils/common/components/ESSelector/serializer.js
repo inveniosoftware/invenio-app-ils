@@ -1,3 +1,5 @@
+import { schemaToPidType } from '../../api/utils';
+
 const formatPid = pid => `PID: ${pid}`;
 
 export const serializeError = error => ({
@@ -9,71 +11,71 @@ export const serializeError = error => ({
 });
 
 export const serializeDocument = metadata => ({
-  id: metadata.document_pid,
-  key: metadata.document_pid,
+  id: metadata.pid,
+  key: metadata.pid,
   title: metadata.title,
   description: metadata.authors
     ? `Authors: ${metadata.authors.join(', ')}`
     : 'Document',
-  extra: formatPid(metadata.document_pid),
+  extra: formatPid(metadata.pid),
   metadata: metadata,
 });
 
 export const serializeEItem = metadata => ({
-  id: metadata.eitem_pid,
-  key: metadata.eitem_pid,
-  title: metadata.document.title,
+  id: metadata.pid,
+  key: metadata.pid,
+  title: metadata.document.title.title,
   description: `Open access: ${metadata.open_access ? 'Yes' : 'No'}`,
-  extra: formatPid(metadata.eitem_pid),
+  extra: formatPid(metadata.pid),
   metadata: metadata,
 });
 
 export const serializeInternalLocation = metadata => ({
-  id: metadata.internal_location_pid,
-  key: metadata.internal_location_pid,
+  id: metadata.pid,
+  key: metadata.pid,
   title: metadata.name,
   description: metadata.location ? `Location: ${metadata.location.name}` : null,
-  extra: formatPid(metadata.internal_location_pid),
+  extra: formatPid(metadata.pid),
   metadata: metadata,
 });
 
 export const serializeItem = metadata => ({
-  id: metadata.item_pid,
-  key: metadata.item_pid,
+  id: metadata.pid,
+  key: metadata.pid,
   title: metadata.medium,
   description: metadata.shelf ? `Shelf: ${metadata.shelf}` : null,
-  extra: formatPid(metadata.item_pid),
+  extra: formatPid(metadata.pid),
   metadata: metadata,
 });
 
 export const serializeKeyword = metadata => ({
-  id: metadata.keyword_pid,
-  key: metadata.keyword_pid,
+  id: metadata.pid,
+  key: metadata.pid,
   title: metadata.name,
   description: metadata.provenance
     ? `Provenance: ${metadata.provenance}`
     : null,
-  extra: formatPid(metadata.keyword_pid),
+  extra: formatPid(metadata.pid),
   metadata: metadata,
 });
 
 export const serializeLoan = metadata => ({
-  id: metadata.loan_pid,
-  key: metadata.loan_pid,
+  id: metadata.pid,
+  key: metadata.pid,
   title: metadata.state,
   description: metadata.document_pid
     ? `Document PID: ${metadata.document_pid}`
     : null,
-  extra: formatPid(metadata.loan_pid),
+  extra: formatPid(metadata.pid),
   metadata: metadata,
 });
 
 export const serializeLocation = metadata => ({
-  id: metadata.location_pid,
-  key: metadata.location_pid,
+  id: metadata.pid,
+  key: metadata.pid,
   title: metadata.name,
   description: metadata.address ? `Address: ${metadata.address}` : null,
-  extra: formatPid(metadata.location_pid),
+  extra: formatPid(metadata.pid),
   metadata: metadata,
 });
 
@@ -87,55 +89,42 @@ export const serializePatron = metadata => ({
 });
 
 export const serializeSeries = metadata => ({
-  id: metadata.series_pid,
-  key: metadata.series_pid,
-  title: metadata.title,
+  id: metadata.pid,
+  key: metadata.pid,
+  title: metadata.title.title,
   description: metadata.mode_of_issuance
     ? `Mode of Issuance: ${metadata.mode_of_issuance}`
     : null,
-  extra: `ID: ${metadata.series_pid}`,
+  extra: `ID: ${metadata.pid}`,
   metadata: metadata,
 });
 
 export const serializeHit = hit => {
   const { metadata } = hit;
-  const schema = metadata['$schema'];
+  const pidType = schemaToPidType(metadata['$schema']);
 
-  const hasSchema = text => schema.includes(text);
-
-  let result = {};
-  if (schema) {
-    if (hasSchema('/schemas/loans/loan-v1')) {
-      result = serializeLoan(metadata);
-    } else if (hasSchema('/schemas/items/item-v1')) {
-      result = serializeItem(metadata);
-    } else if (hasSchema('/schemas/documents/document-v1')) {
-      result = serializeDocument(metadata);
-    } else if (hasSchema('/schemas/eitems/eitem-v1')) {
-      result = serializeEItem(metadata);
-    } else if (hasSchema('/schemas/internal_locations/internal_location-v1')) {
-      result = serializeInternalLocation(metadata);
-    } else if (hasSchema('/schemas/locations/location-v1')) {
-      result = serializeLocation(metadata);
-    } else if (hasSchema('/schemas/keywords/keyword-v1')) {
-      result = serializeKeyword(metadata);
-    } else if (hasSchema('/schemas/series/series-v1')) {
-      result = serializeSeries(metadata);
-    } else {
-      console.warn('failed to serialize hit: unknown schema ', schema);
-    }
-  } else {
-    // TODO: add a "fake" schema to patrons so we can check the type more easily
-    if (metadata.email) {
-      result = serializePatron(metadata);
-    } else {
-      console.warn('failed to serialize hit:', hit);
-    }
+  switch (pidType) {
+    case 'docid':
+      return serializeDocument(metadata);
+    case 'eitmid':
+      return serializeEItem(metadata);
+    case 'ilocid':
+      return serializeInternalLocation(metadata);
+    case 'keyid':
+      return serializeKeyword(metadata);
+    case 'loanid':
+      return serializeLoan(metadata);
+    case 'locid':
+      return serializeLocation(metadata);
+    case 'pitmid':
+      return serializeItem(metadata);
+    case 'patid':
+      return serializePatron(metadata);
+    case 'serid':
+      return serializeSeries(metadata);
+    default:
+      console.warn('failed to serialize hit: unknown pidType ', pidType);
   }
-
-  return {
-    ...result,
-  };
 };
 
 export const serializeAccessList = email => ({

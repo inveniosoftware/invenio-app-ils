@@ -38,7 +38,7 @@ export default class DocumentMetadata extends Component {
   constructor(props) {
     super(props);
     this.deleteDocument = props.deleteDocument;
-    this.documentPid = this.props.documentDetails.metadata.document_pid;
+    this.documentPid = this.props.documentDetails.metadata.pid;
   }
 
   getReadAccessList = document => {
@@ -48,7 +48,7 @@ export default class DocumentMetadata extends Component {
   };
 
   updateKeywords = results => {
-    const keywordPids = results.map(result => result.metadata.keyword_pid);
+    const keywordPids = results.map(result => result.metadata.pid);
     this.props.updateDocument(this.documentPid, '/keyword_pids', keywordPids);
   };
 
@@ -62,7 +62,7 @@ export default class DocumentMetadata extends Component {
     return (
       <List horizontal>
         {keywords.map(keyword => (
-          <List.Item key={keyword.keyword_pid}>
+          <List.Item key={keyword.pid}>
             <Link
               to={BackOfficeRoutes.documentsListWithQuery(
                 documentApi
@@ -93,10 +93,10 @@ export default class DocumentMetadata extends Component {
     const bulleted = series.length > 1;
     return (
       <List bulleted={bulleted}>
-        {series.map(({ series_pid, title, volume }) => (
-          <List.Item key={series_pid}>
-            <Link to={BackOfficeRoutes.seriesDetailsFor(series_pid)}>
-              {truncate(title, { length: 40 })}
+        {series.map(({ pid, title, volume }) => (
+          <List.Item key={pid}>
+            <Link to={BackOfficeRoutes.seriesDetailsFor(pid)}>
+              {truncate(title.title, { length: 40 })}
             </Link>
             &nbsp;(vol. {volume || '?'})
           </List.Item>
@@ -146,20 +146,18 @@ export default class DocumentMetadata extends Component {
       <Grid.Row>
         <Grid.Column width={13} verticalAlign={'middle'}>
           <Header as="h1">
-            Document #{document.document_pid} - {document.metadata.title}
+            Document #{document.pid} - {document.metadata.title}
           </Header>
         </Grid.Column>
         <Grid.Column width={3} textAlign={'right'}>
           <EditButton
-            clickHandler={() =>
-              openRecordEditor(documentApi.url, document.document_pid)
-            }
+            clickHandler={() => openRecordEditor(documentApi.url, document.pid)}
           />
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Document
-            record with ID ${document.document_pid}?`}
-            refProps={this.createRefProps(document.document_pid)}
-            onDelete={() => this.deleteDocument(document.document_pid)}
+            record with ID ${document.pid}?`}
+            refProps={this.createRefProps(document.pid)}
+            onDelete={() => this.deleteDocument(document.pid)}
           />
         </Grid.Column>
       </Grid.Row>
@@ -270,7 +268,7 @@ export default class DocumentMetadata extends Component {
           <ESSelectorModal
             trigger={this.requestLoanButton}
             query={patronApi.list}
-            title={`Request a loan for document ${document.document_pid}`}
+            title={`Request a loan for document ${document.pid}`}
             content={
               'Search for the patron to whom the loan should be assigned'
             }

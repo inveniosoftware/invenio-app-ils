@@ -21,14 +21,14 @@ export default class MostLoanedBooks extends Component {
   prepareData(data) {
     return data.hits.slice(0, this.maxItemsToDisplay).map(document => {
       return {
-        pid: document.metadata.document_pid,
+        pid: document.metadata.pid,
         title: document.metadata.title,
         authors: truncate(document.metadata.authors.join('\n')),
         imageSize: 'small',
         imageCover: 'https://assets.thalia.media/img/46276899-00-00.jpg',
         eitems: document.metadata._computed.eitems,
         onClick: goToHandler(
-          FrontSiteRoutes.documentDetailsFor(document.metadata.document_pid)
+          FrontSiteRoutes.documentDetailsFor(document.metadata.pid)
         ),
       };
     });

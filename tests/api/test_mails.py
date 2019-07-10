@@ -60,7 +60,7 @@ def test_email_on_loan_checkout(app, users, testdata, loan_params, mocker):
     app.config.update(CELERY_TASK_ALWAYS_EAGER=True)
 
     loan_data = testdata["loans"][1]
-    loan = Loan.get_record_by_pid(loan_data["loan_pid"])
+    loan = Loan.get_record_by_pid(loan_data["pid"])
     with app.extensions["mail"].record_messages() as outbox:
         admin = users["admin"]
         login_user(admin)

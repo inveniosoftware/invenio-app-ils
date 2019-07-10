@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Series",
   "type": "object",
-  "required": ["$schema", "series_pid"],
+  "required": ["$schema", "pid"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -235,6 +235,10 @@
       "type": "array",
       "description": ""
     },
+    "pid": {
+      "title": "Series PID",
+      "type": "string"
+    },
     "publishers": {
       "items": {
         "type": "string"
@@ -258,10 +262,6 @@
           }
         }
       }
-    },
-    "series_pid": {
-      "title": "Series PID",
-      "type": "string"
     },
     "title": {
       "type": "object",

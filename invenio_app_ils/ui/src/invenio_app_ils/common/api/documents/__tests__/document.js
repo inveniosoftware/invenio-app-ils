@@ -76,7 +76,7 @@ describe('Document query builder tests', () => {
       .query()
       .withSeriesPid('123')
       .qs();
-    expect(query).toEqual('series.series_pid:123');
+    expect(query).toEqual('series.pid:123');
   });
 
   it('should build the query string for documents that belong to multiple series', () => {
@@ -84,6 +84,6 @@ describe('Document query builder tests', () => {
       .query()
       .withSeriesPid(['123', '567'])
       .qs();
-    expect(query).toEqual('series.series_pid:(123 OR 567)');
+    expect(query).toEqual('series.pid:(123 OR 567)');
   });
 });

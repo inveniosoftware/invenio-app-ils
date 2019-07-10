@@ -38,7 +38,7 @@ export default class DocumentMetadata extends Component {
     );
 
   requestLoan = () => {
-    const documentPid = this.document.document_pid;
+    const documentPid = this.document.pid;
     this.props.requestLoanForDocument(documentPid);
   };
 
@@ -86,7 +86,7 @@ export default class DocumentMetadata extends Component {
     return (
       <Segment
         className="document-metadata"
-        data-test={this.document.metadata.document_pid}
+        data-test={this.document.metadata.pid}
       >
         <Grid>
           <Grid.Row>

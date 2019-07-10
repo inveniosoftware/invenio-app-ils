@@ -27,7 +27,7 @@ def jsonresolver_loader(url_map):
         for hit in EItemSearch().search_by_document_pid(document_pid).scan():
             eitem = hit.to_dict()
             eitems.append({
-                "eitem_pid": eitem.get("eitem_pid"),
+                "pid": eitem.get("pid"),
                 "description": eitem.get("description"),
                 "internal_notes": eitem.get("internal_notes"),
                 "open_access": eitem.get("open_access"),

@@ -1,6 +1,6 @@
 [
   {
-    "item_pid": "itemid-1",
+    "pid": "itemid-1",
     "barcode": "123456789-1",
     "title": "The Gulf: The Making of An American Sea - Item 1",
     "document_pid": "docid-1",
@@ -10,7 +10,7 @@
     "status": "MISSING"
   },
   {
-    "item_pid": "itemid-2",
+    "pid": "itemid-2",
     "barcode": "123456789-2",
     "title": "The Gulf: The Making of An American Sea - Item 2",
     "document_pid": "docid-1",
@@ -20,7 +20,7 @@
     "status": "CAN_CIRCULATE"
   },
   {
-    "item_pid": "itemid-3",
+    "pid": "itemid-3",
     "barcode": "123456789-3",
     "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
     "document_pid": "docid-2",
@@ -30,7 +30,7 @@
     "status": "CAN_CIRCULATE"
   },
   {
-    "item_pid": "itemid-4",
+    "pid": "itemid-4",
     "barcode": "123456789-4",
     "title": "Half-light: Collected Poems 1965-2016",
     "document_pid": "docid-3",
@@ -40,7 +40,7 @@
     "status": "CAN_CIRCULATE"
   },
   {
-    "item_pid": "itemid-5",
+    "pid": "itemid-5",
     "barcode": "123456789-5",
     "title": "Half-light: Collected Poems 1965-2016",
     "document_pid": "docid-3",
@@ -50,7 +50,7 @@
     "status": "CAN_CIRCULATE"
   },
   {
-    "item_pid": "itemid-6",
+    "pid": "itemid-6",
     "barcode": "123456789-6",
     "title": "Half-light: Collected Poems 1965-2016",
     "document_pid": "docid-3",
@@ -60,7 +60,7 @@
     "status": "CAN_CIRCULATE"
   },
   {
-    "item_pid": "itemid-7",
+    "pid": "itemid-7",
     "barcode": "123456789-7",
     "title": "Less: A Novel",
     "document_pid": "docid-5",
@@ -70,7 +70,7 @@
     "status": "IN_BINDING"
   },
   {
-    "item_pid": "itemid-8",
+    "pid": "itemid-8",
     "barcode": "123456789-8",
     "title": "Less: A Novel",
     "document_pid": "docid-5",
@@ -80,7 +80,7 @@
     "status": "MISSING"
   },
   {
-    "item_pid": "itemid-9",
+    "pid": "itemid-9",
     "barcode": "123456789-9",
     "title": "Less: A Novel",
     "document_pid": "docid-5",
@@ -90,7 +90,7 @@
     "status": "CAN_CIRCULATE"
   },
   {
-    "item_pid": "itemid-10",
+    "pid": "itemid-10",
     "barcode": "123456789-10",
     "title": "Less: A Novel",
     "document_pid": "docid-5",
@@ -100,7 +100,7 @@
     "status": "CAN_CIRCULATE"
   },
   {
-    "item_pid": "itemid-50",
+    "pid": "itemid-50",
     "barcode": "123456789-50",
     "title": "Less: A Novel",
     "document_pid": "docid-5",
@@ -111,7 +111,7 @@
     "_access": { "update": [1] }
   },
   {
-    "item_pid": "itemid-51",
+    "pid": "itemid-51",
     "barcode": "123456789-51",
     "title": "Less: A Novel",
     "document_pid": "docid-5",
@@ -122,7 +122,7 @@
     "_access": { "delete": ["librarian"] }
   },
   {
-    "item_pid": "itemid-52",
+    "pid": "itemid-52",
     "barcode": "123456789-52",
     "title": "Less: A Novel",
     "document_pid": "docid-5",
@@ -133,7 +133,7 @@
     "_access": { "delete": ["1"] }
   },
   {
-    "item_pid": "itemid-53",
+    "pid": "itemid-53",
     "barcode": "123456789-53",
     "title": "Less: A Novel",
     "document_pid": "docid-5",
@@ -144,7 +144,7 @@
     "_access": { "update": ["1"] }
   },
   {
-    "item_pid": "itemid-54",
+    "pid": "itemid-54",
     "barcode": "123456789-54",
     "title": "Less: A Novel",
     "document_pid": "docid-5",
@@ -155,7 +155,7 @@
     "_access": { "read": ["1"] }
   },
   {
-    "item_pid": "itemid-55",
+    "pid": "itemid-55",
     "barcode": "123456789-55",
     "title": "The Gulf: The Making of An American Sea - Item 1",
     "document_pid": "docid-1",
@@ -165,7 +165,7 @@
     "status": "MISSING"
   },
   {
-    "item_pid": "itemid-56",
+    "pid": "itemid-56",
     "barcode": "123456789-54",
     "title": "Less: A Novel",
     "document_pid": "docid-5",
@@ -175,7 +175,7 @@
     "status": "CAN_CIRCULATE"
   },
   {
-    "item_pid": "itemid-57",
+    "pid": "itemid-57",
     "barcode": "123456789-55",
     "title": "The Gulf: The Making of An American Sea - Item 1",
     "document_pid": "docid-1",
