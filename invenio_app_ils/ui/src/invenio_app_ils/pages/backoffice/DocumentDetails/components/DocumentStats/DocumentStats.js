@@ -23,7 +23,7 @@ export default class DocumentStats extends Component {
   componentDidMount() {
     const { document } = this.props;
     this.fetchDocumentStats({
-      documentPid: document.document_pid,
+      documentPid: document.pid,
     });
   }
 
@@ -82,7 +82,7 @@ export default class DocumentStats extends Component {
     const { document } = this.props;
     this.buildTitle();
     this.fetchDocumentStats({
-      documentPid: document.document_pid,
+      documentPid: document.pid,
       fromDate: this.state.fromDate,
       toDate: this.state.toDate,
     });

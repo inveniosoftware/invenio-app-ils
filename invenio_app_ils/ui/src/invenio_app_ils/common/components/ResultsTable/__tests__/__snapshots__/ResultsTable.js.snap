@@ -493,16 +493,16 @@ exports[`ResultsTable tests should render the see all button when showing only a
       Object {
         "ID": "1",
         "end_date": "2018-01-01",
-        "loan_pid": "loan1",
         "patron_pid": "patron_1",
+        "pid": "loan1",
         "start_date": "2018-01-01",
         "updated": "2018-01-01",
       },
       Object {
         "ID": "2",
         "end_date": "2018-01-01",
-        "loan_pid": "loan2",
         "patron_pid": "patron_2",
+        "pid": "loan2",
         "start_date": "2018-01-01",
         "updated": "2018-01-01",
       },
@@ -565,7 +565,7 @@ exports[`ResultsTable tests should render the see all button when showing only a
           <ResultsTableHeader
             columns={
               Array [
-                "loan_pid",
+                "pid",
                 "ID",
                 "patron_pid",
                 "updated",
@@ -608,7 +608,7 @@ exports[`ResultsTable tests should render the see all button when showing only a
                     </TableHeaderCell>
                     <TableHeaderCell
                       as="th"
-                      key="loan_pid"
+                      key="pid"
                     >
                       <TableCell
                         as="th"
@@ -617,7 +617,7 @@ exports[`ResultsTable tests should render the see all button when showing only a
                         <th
                           className=""
                         >
-                          loan_pid
+                          pid
                         </th>
                       </TableCell>
                     </TableHeaderCell>
@@ -706,7 +706,7 @@ exports[`ResultsTable tests should render the see all button when showing only a
           <ResultsTableBody
             columns={
               Array [
-                "loan_pid",
+                "pid",
                 "ID",
                 "patron_pid",
                 "updated",
@@ -720,8 +720,8 @@ exports[`ResultsTable tests should render the see all button when showing only a
                 Object {
                   "ID": "1",
                   "end_date": "2018-01-01",
-                  "loan_pid": "loan1",
                   "patron_pid": "patron_1",
+                  "pid": "loan1",
                   "start_date": "2018-01-01",
                   "updated": "2018-01-01",
                 },
@@ -779,12 +779,12 @@ exports[`ResultsTable tests should render the see all button when showing only a
                     </TableCell>
                     <TableCell
                       as="td"
-                      data-test="loan_pid-1"
+                      data-test="pid-1"
                       key="0-1"
                     >
                       <td
                         className=""
-                        data-test="loan_pid-1"
+                        data-test="pid-1"
                       >
                         loan1
                       </td>

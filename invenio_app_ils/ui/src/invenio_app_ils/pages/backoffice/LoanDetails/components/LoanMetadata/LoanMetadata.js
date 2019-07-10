@@ -116,7 +116,7 @@ export default class LoanMetadata extends Component {
     return (
       <Grid padded columns={2}>
         <Grid.Column width={16}>
-          <Header as="h1">Loan - {data.loan_pid}</Header>
+          <Header as="h1">Loan - {data.pid}</Header>
         </Grid.Column>
         <Grid.Column>
           <MetadataTable rows={leftRows} />

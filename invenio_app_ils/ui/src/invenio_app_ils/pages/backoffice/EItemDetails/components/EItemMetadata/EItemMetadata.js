@@ -20,18 +20,18 @@ export default class EItemMetadata extends Component {
   renderHeader = () => (
     <Grid.Row>
       <Grid.Column width={10} verticalAlign={'middle'}>
-        <Header as="h1">EItem - {this.props.eitem.metadata.eitem_pid}</Header>
+        <Header as="h1">EItem - {this.props.eitem.metadata.pid}</Header>
       </Grid.Column>
       <Grid.Column width={6} textAlign={'right'}>
         <EditButton
           clickHandler={() =>
-            openRecordEditor(eitemApi.url, this.props.eitem.eitem_pid)
+            openRecordEditor(eitemApi.url, this.props.eitem.pid)
           }
         />
         <DeleteRecordModal
           deleteHeader={`Are you sure you want to delete the EItem record
-            with ID ${this.props.eitem.eitem_pid}?`}
-          onDelete={() => this.props.deleteEItem(this.props.eitem.eitem_pid)}
+            with ID ${this.props.eitem.pid}?`}
+          onDelete={() => this.props.deleteEItem(this.props.eitem.pid)}
         />
       </Grid.Column>
     </Grid.Row>

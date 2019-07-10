@@ -18,10 +18,10 @@ describe('ItemPastLoans tests', () => {
   });
 
   const item = {
-    item_pid: 222,
+    pid: 222,
     metadata: {
       document_pid: 111,
-      item_pid: 222,
+      pid: 222,
     },
   };
 
@@ -45,7 +45,7 @@ describe('ItemPastLoans tests', () => {
         fetchPastLoans={mockedFetchPastLoans}
       />
     );
-    expect(mockedFetchPastLoans).toHaveBeenCalledWith(item.item_pid);
+    expect(mockedFetchPastLoans).toHaveBeenCalledWith(item.pid);
   });
 
   it('should render show a message with no past loans', () => {
@@ -71,9 +71,9 @@ describe('ItemPastLoans tests', () => {
           id: 1,
           updated: stringDate,
           created: stringDate,
-          loan_pid: 'loan1',
+          pid: 'loan1',
           metadata: {
-            loan_pid: 'loan1',
+            pid: 'loan1',
             patron_pid: 'patron_1',
             start_date: stringDate,
             end_date: stringDate,
@@ -83,9 +83,9 @@ describe('ItemPastLoans tests', () => {
           id: 2,
           updated: stringDate,
           created: stringDate,
-          loan_pid: 'loan2',
+          pid: 'loan2',
           metadata: {
-            loan_pid: 'loan2',
+            pid: 'loan2',
             patron_pid: 'patron_2',
             start_date: stringDate,
             end_date: stringDate,

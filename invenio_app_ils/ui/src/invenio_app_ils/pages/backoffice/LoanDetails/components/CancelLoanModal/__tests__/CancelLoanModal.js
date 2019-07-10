@@ -7,7 +7,7 @@ import { doesNotReject } from 'assert';
 jest.mock('../../../../../../common/config');
 
 const loan = {
-  loan_pid: '1',
+  pid: '1',
 };
 
 describe('CancelLoanModal tests', () => {

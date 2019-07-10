@@ -31,7 +31,7 @@ def jsonresolver_loader(url_map):
             series = []
             for obj in series_objs:
                 record = Series.get_record_by_pid(obj["pid"])
-                keep_keys = ("series_pid", "mode_of_issuance", "issn", "title")
+                keep_keys = ("pid", "mode_of_issuance", "issn", "title")
                 for key in list(record):
                     if key not in keep_keys:
                         del record[key]

@@ -13,16 +13,16 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
     Array [
       Object {
         "created": "2018-01-01T10:05:00.000Z",
-        "document_pid": "3",
         "id": 3,
         "metadata": Object {
           "abstracts": "This is an abstract",
           "authors": Array [
             "Author1",
           ],
-          "document_pid": "3",
+          "pid": "3",
           "title": "This is a title",
         },
+        "pid": "3",
         "updated": "2018-01-01T10:05:00.000Z",
       },
     ]

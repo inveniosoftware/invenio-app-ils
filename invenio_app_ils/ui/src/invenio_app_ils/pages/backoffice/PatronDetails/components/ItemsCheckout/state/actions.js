@@ -15,7 +15,7 @@ export const checkoutItem = (item, patronPid, shouldForceCheckout = false) => {
     const currentUser = sessionManager.user;
     const loan = {
       metadata: {
-        item_pid: item.item_pid,
+        item_pid: item.pid,
         patron_pid: patronPid,
         document_pid: item.metadata.document_pid,
       },
@@ -23,7 +23,7 @@ export const checkoutItem = (item, patronPid, shouldForceCheckout = false) => {
     await loanApi
       .postAction(
         ApiURLS.loans.create,
-        item.item_pid,
+        item.pid,
         loan,
         currentUser.id,
         currentUser.locationPid,

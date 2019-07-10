@@ -1,13 +1,13 @@
 [
   {
-    "eitem_pid": "eitemid-1",
+    "pid": "eitemid-1",
     "document_pid": "docid-1",
     "_internal_notes": "An internal note",
     "description": "Description of the electronic item",
     "open_access": true
   },
   {
-    "eitem_pid": "eitemid-2",
+    "pid": "eitemid-2",
     "document_pid": "docid-2",
     "_internal_notes": "An internal note",
     "description": "Description of the electronic item",

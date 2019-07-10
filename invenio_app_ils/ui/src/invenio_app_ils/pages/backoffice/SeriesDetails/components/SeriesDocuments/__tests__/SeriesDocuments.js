@@ -20,9 +20,9 @@ describe('SeriesDocuments tests', () => {
   });
 
   const series = {
-    series_pid: 111,
+    pid: 111,
     metadata: {
-      series_pid: 111,
+      pid: 111,
     },
   };
 
@@ -46,7 +46,7 @@ describe('SeriesDocuments tests', () => {
         fetchSeriesDocuments={mockedFetchSeriesDocuments}
       />
     );
-    expect(mockedFetchSeriesDocuments).toHaveBeenCalledWith(series.series_pid);
+    expect(mockedFetchSeriesDocuments).toHaveBeenCalledWith(series.pid);
   });
 
   it('should render show a message with no documents', () => {
@@ -72,10 +72,9 @@ describe('SeriesDocuments tests', () => {
           ID: '1',
           updated: stringDate,
           created: stringDate,
-          document_pid: 'document1',
+          pid: 'document1',
           metadata: {
-            series_pid: 'doc1',
-            document_pid: 'document1',
+            pid: 'document1',
             internal_location: { location: { name: 'Somewhere' } },
             barcode: '44444',
             shelf: 'P',
@@ -86,10 +85,9 @@ describe('SeriesDocuments tests', () => {
           id: '2',
           updated: stringDate,
           created: stringDate,
-          document_pid: 'document2',
+          pid: 'document2',
           metadata: {
-            series_pid: 'doc2',
-            document_pid: 'document2',
+            pid: 'document2',
             internal_location: { location: { name: 'Somewhere' } },
             barcode: '44444',
             shelf: 'P',
@@ -132,7 +130,7 @@ describe('SeriesDocuments tests', () => {
           updated: stringDate,
           created: stringDate,
           metadata: {
-            document_pid: '1',
+            pid: '1',
             title: 'Test',
             series_objs: [],
           },
@@ -142,7 +140,7 @@ describe('SeriesDocuments tests', () => {
           updated: stringDate,
           created: stringDate,
           metadata: {
-            document_pid: '2',
+            pid: '2',
             title: 'Test 2',
             series_objs: [],
           },
@@ -176,9 +174,9 @@ describe('SeriesDocuments tests', () => {
           ID: '1',
           updated: stringDate,
           created: stringDate,
-          document_pid: 'document1',
+          pid: 'document1',
           metadata: {
-            document_pid: 'document1',
+            pid: 'document1',
             title: 'Title',
             series_objs: [],
           },
@@ -196,7 +194,7 @@ describe('SeriesDocuments tests', () => {
       />
     );
 
-    const firstId = data.hits[0].document_pid;
+    const firstId = data.hits[0].pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)

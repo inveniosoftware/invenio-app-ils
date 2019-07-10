@@ -61,9 +61,9 @@ describe('IdleLoansList tests', () => {
           id: 1,
           updated: stringDate,
           created: stringDate,
-          loan_pid: 'loan1',
+          pid: 'loan1',
           metadata: {
-            loan_pid: 'loan1',
+            pid: 'loan1',
             patron_pid: 'patron_1',
             start_date: stringDate,
             end_date: stringDate,
@@ -74,9 +74,9 @@ describe('IdleLoansList tests', () => {
           id: 2,
           updated: stringDate,
           created: stringDate,
-          loan_pid: 'loan2',
+          pid: 'loan2',
           metadata: {
-            loan_pid: 'loan2',
+            pid: 'loan2',
             patron_pid: 'patron_2',
             start_date: stringDate,
             end_date: stringDate,
@@ -116,9 +116,9 @@ describe('IdleLoansList tests', () => {
           id: 1,
           updated: stringDate,
           created: stringDate,
-          loan_pid: 'loan1',
+          pid: 'loan1',
           metadata: {
-            loan_pid: 'loan1',
+            pid: 'loan1',
             document_pid: 'doc1',
             patron_pid: 'patron_1',
             start_date: stringDate,
@@ -137,7 +137,7 @@ describe('IdleLoansList tests', () => {
       />
     );
 
-    const firstId = data.hits[0].loan_pid;
+    const firstId = data.hits[0].pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)

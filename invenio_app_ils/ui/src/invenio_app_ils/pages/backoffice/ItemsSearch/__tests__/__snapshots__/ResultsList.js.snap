@@ -17,15 +17,15 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
         "metadata": Object {
           "barcode": "9865745223",
           "document": Object {
-            "document_pid": 1342,
+            "pid": 1342,
           },
           "document_pid": 1342,
           "internal_location": Object {
-            "internal_location_pid": 1,
             "name": "A library",
+            "pid": 1,
           },
           "internal_location_pid": 1,
-          "item_pid": 987,
+          "pid": 987,
           "status": "IN_BINDING",
         },
       },

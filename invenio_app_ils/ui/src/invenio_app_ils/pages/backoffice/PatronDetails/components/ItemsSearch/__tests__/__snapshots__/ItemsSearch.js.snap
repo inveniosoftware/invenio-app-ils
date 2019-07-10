@@ -91,7 +91,6 @@ exports[`PatronLoans tests should render items in search 1`] = `
         Object {
           "created": "2018-01-01T10:05:00.000Z",
           "id": "1",
-          "item_pid": "item1",
           "metadata": Object {
             "barcode": "44444",
             "circulation_status": Object {},
@@ -101,11 +100,12 @@ exports[`PatronLoans tests should render items in search 1`] = `
                 "name": "Somewhere",
               },
             },
-            "item_pid": "item1",
             "medium": "book",
+            "pid": "item1",
             "shelf": "P",
             "status": "CAN_CIRCULATE",
           },
+          "pid": "item1",
           "updated": "2018-01-01T10:05:00.000Z",
         },
       ],
@@ -223,7 +223,6 @@ exports[`PatronLoans tests should render items in search 1`] = `
                             Object {
                               "created": "2018-01-01T10:05:00.000Z",
                               "id": "1",
-                              "item_pid": "item1",
                               "metadata": Object {
                                 "barcode": "44444",
                                 "circulation_status": Object {},
@@ -233,11 +232,12 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                     "name": "Somewhere",
                                   },
                                 },
-                                "item_pid": "item1",
                                 "medium": "book",
+                                "pid": "item1",
                                 "shelf": "P",
                                 "status": "CAN_CIRCULATE",
                               },
+                              "pid": "item1",
                               "updated": "2018-01-01T10:05:00.000Z",
                             },
                           ],

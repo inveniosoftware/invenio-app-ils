@@ -20,7 +20,7 @@ describe('RelatedRecords tests', () => {
   });
 
   const doc = {
-    document_pid: '111',
+    pid: '111',
     metadata: {
       pid: '111',
       $schema: 'https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json',

@@ -11,7 +11,7 @@ describe('EbookCard tests', () => {
   });
 
   const ebookData = {
-    eitem_pid: '123',
+    pid: '123',
     title: 'Lorem',
     authors: 'Author1, Author2',
     imageSize: 'small',
@@ -27,9 +27,7 @@ describe('EbookCard tests', () => {
     const rows = component
       .find('EbookCard')
       .find('Card')
-      .filterWhere(
-        element => element.prop('data-test') === ebookData.eitem_pid
-      );
+      .filterWhere(element => element.prop('data-test') === ebookData.pid);
     expect(rows).toHaveLength(1);
   });
 });

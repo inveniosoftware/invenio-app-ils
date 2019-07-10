@@ -9,16 +9,14 @@
 
 from marshmallow import Schema, fields
 
-from invenio_app_ils.records.api import Keyword
-
 
 class KeywordSchemaV1(Schema):
     """Keyword schema."""
 
     def get_pid_field(self):
         """Return pid_field value."""
-        return Keyword.pid_field
+        return "pid"
 
-    keyword_pid = fields.Str(required=True)
+    pid = fields.Str(required=True)
     name = fields.Str(required=True)
     provenance = fields.Str()

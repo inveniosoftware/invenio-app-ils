@@ -17,7 +17,7 @@ describe('Fetch most loaned documents reducer', () => {
   });
 
   it('should change data state on success action', () => {
-    const document = { document_pid: '123456' };
+    const document = { pid: '123456' };
     const action = {
       type: types.SUCCESS,
       payload: document,

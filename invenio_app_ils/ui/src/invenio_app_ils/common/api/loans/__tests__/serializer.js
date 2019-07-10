@@ -26,7 +26,7 @@ describe('Loans serialization tests', () => {
       updated: stringDate,
       created: stringDate,
       metadata: {
-        loan_pid: '123',
+        pid: '123',
         start_date: stringDate,
         end_date: stringDate,
         patron_pid: '1',
@@ -41,13 +41,13 @@ describe('Loans serialization tests', () => {
     });
 
     expect(serialized).toEqual({
-      loan_pid: '123',
+      pid: '123',
       id: 123,
       updated: fromISO(stringDate),
       created: fromISO(stringDate),
       availableActions: {},
       metadata: {
-        loan_pid: '123',
+        pid: '123',
         start_date: fromISO(stringDate),
         end_date: fromISO(stringDate),
         patron_pid: '1',

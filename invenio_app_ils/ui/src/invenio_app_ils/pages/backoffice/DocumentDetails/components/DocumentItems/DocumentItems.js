@@ -19,14 +19,14 @@ export default class DocumentItems extends Component {
   }
 
   componentDidMount() {
-    this.fetchDocumentItems(this.props.document.document_pid);
+    this.fetchDocumentItems(this.props.document.pid);
   }
 
   seeAllButton = () => {
     const path = this.seeAllUrl(
       itemApi
         .query()
-        .withDocPid(this.props.document.document_pid)
+        .withDocPid(this.props.document.pid)
         .qs()
     );
     return <SeeAllButton clickHandler={goToHandler(path)} />;

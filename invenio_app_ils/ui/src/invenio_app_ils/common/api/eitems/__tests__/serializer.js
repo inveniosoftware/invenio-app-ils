@@ -10,16 +10,16 @@ describe('EItems serialization tests', () => {
       updated: stringDate,
       created: stringDate,
       metadata: {
-        eitem_pid: '123',
+        pid: '123',
       },
     });
     expect(serialized).toEqual({
       id: 123,
-      eitem_pid: '123',
+      pid: '123',
       created: fromISO(stringDate),
       updated: fromISO(stringDate),
       metadata: {
-        eitem_pid: '123',
+        pid: '123',
       },
     });
   });
@@ -30,7 +30,7 @@ describe('EItems serialization tests', () => {
       updated: stringDate,
       created: stringDate,
       metadata: {
-        eitem_pid: '123',
+        pid: '123',
         description: 'Description',
         internal_notes: 'Internal notes',
         open_access: true,
@@ -41,9 +41,9 @@ describe('EItems serialization tests', () => {
       id: 123,
       updated: fromISO(stringDate),
       created: fromISO(stringDate),
-      eitem_pid: '123',
+      pid: '123',
       metadata: {
-        eitem_pid: '123',
+        pid: '123',
         description: 'Description',
         internal_notes: 'Internal notes',
         open_access: true,

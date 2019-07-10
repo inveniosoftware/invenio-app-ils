@@ -45,7 +45,7 @@ describe('MostLoanedBooks tests', () => {
       hits: [
         {
           metadata: {
-            document_pid: 'doc1',
+            pid: 'doc1',
             title: 'patron_1',
             authors: [],
             _computed: { eitems: [] },
@@ -53,7 +53,7 @@ describe('MostLoanedBooks tests', () => {
         },
         {
           metadata: {
-            document_pid: 'doc2',
+            pid: 'doc2',
             title: 'patron_2',
             authors: [],
             _computed: { eitems: [] },
@@ -85,7 +85,7 @@ describe('MostLoanedBooks tests', () => {
       hits: [
         {
           metadata: {
-            document_pid: 'doc1',
+            pid: 'doc1',
             title: 'patron_1',
             authors: [],
             _computed: { eitems: [] },
@@ -93,7 +93,7 @@ describe('MostLoanedBooks tests', () => {
         },
         {
           metadata: {
-            document_pid: 'doc2',
+            pid: 'doc2',
             title: 'patron_2',
             authors: [],
             _computed: { eitems: [] },
@@ -125,7 +125,7 @@ describe('MostLoanedBooks tests', () => {
       hits: [
         {
           metadata: {
-            document_pid: 'doc1',
+            pid: 'doc1',
             title: 'patron_1',
             authors: [],
             _computed: { eitems: [] },
@@ -133,7 +133,7 @@ describe('MostLoanedBooks tests', () => {
         },
         {
           metadata: {
-            document_pid: 'doc2',
+            pid: 'doc2',
             title: 'patron_2',
             authors: [],
             _computed: { eitems: [] },
@@ -152,7 +152,7 @@ describe('MostLoanedBooks tests', () => {
     );
     expect(component).toMatchSnapshot();
 
-    const docPid = data.hits[0].metadata.document_pid;
+    const docPid = data.hits[0].metadata.pid;
     const button = component
       .find('MostLoanedBooks')
       .find('CardGroup')

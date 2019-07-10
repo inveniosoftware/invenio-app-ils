@@ -19,16 +19,16 @@ export default class DocumentPendingLoans extends Component {
   }
 
   componentDidMount() {
-    const { document_pid } = this.props.document;
-    this.fetchPendingLoans(document_pid);
+    const { pid } = this.props.document;
+    this.fetchPendingLoans(pid);
   }
 
   seeAllButton = () => {
-    const { document_pid } = this.props.document;
+    const { pid } = this.props.document;
     const path = this.seeAllUrl(
       loanApi
         .query()
-        .withDocPid(document_pid)
+        .withDocPid(pid)
         .withState('PENDING')
         .qs()
     );

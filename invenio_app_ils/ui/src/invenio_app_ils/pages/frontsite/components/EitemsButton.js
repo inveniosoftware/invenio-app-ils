@@ -11,9 +11,9 @@ export class EitemsButton extends Component {
 
   prepareOptions(eitems) {
     return eitems.map(eitem => ({
-      key: eitem.eitem_pid,
+      key: eitem.pid,
       text: truncate(eitem.description, { length: 40 }),
-      value: eitem.eitem_pid,
+      value: eitem.pid,
     }));
   }
 

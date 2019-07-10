@@ -14,7 +14,7 @@ function serializeResponse(hit) {
     }
     if (!isEmpty(hit.metadata)) {
       result['metadata'] = hit.metadata;
-      result['loan_pid'] = hit.metadata.loan_pid;
+      result['pid'] = hit.metadata.pid;
       result['metadata']['start_date'] = fromISO(hit.metadata.start_date);
       result['metadata']['end_date'] = fromISO(hit.metadata.end_date);
       result['metadata']['transaction_date'] = fromISO(

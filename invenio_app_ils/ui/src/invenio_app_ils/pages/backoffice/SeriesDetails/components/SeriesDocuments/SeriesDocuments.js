@@ -18,23 +18,23 @@ export default class SeriesDocuments extends Component {
   }
 
   componentDidMount() {
-    this.fetchSeriesDocuments(this.props.series.series_pid);
+    this.fetchSeriesDocuments(this.props.series.pid);
   }
 
   seeAllButton = () => {
     const path = this.seeAllUrl(
       documentApi
         .query()
-        .withSeriesPid(this.props.series.series_pid)
+        .withSeriesPid(this.props.series.pid)
         .qs()
     );
     return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
   prepareData(data) {
-    const { series_pid } = this.props.series;
+    const { pid } = this.props.series;
     return data.hits.map(row => {
-      const entry = formatter.document.toTable(row, series_pid);
+      const entry = formatter.document.toTable(row, pid);
       return pick(entry, ['ID', 'Volume', 'Title', 'Authors']);
     });
   }

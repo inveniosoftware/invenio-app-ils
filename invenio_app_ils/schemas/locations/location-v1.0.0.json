@@ -2,12 +2,12 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Schema for Location",
   "type": "object",
-  "required": ["$schema", "location_pid"],
+  "required": ["$schema", "pid"],
   "properties": {
     "$schema": {
       "type": "string"
     },
-    "location_pid": {
+    "pid": {
       "type": "string",
       "title": "The persistent identifier of this Location"
     },

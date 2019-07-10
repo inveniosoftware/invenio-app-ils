@@ -17,7 +17,7 @@ export default class DocumentAccordion extends Component {
     const { activeIndex } = this.state;
     const { documentMetadata } = this.props;
     return (
-      <Accordion fluid styled data-test={documentMetadata.document_pid}>
+      <Accordion fluid styled data-test={documentMetadata.pid}>
         <Accordion.Title
           active={activeIndex === 0}
           index={0}
@@ -45,7 +45,7 @@ export default class DocumentAccordion extends Component {
         <Accordion.Content active={activeIndex === 1}>
           {!isEmpty(documentMetadata.keywords)
             ? documentMetadata.keywords.map(keyword => (
-                <p key={keyword.keyword_pid}>{keyword.name}</p>
+                <p key={keyword.pid}>{keyword.name}</p>
               ))
             : null}
         </Accordion.Content>

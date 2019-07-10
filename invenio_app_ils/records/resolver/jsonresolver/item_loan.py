@@ -24,7 +24,7 @@ def jsonresolver_loader(url_map):
         """Return the loan for the given item."""
         loan = get_loan_for_item(item_pid) or {}
         return {
-            "loan_pid": loan.get("loan_pid"),
+            "loan_pid": loan.get("pid"),
             "patron_pid": loan.get("patron_pid"),
             "document_pid": loan.get("document_pid"),
             "item_pid": loan.get("item_pid"),

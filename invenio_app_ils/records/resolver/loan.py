@@ -16,7 +16,7 @@ from .resolver import get_field_value_for_record as get_field_value
 
 def item_resolver(loan_pid):
     """Resolve an Item given a Loan PID."""
-    item_pid = get_field_value(Loan, loan_pid, Item.pid_field)
+    item_pid = get_field_value(Loan, loan_pid, "item_pid")
     try:
         item = Item.get_record_by_pid(item_pid)
         # remove `Document` and `circulation_status` fields

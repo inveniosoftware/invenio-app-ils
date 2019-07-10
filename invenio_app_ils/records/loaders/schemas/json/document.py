@@ -10,15 +10,13 @@
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import fields
 
-from invenio_app_ils.records.api import Document
-
 
 class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     """Document schema."""
 
     def get_pid_field(self):
         """Return pid_field value."""
-        return Document.pid_field
+        return "pid"
 
     document_pid = fields.Str()
     title = fields.Str()

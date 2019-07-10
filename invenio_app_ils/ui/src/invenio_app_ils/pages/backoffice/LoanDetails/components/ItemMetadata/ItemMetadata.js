@@ -43,7 +43,7 @@ export default class ItemMetadata extends Component {
               </Table.Row>
               <Table.Row>
                 <Table.Cell width={4}>Item ID</Table.Cell>
-                <Table.Cell width={12}>{item.item_pid}</Table.Cell>
+                <Table.Cell width={12}>{item.pid}</Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell width={4}>Item Status</Table.Cell>

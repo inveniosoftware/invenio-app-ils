@@ -14,7 +14,7 @@ from marshmallow import Schema, fields
 class SeriesSchemaV1(Schema):
     """Series schema."""
 
-    series_pid = PersistentIdentifier()
+    pid = PersistentIdentifier()
     mode_of_issuance = fields.Str()
     issn = fields.Str()
     title = fields.Str()

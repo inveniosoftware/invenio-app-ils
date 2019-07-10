@@ -26,7 +26,7 @@ describe('Document object serialization', () => {
       created: stringDate,
       links: 'test',
       metadata: {
-        document_pid: '123',
+        pid: '123',
         authors: ['A', 'B'],
         title: 'p',
         circulation: {
@@ -36,13 +36,13 @@ describe('Document object serialization', () => {
     });
 
     expect(serialized).toEqual({
-      document_pid: '123',
+      pid: '123',
       id: 123,
       updated: fromISO(stringDate),
       created: fromISO(stringDate),
       links: 'test',
       metadata: {
-        document_pid: '123',
+        pid: '123',
         authors: ['A', 'B'],
         title: 'p',
         circulation: {

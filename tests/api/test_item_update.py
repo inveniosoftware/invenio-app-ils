@@ -28,10 +28,10 @@ def test_update_item_status(client, users, json_patch_headers,
         for t in testdata["items"]:
             if t['status'] == "CAN_CIRCULATE":
                 active_loan = loan_search\
-                    .get_active_loan_by_item_pid(t[Item.pid_field])\
+                    .get_active_loan_by_item_pid(t["pid"])\
                     .execute().hits
                 if active_loan.total > 0:
-                    return t[Item.pid_field], active_loan[0][Loan.pid_field]
+                    return t["pid"], active_loan[0]["pid"]
 
     login_user_via_session(
         client,

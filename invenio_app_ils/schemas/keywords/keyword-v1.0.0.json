@@ -2,12 +2,12 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Schema for Keyword",
   "type": "object",
-  "required": ["$schema", "keyword_pid", "name"],
+  "required": ["$schema", "pid", "name"],
   "properties": {
     "$schema": {
       "type": "string"
     },
-    "keyword_pid": {
+    "pid": {
       "type": "string",
       "title": "The persistent identifier of this Keyword"
     },

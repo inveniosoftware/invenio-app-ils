@@ -62,7 +62,7 @@ describe('OverbookedDocumentsList tests', () => {
           id: 1,
           updated: stringDate,
           created: stringDate,
-          document_pid: 'doc1',
+          pid: 'doc1',
           metadata: {
             title: 'X',
             authors: ['Author1'],
@@ -77,7 +77,7 @@ describe('OverbookedDocumentsList tests', () => {
           id: 2,
           updated: stringDate,
           created: stringDate,
-          document_pid: 'doc2',
+          pid: 'doc2',
           metadata: {
             title: 'X',
             authors: ['Author1'],
@@ -120,7 +120,7 @@ describe('OverbookedDocumentsList tests', () => {
           id: 2,
           updated: stringDate,
           created: stringDate,
-          document_pid: 'doc2',
+          pid: 'doc2',
           metadata: {
             title: 'X',
             authors: ['Author1'],
@@ -139,7 +139,7 @@ describe('OverbookedDocumentsList tests', () => {
       />
     );
 
-    const firstId = data.hits[0].document_pid;
+    const firstId = data.hits[0].pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)

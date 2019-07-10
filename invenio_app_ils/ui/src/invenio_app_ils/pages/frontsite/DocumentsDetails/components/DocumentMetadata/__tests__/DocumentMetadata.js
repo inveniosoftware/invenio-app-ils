@@ -22,7 +22,7 @@ describe('DocumentMetadata tests', () => {
         eitems: [
           {
             description: 'Non ipsum',
-            eitem_pid: '145',
+            pid: '145',
             open_access: true,
           },
         ],
@@ -32,7 +32,7 @@ describe('DocumentMetadata tests', () => {
       booklinks: [],
       chapters: [],
       circulation: {},
-      document_pid: '71',
+      pid: '71',
       document_types: ['BOOK'],
       files: [],
       keyword_pids: ['24'],
@@ -52,8 +52,7 @@ describe('DocumentMetadata tests', () => {
       .find('DocumentMetadata')
       .find('Segment')
       .filterWhere(
-        element =>
-          element.prop('data-test') === documentDetails.metadata.document_pid
+        element => element.prop('data-test') === documentDetails.metadata.pid
       );
     expect(rows).toHaveLength(1);
   });

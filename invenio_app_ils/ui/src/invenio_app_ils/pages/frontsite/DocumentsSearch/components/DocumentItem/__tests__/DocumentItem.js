@@ -10,7 +10,7 @@ it('should render correctly', () => {
     authors: ['Jack Kerouac', 'Kurt Vonnegut'],
     publishers: ['Penguin', 'Orion'],
     abstracts: ['Dolore ipsum'],
-    document_pid: '12',
+    pid: '12',
     _computed: { eitems: [] },
   };
 

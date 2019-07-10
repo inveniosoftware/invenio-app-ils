@@ -14,8 +14,8 @@ export class ResultsList extends Component {
       <div>
         {rows.map(row => (
           <DocumentItem
-            key={row.metadata.document_pid}
-            data-test={row.metadata.document_pid}
+            key={row.metadata.pid}
+            data-test={row.metadata.pid}
             metadata={row.metadata}
             rowActionClickHandler={this.viewDetailsClickHandler}
           />

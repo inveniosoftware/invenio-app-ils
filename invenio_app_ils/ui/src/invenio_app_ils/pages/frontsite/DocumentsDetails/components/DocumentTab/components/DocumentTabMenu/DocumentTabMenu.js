@@ -24,7 +24,7 @@ export default class DocumentTabMenu extends Component {
           <Tab.Pane>
             {!isEmpty(documentMetadata.keywords)
               ? documentMetadata.keywords.map(keyword => (
-                  <p key={keyword.keyword_pid}>{keyword.name}</p>
+                  <p key={keyword.pid}>{keyword.name}</p>
                 ))
               : null}
           </Tab.Pane>
@@ -46,7 +46,7 @@ export default class DocumentTabMenu extends Component {
 
     return (
       <div>
-        <Tab panes={panes} data-test={documentMetadata.document_pid} />
+        <Tab panes={panes} data-test={documentMetadata.pid} />
       </div>
     );
   }

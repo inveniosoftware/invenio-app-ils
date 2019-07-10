@@ -19,9 +19,9 @@ from invenio_app_ils.records.related.api import RelatedRecords, \
 
 def test_related_add_editions_to_parent(app, testdata):
     """Test adding related editions."""
-    doc1 = Document.get_record_by_pid(testdata["documents"][0]["document_pid"])
-    doc2 = Document.get_record_by_pid(testdata["documents"][1]["document_pid"])
-    child2 = Series.get_record_by_pid(testdata["series"][0]["series_pid"])
+    doc1 = Document.get_record_by_pid(testdata["documents"][0]["pid"])
+    doc2 = Document.get_record_by_pid(testdata["documents"][1]["pid"])
+    child2 = Series.get_record_by_pid(testdata["series"][0]["pid"])
 
     doc1.related.add_edition(doc2)
     parent_editions = doc1.related.editions
@@ -44,9 +44,9 @@ def test_related_add_editions_to_parent(app, testdata):
 
 def test_related_add_editions_to_child(app, testdata):
     """Test adding related editions to a child."""
-    doc1 = Document.get_record_by_pid(testdata["documents"][0]["document_pid"])
-    doc2 = Document.get_record_by_pid(testdata["documents"][1]["document_pid"])
-    ser3 = Series.get_record_by_pid(testdata["series"][0]["series_pid"])
+    doc1 = Document.get_record_by_pid(testdata["documents"][0]["pid"])
+    doc2 = Document.get_record_by_pid(testdata["documents"][1]["pid"])
+    ser3 = Series.get_record_by_pid(testdata["series"][0]["pid"])
 
     doc1.related.add_edition(doc2)
     doc2.related.add_edition(ser3)
@@ -69,8 +69,8 @@ def test_related_add_editions_to_child(app, testdata):
 
 def test_related_add_language(app, testdata):
     """Test adding related languages."""
-    doc1 = Document.get_record_by_pid(testdata["documents"][0]["document_pid"])
-    doc2 = Document.get_record_by_pid(testdata["documents"][1]["document_pid"])
+    doc1 = Document.get_record_by_pid(testdata["documents"][0]["pid"])
+    doc2 = Document.get_record_by_pid(testdata["documents"][1]["pid"])
 
     doc1.related.add_language(doc2)
 
@@ -85,8 +85,8 @@ def test_related_add_language(app, testdata):
 
 def test_related_add_same_language(app, testdata):
     """Test adding related languages."""
-    doc1 = Document.get_record_by_pid(testdata["documents"][0]["document_pid"])
-    doc2 = Document.get_record_by_pid(testdata["documents"][1]["document_pid"])
+    doc1 = Document.get_record_by_pid(testdata["documents"][0]["pid"])
+    doc2 = Document.get_record_by_pid(testdata["documents"][1]["pid"])
 
     doc1.related.add_language(doc2)
     with pytest.raises(RelatedRecordError):
@@ -98,9 +98,9 @@ def test_related_add_existing_child(related_record, testdata):
     docs = testdata["documents"]
     series = testdata["series"]
 
-    doc1 = Document.get_record_by_pid(docs[0]["document_pid"])
-    doc6 = Document.get_record_by_pid(docs[4]["document_pid"])
-    ser10 = Series.get_record_by_pid(series[1]["series_pid"])
+    doc1 = Document.get_record_by_pid(docs[0]["pid"])
+    doc6 = Document.get_record_by_pid(docs[4]["pid"])
+    ser10 = Series.get_record_by_pid(series[1]["pid"])
 
     # Should fail if trying to add a child that already has relations
     with pytest.raises(RelatedRecordError):
@@ -111,8 +111,8 @@ def test_related_add_existing_child(related_record, testdata):
 
 def test_related_remove_language(app, testdata):
     """Test adding related languages."""
-    doc1 = Document.get_record_by_pid(testdata["documents"][0]["document_pid"])
-    doc2 = Document.get_record_by_pid(testdata["documents"][1]["document_pid"])
+    doc1 = Document.get_record_by_pid(testdata["documents"][0]["pid"])
+    doc2 = Document.get_record_by_pid(testdata["documents"][1]["pid"])
 
     assert len(doc1.related.languages) == 0
 
@@ -128,16 +128,16 @@ def test_related_add_existing_record(app, related_record, testdata):
     # Test language
     docs = testdata["documents"]
 
-    doc6 = Document.get_record_by_pid(docs[4]["document_pid"])
-    doc9 = Document.get_record_by_pid(docs[7]["document_pid"])
+    doc6 = Document.get_record_by_pid(docs[4]["pid"])
+    doc9 = Document.get_record_by_pid(docs[7]["pid"])
     assert len(doc6.related.languages) == len(doc9.related.languages) == 2
     with pytest.raises(RelatedRecordError):
         doc6.related.add_language(doc9)
     assert len(doc6.related.languages) == len(doc9.related.languages) == 2
 
     # Test edition
-    doc3 = Document.get_record_by_pid(docs[2]["document_pid"])
-    doc4 = Document.get_record_by_pid(docs[3]["document_pid"])
+    doc3 = Document.get_record_by_pid(docs[2]["pid"])
+    doc4 = Document.get_record_by_pid(docs[3]["pid"])
     assert len(doc3.related.editions) == len(doc4.related.editions) == 4
     with pytest.raises(RelatedRecordError):
         doc4.related.add_edition(doc3)
@@ -150,9 +150,9 @@ def test_related_add_multiple_children(app, testdata):
     docs = testdata["documents"]
     series = testdata["series"]
 
-    doc1 = Document.get_record_by_pid(docs[0]["document_pid"])
-    doc2 = Document.get_record_by_pid(docs[1]["document_pid"])
-    ser3 = Series.get_record_by_pid(series[0]["series_pid"])
+    doc1 = Document.get_record_by_pid(docs[0]["pid"])
+    doc2 = Document.get_record_by_pid(docs[1]["pid"])
+    ser3 = Series.get_record_by_pid(series[0]["pid"])
 
     assert len(doc1.related.editions) == 0
     assert len(doc2.related.editions) == 0
@@ -161,9 +161,9 @@ def test_related_add_multiple_children(app, testdata):
     doc1.related.add_edition(doc2)
     doc1.commit()
 
-    doc1 = Document.get_record_by_pid(docs[0]["document_pid"])
-    doc2 = Document.get_record_by_pid(docs[1]["document_pid"])
-    ser3 = Series.get_record_by_pid(series[0]["series_pid"])
+    doc1 = Document.get_record_by_pid(docs[0]["pid"])
+    doc2 = Document.get_record_by_pid(docs[1]["pid"])
+    ser3 = Series.get_record_by_pid(series[0]["pid"])
 
     assert len(doc1.related.editions) == 1
     assert len(doc2.related.editions) == 1
@@ -172,9 +172,9 @@ def test_related_add_multiple_children(app, testdata):
     doc1.related.add_edition(ser3)
     doc1.commit()
 
-    doc1 = Document.get_record_by_pid(docs[0]["document_pid"])
-    doc2 = Document.get_record_by_pid(docs[1]["document_pid"])
-    ser3 = Series.get_record_by_pid(series[0]["series_pid"])
+    doc1 = Document.get_record_by_pid(docs[0]["pid"])
+    doc2 = Document.get_record_by_pid(docs[1]["pid"])
+    ser3 = Series.get_record_by_pid(series[0]["pid"])
 
     assert len(doc1.related.editions) == 2
     assert len(doc2.related.editions) == 2
@@ -185,15 +185,15 @@ def test_related_complex_record(related_record, testdata):
     """Test the related record fixture."""
     docs = testdata["documents"]
     series = testdata["series"]
-    doc1 = Document.get_record_by_pid(docs[0]["document_pid"])
-    doc2 = Document.get_record_by_pid(docs[1]["document_pid"])
-    doc3 = Document.get_record_by_pid(docs[2]["document_pid"])
-    doc4 = Document.get_record_by_pid(docs[3]["document_pid"])
-    ser5 = Series.get_record_by_pid(series[0]["series_pid"])
-    doc6 = Document.get_record_by_pid(docs[4]["document_pid"])
-    doc7 = Document.get_record_by_pid(docs[5]["document_pid"])
-    doc8 = Document.get_record_by_pid(docs[6]["document_pid"])
-    doc9 = Document.get_record_by_pid(docs[7]["document_pid"])
+    doc1 = Document.get_record_by_pid(docs[0]["pid"])
+    doc2 = Document.get_record_by_pid(docs[1]["pid"])
+    doc3 = Document.get_record_by_pid(docs[2]["pid"])
+    doc4 = Document.get_record_by_pid(docs[3]["pid"])
+    ser5 = Series.get_record_by_pid(series[0]["pid"])
+    doc6 = Document.get_record_by_pid(docs[4]["pid"])
+    doc7 = Document.get_record_by_pid(docs[5]["pid"])
+    doc8 = Document.get_record_by_pid(docs[6]["pid"])
+    doc9 = Document.get_record_by_pid(docs[7]["pid"])
 
     assert len(doc9.related.editions) == 0
 
@@ -224,9 +224,9 @@ def test_related_complex_record(related_record, testdata):
 
 def test_dump_related_records(testdata):
     """Test dumping related records."""
-    doc1 = Document.get_record_by_pid(testdata["documents"][0]["document_pid"])
-    doc2 = Document.get_record_by_pid(testdata["documents"][1]["document_pid"])
-    doc3 = Document.get_record_by_pid(testdata["documents"][2]["document_pid"])
+    doc1 = Document.get_record_by_pid(testdata["documents"][0]["pid"])
+    doc2 = Document.get_record_by_pid(testdata["documents"][1]["pid"])
+    doc3 = Document.get_record_by_pid(testdata["documents"][2]["pid"])
     assert doc1["related_records"] == []
     assert doc2["related_records"] == []
     assert doc3["related_records"] == []
@@ -234,8 +234,8 @@ def test_dump_related_records(testdata):
     doc1.related.add_language(doc2)
     doc1.commit()
 
-    doc1 = Document.get_record_by_pid(doc1[doc1.pid_field])
-    doc2 = Document.get_record_by_pid(doc2[doc2.pid_field])
+    doc1 = Document.get_record_by_pid(doc1["pid"])
+    doc2 = Document.get_record_by_pid(doc2["pid"])
     assert doc1["related_records"] == [
         record_to_relation_dump(doc2, RelatedRecords.language_relation())
     ]
@@ -246,9 +246,9 @@ def test_dump_related_records(testdata):
     doc1.related.add_language(doc3)
     doc1.commit()
 
-    doc1 = Document.get_record_by_pid(doc1[doc1.pid_field])
-    doc2 = Document.get_record_by_pid(doc2[doc2.pid_field])
-    doc3 = Document.get_record_by_pid(doc3[doc3.pid_field])
+    doc1 = Document.get_record_by_pid(doc1["pid"])
+    doc2 = Document.get_record_by_pid(doc2["pid"])
+    doc3 = Document.get_record_by_pid(doc3["pid"])
     assert doc1["related_records"] == [
         record_to_relation_dump(doc2, RelatedRecords.language_relation()),
         record_to_relation_dump(doc3, RelatedRecords.language_relation())
@@ -266,9 +266,9 @@ def test_dump_related_records(testdata):
     doc1.related.remove_language(doc3)
     doc1.commit()
 
-    doc1 = Document.get_record_by_pid(doc1[doc1.pid_field])
-    doc2 = Document.get_record_by_pid(doc2[doc2.pid_field])
-    doc3 = Document.get_record_by_pid(doc3[doc3.pid_field])
+    doc1 = Document.get_record_by_pid(doc1["pid"])
+    doc2 = Document.get_record_by_pid(doc2["pid"])
+    doc3 = Document.get_record_by_pid(doc3["pid"])
     assert doc1["related_records"] == []
     assert doc2["related_records"] == []
     assert doc3["related_records"] == []
@@ -276,9 +276,9 @@ def test_dump_related_records(testdata):
 
 def test_related_remove_parent(testdata):
     """Test remove parent."""
-    pid1 = testdata["documents"][0]["document_pid"]
-    pid2 = testdata["documents"][1]["document_pid"]
-    pid3 = testdata["documents"][2]["document_pid"]
+    pid1 = testdata["documents"][0]["pid"]
+    pid2 = testdata["documents"][1]["pid"]
+    pid3 = testdata["documents"][2]["pid"]
 
     doc1 = Document.get_record_by_pid(pid1)
     doc2 = Document.get_record_by_pid(pid2)

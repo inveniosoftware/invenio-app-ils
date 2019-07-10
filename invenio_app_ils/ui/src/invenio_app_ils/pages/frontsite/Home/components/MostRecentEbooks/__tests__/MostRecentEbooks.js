@@ -23,13 +23,13 @@ describe('MostRecentEbooks tests', () => {
     hits: [
       {
         metadata: {
-          document_pid: '123',
+          pid: '123',
           title: 'Dolore',
           _computed: {
             eitems: [
               {
                 document_pid: 'doc1',
-                eitem_pid: 'eitem1',
+                pid: 'eitem1',
                 title: 'title1',
                 description: 'Lorem ipsum',
                 open_access: true,
@@ -43,13 +43,13 @@ describe('MostRecentEbooks tests', () => {
       },
       {
         metadata: {
-          document_pid: '456',
+          pid: '456',
           title: 'Ipsum',
           _computed: {
             eitems: [
               {
                 document_pid: 'doc2',
-                eitem_pid: 'eitem2',
+                pid: 'eitem2',
                 title: 'title2',
                 description: 'Lorem ipsum',
                 open_access: false,
@@ -135,7 +135,7 @@ describe('MostRecentEbooks tests', () => {
     );
     expect(component).toMatchSnapshot();
 
-    const docPid = data.hits[0].metadata.document_pid;
+    const docPid = data.hits[0].metadata.pid;
     const button = component
       .find('MostRecentEbooks')
       .find('CardGroup')

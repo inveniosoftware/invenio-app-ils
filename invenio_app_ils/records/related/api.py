@@ -16,7 +16,7 @@ from invenio_app_ils.errors import RelatedRecordError
 def record_to_relation_dump(record, relation):
     """Convert a record to a relation dump."""
     return dict(
-        pid=record[record.pid_field],
+        pid=record["pid"],
         pid_type=record._pid_type,
         relation_type=relation.name
     )
@@ -71,7 +71,7 @@ class RelatedRecords(object):
             raise RelatedRecordError(
                 "Cannot add itself ({} #{}) as a related {}.".format(
                     record.__class__.__name__,
-                    record[record.pid_field],
+                    record["pid"],
                     relation.name
                 )
             )
@@ -81,10 +81,10 @@ class RelatedRecords(object):
                 ("Failed to add {} #{} as a related {} to {} #{} because it "
                  "already has relations.").format(
                     record.__class__.__name__,
-                    record[record.pid_field],
+                    record["pid"],
                     relation.name,
                     self.parent.__class__.__name__,
-                    self.parent[self.parent.pid_field]
+                    self.parent["pid"]
                  )
             )
         if parent_node is None:
@@ -114,7 +114,7 @@ class RelatedRecords(object):
             parent_node = get_node(self.parent, relation)
         parent_pid = parent_node.pid
         parent = self.parent
-        is_parent_equal = parent_pid.pid_value == child[child.pid_field] and \
+        is_parent_equal = parent_pid.pid_value == child["pid"] and \
             parent_pid.pid_type == child._pid_type
         if is_parent_equal:
             # Trying to remove parent
@@ -124,9 +124,9 @@ class RelatedRecords(object):
                  " relation by editing {} {}.").format(
                      relation.name,
                      self.parent.__class__.__name__,
-                     self.parent[self.parent.pid_field],
+                     self.parent["pid"],
                      child.__class__.__name__,
-                     child[child.pid_field]
+                     child["pid"]
                  )
             )
         parent_node.remove_child(child.pid)
@@ -160,7 +160,7 @@ class RelatedRecords(object):
                 pid_type=child.pid_type
             )
             for child in children
-            if child.pid_value != self.parent[self.parent.pid_field]
+            if child.pid_value != self.parent["pid"]
         ]
 
     def dump_add(self, parent, record, relation, update_related=False):

@@ -1,10 +1,10 @@
 [
   {
-    "location_pid": "locid-1",
+    "pid": "locid-1",
     "name": "Main Library"
   },
   {
-    "location_pid": "locid-2",
+    "pid": "locid-2",
     "name": "Library of Alexandria"
   }
 ]

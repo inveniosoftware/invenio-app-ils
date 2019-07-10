@@ -10,16 +10,16 @@ describe('Items serialization tests', () => {
       updated: stringDate,
       created: stringDate,
       metadata: {
-        item_pid: '123',
+        pid: '123',
       },
     });
     expect(serialized).toEqual({
       id: 123,
-      item_pid: '123',
+      pid: '123',
       created: fromISO(stringDate),
       updated: fromISO(stringDate),
       metadata: {
-        item_pid: '123',
+        pid: '123',
       },
     });
   });
@@ -30,7 +30,7 @@ describe('Items serialization tests', () => {
       updated: stringDate,
       created: stringDate,
       metadata: {
-        item_pid: '123',
+        pid: '123',
         internal_location: { location: { name: 'p' }, name: 'name' },
         circulation_status: { p: 'LOANED' },
         medium: 'p',
@@ -44,9 +44,9 @@ describe('Items serialization tests', () => {
       id: 123,
       updated: fromISO(stringDate),
       created: fromISO(stringDate),
-      item_pid: '123',
+      pid: '123',
       metadata: {
-        item_pid: '123',
+        pid: '123',
         internal_location: { location: { name: 'p' }, name: 'name' },
         circulation_status: { p: 'LOANED' },
         medium: 'p',

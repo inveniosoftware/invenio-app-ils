@@ -37,7 +37,7 @@ class DocumentSearch(RecordsSearch):
         search = self
 
         if series_pid:
-            search = search.filter("term", series__series_pid=series_pid)
+            search = search.filter("term", series__pid=series_pid)
         else:
             raise MissingRequiredParameterError(
                 description="series_pid is required"

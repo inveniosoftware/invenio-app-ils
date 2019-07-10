@@ -1,32 +1,20 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  Grid,
-  Segment,
-  Container,
-  Header,
-  List,
-  Button,
-} from 'semantic-ui-react';
+import { Grid, Segment, Container, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
 import { MetadataTable } from '../../../components/MetadataTable';
 import { EditButton } from '../../../components/buttons';
 import {
   document as documentApi,
-  keyword as keywordApi,
   series as seriesApi,
 } from '../../../../../common/api';
-import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
+import { openRecordEditor } from '../../../../../routes/urls';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
-import { ESSelectorModal } from '../../../../../common/components/ESSelector';
-import { serializeKeyword } from '../../../../../common/components/ESSelector/serializer';
 
 export default class SeriesMetadata extends Component {
   constructor(props) {
     super(props);
     this.deleteSeries = props.deleteSeries;
-    this.seriesPid = this.props.seriesDetails.metadata.series_pid;
+    this.seriesPid = this.props.seriesDetails.metadata.pid;
   }
 
   createRefProps(seriesPid) {
@@ -46,62 +34,23 @@ export default class SeriesMetadata extends Component {
     ];
   }
 
-  updateKeywords = results => {
-    const keywordPids = results.map(result => result.metadata.keyword_pid);
-    this.props.updateSeries(this.seriesPid, '/keyword_pids', keywordPids);
-  };
-
-  renderKeywords(keywords) {
-    const keywordSelection = keywords.map(serializeKeyword);
-    return (
-      <List horizontal>
-        {keywords.map(keyword => (
-          <List.Item key={keyword.keyword_pid}>
-            <Link
-              to={BackOfficeRoutes.seriesListWithQuery(
-                seriesApi
-                  .query()
-                  .withKeyword(keyword)
-                  .qs()
-              )}
-            >
-              {keyword.name}
-            </Link>
-          </List.Item>
-        ))}
-        <List.Item>
-          <ESSelectorModal
-            multiple
-            initialSelections={keywordSelection}
-            trigger={<Button basic color="blue" size="small" content="edit" />}
-            query={keywordApi.list}
-            title="Select Keywords"
-            onSave={this.updateKeywords}
-          />
-        </List.Item>
-      </List>
-    );
-  }
-
   renderHeader(series) {
     return (
       <Grid.Row>
         <Grid.Column width={13} verticalAlign={'middle'}>
           <Header as="h1">
-            Series #{series.series_pid} - {series.metadata.title.title}
+            Series #{series.pid} - {series.metadata.title.title}
           </Header>
         </Grid.Column>
         <Grid.Column width={3} textAlign={'right'}>
           <EditButton
-            clickHandler={() =>
-              openRecordEditor(seriesApi.url, series.series_pid)
-            }
+            clickHandler={() => openRecordEditor(seriesApi.url, series.pid)}
           />
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Series record
-            with ID ${series.series_pid}?`}
-            refProps={this.createRefProps(series.series_pid)}
-            onDelete={() => this.deleteSeries(series.series_pid)}
+            with ID ${series.pid}?`}
+            refProps={this.createRefProps(series.pid)}
+            onDelete={() => this.deleteSeries(series.pid)}
           />
         </Grid.Column>
       </Grid.Row>
@@ -114,12 +63,6 @@ export default class SeriesMetadata extends Component {
       { name: 'Mode of Issuance', value: series.metadata.mode_of_issuance },
       { name: 'Authors', value: series.metadata.authors },
     ];
-    if (!isEmpty(series.metadata.keywords)) {
-      rows.push({
-        name: 'Keywords',
-        value: this.renderKeywords(series.metadata.keywords),
-      });
-    }
     return rows;
   }
 

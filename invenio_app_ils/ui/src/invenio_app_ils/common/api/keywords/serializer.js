@@ -9,7 +9,7 @@ function serializeResponse(hit) {
     result['updated'] = fromISO(hit.updated);
     if (!_isEmpty(hit.metadata)) {
       result['metadata'] = hit.metadata;
-      result['keyword_pid'] = hit.metadata.keyword_pid;
+      result['pid'] = hit.metadata.pid;
     }
   }
   return result;

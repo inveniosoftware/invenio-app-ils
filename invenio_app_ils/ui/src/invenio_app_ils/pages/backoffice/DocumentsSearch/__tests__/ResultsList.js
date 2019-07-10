@@ -15,12 +15,12 @@ describe('DocumentsSearch ResultsList tests', () => {
       id: 3,
       created: stringDate,
       updated: stringDate,
-      document_pid: '3',
+      pid: '3',
       metadata: {
         authors: ['Author1'],
         title: 'This is a title',
         abstracts: 'This is an abstract',
-        document_pid: '3',
+        pid: '3',
       },
     },
   ];
@@ -46,8 +46,7 @@ describe('DocumentsSearch ResultsList tests', () => {
     const resultRows = component
       .find('TableRow')
       .filterWhere(
-        element =>
-          element.prop('data-test') === firstResult.metadata.document_pid
+        element => element.prop('data-test') === firstResult.metadata.pid
       );
     expect(resultRows).toHaveLength(1);
 
@@ -55,8 +54,7 @@ describe('DocumentsSearch ResultsList tests', () => {
       .find('TableCell')
       .filterWhere(
         element =>
-          element.prop('data-test') ===
-          'Title-' + firstResult.metadata.document_pid
+          element.prop('data-test') === 'Title-' + firstResult.metadata.pid
       );
     expect(mappedStatusElements).toHaveLength(1);
 
@@ -71,7 +69,7 @@ describe('DocumentsSearch ResultsList tests', () => {
         viewDetailsClickHandler={mockedClickHandler}
       />
     );
-    const firstId = results[0].document_pid;
+    const firstId = results[0].pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)

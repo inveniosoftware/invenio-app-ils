@@ -18,7 +18,7 @@ it('should render correctly when the book contains only serials', () => {
       {
         issn: '5463-4523',
         mode_of_issuance: 'SERIAL',
-        series_pid: '89',
+        pid: '89',
         title: 'Lorem Ipsum',
         volume: '55',
       },
@@ -36,7 +36,7 @@ it('should render correctly when the book contains only multiparts', () => {
       {
         issn: '5463-4523',
         mode_of_issuance: 'MULTIPART_MONOGRAPH',
-        series_pid: '89',
+        pid: '89',
         title: 'Lorem Ipsum',
         volume: '55',
       },
@@ -54,7 +54,7 @@ it('should render correctly when book contains only both series types', () => {
       {
         issn: '5463-4523',
         mode_of_issuance: 'MULTIPART_MONOGRAPH',
-        series_pid: '89',
+        pid: '89',
         title: 'Lorem Ipsum',
         volume: '55',
       },
@@ -63,7 +63,7 @@ it('should render correctly when book contains only both series types', () => {
       {
         issn: '5463-4523',
         mode_of_issuance: 'SERIAL',
-        series_pid: '89',
+        pid: '89',
         title: 'Lorem Ipsum',
         volume: '55',
       },

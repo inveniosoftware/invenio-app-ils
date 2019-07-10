@@ -28,7 +28,7 @@
         "keywords": {
           "type": "object",
           "properties": {
-            "keyword_pid": {
+            "pid": {
               "type": "keyword"
             },
             "name": {
@@ -42,7 +42,7 @@
         "series": {
           "type": "object",
           "properties": {
-            "series_pid": {
+            "pid": {
               "type": "keyword"
             },
             "issn": {
@@ -92,7 +92,7 @@
             "eitems": {
               "type": "object",
               "properties": {
-                "eitem_pid": {
+                "pid": {
                   "type": "keyword"
                 },
                 "description": {

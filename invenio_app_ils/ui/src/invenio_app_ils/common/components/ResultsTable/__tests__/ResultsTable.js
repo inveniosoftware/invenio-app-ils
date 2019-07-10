@@ -30,7 +30,7 @@ describe('ResultsTable tests', () => {
   it('should render the see all button when showing only a few rows', () => {
     const data = [
       {
-        loan_pid: 'loan1',
+        pid: 'loan1',
         ID: '1',
         patron_pid: 'patron_1',
         updated: stringDate,
@@ -38,7 +38,7 @@ describe('ResultsTable tests', () => {
         end_date: stringDate,
       },
       {
-        loan_pid: 'loan2',
+        pid: 'loan2',
         ID: '2',
         patron_pid: 'patron_2',
         updated: stringDate,

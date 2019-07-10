@@ -17,11 +17,11 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
         "metadata": Object {
           "description": "A description.",
           "document": Object {
-            "document_pid": 1342,
+            "pid": 1342,
           },
           "document_pid": 1342,
-          "eitem_pid": 987,
           "internal_notes": "Internal notes.",
+          "pid": 987,
         },
         "updated": "2018-01-01T10:05:00.000Z",
       },
@@ -47,7 +47,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
       Array [
         Object {
           "Description": "A description.",
-          "Document ID": 1342,
+          "Document ID": 987,
           "ID": 987,
           "Internal Notes": "Internal notes.",
           "Open access": "No",
@@ -272,7 +272,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
                 Array [
                   Object {
                     "Description": "A description.",
-                    "Document ID": 1342,
+                    "Document ID": 987,
                     "ID": 987,
                     "Internal Notes": "Internal notes.",
                     "Open access": "No",
@@ -350,7 +350,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
                           className=""
                           data-test="Document ID-987"
                         >
-                          1342
+                          987
                         </td>
                       </TableCell>
                       <TableCell

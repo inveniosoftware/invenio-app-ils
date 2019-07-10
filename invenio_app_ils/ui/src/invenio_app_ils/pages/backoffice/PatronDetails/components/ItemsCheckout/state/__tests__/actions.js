@@ -18,7 +18,7 @@ const expectedPayload = {};
 
 const patronPid = '2';
 const documentPid = '123';
-const item = { item_pid: '2', metadata: { document_pid: documentPid } };
+const item = { pid: '2', metadata: { document_pid: documentPid } };
 const shouldForceCheckout = false;
 const doForceCheckout = true;
 
@@ -36,7 +36,7 @@ describe('ItemsCheckout actions tests', () => {
   describe('POST Loan for checkout', () => {
     const loan = {
       metadata: {
-        item_pid: item.item_pid,
+        item_pid: item.pid,
         patron_pid: patronPid,
         document_pid: documentPid,
       },
@@ -54,7 +54,7 @@ describe('ItemsCheckout actions tests', () => {
       store.dispatch(actions.checkoutItem(item, patronPid)).then(() => {
         expect(mockPOST).toHaveBeenCalledWith(
           ApiURLS.loans.create,
-          item.item_pid,
+          item.pid,
           loan,
           sessionManager.user.id,
           sessionManager.user.locationPid,
@@ -83,7 +83,7 @@ describe('ItemsCheckout actions tests', () => {
         .then(() => {
           expect(mockPOST).toHaveBeenCalledWith(
             ApiURLS.loans.create,
-            item.item_pid,
+            item.pid,
             loan,
             sessionManager.user.id,
             sessionManager.user.locationPid,
@@ -111,7 +111,7 @@ describe('ItemsCheckout actions tests', () => {
       store.dispatch(actions.checkoutItem(item, patronPid)).then(() => {
         expect(mockPOST).toHaveBeenCalledWith(
           ApiURLS.loans.create,
-          item.item_pid,
+          item.pid,
           loan,
           sessionManager.user.id,
           sessionManager.user.locationPid,
@@ -138,7 +138,7 @@ describe('ItemsCheckout actions tests', () => {
       store.dispatch(actions.checkoutItem(item, patronPid)).then(() => {
         expect(mockPOST).toHaveBeenCalledWith(
           ApiURLS.loans.create,
-          item.item_pid,
+          item.pid,
           loan,
           sessionManager.user.id,
           sessionManager.user.locationPid,

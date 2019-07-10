@@ -1,6 +1,6 @@
 [
   {
-    "loan_pid": "loanid-1",
+    "pid": "loanid-1",
     "document_pid": "docid-1",
     "item_pid": "itemid-1",
     "patron_pid": "1",
@@ -12,7 +12,7 @@
     "request_expire_date": "2018-07-28"
   },
   {
-    "loan_pid": "loanid-2",
+    "pid": "loanid-2",
     "document_pid": "docid-1",
     "item_pid": "itemid-2",
     "patron_pid": "1",
@@ -24,7 +24,7 @@
     "request_expire_date": "2018-07-28"
   },
   {
-    "loan_pid": "loanid-3",
+    "pid": "loanid-3",
     "document_pid": "docid-3",
     "item_pid": "itemid-5",
     "patron_pid": "2",
@@ -36,7 +36,7 @@
     "request_expire_date": "2018-07-28"
   },
   {
-    "loan_pid": "loanid-4",
+    "pid": "loanid-4",
     "document_pid": "docid-5",
     "item_pid": "itemid-7",
     "patron_pid": "2",
@@ -48,7 +48,7 @@
     "request_expire_date": "2018-07-28"
   },
   {
-    "loan_pid": "loanid-5",
+    "pid": "loanid-5",
     "document_pid": "docid-7",
     "item_pid": "itemid-56",
     "patron_pid": "1",
@@ -60,7 +60,7 @@
     "request_expire_date": "2018-07-28"
   },
   {
-    "loan_pid": "loanid-6",
+    "pid": "loanid-6",
     "document_pid": "docid-7",
     "item_pid": "itemid-57",
     "patron_pid": "2",

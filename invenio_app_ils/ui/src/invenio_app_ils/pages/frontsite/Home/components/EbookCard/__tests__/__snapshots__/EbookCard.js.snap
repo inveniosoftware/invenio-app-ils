@@ -5,11 +5,11 @@ exports[`EbookCard tests should render the document correctly 1`] = `
   ebookData={
     Object {
       "authors": "Author1, Author2",
-      "eitem_pid": "123",
       "eitems": Array [],
       "imageCover": "",
       "imageSize": "small",
       "onClick": [MockFunction],
+      "pid": "123",
       "title": "Lorem",
     }
   }
