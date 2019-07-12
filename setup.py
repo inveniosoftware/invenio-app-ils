@@ -104,10 +104,8 @@ setup(
             "invenio_app_ils_rest = invenio_app_ils.ext:InvenioAppIlsREST"
         ],
         "invenio_base.api_blueprints": [
-            "invenio_app_ils_circulation = "
-            "invenio_app_ils.circulation.views:create_circulation_blueprint",
-            "invenio_app_ils_relations = "
-            "invenio_app_ils.records.views:create_relations_blueprint",
+            "invenio_app_ils_circulation = invenio_app_ils.circulation.views:create_circulation_blueprint",
+            "invenio_app_ils_relations = invenio_app_ils.records_relations.views:create_relations_blueprint",
         ],
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config"
@@ -165,6 +163,7 @@ setup(
             "document_circulation = invenio_app_ils.records.resolver.jsonresolver.document_circulation",
             "document_eitem = invenio_app_ils.records.resolver.jsonresolver.document_eitem",
             "document_keyword = invenio_app_ils.records.resolver.jsonresolver.document_keyword",
+            "document_relations = invenio_app_ils.records.resolver.jsonresolver.document_relations",
             "document_series = invenio_app_ils.records.resolver.jsonresolver.document_series",
             "eitem = invenio_app_ils.records.resolver.jsonresolver.eitem",
             "internal_location = invenio_app_ils.records.resolver.jsonresolver.internal_location",
@@ -172,6 +171,7 @@ setup(
             "item_internal_location = invenio_app_ils.records.resolver.jsonresolver.item_internal_location",
             "item_loan = invenio_app_ils.records.resolver.jsonresolver.item_loan",
             "series_keyword = invenio_app_ils.records.resolver.jsonresolver.series_keyword",
+            "series_relations = invenio_app_ils.records.resolver.jsonresolver.series_relations",
         ],
         'invenio_celery.tasks': [
             'indexer = invenio_app_ils.indexer'

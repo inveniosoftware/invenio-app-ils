@@ -22,7 +22,7 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
     RecordIdentifier
 from invenio_search import current_search
 
-from .errors import RelatedRecordError
+from .errors import RecordRelationsError
 from .indexer import PatronsIndexer
 from .records.api import Document, EItem, InternalLocation, Item, Keyword, \
     Location, Patron, Series
@@ -487,7 +487,7 @@ class RelatedRecordsGenerator(Generator):
                     parent.related.add_edition(edition)
                     objs.append(edition)
                     num_editions -= 1
-                except RelatedRecordError:
+                except RecordRelationsError:
                     pass
         self.holder.related_records['objs'] = objs
 

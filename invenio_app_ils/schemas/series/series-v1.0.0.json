@@ -28,7 +28,56 @@
     "mode_of_issuance": {
       "title": "Mode of issuance",
       "type": "string",
-      "enum": ["MULTIPART_MONOGRAPH", "SERIAL"]
+      "enum": ["MULTIPART_MONOGRAPH", "SERIAL"],
+      "description": ""
+    },
+    "relations_metadata": {
+      "type": "object",
+      "title": "Metadata to describe relations",
+      "properties": {
+        "multipart_monograph": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                  "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "other": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                  "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "relations": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
     },
     "language": {
       "items": {

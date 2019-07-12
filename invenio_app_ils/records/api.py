@@ -13,7 +13,6 @@ from flask import current_app
 from invenio_accounts.models import User
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
-from invenio_db import db
 from invenio_jsonschemas import current_jsonschemas
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
@@ -24,9 +23,12 @@ from invenio_userprofiles.api import UserProfile
 from invenio_app_ils.errors import DocumentKeywordNotFoundError, \
     ItemDocumentNotFoundError, ItemHasActiveLoanError, \
     RecordHasReferencesError
-from invenio_app_ils.records.related.api import RelatedRecords
+
+from invenio_app_ils.records_relations.api import RecordRelationsRetriever
 from invenio_app_ils.search.api import DocumentSearch, \
     InternalLocationSearch, ItemSearch
+
+from werkzeug.utils import cached_property
 
 from ..pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
@@ -42,7 +44,7 @@ from ..pidstore.pids import (  # isort:skip
 class IlsRecord(Record):
     """Ils record class."""
 
-    @property
+    @cached_property
     def pid(self):
         """Get the PersistentIdentifier for this record."""
         return PersistentIdentifier.get(
@@ -90,33 +92,17 @@ class IlsRecord(Record):
 
 
 class IlsRecordWithRelations(IlsRecord):
-    """Ils records class with relations."""
+    """Add relations functionalities to records."""
 
     def __init__(self, data, model=None):
-        """Initialize ILS record with relations."""
-        super(IlsRecordWithRelations, self).__init__(data, model=model)
-        self._related = RelatedRecords(self)
+        """."""
+        super(IlsRecordWithRelations, self).__init__(data, model)
+        self._relations = RecordRelationsRetriever(self)
 
     @property
-    def related(self):
-        """Get related proxy."""
-        return self._related
-
-    def commit(self, commit_related=True, **kwargs):
-        """Store changes of the current record instance in the database."""
-        with db.session.begin_nested():
-            if commit_related:
-                for related in self.related.changed_related_records:
-                    related.commit(commit_related=False)
-            record = super(IlsRecordWithRelations, self).commit(**kwargs)
-            self.related.changed_related_records = []
-            return record
-
-    @classmethod
-    def create(cls, data, id_=None, **kwargs):
-        """Create related record record."""
-        data.setdefault("related_records", [])
-        return super(IlsRecordWithRelations, cls).create(data, id_, **kwargs)
+    def relations(self):
+        """."""
+        return self._relations
 
 
 class Document(IlsRecordWithRelations):
@@ -133,8 +119,8 @@ class Document(IlsRecordWithRelations):
     _eitem_resolver_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/eitems"
     )
-    _series_resolver_path = (
-        "{scheme}://{host}/api/resolver/documents/{document_pid}/series"
+    _relations_path = (
+        "{scheme}://{host}/api/resolver/documents/{document_pid}/relations"
     )
 
     @classmethod
@@ -155,9 +141,9 @@ class Document(IlsRecordWithRelations):
                 document_pid=data["pid"],
             )
         }
-        data.setdefault("series_objs", [])
-        data["series"] = {
-            "$ref": cls._series_resolver_path.format(
+        data.setdefault("relations", [])
+        data["relations"] = {
+            "$ref": cls._relations_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 document_pid=data["pid"],
@@ -453,7 +439,7 @@ class Patron:
         """Create a `Patron` instance.
 
         Patron instances are not stored in the database
-        but are indexed in elasticsearch.
+        but are indexed in ElasticSearch.
         """
         self.user = User.query.filter_by(id=id).one()
         self.id = self.user.id
@@ -481,6 +467,9 @@ class Series(IlsRecordWithRelations):
     _keyword_resolver_path = (
         "{scheme}://{host}/api/resolver/series/{series_pid}/keywords"
     )
+    _relations_path = (
+        "{scheme}://{host}/api/resolver/series/{series_pid}/relations"
+    )
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
@@ -493,6 +482,15 @@ class Series(IlsRecordWithRelations):
             )
         }
         data.setdefault("keyword_pids", [])
+
+        data.setdefault("relations", [])
+        data["relations"] = {
+            "$ref": cls._relations_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                series_pid=data[cls.pid_field],
+            )
+        }
         return super(Series, cls).create(data, id_=id_, **kwargs)
 
     def delete(self, **kwargs):

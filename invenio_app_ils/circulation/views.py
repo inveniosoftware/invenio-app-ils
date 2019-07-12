@@ -37,7 +37,7 @@ def need_permissions(action):
     return decorator_builder
 
 
-def create_circulation_blueprint(_):
+def create_circulation_blueprint(app):
     """Add circulation views to the blueprint."""
     blueprint = Blueprint(
         "invenio_app_ils_circulation",
@@ -45,11 +45,9 @@ def create_circulation_blueprint(_):
         url_prefix="",
     )
 
-    rec_serializers = {
-        "application/json": (
-            "invenio_records_rest.serializers" ":json_v1_response"
-        )
-    }
+    endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
+    options = endpoints.get('loanid', {})
+    rec_serializers = options.get("record_serializers", {})
     serializers = {
         mime: obj_or_import_string(func)
         for mime, func in rec_serializers.items()
@@ -78,17 +76,17 @@ def create_circulation_blueprint(_):
     return blueprint
 
 
-class IlsResource(ContentNegotiatedMethodView):
+class IlsCirculationResource(ContentNegotiatedMethodView):
     """ILS resource."""
 
     def __init__(self, serializers, ctx, *args, **kwargs):
         """Constructor."""
-        super(IlsResource, self).__init__(serializers, *args, **kwargs)
+        super(IlsCirculationResource, self).__init__(serializers, *args, **kwargs)
         for key, value in ctx.items():
             setattr(self, key, value)
 
 
-class LoanRequestResource(IlsResource):
+class LoanRequestResource(IlsCirculationResource):
     """Loan request action resource."""
 
     view_name = "loan_request"
@@ -103,7 +101,7 @@ class LoanRequestResource(IlsResource):
         )
 
 
-class LoanCreateResource(IlsResource):
+class LoanCreateResource(IlsCirculationResource):
     """Loan create action resource."""
 
     view_name = "loan_create"

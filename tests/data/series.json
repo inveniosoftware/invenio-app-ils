@@ -2,13 +2,44 @@
   {
     "pid": "serid-1",
     "title": { "title": "The Gulf: The Making of An American Sea" },
-    "authors": ["Jack E. Davis"],
-    "abstracts": ["This is an abstract"]
+    "authors": [
+      "Einstein, Albert",
+      "Stachel, John J et al."
+    ],
+    "abstracts": [
+      "This is a multipart monograph"
+    ],
+    "mode_of_issuance": "MULTIPART_MONOGRAPH"
   },
   {
     "pid": "serid-2",
     "title": { "title": "The Gulf: The Making of An American Sea" },
-    "authors": ["Jack E. Davis"],
-    "abstracts": ["This is an abstract"]
+    "authors": [
+      "Banek, Cora",
+      "Banek, Georg"
+    ],
+    "abstracts": [
+      "This is a multipart monograph"
+    ],
+    "mode_of_issuance": "MULTIPART_MONOGRAPH"
+  },
+  {
+    "pid": "serid-3",
+    "title": { "title": "Springer tracts in modern physics" },
+    "abstracts": [
+      "This is serial"
+    ],
+    "mode_of_issuance": "SERIAL"
+  },
+  {
+    "pid": "serid-4",
+    "title": {"title": "Dispersion Forces" },
+    "authors": [
+      "Buhmann, Stefan Yoshi"
+    ],
+    "abstracts": [
+      "This is a multipart monograph"
+    ],
+    "mode_of_issuance": "MULTIPART_MONOGRAPH"
   }
 ]
