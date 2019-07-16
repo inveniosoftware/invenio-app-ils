@@ -46,10 +46,29 @@ const queryBuilder = () => {
   return new QueryBuilder();
 };
 
+const count = query => {
+  return http.get(`${eitemURL}?q=${query}`).then(response => {
+    response.data = response.data.hits.total;
+    return response;
+  });
+};
+
+const exportToCSV = query => {
+  return http
+    .get(`${eitemURL}?${query}`, {
+      headers: { Accept: 'text/csv' },
+    })
+    .then(response => {
+      return response.data;
+    });
+};
+
 export const eitem = {
   query: queryBuilder,
   list: list,
   get: get,
   delete: del,
   url: eitemURL,
+  count: count,
+  exportToCSV: exportToCSV,
 };

@@ -6,6 +6,8 @@ import { ResultsTable } from '../../../../../common/components';
 import { NewButton } from '../../../components/buttons';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import pick from 'lodash/pick';
+import { ExportToCSV } from '../../../components/ExportToCSV';
+import { Divider } from 'semantic-ui-react';
 
 export class ResultsList extends Component {
   constructor(props) {
@@ -31,12 +33,19 @@ export class ResultsList extends Component {
   render() {
     const rows = this.prepareData(this.props.results);
     const headerActionComponent = (
-      <NewButton
-        text={'New document'}
-        clickHandler={() => {
-          openRecordEditor(documentApi.url);
-        }}
-      />
+      <div>
+        <NewButton
+          text={'New document'}
+          clickHandler={() => {
+            openRecordEditor(documentApi.url);
+          }}
+        />
+        <Divider hidden />
+        <ExportToCSV
+          countQuery={documentApi.count}
+          exportQuery={documentApi.exportToCSV}
+        />
+      </div>
     );
 
     return rows.length ? (

@@ -318,6 +318,9 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
+            ),
+            "text/csv": (
+                "invenio_app_ils.records.serializers:csv_v1_search"
             )
         },
         list_route="/documents/",
@@ -353,6 +356,9 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:item_v1_search"
+            ),
+            "text/csv": (
+                "invenio_app_ils.records.serializers:csv_v1_search"
             )
         },
         list_route="/items/",
@@ -388,6 +394,9 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
+            ),
+            "text/csv": (
+                "invenio_app_ils.records.serializers:csv_v1_search"
             )
         },
         list_route="/eitems/",
@@ -423,6 +432,9 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
+            ),
+            "text/csv": (
+                "invenio_app_ils.records.serializers:csv_v1_search"
             )
         },
         list_route="/locations/",
@@ -458,6 +470,9 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
+            ),
+            "text/csv": (
+                "invenio_app_ils.records.serializers:csv_v1_search"
             )
         },
         list_route="/series/",
@@ -494,6 +509,9 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
+            ),
+            "text/csv": (
+                "invenio_app_ils.records.serializers:csv_v1_search"
             )
         },
         list_route="/internal-locations/",
@@ -520,6 +538,9 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
+            ),
+            "text/csv": (
+                "invenio_app_ils.records.serializers:csv_v1_search"
             )
         },
         item_route='/patrons/<pid({}):pid_value>'.format(PATRON_PID_TYPE),
@@ -547,6 +568,9 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
+            ),
+            "text/csv": (
+                "invenio_app_ils.records.serializers:csv_v1_search"
             )
         },
         item_route="/keywords/<{0}:pid_value>".format(
@@ -670,6 +694,9 @@ CIRCULATION_REST_ENDPOINTS = dict(
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
+            ),
+            "text/csv": (
+                "invenio_app_ils.records.serializers:csv_v1_search"
             )
         },
         list_route="/circulation/loans/",

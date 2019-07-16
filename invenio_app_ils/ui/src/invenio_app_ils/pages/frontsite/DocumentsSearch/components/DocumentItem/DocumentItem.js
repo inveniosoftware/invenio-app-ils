@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {
   Button,
-  Icon,
   Item,
   Label,
-  Responsive,
   Segment,
+  Responsive,
+  Icon,
+  Divider,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { truncate } from 'lodash/string';
@@ -18,10 +19,31 @@ export default class DocumentItem extends Component {
     this.metadata = props.metadata;
   }
 
+  renderBookAvailabilityLabel = circulationData => {
+    return (
+      <Label
+        color={circulationData.has_items_for_loan ? 'green' : 'red'}
+        content="Available copies"
+        detail={circulationData.has_items_for_loan}
+      />
+    );
+  };
+
+  renderPastLoansLabel = circulationData => {
+    return (
+      <Label
+        color="blue"
+        content="Past loans"
+        detail={circulationData.number_of_past_loans}
+      />
+    );
+  };
+
   render() {
     const cover = 'https://assets.thalia.media/img/46276899-00-00.jpg';
     return (
       <Segment>
+        <Divider hidden />
         <Item.Group divided>
           <Item>
             <Item.Image src={cover} size="small" floated="left" />
@@ -65,6 +87,10 @@ export default class DocumentItem extends Component {
                   <Icon name="eye" />
                   View Details
                 </Button>
+                <Divider hidden />
+                {this.renderBookAvailabilityLabel(this.metadata.circulation)}
+                <Divider hidden />
+                {this.renderPastLoansLabel(this.metadata.circulation)}
               </Item.Extra>
               <Item.Extra>
                 <Label>Non-Fiction</Label>

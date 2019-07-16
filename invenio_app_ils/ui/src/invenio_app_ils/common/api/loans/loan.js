@@ -220,6 +220,16 @@ const count = query => {
   });
 };
 
+const exportToCSV = query => {
+  return http
+    .get(`${ApiURLS.loans.list}?${query}`, {
+      headers: { Accept: 'text/csv' },
+    })
+    .then(response => {
+      return response.data;
+    });
+};
+
 export const loan = {
   assignItemToLoan: assignItemToLoan,
   query: queryBuilder,
@@ -230,4 +240,5 @@ export const loan = {
   requestLoanOnDocument: requestLoanOnDocument,
   serializer: serializer,
   url: ApiURLS.loans.list,
+  exportToCSV: exportToCSV,
 };

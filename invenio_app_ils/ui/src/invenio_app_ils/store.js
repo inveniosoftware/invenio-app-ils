@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
+import { csvExportReducer } from './pages/backoffice/components/ExportToCSV/reducer';
 import {
   patronCurrentLoansReducer,
   patronPastLoansReducer,
@@ -87,6 +88,7 @@ const rootReducer = combineReducers({
   seriesDetails: seriesDetailsReducer,
   seriesDocuments: seriesDocumentsReducer,
   relatedRecords: relatedRecordsReducer,
+  csvExport: csvExportReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

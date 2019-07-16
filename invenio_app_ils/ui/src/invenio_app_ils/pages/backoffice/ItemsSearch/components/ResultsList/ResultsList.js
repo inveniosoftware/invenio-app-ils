@@ -6,6 +6,8 @@ import { ResultsTable } from '../../../../../common/components';
 import { NewButton } from '../../../components/buttons';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import omit from 'lodash/omit';
+import { ExportToCSV } from '../../../components/ExportToCSV';
+import { Divider } from 'semantic-ui-react';
 
 export class ResultsList extends Component {
   constructor(props) {
@@ -26,12 +28,19 @@ export class ResultsList extends Component {
         ? rows.length
         : ResultsTable.defaultProps.showMaxRows;
     const headerActionComponent = (
-      <NewButton
-        text={'New item'}
-        clickHandler={() => {
-          openRecordEditor(itemApi.url);
-        }}
-      />
+      <div>
+        <NewButton
+          text={'New item'}
+          clickHandler={() => {
+            openRecordEditor(itemApi.url);
+          }}
+        />
+        <Divider hidden />
+        <ExportToCSV
+          countQuery={itemApi.count}
+          exportQuery={itemApi.exportToCSV}
+        />
+      </div>
     );
 
     return rows.length ? (

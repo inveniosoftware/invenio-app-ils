@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ResultsTable } from '../../../../../common/components';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import { loan as loanApi } from '../../../../../common/api';
+import { ExportToCSV } from '../../../components/ExportToCSV';
 
 export class ResultsList extends Component {
   constructor(props) {
@@ -20,10 +22,18 @@ export class ResultsList extends Component {
         ? rows.length
         : ResultsTable.defaultProps.showMaxRows;
 
+    const headerActionComponent = (
+      <ExportToCSV
+        countQuery={loanApi.count}
+        exportQuery={loanApi.exportToCSV}
+      />
+    );
+
     return (
       <ResultsTable
         rows={rows}
         name={'loans'}
+        headerActionComponent={headerActionComponent}
         rowActionClickHandler={this.viewDetailsClickHandler}
         showMaxRows={maxRowsToShow}
       />

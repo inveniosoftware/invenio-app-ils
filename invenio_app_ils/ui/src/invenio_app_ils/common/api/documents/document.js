@@ -128,11 +128,22 @@ const count = query => {
   });
 };
 
+const exportToCSV = query => {
+  return http
+    .get(`${documentURL}?${query}`, {
+      headers: { Accept: 'text/csv' },
+    })
+    .then(response => {
+      return response.data;
+    });
+};
+
 export const document = {
   get: get,
   delete: del,
   patch: patch,
   list: list,
+  exportToCSV: exportToCSV,
   count: count,
   query: queryBuilder,
   serializer: serializer,

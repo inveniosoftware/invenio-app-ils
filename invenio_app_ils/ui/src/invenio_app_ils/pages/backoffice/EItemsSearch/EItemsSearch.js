@@ -23,6 +23,7 @@ import { ResultsList as EItemsResultsList } from './components';
 import { default as config } from './config';
 import { goTo } from '../../../history';
 import './EItemsSearch.scss';
+import { ExportToCSV } from '../components/ExportToCSV';
 
 export class EItemsSearch extends Component {
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
