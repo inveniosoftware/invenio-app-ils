@@ -444,20 +444,11 @@ class SeriesGenerator(Generator):
             Series.pid_field: str(pid),
             "mode_of_issuance": random.choice(self.MODE_OF_ISSUANCE),
             "issn": self.random_issn(),
-            "title": "{}".format(lorem.sentence()),
+            "title": {"title": "{}".format(lorem.sentence())},
             "authors": ["{}".format(lorem.sentence())],
             "abstracts": ["{}".format(lorem.text())],
             "languages": random.sample(self.LANGUAGES, randint(1, len(self.LANGUAGES))),
             "publishers": ["{}".format(lorem.sentence())],
-            "files": ["https://cds.cern.ch/record/2255762/"
-                      "files/CERN-Brochure-2017-002-Eng.pdf",
-                      "https://cds.cern.ch/record/2256277/"
-                      "files/CERN-Brochure-2016-005-Eng.pdf"],
-            "booklinks": ["https://home.cern/science/physics/dark-matter",
-                          "https://home.cern/science/physics/antimatter"],
-            "chapters": ["{}".format(lorem.sentence())],
-            "information": "{}".format(lorem.text()),
-            "keyword_pids": random.sample(keyword_pids, randint(0, 5)),
         } for pid in range(1, size+1)]
 
         self.holder.series['objs'] = objs

@@ -119,10 +119,15 @@ function formatSeriesToTableView(series) {
     Updated: toShortDate(fromISO(series.updated)),
   };
   if (!isEmpty(series.metadata)) {
-    serialized['Title'] = series.metadata.title;
-    serialized['Authors'] = series.metadata.authors;
+    serialized['Title'] = series.metadata.title.title;
     serialized['Mode of Issuance'] = series.metadata.mode_of_issuance;
+    if (series.metadata.authors && !isEmpty(series.metadata.authors)) {
+      serialized['Authors'] = series.metadata.authors;
+    } else {
+      serialized['Authors'] = [];
+    }
   }
+
   return serialized;
 }
 

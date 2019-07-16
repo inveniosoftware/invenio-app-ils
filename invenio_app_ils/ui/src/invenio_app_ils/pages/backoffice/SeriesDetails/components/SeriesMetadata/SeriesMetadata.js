@@ -88,7 +88,7 @@ export default class SeriesMetadata extends Component {
       <Grid.Row>
         <Grid.Column width={13} verticalAlign={'middle'}>
           <Header as="h1">
-            Series #{series.series_pid} - {series.metadata.title}
+            Series #{series.series_pid} - {series.metadata.title.title}
           </Header>
         </Grid.Column>
         <Grid.Column width={3} textAlign={'right'}>
@@ -110,7 +110,7 @@ export default class SeriesMetadata extends Component {
 
   prepareData(series) {
     const rows = [
-      { name: 'Title', value: series.metadata.title },
+      { name: 'Title', value: series.metadata.title.title },
       { name: 'Mode of Issuance', value: series.metadata.mode_of_issuance },
       { name: 'Authors', value: series.metadata.authors },
     ];
