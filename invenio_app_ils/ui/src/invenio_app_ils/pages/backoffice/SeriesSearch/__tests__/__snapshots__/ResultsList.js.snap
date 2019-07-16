@@ -21,7 +21,9 @@ exports[`SeriesSearch ResultsList tests should render a list of results 1`] = `
           ],
           "related_records": Array [],
           "series_pid": "3",
-          "title": "This is a title",
+          "title": Object {
+            "title": "This is a title",
+          },
         },
         "series_pid": "3",
         "updated": "2018-01-01T10:05:00.000Z",

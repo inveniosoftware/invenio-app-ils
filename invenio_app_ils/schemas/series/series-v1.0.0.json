@@ -7,21 +7,11 @@
     "$schema": {
       "type": "string"
     },
-    "series_pid": {
-      "title": "Series PID",
-      "type": "string"
-    },
-    "mode_of_issuance": {
-      "title": "Mode of issuance",
-      "type": "string",
-      "enum": ["MULTIPART_MONOGRAPH", "SERIAL"]
-    },
-    "issn": {
-      "title": "ISSN",
-      "type": "string"
-    },
-    "title": {
-      "type": "string",
+    "abstracts": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
       "description": ""
     },
     "authors": {
@@ -31,75 +21,14 @@
       "type": "array",
       "description": ""
     },
-    "abstracts": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array",
-      "description": ""
+    "issn": {
+      "title": "ISSN",
+      "type": "string"
     },
-    "publishers": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array",
-      "description": ""
-    },
-    "files": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array",
-      "description": ""
-    },
-    "links": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array",
-      "description": ""
-    },
-    "chapters": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array",
-      "description": ""
-    },
-    "information": {
+    "mode_of_issuance": {
+      "title": "Mode of issuance",
       "type": "string",
-      "description": ""
-    },
-    "keyword_pids": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "keywords": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      }
-    },
-    "related_records": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "pid": {
-            "type": "string"
-          },
-          "pid_type": {
-            "type": "string"
-          },
-          "relation_type": {
-            "type": "string"
-          }
-        }
-      }
+      "enum": ["MULTIPART_MONOGRAPH", "SERIAL"]
     },
     "language": {
       "items": {
@@ -298,6 +227,49 @@
       "title": "List of languages of the document",
       "type": "array",
       "uniqueItems": true
+    },
+    "links": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "description": ""
+    },
+    "publishers": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "description": ""
+    },
+    "related_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pid": {
+            "type": "string"
+          },
+          "pid_type": {
+            "type": "string"
+          },
+          "relation_type": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "series_pid": {
+      "title": "Series PID",
+      "type": "string"
+    },
+    "title": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        }
+      }
     }
   }
 }

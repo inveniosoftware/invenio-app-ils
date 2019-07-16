@@ -18,7 +18,7 @@ describe('SeriesSearch ResultsList tests', () => {
       series_pid: '3',
       metadata: {
         authors: ['Author1'],
-        title: 'This is a title',
+        title: { title: 'This is a title' },
         abstracts: 'This is an abstract',
         series_pid: '3',
         related_records: [],
@@ -60,7 +60,9 @@ describe('SeriesSearch ResultsList tests', () => {
       );
     expect(mappedStatusElements).toHaveLength(1);
 
-    expect(mappedStatusElements.text()).toEqual(firstResult.metadata.title);
+    expect(mappedStatusElements.text()).toEqual(
+      firstResult.metadata.title.title
+    );
   });
 
   it('should call click handler on view details click', () => {
