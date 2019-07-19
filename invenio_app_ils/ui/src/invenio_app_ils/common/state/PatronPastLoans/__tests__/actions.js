@@ -44,7 +44,7 @@ describe('Patron past loans tests', () => {
     };
     await store.dispatch(actions.fetchPatronPastLoans(2));
     expect(mockFetchPatronPasttLoans).toHaveBeenCalledWith(
-      '(patron_pid:2 AND state:(ITEM_RETURNED))&sort=-mostrecent'
+      '(patron_pid:2 AND state:(ITEM_RETURNED))&sort=-mostrecent&page=1'
     );
     expect(store.getActions()[0]).toEqual(expectedAction);
   });
@@ -57,7 +57,7 @@ describe('Patron past loans tests', () => {
     };
     await store.dispatch(actions.fetchPatronPastLoans(2));
     expect(mockFetchPatronPasttLoans).toHaveBeenCalledWith(
-      '(patron_pid:2 AND state:(ITEM_RETURNED))&sort=-mostrecent'
+      '(patron_pid:2 AND state:(ITEM_RETURNED))&sort=-mostrecent&page=1'
     );
     expect(store.getActions()[1]).toEqual(expectedAction);
   });
@@ -70,7 +70,7 @@ describe('Patron past loans tests', () => {
     };
     await store.dispatch(actions.fetchPatronPastLoans(2));
     expect(mockFetchPatronPasttLoans).toHaveBeenCalledWith(
-      '(patron_pid:2 AND state:(ITEM_RETURNED))&sort=-mostrecent'
+      '(patron_pid:2 AND state:(ITEM_RETURNED))&sort=-mostrecent&page=1'
     );
     expect(store.getActions()[1]).toEqual(expectedAction);
   });
@@ -80,9 +80,9 @@ describe('Patron past loans tests', () => {
     const expectedAction = {
       type: types.IS_LOADING,
     };
-    await store.dispatch(actions.fetchPatronPastLoans(2, ES_DELAY));
+    await store.dispatch(actions.fetchPatronPastLoans(2));
     expect(mockFetchPatronPasttLoans).toHaveBeenCalledWith(
-      '(patron_pid:2 AND state:(ITEM_RETURNED))&sort=-mostrecent'
+      '(patron_pid:2 AND state:(ITEM_RETURNED))&sort=-mostrecent&page=1'
     );
     expect(store.getActions()[0]).toEqual(expectedAction);
   });

@@ -4,10 +4,12 @@ exports[`DocumentPendingLoans tests should load the details component 1`] = `
 <Loader>
   <Error>
     <ResultsTable
+      currentPage={1}
       fixed={false}
       headerActionClickHandler={null}
       headerActionComponent={null}
       name="pending loan requests"
+      paginationComponent={null}
       renderSegment={true}
       rowActionClickHandler={[Function]}
       rows={Array []}
@@ -77,10 +79,12 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
   <Loader>
     <Error>
       <ResultsTable
+        currentPage={1}
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="pending loan requests"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
@@ -504,6 +508,8 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={4}
+                  currentPage={1}
+                  paginationComponent={null}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}
@@ -546,10 +552,12 @@ exports[`DocumentPendingLoans tests should render show a message with no pending
   <Loader>
     <Error>
       <ResultsTable
+        currentPage={1}
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="pending loan requests"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={Array []}
@@ -686,10 +694,12 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
   <Loader>
     <Error>
       <ResultsTable
+        currentPage={1}
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="pending loan requests"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
@@ -1014,6 +1024,8 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={4}
+                  currentPage={1}
+                  paginationComponent={null}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}
@@ -1060,10 +1072,11 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                                   colSpan={5}
                                 >
                                   <span>
-                                    Showing first 
+                                    Showing entries 
                                     1
-                                     entries of
-                                     
+                                    -
+                                    1
+                                     of 
                                     2
                                      
                                   </span>
@@ -1087,6 +1100,7 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                                       </Button>
                                     </SeeAllButton>
                                   </span>
+                                  <span />
                                 </th>
                               </TableCell>
                             </TableHeaderCell>

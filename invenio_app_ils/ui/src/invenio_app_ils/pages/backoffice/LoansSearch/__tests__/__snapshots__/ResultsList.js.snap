@@ -6,10 +6,12 @@ exports[`LoansSearch ResultsList tests should not render when empty results 1`] 
   viewDetailsClickHandler={[Function]}
 >
   <ResultsTable
+    currentPage={1}
     fixed={false}
     headerActionClickHandler={null}
     headerActionComponent={null}
     name="loans"
+    paginationComponent={null}
     renderSegment={true}
     rowActionClickHandler={[Function]}
     rows={Array []}
@@ -88,10 +90,12 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
   viewDetailsClickHandler={[Function]}
 >
   <ResultsTable
+    currentPage={1}
     fixed={false}
     headerActionClickHandler={null}
     headerActionComponent={null}
     name="loans"
+    paginationComponent={null}
     renderSegment={true}
     rowActionClickHandler={[Function]}
     rows={
@@ -633,6 +637,8 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
             <ResultsTableFooter
               allRowsNumber={1}
               columnsNumber={12}
+              currentPage={1}
+              paginationComponent={null}
               seeAllComponent={null}
               showMaxRows={10}
             />
