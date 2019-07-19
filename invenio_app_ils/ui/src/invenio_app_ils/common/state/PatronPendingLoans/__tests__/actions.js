@@ -45,7 +45,7 @@ describe('Patron loans tests', () => {
 
       store.dispatch(actions.fetchPatronPendingLoans(2)).then(() => {
         expect(mockFetchUserLoan).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:PENDING)'
+          '(patron_pid:2 AND state:PENDING)&page=1'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
@@ -63,7 +63,7 @@ describe('Patron loans tests', () => {
 
       store.dispatch(actions.fetchPatronPendingLoans(2)).then(() => {
         expect(mockFetchUserLoan).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:PENDING)'
+          '(patron_pid:2 AND state:PENDING)&page=1'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -81,86 +81,12 @@ describe('Patron loans tests', () => {
 
       store.dispatch(actions.fetchPatronPendingLoans(2)).then(() => {
         expect(mockFetchUserLoan).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:PENDING)'
+          '(patron_pid:2 AND state:PENDING)&page=1'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
         done();
       });
     });
-  });
-});
-
-describe('Fetch change sort by when fetching patron loans tests', () => {
-  it('should dispatch a change sort by action with `start_date` when calling patronLoansChangeSortBy the first time', done => {
-    mockFetchUserLoan.mockResolvedValue(mockResponse);
-
-    const expectedAction = {
-      type: types.CHANGE_SORT_BY,
-      payload: 'start_date',
-    };
-
-    store.dispatch(actions.patronLoansChangeSortBy('111', '222')).then(() => {
-      const actions = store.getActions();
-      expect(actions[0]).toEqual(expectedAction);
-      expect(mockFetchUserLoan).toHaveBeenCalled();
-      done();
-    });
-  });
-
-  it('should dispatch a change sort by action with `transaction_date` when calling patronLoansChangeSortBy the second time', done => {
-    mockFetchUserLoan.mockResolvedValue(mockResponse);
-    store.getState().patronPendingLoans.sortBy = 'start_date';
-
-    const expectedAction = {
-      type: types.CHANGE_SORT_BY,
-      payload: 'transaction_date',
-    };
-
-    store.dispatch(actions.patronLoansChangeSortBy('999', '888')).then(() => {
-      const actions = store.getActions();
-      expect(actions[0]).toEqual(expectedAction);
-      expect(mockFetchUserLoan).toHaveBeenCalled();
-      done();
-    });
-  });
-});
-
-describe('Fetch change sort order when fetching patron loans tests', () => {
-  it('should dispatch a change sort order action with `desc` when calling patronLoansChangeSortOrder the first time', done => {
-    mockFetchUserLoan.mockResolvedValue(mockResponse);
-
-    const expectedAction = {
-      type: types.CHANGE_SORT_ORDER,
-      payload: 'desc',
-    };
-
-    store
-      .dispatch(actions.patronLoansChangeSortOrder('123', '456'))
-      .then(() => {
-        const actions = store.getActions();
-        expect(actions[0]).toEqual(expectedAction);
-        expect(mockFetchUserLoan).toHaveBeenCalled();
-        done();
-      });
-  });
-
-  it('should dispatch a change sort by action with `asc` when calling patronLoansChangeSortOrder the second time', done => {
-    mockFetchUserLoan.mockResolvedValue(mockResponse);
-    store.getState().patronPendingLoans.sortOrder = 'desc';
-
-    const expectedAction = {
-      type: types.CHANGE_SORT_ORDER,
-      payload: 'asc',
-    };
-
-    store
-      .dispatch(actions.patronLoansChangeSortOrder('123', '456'))
-      .then(() => {
-        const actions = store.getActions();
-        expect(actions[0]).toEqual(expectedAction);
-        expect(mockFetchUserLoan).toHaveBeenCalled();
-        done();
-      });
   });
 });

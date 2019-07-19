@@ -4,10 +4,12 @@ exports[`RenewedLoansList tests should load the details component 1`] = `
 <Loader>
   <Error>
     <ResultsTable
+      currentPage={1}
       fixed={false}
       headerActionClickHandler={null}
       headerActionComponent={null}
       name="frequently renewed loans"
+      paginationComponent={null}
       renderSegment={true}
       rowActionClickHandler={[Function]}
       rows={Array []}
@@ -66,10 +68,12 @@ exports[`RenewedLoansList tests should render loans 1`] = `
   <Loader>
     <Error>
       <ResultsTable
+        currentPage={1}
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="frequently renewed loans"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
@@ -585,6 +589,8 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={6}
+                  currentPage={1}
+                  paginationComponent={null}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}
@@ -618,10 +624,12 @@ exports[`RenewedLoansList tests should render show a message with no loans 1`] =
   <Loader>
     <Error>
       <ResultsTable
+        currentPage={1}
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="frequently renewed loans"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={Array []}

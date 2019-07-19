@@ -7,3 +7,4 @@ export { formatter as ResultsTableFormatter } from './ResultsTable/formatters';
 export { SearchBar } from './SearchBar';
 export { LoginButton } from './LoginButton';
 export { PatronSearchBox } from './PatronSearchBox/PatronSearchBox';
+export { Pagination } from './Pagination';

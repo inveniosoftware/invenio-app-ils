@@ -292,4 +292,8 @@ def index(path=None):
         {"relationTypes": current_app.config["PIDRELATIONS_RELATION_TYPES"]}
     )
 
+    ui_config.update(
+        {"default_results_size": current_app.config["RECORDS_REST_DEFAULT_RESULTS_SIZE"]}
+    )
+
     return render_template("invenio_app_ils/index.html", ui_config=ui_config)

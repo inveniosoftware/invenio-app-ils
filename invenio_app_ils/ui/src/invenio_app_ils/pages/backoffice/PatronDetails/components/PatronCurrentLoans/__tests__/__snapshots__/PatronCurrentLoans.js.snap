@@ -4,10 +4,12 @@ exports[`PatronLoans tests should load the details component 1`] = `
 <Loader>
   <Error>
     <ResultsTable
+      currentPage={1}
       fixed={false}
       headerActionClickHandler={null}
       headerActionComponent={null}
       name="current loans"
+      paginationComponent={null}
       renderSegment={true}
       rowActionClickHandler={[Function]}
       rows={Array []}
@@ -84,10 +86,12 @@ exports[`PatronLoans tests should render patron loans 1`] = `
   <Loader>
     <Error>
       <ResultsTable
+        currentPage={1}
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="current loans"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
@@ -556,6 +560,8 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={5}
+                  currentPage={1}
+                  paginationComponent={null}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}
@@ -605,10 +611,12 @@ exports[`PatronLoans tests should render show a message with no user loans 1`] =
   <Loader>
     <Error>
       <ResultsTable
+        currentPage={1}
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="current loans"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={Array []}
@@ -751,10 +759,12 @@ exports[`PatronLoans tests should render the see all button when showing only a 
   <Loader>
     <Error>
       <ResultsTable
+        currentPage={1}
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="current loans"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
@@ -1111,6 +1121,8 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={5}
+                  currentPage={1}
+                  paginationComponent={null}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}
@@ -1157,10 +1169,11 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                                   colSpan={6}
                                 >
                                   <span>
-                                    Showing first 
+                                    Showing entries 
                                     1
-                                     entries of
-                                     
+                                    -
+                                    1
+                                     of 
                                     2
                                      
                                   </span>
@@ -1184,6 +1197,7 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                                       </Button>
                                     </SeeAllButton>
                                   </span>
+                                  <span />
                                 </th>
                               </TableCell>
                             </TableHeaderCell>

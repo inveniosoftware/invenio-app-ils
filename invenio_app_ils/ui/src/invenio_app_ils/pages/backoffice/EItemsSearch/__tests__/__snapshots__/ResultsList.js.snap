@@ -30,6 +30,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
   viewDetailsClickHandler={[Function]}
 >
   <ResultsTable
+    currentPage={1}
     fixed={false}
     headerActionClickHandler={null}
     headerActionComponent={
@@ -41,6 +42,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
       />
     }
     name="eitems"
+    paginationComponent={null}
     renderSegment={true}
     rowActionClickHandler={[Function]}
     rows={
@@ -397,6 +399,8 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
             <ResultsTableFooter
               allRowsNumber={1}
               columnsNumber={5}
+              currentPage={1}
+              paginationComponent={null}
               seeAllComponent={null}
               showMaxRows={10}
             />

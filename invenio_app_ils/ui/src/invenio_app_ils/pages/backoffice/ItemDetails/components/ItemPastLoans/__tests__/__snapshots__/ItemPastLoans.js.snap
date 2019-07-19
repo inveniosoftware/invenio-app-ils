@@ -4,10 +4,12 @@ exports[`ItemPastLoans tests should load the past loans component 1`] = `
 <Loader>
   <Error>
     <ResultsTable
+      currentPage={1}
       fixed={false}
       headerActionClickHandler={null}
       headerActionComponent={null}
       name="loans"
+      paginationComponent={null}
       renderSegment={true}
       rowActionClickHandler={[Function]}
       rows={Array []}
@@ -75,10 +77,12 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
   <Loader>
     <Error>
       <ResultsTable
+        currentPage={1}
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="loans"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
@@ -727,6 +731,8 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={9}
+                  currentPage={1}
+                  paginationComponent={null}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}
@@ -769,10 +775,12 @@ exports[`ItemPastLoans tests should render show a message with no past loans 1`]
   <Loader>
     <Error>
       <ResultsTable
+        currentPage={1}
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="loans"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={Array []}

@@ -4,10 +4,12 @@ exports[`OverbookedDocumentsList tests should load the details component 1`] = `
 <Loader>
   <Error>
     <ResultsTable
+      currentPage={1}
       fixed={true}
       headerActionClickHandler={null}
       headerActionComponent={null}
       name="overbooked documents"
+      paginationComponent={null}
       renderSegment={true}
       rowActionClickHandler={[Function]}
       rows={Array []}
@@ -72,10 +74,12 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
   <Loader>
     <Error>
       <ResultsTable
+        currentPage={1}
         fixed={true}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="overbooked documents"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
@@ -499,6 +503,8 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={4}
+                  currentPage={1}
+                  paginationComponent={null}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}
@@ -532,10 +538,12 @@ exports[`OverbookedDocumentsList tests should render show a message with no docu
   <Loader>
     <Error>
       <ResultsTable
+        currentPage={1}
         fixed={true}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="overbooked documents"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={Array []}

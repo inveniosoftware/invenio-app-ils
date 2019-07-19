@@ -2,27 +2,22 @@ import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { invenioConfig } from '../../config';
 import { loan as loanApi } from '../../api';
 import { sendErrorNotification } from '../../components/Notifications';
+import { ES_DELAY } from '../../config';
 
-const selectQuery = (patronPid, query) => {
-  if (query === undefined) {
-    query = loanApi
-      .query()
-      .withPatronPid(patronPid)
-      .withState(invenioConfig.circulation.loanCompletedStates)
-      .sortByNewest()
-      .qs();
-  }
-  return query;
+const selectQuery = (patronPid, page = 1) => {
+  return loanApi
+    .query()
+    .withPatronPid(patronPid)
+    .withState(invenioConfig.circulation.loanCompletedStates)
+    .withPage(page)
+    .sortByNewest()
+    .qs();
 };
 
-export const fetchPatronPastLoans = (
-  patronPid,
-  delay = 0,
-  query = undefined
-) => {
+export const fetchPatronPastLoans = (patronPid, page) => {
   const fetchLoans = (patronPid, dispatch) => {
     loanApi
-      .list(selectQuery(patronPid, query))
+      .list(selectQuery(patronPid, page))
       .then(response => {
         dispatch({
           type: SUCCESS,
@@ -42,7 +37,7 @@ export const fetchPatronPastLoans = (
     return new Promise(function(resolve, reject) {
       setTimeout(() => {
         resolve(fetchLoans(patronPid, dispatch));
-      }, delay);
+      }, ES_DELAY);
     });
   }
 

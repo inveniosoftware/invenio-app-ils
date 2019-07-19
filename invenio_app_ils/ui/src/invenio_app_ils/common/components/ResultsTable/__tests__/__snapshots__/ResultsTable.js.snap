@@ -25,9 +25,11 @@ exports[`ResultsTable tests should load the ResultTable component 1`] = `
 
 exports[`ResultsTable tests should not render the see all button when showing only a few rows 1`] = `
 <ResultsTable
+  currentPage={1}
   fixed={false}
   headerActionClickHandler={null}
   headerActionComponent={null}
+  paginationComponent={null}
   renderSegment={true}
   rowActionClickHandler={[Function]}
   rows={
@@ -471,6 +473,8 @@ exports[`ResultsTable tests should not render the see all button when showing on
           <ResultsTableFooter
             allRowsNumber={2}
             columnsNumber={5}
+            currentPage={1}
+            paginationComponent={null}
             seeAllComponent={null}
             showMaxRows={3}
           />
@@ -483,9 +487,11 @@ exports[`ResultsTable tests should not render the see all button when showing on
 
 exports[`ResultsTable tests should render the see all button when showing only a few rows 1`] = `
 <ResultsTable
+  currentPage={1}
   fixed={false}
   headerActionClickHandler={null}
   headerActionComponent={null}
+  paginationComponent={null}
   renderSegment={true}
   rowActionClickHandler={[Function]}
   rows={
@@ -857,6 +863,8 @@ exports[`ResultsTable tests should render the see all button when showing only a
           <ResultsTableFooter
             allRowsNumber={2}
             columnsNumber={6}
+            currentPage={1}
+            paginationComponent={null}
             seeAllComponent={
               <Button
                 as="button"
@@ -905,10 +913,11 @@ exports[`ResultsTable tests should render the see all button when showing only a
                             colSpan={7}
                           >
                             <span>
-                              Showing first 
+                              Showing entries 
                               1
-                               entries of
-                               
+                              -
+                              1
+                               of 
                               2
                                
                             </span>
@@ -926,6 +935,7 @@ exports[`ResultsTable tests should render the see all button when showing only a
                                 </button>
                               </Button>
                             </span>
+                            <span />
                           </th>
                         </TableCell>
                       </TableHeaderCell>
