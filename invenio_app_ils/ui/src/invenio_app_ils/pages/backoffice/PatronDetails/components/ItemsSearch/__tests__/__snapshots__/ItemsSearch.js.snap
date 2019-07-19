@@ -252,6 +252,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                         headerActionClickHandler={null}
                         headerActionComponent={null}
                         name="items"
+                        paginationComponent={null}
                         renderSegment={true}
                         rowActionClickHandler={null}
                         rows={
@@ -570,6 +571,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                 <ResultsTableFooter
                                   allRowsNumber={1}
                                   columnsNumber={5}
+                                  paginationComponent={null}
                                   seeAllComponent={null}
                                   showMaxRows={10}
                                 />

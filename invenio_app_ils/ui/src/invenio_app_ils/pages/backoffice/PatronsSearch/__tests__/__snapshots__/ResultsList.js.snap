@@ -29,6 +29,7 @@ exports[`PatronsSearch ResultsList tests should render a list of results 1`] = `
     fixed={false}
     headerActionClickHandler={null}
     headerActionComponent={null}
+    paginationComponent={null}
     renderSegment={true}
     rowActionClickHandler={[Function]}
     rows={
@@ -291,6 +292,7 @@ exports[`PatronsSearch ResultsList tests should render a list of results 1`] = `
             <ResultsTableFooter
               allRowsNumber={1}
               columnsNumber={3}
+              paginationComponent={null}
               seeAllComponent={null}
               showMaxRows={10}
             />

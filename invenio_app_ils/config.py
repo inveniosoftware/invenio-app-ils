@@ -777,6 +777,9 @@ RECORDS_REST_SORT_OPTIONS = dict(
 
 # RECORDS REST facets
 # =========================
+#: Number of records to fetch by default
+RECORDS_REST_DEFAULT_RESULTS_SIZE = 10
+
 #: Number of keywords to display in the DocumentsSearch facet
 FACET_KEYWORD_LIMIT = 5
 

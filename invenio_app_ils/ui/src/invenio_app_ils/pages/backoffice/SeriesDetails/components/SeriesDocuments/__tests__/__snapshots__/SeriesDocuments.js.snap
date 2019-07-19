@@ -8,6 +8,7 @@ exports[`SeriesDocuments tests should load the SeriesDocuments component 1`] = `
       headerActionClickHandler={null}
       headerActionComponent={null}
       name="documents"
+      paginationComponent={null}
       renderSegment={true}
       rowActionClickHandler={[Function]}
       rows={Array []}
@@ -88,6 +89,7 @@ exports[`SeriesDocuments tests should render document 1`] = `
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="documents"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
@@ -511,6 +513,7 @@ exports[`SeriesDocuments tests should render document 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={4}
+                  paginationComponent={null}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}
@@ -556,6 +559,7 @@ exports[`SeriesDocuments tests should render show a message with no documents 1`
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="documents"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={Array []}
@@ -689,6 +693,7 @@ exports[`SeriesDocuments tests should render the see all button when showing onl
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="documents"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
@@ -1013,6 +1018,7 @@ exports[`SeriesDocuments tests should render the see all button when showing onl
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={4}
+                  paginationComponent={null}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}
@@ -1086,6 +1092,7 @@ exports[`SeriesDocuments tests should render the see all button when showing onl
                                       </Button>
                                     </SeeAllButton>
                                   </span>
+                                  <span />
                                 </th>
                               </TableCell>
                             </TableHeaderCell>

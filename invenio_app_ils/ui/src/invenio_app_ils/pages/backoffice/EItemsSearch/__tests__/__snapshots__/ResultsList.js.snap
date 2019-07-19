@@ -41,6 +41,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
       />
     }
     name="eitems"
+    paginationComponent={null}
     renderSegment={true}
     rowActionClickHandler={[Function]}
     rows={
@@ -397,6 +398,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
             <ResultsTableFooter
               allRowsNumber={1}
               columnsNumber={5}
+              paginationComponent={null}
               seeAllComponent={null}
               showMaxRows={10}
             />

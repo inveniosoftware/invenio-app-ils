@@ -8,6 +8,7 @@ exports[`DocumentItems tests should load the DocumentItems component 1`] = `
       headerActionClickHandler={null}
       headerActionComponent={null}
       name="attached items"
+      paginationComponent={null}
       renderSegment={true}
       rowActionClickHandler={[Function]}
       rows={Array []}
@@ -88,6 +89,7 @@ exports[`DocumentItems tests should render item 1`] = `
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="attached items"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
@@ -601,6 +603,7 @@ exports[`DocumentItems tests should render item 1`] = `
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={6}
+                  paginationComponent={null}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}
@@ -646,6 +649,7 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="attached items"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={Array []}
@@ -791,6 +795,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="attached items"
+        paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
@@ -1179,6 +1184,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
                 <ResultsTableFooter
                   allRowsNumber={2}
                   columnsNumber={6}
+                  paginationComponent={null}
                   seeAllComponent={
                     <SeeAllButton
                       clickHandler={[Function]}
@@ -1252,6 +1258,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
                                       </Button>
                                     </SeeAllButton>
                                   </span>
+                                  <span />
                                 </th>
                               </TableCell>
                             </TableHeaderCell>

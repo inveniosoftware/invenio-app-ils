@@ -44,6 +44,7 @@ exports[`SeriesSearch ResultsList tests should render a list of results 1`] = `
       />
     }
     name="series"
+    paginationComponent={null}
     renderSegment={true}
     rowActionClickHandler={[Function]}
     rows={
@@ -435,6 +436,7 @@ exports[`SeriesSearch ResultsList tests should render a list of results 1`] = `
             <ResultsTableFooter
               allRowsNumber={1}
               columnsNumber={6}
+              paginationComponent={null}
               seeAllComponent={null}
               showMaxRows={10}
             />

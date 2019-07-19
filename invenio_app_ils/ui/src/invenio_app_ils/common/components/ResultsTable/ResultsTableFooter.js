@@ -19,6 +19,7 @@ export default class ResultsTableFooter extends Component {
               {this.props.allRowsNumber}{' '}
             </span>
             <span>{this.props.seeAllComponent}</span>
+            <span>{this.props.paginationComponent}</span>
           </Table.HeaderCell>
         </Table.Row>
       </Table.Footer>
@@ -31,8 +32,10 @@ ResultsTableFooter.propTypes = {
   columnsNumber: PropTypes.number.isRequired,
   showMaxRows: PropTypes.number.isRequired,
   seeAllComponent: PropTypes.node,
+  paginationComponent: PropTypes.node,
 };
 
 ResultsTableFooter.defaultProps = {
   seeAllComponent: null,
+  paginationComponent: null,
 };

@@ -1,9 +1,5 @@
 import { connect } from 'react-redux';
-import {
-  fetchPatronPendingLoans,
-  patronLoansChangeSortBy,
-  patronLoansChangeSortOrder,
-} from '../../../../../common/state/PatronPendingLoans/actions';
+import { fetchPatronPendingLoans } from '../../../../../common/state/PatronPendingLoans/actions';
 import PatronPendingLoansComponent from './PatronPendingLoans';
 
 const mapStateToProps = state => ({
@@ -11,16 +7,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPatronPendingLoans: patronPid =>
-    dispatch(fetchPatronPendingLoans(patronPid)),
-  patronLoansChangeSortBy: (documentPid, itemPid, loanState, patronPid) =>
-    dispatch(
-      patronLoansChangeSortBy(documentPid, itemPid, loanState, patronPid)
-    ),
-  patronLoansChangeSortOrder: (documentPid, itemPid, loanState, patronPid) =>
-    dispatch(
-      patronLoansChangeSortOrder(documentPid, itemPid, loanState, patronPid)
-    ),
+  fetchPatronPendingLoans: (patronPid, page) =>
+    dispatch(fetchPatronPendingLoans(patronPid, page)),
 });
 
 export const PatronPendingLoans = connect(

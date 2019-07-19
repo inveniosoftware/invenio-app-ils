@@ -31,6 +31,7 @@ export class ResultsTable extends Component {
           allRowsNumber={totalRows}
           showMaxRows={this.props.showMaxRows}
           seeAllComponent={this.props.seeAllComponent}
+          paginationComponent={this.props.paginationComponent}
           columnsNumber={columns.length}
         />
       </Table>
@@ -95,6 +96,7 @@ ResultsTable.propTypes = {
   headerActionComponent: PropTypes.node,
   rowActionClickHandler: PropTypes.func,
   seeAllComponent: PropTypes.node,
+  paginationComponent: PropTypes.node,
   singleLine: PropTypes.bool,
   fixed: PropTypes.bool,
 };
@@ -108,6 +110,7 @@ ResultsTable.defaultProps = {
   headerActionClickHandler: null,
   rowActionClickHandler: null,
   seeAllComponent: null,
+  paginationComponent: null,
   singleLine: false,
   fixed: false,
 };

@@ -93,6 +93,7 @@ class QueryBuilder {
     this.patronQuery = [];
     this.renewedCountQuery = [];
     this.size = '';
+    this.page = '';
     this.sortBy = '';
     this.startDateQuery = [];
     this.stateQuery = [];
@@ -178,6 +179,11 @@ class QueryBuilder {
     return this;
   }
 
+  withPage(page = 0) {
+    if (page > 0) this.page = `&page=${page}`;
+    return this;
+  }
+
   sortByNewest() {
     this.sortBy = `&sort=-mostrecent`;
     return this;
@@ -195,7 +201,7 @@ class QueryBuilder {
         this.startDateQuery
       )
       .join(' AND ');
-    return `(${searchCriteria})${this.sortBy}${this.size}`;
+    return `(${searchCriteria})${this.sortBy}${this.size}${this.page}`;
   }
 }
 
