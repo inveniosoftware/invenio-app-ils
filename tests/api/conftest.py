@@ -154,7 +154,7 @@ def testdata(app, db, es_clear):
         indexer.index(record)
 
     # flush all indices after indexing, otherwise ES won't be ready for tests
-    current_search.flush_and_refresh(index=None)
+    current_search.flush_and_refresh(index='*')
 
     return {
         "locations": locations,

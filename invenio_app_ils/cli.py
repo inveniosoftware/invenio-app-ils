@@ -622,7 +622,7 @@ def data(n_docs, n_items, n_eitems, n_loans, n_keywords, n_intlocs, n_series):
     indexer.process_bulk_queue()
 
     # flush all indices after indexing, otherwise ES won't be ready for tests
-    current_search.flush_and_refresh(index=None)
+    current_search.flush_and_refresh(index='*')
 
     # index documents
     indexer.bulk_index([str(r.id) for r in rec_docs])
