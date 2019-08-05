@@ -9,6 +9,9 @@
 
 from __future__ import absolute_import, print_function
 
+import os
+import sys
+
 import pytest
 from invenio_app.factory import create_ui
 
@@ -17,3 +20,9 @@ from invenio_app.factory import create_ui
 def create_app():
     """Create test app."""
     return create_ui
+
+
+@pytest.fixture(scope='module')
+def instance_path():
+    """Override pytest-invenio fixture."""
+    yield os.path.join(sys.prefix, 'var', 'instance')

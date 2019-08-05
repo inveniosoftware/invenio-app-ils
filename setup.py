@@ -42,30 +42,29 @@ setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
 install_requires = [
     "Flask-BabelEx>=0.9.3",
     "Flask-Debugtoolbar>=0.10.1",
-    "invenio[postgresql,base,auth]==3.1.0",
+    "invenio[postgresql,base,auth]==3.2.0a4",
     # extra invenio-search
-    'invenio-search[elasticsearch6]>=1.1.0,<1.2.0',
+    'invenio-search[elasticsearch6]>=1.2.1,<1.3.0',
     # metadata bundle without records UI
-    "invenio-indexer>=1.0.1,<1.1.0",
+    "invenio-indexer>=1.1.0,<1.2.0",
     "invenio-jsonschemas>=1.0.0,<1.1.0",
     "invenio-oaiserver>=1.0.3,<1.1.0",
     "invenio-pidstore>=1.0.0,<1.1.0",
-    "invenio-records-rest>=1.4.2,<1.5.0",
-    "invenio-records>=1.1.0,<1.2.0",
+    "invenio-records-rest>=1.5.0,<1.6.0",
+    "invenio-records>=1.3.0,<1.4.0",
     # upgraded packages
     "invenio-accounts-rest>=1.0.0a4,<1.1.0",
-    "invenio-app>=1.1.0,<1.2.0",
-    "invenio-assets>=1.1.2,<1.2.0",
+    "invenio-app>=1.2.0,<1.3.0",
+    "invenio-assets>=1.1.3,<1.2.0",
     "invenio-i18n>=1.1.0,<1.2.0",
     "invenio-userprofiles>=1.0.1,<1.1.0",
-    "invenio-search>=1.1.0,<1.2.0",
     "raven>=6.10.0",
     # extra
     "invenio-circulation>=1.0.0a14,<1.1.0",
     "invenio-records-editor>=1.0.0a3,<1.1.0",
     # until flask-sqlalchemy is fixed
     "SQLAlchemy>=1.2.16,<1.3.0",
-    "invenio-pidrelations>=1.0.0a5,<1.1.0",
+    "invenio-pidrelations>=1.0.0a6,<1.1.0",
 ]
 
 packages = find_packages()
