@@ -8,9 +8,7 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { truncate } from 'lodash/string';
 import { EitemsButton, ShareButtons } from '../../../components';
-import config from '../../../../frontsite/DocumentsSearch/config';
 
 export default class DocumentItem extends Component {
   constructor(props) {
@@ -41,18 +39,10 @@ export default class DocumentItem extends Component {
                 </span>
               </Item.Meta>
               <Responsive {...Responsive.onlyMobile}>
-                <Item.Description>
-                  {truncate(this.metadata.abstracts, {
-                    length: config.MAX_TEXT_LENGTH,
-                  })}
-                </Item.Description>
+                <Item.Description>this.metadata.abstracts</Item.Description>
               </Responsive>
               <Responsive {...Responsive.onlyComputer}>
-                <Item.Description>
-                  {truncate(this.metadata.abstracts, {
-                    length: config.MAX_TEXT_LENGTH,
-                  })}
-                </Item.Description>
+                <Item.Description>this.metadata.abstracts</Item.Description>
               </Responsive>
               <Item.Extra>
                 <EitemsButton eitems={this.metadata._computed.eitems} />

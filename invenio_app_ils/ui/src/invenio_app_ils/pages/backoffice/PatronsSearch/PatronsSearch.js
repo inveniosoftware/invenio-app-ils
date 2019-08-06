@@ -19,14 +19,16 @@ import {
   Error as IlsError,
   SearchBar as PatronsSearchBar,
 } from '../../../common/components';
-import { ClearButton } from '../components/buttons';
 import { patron } from '../../../common/api';
+import { getSearchConfig } from '../../../common/config';
+import { ClearButton } from '../components/buttons';
 import { ResultsList as PatronsResultsList } from './components';
-import { default as config } from './config';
 import { goTo } from '../../../history';
 import './PatronsSearch.scss';
 
 export class PatronsSearch extends Component {
+  searchConfig = getSearchConfig('patrons');
+
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
     return (
       <PatronsSearchBar
@@ -85,22 +87,22 @@ export class PatronsSearch extends Component {
   };
 
   renderResultsSorting = () => {
-    return config.SORT_BY.length ? (
+    return this.searchConfig.SORT_BY.length ? (
       <div className="sorting">
         <span className="before">Show</span>
         <ResultsPerPage
-          values={config.RESULTS_PER_PAGE}
-          defaultValue={config.RESULTS_PER_PAGE[0].value}
+          values={this.searchConfig.RESULTS_PER_PAGE}
+          defaultValue={this.searchConfig.RESULTS_PER_PAGE[0].value}
         />
         <span className="middle">results per page sorted by</span>
         <SortBy
-          values={config.SORT_BY}
-          defaultValue={config.SORT_BY[0].value}
-          defaultValueOnEmptyString={config.SORT_BY_ON_EMPTY_QUERY}
+          values={this.searchConfig.SORT_BY}
+          defaultValue={this.searchConfig.SORT_BY[0].value}
+          defaultValueOnEmptyString={this.searchConfig.SORT_BY_ON_EMPTY_QUERY}
         />
         <SortOrder
-          values={config.SORT_ORDER}
-          defaultValue={config.SORT_ORDER[0]['value']}
+          values={this.searchConfig.SORT_ORDER}
+          defaultValue={this.searchConfig.SORT_ORDER[0]['value']}
         />
       </div>
     ) : null;
