@@ -39,10 +39,10 @@ export default class DocumentItem extends Component {
                 </span>
               </Item.Meta>
               <Responsive {...Responsive.onlyMobile}>
-                <Item.Description>this.metadata.abstracts</Item.Description>
+                <Item.Description>{this.metadata.abstracts}</Item.Description>
               </Responsive>
               <Responsive {...Responsive.onlyComputer}>
-                <Item.Description>this.metadata.abstracts</Item.Description>
+                <Item.Description>{this.metadata.abstracts}</Item.Description>
               </Responsive>
               <Item.Extra>
                 <EitemsButton eitems={this.metadata._computed.eitems} />
