@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {
   Button,
+  Icon,
   Item,
   Label,
-  Segment,
   Responsive,
-  Icon,
+  Segment,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { truncate } from 'lodash/string';

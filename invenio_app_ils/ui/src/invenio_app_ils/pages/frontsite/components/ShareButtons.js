@@ -56,6 +56,8 @@ export class ShareButtons extends Component {
         return this.renderShareButtonsDesktop();
       case 'mobile':
         return this.renderShareButtonsMobile();
+      default:
+        return this.renderShareButtonsDesktop();
     }
   }
 }

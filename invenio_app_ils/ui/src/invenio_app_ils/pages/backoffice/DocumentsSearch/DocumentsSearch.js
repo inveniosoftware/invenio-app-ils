@@ -95,10 +95,6 @@ export class DocumentsSearch extends Component {
     return <IlsError error={error} />;
   };
 
-  renderPagination = () => {
-    return <Pagination />;
-  };
-
   renderCount = totalResults => {
     return <div>{totalResults} results</div>;
   };
@@ -119,7 +115,7 @@ export class DocumentsSearch extends Component {
         />
         <SortOrder
           values={config.SORT_ORDER}
-          defaultValue={config.SORT_ORDER[0]['value']}
+          defaultValue={config.SORT_ORDER[0].value}
         />
       </div>
     ) : null;
@@ -131,7 +127,9 @@ export class DocumentsSearch extends Component {
         <Grid.Column width={5} textAlign="left">
           <Count renderElement={this.renderCount} />
         </Grid.Column>
-        <Grid.Column width={6}>{this.renderPagination()}</Grid.Column>
+        <Grid.Column width={6}>
+          <Pagination />
+        </Grid.Column>
         <Grid.Column width={5} textAlign="right">
           {this.renderResultsSorting()}
         </Grid.Column>
@@ -143,7 +141,9 @@ export class DocumentsSearch extends Component {
     return (
       <Grid columns={3} verticalAlign="middle" stackable relaxed>
         <Grid.Column width={5} />
-        <Grid.Column width={6}>{this.renderPagination()}</Grid.Column>
+        <Grid.Column width={6}>
+          <Pagination />
+        </Grid.Column>
         <Grid.Column width={5} />
       </Grid>
     );

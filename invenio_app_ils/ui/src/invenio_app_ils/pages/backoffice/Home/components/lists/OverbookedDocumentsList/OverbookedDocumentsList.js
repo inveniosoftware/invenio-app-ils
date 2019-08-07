@@ -35,7 +35,7 @@ export default class OverbookedDocumentsList extends Component {
   prepareData(data) {
     return data.hits.map(row => {
       let entry = formatter.document.toTable(row);
-      return pick(entry, ['ID', 'Title', 'Requests', 'Items']);
+      return pick(entry, ['ID', 'Title', 'Requests', 'Available Items']);
     });
   }
 

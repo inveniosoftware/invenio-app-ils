@@ -31,20 +31,28 @@ blueprint = Blueprint(
 
 def _get_documents_ui_config():
     """Get ui config for documents search page."""
-    ui_config = {'documents': {
-        'search': {'sortBy': {'values': [], 'onEmptyQuery': None},
-                   'sortOrder': ['asc', 'desc'],
-                   'aggs': []}}}
+    ui_config = {
+        'documents': {
+            'search': {
+                'sortBy': {'values': [], 'onEmptyQuery': None},
+                'sortOrder': ['asc', 'desc'],
+                'aggs': []
+            }
+        }
+    }
     documents_index = DocumentSearch.Meta.index
 
     documents_sort = current_app.config.get(
         'RECORDS_REST_SORT_OPTIONS', {}
     ).get(documents_index, {})
 
+    # NOTE: `order` refers to the order the option will appear,
+    # while `default_order` is the asc or desc default option.
     documents_sort_ui = [{
         'field': field,
         'title': documents_sort[field]['title'],
-        'order': documents_sort[field]['order']
+        'order': documents_sort[field]['order'],
+        'default_order': documents_sort[field]['default_order'],
     } for field in documents_sort.keys()]
 
     ui_config['documents']['search']['sortBy']['values'] = sorted(
@@ -57,7 +65,6 @@ def _get_documents_ui_config():
     documents_aggs = current_app.config.get('RECORDS_REST_FACETS', {}).get(
         documents_index, {}).get('aggs', {})
     ui_config['documents']['search']['aggs'] = list(documents_aggs.keys())
-
     return ui_config
 
 
@@ -187,10 +194,15 @@ def _get_loans_ui_config():
 
 def _get_series_ui_config():
     """Get ui config for series search page."""
-    ui_config = {'series': {
-        'search': {'sortBy': {'values': [], 'onEmptyQuery': None},
-                   'sortOrder': ['asc', 'desc'],
-                   'aggs': []}}}
+    ui_config = {
+        'series': {
+            'search': {
+                'sortBy': {'values': [], 'onEmptyQuery': None},
+                'sortOrder': ['asc', 'desc'],
+                'aggs': []
+            }
+        }
+    }
     series_index = SeriesSearch.Meta.index
 
     series_sort = current_app.config.get(
@@ -200,7 +212,7 @@ def _get_series_ui_config():
     series_sort_ui = [{
         'field': field,
         'title': series_sort[field]['title'],
-        'order': series_sort[field]['order']
+        'order': series_sort[field]['order'],
     } for field in series_sort.keys()]
 
     ui_config['series']['search']['sortBy']['values'] = sorted(
@@ -213,18 +225,21 @@ def _get_series_ui_config():
 
     series_aggs = current_app.config.get('RECORDS_REST_FACETS', {}).get(
         series_index, {}).get('aggs', {})
-    ui_config['series']['search']['aggs'] = \
-        list(series_aggs.keys())
-
+    ui_config['series']['search']['aggs'] = list(series_aggs.keys())
     return ui_config
 
 
 def _get_patrons_ui_config():
     """Get ui config for patrons search page."""
-    ui_config = {'patrons': {
-        'search': {'sortBy': {'values': [], 'onEmptyQuery': None},
-                   'sortOrder': ['asc', 'desc'],
-                   'aggs': []}}}
+    ui_config = {
+        'patrons': {
+            'search': {
+                'sortBy': {'values': [], 'onEmptyQuery': None},
+                'sortOrder': ['asc', 'desc'],
+                'aggs': []
+            }
+        }
+    }
     patrons_index = PatronsSearch.Meta.index
 
     patrons_sort = current_app.config.get(
@@ -234,7 +249,7 @@ def _get_patrons_ui_config():
     patrons_sort_ui = [{
         'field': field,
         'title': patrons_sort[field]['title'],
-        'order': patrons_sort[field]['order']
+        'order': patrons_sort[field]['order'],
     } for field in patrons_sort.keys()]
 
     ui_config['patrons']['search']['sortBy']['values'] = sorted(

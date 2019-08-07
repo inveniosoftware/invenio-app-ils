@@ -81,8 +81,8 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
         rows={
           Array [
             Object {
+              "Available Items": 2,
               "ID": "doc1",
-              "Items": 2,
               "Requests": 1,
               "Title": "X",
             },
@@ -173,7 +173,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                       "ID",
                       "Title",
                       "Requests",
-                      "Items",
+                      "Available Items",
                     ]
                   }
                   withRowAction={true}
@@ -258,7 +258,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Items"
+                            key="Available Items"
                           >
                             <TableCell
                               as="th"
@@ -267,7 +267,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                               <th
                                 className=""
                               >
-                                Items
+                                Available Items
                               </th>
                             </TableCell>
                           </TableHeaderCell>
@@ -282,15 +282,15 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                       "ID",
                       "Title",
                       "Requests",
-                      "Items",
+                      "Available Items",
                     ]
                   }
                   rowActionClickHandler={[Function]}
                   rows={
                     Array [
                       Object {
+                        "Available Items": 2,
                         "ID": "doc1",
-                        "Items": 2,
                         "Requests": 1,
                         "Title": "X",
                       },
@@ -388,12 +388,12 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Items-doc1"
+                            data-test="Available Items-doc1"
                             key="3-doc1"
                           >
                             <td
                               className=""
-                              data-test="Items-doc1"
+                              data-test="Available Items-doc1"
                             >
                               2
                             </td>
@@ -481,12 +481,12 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Items-doc2"
+                            data-test="Available Items-doc2"
                             key="3-doc2"
                           >
                             <td
                               className=""
-                              data-test="Items-doc2"
+                              data-test="Available Items-doc2"
                             >
                               -
                             </td>
