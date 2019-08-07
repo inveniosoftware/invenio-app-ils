@@ -18,7 +18,11 @@ const resultsPerPageValues = [
 
 const config = invenioConfig.documents.search;
 const sortByValues = config.sortBy.values.map(sortField => {
-  return { text: sortField.title, value: sortField.field };
+  return {
+    text: sortField.title,
+    value: sortField.field,
+    defaultValue: sortField.default_order,
+  };
 });
 const sortByValueOnEmptyQuery = config.sortBy.onEmptyQuery;
 const sortOrderValues = config.sortOrder.map(sortField => {

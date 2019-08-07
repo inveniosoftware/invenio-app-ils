@@ -708,9 +708,9 @@ RECORDS_REST_SORT_OPTIONS = dict(
             order=2
         ),
         available_items=dict(
-            fields=['circulation.has_items_for_loan'],
+            fields=['-circulation.has_items_for_loan'],
             title='Available Items',
-            default_order='desc',
+            default_order='asc',
             order=3
         ),
         mostloaned=dict(
@@ -718,7 +718,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
             title='Most loaned',
             default_order='desc',
             order=4
-        )
+        ),
     ),
     eitems=dict(  # ItemSearch.Meta.index
         bestmatch=dict(
