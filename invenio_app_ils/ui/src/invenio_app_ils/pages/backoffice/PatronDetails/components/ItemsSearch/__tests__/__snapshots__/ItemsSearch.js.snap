@@ -112,7 +112,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
       "total": 1,
     }
   }
-  patron={2}
+  patronPid="2"
   queryString=""
   updateQueryString={[MockFunction]}
 >
@@ -216,7 +216,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                       checkoutItem={[MockFunction]}
                       clearResults={[MockFunction]}
                       fetchPatronCurrentLoans={[MockFunction]}
-                      patron={2}
+                      patronPid="2"
                       results={
                         Object {
                           "hits": Array [

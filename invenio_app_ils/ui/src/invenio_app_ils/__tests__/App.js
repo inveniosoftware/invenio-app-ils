@@ -9,10 +9,10 @@ import { initialState as mostRecentBooksInitialState } from '../pages/frontsite/
 import { initialState as mostLoanedBooksInitialState } from '../pages/frontsite/Home/components/MostLoanedBooks/state/reducer';
 import { initialState as mostRecentEbooksInitialState } from '../pages/frontsite/Home/components/MostRecentEbooks/state/reducer';
 
+jest.mock('../common/config/invenioConfig');
+
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-jest.mock('../common/config');
 
 let store;
 beforeEach(() => {

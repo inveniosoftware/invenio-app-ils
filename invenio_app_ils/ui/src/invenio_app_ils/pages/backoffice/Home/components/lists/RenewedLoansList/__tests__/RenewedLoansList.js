@@ -6,8 +6,6 @@ import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import RenewedLoansList from '../RenewedLoansList';
 import history from '../../../../../../../history';
 
-jest.mock('../../../../../../../common/config');
-
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 

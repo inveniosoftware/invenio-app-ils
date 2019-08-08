@@ -33,7 +33,7 @@ export class ResultsList extends Component {
       <Button
         content={'Checkout'}
         onClick={() =>
-          this.onClickCheckoutHandler(item, this.props.patron, false)
+          this.onClickCheckoutHandler(item, this.props.patronPid, false)
         }
       />
     );
@@ -80,7 +80,7 @@ export class ResultsList extends Component {
           <Button
             color="green"
             onClick={() =>
-              this.onClickCheckoutHandler(item, this.props.patron, true)
+              this.onClickCheckoutHandler(item, this.props.patronPid, true)
             }
           >
             <Icon name="checkmark" /> Yes
@@ -121,6 +121,6 @@ ResultsList.propTypes = {
   viewDetailsClickHandler: PropTypes.func.isRequired,
   clearResults: PropTypes.func.isRequired,
   checkoutItem: PropTypes.func.isRequired,
-  patron: PropTypes.number.isRequired,
+  patronPid: PropTypes.string.isRequired,
   fetchPatronCurrentLoans: PropTypes.func.isRequired,
 };

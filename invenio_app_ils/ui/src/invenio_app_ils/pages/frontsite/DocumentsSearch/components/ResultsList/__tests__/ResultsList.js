@@ -4,8 +4,6 @@ import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../common/api/date';
 import { ResultsList } from '../ResultsList';
 
-jest.mock('../../../../../../common/config');
-
 Settings.defaultZoneName = 'utc';
 
 describe('DocumentsSearch ResultsList tests', () => {

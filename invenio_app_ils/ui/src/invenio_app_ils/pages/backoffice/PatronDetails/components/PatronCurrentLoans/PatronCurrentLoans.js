@@ -21,16 +21,16 @@ export default class PatronCurrentLoans extends Component {
   }
 
   componentDidMount() {
-    const patronPid = this.props.patron ? this.props.patron : null;
+    const patronPid = this.props.patronPid ? this.props.patronPid : null;
     this.fetchPatronCurrentLoans(patronPid);
   }
 
   seeAllButton = () => {
-    const { patron } = this.props;
+    const { patronPid } = this.props;
     const path = this.seeAllUrl(
       loanApi
         .query()
-        .withPatronPid(patron)
+        .withPatronPid(patronPid)
         .withState('ITEM_ON_LOAN')
         .sortByNewest()
         .qs()
@@ -75,7 +75,7 @@ export default class PatronCurrentLoans extends Component {
 }
 
 PatronCurrentLoans.propTypes = {
-  patron: PropTypes.string,
+  patronPid: PropTypes.string,
   fetchPatronCurrentLoans: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   showMaxLoans: PropTypes.number,

@@ -2,14 +2,12 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import RelatedRecords from '../RelatedRecords';
 import { Settings } from 'luxon';
-import { fromISO } from '../../../api/date';
 import history from '../../../../history';
 import { BackOfficeRoutes } from '../../../../routes/urls';
 import { Modal } from 'semantic-ui-react';
 
-jest.mock('../../../config');
-
 Settings.defaultZoneName = 'utc';
+jest.mock('../../../config/invenioConfig');
 
 describe('RelatedRecords tests', () => {
   let component;

@@ -8,11 +8,6 @@ import { formatter } from '../../../../../common/components/ResultsTable/formatt
 import pick from 'lodash/pick';
 
 export class ResultsList extends Component {
-  constructor(props) {
-    super(props);
-    this.viewDetailsClickHandler = this.props.viewDetailsClickHandler;
-  }
-
   prepareData(data) {
     return data.map(row => {
       return pick(formatter.document.toTable(row), [
@@ -45,7 +40,7 @@ export class ResultsList extends Component {
         title={''}
         name={'documents'}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={this.viewDetailsClickHandler}
+        rowActionClickHandler={this.props.viewDetailsClickHandler}
       />
     ) : null;
   }

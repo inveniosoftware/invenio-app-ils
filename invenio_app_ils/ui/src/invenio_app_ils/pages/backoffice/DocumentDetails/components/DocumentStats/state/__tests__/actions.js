@@ -6,16 +6,14 @@ import * as types from '../types';
 import { loan as loanApi } from '../../../../../../../common/api';
 import { toShortDate } from '../../../../../../../common/api/date';
 import { DateTime } from 'luxon';
-import { invenioConfig } from '../../../../../../../common/config';
-import { invenioConfig as configMock } from '../../../../../../../common/__mocks__/config';
+
+jest.mock('../../../../../../../common/config/invenioConfig');
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 const mockLoanList = jest.fn();
 loanApi.list = mockLoanList;
-
-invenioConfig['circulation'] = configMock.circulation;
 
 const ARGS = {
   documentPid: 42,
@@ -26,7 +24,6 @@ const ARGS = {
 let store;
 beforeEach(() => {
   mockLoanList.mockClear();
-
   store = mockStore(initialState);
   store.clearActions();
 });
