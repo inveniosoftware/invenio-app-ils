@@ -4,8 +4,6 @@ import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../common/api/date';
 import ItemPastLoans from '../ItemPastLoans';
 
-jest.mock('../../../../../../common/config');
-
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 

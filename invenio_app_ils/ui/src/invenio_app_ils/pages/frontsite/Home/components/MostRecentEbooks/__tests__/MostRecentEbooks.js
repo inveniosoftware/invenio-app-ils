@@ -1,15 +1,11 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Settings } from 'luxon';
-import { fromISO } from '../../../../../../common/api/date';
 import { FrontSiteRoutes } from '../../../../../../routes/urls';
 import MostRecentEbooks from '../MostRecentEbooks';
 import history from '../../../../../../history';
 
-jest.mock('../../../../../../common/config');
-
 Settings.defaultZoneName = 'utc';
-const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 
 describe('MostRecentEbooks tests', () => {
   let component;

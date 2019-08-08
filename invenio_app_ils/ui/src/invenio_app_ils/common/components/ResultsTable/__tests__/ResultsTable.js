@@ -4,8 +4,6 @@ import { ResultsTable } from '../ResultsTable';
 import { Settings } from 'luxon';
 import { Button } from 'semantic-ui-react';
 import history from '../../../../history';
-import { invenioConfig } from '../../../config';
-import { invenioConfig as configMock } from '../../../__mocks__/config';
 
 Settings.defaultZoneName = 'utc';
 

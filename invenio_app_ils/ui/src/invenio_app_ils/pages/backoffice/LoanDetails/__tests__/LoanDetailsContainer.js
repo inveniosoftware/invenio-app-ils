@@ -2,8 +2,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import LoanDetailsContainer from '../LoanDetailsContainer';
 
-jest.mock('../../../../common/config');
-
 jest.mock('../components/LoanDetails', () => {
   return {
     LoanDetails: () => null,

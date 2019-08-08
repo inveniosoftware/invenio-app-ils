@@ -2,8 +2,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import DocumentsCard from '../DocumentsCard';
 
-jest.mock('../../../../../../../common/config');
-
 describe('DocumentsCard tests', () => {
   let component;
   afterEach(() => {

@@ -1,10 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import CancelLoanModal from '../CancelLoanModal';
-import { item } from '../../../../../../common/api';
-import { doesNotReject } from 'assert';
-
-jest.mock('../../../../../../common/config');
 
 const loan = {
   pid: '1',

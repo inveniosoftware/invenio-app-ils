@@ -20,14 +20,16 @@ import {
   SearchBar as SeriesSearchBar,
 } from '../../../common/components';
 import { series as seriesApi } from '../../../common/api/series/series';
+import { getSearchConfig } from '../../../common/config';
 import { ClearButton, NewButton } from '../components/buttons';
 import { BackOfficeRoutes, openRecordEditor } from '../../../routes/urls';
 import { ResultsList as SeriesResultsList } from './components';
-import { default as config } from './config';
 import { goTo } from '../../../history';
 import './SeriesSearch.scss';
 
 export class SeriesSearch extends Component {
+  searchConfig = getSearchConfig('series');
+
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
     const helperFields = [
       {
@@ -109,22 +111,22 @@ export class SeriesSearch extends Component {
   };
 
   renderResultsSorting = () => {
-    return config.SORT_BY.length ? (
+    return this.searchConfig.SORT_BY.length ? (
       <div className="sorting">
         <span className="before">Show</span>
         <ResultsPerPage
-          values={config.RESULTS_PER_PAGE}
-          defaultValue={config.RESULTS_PER_PAGE[0].value}
+          values={this.searchConfig.RESULTS_PER_PAGE}
+          defaultValue={this.searchConfig.RESULTS_PER_PAGE[0].value}
         />
         <span className="middle">results per page sorted by</span>
         <SortBy
-          values={config.SORT_BY}
-          defaultValue={config.SORT_BY[0].value}
-          defaultValueOnEmptyString={config.SORT_BY_ON_EMPTY_QUERY}
+          values={this.searchConfig.SORT_BY}
+          defaultValue={this.searchConfig.SORT_BY[0].value}
+          defaultValueOnEmptyString={this.searchConfig.SORT_BY_ON_EMPTY_QUERY}
         />
         <SortOrder
-          values={config.SORT_ORDER}
-          defaultValue={config.SORT_ORDER[0]['value']}
+          values={this.searchConfig.SORT_ORDER}
+          defaultValue={this.searchConfig.SORT_ORDER[0]['value']}
         />
       </div>
     ) : null;
@@ -155,7 +157,7 @@ export class SeriesSearch extends Component {
   };
 
   renderAggregations = () => {
-    const components = config.AGGREGATIONS.map(agg => (
+    const components = this.searchConfig.AGGREGATIONS.map(agg => (
       <div className="aggregator" key={agg.field}>
         <Aggregator title={agg.title} field={agg.field} />
       </div>

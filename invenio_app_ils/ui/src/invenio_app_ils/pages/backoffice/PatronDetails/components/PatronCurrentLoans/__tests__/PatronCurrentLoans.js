@@ -6,8 +6,6 @@ import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import PatronCurrentLoans from '../PatronCurrentLoans';
 import history from '../../../../../../history';
 
-jest.mock('../../../../../../common/config');
-
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 
@@ -30,7 +28,7 @@ describe('PatronLoans tests', () => {
       <PatronCurrentLoans
         data={{ hits: [], total: 0 }}
         loanState=""
-        patron={patron.pid}
+        patronPid={patron.pid}
         fetchPatronCurrentLoans={mockedFetchPatronLoans}
       />
     );
@@ -41,7 +39,7 @@ describe('PatronLoans tests', () => {
     const mockedFetchPatronLoans = jest.fn();
     component = mount(
       <PatronCurrentLoans
-        patron={patron.pid}
+        patronPid={patron.pid}
         data={{ hits: [], total: 0 }}
         loanState=""
         fetchPatronCurrentLoans={mockedFetchPatronLoans}
@@ -91,7 +89,7 @@ describe('PatronLoans tests', () => {
 
     component = mount(
       <PatronCurrentLoans
-        patron={patron.pid}
+        patronPid={patron.pid}
         data={data}
         loanState=""
         fetchPatronCurrentLoans={mockedFetchPatronLoans}
@@ -149,7 +147,7 @@ describe('PatronLoans tests', () => {
     };
     component = mount(
       <PatronCurrentLoans
-        patron={patron.pid}
+        patronPid={patron.pid}
         data={data}
         fetchPatronCurrentLoans={mockedFetchPatronLoans}
         showMaxLoans={1}
@@ -188,7 +186,7 @@ describe('PatronLoans tests', () => {
     const mockedFetchPatronLoans = jest.fn();
     component = mount(
       <PatronCurrentLoans
-        patron={patron.pid}
+        patronPid={patron.pid}
         data={data}
         loanState=""
         fetchPatronCurrentLoans={mockedFetchPatronLoans}

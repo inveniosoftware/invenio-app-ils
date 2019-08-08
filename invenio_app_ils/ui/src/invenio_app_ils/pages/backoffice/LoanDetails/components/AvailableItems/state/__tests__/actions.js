@@ -5,7 +5,7 @@ import { initialState } from '../reducer';
 import * as types from '../types';
 import { item as itemApi } from '../../../../../../../common/api';
 
-jest.mock('../../../../../../../common/config');
+jest.mock('../../../../../../../common/config/invenioConfig');
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

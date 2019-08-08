@@ -25,11 +25,11 @@ export default class PatronPendingLoans extends Component {
   }
 
   seeAllButton = () => {
-    const { patron } = this.props;
+    const { patronPid } = this.props;
     const path = this.seeAllUrl(
       loanApi
         .query()
-        .withPatronPid(patron)
+        .withPatronPid(patronPid)
         .withState('PENDING')
         .qs()
     );
@@ -73,7 +73,7 @@ export default class PatronPendingLoans extends Component {
 }
 
 PatronPendingLoans.propTypes = {
-  patron: PropTypes.string,
+  patronPid: PropTypes.string,
   fetchPatronPendingLoans: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   showMaxLoans: PropTypes.number,

@@ -1,12 +1,10 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import ItemsSearch from '../ItemsSearch';
-import { invenioConfig } from '../../../../../../common/config';
-import { invenioConfig as configMock } from '../../../../../../common/__mocks__/config';
 import { fromISO } from '../../../../../../common/api/date';
 import { Settings } from 'luxon';
 
-jest.mock('../../../../../../common/config');
+jest.mock('../../../../../../common/config/invenioConfig');
 
 Settings.defaultZoneName = 'utc';
 
@@ -19,15 +17,6 @@ describe('PatronLoans tests', () => {
       component.unmount();
     }
   });
-
-  invenioConfig['circulation'] = {
-    loanActiveStates: configMock.circulation.loanActiveStates,
-  };
-  invenioConfig['items'] = {
-    available: {
-      status: configMock.items.available.status,
-    },
-  };
 
   it('should load the ItemsSearch component', () => {
     const mockedFetchItems = jest.fn();
@@ -45,7 +34,7 @@ describe('PatronLoans tests', () => {
         fetchUpdatedCurrentLoans={mockedFetchCurrent}
         clearResults={mockedClear}
         checkoutItem={mockedCheckoutItem}
-        patron={'2'}
+        patronPid={'2'}
       />
     );
     expect(component).toMatchSnapshot();
@@ -89,7 +78,7 @@ describe('PatronLoans tests', () => {
         fetchUpdatedCurrentLoans={mockedFetchCurrent}
         clearResults={mockedClear}
         checkoutItem={mockedCheckoutItem}
-        patron={2}
+        patronPid={'2'}
       />
     );
 

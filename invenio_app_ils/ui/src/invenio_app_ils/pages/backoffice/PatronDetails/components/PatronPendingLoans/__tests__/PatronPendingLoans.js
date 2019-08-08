@@ -5,7 +5,6 @@ import { fromISO } from '../../../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import PatronPendingLoans from '../PatronPendingLoans';
 import history from '../../../../../../history';
-import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 
 jest.mock('../../../../../../common/config');
 
@@ -31,7 +30,7 @@ describe('PatronLoans tests', () => {
       <PatronPendingLoans
         data={{ hits: [], total: 0 }}
         loanState=""
-        patron={patron.pid}
+        patronPid={patron.pid}
         fetchPatronPendingLoans={mockedFetchPatronLoans}
       />
     );
@@ -42,7 +41,7 @@ describe('PatronLoans tests', () => {
     const mockedFetchPatronLoans = jest.fn();
     component = mount(
       <PatronPendingLoans
-        patron={patron.pid}
+        patronPid={patron.pid}
         data={{ hits: [], total: 0 }}
         loanState=""
         fetchPatronPendingLoans={mockedFetchPatronLoans}
@@ -92,7 +91,7 @@ describe('PatronLoans tests', () => {
 
     component = mount(
       <PatronPendingLoans
-        patron={patron.pid}
+        patronPid={patron.pid}
         data={data}
         loanState=""
         fetchPatronPendingLoans={mockedFetchPatronLoans}
@@ -150,7 +149,7 @@ describe('PatronLoans tests', () => {
     };
     component = mount(
       <PatronPendingLoans
-        patron={patron.pid}
+        patronPid={patron.pid}
         data={data}
         fetchPatronPendingLoans={mockedFetchPatronLoans}
         showMaxLoans={1}
@@ -189,7 +188,7 @@ describe('PatronLoans tests', () => {
     const mockedFetchPatronLoans = jest.fn();
     component = mount(
       <PatronPendingLoans
-        patron={patron.pid}
+        patronPid={patron.pid}
         data={data}
         loanState=""
         fetchPatronPendingLoans={mockedFetchPatronLoans}

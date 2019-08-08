@@ -5,10 +5,8 @@ import { initialState } from '../reducer';
 import * as types from '../types';
 import { loan as loanApi } from '../../../api';
 import { ES_DELAY } from '../../../config';
-import { invenioConfig } from '../../../config';
-import { invenioConfig as configMock } from '../../../__mocks__/config';
 
-invenioConfig['circulation'] = configMock.circulation;
+jest.mock('../../../config/invenioConfig');
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

@@ -2,8 +2,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import EItemDetailsContainer from '../EItemDetailsContainer';
 
-jest.mock('../../../../common/config');
-
 jest.mock('../components/EItemDetails', () => {
   return {
     EItemDetails: () => null,

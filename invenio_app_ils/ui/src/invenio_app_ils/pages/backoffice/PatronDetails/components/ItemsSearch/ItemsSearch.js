@@ -56,9 +56,9 @@ export default class ItemsSearch extends Component {
         hits.length === 1 &&
         hits[0].metadata.status === 'CAN_CIRCULATE';
       if (hasOneHit) {
-        await this.checkoutItem(hits[0], this.props.patron);
+        await this.checkoutItem(hits[0], this.props.patronPid);
         this.clearResults();
-        this.fetchUpdatedCurrentLoans(this.props.patron);
+        this.fetchUpdatedCurrentLoans(this.props.patronPid);
         this.setState({ prevSearchQuery: '' });
       }
     }
@@ -104,7 +104,7 @@ export default class ItemsSearch extends Component {
       <div className="results-list">
         {this.renderHeader(results.hits.length)}
         <ItemsResultsList
-          patron={this.props.patron}
+          patronPid={this.props.patronPid}
           clearResults={this.clearResults}
           results={results}
           checkoutItem={this.checkoutItem}
@@ -175,7 +175,7 @@ ItemsSearch.propTypes = {
   fetchUpdatedCurrentLoans: PropTypes.func.isRequired,
   clearResults: PropTypes.func.isRequired,
   checkoutItem: PropTypes.func.isRequired,
-  patron: PropTypes.string.isRequired,
+  patronPid: PropTypes.string.isRequired,
 };
 
 ItemsSearch.defaultProps = {
