@@ -27,13 +27,13 @@ def circulation_build_item_ref(loan_pid):
 
 
 def circulation_default_loan_duration(loan):
-    """Return a default loan duration in number of days."""
-    return 30
+    """Return a default loan duration in timedelta."""
+    return timedelta(days=30)
 
 
 def circulation_default_extension_duration(loan):
-    """Return a default extension duration in number of days."""
-    return 30
+    """Return a default extension duration in timedelta."""
+    return timedelta(days=30)
 
 
 def circulation_default_extension_max_count(loan):

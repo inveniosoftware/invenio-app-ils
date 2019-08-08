@@ -20,7 +20,7 @@ export default class PatronPendingLoans extends Component {
   }
 
   componentDidMount() {
-    const patronPid = this.props.patron ? this.props.patron : null;
+    const patronPid = this.props.patronPid ? this.props.patronPid : null;
     this.fetchPatronPendingLoans(patronPid);
   }
 

@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import { Container, Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import {
-  ReactSearchKit,
-  SearchBar,
-  ResultsList,
-  ResultsLoader,
-  ResultsPerPage,
+  Aggregator,
+  Count,
   EmptyResults,
   Error,
   Pagination,
-  Count,
-  SortBy,
-  SortOrder,
-  Aggregator,
+  ReactSearchKit,
+  ResultsList,
+  ResultsLoader,
+  SearchBar,
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
 import {
   Error as IlsError,
   SearchBar as DocumentsSearchBar,
+  ResultsSort,
 } from '../../../common/components';
 import { document as documentApi } from '../../../common/api/documents/document';
 import { getSearchConfig } from '../../../common/config';
@@ -101,28 +99,6 @@ export class DocumentsSearch extends Component {
     return <div>{totalResults} results</div>;
   };
 
-  renderResultsSorting = () => {
-    return this.searchConfig.SORT_BY.length ? (
-      <div className="sorting">
-        <span className="before">Show</span>
-        <ResultsPerPage
-          values={this.searchConfig.RESULTS_PER_PAGE}
-          defaultValue={this.searchConfig.RESULTS_PER_PAGE[0].value}
-        />
-        <span className="middle">results per page sorted by</span>
-        <SortBy
-          values={this.searchConfig.SORT_BY}
-          defaultValue={this.searchConfig.SORT_BY[0].value}
-          defaultValueOnEmptyString={this.searchConfig.SORT_BY_ON_EMPTY_QUERY}
-        />
-        <SortOrder
-          values={this.searchConfig.SORT_ORDER}
-          defaultValue={this.searchConfig.SORT_ORDER[0]['value']}
-        />
-      </div>
-    ) : null;
-  };
-
   renderHeader = () => {
     return (
       <Grid columns={3} verticalAlign="middle" stackable relaxed>
@@ -133,7 +109,7 @@ export class DocumentsSearch extends Component {
           <Pagination />
         </Grid.Column>
         <Grid.Column width={5} textAlign="right">
-          {this.renderResultsSorting()}
+          <ResultsSort searchConfig={this.searchConfig} />
         </Grid.Column>
       </Grid>
     );
