@@ -14,21 +14,21 @@ import {
   SearchBar,
   ResultsList,
   ResultsLoader,
-  ResultsPerPage,
   EmptyResults,
   Error,
   Pagination,
   Count,
-  SortBy,
-  SortOrder,
   Aggregator,
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
 import { getSearchConfig } from '../../../common/config';
 import { FrontSiteRoutes } from '../../../routes/urls';
-import { Error as IlsError } from '../../../common/components';
+import {
+  Error as IlsError,
+  SearchBar as DocumentsSearchBar,
+  ResultsSort,
+} from '../../../common/components';
 import { document as documentApi } from '../../../common/api';
-import { SearchBar as DocumentsSearchBar } from '../../../common/components';
 import { ResultsList as RecordsResultsList } from './components';
 import { goTo } from '../../../history';
 import './DocumentsSearch.scss';
@@ -113,35 +113,8 @@ export class DocumentsSearch extends Component {
     return <IlsError error={error} />;
   };
 
-  renderPagination = () => {
-    return <Pagination />;
-  };
-
   renderCount = totalResults => {
     return <div>{totalResults} results</div>;
-  };
-
-  renderResultsSorting = () => {
-    return this.searchConfig.SORT_BY.length ? (
-      <div className="sorting">
-        <span className="before">Show </span>
-        <ResultsPerPage
-          values={this.searchConfig.RESULTS_PER_PAGE}
-          defaultValue={this.searchConfig.RESULTS_PER_PAGE[0].value}
-        />
-        <span className="middle"> results per page sorted by</span>
-        <br />
-        <SortBy
-          values={this.searchConfig.SORT_BY}
-          defaultValue={this.searchConfig.SORT_BY[0].value}
-          defaultValueOnEmptyString={this.searchConfig.SORT_BY_ON_EMPTY_QUERY}
-        />
-        <SortOrder
-          values={this.searchConfig.SORT_ORDER}
-          defaultValue={this.searchConfig.SORT_ORDER[0]['value']}
-        />
-      </div>
-    ) : null;
   };
 
   renderAggregations = () => {
@@ -176,9 +149,11 @@ export class DocumentsSearch extends Component {
         <Grid.Column width={5} textAlign="left">
           <Count renderElement={this.renderCount} />
         </Grid.Column>
-        <Grid.Column width={6}>{this.renderPagination()}</Grid.Column>
+        <Grid.Column width={6}>
+          <Pagination />
+        </Grid.Column>
         <Grid.Column width={5} textAlign="right">
-          {this.renderResultsSorting()}
+          <ResultsSort searchConfig={this.searchConfig} />
         </Grid.Column>
       </Grid>
     );
@@ -188,7 +163,9 @@ export class DocumentsSearch extends Component {
     return (
       <Grid columns={3} verticalAlign="middle" stackable relaxed>
         <Grid.Column width={5} />
-        <Grid.Column width={6}>{this.renderPagination()}</Grid.Column>
+        <Grid.Column width={6}>
+          <Pagination />
+        </Grid.Column>
         <Grid.Column width={5} />
       </Grid>
     );

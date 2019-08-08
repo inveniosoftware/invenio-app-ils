@@ -50,7 +50,11 @@ export const getSearchConfig = (modelName, extraOptions = {}) => {
     }),
     RESULTS_PER_PAGE: resultsPerPageValues,
     SORT_BY: searchConfig.sortBy.values.map(sortField => {
-      return { text: sortField.title, value: sortField.field };
+      return {
+        text: sortField.title,
+        value: sortField.field,
+        defaultValue: sortField.default_order,
+      };
     }),
     SORT_BY_ON_EMPTY_QUERY: searchConfig.sortBy.onEmptyQuery,
     SORT_ORDER: searchConfig.sortOrder.map(sortField => {
