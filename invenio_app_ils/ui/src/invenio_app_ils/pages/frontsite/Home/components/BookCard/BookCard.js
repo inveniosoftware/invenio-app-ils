@@ -11,8 +11,10 @@ export default class BookCard extends Component {
       <Card onClick={bookData.onClick} data-test={bookData.pid}>
         <Image size={bookData.imageSize} src={bookData.imageCover} />
         <Card.Content>
-          <Card.Header>{bookData.title}</Card.Header>
-          <Card.Meta>{bookData.authors}</Card.Meta>
+          <Card.Header>{bookData.title.title}</Card.Header>
+          <Card.Meta>
+            {bookData.authors.map(author => author.full_name).join(',')}
+          </Card.Meta>
         </Card.Content>
         <EitemsButton eitems={bookData.eitems} />
       </Card>

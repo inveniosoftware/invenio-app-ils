@@ -7,6 +7,10 @@
     "$schema": {
       "type": "string"
     },
+    "pid": {
+      "type": "string",
+      "title": "Document ID"
+    },
     "_access": {
       "type": "object",
       "properties": {
@@ -15,29 +19,347 @@
         }
       }
     },
-    "circulation": {
+    "title": {
+      "title": "Document title",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
-        "$ref": {
+        "alternative_titles": {
+          "description": "Alternative titles of the document",
+          "items": [
+            {
+              "additionalProperties": false,
+              "properties": {
+                "source": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "subtitle": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "title": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": ["title"],
+              "type": "object"
+            }
+          ],
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "source": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "subtitle": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
           "type": "string"
         }
-      }
+      },
+      "required": ["title"]
     },
-    "eitems": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
+    "abstracts": {
+      "items": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "value": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": ["value"],
+          "type": "object"
         }
-      }
+      ],
+      "minItems": 1,
+      "title": "List of abstracts",
+      "type": "array",
+      "uniqueItems": true
     },
-    "items": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      }
+    "authors": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "affiliations": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "curated_relation": {
+                  "type": "boolean"
+                },
+                "value": {
+                  "minLength": 1,
+                  "title": "ICN of affiliation",
+                  "type": "string"
+                }
+              },
+              "required": ["value"],
+              "type": "object"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "alternative_names": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "email": {
+            "format": "email",
+            "minLength": 1,
+            "type": "string"
+          },
+          "full_name": {
+            "minLength": 1,
+            "title": "Author name",
+            "type": "string"
+          },
+          "roles": {
+            "items": {
+              "default": "author",
+              "enum": ["author", "editor", "illustrator"],
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": ["full_name"],
+        "type": "object"
+      },
+      "minItems": 1,
+      "title": "Authors",
+      "type": "array",
+      "uniqueItems": false
+    },
+    "edition": {
+      "minLength": 1,
+      "type": "string",
+      "title": "Book edition indicator"
+    },
+    "document_type": {
+      "type": "string",
+      "enum": ["BOOK", "PROCEEDINGS", "STANDARD"],
+      "default": "BOOK",
+      "title": "Document type"
+    },
+    "languages": {
+      "items": {
+        "enum": [
+          "aa",
+          "ab",
+          "ae",
+          "af",
+          "ak",
+          "am",
+          "an",
+          "ar",
+          "as",
+          "av",
+          "ay",
+          "az",
+          "ba",
+          "be",
+          "bg",
+          "bi",
+          "bm",
+          "bn",
+          "bo",
+          "br",
+          "bs",
+          "ca",
+          "ce",
+          "ch",
+          "co",
+          "cr",
+          "cs",
+          "cu",
+          "cv",
+          "cy",
+          "da",
+          "de",
+          "dv",
+          "dz",
+          "ee",
+          "el",
+          "en",
+          "eo",
+          "es",
+          "et",
+          "eu",
+          "fa",
+          "ff",
+          "fi",
+          "fj",
+          "fo",
+          "fr",
+          "fy",
+          "ga",
+          "gd",
+          "gl",
+          "gn",
+          "gu",
+          "gv",
+          "ha",
+          "he",
+          "hi",
+          "ho",
+          "hr",
+          "ht",
+          "hu",
+          "hy",
+          "hz",
+          "ia",
+          "id",
+          "ie",
+          "ig",
+          "ii",
+          "ik",
+          "io",
+          "is",
+          "it",
+          "iu",
+          "ja",
+          "jv",
+          "ka",
+          "kg",
+          "ki",
+          "kj",
+          "kk",
+          "kl",
+          "km",
+          "kn",
+          "ko",
+          "kr",
+          "ks",
+          "ku",
+          "kv",
+          "kw",
+          "ky",
+          "la",
+          "lb",
+          "lg",
+          "li",
+          "ln",
+          "lo",
+          "lt",
+          "lu",
+          "lv",
+          "mg",
+          "mh",
+          "mi",
+          "mk",
+          "ml",
+          "mn",
+          "mr",
+          "ms",
+          "mt",
+          "my",
+          "na",
+          "nb",
+          "nd",
+          "ne",
+          "ng",
+          "nl",
+          "nn",
+          "no",
+          "nr",
+          "nv",
+          "ny",
+          "oc",
+          "oj",
+          "om",
+          "or",
+          "os",
+          "pa",
+          "pi",
+          "pl",
+          "ps",
+          "pt",
+          "qu",
+          "rm",
+          "rn",
+          "ro",
+          "ru",
+          "rw",
+          "sa",
+          "sc",
+          "sd",
+          "se",
+          "sg",
+          "sh",
+          "si",
+          "sk",
+          "sl",
+          "sm",
+          "sn",
+          "so",
+          "sq",
+          "sr",
+          "ss",
+          "st",
+          "su",
+          "sv",
+          "sw",
+          "ta",
+          "te",
+          "tg",
+          "th",
+          "ti",
+          "tk",
+          "tl",
+          "tn",
+          "to",
+          "tr",
+          "ts",
+          "tt",
+          "tw",
+          "ty",
+          "ug",
+          "uk",
+          "ur",
+          "uz",
+          "ve",
+          "vi",
+          "vo",
+          "wa",
+          "wo",
+          "xh",
+          "yi",
+          "yo",
+          "za",
+          "zh",
+          "zu"
+        ],
+        "maxLength": 2,
+        "minLength": 2,
+        "title": "ISO 639-1 alpha 2 language code",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "List of languages of the document",
+      "type": "array",
+      "uniqueItems": true
     },
     "keyword_pids": {
       "type": "array",
@@ -53,10 +375,6 @@
           "type": "string"
         }
       }
-    },
-    "pid": {
-      "type": "string",
-      "title": "Document ID"
     },
     "relations_metadata": {
       "type": "object",
@@ -123,29 +441,6 @@
         }
       }
     },
-    "abstracts": {
-      "items": [
-        {
-          "additionalProperties": false,
-          "properties": {
-            "source": {
-              "minLength": 1,
-              "type": "string"
-            },
-            "value": {
-              "minLength": 1,
-              "type": "string"
-            }
-          },
-          "required": ["value"],
-          "type": "object"
-        }
-      ],
-      "minItems": 1,
-      "title": "List of abstracts",
-      "type": "array",
-      "uniqueItems": true
-    },
     "acquisition_source": {
       "additionalProperties": false,
       "properties": {
@@ -175,69 +470,6 @@
       },
       "title": "Origin of the metadata in the record",
       "type": "object"
-    },
-    "authors": {
-      "items": {
-        "additionalProperties": false,
-        "properties": {
-          "affiliations": {
-            "items": {
-              "additionalProperties": false,
-              "properties": {
-                "curated_relation": {
-                  "type": "boolean"
-                },
-                "value": {
-                  "minLength": 1,
-                  "title": "ICN of affiliation",
-                  "type": "string"
-                }
-              },
-              "required": ["value"],
-              "type": "object"
-            },
-            "minItems": 1,
-            "type": "array",
-            "uniqueItems": true
-          },
-          "alternative_names": {
-            "items": {
-              "minLength": 1,
-              "type": "string"
-            },
-            "minItems": 1,
-            "type": "array",
-            "uniqueItems": true
-          },
-          "email": {
-            "format": "email",
-            "minLength": 1,
-            "type": "string"
-          },
-          "full_name": {
-            "minLength": 1,
-            "title": "Author name",
-            "type": "string"
-          },
-          "roles": {
-            "items": {
-              "default": "author",
-              "enum": ["author", "editor", "illustrator"],
-              "minLength": 1,
-              "type": "string"
-            },
-            "minItems": 1,
-            "type": "array",
-            "uniqueItems": true
-          }
-        },
-        "required": ["full_name"],
-        "type": "object"
-      },
-      "minItems": 1,
-      "title": "Authors",
-      "type": "array",
-      "uniqueItems": false
     },
     "copyrights": {
       "items": {
@@ -301,17 +533,6 @@
     },
     "curated": {
       "type": "boolean"
-    },
-    "document_type": {
-      "type": "string",
-      "enum": ["BOOK", "PROCEEDINGS", "STANDARD"],
-      "default": "BOOK",
-      "title": "Document type"
-    },
-    "edition": {
-      "minLength": 1,
-      "type": "string",
-      "title": "Book edition indicator"
     },
     "imprints": {
       "items": {
@@ -546,204 +767,6 @@
       },
       "type": "object",
       "title": "Document identifiers."
-    },
-    "languages": {
-      "items": {
-        "enum": [
-          "aa",
-          "ab",
-          "ae",
-          "af",
-          "ak",
-          "am",
-          "an",
-          "ar",
-          "as",
-          "av",
-          "ay",
-          "az",
-          "ba",
-          "be",
-          "bg",
-          "bi",
-          "bm",
-          "bn",
-          "bo",
-          "br",
-          "bs",
-          "ca",
-          "ce",
-          "ch",
-          "co",
-          "cr",
-          "cs",
-          "cu",
-          "cv",
-          "cy",
-          "da",
-          "de",
-          "dv",
-          "dz",
-          "ee",
-          "el",
-          "en",
-          "eo",
-          "es",
-          "et",
-          "eu",
-          "fa",
-          "ff",
-          "fi",
-          "fj",
-          "fo",
-          "fr",
-          "fy",
-          "ga",
-          "gd",
-          "gl",
-          "gn",
-          "gu",
-          "gv",
-          "ha",
-          "he",
-          "hi",
-          "ho",
-          "hr",
-          "ht",
-          "hu",
-          "hy",
-          "hz",
-          "ia",
-          "id",
-          "ie",
-          "ig",
-          "ii",
-          "ik",
-          "io",
-          "is",
-          "it",
-          "iu",
-          "ja",
-          "jv",
-          "ka",
-          "kg",
-          "ki",
-          "kj",
-          "kk",
-          "kl",
-          "km",
-          "kn",
-          "ko",
-          "kr",
-          "ks",
-          "ku",
-          "kv",
-          "kw",
-          "ky",
-          "la",
-          "lb",
-          "lg",
-          "li",
-          "ln",
-          "lo",
-          "lt",
-          "lu",
-          "lv",
-          "mg",
-          "mh",
-          "mi",
-          "mk",
-          "ml",
-          "mn",
-          "mr",
-          "ms",
-          "mt",
-          "my",
-          "na",
-          "nb",
-          "nd",
-          "ne",
-          "ng",
-          "nl",
-          "nn",
-          "no",
-          "nr",
-          "nv",
-          "ny",
-          "oc",
-          "oj",
-          "om",
-          "or",
-          "os",
-          "pa",
-          "pi",
-          "pl",
-          "ps",
-          "pt",
-          "qu",
-          "rm",
-          "rn",
-          "ro",
-          "ru",
-          "rw",
-          "sa",
-          "sc",
-          "sd",
-          "se",
-          "sg",
-          "sh",
-          "si",
-          "sk",
-          "sl",
-          "sm",
-          "sn",
-          "so",
-          "sq",
-          "sr",
-          "ss",
-          "st",
-          "su",
-          "sv",
-          "sw",
-          "ta",
-          "te",
-          "tg",
-          "th",
-          "ti",
-          "tk",
-          "tl",
-          "tn",
-          "to",
-          "tr",
-          "ts",
-          "tt",
-          "tw",
-          "ty",
-          "ug",
-          "uk",
-          "ur",
-          "uz",
-          "ve",
-          "vi",
-          "vo",
-          "wa",
-          "wo",
-          "xh",
-          "yi",
-          "yo",
-          "za",
-          "zh",
-          "zu"
-        ],
-        "maxLength": 2,
-        "minLength": 2,
-        "title": "ISO 639-1 alpha 2 language code",
-        "type": "string"
-      },
-      "minItems": 1,
-      "title": "List of languages of the document",
-      "type": "array",
-      "uniqueItems": true
     },
     "licenses": {
       "items": {
@@ -1174,53 +1197,6 @@
       "type": "array",
       "uniqueItems": true
     },
-    "title": {
-      "title": "Document title",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "alternative_titles": {
-          "description": "Alternative titles of the document",
-          "items": [
-            {
-              "additionalProperties": false,
-              "properties": {
-                "source": {
-                  "minLength": 1,
-                  "type": "string"
-                },
-                "subtitle": {
-                  "minLength": 1,
-                  "type": "string"
-                },
-                "title": {
-                  "minLength": 1,
-                  "type": "string"
-                }
-              },
-              "required": ["title"],
-              "type": "object"
-            }
-          ],
-          "minItems": 1,
-          "type": "array",
-          "uniqueItems": true
-        },
-        "source": {
-          "minLength": 1,
-          "type": "string"
-        },
-        "subtitle": {
-          "minLength": 1,
-          "type": "string"
-        },
-        "title": {
-          "minLength": 1,
-          "type": "string"
-        }
-      },
-      "required": ["title"]
-    },
     "urls": {
       "items": {
         "additionalProperties": false,
@@ -1242,6 +1218,30 @@
       "minItems": 1,
       "type": "array",
       "uniqueItems": true
+    },
+    "eitems": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
+    },
+    "items": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
+    },
+    "circulation": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
     }
   }
 }

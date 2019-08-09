@@ -1,4 +1,3 @@
-import { truncate } from 'lodash/string';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Button, Card, Divider } from 'semantic-ui-react';
@@ -25,7 +24,7 @@ export default class MostRecentEbooks extends Component {
           document_pid: book.metadata.pid,
           pid: ebook.pid,
           title: book.metadata.title,
-          description: truncate(ebook.description),
+          description: ebook.description,
           open_access: ebook.open_access,
           imageSize: 'small',
           imageCover: 'https://assets.thalia.media/img/46276899-00-00.jpg',

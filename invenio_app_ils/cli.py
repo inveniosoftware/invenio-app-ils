@@ -291,9 +291,8 @@ class DocumentGenerator(Generator):
 
         objs = [{
             "pid": str(pid),
-            "title": {'title':"{}".format(lorem.sentence())},
+            "title": {'title': "{}".format(lorem.sentence())},
             "authors": [
-                {"full_name": "{}".format(lorem.sentence())},
                 {"full_name": "{}".format(lorem.sentence())}
             ],
             "abstracts": [{"value": "{}".format(lorem.text())}],

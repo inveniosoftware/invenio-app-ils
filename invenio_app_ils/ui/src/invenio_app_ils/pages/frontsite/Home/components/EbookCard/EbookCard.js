@@ -10,8 +10,7 @@ export default class EbookCard extends Component {
       <Card onClick={ebookData.onClick} data-test={ebookData.pid}>
         <Image size={ebookData.imageSize} src={ebookData.imageCover} />
         <Card.Content>
-          <Card.Header>{ebookData.title}</Card.Header>
-          <Card.Meta>{ebookData.description}</Card.Meta>
+          <Card.Header>{ebookData.title.title}</Card.Header>
         </Card.Content>
       </Card>
     );

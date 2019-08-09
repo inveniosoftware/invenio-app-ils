@@ -4,7 +4,6 @@ import { Loader, Error } from '../../../../../common/components';
 import { FrontSiteRoutes } from '../../../../../routes/urls';
 import { Card, Button, Divider } from 'semantic-ui-react';
 import { BookCard } from '../BookCard';
-import { truncate } from 'lodash/string';
 import { goToHandler } from '../../../../../history';
 
 export default class MostRecentBooks extends Component {
@@ -23,7 +22,7 @@ export default class MostRecentBooks extends Component {
       return {
         pid: document.metadata.pid,
         title: document.metadata.title,
-        authors: truncate(document.metadata.authors.join('\n')),
+        authors: document.metadata.authors,
         imageSize: 'small',
         imageCover: 'https://assets.thalia.media/img/46276899-00-00.jpg',
         eitems: document.metadata.eitems.hits,

@@ -166,7 +166,7 @@ export default class DocumentMetadata extends Component {
       <Grid.Row>
         <Grid.Column width={13} verticalAlign={'middle'}>
           <Header as="h1">
-            Document #{document.pid} - {document.metadata.title}
+            Document #{document.pid} - {document.metadata.title.title}
           </Header>
         </Grid.Column>
         <Grid.Column width={3} textAlign={'right'}>
@@ -186,8 +186,13 @@ export default class DocumentMetadata extends Component {
 
   prepareData(document) {
     const rows = [
-      { name: 'Title', value: document.metadata.title },
-      { name: 'Authors', value: document.metadata.authors },
+      { name: 'Title', value: document.metadata.title.title },
+      {
+        name: 'Authors',
+        value: document.metadata.authors
+          .map(author => author.full_name)
+          .join(','),
+      },
       {
         name: 'Keywords',
         value: this.renderKeywords(document.metadata.keywords),
@@ -297,7 +302,7 @@ export default class DocumentMetadata extends Component {
                   <Button
                     icon="privacy"
                     color="yellow"
-                    content="Set Acccess Restrictions"
+                    content="Set Access Restrictions"
                     onClick={this.toggleModal}
                   />
                 }
@@ -317,7 +322,7 @@ export default class DocumentMetadata extends Component {
             <Grid.Column>
               <Container>
                 <Header as="h3">Abstract</Header>
-                <p>{document.metadata.abstracts}</p>
+                <p>{document.metadata.abstracts[0].value}</p>
               </Container>
             </Grid.Column>
           </Grid.Row>

@@ -36,8 +36,10 @@ function formatDocumentToTableView(document, volume = null) {
     Updated: toShortDate(fromISO(document.updated)),
   };
   if (!isEmpty(document.metadata)) {
-    serialized['Title'] = document.metadata.title;
-    serialized['Authors'] = document.metadata.authors;
+    serialized['Title'] = document.metadata.title.title;
+    serialized['Authors'] = document.metadata.authors
+      .map(author => author.full_name)
+      .join(',');
     if (document.metadata.circulation) {
       serialized['Requests'] = document.metadata.circulation.pending_loans;
       serialized['Available Items'] =

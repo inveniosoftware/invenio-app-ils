@@ -12,7 +12,7 @@ exports[`DocumentAccordion tests should render the document correctly 1`] = `
       "booklinks": Array [],
       "chapters": Array [],
       "circulation": Object {},
-      "document_types": Array [
+      "document_type": Array [
         "BOOK",
       ],
       "eitems": Object {

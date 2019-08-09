@@ -84,7 +84,7 @@ class QueryBuilder {
     if (!documentType) {
       throw TypeError('documentType argument missing');
     }
-    this.withDocumentTypeQuery.push(`document_types:"${documentType}"`);
+    this.withDocumentTypeQuery.push(`document_type:"${documentType}"`);
     return this;
   }
 
