@@ -7,8 +7,36 @@
         "$schema": {
           "type": "keyword"
         },
+        "pid": {
+          "type": "keyword"
+        },
+        "_access": {
+          "type": "object",
+          "properties": {
+            "read": {
+              "type": "keyword"
+            }
+          }
+        },
         "title": {
           "properties": {
+            "alternative_titles": {
+              "type": "object",
+              "properties": {
+                "source": {
+                  "type": "text"
+                },
+                "title": {
+                  "type": "text"
+                },
+                "subtitle": {
+                  "type": "text"
+                }
+              }
+            },
+            "source": {
+              "type": "text"
+            },
             "title": {
               "type": "text"
             },
@@ -18,29 +46,55 @@
           },
           "type": "object"
         },
-        "edition": {
-          "type": "keyword"
-        },
-        "authors": {
-          "type": "object",
-          "properties": {
-            "full_name": {
-              "type": "text"
-            }
-          }
-        },
         "abstracts": {
           "properties": {
+            "source": {
+              "type": "text"
+            },
             "value": {
               "type": "text"
             }
           },
           "type": "object"
         },
+        "authors": {
+          "type": "object",
+          "properties": {
+            "affiliations": {
+              "type": "object",
+              "properties": {
+                "curated_relation": {
+                  "type": "boolean"
+                },
+                "value": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "alternative_names": {
+              "type": "keyword"
+            },
+            "email": {
+              "type": "keyword"
+            },
+            "full_name": {
+              "type": "text"
+            },
+            "roles": {
+              "type": "keyword"
+            }
+          }
+        },
+        "edition": {
+          "type": "text"
+        },
         "document_type": {
           "type": "keyword"
         },
-        "language": {
+        "languages": {
+          "type": "keyword"
+        },
+        "keyword_pids": {
           "type": "keyword"
         },
         "keywords": {
@@ -57,9 +111,90 @@
             }
           }
         },
+        "relations_metadata": {
+          "type": "object",
+          "properties": {
+            "multipart_monograph": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "volume": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "serial": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "volume": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "other": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "note": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
         "relations": {
           "type": "object",
           "properties": {
+            "multipart_monograph": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "volume": {
+                  "type": "keyword"
+                },
+                "title": {
+                  "type": "text"
+                }
+              }
+            },
+            "serial": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "volume": {
+                  "type": "keyword"
+                },
+                "title": {
+                  "type": "text"
+                }
+              }
+            },
             "edition": {
               "type": "object",
               "properties": {
@@ -70,12 +205,7 @@
                   "type": "keyword"
                 },
                 "title": {
-                  "properties": {
-                    "title": {
-                      "type": "text"
-                    }
-                  },
-                  "type": "object"
+                  "type": "text"
                 }
               }
             },
@@ -92,34 +222,7 @@
                   "type": "keyword"
                 },
                 "title": {
-                  "properties": {
-                    "title": {
-                      "type": "text"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            },
-            "multipart_monograph": {
-              "type": "object",
-              "properties": {
-                "pid": {
-                  "type": "keyword"
-                },
-                "pid_type": {
-                  "type": "keyword"
-                },
-                "volume": {
-                  "type": "keyword"
-                },
-                "title": {
-                  "properties": {
-                    "title": {
-                      "type": "text"
-                    }
-                  },
-                  "type": "object"
+                  "type": "text"
                 }
               }
             },
@@ -136,41 +239,9 @@
                   "type": "keyword"
                 },
                 "title": {
-                  "properties": {
-                    "title": {
-                      "type": "text"
-                    }
-                  },
-                  "type": "object"
+                  "type": "text"
                 }
               }
-            },
-            "serial": {
-              "type": "object",
-              "properties": {
-                "pid": {
-                  "type": "keyword"
-                },
-                "pid_type": {
-                  "type": "keyword"
-                },
-                "title": {
-                  "properties": {
-                    "title": {
-                      "type": "text"
-                    }
-                  },
-                  "type": "object"
-                }
-              }
-            }
-          }
-        },
-        "_access": {
-          "type": "object",
-          "properties": {
-            "read": {
-              "type": "keyword"
             }
           }
         },
@@ -233,8 +304,31 @@
             }
           }
         },
-        "pid": {
-          "type": "keyword"
+        "circulation": {
+          "type": "object",
+          "properties": {
+            "active_loans": {
+              "type": "integer"
+            },
+            "has_items_for_loan": {
+              "type": "integer"
+            },
+            "number_of_past_loans": {
+              "type": "integer"
+            },
+            "overbooked": {
+              "type": "boolean"
+            },
+            "overdue_loans": {
+              "type": "integer"
+            },
+            "pending_loans": {
+              "type": "integer"
+            },
+            "next_available_date": {
+              "type": "date"
+            }
+          }
         },
         "_created": {
           "type": "date"

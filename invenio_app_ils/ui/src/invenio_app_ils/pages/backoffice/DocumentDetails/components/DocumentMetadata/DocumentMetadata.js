@@ -196,7 +196,9 @@ export default class DocumentMetadata extends Component {
       { name: 'Title', value: document.metadata.title.title },
       {
         name: 'Authors',
-        value: document.metadata.authors.map(author => author.full_name),
+        value: document.metadata.authors
+          .map(author => author.full_name)
+          .join(','),
       },
       {
         name: 'Keywords',
@@ -307,7 +309,7 @@ export default class DocumentMetadata extends Component {
                   <Button
                     icon="privacy"
                     color="yellow"
-                    content="Set Acccess Restrictions"
+                    content="Set Access Restrictions"
                     onClick={this.toggleModal}
                   />
                 }
@@ -327,9 +329,7 @@ export default class DocumentMetadata extends Component {
             <Grid.Column>
               <Container>
                 <Header as="h3">Abstract</Header>
-                <p>
-                  {document.metadata.abstracts.map(abstract => abstract.value)}
-                </p>
+                <p>{document.metadata.abstracts[0].value}</p>
               </Container>
             </Grid.Column>
           </Grid.Row>

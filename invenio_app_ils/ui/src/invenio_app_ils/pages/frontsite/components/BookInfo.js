@@ -11,18 +11,11 @@ export class BookInfo extends Component {
   render() {
     return (
       <div className="document-info">
-        <Header as="h2">{this.documentMetadata.title}</Header>
+        <Header as="h2">{this.documentMetadata.title.title}</Header>
         <List>
           {this.documentMetadata.authors.map((author, index) => (
             <List.Item as="h4" key={`Key${index}`}>
-              Author: {author}
-            </List.Item>
-          ))}
-        </List>
-        <List>
-          {this.documentMetadata.publishers.map((publisher, index) => (
-            <List.Item as="h5" key={`Key${index}`}>
-              Publisher: {publisher}
+              Author: {author.full_name}
             </List.Item>
           ))}
         </List>

@@ -29,9 +29,14 @@ export default class DocumentItem extends Component {
               </div>
             </Responsive>
             <Item.Content>
-              <Item.Header>{this.metadata.title}</Item.Header>
+              <Item.Header>{this.metadata.title.title}</Item.Header>
               <Item.Meta>
-                <span className="author">Author: {this.metadata.authors}</span>
+                <span className="author">
+                  Authors:{' '}
+                  {this.metadata.authors
+                    .map(author => author.full_name)
+                    .join(',')}
+                </span>
               </Item.Meta>
               <Item.Meta>
                 <span className="edition">
@@ -39,10 +44,14 @@ export default class DocumentItem extends Component {
                 </span>
               </Item.Meta>
               <Responsive {...Responsive.onlyMobile}>
-                <Item.Description>{this.metadata.abstracts}</Item.Description>
+                <Item.Description>
+                  {this.metadata.abstracts[0].value}
+                </Item.Description>
               </Responsive>
               <Responsive {...Responsive.onlyComputer}>
-                <Item.Description>{this.metadata.abstracts}</Item.Description>
+                <Item.Description>
+                  {this.metadata.abstracts[0].value}
+                </Item.Description>
               </Responsive>
               <Item.Extra>
                 <EitemsButton eitems={this.metadata.eitems.hits} />

@@ -12,7 +12,7 @@ export default class DocumentTabMenu extends Component {
           <Tab.Pane>
             {!isEmpty(documentMetadata.abstracts)
               ? documentMetadata.abstracts.map((abstract, index) => (
-                  <p key={index}>{abstract}</p>
+                  <p key={index}>{abstract.value}</p>
                 ))
               : null}
           </Tab.Pane>
