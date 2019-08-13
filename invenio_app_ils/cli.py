@@ -653,12 +653,12 @@ def index():
 
 
 @click.command()
-@click.option('--skip-db-destroy', is_flag=True, help='Skip destroying DB.')
+@click.option('--recreate-db', is_flag=True, help='Recreating DB.')
 @click.option('--skip-demo-data', is_flag=True, help='Skip creating demo data.')
 @click.option('--skip-patrons', is_flag=True, help='Skip creating patrons.')
 @click.option('--verbose', is_flag=True, help='Verbose output.')
 @with_appcontext
-def setup(skip_db_destroy, skip_demo_data, skip_patrons, verbose):
+def setup(recreate_db, skip_demo_data, skip_patrons, verbose):
     """ILS setup command."""
     from flask import current_app
     from invenio_base.app import create_cli
@@ -680,9 +680,12 @@ def setup(skip_db_destroy, skip_demo_data, skip_patrons, verbose):
             click.secho(res.output)
 
     # Remove and create db and indexes
-    if not skip_db_destroy:
+    if recreate_db:
         run_command('db destroy --yes-i-know', catch_exceptions=True)
-    run_command('db init create')
+        run_command('db init')
+    else:
+        run_command('db drop')
+    run_command('db create')
     run_command('index destroy --force --yes-i-know')
     run_command('index init --force')
     run_command('index queue init purge')
