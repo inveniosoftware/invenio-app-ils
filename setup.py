@@ -103,9 +103,6 @@ setup(
         "invenio_base.api_apps": [
             "invenio_app_ils_rest = invenio_app_ils.ext:InvenioAppIlsREST"
         ],
-        "invenio_base.blueprints": [
-            "invenio_app_ils_ui = invenio_app_ils.views:blueprint",
-        ],
         "invenio_base.api_blueprints": [
             "invenio_app_ils_circulation = "
             "invenio_app_ils.circulation.views:create_circulation_blueprint",

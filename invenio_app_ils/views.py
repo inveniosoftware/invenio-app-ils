@@ -266,12 +266,6 @@ def _get_patrons_ui_config():
     return ui_config
 
 
-@blueprint.route("/ping", methods=["HEAD", "GET"])
-def ping():
-    """Ping blueprint used by loadbalancer."""
-    return "OK"
-
-
 @blueprint.route("/", methods=["GET"])
 @blueprint.route("/<path:path>", methods=["GET"])
 def index(path=None):
