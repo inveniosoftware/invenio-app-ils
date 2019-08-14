@@ -684,7 +684,7 @@ def setup(recreate_db, skip_demo_data, skip_patrons, verbose):
         run_command('db destroy --yes-i-know', catch_exceptions=True)
         run_command('db init')
     else:
-        run_command('db drop')
+        run_command('db drop --yes-i-know')
     run_command('db create')
     run_command('index destroy --force --yes-i-know')
     run_command('index init --force')
