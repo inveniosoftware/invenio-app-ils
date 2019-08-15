@@ -274,25 +274,13 @@ class PatronsIndexer(RecordIndexer):
         data = record.dumps()
         return data
 
-    def _prefix_index(self, app, index):
-        """Prefixes the given index if needed.
-
-        :param app: Flask app to get the config from.
-        :param index: Name of the index to prefix.
-        :returns: A string with the new index name prefixed if needed.
-        """
-        # See https://github.com/inveniosoftware/invenio-search/blob/master/invenio_search/config.py#L105
-        index_prefix = app.config['SEARCH_INDEX_PREFIX'] or ''
-        return index_prefix + index
-
     def record_to_index(self, record):
         """Get index/doc_type given a record.
 
         :param record: The record where to look for the information.
         :returns: A tuple (index, doc_type).
         """
-        index = self._prefix_index(current_app, record._index)
-        return (index, record._doc_type)
+        return (record._index, record._doc_type)
 
 
 @shared_task(ignore_result=True)
