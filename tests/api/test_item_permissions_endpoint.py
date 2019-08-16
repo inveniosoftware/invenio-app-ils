@@ -217,10 +217,9 @@ def test_delete_item_endpoint(
         ("admin", "itemid-57", 200, False),
     ]
 )
-def test_item_circulation_status(client, json_headers, testdata, users,
-                                 user_id, res_id, expected_resp_code,
-                                 filtered):
-    """Test item circulation_status filtering."""
+def test_item_circulation(client, json_headers, testdata, users, user_id,
+                          res_id, expected_resp_code, filtered):
+    """Test item circulation filtering."""
     user_login(user_id, client, users)
     url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
     res = _test_response(
@@ -231,14 +230,14 @@ def test_item_circulation_status(client, json_headers, testdata, users,
         None,
         expected_resp_code
     )
-    circulation_status = res.json["metadata"]["circulation_status"]
+    circulation = res.json["metadata"]["circulation"]
     filter_keys = [
         "loan_pid",
         "patron_pid",
     ]
     if filtered:
         for key in filter_keys:
-            assert key not in circulation_status
+            assert key not in circulation
     else:
         for key in filter_keys:
-            assert key in circulation_status
+            assert key in circulation

@@ -12,15 +12,6 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
       "metadata": Object {
         "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
         "_access": Object {},
-        "_computed": Object {
-          "eitems": Array [
-            Object {
-              "description": "Non ipsum",
-              "open_access": true,
-              "pid": "145",
-            },
-          ],
-        },
         "abstracts": Array [],
         "authors": Array [
           "Est sit magnam quiquia.",
@@ -31,6 +22,16 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
         "document_types": Array [
           "BOOK",
         ],
+        "eitems": Object {
+          "hits": Array [
+            Object {
+              "description": "Non ipsum",
+              "open_access": true,
+              "pid": "145",
+            },
+          ],
+          "total": 1,
+        },
         "files": Array [],
         "keyword_pids": Array [
           "24",
@@ -189,15 +190,6 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                               Object {
                                 "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                                 "_access": Object {},
-                                "_computed": Object {
-                                  "eitems": Array [
-                                    Object {
-                                      "description": "Non ipsum",
-                                      "open_access": true,
-                                      "pid": "145",
-                                    },
-                                  ],
-                                },
                                 "abstracts": Array [],
                                 "authors": Array [
                                   "Est sit magnam quiquia.",
@@ -208,6 +200,16 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                 "document_types": Array [
                                   "BOOK",
                                 ],
+                                "eitems": Object {
+                                  "hits": Array [
+                                    Object {
+                                      "description": "Non ipsum",
+                                      "open_access": true,
+                                      "pid": "145",
+                                    },
+                                  ],
+                                  "total": 1,
+                                },
                                 "files": Array [],
                                 "keyword_pids": Array [
                                   "24",
@@ -454,15 +456,6 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                             Object {
                               "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                               "_access": Object {},
-                              "_computed": Object {
-                                "eitems": Array [
-                                  Object {
-                                    "description": "Non ipsum",
-                                    "open_access": true,
-                                    "pid": "145",
-                                  },
-                                ],
-                              },
                               "abstracts": Array [],
                               "authors": Array [
                                 "Est sit magnam quiquia.",
@@ -473,6 +466,16 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                               "document_types": Array [
                                 "BOOK",
                               ],
+                              "eitems": Object {
+                                "hits": Array [
+                                  Object {
+                                    "description": "Non ipsum",
+                                    "open_access": true,
+                                    "pid": "145",
+                                  },
+                                ],
+                                "total": 1,
+                              },
                               "files": Array [],
                               "keyword_pids": Array [
                                 "24",
@@ -626,15 +629,6 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                             Object {
                               "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                               "_access": Object {},
-                              "_computed": Object {
-                                "eitems": Array [
-                                  Object {
-                                    "description": "Non ipsum",
-                                    "open_access": true,
-                                    "pid": "145",
-                                  },
-                                ],
-                              },
                               "abstracts": Array [],
                               "authors": Array [
                                 "Est sit magnam quiquia.",
@@ -645,6 +639,16 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                               "document_types": Array [
                                 "BOOK",
                               ],
+                              "eitems": Object {
+                                "hits": Array [
+                                  Object {
+                                    "description": "Non ipsum",
+                                    "open_access": true,
+                                    "pid": "145",
+                                  },
+                                ],
+                                "total": 1,
+                              },
                               "files": Array [],
                               "keyword_pids": Array [
                                 "24",
@@ -682,15 +686,6 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                       Object {
                                         "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                                         "_access": Object {},
-                                        "_computed": Object {
-                                          "eitems": Array [
-                                            Object {
-                                              "description": "Non ipsum",
-                                              "open_access": true,
-                                              "pid": "145",
-                                            },
-                                          ],
-                                        },
                                         "abstracts": Array [],
                                         "authors": Array [
                                           "Est sit magnam quiquia.",
@@ -701,6 +696,16 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                         "document_types": Array [
                                           "BOOK",
                                         ],
+                                        "eitems": Object {
+                                          "hits": Array [
+                                            Object {
+                                              "description": "Non ipsum",
+                                              "open_access": true,
+                                              "pid": "145",
+                                            },
+                                          ],
+                                          "total": 1,
+                                        },
                                         "files": Array [],
                                         "keyword_pids": Array [
                                           "24",
@@ -729,15 +734,6 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                         Object {
                                           "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                                           "_access": Object {},
-                                          "_computed": Object {
-                                            "eitems": Array [
-                                              Object {
-                                                "description": "Non ipsum",
-                                                "open_access": true,
-                                                "pid": "145",
-                                              },
-                                            ],
-                                          },
                                           "abstracts": Array [],
                                           "authors": Array [
                                             "Est sit magnam quiquia.",
@@ -748,6 +744,16 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                           "document_types": Array [
                                             "BOOK",
                                           ],
+                                          "eitems": Object {
+                                            "hits": Array [
+                                              Object {
+                                                "description": "Non ipsum",
+                                                "open_access": true,
+                                                "pid": "145",
+                                              },
+                                            ],
+                                            "total": 1,
+                                          },
                                           "files": Array [],
                                           "keyword_pids": Array [
                                             "24",
@@ -892,15 +898,6 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                       Object {
                                         "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                                         "_access": Object {},
-                                        "_computed": Object {
-                                          "eitems": Array [
-                                            Object {
-                                              "description": "Non ipsum",
-                                              "open_access": true,
-                                              "pid": "145",
-                                            },
-                                          ],
-                                        },
                                         "abstracts": Array [],
                                         "authors": Array [
                                           "Est sit magnam quiquia.",
@@ -911,6 +908,16 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                         "document_types": Array [
                                           "BOOK",
                                         ],
+                                        "eitems": Object {
+                                          "hits": Array [
+                                            Object {
+                                              "description": "Non ipsum",
+                                              "open_access": true,
+                                              "pid": "145",
+                                            },
+                                          ],
+                                          "total": 1,
+                                        },
                                         "files": Array [],
                                         "keyword_pids": Array [
                                           "24",

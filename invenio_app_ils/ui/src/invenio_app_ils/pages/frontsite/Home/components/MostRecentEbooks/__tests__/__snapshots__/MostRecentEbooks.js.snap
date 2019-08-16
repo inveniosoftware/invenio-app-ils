@@ -7,8 +7,8 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
       "hits": Array [
         Object {
           "metadata": Object {
-            "_computed": Object {
-              "eitems": Array [
+            "eitems": Object {
+              "hits": Array [
                 Object {
                   "description": "Lorem ipsum",
                   "document_pid": "doc1",
@@ -20,6 +20,7 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
                   "title": "title1",
                 },
               ],
+              "total": 1,
             },
             "pid": "123",
             "title": "Dolore",
@@ -27,8 +28,8 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
         },
         Object {
           "metadata": Object {
-            "_computed": Object {
-              "eitems": Array [
+            "eitems": Object {
+              "hits": Array [
                 Object {
                   "description": "Lorem ipsum",
                   "document_pid": "doc2",
@@ -40,6 +41,7 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
                   "title": "title2",
                 },
               ],
+              "total": 1,
             },
             "pid": "456",
             "title": "Ipsum",
@@ -227,8 +229,8 @@ exports[`MostRecentEbooks tests should render pending loans 1`] = `
       "hits": Array [
         Object {
           "metadata": Object {
-            "_computed": Object {
-              "eitems": Array [
+            "eitems": Object {
+              "hits": Array [
                 Object {
                   "description": "Lorem ipsum",
                   "document_pid": "doc1",
@@ -240,6 +242,7 @@ exports[`MostRecentEbooks tests should render pending loans 1`] = `
                   "title": "title1",
                 },
               ],
+              "total": 1,
             },
             "pid": "123",
             "title": "Dolore",
@@ -247,8 +250,8 @@ exports[`MostRecentEbooks tests should render pending loans 1`] = `
         },
         Object {
           "metadata": Object {
-            "_computed": Object {
-              "eitems": Array [
+            "eitems": Object {
+              "hits": Array [
                 Object {
                   "description": "Lorem ipsum",
                   "document_pid": "doc2",
@@ -260,6 +263,7 @@ exports[`MostRecentEbooks tests should render pending loans 1`] = `
                   "title": "title2",
                 },
               ],
+              "total": 1,
             },
             "pid": "456",
             "title": "Ipsum",
@@ -428,8 +432,8 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
       "hits": Array [
         Object {
           "metadata": Object {
-            "_computed": Object {
-              "eitems": Array [
+            "eitems": Object {
+              "hits": Array [
                 Object {
                   "description": "Lorem ipsum",
                   "document_pid": "doc1",
@@ -441,6 +445,7 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
                   "title": "title1",
                 },
               ],
+              "total": 1,
             },
             "pid": "123",
             "title": "Dolore",
@@ -448,8 +453,8 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
         },
         Object {
           "metadata": Object {
-            "_computed": Object {
-              "eitems": Array [
+            "eitems": Object {
+              "hits": Array [
                 Object {
                   "description": "Lorem ipsum",
                   "document_pid": "doc2",
@@ -461,6 +466,7 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
                   "title": "title2",
                 },
               ],
+              "total": 1,
             },
             "pid": "456",
             "title": "Ipsum",

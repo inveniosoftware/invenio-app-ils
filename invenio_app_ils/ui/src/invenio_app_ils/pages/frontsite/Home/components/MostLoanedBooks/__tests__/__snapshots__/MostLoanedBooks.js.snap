@@ -7,20 +7,22 @@ exports[`MostLoanedBooks tests should go to book details when clicking on a book
       "hits": Array [
         Object {
           "metadata": Object {
-            "_computed": Object {
-              "eitems": Array [],
-            },
             "authors": Array [],
+            "eitems": Object {
+              "hits": Array [],
+              "total": 0,
+            },
             "pid": "doc1",
             "title": "patron_1",
           },
         },
         Object {
           "metadata": Object {
-            "_computed": Object {
-              "eitems": Array [],
-            },
             "authors": Array [],
+            "eitems": Object {
+              "hits": Array [],
+              "total": 0,
+            },
             "pid": "doc2",
             "title": "patron_2",
           },
@@ -207,20 +209,22 @@ exports[`MostLoanedBooks tests should render pending loans 1`] = `
       "hits": Array [
         Object {
           "metadata": Object {
-            "_computed": Object {
-              "eitems": Array [],
-            },
             "authors": Array [],
+            "eitems": Object {
+              "hits": Array [],
+              "total": 0,
+            },
             "pid": "doc1",
             "title": "patron_1",
           },
         },
         Object {
           "metadata": Object {
-            "_computed": Object {
-              "eitems": Array [],
-            },
             "authors": Array [],
+            "eitems": Object {
+              "hits": Array [],
+              "total": 0,
+            },
             "pid": "doc2",
             "title": "patron_2",
           },
@@ -388,20 +392,22 @@ exports[`MostLoanedBooks tests should render the see all button when showing mos
       "hits": Array [
         Object {
           "metadata": Object {
-            "_computed": Object {
-              "eitems": Array [],
-            },
             "authors": Array [],
+            "eitems": Object {
+              "hits": Array [],
+              "total": 0,
+            },
             "pid": "doc1",
             "title": "patron_1",
           },
         },
         Object {
           "metadata": Object {
-            "_computed": Object {
-              "eitems": Array [],
-            },
             "authors": Array [],
+            "eitems": Object {
+              "hits": Array [],
+              "total": 0,
+            },
             "pid": "doc2",
             "title": "patron_2",
           },

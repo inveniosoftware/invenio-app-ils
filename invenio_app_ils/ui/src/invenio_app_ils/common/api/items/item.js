@@ -57,7 +57,7 @@ class QueryBuilder {
   }
 
   availableForCheckout() {
-    this.availableForCheckoutQuery.push('NOT circulation_status:*');
+    this.availableForCheckoutQuery.push('NOT circulation:*');
     return this;
   }
 

@@ -61,7 +61,7 @@ describe('PatronLoans tests', () => {
             barcode: '44444',
             shelf: 'P',
             status: 'CAN_CIRCULATE',
-            circulation_status: {},
+            circulation: {},
             medium: 'book',
           },
         },

@@ -65,6 +65,6 @@ def views_permissions_factory(action):
         return deny_all()
 
 
-def circulation_status_permission(patron_pid):
+def circulation_permission(patron_pid):
     """Return circulation status permission for a patron."""
     return Permission(UserNeed(int(patron_pid)), backoffice_access_action)

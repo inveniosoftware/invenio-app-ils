@@ -32,7 +32,10 @@ def jsonresolver_loader(url_map):
                 "internal_notes": eitem.get("internal_notes"),
                 "open_access": eitem.get("open_access"),
             })
-        return eitems
+        return {
+            "total": len(eitems),
+            "hits": eitems
+        }
 
     url_map.add(
         Rule(

@@ -45,7 +45,7 @@ export default class DocumentItem extends Component {
                 <Item.Description>{this.metadata.abstracts}</Item.Description>
               </Responsive>
               <Item.Extra>
-                <EitemsButton eitems={this.metadata._computed.eitems} />
+                <EitemsButton eitems={this.metadata.eitems.hits} />
                 <Button
                   primary
                   onClick={() => {

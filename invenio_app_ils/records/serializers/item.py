@@ -9,7 +9,7 @@
 
 from invenio_records_rest.serializers.json import JSONSerializer
 
-from invenio_app_ils.permissions import circulation_status_permission
+from invenio_app_ils.permissions import circulation_permission
 
 
 class ItemJSONSerializer(JSONSerializer):
@@ -32,7 +32,7 @@ class ItemJSONSerializer(JSONSerializer):
             links_factory=links_factory,
             **kwargs
         )
-        self.filter_circulation_status(item)
+        self.filter_circulation(item)
         return item
 
     def transform_search_hit(self, pid, record_hit, links_factory=None,
@@ -44,22 +44,22 @@ class ItemJSONSerializer(JSONSerializer):
             links_factory=links_factory,
             **kwargs
         )
-        self.filter_circulation_status(hit)
+        self.filter_circulation(hit)
         return hit
 
-    def filter_circulation_status(self, data):
+    def filter_circulation(self, data):
         """Filter circulation status depending on user permissions."""
-        if "circulation_status" in data["metadata"]:
-            circulation_status = data["metadata"]["circulation_status"]
-            patron_pid = circulation_status.get("patron_pid", None)
+        if "circulation" in data["metadata"]:
+            circulation = data["metadata"]["circulation"]
+            patron_pid = circulation.get("patron_pid", None)
             if not patron_pid:
-                return circulation_status
+                return circulation
 
-            allowed = circulation_status_permission(patron_pid).can()
+            allowed = circulation_permission(patron_pid).can()
 
             if not allowed:
                 for key in self.FILTER_KEYS:
-                    if key in circulation_status:
-                        del circulation_status[key]
+                    if key in circulation:
+                        del circulation[key]
 
-            data["metadata"]["circulation_status"] = circulation_status
+            data["metadata"]["circulation"] = circulation

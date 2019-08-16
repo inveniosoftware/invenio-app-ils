@@ -12,8 +12,9 @@ describe('DocumentAccordion tests', () => {
 
   const documentMetadata = {
     _access: {},
-    _computed: {
-      eitems: [
+    eitems: {
+      total: 1,
+      hits: [
         {
           description: 'Non ipsum',
           pid: '145',

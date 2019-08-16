@@ -9,7 +9,7 @@ it('should render correctly', () => {
     publishers: ['Penguin', 'Orion'],
     abstracts: ['Dolore ipsum'],
     pid: '12',
-    _computed: { eitems: [] },
+    eitems: { hits: [], total: 0 },
   };
 
   const tree = renderer.create(<DocumentItem metadata={metadata} />).toJSON();

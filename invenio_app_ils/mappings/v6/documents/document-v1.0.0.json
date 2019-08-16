@@ -25,9 +25,6 @@
         "language": {
           "type": "keyword"
         },
-        "items": {
-          "type": "keyword"
-        },
         "keywords": {
           "type": "object",
           "properties": {
@@ -134,10 +131,11 @@
             }
           }
         },
-        "_computed": {
+        "eitems": {
           "type": "object",
           "properties": {
-            "eitems": {
+            "total": { "type": "integer" },
+            "hits": {
               "type": "object",
               "properties": {
                 "pid": {
@@ -151,6 +149,38 @@
                 },
                 "open_access": {
                   "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "items": {
+          "type": "object",
+          "properties": {
+            "total": { "type": "integer" },
+            "hits": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "internal_location_pid": {
+                  "type": "keyword"
+                },
+                "circulation_restriction": {
+                  "type": "keyword"
+                },
+                "barcode": {
+                  "type": "keyword"
+                },
+                "medium": {
+                  "type": "keyword"
+                },
+                "status": {
+                  "type": "keyword"
+                },
+                "description": {
+                  "type": "text"
                 }
               }
             }

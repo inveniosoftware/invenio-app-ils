@@ -88,7 +88,7 @@ class QueryBuilder {
   }
 
   withEitems() {
-    this.withEitemsQuery.push('circulation.has_eitems:>0');
+    this.withEitemsQuery.push('eitems.total:>0');
     return this;
   }
 

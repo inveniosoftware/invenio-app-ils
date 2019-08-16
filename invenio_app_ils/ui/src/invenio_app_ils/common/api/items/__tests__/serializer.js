@@ -32,7 +32,7 @@ describe('Items serialization tests', () => {
       metadata: {
         pid: '123',
         internal_location: { location: { name: 'p' }, name: 'name' },
-        circulation_status: { p: 'LOANED' },
+        circulation: { p: 'LOANED' },
         medium: 'p',
         status: 'MISSING',
         shelf: '3 on the left',
@@ -48,7 +48,7 @@ describe('Items serialization tests', () => {
       metadata: {
         pid: '123',
         internal_location: { location: { name: 'p' }, name: 'name' },
-        circulation_status: { p: 'LOANED' },
+        circulation: { p: 'LOANED' },
         medium: 'p',
         status: 'MISSING',
         shelf: '3 on the left',

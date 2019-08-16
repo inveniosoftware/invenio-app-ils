@@ -18,8 +18,9 @@ describe('DocumentMetadata tests', () => {
     metadata: {
       $schema: 'https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json',
       _access: {},
-      _computed: {
-        eitems: [
+      eitems: {
+        total: 1,
+        hits: [
           {
             description: 'Non ipsum',
             pid: '145',

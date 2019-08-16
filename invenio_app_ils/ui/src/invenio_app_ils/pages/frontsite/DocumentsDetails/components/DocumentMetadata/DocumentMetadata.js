@@ -81,7 +81,7 @@ export default class DocumentMetadata extends Component {
   };
 
   render() {
-    const eitems = this.document.metadata._computed.eitems;
+    const eitems = this.document.metadata.eitems.hits;
     const cover = 'https://assets.thalia.media/img/46276899-00-00.jpg';
     return (
       <Segment
