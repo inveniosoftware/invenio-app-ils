@@ -1,0 +1,1 @@
+export { ManageRelationsButton } from './ManageRelationsButton';

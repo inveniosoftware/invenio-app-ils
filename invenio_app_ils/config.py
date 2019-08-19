@@ -792,7 +792,7 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(field="keywords.name", size=FACET_KEYWORD_LIMIT),
             ),
             languages=dict(
-                terms=dict(field="languages")
+                terms=dict(field="language")
             ),
             document_types=dict(
                 terms=dict(field="document_types")
@@ -827,7 +827,7 @@ RECORDS_REST_FACETS = dict(
         ),
         filters=dict(
             document_types=terms_filter("document_types"),
-            languages=terms_filter("languages"),
+            languages=terms_filter("language"),
             keywords=terms_filter("keywords.name"),
             has_items=keyed_range_filter(
                 "circulation.has_items",
@@ -892,11 +892,11 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(field="mode_of_issuance")
             ),
             languages=dict(
-                terms=dict(field='languages')
+                terms=dict(field='language')
             ),
         ),
         filters=dict(
-            languages=terms_filter('languages'),
+            languages=terms_filter('language'),
             keywords=terms_filter("keywords.name"),
         ),
         post_filters=dict(
@@ -951,13 +951,16 @@ RECORDS_EDITOR_UI_CONFIG = {
         },
         "editorConfig": {
             "schemaOptions": {
-                "alwaysShow": ["title", "abstracts", "authors", "series_objs"],
+                "alwaysShow": ["title", "abstracts", "authors"],
                 "properties": {
                     "$schema": {"hidden": True},
                     "pid": {"hidden": True},
                     "circulation": {"hidden": True},
                     "keywords": {"hidden": True},
-                    "series": {"hidden": True},
+                    "relations": {"hidden": True},
+                    "relations_metadata": {"hidden": True},
+                    "_access": {"hidden": True},
+                    "_computed": {"hidden": True},
                 },
             },
         },

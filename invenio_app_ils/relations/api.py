@@ -10,8 +10,7 @@
 from flask import current_app
 from invenio_db import db
 from invenio_pidrelations.api import PIDRelation
-from invenio_pidstore.models import PersistentIdentifier
-from sqlalchemy import or_, and_
+from sqlalchemy import and_, or_
 
 from invenio_app_ils.errors import RecordRelationsError
 
@@ -48,21 +47,32 @@ class Relation(object):
             child=pid, relation_type=self.relation_type.id
         ).all()
 
-    def get_any_relation_of(self, *args):
+    def get_any_relation_of(self, *pids):
         """Get any relation when given PIDs are parent or child.
 
-        :arg args: one or multiple PIDs
+        :arg pids: one or multiple PIDs
         """
-        query = PIDRelation.query.filter_by(
-            relation_type=self.relation_type.id
-        )
+        all_relation_pids = set()
 
-        for pid in args:
-            query = query.filter(
+        for pid in pids:
+            query = PIDRelation.query.filter_by(
+                relation_type=self.relation_type.id
+            ).filter(
                 or_(PIDRelation.parent == pid, PIDRelation.child == pid)
             )
 
-        return query.all()
+            results = query.all()
+            if results:
+                parent = results[0].parent
+                if parent == pid:
+                    for result in results:
+                        all_relation_pids.add(result)
+                else:
+                    # get relations of the parent
+                    for result in self.get_relations_by_parent(parent):
+                        all_relation_pids.add(result)
+
+        return list(all_relation_pids)
 
     def relation_exists(self, parent_pid, child_pid):
         """Determine if given relation already exists."""
@@ -157,7 +167,7 @@ class SiblingsRelation(Relation):
         # elect a new parent randomly
         new_parent = pids_to_relate.pop()
         # get the remaining PIDs, future children
-        remaining_pids = [pids_to_relate]
+        remaining_pids = list(pids_to_relate)
 
         with db.session.begin_nested():
             # delete all existing relations
@@ -184,7 +194,6 @@ class SiblingsRelation(Relation):
             and new relations are created.
 
         Example:
-
             1 -> 2 <rel-type-1>
             1 -> 3 <rel-type-1>
             4 -> 5 <rel-type-1>
@@ -195,6 +204,7 @@ class SiblingsRelation(Relation):
             1 -> 3 <rel-type-1>
             1 -> 4 <rel-type-1>
             1 -> 5 <rel-type-1>
+
         """
         # get all relations where first is a parent or a child, or second is
         # a parent or a child (any relation where first or second are involved)
@@ -237,7 +247,6 @@ class SiblingsRelation(Relation):
         and a new parent is chosen as when adding new relations.
 
         Example:
-
             1 -> 2 <rel-type-1>
             1 -> 3 <rel-type-1>
             1 -> 4 <rel-type-1>
@@ -248,6 +257,7 @@ class SiblingsRelation(Relation):
             2 -> 3 <rel-type-1>
             2 -> 4 <rel-type-1>
             2 -> 5 <rel-type-1>
+
         """
         # get all relations where first is a parent or a child, or second is
         # a parent or a child (any relation where first or second are involved)

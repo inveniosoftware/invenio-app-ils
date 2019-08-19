@@ -21,6 +21,10 @@
       "type": "array",
       "description": ""
     },
+    "edition": {
+      "type": "string",
+      "description": "Edition"
+    },
     "issn": {
       "title": "ISSN",
       "type": "string"
@@ -41,7 +45,24 @@
             "type": "object",
             "properties": {
               "pid": {
-                  "type": "string"
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "serial": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "string"
               },
               "pid_type": {
                 "type": "string"
@@ -58,7 +79,7 @@
             "type": "object",
             "properties": {
               "pid": {
-                  "type": "string"
+                "type": "string"
               },
               "pid_type": {
                 "type": "string"
@@ -294,23 +315,6 @@
       },
       "type": "array",
       "description": ""
-    },
-    "related_records": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "pid": {
-            "type": "string"
-          },
-          "pid_type": {
-            "type": "string"
-          },
-          "relation_type": {
-            "type": "string"
-          }
-        }
-      }
     },
     "title": {
       "type": "object",

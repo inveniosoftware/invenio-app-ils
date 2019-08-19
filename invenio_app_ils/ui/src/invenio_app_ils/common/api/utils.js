@@ -30,7 +30,11 @@ export const prepareSumQuery = param => {
   }
 };
 
-export const schemaToPidType = schema => {
+export const recordToPidType = record => {
+  if (record.metadata.pidType) {
+    return record.metadata.pidType;
+  }
+  const schema = record.metadata['$schema'];
   if (schema.includes('documents/document')) {
     return 'docid';
   } else if (schema.includes('eitems/eitem')) {
@@ -52,4 +56,29 @@ export const schemaToPidType = schema => {
   } else {
     throw new Error(`Failed to get pid type for schema: ${schema}`);
   }
+};
+
+export const parentChildRelationPayload = (
+  relationType,
+  extra,
+  parent,
+  child
+) => {
+  return {
+    parent_pid: parent.metadata.pid,
+    parent_pid_type: recordToPidType(parent),
+    child_pid: child.metadata.pid,
+    child_pid_type: recordToPidType(child),
+    relation_type: relationType,
+    ...extra,
+  };
+};
+
+export const siblingRelationPayload = (relationType, extra, second) => {
+  return {
+    pid: second.metadata.pid,
+    pid_type: recordToPidType(second),
+    relation_type: relationType,
+    ...extra,
+  };
 };

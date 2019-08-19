@@ -18,8 +18,8 @@ from invenio_circulation.api import Loan
 from invenio_circulation.search.api import search_by_pid as search_loans_by_pid
 from invenio_indexer.api import RecordIndexer
 
-from invenio_app_ils.records.api import Document, EItem, InternalLocation, \
-    Item, Series
+from invenio_app_ils.records.api import Document, EItem, IlsRecord, \
+    InternalLocation, Item, Series
 from invenio_app_ils.search.api import DocumentSearch, EItemSearch, \
     InternalLocationSearch, ItemSearch, SeriesSearch
 
@@ -156,6 +156,25 @@ def index_eitem_after_document_indexed(document_pid):
         _index_record_by_pid(EItem, eitem_pid, log_func)
 
 
+@shared_task(ignore_result=True)
+def index_related_records_after_record_changed(pid, pid_type, rec_type):
+    """Index related records after a document/series has been indexed."""
+    record = IlsRecord.get_record_by_pid(pid, pid_type=pid_type)
+    relations = record.relations.get()
+    eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
+    for relation_type, related_records in relations.items():
+        for obj in related_records:
+            index_related_record.apply_async(
+                (
+                    pid,
+                    rec_type,
+                    obj["pid"],
+                    obj["pid_type"]
+                ),
+                eta=eta,
+            )
+
+
 class DocumentIndexer(RecordIndexer):
     """Indexer class for Document record."""
 
@@ -170,6 +189,10 @@ class DocumentIndexer(RecordIndexer):
         index_eitem_after_document_indexed.apply_async(
             (document["pid"],),
             eta=eta,
+        )
+        index_related_records_after_record_changed.apply_async(
+            (document["pid"], document._pid_type, document.__class__.__name__),
+            eta=eta
         )
 
 
@@ -310,6 +333,10 @@ class SeriesIndexer(RecordIndexer):
             (series["pid"],),
             eta=eta,
         )
+        index_related_records_after_record_changed.apply_async(
+            (series["pid"], series._pid_type, series.__class__.__name__),
+            eta=eta
+        )
 
 
 @shared_task(ignore_result=True)
@@ -342,3 +369,54 @@ class KeywordIndexer(RecordIndexer):
             (keyword["pid"],),
             eta=eta,
         )
+
+
+@shared_task(ignore_result=True)
+def index_related_record(pid, rec_type, related_pid, related_pid_type):
+    """Index document to re-compute circulation information."""
+    related = IlsRecord.get_record_by_pid(
+        related_pid,
+        pid_type=related_pid_type
+    )
+    log_func = partial(
+        _log,
+        origin_rec_type=rec_type,
+        origin_recid=pid,
+        dest_rec_type=related.__class__.__name__)
+    log_func(msg=MSG_ORIGIN)
+    _index_record_by_pid(related.__class__, related["pid"], log_func)
+
+
+class RelationIndexer(RecordIndexer):
+    """Indexer class for record relations.
+
+    If you pass multiple records the relation indexer will keep track of which
+    related records have already been indexed to prevent duplicate indexing.
+    """
+
+    def index(self, *records):
+        """Index an Item."""
+        def _index(record, related_pid, related_pid_type):
+            if (related_pid, related_pid_type) in indexed_records:
+                return None
+
+            indexed_records.add((related_pid, related_pid_type))
+            index_related_record.apply_async(
+                (
+                    record["pid"],
+                    record.__class__.__name__,
+                    related_pid,
+                    related_pid_type
+                ),
+                eta=eta,
+            )
+
+        eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
+        indexed_records = set()
+
+        for record in records:
+            relations = record.relations.get()
+            _index(record, record["pid"], record._pid_type)
+            for relation_type, related_records in relations.items():
+                for obj in related_records:
+                    _index(record, obj["pid"], obj["pid_type"])

@@ -5,19 +5,18 @@ import { DocumentMetadata } from '../';
 import { DocumentPendingLoans } from '../DocumentPendingLoans';
 import { DocumentItems } from '../DocumentItems';
 import { DocumentStats } from '../DocumentStats';
-import { RelatedRecords } from '../../../../../common/components/RelatedRecords';
-import { ESSelectorModal } from '../../../../../common/components/ESSelector';
+import { DocumentRelations } from '../DocumentRelations';
 
 export default class DocumentDetails extends Component {
   render() {
-    const { isLoading, data, error } = this.props;
+    const { isLoading, data, error, relations } = this.props;
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <DocumentMetadata document={data} />
           <DocumentPendingLoans document={data} />
           <DocumentItems document={data} />
-          <RelatedRecords record={data} SelectorModal={ESSelectorModal} />
+          <DocumentRelations relations={relations} />
           <DocumentStats document={data} />
         </Error>
       </Loader>

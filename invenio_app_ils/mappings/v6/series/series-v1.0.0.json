@@ -21,23 +21,53 @@
         "issn": {
           "type": "keyword"
         },
+        "edition": {
+          "type": "keyword"
+        },
         "mode_of_issuance": {
           "type": "keyword"
         },
-        "languages": {
+        "language": {
           "type": "keyword"
         },
-        "related_records": {
+        "relations": {
           "type": "object",
           "properties": {
-            "pid": {
-              "type": "keyword"
+            "edition": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                }
+              }
             },
-            "pid_type": {
-              "type": "keyword"
+            "multipart_monograph": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "volume": {
+                  "type": "keyword"
+                }
+              }
             },
-            "relation_type": {
-              "type": "keyword"
+            "serial": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                }
+              }
             }
           }
         },

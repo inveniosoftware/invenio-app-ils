@@ -28,6 +28,10 @@
       "type": "array",
       "description": ""
     },
+    "edition": {
+      "type": "string",
+      "description": "Edition"
+    },
     "files": {
       "items": {
         "type": "string"
@@ -101,7 +105,24 @@
             "type": "object",
             "properties": {
               "pid": {
-                  "type": "string"
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "serial": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "string"
               },
               "pid_type": {
                 "type": "string"
@@ -118,7 +139,7 @@
             "type": "object",
             "properties": {
               "pid": {
-                  "type": "string"
+                "type": "string"
               },
               "pid_type": {
                 "type": "string"
@@ -138,6 +159,10 @@
           "type": "string"
         }
       }
+    },
+    "title": {
+      "type": "string",
+      "description": "Document title"
     },
     "_access": {
       "type": "object",

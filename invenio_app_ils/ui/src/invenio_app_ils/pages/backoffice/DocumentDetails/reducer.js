@@ -8,3 +8,6 @@ export {
 export {
   default as documentItems,
 } from './components/DocumentItems/state/reducer';
+export {
+  default as documentRelations,
+} from './components/DocumentRelations/state/reducer';

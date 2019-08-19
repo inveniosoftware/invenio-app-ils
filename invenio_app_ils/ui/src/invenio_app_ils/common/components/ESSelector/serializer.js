@@ -1,7 +1,3 @@
-import { schemaToPidType } from '../../api/utils';
-
-const formatPid = pid => `PID: ${pid}`;
-
 export const serializeError = error => ({
   id: 'error',
   key: 'error',
@@ -10,125 +6,89 @@ export const serializeError = error => ({
   extra: '',
 });
 
-export const serializeDocument = metadata => ({
-  id: metadata.pid,
-  key: metadata.pid,
-  title: metadata.title,
-  description: metadata.authors
-    ? `Authors: ${metadata.authors.join(', ')}`
-    : 'Document',
-  extra: formatPid(metadata.pid),
-  metadata: metadata,
+export const serializeDocument = doc => ({
+  id: doc.metadata.pid,
+  key: doc.metadata.pid,
+  title: doc.metadata.title,
+  description: `Authors: ${doc.metadata.authors.join(', ')}`,
+  extra: `Document #${doc.metadata.pid}`,
+  metadata: doc.metadata,
 });
 
-export const serializeEItem = metadata => ({
-  id: metadata.pid,
-  key: metadata.pid,
-  title: metadata.document.title.title,
-  description: `Open access: ${metadata.open_access ? 'Yes' : 'No'}`,
-  extra: formatPid(metadata.pid),
-  metadata: metadata,
+export const serializeEItem = eitem => ({
+  id: eitem.metadata.pid,
+  key: eitem.metadata.pid,
+  title: eitem.metadata.document.title,
+  description: `Open access: ${eitem.metadata.open_access ? 'Yes' : 'No'}`,
+  extra: `EItem #${eitem.metadata.pid}`,
+  metadata: eitem.metadata,
 });
 
-export const serializeInternalLocation = metadata => ({
-  id: metadata.pid,
-  key: metadata.pid,
-  title: metadata.name,
-  description: metadata.location ? `Location: ${metadata.location.name}` : null,
-  extra: formatPid(metadata.pid),
-  metadata: metadata,
+export const serializeInternalLocation = iloc => ({
+  id: iloc.metadata.pid,
+  key: iloc.metadata.pid,
+  title: iloc.metadata.name,
+  description: `Location: ${iloc.metadata.location.name}`,
+  extra: `Internal Location #${iloc.metadata.pid}`,
+  metadata: iloc.metadata,
 });
 
-export const serializeItem = metadata => ({
-  id: metadata.pid,
-  key: metadata.pid,
-  title: metadata.medium,
-  description: metadata.shelf ? `Shelf: ${metadata.shelf}` : null,
-  extra: formatPid(metadata.pid),
-  metadata: metadata,
+export const serializeItem = item => ({
+  id: item.metadata.pid,
+  key: item.metadata.pid,
+  title: item.metadata.medium,
+  description: `Shelf: ${item.metadata.shelf}`,
+  extra: `Item #${item.metadata.pid}`,
+  metadata: item.metadata,
 });
 
-export const serializeKeyword = metadata => ({
-  id: metadata.pid,
-  key: metadata.pid,
-  title: metadata.name,
-  description: metadata.provenance
-    ? `Provenance: ${metadata.provenance}`
-    : null,
-  extra: formatPid(metadata.pid),
-  metadata: metadata,
+export const serializeKeyword = keyword => ({
+  id: keyword.metadata.pid,
+  key: keyword.metadata.pid,
+  title: keyword.metadata.name,
+  description: `Provenance: ${keyword.metadata.provenance}`,
+  extra: `Keyword #${keyword.metadata.pid}`,
+  metadata: keyword.metadata,
 });
 
-export const serializeLoan = metadata => ({
-  id: metadata.pid,
-  key: metadata.pid,
-  title: metadata.state,
-  description: metadata.document_pid
-    ? `Document PID: ${metadata.document_pid}`
-    : null,
-  extra: formatPid(metadata.pid),
-  metadata: metadata,
+export const serializeLoan = loan => ({
+  id: loan.metadata.pid,
+  key: loan.metadata.pid,
+  title: loan.metadata.state,
+  description: `Document PID: ${loan.metadata.document_pid}`,
+  extra: `Loan #${loan.metadata.pid}`,
+  metadata: loan.metadata,
 });
 
-export const serializeLocation = metadata => ({
-  id: metadata.pid,
-  key: metadata.pid,
-  title: metadata.name,
-  description: metadata.address ? `Address: ${metadata.address}` : null,
-  extra: formatPid(metadata.pid),
-  metadata: metadata,
+export const serializeLocation = location => ({
+  id: location.metadata.pid,
+  key: location.metadata.pid,
+  title: location.metadata.name,
+  description: `Address: ${location.metadata.address}`,
+  extra: `Location #{location.metadata.pid}`,
+  metadata: location.metadata,
 });
 
-export const serializePatron = metadata => ({
-  id: metadata.id,
-  key: metadata.id,
-  title: metadata.email,
-  description: metadata.name ? `Name: ${metadata.name}` : null,
-  extra: `ID: ${metadata.id}`,
-  metadata: metadata,
+export const serializePatron = patron => ({
+  id: patron.metadata.id,
+  key: patron.metadata.id,
+  title: patron.metadata.email,
+  description: `Name: ${patron.metadata.name}`,
+  extra: `Patron #${patron.metadata.id}`,
+  metadata: patron.metadata,
 });
 
-export const serializeSeries = metadata => ({
-  id: metadata.pid,
-  key: metadata.pid,
-  title: metadata.title.title,
-  description: metadata.mode_of_issuance
-    ? `Mode of Issuance: ${metadata.mode_of_issuance}`
-    : null,
-  extra: `ID: ${metadata.pid}`,
-  metadata: metadata,
+export const serializeSeries = series => ({
+  id: series.metadata.pid,
+  key: series.metadata.pid,
+  title: series.metadata.title.title,
+  description: `Mode of Issuance: ${series.metadata.mode_of_issuance}`,
+  extra: `Series #${series.metadata.pid}`,
+  metadata: series.metadata,
 });
 
-export const serializeHit = hit => {
-  const { metadata } = hit;
-  const pidType = schemaToPidType(metadata['$schema']);
-
-  switch (pidType) {
-    case 'docid':
-      return serializeDocument(metadata);
-    case 'eitmid':
-      return serializeEItem(metadata);
-    case 'ilocid':
-      return serializeInternalLocation(metadata);
-    case 'keyid':
-      return serializeKeyword(metadata);
-    case 'loanid':
-      return serializeLoan(metadata);
-    case 'locid':
-      return serializeLocation(metadata);
-    case 'pitmid':
-      return serializeItem(metadata);
-    case 'patid':
-      return serializePatron(metadata);
-    case 'serid':
-      return serializeSeries(metadata);
-    default:
-      console.warn('failed to serialize hit: unknown pidType ', pidType);
-  }
-};
-
-export const serializeAccessList = email => ({
-  id: email,
-  key: email,
-  title: email,
+export const serializeAccessList = patron => ({
+  id: patron.metadata.email,
+  key: patron.metadata.email,
+  title: patron.metadata.email,
 });

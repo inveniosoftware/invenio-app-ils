@@ -10,6 +10,9 @@
         "title": {
           "type": "keyword"
         },
+        "edition": {
+          "type": "keyword"
+        },
         "authors": {
           "type": "keyword"
         },
@@ -19,7 +22,7 @@
         "document_types": {
           "type": "keyword"
         },
-        "languages": {
+        "language": {
           "type": "keyword"
         },
         "items": {
@@ -39,42 +42,87 @@
             }
           }
         },
-        "series": {
+        "relations": {
           "type": "object",
           "properties": {
-            "pid": {
-              "type": "keyword"
-            },
-            "issn": {
-              "type": "keyword"
-            },
-            "mode_of_issuance": {
-              "type": "keyword"
-            },
-            "title": {
+            "edition": {
               "type": "object",
               "properties": {
-                "title": {
+                "pid": {
                   "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "title": {
+                  "type": "text"
                 }
               }
             },
-            "volume": {
-              "type": "keyword"
-            }
-          }
-        },
-        "related_records": {
-          "type": "object",
-          "properties": {
-            "pid": {
-              "type": "keyword"
+            "language": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "language": {
+                  "type": "keyword"
+                },
+                "title": {
+                  "type": "text"
+                }
+              }
             },
-            "pid_type": {
-              "type": "keyword"
+            "multipart_monograph": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "volume": {
+                  "type": "keyword"
+                },
+                "title": {
+                  "type": "text"
+                }
+              }
             },
-            "relation_type": {
-              "type": "keyword"
+            "other": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "note": {
+                  "type": "keyword"
+                },
+                "title": {
+                  "type": "text"
+                }
+              }
+            },
+            "serial": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "title": {
+                  "type": "text"
+                }
+              }
             }
           }
         },

@@ -59,7 +59,7 @@ class RecordRelationsMetadata(object):
         record.commit()
 
     @classmethod
-    def remove_metadata_to(cls, record, relation_name, pid_value, pid_type):
+    def remove_metadata_from(cls, record, relation_name, pid_value, pid_type):
         """Remove any presence of the given PID in `relations_metadata`."""
         if (
             cls.field_name in record
@@ -148,7 +148,7 @@ class RecordRelationsRetriever(object):
         r.update(metadata or {})
 
         # add also the title of the parent
-        r["title"] = parent.get("title", "")
+        r["title"] = parent.get("title", {}).get("title", "")
 
         return r
 
@@ -172,7 +172,10 @@ class RecordRelationsRetriever(object):
         r.update(metadata or {})
 
         # add also title, language and edition of the sibling
-        r["title"] = sibling.get("title", "")
+        if sibling._pid_type == "serid":
+            r["title"] = sibling.get("title", {}).get("title", "")
+        else:
+            r["title"] = sibling.get("title", "")
         language = sibling.get('language')
         if language:
             r["language"] = language
@@ -224,7 +227,7 @@ class RecordRelations(object):
     relation_types = []
 
     def _validate_relation_type(self, relation_type):
-        """Validate the given relation type to be one of Parent-Child"""
+        """Validate the given relation type to be one of Parent-Child."""
         if relation_type not in self.relation_types:
             rel_names = ",".join([rt.name for rt in self.relation_types])
             raise RecordRelationsError(
@@ -289,8 +292,9 @@ class RecordRelationsParentChild(RecordRelations):
         pcr.add(parent_pid=parent.pid, child_pid=child.pid)
 
         # relation metadata is allowed only for MULTIPART_MONOGRAPH
-        relation_allows_metadata = (
-            current_app.config["MULTIPART_MONOGRAPH_RELATION"] == relation_type
+        relation_allows_metadata = relation_type in (
+            current_app.config["MULTIPART_MONOGRAPH_RELATION"],
+            current_app.config["SERIAL_RELATION"],
         )
         # check for allowed relation metadata (e.g. `volume`)
         has_allowed_metadata = any(
@@ -308,7 +312,7 @@ class RecordRelationsParentChild(RecordRelations):
                 relation_type.name,
                 child.pid.pid_value,
                 child._pid_type,
-                **allowed,
+                **allowed
             )
 
         # return the allegedly modified record
@@ -321,7 +325,7 @@ class RecordRelationsParentChild(RecordRelations):
         pcr.remove(parent_pid=parent.pid, child_pid=child.pid)
 
         # remove any metadata for this relation, if any
-        RecordRelationsMetadata.remove_metadata_to(
+        RecordRelationsMetadata.remove_metadata_from(
             parent, relation_type.name, child.pid.pid_value, child._pid_type
         )
 
@@ -351,8 +355,19 @@ class RecordRelationsSiblings(RecordRelations):
             and isinstance(second, Series)
             and first["mode_of_issuance"] == second["mode_of_issuance"]
         )
+        valid_edition = relation_name == "edition" and (
+            (
+                isinstance(first, Document)
+                and isinstance(second, Series)
+                and second["mode_of_issuance"] == "MULTIPART_MONOGRAPH"
+            ) or (
+                isinstance(second, Document)
+                and isinstance(first, Series)
+                and first["mode_of_issuance"] == "MULTIPART_MONOGRAPH"
+            )
+        )
 
-        if not (same_document or same_series):
+        if not (same_document or same_series or valid_edition):
             raise RecordRelationsError(
                 "Cannot create a relation `{}` between PID `{}` and  PID `{}`,"
                 " they are different record types".format(
@@ -387,7 +402,7 @@ class RecordRelationsSiblings(RecordRelations):
                 relation_type.name,
                 second.pid.pid_value,
                 second._pid_type,
-                **allowed,
+                **allowed
             )
 
         # return the allegedly modified record
@@ -401,10 +416,10 @@ class RecordRelationsSiblings(RecordRelations):
 
         # remove any metadata for this relation, if any
         # both first and second could have metadata for the relation
-        RecordRelationsMetadata.remove_metadata_to(
+        RecordRelationsMetadata.remove_metadata_from(
             first, relation_type.name, second.pid.pid_value, second._pid_type
         )
-        RecordRelationsMetadata.remove_metadata_to(
+        RecordRelationsMetadata.remove_metadata_from(
             second, relation_type.name, first.pid.pid_value, first._pid_type
         )
 

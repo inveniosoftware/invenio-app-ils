@@ -1,75 +1,86 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { List, Form, Dropdown, Tab, Label } from 'semantic-ui-react';
+import { List, Form, Tab, Label, Popup } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 import { ESSelector } from './';
-import { document as documentApi, series as seriesApi } from '../../api/';
 import './ESRelatedSelector.scss';
-import {
-  LanguageRelation,
-  getRelationTypes,
-  getRelationTypeByName,
-  getIconByRelation,
-  getRelationTypeById,
-} from '../RelatedRecords/config';
+import { recordToPidType } from '../../api/utils';
 
 export default class ESRelatedSelector extends Component {
   constructor(props) {
     super(props);
+    this.extraRefs = {};
     this.state = {
-      pidType: 'docid',
-      relationType: LanguageRelation.name,
+      recordType: Object.keys(props.config.recordTypes)[0],
+      relationType: props.relation,
+      showPopup: {},
+      tabNames: Object.keys(props.config.recordTypes),
     };
   }
 
-  get query() {
-    switch (this.state.pidType) {
-      case 'docid':
-        return documentApi.list;
-      case 'serid':
-        return seriesApi.list;
-      default:
-        throw Error(`Invalid pid type: ${this.state.pidType}`);
+  get initialSelections() {
+    return this.props.config.recordTypes[this.state.recordType].selections;
+  }
+
+  get selectorProps() {
+    return this.props.config.recordTypes[this.state.recordType].selectorProps;
+  }
+
+  get serializeSelection() {
+    const serialize = this.props.config.recordTypes[this.state.recordType]
+      .serializeSelection;
+    if (!serialize) {
+      return result => result;
+    }
+    return serialize;
+  }
+
+  componentDidMount() {
+    if (!isEmpty(this.extraRefs)) {
+      this.extraRefs[Object.keys(this.extraRefs)[0]].inputRef.focus();
     }
   }
 
-  get relationOptions() {
-    const options = [];
-    for (const relation of getRelationTypes()) {
-      options.push({
-        key: relation.name,
-        value: relation.name,
-        text: relation.label,
-        disabled: false,
-      });
-    }
-    return options;
-  }
-
-  onPidTypeChange = (e, { value }) => {
-    this.setState({ pidType: value });
+  onRecordTypeChange = (e, { value }) => {
+    this.setState({ recordType: value });
   };
 
-  onRelationTypeChange = (e, { value }) => {
-    this.setState({ relationType: value });
-  };
-
-  onSelectResult = result => {
+  onSelectResult = (result, initialSelection = false) => {
     const { id } = result;
-    const { pidType, relationType } = this.state;
-    const relatedId = `${id}-${pidType}-${relationType}`;
+    const { recordType, relationType } = this.state;
+    const relatedId = `${id}-${recordType}-${relationType}`;
 
-    result.metadata.pid = id;
-    result.metadata.pidType = pidType;
-    result.metadata.relationType = relationType;
-    result.metadata.new = true;
+    result.metadata.new = !initialSelection;
     result.id = relatedId;
     result.key = relatedId;
+
+    result.metadata.extraFields = result.metadata.extraFields || {};
+    if (!isEmpty(this.extraRefs)) {
+      for (const name in this.props.extraFields) {
+        const input = this.extraRefs[name].inputRef;
+        result.metadata.extraFields[name] = input.value;
+        input.value = '';
+      }
+    }
+
+    this.serializeSelection(result);
   };
 
   onTabChange = (e, { activeIndex }) => {
-    const relation = getRelationTypeById(activeIndex);
-    this.setState({ relationType: relation.name });
+    this.setState({ recordType: this.state.tabNames[activeIndex] });
+  };
+
+  onSearchChange = query => {
+    if (query) {
+      for (const [name, input] of Object.entries(this.extraRefs)) {
+        const value = input.inputRef.value;
+        this.setState({ showPopup: { [name]: value === '' } });
+      }
+    }
+  };
+
+  onExtraFieldChange = (field, value) => {
+    this.setState({ showPopup: { [field]: value === '' } });
   };
 
   renderSelectionsGroup = (selections, renderSelection) => (
@@ -83,95 +94,156 @@ export default class ESRelatedSelector extends Component {
   );
 
   getTabPanes = (records, renderSelection) => {
-    return getRelationTypes().map(relation => ({
+    const config = this.props.config;
+    return Object.keys(config['recordTypes']).map(type => ({
       menuItem: {
-        key: relation.name,
-        icon: getIconByRelation(relation),
+        key: type,
+        icon: config.icon,
         content: (
           <>
-            {relation.label} <Label>{records[relation.name].length}</Label>
+            {type}
+            <Label>{records[type] ? records[type].length : '0'}</Label>
           </>
         ),
       },
       render: () => (
         <Tab.Pane>
-          {this.renderSelectionsGroup(records[relation.name], renderSelection)}
+          {this.renderSelectionsGroup(records[type], renderSelection)}
         </Tab.Pane>
       ),
     }));
   };
 
   prepareSelections(selections) {
+    const findRecordType = pidType => {
+      const recordTypes = Object.entries(this.props.recordTypes);
+      for (const [recordType, obj] of recordTypes) {
+        if (obj.pidType === pidType) {
+          return recordType;
+        }
+      }
+      return null;
+    };
+
     const records = {};
-    for (const relation of getRelationTypes()) {
-      records[relation.name] = [];
+    for (const recordType in this.props.recordTypes) {
+      records[recordType] = [];
     }
+
     for (const selection of selections) {
-      records[selection.metadata.relationType].push(selection);
+      const pidType = selection.metadata.pidType;
+      const recordType = findRecordType(pidType);
+      if (!recordType) {
+        return [];
+      }
+      records[recordType].push(selection);
     }
     return records;
   }
 
   renderSelections = (selections, renderSelection) => {
-    const activeTab = getRelationTypeByName(this.state.relationType).id;
     const records = this.prepareSelections(selections);
     const menu = {
       secondary: true,
       pointing: true,
     };
     return (
-      <Tab
-        menu={menu}
-        panes={this.getTabPanes(records, renderSelection)}
-        activeIndex={activeTab}
-        onTabChange={this.onTabChange}
-      />
+      <div className="result-selections">
+        <Tab
+          menu={menu}
+          panes={this.getTabPanes(records, renderSelection)}
+          activeIndex={this.state.tabNames.indexOf(this.state.recordType)}
+          onTabChange={this.onTabChange}
+        />
+      </div>
     );
   };
 
+  renderTypes() {
+    const { recordTypes } = this.props.config;
+    return Object.keys(recordTypes).length <= 1 ? null : (
+      <Form.Group inline>
+        <label>Related</label>
+        {Object.keys(recordTypes).map(recordType => (
+          <Form.Radio
+            key={recordType}
+            label={recordType}
+            value={recordType}
+            checked={this.state.recordType === recordType}
+            onChange={this.onRecordTypeChange}
+          />
+        ))}
+      </Form.Group>
+    );
+  }
+
+  renderExtraFields() {
+    const fields = [];
+    const extraFields = this.props.extraFields;
+
+    if (!extraFields) return null;
+
+    for (const [name, field] of Object.entries(extraFields)) {
+      const FieldComponent = field.component;
+      fields.push(
+        <Form.Group inline key={name}>
+          <label>{field.label}</label>
+          <FieldComponent
+            ref={el => (this.extraRefs[name] = el)}
+            onChange={(_, { value }) => this.onExtraFieldChange(name, value)}
+            {...field.props}
+          />
+          <Popup
+            context={
+              this.extraRefs[name] ? this.extraRefs[name].inputRef : null
+            }
+            content={`Please specify a ${field.label.toLowerCase()}.`}
+            position="right center"
+            open={this.state.showPopup[name]}
+          />
+        </Form.Group>
+      );
+    }
+    return fields;
+  }
+
+  renderRelatedRecordTypes() {
+    return (
+      <>
+        {this.renderTypes()}
+        {this.renderExtraFields()}
+      </>
+    );
+  }
+
+  serializer(customSerializer) {
+    const custom = customSerializer ? customSerializer : hit => hit;
+    return hit => {
+      const pidType = recordToPidType(hit);
+      hit.metadata.pidType = pidType;
+      hit.metadata.recordType = this.state.recordType;
+      hit.metadata.relationType = this.state.relationType;
+      return custom(hit);
+    };
+  }
+
   render() {
-    const { pidType, relationType } = this.state;
-    const relationOptions = this.relationOptions;
+    const props = Object.assign({}, this.props, this.selectorProps);
+    props.serializer = this.serializer(props.serializer);
     return (
       <Form className="related-records-form">
-        <Form.Group inline>
-          <label>Related</label>
-          <Form.Radio
-            label="Document"
-            value="docid"
-            checked={pidType === 'docid'}
-            onChange={this.onPidTypeChange}
-          />
-          <Form.Radio
-            label="Series"
-            value="serid"
-            checked={pidType === 'serid'}
-            onChange={this.onPidTypeChange}
-          />
-        </Form.Group>
-        <Form.Group inline>
-          <label>Type</label>
-          <Dropdown
-            placeholder="Select relation type"
-            fluid
-            selection
-            options={relationOptions}
-            onChange={this.onRelationTypeChange}
-            value={relationType}
-          />
-        </Form.Group>
+        {this.renderRelatedRecordTypes()}
         <Form.Group className="related-search-form-group">
           <Form.Field className="related-search-field">
             <label>Search</label>
             <ESSelector
-              query={this.query}
               onSelectResult={this.onSelectResult}
-              renderSelections={(selections, render) =>
-                this.renderSelections(selections, render)
-              }
+              initialSelections={this.initialSelections}
+              renderSelections={this.renderSelections}
               onRemoveSelection={this.onRemoveSelection}
+              onSearchChange={this.onSearchChange}
               placeholder="Search for a related record..."
-              {...this.props}
+              {...props}
             />
           </Form.Field>
         </Form.Group>
@@ -191,4 +263,5 @@ ESRelatedSelector.propTypes = {
   onRemoveSelection: PropTypes.func,
   renderSelections: PropTypes.func,
   renderSelection: PropTypes.func,
+  extraFields: PropTypes.object,
 };

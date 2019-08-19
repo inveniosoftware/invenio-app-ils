@@ -22,7 +22,10 @@ import { EditButton } from '../../../components/buttons';
 
 import './ItemMetadata.scss';
 import { ESSelectorModal } from '../../../../../common/components/ESSelector';
-import { serializeDocument } from '../../../../../common/components/ESSelector/serializer';
+import {
+  serializeDocument,
+  serializePatron,
+} from '../../../../../common/components/ESSelector/serializer';
 
 export default class ItemMetadata extends Component {
   constructor(props) {
@@ -91,7 +94,7 @@ export default class ItemMetadata extends Component {
   render() {
     const { itemDetails } = this.props;
     const selectedDocument = new Array(
-      serializeDocument(itemDetails.metadata.document)
+      serializeDocument({ metadata: itemDetails.metadata.document })
     );
     const header = (
       <Grid.Row>
@@ -102,6 +105,7 @@ export default class ItemMetadata extends Component {
           <ESSelectorModal
             trigger={this.checkoutItemButton}
             query={patronApi.list}
+            serializer={serializePatron}
             title={`You are about to checkout the item with
                     barcode ${itemDetails.metadata.barcode}.`}
             content={
@@ -190,6 +194,7 @@ export default class ItemMetadata extends Component {
                             }
                             minCharacters={1}
                             query={documentApi.list}
+                            serializer={serializeDocument}
                             title="Select Document"
                             onSave={this.updateDocument}
                           />

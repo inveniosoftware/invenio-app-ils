@@ -58,6 +58,14 @@ def item_record(app):
     }
 
 
+@pytest.fixture(scope='module')
+def app_config(app_config):
+    """Get app config."""
+    app_config['RATELIMIT_GUEST_USER'] = '1000 per minute'
+    app_config['RATELIMIT_AUTHENTICATED_USER'] = '1000 per minute'
+    return app_config
+
+
 @pytest.fixture(scope="module")
 def create_app():
     """Create test app."""

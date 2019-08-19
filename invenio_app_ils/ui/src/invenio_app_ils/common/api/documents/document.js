@@ -24,6 +24,20 @@ const patch = async (documentPid, ops) => {
   return response;
 };
 
+const createRelation = async (docPid, data) => {
+  const resp = await http.post(`${documentURL}${docPid}/relations`, data);
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
+};
+
+const deleteRelation = async (docPid, data) => {
+  const resp = await http.delete(`${documentURL}${docPid}/relations`, {
+    data: data,
+  });
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
+};
+
 class QueryBuilder {
   constructor() {
     this.overbookedQuery = [];
@@ -78,11 +92,19 @@ class QueryBuilder {
     return this;
   }
 
-  withSeriesPid(seriesPid) {
+  withSeriesPid(seriesPid, moi) {
     if (!seriesPid) {
       throw TypeError('Series PID argument missing');
     }
-    this.withSeriesQuery.push(`series.pid:${prepareSumQuery(seriesPid)}`);
+    if (moi === 'SERIAL') {
+      this.withSeriesQuery.push(
+        `relations.serial.pid:${prepareSumQuery(seriesPid)}`
+      );
+    } else {
+      this.withSeriesQuery.push(
+        `relations.multipart_monograph.pid:${prepareSumQuery(seriesPid)}`
+      );
+    }
     return this;
   }
 
@@ -132,6 +154,8 @@ export const document = {
   get: get,
   delete: del,
   patch: patch,
+  createRelation: createRelation,
+  deleteRelation: deleteRelation,
   list: list,
   count: count,
   query: queryBuilder,

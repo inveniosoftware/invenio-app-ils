@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import { Search } from 'semantic-ui-react';
-import { serializeError, serializeHit } from './serializer';
+import { serializeError } from './serializer';
 
 const initialState = {
   isLoading: false,
@@ -41,6 +41,7 @@ export class HitsSearch extends Component {
   };
 
   search = debounce(async searchQuery => {
+    const serialize = this.props.serializer;
     try {
       const queryString = this.props.alwaysWildcard
         ? searchQuery + '*'
@@ -48,7 +49,7 @@ export class HitsSearch extends Component {
       const response = await this.props.query(queryString);
       const results = [];
       for (let hit of response.data.hits) {
-        results.push(serializeHit(hit));
+        results.push(serialize(hit));
       }
       if (this.props.onResults) {
         this.props.onResults(results);
@@ -75,6 +76,9 @@ export class HitsSearch extends Component {
   }, this.props.delay);
 
   onSearchChange = (event, { value }) => {
+    if (this.props.onSearchChange) {
+      this.props.onSearchChange(value);
+    }
     if (value.length < this.props.minCharacters) {
       this.setState({ value });
       return;
@@ -113,4 +117,5 @@ export class HitsSearch extends Component {
 HitsSearch.propTypes = {
   delay: PropTypes.number.isRequired,
   placeholder: PropTypes.string,
+  serializer: PropTypes.func.isRequired,
 };

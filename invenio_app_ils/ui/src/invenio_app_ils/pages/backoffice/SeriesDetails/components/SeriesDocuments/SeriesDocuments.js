@@ -18,23 +18,33 @@ export default class SeriesDocuments extends Component {
   }
 
   componentDidMount() {
-    this.fetchSeriesDocuments(this.props.series.pid);
+    const { series } = this.props;
+    this.fetchSeriesDocuments(series.pid, series.metadata.mode_of_issuance);
   }
 
   seeAllButton = () => {
     const path = this.seeAllUrl(
       documentApi
         .query()
-        .withSeriesPid(this.props.series.pid)
+        .withSeriesPid(
+          this.props.series.pid,
+          this.props.series.metadata.mode_of_issuance
+        )
         .qs()
     );
     return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
   prepareData(data) {
-    const { pid } = this.props.series;
+    const serials = this.props.series.metadata.relations.serial || [];
+    const volumes = {};
+    for (const serial of serials) {
+      volumes[[serial.pid, serial.pid_type]] = serial.volume;
+    }
     return data.hits.map(row => {
-      const entry = formatter.document.toTable(row, pid);
+      const key = [row.metadata.pid, 'docid'];
+      const volume = key in volumes ? volumes[key] : '?';
+      const entry = formatter.document.toTable(row, volume);
       return pick(entry, ['ID', 'Volume', 'Title', 'Authors']);
     });
   }

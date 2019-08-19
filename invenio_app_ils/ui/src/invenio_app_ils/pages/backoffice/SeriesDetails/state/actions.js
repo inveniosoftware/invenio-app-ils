@@ -105,3 +105,63 @@ export const updateSeries = (seriesPid, path, value) => {
       });
   };
 };
+
+export const createRelation = (pid, relations) => {
+  return async dispatch => {
+    dispatch({
+      type: IS_LOADING,
+    });
+
+    await seriesApi
+      .createRelation(pid, relations)
+      .then(response => {
+        dispatch({
+          type: SUCCESS,
+          payload: response.data,
+        });
+        dispatch(
+          sendSuccessNotification(
+            'Success!',
+            'Relation was successfully created.'
+          )
+        );
+      })
+      .catch(error => {
+        dispatch({
+          type: HAS_ERROR,
+          payload: error,
+        });
+        dispatch(sendErrorNotification(error));
+      });
+  };
+};
+
+export const deleteRelation = (pid, relations) => {
+  return async dispatch => {
+    dispatch({
+      type: IS_LOADING,
+    });
+
+    await seriesApi
+      .deleteRelation(pid, relations)
+      .then(response => {
+        dispatch({
+          type: SUCCESS,
+          payload: response.data,
+        });
+        dispatch(
+          sendSuccessNotification(
+            'Success!',
+            'Relation was successfully deleted.'
+          )
+        );
+      })
+      .catch(error => {
+        dispatch({
+          type: HAS_ERROR,
+          payload: error,
+        });
+        dispatch(sendErrorNotification(error));
+      });
+  };
+};

@@ -13,6 +13,7 @@ import {
   documentStatsReducer,
   documentPendingLoans,
   documentItems,
+  documentRelations,
 } from './pages/backoffice/DocumentDetails/reducer';
 import { deleteRecordModalReducer } from './pages/backoffice/components/DeleteRecordModal/reducer';
 import { eitemDetailsReducer } from './pages/backoffice/EItemDetails/reducer';
@@ -43,6 +44,8 @@ import { esSelectorReducer } from './common/components/ESSelector/reducer';
 import {
   seriesDetailsReducer,
   seriesDocumentsReducer,
+  seriesMultipartMonographsReducer,
+  seriesRelationsReducer,
 } from './pages/backoffice/SeriesDetails/reducer';
 
 import {
@@ -51,7 +54,6 @@ import {
   mostRecentEbooksReducer,
 } from './pages/frontsite/Home/reducer';
 import { documentsDetailsReducer } from './pages/frontsite/DocumentsDetails/reducer';
-import relatedRecordsReducer from './common/components/RelatedRecords/state/reducer';
 
 const rootReducer = combineReducers({
   availableItems: availableItemsReducer,
@@ -62,6 +64,7 @@ const rootReducer = combineReducers({
   documentsCard: documentsCardReducer,
   documentsDetails: documentsDetailsReducer,
   documentStats: documentStatsReducer,
+  documentRelations: documentRelations,
   eitemDetails: eitemDetailsReducer,
   esSelector: esSelectorReducer,
   idlePendingLoans: idleLoansReducer,
@@ -86,7 +89,8 @@ const rootReducer = combineReducers({
   patronPendingLoans: patronPendingLoansReducer,
   seriesDetails: seriesDetailsReducer,
   seriesDocuments: seriesDocumentsReducer,
-  relatedRecords: relatedRecordsReducer,
+  seriesMultipartMonographs: seriesMultipartMonographsReducer,
+  seriesRelations: seriesRelationsReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

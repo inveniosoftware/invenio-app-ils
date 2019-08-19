@@ -164,7 +164,6 @@ setup(
             "document_eitem = invenio_app_ils.records.resolver.jsonresolver.document_eitem",
             "document_keyword = invenio_app_ils.records.resolver.jsonresolver.document_keyword",
             "document_relations = invenio_app_ils.records.resolver.jsonresolver.document_relations",
-            "document_series = invenio_app_ils.records.resolver.jsonresolver.document_series",
             "eitem = invenio_app_ils.records.resolver.jsonresolver.eitem",
             "internal_location = invenio_app_ils.records.resolver.jsonresolver.internal_location",
             "item_document = invenio_app_ils.records.resolver.jsonresolver.item_document",

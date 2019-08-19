@@ -7,6 +7,7 @@ const mapStateToProps = state => ({
   data: state.documentDetails.data,
   error: state.documentDetails.error,
   hasError: state.documentDetails.hasError,
+  relations: state.documentDetails.relations,
 });
 
 export const DocumentDetails = connect(mapStateToProps)(

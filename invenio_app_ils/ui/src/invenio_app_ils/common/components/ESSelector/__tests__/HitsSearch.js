@@ -1,8 +1,11 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { HitsSearch } from '../HitsSearch';
+import { serializeKeyword } from '../serializer';
 
 describe('HitsSearch tests', () => {
+  const serializer = serializeKeyword;
+
   let component;
   afterEach(() => {
     if (component) {
@@ -11,7 +14,9 @@ describe('HitsSearch tests', () => {
   });
 
   it('should load the selector component', () => {
-    const component = shallow(<HitsSearch delay={0} query={() => {}} />);
+    const component = shallow(
+      <HitsSearch delay={0} query={() => {}} serializer={serializer} />
+    );
     expect(component).toMatchSnapshot();
   });
 
@@ -21,7 +26,9 @@ describe('HitsSearch tests', () => {
       done();
     };
 
-    component = mount(<HitsSearch delay={0} query={mockedApi} />);
+    component = mount(
+      <HitsSearch delay={0} query={mockedApi} serializer={serializer} />
+    );
     component.find('input').simulate('change', {
       target: { value: 'test' },
     });
@@ -43,7 +50,12 @@ describe('HitsSearch tests', () => {
     };
 
     component = mount(
-      <HitsSearch query={api} delay={0} onResults={onResults} />
+      <HitsSearch
+        query={api}
+        delay={0}
+        onResults={onResults}
+        serializer={serializer}
+      />
     );
     component.find('input').simulate('change', {
       target: { value: 'test' },
@@ -79,7 +91,12 @@ describe('HitsSearch tests', () => {
     };
 
     component = mount(
-      <HitsSearch query={api} delay={0} onResults={onResults} />
+      <HitsSearch
+        query={api}
+        delay={0}
+        onResults={onResults}
+        serializer={serializer}
+      />
     );
     component.find('input').simulate('change', {
       target: { value: 'test' },

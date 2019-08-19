@@ -32,7 +32,7 @@ export default class DocumentMetadata extends Component {
       FrontSiteRoutes.documentsListWithQuery(
         documentApi
           .query()
-          .withSeriesPid(seriesPid)
+          .withSeriesPid(seriesPid, 'SERIAL')
           .qs()
       )
     );

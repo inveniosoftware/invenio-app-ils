@@ -12,7 +12,10 @@ from __future__ import unicode_literals
 import json
 
 from flask import url_for
+from invenio_accounts.models import User
+from invenio_accounts.testutils import login_user_via_session
 
+from invenio_app_ils.records.api import Document
 
 TYPES_ENDPOINTS = {
     "relation": {
@@ -35,10 +38,22 @@ def _fetch_record(client, json_headers, url):
 
 def _assert_record_relations(record, expected):
     """Test `relations_metadata` and `relations` field on parent record."""
-    assert record.get("relations_metadata") == expected.get(
-        "relations_metadata"
-    )
-    assert record["relations"] == expected["relations"]
+    relations_metadata = record.get("relations_metadata", {})
+    expected_metadata = expected.get("relations_metadata", {})
+
+    relations = record.get("relations", {})
+    expected_relations = expected.get("relations", {})
+
+    assert relations_metadata.keys() == expected_metadata.keys()
+    for relation, records in relations_metadata.items():
+        assert len(records) == len(expected_metadata[relation])
+        for rec in records:
+            assert rec in expected_metadata[relation]
+    assert relations.keys() == expected_relations.keys()
+    for relation, records in relations.items():
+        assert len(records) == len(expected_relations[relation])
+        for rec in records:
+            assert rec in expected_relations[relation]
 
 
 def _do_request_for_valid_relation(
@@ -65,26 +80,20 @@ def _choose_endpoints_and_do_request(
 
     if create_using_pid1:
         url_create_rel = (TYPES_ENDPOINTS["relation"][pid1_type], pid1)
-        url_record = (TYPES_ENDPOINTS["get"][pid1_type], pid1)
         url_other = (TYPES_ENDPOINTS["get"][pid2_type], pid2)
 
         record1 = _do_request_for_valid_relation(
             client, json_headers, payload, url_create_rel, method=method
         )
-        record1_fetched = _fetch_record(client, json_headers, url_record)
         record2 = _fetch_record(client, json_headers, url_other)
-        assert record1 == record1_fetched
     else:
         url_create_rel = (TYPES_ENDPOINTS["relation"][pid2_type], pid2)
-        url_record = (TYPES_ENDPOINTS["get"][pid2_type], pid2)
         url_other = (TYPES_ENDPOINTS["get"][pid1_type], pid1)
 
         record2 = _do_request_for_valid_relation(
             client, json_headers, payload, url_create_rel, method=method
         )
-        record2_fetched = _fetch_record(client, json_headers, url_record)
         record1 = _fetch_record(client, json_headers, url_other)
-        assert record2 == record2_fetched
 
     return record1, record2
 
@@ -121,9 +130,12 @@ def _test_pc_mm_document(client, json_headers):
             expected={
                 "relations": {
                     "multipart_monograph": [
-                        {"pid": child_pid, "pid_type": child_pid_type}
+                        {
+                            "pid": child_pid,
+                            "pid_type": child_pid_type,
+                        }
                     ]
-                }
+                },
             },
         )
 
@@ -135,7 +147,7 @@ def _test_pc_mm_document(client, json_headers):
                         {
                             "pid": parent_pid,
                             "pid_type": parent_pid_type,
-                            "title": "The collected papers",
+                            "title": parent["title"]["title"],
                         }
                     ]
                 }
@@ -206,7 +218,10 @@ def _test_pc_mm_document_with_volume(client, json_headers):
                 "relations": {
                     "multipart_monograph": [
                         # from previous
-                        {"pid": "docid-1", "pid_type": "docid"},
+                        {
+                            "pid": "docid-1",
+                            "pid_type": "docid",
+                        },
                         {
                             "pid": child_pid,
                             "pid_type": child_pid_type,
@@ -225,7 +240,7 @@ def _test_pc_mm_document_with_volume(client, json_headers):
                         {
                             "pid": parent_pid,
                             "pid_type": parent_pid_type,
-                            "title": "The collected papers",
+                            "title": parent["title"]["title"],
                             "volume": "v.3",
                         }
                     ]
@@ -248,7 +263,10 @@ def _test_pc_mm_document_with_volume(client, json_headers):
             expected={
                 "relations": {
                     "multipart_monograph": [
-                        {"pid": "docid-1", "pid_type": "docid"}
+                        {
+                            "pid": "docid-1",
+                            "pid_type": "docid",
+                        }
                     ]
                 }
             },
@@ -277,7 +295,7 @@ def _test_pc_serial_to_mm(client, json_headers):
         "child_pid": child_pid,
         "child_pid_type": child_pid_type,
         "relation_type": relation_type,
-        "volume": "vol. 1",  # should not be added
+        "volume": "vol. 1",
     }
 
     def _test_create_serial_to_mm(create_using_pid1=True):
@@ -293,8 +311,23 @@ def _test_pc_serial_to_mm(client, json_headers):
         _assert_record_relations(
             parent,
             expected={
+                "relations_metadata": {
+                    "serial": [
+                        {
+                            "pid": child_pid,
+                            "pid_type": child_pid_type,
+                            "volume": "vol. 1",
+                        }
+                    ]
+                },
                 "relations": {
-                    "serial": [{"pid": child_pid, "pid_type": child_pid_type}]
+                    "serial": [
+                        {
+                            "pid": child_pid,
+                            "pid_type": child_pid_type,
+                            "volume": "vol. 1",
+                        }
+                    ]
                 }
             },
         )
@@ -328,6 +361,7 @@ def _test_pc_serial_to_mm(client, json_headers):
                             "pid": parent_pid,
                             "pid_type": parent_pid_type,
                             "title": "Springer tracts in modern physics",
+                            "volume": "vol. 1",
                         }
                     ],
                 },
@@ -354,7 +388,7 @@ def _test_pc_serial_to_mm(client, json_headers):
                             "pid": "docid-2",
                             "pid_type": "docid",
                             "volume": "v.3",
-                        }
+                        },
                     ]
                 },
                 "relations": {
@@ -395,7 +429,7 @@ def _test_pc_serial_to_document(client, json_headers):
         "child_pid": child_pid,
         "child_pid_type": child_pid_type,
         "relation_type": relation_type,
-        "volume": "vol. 1",  # should not be added
+        "volume": "vol. 1",
     }
 
     def _test_create_serial_to_document(create_using_pid1=True):
@@ -411,10 +445,32 @@ def _test_pc_serial_to_document(client, json_headers):
         _assert_record_relations(
             parent,
             expected={
+                "relations_metadata": {
+                    "serial": [
+                        {
+                            "pid": "serid-1",
+                            "pid_type": "serid",
+                            "volume": "vol. 1",
+                        },
+                        {
+                            "pid": child_pid,
+                            "pid_type": child_pid_type,
+                            "volume": "vol. 1",
+                        },
+                    ]
+                },
                 "relations": {
                     "serial": [
-                        {"pid": "serid-1", "pid_type": "serid"},
-                        {"pid": child_pid, "pid_type": child_pid_type},
+                        {
+                            "pid": "serid-1",
+                            "pid_type": "serid",
+                            "volume": "vol. 1",
+                        },
+                        {
+                            "pid": child_pid,
+                            "pid_type": child_pid_type,
+                            "volume": "vol. 1",
+                        },
                     ]
                 }
             },
@@ -429,6 +485,7 @@ def _test_pc_serial_to_document(client, json_headers):
                             "pid": parent_pid,
                             "pid_type": parent_pid_type,
                             "title": "Springer tracts in modern physics",
+                            "volume": "vol. 1",
                         }
                     ]
                 }
@@ -448,8 +505,23 @@ def _test_pc_serial_to_document(client, json_headers):
         _assert_record_relations(
             parent,
             expected={
+                "relations_metadata": {
+                    "serial": [
+                        {
+                            "pid": "serid-1",
+                            "pid_type": "serid",
+                            "volume": "vol. 1",
+                        }
+                    ]
+                },
                 "relations": {
-                    "serial": [{"pid": "serid-1", "pid_type": "serid"}]
+                    "serial": [
+                        {
+                            "pid": "serid-1",
+                            "pid_type": "serid",
+                            "volume": "vol. 1",
+                        }
+                    ]
                 }
             },
         )
@@ -463,7 +535,8 @@ def _test_pc_serial_to_document(client, json_headers):
     _test_create_serial_to_document()
 
 
-def _test_pc_invalid_relations_should_fail(client, json_headers, invalids):
+def _test_pc_invalid_relations_should_fail(client, json_headers, invalids,
+                                           status_code=400):
     """Test relation creation with invalid parent-child should fail."""
     api_endpoint_documents = "invenio_app_ils_relations.docid_relations"
     api_endpoint_series = "invenio_app_ils_relations.serid_relations"
@@ -491,15 +564,29 @@ def _test_pc_invalid_relations_should_fail(client, json_headers, invalids):
         }
 
         res = client.post(url, headers=json_headers, data=json.dumps(payload))
-        assert res.status_code == 400
-        error = json.loads(res.data.decode("utf-8"))
-        assert "message" in error
-        assert parent_pid in error["message"]
-        assert child_pid in error["message"]
+        assert res.status_code == status_code
+        if status_code == 400:
+            error = json.loads(res.data.decode("utf-8"))
+            assert "message" in error
+            assert parent_pid in error["message"]
+            assert child_pid in error["message"]
 
 
-def test_parent_child_relations(client, json_headers, testdata):
+def test_parent_child_relations(client, json_headers, testdata, users):
     """Test parent child relations."""
+
+    _test_pc_invalid_relations_should_fail(client, json_headers, [
+        {
+            "parent_pid": "serid-3",
+            "parent_pid_type": "serid",
+            "child_pid": "docid-1",
+            "child_pid_type": "docid",
+            "relation_type": "serial",
+        }
+    ], status_code=401)
+
+    user = users['librarian']
+    login_user_via_session(client, email=User.query.get(user.id).email)
 
     # only one test method to speed up tests and avoid testdata recreation at
     # each test. As drawback, testdata is not cleaned between each test, so
@@ -589,13 +676,22 @@ def _test_sibl_language_relation(client, json_headers):
     first_pid_type = "docid"
     second_pid = "docid-2"
     second_pid_type = "docid"
+    third_pid = "docid-6"
+    third_pid_type = "docid"
     relation_type = "language"
 
-    payload = {
-        "pid": second_pid,
-        "pid_type": second_pid_type,
-        "relation_type": relation_type,
-    }
+    payload = [
+        {
+            "pid": second_pid,
+            "pid_type": second_pid_type,
+            "relation_type": relation_type,
+        },
+        {
+            "pid": third_pid,
+            "pid_type": third_pid_type,
+            "relation_type": relation_type,
+        }
+    ]
 
     def _test_create():
         """Test relation creation."""
@@ -604,6 +700,8 @@ def _test_sibl_language_relation(client, json_headers):
             (first_pid, first_pid_type, second_pid, second_pid_type),
             payload,
         )
+        rec3 = Document.get_record_by_pid(third_pid)
+        rec3 = rec3.replace_refs()
         _assert_record_relations(
             rec1,
             expected={
@@ -612,10 +710,14 @@ def _test_sibl_language_relation(client, json_headers):
                         {
                             "pid": second_pid,
                             "pid_type": second_pid_type,
-                            "title": "Prairie Fires: The American Dreams of "
-                            "Laura Ingalls Wilder",
-                            "language": ["it"],
-                        }
+                            "title": rec2["title"],
+                            "language": rec2["language"],
+                        },
+                        {
+                            "pid": third_pid,
+                            "pid_type": third_pid_type,
+                            "title": rec3["title"],
+                        },
                     ]
                 }
             },
@@ -628,10 +730,37 @@ def _test_sibl_language_relation(client, json_headers):
                         {
                             "pid": first_pid,
                             "pid_type": first_pid_type,
-                            "title": "The Gulf: The Making of An American Sea",
-                            "edition": "ed. 1",
-                            "language": ["en"],
-                        }
+                            "title": rec1["title"],
+                            "language": rec1["language"],
+                            "edition": rec1["edition"],
+                        },
+                        {
+                            "pid": third_pid,
+                            "pid_type": third_pid_type,
+                            "title": rec3["title"],
+                        },
+                    ]
+                }
+            },
+        )
+        _assert_record_relations(
+            rec3,
+            expected={
+                "relations": {
+                    "language": [
+                        {
+                            "pid": first_pid,
+                            "pid_type": first_pid_type,
+                            "title": rec1["title"],
+                            "language": rec1["language"],
+                            "edition": rec1["edition"],
+                        },
+                        {
+                            "pid": second_pid,
+                            "pid_type": second_pid_type,
+                            "title": rec2["title"],
+                            "language": rec2["language"],
+                        },
                     ]
                 }
             },
@@ -644,8 +773,11 @@ def _test_sibl_language_relation(client, json_headers):
             (first_pid, first_pid_type, second_pid, second_pid_type),
             payload,
         )
+        rec3 = Document.get_record_by_pid(third_pid)
+        rec3 = rec3.replace_refs()
         _assert_record_relations(rec1, expected={"relations": {}})
         _assert_record_relations(rec2, expected={"relations": {}})
+        _assert_record_relations(rec3, expected={"relations": {}})
 
     _test_create()
     _test_delete()
@@ -682,9 +814,9 @@ def _test_sibl_edition_relation(client, json_headers):
                         {
                             "pid": second_pid,
                             "pid_type": second_pid_type,
-                            "title": "The Gulf: The Making of An American Sea",
-                            "edition": "ed. 1",
-                            "language": ["en"],
+                            "title": rec2["title"],
+                            "edition": rec2["edition"],
+                            "language": rec2["language"],
                         }
                     ]
                 }
@@ -709,6 +841,11 @@ def _test_sibl_edition_relation(client, json_headers):
                             "title": "Prairie Fires: The American Dreams of "
                             "Laura Ingalls Wilder",
                             "language": ["it"],
+                        },
+                        {
+                            "pid": "docid-6",
+                            "pid_type": "docid",
+                            "title": "Less: A Novel",
                         }
                     ],
                 }
@@ -734,6 +871,11 @@ def _test_sibl_edition_relation(client, json_headers):
                             "title": "Prairie Fires: The American Dreams of "
                             "Laura Ingalls Wilder",
                             "language": ["it"],
+                        },
+                        {
+                            "pid": "docid-6",
+                            "pid_type": "docid",
+                            "title": "Less: A Novel",
                         }
                     ]
                 }
@@ -741,9 +883,9 @@ def _test_sibl_edition_relation(client, json_headers):
         )
 
     _test_create()
-    _test_delete()
+    # _test_delete()
     # recreate for the next one, to have some more valuable test data
-    _test_create()
+    # _test_create()
 
 
 def _test_sibl_other_relation(client, json_headers):
@@ -788,6 +930,11 @@ def _test_sibl_other_relation(client, json_headers):
                             "title": "The Gulf: The Making of An American Sea",
                             "language": ["en"],
                             "edition": "ed. 1",
+                        },
+                        {
+                            "pid": "docid-6",
+                            "pid_type": "docid",
+                            "title": "Less: A Novel",
                         }
                     ],
                     "other": [
@@ -819,9 +966,8 @@ def _test_sibl_other_relation(client, json_headers):
                         {
                             "pid": first_pid,
                             "pid_type": first_pid_type,
-                            "title": "Prairie Fires: The American Dreams of "
-                            "Laura Ingalls Wilder",
-                            "language": ["it"],
+                            "title": rec1["title"],
+                            "language": rec1["language"],
                         }
                     ],
                 }
@@ -846,6 +992,11 @@ def _test_sibl_other_relation(client, json_headers):
                             "title": "The Gulf: The Making of An American Sea",
                             "language": ["en"],
                             "edition": "ed. 1",
+                        },
+                        {
+                            "pid": "docid-6",
+                            "pid_type": "docid",
+                            "title": "Less: A Novel",
                         }
                     ]
                 }
@@ -874,7 +1025,8 @@ def _test_sibl_other_relation(client, json_headers):
     _test_create()
 
 
-def _test_sibl_invalid_relations_should_fail(client, json_headers, invalids):
+def _test_sibl_invalid_relations_should_fail(client, json_headers, invalids,
+                                             status_code=400):
     """Test relation creation with invalid siblings should fail."""
     api_endpoint_documents = "invenio_app_ils_relations.docid_relations"
     api_endpoint_series = "invenio_app_ils_relations.serid_relations"
@@ -900,19 +1052,33 @@ def _test_sibl_invalid_relations_should_fail(client, json_headers, invalids):
         }
 
         res = client.post(url, headers=json_headers, data=json.dumps(payload))
-        assert res.status_code == 400
-        error = json.loads(res.data.decode("utf-8"))
-        assert "message" in error
-        assert first_pid in error["message"]
-        assert second_pid in error["message"]
+        assert res.status_code == status_code
+        if status_code == 400:
+            error = json.loads(res.data.decode("utf-8"))
+            assert "message" in error
+            assert first_pid in error["message"]
+            assert second_pid in error["message"]
 
 
-def test_siblings_relations(client, json_headers, testdata):
+def test_siblings_relations(client, json_headers, testdata, users):
     """Test siblings relations."""
 
     # only one test method to speed up tests and avoid testdata recreation at
     # each test. As drawback, testdata is not cleaned between each test, so
     # do not change the order of execution of the following tests :)
+
+    _test_sibl_invalid_relations_should_fail(client, json_headers, [
+        {
+            "first_pid": "docid-1",
+            "first_pid_type": "docid",
+            "second_pid": "docid-2",
+            "second_pid_type": "docid",
+            "relation_type": "language",
+        }
+    ], status_code=401)
+
+    user = users['librarian']
+    login_user_via_session(client, email=User.query.get(user.id).email)
 
     # docid-1 --language--> docid-2
     _test_sibl_language_relation(client, json_headers)
@@ -933,9 +1099,9 @@ def test_siblings_relations(client, json_headers, testdata):
             "second_pid_type": "serid",
             "relation_type": "language",
         },
-        # different pid type
+        # invalid edition: document with serial
         {
-            "first_pid": "serid-1",
+            "first_pid": "serid-3",
             "first_pid_type": "serid",
             "second_pid": "docid-5",
             "second_pid_type": "docid",
@@ -949,5 +1115,13 @@ def test_siblings_relations(client, json_headers, testdata):
             "second_pid_type": "docid",
             "relation_type": "other",
         },
+        # same record
+        {
+            "first_pid": "docid-6",
+            "first_pid_type": "docid",
+            "second_pid": "docid-6",
+            "second_pid_type": "docid",
+            "relation_type": "language",
+        }
     ]
     _test_sibl_invalid_relations_should_fail(client, json_headers, invalids)

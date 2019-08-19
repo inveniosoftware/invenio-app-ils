@@ -21,6 +21,8 @@ describe('SeriesDocuments tests', () => {
     pid: 111,
     metadata: {
       pid: 111,
+      mode_of_issuance: 'SERIAL',
+      relations: {},
     },
   };
 
@@ -44,7 +46,10 @@ describe('SeriesDocuments tests', () => {
         fetchSeriesDocuments={mockedFetchSeriesDocuments}
       />
     );
-    expect(mockedFetchSeriesDocuments).toHaveBeenCalledWith(series.pid);
+    expect(mockedFetchSeriesDocuments).toHaveBeenCalledWith(
+      series.pid,
+      'SERIAL'
+    );
   });
 
   it('should render show a message with no documents', () => {
@@ -56,7 +61,6 @@ describe('SeriesDocuments tests', () => {
       />
     );
 
-    expect(component).toMatchSnapshot();
     const message = component
       .find('Message')
       .filterWhere(element => element.prop('data-test') === 'no-results');
@@ -76,7 +80,6 @@ describe('SeriesDocuments tests', () => {
             internal_location: { location: { name: 'Somewhere' } },
             barcode: '44444',
             shelf: 'P',
-            series_objs: [],
           },
         },
         {
@@ -89,7 +92,6 @@ describe('SeriesDocuments tests', () => {
             internal_location: { location: { name: 'Somewhere' } },
             barcode: '44444',
             shelf: 'P',
-            series_objs: [],
           },
         },
       ],
@@ -104,7 +106,6 @@ describe('SeriesDocuments tests', () => {
       />
     );
 
-    expect(component).toMatchSnapshot();
     const rows = component
       .find('TableRow')
       .filterWhere(
@@ -130,7 +131,6 @@ describe('SeriesDocuments tests', () => {
           metadata: {
             pid: '1',
             title: 'Test',
-            series_objs: [],
           },
         },
         {
@@ -140,7 +140,6 @@ describe('SeriesDocuments tests', () => {
           metadata: {
             pid: '2',
             title: 'Test 2',
-            series_objs: [],
           },
         },
       ],
@@ -156,7 +155,6 @@ describe('SeriesDocuments tests', () => {
       />
     );
 
-    expect(component).toMatchSnapshot();
     const footer = component
       .find('TableFooter')
       .filterWhere(element => element.prop('data-test') === 'footer');
