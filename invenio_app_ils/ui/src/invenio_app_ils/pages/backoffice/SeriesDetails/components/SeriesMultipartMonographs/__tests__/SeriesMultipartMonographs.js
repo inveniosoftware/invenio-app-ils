@@ -1,0 +1,202 @@
+import React from 'react';
+import { shallow, mount } from 'enzyme';
+import { BackOfficeRoutes } from '../../../../../../routes/urls';
+import SeriesMultipartMonographs from '../SeriesMultipartMonographs';
+import { Settings } from 'luxon';
+import { fromISO } from '../../../../../../common/api/date';
+import history from '../../../../../../history';
+
+Settings.defaultZoneName = 'utc';
+const stringDate = fromISO('2018-01-01T11:05:00+01:00');
+
+describe('SeriesMultipartMonographs tests', () => {
+  let component;
+  afterEach(() => {
+    if (component) {
+      component.unmount();
+    }
+  });
+
+  const series = {
+    pid: 111,
+    metadata: {
+      pid: 111,
+      mode_of_issuance: 'SERIAL',
+      relations: {},
+    },
+  };
+
+  it('should load the SeriesMultipartMonographs component', () => {
+    const component = shallow(
+      <SeriesMultipartMonographs
+        series={series}
+        data={{ hits: [], total: 0 }}
+        fetchSeriesMultipartMonographs={() => {}}
+      />
+    );
+    expect(component).toMatchSnapshot();
+  });
+
+  it('should fetch pending loans on mount', () => {
+    const mockedFetchSeriesMultipartMonographs = jest.fn();
+    component = mount(
+      <SeriesMultipartMonographs
+        series={series}
+        data={{ hits: [], total: 0 }}
+        fetchSeriesMultipartMonographs={mockedFetchSeriesMultipartMonographs}
+      />
+    );
+    expect(mockedFetchSeriesMultipartMonographs).toHaveBeenCalledWith(
+      series.pid
+    );
+  });
+
+  it('should render show a message with no series', () => {
+    component = mount(
+      <SeriesMultipartMonographs
+        series={series}
+        data={{ hits: [], total: 0 }}
+        fetchSeriesMultipartMonographs={() => {}}
+      />
+    );
+
+    const message = component
+      .find('Message')
+      .filterWhere(element => element.prop('data-test') === 'no-results');
+    expect(message).toHaveLength(1);
+  });
+
+  it('should render series', () => {
+    const data = {
+      hits: [
+        {
+          ID: '1',
+          updated: stringDate,
+          created: stringDate,
+          pid: 'series1',
+          metadata: {
+            pid: 'series1',
+            title: { title: 'Test' },
+            relations: {},
+          },
+        },
+        {
+          id: '2',
+          updated: stringDate,
+          created: stringDate,
+          pid: 'series2',
+          metadata: {
+            pid: 'series2',
+            title: { title: 'Test' },
+            relations: {},
+          },
+        },
+      ],
+      total: 2,
+    };
+
+    component = mount(
+      <SeriesMultipartMonographs
+        series={series}
+        data={data}
+        fetchSeriesMultipartMonographs={() => {}}
+      />
+    );
+
+    const rows = component
+      .find('TableRow')
+      .filterWhere(
+        element =>
+          element.prop('data-test') === 'series1' ||
+          element.prop('data-test') === 'series2'
+      );
+    expect(rows).toHaveLength(2);
+
+    const footer = component
+      .find('TableRow')
+      .filterWhere(element => element.prop('data-test') === 'footer');
+    expect(footer).toHaveLength(0);
+  });
+
+  it('should render the see all button when showing only a few series', () => {
+    const data = {
+      hits: [
+        {
+          id: 1,
+          updated: stringDate,
+          created: stringDate,
+          metadata: {
+            pid: '1',
+            relations: {},
+            title: { title: 'Test' },
+          },
+        },
+        {
+          id: 2,
+          updated: stringDate,
+          created: stringDate,
+          metadata: {
+            pid: '2',
+            relations: {},
+            title: { title: 'Test 2' },
+          },
+        },
+      ],
+      total: 2,
+    };
+
+    component = mount(
+      <SeriesMultipartMonographs
+        series={series}
+        data={data}
+        fetchSeriesMultipartMonographs={() => {}}
+        showMaxSeries={1}
+      />
+    );
+
+    const footer = component
+      .find('TableFooter')
+      .filterWhere(element => element.prop('data-test') === 'footer');
+    expect(footer).toHaveLength(1);
+  });
+
+  it('should go to series details when clicking on a series row', () => {
+    const mockedHistoryPush = jest.fn();
+    history.push = mockedHistoryPush;
+    const data = {
+      hits: [
+        {
+          ID: '1',
+          updated: stringDate,
+          created: stringDate,
+          pid: 'series1',
+          metadata: {
+            pid: 'series1',
+            title: 'Title',
+            series_objs: [],
+          },
+        },
+      ],
+      total: 2,
+    };
+
+    component = mount(
+      <SeriesMultipartMonographs
+        series={series}
+        data={data}
+        fetchSeriesMultipartMonographs={() => {}}
+        showMaxItems={1}
+      />
+    );
+
+    const firstId = data.hits[0].pid;
+    const button = component
+      .find('TableRow')
+      .filterWhere(element => element.prop('data-test') === firstId)
+      .find('i');
+    button.simulate('click');
+
+    const expectedParam = BackOfficeRoutes.seriesDetailsFor(firstId);
+    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
+  });
+});

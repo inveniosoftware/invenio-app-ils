@@ -11,6 +11,7 @@ export const initialState = {
   isLoading: true,
   hasError: false,
   data: {},
+  relations: {},
   error: {},
 };
 

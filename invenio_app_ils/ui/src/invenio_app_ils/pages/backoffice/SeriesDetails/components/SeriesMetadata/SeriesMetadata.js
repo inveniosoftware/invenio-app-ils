@@ -3,12 +3,10 @@ import { Grid, Segment, Container, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { MetadataTable } from '../../../components/MetadataTable';
 import { EditButton } from '../../../components/buttons';
-import {
-  document as documentApi,
-  series as seriesApi,
-} from '../../../../../common/api';
+import { series as seriesApi } from '../../../../../common/api';
 import { openRecordEditor } from '../../../../../routes/urls';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
+import { formatPidTypeToName } from '../../../../../common/components/ManageRelationsButton/utils';
 
 export default class SeriesMetadata extends Component {
   constructor(props) {
@@ -17,19 +15,31 @@ export default class SeriesMetadata extends Component {
     this.seriesPid = this.props.seriesDetails.metadata.pid;
   }
 
+  async getRelationRefs() {
+    const hits = [];
+    for (const [relation, records] of Object.entries(this.props.relations)) {
+      for (const record of records) {
+        const type = formatPidTypeToName(record.pid_type);
+        hits.push({
+          id: `${type} ${record.pid} (${relation})`,
+        });
+      }
+    }
+    const obj = {
+      data: {
+        hits: hits,
+        total: hits.length,
+      },
+    };
+    return obj;
+  }
+
   createRefProps(seriesPid) {
     return [
       {
-        refType: 'Document',
-        onRefClick: documentPid =>
-          openRecordEditor(documentApi.url, documentPid),
-        getRefData: () =>
-          documentApi.list(
-            documentApi
-              .query()
-              .withSeriesPid(seriesPid)
-              .qs()
-          ),
+        refType: 'Related',
+        onRefClick: () => {},
+        getRefData: () => this.getRelationRefs(),
       },
     ];
   }

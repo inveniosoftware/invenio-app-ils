@@ -57,6 +57,10 @@ def views_permissions_factory(action):
         return authenticated_user_permission()
     elif action == "circulation-loan-create":
         return backoffice_permission()
+    elif action == "relations-create":
+        return backoffice_permission()
+    elif action == "relations-delete":
+        return backoffice_permission()
     else:
         return deny_all()
 

@@ -1,6 +1,7 @@
 import { fromISO, toShortDate, toShortDateTime } from '../../api/date';
 import isEmpty from 'lodash/isEmpty';
 import assign from 'lodash/assign';
+import { formatPidTypeToName } from '../ManageRelationsButton/utils';
 
 function formatLoanToTableView(loan) {
   return {
@@ -23,7 +24,7 @@ function formatLoanToTableView(loan) {
   };
 }
 
-function formatDocumentToTableView(document, seriesPid = null) {
+function formatDocumentToTableView(document, volume = null) {
   let serialized = {
     ID: document.pid ? document.pid : document.id,
     Created: toShortDate(fromISO(document.created)),
@@ -39,12 +40,8 @@ function formatDocumentToTableView(document, seriesPid = null) {
       serialized['# Loans'] =
         document.metadata.circulation.number_of_past_loans;
     }
-    // Include volume number for series if it's given
-    if (seriesPid) {
-      const seriesObj = document.metadata.series_objs.find(
-        obj => obj.pid === seriesPid
-      );
-      serialized['Volume'] = seriesObj ? seriesObj.volume : '';
+    if (volume) {
+      serialized['Volume'] = volume;
     }
   }
   return serialized;
@@ -142,26 +139,21 @@ function formatPatronToTableView(patron) {
   };
 }
 
-function formatPidTypeToName(pidType) {
-  switch (pidType) {
-    case 'docid':
-      return 'Document';
-    case 'serid':
-      return 'Series';
-    default:
-      console.warn(`Unknown pid type: ${pidType}`);
-  }
-}
-
 function formatRelatedToTableView(related, relation) {
-  return {
+  const obj = {
     ID: related.pid,
     Type: formatPidTypeToName(related.pid_type),
-    Title: related.title,
+    Title:
+      related.title && related.title.title
+        ? related.title.title
+        : related.title,
     Edition: related.edition,
     Language: related.language,
-    Relation: relation.label,
+    Volume: related.volume,
+    Note: related.note,
+    Relation: relation,
   };
+  return obj;
 }
 
 export const formatter = {

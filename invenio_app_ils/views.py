@@ -283,7 +283,7 @@ def index(path=None):
         {"support_email": current_app.config["SUPPORT_EMAIL"]}
     )
     ui_config.update(
-        {"relationTypes": current_app.config["PIDRELATIONS_RELATION_TYPES"]}
+        {"relationTypes": current_app.config["ILS_PIDRELATIONS_TYPES"]}
     )
 
     ui_config.update(

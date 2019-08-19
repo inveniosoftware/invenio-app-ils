@@ -8,6 +8,7 @@ import {
 
 const mapStateToProps = state => ({
   seriesDetails: state.seriesDetails.data,
+  relations: state.seriesRelations.data,
   error: state.seriesDetails.error,
 });
 

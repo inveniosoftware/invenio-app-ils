@@ -73,6 +73,7 @@ ESSelectorModal.propTypes = {
   initialSelections: PropTypes.array,
   onSelectResult: PropTypes.func,
   onRemoveSelection: PropTypes.func,
+  onSave: PropTypes.func,
   renderSelections: PropTypes.func,
   renderSelection: PropTypes.func,
 };

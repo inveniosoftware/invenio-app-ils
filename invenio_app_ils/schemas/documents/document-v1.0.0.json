@@ -7,10 +7,6 @@
     "$schema": {
       "type": "string"
     },
-    "title": {
-      "type": "string",
-      "description": ""
-    },
     "authors": {
       "items": {
         "type": "string"
@@ -31,6 +27,10 @@
       },
       "type": "array",
       "description": ""
+    },
+    "edition": {
+      "type": "string",
+      "description": "Edition"
     },
     "files": {
       "items": {
@@ -95,22 +95,64 @@
       "type": "string",
       "title": "Document ID"
     },
-    "series_objs": {
-      "type": "array",
-      "title": "Series items",
-      "items": {
-        "type": "object",
-        "properties": {
-          "pid": {
-            "type": "string"
-          },
-          "volume": {
-            "type": "string"
+    "relations_metadata": {
+      "type": "object",
+      "title": "Metadata to describe relations",
+      "properties": {
+        "multipart_monograph": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "serial": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "other": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
           }
         }
       }
     },
-    "series": {
+    "relations": {
       "type": "object",
       "properties": {
         "$ref": {
@@ -118,22 +160,9 @@
         }
       }
     },
-    "related_records": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "pid": {
-            "type": "string"
-          },
-          "pid_type": {
-            "type": "string"
-          },
-          "relation_type": {
-            "type": "string"
-          }
-        }
-      }
+    "title": {
+      "type": "string",
+      "description": "Document title"
     },
     "_access": {
       "type": "object",

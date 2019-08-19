@@ -22,10 +22,12 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
     RecordIdentifier
 from invenio_search import current_search
 
-from .errors import RelatedRecordError
 from .indexer import PatronsIndexer
 from .records.api import Document, EItem, InternalLocation, Item, Keyword, \
     Location, Patron, Series
+from .records_relations.api import RecordRelationsParentChild, \
+    RecordRelationsSiblings
+from .relations.api import Relation
 
 from .pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
@@ -286,25 +288,6 @@ class DocumentGenerator(Generator):
         """Generate."""
         size = self.holder.documents['total']
         keyword_pids = self.holder.pids('keywords', "pid")
-        series_objs = self.holder.series['objs']
-        serial_pids = [series["pid"] for series in series_objs if series['mode_of_issuance'] == 'SERIAL']
-        multipart_pids = [series["pid"] for series in series_objs if series['mode_of_issuance'] == 'MULTIPART_MONOGRAPH']
-
-        def random_series():
-            data = []
-            if multipart_pids:
-                for pid in random.sample(multipart_pids, randint(0, len(multipart_pids) - 1)):
-                    data.append(dict(
-                        pid=pid,
-                        volume=str(randint(1, 100))
-                    ))
-            if serial_pids:
-                for pid in random.sample(serial_pids, randint(0, len(serial_pids) - 1)):
-                    data.append(dict(
-                        pid=pid,
-                        volume=str(randint(1, 100))
-                    ))
-            return data
 
         objs = [{
             "pid": str(pid),
@@ -313,7 +296,7 @@ class DocumentGenerator(Generator):
             "abstracts": ["{}".format(lorem.text())],
             "document_types": [random.choice(self.DOCUMENT_TYPES)],
             "_access": {},
-            "languages": random.sample(self.LANGUAGES, randint(1, len(self.LANGUAGES))),
+            "language": random.sample(self.LANGUAGES, 1),
             "publishers": ["{}".format(lorem.sentence())],
             "files": ["https://cds.cern.ch/record/2255762/"
                       "files/CERN-Brochure-2017-002-Eng.pdf",
@@ -324,7 +307,7 @@ class DocumentGenerator(Generator):
             "chapters": ["{}".format(lorem.sentence())],
             "information": "{}".format(lorem.text()),
             "keyword_pids": random.sample(keyword_pids, randint(0, 5)),
-            "series_objs": random_series(),
+            "edition": str(pid),
         } for pid in range(1, size+1)]
 
         self.holder.documents['objs'] = objs
@@ -438,18 +421,22 @@ class SeriesGenerator(Generator):
     def generate(self):
         """Generate."""
         size = self.holder.series['total']
-        keyword_pids = self.holder.pids('keywords', "pid")
-
-        objs = [{
-            "pid": str(pid),
-            "mode_of_issuance": random.choice(self.MODE_OF_ISSUANCE),
-            "issn": self.random_issn(),
-            "title": {"title": "{}".format(lorem.sentence())},
-            "authors": ["{}".format(lorem.sentence())],
-            "abstracts": ["{}".format(lorem.text())],
-            "languages": random.sample(self.LANGUAGES, randint(1, len(self.LANGUAGES))),
-            "publishers": ["{}".format(lorem.sentence())],
-        } for pid in range(1, size+1)]
+        objs = []
+        for pid in range(1, size+1):
+            moi = random.choice(self.MODE_OF_ISSUANCE)
+            obj = {
+                "pid": str(pid),
+                "mode_of_issuance": moi,
+                "issn": self.random_issn(),
+                "title": {"title": "{}".format(lorem.sentence())},
+                "authors": ["{}".format(lorem.sentence())],
+                "abstracts": ["{}".format(lorem.text())],
+                "language": random.sample(self.LANGUAGES, 1),
+                "publishers": ["{}".format(lorem.sentence())],
+            }
+            if moi == "MULTIPART_MONOGRAPH":
+                obj["edition"] = str(pid)
+            objs.append(obj)
 
         self.holder.series['objs'] = objs
 
@@ -467,34 +454,76 @@ class SeriesGenerator(Generator):
         return recs
 
 
-class RelatedRecordsGenerator(Generator):
+class RecordRelationsGenerator(Generator):
     """Related records generator."""
+
+    @staticmethod
+    def random_series(series, moi):
+        """Get a random series with a specific mode of issuance."""
+        for s in random.sample(series, len(series)):
+            if s['mode_of_issuance'] == moi:
+                return s
+
+    def generate_parent_child_relations(self, documents, series):
+        """Generate parent-child relations."""
+        def random_docs():
+            return random.sample(documents, randint(1, min(5, len(documents))))
+
+        objs = self.holder.related_records['objs']
+        serial_parent = self.random_series(series, 'SERIAL')
+        multipart_parent = self.random_series(series, 'MULTIPART_MONOGRAPH')
+        serial_children = documents  # random_docs()
+        multipart_children = random_docs()
+
+        objs.append(serial_parent)
+        rr = RecordRelationsParentChild()
+        serial_relation = Relation.get_relation_by_name('serial')
+        multipart_relation = Relation.get_relation_by_name('multipart_monograph')
+        for index, child in enumerate(serial_children):
+            rr.add(
+                serial_parent,
+                child,
+                relation_type=serial_relation,
+                volume='{}'.format(index + 1)
+            )
+            objs.append(child)
+        for index, child in enumerate(multipart_children):
+            rr.add(
+                multipart_parent,
+                child,
+                relation_type=multipart_relation,
+                volume='{}'.format(index + 1)
+            )
+            objs.append(child)
+
+    def generate_sibling_relations(self, documents, series):
+        """Generate sibling relations."""
+        objs = self.holder.related_records['objs']
+        rr = RecordRelationsSiblings()
+
+        def add_random_relations(relation_type):
+            random_docs = random.sample(documents, randint(2, min(5, len(documents))))
+
+            objs.append(random_docs[0])
+            for record in random_docs[1:]:
+                rr.add(random_docs[0], record, relation_type=relation_type)
+                objs.append(record)
+
+            if relation_type.name == 'edition':
+                record = self.random_series(series, 'MULTIPART_MONOGRAPH')
+                rr.add(random_docs[0], record, relation_type=relation_type)
+                objs.append(record)
+
+        add_random_relations(Relation.get_relation_by_name('language'))
+        add_random_relations(Relation.get_relation_by_name('edition'))
 
     def generate(self, rec_docs, rec_series):
         """Generate related records."""
-        language_parents = random.sample(rec_docs, randint(2, 4))
-        objs = [language_parents[0]]
-        for record in language_parents[1:]:
-            language_parents[0].related.add_language(record)
-            objs.append(record)
-
-        editions = rec_docs + rec_series
-        for parent in language_parents:
-            num_editions = randint(0, 3)
-            while num_editions:
-                try:
-                    edition = editions.pop()
-                    parent.related.add_edition(edition)
-                    objs.append(edition)
-                    num_editions -= 1
-                except RelatedRecordError:
-                    pass
-        self.holder.related_records['objs'] = objs
+        self.generate_parent_child_relations(rec_docs, rec_series)
+        self.generate_sibling_relations(rec_docs, rec_series)
 
     def persist(self):
         """Persist."""
-        for record in self.holder.related_records['objs']:
-            record.commit()
         db.session.commit()
         return self.holder.related_records['objs']
 
@@ -580,7 +609,7 @@ def data(n_docs, n_items, n_eitems, n_loans, n_keywords, n_intlocs, n_series):
 
     # Related records
     click.echo('Creating related records...')
-    related_generator = RelatedRecordsGenerator(holder, minter)
+    related_generator = RecordRelationsGenerator(holder, minter)
     related_generator.generate(rec_docs, rec_series)
     related_generator.persist()
 

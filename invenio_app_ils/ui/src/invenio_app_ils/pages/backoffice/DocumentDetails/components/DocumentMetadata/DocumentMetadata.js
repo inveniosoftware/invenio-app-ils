@@ -13,8 +13,6 @@ import {
   Popup,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
-import truncate from 'lodash/truncate';
 import { invenioConfig } from '../../../../../common/config';
 import { MetadataTable } from '../../../components/MetadataTable';
 import { EditButton } from '../../../components/buttons';
@@ -31,8 +29,10 @@ import { ESSelectorModal } from '../../../../../common/components/ESSelector';
 import {
   serializeKeyword,
   serializeAccessList,
+  serializePatron,
 } from '../../../../../common/components/ESSelector/serializer';
 import has from 'lodash/has';
+import { formatPidTypeToName } from '../../../../../common/components/ManageRelationsButton/utils';
 
 export default class DocumentMetadata extends Component {
   constructor(props) {
@@ -43,7 +43,9 @@ export default class DocumentMetadata extends Component {
 
   getReadAccessList = document => {
     return has(document, 'metadata._access.read')
-      ? document.metadata._access.read.map(serializeAccessList)
+      ? document.metadata._access.read.map(x =>
+          serializeAccessList({ metadata: { email: x } })
+        )
       : [];
   };
 
@@ -58,7 +60,9 @@ export default class DocumentMetadata extends Component {
   };
 
   renderKeywords(keywords) {
-    const keywordSelection = keywords.map(serializeKeyword);
+    const keywordSelection = keywords.map(keyword =>
+      serializeKeyword({ metadata: keyword })
+    );
     return (
       <List horizontal>
         {keywords.map(keyword => (
@@ -81,6 +85,7 @@ export default class DocumentMetadata extends Component {
             initialSelections={keywordSelection}
             trigger={<Button basic color="blue" size="small" content="edit" />}
             query={keywordApi.list}
+            serializer={serializeKeyword}
             title="Select Keywords"
             onSave={this.updateKeywords}
           />
@@ -89,25 +94,33 @@ export default class DocumentMetadata extends Component {
     );
   }
 
-  renderSeries(series) {
-    const bulleted = series.length > 1;
-    return (
-      <List bulleted={bulleted}>
-        {series.map(({ pid, title, volume }) => (
-          <List.Item key={pid}>
-            <Link to={BackOfficeRoutes.seriesDetailsFor(pid)}>
-              {truncate(title.title, { length: 40 })}
-            </Link>
-            &nbsp;(vol. {volume || '?'})
-          </List.Item>
-        ))}
-      </List>
-    );
-  }
-
-  handleOnRefClick(loanPid) {
+  handleOnLoanRefClick(loanPid) {
     const navUrl = BackOfficeRoutes.loanDetailsFor(loanPid);
     window.open(navUrl, `_loan_${loanPid}`);
+  }
+
+  handleOnItemRefClick(itemPid) {
+    const navUrl = BackOfficeRoutes.itemDetailsFor(itemPid);
+    window.open(navUrl, `_item_${itemPid}`);
+  }
+
+  async getRelationRefs() {
+    const hits = [];
+    for (const [relation, records] of Object.entries(this.props.relations)) {
+      for (const record of records) {
+        const type = formatPidTypeToName(record.pid_type);
+        hits.push({
+          id: `${type} ${record.pid} (${relation})`,
+        });
+      }
+    }
+    const obj = {
+      data: {
+        hits: hits,
+        total: hits.length,
+      },
+    };
+    return obj;
   }
 
   createRefProps(documentPid) {
@@ -116,7 +129,7 @@ export default class DocumentMetadata extends Component {
 
     const loanRefProps = {
       refType: 'Loan',
-      onRefClick: this.handleOnRefClick,
+      onRefClick: this.handleOnLoanRefClick,
       getRefData: () =>
         loanApi.list(
           loanApi
@@ -129,7 +142,7 @@ export default class DocumentMetadata extends Component {
 
     const itemRefProps = {
       refType: 'Items',
-      onRefClick: itemPid => openRecordEditor(itemApi.url, itemPid),
+      onRefClick: this.handleOnItemRefClick,
       getRefData: () =>
         itemApi.list(
           itemApi
@@ -138,7 +151,14 @@ export default class DocumentMetadata extends Component {
             .qs()
         ),
     };
-    return [loanRefProps, itemRefProps];
+
+    const relationRefProps = {
+      refType: 'Related',
+      onRefClick: () => {},
+      getRefData: () => this.getRelationRefs(),
+    };
+
+    return [loanRefProps, itemRefProps, relationRefProps];
   }
 
   renderHeader(document) {
@@ -164,21 +184,6 @@ export default class DocumentMetadata extends Component {
     );
   }
 
-  prepareSeries(rows, series) {
-    if (!isEmpty(series.serial)) {
-      rows.push({
-        name: 'Serials',
-        value: this.renderSeries(series.serial),
-      });
-    }
-    if (!isEmpty(series.multipart)) {
-      rows.push({
-        name: 'Multipart Monograph',
-        value: this.renderSeries(series.multipart),
-      });
-    }
-  }
-
   prepareData(document) {
     const rows = [
       { name: 'Title', value: document.metadata.title },
@@ -188,9 +193,6 @@ export default class DocumentMetadata extends Component {
         value: this.renderKeywords(document.metadata.keywords),
       },
     ];
-    if (!isEmpty(document.metadata.series)) {
-      this.prepareSeries(rows, document.metadata.series);
-    }
     return rows;
   }
 
@@ -252,9 +254,11 @@ export default class DocumentMetadata extends Component {
   );
 
   onSelectPatronResult = result => {
-    result['metadata']['email'] = result['metadata']['email'].toLowerCase();
-    result['id'] = result['metadata']['email'];
-    result['title'] = result['metadata']['email'];
+    const email = result.id.toLowerCase();
+    result.metadata = { email: email };
+    result.id = email;
+    result.key = email;
+    result.title = email;
   };
 
   render() {
@@ -268,6 +272,7 @@ export default class DocumentMetadata extends Component {
           <ESSelectorModal
             trigger={this.requestLoanButton}
             query={patronApi.list}
+            serializer={serializePatron}
             title={`Request a loan for document ${document.pid}`}
             content={
               'Search for the patron to whom the loan should be assigned'
@@ -297,6 +302,7 @@ export default class DocumentMetadata extends Component {
                   />
                 }
                 query={patronApi.list}
+                serializer={serializeAccessList}
                 title={'Modify access restrictions'}
                 content={'Search for patrons:'}
                 selectionInfoText={

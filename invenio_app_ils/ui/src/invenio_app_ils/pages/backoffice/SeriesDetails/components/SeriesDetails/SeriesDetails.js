@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
-import { SeriesMetadata } from '../';
 import { SeriesDocuments } from '../SeriesDocuments';
-import { RelatedRecords } from '../../../../../common/components/RelatedRecords';
-import { ESSelectorModal } from '../../../../../common/components/ESSelector';
+import { SeriesMetadata } from '../';
+import { SeriesRelations } from '../SeriesRelations';
+import isEmpty from 'lodash/isEmpty';
+import { SeriesMultipartMonographs } from '../SeriesMultipartMonographs';
 
 export default class SeriesDetails extends Component {
   render() {
-    const { isLoading, data, error } = this.props;
+    const { data, isLoading, error, relations } = this.props;
+    const isMultipart =
+      !isEmpty(data) &&
+      data.metadata.mode_of_issuance === 'MULTIPART_MONOGRAPH';
+    const isSerial =
+      !isEmpty(data) && data.metadata.mode_of_issuance === 'SERIAL';
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <SeriesMetadata />
           <SeriesDocuments series={data} />
-          <RelatedRecords record={data} SelectorModal={ESSelectorModal} />
+          {isSerial && <SeriesMultipartMonographs series={data} />}
+          {isMultipart && <SeriesRelations relations={relations} />}
         </Error>
       </Loader>
     );

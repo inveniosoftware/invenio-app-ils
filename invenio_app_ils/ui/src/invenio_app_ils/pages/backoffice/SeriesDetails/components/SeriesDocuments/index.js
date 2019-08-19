@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchSeriesDocuments: seriesPid => dispatch(fetchSeriesDocuments(seriesPid)),
+  fetchSeriesDocuments: (seriesPid, moi) =>
+    dispatch(fetchSeriesDocuments(seriesPid, moi)),
 });
 
 export const SeriesDocuments = connect(

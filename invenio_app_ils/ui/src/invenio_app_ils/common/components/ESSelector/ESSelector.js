@@ -9,8 +9,16 @@ export default class ESSelector extends Component {
   constructor(props) {
     super(props);
 
+    const selections = [];
+    for (const selection of props.initialSelections) {
+      if (props.onSelectResult) {
+        props.onSelectResult(selection, true);
+      }
+      selections.push(selection);
+    }
+
     this.searchRef = null;
-    this.props.updateSelections(props.initialSelections);
+    this.props.updateSelections(selections);
   }
 
   onSelectResult = result => {
@@ -85,7 +93,9 @@ export default class ESSelector extends Component {
           alwaysWildcard={this.props.alwaysWildcard}
           minCharacters={this.props.minCharacters}
           placeholder={placeholder}
+          serializer={this.props.serializer}
           onSelect={this.onSelectResult}
+          onSearchChange={this.props.onSearchChange}
           ref={element => (this.searchRef = element)}
         />
         {this.renderSelectionInfoText()}
@@ -103,6 +113,7 @@ ESSelector.propTypes = {
   multiple: PropTypes.bool,
   placeholder: PropTypes.string,
   query: PropTypes.func.isRequired,
+  onSearchChange: PropTypes.func,
   onSelectResult: PropTypes.func,
   onRemoveSelection: PropTypes.func,
   renderSelections: PropTypes.func,

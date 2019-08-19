@@ -58,6 +58,14 @@ def item_record(app):
     }
 
 
+@pytest.fixture(scope='module')
+def app_config(app_config):
+    """Get app config."""
+    app_config['RATELIMIT_GUEST_USER'] = '1000 per minute'
+    app_config['RATELIMIT_AUTHENTICATED_USER'] = '1000 per minute'
+    return app_config
+
+
 @pytest.fixture(scope="module")
 def create_app():
     """Create test app."""
@@ -196,33 +204,3 @@ def example_message_factory():
             body=body
         )
     return partial(message_factory, loader)
-
-
-@pytest.fixture()
-def related_record(testdata):
-    """An example of a record with several relations."""
-    docs = testdata["documents"]
-    series = testdata["series"]
-
-    doc1 = Document.get_record_by_pid(docs[0]["pid"])
-    doc2 = Document.get_record_by_pid(docs[1]["pid"])
-    doc3 = Document.get_record_by_pid(docs[2]["pid"])
-    doc4 = Document.get_record_by_pid(docs[3]["pid"])
-    ser5 = Series.get_record_by_pid(series[0]["pid"])
-    doc6 = Document.get_record_by_pid(docs[4]["pid"])
-    doc7 = Document.get_record_by_pid(docs[5]["pid"])
-    doc8 = Document.get_record_by_pid(docs[6]["pid"])
-    doc9 = Document.get_record_by_pid(docs[7]["pid"])
-
-    doc1.related.add_edition(doc2)
-    doc1.related.add_edition(doc3)
-    doc1.related.add_edition(doc4)
-    doc1.related.add_edition(ser5)
-
-    doc1.related.add_language(doc6)
-    doc6.related.add_edition(doc7)
-    doc6.related.add_edition(doc8)
-
-    doc1.related.add_language(doc9)
-
-    return doc1

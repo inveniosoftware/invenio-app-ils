@@ -79,6 +79,16 @@ export const invenioConfig = {
     },
     {
       id: 2,
+      name: 'multipart_monograph',
+      label: 'Multipart monograph',
+    },
+    {
+      id: 3,
+      name: 'serial',
+      label: 'Serial',
+    },
+    {
+      id: 4,
       name: 'other',
       label: 'Other',
     },

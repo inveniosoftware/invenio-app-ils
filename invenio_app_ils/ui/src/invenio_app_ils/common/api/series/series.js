@@ -1,5 +1,6 @@
 import { http } from '../base';
 import { serializer } from './serializer';
+import { prepareSumQuery } from '../utils';
 
 const seriesURL = '/series/';
 
@@ -23,9 +24,26 @@ const patch = async (seriesPid, ops) => {
   return response;
 };
 
+const createRelation = async (seriesPid, data) => {
+  const resp = await http.post(`${seriesURL}${seriesPid}/relations`, data);
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
+};
+
+const deleteRelation = async (seriesPid, data) => {
+  const resp = await http.delete(`${seriesURL}${seriesPid}/relations`, {
+    data: data,
+  });
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
+};
+
 class QueryBuilder {
   constructor() {
     this.withKeywordQuery = [];
+    this.withModeOfIssuanceQuery = [];
+    this.withSeriesQuery = [];
+    this.withStringQuery = [];
   }
 
   withKeyword(keyword) {
@@ -36,8 +54,45 @@ class QueryBuilder {
     return this;
   }
 
+  withModeOfIssuance(moi) {
+    if (!moi) {
+      throw TypeError('Mode of issuance argument missing');
+    }
+    this.withModeOfIssuanceQuery.push(`mode_of_issuance:"${moi}"`);
+    return this;
+  }
+
+  withSearchText(searchText) {
+    if (!searchText) {
+      throw TypeError('Search text argument missing');
+    }
+    this.withStringQuery.push(searchText);
+    return this;
+  }
+
+  withSerialPid(seriesPid) {
+    if (!seriesPid) {
+      throw TypeError('Series PID argument missing');
+    }
+    const pids = prepareSumQuery(seriesPid);
+    this.withSeriesQuery.push(
+      [
+        'relations.serial.pid_type:serid',
+        `NOT (pid:${pids})`,
+        `relations.serial.pid:${pids}`,
+      ].join(' AND ')
+    );
+    return this;
+  }
+
   qs() {
-    return this.withKeywordQuery.join(' AND ');
+    return this.withKeywordQuery
+      .concat(
+        this.withModeOfIssuanceQuery,
+        this.withSeriesQuery,
+        this.withStringQuery
+      )
+      .join(' AND ');
   }
 }
 
@@ -55,6 +110,25 @@ const list = query => {
   });
 };
 
+const serials = searchText => {
+  const builder = queryBuilder();
+  return list(
+    builder
+      .withModeOfIssuance('SERIAL')
+      .withSearchText(searchText)
+      .qs()
+  );
+};
+
+const multipartMonographs = query => {
+  return list(
+    queryBuilder()
+      .withModeOfIssuance('MULTIPART_MONOGRAPH')
+      .withSearchText(query)
+      .qs()
+  );
+};
+
 const count = query => {
   return http.get(`${seriesURL}?q=${query}`).then(response => {
     response.data = response.data.hits.total;
@@ -66,7 +140,11 @@ export const series = {
   get: get,
   delete: del,
   patch: patch,
+  createRelation: createRelation,
+  deleteRelation: deleteRelation,
   list: list,
+  serials: serials,
+  multipartMonographs: multipartMonographs,
   count: count,
   query: queryBuilder,
   serializer: serializer,

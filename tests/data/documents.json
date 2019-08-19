@@ -4,36 +4,28 @@
     "title": "The Gulf: The Making of An American Sea",
     "authors": ["Jack E. Davis"],
     "abstracts": ["This is an abstract"],
-    "series_objs": [
-      {
-        "pid": "mvol-1",
-        "volume": "1"
-      }
-    ]
+    "language": ["en"],
+    "edition": "ed. 1"
   },
   {
     "pid": "docid-2",
     "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
     "authors": ["Caroline Fraser"],
-    "abstracts": ["This is an abstract"]
+    "abstracts": ["This is an abstract"],
+    "language": ["it"]
   },
   {
     "pid": "docid-3",
     "title": "Half-light: Collected Poems 1965-2016",
     "authors": ["Frank Bidart"],
-    "abstracts": ["This is an abstract"]
+    "abstracts": ["This is an abstract"],
+    "edition": "ed. 3"
   },
   {
     "pid": "docid-4",
     "title": "Locking Up Our Own: Crime and Punishment in Black America",
     "authors": ["James Forman Jr."],
-    "abstracts": ["This is an abstract"],
-    "series_objs": [
-      {
-        "pid": "mvol-2",
-        "volume": "2"
-      }
-    ]
+    "abstracts": ["This is an abstract"]
   },
   {
     "pid": "docid-5",
@@ -58,5 +50,63 @@
     "title": "Less: A Novel",
     "authors": ["Andrew Sean Greer"],
     "abstracts": ["This is an abstract"]
+  },
+  {
+    "pid": "docid-9",
+    "title": "The early years, 1879-1902",
+    "authors": ["Einstein, Albert", "Stachel, John J et al."],
+    "abstracts": ["This is a document volume v.1 part of a MULTIPART MONOGRAPH"]
+  },
+  {
+    "pid": "docid-10",
+    "title": "The Swiss years : writings, 1900-1909",
+    "authors": ["Einstein, Albert", "Stachel, John J et al."],
+    "abstracts": ["This is a document volume v.2 part of a MULTIPART MONOGRAPH"]
+  },
+  {
+    "pid": "docid-11",
+    "title": "The Swiss years : writings, 1909-1911",
+    "authors": ["Einstein, Albert", "Stachel, John J et al."],
+    "abstracts": ["This is a document volume v.3 part of a MULTIPART MONOGRAPH"]
+  },
+  {
+    "pid": "docid-12",
+    "title": "Camera, equipment, and basic photographic techniques",
+    "authors": ["Banek, Cora", "Banek, Georg"],
+    "abstracts": ["This is a document volume v.1 part of a MULTIPART MONOGRAPH"]
+  },
+  {
+    "pid": "docid-13",
+    "title": "Visual concepts and composition",
+    "authors": ["Banek, Cora", "Banek, Georg"],
+    "abstracts": ["This is a document volume v.2 part of a MULTIPART MONOGRAPH"]
+  },
+  {
+    "pid": "docid-14",
+    "title": "Flavor physics and the TeV scale",
+    "authors": ["Hou, George W S"],
+    "abstracts": ["This is a document part of a SERIAL"]
+  },
+  {
+    "pid": "docid-15",
+    "title": "Symmetry and symmetry-breaking in semiconductors : fine structure of exciton states",
+    "authors": ["Hönerlage, Bernd", "Pelant, Ivan"],
+    "abstracts": ["This is a document part of a SERIAL"]
+  },
+  {
+    "pid": "docid-16",
+    "title": "Macroscopic quantum electrodynamics and ground-state Casimir, Casimir–Polder and van der Waals forces",
+    "authors": ["Buhmann, Stefan Yoshi"],
+    "abstracts": [
+      "This is a document volume v.1 part of a MULTIPART MONOGRAPH part of a SERIAL"
+    ]
+  },
+  {
+    "pid": "docid-17",
+    "title": "Many-body effects, excited atoms, finite temperature and quantum friction",
+    "authors": ["Buhmann, Stefan Yoshi"],
+    "abstracts": [
+      "This is a document volume v.1 part of a MULTIPART MONOGRAPH part of a SERIAL"
+    ]
   }
 ]
