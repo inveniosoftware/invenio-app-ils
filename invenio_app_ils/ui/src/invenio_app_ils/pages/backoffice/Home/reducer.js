@@ -11,6 +11,9 @@ export {
   default as overdueLoansReducer,
 } from './components/lists/OverdueLoansList/state/reducer';
 export {
+  default as pendingOverdueDocumentsReducer,
+} from './components/lists/PendingOverdueDocumentsList/state/reducer';
+export {
   default as idleLoansReducer,
 } from './components/lists/IdleLoansList/state/reducer';
 export {

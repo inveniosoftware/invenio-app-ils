@@ -34,9 +34,10 @@ def jsonresolver_loader(url_map):
                 "description": item.get("description"),
             }
             if circulation:
-                obj["circulation"] = {
-                    "state": circulation.get("state")
-                }
+                include_circulation_keys = ['request_expire_date', 'state']
+                obj["circulation"] = {}
+                for key in include_circulation_keys:
+                    obj["circulation"][key] = circulation.get(key)
             items.append(obj)
         return {
             "total": len(items),

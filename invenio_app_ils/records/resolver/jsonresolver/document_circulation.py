@@ -33,6 +33,8 @@ def jsonresolver_loader(url_map):
             document_pid).count()
         pending_loans_count = loan_search.get_pending_loans_by_doc_pid(
             document_pid).count()
+        overdue_loans_count = loan_search.get_overdue_loans_by_doc_pid(
+            document_pid).count()
 
         record_cfg = current_app.config["RECORDS_REST_ENDPOINTS"]
         # items
@@ -46,16 +48,12 @@ def jsonresolver_loader(url_map):
         has_items_for_loan = items_count - \
             active_loans_count - unavailable_items_count
 
-        # eitems
-        EItemSearch = obj_or_import_string(
-            record_cfg[EITEM_PID_TYPE]["search_class"])
-        eitem_search = EItemSearch()
-
         circulation = {
             "active_loans": active_loans_count,
             "has_items_for_loan": has_items_for_loan,
             "number_of_past_loans": past_loans_count,
             "overbooked": pending_loans_count > has_items_for_loan,
+            "overdue_loans": overdue_loans_count,
             "pending_loans": pending_loans_count,
         }
 

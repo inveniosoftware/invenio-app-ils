@@ -3,9 +3,7 @@ import thunk from 'redux-thunk';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as types from '../types';
-import { loan as loanApi } from '../../../../../../../../common/api';
-import { toShortDate } from '../../../../../../../../common/api/date';
-import { DateTime } from 'luxon';
+import { document as documentApi } from '../../../../../../../../common/api';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -25,38 +23,37 @@ const mockResponse = {
   },
 };
 
+const param =
+  'circulation.has_items_for_loan:0%20AND%20circulation.pending_loans:%3E0%20AND%20circulation.overdue_loans:%3E0%20AND%20items.total:%3E0';
+
 const mockLoanList = jest.fn();
-loanApi.list = mockLoanList;
+documentApi.list = mockLoanList;
 
 let store;
 beforeEach(() => {
   mockLoanList.mockClear();
 
-  store = mockStore({ overdueLoans: initialState });
+  store = mockStore({ pendingOverdueDocuments: initialState });
   store.clearActions();
 });
 
-describe('Loans renewed more then 3 times (last week) fetch tests', () => {
-  let now = toShortDate(DateTime.local());
-
-  it('should dispatch a loading action when fetching loans', done => {
+describe('Fetch pending overdue documents tests', () => {
+  it('should dispatch a loading action when fetching documents', done => {
     mockLoanList.mockResolvedValue(mockResponse);
 
     const expectedAction = {
       type: types.IS_LOADING,
     };
 
-    store.dispatch(actions.fetchOverdueLoans()).then(() => {
-      expect(mockLoanList).toHaveBeenCalledWith(
-        `(state:ITEM_ON_LOAN AND end_date:%7B*%20TO%20${now}%7D)`
-      );
+    store.dispatch(actions.fetchPendingOverdueDocuments()).then(() => {
+      expect(mockLoanList).toHaveBeenCalledWith(param);
       const actions = store.getActions();
       expect(actions[0]).toEqual(expectedAction);
       done();
     });
   });
 
-  it('should dispatch a success action when loans fetch succeeds', done => {
+  it('should dispatch a success action when documents fetch succeeds', done => {
     mockLoanList.mockResolvedValue(mockResponse);
 
     const expectedAction = {
@@ -64,17 +61,15 @@ describe('Loans renewed more then 3 times (last week) fetch tests', () => {
       payload: mockResponse.data,
     };
 
-    store.dispatch(actions.fetchOverdueLoans()).then(() => {
-      expect(mockLoanList).toHaveBeenCalledWith(
-        `(state:ITEM_ON_LOAN AND end_date:%7B*%20TO%20${now}%7D)`
-      );
+    store.dispatch(actions.fetchPendingOverdueDocuments()).then(() => {
+      expect(mockLoanList).toHaveBeenCalledWith(param);
       const actions = store.getActions();
       expect(actions[1]).toEqual(expectedAction);
       done();
     });
   });
 
-  it('should dispatch an error action when loans fetch fails', done => {
+  it('should dispatch an error action when documents fetch fails', done => {
     mockLoanList.mockRejectedValue([500, 'Error']);
 
     const expectedAction = {
@@ -82,10 +77,8 @@ describe('Loans renewed more then 3 times (last week) fetch tests', () => {
       payload: [500, 'Error'],
     };
 
-    store.dispatch(actions.fetchOverdueLoans()).then(() => {
-      expect(mockLoanList).toHaveBeenCalledWith(
-        `(state:ITEM_ON_LOAN AND end_date:%7B*%20TO%20${now}%7D)`
-      );
+    store.dispatch(actions.fetchPendingOverdueDocuments()).then(() => {
+      expect(mockLoanList).toHaveBeenCalledWith(param);
       const actions = store.getActions();
       expect(actions[1]).toEqual(expectedAction);
       done();

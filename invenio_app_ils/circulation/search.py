@@ -65,6 +65,15 @@ class IlsLoansSearch(LoansSearch):
             ),
         )
 
+    def get_overdue_loans_by_doc_pid(self, document_pid):
+        """Return any overdue loans for the given document."""
+        return search_by_pid(
+            document_pid=document_pid,
+            filter_states=current_app.config.get(
+                "CIRCULATION_STATES_LOAN_ACTIVE", []
+            ),
+        ).filter('range', end_date=dict(lt='now/d'))
+
     class Meta:
         """Define permissions filter."""
 

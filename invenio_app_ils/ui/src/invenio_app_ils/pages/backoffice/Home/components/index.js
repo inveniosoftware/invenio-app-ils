@@ -4,5 +4,8 @@ export { ACQRequestsCard } from './widgets/ACQRequestsCard';
 export { ILLCard } from './widgets/ILLCard';
 export { OverbookedDocumentsList } from './lists/OverbookedDocumentsList';
 export { OverdueLoansList } from './lists/OverdueLoansList';
+export {
+  PendingOverdueDocumentsList,
+} from './lists/PendingOverdueDocumentsList';
 export { IdleLoansList } from './lists/IdleLoansList';
 export { RenewedLoansList } from './lists/RenewedLoansList';

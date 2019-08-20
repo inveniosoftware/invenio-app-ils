@@ -13,9 +13,6 @@ import {
 import PropTypes from 'prop-types';
 import DocumentTab from '../DocumentTab';
 import '../../DocumentsDetails.scss';
-import { goToHandler } from '../../../../../history';
-import { FrontSiteRoutes } from '../../../../../routes/urls';
-import { document as documentApi } from '../../../../../common/api';
 import { BookAttachments, ShareButtons } from '../../../components';
 import { BookInfo } from '../../../components/BookInfo';
 import { BookSeries } from '../../../components/BookSeries';

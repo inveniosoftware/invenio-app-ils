@@ -2,31 +2,30 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../../common/components';
 import { ResultsTable } from '../../../../../../common/components';
-import { loan as loanApi } from '../../../../../../common/api';
+import { document as documentApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
 import { goTo, goToHandler } from '../../../../../../history';
 import pick from 'lodash/pick';
 
-export default class OverdueLoansList extends Component {
+export default class PendingOverdueDocumentsList extends Component {
   constructor(props) {
     super(props);
-    this.fetchOverdueLoans = props.fetchOverdueLoans;
-    this.showDetailsUrl = BackOfficeRoutes.loanDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
+    this.fetchPendingOverdueDocuments = props.fetchPendingOverdueDocuments;
+    this.showDetailsUrl = BackOfficeRoutes.documentDetailsFor;
+    this.seeAllUrl = BackOfficeRoutes.documentsListWithQuery;
   }
 
   componentDidMount() {
-    this.fetchOverdueLoans();
+    this.fetchPendingOverdueDocuments();
   }
 
   seeAllButton = () => {
     const path = this.seeAllUrl(
-      loanApi
+      documentApi
         .query()
-        .overdue()
-        .withState('ITEM_ON_LOAN')
+        .pendingOverdue()
         .qs()
     );
     return <SeeAllButton clickHandler={goToHandler(path)} />;
@@ -34,11 +33,12 @@ export default class OverdueLoansList extends Component {
 
   prepareData(data) {
     return data.hits.map(row => {
-      return pick(formatter.loan.toTable(row), [
+      return pick(formatter.document.toTable(row), [
         'ID',
-        'Patron ID',
-        'Item barcode',
-        'End date',
+        'Title',
+        'Overdue Loans',
+        'Pending Requests',
+        'Available Items',
       ]);
     });
   }
@@ -49,9 +49,9 @@ export default class OverdueLoansList extends Component {
     return (
       <ResultsTable
         rows={rows}
-        title={'Overdue loans'}
-        subtitle={'Active loans with past due end date.'}
-        name={'overdue loans'}
+        title={'Pending Overdue Documents'}
+        subtitle={`Documents with pending loan requests, no available items and an active loan that's overdue.`}
+        name={'pending overdue documents'}
         rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
@@ -69,12 +69,12 @@ export default class OverdueLoansList extends Component {
   }
 }
 
-OverdueLoansList.propTypes = {
-  fetchOverdueLoans: PropTypes.func.isRequired,
+PendingOverdueDocumentsList.propTypes = {
+  fetchPendingOverdueDocuments: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   showMaxEntries: PropTypes.number,
 };
 
-OverdueLoansList.defaultProps = {
+PendingOverdueDocumentsList.defaultProps = {
   showMaxEntries: 5,
 };

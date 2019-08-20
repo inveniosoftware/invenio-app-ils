@@ -47,6 +47,7 @@ class QueryBuilder {
     this.withKeywordQuery = [];
     this.withDocumentTypeQuery = [];
     this.withEitemsQuery = [];
+    this.pendingOverdueQuery = [];
     this.withSeriesQuery = [];
     this.sortByQuery = '';
   }
@@ -108,6 +109,17 @@ class QueryBuilder {
     return this;
   }
 
+  pendingOverdue() {
+    const query = [
+      'circulation.has_items_for_loan:0',
+      'circulation.pending_loans:>0',
+      'circulation.overdue_loans:>0',
+      'items.total:>0',
+    ];
+    this.pendingOverdueQuery.push(encodeURI(query.join(' AND ')));
+    return this;
+  }
+
   sortBy(order = 'bestmatch') {
     this.sortByQuery = `&sort=${order}`;
     return this;
@@ -122,6 +134,7 @@ class QueryBuilder {
         this.withKeywordQuery,
         this.withDocumentTypeQuery,
         this.withEitemsQuery,
+        this.pendingOverdueQuery,
         this.withSeriesQuery
       )
       .join(' AND ');

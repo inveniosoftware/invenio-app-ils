@@ -137,7 +137,7 @@ class QueryBuilder {
 
   overdue() {
     let now = toShortDate(DateTime.local());
-    this.overdueQuery.push(encodeURI(`request_expire_date:{* TO ${now}}`));
+    this.overdueQuery.push(encodeURI(`end_date:{* TO ${now}}`));
     return this;
   }
 
