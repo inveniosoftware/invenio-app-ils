@@ -40,8 +40,7 @@ describe('DocumentMetadata tests', () => {
       keywords: [],
       languages: ['el', 'ro', 'fr', 'it', 'es'],
       publishers: ['Quiquia amet consectetur velit.'],
-      related_records: [],
-      series: {},
+      relations: {},
     },
   };
 

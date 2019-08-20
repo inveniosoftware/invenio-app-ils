@@ -48,8 +48,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
         "publishers": Array [
           "Quiquia amet consectetur velit.",
         ],
-        "related_records": Array [],
-        "series": Object {},
+        "relations": Object {},
       },
       "updated": "2019-07-08T10:44:18.354+02:00",
     }
@@ -226,8 +225,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                 "publishers": Array [
                                   "Quiquia amet consectetur velit.",
                                 ],
-                                "related_records": Array [],
-                                "series": Object {},
+                                "relations": Object {},
                               }
                             }
                           >
@@ -391,8 +389,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                             className="ui hidden divider"
                           />
                           <BookSeries
-                            goToSeriesList={[Function]}
-                            series={Object {}}
+                            relations={Object {}}
                           >
                             <div>
                               <div
@@ -492,8 +489,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                               "publishers": Array [
                                 "Quiquia amet consectetur velit.",
                               ],
-                              "related_records": Array [],
-                              "series": Object {},
+                              "relations": Object {},
                             }
                           }
                         >
@@ -665,8 +661,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                               "publishers": Array [
                                 "Quiquia amet consectetur velit.",
                               ],
-                              "related_records": Array [],
-                              "series": Object {},
+                              "relations": Object {},
                             }
                           }
                         >
@@ -722,8 +717,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                         "publishers": Array [
                                           "Quiquia amet consectetur velit.",
                                         ],
-                                        "related_records": Array [],
-                                        "series": Object {},
+                                        "relations": Object {},
                                       }
                                     }
                                     getWidth={[Function]}
@@ -770,8 +764,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                           "publishers": Array [
                                             "Quiquia amet consectetur velit.",
                                           ],
-                                          "related_records": Array [],
-                                          "series": Object {},
+                                          "relations": Object {},
                                         }
                                       }
                                     >
@@ -934,8 +927,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                         "publishers": Array [
                                           "Quiquia amet consectetur velit.",
                                         ],
-                                        "related_records": Array [],
-                                        "series": Object {},
+                                        "relations": Object {},
                                       }
                                     }
                                     getWidth={[Function]}

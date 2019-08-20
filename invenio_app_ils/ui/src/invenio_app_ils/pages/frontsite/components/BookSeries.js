@@ -1,32 +1,41 @@
 import React, { Component } from 'react';
 import { Header, List } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { get, isEmpty } from 'lodash';
+import { isEmpty } from 'lodash';
+import { goToHandler } from '../../../history';
+import { FrontSiteRoutes } from '../../../routes/urls';
+import { document as documentApi } from '../../../common/api';
 
 export class BookSeries extends Component {
-  constructor(props) {
-    super(props);
-    this.series = props.series;
-    this.goToSeriesList = props.goToSeriesList;
-  }
+  onClickSeries = (seriesPid, moi) =>
+    goToHandler(
+      FrontSiteRoutes.documentsListWithQuery(
+        documentApi
+          .query()
+          .withSeriesPid(seriesPid, moi)
+          .qs()
+      )
+    );
 
   render() {
     return (
       <div>
         {this.renderSeries(
-          get(this.series, 'serial'),
-          'Part of the following series:'
+          this.props.relations.serial,
+          'Part of the following series:',
+          'SERIAL'
         )}
         <div className="ui hidden divider" />
         {this.renderSeries(
-          get(this.series, 'multipart'),
-          'Part of the following multipart monograph:'
+          this.props.relations.multipart_monograph,
+          'Part of the following multipart monograph:',
+          'MULTIPART_MONOGRAPH'
         )}
       </div>
     );
   }
 
-  renderSeries = (series, description) => {
+  renderSeries = (series, description, moi) => {
     return !isEmpty(series) ? (
       <div>
         <Header as="h4">{description}</Header>
@@ -35,9 +44,9 @@ export class BookSeries extends Component {
             <List.Item
               as="a"
               key={`Key${index}`}
-              onClick={this.goToSeriesList(serie.pid)}
+              onClick={this.onClickSeries(serie.pid, moi)}
             >
-              {serie.title.title}
+              {serie.title}
             </List.Item>
           ))}
         </List>
@@ -47,6 +56,5 @@ export class BookSeries extends Component {
 }
 
 BookSeries.propTypes = {
-  series: PropTypes.object.isRequired,
-  goToSeriesList: PropTypes.func.isRequired,
+  relations: PropTypes.object.isRequired,
 };
