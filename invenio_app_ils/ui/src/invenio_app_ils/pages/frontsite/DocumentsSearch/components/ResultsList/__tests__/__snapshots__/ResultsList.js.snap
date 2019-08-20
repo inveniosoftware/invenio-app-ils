@@ -15,13 +15,14 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
         "created": "2018-01-01T10:05:00.000Z",
         "id": 3,
         "metadata": Object {
-          "_computed": Object {
-            "eitems": Array [],
-          },
           "abstracts": "This is an abstract",
           "authors": Array [
             "Author1",
           ],
+          "eitems": Object {
+            "hits": Array [],
+            "total": 0,
+          },
           "pid": "3",
           "title": "This is a title",
         },
@@ -38,13 +39,14 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
       key="3"
       metadata={
         Object {
-          "_computed": Object {
-            "eitems": Array [],
-          },
           "abstracts": "This is an abstract",
           "authors": Array [
             "Author1",
           ],
+          "eitems": Object {
+            "hits": Array [],
+            "total": 0,
+          },
           "pid": "3",
           "title": "This is a title",
         }

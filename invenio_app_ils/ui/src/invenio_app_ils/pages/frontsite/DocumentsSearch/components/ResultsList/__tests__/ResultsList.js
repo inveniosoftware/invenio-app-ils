@@ -20,8 +20,9 @@ describe('DocumentsSearch ResultsList tests', () => {
         title: 'This is a title',
         abstracts: 'This is an abstract',
         pid: '3',
-        _computed: {
-          eitems: [],
+        eitems: {
+          hits: [],
+          total: 0,
         },
       },
     },

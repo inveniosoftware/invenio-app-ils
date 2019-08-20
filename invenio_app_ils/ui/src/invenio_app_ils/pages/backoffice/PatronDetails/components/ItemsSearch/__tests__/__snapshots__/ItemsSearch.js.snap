@@ -93,7 +93,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
           "id": "1",
           "metadata": Object {
             "barcode": "44444",
-            "circulation_status": Object {},
+            "circulation": Object {},
             "document_pid": "doc1",
             "internal_location": Object {
               "location": Object {
@@ -225,7 +225,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                               "id": "1",
                               "metadata": Object {
                                 "barcode": "44444",
-                                "circulation_status": Object {},
+                                "circulation": Object {},
                                 "document_pid": "doc1",
                                 "internal_location": Object {
                                   "location": Object {

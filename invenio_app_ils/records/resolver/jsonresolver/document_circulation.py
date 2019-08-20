@@ -50,14 +50,10 @@ def jsonresolver_loader(url_map):
         EItemSearch = obj_or_import_string(
             record_cfg[EITEM_PID_TYPE]["search_class"])
         eitem_search = EItemSearch()
-        eitems_count = eitem_search.search_by_document_pid(
-            document_pid).count()
 
         circulation = {
             "active_loans": active_loans_count,
             "has_items_for_loan": has_items_for_loan,
-            "has_eitems": eitems_count,
-            "has_items": items_count,
             "number_of_past_loans": past_loans_count,
             "overbooked": pending_loans_count > has_items_for_loan,
             "pending_loans": pending_loans_count,

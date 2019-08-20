@@ -68,7 +68,7 @@ describe('Document query builder tests', () => {
       .query()
       .withEitems()
       .qs();
-    expect(query).toEqual('circulation.has_eitems:>0');
+    expect(query).toEqual('eitems.total:>0');
   });
 
   it('should build the query string for documents that belong to a series', () => {

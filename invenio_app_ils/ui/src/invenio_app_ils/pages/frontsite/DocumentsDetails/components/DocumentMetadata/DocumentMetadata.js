@@ -27,16 +27,6 @@ export default class DocumentMetadata extends Component {
     this.document = props.documentsDetails;
   }
 
-  goToSeriesList = seriesPid =>
-    goToHandler(
-      FrontSiteRoutes.documentsListWithQuery(
-        documentApi
-          .query()
-          .withSeriesPid(seriesPid, 'SERIAL')
-          .qs()
-      )
-    );
-
   requestLoan = () => {
     const documentPid = this.document.pid;
     this.props.requestLoanForDocument(documentPid);
@@ -81,7 +71,7 @@ export default class DocumentMetadata extends Component {
   };
 
   render() {
-    const eitems = this.document.metadata._computed.eitems;
+    const eitems = this.document.metadata.eitems.hits;
     const cover = 'https://assets.thalia.media/img/46276899-00-00.jpg';
     return (
       <Segment
@@ -105,10 +95,7 @@ export default class DocumentMetadata extends Component {
                   {this.requestLoanButton}
                   {this.requestLoanPopup}
                   <div className="ui hidden divider" />
-                  <BookSeries
-                    series={this.document.metadata.series}
-                    goToSeriesList={this.goToSeriesList}
-                  />
+                  <BookSeries relations={this.document.metadata.relations} />
                 </Grid.Row>
 
                 <Grid.Row>

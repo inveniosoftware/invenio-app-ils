@@ -129,6 +129,9 @@ class Document(IlsRecordWithRelations):
     _keyword_resolver_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/keywords"
     )
+    _item_resolver_path = (
+        "{scheme}://{host}/api/resolver/documents/{document_pid}/items"
+    )
     _eitem_resolver_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/eitems"
     )
@@ -162,13 +165,20 @@ class Document(IlsRecordWithRelations):
                 document_pid=data["pid"],
             )
         }
-
-        data.setdefault("_computed", {})
-        data['_computed']["eitems"] = {
+        data.setdefault("eitems", {})
+        data["eitems"] = {
             "$ref": cls._eitem_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
-                document_pid=data["pid"],
+                document_pid=data["pid"]
+            )
+        }
+        data.setdefault("items", {})
+        data["items"] = {
+            "$ref": cls._item_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                document_pid=data["pid"]
             )
         }
         return super(Document, cls).create(data, id_=id_, **kwargs)
@@ -253,7 +263,7 @@ class Item(_Item):
     @classmethod
     def create(cls, data, id_=None, **kwargs):
         """Create Item record."""
-        data["circulation_status"] = {
+        data["circulation"] = {
             "$ref": cls._loan_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],

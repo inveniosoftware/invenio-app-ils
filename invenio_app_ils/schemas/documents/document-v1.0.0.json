@@ -370,15 +370,19 @@
       "type": "array",
       "uniqueItems": true
     },
-    "_computed": {
+    "eitems": {
       "type": "object",
       "properties": {
-        "eitems": {
-          "properties": {
-            "$ref": {
-              "type": "string"
-            }
-          }
+        "$ref": {
+          "type": "string"
+        }
+      }
+    },
+    "items": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
         }
       }
     }

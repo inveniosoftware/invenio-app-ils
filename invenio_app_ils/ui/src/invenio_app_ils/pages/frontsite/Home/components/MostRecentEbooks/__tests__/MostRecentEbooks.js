@@ -21,8 +21,9 @@ describe('MostRecentEbooks tests', () => {
         metadata: {
           pid: '123',
           title: 'Dolore',
-          _computed: {
-            eitems: [
+          eitems: {
+            total: 1,
+            hits: [
               {
                 document_pid: 'doc1',
                 pid: 'eitem1',
@@ -41,8 +42,9 @@ describe('MostRecentEbooks tests', () => {
         metadata: {
           pid: '456',
           title: 'Ipsum',
-          _computed: {
-            eitems: [
+          eitems: {
+            total: 1,
+            hits: [
               {
                 document_pid: 'doc2',
                 pid: 'eitem2',

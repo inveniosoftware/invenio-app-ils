@@ -5,55 +5,43 @@ import { BookSeries } from '../BookSeries';
 const mockGoToSeriesList = jest.fn();
 
 it('should render nothing when the book does not contain any series', () => {
-  const series = {};
-  const tree = renderer
-    .create(<BookSeries series={series} goToSeriesList={mockGoToSeriesList} />)
-    .toJSON();
+  const relations = {};
+  const tree = renderer.create(<BookSeries relations={relations} />).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 it('should render correctly when the book contains only serials', () => {
-  const series = {
+  const relations = {
     serial: [
       {
-        issn: '5463-4523',
-        mode_of_issuance: 'SERIAL',
         pid: '89',
         title: 'Lorem Ipsum',
         volume: '55',
       },
     ],
   };
-  const tree = renderer
-    .create(<BookSeries series={series} goToSeriesList={mockGoToSeriesList} />)
-    .toJSON();
+  const tree = renderer.create(<BookSeries relations={relations} />).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 it('should render correctly when the book contains only multiparts', () => {
-  const series = {
-    mutlipart: [
+  const relations = {
+    mutlipart_monograph: [
       {
-        issn: '5463-4523',
-        mode_of_issuance: 'MULTIPART_MONOGRAPH',
         pid: '89',
         title: 'Lorem Ipsum',
         volume: '55',
       },
     ],
   };
-  const tree = renderer
-    .create(<BookSeries series={series} goToSeriesList={mockGoToSeriesList} />)
-    .toJSON();
+  const tree = renderer.create(<BookSeries relations={relations} />).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 it('should render correctly when book contains only both series types', () => {
-  const series = {
-    mutlipart: [
+  const relations = {
+    mutlipart_monograph: [
       {
-        issn: '5463-4523',
-        mode_of_issuance: 'MULTIPART_MONOGRAPH',
         pid: '89',
         title: 'Lorem Ipsum',
         volume: '55',
@@ -61,16 +49,12 @@ it('should render correctly when book contains only both series types', () => {
     ],
     serial: [
       {
-        issn: '5463-4523',
-        mode_of_issuance: 'SERIAL',
         pid: '89',
         title: 'Lorem Ipsum',
         volume: '55',
       },
     ],
   };
-  const tree = renderer
-    .create(<BookSeries series={series} goToSeriesList={mockGoToSeriesList} />)
-    .toJSON();
+  const tree = renderer.create(<BookSeries relations={relations} />).toJSON();
   expect(tree).toMatchSnapshot();
 });

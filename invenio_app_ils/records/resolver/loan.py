@@ -19,10 +19,10 @@ def item_resolver(loan_pid):
     item_pid = get_field_value(Loan, loan_pid, "item_pid")
     try:
         item = Item.get_record_by_pid(item_pid)
-        # remove `Document` and `circulation_status` fields
+        # remove `Document` and `circulation` fields
         # to avoid circular deps.
         del item["$schema"]
-        del item["circulation_status"]
+        del item["circulation"]
         del item["document"]
     except PIDDeletedError:
         item = {}

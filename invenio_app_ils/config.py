@@ -802,7 +802,7 @@ RECORDS_REST_FACETS = dict(
             ),
             has_items=dict(
                 range=dict(
-                    field="circulation.has_items",
+                    field="items.total",
                     ranges=[
                         {"key": "printed versions", "from": 1},
                     ]
@@ -810,7 +810,7 @@ RECORDS_REST_FACETS = dict(
             ),
             has_eitems=dict(
                 range=dict(
-                    field="circulation.has_eitems",
+                    field="eitems.total",
                     ranges=[
                         {"key": "electronic versions", "from": 1},
                     ]
@@ -830,13 +830,13 @@ RECORDS_REST_FACETS = dict(
             languages=terms_filter("language"),
             keywords=terms_filter("keywords.name"),
             has_items=keyed_range_filter(
-                "circulation.has_items",
+                "items.total",
                 {
                     "printed versions": {"gt": 0},
                 },
             ),
             has_eitems=keyed_range_filter(
-                "circulation.has_eitems",
+                "eitems.total",
                 {
                     "electronic versions": {"gt": 0},
                 },
@@ -863,8 +863,8 @@ RECORDS_REST_FACETS = dict(
             # name=dict(
             #     terms=dict(field="internal_location.name"),
             # ),
-            circulation_status=dict(
-                terms=dict(field="circulation_status.state",
+            circulation=dict(
+                terms=dict(field="circulation.state",
                            missing="N/A",
                            ),
             ),
@@ -873,7 +873,7 @@ RECORDS_REST_FACETS = dict(
             status=terms_filter('status'),
             medium=terms_filter('medium'),
             # name=terms_filter('internal_location.name'),
-            circulation_status=terms_filter('circulation_status.state'),
+            circulation=terms_filter('circulation.state'),
         )
     ),
     loans=dict(  # IlsLoansSearch.Meta.index
@@ -939,7 +939,7 @@ RECORDS_EDITOR_UI_CONFIG = {
                     "pid": {"hidden": True},
                     "document": {"hidden": True},
                     "internal_location": {"hidden": True},
-                    "circulation_status": {"hidden": True},
+                    "circulation": {"hidden": True},
                 },
             },
         },

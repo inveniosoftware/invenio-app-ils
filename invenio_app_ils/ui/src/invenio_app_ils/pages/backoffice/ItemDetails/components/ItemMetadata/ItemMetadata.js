@@ -66,7 +66,7 @@ export default class ItemMetadata extends Component {
       onClick={() => this.setState({ open: true })}
       disabled={
         invenioConfig.circulation.loanActiveStates.includes(
-          this.props.itemDetails.metadata.circulation_status.state
+          this.props.itemDetails.metadata.circulation.state
         ) ||
         !invenioConfig.items.available.status.includes(
           this.props.itemDetails.metadata.status
@@ -143,7 +143,7 @@ export default class ItemMetadata extends Component {
                   <Table.Row>
                     <Table.Cell width={4}>Circulation Status</Table.Cell>
                     <Table.Cell width={12}>
-                      {itemDetails.metadata.circulation_status.state}
+                      {itemDetails.metadata.circulation.state}
                     </Table.Cell>
                   </Table.Row>
                   <Table.Row>

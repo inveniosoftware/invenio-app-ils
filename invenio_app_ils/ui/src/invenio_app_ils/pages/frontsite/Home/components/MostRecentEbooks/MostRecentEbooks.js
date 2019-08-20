@@ -20,7 +20,7 @@ export default class MostRecentEbooks extends Component {
 
   prepareData(data) {
     const ebooks = data.hits.slice(0, this.maxItemsToDisplay).map(book => {
-      return book.metadata._computed.eitems.map(ebook => {
+      return book.metadata.eitems.hits.map(ebook => {
         return {
           document_pid: book.metadata.pid,
           pid: ebook.pid,

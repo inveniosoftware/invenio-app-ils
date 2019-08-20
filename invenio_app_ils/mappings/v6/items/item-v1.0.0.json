@@ -46,7 +46,7 @@
         "status": {
           "type": "keyword"
         },
-        "circulation_status": {
+        "circulation": {
           "type": "object",
           "properties": {
             "loan_pid": {

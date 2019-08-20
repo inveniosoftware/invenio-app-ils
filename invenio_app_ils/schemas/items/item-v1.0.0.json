@@ -85,7 +85,7 @@
       "enum": ["CAN_CIRCULATE", "MISSING", "IN_BINDING", "SCANNING"],
       "title": "The current status of this Item"
     },
-    "circulation_status": {
+    "circulation": {
       "type": "object",
       "properties": {
         "$ref": {

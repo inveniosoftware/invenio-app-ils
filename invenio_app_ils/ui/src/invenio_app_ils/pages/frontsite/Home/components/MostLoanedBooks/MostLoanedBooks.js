@@ -26,7 +26,7 @@ export default class MostLoanedBooks extends Component {
         authors: truncate(document.metadata.authors.join('\n')),
         imageSize: 'small',
         imageCover: 'https://assets.thalia.media/img/46276899-00-00.jpg',
-        eitems: document.metadata._computed.eitems,
+        eitems: document.metadata.eitems.hits,
         onClick: goToHandler(
           FrontSiteRoutes.documentDetailsFor(document.metadata.pid)
         ),

@@ -56,8 +56,8 @@ function formatItemToTableView(item) {
     'Document ID': item.metadata.document_pid,
     Status: item.metadata.status,
     Medium: item.metadata.medium,
-    'Circulation status': item.metadata.circulation_status
-      ? item.metadata.circulation_status.state
+    'Circulation status': item.metadata.circulation
+      ? item.metadata.circulation.state
       : null,
     'Internal location': item.metadata.internal_location
       ? item.metadata.internal_location.name

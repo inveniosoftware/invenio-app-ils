@@ -162,6 +162,7 @@ setup(
         "invenio_records.jsonresolver": [
             "document_circulation = invenio_app_ils.records.resolver.jsonresolver.document_circulation",
             "document_eitem = invenio_app_ils.records.resolver.jsonresolver.document_eitem",
+            "document_item = invenio_app_ils.records.resolver.jsonresolver.document_item",
             "document_keyword = invenio_app_ils.records.resolver.jsonresolver.document_keyword",
             "document_relations = invenio_app_ils.records.resolver.jsonresolver.document_relations",
             "eitem = invenio_app_ils.records.resolver.jsonresolver.eitem",

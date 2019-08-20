@@ -38,8 +38,8 @@ export class ResultsList extends Component {
       />
     );
 
-    const circulationStatus = !isEmpty(item.circulation_status)
-      ? item.circulation_status
+    const circulationStatus = !isEmpty(item.circulation)
+      ? item.circulation
       : null;
 
     return !invenioConfig.circulation.loanActiveStates.includes(

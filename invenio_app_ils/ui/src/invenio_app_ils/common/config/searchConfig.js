@@ -31,7 +31,7 @@ const aggsMappings = {
   items: {
     status: 'Status',
     medium: 'Medium',
-    circulation_status: 'Circulation Status',
+    circulation: 'Circulation',
   },
   loans: {
     state: 'State',
