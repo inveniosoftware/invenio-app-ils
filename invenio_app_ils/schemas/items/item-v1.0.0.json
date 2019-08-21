@@ -18,9 +18,18 @@
     "$schema": {
       "type": "string"
     },
-    "pid": {
+    "circulation_restriction": {
       "type": "string",
-      "title": "The persistent identifier of this Item"
+      "enum": ["NO_RESTRICTION", "FOR_REFERENCE_ONLY"],
+      "title": "The circulation restriction on this Item"
+    },
+    "circulation": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
     },
     "document_pid": {
       "type": "string",
@@ -46,6 +55,22 @@
         }
       }
     },
+    "pid": {
+      "type": "string",
+      "title": "The persistent identifier of this Item"
+    },
+    "barcode": {
+      "type": "string",
+      "title": "The barcode of this Item"
+    },
+    "description": {
+      "type": "string",
+      "title": "Any extra description for this Item"
+    },
+    "internal_notes": {
+      "type": "string",
+      "title": "Any extra description for this Item reserved for library usage"
+    },
     "legacy_id": {
       "type": "string",
       "title": "The previous id of this Item before migration"
@@ -54,44 +79,29 @@
       "type": "string",
       "title": "The previous id of the location of this Item before migration"
     },
-    "barcode": {
-      "type": "string",
-      "title": "The barcode of this Item"
-    },
-    "shelf": {
-      "type": "string",
-      "title": "The shelf location of this Item"
-    },
-    "description": {
-      "type": "string",
-      "title": "Any extra description for this ItItemem"
-    },
-    "_internal_notes": {
-      "type": "string",
-      "title": "Any extra description for this Item reserved for library usage"
-    },
-    "circulation_restriction": {
-      "type": "string",
-      "enum": ["NO_RESTRICTION", "FOR_REFERENCE_ONLY"],
-      "title": "The circulation restriction on this Item"
-    },
     "medium": {
       "type": "string",
       "enum": ["NOT_SPECIFIED", "ONLINE", "PAPER", "CDROM", "DVD", "VHS"],
       "title": "The medium of this Item"
+    },
+    "number_of_pages": {
+      "minimum": 1,
+      "title": "Number of pages of the book",
+      "type": "integer"
+    },
+    "physical_description": {
+      "description": ":MARC: ``300`` when no pagination",
+      "title": "Physical description of an item",
+      "type": "string"
     },
     "status": {
       "type": "string",
       "enum": ["CAN_CIRCULATE", "MISSING", "IN_BINDING", "SCANNING"],
       "title": "The current status of this Item"
     },
-    "circulation": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      }
+    "shelf": {
+      "type": "string",
+      "title": "The shelf location of this Item"
     }
   }
 }
