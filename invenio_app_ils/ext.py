@@ -20,7 +20,6 @@ from werkzeug.utils import cached_property
 from . import config
 from .circulation.receivers import register_circulation_signals
 from .pidstore.pids import DOCUMENT_PID_TYPE, ITEM_PID_TYPE
-from .views import blueprint
 
 
 def handle_rest_exceptions(exception):
@@ -93,23 +92,6 @@ class InvenioAppIls(object):
 
 class InvenioAppIlsUI(InvenioAppIls):
     """Invenio App ILS UI app."""
-
-    def init_app(self, app):
-        """Flask application initialization."""
-        super(InvenioAppIlsUI, self).init_app(app)
-        # add /ping endpoint in the flask limiter exempt so we
-        # disable rate limiting from this blueprint
-
-        limiter = app.extensions['limiter']
-
-        @blueprint.route("/ping", methods=["HEAD", "GET"])
-        @limiter.exempt
-        def ping():
-            """Ping blueprint used by loadbalancer."""
-            return "OK"
-
-        ping.talisman_view_options = {'force_https': False}
-        app.register_blueprint(blueprint)
 
 
 class InvenioAppIlsREST(InvenioAppIls):
