@@ -40,6 +40,7 @@ import {
   idleLoansReducer,
   renewedLoansReducer,
 } from './pages/backoffice/Home/reducer';
+import { mostLoanedDocumentsReducer } from './pages/backoffice/Stats/reducer';
 import { notificationsReducer } from './common/components/Notifications/reducer';
 import { esSelectorReducer } from './common/components/ESSelector/reducer';
 import {
@@ -93,6 +94,7 @@ const rootReducer = combineReducers({
   seriesDocuments: seriesDocumentsReducer,
   seriesMultipartMonographs: seriesMultipartMonographsReducer,
   seriesRelations: seriesRelationsReducer,
+  statsMostLoanedDocuments: mostLoanedDocumentsReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

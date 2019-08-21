@@ -13,3 +13,4 @@ export { DocumentsSearch } from './DocumentsSearch';
 export { LocationList } from './LocationList';
 export { SeriesDetailsContainer } from './SeriesDetails';
 export { SeriesSearch } from './SeriesSearch';
+export { Stats } from './Stats';

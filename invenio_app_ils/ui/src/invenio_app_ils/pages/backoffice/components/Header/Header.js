@@ -20,6 +20,7 @@ class Header extends Component {
       activePath.indexOf(BackOfficeRoutes.documentsList) > -1;
     const patronsActive = activePath.indexOf(BackOfficeRoutes.patronsList) > -1;
     const seriesActive = activePath.indexOf(BackOfficeRoutes.seriesList) > -1;
+    const statsActive = activePath.indexOf(BackOfficeRoutes.stats.home) > -1;
     return (
       <Segment inverted vertical className="header">
         <Grid verticalAlign="middle">
@@ -72,6 +73,12 @@ class Header extends Component {
                   onClick={goToHandler(BackOfficeRoutes.seriesList)}
                 >
                   Series
+                </Menu.Item>
+                <Menu.Item
+                  active={statsActive}
+                  onClick={goToHandler(BackOfficeRoutes.stats.home)}
+                >
+                  Statistics
                 </Menu.Item>
               </Menu>
             </Grid.Column>

@@ -406,6 +406,149 @@ class LoanGenerator(Generator):
         return recs
 
 
+class MostLoanedGenerator(Generator):
+    """Most loaned loan generator.
+
+    Not currently used but is useful to generate a set of loans that is not
+    random. Used to test the most loaned stats feature.
+    """
+
+    @staticmethod
+    def build_loan(pid, document_pid, item_pid, state, start_date, end_date,
+                   extensions):
+        """Build loan object."""
+        return {
+            "pid": str(pid),
+            "document_pid": document_pid,
+            "item_pid": item_pid,
+            "patron_pid": "1",
+            "state": state,
+            "start_date": start_date.strftime("%Y-%m-%d"),
+            "end_date": end_date.strftime("%Y-%m-%d"),
+            "transaction_date": start_date.strftime("%Y-%m-%d"),
+            "transaction_location_pid": "1",
+            "transaction_user_pid": "1",
+            "pickup_location_pid": "1",
+            "request_expire_date": end_date.strftime("%Y-%m-%d"),
+            "extension_count": extensions,
+        }
+
+    def get_doc_pairs(self):
+        """Generate four document-item pairs."""
+        doc_pids, item_pids = [], []
+        for item in self.holder.items['objs']:
+            if item['status'] == 'CAN_CIRCULATE' and item['document_pid'] not in doc_pids:
+                doc_pids.append(item['document_pid'])
+                item_pids.append(item['pid'])
+                if len(doc_pids) == 4:
+                    break
+        return zip(doc_pids, item_pids)
+
+    def generate(self):
+        """Generate."""
+        size = self.holder.loans['total']
+        loc_pid = self.holder.location["pid"]
+        items = self.holder.items['objs']
+        patrons_pids = self.holder.patrons_pids
+        librarian_pid = self.holder.librarian_pid
+        doc_pids = self.holder.pids('documents', "pid")
+
+        (doc1, item1), (doc2, item2), (doc3, item3), (doc4, item4) = \
+            self.get_doc_pairs()
+
+        today = datetime.now()
+        current_year = today.year
+
+        # Generate loans for doc1
+        pid = 1
+        for month in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11):
+            start_date = datetime(current_year, month, 2)
+            end_date = datetime(current_year, month+1, 2)
+            if start_date <= today <= end_date:
+                state = "ITEM_ON_LOAN"
+            elif end_date < today:
+                state = "ITEM_RETURNED"
+            else:
+                state = "PENDING"
+            loan = self.build_loan(
+                pid,
+                doc1,
+                item1,
+                state,
+                start_date,
+                end_date,
+                0
+            )
+            self.holder.loans['objs'].append(loan)
+            pid += 1
+        for month in (2, 4, 6, 8, 10):
+            start_date = datetime(current_year, month, 10)
+            end_date = datetime(current_year, month+2, 10)
+            if start_date <= today <= end_date:
+                state = "ITEM_ON_LOAN"
+            elif end_date < today:
+                state = "ITEM_RETURNED"
+            else:
+                state = "PENDING"
+            loan = self.build_loan(
+                pid,
+                doc2,
+                item2,
+                state,
+                start_date,
+                end_date,
+                1
+            )
+            self.holder.loans['objs'].append(loan)
+            pid += 1
+        for month in (2, 5, 8):
+            start_date = datetime(current_year, month, 20)
+            end_date = datetime(current_year, month+3, 20)
+            if start_date <= today <= end_date:
+                state = "ITEM_ON_LOAN"
+            elif end_date < today:
+                state = "ITEM_RETURNED"
+            else:
+                state = "PENDING"
+            loan = self.build_loan(
+                pid,
+                doc3,
+                item3,
+                state,
+                start_date,
+                end_date,
+                3
+            )
+            self.holder.loans['objs'].append(loan)
+            pid += 1
+        start_date = datetime(current_year, 3, 7)
+        end_date = datetime(current_year, 4, 7)
+        self.holder.loans['objs'].append(
+            self.build_loan(
+                pid,
+                doc4,
+                item4,
+                "ITEM_RETURNED",
+                start_date,
+                end_date,
+                0
+            )
+        )
+
+    def persist(self):
+        """Persist."""
+        recs = []
+        for obj in self.holder.loans['objs']:
+            rec = self._persist(
+                CIRCULATION_LOAN_PID_TYPE,
+                "pid",
+                Loan.create(obj)
+            )
+            recs.append(rec)
+        db.session.commit()
+        return recs
+
+
 class SeriesGenerator(Generator):
     """Series Generator."""
 

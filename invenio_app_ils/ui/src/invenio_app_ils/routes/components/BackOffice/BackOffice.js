@@ -17,6 +17,7 @@ import {
   PatronsSearch,
   SeriesDetailsContainer,
   SeriesSearch,
+  Stats,
 } from '../../../pages/backoffice';
 import './BackOffice.scss';
 import { Notifications } from '../../../common/components/Notifications';
@@ -103,6 +104,7 @@ export class BackOffice extends Component {
             path={BackOfficeRoutes.seriesDetails}
             component={SeriesDetailsContainer}
           />
+          <Route exact path={BackOfficeRoutes.stats.home} component={Stats} />
         </div>
       </div>
     );

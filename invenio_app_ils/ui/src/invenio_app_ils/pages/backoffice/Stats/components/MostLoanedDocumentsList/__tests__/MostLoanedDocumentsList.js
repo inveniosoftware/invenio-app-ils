@@ -1,0 +1,151 @@
+import React from 'react';
+import { shallow, mount } from 'enzyme';
+import { Settings } from 'luxon';
+import MostLoanedDocumentsList from '../MostLoanedDocumentsList';
+import { fromISO } from '../../../../../../common/api/date';
+import history from '../../../../../../history';
+import { BackOfficeRoutes } from '../../../../../../routes/urls';
+import { MemoryRouter } from 'react-router';
+
+jest.mock('../../../../../../common/config/invenioConfig');
+
+Settings.defaultZoneName = 'utc';
+const stringDate = fromISO('2018-01-01T11:05:00+01:00');
+
+describe('MostLoanedDocumentsList tests', () => {
+  let component;
+  afterEach(() => {
+    if (component) {
+      component.unmount();
+    }
+  });
+
+  it('should load the component', () => {
+    const component = shallow(
+      <MostLoanedDocumentsList
+        data={{ hits: [], total: 0 }}
+        fetchMostLoanedDocuments={() => {}}
+      />
+    );
+    expect(component).toMatchSnapshot();
+  });
+
+  it('should fetch documents on mount', () => {
+    const mockedFetchLoans = jest.fn();
+    component = mount(
+      <MostLoanedDocumentsList
+        data={{ hits: [], total: 0 }}
+        fetchMostLoanedDocuments={mockedFetchLoans}
+      />
+    );
+    expect(mockedFetchLoans).toHaveBeenCalled();
+  });
+
+  it('should render show a message with no documents', () => {
+    component = mount(
+      <MostLoanedDocumentsList
+        data={{ hits: [], total: 0 }}
+        fetchMostLoanedDocuments={() => {}}
+      />
+    );
+
+    expect(component).toMatchSnapshot();
+    const message = component
+      .find('Message')
+      .filterWhere(element => element.prop('data-test') === 'no-results');
+    expect(message).toHaveLength(1);
+  });
+
+  it('should render documents', () => {
+    const data = {
+      hits: [
+        {
+          id: 1,
+          updated: stringDate,
+          created: stringDate,
+          pid: 'doc1',
+          metadata: {
+            pid: 'doc1',
+            loan_count: 1,
+            extension_count: 1,
+          },
+        },
+        {
+          id: 2,
+          updated: stringDate,
+          created: stringDate,
+          pid: 'doc2',
+          metadata: {
+            pid: 'doc2',
+            loan_count: 1,
+            extension_count: 1,
+          },
+        },
+      ],
+      total: 2,
+    };
+    component = mount(
+      <MemoryRouter>
+        <MostLoanedDocumentsList
+          data={data}
+          fetchMostLoanedDocuments={() => {}}
+        />
+      </MemoryRouter>
+    );
+
+    const rows = component
+      .find('TableRow')
+      .filterWhere(
+        element =>
+          element.prop('data-test') === 'doc1' ||
+          element.prop('data-test') === 'doc2'
+      );
+    expect(rows).toHaveLength(2);
+
+    const footer = component
+      .find('TableRow')
+      .filterWhere(element => element.prop('data-test') === 'footer');
+    expect(footer).toHaveLength(0);
+  });
+
+  it('should go to loan details when clicking on a document', () => {
+    const mockedHistoryPush = jest.fn();
+    history.push = mockedHistoryPush;
+    const data = {
+      hits: [
+        {
+          id: 1,
+          updated: stringDate,
+          created: stringDate,
+          pid: 'doc1',
+          metadata: {
+            pid: 'doc1',
+            loan_count: 1,
+            extension_count: 1,
+          },
+        },
+      ],
+      total: 1,
+    };
+
+    component = mount(
+      <MemoryRouter>
+        <MostLoanedDocumentsList
+          data={data}
+          fetchMostLoanedDocuments={() => {}}
+          showMaxDocuments={1}
+        />
+      </MemoryRouter>
+    );
+
+    const firstId = data.hits[0].pid;
+    const button = component
+      .find('TableRow')
+      .filterWhere(element => element.prop('data-test') === firstId)
+      .find('i');
+    button.simulate('click');
+
+    const expectedParam = BackOfficeRoutes.documentDetailsFor(firstId);
+    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
+  });
+});

@@ -1,7 +1,12 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { fromISO, toShortDate, toShortDateTime } from '../../api/date';
 import isEmpty from 'lodash/isEmpty';
 import assign from 'lodash/assign';
 import { formatPidTypeToName } from '../ManageRelationsButton/utils';
+import { loan as loanApi } from '../../api';
+import { BackOfficeRoutes } from '../../../routes/urls';
+import { invenioConfig } from '../../config';
 
 function formatLoanToTableView(loan) {
   return {
@@ -40,11 +45,39 @@ function formatDocumentToTableView(document, volume = null) {
       serialized['Overdue Loans'] = document.metadata.circulation.overdue_loans;
       serialized['Pending Requests'] =
         document.metadata.circulation.pending_loans;
-      serialized['Loans Count'] =
+      serialized['Past Loans Count'] =
         document.metadata.circulation.number_of_past_loans;
     }
     if (volume) {
       serialized['Volume'] = volume;
+    }
+  }
+  return serialized;
+}
+
+function formatMostLoanedDocumentToTableView(document, fromDate, toDate) {
+  let serialized = formatDocumentToTableView(document);
+  if (serialized.Title) {
+    const documentUrl = BackOfficeRoutes.documentDetailsFor(serialized.ID);
+    serialized['Title'] = <Link to={documentUrl}>{serialized.Title}</Link>;
+  }
+  if (!isEmpty(document.metadata)) {
+    if (document.metadata.loan_count) {
+      const query = loanApi
+        .query()
+        .withDocPid(serialized.ID)
+        .withStartDate({ fromDate, toDate })
+        .withState(
+          invenioConfig.circulation.loanActiveStates.concat(
+            invenioConfig.circulation.loanCompletedStates
+          )
+        )
+        .qs();
+      const url = BackOfficeRoutes.loansListWithQuery(query);
+      serialized['Loan Count'] = (
+        <Link to={url}>{document.metadata.loan_count}</Link>
+      );
+      serialized['Extension Count'] = document.metadata.loan_extensions;
     }
   }
   return serialized;
@@ -160,13 +193,14 @@ function formatRelatedToTableView(related, relation) {
 }
 
 export const formatter = {
-  loan: { toTable: formatLoanToTableView },
   document: { toTable: formatDocumentToTableView },
-  item: { toTable: formatItemToTableView },
   eitem: { toTable: formatEItemToTableView },
-  location: { toTable: formatLocationToTableView },
   internalLocation: { toTable: formatInternalLocationToTableView },
-  series: { toTable: formatSeriesToTableView },
+  item: { toTable: formatItemToTableView },
+  loan: { toTable: formatLoanToTableView },
+  location: { toTable: formatLocationToTableView },
+  mostLoanedDocument: { toTable: formatMostLoanedDocumentToTableView },
   patron: { toTable: formatPatronToTableView },
   related: { toTable: formatRelatedToTableView },
+  series: { toTable: formatSeriesToTableView },
 };
