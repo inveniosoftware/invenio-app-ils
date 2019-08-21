@@ -59,6 +59,8 @@ def views_permissions_factory(action):
         return backoffice_permission()
     elif action == "relations-create":
         return backoffice_permission()
+    elif action == "stats-most-loaned":
+        return backoffice_permission()
     elif action == "relations-delete":
         return backoffice_permission()
     else:

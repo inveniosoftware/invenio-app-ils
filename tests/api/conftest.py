@@ -204,3 +204,88 @@ def example_message_factory():
             body=body
         )
     return partial(message_factory, loader)
+
+
+@pytest.fixture()
+def testdata_most_loaned(app, db, es_clear):
+    """Create, index and return test data."""
+    indexer = RecordIndexer()
+
+    locations = load_json_from_datadir("locations.json")
+    for location in locations:
+        record = Location.create(location)
+        mint_record_pid(LOCATION_PID_TYPE, "pid", record)
+        record.commit()
+        db.session.commit()
+        indexer.index(record)
+
+    internal_locations = load_json_from_datadir("internal_locations.json")
+    for internal_location in internal_locations:
+        record = InternalLocation.create(internal_location)
+        mint_record_pid(
+            INTERNAL_LOCATION_PID_TYPE, "pid", record
+        )
+        record.commit()
+        db.session.commit()
+        indexer.index(record)
+
+    keywords = load_json_from_datadir("keywords.json")
+    for keyword in keywords:
+        record = Keyword.create(keyword)
+        mint_record_pid(KEYWORD_PID_TYPE, "pid", record)
+        record.commit()
+        db.session.commit()
+        indexer.index(record)
+
+    series_data = load_json_from_datadir("series.json")
+    for series in series_data:
+        record = Series.create(series)
+        mint_record_pid(SERIES_PID_TYPE, "pid", record)
+        record.commit()
+        db.session.commit()
+        indexer.index(record)
+
+    documents = load_json_from_datadir("documents.json")
+    for doc in documents:
+        record = Document.create(doc)
+        mint_record_pid(DOCUMENT_PID_TYPE, "pid", record)
+        record.commit()
+        db.session.commit()
+        indexer.index(record)
+
+    items = load_json_from_datadir("items.json")
+    for item in items:
+        record = Item.create(item)
+        mint_record_pid(ITEM_PID_TYPE, "pid", record)
+        record.commit()
+        db.session.commit()
+        indexer.index(record)
+
+    eitems = load_json_from_datadir("eitems.json")
+    for eitem in eitems:
+        record = EItem.create(eitem)
+        mint_record_pid(EITEM_PID_TYPE, "pid", record)
+        record.commit()
+        db.session.commit()
+        indexer.index(record)
+
+    loans = load_json_from_datadir("loans_most_loaned.json")
+    for loan in loans:
+        record = Loan.create(loan)
+        mint_record_pid(CIRCULATION_LOAN_PID_TYPE, "pid", record)
+        record.commit()
+        db.session.commit()
+        indexer.index(record)
+
+    # flush all indices after indexing, otherwise ES won't be ready for tests
+    current_search.flush_and_refresh(index='*')
+
+    return {
+        "locations": locations,
+        "internal_locations": internal_locations,
+        "documents": documents,
+        "items": items,
+        "loans": loans,
+        "keywords": keywords,
+        "series": series_data,
+    }

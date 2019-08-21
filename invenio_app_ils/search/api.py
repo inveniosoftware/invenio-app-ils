@@ -21,6 +21,10 @@ class DocumentSearch(RecordsSearch):
         index = "documents"
         doc_types = None
 
+    def search_by_pid(self, *pids):
+        """Retrieve documents with the given pid(s)."""
+        return self.filter("terms", pid=pids)
+
     def search_by_keyword_pid(self, keyword_pid=None, filter_states=None,
                               exclude_states=None):
         """Retrieve documents based on the given keyword pid."""

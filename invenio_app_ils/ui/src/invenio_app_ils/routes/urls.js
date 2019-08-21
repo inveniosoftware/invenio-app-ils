@@ -41,6 +41,9 @@ const BackOfficeRoutesList = {
   locationsList: `${BackOfficeBase}/locations`,
   seriesList: `${BackOfficeBase}/series`,
   seriesDetails: `${BackOfficeBase}/series/:seriesPid`,
+  stats: {
+    home: `${BackOfficeBase}/stats`,
+  },
 };
 
 const BackOfficeRouteGenerators = {

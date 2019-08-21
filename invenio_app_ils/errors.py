@@ -176,6 +176,10 @@ class MissingRequiredParameterError(IlsException):
     """Exception raised when required parameter is missing."""
 
 
+class InvalidParameterError(IlsException):
+    """Exception raised when an invalid parameter is has been given."""
+
+
 class DocumentKeywordNotFoundError(IlsException):
     """Raised when trying to remove a non-existing keyword from a document."""
 

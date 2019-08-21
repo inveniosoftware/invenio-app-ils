@@ -1,13 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import { fromISO } from '../date';
 
-function serializeSeries(series) {
-  return {
-    serial: series.filter(s => s.mode_of_issuance === 'SERIAL'),
-    multipart: series.filter(s => s.mode_of_issuance === 'MULTIPART_MONOGRAPH'),
-  };
-}
-
 function serializeResponse(hit) {
   let result = {};
   if (!isEmpty(hit)) {
@@ -23,10 +16,6 @@ function serializeResponse(hit) {
         result['metadata']['circulation']['next_available_date'] = new Date(
           result['metadata']['circulation']['next_available_date']
         ).toDateString();
-      }
-      if (!isEmpty(hit.metadata.series)) {
-        // Split the series based on mode of issuance - requested by the library
-        result['metadata']['series'] = serializeSeries(hit.metadata.series);
       }
       result['pid'] = hit.metadata.pid;
     }

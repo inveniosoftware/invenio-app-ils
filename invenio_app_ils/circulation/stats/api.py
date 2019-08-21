@@ -1,0 +1,57 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2019 CERN.
+#
+# invenio-app-ils is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
+"""APIs for ILS circulation statistics."""
+
+from invenio_circulation.proxies import current_circulation
+
+from invenio_app_ils.search.api import DocumentSearch
+
+
+def fetch_most_loaned_documents(from_date, to_date, bucket_size):
+    """Fetch the documents with the most loans within the date interval."""
+    # Create loans aggregation
+    loan_search = current_circulation.loan_search
+    most_loaned = loan_search.get_most_loaned_documents(
+        from_date,
+        to_date,
+        bucket_size
+    )
+
+    # Prepare the loan and extension count
+    document_pids = []
+    document_metadata = {}
+    loan_result = most_loaned.execute()
+    for bucket in loan_result.aggregations.most_loaned_documents.buckets:
+        document_pid = bucket["key"]
+        loan_count = bucket["doc_count"]
+        loan_extensions = int(bucket["extensions"]["value"])
+        document_pids.append(document_pid)
+        document_metadata[document_pid] = dict(
+            loans=loan_count,
+            extensions=loan_extensions
+        )
+
+    # Enchance the document serializer
+    doc_search = DocumentSearch()
+    doc_search = doc_search.with_preference_param().params(version=True)
+    doc_search = doc_search.search_by_pid(*document_pids)
+    result = doc_search.execute()
+
+    for hit in result.hits:
+        pid = hit["pid"]
+        hit["loan_count"] = document_metadata[pid]["loans"]
+        hit["loan_extensions"] = document_metadata[pid]["extensions"]
+
+    res = result.to_dict()
+    res["hits"]["hits"] = sorted(
+        res["hits"]["hits"],
+        key=lambda hit: hit["_source"]["loan_count"],
+        reverse=True
+    )
+
+    return res

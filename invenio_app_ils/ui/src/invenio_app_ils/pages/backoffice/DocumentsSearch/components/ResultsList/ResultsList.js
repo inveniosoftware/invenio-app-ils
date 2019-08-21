@@ -18,7 +18,7 @@ export class ResultsList extends Component {
         'Authors',
         'Series',
         'Available Items',
-        'Loans Count',
+        'Past Loans Count',
       ]);
     });
   }

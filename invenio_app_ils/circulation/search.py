@@ -9,9 +9,10 @@
 
 import re
 
-from elasticsearch_dsl.query import Q
+from elasticsearch_dsl import A, Q
 from flask import current_app, g, has_request_context, request
 from flask_login import current_user
+from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import LoansSearch, search_by_pid
 
 from invenio_app_ils.errors import SearchQueryError, UnauthorizedSearchError
@@ -73,6 +74,36 @@ class IlsLoansSearch(LoansSearch):
                 "CIRCULATION_STATES_LOAN_ACTIVE", []
             ),
         ).filter('range', end_date=dict(lt='now/d'))
+
+    def get_most_loaned_documents(self, from_date, to_date, bucket_size):
+        """Return aggregation of document_pids with most loans."""
+        search = current_circulation.loan_search
+
+        # Query
+        states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"] + \
+            current_app.config["CIRCULATION_STATES_LOAN_COMPLETED"]
+
+        from_date = from_date or None
+        to_date = to_date or None
+
+        search = search.query("bool", must=[
+            Q("terms", state=states),
+            Q("range", start_date=dict(gte=from_date, lte=to_date)),
+        ])
+
+        # Aggregation with sub-aggregation to calculate the extension count sum
+        aggs = A("terms", field="document_pid", size=bucket_size)
+        aggs = aggs.metric(
+            "extensions",
+            "sum",
+            field="extension_count"
+        )
+        search.aggs.bucket("most_loaned_documents", aggs)
+
+        # No need for the loan hits
+        search = search[:0]
+
+        return search
 
     class Meta:
         """Define permissions filter."""

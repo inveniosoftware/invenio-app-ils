@@ -108,6 +108,7 @@ setup(
         ],
         "invenio_base.api_blueprints": [
             "invenio_app_ils_circulation = invenio_app_ils.circulation.views:create_circulation_blueprint",
+            "invenio_app_ils_stats = invenio_app_ils.circulation.stats.views:create_stats_blueprint",
             "invenio_app_ils_relations = invenio_app_ils.records_relations.views:create_relations_blueprint",
         ],
         "invenio_config.module": [
