@@ -64,7 +64,7 @@ describe('Loan query builder tests', () => {
       .query()
       .overdue()
       .qs();
-    expect(decodeURI(query)).toEqual(`(request_expire_date:{* TO ${now}})`);
+    expect(decodeURI(query)).toEqual(`(end_date:{* TO ${now}})`);
   });
 
   it('should build query for update date range', () => {

@@ -37,6 +37,9 @@ function formatDocumentToTableView(document, volume = null) {
       serialized['Requests'] = document.metadata.circulation.pending_loans;
       serialized['Available Items'] =
         document.metadata.circulation.has_items_for_loan;
+      serialized['Overdue Loans'] = document.metadata.circulation.overdue_loans;
+      serialized['Pending Requests'] =
+        document.metadata.circulation.pending_loans;
       serialized['# Loans'] =
         document.metadata.circulation.number_of_past_loans;
     }

@@ -9,6 +9,7 @@ import {
   OverdueLoansList,
   IdleLoansList,
   RenewedLoansList,
+  PendingOverdueDocumentsList,
 } from './components';
 
 export default class Home extends Component {
@@ -38,7 +39,7 @@ export default class Home extends Component {
                   <OverbookedDocumentsList />
                 </Grid.Column>
                 <Grid.Column width={6}>
-                  <OverdueLoansList />
+                  <PendingOverdueDocumentsList />
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row>
@@ -47,6 +48,11 @@ export default class Home extends Component {
                 </Grid.Column>
                 <Grid.Column width={6}>
                   <RenewedLoansList />
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column width={6}>
+                  <OverdueLoansList />
                 </Grid.Column>
               </Grid.Row>
             </Grid>
