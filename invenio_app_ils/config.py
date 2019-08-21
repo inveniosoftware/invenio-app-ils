@@ -256,7 +256,6 @@ SESSION_COOKIE_SECURE = True
 #: route correct hosts to the application.
 APP_ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 APP_DEFAULT_SECURE_HEADERS["content_security_policy"] = {}
-APP_HEALTH_BLUEPRINT_ENABLED = False
 
 # OAI-PMH
 # =======

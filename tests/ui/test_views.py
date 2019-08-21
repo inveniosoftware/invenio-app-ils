@@ -12,13 +12,6 @@ from __future__ import absolute_import, print_function
 from flask import url_for
 
 
-def test_ping(client):
-    """Test the ping view."""
-    resp = client.get(url_for('invenio_app_ils_ui.ping'))
-    assert resp.status_code == 200
-    assert resp.get_data(as_text=True) == 'OK'
-
-
 def test_homepage_view(client):
     """Test the home view."""
     resp = client.get(url_for('invenio_app_ils_ui.index'))
