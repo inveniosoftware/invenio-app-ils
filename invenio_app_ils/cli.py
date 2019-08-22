@@ -222,7 +222,7 @@ class ItemGenerator(Generator):
             "barcode": "{}".format(randint(10000000, 99999999)),
             "shelf": "{}".format(lorem.sentence()),
             "description": "{}".format(lorem.text()),
-            "_internal_notes": "{}".format(lorem.text()),
+            "internal_notes": "{}".format(lorem.text()),
             "medium": random.choice(self.ITEM_MEDIUMS),
             "status": random.choice(self.ITEM_STATUSES),
             "circulation_restriction": random.choice(self.ITEM_CIRCULATION_RESTRICTIONS),
@@ -282,7 +282,7 @@ class DocumentGenerator(Generator):
     """Document Generator."""
 
     DOCUMENT_TYPES = ["BOOK", "STANDARD", "PROCEEDINGS"]
-    LANGUAGES = ["en", "fr", "it", "el", "pl", "ro", "sv", "es"]
+    LANGUAGES = [u'en', u'fr', u'it', u'el', u'pl', u'ro', u'sv', u'es']
 
     def generate(self):
         """Generate."""
@@ -291,21 +291,18 @@ class DocumentGenerator(Generator):
 
         objs = [{
             "pid": str(pid),
-            "title": "{}".format(lorem.sentence()),
-            "authors": ["{}".format(lorem.sentence())],
-            "abstracts": ["{}".format(lorem.text())],
-            "document_types": [random.choice(self.DOCUMENT_TYPES)],
+            "title": {'title':"{}".format(lorem.sentence())},
+            "authors": [
+                {"full_name": "{}".format(lorem.sentence())},
+                {"full_name": "{}".format(lorem.sentence())}
+            ],
+            "abstracts": [{"value": "{}".format(lorem.text())}],
+            "document_type": random.choice(self.DOCUMENT_TYPES),
             "_access": {},
-            "language": random.sample(self.LANGUAGES, 1),
-            "publishers": ["{}".format(lorem.sentence())],
-            "files": ["https://cds.cern.ch/record/2255762/"
-                      "files/CERN-Brochure-2017-002-Eng.pdf",
-                      "https://cds.cern.ch/record/2256277/"
-                      "files/CERN-Brochure-2016-005-Eng.pdf"],
-            "booklinks": ["https://home.cern/science/physics/dark-matter",
-                          "https://home.cern/science/physics/antimatter"],
-            "chapters": ["{}".format(lorem.sentence())],
-            "information": "{}".format(lorem.text()),
+            "languages": random.sample(self.LANGUAGES, 1),
+            "imprints": [{"publisher": "{}".format(lorem.sentence())}],
+            "table_of_content": ["{}".format(lorem.sentence())],
+            "notes": [{'value': "{}".format(lorem.text())}],
             "keyword_pids": random.sample(keyword_pids, randint(0, 5)),
             "edition": str(pid),
         } for pid in range(1, size+1)]

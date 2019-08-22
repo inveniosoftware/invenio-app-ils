@@ -8,16 +8,34 @@
           "type": "keyword"
         },
         "title": {
-          "type": "keyword"
+          "properties": {
+            "title": {
+              "type": "text"
+            },
+            "subtitle": {
+              "type": "text"
+            }
+          },
+          "type": "object"
         },
         "edition": {
           "type": "keyword"
         },
         "authors": {
-          "type": "keyword"
+          "type": "object",
+          "properties": {
+            "full_name": {
+              "type": "text"
+            }
+          }
         },
         "abstracts": {
-          "type": "keyword"
+          "properties": {
+            "value": {
+              "type": "text"
+            }
+          },
+          "type": "object"
         },
         "document_types": {
           "type": "keyword"
@@ -52,7 +70,12 @@
                   "type": "keyword"
                 },
                 "title": {
-                  "type": "text"
+                  "properties": {
+                    "title": {
+                      "type": "text"
+                    }
+                  },
+                  "type": "object"
                 }
               }
             },
@@ -69,7 +92,12 @@
                   "type": "keyword"
                 },
                 "title": {
-                  "type": "text"
+                  "properties": {
+                    "title": {
+                      "type": "text"
+                    }
+                  },
+                  "type": "object"
                 }
               }
             },
@@ -86,7 +114,12 @@
                   "type": "keyword"
                 },
                 "title": {
-                  "type": "text"
+                  "properties": {
+                    "title": {
+                      "type": "text"
+                    }
+                  },
+                  "type": "object"
                 }
               }
             },
@@ -103,7 +136,12 @@
                   "type": "keyword"
                 },
                 "title": {
-                  "type": "text"
+                  "properties": {
+                    "title": {
+                      "type": "text"
+                    }
+                  },
+                  "type": "object"
                 }
               }
             },
@@ -117,7 +155,12 @@
                   "type": "keyword"
                 },
                 "title": {
-                  "type": "text"
+                  "properties": {
+                    "title": {
+                      "type": "text"
+                    }
+                  },
+                  "type": "object"
                 }
               }
             }
@@ -134,7 +177,9 @@
         "eitems": {
           "type": "object",
           "properties": {
-            "total": { "type": "integer" },
+            "total": {
+              "type": "integer"
+            },
             "hits": {
               "type": "object",
               "properties": {
@@ -157,7 +202,9 @@
         "items": {
           "type": "object",
           "properties": {
-            "total": { "type": "integer" },
+            "total": {
+              "type": "integer"
+            },
             "hits": {
               "type": "object",
               "properties": {

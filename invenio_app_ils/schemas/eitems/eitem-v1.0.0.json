@@ -27,7 +27,7 @@
       "type": "string",
       "title": "Any extra description for this EItem"
     },
-    "internal_note": {
+    "internal_notes": {
       "type": "string",
       "title": "Any extra description for this EItem reserved for internal usage"
     },
@@ -52,7 +52,6 @@
             "type": "string"
           },
           "category": {
-            "description": "Former BibDocFile.doctype",
             "type": "string"
           },
           "version_id": {

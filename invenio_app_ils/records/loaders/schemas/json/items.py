@@ -26,7 +26,7 @@ class ItemSchemaV1(RecordMetadataSchemaJSONV1):
     barcode = fields.Str()
     shelf = fields.Str()
     description = fields.Str()
-    _internal_notes = fields.Str()
+    internal_notes = fields.Str()
     medium = fields.Str()  # TODO: this should be an enum
     status = fields.Str()  # TODO: this should be an enum
 
@@ -40,5 +40,5 @@ class EItemSchemaV1(RecordMetadataSchemaJSONV1):
 
     document_pid = fields.Str(required=True)  # TODO: validate
     description = fields.Str()
-    _internal_notes = fields.Str()
+    internal_notes = fields.Str()
     open_access = fields.Bool(default=True)

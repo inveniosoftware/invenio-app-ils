@@ -172,10 +172,7 @@ class RecordRelationsRetriever(object):
         r.update(metadata or {})
 
         # add also title, language and edition of the sibling
-        if sibling._pid_type == "serid":
-            r["title"] = sibling.get("title", {}).get("title", "")
-        else:
-            r["title"] = sibling.get("title", "")
+        r["title"] = sibling.get("title", {}).get("title", "")
         language = sibling.get('language')
         if language:
             r["language"] = language
