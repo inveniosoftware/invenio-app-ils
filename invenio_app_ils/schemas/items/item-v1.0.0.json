@@ -90,7 +90,6 @@
       "type": "integer"
     },
     "physical_description": {
-      "description": ":MARC: ``300`` when no pagination",
       "title": "Physical description of an item",
       "type": "string"
     },

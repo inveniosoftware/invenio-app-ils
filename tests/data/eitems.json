@@ -2,14 +2,14 @@
   {
     "pid": "eitemid-1",
     "document_pid": "docid-1",
-    "_internal_notes": "An internal note",
+    "internal_notes": "An internal note",
     "description": "Description of the electronic item",
     "open_access": true
   },
   {
     "pid": "eitemid-2",
     "document_pid": "docid-2",
-    "_internal_notes": "An internal note",
+    "internal_notes": "An internal note",
     "description": "Description of the electronic item",
     "open_access": false
   }

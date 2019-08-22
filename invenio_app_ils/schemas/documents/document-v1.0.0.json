@@ -176,33 +176,6 @@
       "title": "Origin of the metadata in the record",
       "type": "object"
     },
-    "alternative_titles": {
-      "description": "Alternative titles of the document",
-      "items": [
-        {
-          "additionalProperties": false,
-          "properties": {
-            "source": {
-              "minLength": 1,
-              "type": "string"
-            },
-            "subtitle": {
-              "minLength": 1,
-              "type": "string"
-            },
-            "title": {
-              "minLength": 1,
-              "type": "string"
-            }
-          },
-          "required": ["title"],
-          "type": "object"
-        }
-      ],
-      "minItems": 1,
-      "type": "array",
-      "uniqueItems": true
-    },
     "authors": {
       "items": {
         "additionalProperties": false,
@@ -336,14 +309,9 @@
       "title": "Document type"
     },
     "edition": {
-      "items": {
-        "minLength": 1,
-        "type": "string"
-      },
-      "minItems": 1,
-      "title": "Book edition indicator",
-      "type": "array",
-      "uniqueItems": true
+      "minLength": 1,
+      "type": "string",
+      "title": "Book edition indicator"
     },
     "imprints": {
       "items": {
@@ -449,13 +417,11 @@
             "additionalProperties": false,
             "properties": {
               "description": {
-                "description": ":MARC: ``020__u``\n:anything in ``020__u`` that does not fit in medium and is not a volume.\n.. note: Does not exist in Inspire",
                 "minLength": 1,
                 "title": "Free text, used to describe the document to ISBN refers to.",
                 "type": "string"
               },
               "medium": {
-                "description": ":MARC: ``020__u``",
                 "enum": [
                   "audiobook",
                   "CD-ROM",
@@ -471,7 +437,6 @@
                 "type": "string"
               },
               "value": {
-                "description": ":MARC: ``020__a``\n:example: ``0201021153``",
                 "minLength": 1,
                 "pattern": "^\\d*[0-9X]$",
                 "type": "string"
@@ -926,7 +891,6 @@
             "type": "object"
           },
           "journal_issue": {
-            "description": ":MARC: ``773__n``",
             "minLength": 1,
             "type": "string"
           },
@@ -945,34 +909,28 @@
             "type": "object"
           },
           "journal_title": {
-            "description": ":MARC: ``773__p``\nJournal title abbreviated as in the corresponding entry\nin the Journals collection.\n:example: ``Phys.Rev.``",
             "minLength": 1,
             "type": "string"
           },
           "journal_volume": {
-            "description": ":MARC: ``773__v``",
             "minLength": 1,
             "type": "string"
           },
           "page_end": {
-            "description": ":MARC: last page in ``773__c`` (if present)",
             "minLength": 1,
             "title": "Last page of document",
             "type": "string"
           },
           "page_start": {
-            "description": ":MARC: first page in ``773__c`` (if not an :ref:`artid`)",
             "minLength": 1,
             "title": "First page of document",
             "type": "string"
           },
           "note": {
-            "description": ":MARC: ``773__x``\nUnstructured text describing the publication\ninformation.\n.. note::\n    This field is used when provided with unstructured\n    publication information, e.g. from arXiv. If known,\n    the other fields should be used instead.",
             "minLength": 1,
             "type": "string"
           },
           "year": {
-            "description": ":MARC: ``773__y``",
             "minimum": 1000,
             "title": "Publication year",
             "type": "integer"
@@ -1221,6 +1179,33 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "alternative_titles": {
+          "description": "Alternative titles of the document",
+          "items": [
+            {
+              "additionalProperties": false,
+              "properties": {
+                "source": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "subtitle": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "title": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": ["title"],
+              "type": "object"
+            }
+          ],
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
         "source": {
           "minLength": 1,
           "type": "string"

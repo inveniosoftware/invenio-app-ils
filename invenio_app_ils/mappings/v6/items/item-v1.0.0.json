@@ -34,7 +34,7 @@
         "description": {
           "type": "text"
         },
-        "_internal_notes": {
+        "internal_notes": {
           "type": "text"
         },
         "circulation_restriction": {
@@ -85,10 +85,23 @@
               "type": "keyword"
             },
             "title": {
-              "type": "keyword"
+              "properties": {
+                "title": {
+                  "type": "text"
+                },
+                "subtitle": {
+                  "type": "text"
+                }
+              },
+              "type": "object"
             },
             "authors": {
-              "type": "keyword"
+              "type": "object",
+              "properties": {
+                "full_name": {
+                  "type": "text"
+                }
+              }
             }
           }
         },
