@@ -22,8 +22,10 @@ export default class MostLoanedBooks extends Component {
     return data.hits.slice(0, this.maxItemsToDisplay).map(document => {
       return {
         pid: document.metadata.pid,
-        title: document.metadata.title,
-        authors: truncate(document.metadata.authors.join('\n')),
+        title: document.metadata.title.title,
+        authors: truncate(
+          document.metadata.authors.map(author => author.full_name)
+        ),
         imageSize: 'small',
         imageCover: 'https://assets.thalia.media/img/46276899-00-00.jpg',
         eitems: document.metadata.eitems.hits,

@@ -24,7 +24,7 @@ export default class MostRecentEbooks extends Component {
         return {
           document_pid: book.metadata.pid,
           pid: ebook.pid,
-          title: book.metadata.title,
+          title: book.metadata.title.title,
           description: truncate(ebook.description),
           open_access: ebook.open_access,
           imageSize: 'small',

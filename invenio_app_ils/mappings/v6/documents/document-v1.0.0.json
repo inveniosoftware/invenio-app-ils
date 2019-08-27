@@ -37,7 +37,7 @@
           },
           "type": "object"
         },
-        "document_types": {
+        "document_type": {
           "type": "keyword"
         },
         "language": {

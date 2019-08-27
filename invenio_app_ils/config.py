@@ -794,7 +794,7 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(field="language")
             ),
             document_types=dict(
-                terms=dict(field="document_types")
+                terms=dict(field="document_type")
             ),
             moi=dict(
                 terms=dict(field="series.mode_of_issuance")
@@ -825,7 +825,7 @@ RECORDS_REST_FACETS = dict(
             ),
         ),
         filters=dict(
-            document_types=terms_filter("document_types"),
+            document_types=terms_filter("document_type"),
             languages=terms_filter("language"),
             keywords=terms_filter("keywords.name"),
             has_items=keyed_range_filter(

@@ -9,7 +9,7 @@ export const serializeError = error => ({
 export const serializeDocument = doc => ({
   id: doc.metadata.pid,
   key: doc.metadata.pid,
-  title: doc.metadata.title,
+  title: doc.metadata.title.title,
   description: `Authors: ${doc.metadata.authors.join(', ')}`,
   extra: `Document #${doc.metadata.pid}`,
   metadata: doc.metadata,
@@ -18,7 +18,7 @@ export const serializeDocument = doc => ({
 export const serializeEItem = eitem => ({
   id: eitem.metadata.pid,
   key: eitem.metadata.pid,
-  title: eitem.metadata.document.title,
+  title: eitem.metadata.document.title.title,
   description: `Open access: ${eitem.metadata.open_access ? 'Yes' : 'No'}`,
   extra: `EItem #${eitem.metadata.pid}`,
   metadata: eitem.metadata,

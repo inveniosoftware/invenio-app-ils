@@ -34,7 +34,7 @@ describe('DocumentMetadata tests', () => {
       chapters: [],
       circulation: {},
       pid: '71',
-      document_types: ['BOOK'],
+      document_type: ['BOOK'],
       files: [],
       keyword_pids: ['24'],
       keywords: [],

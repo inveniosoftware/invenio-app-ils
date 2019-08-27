@@ -60,7 +60,7 @@ describe('Document query builder tests', () => {
       .query()
       .withDocumentType('BOOK')
       .qs();
-    expect(query).toEqual('document_types:"BOOK"');
+    expect(query).toEqual('document_type:"BOOK"');
   });
 
   it('should build the query string for documents with eitems', () => {

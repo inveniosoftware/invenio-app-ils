@@ -35,7 +35,7 @@ describe('Most loaned books actions', () => {
 
       store.dispatch(actions.fetchMostLoanedBooks()).then(() => {
         expect(mockFetchMostLoanedBooks).toHaveBeenCalledWith(
-          'circulation.active_loans:>0 AND document_types:"BOOK"&sort=-mostrecent'
+          'circulation.active_loans:>0 AND document_type:"BOOK"&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedActions[0]);
@@ -55,7 +55,7 @@ describe('Most loaned books actions', () => {
 
       store.dispatch(actions.fetchMostLoanedBooks()).then(() => {
         expect(mockFetchMostLoanedBooks).toHaveBeenCalledWith(
-          'circulation.active_loans:>0 AND document_types:"BOOK"&sort=-mostrecent'
+          'circulation.active_loans:>0 AND document_type:"BOOK"&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
@@ -75,7 +75,7 @@ describe('Most loaned books actions', () => {
 
       store.dispatch(actions.fetchMostLoanedBooks()).then(() => {
         expect(mockFetchMostLoanedBooks).toHaveBeenCalledWith(
-          'circulation.active_loans:>0 AND document_types:"BOOK"&sort=-mostrecent'
+          'circulation.active_loans:>0 AND document_type:"BOOK"&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
