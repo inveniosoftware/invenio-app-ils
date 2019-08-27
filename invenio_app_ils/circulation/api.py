@@ -9,13 +9,15 @@
 
 import uuid
 
+from dateutil import parser
 from invenio_circulation.api import Loan, patron_has_active_loan_on_item
 from invenio_circulation.pidstore.minters import loan_pid_minter
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
 
-from invenio_app_ils.errors import MissingRequiredParameterError, \
-    PatronHasLoanOnDocumentError, PatronHasLoanOnItemError
+from invenio_app_ils.errors import InvalidParameterError, \
+    MissingRequiredParameterError, PatronHasLoanOnDocumentError, \
+    PatronHasLoanOnItemError
 from invenio_app_ils.proxies import current_app_ils_extension
 from invenio_app_ils.records.api import Item
 
@@ -40,6 +42,17 @@ def request_loan(params):
         "document_pid": params["document_pid"],
         "patron_pid": params["patron_pid"],
     }
+
+    if "start_date" in params and params["start_date"] and \
+            "end_date" in params and params["end_date"]:
+        new_loan.update({"start_date": params["start_date"],
+                         "end_date": params["end_date"]})
+        start_date = parser.parse(new_loan["start_date"])
+        end_date = parser.parse(new_loan["end_date"])
+        if start_date > end_date:
+            raise InvalidParameterError(
+                description="Period of interest start "
+                            "date cannot be set before end date")
 
     pid = loan_pid_minter(record_uuid, data=new_loan)
     loan = Loan.create(data=new_loan, id_=record_uuid)

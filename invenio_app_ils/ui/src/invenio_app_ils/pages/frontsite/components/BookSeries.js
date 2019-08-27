@@ -22,13 +22,13 @@ export class BookSeries extends Component {
       <div>
         {this.renderSeries(
           this.props.relations.serial,
-          'Part of the following series:',
+          'Part of the series:',
           'SERIAL'
         )}
         <div className="ui hidden divider" />
         {this.renderSeries(
           this.props.relations.multipart_monograph,
-          'Part of the following multipart monograph:',
+          'Part of the multipart monograph:',
           'MULTIPART_MONOGRAPH'
         )}
       </div>

@@ -1,72 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render correctly 1`] = `
-<div
-  className="three wide column"
->
-  <div
-    className="row"
-  >
-    <h3
-      className="ui header"
-    >
-      Share and Export
-    </h3>
-    <div>
-      <a
-        className="ui facebook button"
-        href="https://www.facebook.com/sharer/sharer.php"
-        onClick={[Function]}
-        role="button"
-      >
-        <i
-          aria-hidden="true"
-          className="facebook icon"
-          onClick={[Function]}
-        />
-        Facebook
-      </a>
-      <div
-        className="ui hidden divider"
-      />
-      <a
-        className="ui twitter button"
-        href="https://twitter.com/intent/tweet"
-        onClick={[Function]}
-        role="button"
-      >
-        <i
-          aria-hidden="true"
-          className="twitter icon"
-          onClick={[Function]}
-        />
-        Twitter
-      </a>
-      <div
-        className="ui hidden divider"
-      />
-      <button
-        className="ui linkedin button"
-        onClick={[Function]}
-      >
-        <i
-          aria-hidden="true"
-          className="linkedin icon"
-          onClick={[Function]}
-        />
-        LinkedIn
-      </button>
-    </div>
-    <div
-      className="ui hidden divider"
-    />
-    <div
-      className="ui hidden divider"
-    />
-    <div
-      className="ui divider"
-    />
-  </div>
+Array [
   <div
     className="row"
   >
@@ -98,7 +33,7 @@ exports[`should render correctly 1`] = `
         </a>
       </div>
     </div>
-  </div>
+  </div>,
   <div
     className="row"
   >
@@ -130,77 +65,12 @@ exports[`should render correctly 1`] = `
         </a>
       </div>
     </div>
-  </div>
-</div>
+  </div>,
+]
 `;
 
 exports[`should render correctly when there are no files 1`] = `
-<div
-  className="three wide column"
->
-  <div
-    className="row"
-  >
-    <h3
-      className="ui header"
-    >
-      Share and Export
-    </h3>
-    <div>
-      <a
-        className="ui facebook button"
-        href="https://www.facebook.com/sharer/sharer.php"
-        onClick={[Function]}
-        role="button"
-      >
-        <i
-          aria-hidden="true"
-          className="facebook icon"
-          onClick={[Function]}
-        />
-        Facebook
-      </a>
-      <div
-        className="ui hidden divider"
-      />
-      <a
-        className="ui twitter button"
-        href="https://twitter.com/intent/tweet"
-        onClick={[Function]}
-        role="button"
-      >
-        <i
-          aria-hidden="true"
-          className="twitter icon"
-          onClick={[Function]}
-        />
-        Twitter
-      </a>
-      <div
-        className="ui hidden divider"
-      />
-      <button
-        className="ui linkedin button"
-        onClick={[Function]}
-      >
-        <i
-          aria-hidden="true"
-          className="linkedin icon"
-          onClick={[Function]}
-        />
-        LinkedIn
-      </button>
-    </div>
-    <div
-      className="ui hidden divider"
-    />
-    <div
-      className="ui hidden divider"
-    />
-    <div
-      className="ui divider"
-    />
-  </div>
+Array [
   <div
     className="row"
   >
@@ -232,83 +102,18 @@ exports[`should render correctly when there are no files 1`] = `
         </a>
       </div>
     </div>
-  </div>
+  </div>,
   <div
     className="row"
-  />
-</div>
+  />,
+]
 `;
 
 exports[`should render correctly when there are no links 1`] = `
-<div
-  className="three wide column"
->
+Array [
   <div
     className="row"
-  >
-    <h3
-      className="ui header"
-    >
-      Share and Export
-    </h3>
-    <div>
-      <a
-        className="ui facebook button"
-        href="https://www.facebook.com/sharer/sharer.php"
-        onClick={[Function]}
-        role="button"
-      >
-        <i
-          aria-hidden="true"
-          className="facebook icon"
-          onClick={[Function]}
-        />
-        Facebook
-      </a>
-      <div
-        className="ui hidden divider"
-      />
-      <a
-        className="ui twitter button"
-        href="https://twitter.com/intent/tweet"
-        onClick={[Function]}
-        role="button"
-      >
-        <i
-          aria-hidden="true"
-          className="twitter icon"
-          onClick={[Function]}
-        />
-        Twitter
-      </a>
-      <div
-        className="ui hidden divider"
-      />
-      <button
-        className="ui linkedin button"
-        onClick={[Function]}
-      >
-        <i
-          aria-hidden="true"
-          className="linkedin icon"
-          onClick={[Function]}
-        />
-        LinkedIn
-      </button>
-    </div>
-    <div
-      className="ui hidden divider"
-    />
-    <div
-      className="ui hidden divider"
-    />
-    <div
-      className="ui divider"
-    />
-  </div>
-  <div
-    className="row"
-  />
+  />,
   <div
     className="row"
   >
@@ -340,82 +145,17 @@ exports[`should render correctly when there are no links 1`] = `
         </a>
       </div>
     </div>
-  </div>
-</div>
+  </div>,
+]
 `;
 
 exports[`should render nothing when the book does not contain attachments 1`] = `
-<div
-  className="three wide column"
->
+Array [
   <div
     className="row"
-  >
-    <h3
-      className="ui header"
-    >
-      Share and Export
-    </h3>
-    <div>
-      <a
-        className="ui facebook button"
-        href="https://www.facebook.com/sharer/sharer.php"
-        onClick={[Function]}
-        role="button"
-      >
-        <i
-          aria-hidden="true"
-          className="facebook icon"
-          onClick={[Function]}
-        />
-        Facebook
-      </a>
-      <div
-        className="ui hidden divider"
-      />
-      <a
-        className="ui twitter button"
-        href="https://twitter.com/intent/tweet"
-        onClick={[Function]}
-        role="button"
-      >
-        <i
-          aria-hidden="true"
-          className="twitter icon"
-          onClick={[Function]}
-        />
-        Twitter
-      </a>
-      <div
-        className="ui hidden divider"
-      />
-      <button
-        className="ui linkedin button"
-        onClick={[Function]}
-      >
-        <i
-          aria-hidden="true"
-          className="linkedin icon"
-          onClick={[Function]}
-        />
-        LinkedIn
-      </button>
-    </div>
-    <div
-      className="ui hidden divider"
-    />
-    <div
-      className="ui hidden divider"
-    />
-    <div
-      className="ui divider"
-    />
-  </div>
+  />,
   <div
     className="row"
-  />
-  <div
-    className="row"
-  />
-</div>
+  />,
+]
 `;

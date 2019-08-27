@@ -6,7 +6,7 @@ exports[`should render correctly when book contains only both series types 1`] =
     <h4
       className="ui header"
     >
-      Part of the following series:
+      Part of the series:
     </h4>
     <div
       className="ui list"
@@ -41,7 +41,7 @@ exports[`should render correctly when the book contains only serials 1`] = `
     <h4
       className="ui header"
     >
-      Part of the following series:
+      Part of the series:
     </h4>
     <div
       className="ui list"

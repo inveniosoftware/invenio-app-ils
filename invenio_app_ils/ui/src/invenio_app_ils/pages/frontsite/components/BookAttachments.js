@@ -13,15 +13,7 @@ export class BookAttachments extends Component {
 
   render() {
     return (
-      <Grid.Column width={3}>
-        <Grid.Row>
-          <Header as="h3">Share and Export</Header>
-          <ShareButtons type={this.displayOption} />
-          <div className="ui hidden divider" />
-          <div className="ui hidden divider" />
-          <div className="ui divider" />
-        </Grid.Row>
-
+      <>
         <Grid.Row>
           {this.renderAttachments(get(this.documentData, 'files'), 'Files')}
         </Grid.Row>
@@ -29,7 +21,7 @@ export class BookAttachments extends Component {
         <Grid.Row>
           {this.renderAttachments(get(this.documentData, 'links'), 'Links')}
         </Grid.Row>
-      </Grid.Column>
+      </>
     );
   }
 

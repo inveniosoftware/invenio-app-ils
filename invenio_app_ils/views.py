@@ -189,6 +189,11 @@ def _get_loans_ui_config():
     ui_config["circulation"]["loanCompletedStates"] = current_app.config.get(
         "CIRCULATION_STATES_LOAN_COMPLETED", []
     )
+
+    ui_config["circulation"]["defaultDuration"] = current_app.config.get(
+        "CIRCULATION_POLICIES").get(
+        "checkout").get("duration_default")(None).days
+
     return ui_config
 
 
