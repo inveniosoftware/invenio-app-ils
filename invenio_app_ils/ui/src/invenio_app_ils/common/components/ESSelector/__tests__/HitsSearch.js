@@ -3,6 +3,12 @@ import { shallow, mount } from 'enzyme';
 import { HitsSearch } from '../HitsSearch';
 import { serializeKeyword } from '../serializer';
 
+jest.mock('../ESSelectorLoanRequest', () => {
+  return {
+    ESSelectorLoanRequest: () => null,
+  };
+});
+
 describe('HitsSearch tests', () => {
   const serializer = serializeKeyword;
 

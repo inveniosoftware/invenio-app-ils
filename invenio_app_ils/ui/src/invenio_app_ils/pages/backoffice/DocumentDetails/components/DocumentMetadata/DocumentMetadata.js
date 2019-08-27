@@ -25,7 +25,10 @@ import {
 } from '../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
-import { ESSelectorModal } from '../../../../../common/components/ESSelector';
+import {
+  ESSelectorLoanRequest,
+  ESSelectorModal,
+} from '../../../../../common/components/ESSelector';
 import {
   serializeKeyword,
   serializeAccessList,
@@ -55,9 +58,20 @@ export default class DocumentMetadata extends Component {
     this.props.updateDocument(this.documentPid, '/keyword_pids', keywordPids);
   };
 
-  requestLoan = results => {
-    const patronPid = results[0].metadata.id.toString();
-    this.props.requestLoanForDocument(this.documentPid, patronPid);
+  requestLoan = (results, dateFrom, dateTo, deliveryMethod) => {
+    const documentPid = this.props.document.metadata.pid;
+    const loanRequestData = {
+      metadata: {
+        start_date: dateFrom,
+        end_date: dateTo,
+        document_pid: documentPid,
+        patron_pid: results[0].metadata.id.toString(),
+        delivery: {
+          method: deliveryMethod,
+        },
+      },
+    };
+    this.props.requestLoanForDocument(documentPid, loanRequestData);
   };
 
   renderKeywords(keywords) {
@@ -283,7 +297,7 @@ export default class DocumentMetadata extends Component {
       <Segment className="document-metadata">
         <Grid padded columns={2}>
           {this.renderHeader(document)}
-          <ESSelectorModal
+          <ESSelectorLoanRequest
             trigger={this.requestLoanButton}
             query={patronApi.list}
             serializer={serializePatron}

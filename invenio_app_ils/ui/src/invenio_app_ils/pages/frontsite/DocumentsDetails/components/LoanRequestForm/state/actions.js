@@ -23,6 +23,7 @@ export const requestLoanForDocument = (docPid, loanData) => {
         {
           start_date: loanData.metadata.start_date,
           end_date: loanData.metadata.end_date,
+          delivery: loanData.metadata.delivery,
         }
       );
       dispatch(

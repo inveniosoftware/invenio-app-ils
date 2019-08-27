@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import ESSelectorComponent from './ESSelector';
 import ESSelectorModalComponent from './ESSelectorModal';
+import ESSelectorLoanRequestComponent from './ESSelectorLoanRequest';
 import {
   addMultiSelection,
   addSingleSelection,
@@ -26,3 +27,7 @@ export const ESSelectorModal = connect(
   mapStateToProps,
   mapDispatchToProps
 )(ESSelectorModalComponent);
+export const ESSelectorLoanRequest = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ESSelectorLoanRequestComponent);

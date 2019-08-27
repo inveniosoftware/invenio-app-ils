@@ -477,6 +477,313 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                     </DateRangePicker>
                   </div>
                 </SegmentGroup>
+                <FormField>
+                  <div
+                    className="field"
+                  >
+                    <label>
+                      Choose the book delivery method
+                    </label>
+                    <FormDropdown
+                      as={[Function]}
+                      control={[Function]}
+                      defaultValue="PICK UP"
+                      onChange={[Function]}
+                      options={
+                        Array [
+                          Object {
+                            "key": "DELIVERY",
+                            "text": "DELIVERY",
+                            "value": "DELIVERY",
+                          },
+                          Object {
+                            "key": "PICK UP",
+                            "text": "PICK UP",
+                            "value": "PICK UP",
+                          },
+                        ]
+                      }
+                      placeholder="Select delivery method"
+                      selection={true}
+                    >
+                      <FormField
+                        control={[Function]}
+                        defaultValue="PICK UP"
+                        onChange={[Function]}
+                        options={
+                          Array [
+                            Object {
+                              "key": "DELIVERY",
+                              "text": "DELIVERY",
+                              "value": "DELIVERY",
+                            },
+                            Object {
+                              "key": "PICK UP",
+                              "text": "PICK UP",
+                              "value": "PICK UP",
+                            },
+                          ]
+                        }
+                        placeholder="Select delivery method"
+                        selection={true}
+                      >
+                        <div
+                          className="field"
+                        >
+                          <Dropdown
+                            additionLabel="Add "
+                            additionPosition="top"
+                            closeOnBlur={true}
+                            closeOnEscape={true}
+                            deburr={false}
+                            defaultValue="PICK UP"
+                            icon="dropdown"
+                            minCharacters={1}
+                            noResultsMessage="No results found."
+                            onChange={[Function]}
+                            openOnFocus={true}
+                            options={
+                              Array [
+                                Object {
+                                  "key": "DELIVERY",
+                                  "text": "DELIVERY",
+                                  "value": "DELIVERY",
+                                },
+                                Object {
+                                  "key": "PICK UP",
+                                  "text": "PICK UP",
+                                  "value": "PICK UP",
+                                },
+                              ]
+                            }
+                            placeholder="Select delivery method"
+                            renderLabel={[Function]}
+                            searchInput="text"
+                            selectOnBlur={true}
+                            selectOnNavigation={true}
+                            selection={true}
+                            wrapSelection={true}
+                          >
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <div
+                                    aria-expanded="false"
+                                    class="ui selection dropdown"
+                                    role="listbox"
+                                    tabindex="0"
+                                  >
+                                    <div
+                                      aria-atomic="true"
+                                      aria-live="polite"
+                                      class="text"
+                                      role="alert"
+                                    >
+                                      PICK UP
+                                    </div>
+                                    <i
+                                      aria-hidden="true"
+                                      class="dropdown icon"
+                                    />
+                                    <div
+                                      class="menu transition"
+                                    >
+                                      <div
+                                        aria-checked="false"
+                                        aria-selected="false"
+                                        class="item"
+                                        role="option"
+                                        style="pointer-events: all;"
+                                      >
+                                        <span
+                                          class="text"
+                                        >
+                                          DELIVERY
+                                        </span>
+                                      </div>
+                                      <div
+                                        aria-checked="true"
+                                        aria-selected="true"
+                                        class="active selected item"
+                                        role="option"
+                                        style="pointer-events: all;"
+                                      >
+                                        <span
+                                          class="text"
+                                        >
+                                          PICK UP
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>,
+                                }
+                              }
+                            >
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <div
+                                      aria-expanded="false"
+                                      class="ui selection dropdown"
+                                      role="listbox"
+                                      tabindex="0"
+                                    >
+                                      <div
+                                        aria-atomic="true"
+                                        aria-live="polite"
+                                        class="text"
+                                        role="alert"
+                                      >
+                                        PICK UP
+                                      </div>
+                                      <i
+                                        aria-hidden="true"
+                                        class="dropdown icon"
+                                      />
+                                      <div
+                                        class="menu transition"
+                                      >
+                                        <div
+                                          aria-checked="false"
+                                          aria-selected="false"
+                                          class="item"
+                                          role="option"
+                                          style="pointer-events: all;"
+                                        >
+                                          <span
+                                            class="text"
+                                          >
+                                            DELIVERY
+                                          </span>
+                                        </div>
+                                        <div
+                                          aria-checked="true"
+                                          aria-selected="true"
+                                          class="active selected item"
+                                          role="option"
+                                          style="pointer-events: all;"
+                                        >
+                                          <span
+                                            class="text"
+                                          >
+                                            PICK UP
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>,
+                                  }
+                                }
+                              >
+                                <div
+                                  aria-expanded={false}
+                                  className="ui selection dropdown"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onMouseDown={[Function]}
+                                  role="listbox"
+                                  tabIndex={0}
+                                >
+                                  <div
+                                    aria-atomic={true}
+                                    aria-live="polite"
+                                    className="text"
+                                    role="alert"
+                                  >
+                                    PICK UP
+                                  </div>
+                                  <Icon
+                                    as="i"
+                                    className=""
+                                    name="dropdown"
+                                    onClick={[Function]}
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="dropdown icon"
+                                      onClick={[Function]}
+                                    />
+                                  </Icon>
+                                  <DropdownMenu>
+                                    <div
+                                      className="menu transition"
+                                    >
+                                      <DropdownItem
+                                        active={false}
+                                        key="DELIVERY"
+                                        onClick={[Function]}
+                                        selected={false}
+                                        style={
+                                          Object {
+                                            "pointerEvents": "all",
+                                          }
+                                        }
+                                        text="DELIVERY"
+                                        value="DELIVERY"
+                                      >
+                                        <div
+                                          aria-checked={false}
+                                          aria-selected={false}
+                                          className="item"
+                                          onClick={[Function]}
+                                          role="option"
+                                          style={
+                                            Object {
+                                              "pointerEvents": "all",
+                                            }
+                                          }
+                                        >
+                                          <span
+                                            className="text"
+                                          >
+                                            DELIVERY
+                                          </span>
+                                        </div>
+                                      </DropdownItem>
+                                      <DropdownItem
+                                        active={true}
+                                        key="PICK UP"
+                                        onClick={[Function]}
+                                        selected={true}
+                                        style={
+                                          Object {
+                                            "pointerEvents": "all",
+                                          }
+                                        }
+                                        text="PICK UP"
+                                        value="PICK UP"
+                                      >
+                                        <div
+                                          aria-checked={true}
+                                          aria-selected={true}
+                                          className="active selected item"
+                                          onClick={[Function]}
+                                          role="option"
+                                          style={
+                                            Object {
+                                              "pointerEvents": "all",
+                                            }
+                                          }
+                                        >
+                                          <span
+                                            className="text"
+                                          >
+                                            PICK UP
+                                          </span>
+                                        </div>
+                                      </DropdownItem>
+                                    </div>
+                                  </DropdownMenu>
+                                </div>
+                              </RefFindNode>
+                            </Ref>
+                          </Dropdown>
+                        </div>
+                      </FormField>
+                    </FormDropdown>
+                  </div>
+                </FormField>
                 <FormButton
                   as={[Function]}
                   control={[Function]}

@@ -22,6 +22,7 @@ export default class LoanRequestForm extends Component {
       toDate: props.defaultEndDate
         ? props.defaultEndDate
         : toShortDate(loanDuration),
+      deliveryMethod: this.deliveryMethods()[1].value,
     };
   }
 
@@ -42,6 +43,10 @@ export default class LoanRequestForm extends Component {
     this.setState({ [name]: value });
   };
 
+  handleDeliveryMethodChange = (event, object) => {
+    this.setState({ deliveryMethod: object.value });
+  };
+
   handleSubmit = () => {
     const documentPid = this.props.document.metadata.pid;
     const loanRequestData = {
@@ -50,14 +55,22 @@ export default class LoanRequestForm extends Component {
         end_date: toUTCShortDate(this.state.toDate),
         document_pid: documentPid,
         patron_pid: sessionManager.user.id,
+        delivery: {
+          method: this.state.deliveryMethod,
+        },
       },
     };
     this.props.requestLoanForDocument(documentPid, loanRequestData);
   };
 
+  deliveryMethods = () => {
+    return invenioConfig.circulation.deliveryMethods.map(method => {
+      return { key: method, value: method, text: method };
+    });
+  };
+
   render() {
     const { error } = this.props;
-
     return (
       <Error error={error}>
         <Form>
@@ -77,6 +90,16 @@ export default class LoanRequestForm extends Component {
                   handleDateChange={this.handleDateChange}
                 />
               </Segment.Group>
+              <Form.Field>
+                <label>Choose the book delivery method</label>
+                <Form.Dropdown
+                  placeholder={'Select delivery method'}
+                  options={this.deliveryMethods()}
+                  onChange={this.handleDeliveryMethodChange}
+                  defaultValue={this.deliveryMethods()[1].value}
+                  selection
+                />
+              </Form.Field>
               <Form.Button onClick={this.handleSubmit}>Request</Form.Button>
             </Segment>
           </Segment.Group>

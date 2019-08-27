@@ -10,6 +10,7 @@
 import uuid
 
 from dateutil import parser
+from flask import current_app
 from invenio_circulation.api import Loan, patron_has_active_loan_on_item
 from invenio_circulation.pidstore.minters import loan_pid_minter
 from invenio_circulation.proxies import current_circulation
@@ -35,6 +36,8 @@ def request_loan(params):
                                       document_pid=params["document_pid"]):
         raise PatronHasLoanOnDocumentError(params["patron_pid"],
                                            params["document_pid"])
+
+    _ensure_delivery_method_provided(params)
 
     # create a new loan
     record_uuid = uuid.uuid4()
@@ -63,6 +66,13 @@ def request_loan(params):
     )
 
     return pid, loan
+
+
+def _ensure_delivery_method_provided(params):
+    if current_app.config.get("CIRCULATION_DELIVERY_METHODS", []):
+        if "delivery" not in params:
+            raise MissingRequiredParameterError(
+                description="'delivery' is required on loan request")
 
 
 def _ensure_item_can_circulate(item_pid):

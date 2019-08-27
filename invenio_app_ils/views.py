@@ -209,6 +209,9 @@ def _get_loans_ui_config():
         "CIRCULATION_POLICIES").get(
         "checkout").get("duration_default")(None).days
 
+    ui_config["circulation"]["deliveryMethods"] = current_app.config.get(
+        "CIRCULATION_DELIVERY_METHODS")
+
     return ui_config
 
 
