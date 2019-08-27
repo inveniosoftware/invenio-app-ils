@@ -55,7 +55,10 @@ import {
   mostRecentBooksReducer,
   mostRecentEbooksReducer,
 } from './pages/frontsite/Home/reducer';
-import { documentsDetailsReducer } from './pages/frontsite/DocumentsDetails/reducer';
+import {
+  documentsDetailsReducer,
+  loanRequestFormReducer,
+} from './pages/frontsite/DocumentsDetails/reducer';
 
 const rootReducer = combineReducers({
   availableItems: availableItemsReducer,
@@ -77,6 +80,7 @@ const rootReducer = combineReducers({
   latestRenewedLoans: renewedLoansReducer,
   loanDetails: loanDetailsReducer,
   loansCard: loansCardReducer,
+  loanRequestForm: loanRequestFormReducer,
   locations: locationListReducer,
   mostLoanedBooks: mostLoanedBooksReducer,
   mostRecentBooks: mostRecentBooksReducer,

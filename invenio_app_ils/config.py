@@ -579,6 +579,8 @@ CIRCULATION_DOCUMENT_EXISTS = document_exists
 
 CIRCULATION_ITEM_LOCATION_RETRIEVER = get_location_pid_by_item_pid
 
+CIRCULATION_DELIVERY_METHODS = ['DELIVER', 'PICK UP']
+
 CIRCULATION_POLICIES = dict(
     checkout=dict(
         duration_default=circulation_default_loan_duration,

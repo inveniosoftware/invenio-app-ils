@@ -6,9 +6,6 @@ import {
   Responsive,
   Container,
   Label,
-  Button,
-  Popup,
-  Icon,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import DocumentTab from '../DocumentTab';
@@ -17,6 +14,9 @@ import { BookAttachments, ShareButtons } from '../../../components';
 import { BookInfo } from '../../../components/BookInfo';
 import { BookSeries } from '../../../components/BookSeries';
 import { EitemsButton } from '../../../components/EitemsButton';
+import { LoginRedirectButton } from '../../../../../authentication/components';
+import { LoanRequestForm } from '../LoanRequestForm';
+import { AuthenticationGuard } from '../../../../../authentication/components/AuthenticationGuard';
 
 export default class DocumentMetadata extends Component {
   constructor(props) {
@@ -24,26 +24,9 @@ export default class DocumentMetadata extends Component {
     this.document = props.documentsDetails;
   }
 
-  requestLoan = () => {
-    const documentPid = this.document.pid;
-    this.props.requestLoanForDocument(documentPid);
+  loginToLoan = () => {
+    return <LoginRedirectButton content={'Login to loan'} />;
   };
-
-  requestLoanButton = (
-    <Button
-      positive
-      size="small"
-      content="Request Loan"
-      onClick={this.requestLoan}
-    />
-  );
-
-  requestLoanPopup = (
-    <Popup
-      content="Request a loan on this document"
-      trigger={<Icon name="info circle" size="large" />}
-    />
-  );
 
   renderBookAvailabilityLabel = () => {
     const circulationData = this.document.metadata.circulation;
@@ -67,6 +50,10 @@ export default class DocumentMetadata extends Component {
     ) : null;
   };
 
+  renderLoanRequestForm = () => {
+    return <LoanRequestForm document={this.document} />;
+  };
+
   render() {
     const eitems = this.document.metadata.eitems.hits;
     const cover = 'https://assets.thalia.media/img/46276899-00-00.jpg';
@@ -81,18 +68,29 @@ export default class DocumentMetadata extends Component {
               <Grid.Column width={3}>
                 <Image src={cover} size="medium" />
                 <ShareButtons type="mobile" />
+                <Responsive as={Container} {...Responsive.onlyComputer}>
+                  <EitemsButton eitems={eitems} />
+                  <div className="ui hidden divider" />
+                  <BookSeries relations={this.document.metadata.relations} />
+                  <BookAttachments
+                    documentData={this.document.metadata}
+                    displayOption="desktop"
+                  />
+                </Responsive>
+
+                <Responsive as={Container} {...Responsive.onlyMobile}>
+                  <DocumentTab documentMetadata={this.document.metadata} />
+                  <BookAttachments
+                    documentData={this.document.metadata}
+                    displayOption="mobile"
+                  />
+                </Responsive>
               </Grid.Column>
 
               <Grid.Column width={13}>
                 <Grid.Row>
-                  <div className="ui hidden divider" />
                   <BookInfo documentMetadata={this.document.metadata} />
                   <div className="ui hidden divider" />
-                  <EitemsButton eitems={eitems} />
-                  {this.requestLoanButton}
-                  {this.requestLoanPopup}
-                  <div className="ui hidden divider" />
-                  <BookSeries relations={this.document.metadata.relations} />
                 </Grid.Row>
 
                 <Grid.Row>
@@ -100,30 +98,18 @@ export default class DocumentMetadata extends Component {
                   {this.renderBookAvailabilityLabel()}
                   <div className="ui hidden divider" />
                   {this.renderNextAvailableDateLabel()}
+                  <AuthenticationGuard
+                    authorizedComponent={this.renderLoanRequestForm}
+                    loginComponent={this.loginToLoan}
+                  />
+                </Grid.Row>
+
+                <div className="ui hidden divider" />
+                <Grid.Row>
+                  <DocumentTab documentMetadata={this.document.metadata} />
                 </Grid.Row>
               </Grid.Column>
             </Grid>
-          </Grid.Row>
-
-          <Grid.Row>
-            <Responsive as={Container} {...Responsive.onlyComputer}>
-              <Grid columns={2}>
-                <BookAttachments
-                  documentData={this.document.metadata}
-                  displayOption="desktop"
-                />
-
-                <DocumentTab documentMetadata={this.document.metadata} />
-              </Grid>
-            </Responsive>
-
-            <Responsive as={Container} {...Responsive.onlyMobile}>
-              <DocumentTab documentMetadata={this.document.metadata} />
-              <BookAttachments
-                documentData={this.document.metadata}
-                displayOption="mobile"
-              />
-            </Responsive>
           </Grid.Row>
         </Grid>
       </Segment>

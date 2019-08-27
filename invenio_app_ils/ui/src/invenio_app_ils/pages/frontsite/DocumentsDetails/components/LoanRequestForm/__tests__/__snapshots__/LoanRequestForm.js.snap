@@ -1,0 +1,538 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentMetadata tests should render the loan request form correctly 1`] = `
+<LoanRequestForm
+  defaultEndDate="2019-10-04"
+  defaultStartDate="2019-09-04"
+  document={
+    Object {
+      "created": "2019-07-08T10:44:02.366+02:00",
+      "id": 71,
+      "links": Object {
+        "self": "https://127.0.0.1:5000/api/documents/71",
+      },
+      "metadata": Object {
+        "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+        "_access": Object {},
+        "abstracts": Array [
+          Object {
+            "value": "This is an abstract",
+          },
+        ],
+        "authors": Array [
+          Object {
+            "full_name": "Jack E. Davis",
+          },
+        ],
+        "circulation": Object {},
+        "document_type": Array [
+          "BOOK",
+        ],
+        "edition": "ed. 1",
+        "eitems": Object {
+          "hits": Array [
+            Object {
+              "description": "Non ipsum",
+              "open_access": true,
+              "pid": "145",
+            },
+          ],
+          "total": 1,
+        },
+        "keyword_pids": Array [
+          "24",
+        ],
+        "keywords": Array [],
+        "language": Array [
+          "en",
+        ],
+        "pid": "71",
+        "relations": Object {},
+        "title": Object {
+          "title": "The Gulf: The Making of An American Sea",
+        },
+      },
+      "updated": "2019-07-08T10:44:18.354+02:00",
+    }
+  }
+  requestLoanForDocument={[MockFunction]}
+>
+  <Error>
+    <Form
+      as="form"
+    >
+      <form
+        className="ui form"
+        onSubmit={[Function]}
+      >
+        <SegmentGroup>
+          <div
+            className="ui segments"
+          >
+            <Segment>
+              <div
+                className="ui segment"
+              >
+                <Header
+                  as="h3"
+                  content="Request loan"
+                  subheader="Choose the period of interest for the book"
+                >
+                  <h3
+                    className="ui header"
+                  >
+                    Request loan
+                    <HeaderSubheader
+                      content="Choose the period of interest for the book"
+                    >
+                      <div
+                        className="sub header"
+                      >
+                        Choose the period of interest for the book
+                      </div>
+                    </HeaderSubheader>
+                  </h3>
+                </Header>
+              </div>
+            </Segment>
+            <Segment>
+              <div
+                className="ui segment"
+              >
+                <SegmentGroup
+                  horizontal={true}
+                >
+                  <div
+                    className="ui horizontal segments"
+                  >
+                    <DateRangePicker
+                      defaultEnd="2019-10-04"
+                      defaultStart="2019-09-04"
+                      handleDateChange={[Function]}
+                    >
+                      <Segment>
+                        <div
+                          className="ui segment"
+                        >
+                          <DateInput
+                            autoComplete="off"
+                            clearIcon={
+                              <Icon
+                                as="i"
+                                color="red"
+                                name="remove"
+                              />
+                            }
+                            clearable={true}
+                            closable={true}
+                            data-test="2019-09-04"
+                            dateFormat="YYYY-MM-DD"
+                            icon="calendar"
+                            iconPosition="left"
+                            inline={false}
+                            localization="en"
+                            maxDate="2019-10-04"
+                            name="fromDate"
+                            onChange={[Function]}
+                            placeholder="Start Date"
+                            preserveViewMode={true}
+                            startMode="day"
+                            value="2019-09-04"
+                          >
+                            <InputView
+                              animation="scale"
+                              autoComplete="off"
+                              clearIcon={
+                                <Icon
+                                  as="i"
+                                  color="red"
+                                  name="remove"
+                                />
+                              }
+                              clearable={true}
+                              closeOnMouseLeave={true}
+                              closePopup={[Function]}
+                              data-test="2019-09-04"
+                              duration={200}
+                              icon="calendar"
+                              iconPosition="left"
+                              inline={false}
+                              name="fromDate"
+                              onChange={[Function]}
+                              onFocus={[Function]}
+                              onMount={[Function]}
+                              openPopup={[Function]}
+                              placeholder="Start Date"
+                              popupIsClosed={true}
+                              renderPicker={[Function]}
+                              tabIndex="0"
+                              value="2019-09-04"
+                            >
+                              <FormInputWithRef
+                                autoComplete="off"
+                                clearIcon={
+                                  <Icon
+                                    as="i"
+                                    color="red"
+                                    name="remove"
+                                  />
+                                }
+                                clearable={true}
+                                data-test="2019-09-04"
+                                icon="calendar"
+                                iconPosition="left"
+                                innerRef={[Function]}
+                                name="fromDate"
+                                onBlur={[Function]}
+                                onChange={[Function]}
+                                onClear={[Function]}
+                                onFocus={[Function]}
+                                onMouseEnter={[Function]}
+                                placeholder="Start Date"
+                                tabIndex="0"
+                                value="2019-09-04"
+                              >
+                                <FormInput
+                                  as={[Function]}
+                                  autoComplete="off"
+                                  control={[Function]}
+                                  data-test="2019-09-04"
+                                  icon={true}
+                                  iconPosition="left"
+                                  name="fromDate"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onMouseEnter={[Function]}
+                                  placeholder="Start Date"
+                                  tabIndex="0"
+                                >
+                                  <FormField
+                                    autoComplete="off"
+                                    control={[Function]}
+                                    data-test="2019-09-04"
+                                    icon={true}
+                                    iconPosition="left"
+                                    name="fromDate"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    onClick={[Function]}
+                                    onFocus={[Function]}
+                                    onMouseEnter={[Function]}
+                                    placeholder="Start Date"
+                                    tabIndex="0"
+                                  >
+                                    <div
+                                      className="field"
+                                    >
+                                      <Input
+                                        autoComplete="off"
+                                        data-test="2019-09-04"
+                                        icon={true}
+                                        iconPosition="left"
+                                        name="fromDate"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        onClick={[Function]}
+                                        onFocus={[Function]}
+                                        onMouseEnter={[Function]}
+                                        placeholder="Start Date"
+                                        tabIndex="0"
+                                        type="text"
+                                      >
+                                        <div
+                                          className="ui left icon input"
+                                          data-test="2019-09-04"
+                                        >
+                                          <Icon
+                                            as="i"
+                                            color="red"
+                                            key=".0"
+                                            link={true}
+                                            name="remove"
+                                            onClick={[Function]}
+                                          >
+                                            <i
+                                              aria-hidden="true"
+                                              className="red remove link icon"
+                                              onClick={[Function]}
+                                            />
+                                          </Icon>
+                                          <input
+                                            autoComplete="off"
+                                            key=".1"
+                                            name="fromDate"
+                                            onBlur={[Function]}
+                                            onChange={[Function]}
+                                            onClick={[Function]}
+                                            onFocus={[Function]}
+                                            onMouseEnter={[Function]}
+                                            placeholder="Start Date"
+                                            tabIndex="0"
+                                            type="text"
+                                            value="2019-09-04"
+                                          />
+                                        </div>
+                                      </Input>
+                                    </div>
+                                  </FormField>
+                                </FormInput>
+                              </FormInputWithRef>
+                              <Transition
+                                animation="scale"
+                                duration={200}
+                                mountOnShow={true}
+                                onComplete={[Function]}
+                                transitionOnMount={false}
+                                unmountOnHide={true}
+                                visible={false}
+                              />
+                            </InputView>
+                          </DateInput>
+                        </div>
+                      </Segment>
+                      <Segment>
+                        <div
+                          className="ui segment"
+                        >
+                          <DateInput
+                            autoComplete="off"
+                            clearIcon={
+                              <Icon
+                                as="i"
+                                color="red"
+                                name="remove"
+                              />
+                            }
+                            clearable={true}
+                            closable={true}
+                            data-test="2019-10-04"
+                            dateFormat="YYYY-MM-DD"
+                            icon="calendar"
+                            iconPosition="left"
+                            inline={false}
+                            localization="en"
+                            minDate="2019-09-04"
+                            name="toDate"
+                            onChange={[Function]}
+                            placeholder="End Date"
+                            preserveViewMode={true}
+                            startMode="day"
+                            value="2019-10-04"
+                          >
+                            <InputView
+                              animation="scale"
+                              autoComplete="off"
+                              clearIcon={
+                                <Icon
+                                  as="i"
+                                  color="red"
+                                  name="remove"
+                                />
+                              }
+                              clearable={true}
+                              closeOnMouseLeave={true}
+                              closePopup={[Function]}
+                              data-test="2019-10-04"
+                              duration={200}
+                              icon="calendar"
+                              iconPosition="left"
+                              inline={false}
+                              name="toDate"
+                              onChange={[Function]}
+                              onFocus={[Function]}
+                              onMount={[Function]}
+                              openPopup={[Function]}
+                              placeholder="End Date"
+                              popupIsClosed={true}
+                              renderPicker={[Function]}
+                              tabIndex="0"
+                              value="2019-10-04"
+                            >
+                              <FormInputWithRef
+                                autoComplete="off"
+                                clearIcon={
+                                  <Icon
+                                    as="i"
+                                    color="red"
+                                    name="remove"
+                                  />
+                                }
+                                clearable={true}
+                                data-test="2019-10-04"
+                                icon="calendar"
+                                iconPosition="left"
+                                innerRef={[Function]}
+                                name="toDate"
+                                onBlur={[Function]}
+                                onChange={[Function]}
+                                onClear={[Function]}
+                                onFocus={[Function]}
+                                onMouseEnter={[Function]}
+                                placeholder="End Date"
+                                tabIndex="0"
+                                value="2019-10-04"
+                              >
+                                <FormInput
+                                  as={[Function]}
+                                  autoComplete="off"
+                                  control={[Function]}
+                                  data-test="2019-10-04"
+                                  icon={true}
+                                  iconPosition="left"
+                                  name="toDate"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onMouseEnter={[Function]}
+                                  placeholder="End Date"
+                                  tabIndex="0"
+                                >
+                                  <FormField
+                                    autoComplete="off"
+                                    control={[Function]}
+                                    data-test="2019-10-04"
+                                    icon={true}
+                                    iconPosition="left"
+                                    name="toDate"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    onClick={[Function]}
+                                    onFocus={[Function]}
+                                    onMouseEnter={[Function]}
+                                    placeholder="End Date"
+                                    tabIndex="0"
+                                  >
+                                    <div
+                                      className="field"
+                                    >
+                                      <Input
+                                        autoComplete="off"
+                                        data-test="2019-10-04"
+                                        icon={true}
+                                        iconPosition="left"
+                                        name="toDate"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        onClick={[Function]}
+                                        onFocus={[Function]}
+                                        onMouseEnter={[Function]}
+                                        placeholder="End Date"
+                                        tabIndex="0"
+                                        type="text"
+                                      >
+                                        <div
+                                          className="ui left icon input"
+                                          data-test="2019-10-04"
+                                        >
+                                          <Icon
+                                            as="i"
+                                            color="red"
+                                            key=".0"
+                                            link={true}
+                                            name="remove"
+                                            onClick={[Function]}
+                                          >
+                                            <i
+                                              aria-hidden="true"
+                                              className="red remove link icon"
+                                              onClick={[Function]}
+                                            />
+                                          </Icon>
+                                          <input
+                                            autoComplete="off"
+                                            key=".1"
+                                            name="toDate"
+                                            onBlur={[Function]}
+                                            onChange={[Function]}
+                                            onClick={[Function]}
+                                            onFocus={[Function]}
+                                            onMouseEnter={[Function]}
+                                            placeholder="End Date"
+                                            tabIndex="0"
+                                            type="text"
+                                            value="2019-10-04"
+                                          />
+                                        </div>
+                                      </Input>
+                                    </div>
+                                  </FormField>
+                                </FormInput>
+                              </FormInputWithRef>
+                              <Transition
+                                animation="scale"
+                                duration={200}
+                                mountOnShow={true}
+                                onComplete={[Function]}
+                                transitionOnMount={false}
+                                unmountOnHide={true}
+                                visible={false}
+                              />
+                            </InputView>
+                          </DateInput>
+                        </div>
+                      </Segment>
+                    </DateRangePicker>
+                  </div>
+                </SegmentGroup>
+                <FormButton
+                  as={[Function]}
+                  control={[Function]}
+                  onClick={[Function]}
+                >
+                  <FormField
+                    control={[Function]}
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="field"
+                    >
+                      <Button
+                        as="button"
+                        onClick={[Function]}
+                      >
+                        <Ref
+                          innerRef={
+                            Object {
+                              "current": <button
+                                class="ui button"
+                              >
+                                Request
+                              </button>,
+                            }
+                          }
+                        >
+                          <RefFindNode
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui button"
+                                >
+                                  Request
+                                </button>,
+                              }
+                            }
+                          >
+                            <button
+                              className="ui button"
+                              onClick={[Function]}
+                            >
+                              Request
+                            </button>
+                          </RefFindNode>
+                        </Ref>
+                      </Button>
+                    </div>
+                  </FormField>
+                </FormButton>
+              </div>
+            </Segment>
+          </div>
+        </SegmentGroup>
+      </form>
+    </Form>
+  </Error>
+</LoanRequestForm>
+`;

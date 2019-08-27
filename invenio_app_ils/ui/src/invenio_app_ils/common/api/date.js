@@ -30,3 +30,19 @@ export const toShortDateTime = date => {
 export const toShortDate = date => {
   return date.toFormat('yyyy-MM-dd');
 };
+
+/**
+ *  Serializes date for UTC date in short format used to
+ *  normalise dates for REST API
+ *  @param {DateTime} date luxon DateTime
+ *  @re
+ */
+export const toUTCShortDate = date => {
+  if (!(typeof date === 'string' || date instanceof DateTime)) {
+    throw Error('Wrong date type provided');
+  }
+  if (typeof date === 'string') {
+    date = fromISO(date);
+  }
+  return date.toUTC().toFormat('yyyy-MM-dd');
+};

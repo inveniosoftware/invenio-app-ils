@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import sumBy from 'lodash/sumBy';
 
 import './DocumentStats.scss';
+import { toUTCShortDate } from '../../../../../common/api/date';
 
 const DEFAULT_TITLE = 'for all time';
 
@@ -109,8 +110,8 @@ export default class DocumentStats extends Component {
     this.buildTitle();
     this.fetchDocumentStats({
       documentPid: document.pid,
-      fromDate: this.state.fromDate,
-      toDate: this.state.toDate,
+      fromDate: toUTCShortDate(this.state.fromDate),
+      toDate: toUTCShortDate(this.state.toDate),
     });
   };
 

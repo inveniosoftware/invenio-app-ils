@@ -19,30 +19,6 @@ const get = loanPid =>
 
 const getLoanReplaceItemUrl = loanPid => `${loanURL(loanPid)}/replace-item`;
 
-const requestLoanOnDocument = (
-  url,
-  docPid,
-  patronPid,
-  transactionUserPid,
-  transactionLocationPid,
-  params = {}
-) => {
-  const now = DateTime.local();
-  const payload = {
-    document_pid: docPid,
-    patron_pid: patronPid,
-    transaction_user_pid: transactionUserPid,
-    transaction_location_pid: transactionLocationPid,
-    transaction_date: toISO(now),
-    ...params,
-  };
-
-  return http.post(url, payload).then(response => {
-    response.data = serializer.fromJSON(response.data);
-    return response;
-  });
-};
-
 const postAction = (
   url,
   pid,
@@ -52,7 +28,7 @@ const postAction = (
   params = {}
 ) => {
   if (
-    !loan.metadata.hasOwnProperty('item_pid') ||
+    !loan.metadata.hasOwnProperty('item_pid') &&
     !loan.metadata.hasOwnProperty('document_pid')
   ) {
     throw new Error(
@@ -233,7 +209,6 @@ export const loan = {
   get: get,
   count: count,
   postAction: postAction,
-  requestLoanOnDocument: requestLoanOnDocument,
   serializer: serializer,
   url: ApiURLS.loans.list,
 };
