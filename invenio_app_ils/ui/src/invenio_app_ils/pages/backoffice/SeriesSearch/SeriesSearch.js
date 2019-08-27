@@ -10,6 +10,7 @@ import {
   Pagination,
   Count,
   Aggregator,
+  InvenioSearchApi,
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
 import {
@@ -26,6 +27,9 @@ import { goTo } from '../../../history';
 import './SeriesSearch.scss';
 
 export class SeriesSearch extends Component {
+  searchApi = new InvenioSearchApi({
+    url: `${apiConfig.baseURL}${seriesApi.url}`,
+  });
   searchConfig = getSearchConfig('series');
 
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
@@ -143,12 +147,7 @@ export class SeriesSearch extends Component {
 
   render() {
     return (
-      <ReactSearchKit
-        searchConfig={{
-          ...apiConfig,
-          url: seriesApi.url,
-        }}
-      >
+      <ReactSearchKit searchApi={this.searchApi}>
         <Container className="series-search-searchbar">
           <SearchBar renderElement={this.renderSearchBar} />
         </Container>

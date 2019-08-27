@@ -76,6 +76,7 @@ exports[`DocumentAccordion tests should render the document correctly 1`] = `
               <i
                 aria-hidden="true"
                 className="dropdown icon"
+                onClick={[Function]}
               />
             </Icon>
             Abstract
@@ -104,6 +105,7 @@ exports[`DocumentAccordion tests should render the document correctly 1`] = `
               <i
                 aria-hidden="true"
                 className="dropdown icon"
+                onClick={[Function]}
               />
             </Icon>
             Information
@@ -132,6 +134,7 @@ exports[`DocumentAccordion tests should render the document correctly 1`] = `
               <i
                 aria-hidden="true"
                 className="dropdown icon"
+                onClick={[Function]}
               />
             </Icon>
             Chapters

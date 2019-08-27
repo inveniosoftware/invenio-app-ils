@@ -1,20 +1,13 @@
 import React from 'react';
-import thunk from 'redux-thunk';
-import configureMockStore from 'redux-mock-store';
-import { Provider } from 'react-redux';
 import { shallow, mount } from 'enzyme';
-import { SeriesRelations } from '../';
+import SeriesRelations from '../SeriesRelations';
 import { Settings } from 'luxon';
-import { initialState } from '../state/reducer';
-import { initialState as seriesState } from '../../../state/reducer';
 import history from '../../../../../../history';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
-
 Settings.defaultZoneName = 'utc';
 jest.mock('../../../../../../common/config/invenioConfig');
+jest.mock('../../../../../../common/components/ESSelector');
 
 describe('Series relations tests', () => {
   let component;
@@ -24,15 +17,6 @@ describe('Series relations tests', () => {
     }
   });
 
-  let store;
-  beforeEach(() => {
-    store = mockStore({
-      seriesDetails: seriesState,
-      seriesRelations: initialState,
-    });
-    store.clearActions();
-  });
-
   it('should load the relations component', () => {
     const relations = {};
     const component = shallow(<SeriesRelations relations={relations} />);
@@ -40,8 +24,7 @@ describe('Series relations tests', () => {
   });
 
   it('should render tabs', () => {
-    seriesState.isLoading = false;
-    seriesState.data = {
+    const series = {
       id: '1',
       metadata: {
         pid: '1',
@@ -49,18 +32,14 @@ describe('Series relations tests', () => {
         relations: {},
       },
     };
-    const state = initialState;
-    state.isLoading = false;
-    store = mockStore({
-      seriesDetails: seriesState,
-      seriesRelations: state,
-      esSelector: { selections: [] },
-    });
+    const relations = {};
 
     component = mount(
-      <Provider store={store}>
-        <SeriesRelations />
-      </Provider>
+      <SeriesRelations
+        series={series}
+        relations={relations}
+        isLoading={false}
+      />
     );
 
     const buttons = component.find('ManageRelationsButton');
@@ -68,8 +47,14 @@ describe('Series relations tests', () => {
   });
 
   it('should render pagination for many rows', () => {
-    const state = initialState;
-    state.data = {
+    const series = {
+      id: '1',
+      metadata: {
+        pid: '1',
+        mode_of_issuance: 'MULTIPART_MONOGRAPH',
+      },
+    };
+    const relations = {
       edition: [
         {
           pid: '2',
@@ -81,26 +66,14 @@ describe('Series relations tests', () => {
         },
       ],
     };
-    state.isLoading = false;
-    seriesState.isLoading = false;
-    seriesState.data = {
-      id: '1',
-      metadata: {
-        pid: '1',
-        mode_of_issuance: 'MULTIPART_MONOGRAPH',
-        relations: state.data,
-      },
-    };
-    store = mockStore({
-      seriesDetails: seriesState,
-      seriesRelations: state,
-      esSelector: { selections: [] },
-    });
 
     component = mount(
-      <Provider store={store}>
-        <SeriesRelations showMaxRows={1} />
-      </Provider>
+      <SeriesRelations
+        series={series}
+        relations={relations}
+        isLoading={false}
+        showMaxRows={1}
+      />
     );
 
     const editionTable = component
@@ -116,9 +89,15 @@ describe('Series relations tests', () => {
     const mockedHistoryPush = jest.fn();
     history.push = mockedHistoryPush;
 
-    const state = initialState;
+    const series = {
+      id: '1',
+      metadata: {
+        pid: '1',
+        mode_of_issuance: 'MULTIPART_MONOGRAPH',
+      },
+    };
     const id = '2';
-    state.data = {
+    const relations = {
       edition: [
         {
           pid: id,
@@ -130,26 +109,14 @@ describe('Series relations tests', () => {
         },
       ],
     };
-    state.isLoading = false;
-    seriesState.isLoading = false;
-    seriesState.data = {
-      id: '1',
-      metadata: {
-        pid: '1',
-        mode_of_issuance: 'MULTIPART_MONOGRAPH',
-        relations: state.data,
-      },
-    };
-    store = mockStore({
-      seriesDetails: seriesState,
-      seriesRelations: state,
-      esSelector: { selections: [] },
-    });
 
     component = mount(
-      <Provider store={store}>
-        <SeriesRelations showMaxRows={1} />
-      </Provider>
+      <SeriesRelations
+        series={series}
+        relations={relations}
+        isLoading={false}
+        showMaxRows={1}
+      />
     );
 
     const button = component

@@ -1,20 +1,13 @@
 import React from 'react';
-import thunk from 'redux-thunk';
-import configureMockStore from 'redux-mock-store';
-import { Provider } from 'react-redux';
 import { shallow, mount } from 'enzyme';
-import { DocumentRelations } from '../';
+import DocumentRelations from '../DocumentRelations';
 import { Settings } from 'luxon';
-import { initialState } from '../state/reducer';
-import { initialState as docDetailsState } from '../../../state/reducer';
 import history from '../../../../../../history';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
-
 Settings.defaultZoneName = 'utc';
 jest.mock('../../../../../../common/config/invenioConfig');
+jest.mock('../../../../../../common/components/ESSelector');
 
 describe('Document relations tests', () => {
   let component;
@@ -24,15 +17,6 @@ describe('Document relations tests', () => {
     }
   });
 
-  let store;
-  beforeEach(() => {
-    store = mockStore({
-      documentDetails: docDetailsState,
-      documentRelations: initialState,
-    });
-    store.clearActions();
-  });
-
   it('should load the relations component', () => {
     const relations = {};
     const component = shallow(<DocumentRelations relations={relations} />);
@@ -40,20 +24,15 @@ describe('Document relations tests', () => {
   });
 
   it('should render tabs', () => {
-    const docState = docDetailsState;
-    docState.isLoading = false;
-    const state = initialState;
-    state.isLoading = false;
-    store = mockStore({
-      documentDetails: docState,
-      documentRelations: state,
-      esSelector: { selections: [] },
-    });
+    const document = {};
+    const relations = {};
 
     component = mount(
-      <Provider store={store}>
-        <DocumentRelations />
-      </Provider>
+      <DocumentRelations
+        document={document}
+        relations={relations}
+        isLoading={false}
+      />
     );
 
     const buttons = component.find('ManageRelationsButton');
@@ -61,10 +40,8 @@ describe('Document relations tests', () => {
   });
 
   it('should render pagination for many rows', () => {
-    const docState = docDetailsState;
-    docState.isLoading = false;
-    const state = initialState;
-    state.data = {
+    const document = {};
+    const relations = {
       edition: [
         {
           pid: '2',
@@ -76,17 +53,14 @@ describe('Document relations tests', () => {
         },
       ],
     };
-    state.isLoading = false;
-    store = mockStore({
-      documentDetails: docState,
-      documentRelations: state,
-      esSelector: { selections: [] },
-    });
 
     component = mount(
-      <Provider store={store}>
-        <DocumentRelations showMaxRows={1} />
-      </Provider>
+      <DocumentRelations
+        document={document}
+        relations={relations}
+        isLoading={false}
+        showMaxRows={1}
+      />
     );
 
     const editionTable = component
@@ -102,11 +76,9 @@ describe('Document relations tests', () => {
     const mockedHistoryPush = jest.fn();
     history.push = mockedHistoryPush;
 
-    const docState = docDetailsState;
-    docState.isLoading = false;
-    const state = initialState;
+    const document = {};
     const id = '2';
-    state.data = {
+    const relations = {
       edition: [
         {
           pid: id,
@@ -118,17 +90,14 @@ describe('Document relations tests', () => {
         },
       ],
     };
-    state.isLoading = false;
-    store = mockStore({
-      documentDetails: docState,
-      documentRelations: state,
-      esSelector: { selections: [] },
-    });
 
     component = mount(
-      <Provider store={store}>
-        <DocumentRelations showMaxRows={1} />
-      </Provider>
+      <DocumentRelations
+        document={document}
+        relations={relations}
+        isLoading={false}
+        showMaxRows={1}
+      />
     );
 
     const button = component

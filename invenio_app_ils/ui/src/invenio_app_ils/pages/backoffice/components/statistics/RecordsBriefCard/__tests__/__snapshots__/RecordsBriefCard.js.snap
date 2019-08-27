@@ -115,21 +115,54 @@ exports[`RecordsBriefCard tests should render with buttons 1`] = `
                     icon={true}
                     positive={true}
                   >
-                    <button
-                      className="ui fluid icon positive button"
-                      onClick={[Function]}
+                    <Ref
+                      innerRef={
+                        Object {
+                          "current": <button
+                            class="ui fluid icon positive button"
+                          >
+                            <i
+                              aria-hidden="true"
+                              class="plus icon"
+                            />
+                            New
+                          </button>,
+                        }
+                      }
                     >
-                      <Icon
-                        as="i"
-                        name="plus"
+                      <RefFindNode
+                        innerRef={
+                          Object {
+                            "current": <button
+                              class="ui fluid icon positive button"
+                            >
+                              <i
+                                aria-hidden="true"
+                                class="plus icon"
+                              />
+                              New
+                            </button>,
+                          }
+                        }
                       >
-                        <i
-                          aria-hidden="true"
-                          className="plus icon"
-                        />
-                      </Icon>
-                      New
-                    </button>
+                        <button
+                          className="ui fluid icon positive button"
+                          onClick={[Function]}
+                        >
+                          <Icon
+                            as="i"
+                            name="plus"
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="plus icon"
+                              onClick={[Function]}
+                            />
+                          </Icon>
+                          New
+                        </button>
+                      </RefFindNode>
+                    </Ref>
                   </Button>
                 </div>
               </GridColumn>
@@ -145,21 +178,54 @@ exports[`RecordsBriefCard tests should render with buttons 1`] = `
                     icon={true}
                     positive={true}
                   >
-                    <button
-                      className="ui fluid icon positive button"
-                      onClick={[Function]}
+                    <Ref
+                      innerRef={
+                        Object {
+                          "current": <button
+                            class="ui fluid icon positive button"
+                          >
+                            <i
+                              aria-hidden="true"
+                              class="plus icon"
+                            />
+                            New
+                          </button>,
+                        }
+                      }
                     >
-                      <Icon
-                        as="i"
-                        name="plus"
+                      <RefFindNode
+                        innerRef={
+                          Object {
+                            "current": <button
+                              class="ui fluid icon positive button"
+                            >
+                              <i
+                                aria-hidden="true"
+                                class="plus icon"
+                              />
+                              New
+                            </button>,
+                          }
+                        }
                       >
-                        <i
-                          aria-hidden="true"
-                          className="plus icon"
-                        />
-                      </Icon>
-                      New
-                    </button>
+                        <button
+                          className="ui fluid icon positive button"
+                          onClick={[Function]}
+                        >
+                          <Icon
+                            as="i"
+                            name="plus"
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="plus icon"
+                              onClick={[Function]}
+                            />
+                          </Icon>
+                          New
+                        </button>
+                      </RefFindNode>
+                    </Ref>
                   </Button>
                 </div>
               </GridColumn>

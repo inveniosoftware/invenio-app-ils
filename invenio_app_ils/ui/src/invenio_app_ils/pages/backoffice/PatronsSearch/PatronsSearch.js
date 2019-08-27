@@ -9,6 +9,7 @@ import {
   Error,
   Pagination,
   Count,
+  InvenioSearchApi,
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
 import { BackOfficeRoutes } from '../../../routes/urls';
@@ -17,7 +18,7 @@ import {
   SearchBar as PatronsSearchBar,
   ResultsSort,
 } from '../../../common/components';
-import { patron } from '../../../common/api';
+import { patron as patronApi } from '../../../common/api';
 import { getSearchConfig } from '../../../common/config';
 import { ClearButton } from '../components/buttons';
 import { ResultsList as PatronsResultsList } from './components';
@@ -25,6 +26,9 @@ import { goTo } from '../../../history';
 import './PatronsSearch.scss';
 
 export class PatronsSearch extends Component {
+  searchApi = new InvenioSearchApi({
+    url: `${apiConfig.baseURL}${patronApi.url}`,
+  });
   searchConfig = getSearchConfig('patrons');
 
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
@@ -110,12 +114,7 @@ export class PatronsSearch extends Component {
 
   render() {
     return (
-      <ReactSearchKit
-        searchConfig={{
-          ...apiConfig,
-          url: patron.url,
-        }}
-      >
+      <ReactSearchKit searchApi={this.searchApi}>
         <Container className="patrons-search-searchbar">
           <SearchBar renderElement={this.renderSearchBar} />
         </Container>

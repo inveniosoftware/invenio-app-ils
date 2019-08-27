@@ -22,6 +22,7 @@ exports[`should render correctly 1`] = `
         <i
           aria-hidden="true"
           className="facebook icon"
+          onClick={[Function]}
         />
         Facebook
       </a>
@@ -37,6 +38,7 @@ exports[`should render correctly 1`] = `
         <i
           aria-hidden="true"
           className="twitter icon"
+          onClick={[Function]}
         />
         Twitter
       </a>
@@ -50,6 +52,7 @@ exports[`should render correctly 1`] = `
         <i
           aria-hidden="true"
           className="linkedin icon"
+          onClick={[Function]}
         />
         LinkedIn
       </button>
@@ -153,6 +156,7 @@ exports[`should render correctly when there are no files 1`] = `
         <i
           aria-hidden="true"
           className="facebook icon"
+          onClick={[Function]}
         />
         Facebook
       </a>
@@ -168,6 +172,7 @@ exports[`should render correctly when there are no files 1`] = `
         <i
           aria-hidden="true"
           className="twitter icon"
+          onClick={[Function]}
         />
         Twitter
       </a>
@@ -181,6 +186,7 @@ exports[`should render correctly when there are no files 1`] = `
         <i
           aria-hidden="true"
           className="linkedin icon"
+          onClick={[Function]}
         />
         LinkedIn
       </button>
@@ -255,6 +261,7 @@ exports[`should render correctly when there are no links 1`] = `
         <i
           aria-hidden="true"
           className="facebook icon"
+          onClick={[Function]}
         />
         Facebook
       </a>
@@ -270,6 +277,7 @@ exports[`should render correctly when there are no links 1`] = `
         <i
           aria-hidden="true"
           className="twitter icon"
+          onClick={[Function]}
         />
         Twitter
       </a>
@@ -283,6 +291,7 @@ exports[`should render correctly when there are no links 1`] = `
         <i
           aria-hidden="true"
           className="linkedin icon"
+          onClick={[Function]}
         />
         LinkedIn
       </button>
@@ -357,6 +366,7 @@ exports[`should render nothing when the book does not contain attachments 1`] = 
         <i
           aria-hidden="true"
           className="facebook icon"
+          onClick={[Function]}
         />
         Facebook
       </a>
@@ -372,6 +382,7 @@ exports[`should render nothing when the book does not contain attachments 1`] = 
         <i
           aria-hidden="true"
           className="twitter icon"
+          onClick={[Function]}
         />
         Twitter
       </a>
@@ -385,6 +396,7 @@ exports[`should render nothing when the book does not contain attachments 1`] = 
         <i
           aria-hidden="true"
           className="linkedin icon"
+          onClick={[Function]}
         />
         LinkedIn
       </button>

@@ -176,12 +176,36 @@ exports[`PatronLoans tests should render items in search 1`] = `
                 content="Search"
                 onClick={[Function]}
               >
-                <button
-                  className="ui button"
-                  onClick={[Function]}
+                <Ref
+                  innerRef={
+                    Object {
+                      "current": <button
+                        class="ui button"
+                      >
+                        Search
+                      </button>,
+                    }
+                  }
                 >
-                  Search
-                </button>
+                  <RefFindNode
+                    innerRef={
+                      Object {
+                        "current": <button
+                          class="ui button"
+                        >
+                          Search
+                        </button>,
+                      }
+                    }
+                  >
+                    <button
+                      className="ui button"
+                      onClick={[Function]}
+                    >
+                      Search
+                    </button>
+                  </RefFindNode>
+                </Ref>
               </Button>
             </div>
           </Input>
@@ -555,12 +579,36 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                                 content="Checkout"
                                                 onClick={[Function]}
                                               >
-                                                <button
-                                                  className="ui button"
-                                                  onClick={[Function]}
+                                                <Ref
+                                                  innerRef={
+                                                    Object {
+                                                      "current": <button
+                                                        class="ui button"
+                                                      >
+                                                        Checkout
+                                                      </button>,
+                                                    }
+                                                  }
                                                 >
-                                                  Checkout
-                                                </button>
+                                                  <RefFindNode
+                                                    innerRef={
+                                                      Object {
+                                                        "current": <button
+                                                          class="ui button"
+                                                        >
+                                                          Checkout
+                                                        </button>,
+                                                      }
+                                                    }
+                                                  >
+                                                    <button
+                                                      className="ui button"
+                                                      onClick={[Function]}
+                                                    >
+                                                      Checkout
+                                                    </button>
+                                                  </RefFindNode>
+                                                </Ref>
                                               </Button>
                                             </td>
                                           </TableCell>

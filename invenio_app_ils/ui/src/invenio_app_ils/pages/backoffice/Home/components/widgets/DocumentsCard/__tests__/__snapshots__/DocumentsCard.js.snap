@@ -37,7 +37,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
       ],
       "results": Array [
         Object {
-          "isThrow": false,
+          "type": "return",
           "value": undefined,
         },
       ],
@@ -123,23 +123,60 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                             positive={true}
                             size="small"
                           >
-                            <button
-                              className="ui small fluid icon positive disabled left labeled button"
-                              disabled={true}
-                              onClick={[Function]}
-                              tabIndex={-1}
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui small fluid icon positive disabled left labeled button"
+                                    disabled=""
+                                    tabindex="-1"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="plus icon"
+                                    />
+                                    New
+                                  </button>,
+                                }
+                              }
                             >
-                              <Icon
-                                as="i"
-                                name="plus"
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui small fluid icon positive disabled left labeled button"
+                                      disabled=""
+                                      tabindex="-1"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        class="plus icon"
+                                      />
+                                      New
+                                    </button>,
+                                  }
+                                }
                               >
-                                <i
-                                  aria-hidden="true"
-                                  className="plus icon"
-                                />
-                              </Icon>
-                              New
-                            </button>
+                                <button
+                                  className="ui small fluid icon positive disabled left labeled button"
+                                  disabled={true}
+                                  onClick={[Function]}
+                                  tabIndex={-1}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="plus"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="plus icon"
+                                      onClick={[Function]}
+                                    />
+                                  </Icon>
+                                  New
+                                </button>
+                              </RefFindNode>
+                            </Ref>
                           </Button>
                         </NewButton>
                       </div>
@@ -162,14 +199,42 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                             onClick={[Function]}
                             size="small"
                           >
-                            <button
-                              className="ui small fluid disabled button"
-                              disabled={true}
-                              onClick={[Function]}
-                              tabIndex={-1}
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui small fluid disabled button"
+                                    disabled=""
+                                    tabindex="-1"
+                                  >
+                                    See all
+                                  </button>,
+                                }
+                              }
                             >
-                              See all
-                            </button>
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui small fluid disabled button"
+                                      disabled=""
+                                      tabindex="-1"
+                                    >
+                                      See all
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <button
+                                  className="ui small fluid disabled button"
+                                  disabled={true}
+                                  onClick={[Function]}
+                                  tabIndex={-1}
+                                >
+                                  See all
+                                </button>
+                              </RefFindNode>
+                            </Ref>
                           </Button>
                         </SeeAllButton>
                       </div>

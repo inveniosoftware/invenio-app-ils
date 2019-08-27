@@ -19,6 +19,7 @@ import {
   Pagination,
   Count,
   Aggregator,
+  InvenioSearchApi,
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
 import { getSearchConfig } from '../../../common/config';
@@ -34,6 +35,9 @@ import { goTo } from '../../../history';
 import './DocumentsSearch.scss';
 
 export class DocumentsSearch extends Component {
+  searchApi = new InvenioSearchApi({
+    url: `${apiConfig.baseURL}${documentApi.url}`,
+  });
   state = { activeIndex: 0 };
   searchConfig = getSearchConfig('documents');
 
@@ -173,12 +177,7 @@ export class DocumentsSearch extends Component {
 
   render() {
     return (
-      <ReactSearchKit
-        searchConfig={{
-          ...apiConfig,
-          url: documentApi.url,
-        }}
-      >
+      <ReactSearchKit searchApi={this.searchApi}>
         <Container className="documents-search-searchbar">
           <SearchBar renderElement={this.renderSearchBar} />
         </Container>
