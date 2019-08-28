@@ -38,7 +38,24 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
           "created": "2018-01-01T10:05:00.000Z",
           "id": 1,
           "metadata": Object {
-            "pid": "document1",
+            "abstracts": Array [
+              Object {
+                "value": "This is an abstract",
+              },
+            ],
+            "authors": Array [
+              Object {
+                "full_name": "Jack E. Davis",
+              },
+            ],
+            "edition": "ed. 1",
+            "language": Array [
+              "en",
+            ],
+            "pid": "docid-1",
+            "title": Object {
+              "title": "The Gulf: The Making of An American Sea",
+            },
           },
           "pid": "document1",
           "updated": "2018-01-01T10:05:00.000Z",
@@ -47,8 +64,23 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
           "created": "2018-01-01T10:05:00.000Z",
           "id": 2,
           "metadata": Object {
-            "document_pid": "doc1",
-            "pid": "document2",
+            "abstracts": Array [
+              Object {
+                "value": "This is an abstract",
+              },
+            ],
+            "authors": Array [
+              Object {
+                "full_name": "Caroline Fraser",
+              },
+            ],
+            "language": Array [
+              "it",
+            ],
+            "pid": "docid-2",
+            "title": Object {
+              "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
+            },
           },
           "pid": "document2",
           "updated": "2018-01-01T10:05:00.000Z",
@@ -75,11 +107,11 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
           Array [
             Object {
               "ID": "document1",
-              "Title": undefined,
+              "Title": "The Gulf: The Making of An American Sea",
             },
             Object {
               "ID": "document2",
-              "Title": undefined,
+              "Title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
             },
           ]
         }
@@ -245,11 +277,11 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                     Array [
                       Object {
                         "ID": "document1",
-                        "Title": undefined,
+                        "Title": "The Gulf: The Making of An American Sea",
                       },
                       Object {
                         "ID": "document2",
-                        "Title": undefined,
+                        "Title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
                       },
                     ]
                   }
@@ -324,7 +356,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                               className=""
                               data-test="Title-document1"
                             >
-                              -
+                              The Gulf: The Making of An American Sea
                             </td>
                           </TableCell>
                         </tr>
@@ -393,7 +425,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                               className=""
                               data-test="Title-document2"
                             >
-                              -
+                              Prairie Fires: The American Dreams of Laura Ingalls Wilder
                             </td>
                           </TableCell>
                         </tr>

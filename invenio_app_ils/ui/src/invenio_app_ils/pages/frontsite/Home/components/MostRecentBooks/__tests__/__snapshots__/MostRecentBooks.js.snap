@@ -13,7 +13,9 @@ exports[`MostRecentBooks tests should go to book details when clicking on a book
               "total": 0,
             },
             "pid": "doc1",
-            "title": "patron_1",
+            "title": Object {
+              "title": "patron_1",
+            },
           },
         },
         Object {
@@ -24,7 +26,9 @@ exports[`MostRecentBooks tests should go to book details when clicking on a book
               "total": 0,
             },
             "pid": "doc2",
-            "title": "patron_2",
+            "title": Object {
+              "title": "patron_2",
+            },
           },
         },
       ],
@@ -63,7 +67,7 @@ exports[`MostRecentBooks tests should go to book details when clicking on a book
             <BookCard
               bookData={
                 Object {
-                  "authors": "",
+                  "authors": Array [],
                   "eitems": Array [],
                   "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
                   "imageSize": "small",
@@ -121,7 +125,7 @@ exports[`MostRecentBooks tests should go to book details when clicking on a book
             <BookCard
               bookData={
                 Object {
-                  "authors": "",
+                  "authors": Array [],
                   "eitems": Array [],
                   "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
                   "imageSize": "small",
@@ -202,7 +206,7 @@ exports[`MostRecentBooks tests should load the most recent books component 1`] =
 </Loader>
 `;
 
-exports[`MostRecentBooks tests should render pending loans 1`] = `
+exports[`MostRecentBooks tests should render recent ebooks 1`] = `
 <MostRecentBooks
   data={
     Object {
@@ -215,7 +219,9 @@ exports[`MostRecentBooks tests should render pending loans 1`] = `
               "total": 0,
             },
             "pid": "doc1",
-            "title": "patron_1",
+            "title": Object {
+              "title": "patron_1",
+            },
           },
         },
         Object {
@@ -226,7 +232,9 @@ exports[`MostRecentBooks tests should render pending loans 1`] = `
               "total": 0,
             },
             "pid": "doc2",
-            "title": "patron_2",
+            "title": Object {
+              "title": "patron_2",
+            },
           },
         },
       ],
@@ -264,7 +272,7 @@ exports[`MostRecentBooks tests should render pending loans 1`] = `
             <BookCard
               bookData={
                 Object {
-                  "authors": "",
+                  "authors": Array [],
                   "eitems": Array [],
                   "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
                   "imageSize": "small",
@@ -322,7 +330,7 @@ exports[`MostRecentBooks tests should render pending loans 1`] = `
             <BookCard
               bookData={
                 Object {
-                  "authors": "",
+                  "authors": Array [],
                   "eitems": Array [],
                   "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
                   "imageSize": "small",
@@ -398,7 +406,9 @@ exports[`MostRecentBooks tests should render the see all button when showing mos
               "total": 0,
             },
             "pid": "doc1",
-            "title": "patron_1",
+            "title": Object {
+              "title": "patron_1",
+            },
           },
         },
         Object {
@@ -409,7 +419,9 @@ exports[`MostRecentBooks tests should render the see all button when showing mos
               "total": 0,
             },
             "pid": "doc2",
-            "title": "patron_2",
+            "title": Object {
+              "title": "patron_2",
+            },
           },
         },
       ],
@@ -448,7 +460,7 @@ exports[`MostRecentBooks tests should render the see all button when showing mos
             <BookCard
               bookData={
                 Object {
-                  "authors": "",
+                  "authors": Array [],
                   "eitems": Array [],
                   "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
                   "imageSize": "small",
@@ -506,7 +518,7 @@ exports[`MostRecentBooks tests should render the see all button when showing mos
             <BookCard
               bookData={
                 Object {
-                  "authors": "",
+                  "authors": Array [],
                   "eitems": Array [],
                   "imageCover": "https://assets.thalia.media/img/46276899-00-00.jpg",
                   "imageSize": "small",

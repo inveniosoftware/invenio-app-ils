@@ -42,7 +42,7 @@ describe('MostLoanedBooks tests', () => {
         {
           metadata: {
             pid: 'doc1',
-            title: 'patron_1',
+            title: { title: 'patron_1' },
             authors: [],
             eitems: { hits: [], total: 0 },
           },
@@ -50,7 +50,7 @@ describe('MostLoanedBooks tests', () => {
         {
           metadata: {
             pid: 'doc2',
-            title: 'patron_2',
+            title: { title: 'patron_2' },
             authors: [],
             eitems: { hits: [], total: 0 },
           },
@@ -82,7 +82,7 @@ describe('MostLoanedBooks tests', () => {
         {
           metadata: {
             pid: 'doc1',
-            title: 'patron_1',
+            title: { title: 'patron_1' },
             authors: [],
             eitems: { hits: [], total: 0 },
           },
@@ -90,7 +90,7 @@ describe('MostLoanedBooks tests', () => {
         {
           metadata: {
             pid: 'doc2',
-            title: 'patron_2',
+            title: { title: 'patron_2' },
             authors: [],
             eitems: { hits: [], total: 0 },
           },
@@ -122,7 +122,7 @@ describe('MostLoanedBooks tests', () => {
         {
           metadata: {
             pid: 'doc1',
-            title: 'patron_1',
+            title: { title: 'patron_1' },
             authors: [],
             eitems: { hits: [], total: 0 },
           },
@@ -130,7 +130,7 @@ describe('MostLoanedBooks tests', () => {
         {
           metadata: {
             pid: 'doc2',
-            title: 'patron_2',
+            title: { title: 'patron_2' },
             authors: [],
             eitems: { hits: [], total: 0 },
           },

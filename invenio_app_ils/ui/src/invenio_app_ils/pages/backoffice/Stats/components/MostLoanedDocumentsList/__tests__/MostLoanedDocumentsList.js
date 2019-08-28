@@ -6,6 +6,7 @@ import { fromISO } from '../../../../../../common/api/date';
 import history from '../../../../../../history';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { MemoryRouter } from 'react-router';
+import * as testData from '../../../../../../../../../../tests/data/documents.json';
 
 jest.mock('../../../../../../common/config/invenioConfig');
 
@@ -65,6 +66,7 @@ describe('MostLoanedDocumentsList tests', () => {
           created: stringDate,
           pid: 'doc1',
           metadata: {
+            ...testData[0],
             pid: 'doc1',
             loan_count: 1,
             extension_count: 1,
@@ -76,6 +78,7 @@ describe('MostLoanedDocumentsList tests', () => {
           created: stringDate,
           pid: 'doc2',
           metadata: {
+            ...testData[1],
             pid: 'doc2',
             loan_count: 1,
             extension_count: 1,
@@ -119,6 +122,7 @@ describe('MostLoanedDocumentsList tests', () => {
           created: stringDate,
           pid: 'doc1',
           metadata: {
+            ...testData[0],
             pid: 'doc1',
             loan_count: 1,
             extension_count: 1,

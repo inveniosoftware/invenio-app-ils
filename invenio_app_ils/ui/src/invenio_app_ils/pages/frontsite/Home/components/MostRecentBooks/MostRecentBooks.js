@@ -23,9 +23,7 @@ export default class MostRecentBooks extends Component {
       return {
         pid: document.metadata.pid,
         title: document.metadata.title.title,
-        authors: truncate(
-          document.metadata.authors.map(author => author.full_name)
-        ),
+        authors: document.metadata.authors.map(author => author.full_name),
         imageSize: 'small',
         imageCover: 'https://assets.thalia.media/img/46276899-00-00.jpg',
         eitems: document.metadata.eitems.hits,

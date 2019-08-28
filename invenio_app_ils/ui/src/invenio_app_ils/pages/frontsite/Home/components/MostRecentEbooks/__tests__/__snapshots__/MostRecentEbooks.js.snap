@@ -7,6 +7,17 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
       "hits": Array [
         Object {
           "metadata": Object {
+            "abstracts": Array [
+              Object {
+                "value": "This is an abstract",
+              },
+            ],
+            "authors": Array [
+              Object {
+                "full_name": "Jack E. Davis",
+              },
+            ],
+            "edition": "ed. 1",
             "eitems": Object {
               "hits": Array [
                 Object {
@@ -22,12 +33,27 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
               ],
               "total": 1,
             },
+            "language": Array [
+              "en",
+            ],
             "pid": "123",
-            "title": "Dolore",
+            "title": Object {
+              "title": "The Gulf: The Making of An American Sea",
+            },
           },
         },
         Object {
           "metadata": Object {
+            "abstracts": Array [
+              Object {
+                "value": "This is an abstract",
+              },
+            ],
+            "authors": Array [
+              Object {
+                "full_name": "Caroline Fraser",
+              },
+            ],
             "eitems": Object {
               "hits": Array [
                 Object {
@@ -43,8 +69,13 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
               ],
               "total": 1,
             },
+            "language": Array [
+              "it",
+            ],
             "pid": "456",
-            "title": "Ipsum",
+            "title": Object {
+              "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
+            },
           },
         },
       ],
@@ -90,7 +121,7 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
                   "onClick": [Function],
                   "open_access": true,
                   "pid": "eitem1",
-                  "title": "Dolore",
+                  "title": "The Gulf: The Making of An American Sea",
                 }
               }
               key="eitem1"
@@ -123,16 +154,9 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
                         <div
                           className="header"
                         >
-                          Dolore
+                          The Gulf: The Making of An American Sea
                         </div>
                       </CardHeader>
-                      <CardMeta>
-                        <div
-                          className="meta"
-                        >
-                          Lorem ipsum
-                        </div>
-                      </CardMeta>
                     </div>
                   </CardContent>
                 </a>
@@ -148,7 +172,7 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
                   "onClick": [Function],
                   "open_access": false,
                   "pid": "eitem2",
-                  "title": "Ipsum",
+                  "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
                 }
               }
               key="eitem2"
@@ -181,16 +205,9 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
                         <div
                           className="header"
                         >
-                          Ipsum
+                          Prairie Fires: The American Dreams of Laura Ingalls Wilder
                         </div>
                       </CardHeader>
-                      <CardMeta>
-                        <div
-                          className="meta"
-                        >
-                          Lorem ipsum
-                        </div>
-                      </CardMeta>
                     </div>
                   </CardContent>
                 </a>
@@ -222,13 +239,24 @@ exports[`MostRecentEbooks tests should load the most recent ebooks component 1`]
 </Loader>
 `;
 
-exports[`MostRecentEbooks tests should render pending loans 1`] = `
+exports[`MostRecentEbooks tests should render list of most recent ebooks 1`] = `
 <MostRecentEbooks
   data={
     Object {
       "hits": Array [
         Object {
           "metadata": Object {
+            "abstracts": Array [
+              Object {
+                "value": "This is an abstract",
+              },
+            ],
+            "authors": Array [
+              Object {
+                "full_name": "Jack E. Davis",
+              },
+            ],
+            "edition": "ed. 1",
             "eitems": Object {
               "hits": Array [
                 Object {
@@ -244,12 +272,27 @@ exports[`MostRecentEbooks tests should render pending loans 1`] = `
               ],
               "total": 1,
             },
+            "language": Array [
+              "en",
+            ],
             "pid": "123",
-            "title": "Dolore",
+            "title": Object {
+              "title": "The Gulf: The Making of An American Sea",
+            },
           },
         },
         Object {
           "metadata": Object {
+            "abstracts": Array [
+              Object {
+                "value": "This is an abstract",
+              },
+            ],
+            "authors": Array [
+              Object {
+                "full_name": "Caroline Fraser",
+              },
+            ],
             "eitems": Object {
               "hits": Array [
                 Object {
@@ -265,8 +308,13 @@ exports[`MostRecentEbooks tests should render pending loans 1`] = `
               ],
               "total": 1,
             },
+            "language": Array [
+              "it",
+            ],
             "pid": "456",
-            "title": "Ipsum",
+            "title": Object {
+              "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
+            },
           },
         },
       ],
@@ -311,7 +359,7 @@ exports[`MostRecentEbooks tests should render pending loans 1`] = `
                   "onClick": [Function],
                   "open_access": true,
                   "pid": "eitem1",
-                  "title": "Dolore",
+                  "title": "The Gulf: The Making of An American Sea",
                 }
               }
               key="eitem1"
@@ -344,16 +392,9 @@ exports[`MostRecentEbooks tests should render pending loans 1`] = `
                         <div
                           className="header"
                         >
-                          Dolore
+                          The Gulf: The Making of An American Sea
                         </div>
                       </CardHeader>
-                      <CardMeta>
-                        <div
-                          className="meta"
-                        >
-                          Lorem ipsum
-                        </div>
-                      </CardMeta>
                     </div>
                   </CardContent>
                 </a>
@@ -369,7 +410,7 @@ exports[`MostRecentEbooks tests should render pending loans 1`] = `
                   "onClick": [Function],
                   "open_access": false,
                   "pid": "eitem2",
-                  "title": "Ipsum",
+                  "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
                 }
               }
               key="eitem2"
@@ -402,16 +443,9 @@ exports[`MostRecentEbooks tests should render pending loans 1`] = `
                         <div
                           className="header"
                         >
-                          Ipsum
+                          Prairie Fires: The American Dreams of Laura Ingalls Wilder
                         </div>
                       </CardHeader>
-                      <CardMeta>
-                        <div
-                          className="meta"
-                        >
-                          Lorem ipsum
-                        </div>
-                      </CardMeta>
                     </div>
                   </CardContent>
                 </a>
@@ -432,6 +466,17 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
       "hits": Array [
         Object {
           "metadata": Object {
+            "abstracts": Array [
+              Object {
+                "value": "This is an abstract",
+              },
+            ],
+            "authors": Array [
+              Object {
+                "full_name": "Jack E. Davis",
+              },
+            ],
+            "edition": "ed. 1",
             "eitems": Object {
               "hits": Array [
                 Object {
@@ -447,12 +492,27 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
               ],
               "total": 1,
             },
+            "language": Array [
+              "en",
+            ],
             "pid": "123",
-            "title": "Dolore",
+            "title": Object {
+              "title": "The Gulf: The Making of An American Sea",
+            },
           },
         },
         Object {
           "metadata": Object {
+            "abstracts": Array [
+              Object {
+                "value": "This is an abstract",
+              },
+            ],
+            "authors": Array [
+              Object {
+                "full_name": "Caroline Fraser",
+              },
+            ],
             "eitems": Object {
               "hits": Array [
                 Object {
@@ -468,8 +528,13 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
               ],
               "total": 1,
             },
+            "language": Array [
+              "it",
+            ],
             "pid": "456",
-            "title": "Ipsum",
+            "title": Object {
+              "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
+            },
           },
         },
       ],
@@ -515,7 +580,7 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
                   "onClick": [Function],
                   "open_access": true,
                   "pid": "eitem1",
-                  "title": "Dolore",
+                  "title": "The Gulf: The Making of An American Sea",
                 }
               }
               key="eitem1"
@@ -548,16 +613,9 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
                         <div
                           className="header"
                         >
-                          Dolore
+                          The Gulf: The Making of An American Sea
                         </div>
                       </CardHeader>
-                      <CardMeta>
-                        <div
-                          className="meta"
-                        >
-                          Lorem ipsum
-                        </div>
-                      </CardMeta>
                     </div>
                   </CardContent>
                 </a>
@@ -573,7 +631,7 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
                   "onClick": [Function],
                   "open_access": false,
                   "pid": "eitem2",
-                  "title": "Ipsum",
+                  "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
                 }
               }
               key="eitem2"
@@ -606,16 +664,9 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
                         <div
                           className="header"
                         >
-                          Ipsum
+                          Prairie Fires: The American Dreams of Laura Ingalls Wilder
                         </div>
                       </CardHeader>
-                      <CardMeta>
-                        <div
-                          className="meta"
-                        >
-                          Lorem ipsum
-                        </div>
-                      </CardMeta>
                     </div>
                   </CardContent>
                 </a>

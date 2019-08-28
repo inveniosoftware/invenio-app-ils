@@ -26,7 +26,7 @@ const aggsMappings = {
     keywords: 'Keywords',
     languages: 'Languages',
     available_items: 'Available items',
-    moi: 'Series: Mode of Issuance',
+    relations: 'Relations',
   },
   items: {
     status: 'Status',

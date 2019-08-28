@@ -2,7 +2,6 @@ import * as testData from '../../../../../../../../../../tests/data/documents.js
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import DocumentMetadata from '../DocumentMetadata';
-import { invenioConfig } from '../../../../../../common/config';
 
 jest.mock('../../../../../../common/config/invenioConfig');
 
@@ -24,7 +23,7 @@ jest.mock('../../../../../../common/components/ESSelector', () => {
   };
 });
 
-describe('DocumentDetailsContainer tests', () => {
+describe('DocumentMetadata tests', () => {
   let component;
   afterEach(() => {
     if (component) {
@@ -37,11 +36,5 @@ describe('DocumentDetailsContainer tests', () => {
       <DocumentMetadata documentDetails={{ metadata: testData[0] }} />
     );
     expect(component).toMatchSnapshot();
-  });
-
-  it('should fetch document details on mount', () => {
-    component = mount(
-      <DocumentMetadata documentDetails={{ metadata: testData[0] }} />
-    );
   });
 });

@@ -12,16 +12,21 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
       "metadata": Object {
         "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
         "_access": Object {},
-        "abstracts": Array [],
-        "authors": Array [
-          "Est sit magnam quiquia.",
+        "abstracts": Array [
+          Object {
+            "value": "This is an abstract",
+          },
         ],
-        "booklinks": Array [],
-        "chapters": Array [],
+        "authors": Array [
+          Object {
+            "full_name": "Jack E. Davis",
+          },
+        ],
         "circulation": Object {},
         "document_type": Array [
           "BOOK",
         ],
+        "edition": "ed. 1",
         "eitems": Object {
           "hits": Array [
             Object {
@@ -32,23 +37,18 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
           ],
           "total": 1,
         },
-        "files": Array [],
         "keyword_pids": Array [
           "24",
         ],
         "keywords": Array [],
-        "languages": Array [
-          "el",
-          "ro",
-          "fr",
-          "it",
-          "es",
+        "language": Array [
+          "en",
         ],
         "pid": "71",
-        "publishers": Array [
-          "Quiquia amet consectetur velit.",
-        ],
         "relations": Object {},
+        "title": Object {
+          "title": "The Gulf: The Making of An American Sea",
+        },
       },
       "updated": "2019-07-08T10:44:18.354+02:00",
     }
@@ -189,16 +189,21 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                               Object {
                                 "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                                 "_access": Object {},
-                                "abstracts": Array [],
-                                "authors": Array [
-                                  "Est sit magnam quiquia.",
+                                "abstracts": Array [
+                                  Object {
+                                    "value": "This is an abstract",
+                                  },
                                 ],
-                                "booklinks": Array [],
-                                "chapters": Array [],
+                                "authors": Array [
+                                  Object {
+                                    "full_name": "Jack E. Davis",
+                                  },
+                                ],
                                 "circulation": Object {},
                                 "document_type": Array [
                                   "BOOK",
                                 ],
+                                "edition": "ed. 1",
                                 "eitems": Object {
                                   "hits": Array [
                                     Object {
@@ -209,23 +214,18 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                   ],
                                   "total": 1,
                                 },
-                                "files": Array [],
                                 "keyword_pids": Array [
                                   "24",
                                 ],
                                 "keywords": Array [],
-                                "languages": Array [
-                                  "el",
-                                  "ro",
-                                  "fr",
-                                  "it",
-                                  "es",
+                                "language": Array [
+                                  "en",
                                 ],
                                 "pid": "71",
-                                "publishers": Array [
-                                  "Quiquia amet consectetur velit.",
-                                ],
                                 "relations": Object {},
+                                "title": Object {
+                                  "title": "The Gulf: The Making of An American Sea",
+                                },
                               }
                             }
                           >
@@ -237,7 +237,9 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                               >
                                 <h2
                                   className="ui header"
-                                />
+                                >
+                                  The Gulf: The Making of An American Sea
+                                </h2>
                               </Header>
                               <List>
                                 <div
@@ -253,29 +255,9 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                       onClick={[Function]}
                                       role="listitem"
                                     >
-                                      Author:
-                                      Est sit magnam quiquia.
+                                      Author: 
+                                      Jack E. Davis
                                     </h4>
-                                  </ListItem>
-                                </div>
-                              </List>
-                              <List>
-                                <div
-                                  className="ui list"
-                                  role="list"
-                                >
-                                  <ListItem
-                                    as="h5"
-                                    key="Key0"
-                                  >
-                                    <h5
-                                      className="item"
-                                      onClick={[Function]}
-                                      role="listitem"
-                                    >
-                                      Publisher:
-                                      Quiquia amet consectetur velit.
-                                    </h5>
                                   </ListItem>
                                 </div>
                               </List>
@@ -453,16 +435,21 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                             Object {
                               "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                               "_access": Object {},
-                              "abstracts": Array [],
-                              "authors": Array [
-                                "Est sit magnam quiquia.",
+                              "abstracts": Array [
+                                Object {
+                                  "value": "This is an abstract",
+                                },
                               ],
-                              "booklinks": Array [],
-                              "chapters": Array [],
+                              "authors": Array [
+                                Object {
+                                  "full_name": "Jack E. Davis",
+                                },
+                              ],
                               "circulation": Object {},
                               "document_type": Array [
                                 "BOOK",
                               ],
+                              "edition": "ed. 1",
                               "eitems": Object {
                                 "hits": Array [
                                   Object {
@@ -473,23 +460,18 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                 ],
                                 "total": 1,
                               },
-                              "files": Array [],
                               "keyword_pids": Array [
                                 "24",
                               ],
                               "keywords": Array [],
-                              "languages": Array [
-                                "el",
-                                "ro",
-                                "fr",
-                                "it",
-                                "es",
+                              "language": Array [
+                                "en",
                               ],
                               "pid": "71",
-                              "publishers": Array [
-                                "Quiquia amet consectetur velit.",
-                              ],
                               "relations": Object {},
+                              "title": Object {
+                                "title": "The Gulf: The Making of An American Sea",
+                              },
                             }
                           }
                         >
@@ -625,16 +607,21 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                             Object {
                               "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                               "_access": Object {},
-                              "abstracts": Array [],
-                              "authors": Array [
-                                "Est sit magnam quiquia.",
+                              "abstracts": Array [
+                                Object {
+                                  "value": "This is an abstract",
+                                },
                               ],
-                              "booklinks": Array [],
-                              "chapters": Array [],
+                              "authors": Array [
+                                Object {
+                                  "full_name": "Jack E. Davis",
+                                },
+                              ],
                               "circulation": Object {},
                               "document_type": Array [
                                 "BOOK",
                               ],
+                              "edition": "ed. 1",
                               "eitems": Object {
                                 "hits": Array [
                                   Object {
@@ -645,23 +632,18 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                 ],
                                 "total": 1,
                               },
-                              "files": Array [],
                               "keyword_pids": Array [
                                 "24",
                               ],
                               "keywords": Array [],
-                              "languages": Array [
-                                "el",
-                                "ro",
-                                "fr",
-                                "it",
-                                "es",
+                              "language": Array [
+                                "en",
                               ],
                               "pid": "71",
-                              "publishers": Array [
-                                "Quiquia amet consectetur velit.",
-                              ],
                               "relations": Object {},
+                              "title": Object {
+                                "title": "The Gulf: The Making of An American Sea",
+                              },
                             }
                           }
                         >
@@ -681,16 +663,21 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                       Object {
                                         "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                                         "_access": Object {},
-                                        "abstracts": Array [],
-                                        "authors": Array [
-                                          "Est sit magnam quiquia.",
+                                        "abstracts": Array [
+                                          Object {
+                                            "value": "This is an abstract",
+                                          },
                                         ],
-                                        "booklinks": Array [],
-                                        "chapters": Array [],
+                                        "authors": Array [
+                                          Object {
+                                            "full_name": "Jack E. Davis",
+                                          },
+                                        ],
                                         "circulation": Object {},
                                         "document_type": Array [
                                           "BOOK",
                                         ],
+                                        "edition": "ed. 1",
                                         "eitems": Object {
                                           "hits": Array [
                                             Object {
@@ -701,23 +688,18 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                           ],
                                           "total": 1,
                                         },
-                                        "files": Array [],
                                         "keyword_pids": Array [
                                           "24",
                                         ],
                                         "keywords": Array [],
-                                        "languages": Array [
-                                          "el",
-                                          "ro",
-                                          "fr",
-                                          "it",
-                                          "es",
+                                        "language": Array [
+                                          "en",
                                         ],
                                         "pid": "71",
-                                        "publishers": Array [
-                                          "Quiquia amet consectetur velit.",
-                                        ],
                                         "relations": Object {},
+                                        "title": Object {
+                                          "title": "The Gulf: The Making of An American Sea",
+                                        },
                                       }
                                     }
                                     getWidth={[Function]}
@@ -728,16 +710,21 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                         Object {
                                           "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                                           "_access": Object {},
-                                          "abstracts": Array [],
-                                          "authors": Array [
-                                            "Est sit magnam quiquia.",
+                                          "abstracts": Array [
+                                            Object {
+                                              "value": "This is an abstract",
+                                            },
                                           ],
-                                          "booklinks": Array [],
-                                          "chapters": Array [],
+                                          "authors": Array [
+                                            Object {
+                                              "full_name": "Jack E. Davis",
+                                            },
+                                          ],
                                           "circulation": Object {},
                                           "document_type": Array [
                                             "BOOK",
                                           ],
+                                          "edition": "ed. 1",
                                           "eitems": Object {
                                             "hits": Array [
                                               Object {
@@ -748,23 +735,18 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                             ],
                                             "total": 1,
                                           },
-                                          "files": Array [],
                                           "keyword_pids": Array [
                                             "24",
                                           ],
                                           "keywords": Array [],
-                                          "languages": Array [
-                                            "el",
-                                            "ro",
-                                            "fr",
-                                            "it",
-                                            "es",
+                                          "language": Array [
+                                            "en",
                                           ],
                                           "pid": "71",
-                                          "publishers": Array [
-                                            "Quiquia amet consectetur velit.",
-                                          ],
                                           "relations": Object {},
+                                          "title": Object {
+                                            "title": "The Gulf: The Making of An American Sea",
+                                          },
                                         }
                                       }
                                     >
@@ -877,7 +859,13 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                               >
                                                 <div
                                                   className="ui bottom attached segment active tab"
-                                                />
+                                                >
+                                                  <p
+                                                    key="0"
+                                                  >
+                                                    This is an abstract
+                                                  </p>
+                                                </div>
                                               </Segment>
                                             </TabPane>
                                           </div>
@@ -891,16 +879,21 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                       Object {
                                         "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                                         "_access": Object {},
-                                        "abstracts": Array [],
-                                        "authors": Array [
-                                          "Est sit magnam quiquia.",
+                                        "abstracts": Array [
+                                          Object {
+                                            "value": "This is an abstract",
+                                          },
                                         ],
-                                        "booklinks": Array [],
-                                        "chapters": Array [],
+                                        "authors": Array [
+                                          Object {
+                                            "full_name": "Jack E. Davis",
+                                          },
+                                        ],
                                         "circulation": Object {},
                                         "document_type": Array [
                                           "BOOK",
                                         ],
+                                        "edition": "ed. 1",
                                         "eitems": Object {
                                           "hits": Array [
                                             Object {
@@ -911,23 +904,18 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                           ],
                                           "total": 1,
                                         },
-                                        "files": Array [],
                                         "keyword_pids": Array [
                                           "24",
                                         ],
                                         "keywords": Array [],
-                                        "languages": Array [
-                                          "el",
-                                          "ro",
-                                          "fr",
-                                          "it",
-                                          "es",
+                                        "language": Array [
+                                          "en",
                                         ],
                                         "pid": "71",
-                                        "publishers": Array [
-                                          "Quiquia amet consectetur velit.",
-                                        ],
                                         "relations": Object {},
+                                        "title": Object {
+                                          "title": "The Gulf: The Making of An American Sea",
+                                        },
                                       }
                                     }
                                     getWidth={[Function]}
