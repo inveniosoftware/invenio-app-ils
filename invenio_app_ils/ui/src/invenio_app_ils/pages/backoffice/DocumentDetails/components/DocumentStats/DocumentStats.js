@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { Grid, Icon, Form, Header, Segment, Table } from 'semantic-ui-react';
+import {
+  Form,
+  Grid,
+  Header,
+  Icon,
+  Popup,
+  Segment,
+  Table,
+} from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import { Loader, Error } from '../../../../../common/components';
 import PropTypes from 'prop-types';
@@ -28,8 +36,15 @@ export default class DocumentStats extends Component {
   }
 
   renderStats() {
-    const { isLoading, error, data } = this.props;
-    let renewalCount = sumBy(data.hits, loan => loan.metadata.extension_count);
+    const { isLoading, error, data, document } = this.props;
+    const renewalCount = sumBy(
+      data.hits,
+      loan => loan.metadata.extension_count
+    );
+    const pastLoans = data.total || 0;
+    const itemsCount = document.metadata.circulation.can_circulate_items_count;
+    const avgLoans = itemsCount ? (pastLoans / itemsCount).toFixed(1) : '-';
+
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
@@ -38,12 +53,23 @@ export default class DocumentStats extends Component {
               <Table.Row>
                 <Table.HeaderCell>past loans</Table.HeaderCell>
                 <Table.HeaderCell>renewals</Table.HeaderCell>
+                <Table.HeaderCell>
+                  average{' '}
+                  <Popup
+                    position="top right"
+                    content={`This average is computed with the number of past
+                    loans on the selected range of dates, and the current number
+                    of items (${itemsCount}) of the document.`}
+                    trigger={<Icon name="info circle" size="small" />}
+                  />
+                </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
               <Table.Row>
-                <Table.Cell>{data.total}</Table.Cell>
+                <Table.Cell>{pastLoans}</Table.Cell>
                 <Table.Cell>{renewalCount}</Table.Cell>
+                <Table.Cell data-test="cell-average">{avgLoans}</Table.Cell>
               </Table.Row>
             </Table.Body>
           </Table>

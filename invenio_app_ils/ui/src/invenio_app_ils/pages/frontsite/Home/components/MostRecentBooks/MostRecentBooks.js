@@ -4,7 +4,6 @@ import { Loader, Error } from '../../../../../common/components';
 import { FrontSiteRoutes } from '../../../../../routes/urls';
 import { Card, Button, Divider } from 'semantic-ui-react';
 import { BookCard } from '../BookCard';
-import { truncate } from 'lodash/string';
 import { goToHandler } from '../../../../../history';
 
 export default class MostRecentBooks extends Component {

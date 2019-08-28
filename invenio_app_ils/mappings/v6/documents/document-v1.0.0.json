@@ -313,7 +313,10 @@
             "has_items_for_loan": {
               "type": "integer"
             },
-            "number_of_past_loans": {
+            "past_loans_count": {
+              "type": "integer"
+            },
+            "can_circulate_items_count": {
               "type": "integer"
             },
             "overbooked": {

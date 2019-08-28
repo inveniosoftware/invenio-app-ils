@@ -48,7 +48,7 @@ function formatDocumentToTableView(document, volume = null) {
       serialized['Pending Requests'] =
         document.metadata.circulation.pending_loans;
       serialized['Past Loans Count'] =
-        document.metadata.circulation.number_of_past_loans;
+        document.metadata.circulation.past_loans_count;
     }
     if (volume) {
       serialized['Volume'] = volume;
