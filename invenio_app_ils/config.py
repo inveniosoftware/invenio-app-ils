@@ -791,13 +791,13 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(field="keywords.name", size=FACET_KEYWORD_LIMIT),
             ),
             languages=dict(
-                terms=dict(field="language")
+                terms=dict(field="languages")
             ),
-            document_types=dict(
-                terms=dict(field="document_types")
+            document_type=dict(
+                terms=dict(field="document_type")
             ),
-            moi=dict(
-                terms=dict(field="series.mode_of_issuance")
+            relations=dict(
+                terms=dict(field="relations")
             ),
             has_items=dict(
                 range=dict(
@@ -825,8 +825,8 @@ RECORDS_REST_FACETS = dict(
             ),
         ),
         filters=dict(
-            document_types=terms_filter("document_types"),
-            languages=terms_filter("language"),
+            document_type=terms_filter("document_type"),
+            languages=terms_filter("languages"),
             keywords=terms_filter("keywords.name"),
             has_items=keyed_range_filter(
                 "items.total",
@@ -848,7 +848,7 @@ RECORDS_REST_FACETS = dict(
             ),
         ),
         post_filters=dict(
-            moi=terms_filter("series.mode_of_issuance"),
+            relations=terms_filter("relations"),
         ),
     ),
     items=dict(  # ItemSearch.Meta.index
@@ -891,7 +891,7 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(field="mode_of_issuance")
             ),
             languages=dict(
-                terms=dict(field='language')
+                terms=dict(field='languages')
             ),
         ),
         filters=dict(

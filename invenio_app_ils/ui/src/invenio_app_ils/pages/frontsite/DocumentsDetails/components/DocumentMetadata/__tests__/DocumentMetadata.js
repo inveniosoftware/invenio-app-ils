@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import DocumentMetadata from '../DocumentMetadata';
+import * as testData from '../../../../../../../../../../tests/data/documents.json';
 
 describe('DocumentMetadata tests', () => {
   let component;
@@ -18,6 +19,13 @@ describe('DocumentMetadata tests', () => {
     metadata: {
       $schema: 'https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json',
       _access: {},
+      ...testData[0],
+      relations: {},
+      circulation: {},
+      pid: '71',
+      document_type: ['BOOK'],
+      keyword_pids: ['24'],
+      keywords: [],
       eitems: {
         total: 1,
         hits: [
@@ -28,19 +36,6 @@ describe('DocumentMetadata tests', () => {
           },
         ],
       },
-      abstracts: [],
-      authors: ['Est sit magnam quiquia.'],
-      booklinks: [],
-      chapters: [],
-      circulation: {},
-      pid: '71',
-      document_types: ['BOOK'],
-      files: [],
-      keyword_pids: ['24'],
-      keywords: [],
-      languages: ['el', 'ro', 'fr', 'it', 'es'],
-      publishers: ['Quiquia amet consectetur velit.'],
-      relations: {},
     },
   };
 

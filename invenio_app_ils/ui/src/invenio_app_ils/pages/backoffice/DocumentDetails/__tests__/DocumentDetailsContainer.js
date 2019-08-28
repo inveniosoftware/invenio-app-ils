@@ -37,7 +37,7 @@ describe('DocumentDetailsContainer tests', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('should fetch item details on mount', () => {
+  it('should fetch document details on mount', () => {
     const mockedFetchDocumentDetails = jest.fn();
     const mockDeleteDocument = jest.fn();
     component = mount(

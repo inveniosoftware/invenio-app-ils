@@ -17,9 +17,9 @@ describe('DocumentsSearch ResultsList tests', () => {
       updated: stringDate,
       pid: '3',
       metadata: {
-        authors: ['Author1'],
-        title: 'This is a title',
-        abstracts: 'This is an abstract',
+        authors: [{ full_name: 'Author1' }],
+        title: { title: 'This is a title' },
+        abstracts: [{ value: 'This is an abstract' }],
         pid: '3',
       },
     },
@@ -58,7 +58,9 @@ describe('DocumentsSearch ResultsList tests', () => {
       );
     expect(mappedStatusElements).toHaveLength(1);
 
-    expect(mappedStatusElements.text()).toEqual(firstResult.metadata.title);
+    expect(mappedStatusElements.text()).toEqual(
+      firstResult.metadata.title.title
+    );
   });
 
   it('should call click handler on view details click', () => {

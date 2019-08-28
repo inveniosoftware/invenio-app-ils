@@ -7,7 +7,7 @@ exports[`should render correctly 1`] = `
   <h2
     className="ui header"
   >
-    Lorem Ipsum
+    The Swiss years : writings, 1900-1909
   </h2>
   <div
     className="ui list"
@@ -19,7 +19,7 @@ exports[`should render correctly 1`] = `
       role="listitem"
     >
       Author: 
-      Isaac Asimov
+      Einstein, Albert
     </h4>
     <h4
       className="item"
@@ -27,21 +27,8 @@ exports[`should render correctly 1`] = `
       role="listitem"
     >
       Author: 
-      Stanislaw Lem
+      Stachel, John J et al.
     </h4>
-  </div>
-  <div
-    className="ui list"
-    role="list"
-  >
-    <h5
-      className="item"
-      onClick={[Function]}
-      role="listitem"
-    >
-      Publisher: 
-      Hachette
-    </h5>
   </div>
 </div>
 `;

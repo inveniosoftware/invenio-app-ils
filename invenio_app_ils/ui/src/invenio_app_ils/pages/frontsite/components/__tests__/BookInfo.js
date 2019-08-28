@@ -1,26 +1,23 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { BookInfo } from '../BookInfo';
+import * as testData from '../../../../../../../../tests/data/documents.json';
 
 it('should render correctly when there are no publishers', () => {
   const documentMetadata = {
-    title: 'Lorem Ipsum',
-    authors: ['Isaac Asimov', 'Stanislaw Lem'],
+    ...testData[0],
   };
 });
 
 it('should render correctly when there are no authors', () => {
   const documentMetadata = {
-    title: 'Lorem Ipsum',
-    publishers: ['Hachette'],
+    ...testData[0],
   };
 });
 
 it('should render correctly', () => {
   const documentMetadata = {
-    title: 'Lorem Ipsum',
-    authors: ['Isaac Asimov', 'Stanislaw Lem'],
-    publishers: ['Hachette'],
+    ...testData[9],
   };
   const tree = renderer
     .create(<BookInfo documentMetadata={documentMetadata} />)

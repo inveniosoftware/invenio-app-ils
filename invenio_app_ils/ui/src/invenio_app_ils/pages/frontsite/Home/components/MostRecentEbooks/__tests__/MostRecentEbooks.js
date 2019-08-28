@@ -4,6 +4,7 @@ import { Settings } from 'luxon';
 import { FrontSiteRoutes } from '../../../../../../routes/urls';
 import MostRecentEbooks from '../MostRecentEbooks';
 import history from '../../../../../../history';
+import * as testData from '../../../../../../../../../../tests/data/documents.json';
 
 Settings.defaultZoneName = 'utc';
 
@@ -19,8 +20,8 @@ describe('MostRecentEbooks tests', () => {
     hits: [
       {
         metadata: {
+          ...testData[0],
           pid: '123',
-          title: 'Dolore',
           eitems: {
             total: 1,
             hits: [
@@ -40,8 +41,8 @@ describe('MostRecentEbooks tests', () => {
       },
       {
         metadata: {
+          ...testData[1],
           pid: '456',
-          title: 'Ipsum',
           eitems: {
             total: 1,
             hits: [
@@ -84,7 +85,7 @@ describe('MostRecentEbooks tests', () => {
     expect(mockedFetchMostRecentEbooks).toHaveBeenCalled();
   });
 
-  it('should render pending loans', () => {
+  it('should render list of most recent ebooks', () => {
     component = mount(
       <MostRecentEbooks data={data} fetchMostRecentEbooks={() => {}} />
     );

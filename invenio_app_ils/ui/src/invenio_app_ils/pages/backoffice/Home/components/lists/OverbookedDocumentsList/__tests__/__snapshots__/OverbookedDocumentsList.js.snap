@@ -46,7 +46,9 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
               "has_items_for_loan": 2,
               "pending_loans": 1,
             },
-            "title": "X",
+            "title": Object {
+              "title": "X",
+            },
           },
           "pid": "doc1",
           "updated": "2018-01-01T10:05:00.000Z",
@@ -59,7 +61,9 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
             "authors": Array [
               "Author1",
             ],
-            "title": "X",
+            "title": Object {
+              "title": "X",
+            },
           },
           "pid": "doc2",
           "updated": "2018-01-01T10:05:00.000Z",

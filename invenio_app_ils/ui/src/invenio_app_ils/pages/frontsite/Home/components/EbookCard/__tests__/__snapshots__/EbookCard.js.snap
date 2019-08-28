@@ -45,11 +45,6 @@ exports[`EbookCard tests should render the document correctly 1`] = `
               Lorem
             </div>
           </CardHeader>
-          <CardMeta>
-            <div
-              className="meta"
-            />
-          </CardMeta>
         </div>
       </CardContent>
     </a>

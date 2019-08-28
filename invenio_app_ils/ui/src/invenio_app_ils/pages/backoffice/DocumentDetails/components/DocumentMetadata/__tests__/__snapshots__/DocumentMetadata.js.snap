@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentMetadata tests should load the details component 1`] = `
+<Segment
+  className="document-metadata"
+>
+  <Grid
+    columns={2}
+    padded={true}
+  >
+    <GridRow>
+      <GridColumn
+        verticalAlign="middle"
+        width={13}
+      >
+        <Header
+          as="h1"
+        >
+          Document #
+           - 
+          The Gulf: The Making of An American Sea
+        </Header>
+      </GridColumn>
+      <GridColumn
+        textAlign="right"
+        width={3}
+      >
+        <EditButton
+          clickHandler={[Function]}
+          disabled={false}
+          fluid={false}
+          text="Edit"
+        />
+        <DeleteRecordModal
+          deleteHeader="Are you sure you want to delete the Document
+            record with ID undefined?"
+          onDelete={[Function]}
+          refProps={
+            Array [
+              Object {
+                "getRefData": [Function],
+                "onRefClick": [Function],
+                "refType": "Loan",
+              },
+              Object {
+                "getRefData": [Function],
+                "onRefClick": [Function],
+                "refType": "Items",
+              },
+              Object {
+                "getRefData": [Function],
+                "onRefClick": [Function],
+                "refType": "Related",
+              },
+            ]
+          }
+        />
+      </GridColumn>
+    </GridRow>
+    <Component
+      content="Search for the patron to whom the loan should be assigned"
+      emptySelectionInfoText="No patrons selected yet"
+      onSave={[Function]}
+      query={[Function]}
+      saveButtonContent="Perform request"
+      selectionInfoText="The loan will be assigned to the following patron"
+      serializer={[Function]}
+      title="Request a loan for document undefined"
+      trigger={
+        <div>
+          <Button
+            as="button"
+            content="New Loan Request"
+            icon="add"
+            labelPosition="left"
+            positive={true}
+            size="small"
+          />
+          <Popup
+            content="Request a loan on this document on behalf of a patron"
+            keepInViewPort={true}
+            on="hover"
+            position="top left"
+            trigger={
+              <Icon
+                as="i"
+                name="info circle"
+                size="large"
+              />
+            }
+          />
+        </div>
+      }
+    />
+    <GridRow>
+      <GridColumn>
+        <MetadataTable
+          dataColumnWidth={12}
+          labelWidth={4}
+          rows={
+            Array [
+              Object {
+                "name": "Title",
+                "value": "The Gulf: The Making of An American Sea",
+              },
+              Object {
+                "name": "Authors",
+                "value": "Jack E. Davis",
+              },
+              Object {
+                "name": "Keywords",
+                "value": null,
+              },
+            ]
+          }
+        />
+        <Label
+          color="green"
+          content="Publicly Accessible"
+          icon="lock open"
+          size="large"
+        />
+        <Divider
+          hidden={true}
+        />
+        <Component
+          content="Search for patrons:"
+          emptySelectionInfoText="Document will be made public"
+          initialSelections={Array []}
+          multiple={true}
+          onSave={[Function]}
+          onSelectResult={[Function]}
+          query={[Function]}
+          saveButtonContent="Set access restrictions"
+          selectionInfoText="The patron(s) listed below will have read access:"
+          serializer={[Function]}
+          title="Modify access restrictions"
+          trigger={
+            <Button
+              as="button"
+              color="yellow"
+              content="Set Access Restrictions"
+              icon="privacy"
+            />
+          }
+        />
+      </GridColumn>
+      <GridColumn>
+        <Container>
+          <Header
+            as="h3"
+          >
+            Abstract
+          </Header>
+          <p>
+            This is an abstract
+          </p>
+        </Container>
+      </GridColumn>
+    </GridRow>
+  </Grid>
+</Segment>
+`;

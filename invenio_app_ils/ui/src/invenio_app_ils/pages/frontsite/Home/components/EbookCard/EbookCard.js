@@ -11,7 +11,6 @@ export default class EbookCard extends Component {
         <Image size={ebookData.imageSize} src={ebookData.imageCover} />
         <Card.Content>
           <Card.Header>{ebookData.title}</Card.Header>
-          <Card.Meta>{ebookData.description}</Card.Meta>
         </Card.Content>
       </Card>
     );

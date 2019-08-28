@@ -5,6 +5,7 @@ import { fromISO } from '../../../../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import PendingOverdueDocumentsList from '../PendingOverdueDocumentsList';
 import history from '../../../../../../../history';
+import * as testData from '../../../../../../../../../../../tests/data/documents.json';
 
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
@@ -62,7 +63,7 @@ describe('PendingOverdueDocumentsList tests', () => {
           created: stringDate,
           pid: 'document1',
           metadata: {
-            pid: 'document1',
+            ...testData[0],
           },
         },
         {
@@ -71,8 +72,7 @@ describe('PendingOverdueDocumentsList tests', () => {
           created: stringDate,
           pid: 'document2',
           metadata: {
-            pid: 'document2',
-            document_pid: 'doc1',
+            ...testData[1],
           },
         },
       ],
@@ -112,7 +112,7 @@ describe('PendingOverdueDocumentsList tests', () => {
           created: stringDate,
           pid: 'document1',
           metadata: {
-            pid: 'document1',
+            ...testData[0],
           },
         },
       ],

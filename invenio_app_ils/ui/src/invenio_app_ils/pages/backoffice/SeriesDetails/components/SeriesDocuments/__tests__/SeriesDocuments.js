@@ -5,6 +5,7 @@ import SeriesDocuments from '../SeriesDocuments';
 import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../common/api/date';
 import history from '../../../../../../history';
+import * as testData from '../../../../../../../../../../tests/data/documents.json';
 
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
@@ -76,10 +77,8 @@ describe('SeriesDocuments tests', () => {
           created: stringDate,
           pid: 'document1',
           metadata: {
+            ...testData[0],
             pid: 'document1',
-            internal_location: { location: { name: 'Somewhere' } },
-            barcode: '44444',
-            shelf: 'P',
           },
         },
         {
@@ -88,10 +87,8 @@ describe('SeriesDocuments tests', () => {
           created: stringDate,
           pid: 'document2',
           metadata: {
+            ...testData[1],
             pid: 'document2',
-            internal_location: { location: { name: 'Somewhere' } },
-            barcode: '44444',
-            shelf: 'P',
           },
         },
       ],
@@ -129,8 +126,8 @@ describe('SeriesDocuments tests', () => {
           updated: stringDate,
           created: stringDate,
           metadata: {
+            ...testData[0],
             pid: '1',
-            title: 'Test',
           },
         },
         {
@@ -138,8 +135,8 @@ describe('SeriesDocuments tests', () => {
           updated: stringDate,
           created: stringDate,
           metadata: {
+            ...testData[1],
             pid: '2',
-            title: 'Test 2',
           },
         },
       ],
@@ -172,8 +169,8 @@ describe('SeriesDocuments tests', () => {
           created: stringDate,
           pid: 'document1',
           metadata: {
+            ...testData[0],
             pid: 'document1',
-            title: 'Title',
             series_objs: [],
           },
         },

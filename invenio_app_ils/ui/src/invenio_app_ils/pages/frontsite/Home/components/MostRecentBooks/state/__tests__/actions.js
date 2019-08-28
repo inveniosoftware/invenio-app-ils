@@ -35,7 +35,7 @@ describe('Recently added books actions', () => {
 
       store.dispatch(actions.fetchMostRecentBooks()).then(() => {
         expect(mockFetchMostRecentBooks).toHaveBeenCalledWith(
-          'document_types:"BOOK"&sort=-mostrecent'
+          'document_type:"BOOK"&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedActions[0]);
@@ -55,7 +55,7 @@ describe('Recently added books actions', () => {
 
       store.dispatch(actions.fetchMostRecentBooks()).then(() => {
         expect(mockFetchMostRecentBooks).toHaveBeenCalledWith(
-          'document_types:"BOOK"&sort=-mostrecent'
+          'document_type:"BOOK"&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
@@ -75,7 +75,7 @@ describe('Recently added books actions', () => {
 
       store.dispatch(actions.fetchMostRecentBooks()).then(() => {
         expect(mockFetchMostRecentBooks).toHaveBeenCalledWith(
-          'document_types:"BOOK"&sort=-mostrecent'
+          'document_type:"BOOK"&sort=-mostrecent'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);

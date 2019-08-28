@@ -62,7 +62,7 @@ describe('OverbookedDocumentsList tests', () => {
           created: stringDate,
           pid: 'doc1',
           metadata: {
-            title: 'X',
+            title: { title: 'X' },
             authors: ['Author1'],
             abstracts: 'This is an abstract',
             circulation: {
@@ -77,7 +77,7 @@ describe('OverbookedDocumentsList tests', () => {
           created: stringDate,
           pid: 'doc2',
           metadata: {
-            title: 'X',
+            title: { title: 'X' },
             authors: ['Author1'],
             abstracts: 'This is an abstract',
           },
@@ -120,7 +120,7 @@ describe('OverbookedDocumentsList tests', () => {
           created: stringDate,
           pid: 'doc2',
           metadata: {
-            title: 'X',
+            title: { title: 'X' },
             authors: ['Author1'],
             abstracts: 'This is an abstract',
           },
