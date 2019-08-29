@@ -12,7 +12,7 @@ from invenio_circulation.proxies import current_circulation
 from invenio_records_rest.utils import obj_or_import_string
 from werkzeug.routing import Rule
 
-from invenio_app_ils.pidstore.pids import EITEM_PID_TYPE, ITEM_PID_TYPE
+from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
@@ -50,10 +50,11 @@ def jsonresolver_loader(url_map):
 
         circulation = {
             "active_loans": active_loans_count,
+            "can_circulate_items_count": items_count - unavailable_items_count,
             "has_items_for_loan": has_items_for_loan,
-            "number_of_past_loans": past_loans_count,
             "overbooked": pending_loans_count > has_items_for_loan,
             "overdue_loans": overdue_loans_count,
+            "past_loans_count": past_loans_count,
             "pending_loans": pending_loans_count,
         }
 

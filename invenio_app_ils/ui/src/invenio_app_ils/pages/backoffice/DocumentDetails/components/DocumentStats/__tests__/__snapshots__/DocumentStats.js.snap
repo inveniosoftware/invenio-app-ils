@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentStats tests should load the component 1`] = `
+<Segment
+  className="document-stats"
+>
+  <Header
+    as="h3"
+  >
+    Statistics 
+    <small>
+      for all time
+    </small>
+  </Header>
+  <Grid
+    columns={2}
+    divided={true}
+  >
+    <GridRow
+      stretched={true}
+    >
+      <GridColumn
+        floated="left"
+        width={4}
+      >
+        <Header
+          as="h4"
+          textAlign="left"
+        >
+          Filters
+        </Header>
+        <Form
+          as="form"
+        >
+          <FormField>
+            <DateInput
+              autoComplete="off"
+              clearIcon={
+                <Icon
+                  as="i"
+                  color="red"
+                  name="remove"
+                />
+              }
+              clearable={true}
+              closable={true}
+              dateFormat="YYYY-MM-DD"
+              icon="calendar"
+              iconPosition="left"
+              inline={false}
+              localization="en"
+              maxDate=""
+              name="fromDate"
+              onChange={[Function]}
+              placeholder="From Date"
+              preserveViewMode={true}
+              startMode="day"
+              value=""
+            />
+          </FormField>
+          <FormField>
+            <DateInput
+              autoComplete="off"
+              clearIcon={
+                <Icon
+                  as="i"
+                  color="red"
+                  name="remove"
+                />
+              }
+              clearable={true}
+              closable={true}
+              dateFormat="YYYY-MM-DD"
+              icon="calendar"
+              iconPosition="left"
+              inline={false}
+              localization="en"
+              minDate=""
+              name="toDate"
+              onChange={[Function]}
+              placeholder="To Date"
+              preserveViewMode={true}
+              startMode="day"
+              value=""
+            />
+          </FormField>
+          <FormButton
+            as={[Function]}
+            control={[Function]}
+            floated="right"
+            onClick={[Function]}
+          >
+            Submit
+          </FormButton>
+        </Form>
+      </GridColumn>
+      <GridColumn
+        floated="right"
+        textAlign="right"
+        width={12}
+      >
+        <Loader>
+          <Error>
+            <Table
+              as="table"
+              basic="very"
+              textAlign="right"
+            >
+              <TableHeader
+                as="thead"
+              >
+                <TableRow
+                  as="tr"
+                  cellAs="td"
+                >
+                  <TableHeaderCell
+                    as="th"
+                  >
+                    past loans
+                  </TableHeaderCell>
+                  <TableHeaderCell
+                    as="th"
+                  >
+                    renewals
+                  </TableHeaderCell>
+                  <TableHeaderCell
+                    as="th"
+                  >
+                    average
+                     
+                    <Popup
+                      content="This average is computed with the number of past
+                    loans on the selected range of dates, and the current number
+                    of items (1) of the document."
+                      keepInViewPort={true}
+                      on="hover"
+                      position="top right"
+                      trigger={
+                        <Icon
+                          as="i"
+                          name="info circle"
+                          size="small"
+                        />
+                      }
+                    />
+                  </TableHeaderCell>
+                </TableRow>
+              </TableHeader>
+              <TableBody
+                as="tbody"
+              >
+                <TableRow
+                  as="tr"
+                  cellAs="td"
+                >
+                  <TableCell
+                    as="td"
+                  >
+                    2
+                  </TableCell>
+                  <TableCell
+                    as="td"
+                  >
+                    4
+                  </TableCell>
+                  <TableCell
+                    as="td"
+                    data-test="cell-average"
+                  >
+                    2.0
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Error>
+        </Loader>
+      </GridColumn>
+    </GridRow>
+  </Grid>
+</Segment>
+`;

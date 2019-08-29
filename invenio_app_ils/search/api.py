@@ -66,9 +66,9 @@ class _ItemSearch(RecordsSearch):
             )
 
         if filter_states:
-            search = search.filter("terms", state=filter_states)
+            search = search.filter("terms", status=filter_states)
         elif exclude_states:
-            search = search.filter("terms", state=exclude_states)
+            search = search.exclude("terms", status=exclude_states)
 
         return search
 
@@ -92,9 +92,9 @@ class _ItemSearch(RecordsSearch):
             )
 
         if filter_states:
-            search = search.filter("terms", state=filter_states)
+            search = search.filter("terms", status=filter_states)
         elif exclude_states:
-            search = search.filter("terms", state=exclude_states)
+            search = search.exclude("terms", status=exclude_states)
 
         return search
 
@@ -160,7 +160,7 @@ class InternalLocationSearch(RecordsSearch):
         if filter_states:
             search = search.filter("terms", state=filter_states)
         elif exclude_states:
-            search = search.filter("terms", state=exclude_states)
+            search = search.exclude("terms", state=exclude_states)
 
         return search
 
@@ -219,6 +219,6 @@ class KeywordSearch(RecordsSearch):
         if filter_states:
             search = search.filter("terms", state=filter_states)
         elif exclude_states:
-            search = search.filter("terms", state=exclude_states)
+            search = search.exclude("terms", state=exclude_states)
 
         return search

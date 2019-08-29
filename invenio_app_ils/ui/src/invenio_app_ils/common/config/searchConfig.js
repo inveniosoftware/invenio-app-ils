@@ -38,7 +38,6 @@ const aggsMappings = {
   },
   series: {
     moi: 'Mode of Issuance',
-    languages: 'Languages',
   },
 };
 

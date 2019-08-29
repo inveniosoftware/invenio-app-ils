@@ -712,7 +712,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
             order=3
         ),
         mostloaned=dict(
-            fields=['circulation.number_of_past_loans'],
+            fields=['circulation.past_loans_count'],
             title='Most loaned',
             default_order='desc',
             order=4
@@ -890,12 +890,8 @@ RECORDS_REST_FACETS = dict(
             moi=dict(
                 terms=dict(field="mode_of_issuance")
             ),
-            languages=dict(
-                terms=dict(field='languages')
-            ),
         ),
         filters=dict(
-            languages=terms_filter('language'),
             keywords=terms_filter("keywords.name"),
         ),
         post_filters=dict(
