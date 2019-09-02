@@ -44,7 +44,7 @@ export default class Home extends Component {
               </Grid.Row>
               <Grid.Row>
                 <Grid.Column width={6}>
-                  <IdleLoansList />
+                  <OverdueLoansList />
                 </Grid.Column>
                 <Grid.Column width={6}>
                   <RenewedLoansList />
@@ -52,7 +52,7 @@ export default class Home extends Component {
               </Grid.Row>
               <Grid.Row>
                 <Grid.Column width={6}>
-                  <OverdueLoansList />
+                  <IdleLoansList />
                 </Grid.Column>
               </Grid.Row>
             </Grid>
