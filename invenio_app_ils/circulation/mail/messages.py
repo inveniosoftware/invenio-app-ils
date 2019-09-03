@@ -57,7 +57,8 @@ class LoanMessage(BlockTemplatedMessage):
         checkout="invenio_app_ils_mail/checkout.html",
         checkin="invenio_app_ils_mail/checkin.html",
         extend="invenio_app_ils_mail/extend.html",
-        cancel="invenio_app_ils_mail/cancel.html"
+        cancel="invenio_app_ils_mail/cancel.html",
+        overdue="invenio_app_ils_mail/overdue.html",
     )
 
     def __init__(self, prev_loan, loan, trigger, **kwargs):
