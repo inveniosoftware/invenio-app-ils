@@ -7,9 +7,15 @@
 
 """Circulation message loader."""
 
-from invenio_app_ils.circulation.mail.messages import LoanMessage
+from invenio_app_ils.circulation.mail.messages import LoanMessage, \
+    LoanOverdueMessage
 
 
 def loan_message_loader(prev_loan, loan, trigger, **kwargs):
     """Loan message loader."""
     return LoanMessage(prev_loan, loan, trigger, **kwargs)
+
+
+def loan_overdue_message_loader(loan, **kwargs):
+    """Loan overdue message loader."""
+    return LoanOverdueMessage(loan, **kwargs)

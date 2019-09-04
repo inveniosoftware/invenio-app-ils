@@ -12,6 +12,8 @@ from celery.utils.log import get_task_logger
 from flask import current_app
 from invenio_mail.tasks import send_email
 
+from .factory import loan_overdue_message_factory
+
 celery_logger = get_task_logger(__name__)
 
 
@@ -32,6 +34,21 @@ def send_ils_mail(factory, prev_loan, loan, trigger, **kwargs):
     :param trigger: Loan action trigger.
     """
     msg = factory(prev_loan, loan, trigger, **kwargs)
+    current_app.logger.debug("Attempting to send email '{}' to {}...".format(
+        msg.subject, ", ".join(msg.recipients)
+    ))
+    data = msg.__dict__
+    send_email.apply_async((data,), link=log_successful_mail.s(data))
+
+
+def send_overdue_email(loan, template, **kwargs):
+    """Send loan overdue email message async and log the result in Celery.
+
+    :param loan: the overdue loan.
+    :param template: template for the email to be send
+    """
+    factory = loan_overdue_message_factory()
+    msg = factory(loan, **kwargs)
     current_app.logger.debug("Attempting to send email '{}' to {}...".format(
         msg.subject, ", ".join(msg.recipients)
     ))

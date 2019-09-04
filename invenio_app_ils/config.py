@@ -166,6 +166,7 @@ LOAN_MAIL_TEMPLATES = {}
 # ===============
 #: Loan message loader
 LOAN_MSG_LOADER = "invenio_app_ils.circulation.mail.loader:loan_message_loader"
+LOAN_OVERDUE_MSG_LOADER = "invenio_app_ils.circulation.mail.loader:loan_overdue_message_loader"
 
 # Theme configuration
 # ===================

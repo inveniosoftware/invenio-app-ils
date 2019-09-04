@@ -219,6 +219,12 @@ const list = query => {
   });
 };
 
+const postEmail = async payload => {
+  const url = generatePath(ApiURLS.loans.email, { loanPid: payload.loanPid });
+  const response = await http.post(url, payload);
+  return response;
+};
+
 const count = query => {
   return http.get(`${ApiURLS.loans.list}?q=${query}`).then(response => {
     response.data = response.data.hits.total;
@@ -233,6 +239,7 @@ export const loan = {
   get: get,
   count: count,
   postAction: postAction,
+  postEmail: postEmail,
   requestLoanOnDocument: requestLoanOnDocument,
   serializer: serializer,
   url: ApiURLS.loans.list,

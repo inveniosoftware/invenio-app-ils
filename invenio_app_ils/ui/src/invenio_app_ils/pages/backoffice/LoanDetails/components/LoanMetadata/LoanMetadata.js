@@ -124,7 +124,7 @@ export default class LoanMetadata extends Component {
         </Grid.Column>
         <Grid.Column>
           <MetadataTable rows={rightRows} />
-          <SendMailModal />
+          <SendMailModal loan={data} />
         </Grid.Column>
       </Grid>
     );
