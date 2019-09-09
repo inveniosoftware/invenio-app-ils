@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2019 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -18,23 +18,24 @@ ils = WebpackBundle(
         'app_ils': './invenio_app_ils/index.js',
     },
     dependencies={
-        "axios": "^0.18.1",
-        "lodash": "^4.17.11",
-        "luxon": "^1.7.1",
-        "node-sass": "^4.10.0",
-        "prop-types": "^15.6.2",
-        "react": "^16.6.3",
-        "react-app-polyfill": "^0.1.3",
-        "react-dom": "^16.6.3",
-        "react-redux": "^5.1.0",
-        "react-router-dom": "^4.3.1",
-        "react-scripts": "2.1.1",
-        "react-searchkit": "0.4.0",
-        "redux": "^4.0.1",
+        "axios": "^0.19.0",
+        "lodash": "^4.17.15",
+        "luxon": "^1.17.2",
+        "node-sass": "^4.12.0",
+        "prop-types": "^15.7.2",
+        "qs": "^6.8.0",
+        "react": "^16.9.0",
+        "react-app-polyfill": "^1.0.2",
+        "react-dom": "^16.9.0",
+        "react-redux": "^7.1",
+        "react-router-dom": "^5.0.1",
+        "react-scripts": "3.1.1",
+        "react-searchkit": "^0.11.0",
+        "redux": "^4.0.4",
+        "redux-devtools-extension": "^2.13.8",
         "redux-thunk": "^2.3.0",
+        "semantic-ui-calendar-react": "^0.15.3",
         "semantic-ui-css": "^2.4.1",
-        "semantic-ui-react": "^0.83.0",
-        "semantic-ui-calendar-react": "^0.15.0",
-        "terser": "3.14.1"
+        "semantic-ui-react": "^0.88.0"
     }
 )
