@@ -40,6 +40,9 @@ exports[`OverdueLoansList tests should render loans 1`] = `
           "metadata": Object {
             "document_pid": "doc1",
             "end_date": "2018-01-01T10:05:00.000Z",
+            "item": Object {
+              "barcode": 123,
+            },
             "patron_pid": "patron_1",
             "pid": "loan1",
             "start_date": "2018-01-01T10:05:00.000Z",
@@ -53,6 +56,9 @@ exports[`OverdueLoansList tests should render loans 1`] = `
           "metadata": Object {
             "document_pid": "doc1",
             "end_date": "2018-01-01T10:05:00.000Z",
+            "item": Object {
+              "barcode": 123,
+            },
             "patron_pid": "patron_2",
             "pid": "loan2",
             "start_date": "2018-01-01T10:05:00.000Z",
@@ -81,15 +87,55 @@ exports[`OverdueLoansList tests should render loans 1`] = `
         rows={
           Array [
             Object {
+              "Actions": <SendMailModal
+                loan={
+                  Object {
+                    "created": "2018-01-01T10:05:00.000Z",
+                    "id": 1,
+                    "metadata": Object {
+                      "document_pid": "doc1",
+                      "end_date": "2018-01-01T10:05:00.000Z",
+                      "item": Object {
+                        "barcode": 123,
+                      },
+                      "patron_pid": "patron_1",
+                      "pid": "loan1",
+                      "start_date": "2018-01-01T10:05:00.000Z",
+                    },
+                    "pid": "loan1",
+                    "updated": "2018-01-01T10:05:00.000Z",
+                  }
+                }
+              />,
               "End date": "2018-01-01",
               "ID": "loan1",
-              "Item barcode": null,
+              "Item barcode": 123,
               "Patron ID": "patron_1",
             },
             Object {
+              "Actions": <SendMailModal
+                loan={
+                  Object {
+                    "created": "2018-01-01T10:05:00.000Z",
+                    "id": 2,
+                    "metadata": Object {
+                      "document_pid": "doc1",
+                      "end_date": "2018-01-01T10:05:00.000Z",
+                      "item": Object {
+                        "barcode": 123,
+                      },
+                      "patron_pid": "patron_2",
+                      "pid": "loan2",
+                      "start_date": "2018-01-01T10:05:00.000Z",
+                    },
+                    "pid": "loan2",
+                    "updated": "2018-01-01T10:05:00.000Z",
+                  }
+                }
+              />,
               "End date": "2018-01-01",
               "ID": "loan2",
-              "Item barcode": null,
+              "Item barcode": 123,
               "Patron ID": "patron_2",
             },
           ]
@@ -174,6 +220,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                       "Patron ID",
                       "Item barcode",
                       "End date",
+                      "Actions",
                     ]
                   }
                   withRowAction={true}
@@ -271,6 +318,21 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                               </th>
                             </TableCell>
                           </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Actions"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Actions
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
                         </tr>
                       </TableRow>
                     </thead>
@@ -283,21 +345,62 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                       "Patron ID",
                       "Item barcode",
                       "End date",
+                      "Actions",
                     ]
                   }
                   rowActionClickHandler={[Function]}
                   rows={
                     Array [
                       Object {
+                        "Actions": <SendMailModal
+                          loan={
+                            Object {
+                              "created": "2018-01-01T10:05:00.000Z",
+                              "id": 1,
+                              "metadata": Object {
+                                "document_pid": "doc1",
+                                "end_date": "2018-01-01T10:05:00.000Z",
+                                "item": Object {
+                                  "barcode": 123,
+                                },
+                                "patron_pid": "patron_1",
+                                "pid": "loan1",
+                                "start_date": "2018-01-01T10:05:00.000Z",
+                              },
+                              "pid": "loan1",
+                              "updated": "2018-01-01T10:05:00.000Z",
+                            }
+                          }
+                        />,
                         "End date": "2018-01-01",
                         "ID": "loan1",
-                        "Item barcode": null,
+                        "Item barcode": 123,
                         "Patron ID": "patron_1",
                       },
                       Object {
+                        "Actions": <SendMailModal
+                          loan={
+                            Object {
+                              "created": "2018-01-01T10:05:00.000Z",
+                              "id": 2,
+                              "metadata": Object {
+                                "document_pid": "doc1",
+                                "end_date": "2018-01-01T10:05:00.000Z",
+                                "item": Object {
+                                  "barcode": 123,
+                                },
+                                "patron_pid": "patron_2",
+                                "pid": "loan2",
+                                "start_date": "2018-01-01T10:05:00.000Z",
+                              },
+                              "pid": "loan2",
+                              "updated": "2018-01-01T10:05:00.000Z",
+                            }
+                          }
+                        />,
                         "End date": "2018-01-01",
                         "ID": "loan2",
-                        "Item barcode": null,
+                        "Item barcode": 123,
                         "Patron ID": "patron_2",
                       },
                     ]
@@ -418,7 +521,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                               className=""
                               data-test="Item barcode-loan1"
                             >
-                              -
+                              123
                             </td>
                           </TableCell>
                           <TableCell
@@ -431,6 +534,114 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                               data-test="End date-loan1"
                             >
                               2018-01-01
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Actions-loan1"
+                            key="4-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="Actions-loan1"
+                            >
+                              <SendMailModal
+                                loan={
+                                  Object {
+                                    "created": "2018-01-01T10:05:00.000Z",
+                                    "id": 1,
+                                    "metadata": Object {
+                                      "document_pid": "doc1",
+                                      "end_date": "2018-01-01T10:05:00.000Z",
+                                      "item": Object {
+                                        "barcode": 123,
+                                      },
+                                      "patron_pid": "patron_1",
+                                      "pid": "loan1",
+                                      "start_date": "2018-01-01T10:05:00.000Z",
+                                    },
+                                    "pid": "loan1",
+                                    "updated": "2018-01-01T10:05:00.000Z",
+                                  }
+                                }
+                              >
+                                <Modal
+                                  centered={true}
+                                  closeOnDimmerClick={true}
+                                  closeOnDocumentClick={false}
+                                  dimmer={true}
+                                  eventPool="Modal"
+                                  open={false}
+                                  trigger={
+                                    <SendMailButton
+                                      onClick={[Function]}
+                                    />
+                                  }
+                                >
+                                  <Portal
+                                    closeOnDocumentClick={false}
+                                    closeOnEscape={true}
+                                    eventPool="Modal"
+                                    mountNode={<body />}
+                                    onClose={[Function]}
+                                    onMount={[Function]}
+                                    onOpen={[Function]}
+                                    onUnmount={[Function]}
+                                    open={false}
+                                    openOnTriggerClick={true}
+                                    trigger={
+                                      <SendMailButton
+                                        onClick={[Function]}
+                                      />
+                                    }
+                                  >
+                                    <Ref
+                                      innerRef={[Function]}
+                                    >
+                                      <SendMailButton
+                                        onBlur={[Function]}
+                                        onClick={[Function]}
+                                        onFocus={[Function]}
+                                        onMouseEnter={[Function]}
+                                        onMouseLeave={[Function]}
+                                      >
+                                        <Button
+                                          as="button"
+                                          color="purple"
+                                          icon={true}
+                                          onBlur={[Function]}
+                                          onClick={[Function]}
+                                          onFocus={[Function]}
+                                          onMouseEnter={[Function]}
+                                          onMouseLeave={[Function]}
+                                          size="small"
+                                          title="Send a reminder email to the user of the loan"
+                                        >
+                                          <button
+                                            className="ui purple small icon button"
+                                            onBlur={[Function]}
+                                            onClick={[Function]}
+                                            onFocus={[Function]}
+                                            onMouseEnter={[Function]}
+                                            onMouseLeave={[Function]}
+                                            title="Send a reminder email to the user of the loan"
+                                          >
+                                            <Icon
+                                              as="i"
+                                              name="mail"
+                                            >
+                                              <i
+                                                aria-hidden="true"
+                                                className="mail icon"
+                                              />
+                                            </Icon>
+                                          </button>
+                                        </Button>
+                                      </SendMailButton>
+                                    </Ref>
+                                  </Portal>
+                                </Modal>
+                              </SendMailModal>
                             </td>
                           </TableCell>
                         </tr>
@@ -544,7 +755,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                               className=""
                               data-test="Item barcode-loan2"
                             >
-                              -
+                              123
                             </td>
                           </TableCell>
                           <TableCell
@@ -559,6 +770,114 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                               2018-01-01
                             </td>
                           </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Actions-loan2"
+                            key="4-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="Actions-loan2"
+                            >
+                              <SendMailModal
+                                loan={
+                                  Object {
+                                    "created": "2018-01-01T10:05:00.000Z",
+                                    "id": 2,
+                                    "metadata": Object {
+                                      "document_pid": "doc1",
+                                      "end_date": "2018-01-01T10:05:00.000Z",
+                                      "item": Object {
+                                        "barcode": 123,
+                                      },
+                                      "patron_pid": "patron_2",
+                                      "pid": "loan2",
+                                      "start_date": "2018-01-01T10:05:00.000Z",
+                                    },
+                                    "pid": "loan2",
+                                    "updated": "2018-01-01T10:05:00.000Z",
+                                  }
+                                }
+                              >
+                                <Modal
+                                  centered={true}
+                                  closeOnDimmerClick={true}
+                                  closeOnDocumentClick={false}
+                                  dimmer={true}
+                                  eventPool="Modal"
+                                  open={false}
+                                  trigger={
+                                    <SendMailButton
+                                      onClick={[Function]}
+                                    />
+                                  }
+                                >
+                                  <Portal
+                                    closeOnDocumentClick={false}
+                                    closeOnEscape={true}
+                                    eventPool="Modal"
+                                    mountNode={<body />}
+                                    onClose={[Function]}
+                                    onMount={[Function]}
+                                    onOpen={[Function]}
+                                    onUnmount={[Function]}
+                                    open={false}
+                                    openOnTriggerClick={true}
+                                    trigger={
+                                      <SendMailButton
+                                        onClick={[Function]}
+                                      />
+                                    }
+                                  >
+                                    <Ref
+                                      innerRef={[Function]}
+                                    >
+                                      <SendMailButton
+                                        onBlur={[Function]}
+                                        onClick={[Function]}
+                                        onFocus={[Function]}
+                                        onMouseEnter={[Function]}
+                                        onMouseLeave={[Function]}
+                                      >
+                                        <Button
+                                          as="button"
+                                          color="purple"
+                                          icon={true}
+                                          onBlur={[Function]}
+                                          onClick={[Function]}
+                                          onFocus={[Function]}
+                                          onMouseEnter={[Function]}
+                                          onMouseLeave={[Function]}
+                                          size="small"
+                                          title="Send a reminder email to the user of the loan"
+                                        >
+                                          <button
+                                            className="ui purple small icon button"
+                                            onBlur={[Function]}
+                                            onClick={[Function]}
+                                            onFocus={[Function]}
+                                            onMouseEnter={[Function]}
+                                            onMouseLeave={[Function]}
+                                            title="Send a reminder email to the user of the loan"
+                                          >
+                                            <Icon
+                                              as="i"
+                                              name="mail"
+                                            >
+                                              <i
+                                                aria-hidden="true"
+                                                className="mail icon"
+                                              />
+                                            </Icon>
+                                          </button>
+                                        </Button>
+                                      </SendMailButton>
+                                    </Ref>
+                                  </Portal>
+                                </Modal>
+                              </SendMailModal>
+                            </td>
+                          </TableCell>
                         </tr>
                       </TableRow>
                     </tbody>
@@ -566,7 +885,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={4}
+                  columnsNumber={5}
                   currentPage={1}
                   paginationComponent={null}
                   seeAllComponent={
