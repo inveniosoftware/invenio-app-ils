@@ -155,7 +155,7 @@ class InternalLocationGenerator(Generator):
             "notes": lorem.sentence(),
             "physical_location": lorem.sentence(),
             "location_pid": location_pid_value
-        } for pid in range(1, size+1)]
+        } for pid in range(1, size + 1)]
 
         self.holder.internal_locations['objs'] = objs
 
@@ -183,7 +183,7 @@ class KeywordGenerator(Generator):
             "pid": str(pid),
             "name": lorem.sentence().split()[0],
             "provenance": lorem.sentence(),
-        } for pid in range(1, size+1)]
+        } for pid in range(1, size + 1)]
 
         self.holder.keywords['objs'] = objs
 
@@ -226,7 +226,7 @@ class ItemGenerator(Generator):
             "medium": random.choice(self.ITEM_MEDIUMS),
             "status": random.choice(self.ITEM_STATUSES),
             "circulation_restriction": random.choice(self.ITEM_CIRCULATION_RESTRICTIONS),
-        } for pid in range(1, size+1)]
+        } for pid in range(1, size + 1)]
 
         self.holder.items['objs'] = objs
 
@@ -260,7 +260,7 @@ class EItemGenerator(Generator):
             "urls": ["https://home.cern/science/physics/dark-matter",
                      "https://home.cern/science/physics/antimatter"],
             "open_access": bool(random.getrandbits(1))
-        } for pid in range(1, size+1)]
+        } for pid in range(1, size + 1)]
 
         self.holder.eitems['objs'] = objs
 
@@ -304,7 +304,7 @@ class DocumentGenerator(Generator):
             "notes": [{'value': "{}".format(lorem.text())}],
             "keyword_pids": random.sample(keyword_pids, randint(0, 5)),
             "edition": str(pid),
-        } for pid in range(1, size+1)]
+        } for pid in range(1, size + 1)]
 
         self.holder.documents['objs'] = objs
 
@@ -352,9 +352,9 @@ class LoanGenerator(Generator):
         librarian_pid = self.holder.librarian_pid
         doc_pids = self.holder.pids('documents', "pid")
 
-        current_year = datetime.now().year
+        current_year = datetime.utcnow().year
         items_on_loans = []
-        for pid in range(1, size+1):
+        for pid in range(1, size + 1):
             item = self._get_item_can_circulate(items)
             status = self._get_valid_status(item, items_on_loans)
             patron_id = random.choice(patrons_pids)
@@ -371,11 +371,11 @@ class LoanGenerator(Generator):
                 "extension_count": randint(0, 3),
                 "patron_pid": "{}".format(patron_id),
                 "pickup_location_pid": "{}".format(loc_pid),
-                "request_expire_date": expire_date.strftime("%Y-%m-%d"),
+                "request_expire_date": expire_date.isoformat(),
                 "state": "{}".format(status),
-                "start_date": start_date.strftime("%Y-%m-%d"),
-                "end_date": end_date.strftime("%Y-%m-%d"),
-                "transaction_date": transaction_date.strftime("%Y-%m-%d"),
+                "start_date": start_date.isoformat(),
+                "end_date": end_date.isoformat(),
+                "transaction_date": transaction_date.isoformat(),
                 "transaction_location_pid": "{}".format(loc_pid),
                 "transaction_user_pid": "{}".format(librarian_pid),
             }
@@ -419,13 +419,13 @@ class MostLoanedGenerator(Generator):
             "item_pid": item_pid,
             "patron_pid": "1",
             "state": state,
-            "start_date": start_date.strftime("%Y-%m-%d"),
-            "end_date": end_date.strftime("%Y-%m-%d"),
-            "transaction_date": start_date.strftime("%Y-%m-%d"),
+            "start_date": start_date.isoformat(),
+            "end_date": end_date.isoformat(),
+            "transaction_date": start_date.isoformat(),
             "transaction_location_pid": "1",
             "transaction_user_pid": "1",
             "pickup_location_pid": "1",
-            "request_expire_date": end_date.strftime("%Y-%m-%d"),
+            "request_expire_date": end_date.isoformat(),
             "extension_count": extensions,
         }
 
@@ -442,24 +442,17 @@ class MostLoanedGenerator(Generator):
 
     def generate(self):
         """Generate."""
-        size = self.holder.loans['total']
-        loc_pid = self.holder.location["pid"]
-        items = self.holder.items['objs']
-        patrons_pids = self.holder.patrons_pids
-        librarian_pid = self.holder.librarian_pid
-        doc_pids = self.holder.pids('documents', "pid")
-
         (doc1, item1), (doc2, item2), (doc3, item3), (doc4, item4) = \
             self.get_doc_pairs()
 
-        today = datetime.now()
+        today = datetime.utcnow()
         current_year = today.year
 
         # Generate loans for doc1
         pid = 1
         for month in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11):
             start_date = datetime(current_year, month, 2)
-            end_date = datetime(current_year, month+1, 2)
+            end_date = datetime(current_year, month + 1, 2)
             if start_date <= today <= end_date:
                 state = "ITEM_ON_LOAN"
             elif end_date < today:
@@ -479,7 +472,7 @@ class MostLoanedGenerator(Generator):
             pid += 1
         for month in (2, 4, 6, 8, 10):
             start_date = datetime(current_year, month, 10)
-            end_date = datetime(current_year, month+2, 10)
+            end_date = datetime(current_year, month + 2, 10)
             if start_date <= today <= end_date:
                 state = "ITEM_ON_LOAN"
             elif end_date < today:
@@ -499,7 +492,7 @@ class MostLoanedGenerator(Generator):
             pid += 1
         for month in (2, 5, 8):
             start_date = datetime(current_year, month, 20)
-            end_date = datetime(current_year, month+3, 20)
+            end_date = datetime(current_year, month + 3, 20)
             if start_date <= today <= end_date:
                 state = "ITEM_ON_LOAN"
             elif end_date < today:
@@ -561,7 +554,7 @@ class SeriesGenerator(Generator):
         """Generate."""
         size = self.holder.series['total']
         objs = []
-        for pid in range(1, size+1):
+        for pid in range(1, size + 1):
             moi = random.choice(self.MODE_OF_ISSUANCE)
             obj = {
                 "pid": str(pid),

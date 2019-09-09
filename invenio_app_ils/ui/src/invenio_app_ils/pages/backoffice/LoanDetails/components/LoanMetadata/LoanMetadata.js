@@ -124,10 +124,15 @@ export default class LoanMetadata extends Component {
         </Grid.Column>
         <Grid.Column>
           <MetadataTable rows={rightRows} />
-          <SendMailModal loan={data} />
+          {this.renderMailButton()}
         </Grid.Column>
       </Grid>
     );
+  }
+
+  renderMailButton() {
+    const loan = this.props.loanDetails;
+    return loan.metadata.is_overdue && <SendMailModal loan={loan} />;
   }
 
   renderAvailableItems() {
