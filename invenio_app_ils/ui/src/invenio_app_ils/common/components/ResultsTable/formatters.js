@@ -8,8 +8,8 @@ import { loan as loanApi } from '../../api';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { invenioConfig } from '../../config';
 
-function formatLoanToTableView(loan) {
-  return {
+function formatLoanToTableView(loan, actions = null) {
+  let response = {
     ID: loan.pid ? loan.pid : loan.id,
     Created: toShortDateTime(fromISO(loan.created)),
     Updated: toShortDateTime(fromISO(loan.updated)),
@@ -27,6 +27,10 @@ function formatLoanToTableView(loan) {
     ),
     Renewals: loan.metadata.extension_count,
   };
+  if (actions) {
+    response['Actions'] = actions;
+  }
+  return response;
 }
 
 function formatDocumentToTableView(document, volume = null) {
