@@ -10,6 +10,7 @@ import {
   ResultsList,
   ResultsLoader,
   SearchBar,
+  InvenioSearchApi,
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
 import {
@@ -26,6 +27,9 @@ import { goTo } from '../../../history';
 import './DocumentsSearch.scss';
 
 export class DocumentsSearch extends Component {
+  searchApi = new InvenioSearchApi({
+    url: `${apiConfig.baseURL}${documentApi.url}`,
+  });
   searchConfig = getSearchConfig('documents');
 
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
@@ -138,12 +142,7 @@ export class DocumentsSearch extends Component {
 
   render() {
     return (
-      <ReactSearchKit
-        searchConfig={{
-          ...apiConfig,
-          url: documentApi.url,
-        }}
-      >
+      <ReactSearchKit searchApi={this.searchApi}>
         <Container className="documents-search-searchbar">
           <SearchBar renderElement={this.renderSearchBar} />
         </Container>

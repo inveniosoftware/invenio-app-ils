@@ -105,22 +105,57 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                             href="https://www.facebook.com/sharer/sharer.php"
                             icon="facebook"
                           >
-                            <a
-                              className="ui facebook circular icon button"
-                              href="https://www.facebook.com/sharer/sharer.php"
-                              onClick={[Function]}
-                              role="button"
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <a
+                                    class="ui facebook circular icon button"
+                                    href="https://www.facebook.com/sharer/sharer.php"
+                                    role="button"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="facebook icon"
+                                    />
+                                  </a>,
+                                }
+                              }
                             >
-                              <Icon
-                                as="i"
-                                name="facebook"
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <a
+                                      class="ui facebook circular icon button"
+                                      href="https://www.facebook.com/sharer/sharer.php"
+                                      role="button"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        class="facebook icon"
+                                      />
+                                    </a>,
+                                  }
+                                }
                               >
-                                <i
-                                  aria-hidden="true"
-                                  className="facebook icon"
-                                />
-                              </Icon>
-                            </a>
+                                <a
+                                  className="ui facebook circular icon button"
+                                  href="https://www.facebook.com/sharer/sharer.php"
+                                  onClick={[Function]}
+                                  role="button"
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="facebook"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="facebook icon"
+                                      onClick={[Function]}
+                                    />
+                                  </Icon>
+                                </a>
+                              </RefFindNode>
+                            </Ref>
                           </Button>
                           <Button
                             as="button"
@@ -129,22 +164,57 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                             href="https://twitter.com/intent/tweet"
                             icon="twitter"
                           >
-                            <a
-                              className="ui twitter circular icon button"
-                              href="https://twitter.com/intent/tweet"
-                              onClick={[Function]}
-                              role="button"
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <a
+                                    class="ui twitter circular icon button"
+                                    href="https://twitter.com/intent/tweet"
+                                    role="button"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="twitter icon"
+                                    />
+                                  </a>,
+                                }
+                              }
                             >
-                              <Icon
-                                as="i"
-                                name="twitter"
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <a
+                                      class="ui twitter circular icon button"
+                                      href="https://twitter.com/intent/tweet"
+                                      role="button"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        class="twitter icon"
+                                      />
+                                    </a>,
+                                  }
+                                }
                               >
-                                <i
-                                  aria-hidden="true"
-                                  className="twitter icon"
-                                />
-                              </Icon>
-                            </a>
+                                <a
+                                  className="ui twitter circular icon button"
+                                  href="https://twitter.com/intent/tweet"
+                                  onClick={[Function]}
+                                  role="button"
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="twitter"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="twitter icon"
+                                      onClick={[Function]}
+                                    />
+                                  </Icon>
+                                </a>
+                              </RefFindNode>
+                            </Ref>
                           </Button>
                           <Button
                             as="button"
@@ -152,20 +222,51 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                             color="linkedin"
                             icon="linkedin"
                           >
-                            <button
-                              className="ui linkedin circular icon button"
-                              onClick={[Function]}
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui linkedin circular icon button"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="linkedin icon"
+                                    />
+                                  </button>,
+                                }
+                              }
                             >
-                              <Icon
-                                as="i"
-                                name="linkedin"
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui linkedin circular icon button"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        class="linkedin icon"
+                                      />
+                                    </button>,
+                                  }
+                                }
                               >
-                                <i
-                                  aria-hidden="true"
-                                  className="linkedin icon"
-                                />
-                              </Icon>
-                            </button>
+                                <button
+                                  className="ui linkedin circular icon button"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="linkedin"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="linkedin icon"
+                                      onClick={[Function]}
+                                    />
+                                  </Icon>
+                                </button>
+                              </RefFindNode>
+                            </Ref>
                           </Button>
                         </div>
                       </ShareButtons>
@@ -284,12 +385,36 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                               positive={true}
                               size="small"
                             >
-                              <button
-                                className="ui green small positive button"
-                                onClick={[Function]}
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui green small positive button"
+                                    >
+                                      Access eBook
+                                    </button>,
+                                  }
+                                }
                               >
-                                Access eBook
-                              </button>
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui green small positive button"
+                                      >
+                                        Access eBook
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <button
+                                    className="ui green small positive button"
+                                    onClick={[Function]}
+                                  >
+                                    Access eBook
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
                             </Button>
                           </EitemsButton>
                           <Button
@@ -299,17 +424,49 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                             positive={true}
                             size="small"
                           >
-                            <button
-                              className="ui small positive button"
-                              onClick={[Function]}
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui small positive button"
+                                  >
+                                    Request Loan
+                                  </button>,
+                                }
+                              }
                             >
-                              Request Loan
-                            </button>
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui small positive button"
+                                    >
+                                      Request Loan
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <button
+                                  className="ui small positive button"
+                                  onClick={[Function]}
+                                >
+                                  Request Loan
+                                </button>
+                              </RefFindNode>
+                            </Ref>
                           </Button>
                           <Popup
                             content="Request a loan on this document"
-                            keepInViewPort={true}
-                            on="hover"
+                            disabled={false}
+                            eventsEnabled={true}
+                            offset={0}
+                            on={
+                              Array [
+                                "click",
+                                "hover",
+                              ]
+                            }
+                            pinned={false}
                             position="top left"
                             trigger={
                               <Icon
@@ -322,6 +479,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                             <Portal
                               closeOnDocumentClick={true}
                               closeOnEscape={true}
+                              closeOnTriggerClick={true}
                               closeOnTriggerMouseLeave={true}
                               eventPool="default"
                               mouseEnterDelay={50}
@@ -339,31 +497,42 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                   size="large"
                                 />
                               }
-                              triggerRef={[Function]}
+                              triggerRef={
+                                Object {
+                                  "current": <i
+                                    aria-hidden="true"
+                                    class="info circle large icon"
+                                  />,
+                                }
+                              }
                             >
                               <Ref
                                 innerRef={[Function]}
                               >
-                                <Icon
-                                  as="i"
-                                  name="info circle"
-                                  onBlur={[Function]}
-                                  onClick={[Function]}
-                                  onFocus={[Function]}
-                                  onMouseEnter={[Function]}
-                                  onMouseLeave={[Function]}
-                                  size="large"
+                                <RefFindNode
+                                  innerRef={[Function]}
                                 >
-                                  <i
-                                    aria-hidden="true"
-                                    className="info circle large icon"
+                                  <Icon
+                                    as="i"
+                                    name="info circle"
                                     onBlur={[Function]}
                                     onClick={[Function]}
                                     onFocus={[Function]}
                                     onMouseEnter={[Function]}
                                     onMouseLeave={[Function]}
-                                  />
-                                </Icon>
+                                    size="large"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="info circle large icon"
+                                      onBlur={[Function]}
+                                      onClick={[Function]}
+                                      onFocus={[Function]}
+                                      onMouseEnter={[Function]}
+                                      onMouseLeave={[Function]}
+                                    />
+                                  </Icon>
+                                </RefFindNode>
                               </Ref>
                             </Portal>
                           </Popup>
@@ -505,23 +674,60 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                         href="https://www.facebook.com/sharer/sharer.php"
                                         icon="facebook"
                                       >
-                                        <a
-                                          className="ui facebook button"
-                                          href="https://www.facebook.com/sharer/sharer.php"
-                                          onClick={[Function]}
-                                          role="button"
+                                        <Ref
+                                          innerRef={
+                                            Object {
+                                              "current": <a
+                                                class="ui facebook button"
+                                                href="https://www.facebook.com/sharer/sharer.php"
+                                                role="button"
+                                              >
+                                                <i
+                                                  aria-hidden="true"
+                                                  class="facebook icon"
+                                                />
+                                                Facebook
+                                              </a>,
+                                            }
+                                          }
                                         >
-                                          <Icon
-                                            as="i"
-                                            name="facebook"
+                                          <RefFindNode
+                                            innerRef={
+                                              Object {
+                                                "current": <a
+                                                  class="ui facebook button"
+                                                  href="https://www.facebook.com/sharer/sharer.php"
+                                                  role="button"
+                                                >
+                                                  <i
+                                                    aria-hidden="true"
+                                                    class="facebook icon"
+                                                  />
+                                                  Facebook
+                                                </a>,
+                                              }
+                                            }
                                           >
-                                            <i
-                                              aria-hidden="true"
-                                              className="facebook icon"
-                                            />
-                                          </Icon>
-                                          Facebook
-                                        </a>
+                                            <a
+                                              className="ui facebook button"
+                                              href="https://www.facebook.com/sharer/sharer.php"
+                                              onClick={[Function]}
+                                              role="button"
+                                            >
+                                              <Icon
+                                                as="i"
+                                                name="facebook"
+                                              >
+                                                <i
+                                                  aria-hidden="true"
+                                                  className="facebook icon"
+                                                  onClick={[Function]}
+                                                />
+                                              </Icon>
+                                              Facebook
+                                            </a>
+                                          </RefFindNode>
+                                        </Ref>
                                       </Button>
                                       <div
                                         className="ui hidden divider"
@@ -533,23 +739,60 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                         href="https://twitter.com/intent/tweet"
                                         icon="twitter"
                                       >
-                                        <a
-                                          className="ui twitter button"
-                                          href="https://twitter.com/intent/tweet"
-                                          onClick={[Function]}
-                                          role="button"
+                                        <Ref
+                                          innerRef={
+                                            Object {
+                                              "current": <a
+                                                class="ui twitter button"
+                                                href="https://twitter.com/intent/tweet"
+                                                role="button"
+                                              >
+                                                <i
+                                                  aria-hidden="true"
+                                                  class="twitter icon"
+                                                />
+                                                Twitter
+                                              </a>,
+                                            }
+                                          }
                                         >
-                                          <Icon
-                                            as="i"
-                                            name="twitter"
+                                          <RefFindNode
+                                            innerRef={
+                                              Object {
+                                                "current": <a
+                                                  class="ui twitter button"
+                                                  href="https://twitter.com/intent/tweet"
+                                                  role="button"
+                                                >
+                                                  <i
+                                                    aria-hidden="true"
+                                                    class="twitter icon"
+                                                  />
+                                                  Twitter
+                                                </a>,
+                                              }
+                                            }
                                           >
-                                            <i
-                                              aria-hidden="true"
-                                              className="twitter icon"
-                                            />
-                                          </Icon>
-                                          Twitter
-                                        </a>
+                                            <a
+                                              className="ui twitter button"
+                                              href="https://twitter.com/intent/tweet"
+                                              onClick={[Function]}
+                                              role="button"
+                                            >
+                                              <Icon
+                                                as="i"
+                                                name="twitter"
+                                              >
+                                                <i
+                                                  aria-hidden="true"
+                                                  className="twitter icon"
+                                                  onClick={[Function]}
+                                                />
+                                              </Icon>
+                                              Twitter
+                                            </a>
+                                          </RefFindNode>
+                                        </Ref>
                                       </Button>
                                       <div
                                         className="ui hidden divider"
@@ -560,21 +803,54 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                         content="LinkedIn"
                                         icon="linkedin"
                                       >
-                                        <button
-                                          className="ui linkedin button"
-                                          onClick={[Function]}
+                                        <Ref
+                                          innerRef={
+                                            Object {
+                                              "current": <button
+                                                class="ui linkedin button"
+                                              >
+                                                <i
+                                                  aria-hidden="true"
+                                                  class="linkedin icon"
+                                                />
+                                                LinkedIn
+                                              </button>,
+                                            }
+                                          }
                                         >
-                                          <Icon
-                                            as="i"
-                                            name="linkedin"
+                                          <RefFindNode
+                                            innerRef={
+                                              Object {
+                                                "current": <button
+                                                  class="ui linkedin button"
+                                                >
+                                                  <i
+                                                    aria-hidden="true"
+                                                    class="linkedin icon"
+                                                  />
+                                                  LinkedIn
+                                                </button>,
+                                              }
+                                            }
                                           >
-                                            <i
-                                              aria-hidden="true"
-                                              className="linkedin icon"
-                                            />
-                                          </Icon>
-                                          LinkedIn
-                                        </button>
+                                            <button
+                                              className="ui linkedin button"
+                                              onClick={[Function]}
+                                            >
+                                              <Icon
+                                                as="i"
+                                                name="linkedin"
+                                              >
+                                                <i
+                                                  aria-hidden="true"
+                                                  className="linkedin icon"
+                                                  onClick={[Function]}
+                                                />
+                                              </Icon>
+                                              LinkedIn
+                                            </button>
+                                          </RefFindNode>
+                                        </Ref>
                                       </Button>
                                     </div>
                                   </ShareButtons>

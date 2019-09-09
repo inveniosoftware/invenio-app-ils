@@ -132,8 +132,16 @@ exports[`DocumentStats tests should load the component 1`] = `
                       content="This average is computed with the number of past
                     loans on the selected range of dates, and the current number
                     of items (1) of the document."
-                      keepInViewPort={true}
-                      on="hover"
+                      disabled={false}
+                      eventsEnabled={true}
+                      offset={0}
+                      on={
+                        Array [
+                          "click",
+                          "hover",
+                        ]
+                      }
+                      pinned={false}
                       position="top right"
                       trigger={
                         <Icon

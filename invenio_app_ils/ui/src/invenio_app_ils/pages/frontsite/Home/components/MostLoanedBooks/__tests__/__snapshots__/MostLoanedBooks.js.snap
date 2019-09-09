@@ -46,12 +46,36 @@ exports[`MostLoanedBooks tests should go to book details when clicking on a book
           content="See All"
           onClick={[Function]}
         >
-          <button
-            className="ui button"
-            onClick={[Function]}
+          <Ref
+            innerRef={
+              Object {
+                "current": <button
+                  class="ui button"
+                >
+                  See All
+                </button>,
+              }
+            }
           >
-            See All
-          </button>
+            <RefFindNode
+              innerRef={
+                Object {
+                  "current": <button
+                    class="ui button"
+                  >
+                    See All
+                  </button>,
+                }
+              }
+            >
+              <button
+                className="ui button"
+                onClick={[Function]}
+              >
+                See All
+              </button>
+            </RefFindNode>
+          </Ref>
         </Button>
         <Divider
           hidden={true}
@@ -251,12 +275,36 @@ exports[`MostLoanedBooks tests should render pending loans 1`] = `
           content="See All"
           onClick={[Function]}
         >
-          <button
-            className="ui button"
-            onClick={[Function]}
+          <Ref
+            innerRef={
+              Object {
+                "current": <button
+                  class="ui button"
+                >
+                  See All
+                </button>,
+              }
+            }
           >
-            See All
-          </button>
+            <RefFindNode
+              innerRef={
+                Object {
+                  "current": <button
+                    class="ui button"
+                  >
+                    See All
+                  </button>,
+                }
+              }
+            >
+              <button
+                className="ui button"
+                onClick={[Function]}
+              >
+                See All
+              </button>
+            </RefFindNode>
+          </Ref>
         </Button>
         <Divider
           hidden={true}
@@ -439,12 +487,36 @@ exports[`MostLoanedBooks tests should render the see all button when showing mos
           content="See All"
           onClick={[Function]}
         >
-          <button
-            className="ui button"
-            onClick={[Function]}
+          <Ref
+            innerRef={
+              Object {
+                "current": <button
+                  class="ui button"
+                >
+                  See All
+                </button>,
+              }
+            }
           >
-            See All
-          </button>
+            <RefFindNode
+              innerRef={
+                Object {
+                  "current": <button
+                    class="ui button"
+                  >
+                    See All
+                  </button>,
+                }
+              }
+            >
+              <button
+                className="ui button"
+                onClick={[Function]}
+              >
+                See All
+              </button>
+            </RefFindNode>
+          </Ref>
         </Button>
         <Divider
           hidden={true}

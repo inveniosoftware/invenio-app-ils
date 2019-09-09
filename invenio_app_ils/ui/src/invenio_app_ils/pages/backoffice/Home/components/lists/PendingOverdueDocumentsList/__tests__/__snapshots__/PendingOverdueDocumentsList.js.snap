@@ -317,21 +317,54 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                                 icon="eye"
                                 onClick={[Function]}
                               >
-                                <button
-                                  className="ui circular compact icon button"
-                                  data-test="btn-view-details-document1"
-                                  onClick={[Function]}
+                                <Ref
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui circular compact icon button"
+                                        data-test="btn-view-details-document1"
+                                      >
+                                        <i
+                                          aria-hidden="true"
+                                          class="eye icon"
+                                        />
+                                      </button>,
+                                    }
+                                  }
                                 >
-                                  <Icon
-                                    as="i"
-                                    name="eye"
+                                  <RefFindNode
+                                    innerRef={
+                                      Object {
+                                        "current": <button
+                                          class="ui circular compact icon button"
+                                          data-test="btn-view-details-document1"
+                                        >
+                                          <i
+                                            aria-hidden="true"
+                                            class="eye icon"
+                                          />
+                                        </button>,
+                                      }
+                                    }
                                   >
-                                    <i
-                                      aria-hidden="true"
-                                      className="eye icon"
-                                    />
-                                  </Icon>
-                                </button>
+                                    <button
+                                      className="ui circular compact icon button"
+                                      data-test="btn-view-details-document1"
+                                      onClick={[Function]}
+                                    >
+                                      <Icon
+                                        as="i"
+                                        name="eye"
+                                      >
+                                        <i
+                                          aria-hidden="true"
+                                          className="eye icon"
+                                          onClick={[Function]}
+                                        />
+                                      </Icon>
+                                    </button>
+                                  </RefFindNode>
+                                </Ref>
                               </Button>
                             </td>
                           </TableCell>
@@ -386,21 +419,54 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                                 icon="eye"
                                 onClick={[Function]}
                               >
-                                <button
-                                  className="ui circular compact icon button"
-                                  data-test="btn-view-details-document2"
-                                  onClick={[Function]}
+                                <Ref
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui circular compact icon button"
+                                        data-test="btn-view-details-document2"
+                                      >
+                                        <i
+                                          aria-hidden="true"
+                                          class="eye icon"
+                                        />
+                                      </button>,
+                                    }
+                                  }
                                 >
-                                  <Icon
-                                    as="i"
-                                    name="eye"
+                                  <RefFindNode
+                                    innerRef={
+                                      Object {
+                                        "current": <button
+                                          class="ui circular compact icon button"
+                                          data-test="btn-view-details-document2"
+                                        >
+                                          <i
+                                            aria-hidden="true"
+                                            class="eye icon"
+                                          />
+                                        </button>,
+                                      }
+                                    }
                                   >
-                                    <i
-                                      aria-hidden="true"
-                                      className="eye icon"
-                                    />
-                                  </Icon>
-                                </button>
+                                    <button
+                                      className="ui circular compact icon button"
+                                      data-test="btn-view-details-document2"
+                                      onClick={[Function]}
+                                    >
+                                      <Icon
+                                        as="i"
+                                        name="eye"
+                                      >
+                                        <i
+                                          aria-hidden="true"
+                                          className="eye icon"
+                                          onClick={[Function]}
+                                        />
+                                      </Icon>
+                                    </button>
+                                  </RefFindNode>
+                                </Ref>
                               </Button>
                             </td>
                           </TableCell>

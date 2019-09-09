@@ -17,6 +17,7 @@ import {
   Pagination,
   Count,
   Aggregator,
+  InvenioSearchApi,
 } from 'react-searchkit';
 import { apiConfig } from '../../../common/api/base';
 import { getSearchConfig } from '../../../common/config';
@@ -25,13 +26,16 @@ import {
   SearchBar as LoansSearchBar,
   ResultsSort,
 } from '../../../common/components';
-import { loan as endpoint } from '../../../common/api/loans/loan';
+import { loan as loanApi } from '../../../common/api/loans/loan';
 import { ResultsList as LoansResultsList } from './components';
 import './LoansSearch.scss';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { goTo } from '../../../history';
 
 export class LoansSearch extends Component {
+  searchApi = new InvenioSearchApi({
+    url: `${apiConfig.baseURL}${loanApi.url}`,
+  });
   searchConfig = getSearchConfig('loans');
 
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
@@ -124,12 +128,7 @@ export class LoansSearch extends Component {
 
   render() {
     return (
-      <ReactSearchKit
-        searchConfig={{
-          ...apiConfig,
-          url: endpoint.url,
-        }}
-      >
+      <ReactSearchKit searchApi={this.searchApi}>
         <Container className="loans-search-searchbar">
           <SearchBar renderElement={this.renderSearchBar} />
         </Container>

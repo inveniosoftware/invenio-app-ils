@@ -297,6 +297,7 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                                             <i
                                               aria-hidden="true"
                                               className="calendar icon"
+                                              onClick={[Function]}
                                             />
                                           </Icon>
                                           <input
@@ -468,6 +469,7 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                                             <i
                                               aria-hidden="true"
                                               className="calendar icon"
+                                              onClick={[Function]}
                                             />
                                           </Icon>
                                           <input

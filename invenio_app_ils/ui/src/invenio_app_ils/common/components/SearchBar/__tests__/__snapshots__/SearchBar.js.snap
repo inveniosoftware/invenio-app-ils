@@ -61,7 +61,7 @@ exports[`LoansSearch SearchBar tests should render search bar with query helper 
         <i
           aria-hidden="true"
           className="search circular inverted link icon"
-          onClick={[MockFunction]}
+          onClick={[Function]}
         />
       </Icon>
     </div>

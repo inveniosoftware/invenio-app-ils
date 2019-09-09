@@ -1,7 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Series relations tests should load the relations component 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+<Loader>
+  <Error>
+    <Tab
+      activeIndex={0}
+      grid={
+        Object {
+          "paneWidth": 12,
+          "tabWidth": 4,
+        }
+      }
+      id="series-relations"
+      menu={
+        Object {
+          "pointing": true,
+          "secondary": true,
+        }
+      }
+      onTabChange={[Function]}
+      panes={Array []}
+      renderActiveOnly={true}
+    />
+  </Error>
+</Loader>
 `;

@@ -19,13 +19,39 @@ exports[`AuthenticationGuard tests should render the Authorized component when u
       onClick={[Function]}
       size="small"
     >
-      <button
-        className="ui small button"
-        data-test="authorized"
-        onClick={[Function]}
+      <Ref
+        innerRef={
+          Object {
+            "current": <button
+              class="ui small button"
+              data-test="authorized"
+            >
+              Authorized
+            </button>,
+          }
+        }
       >
-        Authorized
-      </button>
+        <RefFindNode
+          innerRef={
+            Object {
+              "current": <button
+                class="ui small button"
+                data-test="authorized"
+              >
+                Authorized
+              </button>,
+            }
+          }
+        >
+          <button
+            className="ui small button"
+            data-test="authorized"
+            onClick={[Function]}
+          >
+            Authorized
+          </button>
+        </RefFindNode>
+      </Ref>
     </Button>
   </authorizedButton>
 </AuthenticationGuard>
@@ -48,13 +74,39 @@ exports[`AuthenticationGuard tests should render the UnAuthorized component when
       onClick={[Function]}
       size="small"
     >
-      <button
-        className="ui small button"
-        data-test="unauthorized"
-        onClick={[Function]}
+      <Ref
+        innerRef={
+          Object {
+            "current": <button
+              class="ui small button"
+              data-test="unauthorized"
+            >
+              Unauthorized
+            </button>,
+          }
+        }
       >
-        Unauthorized
-      </button>
+        <RefFindNode
+          innerRef={
+            Object {
+              "current": <button
+                class="ui small button"
+                data-test="unauthorized"
+              >
+                Unauthorized
+              </button>,
+            }
+          }
+        >
+          <button
+            className="ui small button"
+            data-test="unauthorized"
+            onClick={[Function]}
+          >
+            Unauthorized
+          </button>
+        </RefFindNode>
+      </Ref>
     </Button>
   </unAuthorizedButton>
 </AuthenticationGuard>

@@ -282,21 +282,54 @@ exports[`ResultsTable tests should not render the see all button when showing on
                           icon="eye"
                           onClick={[Function]}
                         >
-                          <button
-                            className="ui circular compact icon button"
-                            data-test="btn-view-details-loan1"
-                            onClick={[Function]}
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui circular compact icon button"
+                                  data-test="btn-view-details-loan1"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    class="eye icon"
+                                  />
+                                </button>,
+                              }
+                            }
                           >
-                            <Icon
-                              as="i"
-                              name="eye"
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui circular compact icon button"
+                                    data-test="btn-view-details-loan1"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="eye icon"
+                                    />
+                                  </button>,
+                                }
+                              }
                             >
-                              <i
-                                aria-hidden="true"
-                                className="eye icon"
-                              />
-                            </Icon>
-                          </button>
+                              <button
+                                className="ui circular compact icon button"
+                                data-test="btn-view-details-loan1"
+                                onClick={[Function]}
+                              >
+                                <Icon
+                                  as="i"
+                                  name="eye"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    className="eye icon"
+                                    onClick={[Function]}
+                                  />
+                                </Icon>
+                              </button>
+                            </RefFindNode>
+                          </Ref>
                         </Button>
                       </td>
                     </TableCell>
@@ -387,21 +420,54 @@ exports[`ResultsTable tests should not render the see all button when showing on
                           icon="eye"
                           onClick={[Function]}
                         >
-                          <button
-                            className="ui circular compact icon button"
-                            data-test="btn-view-details-loan2"
-                            onClick={[Function]}
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui circular compact icon button"
+                                  data-test="btn-view-details-loan2"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    class="eye icon"
+                                  />
+                                </button>,
+                              }
+                            }
                           >
-                            <Icon
-                              as="i"
-                              name="eye"
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui circular compact icon button"
+                                    data-test="btn-view-details-loan2"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="eye icon"
+                                    />
+                                  </button>,
+                                }
+                              }
                             >
-                              <i
-                                aria-hidden="true"
-                                className="eye icon"
-                              />
-                            </Icon>
-                          </button>
+                              <button
+                                className="ui circular compact icon button"
+                                data-test="btn-view-details-loan2"
+                                onClick={[Function]}
+                              >
+                                <Icon
+                                  as="i"
+                                  name="eye"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    className="eye icon"
+                                    onClick={[Function]}
+                                  />
+                                </Icon>
+                              </button>
+                            </RefFindNode>
+                          </Ref>
                         </Button>
                       </td>
                     </TableCell>
@@ -765,21 +831,54 @@ exports[`ResultsTable tests should render the see all button when showing only a
                           icon="eye"
                           onClick={[Function]}
                         >
-                          <button
-                            className="ui circular compact icon button"
-                            data-test="btn-view-details-1"
-                            onClick={[Function]}
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui circular compact icon button"
+                                  data-test="btn-view-details-1"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    class="eye icon"
+                                  />
+                                </button>,
+                              }
+                            }
                           >
-                            <Icon
-                              as="i"
-                              name="eye"
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui circular compact icon button"
+                                    data-test="btn-view-details-1"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="eye icon"
+                                    />
+                                  </button>,
+                                }
+                              }
                             >
-                              <i
-                                aria-hidden="true"
-                                className="eye icon"
-                              />
-                            </Icon>
-                          </button>
+                              <button
+                                className="ui circular compact icon button"
+                                data-test="btn-view-details-1"
+                                onClick={[Function]}
+                              >
+                                <Icon
+                                  as="i"
+                                  name="eye"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    className="eye icon"
+                                    onClick={[Function]}
+                                  />
+                                </Icon>
+                              </button>
+                            </RefFindNode>
+                          </Ref>
                         </Button>
                       </td>
                     </TableCell>
@@ -927,12 +1026,36 @@ exports[`ResultsTable tests should render the see all button when showing only a
                                 onClick={[Function]}
                                 size="small"
                               >
-                                <button
-                                  className="ui small button"
-                                  onClick={[Function]}
+                                <Ref
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui small button"
+                                      >
+                                        See all
+                                      </button>,
+                                    }
+                                  }
                                 >
-                                  See all
-                                </button>
+                                  <RefFindNode
+                                    innerRef={
+                                      Object {
+                                        "current": <button
+                                          class="ui small button"
+                                        >
+                                          See all
+                                        </button>,
+                                      }
+                                    }
+                                  >
+                                    <button
+                                      className="ui small button"
+                                      onClick={[Function]}
+                                    >
+                                      See all
+                                    </button>
+                                  </RefFindNode>
+                                </Ref>
                               </Button>
                             </span>
                             <span />

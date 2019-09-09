@@ -39,9 +39,17 @@ exports[`CancelLoanModal tests should load the cancel loan modal component 1`] =
     />
     <Popup
       content="Please specify a reason."
-      keepInViewPort={true}
-      on="hover"
+      disabled={false}
+      eventsEnabled={true}
+      offset={0}
+      on={
+        Array [
+          "click",
+          "hover",
+        ]
+      }
       open={false}
+      pinned={false}
       position="bottom left"
     />
   </ModalContent>

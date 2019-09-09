@@ -78,8 +78,16 @@ exports[`DocumentMetadata tests should load the details component 1`] = `
           />
           <Popup
             content="Request a loan on this document on behalf of a patron"
-            keepInViewPort={true}
-            on="hover"
+            disabled={false}
+            eventsEnabled={true}
+            offset={0}
+            on={
+              Array [
+                "click",
+                "hover",
+              ]
+            }
+            pinned={false}
             position="top left"
             trigger={
               <Icon

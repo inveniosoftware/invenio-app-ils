@@ -111,21 +111,54 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
                         positive={true}
                         size="small"
                       >
-                        <button
-                          className="ui small icon positive left labeled button"
-                          onClick={[Function]}
+                        <Ref
+                          innerRef={
+                            Object {
+                              "current": <button
+                                class="ui small icon positive left labeled button"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  class="plus icon"
+                                />
+                                New document
+                              </button>,
+                            }
+                          }
                         >
-                          <Icon
-                            as="i"
-                            name="plus"
+                          <RefFindNode
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui small icon positive left labeled button"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    class="plus icon"
+                                  />
+                                  New document
+                                </button>,
+                              }
+                            }
                           >
-                            <i
-                              aria-hidden="true"
-                              className="plus icon"
-                            />
-                          </Icon>
-                          New document
-                        </button>
+                            <button
+                              className="ui small icon positive left labeled button"
+                              onClick={[Function]}
+                            >
+                              <Icon
+                                as="i"
+                                name="plus"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="plus icon"
+                                  onClick={[Function]}
+                                />
+                              </Icon>
+                              New document
+                            </button>
+                          </RefFindNode>
+                        </Ref>
                       </Button>
                     </NewButton>
                   </div>
@@ -321,21 +354,54 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
                             icon="eye"
                             onClick={[Function]}
                           >
-                            <button
-                              className="ui circular compact icon button"
-                              data-test="btn-view-details-3"
-                              onClick={[Function]}
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui circular compact icon button"
+                                    data-test="btn-view-details-3"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="eye icon"
+                                    />
+                                  </button>,
+                                }
+                              }
                             >
-                              <Icon
-                                as="i"
-                                name="eye"
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui circular compact icon button"
+                                      data-test="btn-view-details-3"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        class="eye icon"
+                                      />
+                                    </button>,
+                                  }
+                                }
                               >
-                                <i
-                                  aria-hidden="true"
-                                  className="eye icon"
-                                />
-                              </Icon>
-                            </button>
+                                <button
+                                  className="ui circular compact icon button"
+                                  data-test="btn-view-details-3"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="eye"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="eye icon"
+                                      onClick={[Function]}
+                                    />
+                                  </Icon>
+                                </button>
+                              </RefFindNode>
+                            </Ref>
                           </Button>
                         </td>
                       </TableCell>

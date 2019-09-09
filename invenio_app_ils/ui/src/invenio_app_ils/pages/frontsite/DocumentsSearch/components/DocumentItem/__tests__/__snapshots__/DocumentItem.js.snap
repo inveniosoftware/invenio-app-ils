@@ -60,6 +60,7 @@ exports[`should render correctly 1`] = `
             <i
               aria-hidden="true"
               className="eye icon"
+              onClick={[Function]}
             />
             View Details
           </button>
@@ -91,6 +92,7 @@ exports[`should render correctly 1`] = `
           <i
             aria-hidden="true"
             className="facebook icon"
+            onClick={[Function]}
           />
         </a>
         <a
@@ -102,6 +104,7 @@ exports[`should render correctly 1`] = `
           <i
             aria-hidden="true"
             className="twitter icon"
+            onClick={[Function]}
           />
         </a>
         <button
@@ -111,6 +114,7 @@ exports[`should render correctly 1`] = `
           <i
             aria-hidden="true"
             className="linkedin icon"
+            onClick={[Function]}
           />
         </button>
       </div>
