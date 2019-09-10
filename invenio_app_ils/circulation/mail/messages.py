@@ -98,7 +98,7 @@ class LoanMessage(BlockTemplatedMessage):
 class OverdueLoanMessage(BlockTemplatedMessage):
     """Loader for loan overdue messages."""
 
-    def __init__(self, loan, document, patron_email, **kwargs):
+    def __init__(self, loan, document, patron_email, days_ago, **kwargs):
         """Create overdue loan message."""
         sender = current_app.config["MAIL_NOTIFY_SENDER"]
         bcc = current_app.config["MAIL_NOTIFY_BCC"]
@@ -110,6 +110,7 @@ class OverdueLoanMessage(BlockTemplatedMessage):
                 loan=loan,
                 document=document,
                 patron_email=patron_email,
+                days_ago=days_ago,
                 **kwargs
             ),
             sender=kwargs.pop("sender", sender),

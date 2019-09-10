@@ -9,8 +9,9 @@
 
 from __future__ import absolute_import, print_function
 
-from datetime import timedelta
+from datetime import datetime, timedelta
 
+import ciso8601
 from flask import current_app
 
 from invenio_app_ils.errors import MissingRequiredParameterError, \
@@ -56,6 +57,7 @@ def circulation_can_be_requested(loan):
     return True
 
 
+# NOTE: this is probably not the right place
 def circulation_get_patron_from_loan(loan):
     """Return the patron object for the loan."""
     _datastore = current_app.extensions["security"].datastore
@@ -69,3 +71,9 @@ def circulation_get_patron_from_loan(loan):
         msg = "Patron with PID {} has no email address".format(patron_pid)
         raise MissingRequiredParameterError(description=msg)
     return patron
+
+
+def circulation_overdue_loan_days(loan):
+    """Return the amount of days a loan is overdue."""
+    end_date = ciso8601.parse_datetime(loan["end_date"])
+    return (datetime.utcnow() - end_date).days
