@@ -13,6 +13,9 @@ from datetime import timedelta
 
 from flask import current_app
 
+from invenio_app_ils.errors import MissingRequiredParameterError, \
+    PatronNotFoundError
+
 
 def circulation_build_item_ref(loan_pid):
     """Build $ref for the Item attached to the Loan."""
@@ -51,3 +54,18 @@ def circulation_is_loan_duration_valid(loan):
 def circulation_can_be_requested(loan):
     """Return True if the Document/Item for the given Loan can be requested."""
     return True
+
+
+def circulation_get_patron_from_loan(loan):
+    """Return the patron object for the loan."""
+    _datastore = current_app.extensions["security"].datastore
+
+    patron_pid = loan["patron_pid"]
+    patron = _datastore.get_user(patron_pid)
+
+    if not patron:
+        raise PatronNotFoundError(patron_pid)
+    if not patron.email:
+        msg = "Patron with PID {} has no email address".format(patron_pid)
+        raise MissingRequiredParameterError(description=msg)
+    return patron

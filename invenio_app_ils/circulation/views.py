@@ -18,12 +18,11 @@ from invenio_records_rest.utils import obj_or_import_string
 from invenio_records_rest.views import pass_record
 from invenio_rest import ContentNegotiatedMethodView
 
-from invenio_app_ils.errors import MissingRequiredParameterError, \
-    PatronNotFoundError
+from invenio_app_ils.circulation.utils import circulation_get_patron_from_loan
 from invenio_app_ils.permissions import check_permission
 
 from .api import create_loan, request_loan
-from .mail.tasks import send_overdue_email
+from .mail.tasks import send_overdue_mail
 
 
 def need_permissions(action):
@@ -78,15 +77,15 @@ def create_circulation_blueprint(app):
         "/circulation/loans/create", view_func=loan_create, methods=["POST"]
     )
 
-    loan_email = LoanEmailResource.as_view(
-        LoanEmailResource.view_name.format(CIRCULATION_LOAN_PID_TYPE),
+    loan_mail = LoanMailResource.as_view(
+        LoanMailResource.view_name.format(CIRCULATION_LOAN_PID_TYPE),
         serializers=serializers,
         ctx=dict(links_factory=loan_links_factory),
     )
 
     blueprint.add_url_rule(
         "{0}/email".format(options["item_route"]),
-        view_func=loan_email,
+        view_func=loan_mail,
         methods=["POST"]
     )
     return blueprint
@@ -135,7 +134,7 @@ class LoanCreateResource(IlsCirculationResource):
         )
 
 
-class LoanEmailResource(IlsCirculationResource):
+class LoanMailResource(IlsCirculationResource):
     """Loan send email."""
 
     view_name = "{0}_email"
@@ -144,18 +143,8 @@ class LoanEmailResource(IlsCirculationResource):
     @pass_record
     def post(self, pid, record, **kwargs):
         """Loan email post method."""
-        _datastore = current_app.extensions["security"].datastore
-        patron_pid = record["patron_pid"]
-        patron = _datastore.get_user(patron_pid)
-
-        if not patron:
-            raise PatronNotFoundError(patron_pid)
-        if not patron.email:
-            msg = "Patron with PID {} has no email address".format(patron_pid)
-            raise MissingRequiredParameterError(description=msg)
-
-        data = request.get_json()
-        send_overdue_email(record, data["template"], recipients=[patron.email])
+        patron = circulation_get_patron_from_loan(record)
+        send_overdue_mail(record, recipients=[patron.email])
         return self.make_response(
             pid, record, 202, links_factory=self.links_factory
         )

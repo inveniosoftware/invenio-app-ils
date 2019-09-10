@@ -7,12 +7,18 @@
 
 """Circulation mail tasks."""
 
+from datetime import datetime
+
+import ciso8601
 from celery import shared_task
 from celery.utils.log import get_task_logger
 from flask import current_app
+from invenio_circulation.proxies import current_circulation
 from invenio_mail.tasks import send_email
 
-from .factory import loan_overdue_message_factory
+from invenio_app_ils.circulation.utils import circulation_get_patron_from_loan
+
+from .factory import overdue_loan_message_factory
 
 celery_logger = get_task_logger(__name__)
 
@@ -41,16 +47,29 @@ def send_ils_mail(factory, prev_loan, loan, trigger, **kwargs):
     send_email.apply_async((data,), link=log_successful_mail.s(data))
 
 
-def send_overdue_email(loan, template, **kwargs):
+def send_overdue_mail(loan, **kwargs):
     """Send loan overdue email message async and log the result in Celery.
 
     :param loan: the overdue loan.
-    :param template: template for the email to be send
     """
-    factory = loan_overdue_message_factory()
+    factory = overdue_loan_message_factory()
     msg = factory(loan, **kwargs)
     current_app.logger.debug("Attempting to send email '{}' to {}...".format(
         msg.subject, ", ".join(msg.recipients)
     ))
     data = msg.__dict__
     send_email.apply_async((data,), link=log_successful_mail.s(data))
+
+
+@shared_task
+def send_auto_overdue_mail():
+    """Send email message for loans that are overdue every X days."""
+    days = current_app.config["MAIL_OVERDUE_LOAN_INTERVAL"]
+    loan_search = current_circulation.loan_search
+    overdue_loans = loan_search.get_all_overdue_loans().execute()
+    for hit in overdue_loans.hits:
+        loan = hit.to_dict()
+        end_date = ciso8601.parse_datetime(loan["end_date"])
+        if (end_date - datetime.utcnow()).days % days == 0:
+            patron = circulation_get_patron_from_loan(loan)
+            send_overdue_mail(loan, recipients=[patron.email])

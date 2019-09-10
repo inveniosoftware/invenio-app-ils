@@ -10,11 +10,9 @@ export default class SendMailModal extends Component {
 
   sendEmail = async () => {
     const { loan } = this.props;
-    const payload = {
-      template: 'overdue',
+    const response = await loanApi.postEmail({
       loanPid: loan.metadata.pid,
-    };
-    const response = await loanApi.postEmail(payload);
+    });
     console.log('The reponse for sendEmail', response);
   };
 

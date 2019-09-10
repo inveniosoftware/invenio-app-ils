@@ -41,6 +41,8 @@ class LoanJSONSerializer(JSONSerializer):
 
     def is_overdue(self, data):
         """Calculate if the loan is overdue and add it as a property."""
-        data["metadata"]["is_overdue"] = ciso8601.parse_datetime(
-            data["metadata"]["end_date"]) < datetime.utcnow()
+        data["metadata"]["is_overdue"] = False
+        if "end_date" in data["metadata"]:
+            data["metadata"]["is_overdue"] = ciso8601.parse_datetime(
+                data["metadata"]["end_date"]) < datetime.utcnow()
         return data

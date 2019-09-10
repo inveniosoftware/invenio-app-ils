@@ -32,7 +32,7 @@ def loan_message_factory():
     )
 
 
-def loan_overdue_message_factory():
+def overdue_loan_message_factory():
     """Create a loan overdue message factory."""
     return partial(
         message_factory,

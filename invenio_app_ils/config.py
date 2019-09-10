@@ -166,7 +166,7 @@ LOAN_MAIL_TEMPLATES = {}
 # ===============
 #: Loan message loader
 LOAN_MSG_LOADER = "invenio_app_ils.circulation.mail.loader:loan_message_loader"
-LOAN_OVERDUE_MSG_LOADER = "invenio_app_ils.circulation.mail.loader:loan_overdue_message_loader"
+LOAN_OVERDUE_MSG_LOADER = "invenio_app_ils.circulation.mail.loader:overdue_loan_message_loader"
 
 # Theme configuration
 # ===================
@@ -178,6 +178,8 @@ THEME_FRONTPAGE = False
 SUPPORT_EMAIL = "info@inveniosoftware.org"
 #: Disable email sending by default.
 MAIL_SUPPRESS_SEND = True
+#: Notification email for overdue loan every X days
+MAIL_OVERDUE_LOAN_INTERVAL = 3
 
 # Notification configuration
 # ==========================
@@ -220,6 +222,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "invenio_accounts.tasks.clean_session_table",
         "schedule": timedelta(minutes=60),
     },
+    "overdue_loans": {
+        "task": "invenio_app_ils.circulation.mail.tasks.send_auto_overdue_mail",
+        "schedule": timedelta(days=1),
+    }
 }
 
 # Database
