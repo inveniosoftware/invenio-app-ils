@@ -98,7 +98,7 @@ class LoanMessage(BlockTemplatedMessage):
 class OverdueLoanMessage(BlockTemplatedMessage):
     """Loader for loan overdue messages."""
 
-    def __init__(self, loan, **kwargs):
+    def __init__(self, loan, document, patron_email, **kwargs):
         """Create overdue loan message."""
         sender = current_app.config["MAIL_NOTIFY_SENDER"]
         bcc = current_app.config["MAIL_NOTIFY_BCC"]
@@ -106,7 +106,12 @@ class OverdueLoanMessage(BlockTemplatedMessage):
 
         super(OverdueLoanMessage, self).__init__(
             template="invenio_app_ils_mail/overdue.html",
-            ctx=dict(loan=loan, **kwargs),
+            ctx=dict(
+                loan=loan,
+                document=document,
+                patron_email=patron_email,
+                **kwargs
+            ),
             sender=kwargs.pop("sender", sender),
             cc=kwargs.pop("cc", cc),
             bcc=kwargs.pop("bcc", bcc),

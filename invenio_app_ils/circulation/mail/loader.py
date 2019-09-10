@@ -17,5 +17,5 @@ def loan_message_loader(prev_loan, loan, trigger, **kwargs):
 
 
 def overdue_loan_message_loader(loan, **kwargs):
-    """Loan overdue message loader."""
+    """Overdue loan message loader."""
     return OverdueLoanMessage(loan, **kwargs)

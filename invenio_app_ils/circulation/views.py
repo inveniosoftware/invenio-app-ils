@@ -144,7 +144,7 @@ class LoanMailResource(IlsCirculationResource):
     def post(self, pid, record, **kwargs):
         """Loan email post method."""
         patron = circulation_get_patron_from_loan(record)
-        send_overdue_mail(record, recipients=[patron.email])
+        send_overdue_mail(record, patron, recipients=[patron.email])
         return self.make_response(
             pid, record, 202, links_factory=self.links_factory
         )
