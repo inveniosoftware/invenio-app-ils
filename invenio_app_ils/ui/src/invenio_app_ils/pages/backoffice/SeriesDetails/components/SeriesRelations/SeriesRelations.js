@@ -158,15 +158,15 @@ export default class SeriesRelations extends Component {
     if (this.props.relations[relationName]) {
       const relations = this.props.relations[relationName];
 
-      for (const obj of relations) {
+      relations.forEach(obj => {
         const id = `${obj.pid}-${obj.pid_type}-${relationName}`;
         const type = formatPidTypeToName(obj.pid_type);
         const extraFields = {};
-        for (const key in obj) {
+        obj.forEach(key => {
           if (!['pid', 'pid_type', 'title'].includes(key)) {
             extraFields[key] = obj[key];
           }
-        }
+        });
         selections.push({
           id: id,
           key: id,
@@ -181,7 +181,7 @@ export default class SeriesRelations extends Component {
             extraFields: extraFields,
           },
         });
-      }
+      });
     }
     return selections;
   }
@@ -190,13 +190,13 @@ export default class SeriesRelations extends Component {
     const rows = [];
     if (!this.props.relations[relation]) return [];
 
-    for (const obj of this.props.relations[relation]) {
+    this.props.relations[relation].forEach(obj => {
       const record = formatter.related.toTable(
         obj,
         getRelationTypeByName(relation).label
       );
       rows.push(pick(record, pickColumns));
-    }
+    });
     return rows;
   }
 
@@ -210,7 +210,7 @@ export default class SeriesRelations extends Component {
       return siblingRelationPayload;
     };
 
-    for (const result of results) {
+    results.forEach(result => {
       const relation = result.metadata.relationType;
       const createPayload = generateCreatePayload(relation);
       const addAction =
@@ -234,7 +234,7 @@ export default class SeriesRelations extends Component {
           )
         );
       }
-    }
+    });
     return actions;
   }
 

@@ -35,9 +35,9 @@ export default class SeriesMultipartMonographs extends Component {
   prepareData(data) {
     const serials = this.props.series.metadata.relations.serial || [];
     const volumes = {};
-    for (const serial of serials) {
-      volumes[[serial.pid, serial.pid_type]] = serial.volume;
-    }
+    serials.forEach(
+      serial => (volumes[[serial.pid, serial.pid_type]] = serial.volume)
+    );
     return data.hits.map(row => {
       const key = [row.metadata.pid, 'serid'];
       const volume = key in volumes ? volumes[key] : '?';

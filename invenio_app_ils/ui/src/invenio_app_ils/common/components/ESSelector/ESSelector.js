@@ -10,13 +10,12 @@ export default class ESSelector extends Component {
     super(props);
 
     const selections = [];
-    for (const selection of props.initialSelections) {
+    props.initialSelections.forEach(selection => {
       if (props.onSelectResult) {
         props.onSelectResult(selection, true);
       }
       selections.push(selection);
-    }
-
+    });
     this.searchRef = null;
     this.props.updateSelections(selections);
   }

@@ -15,14 +15,14 @@ export default class SeriesMetadata extends Component {
 
   async getRelationRefs() {
     const hits = [];
-    for (const [relation, records] of Object.entries(this.props.relations)) {
-      for (const record of records) {
+    Object.entries(this.props.relations).forEach(([relation, records]) => {
+      records.forEach(record => {
         const type = formatPidTypeToName(record.pid_type);
         hits.push({
           id: `${type} ${record.pid} (${relation})`,
         });
-      }
-    }
+      });
+    });
     const obj = {
       data: {
         hits: hits,

@@ -50,9 +50,7 @@ export class HitsSearch extends Component {
         : searchQuery;
       const response = await this.props.query(queryString);
       const results = [];
-      for (let hit of response.data.hits) {
-        results.push(serialize(hit));
-      }
+      response.data.hits.forEach(hit => results.push(serialize(hit)));
       if (this.props.onResults) {
         this.props.onResults(results);
       }

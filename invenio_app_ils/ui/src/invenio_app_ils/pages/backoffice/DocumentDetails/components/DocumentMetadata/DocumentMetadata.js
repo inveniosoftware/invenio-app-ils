@@ -125,14 +125,15 @@ export default class DocumentMetadata extends Component {
 
   async getRelationRefs() {
     const hits = [];
-    for (const [relation, records] of Object.entries(this.props.relations)) {
-      for (const record of records) {
-        const type = formatPidTypeToName(record.pid_type);
+    Object.entries(this.props.relations).forEach(([relation, records]) => {
+      records.forEach(record => {
         hits.push({
-          id: `${type} ${record.pid} (${relation})`,
+          id: `${formatPidTypeToName(record.pid_type)} ${
+            record.pid
+          } (${relation})`,
         });
-      }
-    }
+      });
+    });
     const obj = {
       data: {
         hits: hits,

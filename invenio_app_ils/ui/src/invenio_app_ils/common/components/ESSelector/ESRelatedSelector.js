@@ -56,11 +56,11 @@ export default class ESRelatedSelector extends Component {
 
     result.metadata.extraFields = result.metadata.extraFields || {};
     if (!isEmpty(this.extraRefs)) {
-      for (const name in this.props.extraFields) {
+      this.props.extraFields.forEach(name => {
         const input = this.extraRefs[name].inputRef;
         result.metadata.extraFields[name] = input.value;
         input.value = '';
-      }
+      });
     }
 
     this.serializeSelection(result);
@@ -72,10 +72,10 @@ export default class ESRelatedSelector extends Component {
 
   onSearchChange = query => {
     if (query) {
-      for (const [name, input] of Object.entries(this.extraRefs)) {
+      Object.entries(this.extraRefs).forEach(([name, input]) => {
         const value = input.inputRef.value;
         this.setState({ showPopup: { [name]: value === '' } });
-      }
+      });
     }
   };
 
@@ -117,27 +117,27 @@ export default class ESRelatedSelector extends Component {
   prepareSelections(selections) {
     const findRecordType = pidType => {
       const recordTypes = Object.entries(this.props.recordTypes);
-      for (const [recordType, obj] of recordTypes) {
+      recordTypes.forEach(([recordType, obj]) => {
         if (obj.pidType === pidType) {
           return recordType;
         }
-      }
+      });
       return null;
     };
 
     const records = {};
-    for (const recordType in this.props.recordTypes) {
+    this.props.recordTypes.forEach(recordType => {
       records[recordType] = [];
-    }
+    });
 
-    for (const selection of selections) {
+    selections.forEach(selection => {
       const pidType = selection.metadata.pidType;
       const recordType = findRecordType(pidType);
       if (!recordType) {
         return [];
       }
       records[recordType].push(selection);
-    }
+    });
     return records;
   }
 
@@ -183,7 +183,7 @@ export default class ESRelatedSelector extends Component {
 
     if (!extraFields) return null;
 
-    for (const [name, field] of Object.entries(extraFields)) {
+    Object.entries(extraFields).forEach(([name, field]) => {
       const FieldComponent = field.component;
       fields.push(
         <Form.Group inline key={name}>
@@ -203,7 +203,7 @@ export default class ESRelatedSelector extends Component {
           />
         </Form.Group>
       );
-    }
+    });
     return fields;
   }
 

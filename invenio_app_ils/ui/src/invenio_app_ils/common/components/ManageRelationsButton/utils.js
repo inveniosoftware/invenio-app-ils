@@ -12,10 +12,10 @@ export function formatPidTypeToName(pidType) {
 }
 
 export function getRelationTypeByName(name) {
-  for (const type of invenioConfig.relationTypes) {
+  invenioConfig.relationTypes.forEach(type => {
     if (type.name === name) {
       return type;
     }
-  }
+  });
   throw Error(`No relation with name: ${name}`);
 }
