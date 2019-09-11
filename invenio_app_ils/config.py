@@ -103,6 +103,7 @@ from .records.api import (  # isort:skip
     Keyword,
     Location,
     InternalLocation,
+    Patron,
     Series,
 )
 from .records.permissions import (  # isort:skip
@@ -514,6 +515,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_minter=PATRON_PID_MINTER,
         pid_fetcher=PATRON_PID_FETCHER,
         search_class=PatronsSearch,
+        record_class=Patron,
         record_serializers={
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_response'),

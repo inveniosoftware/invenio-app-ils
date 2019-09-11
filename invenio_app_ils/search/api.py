@@ -190,7 +190,7 @@ class PatronsSearch(RecordsSearch):
     """Search for patrons."""
 
     class Meta:
-        """Search only on items index."""
+        """Search only on patrons index."""
 
         index = "patrons"
         doc_types = None
