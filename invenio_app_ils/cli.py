@@ -810,13 +810,17 @@ def patrons():
 @with_appcontext
 def index():
     """Index patrons."""
+    from flask import current_app
+    from invenio_app_ils.pidstore.pids import PATRON_PID_TYPE
     patrons = User.query.all()
     indexer = PatronsIndexer()
 
     click.secho('Now indexing {0} patrons'.format(len(patrons)), fg='green')
 
+    rest_config = current_app.config["RECORDS_REST_ENDPOINTS"]
+    patron_cls = rest_config[PATRON_PID_TYPE]["record_class"] or Patron
     for pat in patrons:
-        patron = Patron(pat.id)
+        patron = patron_cls(pat.id)
         indexer.index(patron)
 
 
