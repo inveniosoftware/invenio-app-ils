@@ -1,5 +1,4 @@
 import { generatePath } from 'react-router-dom';
-import { invenioConfig } from '../common/config';
 
 const FrontSiteBase = '/';
 
@@ -70,8 +69,4 @@ const BackOfficeRouteGenerators = {
 export const BackOfficeRoutes = {
   ...BackOfficeRoutesList,
   ...BackOfficeRouteGenerators,
-};
-
-export const openRecordEditor = (path, recid = '') => {
-  window.open(`${invenioConfig.editor.url}${path}${recid}`, '_blank');
 };

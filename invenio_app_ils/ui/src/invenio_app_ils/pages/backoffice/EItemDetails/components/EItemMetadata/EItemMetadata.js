@@ -2,8 +2,6 @@ import React from 'react';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Segment, Container, Header, Table } from 'semantic-ui-react';
-import { openRecordEditor } from '../../../../../routes/urls';
-import { eitem as eitemApi } from '../../../../../common/api';
 import { EditButton } from '../../../components/buttons';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 
@@ -24,9 +22,9 @@ export default class EItemMetadata extends Component {
       </Grid.Column>
       <Grid.Column width={6} textAlign={'right'}>
         <EditButton
-          clickHandler={() =>
-            openRecordEditor(eitemApi.url, this.props.eitem.pid)
-          }
+          clickHandler={() => {
+            // TODO: EDITOR, implement edit form
+          }}
         />
         <DeleteRecordModal
           deleteHeader={`Are you sure you want to delete the EItem record

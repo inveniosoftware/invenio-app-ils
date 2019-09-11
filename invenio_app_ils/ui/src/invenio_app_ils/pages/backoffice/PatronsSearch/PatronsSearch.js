@@ -11,7 +11,6 @@ import {
   Count,
   InvenioSearchApi,
 } from 'react-searchkit';
-import { apiConfig } from '../../../common/api/base';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import {
   Error as IlsError,
@@ -27,7 +26,8 @@ import './PatronsSearch.scss';
 
 export class PatronsSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: `${apiConfig.baseURL}${patronApi.url}`,
+    url: patronApi.url,
+    withCredentials: true,
   });
   searchConfig = getSearchConfig('patrons');
 

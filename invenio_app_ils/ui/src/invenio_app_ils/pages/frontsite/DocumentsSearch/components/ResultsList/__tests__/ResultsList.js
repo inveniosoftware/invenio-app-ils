@@ -24,6 +24,10 @@ describe('DocumentsSearch ResultsList tests', () => {
           hits: [],
           total: 0,
         },
+        circulation: {
+          has_items_for_loan: 0,
+          past_loans_count: 10,
+        },
       },
     },
   ];

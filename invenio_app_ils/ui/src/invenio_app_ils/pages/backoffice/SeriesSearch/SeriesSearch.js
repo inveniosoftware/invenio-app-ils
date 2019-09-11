@@ -12,7 +12,6 @@ import {
   Aggregator,
   InvenioSearchApi,
 } from 'react-searchkit';
-import { apiConfig } from '../../../common/api/base';
 import {
   Error as IlsError,
   SearchBar as SeriesSearchBar,
@@ -21,14 +20,15 @@ import {
 import { series as seriesApi } from '../../../common/api/series/series';
 import { getSearchConfig } from '../../../common/config';
 import { ClearButton, NewButton } from '../components/buttons';
-import { BackOfficeRoutes, openRecordEditor } from '../../../routes/urls';
+import { BackOfficeRoutes } from '../../../routes/urls';
 import { ResultsList as SeriesResultsList } from './components';
 import { goTo } from '../../../history';
 import './SeriesSearch.scss';
 
 export class SeriesSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: `${apiConfig.baseURL}${seriesApi.url}`,
+    url: seriesApi.url,
+    withCredentials: true,
   });
   searchConfig = getSearchConfig('series');
 
@@ -92,7 +92,7 @@ export class SeriesSearch extends Component {
           <NewButton
             text={'New series'}
             clickHandler={() => {
-              openRecordEditor(seriesApi.url);
+              // TODO: EDITOR, implement create form
             }}
           />
         </Segment.Inline>

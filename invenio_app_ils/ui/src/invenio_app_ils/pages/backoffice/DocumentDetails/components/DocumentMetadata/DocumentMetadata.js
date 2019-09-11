@@ -23,7 +23,7 @@ import {
   keyword as keywordApi,
   patron as patronApi,
 } from '../../../../../common/api';
-import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
+import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 import { ESSelectorModal } from '../../../../../common/components/ESSelector';
 import {
@@ -178,7 +178,9 @@ export default class DocumentMetadata extends Component {
         </Grid.Column>
         <Grid.Column width={3} textAlign={'right'}>
           <EditButton
-            clickHandler={() => openRecordEditor(documentApi.url, document.pid)}
+            clickHandler={() => {
+              // TODO: EDITOR, implement edit form
+            }}
           />
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Document

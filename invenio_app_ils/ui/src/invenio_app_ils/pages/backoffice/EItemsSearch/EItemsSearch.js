@@ -11,7 +11,6 @@ import {
   Count,
   InvenioSearchApi,
 } from 'react-searchkit';
-import { apiConfig } from '../../../common/api/base';
 import { getSearchConfig } from '../../../common/config';
 import {
   Error as IlsError,
@@ -20,14 +19,15 @@ import {
 } from '../../../common/components';
 import { eitem as eitemApi } from '../../../common/api';
 import { ClearButton, NewButton } from '../components/buttons';
-import { BackOfficeRoutes, openRecordEditor } from '../../../routes/urls';
+import { BackOfficeRoutes } from '../../../routes/urls';
 import { ResultsList as EItemsResultsList } from './components';
 import { goTo } from '../../../history';
 import './EItemsSearch.scss';
 
 export class EItemsSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: `${apiConfig.baseURL}${eitemApi.url}`,
+    url: eitemApi.url,
+    withCredentials: true,
   });
   searchConfig = getSearchConfig('eitems');
 
@@ -74,7 +74,7 @@ export class EItemsSearch extends Component {
           <NewButton
             text={'New eitem'}
             clickHandler={() => {
-              openRecordEditor(eitemApi.url);
+              // TODO: EDITOR, implement create form
             }}
           />
         </Segment.Inline>

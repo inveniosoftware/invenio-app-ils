@@ -4,7 +4,153 @@ exports[`SeriesSearch ResultsList tests should not render when empty results 1`]
 <ResultsList
   results={Array []}
   viewDetailsClickHandler={[Function]}
-/>
+>
+  <ResultsTable
+    currentPage={1}
+    fixed={false}
+    headerActionClickHandler={null}
+    headerActionComponent={
+      <div>
+        <NewButton
+          clickHandler={[Function]}
+          disabled={false}
+          fluid={false}
+          text="New series"
+        />
+        <ExportReactSearchKitResults
+          exportBaseUrl="https://127.0.0.1:5000/api/series/"
+        />
+      </div>
+    }
+    name="series"
+    paginationComponent={null}
+    renderSegment={true}
+    rowActionClickHandler={[Function]}
+    rows={Array []}
+    seeAllComponent={null}
+    showMaxRows={10}
+    singleLine={false}
+    subtitle=""
+    title=""
+  >
+    <Segment>
+      <div
+        className="ui segment"
+      >
+        <Grid>
+          <div
+            className="ui grid"
+          >
+            <GridRow>
+              <div
+                className="row"
+              >
+                <GridColumn
+                  verticalAlign="middle"
+                  width={13}
+                >
+                  <div
+                    className="middle aligned thirteen wide column"
+                  />
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={3}
+                >
+                  <div
+                    className="right aligned three wide column"
+                  >
+                    <div>
+                      <NewButton
+                        clickHandler={[Function]}
+                        disabled={false}
+                        fluid={false}
+                        text="New series"
+                      >
+                        <Button
+                          as="button"
+                          icon={true}
+                          labelPosition="left"
+                          onClick={[Function]}
+                          positive={true}
+                          size="small"
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui small icon positive left labeled button"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    class="plus icon"
+                                  />
+                                  New series
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui small icon positive left labeled button"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="plus icon"
+                                    />
+                                    New series
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui small icon positive left labeled button"
+                                onClick={[Function]}
+                              >
+                                <Icon
+                                  as="i"
+                                  name="plus"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    className="plus icon"
+                                    onClick={[Function]}
+                                  />
+                                </Icon>
+                                New series
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                      </NewButton>
+                      <ExportReactSearchKitResults
+                        exportBaseUrl="https://127.0.0.1:5000/api/series/"
+                      />
+                    </div>
+                  </div>
+                </GridColumn>
+              </div>
+            </GridRow>
+          </div>
+        </Grid>
+        <Message
+          data-test="no-results"
+        >
+          <div
+            className="ui message"
+            data-test="no-results"
+          >
+            There are no 
+            series
+            .
+          </div>
+        </Message>
+      </div>
+    </Segment>
+  </ResultsTable>
+</ResultsList>
 `;
 
 exports[`SeriesSearch ResultsList tests should render a list of results 1`] = `
@@ -37,12 +183,17 @@ exports[`SeriesSearch ResultsList tests should render a list of results 1`] = `
     fixed={false}
     headerActionClickHandler={null}
     headerActionComponent={
-      <NewButton
-        clickHandler={[Function]}
-        disabled={false}
-        fluid={false}
-        text="New series"
-      />
+      <div>
+        <NewButton
+          clickHandler={[Function]}
+          disabled={false}
+          fluid={false}
+          text="New series"
+        />
+        <ExportReactSearchKitResults
+          exportBaseUrl="https://127.0.0.1:5000/api/series/"
+        />
+      </div>
     }
     name="series"
     paginationComponent={null}
@@ -95,36 +246,22 @@ exports[`SeriesSearch ResultsList tests should render a list of results 1`] = `
                   <div
                     className="right aligned three wide column"
                   >
-                    <NewButton
-                      clickHandler={[Function]}
-                      disabled={false}
-                      fluid={false}
-                      text="New series"
-                    >
-                      <Button
-                        as="button"
-                        icon={true}
-                        labelPosition="left"
-                        onClick={[Function]}
-                        positive={true}
-                        size="small"
+                    <div>
+                      <NewButton
+                        clickHandler={[Function]}
+                        disabled={false}
+                        fluid={false}
+                        text="New series"
                       >
-                        <Ref
-                          innerRef={
-                            Object {
-                              "current": <button
-                                class="ui small icon positive left labeled button"
-                              >
-                                <i
-                                  aria-hidden="true"
-                                  class="plus icon"
-                                />
-                                New series
-                              </button>,
-                            }
-                          }
+                        <Button
+                          as="button"
+                          icon={true}
+                          labelPosition="left"
+                          onClick={[Function]}
+                          positive={true}
+                          size="small"
                         >
-                          <RefFindNode
+                          <Ref
                             innerRef={
                               Object {
                                 "current": <button
@@ -139,26 +276,45 @@ exports[`SeriesSearch ResultsList tests should render a list of results 1`] = `
                               }
                             }
                           >
-                            <button
-                              className="ui small icon positive left labeled button"
-                              onClick={[Function]}
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui small icon positive left labeled button"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="plus icon"
+                                    />
+                                    New series
+                                  </button>,
+                                }
+                              }
                             >
-                              <Icon
-                                as="i"
-                                name="plus"
+                              <button
+                                className="ui small icon positive left labeled button"
+                                onClick={[Function]}
                               >
-                                <i
-                                  aria-hidden="true"
-                                  className="plus icon"
-                                  onClick={[Function]}
-                                />
-                              </Icon>
-                              New series
-                            </button>
-                          </RefFindNode>
-                        </Ref>
-                      </Button>
-                    </NewButton>
+                                <Icon
+                                  as="i"
+                                  name="plus"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    className="plus icon"
+                                    onClick={[Function]}
+                                  />
+                                </Icon>
+                                New series
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                      </NewButton>
+                      <ExportReactSearchKitResults
+                        exportBaseUrl="https://127.0.0.1:5000/api/series/"
+                      />
+                    </div>
                   </div>
                 </GridColumn>
               </div>

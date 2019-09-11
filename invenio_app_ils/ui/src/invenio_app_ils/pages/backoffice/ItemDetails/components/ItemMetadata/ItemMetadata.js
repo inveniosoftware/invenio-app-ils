@@ -10,10 +10,9 @@ import {
   List,
 } from 'semantic-ui-react';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
-import { BackOfficeRoutes, openRecordEditor } from '../../../../../routes/urls';
+import { BackOfficeRoutes } from '../../../../../routes/urls';
 import {
   loan as loanApi,
-  item as itemApi,
   document as documentApi,
   patron as patronApi,
 } from '../../../../../common/api';
@@ -120,7 +119,9 @@ export default class ItemMetadata extends Component {
           />
 
           <EditButton
-            clickHandler={() => openRecordEditor(itemApi.url, itemDetails.pid)}
+            clickHandler={() => {
+              // TODO: EDITOR, implement edit form
+            }}
           />
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Item

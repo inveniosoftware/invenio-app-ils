@@ -4,7 +4,77 @@ exports[`PatronsSearch ResultsList tests should not render when empty results 1`
 <ResultsList
   results={Array []}
   viewDetailsClickHandler={[Function]}
-/>
+>
+  <ResultsTable
+    currentPage={1}
+    fixed={false}
+    headerActionClickHandler={null}
+    headerActionComponent={
+      <ExportReactSearchKitResults
+        exportBaseUrl="https://127.0.0.1:5000/api/patrons/"
+      />
+    }
+    paginationComponent={null}
+    renderSegment={true}
+    rowActionClickHandler={[Function]}
+    rows={Array []}
+    seeAllComponent={null}
+    showMaxRows={10}
+    singleLine={false}
+    subtitle=""
+    title=""
+  >
+    <Segment>
+      <div
+        className="ui segment"
+      >
+        <Grid>
+          <div
+            className="ui grid"
+          >
+            <GridRow>
+              <div
+                className="row"
+              >
+                <GridColumn
+                  verticalAlign="middle"
+                  width={13}
+                >
+                  <div
+                    className="middle aligned thirteen wide column"
+                  />
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={3}
+                >
+                  <div
+                    className="right aligned three wide column"
+                  >
+                    <ExportReactSearchKitResults
+                      exportBaseUrl="https://127.0.0.1:5000/api/patrons/"
+                    />
+                  </div>
+                </GridColumn>
+              </div>
+            </GridRow>
+          </div>
+        </Grid>
+        <Message
+          data-test="no-results"
+        >
+          <div
+            className="ui message"
+            data-test="no-results"
+          >
+            There are no 
+            .
+          </div>
+        </Message>
+      </div>
+    </Segment>
+  </ResultsTable>
+</ResultsList>
 `;
 
 exports[`PatronsSearch ResultsList tests should render a list of results 1`] = `
@@ -29,7 +99,11 @@ exports[`PatronsSearch ResultsList tests should render a list of results 1`] = `
     currentPage={1}
     fixed={false}
     headerActionClickHandler={null}
-    headerActionComponent={null}
+    headerActionComponent={
+      <ExportReactSearchKitResults
+        exportBaseUrl="https://127.0.0.1:5000/api/patrons/"
+      />
+    }
     paginationComponent={null}
     renderSegment={true}
     rowActionClickHandler={[Function]}
@@ -74,7 +148,11 @@ exports[`PatronsSearch ResultsList tests should render a list of results 1`] = `
                 >
                   <div
                     className="right aligned three wide column"
-                  />
+                  >
+                    <ExportReactSearchKitResults
+                      exportBaseUrl="https://127.0.0.1:5000/api/patrons/"
+                    />
+                  </div>
                 </GridColumn>
               </div>
             </GridRow>

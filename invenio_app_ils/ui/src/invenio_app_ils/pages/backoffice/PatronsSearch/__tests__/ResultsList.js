@@ -3,6 +3,8 @@ import { mount } from 'enzyme';
 import { ResultsList } from '../components';
 import { formatter } from '../../../../common/components/ResultsTable/formatters';
 
+jest.mock('../../components');
+
 describe('PatronsSearch ResultsList tests', () => {
   const results = [
     {

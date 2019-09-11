@@ -12,7 +12,6 @@ import {
   Aggregator,
   InvenioSearchApi,
 } from 'react-searchkit';
-import { apiConfig } from '../../../common/api/base';
 import { getSearchConfig } from '../../../common/config';
 import {
   Error as IlsError,
@@ -21,14 +20,15 @@ import {
 } from '../../../common/components';
 import { item as itemApi } from '../../../common/api';
 import { ClearButton, NewButton } from '../components/buttons';
-import { BackOfficeRoutes, openRecordEditor } from '../../../routes/urls';
+import { BackOfficeRoutes } from '../../../routes/urls';
 import { ResultsList as ItemsResultsList } from './components';
 import { goTo } from '../../../history';
 import './ItemsSearch.scss';
 
 export class ItemsSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: `${apiConfig.baseURL}${itemApi.url}`,
+    url: itemApi.url,
+    withCredentials: true,
   });
   searchConfig = getSearchConfig('items');
 
@@ -75,7 +75,7 @@ export class ItemsSearch extends Component {
           <NewButton
             text={'New item'}
             clickHandler={() => {
-              openRecordEditor(itemApi.url);
+              // TODO: EDITOR, implement create form
             }}
           />
         </Segment.Inline>

@@ -17,8 +17,15 @@ from __future__ import absolute_import, print_function
 from flask import Blueprint, current_app, render_template
 from invenio_circulation.proxies import current_circulation
 
-from invenio_app_ils.search.api import DocumentSearch, EItemSearch, \
-    ItemSearch, PatronsSearch, SeriesSearch
+from invenio_app_ils.config import _RECORDS_REST_MAX_RESULT_WINDOW
+
+from invenio_app_ils.search.api import (  # isort:skip
+    DocumentSearch,
+    EItemSearch,
+    ItemSearch,
+    PatronsSearch,
+    SeriesSearch,
+)
 
 blueprint = Blueprint(
     "invenio_app_ils_ui",
@@ -32,39 +39,47 @@ blueprint = Blueprint(
 def _get_documents_ui_config():
     """Get ui config for documents search page."""
     ui_config = {
-        'documents': {
-            'search': {
-                'sortBy': {'values': [], 'onEmptyQuery': None},
-                'sortOrder': ['asc', 'desc'],
-                'aggs': []
+        "documents": {
+            "search": {
+                "sortBy": {"values": [], "onEmptyQuery": None},
+                "sortOrder": ["asc", "desc"],
+                "aggs": [],
             }
         }
     }
     documents_index = DocumentSearch.Meta.index
 
     documents_sort = current_app.config.get(
-        'RECORDS_REST_SORT_OPTIONS', {}
+        "RECORDS_REST_SORT_OPTIONS", {}
     ).get(documents_index, {})
 
     # NOTE: `order` refers to the order the option will appear,
     # while `default_order` is the asc or desc default option.
-    documents_sort_ui = [{
-        'field': field,
-        'title': documents_sort[field]['title'],
-        'order': documents_sort[field]['order'],
-        'default_order': documents_sort[field]['default_order'],
-    } for field in documents_sort.keys()]
+    documents_sort_ui = [
+        {
+            "field": field,
+            "title": documents_sort[field]["title"],
+            "order": documents_sort[field]["order"],
+            "default_order": documents_sort[field]["default_order"],
+        }
+        for field in documents_sort.keys()
+    ]
 
-    ui_config['documents']['search']['sortBy']['values'] = sorted(
-        documents_sort_ui, key=lambda s: s['order']
+    ui_config["documents"]["search"]["sortBy"]["values"] = sorted(
+        documents_sort_ui, key=lambda s: s["order"]
     )
 
-    if 'mostrecent' in documents_sort:
-        ui_config['documents']['search']['sortBy']['onEmptyQuery'] = 'mostrecent'
+    if "mostrecent" in documents_sort:
+        ui_config["documents"]["search"]["sortBy"][
+            "onEmptyQuery"
+        ] = "mostrecent"
 
-    documents_aggs = current_app.config.get('RECORDS_REST_FACETS', {}).get(
-        documents_index, {}).get('aggs', {})
-    ui_config['documents']['search']['aggs'] = list(documents_aggs.keys())
+    documents_aggs = (
+        current_app.config.get("RECORDS_REST_FACETS", {})
+        .get(documents_index, {})
+        .get("aggs", {})
+    )
+    ui_config["documents"]["search"]["aggs"] = list(documents_aggs.keys())
     return ui_config
 
 
@@ -200,73 +215,84 @@ def _get_loans_ui_config():
 def _get_series_ui_config():
     """Get ui config for series search page."""
     ui_config = {
-        'series': {
-            'search': {
-                'sortBy': {'values': [], 'onEmptyQuery': None},
-                'sortOrder': ['asc', 'desc'],
-                'aggs': []
+        "series": {
+            "search": {
+                "sortBy": {"values": [], "onEmptyQuery": None},
+                "sortOrder": ["asc", "desc"],
+                "aggs": [],
             }
         }
     }
     series_index = SeriesSearch.Meta.index
 
-    series_sort = current_app.config.get(
-        'RECORDS_REST_SORT_OPTIONS', {}
-    ).get(series_index, {})
-
-    series_sort_ui = [{
-        'field': field,
-        'title': series_sort[field]['title'],
-        'order': series_sort[field]['order'],
-    } for field in series_sort.keys()]
-
-    ui_config['series']['search']['sortBy']['values'] = sorted(
-        series_sort_ui, key=lambda s: s['order']
+    series_sort = current_app.config.get("RECORDS_REST_SORT_OPTIONS", {}).get(
+        series_index, {}
     )
 
-    if 'mostrecent' in series_sort:
-        ui_config['series']['search']['sortBy']['onEmptyQuery'] = \
-            'mostrecent'
+    series_sort_ui = [
+        {
+            "field": field,
+            "title": series_sort[field]["title"],
+            "order": series_sort[field]["order"],
+        }
+        for field in series_sort.keys()
+    ]
 
-    series_aggs = current_app.config.get('RECORDS_REST_FACETS', {}).get(
-        series_index, {}).get('aggs', {})
-    ui_config['series']['search']['aggs'] = list(series_aggs.keys())
+    ui_config["series"]["search"]["sortBy"]["values"] = sorted(
+        series_sort_ui, key=lambda s: s["order"]
+    )
+
+    if "mostrecent" in series_sort:
+        ui_config["series"]["search"]["sortBy"]["onEmptyQuery"] = "mostrecent"
+
+    series_aggs = (
+        current_app.config.get("RECORDS_REST_FACETS", {})
+        .get(series_index, {})
+        .get("aggs", {})
+    )
+    ui_config["series"]["search"]["aggs"] = list(series_aggs.keys())
     return ui_config
 
 
 def _get_patrons_ui_config():
     """Get ui config for patrons search page."""
     ui_config = {
-        'patrons': {
-            'search': {
-                'sortBy': {'values': [], 'onEmptyQuery': None},
-                'sortOrder': ['asc', 'desc'],
-                'aggs': []
+        "patrons": {
+            "search": {
+                "sortBy": {"values": [], "onEmptyQuery": None},
+                "sortOrder": ["asc", "desc"],
+                "aggs": [],
             }
         }
     }
     patrons_index = PatronsSearch.Meta.index
 
-    patrons_sort = current_app.config.get(
-        'RECORDS_REST_SORT_OPTIONS', {}
-    ).get(patrons_index, {})
-
-    patrons_sort_ui = [{
-        'field': field,
-        'title': patrons_sort[field]['title'],
-        'order': patrons_sort[field]['order'],
-    } for field in patrons_sort.keys()]
-
-    ui_config['patrons']['search']['sortBy']['values'] = sorted(
-        patrons_sort_ui, key=lambda s: s['order']
+    patrons_sort = current_app.config.get("RECORDS_REST_SORT_OPTIONS", {}).get(
+        patrons_index, {}
     )
 
-    if 'mostrecent' in patrons_sort:
-        ui_config['patrons']['search']['sortBy']['onEmptyQuery'] = 'mostrecent'
+    patrons_sort_ui = [
+        {
+            "field": field,
+            "title": patrons_sort[field]["title"],
+            "order": patrons_sort[field]["order"],
+        }
+        for field in patrons_sort.keys()
+    ]
 
-    patrons_aggs = current_app.config.get('RECORDS_REST_FACETS', {}).get(
-        patrons_index, {}).get('aggs', {})
-    ui_config['patrons']['search']['aggs'] = list(patrons_aggs.keys())
+    ui_config["patrons"]["search"]["sortBy"]["values"] = sorted(
+        patrons_sort_ui, key=lambda s: s["order"]
+    )
+
+    if "mostrecent" in patrons_sort:
+        ui_config["patrons"]["search"]["sortBy"]["onEmptyQuery"] = "mostrecent"
+
+    patrons_aggs = (
+        current_app.config.get("RECORDS_REST_FACETS", {})
+        .get(patrons_index, {})
+        .get("aggs", {})
+    )
+    ui_config["patrons"]["search"]["aggs"] = list(patrons_aggs.keys())
 
     return ui_config
 
@@ -282,17 +308,18 @@ def index(path=None):
     ui_config.update(_get_series_ui_config())
     ui_config.update(_get_patrons_ui_config())
     ui_config.update(
-        {"editor": {"url": current_app.config["RECORDS_EDITOR_URL_PREFIX"]}}
-    )
-    ui_config.update(
-        {"support_email": current_app.config["SUPPORT_EMAIL"]}
-    )
-    ui_config.update(
-        {"relationTypes": current_app.config["ILS_PIDRELATIONS_TYPES"]}
-    )
-
-    ui_config.update(
-        {"default_results_size": current_app.config["RECORDS_REST_DEFAULT_RESULTS_SIZE"]}
+        {
+            "editor": {"url": current_app.config["RECORDS_EDITOR_URL_PREFIX"]},
+            "support_email": current_app.config["SUPPORT_EMAIL"],
+            "relationTypes": current_app.config["ILS_PIDRELATIONS_TYPES"],
+            "default_results_size": current_app.config[
+                "RECORDS_REST_DEFAULT_RESULTS_SIZE"
+            ],
+            "rest_mimetype_query_arg_name": current_app.config[
+                "REST_MIMETYPE_QUERY_ARG_NAME"
+            ],
+            "max_results_window": _RECORDS_REST_MAX_RESULT_WINDOW,
+        }
     )
 
     return render_template("invenio_app_ils/index.html", ui_config=ui_config)

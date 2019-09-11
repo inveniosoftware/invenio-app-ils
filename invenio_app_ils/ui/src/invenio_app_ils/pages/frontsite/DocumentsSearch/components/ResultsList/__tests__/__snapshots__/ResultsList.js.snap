@@ -25,6 +25,10 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
               "full_name": "Author1",
             },
           ],
+          "circulation": Object {
+            "has_items_for_loan": 0,
+            "past_loans_count": 10,
+          },
           "eitems": Object {
             "hits": Array [],
             "total": 0,
@@ -57,6 +61,10 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
               "full_name": "Author1",
             },
           ],
+          "circulation": Object {
+            "has_items_for_loan": 0,
+            "past_loans_count": 10,
+          },
           "eitems": Object {
             "hits": Array [],
             "total": 0,
@@ -73,6 +81,13 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
         <div
           className="ui segment"
         >
+          <Divider
+            hidden={true}
+          >
+            <div
+              className="ui hidden divider"
+            />
+          </Divider>
           <ItemGroup
             divided={true}
           >
@@ -225,6 +240,62 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
                               </RefFindNode>
                             </Ref>
                           </Button>
+                          <Divider
+                            hidden={true}
+                          >
+                            <div
+                              className="ui hidden divider"
+                            />
+                          </Divider>
+                          <Label
+                            color="red"
+                            content="Copies on shelf"
+                            detail={0}
+                          >
+                            <div
+                              className="ui red label"
+                              onClick={[Function]}
+                            >
+                              Copies on shelf
+                              <LabelDetail
+                                content={0}
+                              >
+                                <div
+                                  className="detail"
+                                >
+                                  0
+                                </div>
+                              </LabelDetail>
+                            </div>
+                          </Label>
+                          <Divider
+                            hidden={true}
+                          >
+                            <div
+                              className="ui hidden divider"
+                            />
+                          </Divider>
+                          <Label
+                            color="blue"
+                            content="Past loans"
+                            detail={10}
+                          >
+                            <div
+                              className="ui blue label"
+                              onClick={[Function]}
+                            >
+                              Past loans
+                              <LabelDetail
+                                content={10}
+                              >
+                                <div
+                                  className="detail"
+                                >
+                                  10
+                                </div>
+                              </LabelDetail>
+                            </div>
+                          </Label>
                         </div>
                       </ItemExtra>
                       <ItemExtra>

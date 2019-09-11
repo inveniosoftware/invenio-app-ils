@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
-import {
-  location as locationApi,
-  internalLocation as internalLocationApi,
-} from '../../../common/api';
-import { openRecordEditor } from '../../../routes/urls';
+import { internalLocation as internalLocationApi } from '../../../common/api';
 import { InternalLocationList } from './components';
 import { Error, Loader, ResultsTable } from '../../../common/components';
 import { DeleteRecordModal } from '../../backoffice/components';
@@ -29,8 +25,9 @@ export default class LocationList extends Component {
     return [
       {
         refType: 'Internal Location',
-        onRefClick: iLocPid =>
-          openRecordEditor(internalLocationApi.url, iLocPid),
+        onRefClick: iLocPid => {
+          // TODO: EDITOR, implement edit form
+        },
         getRefData: () =>
           internalLocationApi.list(`location_pid:${locationPid}`),
       },
@@ -42,7 +39,9 @@ export default class LocationList extends Component {
       <>
         <Button
           icon={'edit'}
-          onClick={() => openRecordEditor(locationApi.url, locationPid)}
+          onClick={() => {
+            // TODO: EDITOR, implement edit form
+          }}
           size="small"
           title={'Edit Record'}
         />
@@ -71,7 +70,7 @@ export default class LocationList extends Component {
     const headerActionComponent = (
       <NewButton
         clickHandler={() => {
-          openRecordEditor(locationApi.url);
+          // TODO: EDITOR, implement create form
         }}
       />
     );

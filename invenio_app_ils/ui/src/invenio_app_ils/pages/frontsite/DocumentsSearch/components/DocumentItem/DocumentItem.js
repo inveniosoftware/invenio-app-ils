@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {
   Button,
-  Icon,
   Item,
   Label,
-  Responsive,
   Segment,
+  Responsive,
+  Icon,
+  Divider,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { EitemsButton, ShareButtons } from '../../../components';
@@ -16,10 +17,31 @@ export default class DocumentItem extends Component {
     this.metadata = props.metadata;
   }
 
+  renderBookAvailabilityLabel = circulationData => {
+    return (
+      <Label
+        color={circulationData.has_items_for_loan ? 'green' : 'red'}
+        content="Copies on shelf"
+        detail={circulationData.has_items_for_loan}
+      />
+    );
+  };
+
+  renderPastLoansLabel = circulationData => {
+    return (
+      <Label
+        color="blue"
+        content="Past loans"
+        detail={circulationData.past_loans_count}
+      />
+    );
+  };
+
   render() {
     const cover = 'https://assets.thalia.media/img/46276899-00-00.jpg';
     return (
       <Segment>
+        <Divider hidden />
         <Item.Group divided>
           <Item>
             <Item.Image src={cover} size="small" floated="left" />
@@ -64,6 +86,10 @@ export default class DocumentItem extends Component {
                   <Icon name="eye" />
                   View Details
                 </Button>
+                <Divider hidden />
+                {this.renderBookAvailabilityLabel(this.metadata.circulation)}
+                <Divider hidden />
+                {this.renderPastLoansLabel(this.metadata.circulation)}
               </Item.Extra>
               <Item.Extra>
                 <Label>Non-Fiction</Label>

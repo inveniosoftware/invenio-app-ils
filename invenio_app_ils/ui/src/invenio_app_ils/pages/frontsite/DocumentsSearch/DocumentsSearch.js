@@ -21,7 +21,6 @@ import {
   Aggregator,
   InvenioSearchApi,
 } from 'react-searchkit';
-import { apiConfig } from '../../../common/api/base';
 import { getSearchConfig } from '../../../common/config';
 import { FrontSiteRoutes } from '../../../routes/urls';
 import {
@@ -36,7 +35,8 @@ import './DocumentsSearch.scss';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: `${apiConfig.baseURL}${documentApi.url}`,
+    url: documentApi.url,
+    withCredentials: true,
   });
   state = { activeIndex: 0 };
   searchConfig = getSearchConfig('documents');

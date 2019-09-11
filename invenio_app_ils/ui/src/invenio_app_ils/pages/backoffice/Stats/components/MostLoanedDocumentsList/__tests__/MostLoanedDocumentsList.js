@@ -8,6 +8,7 @@ import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { MemoryRouter } from 'react-router';
 import * as testData from '../../../../../../../../../../tests/data/documents.json';
 
+jest.mock('../../../../components');
 jest.mock('../../../../../../common/config/invenioConfig');
 
 Settings.defaultZoneName = 'utc';

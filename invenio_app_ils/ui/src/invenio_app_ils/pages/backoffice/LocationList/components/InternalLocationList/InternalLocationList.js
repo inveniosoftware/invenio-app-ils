@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  internalLocation as internalLocationApi,
-  item as itemApi,
-} from '../../../../../common/api';
-import { openRecordEditor } from '../../../../../routes/urls';
+import { item as itemApi } from '../../../../../common/api';
 import { Error, Loader, ResultsTable } from '../../../../../common/components';
 import { Button } from 'semantic-ui-react';
 import { NewButton } from '../../../components/buttons';
@@ -24,7 +20,7 @@ export default class InternalLocationList extends Component {
   }
 
   handleOnRefClick(itemPid) {
-    openRecordEditor(itemApi.url, itemPid);
+    // TODO: EDITOR, implement edit form
   }
 
   createRefProps(ilocPid) {
@@ -44,7 +40,9 @@ export default class InternalLocationList extends Component {
           icon={'edit'}
           size="small"
           title={'Edit Record'}
-          onClick={() => openRecordEditor(internalLocationApi.url, ilocPid)}
+          onClick={() => {
+            // TODO: EDITOR, implement edit form
+          }}
         />
         <DeleteRecordModal
           refProps={this.createRefProps(ilocPid)}
@@ -71,7 +69,7 @@ export default class InternalLocationList extends Component {
     const headerActionComponent = (
       <NewButton
         clickHandler={() => {
-          openRecordEditor(internalLocationApi.url);
+          // TODO: EDITOR, implement create form
         }}
       />
     );

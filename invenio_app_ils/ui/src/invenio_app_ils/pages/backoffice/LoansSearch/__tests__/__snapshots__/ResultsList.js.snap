@@ -9,7 +9,11 @@ exports[`LoansSearch ResultsList tests should not render when empty results 1`] 
     currentPage={1}
     fixed={false}
     headerActionClickHandler={null}
-    headerActionComponent={null}
+    headerActionComponent={
+      <ExportReactSearchKitResults
+        exportBaseUrl="https://127.0.0.1:5000/api/circulation/loans/"
+      />
+    }
     name="loans"
     paginationComponent={null}
     renderSegment={true}
@@ -47,7 +51,11 @@ exports[`LoansSearch ResultsList tests should not render when empty results 1`] 
                 >
                   <div
                     className="right aligned three wide column"
-                  />
+                  >
+                    <ExportReactSearchKitResults
+                      exportBaseUrl="https://127.0.0.1:5000/api/circulation/loans/"
+                    />
+                  </div>
                 </GridColumn>
               </div>
             </GridRow>
@@ -93,7 +101,11 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
     currentPage={1}
     fixed={false}
     headerActionClickHandler={null}
-    headerActionComponent={null}
+    headerActionComponent={
+      <ExportReactSearchKitResults
+        exportBaseUrl="https://127.0.0.1:5000/api/circulation/loans/"
+      />
+    }
     name="loans"
     paginationComponent={null}
     renderSegment={true}
@@ -148,7 +160,11 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                 >
                   <div
                     className="right aligned three wide column"
-                  />
+                  >
+                    <ExportReactSearchKitResults
+                      exportBaseUrl="https://127.0.0.1:5000/api/circulation/loans/"
+                    />
+                  </div>
                 </GridColumn>
               </div>
             </GridRow>

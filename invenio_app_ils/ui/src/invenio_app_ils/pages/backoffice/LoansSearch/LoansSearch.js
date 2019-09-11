@@ -19,7 +19,6 @@ import {
   Aggregator,
   InvenioSearchApi,
 } from 'react-searchkit';
-import { apiConfig } from '../../../common/api/base';
 import { getSearchConfig } from '../../../common/config';
 import {
   Error as IlsError,
@@ -34,7 +33,8 @@ import { goTo } from '../../../history';
 
 export class LoansSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: `${apiConfig.baseURL}${loanApi.url}`,
+    url: loanApi.url,
+    withCredentials: true,
   });
   searchConfig = getSearchConfig('loans');
 

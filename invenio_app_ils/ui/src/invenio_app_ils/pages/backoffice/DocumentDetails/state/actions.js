@@ -162,7 +162,7 @@ export const requestLoanForDocument = (docPid, patronPid) => {
       const loanPid = response.data.pid;
       const linkToLoan = (
         <p>
-          The loan {loanPid} has been requested.
+          The loan {loanPid} has been requested.{' '}
           <Link to={BackOfficeRoutes.loanDetailsFor(loanPid)}>
             You can now view the loan details.
           </Link>

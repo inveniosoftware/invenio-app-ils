@@ -24,17 +24,22 @@ from invenio_pidrelations.config import RelationType
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import deny_all
 
-from .api import can_item_circulate, document_exists, \
-    get_document_pid_by_item_pid, get_item_pids_by_document_pid, \
-    get_location_pid_by_item_pid, item_exists, patron_exists
 from .circulation.search import IlsLoansSearch
 from .facets import keyed_range_filter
 from .jwt import ils_jwt_create_token
 from .records.resolver.loan import item_resolver
 
-from invenio_circulation.config import (  # isort:skip
-    _LOANID_CONVERTER,
+from .api import (  # isort:skip
+    can_item_circulate,
+    document_exists,
+    get_document_pid_by_item_pid,
+    get_item_pids_by_document_pid,
+    get_location_pid_by_item_pid,
+    item_exists,
+    patron_exists,
 )
+
+from invenio_circulation.config import _LOANID_CONVERTER  # isort:skip
 from invenio_circulation.pidstore.pids import (  # isort:skip
     CIRCULATION_LOAN_FETCHER,
     CIRCULATION_LOAN_MINTER,
@@ -120,7 +125,7 @@ from .search.api import (  # isort:skip
     LocationSearch,
     InternalLocationSearch,
     SeriesSearch,
-    PatronsSearch
+    PatronsSearch,
 )
 
 
@@ -296,6 +301,9 @@ _SERID_CONVERTER = (
 # ============
 _RECORDS_REST_MAX_RESULT_WINDOW = 10000
 
+# name of the URL arg to choose response serializer
+REST_MIMETYPE_QUERY_ARG_NAME = "format"
+
 RECORDS_REST_ENDPOINTS = dict(
     docid=dict(
         pid_type=DOCUMENT_PID_TYPE,
@@ -315,12 +323,17 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_response"
-            ),
+            )
         },
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
-            )
+            ),
+            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+        },
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "json": "application/json",
         },
         list_route="/documents/",
         item_route="/documents/<{0}:pid_value>".format(_DOCID_CONVERTER),
@@ -350,12 +363,17 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:item_v1_response"
-            ),
+            )
         },
         search_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:item_v1_search"
-            )
+            ),
+            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+        },
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "json": "application/json",
         },
         list_route="/items/",
         item_route="/items/<{0}:pid_value>".format(_PITMID_CONVERTER),
@@ -385,12 +403,17 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_response"
-            ),
+            )
         },
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
-            )
+            ),
+            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+        },
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "json": "application/json",
         },
         list_route="/eitems/",
         item_route="/eitems/<{0}:pid_value>".format(_EITMID_CONVERTER),
@@ -420,7 +443,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_response"
-            ),
+            )
         },
         search_serializers={
             "application/json": (
@@ -455,17 +478,20 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_response"
-            ),
+            )
         },
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
-            )
+            ),
+            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+        },
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "json": "application/json",
         },
         list_route="/series/",
-        item_route="/series/<{0}:pid_value>".format(
-            _SERID_CONVERTER
-        ),
+        item_route="/series/<{0}:pid_value>".format(_SERID_CONVERTER),
         default_media_type="application/json",
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
@@ -491,7 +517,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_response"
-            ),
+            )
         },
         search_serializers={
             "application/json": (
@@ -517,15 +543,17 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=PatronsSearch,
         record_class=Patron,
         record_serializers={
-            'application/json': ('invenio_records_rest.serializers'
-                                 ':json_v1_response'),
+            "application/json": (
+                "invenio_records_rest.serializers" ":json_v1_response"
+            )
         },
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
-            )
+            ),
+            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
         },
-        item_route='/patrons/<pid({}):pid_value>'.format(PATRON_PID_TYPE),
+        item_route="/patrons/<pid({}):pid_value>".format(PATRON_PID_TYPE),
         list_route="/patrons/",
         default_media_type="application/json",
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
@@ -544,17 +572,16 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=Keyword,
         indexer_class=KeywordIndexer,
         record_serializers={
-            'application/json': ('invenio_records_rest.serializers'
-                                 ':json_v1_response'),
+            "application/json": (
+                "invenio_records_rest.serializers" ":json_v1_response"
+            )
         },
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
             )
         },
-        item_route="/keywords/<{0}:pid_value>".format(
-            _KEYID_CONVERTER
-        ),
+        item_route="/keywords/<{0}:pid_value>".format(_KEYID_CONVERTER),
         list_route="/keywords/",
         default_media_type="application/json",
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
@@ -592,15 +619,14 @@ CIRCULATION_POLICIES = dict(
     extension=dict(
         from_end_date=True,
         duration_default=circulation_default_extension_duration,
-        max_count=circulation_default_extension_max_count
+        max_count=circulation_default_extension_max_count,
     ),
-    request=dict(
-        can_be_requested=circulation_can_be_requested
-    ),
+    request=dict(can_be_requested=circulation_can_be_requested),
 )
 
-CIRCULATION_ITEM_RESOLVING_PATH = \
+CIRCULATION_ITEM_RESOLVING_PATH = (
     "/api/resolver/circulation/loans/<loan_pid>/item"
+)
 
 CIRCULATION_ITEM_RESOLVER_ENDPOINT = item_resolver
 
@@ -664,7 +690,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         pid_fetcher=CIRCULATION_LOAN_FETCHER,
         search_class=IlsLoansSearch,
         search_factory_imp="invenio_app_ils.circulation.search"
-                           ":circulation_search_factory",
+        ":circulation_search_factory",
         record_class="invenio_circulation.api:Loan",
         indexer_class=LoanIndexer,
         record_serializers={
@@ -675,7 +701,8 @@ CIRCULATION_REST_ENDPOINTS = dict(
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
-            )
+            ),
+            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
         },
         list_route="/circulation/loans/",
         item_route="/circulation/loans/<{0}:pid_value>".format(
@@ -698,85 +725,70 @@ CIRCULATION_REST_ENDPOINTS = dict(
 RECORDS_REST_SORT_OPTIONS = dict(
     documents=dict(  # DocumentSearch.Meta.index
         mostrecent=dict(
-            fields=['_updated'],
-            title='Newest',
-            default_order='asc',
-            order=1
+            fields=["_updated"], title="Newest", default_order="asc", order=1
         ),
         bestmatch=dict(
-            fields=['-_score'],
-            title='Best match',
-            default_order='asc',
-            order=2
+            fields=["-_score"],
+            title="Best match",
+            default_order="asc",
+            order=2,
         ),
         available_items=dict(
-            fields=['-circulation.has_items_for_loan'],
-            title='Available Items',
-            default_order='asc',
-            order=3
+            fields=["-circulation.has_items_for_loan"],
+            title="Available Items",
+            default_order="asc",
+            order=3,
         ),
         mostloaned=dict(
-            fields=['circulation.past_loans_count'],
-            title='Most loaned',
-            default_order='desc',
-            order=4
+            fields=["circulation.past_loans_count"],
+            title="Most loaned",
+            default_order="desc",
+            order=4,
         ),
     ),
     eitems=dict(  # ItemSearch.Meta.index
         bestmatch=dict(
-            fields=['-_score'],
-            title='Best match',
-            default_order='asc',
-            order=2
+            fields=["-_score"],
+            title="Best match",
+            default_order="asc",
+            order=2,
         ),
         mostrecent=dict(
-            fields=['_updated'],
-            title='Newest',
-            default_order='asc',
-            order=1
-        )
+            fields=["_updated"], title="Newest", default_order="asc", order=1
+        ),
     ),
     items=dict(  # ItemSearch.Meta.index
         bestmatch=dict(
-            fields=['-_score'],
-            title='Best match',
-            default_order='asc',
-            order=2
+            fields=["-_score"],
+            title="Best match",
+            default_order="asc",
+            order=2,
         ),
         mostrecent=dict(
-            fields=['_updated'],
-            title='Newest',
-            default_order='asc',
-            order=1
-        )
+            fields=["_updated"], title="Newest", default_order="asc", order=1
+        ),
     ),
     loans=dict(  # IlsLoansSearch.Meta.index
         bestmatch=dict(
-            fields=['-_score'],
-            title='Best match',
-            default_order='asc',
-            order=2
+            fields=["-_score"],
+            title="Best match",
+            default_order="asc",
+            order=2,
         ),
         mostrecent=dict(
-            fields=['_updated'],
-            title='Newest',
-            default_order='asc',
-            order=1
-        )
+            fields=["_updated"], title="Newest", default_order="asc", order=1
+        ),
     ),
     series=dict(  # SeriesSearch.Meta.index
         bestmatch=dict(
-            fields=['-_score'],
-            title='Best match',
-            default_order='asc',
-            order=2
+            fields=["-_score"],
+            title="Best match",
+            default_order="asc",
+            order=2,
         ),
         mostrecent=dict(
-            fields=['_updated'],
-            title='Newest',
-            default_order='asc',
-            order=1
-        )
+            fields=["_updated"], title="Newest", default_order="asc", order=1
+        ),
     ),
 )
 
@@ -792,39 +804,27 @@ RECORDS_REST_FACETS = dict(
     documents=dict(  # DocumentSearch.Meta.index
         aggs=dict(
             keywords=dict(
-                terms=dict(field="keywords.name", size=FACET_KEYWORD_LIMIT),
+                terms=dict(field="keywords.name", size=FACET_KEYWORD_LIMIT)
             ),
-            languages=dict(
-                terms=dict(field="languages")
-            ),
-            document_type=dict(
-                terms=dict(field="document_type")
-            ),
-            relations=dict(
-                terms=dict(field="relations")
-            ),
+            languages=dict(terms=dict(field="languages")),
+            document_type=dict(terms=dict(field="document_type")),
+            relations=dict(terms=dict(field="relations")),
             has_items=dict(
                 range=dict(
                     field="items.total",
-                    ranges=[
-                        {"key": "printed versions", "from": 1},
-                    ]
-                ),
+                    ranges=[{"key": "printed versions", "from": 1}],
+                )
             ),
             has_eitems=dict(
                 range=dict(
                     field="eitems.total",
-                    ranges=[
-                        {"key": "electronic versions", "from": 1},
-                    ]
+                    ranges=[{"key": "electronic versions", "from": 1}],
                 )
             ),
             has_items_for_loan=dict(
                 range=dict(
                     field="circulation.has_items_for_loan",
-                    ranges=[
-                        {"key": "printed versions available", "from": 1},
-                    ],
+                    ranges=[{"key": "printed versions available", "from": 1}],
                 )
             ),
         ),
@@ -833,74 +833,44 @@ RECORDS_REST_FACETS = dict(
             languages=terms_filter("languages"),
             keywords=terms_filter("keywords.name"),
             has_items=keyed_range_filter(
-                "items.total",
-                {
-                    "printed versions": {"gt": 0},
-                },
+                "items.total", {"printed versions": {"gt": 0}}
             ),
             has_eitems=keyed_range_filter(
-                "eitems.total",
-                {
-                    "electronic versions": {"gt": 0},
-                },
+                "eitems.total", {"electronic versions": {"gt": 0}}
             ),
             has_items_for_loan=keyed_range_filter(
                 "circulation.has_items_for_loan",
-                {
-                    "printed versions available": {"gt": 0},
-                },
+                {"printed versions available": {"gt": 0}},
             ),
         ),
-        post_filters=dict(
-            relations=terms_filter("relations"),
-        ),
+        post_filters=dict(relations=terms_filter("relations")),
     ),
     items=dict(  # ItemSearch.Meta.index
         aggs=dict(
-            status=dict(
-                terms=dict(field="status"),
-            ),
-            medium=dict(
-                terms=dict(field="medium"),
-            ),
+            status=dict(terms=dict(field="status")),
+            medium=dict(terms=dict(field="medium")),
             # name=dict(
             #     terms=dict(field="internal_location.name"),
             # ),
             circulation=dict(
-                terms=dict(field="circulation.state",
-                           missing="N/A",
-                           ),
+                terms=dict(field="circulation.state", missing="N/A")
             ),
         ),
         filters=dict(
-            status=terms_filter('status'),
-            medium=terms_filter('medium'),
+            status=terms_filter("status"),
+            medium=terms_filter("medium"),
             # name=terms_filter('internal_location.name'),
-            circulation=terms_filter('circulation.state'),
-        )
+            circulation=terms_filter("circulation.state"),
+        ),
     ),
     loans=dict(  # IlsLoansSearch.Meta.index
-        aggs=dict(
-            state=dict(
-                terms=dict(field="state"),
-            ),
-        ),
-        filters=dict(
-            state=terms_filter('state'),
-        )
+        aggs=dict(state=dict(terms=dict(field="state"))),
+        filters=dict(state=terms_filter("state")),
     ),
     series=dict(  # SeriesSearch.Meta.index
-        aggs=dict(
-            moi=dict(
-                terms=dict(field="mode_of_issuance")
-            ),
-        ),
-        filters=dict(
-            keywords=terms_filter("keywords.name"),
-        ),
-        post_filters=dict(
-            moi=terms_filter("mode_of_issuance"),
-        ),
+        aggs=dict(moi=dict(terms=dict(field="mode_of_issuance"))),
+        filters=dict(keywords=terms_filter("keywords.name")),
+        post_filters=dict(moi=terms_filter("mode_of_issuance")),
     ),
 )
 
@@ -940,7 +910,7 @@ RECORDS_EDITOR_UI_CONFIG = {
                     "internal_location": {"hidden": True},
                     "circulation": {"hidden": True},
                 },
-            },
+            }
         },
     },
     "documents": {
@@ -961,7 +931,7 @@ RECORDS_EDITOR_UI_CONFIG = {
                     "_access": {"hidden": True},
                     "_computed": {"hidden": True},
                 },
-            },
+            }
         },
     },
     "locations": {
@@ -971,18 +941,12 @@ RECORDS_EDITOR_UI_CONFIG = {
         },
         "editorConfig": {
             "schemaOptions": {
-                "alwaysShow": [
-                    "name",
-                    "address",
-                    "email",
-                    "phone",
-                    "notes",
-                ],
+                "alwaysShow": ["name", "address", "email", "phone", "notes"],
                 "properties": {
                     "$schema": {"hidden": True},
-                    "pid": {"hidden": True}
+                    "pid": {"hidden": True},
                 },
-            },
+            }
         },
     },
     "internal-locations": {
@@ -1004,7 +968,7 @@ RECORDS_EDITOR_UI_CONFIG = {
                     "pid": {"hidden": True},
                     "location": {"hidden": True},
                 },
-            },
+            }
         },
     },
     "series": {
@@ -1018,14 +982,14 @@ RECORDS_EDITOR_UI_CONFIG = {
                     "mode_of_issuance",
                     "title",
                     "abstracts",
-                    "authors"
+                    "authors",
                 ],
                 "properties": {
                     "$schema": {"hidden": True},
                     "pid": {"hidden": True},
                     "keywords": {"hidden": True},
                 },
-            },
+            }
         },
     },
     "eitems": {
@@ -1047,7 +1011,7 @@ RECORDS_EDITOR_UI_CONFIG = {
                     "pid": {"hidden": True},
                     "document": {"hidden": True},
                 },
-            },
+            }
         },
     },
     "keywords": {
@@ -1057,15 +1021,12 @@ RECORDS_EDITOR_UI_CONFIG = {
         },
         "editorConfig": {
             "schemaOptions": {
-                "alwaysShow": [
-                    "name",
-                    "provenance"
-                ],
+                "alwaysShow": ["name", "provenance"],
                 "properties": {
                     "$schema": {"hidden": True},
                     "pid": {"hidden": True},
                 },
-            },
+            }
         },
     },
 }
@@ -1088,48 +1049,52 @@ ACCOUNTS_JWT_CREATION_FACTORY = ils_jwt_create_token
 # ==============
 
 ILS_RELATION_TYPE = namedtuple(
-    'IlsRelationType', RelationType._fields + ("relation_class",))
+    "IlsRelationType", RelationType._fields + ("relation_class",)
+)
 
 LANGUAGE_RELATION = ILS_RELATION_TYPE(
-    0, "language", "Language",
+    0,
+    "language",
+    "Language",
     "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
     "invenio_app_ils.records.relations.api.SiblingsRelation",
 )
 EDITION_RELATION = ILS_RELATION_TYPE(
-    1, "edition", "Edition",
+    1,
+    "edition",
+    "Edition",
     "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
     "invenio_app_ils.records.relations.api.SiblingsRelation",
 )
 OTHER_RELATION = ILS_RELATION_TYPE(
-    2, "other", "Other",
+    2,
+    "other",
+    "Other",
     "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
     "invenio_app_ils.records.relations.api.SiblingsRelation",
 )
 MULTIPART_MONOGRAPH_RELATION = ILS_RELATION_TYPE(
-    3, "multipart_monograph", "Multipart Monograph",
+    3,
+    "multipart_monograph",
+    "Multipart Monograph",
     "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
     "invenio_app_ils.records.relations.api.ParentChildRelation",
 )
 SERIAL_RELATION = ILS_RELATION_TYPE(
-    4, "serial", "Serial",
+    4,
+    "serial",
+    "Serial",
     "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
     "invenio_pidrelations.serializers.schemas.RelationSchema",
     "invenio_app_ils.records.relations.api.ParentChildRelation",
 )
 
-PARENT_CHILD_RELATION_TYPES = [
-    MULTIPART_MONOGRAPH_RELATION,
-    SERIAL_RELATION,
-]
+PARENT_CHILD_RELATION_TYPES = [MULTIPART_MONOGRAPH_RELATION, SERIAL_RELATION]
 
-SIBLINGS_RELATION_TYPES = [
-    LANGUAGE_RELATION,
-    EDITION_RELATION,
-    OTHER_RELATION,
-]
+SIBLINGS_RELATION_TYPES = [LANGUAGE_RELATION, EDITION_RELATION, OTHER_RELATION]
 
 ILS_PIDRELATIONS_TYPES = PARENT_CHILD_RELATION_TYPES + SIBLINGS_RELATION_TYPES

@@ -13,10 +13,8 @@ from flask_webpackext import WebpackBundle
 
 ils = WebpackBundle(
     __name__,
-    'ui/src',
-    entry={
-        'app_ils': './invenio_app_ils/index.js',
-    },
+    "ui/src",
+    entry={"app_ils": "./invenio_app_ils/index.js"},
     dependencies={
         "axios": "^0.19.0",
         "lodash": "^4.17.15",
@@ -30,12 +28,12 @@ ils = WebpackBundle(
         "react-redux": "^7.1",
         "react-router-dom": "^5.0.1",
         "react-scripts": "3.1.1",
-        "react-searchkit": "^0.11.0",
+        "react-searchkit": "^0.12.0",
         "redux": "^4.0.4",
         "redux-devtools-extension": "^2.13.8",
         "redux-thunk": "^2.3.0",
         "semantic-ui-calendar-react": "^0.15.3",
         "semantic-ui-css": "^2.4.1",
-        "semantic-ui-react": "^0.88.0"
-    }
+        "semantic-ui-react": "^0.88.0",
+    },
 )
