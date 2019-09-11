@@ -10,10 +10,14 @@ export default class SendMailModal extends Component {
 
   sendEmail = async () => {
     const { loan } = this.props;
-    const response = await loanApi.postEmail({
+    this.toggle();
+    await loanApi.postEmail({
       loanPid: loan.metadata.pid,
     });
-    console.log('The reponse for sendEmail', response);
+    this.props.sendSuccessNotification(
+      'Success!',
+      'An email has been send to the user.'
+    );
   };
 
   render() {
@@ -27,7 +31,8 @@ export default class SendMailModal extends Component {
         <Modal.Content>
           <Modal.Description>
             <Header>
-              Item with barcode {loan.metadata.item.barcode} is overdue!
+              Item with id {loan.metadata.item_pid} and with barcode
+              {loan.metadata.item.barcode} is overdue!
             </Header>
             <p>
               An email reminder will be send to patron with id{' '}
