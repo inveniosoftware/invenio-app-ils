@@ -33,7 +33,7 @@ export default class DocumentMetadata extends Component {
     return (
       <Label
         color={circulationData.has_items_for_loan ? 'green' : 'red'}
-        content="Available copies"
+        content="Copies on shelf"
         detail={circulationData.has_items_for_loan}
       />
     );

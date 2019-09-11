@@ -1,8 +1,9 @@
-import { http } from '../base';
+import { http, apiConfig } from '../base';
 import { serializer } from './serializer';
 import { prepareSumQuery } from '../utils';
 
 const documentURL = '/documents/';
+const apiURL = `${apiConfig.baseURL}${documentURL}`;
 
 const get = documentPid => {
   return http.get(`${documentURL}${documentPid}`).then(response => {
@@ -12,8 +13,7 @@ const get = documentPid => {
 };
 
 const del = async docPid => {
-  const response = await http.delete(`${documentURL}${docPid}`);
-  return response;
+  return await http.delete(`${documentURL}${docPid}`);
 };
 
 const patch = async (documentPid, ops) => {
@@ -164,6 +164,7 @@ const count = query => {
 };
 
 export const document = {
+  url: apiURL,
   get: get,
   delete: del,
   patch: patch,
@@ -173,5 +174,4 @@ export const document = {
   count: count,
   query: queryBuilder,
   serializer: serializer,
-  url: documentURL,
 };

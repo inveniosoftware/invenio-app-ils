@@ -29,7 +29,7 @@ export default class PatronDetails extends Component {
             </Grid.Row>
             <Grid.Row stretched columns={2}>
               <Grid.Column width={8}>
-                <ItemsSearch patron={data.user_pid} />
+                <ItemsSearch patronPid={data.user_pid} />
               </Grid.Column>
               <Grid.Column width={8}>
                 <PatronCurrentLoans patronPid={data.user_pid} />

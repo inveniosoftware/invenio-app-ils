@@ -5,6 +5,9 @@ exports[`should render correctly 1`] = `
   className="ui segment"
 >
   <div
+    className="ui hidden divider"
+  />
+  <div
     className="ui divided items"
   >
     <div
@@ -64,6 +67,29 @@ exports[`should render correctly 1`] = `
             />
             View Details
           </button>
+          <div
+            className="ui hidden divider"
+          />
+          <div
+            className="ui red label"
+            onClick={[Function]}
+          >
+            Copies on shelf
+            <div
+              className="detail"
+            >
+              0
+            </div>
+          </div>
+          <div
+            className="ui hidden divider"
+          />
+          <div
+            className="ui blue label"
+            onClick={[Function]}
+          >
+            Past loans
+          </div>
         </div>
         <div
           className="extra"

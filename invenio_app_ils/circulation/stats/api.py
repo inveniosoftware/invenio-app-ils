@@ -36,7 +36,7 @@ def fetch_most_loaned_documents(from_date, to_date, bucket_size):
             extensions=loan_extensions
         )
 
-    # Enchance the document serializer
+    # Enhance the document serializer
     doc_search = DocumentSearch()
     doc_search = doc_search.with_preference_param().params(version=True)
     doc_search = doc_search.search_by_pid(*document_pids)

@@ -12,7 +12,6 @@ import {
   SearchBar,
   InvenioSearchApi,
 } from 'react-searchkit';
-import { apiConfig } from '../../../common/api/base';
 import {
   Error as IlsError,
   SearchBar as DocumentsSearchBar,
@@ -21,14 +20,15 @@ import {
 import { document as documentApi } from '../../../common/api/documents/document';
 import { getSearchConfig } from '../../../common/config';
 import { ClearButton, NewButton } from '../components/buttons';
-import { BackOfficeRoutes, openRecordEditor } from '../../../routes/urls';
+import { BackOfficeRoutes } from '../../../routes/urls';
 import { ResultsList as DocumentsResultsList } from './components';
 import { goTo } from '../../../history';
 import './DocumentsSearch.scss';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: `${apiConfig.baseURL}${documentApi.url}`,
+    url: documentApi.url,
+    withCredentials: true,
   });
   searchConfig = getSearchConfig('documents');
 
@@ -87,7 +87,7 @@ export class DocumentsSearch extends Component {
           <NewButton
             text={'New document'}
             clickHandler={() => {
-              openRecordEditor(documentApi.url);
+              // TODO: EDITOR, implement create form
             }}
           />
         </Segment.Inline>

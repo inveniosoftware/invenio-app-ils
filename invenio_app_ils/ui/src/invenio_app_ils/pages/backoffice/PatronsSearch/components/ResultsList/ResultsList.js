@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { ResultsTable } from '../../../../../common/components';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { pick } from 'lodash/object';
+import { ExportReactSearchKitResults } from '../../../components';
+import { patron as patronApi } from '../../../../../common/api';
 
 export class ResultsList extends Component {
   constructor(props) {
@@ -18,14 +20,18 @@ export class ResultsList extends Component {
 
   render() {
     const rows = this.prepareData(this.props.results);
+    const headerActionComponent = (
+      <ExportReactSearchKitResults exportBaseUrl={patronApi.url} />
+    );
 
-    return rows.length ? (
+    return (
       <ResultsTable
         rows={rows}
         title={''}
+        headerActionComponent={headerActionComponent}
         rowActionClickHandler={this.viewDetailsClickHandler}
       />
-    ) : null;
+    );
   }
 }
 

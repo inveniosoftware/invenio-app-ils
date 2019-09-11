@@ -512,13 +512,13 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                           />
                           <Label
                             color="red"
-                            content="Available copies"
+                            content="Copies on shelf"
                           >
                             <div
                               className="ui red label"
                               onClick={[Function]}
                             >
-                              Available copies
+                              Copies on shelf
                             </div>
                           </Label>
                           <div

@@ -33,20 +33,21 @@ def need_permissions(action):
                 current_app.config["ILS_VIEWS_PERMISSIONS_FACTORY"](action)
             )
             return f(*args, **kwargs)
+
         return decorate
+
     return decorator_builder
 
 
 def create_circulation_blueprint(app):
     """Add circulation views to the blueprint."""
     blueprint = Blueprint(
-        "invenio_app_ils_circulation",
-        __name__,
-        url_prefix="",
+        "invenio_app_ils_circulation", __name__, url_prefix=""
     )
 
     endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
-    options = endpoints.get('loanid', {})
+    options = endpoints.get("loanid", {})
+    default_media_type = options.get("default_media_type", "")
     rec_serializers = options.get("record_serializers", {})
     serializers = {
         mime: obj_or_import_string(func)
@@ -56,6 +57,7 @@ def create_circulation_blueprint(app):
     loan_request = LoanRequestResource.as_view(
         LoanRequestResource.view_name,
         serializers=serializers,
+        default_media_type=default_media_type,
         ctx=dict(links_factory=loan_links_factory),
     )
 
@@ -66,6 +68,7 @@ def create_circulation_blueprint(app):
     loan_create = LoanCreateResource.as_view(
         LoanCreateResource.view_name,
         serializers=serializers,
+        default_media_type=default_media_type,
         ctx=dict(links_factory=loan_links_factory),
     )
 
@@ -81,7 +84,9 @@ class IlsCirculationResource(ContentNegotiatedMethodView):
 
     def __init__(self, serializers, ctx, *args, **kwargs):
         """Constructor."""
-        super(IlsCirculationResource, self).__init__(serializers, *args, **kwargs)
+        super(IlsCirculationResource, self).__init__(
+            serializers, *args, **kwargs
+        )
         for key, value in ctx.items():
             setattr(self, key, value)
 
@@ -91,7 +96,7 @@ class LoanRequestResource(IlsCirculationResource):
 
     view_name = "loan_request"
 
-    @need_permissions('circulation-loan-request')
+    @need_permissions("circulation-loan-request")
     def post(self, **kwargs):
         """Loan request post method."""
         pid, loan = request_loan(request.get_json())
@@ -106,12 +111,15 @@ class LoanCreateResource(IlsCirculationResource):
 
     view_name = "loan_create"
 
-    @need_permissions('circulation-loan-create')
+    @need_permissions("circulation-loan-create")
     def post(self, **kwargs):
         """Loan create post method."""
         params = request.get_json()
-        should_force_checkout = params.pop("force_checkout")\
-            if "force_checkout" in params else False
+        should_force_checkout = (
+            params.pop("force_checkout")
+            if "force_checkout" in params
+            else False
+        )
         pid, loan = create_loan(params, should_force_checkout)
 
         return self.make_response(

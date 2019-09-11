@@ -4,7 +4,153 @@ exports[`DocumentsSearch ResultsList tests should not render when empty results 
 <ResultsList
   results={Array []}
   viewDetailsClickHandler={[Function]}
-/>
+>
+  <ResultsTable
+    currentPage={1}
+    fixed={false}
+    headerActionClickHandler={null}
+    headerActionComponent={
+      <div>
+        <NewButton
+          clickHandler={[Function]}
+          disabled={false}
+          fluid={false}
+          text="New document"
+        />
+        <ExportReactSearchKitResults
+          exportBaseUrl="https://127.0.0.1:5000/api/documents/"
+        />
+      </div>
+    }
+    name="documents"
+    paginationComponent={null}
+    renderSegment={true}
+    rowActionClickHandler={[Function]}
+    rows={Array []}
+    seeAllComponent={null}
+    showMaxRows={10}
+    singleLine={false}
+    subtitle=""
+    title=""
+  >
+    <Segment>
+      <div
+        className="ui segment"
+      >
+        <Grid>
+          <div
+            className="ui grid"
+          >
+            <GridRow>
+              <div
+                className="row"
+              >
+                <GridColumn
+                  verticalAlign="middle"
+                  width={13}
+                >
+                  <div
+                    className="middle aligned thirteen wide column"
+                  />
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={3}
+                >
+                  <div
+                    className="right aligned three wide column"
+                  >
+                    <div>
+                      <NewButton
+                        clickHandler={[Function]}
+                        disabled={false}
+                        fluid={false}
+                        text="New document"
+                      >
+                        <Button
+                          as="button"
+                          icon={true}
+                          labelPosition="left"
+                          onClick={[Function]}
+                          positive={true}
+                          size="small"
+                        >
+                          <Ref
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui small icon positive left labeled button"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    class="plus icon"
+                                  />
+                                  New document
+                                </button>,
+                              }
+                            }
+                          >
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui small icon positive left labeled button"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="plus icon"
+                                    />
+                                    New document
+                                  </button>,
+                                }
+                              }
+                            >
+                              <button
+                                className="ui small icon positive left labeled button"
+                                onClick={[Function]}
+                              >
+                                <Icon
+                                  as="i"
+                                  name="plus"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    className="plus icon"
+                                    onClick={[Function]}
+                                  />
+                                </Icon>
+                                New document
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                      </NewButton>
+                      <ExportReactSearchKitResults
+                        exportBaseUrl="https://127.0.0.1:5000/api/documents/"
+                      />
+                    </div>
+                  </div>
+                </GridColumn>
+              </div>
+            </GridRow>
+          </div>
+        </Grid>
+        <Message
+          data-test="no-results"
+        >
+          <div
+            className="ui message"
+            data-test="no-results"
+          >
+            There are no 
+            documents
+            .
+          </div>
+        </Message>
+      </div>
+    </Segment>
+  </ResultsTable>
+</ResultsList>
 `;
 
 exports[`DocumentsSearch ResultsList tests should render a list of results 1`] = `
@@ -42,12 +188,17 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
     fixed={false}
     headerActionClickHandler={null}
     headerActionComponent={
-      <NewButton
-        clickHandler={[Function]}
-        disabled={false}
-        fluid={false}
-        text="New document"
-      />
+      <div>
+        <NewButton
+          clickHandler={[Function]}
+          disabled={false}
+          fluid={false}
+          text="New document"
+        />
+        <ExportReactSearchKitResults
+          exportBaseUrl="https://127.0.0.1:5000/api/documents/"
+        />
+      </div>
     }
     name="documents"
     paginationComponent={null}
@@ -97,36 +248,22 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
                   <div
                     className="right aligned three wide column"
                   >
-                    <NewButton
-                      clickHandler={[Function]}
-                      disabled={false}
-                      fluid={false}
-                      text="New document"
-                    >
-                      <Button
-                        as="button"
-                        icon={true}
-                        labelPosition="left"
-                        onClick={[Function]}
-                        positive={true}
-                        size="small"
+                    <div>
+                      <NewButton
+                        clickHandler={[Function]}
+                        disabled={false}
+                        fluid={false}
+                        text="New document"
                       >
-                        <Ref
-                          innerRef={
-                            Object {
-                              "current": <button
-                                class="ui small icon positive left labeled button"
-                              >
-                                <i
-                                  aria-hidden="true"
-                                  class="plus icon"
-                                />
-                                New document
-                              </button>,
-                            }
-                          }
+                        <Button
+                          as="button"
+                          icon={true}
+                          labelPosition="left"
+                          onClick={[Function]}
+                          positive={true}
+                          size="small"
                         >
-                          <RefFindNode
+                          <Ref
                             innerRef={
                               Object {
                                 "current": <button
@@ -141,26 +278,45 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
                               }
                             }
                           >
-                            <button
-                              className="ui small icon positive left labeled button"
-                              onClick={[Function]}
+                            <RefFindNode
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui small icon positive left labeled button"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="plus icon"
+                                    />
+                                    New document
+                                  </button>,
+                                }
+                              }
                             >
-                              <Icon
-                                as="i"
-                                name="plus"
+                              <button
+                                className="ui small icon positive left labeled button"
+                                onClick={[Function]}
                               >
-                                <i
-                                  aria-hidden="true"
-                                  className="plus icon"
-                                  onClick={[Function]}
-                                />
-                              </Icon>
-                              New document
-                            </button>
-                          </RefFindNode>
-                        </Ref>
-                      </Button>
-                    </NewButton>
+                                <Icon
+                                  as="i"
+                                  name="plus"
+                                >
+                                  <i
+                                    aria-hidden="true"
+                                    className="plus icon"
+                                    onClick={[Function]}
+                                  />
+                                </Icon>
+                                New document
+                              </button>
+                            </RefFindNode>
+                          </Ref>
+                        </Button>
+                      </NewButton>
+                      <ExportReactSearchKitResults
+                        exportBaseUrl="https://127.0.0.1:5000/api/documents/"
+                      />
+                    </div>
                   </div>
                 </GridColumn>
               </div>

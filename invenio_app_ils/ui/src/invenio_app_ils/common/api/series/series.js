@@ -1,8 +1,9 @@
-import { http } from '../base';
+import { http, apiConfig } from '../base';
 import { serializer } from './serializer';
 import { prepareSumQuery } from '../utils';
 
 const seriesURL = '/series/';
+const apiURL = `${apiConfig.baseURL}${seriesURL}`;
 
 const get = seriesPid => {
   return http.get(`${seriesURL}${seriesPid}`).then(response => {
@@ -137,6 +138,7 @@ const count = query => {
 };
 
 export const series = {
+  url: apiURL,
   get: get,
   delete: del,
   patch: patch,
@@ -148,5 +150,4 @@ export const series = {
   count: count,
   query: queryBuilder,
   serializer: serializer,
-  url: seriesURL,
 };

@@ -10,6 +10,9 @@ it('should render correctly', () => {
     abstracts: ['Dolore ipsum'],
     pid: '12',
     eitems: { hits: [], total: 0 },
+    circulation: {
+      has_items_for_loan: 0,
+    },
   };
 
   const tree = renderer.create(<DocumentItem metadata={metadata} />).toJSON();

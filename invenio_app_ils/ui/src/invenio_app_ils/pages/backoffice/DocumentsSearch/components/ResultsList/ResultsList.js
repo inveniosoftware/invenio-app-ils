@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { document as documentApi } from '../../../../../common/api';
-import { openRecordEditor } from '../../../../../routes/urls';
 import { ResultsTable } from '../../../../../common/components';
 import { NewButton } from '../../../components/buttons';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import pick from 'lodash/pick';
+import { ExportReactSearchKitResults } from '../../../components';
+import { document as documentApi } from '../../../../../common/api';
 
 export class ResultsList extends Component {
   prepareData(data) {
@@ -26,15 +26,18 @@ export class ResultsList extends Component {
   render() {
     const rows = this.prepareData(this.props.results);
     const headerActionComponent = (
-      <NewButton
-        text={'New document'}
-        clickHandler={() => {
-          openRecordEditor(documentApi.url);
-        }}
-      />
+      <div>
+        <NewButton
+          text={'New document'}
+          clickHandler={() => {
+            // TODO: EDITOR, implement create form
+          }}
+        />
+        <ExportReactSearchKitResults exportBaseUrl={documentApi.url} />
+      </div>
     );
 
-    return rows.length ? (
+    return (
       <ResultsTable
         rows={rows}
         title={''}
@@ -42,7 +45,7 @@ export class ResultsList extends Component {
         headerActionComponent={headerActionComponent}
         rowActionClickHandler={this.props.viewDetailsClickHandler}
       />
-    ) : null;
+    );
   }
 }
 

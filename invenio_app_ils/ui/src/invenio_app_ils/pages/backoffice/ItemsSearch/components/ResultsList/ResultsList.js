@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { item as itemApi } from '../../../../../common/api';
-import { openRecordEditor } from '../../../../../routes/urls';
 import { ResultsTable } from '../../../../../common/components';
 import { NewButton } from '../../../components/buttons';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import omit from 'lodash/omit';
+import { ExportReactSearchKitResults } from '../../../components';
+import { item as itemApi } from '../../../../../common/api';
 
 export class ResultsList extends Component {
   constructor(props) {
@@ -26,15 +26,18 @@ export class ResultsList extends Component {
         ? rows.length
         : ResultsTable.defaultProps.showMaxRows;
     const headerActionComponent = (
-      <NewButton
-        text={'New item'}
-        clickHandler={() => {
-          openRecordEditor(itemApi.url);
-        }}
-      />
+      <div>
+        <NewButton
+          text={'New item'}
+          clickHandler={() => {
+            // TODO: EDITOR, implement create form
+          }}
+        />
+        <ExportReactSearchKitResults exportBaseUrl={itemApi.url} />
+      </div>
     );
 
-    return rows.length ? (
+    return (
       <ResultsTable
         rows={rows}
         title={''}
@@ -43,7 +46,7 @@ export class ResultsList extends Component {
         rowActionClickHandler={this.viewDetailsClickHandler}
         showMaxRows={maxRowsToShow}
       />
-    ) : null;
+    );
   }
 }
 

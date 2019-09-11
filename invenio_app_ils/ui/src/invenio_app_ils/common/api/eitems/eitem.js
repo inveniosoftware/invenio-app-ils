@@ -1,8 +1,9 @@
-import { http } from '../base';
+import { http, apiConfig } from '../base';
 import { serializer } from './serializer';
 import { prepareSumQuery } from '../utils';
 
 const eitemURL = '/eitems/';
+const apiURL = `${apiConfig.baseURL}${eitemURL}`;
 
 const get = async eitemPid => {
   const response = await http.get(`${eitemURL}${eitemPid}`);
@@ -47,9 +48,9 @@ const queryBuilder = () => {
 };
 
 export const eitem = {
+  url: apiURL,
   query: queryBuilder,
   list: list,
   get: get,
   delete: del,
-  url: eitemURL,
 };

@@ -8,20 +8,18 @@ export const fetchMostLoanedDocuments = (fromDate, toDate) => {
       type: IS_LOADING,
     });
 
-    await statsApi
-      .getMostLoanedDocuments(fromDate, toDate)
-      .then(response => {
-        dispatch({
-          type: SUCCESS,
-          payload: response.data,
-        });
-      })
-      .catch(error => {
-        dispatch({
-          type: HAS_ERROR,
-          payload: error,
-        });
-        dispatch(sendErrorNotification(error));
+    try {
+      const response = await statsApi.getMostLoanedDocuments(fromDate, toDate);
+      await dispatch({
+        type: SUCCESS,
+        payload: response.data,
       });
+    } catch (error) {
+      await dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+      await dispatch(sendErrorNotification(error));
+    }
   };
 };

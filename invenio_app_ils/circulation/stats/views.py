@@ -11,7 +11,7 @@ from __future__ import absolute_import, print_function
 
 from datetime import datetime
 
-from flask import Blueprint, request
+from flask import Blueprint, current_app, request
 from invenio_pidstore import current_pidstore
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_rest import ContentNegotiatedMethodView
@@ -19,15 +19,21 @@ from invenio_rest import ContentNegotiatedMethodView
 from invenio_app_ils.circulation.stats.api import fetch_most_loaned_documents
 from invenio_app_ils.circulation.views import need_permissions
 from invenio_app_ils.errors import InvalidParameterError
-from invenio_app_ils.pidstore.pids import DOCUMENT_PID_FETCHER, \
-    DOCUMENT_PID_TYPE
+
+from invenio_app_ils.pidstore.pids import (  # isort:skip
+    DOCUMENT_PID_FETCHER,
+    DOCUMENT_PID_TYPE,
+)
 
 
 def create_most_loaned_documents_view(blueprint, app):
     """Add url rule for most loaned documents."""
     endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
     document_endpoint = endpoints.get(DOCUMENT_PID_TYPE, {})
-
+    default_media_type = document_endpoint.get("default_media_type", "")
+    search_serializers_aliases = document_endpoint.get(
+        "search_serializers_aliases", ""
+    )
     search_serializers = document_endpoint.get("search_serializers")
     serializers = {
         mime: obj_or_import_string(func)
@@ -40,9 +46,11 @@ def create_most_loaned_documents_view(blueprint, app):
         "/circulation/stats/most-loaned",
         view_func=view_class.as_view(
             view_class.view_name,
-            serializers=serializers
+            serializers=serializers,
+            serializers_query_aliases=search_serializers_aliases,
+            default_media_type=default_media_type,
         ),
-        methods=["GET"]
+        methods=["GET"],
     )
 
 
@@ -59,16 +67,32 @@ class MostLoanedDocumentsResource(ContentNegotiatedMethodView):
     """Statistics view for the documents with the most loans."""
 
     view_name = "most-loaned"
-    bucket_size = 30
+    default_bucket_size = 30
+
+    def __init__(self, *args, **kwargs):
+        """Constructor."""
+        super(MostLoanedDocumentsResource, self).__init__(*args, **kwargs)
+        endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS", [])
+        document_endpoint = endpoints.get(DOCUMENT_PID_TYPE, {})
+        self.max_result_window = document_endpoint.get(
+            "max_result_window", 10000
+        )
 
     def _validate_bucket_size(self):
         """Validate bucket size parameter."""
-        size_param = request.args.get("size", self.bucket_size)
+        size_param = request.args.get("size", self.default_bucket_size)
         try:
-            return int(size_param)
+            value = int(size_param)
         except ValueError:
-            msg = "Parameter 'size' is invalid: {}".format(size_param)
+            msg = "Parameter `size` is not a number: {}".format(size_param)
             raise InvalidParameterError(description=msg)
+
+        if value >= self.max_result_window:
+            msg = "Parameter `size` should be lower than {}".format(
+                self.max_result_window
+            )
+            raise InvalidParameterError(description=msg)
+        return value
 
     def _validate_start_date_range(self):
         """Validate start date range parameters."""
@@ -86,9 +110,9 @@ class MostLoanedDocumentsResource(ContentNegotiatedMethodView):
         to_date_obj = None
 
         if from_date:
-            from_date_obj = validate_date('from_date', from_date)
+            from_date_obj = validate_date("from_date", from_date)
         if to_date:
-            to_date_obj = validate_date('to_date', to_date)
+            to_date_obj = validate_date("to_date", to_date)
 
         if from_date_obj and to_date_obj and to_date_obj < from_date_obj:
             msg = "Parameter 'to_date' cannot be before 'from_date'."
@@ -110,11 +134,9 @@ class MostLoanedDocumentsResource(ContentNegotiatedMethodView):
         size = self._validate_bucket_size()
         from_date, to_date = self._validate_start_date_range()
         most_loaned_documents = fetch_most_loaned_documents(
-            from_date,
-            to_date,
-            size
+            from_date, to_date, size
         )
         return self.make_response(
             pid_fetcher=current_pidstore.fetchers[DOCUMENT_PID_FETCHER],
-            search_result=most_loaned_documents
+            search_result=most_loaned_documents,
         )

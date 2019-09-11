@@ -20,10 +20,12 @@ from invenio_app_ils.errors import RecordRelationsError
 from invenio_app_ils.indexer import RelationIndexer
 from invenio_app_ils.pidstore.pids import DOCUMENT_PID_TYPE, SERIES_PID_TYPE
 from invenio_app_ils.records.api import IlsRecord
-from invenio_app_ils.records_relations.api import RecordRelationsParentChild, \
-    RecordRelationsSiblings
-# from invenio_app_ils.records_relations.indexer import RelationIndexer
 from invenio_app_ils.relations.api import Relation
+
+from invenio_app_ils.records_relations.api import (  # isort:skip
+    RecordRelationsParentChild,
+    RecordRelationsSiblings,
+)
 
 
 def create_relations_blueprint(app):
@@ -32,7 +34,7 @@ def create_relations_blueprint(app):
         """Add a resource view for a rest endpoint."""
         endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
         options = endpoints.get(pid_type, {})
-
+        default_media_type = options.get("default_media_type", "")
         rec_serializers = options.get("record_serializers", {})
         serializers = {
             mime: obj_or_import_string(func)
@@ -40,7 +42,8 @@ def create_relations_blueprint(app):
         }
         record_relations = view_class.as_view(
             view_class.view_name.format(pid_type),
-            serializers=serializers
+            serializers=serializers,
+            default_media_type=default_media_type,
         )
         blueprint.add_url_rule(
             "{0}/relations".format(options["item_route"]),
@@ -97,8 +100,9 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                 [volume: "<vol name>"]
             }
         """
-        parent_pid, parent_pid_type, child_pid, child_pid_type, metadata = \
-            self._validate_parent_child_creation_payload(payload)
+        parent_pid, parent_pid_type, child_pid, child_pid_type, metadata = self._validate_parent_child_creation_payload(
+            payload
+        )
 
         # fetch parent and child. The passed record should be one of the two
         parent = self._get_record(record, parent_pid, parent_pid_type)
@@ -123,8 +127,9 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                 relation_type: "<Relation name>"
             }
         """
-        parent_pid, parent_pid_type, child_pid, child_pid_type, _ = \
-            self._validate_parent_child_creation_payload(payload)
+        parent_pid, parent_pid_type, child_pid, child_pid_type, _ = self._validate_parent_child_creation_payload(
+            payload
+        )
 
         # fetch parent and child. The passed record should be one of the two
         parent = self._get_record(record, parent_pid, parent_pid_type)
@@ -209,7 +214,7 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
         return modified_record, record, second
 
     @pass_record
-    @need_permissions('relations-create')
+    @need_permissions("relations-create")
     def post(self, record, **kwargs):
         """Create a new relation."""
         def create(payload):
@@ -221,11 +226,13 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
             rt = Relation.get_relation_by_name(relation_type)
 
             if rt in current_app.config["PARENT_CHILD_RELATION_TYPES"]:
-                modified, first, second = \
-                    self._create_parent_child_relation(record, rt, payload)
+                modified, first, second = self._create_parent_child_relation(
+                    record, rt, payload
+                )
             elif rt in current_app.config["SIBLINGS_RELATION_TYPES"]:
-                modified, first, second = \
-                    self._create_sibling_relation(record, rt, payload)
+                modified, first, second = self._create_sibling_relation(
+                    record, rt, payload
+                )
             else:
                 raise RecordRelationsError(
                     "Invalid relation type `{}`".format(rt.name)
@@ -258,7 +265,7 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
         return self.make_response(record.pid, record, 201)
 
     @pass_record
-    @need_permissions('relations-delete')
+    @need_permissions("relations-delete")
     def delete(self, record, **kwargs):
         """Delete an existing relation."""
         def delete(payload):
@@ -270,11 +277,13 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
             rt = Relation.get_relation_by_name(relation_type)
 
             if rt in current_app.config["PARENT_CHILD_RELATION_TYPES"]:
-                modified, first, second = \
-                    self._delete_parent_child_relation(record, rt, payload)
+                modified, first, second = self._delete_parent_child_relation(
+                    record, rt, payload
+                )
             elif rt in current_app.config["SIBLINGS_RELATION_TYPES"]:
-                modified, first, second = \
-                    self._delete_sibling_relation(record, rt, payload)
+                modified, first, second = self._delete_sibling_relation(
+                    record, rt, payload
+                )
             else:
                 raise RecordRelationsError(
                     "Invalid relation type `{}`".format(rt.name)

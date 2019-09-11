@@ -3,8 +3,6 @@ import { Grid, Segment, Container, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { MetadataTable } from '../../../components/MetadataTable';
 import { EditButton } from '../../../components/buttons';
-import { series as seriesApi } from '../../../../../common/api';
-import { openRecordEditor } from '../../../../../routes/urls';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 import { formatPidTypeToName } from '../../../../../common/components/ManageRelationsButton/utils';
 
@@ -54,7 +52,9 @@ export default class SeriesMetadata extends Component {
         </Grid.Column>
         <Grid.Column width={3} textAlign={'right'}>
           <EditButton
-            clickHandler={() => openRecordEditor(seriesApi.url, series.pid)}
+            clickHandler={() => {
+              // TODO: EDITOR, implement edit form
+            }}
           />
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Series record

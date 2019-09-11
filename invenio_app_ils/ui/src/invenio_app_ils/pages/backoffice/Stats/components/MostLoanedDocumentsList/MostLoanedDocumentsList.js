@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Qs from 'qs';
 import { Loader, Error } from '../../../../../common/components';
 import { ResultsTable } from '../../../../../common/components';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
@@ -8,13 +9,15 @@ import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { goTo } from '../../../../../history';
 import { Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
+import { stats as statsApi } from '../../../../../common/api';
+import { ExportSearchResults } from '../../../components';
+import { invenioConfig } from '../../../../../common/config/invenioConfig';
 
 export default class MostLoanedDocumentsList extends Component {
   constructor(props) {
     super(props);
     this.fetchMostLoanedDocuments = props.fetchMostLoanedDocuments;
     this.showDetailsUrl = BackOfficeRoutes.documentDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.documentsListWithQuery;
     this.state = {
       fromDate: '',
       toDate: '',
@@ -109,12 +112,33 @@ export default class MostLoanedDocumentsList extends Component {
   renderTable(data) {
     const rows = this.prepareData(data);
     rows.totalHits = data.total;
+    const headerActionComponent = (
+      <ExportSearchResults
+        total={invenioConfig.max_results_window - 1}
+        onExportClick={(format, page, size) => {
+          // build params
+          const params = statsApi.getMostLoanedDocumentsParams(
+            this.state.fromDate,
+            this.state.toDate,
+            size,
+            format
+          );
+          const args = Qs.stringify(params);
+          // build final url
+          const exportUrl = `${statsApi.mostLoanedUrl}?${args}`;
+          // open in a new tab
+          window.open(exportUrl, '_blank');
+        }}
+      ></ExportSearchResults>
+    );
+
     return (
       <ResultsTable
         rows={rows}
         title={'Most Loaned Documents'}
         subtitle={this.subtitle}
         name={'most loaned documents during this time period'}
+        headerActionComponent={headerActionComponent}
         rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         showMaxRows={this.props.showMaxDocuments}
       />

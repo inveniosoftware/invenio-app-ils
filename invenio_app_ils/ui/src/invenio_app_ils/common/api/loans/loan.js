@@ -1,4 +1,4 @@
-import { http } from '../base';
+import { http, apiConfig } from '../base';
 import { toISO, toShortDate } from '../date';
 import { DateTime } from 'luxon';
 import { serializer } from './serializer';
@@ -7,6 +7,7 @@ import { prepareDateQuery, prepareSumQuery } from '../utils';
 import { ApiURLS } from '../urls';
 import { generatePath } from 'react-router-dom';
 
+const apiURL = `${apiConfig.baseURL}${ApiURLS.loans.list}`;
 const loanURL = loanPid => {
   return generatePath(ApiURLS.loans.loan, { loanPid: loanPid });
 };
@@ -203,6 +204,7 @@ const count = query => {
 };
 
 export const loan = {
+  url: apiURL,
   assignItemToLoan: assignItemToLoan,
   query: queryBuilder,
   list: list,
@@ -210,5 +212,4 @@ export const loan = {
   count: count,
   postAction: postAction,
   serializer: serializer,
-  url: ApiURLS.loans.list,
 };
