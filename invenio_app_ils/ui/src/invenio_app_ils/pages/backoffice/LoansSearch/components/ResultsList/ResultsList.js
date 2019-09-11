@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ResultsTable } from '../../../../../common/components';
+import { SendMailModal } from '../../../components';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { ExportReactSearchKitResults } from '../../../components';
 import { loan as loanApi } from '../../../../../common/api';
 
 export class ResultsList extends Component {
-  constructor(props) {
-    super(props);
-    this.viewDetailsClickHandler = this.props.viewDetailsClickHandler;
-  }
-
   prepareData(data) {
-    return data.map(row => formatter.loan.toTable(row));
+    return data.map(row => {
+      const actions =
+        row.metadata.is_overdue && row.metadata.state === 'ITEM_ON_LOAN' ? (
+          <SendMailModal loan={row} />
+        ) : null;
+      return formatter.loan.toTable(row, actions);
+    });
   }
 
   render() {
@@ -31,7 +33,7 @@ export class ResultsList extends Component {
         rows={rows}
         name={'loans'}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={this.viewDetailsClickHandler}
+        rowActionClickHandler={this.props.viewDetailsClickHandler}
         showMaxRows={maxRowsToShow}
       />
     );

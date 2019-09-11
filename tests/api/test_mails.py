@@ -11,11 +11,11 @@ import pytest
 from flask_security import login_user
 from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
-from invenio_mail.tasks import send_email
 from jinja2.exceptions import TemplateError, TemplateNotFound
 
 from invenio_app_ils.circulation.mail.messages import BlockTemplatedMessage
-from invenio_app_ils.circulation.mail.tasks import send_ils_mail
+from invenio_app_ils.circulation.mail.tasks import send_ils_mail, \
+    send_overdue_mail
 
 
 def test_block_templated_message_full(app):
@@ -91,3 +91,18 @@ def test_example_loader(app, example_message_factory):
     msg = example_message_factory("Subject", "Body")
     assert msg.subject == "Subject"
     assert msg.body == "Body"
+
+
+def test_email_on_overdue_loan(app, users, testdata, loan_params, mocker):
+    """Test that an email is sent when an admin performs a loan checkout."""
+    app.config.update(CELERY_TASK_ALWAYS_EAGER=True)
+
+    loan_data = testdata["loans"][-1]
+    loan = Loan.get_record_by_pid(loan_data["pid"])
+    with app.extensions["mail"].record_messages() as outbox:
+        admin = users["admin"]
+        login_user(admin)
+
+        assert len(outbox) == 0
+        send_overdue_mail(loan)
+        assert len(outbox) == 1

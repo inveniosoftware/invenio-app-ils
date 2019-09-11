@@ -67,6 +67,7 @@ describe('OverdueLoansList tests', () => {
             patron_pid: 'patron_1',
             start_date: stringDate,
             end_date: stringDate,
+            item: { barcode: 123 },
           },
         },
         {
@@ -80,6 +81,7 @@ describe('OverdueLoansList tests', () => {
             patron_pid: 'patron_2',
             start_date: stringDate,
             end_date: stringDate,
+            item: { barcode: 123 },
           },
         },
       ],
@@ -121,6 +123,7 @@ describe('OverdueLoansList tests', () => {
             start_date: stringDate,
             end_date: stringDate,
             document_pid: 'doc1',
+            item: { barcode: 123 },
           },
         },
       ],
@@ -136,6 +139,7 @@ describe('OverdueLoansList tests', () => {
     );
 
     const firstId = data.hits[0].pid;
+
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)

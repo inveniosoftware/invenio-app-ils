@@ -172,6 +172,7 @@ LOAN_MAIL_TEMPLATES = {}
 # ===============
 #: Loan message loader
 LOAN_MSG_LOADER = "invenio_app_ils.circulation.mail.loader:loan_message_loader"
+LOAN_OVERDUE_MSG_LOADER = "invenio_app_ils.circulation.mail.loader:overdue_loan_message_loader"
 
 # Theme configuration
 # ===================
@@ -183,6 +184,8 @@ THEME_FRONTPAGE = False
 SUPPORT_EMAIL = "info@inveniosoftware.org"
 #: Disable email sending by default.
 MAIL_SUPPRESS_SEND = True
+#: Notification email for overdue loan every X days
+MAIL_OVERDUE_LOAN_INTERVAL = 3
 
 # Notification configuration
 # ==========================
@@ -225,6 +228,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "invenio_accounts.tasks.clean_session_table",
         "schedule": timedelta(minutes=60),
     },
+    "overdue_loans": {
+        "task": "invenio_app_ils.circulation.mail.tasks.send_auto_overdue_mail",
+        "schedule": timedelta(days=1),
+    }
 }
 
 # Database
@@ -695,12 +702,12 @@ CIRCULATION_REST_ENDPOINTS = dict(
         indexer_class=LoanIndexer,
         record_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
+                "invenio_app_ils.records.serializers:loan_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_records_rest.serializers:json_v1_search"
+                "invenio_app_ils.records.serializers:loan_v1_search"
             ),
             "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
         },

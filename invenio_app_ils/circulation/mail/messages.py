@@ -57,7 +57,7 @@ class LoanMessage(BlockTemplatedMessage):
         checkout="invenio_app_ils_mail/checkout.html",
         checkin="invenio_app_ils_mail/checkin.html",
         extend="invenio_app_ils_mail/extend.html",
-        cancel="invenio_app_ils_mail/cancel.html"
+        cancel="invenio_app_ils_mail/cancel.html",
     )
 
     def __init__(self, prev_loan, loan, trigger, **kwargs):
@@ -93,3 +93,28 @@ class LoanMessage(BlockTemplatedMessage):
             if not get_available_item_by_doc_pid(self.loan["document_pid"]):
                 return "request_no_items"
         return self.trigger
+
+
+class OverdueLoanMessage(BlockTemplatedMessage):
+    """Loader for loan overdue messages."""
+
+    def __init__(self, loan, document, patron_email, days_ago, **kwargs):
+        """Create overdue loan message."""
+        sender = current_app.config["MAIL_NOTIFY_SENDER"]
+        bcc = current_app.config["MAIL_NOTIFY_BCC"]
+        cc = current_app.config["MAIL_NOTIFY_CC"]
+
+        super(OverdueLoanMessage, self).__init__(
+            template="invenio_app_ils_mail/overdue.html",
+            ctx=dict(
+                loan=loan,
+                document=document,
+                patron_email=patron_email,
+                days_ago=days_ago,
+                **kwargs
+            ),
+            sender=kwargs.pop("sender", sender),
+            cc=kwargs.pop("cc", cc),
+            bcc=kwargs.pop("bcc", bcc),
+            **kwargs
+        )

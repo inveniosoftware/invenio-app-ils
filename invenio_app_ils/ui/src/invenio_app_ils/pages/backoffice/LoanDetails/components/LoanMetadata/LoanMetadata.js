@@ -15,6 +15,7 @@ import { AvailableItems } from '../AvailableItems';
 import { MetadataTable } from '../../../components/MetadataTable';
 import isEmpty from 'lodash/isEmpty';
 import { toShortDateTime } from '../../../../../common/api/date';
+import { SendMailModal } from '../../../components';
 
 export default class LoanMetadata extends Component {
   constructor(props) {
@@ -123,9 +124,15 @@ export default class LoanMetadata extends Component {
         </Grid.Column>
         <Grid.Column>
           <MetadataTable rows={rightRows} />
+          {this.renderMailButton()}
         </Grid.Column>
       </Grid>
     );
+  }
+
+  renderMailButton() {
+    const loan = this.props.loanDetails;
+    return loan.metadata.is_overdue && <SendMailModal loan={loan} />;
   }
 
   renderAvailableItems() {

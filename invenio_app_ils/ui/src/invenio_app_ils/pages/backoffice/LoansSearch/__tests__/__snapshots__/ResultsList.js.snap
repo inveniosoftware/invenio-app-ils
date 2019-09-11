@@ -113,6 +113,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
     rows={
       Array [
         Object {
+          "Actions": null,
           "Created": "2018-01-01 10:05",
           "Document ID": undefined,
           "End date": "2018-02-01",
@@ -193,6 +194,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                   "Transaction date",
                   "Expiration date",
                   "Renewals",
+                  "Actions",
                 ]
               }
               withRowAction={true}
@@ -410,6 +412,21 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                           </th>
                         </TableCell>
                       </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Actions"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Actions
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
                     </tr>
                   </TableRow>
                 </thead>
@@ -430,12 +447,14 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                   "Transaction date",
                   "Expiration date",
                   "Renewals",
+                  "Actions",
                 ]
               }
               rowActionClickHandler={[Function]}
               rows={
                 Array [
                   Object {
+                    "Actions": null,
                     "Created": "2018-01-01 10:05",
                     "Document ID": undefined,
                     "End date": "2018-02-01",
@@ -678,6 +697,18 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                           -
                         </td>
                       </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Actions-3"
+                        key="12-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Actions-3"
+                        >
+                          -
+                        </td>
+                      </TableCell>
                     </tr>
                   </TableRow>
                 </tbody>
@@ -685,7 +716,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
             </ResultsTableBody>
             <ResultsTableFooter
               allRowsNumber={1}
-              columnsNumber={12}
+              columnsNumber={13}
               currentPage={1}
               paginationComponent={null}
               seeAllComponent={null}
