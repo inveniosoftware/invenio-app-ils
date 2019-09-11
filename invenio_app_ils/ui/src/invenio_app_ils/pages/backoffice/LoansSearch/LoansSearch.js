@@ -35,6 +35,7 @@ import { goTo } from '../../../history';
 export class LoansSearch extends Component {
   searchApi = new InvenioSearchApi({
     url: `${apiConfig.baseURL}${loanApi.url}`,
+    withCredentials: true,
   });
   searchConfig = getSearchConfig('loans');
 

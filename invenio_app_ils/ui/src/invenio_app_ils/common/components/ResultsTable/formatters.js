@@ -26,10 +26,8 @@ function formatLoanToTableView(loan, actions = null) {
       fromISO(loan.metadata.request_expire_date)
     ),
     Renewals: loan.metadata.extension_count,
+    Actions: actions,
   };
-  if (actions) {
-    serialized['Actions'] = actions;
-  }
   return serialized;
 }
 
