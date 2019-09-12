@@ -7,9 +7,9 @@
     "$schema": {
       "type": "string"
     },
-    "pid": {
+    "legacy_id": {
       "type": "string",
-      "title": "The persistent identifier of this Internal Location"
+      "title": "The previous id of this Internal Location before migration"
     },
     "location_pid": {
       "type": "string",
@@ -23,21 +23,21 @@
         }
       }
     },
-    "legacy_id": {
-      "type": "string",
-      "title": "The previous id of this Internal Location before migration"
-    },
     "name": {
       "type": "string",
       "title": "Name of this Internal Location"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Extra notes"
     },
     "physical_location": {
       "type": "string",
       "title": "The physical location of this Internal Location"
     },
-    "notes": {
+    "pid": {
       "type": "string",
-      "title": "Extra notes"
+      "title": "The persistent identifier of this Internal Location"
     }
   }
 }

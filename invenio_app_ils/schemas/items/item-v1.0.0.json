@@ -18,6 +18,10 @@
     "$schema": {
       "type": "string"
     },
+    "barcode": {
+      "type": "string",
+      "title": "The barcode of this Item"
+    },
     "circulation_restriction": {
       "type": "string",
       "enum": ["NO_RESTRICTION", "FOR_REFERENCE_ONLY"],
@@ -30,6 +34,10 @@
           "type": "string"
         }
       }
+    },
+    "description": {
+      "type": "string",
+      "title": "Any extra description for this Item"
     },
     "document_pid": {
       "type": "string",
@@ -55,21 +63,26 @@
         }
       }
     },
-    "pid": {
-      "type": "string",
-      "title": "The persistent identifier of this Item"
-    },
-    "barcode": {
-      "type": "string",
-      "title": "The barcode of this Item"
-    },
-    "description": {
-      "type": "string",
-      "title": "Any extra description for this Item"
-    },
     "internal_notes": {
       "type": "string",
       "title": "Any extra description for this Item reserved for library usage"
+    },
+    "isbn": {
+      "properties": {
+        "description": {
+          "minLength": 1,
+          "title": "Free text, used to describe the document to ISBN refers to.",
+          "type": "string"
+        },
+        "value": {
+          "minLength": 1,
+          "pattern": "^\\d*[0-9X]$",
+          "type": "string"
+        }
+      },
+      "required": ["value"],
+      "title": "ISBN",
+      "type": "object"
     },
     "legacy_id": {
       "type": "string",
@@ -89,18 +102,22 @@
       "title": "Number of pages of the book",
       "type": "integer"
     },
+    "pid": {
+      "type": "string",
+      "title": "The persistent identifier of this Item"
+    },
     "physical_description": {
       "title": "Physical description of an item",
       "type": "string"
+    },
+    "shelf": {
+      "type": "string",
+      "title": "The shelf location of this Item"
     },
     "status": {
       "type": "string",
       "enum": ["CAN_CIRCULATE", "MISSING", "IN_BINDING", "SCANNING"],
       "title": "The current status of this Item"
-    },
-    "shelf": {
-      "type": "string",
-      "title": "The shelf location of this Item"
     }
   }
 }
