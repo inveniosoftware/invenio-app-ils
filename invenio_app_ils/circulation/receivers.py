@@ -11,9 +11,7 @@ from __future__ import absolute_import, print_function
 
 from invenio_circulation.signals import loan_replace_item, loan_state_changed
 
-from invenio_app_ils.circulation.mail.factory import loan_message_factory
 from invenio_app_ils.circulation.mail.tasks import send_ils_mail
-from invenio_app_ils.circulation.utils import circulation_get_patron_from_loan
 from invenio_app_ils.proxies import current_app_ils_extension
 from invenio_app_ils.records.api import Item
 
@@ -41,9 +39,4 @@ def index_after_loan_replace_item(_, old_item_pid, new_item_pid):
 
 def send_email_after_loan_change(_, prev_loan, loan, trigger):
     """Send email notification when the loan changes."""
-    patron = circulation_get_patron_from_loan(loan)
-    send_ils_mail(
-        loan_message_factory(),
-        prev_loan, loan, trigger,
-        recipients=[patron.email]
-    )
+    send_ils_mail(prev_loan, loan, trigger)

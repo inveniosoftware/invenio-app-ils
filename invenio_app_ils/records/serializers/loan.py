@@ -39,10 +39,12 @@ class LoanJSONSerializer(JSONSerializer):
         self.is_overdue(hit)
         return hit
 
+    # FIXME: remove the date manipulation when dates are globally fixed
     def is_overdue(self, data):
         """Calculate if the loan is overdue and add it as a property."""
         data["metadata"]["is_overdue"] = False
         if "end_date" in data["metadata"]:
             data["metadata"]["is_overdue"] = ciso8601.parse_datetime(
-                data["metadata"]["end_date"]) < datetime.utcnow()
+                data["metadata"]["end_date"]
+            ).replace(tzinfo=None) < datetime.utcnow()
         return data

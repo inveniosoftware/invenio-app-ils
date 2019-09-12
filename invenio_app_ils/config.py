@@ -167,12 +167,13 @@ SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
 # ===============
 #: Loan status email templates
 LOAN_MAIL_TEMPLATES = {}
+OVERDUE_LOAN_MAIL_TEMPLATE = ''
 
 # Email message loaders
 # ===============
 #: Loan message loader
 LOAN_MSG_LOADER = "invenio_app_ils.circulation.mail.loader:loan_message_loader"
-LOAN_OVERDUE_MSG_LOADER = "invenio_app_ils.circulation.mail.loader:overdue_loan_message_loader"
+OVERDUE_LOAN_MSG_LOADER = "invenio_app_ils.circulation.mail.loader:overdue_loan_message_loader"
 
 # Theme configuration
 # ===================
@@ -185,7 +186,7 @@ SUPPORT_EMAIL = "info@inveniosoftware.org"
 #: Disable email sending by default.
 MAIL_SUPPRESS_SEND = True
 #: Notification email for overdue loan every X days
-MAIL_OVERDUE_LOAN_INTERVAL = 3
+OVERDUE_LOAN_MAIL_INTERVAL = 3
 
 # Notification configuration
 # ==========================
@@ -195,6 +196,10 @@ MAIL_NOTIFY_SENDER = "noreply@inveniosoftware.org"
 MAIL_NOTIFY_CC = []
 #: Email BCC address(es) for email notification.
 MAIL_NOTIFY_BCC = []
+# Enable sending mail to test recipients.
+ENABLE_TEST_RECIPIENTS = True
+#: When variable ENABLE_TEST_RECIPIENTS is True all emails are send here.
+MAIL_NOTIFY_TEST_RECIPIENTS = ['test@inveniosoftware.org']
 
 # Assets
 # ======
@@ -229,7 +234,7 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": timedelta(minutes=60),
     },
     "overdue_loans": {
-        "task": "invenio_app_ils.circulation.mail.tasks.send_auto_overdue_mail",
+        "task": "invenio_app_ils.circulation.mail.tasks.send_overdue_loans_mail_reminder",
         "schedule": timedelta(days=1),
     }
 }
@@ -280,7 +285,6 @@ OAISERVER_ID_PREFIX = "oai:invenio_app_ils.org:"
 DEBUG = True
 DEBUG_TB_ENABLED = True
 DEBUG_TB_INTERCEPT_REDIRECTS = False
-
 
 _DOCID_CONVERTER = (
     'pid(docid, record_class="invenio_app_ils.records.api:Document")'

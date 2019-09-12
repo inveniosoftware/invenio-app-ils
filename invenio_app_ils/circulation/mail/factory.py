@@ -36,5 +36,5 @@ def overdue_loan_message_factory():
     """Create a loan overdue message factory."""
     return partial(
         message_factory,
-        current_app.config["LOAN_OVERDUE_MSG_LOADER"]
+        current_app.config["OVERDUE_LOAN_MSG_LOADER"]
     )

@@ -5,7 +5,7 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Invenio App ILS"""
+"""Invenio App ILS."""
 
 import os
 
@@ -65,6 +65,9 @@ install_requires = [
     "SQLAlchemy>=1.2.16,<1.3.0",
     "invenio-pidrelations>=1.0.0a6,<1.1.0",
     "sentry-sdk>=0.10.2",
+    # Avoid version 4.3 it breaks the emails with datetime
+    # https://github.com/celery/celery/pull/5606
+    "celery>=4.2.1<4.3.0",
 ]
 
 packages = find_packages()

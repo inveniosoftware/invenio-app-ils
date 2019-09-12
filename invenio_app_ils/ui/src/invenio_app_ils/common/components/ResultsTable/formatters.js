@@ -9,7 +9,7 @@ import { BackOfficeRoutes } from '../../../routes/urls';
 import { invenioConfig } from '../../config';
 
 function formatLoanToTableView(loan, actions = null) {
-  let serialized = {
+  return {
     ID: loan.pid ? loan.pid : loan.id,
     Created: toShortDateTime(fromISO(loan.created)),
     Updated: toShortDateTime(fromISO(loan.updated)),
@@ -28,7 +28,6 @@ function formatLoanToTableView(loan, actions = null) {
     Renewals: loan.metadata.extension_count,
     Actions: actions,
   };
-  return serialized;
 }
 
 function formatDocumentToTableView(document, volume = null) {

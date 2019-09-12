@@ -54,15 +54,11 @@ export default class LoanMetadata extends Component {
         <Message
           warning
           icon="trash alternate"
-          header={`The Item ${
-            data.metadata.item_pid
-          } assigned to this loan has been deleted!`}
+          header={`The Item ${data.metadata.item_pid} assigned to this loan has been deleted!`}
           content={[
             'If you need further assistance contact ',
             <a
-              href={`mailto:${
-                invenioConfig.support_email
-              }?subject=Deleted Item ${data.metadata.item_pid}`}
+              href={`mailto:${invenioConfig.support_email}?subject=Deleted Item ${data.metadata.item_pid}`}
               key="support-email"
             >
               <Icon name="mail" />
@@ -132,7 +128,12 @@ export default class LoanMetadata extends Component {
 
   renderMailButton() {
     const loan = this.props.loanDetails;
-    return loan.metadata.is_overdue && <SendMailModal loan={loan} />;
+    return (
+      loan.metadata.is_overdue &&
+      invenioConfig.circulation.loanActiveStates.includes(
+        loan.metadata.state
+      ) && <SendMailModal loan={loan} />
+    );
   }
 
   renderAvailableItems() {

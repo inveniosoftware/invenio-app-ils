@@ -19,8 +19,7 @@ from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 
-from invenio_app_ils.circulation.mail.factory import loan_message_factory, \
-    message_factory
+from invenio_app_ils.circulation.mail.factory import message_factory
 from invenio_app_ils.records.api import Document, EItem, InternalLocation, \
     Item, Keyword, Location, Series
 
@@ -186,12 +185,6 @@ def loan_params():
         transaction_location_pid="locid-2",
         transaction_date="2018-02-01T09:30:00+02:00",
     )
-
-
-@pytest.fixture()
-def loan_msg_factory():
-    """Return a loan message factory."""
-    return loan_message_factory()
 
 
 @pytest.fixture()

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { invenioConfig } from '../../../../../common/config';
 import PropTypes from 'prop-types';
 import { ResultsTable } from '../../../../../common/components';
 import { SendMailModal } from '../../../components';
@@ -10,7 +11,10 @@ export class ResultsList extends Component {
   prepareData(data) {
     return data.map(row => {
       const actions =
-        row.metadata.is_overdue && row.metadata.state === 'ITEM_ON_LOAN' ? (
+        row.metadata.is_overdue &&
+        invenioConfig.circulation.loanActiveStates.includes(
+          row.metadata.state
+        ) ? (
           <SendMailModal loan={row} />
         ) : null;
       return formatter.loan.toTable(row, actions);

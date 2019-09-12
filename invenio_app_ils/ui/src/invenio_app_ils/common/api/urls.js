@@ -1,6 +1,6 @@
 export const ApiURLS = {
   loans: {
-    email: '/circulation/loans/:loanPid/email',
+    emailOverdue: '/circulation/loans/:loanPid/email-overdue',
     loan: '/circulation/loans/:loanPid',
     list: '/circulation/loans/',
     create: '/circulation/loans/create',

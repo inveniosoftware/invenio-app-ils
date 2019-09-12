@@ -112,7 +112,7 @@ class IlsLoansSearch(LoansSearch):
         states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
         search = search.query("bool", must=[
             Q("terms", state=states),
-            Q("range", end_date=dict(lte=datetime.utcnow())),
+            Q("range", end_date=dict(lt=datetime.utcnow())),
         ])
         return search
 

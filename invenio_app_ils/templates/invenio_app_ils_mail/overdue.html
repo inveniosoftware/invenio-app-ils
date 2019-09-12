@@ -6,7 +6,7 @@ Your loan on {{'document information'}} is overdue!
 {% block body %}
 Dear {{ patron_email }},
 
-your loan on "{{ document.title.title }}", expired {{ days_ago }} days ago.
+your loan on "{{ document_title }}", expired {{ days_ago }} days ago.
 
 You have reached the maximum period for loaning a book. You are kindly requested
 to return the book at the Library or request an extension for your loan.
@@ -21,15 +21,14 @@ Signature
 {% block html %}
 Dear <strong>{{ patron_email }}</strong>,
 
-your loan on "<strong>{{ document.title.title }}</strong>",
+your loan on "<strong>{{ document_title }}</strong>",
 expired <strong>{{ days_ago }}</strong> days ago.
 
 You have reached the maximum period for loaning a book. You are kindly requested
 to return the book at the Library or request an extension for your loan.
 
-You can manage your loans on your <a href="/profile">profile</a> page.
+You can manage your loans on your profile page.
 
 Kind regards,
 Signature
 {% endblock %}
-

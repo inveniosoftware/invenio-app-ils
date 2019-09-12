@@ -14,9 +14,6 @@ from datetime import datetime, timedelta
 import ciso8601
 from flask import current_app
 
-from invenio_app_ils.errors import MissingRequiredParameterError, \
-    PatronNotFoundError
-
 
 def circulation_build_item_ref(loan_pid):
     """Build $ref for the Item attached to the Loan."""
@@ -57,23 +54,8 @@ def circulation_can_be_requested(loan):
     return True
 
 
-# NOTE: this is probably not the right place
-def circulation_get_patron_from_loan(loan):
-    """Return the patron object for the loan."""
-    _datastore = current_app.extensions["security"].datastore
-
-    patron_pid = loan["patron_pid"]
-    patron = _datastore.get_user(patron_pid)
-
-    if not patron:
-        raise PatronNotFoundError(patron_pid)
-    if not patron.email:
-        msg = "Patron with PID {} has no email address".format(patron_pid)
-        raise MissingRequiredParameterError(description=msg)
-    return patron
-
-
+# FIXME: remove the date manipulation when dates are globally fixed
 def circulation_overdue_loan_days(loan):
     """Return the amount of days a loan is overdue."""
-    end_date = ciso8601.parse_datetime(loan["end_date"])
+    end_date = ciso8601.parse_datetime(loan["end_date"]).replace(tzinfo=None)
     return (datetime.utcnow() - end_date).days

@@ -30,87 +30,727 @@ exports[`OverdueLoansList tests should load the details component 1`] = `
 `;
 
 exports[`OverdueLoansList tests should render loans 1`] = `
-<Loader>
-  <Error>
-    <ResultsTable
-      currentPage={1}
-      fixed={false}
-      headerActionClickHandler={null}
-      headerActionComponent={null}
-      name="overdue loans"
-      paginationComponent={null}
-      renderSegment={true}
-      rowActionClickHandler={[Function]}
-      rows={
-        Array [
-          Object {
-            "Actions": <Memo(Connect(SendMailModal))
-              loan={
-                Object {
-                  "created": "2018-01-01T10:05:00.000Z",
-                  "id": 1,
-                  "metadata": Object {
-                    "document_pid": "doc1",
-                    "end_date": "2018-01-01T10:05:00.000Z",
-                    "item": Object {
-                      "barcode": 123,
+<OverdueLoansList
+  data={
+    Object {
+      "hits": Array [
+        Object {
+          "created": "2018-01-01T10:05:00.000Z",
+          "id": 1,
+          "metadata": Object {
+            "document_pid": "doc1",
+            "end_date": "2018-01-01T10:05:00.000Z",
+            "item": Object {
+              "barcode": 123,
+            },
+            "patron_pid": "patron_1",
+            "pid": "loan1",
+            "start_date": "2018-01-01T10:05:00.000Z",
+          },
+          "pid": "loan1",
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+        Object {
+          "created": "2018-01-01T10:05:00.000Z",
+          "id": 2,
+          "metadata": Object {
+            "document_pid": "doc1",
+            "end_date": "2018-01-01T10:05:00.000Z",
+            "item": Object {
+              "barcode": 123,
+            },
+            "patron_pid": "patron_2",
+            "pid": "loan2",
+            "start_date": "2018-01-01T10:05:00.000Z",
+          },
+          "pid": "loan2",
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+      ],
+      "total": 2,
+    }
+  }
+  fetchOverdueLoans={[Function]}
+  showMaxEntries={5}
+>
+  <Loader>
+    <Error>
+      <ResultsTable
+        currentPage={1}
+        fixed={false}
+        headerActionClickHandler={null}
+        headerActionComponent={null}
+        name="overdue loans"
+        paginationComponent={null}
+        renderSegment={true}
+        rowActionClickHandler={[Function]}
+        rows={
+          Array [
+            Object {
+              "Actions": <Memo(Connect(SendMailModal))
+                loan={
+                  Object {
+                    "created": "2018-01-01T10:05:00.000Z",
+                    "id": 1,
+                    "metadata": Object {
+                      "document_pid": "doc1",
+                      "end_date": "2018-01-01T10:05:00.000Z",
+                      "item": Object {
+                        "barcode": 123,
+                      },
+                      "patron_pid": "patron_1",
+                      "pid": "loan1",
+                      "start_date": "2018-01-01T10:05:00.000Z",
                     },
-                    "patron_pid": "patron_1",
                     "pid": "loan1",
-                    "start_date": "2018-01-01T10:05:00.000Z",
-                  },
-                  "pid": "loan1",
-                  "updated": "2018-01-01T10:05:00.000Z",
+                    "updated": "2018-01-01T10:05:00.000Z",
+                  }
                 }
-              }
-            />,
-            "End date": "2018-01-01",
-            "ID": "loan1",
-            "Item barcode": 123,
-            "Patron ID": "patron_1",
-          },
-          Object {
-            "Actions": <Memo(Connect(SendMailModal))
-              loan={
-                Object {
-                  "created": "2018-01-01T10:05:00.000Z",
-                  "id": 2,
-                  "metadata": Object {
-                    "document_pid": "doc1",
-                    "end_date": "2018-01-01T10:05:00.000Z",
-                    "item": Object {
-                      "barcode": 123,
+              />,
+              "End date": "2018-01-01",
+              "ID": "loan1",
+              "Item barcode": 123,
+              "Patron ID": "patron_1",
+            },
+            Object {
+              "Actions": <Memo(Connect(SendMailModal))
+                loan={
+                  Object {
+                    "created": "2018-01-01T10:05:00.000Z",
+                    "id": 2,
+                    "metadata": Object {
+                      "document_pid": "doc1",
+                      "end_date": "2018-01-01T10:05:00.000Z",
+                      "item": Object {
+                        "barcode": 123,
+                      },
+                      "patron_pid": "patron_2",
+                      "pid": "loan2",
+                      "start_date": "2018-01-01T10:05:00.000Z",
                     },
-                    "patron_pid": "patron_2",
                     "pid": "loan2",
-                    "start_date": "2018-01-01T10:05:00.000Z",
-                  },
-                  "pid": "loan2",
-                  "updated": "2018-01-01T10:05:00.000Z",
+                    "updated": "2018-01-01T10:05:00.000Z",
+                  }
                 }
-              }
-            />,
-            "End date": "2018-01-01",
-            "ID": "loan2",
-            "Item barcode": 123,
-            "Patron ID": "patron_2",
-          },
-        ]
-      }
-      seeAllComponent={
-        <SeeAllButton
-          clickHandler={[Function]}
-          disabled={false}
-          fluid={false}
-        />
-      }
-      showMaxRows={5}
-      singleLine={false}
-      subtitle="Active loans with past due end date."
-      title="Overdue loans"
-    />
-  </Error>
-</Loader>
+              />,
+              "End date": "2018-01-01",
+              "ID": "loan2",
+              "Item barcode": 123,
+              "Patron ID": "patron_2",
+            },
+          ]
+        }
+        seeAllComponent={
+          <SeeAllButton
+            clickHandler={[Function]}
+            disabled={false}
+            fluid={false}
+          />
+        }
+        showMaxRows={5}
+        singleLine={false}
+        subtitle="Active loans with past due end date."
+        title="Overdue loans"
+      >
+        <Segment>
+          <div
+            className="ui segment"
+          >
+            <Grid>
+              <div
+                className="ui grid"
+              >
+                <GridRow>
+                  <div
+                    className="row"
+                  >
+                    <GridColumn
+                      verticalAlign="middle"
+                      width={13}
+                    >
+                      <div
+                        className="middle aligned thirteen wide column"
+                      >
+                        <Header
+                          as="h3"
+                          content="Overdue loans"
+                          subheader="Active loans with past due end date."
+                        >
+                          <h3
+                            className="ui header"
+                          >
+                            Overdue loans
+                            <HeaderSubheader
+                              content="Active loans with past due end date."
+                            >
+                              <div
+                                className="sub header"
+                              >
+                                Active loans with past due end date.
+                              </div>
+                            </HeaderSubheader>
+                          </h3>
+                        </Header>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      textAlign="right"
+                      width={3}
+                    >
+                      <div
+                        className="right aligned three wide column"
+                      />
+                    </GridColumn>
+                  </div>
+                </GridRow>
+              </div>
+            </Grid>
+            <Table
+              as="table"
+              selectable={true}
+              striped={true}
+            >
+              <table
+                className="ui selectable striped table"
+              >
+                <ResultsTableHeader
+                  columns={
+                    Array [
+                      "ID",
+                      "Patron ID",
+                      "Item barcode",
+                      "End date",
+                      "Actions",
+                    ]
+                  }
+                  withRowAction={true}
+                >
+                  <TableHeader
+                    as="thead"
+                  >
+                    <thead
+                      className=""
+                    >
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="header"
+                      >
+                        <tr
+                          className=""
+                          data-test="header"
+                        >
+                          <TableHeaderCell
+                            as="th"
+                            collapsing={true}
+                            width={2}
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                              collapsing={true}
+                              width={2}
+                            >
+                              <th
+                                className="collapsing two wide"
+                              />
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="ID"
+                            width={2}
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                              width={2}
+                            >
+                              <th
+                                className="two wide"
+                              >
+                                ID
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Patron ID"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Patron ID
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Item barcode"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Item barcode
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="End date"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                End date
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Actions"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Actions
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                        </tr>
+                      </TableRow>
+                    </thead>
+                  </TableHeader>
+                </ResultsTableHeader>
+                <ResultsTableBody
+                  columns={
+                    Array [
+                      "ID",
+                      "Patron ID",
+                      "Item barcode",
+                      "End date",
+                      "Actions",
+                    ]
+                  }
+                  rowActionClickHandler={[Function]}
+                  rows={
+                    Array [
+                      Object {
+                        "Actions": <Memo(Connect(SendMailModal))
+                          loan={
+                            Object {
+                              "created": "2018-01-01T10:05:00.000Z",
+                              "id": 1,
+                              "metadata": Object {
+                                "document_pid": "doc1",
+                                "end_date": "2018-01-01T10:05:00.000Z",
+                                "item": Object {
+                                  "barcode": 123,
+                                },
+                                "patron_pid": "patron_1",
+                                "pid": "loan1",
+                                "start_date": "2018-01-01T10:05:00.000Z",
+                              },
+                              "pid": "loan1",
+                              "updated": "2018-01-01T10:05:00.000Z",
+                            }
+                          }
+                        />,
+                        "End date": "2018-01-01",
+                        "ID": "loan1",
+                        "Item barcode": 123,
+                        "Patron ID": "patron_1",
+                      },
+                      Object {
+                        "Actions": <Memo(Connect(SendMailModal))
+                          loan={
+                            Object {
+                              "created": "2018-01-01T10:05:00.000Z",
+                              "id": 2,
+                              "metadata": Object {
+                                "document_pid": "doc1",
+                                "end_date": "2018-01-01T10:05:00.000Z",
+                                "item": Object {
+                                  "barcode": 123,
+                                },
+                                "patron_pid": "patron_2",
+                                "pid": "loan2",
+                                "start_date": "2018-01-01T10:05:00.000Z",
+                              },
+                              "pid": "loan2",
+                              "updated": "2018-01-01T10:05:00.000Z",
+                            }
+                          }
+                        />,
+                        "End date": "2018-01-01",
+                        "ID": "loan2",
+                        "Item barcode": 123,
+                        "Patron ID": "patron_2",
+                      },
+                    ]
+                  }
+                >
+                  <TableBody
+                    as="tbody"
+                  >
+                    <tbody
+                      className=""
+                    >
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="loan1"
+                        key="loan1"
+                      >
+                        <tr
+                          className=""
+                          data-test="loan1"
+                        >
+                          <TableCell
+                            as="td"
+                            textAlign="center"
+                          >
+                            <td
+                              className="center aligned"
+                            >
+                              <Button
+                                as="button"
+                                circular={true}
+                                compact={true}
+                                data-test="btn-view-details-loan1"
+                                icon="eye"
+                                onClick={[Function]}
+                              >
+                                <Ref
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui circular compact icon button"
+                                        data-test="btn-view-details-loan1"
+                                      >
+                                        <i
+                                          aria-hidden="true"
+                                          class="eye icon"
+                                        />
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <RefFindNode
+                                    innerRef={
+                                      Object {
+                                        "current": <button
+                                          class="ui circular compact icon button"
+                                          data-test="btn-view-details-loan1"
+                                        >
+                                          <i
+                                            aria-hidden="true"
+                                            class="eye icon"
+                                          />
+                                        </button>,
+                                      }
+                                    }
+                                  >
+                                    <button
+                                      className="ui circular compact icon button"
+                                      data-test="btn-view-details-loan1"
+                                      onClick={[Function]}
+                                    >
+                                      <Icon
+                                        as="i"
+                                        name="eye"
+                                      >
+                                        <i
+                                          aria-hidden="true"
+                                          className="eye icon"
+                                          onClick={[Function]}
+                                        />
+                                      </Icon>
+                                    </button>
+                                  </RefFindNode>
+                                </Ref>
+                              </Button>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="ID-loan1"
+                            key="0-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="ID-loan1"
+                            >
+                              loan1
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Patron ID-loan1"
+                            key="1-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="Patron ID-loan1"
+                            >
+                              patron_1
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Item barcode-loan1"
+                            key="2-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="Item barcode-loan1"
+                            >
+                              123
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="End date-loan1"
+                            key="3-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="End date-loan1"
+                            >
+                              2018-01-01
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Actions-loan1"
+                            key="4-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="Actions-loan1"
+                            >
+                              <Connect(SendMailModal)
+                                loan={
+                                  Object {
+                                    "created": "2018-01-01T10:05:00.000Z",
+                                    "id": 1,
+                                    "metadata": Object {
+                                      "document_pid": "doc1",
+                                      "end_date": "2018-01-01T10:05:00.000Z",
+                                      "item": Object {
+                                        "barcode": 123,
+                                      },
+                                      "patron_pid": "patron_1",
+                                      "pid": "loan1",
+                                      "start_date": "2018-01-01T10:05:00.000Z",
+                                    },
+                                    "pid": "loan1",
+                                    "updated": "2018-01-01T10:05:00.000Z",
+                                  }
+                                }
+                              />
+                            </td>
+                          </TableCell>
+                        </tr>
+                      </TableRow>
+                      <TableRow
+                        as="tr"
+                        cellAs="td"
+                        data-test="loan2"
+                        key="loan2"
+                      >
+                        <tr
+                          className=""
+                          data-test="loan2"
+                        >
+                          <TableCell
+                            as="td"
+                            textAlign="center"
+                          >
+                            <td
+                              className="center aligned"
+                            >
+                              <Button
+                                as="button"
+                                circular={true}
+                                compact={true}
+                                data-test="btn-view-details-loan2"
+                                icon="eye"
+                                onClick={[Function]}
+                              >
+                                <Ref
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui circular compact icon button"
+                                        data-test="btn-view-details-loan2"
+                                      >
+                                        <i
+                                          aria-hidden="true"
+                                          class="eye icon"
+                                        />
+                                      </button>,
+                                    }
+                                  }
+                                >
+                                  <RefFindNode
+                                    innerRef={
+                                      Object {
+                                        "current": <button
+                                          class="ui circular compact icon button"
+                                          data-test="btn-view-details-loan2"
+                                        >
+                                          <i
+                                            aria-hidden="true"
+                                            class="eye icon"
+                                          />
+                                        </button>,
+                                      }
+                                    }
+                                  >
+                                    <button
+                                      className="ui circular compact icon button"
+                                      data-test="btn-view-details-loan2"
+                                      onClick={[Function]}
+                                    >
+                                      <Icon
+                                        as="i"
+                                        name="eye"
+                                      >
+                                        <i
+                                          aria-hidden="true"
+                                          className="eye icon"
+                                          onClick={[Function]}
+                                        />
+                                      </Icon>
+                                    </button>
+                                  </RefFindNode>
+                                </Ref>
+                              </Button>
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="ID-loan2"
+                            key="0-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="ID-loan2"
+                            >
+                              loan2
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Patron ID-loan2"
+                            key="1-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="Patron ID-loan2"
+                            >
+                              patron_2
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Item barcode-loan2"
+                            key="2-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="Item barcode-loan2"
+                            >
+                              123
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="End date-loan2"
+                            key="3-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="End date-loan2"
+                            >
+                              2018-01-01
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Actions-loan2"
+                            key="4-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="Actions-loan2"
+                            >
+                              <Connect(SendMailModal)
+                                loan={
+                                  Object {
+                                    "created": "2018-01-01T10:05:00.000Z",
+                                    "id": 2,
+                                    "metadata": Object {
+                                      "document_pid": "doc1",
+                                      "end_date": "2018-01-01T10:05:00.000Z",
+                                      "item": Object {
+                                        "barcode": 123,
+                                      },
+                                      "patron_pid": "patron_2",
+                                      "pid": "loan2",
+                                      "start_date": "2018-01-01T10:05:00.000Z",
+                                    },
+                                    "pid": "loan2",
+                                    "updated": "2018-01-01T10:05:00.000Z",
+                                  }
+                                }
+                              />
+                            </td>
+                          </TableCell>
+                        </tr>
+                      </TableRow>
+                    </tbody>
+                  </TableBody>
+                </ResultsTableBody>
+                <ResultsTableFooter
+                  allRowsNumber={2}
+                  columnsNumber={5}
+                  currentPage={1}
+                  paginationComponent={null}
+                  seeAllComponent={
+                    <SeeAllButton
+                      clickHandler={[Function]}
+                      disabled={false}
+                      fluid={false}
+                    />
+                  }
+                  showMaxRows={5}
+                />
+              </table>
+            </Table>
+          </div>
+        </Segment>
+      </ResultsTable>
+    </Error>
+  </Loader>
+</OverdueLoansList>
 `;
 
 exports[`OverdueLoansList tests should render show a message with no loans 1`] = `

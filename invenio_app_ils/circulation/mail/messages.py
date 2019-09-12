@@ -7,7 +7,7 @@
 
 """Circulation mail message objects."""
 
-from flask import current_app
+from flask import current_app, request
 from flask_mail import Message
 from invenio_circulation.api import get_available_item_by_doc_pid
 from jinja2.exceptions import TemplateError
@@ -98,17 +98,22 @@ class LoanMessage(BlockTemplatedMessage):
 class OverdueLoanMessage(BlockTemplatedMessage):
     """Loader for loan overdue messages."""
 
-    def __init__(self, loan, document, patron_email, days_ago, **kwargs):
+    default_template = "invenio_app_ils_mail/overdue.html"
+
+    def __init__(self, loan, document_title, patron_email, days_ago, **kwargs):
         """Create overdue loan message."""
         sender = current_app.config["MAIL_NOTIFY_SENDER"]
         bcc = current_app.config["MAIL_NOTIFY_BCC"]
         cc = current_app.config["MAIL_NOTIFY_CC"]
 
+        template = current_app.config["OVERDUE_LOAN_MAIL_TEMPLATE"] or \
+            self.default_template
+
         super(OverdueLoanMessage, self).__init__(
-            template="invenio_app_ils_mail/overdue.html",
+            template=template,
             ctx=dict(
                 loan=loan,
-                document=document,
+                document_title=document_title,
                 patron_email=patron_email,
                 days_ago=days_ago,
                 **kwargs

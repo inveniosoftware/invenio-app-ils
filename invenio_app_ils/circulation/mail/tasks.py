@@ -14,12 +14,19 @@ from invenio_circulation.proxies import current_circulation
 from invenio_mail.tasks import send_email
 
 from invenio_app_ils.api import Document
-from invenio_app_ils.circulation.utils import circulation_get_patron_from_loan, \
-    circulation_overdue_loan_days
-
-from .factory import overdue_loan_message_factory
+from invenio_app_ils.circulation.mail.factory import loan_message_factory, \
+    overdue_loan_message_factory
+from invenio_app_ils.circulation.utils import circulation_overdue_loan_days
+from invenio_app_ils.records.api import Patron
 
 celery_logger = get_task_logger(__name__)
+
+
+def get_recipients(patrons):
+    """Return test recipients when ENABLE_TEST_RECIPIENTS is True."""
+    if current_app.config["ENABLE_TEST_RECIPIENTS"]:
+        return current_app.config["MAIL_NOTIFY_TEST_RECIPIENTS"]
+    return patrons
 
 
 @shared_task
@@ -30,7 +37,7 @@ def log_successful_mail(_, data):
     ))
 
 
-def send_ils_mail(factory, prev_loan, loan, trigger, **kwargs):
+def send_ils_mail(prev_loan, loan, trigger, **kwargs):
     """Send loan email message asynchronously and log the result in Celery.
 
     :param factory: Callable message factory to create Message object.
@@ -38,7 +45,10 @@ def send_ils_mail(factory, prev_loan, loan, trigger, **kwargs):
     :param loan: Updated loan.
     :param trigger: Loan action trigger.
     """
-    msg = factory(prev_loan, loan, trigger, **kwargs)
+    patron = Patron.get_patron(loan["patron_pid"])
+    factory = loan_message_factory()
+    msg = factory(prev_loan, loan, trigger,
+                  recipients=get_recipients([patron.email]), **kwargs)
     current_app.logger.debug("Attempting to send email '{}' to {}...".format(
         msg.subject, ", ".join(msg.recipients)
     ))
@@ -51,15 +61,15 @@ def send_overdue_mail(loan, **kwargs):
 
     :param loan: the overdue loan.
     """
-    factory = overdue_loan_message_factory()
     document = Document.get_record_by_pid(loan["document_pid"])
-    patron = circulation_get_patron_from_loan(loan)
+    patron = Patron.get_patron(loan["patron_pid"])
+    factory = overdue_loan_message_factory()
     msg = factory(
         loan,
-        document=document,
+        document_title=document["title"]["title"],
         patron_email=patron.email,
         days_ago=circulation_overdue_loan_days(loan),
-        recipients=[patron.email],
+        recipients=get_recipients([patron.email]),
         **kwargs
     )
     current_app.logger.debug("Attempting to send email '{}' to {}...".format(
@@ -70,9 +80,9 @@ def send_overdue_mail(loan, **kwargs):
 
 
 @shared_task
-def send_auto_overdue_mail():
+def send_overdue_loans_mail_reminder():
     """Send email message for loans that are overdue every X days."""
-    days = current_app.config["MAIL_OVERDUE_LOAN_INTERVAL"]
+    days = current_app.config["OVERDUE_LOAN_MAIL_INTERVAL"]
     loan_search = current_circulation.loan_search
     overdue_loans = loan_search.get_all_overdue_loans().execute()
     for hit in overdue_loans.hits:

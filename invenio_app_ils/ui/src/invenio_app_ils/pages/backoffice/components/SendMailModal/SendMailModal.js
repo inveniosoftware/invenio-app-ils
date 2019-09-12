@@ -1,43 +1,72 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Header, Modal, Button, Icon } from 'semantic-ui-react';
-import SendMailButton from './SendMailButton';
-import { loan as loanApi } from '../../../../common/api';
+import { BackOfficeRoutes } from '../../../../routes/urls';
 
 export default class SendMailModal extends Component {
   state = { isModalOpen: false };
 
   toggle = () => this.setState({ isModalOpen: !this.state.isModalOpen });
 
-  sendEmail = async () => {
+  sendMail = async () => {
     const { loan } = this.props;
     this.toggle();
-    await loanApi.postEmail({
+    this.props.sendOverdueLoansMailReminder({
       loanPid: loan.metadata.pid,
     });
-    this.props.sendSuccessNotification(
-      'Success!',
-      'An email has been send to the user.'
-    );
   };
+
+  renderTrigger = () => (
+    <Button
+      size="small"
+      icon
+      color="purple"
+      title="Send a reminder email to the user of the loan"
+      onClick={this.toggle}
+    >
+      <Icon name="mail" />
+    </Button>
+  );
 
   render() {
     const { loan } = this.props;
     return (
-      <Modal
-        trigger={<SendMailButton onClick={this.toggle} />}
-        open={this.state.isModalOpen}
-      >
+      <Modal trigger={this.renderTrigger()} open={this.state.isModalOpen}>
         <Modal.Header>Email notification</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <Header>
-              Item with id {loan.metadata.item_pid} and with barcode
-              {loan.metadata.item.barcode} is overdue!
+              <Link
+                to={BackOfficeRoutes.loanDetailsFor(loan.metadata.pid)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Loan
+              </Link>
+              {' on '}
+              <Link
+                to={BackOfficeRoutes.itemDetailsFor(loan.metadata.item_pid)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Item
+              </Link>
+              {' is overdue!'}
             </Header>
             <p>
-              An email reminder will be send to patron with id{' '}
-              <strong>{loan.metadata.patron_pid}</strong> about the overdue
-              item.
+              {'An email reminder will be send to '}
+              <strong>
+                <Link
+                  to={BackOfficeRoutes.patronDetailsFor(
+                    loan.metadata.patron_pid
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Patron
+                </Link>
+              </strong>
+              !
             </p>
           </Modal.Description>
         </Modal.Content>
@@ -45,7 +74,7 @@ export default class SendMailModal extends Component {
           <Button color="red" onClick={this.toggle}>
             <Icon name="cancel" /> Cancel
           </Button>
-          <Button color="green" onClick={this.sendEmail}>
+          <Button color="green" onClick={this.sendMail}>
             <Icon name="send" /> Send
           </Button>
         </Modal.Actions>
