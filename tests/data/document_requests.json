@@ -1,0 +1,28 @@
+[
+  {
+    "pid": "dreq-1",
+    "state": "PENDING",
+    "patron_pid": "1",
+    "title": "Test title 1"
+  },
+  {
+    "pid": "dreq-2",
+    "state": "CANCELLED",
+    "patron_pid": "2",
+    "title": "Test title 2"
+  },
+  {
+    "pid": "dreq-3",
+    "state": "FULFILLED",
+    "patron_pid": "3",
+    "document_pid": "docid-1",
+    "title": "Test title 3"
+  },
+  {
+    "pid": "dreq-4",
+    "state": "FULFILLED",
+    "patron_pid": "4",
+    "document_pid": "docid-2",
+    "title": "Test title 4"
+  }
+]

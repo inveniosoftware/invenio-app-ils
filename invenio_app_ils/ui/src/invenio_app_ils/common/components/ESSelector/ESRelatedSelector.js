@@ -37,7 +37,7 @@ export default class ESRelatedSelector extends Component {
 
   componentDidMount() {
     if (!isEmpty(this.extraRefs)) {
-      this.extraRefs[Object.keys(this.extraRefs)[0]].inputRef.focus();
+      this.extraRefs[Object.keys(this.extraRefs)[0]].inputRef.current.focus();
     }
   }
 

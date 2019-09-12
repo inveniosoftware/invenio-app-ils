@@ -23,20 +23,21 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
 from invenio_search import current_search
 
 from .indexer import PatronsIndexer
-from .records.api import Document, EItem, InternalLocation, Item, Location, \
-    Patron, Series, Tag
+from .records.api import Document, DocumentRequest, EItem, InternalLocation, \
+    Item, Location, Patron, Series, Tag
 from .records_relations.api import RecordRelationsParentChild, \
     RecordRelationsSiblings
 from .relations.api import Relation
 
 from .pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
-    ITEM_PID_TYPE,
+    DOCUMENT_REQUEST_PID_TYPE,
     EITEM_PID_TYPE,
-    LOCATION_PID_TYPE,
+    ITEM_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
-    TAG_PID_TYPE,
+    LOCATION_PID_TYPE,
     SERIES_PID_TYPE,
+    TAG_PID_TYPE,
 )
 
 
@@ -64,7 +65,8 @@ class Holder():
                  total_eitems,
                  total_documents,
                  total_loans,
-                 total_series):
+                 total_series,
+                 total_document_requests):
         """Constructor."""
         self.patrons_pids = patrons_pids
         self.librarian_pid = librarian_pid
@@ -101,6 +103,10 @@ class Holder():
         self.related_records = {
             'objs': [],
             'total': 0,
+        }
+        self.document_requests = {
+            'objs': [],
+            'total': total_document_requests
         }
 
     def pids(self, collection, pid_field):
@@ -661,6 +667,57 @@ class RecordRelationsGenerator(Generator):
         return self.holder.related_records['objs']
 
 
+class DocumentRequestGenerator(Generator):
+    """Document requests generator."""
+
+    STATES = ["CANCELLED", "PENDING", "FULFILLED"]
+
+    def random_document_pid(self, state):
+        """Get a random document PID if the state is FULFILLED."""
+        if state == "FULFILLED":
+            return random.choice(self.holder.pids("documents", "pid"))
+        return None
+
+    def generate(self):
+        """Generate."""
+        size = self.holder.series['total']
+        objs = []
+        doc_pids = random.sample(
+            self.holder.pids("documents", "pid"),
+            self.holder.documents['total']
+        )
+        for pid in range(1, size + 1):
+            state = random.choice(self.STATES)
+            obj = {
+                "pid": str(pid),
+                "state": state,
+                "patron_pid": random.choice(self.holder.patrons_pids),
+                "title": lorem.sentence(),
+                "authors": lorem.sentence(),
+                "publication_year": randint(1700, 2019),
+            }
+            if state == "FULFILLED":
+                obj["document_pid"] = doc_pids.pop()
+            if state == "CANCELLED":
+                obj["cancel_reason"] = lorem.sentence()
+            objs.append(obj)
+
+        self.holder.document_requests['objs'] = objs
+
+    def persist(self):
+        """Persist."""
+        recs = []
+        for obj in self.holder.document_requests['objs']:
+            rec = self._persist(
+                DOCUMENT_REQUEST_PID_TYPE,
+                "pid",
+                DocumentRequest.create(obj)
+            )
+            recs.append(rec)
+        db.session.commit()
+        return recs
+
+
 @click.group()
 def demo():
     """Demo data CLI."""
@@ -674,8 +731,10 @@ def demo():
 @click.option("--tags", "n_tags", default=40)
 @click.option("--internal-locations", "n_intlocs", default=10)
 @click.option("--series", "n_series", default=10)
+@click.option("--document-requests", "n_document_requests", default=10)
 @with_appcontext
-def data(n_docs, n_items, n_eitems, n_loans, n_tags, n_intlocs, n_series):
+def data(n_docs, n_items, n_eitems, n_loans, n_tags, n_intlocs, n_series,
+         n_document_requests):
     """Insert demo data."""
     click.secho('Generating demo data', fg='yellow')
 
@@ -691,6 +750,7 @@ def data(n_docs, n_items, n_eitems, n_loans, n_tags, n_intlocs, n_series):
         total_documents=n_docs,
         total_loans=n_loans,
         total_series=n_series,
+        total_document_requests=n_document_requests,
     )
 
     click.echo('Creating locations...')
@@ -746,6 +806,12 @@ def data(n_docs, n_items, n_eitems, n_loans, n_tags, n_intlocs, n_series):
     related_generator.generate(rec_docs, rec_series)
     related_generator.persist()
 
+    # Document requests
+    click.echo('Creating document requests...')
+    document_requests_generator = DocumentRequestGenerator(holder, minter)
+    document_requests_generator.generate()
+    rec_requests = document_requests_generator.persist()
+
     # index locations
     indexer.bulk_index([str(r.id) for r in rec_intlocs])
     click.echo('Sent to the indexing queue {0} locations'.format(
@@ -781,6 +847,14 @@ def data(n_docs, n_items, n_eitems, n_loans, n_tags, n_intlocs, n_series):
 
     click.secho('Now indexing...', fg='green')
     # process queue so documents can resolve circulation correctly
+    indexer.process_bulk_queue()
+
+    # index document requests
+    indexer.bulk_index([str(r.id) for r in rec_requests])
+    click.echo('Sent to the indexing queue {0} document requests'.format(
+        len(rec_requests)))
+
+    click.secho('Now indexing...', fg='green')
     indexer.process_bulk_queue()
 
     # flush all indices after indexing, otherwise ES won't be ready for tests

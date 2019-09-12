@@ -62,16 +62,18 @@ from .circulation.utils import (  # isort:skip
 )
 from .indexer import (  # isort:skip
     DocumentIndexer,
-    ItemIndexer,
+    DocumentRequestIndexer,
     EItemIndexer,
-    TagIndexer,
+    ItemIndexer,
     LoanIndexer,
     LocationIndexer,
     SeriesIndexer,
+    TagIndexer,
 )
 from .permissions import (  # isort:skip
     authenticated_user_permission,
     backoffice_permission,
+    DocumentRequestOwnerPermission,
     LoanOwnerPermission,
     views_permissions_factory,
 )
@@ -79,37 +81,41 @@ from .pidstore.pids import (  # isort:skip
     DOCUMENT_PID_FETCHER,
     DOCUMENT_PID_MINTER,
     DOCUMENT_PID_TYPE,
+    DOCUMENT_REQUEST_PID_FETCHER,
+    DOCUMENT_REQUEST_PID_MINTER,
+    DOCUMENT_REQUEST_PID_TYPE,
+    EITEM_PID_FETCHER,
+    EITEM_PID_MINTER,
+    EITEM_PID_TYPE,
     INTERNAL_LOCATION_PID_FETCHER,
     INTERNAL_LOCATION_PID_MINTER,
     INTERNAL_LOCATION_PID_TYPE,
     ITEM_PID_FETCHER,
     ITEM_PID_MINTER,
     ITEM_PID_TYPE,
-    EITEM_PID_FETCHER,
-    EITEM_PID_MINTER,
-    EITEM_PID_TYPE,
-    TAG_PID_TYPE,
-    TAG_PID_MINTER,
-    TAG_PID_FETCHER,
     LOCATION_PID_FETCHER,
     LOCATION_PID_MINTER,
     LOCATION_PID_TYPE,
-    SERIES_PID_FETCHER,
-    SERIES_PID_MINTER,
-    SERIES_PID_TYPE,
     PATRON_PID_FETCHER,
     PATRON_PID_MINTER,
     PATRON_PID_TYPE,
+    SERIES_PID_FETCHER,
+    SERIES_PID_MINTER,
+    SERIES_PID_TYPE,
+    TAG_PID_FETCHER,
+    TAG_PID_MINTER,
+    TAG_PID_TYPE,
 )
 from .records.api import (  # isort:skip
     Document,
-    Item,
+    DocumentRequest,
     EItem,
-    Tag,
-    Location,
     InternalLocation,
+    Item,
+    Location,
     Patron,
     Series,
+    Tag,
 )
 from .records.permissions import (  # isort:skip
     record_create_permission_factory,
@@ -118,14 +124,15 @@ from .records.permissions import (  # isort:skip
     record_update_permission_factory,
 )
 from .search.api import (  # isort:skip
+    DocumentRequestSearch,
     DocumentSearch,
-    ItemSearch,
     EItemSearch,
-    TagSearch,
-    LocationSearch,
     InternalLocationSearch,
-    SeriesSearch,
+    ItemSearch,
+    LocationSearch,
     PatronsSearch,
+    SeriesSearch,
+    TagSearch,
 )
 
 
@@ -303,6 +310,9 @@ _ILOCID_CONVERTER = (
 )
 _TAGID_CONVERTER = (
     'pid(tagid, record_class="invenio_app_ils.records.api:Tag")'
+)
+_DREQID_CONVERTER = (
+    'pid(dreqid, record_class="invenio_app_ils.records.api:DocumentRequest")'
 )
 _SERID_CONVERTER = (
     'pid(serid, record_class="invenio_app_ils.records.api:Series")'
@@ -603,6 +613,46 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=record_update_permission_factory,
         delete_permission_factory_imp=backoffice_permission,
     ),
+    dreqid=dict(
+        pid_type=DOCUMENT_REQUEST_PID_TYPE,
+        pid_minter=DOCUMENT_REQUEST_PID_MINTER,
+        pid_fetcher=DOCUMENT_REQUEST_PID_FETCHER,
+        search_class=DocumentRequestSearch,
+        record_class=DocumentRequest,
+        indexer_class=DocumentRequestIndexer,
+        search_factory_imp="invenio_app_ils.search.api"
+                           ":filter_by_patron_search_factory",
+        record_loaders={
+            "application/json": (
+                "invenio_app_ils.records.loaders:document_request_loader"
+            ),
+            "application/json-patch+json": (
+                lambda: request.get_json(force=True)
+            ),
+        },
+        record_serializers={
+            "application/json": (
+                "invenio_app_ils.records.serializers:json_v1_response"
+            ),
+        },
+        search_serializers={
+            "application/json": (
+                "invenio_records_rest.serializers:json_v1_search"
+            )
+        },
+        list_route="/document-requests/",
+        item_route="/document-requests/<{0}:pid_value>".format(
+            _DREQID_CONVERTER
+        ),
+        default_media_type="application/json",
+        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        error_handlers=dict(),
+        read_permission_factory_imp=DocumentRequestOwnerPermission,
+        list_permission_factory_imp=authenticated_user_permission,
+        create_permission_factory_imp=authenticated_user_permission,
+        update_permission_factory_imp=backoffice_permission,
+        delete_permission_factory_imp=backoffice_permission,
+    ),
 )
 
 # CIRCULATION
@@ -700,8 +750,8 @@ CIRCULATION_REST_ENDPOINTS = dict(
         pid_minter=CIRCULATION_LOAN_MINTER,
         pid_fetcher=CIRCULATION_LOAN_FETCHER,
         search_class=IlsLoansSearch,
-        search_factory_imp="invenio_app_ils.circulation.search"
-        ":circulation_search_factory",
+        search_factory_imp="invenio_app_ils.search.api"
+                           ":filter_by_patron_search_factory",
         record_class="invenio_circulation.api:Loan",
         indexer_class=LoanIndexer,
         record_serializers={
@@ -1109,3 +1159,6 @@ PARENT_CHILD_RELATION_TYPES = [MULTIPART_MONOGRAPH_RELATION, SERIAL_RELATION]
 SIBLINGS_RELATION_TYPES = [LANGUAGE_RELATION, EDITION_RELATION, OTHER_RELATION]
 
 ILS_PIDRELATIONS_TYPES = PARENT_CHILD_RELATION_TYPES + SIBLINGS_RELATION_TYPES
+
+# The HTML tags allowed with invenio_records_rest.schemas.fields.sanitizedhtml
+ALLOWED_HTML_TAGS = []

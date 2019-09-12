@@ -7,9 +7,9 @@
 
 """Circulation minters."""
 
-from .providers import DocumentIdProvider, EItemIdProvider, \
-    InternalLocationIdProvider, ItemIdProvider, LocationIdProvider, \
-    SeriesIdProvider, TagIdProvider
+from .providers import DocumentIdProvider, DocumentRequestIdProvider, \
+    EItemIdProvider, InternalLocationIdProvider, ItemIdProvider, \
+    LocationIdProvider, SeriesIdProvider, TagIdProvider
 
 
 def document_pid_minter(record_uuid, data):
@@ -92,3 +92,14 @@ def series_pid_minter(record_uuid, data):
 def patron_pid_minter(record_uuid, data):
     """Dummy patron minter."""
     return None
+
+
+def document_request_pid_minter(record_uuid, data):
+    """Mint DocumentRequest identifiers."""
+    assert "pid" not in data
+    provider = DocumentRequestIdProvider.create(
+        object_type='rec',
+        object_uuid=record_uuid,
+    )
+    data["pid"] = provider.pid.pid_value
+    return provider.pid

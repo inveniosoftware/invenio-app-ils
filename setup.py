@@ -126,42 +126,37 @@ setup(
             "ils_schemas = invenio_app_ils.schemas"
         ],
         "invenio_search.mappings": [
+            "document_requests = invenio_app_ils.mappings",
             "documents = invenio_app_ils.mappings",
-            "items = invenio_app_ils.mappings",
             "eitems = invenio_app_ils.mappings",
-            "locations = invenio_app_ils.mappings",
             "internal_locations = invenio_app_ils.mappings",
-            "tags = invenio_app_ils.mappings",
+            "items = invenio_app_ils.mappings",
+            "locations = invenio_app_ils.mappings",
+            "patrons = invenio_app_ils.mappings",
             "series = invenio_app_ils.mappings",
-            "patrons = invenio_app_ils.mappings"
+            "tags = invenio_app_ils.mappings",
         ],
         "invenio_pidstore.fetchers": [
             "docid = invenio_app_ils.pidstore.fetchers:document_pid_fetcher",
-            "pitmid = "
-            "invenio_app_ils.pidstore.fetchers:item_pid_fetcher",
-            "eitmid = "
-            "invenio_app_ils.pidstore.fetchers:eitem_pid_fetcher",
+            "dreqid = invenio_app_ils.pidstore.fetchers:document_request_pid_fetcher",
+            "eitmid = invenio_app_ils.pidstore.fetchers:eitem_pid_fetcher",
+            "ilocid = invenio_app_ils.pidstore.fetchers:internal_location_pid_fetcher",
             "locid = invenio_app_ils.pidstore.fetchers:location_pid_fetcher",
-            "ilocid = "
-            "invenio_app_ils.pidstore.fetchers:internal_location_pid_fetcher",
+            "patid = invenio_app_ils.pidstore.fetchers:patron_pid_fetcher",
+            "pitmid = invenio_app_ils.pidstore.fetchers:item_pid_fetcher",
+            "serid = invenio_app_ils.pidstore.fetchers:series_pid_fetcher",
             "tagid = invenio_app_ils.pidstore.fetchers:tag_pid_fetcher",
-            "serid = "
-            "invenio_app_ils.pidstore.fetchers:series_pid_fetcher",
-            "patid = invenio_app_ils.pidstore.fetchers:patron_pid_fetcher"
         ],
         "invenio_pidstore.minters": [
             "docid = invenio_app_ils.pidstore.minters:document_pid_minter",
-            "pitmid = "
-            "invenio_app_ils.pidstore.minters:item_pid_minter",
-            "eitmid = "
-            "invenio_app_ils.pidstore.minters:eitem_pid_minter",
+            "dreqid = invenio_app_ils.pidstore.minters:document_request_pid_minter",
+            "eitmid = invenio_app_ils.pidstore.minters:eitem_pid_minter",
+            "ilocid = invenio_app_ils.pidstore.minters:internal_location_pid_minter",
             "locid = invenio_app_ils.pidstore.minters:location_pid_minter",
-            "ilocid = "
-            "invenio_app_ils.pidstore.minters:internal_location_pid_minter",
+            "patid = invenio_app_ils.pidstore.minters:patron_pid_minter",
+            "pitmid = invenio_app_ils.pidstore.minters:item_pid_minter",
+            "serid = invenio_app_ils.pidstore.minters:series_pid_minter",
             "tagid = invenio_app_ils.pidstore.minters:tag_pid_minter",
-            "serid = "
-            "invenio_app_ils.pidstore.minters:series_pid_minter",
-            "patid = invenio_app_ils.pidstore.minters:patron_pid_minter"
         ],
         "invenio_access.actions": [
             "backoffice_access_action = "
@@ -171,15 +166,17 @@ setup(
             "document_circulation = invenio_app_ils.records.resolver.jsonresolver.document_circulation",
             "document_eitem = invenio_app_ils.records.resolver.jsonresolver.document_eitem",
             "document_item = invenio_app_ils.records.resolver.jsonresolver.document_item",
-            "document_tag = invenio_app_ils.records.resolver.jsonresolver.document_tag",
             "document_relations = invenio_app_ils.records.resolver.jsonresolver.document_relations",
+            "document_request = invenio_app_ils.records.resolver.jsonresolver.document_request",
+            "document_tag = invenio_app_ils.records.resolver.jsonresolver.document_tag",
             "eitem = invenio_app_ils.records.resolver.jsonresolver.eitem",
             "internal_location = invenio_app_ils.records.resolver.jsonresolver.internal_location",
             "item_document = invenio_app_ils.records.resolver.jsonresolver.item_document",
             "item_internal_location = invenio_app_ils.records.resolver.jsonresolver.item_internal_location",
             "item_loan = invenio_app_ils.records.resolver.jsonresolver.item_loan",
-            "series_tag = invenio_app_ils.records.resolver.jsonresolver.series_tag",
+            "request_document = invenio_app_ils.records.resolver.jsonresolver.request_document",
             "series_relations = invenio_app_ils.records.resolver.jsonresolver.series_relations",
+            "series_tag = invenio_app_ils.records.resolver.jsonresolver.series_tag",
         ],
         'invenio_celery.tasks': [
             'indexer = invenio_app_ils.indexer'

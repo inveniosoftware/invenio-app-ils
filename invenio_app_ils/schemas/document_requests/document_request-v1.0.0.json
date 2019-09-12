@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Schema for Document Request",
+  "required": ["$schema", "pid", "state", "patron_pid", "title"],
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "authors": {
+      "title": "Authors of the requested document",
+      "type": "string"
+    },
+    "cancel_reason": {
+      "type": "string",
+      "title": "Reason for cancelling the document request"
+    },
+    "document_pid": {
+      "title": "The persistent identifier of the created Document",
+      "type": "string"
+    },
+    "isbn": {
+      "title": "ISBN of the requested document",
+      "type": "string"
+    },
+    "issn": {
+      "title": "ISBN of the requested document",
+      "type": "string"
+    },
+    "issue": {
+      "title": "Issue of the requested document",
+      "type": "string"
+    },
+    "note": {
+      "title": "Note of the requested document",
+      "type": "string"
+    },
+    "page": {
+      "title": "Page of the requested document",
+      "type": "string"
+    },
+    "patron_pid": {
+      "title": "The persistent identifier of the patron who made the request",
+      "type": "string"
+    },
+    "pid": {
+      "title": "The persistent identifier of this Request",
+      "type": "string"
+    },
+    "publication_year": {
+      "title": "Publication year of the requested document",
+      "type": "integer"
+    },
+    "state": {
+      "description": "The state of this Request",
+      "enum": ["CANCELLED", "FULFILLED", "PENDING"],
+      "type": "string"
+    },
+    "title": {
+      "title": "Title of the requested document",
+      "type": "string"
+    },
+    "volume": {
+      "title": "Volume of the requested document",
+      "type": "string"
+    }
+  }
+}

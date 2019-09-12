@@ -16,9 +16,9 @@ from flask import url_for
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
 
-from invenio_app_ils.circulation.search import IlsLoansSearch, \
-    circulation_search_factory
+from invenio_app_ils.circulation.search import IlsLoansSearch
 from invenio_app_ils.errors import UnauthorizedSearchError
+from invenio_app_ils.search.api import filter_by_patron_search_factory
 
 NEW_LOAN = {
     "item_pid": "200",
@@ -59,7 +59,7 @@ def test_anonymous_loans_search(app):
     """Test that not logged in users are unable to search."""
     with app.test_request_context("/"):
         with pytest.raises(UnauthorizedSearchError):
-            circulation_search_factory(None, IlsLoansSearch())
+            filter_by_patron_search_factory(None, IlsLoansSearch())
 
 
 def test_patrons_can_search_their_own_loans(client, json_headers, users,
