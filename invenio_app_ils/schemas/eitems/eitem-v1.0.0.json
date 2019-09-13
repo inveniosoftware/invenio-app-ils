@@ -7,6 +7,10 @@
     "$schema": {
       "type": "string"
     },
+    "description": {
+      "type": "string",
+      "title": "Any extra description for this EItem"
+    },
     "document_pid": {
       "type": "string",
       "title": "The persistent identifier of its Document"
@@ -18,18 +22,6 @@
           "type": "string"
         }
       }
-    },
-    "pid": {
-      "type": "string",
-      "title": "The persistent identifier of this EItem"
-    },
-    "description": {
-      "type": "string",
-      "title": "Any extra description for this EItem"
-    },
-    "internal_notes": {
-      "type": "string",
-      "title": "Any extra description for this EItem reserved for internal usage"
     },
     "files": {
       "items": {
@@ -63,16 +55,24 @@
       "title": "List of files",
       "type": "array"
     },
+    "internal_notes": {
+      "type": "string",
+      "title": "Any extra description for this EItem reserved for internal usage"
+    },
+    "open_access": {
+      "type": "boolean",
+      "title": "Indicate if the access to this EItem is open or not"
+    },
+    "pid": {
+      "type": "string",
+      "title": "The persistent identifier of this EItem"
+    },
     "urls": {
       "items": {
         "type": "string"
       },
       "type": "array",
       "description": "A list of urls."
-    },
-    "open_access": {
-      "type": "boolean",
-      "title": "Indicate if the access to this EItem is open or not"
     }
   }
 }

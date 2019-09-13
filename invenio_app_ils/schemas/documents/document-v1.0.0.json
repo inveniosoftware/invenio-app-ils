@@ -2,14 +2,10 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Document",
   "type": "object",
-  "required": ["$schema", "pid"],
+  "required": ["$schema", "pid", "title", "authors"],
   "properties": {
     "$schema": {
       "type": "string"
-    },
-    "pid": {
-      "type": "string",
-      "title": "Document ID"
     },
     "_access": {
       "type": "object",
@@ -132,10 +128,13 @@
             "title": "Author name",
             "type": "string"
           },
+          "note": {
+            "type": "string"
+          },
           "roles": {
             "items": {
               "default": "author",
-              "enum": ["author", "editor", "illustrator"],
+              "enum": ["author", "editor"],
               "minLength": 1,
               "type": "string"
             },
@@ -152,16 +151,382 @@
       "type": "array",
       "uniqueItems": false
     },
-    "edition": {
-      "minLength": 1,
-      "type": "string",
-      "title": "Book edition indicator"
+    "circulation": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
+    },
+    "copyrights": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "holder": {
+            "minLength": 1,
+            "title": "Copyright holder",
+            "type": "string"
+          },
+          "material": {
+            "enum": [
+              "addendum",
+              "additional material",
+              "data",
+              "e-book",
+              "e-proceedings",
+              "editorial note",
+              "erratum",
+              "preprint",
+              "publication",
+              "reprint",
+              "software",
+              "translation"
+            ],
+            "minLength": 1,
+            "title": "Material to which the copyright refers",
+            "type": "string"
+          },
+          "statement": {
+            "minLength": 1,
+            "title": "Copyright notice",
+            "type": "string"
+          },
+          "url": {
+            "format": "uri",
+            "minLength": 1,
+            "title": "Copyright notice URL",
+            "type": "string"
+          },
+          "year": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "minItems": 1,
+      "title": "List of copyrights to documents in this record",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "corporate_authors": {
+      "items": {
+        "minLength": 1,
+        "title": "List of corporate authors",
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "curated": {
+      "type": "boolean"
+    },
+    "created_by": {
+      "additionalProperties": false,
+      "properties": {
+        "submitter": {
+          "description": "This field is used only when the method is submitter",
+          "email": {
+            "format": "email",
+            "minLength": 4,
+            "title": "Email address of the submitter",
+            "type": "string"
+          },
+          "user_id": {
+            "title": "User ID of the submitter",
+            "type": "integer"
+          }
+        },
+        "method": {
+          "enum": ["batchuploader", "oai", "submitter"],
+          "minLength": 1,
+          "title": "Data obtaining method",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "title": "Origin of the metadata in the record",
+      "type": "object"
     },
     "document_type": {
       "type": "string",
       "enum": ["BOOK", "PROCEEDINGS", "STANDARD"],
       "default": "BOOK",
       "title": "Document type"
+    },
+    "edition": {
+      "minLength": 1,
+      "type": "string",
+      "title": "Book edition indicator"
+    },
+    "eitems": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
+    },
+    "identifiers": {
+      "properties": {
+        "dois": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "material": {
+                "enum": [
+                  "addendum",
+                  "additional material",
+                  "data",
+                  "e-book",
+                  "e-proceedings",
+                  "editorial note",
+                  "erratum",
+                  "preprint",
+                  "publication",
+                  "reprint",
+                  "software",
+                  "translation"
+                ],
+                "minLength": 1,
+                "title": "Material to which the DOI refers",
+                "type": "string"
+              },
+              "source": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "value": {
+                "minLength": 1,
+                "pattern": "^10\\.\\d+(\\.\\d+)?/\\S+$",
+                "title": "DOI",
+                "type": "string"
+              }
+            },
+            "required": ["value"],
+            "type": "object"
+          },
+          "minItems": 1,
+          "title": "List of DOIs",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "isbns": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "description": {
+                "minLength": 1,
+                "title": "Free text, used to describe the document to ISBN refers to.",
+                "type": "string"
+              },
+              "medium": {
+                "enum": [
+                  "audiobook",
+                  "CD-ROM",
+                  "DVD",
+                  "electronic version",
+                  "print version",
+                  "print version, hardback",
+                  "print version, paperback",
+                  "print version, spiral-bound"
+                ],
+                "minLength": 1,
+                "title": "Physical medium to which this ISBN refers",
+                "type": "string"
+              },
+              "value": {
+                "minLength": 1,
+                "pattern": "^\\d*[0-9X]$",
+                "type": "string"
+              }
+            },
+            "required": ["value"],
+            "type": "object"
+          },
+          "minItems": 1,
+          "title": "List of ISBNs",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "persistent_identifiers": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "material": {
+                "enum": [
+                  "addendum",
+                  "additional material",
+                  "data",
+                  "e-book",
+                  "e-proceedings",
+                  "editorial note",
+                  "erratum",
+                  "preprint",
+                  "publication",
+                  "reprint",
+                  "software",
+                  "translation"
+                ],
+                "minLength": 1,
+                "title": "Material to which the field refers",
+                "type": "string"
+              },
+              "schema": {
+                "description": "`HDL <http://handle.net>`_\n* `URN\n  <https://en.wikipedia.org/wiki/Uniform_Resource_Name>`_",
+                "enum": ["HDL", "URN"],
+                "minLength": 1,
+                "title": "Type of identifier",
+                "type": "string"
+              },
+              "source": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "value": {
+                "minLength": 1,
+                "pattern": "^\\S+$",
+                "title": "Persistent identifier",
+                "type": "string"
+              }
+            },
+            "required": ["schema", "value"],
+            "type": "object"
+          },
+          "minItems": 1,
+          "title": "List of persistent identifiers",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "external_system_identifiers": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "schema": {
+                "enum": [
+                  "ARXIV",
+                  "ASIN",
+                  "DCL",
+                  "DESY",
+                  "DOE",
+                  "EBL",
+                  "FIZ",
+                  "HAL",
+                  "IEECONF",
+                  "INDICO.CERN.CH",
+                  "INIS",
+                  "INSPIRE",
+                  "INSPIRE-CNUM",
+                  "KEK",
+                  "LHCLHC",
+                  "SAFARI",
+                  "SCEM",
+                  "UDCCERN",
+                  "WAI01"
+                ],
+                "minLength": 1,
+                "pattern": "^\\w+$",
+                "type": "string"
+              },
+              "value": {
+                "minLength": 1,
+                "pattern": "^\\S+$",
+                "title": "External identifier",
+                "type": "string"
+              }
+            },
+            "required": ["schema", "value"],
+            "type": "object"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "type": "object",
+      "title": "Document identifiers."
+    },
+    "imprints": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "date": {
+            "format": "date",
+            "minLength": 1,
+            "title": "Date of publication",
+            "type": "string"
+          },
+          "place": {
+            "minLength": 1,
+            "title": "Place of publication",
+            "type": "string"
+          },
+          "publisher": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "reprint_date": {
+            "format": "date",
+            "minLength": 1,
+            "title": "Date of reprint",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "minItems": 1,
+      "title": "List of imprints",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "internal_notes": {
+      "items": {
+        "additionalProperties": false,
+        "description": "Visible only for Librarians",
+        "properties": {
+          "source": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["value"],
+        "type": "object"
+      },
+      "minItems": 1,
+      "title": "List of internal notes",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "items": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
+    },
+    "keyword_pids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "keywords": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
     },
     "languages": {
       "items": {
@@ -361,413 +726,6 @@
       "type": "array",
       "uniqueItems": true
     },
-    "keyword_pids": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "uniqueItems": true
-    },
-    "keywords": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      }
-    },
-    "relations_metadata": {
-      "type": "object",
-      "title": "Metadata to describe relations",
-      "properties": {
-        "multipart_monograph": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "pid": {
-                "type": "string"
-              },
-              "pid_type": {
-                "type": "string"
-              },
-              "volume": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "serial": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "pid": {
-                "type": "string"
-              },
-              "pid_type": {
-                "type": "string"
-              },
-              "volume": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "other": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "pid": {
-                "type": "string"
-              },
-              "pid_type": {
-                "type": "string"
-              },
-              "note": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      }
-    },
-    "relations": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      }
-    },
-    "acquisition_source": {
-      "additionalProperties": false,
-      "properties": {
-        "submitter": {
-          "description": "This field is used only when the method is submitter",
-          "email": {
-            "format": "email",
-            "minLength": 4,
-            "title": "Email address of the submitter",
-            "type": "string"
-          },
-          "user_id": {
-            "title": "User ID of the submitter",
-            "type": "integer"
-          }
-        },
-        "method": {
-          "enum": ["batchuploader", "oai", "submitter"],
-          "minLength": 1,
-          "title": "Data obtaining method",
-          "type": "string"
-        },
-        "source": {
-          "minLength": 1,
-          "type": "string"
-        }
-      },
-      "title": "Origin of the metadata in the record",
-      "type": "object"
-    },
-    "copyrights": {
-      "items": {
-        "additionalProperties": false,
-        "properties": {
-          "holder": {
-            "minLength": 1,
-            "title": "Copyright holder",
-            "type": "string"
-          },
-          "material": {
-            "enum": [
-              "addendum",
-              "additional material",
-              "data",
-              "e-book",
-              "e-proceedings",
-              "editorial note",
-              "erratum",
-              "preprint",
-              "publication",
-              "reprint",
-              "software",
-              "translation"
-            ],
-            "minLength": 1,
-            "title": "Material to which the copyright refers",
-            "type": "string"
-          },
-          "statement": {
-            "minLength": 1,
-            "title": "Copyright notice",
-            "type": "string"
-          },
-          "url": {
-            "format": "uri",
-            "minLength": 1,
-            "title": "Copyright notice URL",
-            "type": "string"
-          },
-          "year": {
-            "type": "integer"
-          }
-        },
-        "type": "object"
-      },
-      "minItems": 1,
-      "title": "List of copyrights to documents in this record",
-      "type": "array",
-      "uniqueItems": true
-    },
-    "corporate_authors": {
-      "items": {
-        "minLength": 1,
-        "title": "List of corporate authors",
-        "type": "string"
-      },
-      "minItems": 1,
-      "type": "array",
-      "uniqueItems": true
-    },
-    "curated": {
-      "type": "boolean"
-    },
-    "imprints": {
-      "items": {
-        "additionalProperties": false,
-        "properties": {
-          "date": {
-            "format": "date",
-            "minLength": 1,
-            "title": "Date of publication",
-            "type": "string"
-          },
-          "place": {
-            "minLength": 1,
-            "title": "Place of publication",
-            "type": "string"
-          },
-          "publisher": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "reprint_date": {
-            "format": "date",
-            "minLength": 1,
-            "title": "Date of reprint",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "minItems": 1,
-      "title": "List of imprints",
-      "type": "array",
-      "uniqueItems": true
-    },
-    "internal_notes": {
-      "items": {
-        "additionalProperties": false,
-        "description": "Visible only for Librarians",
-        "properties": {
-          "source": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "value": {
-            "minLength": 1,
-            "type": "string"
-          }
-        },
-        "required": ["value"],
-        "type": "object"
-      },
-      "minItems": 1,
-      "title": "List of internal notes",
-      "type": "array",
-      "uniqueItems": true
-    },
-    "identifiers": {
-      "properties": {
-        "dois": {
-          "items": {
-            "additionalProperties": false,
-            "properties": {
-              "material": {
-                "enum": [
-                  "addendum",
-                  "additional material",
-                  "data",
-                  "e-book",
-                  "e-proceedings",
-                  "editorial note",
-                  "erratum",
-                  "preprint",
-                  "publication",
-                  "reprint",
-                  "software",
-                  "translation"
-                ],
-                "minLength": 1,
-                "title": "Material to which the DOI refers",
-                "type": "string"
-              },
-              "source": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "value": {
-                "minLength": 1,
-                "pattern": "^10\\.\\d+(\\.\\d+)?/\\S+$",
-                "title": "DOI",
-                "type": "string"
-              }
-            },
-            "required": ["value"],
-            "type": "object"
-          },
-          "minItems": 1,
-          "title": "List of DOIs",
-          "type": "array",
-          "uniqueItems": true
-        },
-        "isbns": {
-          "items": {
-            "additionalProperties": false,
-            "properties": {
-              "description": {
-                "minLength": 1,
-                "title": "Free text, used to describe the document to ISBN refers to.",
-                "type": "string"
-              },
-              "medium": {
-                "enum": [
-                  "audiobook",
-                  "CD-ROM",
-                  "DVD",
-                  "electronic version",
-                  "print version",
-                  "print version, hardback",
-                  "print version, paperback",
-                  "print version, spiral-bound"
-                ],
-                "minLength": 1,
-                "title": "Physical medium to which this ISBN refers",
-                "type": "string"
-              },
-              "value": {
-                "minLength": 1,
-                "pattern": "^\\d*[0-9X]$",
-                "type": "string"
-              }
-            },
-            "required": ["value"],
-            "type": "object"
-          },
-          "minItems": 1,
-          "title": "List of ISBNs",
-          "type": "array",
-          "uniqueItems": true
-        },
-        "persistent_identifiers": {
-          "items": {
-            "additionalProperties": false,
-            "properties": {
-              "material": {
-                "enum": [
-                  "addendum",
-                  "additional material",
-                  "data",
-                  "e-book",
-                  "e-proceedings",
-                  "editorial note",
-                  "erratum",
-                  "preprint",
-                  "publication",
-                  "reprint",
-                  "software",
-                  "translation"
-                ],
-                "minLength": 1,
-                "title": "Material to which the field refers",
-                "type": "string"
-              },
-              "schema": {
-                "description": "`HDL <http://handle.net>`_\n* `URN\n  <https://en.wikipedia.org/wiki/Uniform_Resource_Name>`_",
-                "enum": ["HDL", "URN"],
-                "minLength": 1,
-                "title": "Type of identifier",
-                "type": "string"
-              },
-              "source": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "value": {
-                "minLength": 1,
-                "pattern": "^\\S+$",
-                "title": "Persistent identifier",
-                "type": "string"
-              }
-            },
-            "required": ["schema", "value"],
-            "type": "object"
-          },
-          "minItems": 1,
-          "title": "List of persistent identifiers",
-          "type": "array",
-          "uniqueItems": true
-        },
-        "external_system_identifiers": {
-          "items": {
-            "additionalProperties": false,
-            "properties": {
-              "schema": {
-                "enum": [
-                  "ARXIV",
-                  "ASIN",
-                  "DCL",
-                  "DESY",
-                  "DOE",
-                  "EBL",
-                  "FIZ",
-                  "HAL",
-                  "IEECONF",
-                  "INDICO.CERN.CH",
-                  "INIS",
-                  "INSPIRE",
-                  "INSPIRE-CNUM",
-                  "KEK",
-                  "LHCLHC",
-                  "SAFARI",
-                  "SCEM",
-                  "UDCCERN",
-                  "WAI01"
-                ],
-                "minLength": 1,
-                "pattern": "^\\w+$",
-                "type": "string"
-              },
-              "value": {
-                "minLength": 1,
-                "pattern": "^\\S+$",
-                "title": "External identifier",
-                "type": "string"
-              }
-            },
-            "required": ["schema", "value"],
-            "type": "object"
-          },
-          "minItems": 1,
-          "type": "array",
-          "uniqueItems": true
-        }
-      },
-      "type": "object",
-      "title": "Document identifiers."
-    },
     "licenses": {
       "items": {
         "additionalProperties": false,
@@ -845,6 +803,16 @@
       "title": "List of public notes",
       "type": "array",
       "uniqueItems": true
+    },
+    "number_of_pages": {
+      "description": ":MARC: ``300``",
+      "minimum": 1,
+      "title": "Number of pages of the physical items",
+      "type": "integer"
+    },
+    "pid": {
+      "type": "string",
+      "title": "Document ID"
     },
     "publication_info": {
       "items": {
@@ -965,6 +933,71 @@
       "title": "List of information on publication",
       "type": "array",
       "uniqueItems": true
+    },
+    "relations_metadata": {
+      "type": "object",
+      "title": "Metadata to describe relations",
+      "properties": {
+        "multipart_monograph": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "serial": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "other": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "relations": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
     },
     "table_of_content": {
       "description": "List of chapters",
@@ -1197,6 +1230,36 @@
       "type": "array",
       "uniqueItems": true
     },
+    "updated_by": {
+      "additionalProperties": false,
+      "properties": {
+        "submitter": {
+          "description": "This field is used only when the method is submitter",
+          "email": {
+            "format": "email",
+            "minLength": 4,
+            "title": "Email address of the submitter",
+            "type": "string"
+          },
+          "user_id": {
+            "title": "User ID of the submitter",
+            "type": "integer"
+          }
+        },
+        "method": {
+          "enum": ["batchuploader", "oai", "submitter"],
+          "minLength": 1,
+          "title": "Data obtaining method",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "title": "Origin of the metadata in the record",
+      "type": "object"
+    },
     "urls": {
       "items": {
         "additionalProperties": false,
@@ -1218,30 +1281,6 @@
       "minItems": 1,
       "type": "array",
       "uniqueItems": true
-    },
-    "eitems": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      }
-    },
-    "items": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      }
-    },
-    "circulation": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      }
     }
   }
 }
