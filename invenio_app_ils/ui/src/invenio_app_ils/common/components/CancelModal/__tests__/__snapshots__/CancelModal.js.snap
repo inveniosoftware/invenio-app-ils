@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CancelLoanModal tests should load the cancel loan modal component 1`] = `
+exports[`CancelModal tests should load the cancel loan modal component 1`] = `
 <Modal
   basic={true}
   centered={true}
@@ -25,18 +25,21 @@ exports[`CancelLoanModal tests should load the cancel loan modal component 1`] =
   />
   <ModalContent>
     <p>
-      You are about to cancel loan #
-      1
-      . Please enter a reason for cancelling this loan.
+      You are about to cancel loan #1. Please enter a reason for cancelling this loan.
     </p>
-    <Input
-      fluid={true}
-      focus={true}
-      onChange={[Function]}
-      placeholder="Enter a cancel reason..."
-      type="text"
-      value=""
-    />
+    <Form
+      as="form"
+      onSubmit={[Function]}
+    >
+      <Input
+        fluid={true}
+        focus={true}
+        onChange={[Function]}
+        placeholder="Enter a cancel reason..."
+        type="text"
+        value=""
+      />
+    </Form>
     <Popup
       content="Please specify a reason."
       disabled={false}
@@ -73,7 +76,8 @@ exports[`CancelLoanModal tests should load the cancel loan modal component 1`] =
         as="i"
         name="remove"
       />
-       Cancel Loan
+       
+      Cancel Loan
     </Button>
   </ModalActions>
 </Modal>

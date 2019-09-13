@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Header, Icon, Input, Modal, Popup } from 'semantic-ui-react';
+import {
+  Button,
+  Header,
+  Icon,
+  Input,
+  Modal,
+  Popup,
+  Form,
+} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 
-export default class CancelLoanModal extends Component {
+export default class CancelModal extends Component {
   state = {
     open: false,
     showPopup: false,
@@ -39,29 +47,28 @@ export default class CancelLoanModal extends Component {
   };
 
   render() {
-    const { loan } = this.props;
+    const { buttonText, cancelText, content, header } = this.props;
     return (
       <Modal
         basic
         size="small"
-        trigger={<Button primary content="cancel" onClick={this.show} />}
+        trigger={<Button primary content={buttonText} onClick={this.show} />}
         open={this.state.open}
         onClose={this.hide}
       >
-        <Header content={`Cancel Loan #${loan.pid}`} />
+        <Header content={header} />
         <Modal.Content>
-          <p>
-            You are about to cancel loan #{loan.pid}. Please enter a reason for
-            cancelling this loan.
-          </p>
-          <Input
-            focus
-            fluid
-            placeholder="Enter a cancel reason..."
-            onChange={this.handleOnChange}
-            ref={this.updateInputRef}
-            value={this.state.value}
-          />
+          <p>{content}</p>
+          <Form onSubmit={this.cancel}>
+            <Input
+              focus
+              fluid
+              placeholder="Enter a cancel reason..."
+              onChange={this.handleOnChange}
+              ref={this.updateInputRef}
+              value={this.state.value}
+            />
+          </Form>
           <Popup
             context={this.inputRef}
             content="Please specify a reason."
@@ -74,7 +81,7 @@ export default class CancelLoanModal extends Component {
             Back
           </Button>
           <Button color="red" inverted onClick={this.cancel}>
-            <Icon name="remove" /> Cancel Loan
+            <Icon name="remove" /> {cancelText}
           </Button>
         </Modal.Actions>
       </Modal>
@@ -82,12 +89,15 @@ export default class CancelLoanModal extends Component {
   }
 }
 
-CancelLoanModal.propTypes = {
+CancelModal.propTypes = {
   action: PropTypes.func.isRequired,
-  loan: PropTypes.object.isRequired,
+  buttonText: PropTypes.string.isRequired,
+  cancelText: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  header: PropTypes.string.isRequired,
   value: PropTypes.string,
 };
 
-CancelLoanModal.defaultProps = {
+CancelModal.defaultProps = {
   value: '',
 };

@@ -28,6 +28,9 @@ const aggsMappings = {
     available_items: 'Available items',
     relations: 'Relations',
   },
+  documentRequests: {
+    state: 'State',
+  },
   items: {
     status: 'Status',
     medium: 'Medium',

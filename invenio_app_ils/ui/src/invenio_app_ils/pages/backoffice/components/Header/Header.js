@@ -18,6 +18,8 @@ class Header extends Component {
       activePath.indexOf(BackOfficeRoutes.locationsList) > -1;
     const documentsActive =
       activePath.indexOf(BackOfficeRoutes.documentsList) > -1;
+    const documentRequestsActive =
+      activePath.indexOf(BackOfficeRoutes.documentRequestsList) > -1;
     const patronsActive = activePath.indexOf(BackOfficeRoutes.patronsList) > -1;
     const seriesActive = activePath.indexOf(BackOfficeRoutes.seriesList) > -1;
     const statsActive = activePath.indexOf(BackOfficeRoutes.stats.home) > -1;
@@ -73,6 +75,12 @@ class Header extends Component {
                   onClick={goToHandler(BackOfficeRoutes.seriesList)}
                 >
                   Series
+                </Menu.Item>
+                <Menu.Item
+                  active={documentRequestsActive}
+                  onClick={goToHandler(BackOfficeRoutes.documentRequestsList)}
+                >
+                  Document Requests
                 </Menu.Item>
                 <Menu.Item
                   active={statsActive}
