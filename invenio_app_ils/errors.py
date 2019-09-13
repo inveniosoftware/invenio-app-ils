@@ -180,15 +180,15 @@ class InvalidParameterError(IlsException):
     """Exception raised when an invalid parameter is has been given."""
 
 
-class DocumentKeywordNotFoundError(IlsException):
-    """Raised when trying to remove a non-existing keyword from a document."""
+class DocumentTagNotFoundError(IlsException):
+    """Raised when trying to remove a non-existing tag from a document."""
 
-    description = "Document PID '{}' has no keyword with PID '{}'"
+    description = "Document PID '{}' has no tag with PID '{}'"
 
-    def __init__(self, document_pid, keyword_pid, **kwargs):
+    def __init__(self, document_pid, tag_pid, **kwargs):
         """Initialize exception."""
-        super(DocumentKeywordNotFoundError, self).__init__(**kwargs)
-        self.description = self.description.format(document_pid, keyword_pid)
+        super(DocumentTagNotFoundError, self).__init__(**kwargs)
+        self.description = self.description.format(document_pid, tag_pid)
 
 
 class ItemDocumentNotFoundError(IlsException):

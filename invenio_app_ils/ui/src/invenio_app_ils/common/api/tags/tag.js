@@ -1,10 +1,10 @@
 import { http } from '../base';
 import { serializer } from './serializer';
 
-const keywordURL = '/keywords/';
+const tagURL = '/tags/';
 
 const list = query => {
-  return http.get(`${keywordURL}?q=${query}`).then(response => {
+  return http.get(`${tagURL}?q=${query}`).then(response => {
     response.data.total = response.data.hits.total;
     response.data.hits = response.data.hits.hits.map(hit =>
       serializer.fromJSON(hit)
@@ -13,8 +13,8 @@ const list = query => {
   });
 };
 
-export const keyword = {
+export const tag = {
   list: list,
   serializer: serializer,
-  url: keywordURL,
+  url: tagURL,
 };

@@ -42,13 +42,13 @@ export const serializeItem = item => ({
   metadata: item.metadata,
 });
 
-export const serializeKeyword = keyword => ({
-  id: keyword.metadata.pid,
-  key: keyword.metadata.pid,
-  title: keyword.metadata.name,
-  description: `Provenance: ${keyword.metadata.provenance}`,
-  extra: `Keyword #${keyword.metadata.pid}`,
-  metadata: keyword.metadata,
+export const serializeTag = tag => ({
+  id: tag.metadata.pid,
+  key: tag.metadata.pid,
+  title: tag.metadata.name,
+  description: `Provenance: ${tag.metadata.provenance}`,
+  extra: `Tag #${tag.metadata.pid}`,
+  metadata: tag.metadata,
 });
 
 export const serializeLoan = loan => ({

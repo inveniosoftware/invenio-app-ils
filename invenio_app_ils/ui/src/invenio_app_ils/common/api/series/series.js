@@ -41,17 +41,17 @@ const deleteRelation = async (seriesPid, data) => {
 
 class QueryBuilder {
   constructor() {
-    this.withKeywordQuery = [];
+    this.withTagQuery = [];
     this.withModeOfIssuanceQuery = [];
     this.withSeriesQuery = [];
     this.withStringQuery = [];
   }
 
-  withKeyword(keyword) {
-    if (!keyword) {
-      throw TypeError('Keyword argument missing');
+  withTag(tag) {
+    if (!tag) {
+      throw TypeError('Tag argument missing');
     }
-    this.withKeywordQuery.push(`keywords.name:"${keyword.name}"`);
+    this.withTagQuery.push(`tags.name:"${tag.name}"`);
     return this;
   }
 
@@ -87,7 +87,7 @@ class QueryBuilder {
   }
 
   qs() {
-    return this.withKeywordQuery
+    return this.withTagQuery
       .concat(
         this.withModeOfIssuanceQuery,
         this.withSeriesQuery,

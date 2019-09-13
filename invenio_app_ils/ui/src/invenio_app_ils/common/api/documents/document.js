@@ -44,7 +44,7 @@ class QueryBuilder {
     this.currentlyOnLoanQuery = [];
     this.availableItemsQuery = [];
     this.withPendingLoansQuery = [];
-    this.withKeywordQuery = [];
+    this.withTagQuery = [];
     this.withDocumentTypeQuery = [];
     this.withEitemsQuery = [];
     this.pendingOverdueQuery = [];
@@ -72,11 +72,11 @@ class QueryBuilder {
     return this;
   }
 
-  withKeyword(keyword) {
-    if (!keyword) {
-      throw TypeError('Keyword argument missing');
+  withTag(tag) {
+    if (!tag) {
+      throw TypeError('Tag argument missing');
     }
-    this.withKeywordQuery.push(`keywords.name:"${keyword.name}"`);
+    this.withTagQuery.push(`tags.name:"${tag.name}"`);
     return this;
   }
 
@@ -131,7 +131,7 @@ class QueryBuilder {
         this.currentlyOnLoanQuery,
         this.availableItemsQuery,
         this.withPendingLoansQuery,
-        this.withKeywordQuery,
+        this.withTagQuery,
         this.withDocumentTypeQuery,
         this.withEitemsQuery,
         this.pendingOverdueQuery,

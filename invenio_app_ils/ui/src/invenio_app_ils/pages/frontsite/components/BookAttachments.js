@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Header, List } from 'semantic-ui-react';
-import { ShareButtons } from './ShareButtons';
 import { get, isEmpty } from 'lodash';
 
 export class BookAttachments extends Component {

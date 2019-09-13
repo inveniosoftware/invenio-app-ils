@@ -23,7 +23,7 @@ const aggsMappings = {
     has_eitems: 'Select books with',
     has_items_for_loan: 'Select books with',
     has_items: 'Select books with',
-    keywords: 'Keywords',
+    tags: 'Tags',
     languages: 'Languages',
     available_items: 'Available items',
     relations: 'Relations',

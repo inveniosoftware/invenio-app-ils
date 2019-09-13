@@ -18,8 +18,9 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
         """Return pid_field value."""
         return "pid"
 
-    document_pid = fields.Str()
-    title = fields.Str()
     authors = fields.Str()
     circulation = fields.Str()
-    keywords = fields.List(fields.Str())
+    document_pid = fields.Str()
+    keywords = fields.Str()
+    tags = fields.List(fields.Str())
+    title = fields.Str()

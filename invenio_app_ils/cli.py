@@ -23,8 +23,8 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
 from invenio_search import current_search
 
 from .indexer import PatronsIndexer
-from .records.api import Document, EItem, InternalLocation, Item, Keyword, \
-    Location, Patron, Series
+from .records.api import Document, EItem, InternalLocation, Item, Location, \
+    Patron, Series, Tag
 from .records_relations.api import RecordRelationsParentChild, \
     RecordRelationsSiblings
 from .relations.api import Relation
@@ -35,7 +35,7 @@ from .pidstore.pids import (  # isort:skip
     EITEM_PID_TYPE,
     LOCATION_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
-    KEYWORD_PID_TYPE,
+    TAG_PID_TYPE,
     SERIES_PID_TYPE,
 )
 
@@ -59,7 +59,7 @@ class Holder():
                  patrons_pids,
                  librarian_pid,
                  total_intloc,
-                 total_keywords,
+                 total_tags,
                  total_items,
                  total_eitems,
                  total_documents,
@@ -74,9 +74,9 @@ class Holder():
             'objs': [],
             'total': total_intloc
         }
-        self.keywords = {
+        self.tags = {
             'objs': [],
-            'total': total_keywords
+            'total': total_tags
         }
         self.items = {
             'objs': [],
@@ -173,28 +173,28 @@ class InternalLocationGenerator(Generator):
         return recs
 
 
-class KeywordGenerator(Generator):
-    """Keyword Generator."""
+class TagGenerator(Generator):
+    """Tag Generator."""
 
     def generate(self):
         """Generate."""
-        size = self.holder.keywords['total']
+        size = self.holder.tags['total']
         objs = [{
             "pid": str(pid),
             "name": lorem.sentence().split()[0],
             "provenance": lorem.sentence(),
         } for pid in range(1, size + 1)]
 
-        self.holder.keywords['objs'] = objs
+        self.holder.tags['objs'] = objs
 
     def persist(self):
         """Persist."""
         recs = []
-        for obj in self.holder.keywords['objs']:
+        for obj in self.holder.tags['objs']:
             rec = self._persist(
-                KEYWORD_PID_TYPE,
+                TAG_PID_TYPE,
                 "pid",
-                Keyword.create(obj)
+                Tag.create(obj)
             )
             recs.append(rec)
         db.session.commit()
@@ -287,7 +287,7 @@ class DocumentGenerator(Generator):
     def generate(self):
         """Generate."""
         size = self.holder.documents['total']
-        keyword_pids = self.holder.pids('keywords', "pid")
+        tag_pids = self.holder.pids('tags', "pid")
 
         objs = [{
             "pid": str(pid),
@@ -302,8 +302,9 @@ class DocumentGenerator(Generator):
             "imprints": [{"publisher": "{}".format(lorem.sentence())}],
             "table_of_content": ["{}".format(lorem.sentence())],
             "notes": [{'value': "{}".format(lorem.text())}],
-            "keyword_pids": random.sample(keyword_pids, randint(0, 5)),
+            "tag_pids": random.sample(tag_pids, randint(0, 5)),
             "edition": str(pid),
+            "keywords": lorem.sentence(),
         } for pid in range(1, size + 1)]
 
         self.holder.documents['objs'] = objs
@@ -670,11 +671,11 @@ def demo():
 @click.option("--items", "n_items", default=50)
 @click.option("--eitems", "n_eitems", default=30)
 @click.option("--loans", "n_loans", default=100)
-@click.option("--keywords", "n_keywords", default=40)
+@click.option("--tags", "n_tags", default=40)
 @click.option("--internal-locations", "n_intlocs", default=10)
 @click.option("--series", "n_series", default=10)
 @with_appcontext
-def data(n_docs, n_items, n_eitems, n_loans, n_keywords, n_intlocs, n_series):
+def data(n_docs, n_items, n_eitems, n_loans, n_tags, n_intlocs, n_series):
     """Insert demo data."""
     click.secho('Generating demo data', fg='yellow')
 
@@ -684,7 +685,7 @@ def data(n_docs, n_items, n_eitems, n_loans, n_keywords, n_intlocs, n_series):
         patrons_pids=["1", "2", "5", "6"],
         librarian_pid="4",
         total_intloc=n_intlocs,
-        total_keywords=n_keywords,
+        total_tags=n_tags,
         total_items=n_items,
         total_eitems=n_eitems,
         total_documents=n_docs,
@@ -703,11 +704,11 @@ def data(n_docs, n_items, n_eitems, n_loans, n_keywords, n_intlocs, n_series):
     intlocs_generator.generate()
     rec_intlocs = intlocs_generator.persist()
 
-    # Keywords
-    click.echo('Creating keywords...')
-    keywords_generator = KeywordGenerator(holder, minter)
-    keywords_generator.generate()
-    rec_keywords = keywords_generator.persist()
+    # Tags
+    click.echo('Creating tags...')
+    tags_generator = TagGenerator(holder, minter)
+    tags_generator.generate()
+    rec_tags = tags_generator.persist()
 
     # Series
     click.echo('Creating series...')
@@ -750,11 +751,11 @@ def data(n_docs, n_items, n_eitems, n_loans, n_keywords, n_intlocs, n_series):
     click.echo('Sent to the indexing queue {0} locations'.format(
         len(rec_intlocs)))
 
-    # index keywords
-    indexer.bulk_index([str(r.id) for r in rec_keywords])
-    click.echo('Sent to the indexing queue {0} keywords'.format(
-        len(rec_keywords)))
-    # process queue so series can resolve keywords correctly
+    # index tags
+    indexer.bulk_index([str(r.id) for r in rec_tags])
+    click.echo('Sent to the indexing queue {0} tags'.format(
+        len(rec_tags)))
+    # process queue so series can resolve tags correctly
     indexer.process_bulk_queue()
 
     # index series

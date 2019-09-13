@@ -20,7 +20,7 @@ import {
   document as documentApi,
   loan as loanApi,
   item as itemApi,
-  keyword as keywordApi,
+  tag as tagApi,
   patron as patronApi,
 } from '../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
@@ -30,7 +30,7 @@ import {
   ESSelectorModal,
 } from '../../../../../common/components/ESSelector';
 import {
-  serializeKeyword,
+  serializeTag,
   serializeAccessList,
   serializePatron,
 } from '../../../../../common/components/ESSelector/serializer';
@@ -53,9 +53,9 @@ export default class DocumentMetadata extends Component {
       : [];
   };
 
-  updateKeywords = results => {
-    const keywordPids = results.map(result => result.metadata.pid);
-    this.props.updateDocument(this.documentPid, '/keyword_pids', keywordPids);
+  updateTags = results => {
+    const tagPids = results.map(result => result.metadata.pid);
+    this.props.updateDocument(this.documentPid, '/tag_pids', tagPids);
   };
 
   requestLoan = (results, dateFrom, dateTo, deliveryMethod) => {
@@ -74,38 +74,36 @@ export default class DocumentMetadata extends Component {
     this.props.requestLoanForDocument(documentPid, loanRequestData);
   };
 
-  renderKeywords(keywords) {
-    if (!isEmpty(keywords)) {
-      const keywordSelection = keywords.map(keyword =>
-        serializeKeyword({ metadata: keyword })
-      );
+  renderTags(tags) {
+    if (!isEmpty(tags)) {
+      const tagSelection = tags.map(tag => serializeTag({ metadata: tag }));
       return (
         <List horizontal>
-          {keywords.map(keyword => (
-            <List.Item key={keyword.pid}>
+          {tags.map(tag => (
+            <List.Item key={tag.pid}>
               <Link
                 to={BackOfficeRoutes.documentsListWithQuery(
                   documentApi
                     .query()
-                    .withKeyword(keyword)
+                    .withTag(tag)
                     .qs()
                 )}
               >
-                {keyword.name}
+                {tag.name}
               </Link>
             </List.Item>
           ))}
           <List.Item>
             <ESSelectorModal
               multiple
-              initialSelections={keywordSelection}
+              initialSelections={tagSelection}
               trigger={
                 <Button basic color="blue" size="small" content="edit" />
               }
-              query={keywordApi.list}
-              serializer={serializeKeyword}
-              title="Select Keywords"
-              onSave={this.updateKeywords}
+              query={tagApi.list}
+              serializer={serializeTag}
+              title="Select Tags"
+              onSave={this.updateTags}
             />
           </List.Item>
         </List>
@@ -218,7 +216,11 @@ export default class DocumentMetadata extends Component {
       },
       {
         name: 'Keywords',
-        value: this.renderKeywords(document.metadata.keywords),
+        value: document.metadata.keywords,
+      },
+      {
+        name: 'Tags',
+        value: this.renderTags(document.metadata.tags),
       },
     ];
     return rows;

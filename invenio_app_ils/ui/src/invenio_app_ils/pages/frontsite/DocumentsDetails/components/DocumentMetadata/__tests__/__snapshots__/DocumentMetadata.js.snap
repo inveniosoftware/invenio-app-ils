@@ -37,15 +37,15 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
           ],
           "total": 1,
         },
-        "keyword_pids": Array [
-          "24",
-        ],
-        "keywords": Array [],
         "language": Array [
           "en",
         ],
         "pid": "71",
         "relations": Object {},
+        "tag_pids": Array [
+          "24",
+        ],
+        "tags": Array [],
         "title": Object {
           "title": "The Gulf: The Making of An American Sea",
         },
@@ -372,15 +372,15 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                     ],
                                     "total": 1,
                                   },
-                                  "keyword_pids": Array [
-                                    "24",
-                                  ],
-                                  "keywords": Array [],
                                   "language": Array [
                                     "en",
                                   ],
                                   "pid": "71",
                                   "relations": Object {},
+                                  "tag_pids": Array [
+                                    "24",
+                                  ],
+                                  "tags": Array [],
                                   "title": Object {
                                     "title": "The Gulf: The Making of An American Sea",
                                   },
@@ -449,15 +449,15 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                   ],
                                   "total": 1,
                                 },
-                                "keyword_pids": Array [
-                                  "24",
-                                ],
-                                "keywords": Array [],
                                 "language": Array [
                                   "en",
                                 ],
                                 "pid": "71",
                                 "relations": Object {},
+                                "tag_pids": Array [
+                                  "24",
+                                ],
+                                "tags": Array [],
                                 "title": Object {
                                   "title": "The Gulf: The Making of An American Sea",
                                 },
@@ -566,15 +566,15 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                         ],
                                         "total": 1,
                                       },
-                                      "keyword_pids": Array [
-                                        "24",
-                                      ],
-                                      "keywords": Array [],
                                       "language": Array [
                                         "en",
                                       ],
                                       "pid": "71",
                                       "relations": Object {},
+                                      "tag_pids": Array [
+                                        "24",
+                                      ],
+                                      "tags": Array [],
                                       "title": Object {
                                         "title": "The Gulf: The Making of An American Sea",
                                       },
@@ -624,15 +624,15 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                   ],
                                   "total": 1,
                                 },
-                                "keyword_pids": Array [
-                                  "24",
-                                ],
-                                "keywords": Array [],
                                 "language": Array [
                                   "en",
                                 ],
                                 "pid": "71",
                                 "relations": Object {},
+                                "tag_pids": Array [
+                                  "24",
+                                ],
+                                "tags": Array [],
                                 "title": Object {
                                   "title": "The Gulf: The Making of An American Sea",
                                 },
@@ -680,15 +680,15 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                             ],
                                             "total": 1,
                                           },
-                                          "keyword_pids": Array [
-                                            "24",
-                                          ],
-                                          "keywords": Array [],
                                           "language": Array [
                                             "en",
                                           ],
                                           "pid": "71",
                                           "relations": Object {},
+                                          "tag_pids": Array [
+                                            "24",
+                                          ],
+                                          "tags": Array [],
                                           "title": Object {
                                             "title": "The Gulf: The Making of An American Sea",
                                           },
@@ -727,15 +727,15 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                               ],
                                               "total": 1,
                                             },
-                                            "keyword_pids": Array [
-                                              "24",
-                                            ],
-                                            "keywords": Array [],
                                             "language": Array [
                                               "en",
                                             ],
                                             "pid": "71",
                                             "relations": Object {},
+                                            "tag_pids": Array [
+                                              "24",
+                                            ],
+                                            "tags": Array [],
                                             "title": Object {
                                               "title": "The Gulf: The Making of An American Sea",
                                             },
@@ -896,15 +896,15 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                             ],
                                             "total": 1,
                                           },
-                                          "keyword_pids": Array [
-                                            "24",
-                                          ],
-                                          "keywords": Array [],
                                           "language": Array [
                                             "en",
                                           ],
                                           "pid": "71",
                                           "relations": Object {},
+                                          "tag_pids": Array [
+                                            "24",
+                                          ],
+                                          "tags": Array [],
                                           "title": Object {
                                             "title": "The Gulf: The Making of An American Sea",
                                           },

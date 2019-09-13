@@ -9,7 +9,7 @@
 
 import pytest
 
-from invenio_app_ils.errors import DocumentKeywordNotFoundError, \
+from invenio_app_ils.errors import DocumentTagNotFoundError, \
     ItemHasActiveLoanError, NotImplementedConfigurationError, \
     PatronHasLoanOnItemError, PatronNotFoundError, RecordHasReferencesError, \
     SearchQueryError, UnauthorizedSearchError
@@ -82,15 +82,15 @@ def test_patron_has_loan_on_item(app):
         patron_pid=patron_pid, item_pid=item_pid)
 
 
-def test_document_keyword_not_found_error(app):
-    """Test DocumentKeywordNotFoundError."""
+def test_document_tag_not_found_error(app):
+    """Test DocumentTagNotFoundError."""
     document_pid = "1"
-    keyword_pid = "2"
-    msg = "Document PID '{}' has no keyword with PID '{}'"
-    with pytest.raises(DocumentKeywordNotFoundError) as ex:
-        raise DocumentKeywordNotFoundError(document_pid, keyword_pid)
-    assert ex.value.code == DocumentKeywordNotFoundError.code
-    assert ex.value.description == msg.format(document_pid, keyword_pid)
+    tag_pid = "2"
+    msg = "Document PID '{}' has no tag with PID '{}'"
+    with pytest.raises(DocumentTagNotFoundError) as ex:
+        raise DocumentTagNotFoundError(document_pid, tag_pid)
+    assert ex.value.code == DocumentTagNotFoundError.code
+    assert ex.value.description == msg.format(document_pid, tag_pid)
 
 
 def test_record_has_references_error(app):

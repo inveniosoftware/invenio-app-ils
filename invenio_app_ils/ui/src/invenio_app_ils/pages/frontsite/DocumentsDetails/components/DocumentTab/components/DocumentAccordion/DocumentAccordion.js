@@ -43,10 +43,8 @@ export default class DocumentAccordion extends Component {
           Information
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 1}>
-          {!isEmpty(documentMetadata.keywords)
-            ? documentMetadata.keywords.map(keyword => (
-                <p key={keyword.pid}>{keyword.name}</p>
-              ))
+          {!isEmpty(documentMetadata.tags)
+            ? documentMetadata.tags.map(tag => <p key={tag.pid}>{tag.name}</p>)
             : null}
         </Accordion.Content>
 

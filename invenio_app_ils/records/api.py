@@ -21,7 +21,7 @@ from invenio_records.api import Record
 from invenio_userprofiles.api import UserProfile
 from werkzeug.utils import cached_property
 
-from invenio_app_ils.errors import DocumentKeywordNotFoundError, \
+from invenio_app_ils.errors import DocumentTagNotFoundError, \
     ItemDocumentNotFoundError, ItemHasActiveLoanError, \
     MissingRequiredParameterError, PatronNotFoundError, \
     RecordHasReferencesError
@@ -35,7 +35,7 @@ from ..pidstore.pids import (  # isort:skip
     EITEM_PID_TYPE,
     LOCATION_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
-    KEYWORD_PID_TYPE,
+    TAG_PID_TYPE,
     SERIES_PID_TYPE,
 )
 
@@ -127,8 +127,8 @@ class Document(IlsRecordWithRelations):
     _circulation_resolver_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/circulation"
     )
-    _keyword_resolver_path = (
-        "{scheme}://{host}/api/resolver/documents/{document_pid}/keywords"
+    _tag_resolver_path = (
+        "{scheme}://{host}/api/resolver/documents/{document_pid}/tags"
     )
     _item_resolver_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/items"
@@ -150,9 +150,9 @@ class Document(IlsRecordWithRelations):
                 document_pid=data["pid"],
             )
         }
-        data.setdefault("keyword_pids", [])
-        data["keywords"] = {
-            "$ref": cls._keyword_resolver_path.format(
+        data.setdefault("tag_pids", [])
+        data["tags"] = {
+            "$ref": cls._tag_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 document_pid=data["pid"],
@@ -217,22 +217,22 @@ class Document(IlsRecordWithRelations):
 
         return super(Document, self).delete(**kwargs)
 
-    def add_keyword(self, keyword):
-        """Add a new keyword to the document."""
-        if keyword["pid"] not in self["keyword_pids"]:
-            self["keyword_pids"].append(keyword["pid"])
+    def add_tag(self, tag):
+        """Add a new tag to the document."""
+        if tag["pid"] not in self["tag_pids"]:
+            self["tag_pids"].append(tag["pid"])
 
-    def remove_keyword(self, keyword):
-        """Remove a keyword from the document.
+    def remove_tag(self, tag):
+        """Remove a tag from the document.
 
-        :returns: True if keyword was removed
+        :returns: True if tag was removed
         """
-        if keyword["pid"] not in self["keyword_pids"]:
-            raise DocumentKeywordNotFoundError(
-                self["pid"], keyword["pid"]
+        if tag["pid"] not in self["tag_pids"]:
+            raise DocumentTagNotFoundError(
+                self["pid"], tag["pid"]
             )
 
-        self["keyword_pids"].remove(keyword["pid"])
+        self["tag_pids"].remove(tag["pid"])
         return True
 
 
@@ -424,32 +424,32 @@ class InternalLocation(IlsRecord):
         return super(InternalLocation, self).delete(**kwargs)
 
 
-class Keyword(IlsRecord):
-    """Keyword record class."""
+class Tag(IlsRecord):
+    """Tag record class."""
 
-    _pid_type = KEYWORD_PID_TYPE
-    _schema = "keywords/keyword-v1.0.0.json"
+    _pid_type = TAG_PID_TYPE
+    _schema = "tags/tag-v1.0.0.json"
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
-        """Create Keyword record."""
-        return super(Keyword, cls).create(data, id_=id_, **kwargs)
+        """Create Tag record."""
+        return super(Tag, cls).create(data, id_=id_, **kwargs)
 
     def delete(self, **kwargs):
-        """Delete Keyword record."""
+        """Delete Tag record."""
         doc_search = DocumentSearch()
-        doc_search_res = doc_search.search_by_keyword_pid(
-            keyword_pid=self["pid"]
+        doc_search_res = doc_search.search_by_tag_pid(
+            tag_pid=self["pid"]
         )
         if doc_search_res.count():
             raise RecordHasReferencesError(
-                record_type='Keyword',
+                record_type='Tag',
                 record_id=self["pid"],
                 ref_type='Document',
                 ref_ids=sorted([res["pid"]
                                 for res in doc_search_res.scan()])
             )
-        return super(Keyword, self).delete(**kwargs)
+        return super(Tag, self).delete(**kwargs)
 
 
 class Patron:
@@ -506,8 +506,8 @@ class Series(IlsRecordWithRelations):
     _pid_type = SERIES_PID_TYPE
     _schema = "series/series-v1.0.0.json"
 
-    _keyword_resolver_path = (
-        "{scheme}://{host}/api/resolver/series/{series_pid}/keywords"
+    _tag_resolver_path = (
+        "{scheme}://{host}/api/resolver/series/{series_pid}/tags"
     )
     _relations_path = (
         "{scheme}://{host}/api/resolver/series/{series_pid}/relations"

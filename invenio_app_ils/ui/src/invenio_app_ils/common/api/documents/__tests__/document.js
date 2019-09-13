@@ -44,15 +44,13 @@ describe('Document query builder tests', () => {
     );
   });
 
-  it('should build the query string for documents with keywords', () => {
+  it('should build the query string for documents with tags', () => {
     const query = documentApi
       .query()
-      .withKeyword({ name: 'keyword1' })
-      .withKeyword({ name: 'keyword2' })
+      .withTag({ name: 'tag1' })
+      .withTag({ name: 'tag2' })
       .qs();
-    expect(query).toEqual(
-      'keywords.name:"keyword1" AND keywords.name:"keyword2"'
-    );
+    expect(query).toEqual('tags.name:"tag1" AND tags.name:"tag2"');
   });
 
   it('should build the query string for documents of a type', () => {

@@ -15,7 +15,7 @@ from .pids import (  # isort:skip
     EITEM_PID_TYPE,
     LOCATION_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
-    KEYWORD_PID_TYPE,
+    TAG_PID_TYPE,
     SERIES_PID_TYPE,
     PATRON_PID_TYPE
 )
@@ -66,11 +66,11 @@ def internal_location_pid_fetcher(record_uuid, data):
     )
 
 
-def keyword_pid_fetcher(record_uuid, data):
-    """Return Keyword PID fetcher."""
+def tag_pid_fetcher(record_uuid, data):
+    """Return Tag PID fetcher."""
     return FetchedPID(
         provider=None,
-        pid_type=KEYWORD_PID_TYPE,
+        pid_type=TAG_PID_TYPE,
         pid_value=str(data["pid"])
     )
 
