@@ -52,6 +52,11 @@ exports[`DocumentMetadata tests should load the details component 1`] = `
                 "onRefClick": [Function],
                 "refType": "Related",
               },
+              Object {
+                "getRefData": [Function],
+                "onRefClick": [Function],
+                "refType": "DocumentRequest",
+              },
             ]
           }
         />

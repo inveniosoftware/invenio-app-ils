@@ -638,7 +638,12 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             "application/json": (
                 "invenio_records_rest.serializers:json_v1_search"
-            )
+            ),
+            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+        },
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "json": "application/json",
         },
         list_route="/document-requests/",
         item_route="/document-requests/<{0}:pid_value>".format(
@@ -905,6 +910,10 @@ RECORDS_REST_FACETS = dict(
             ),
         ),
         post_filters=dict(relations=terms_filter("relations")),
+    ),
+    document_requests=dict(  # DocumentRequestSearch.Meta.index
+        aggs=dict(state=dict(terms=dict(field="state"))),
+        post_filters=dict(state=terms_filter("state")),
     ),
     items=dict(  # ItemSearch.Meta.index
         aggs=dict(

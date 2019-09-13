@@ -20,6 +20,7 @@ from invenio_circulation.proxies import current_circulation
 from invenio_app_ils.config import _RECORDS_REST_MAX_RESULT_WINDOW
 
 from invenio_app_ils.search.api import (  # isort:skip
+    DocumentRequestSearch,
     DocumentSearch,
     EItemSearch,
     ItemSearch,
@@ -257,6 +258,49 @@ def _get_series_ui_config():
     return ui_config
 
 
+def _get_document_requests_ui_config():
+    """Get ui config for series search page."""
+    ui_config = {
+        "documentRequests": {
+            "search": {
+                "sortBy": {"values": [], "onEmptyQuery": None},
+                "sortOrder": ["asc", "desc"],
+                "aggs": [],
+            }
+        }
+    }
+    document_request_index = DocumentRequestSearch.Meta.index
+
+    doc_req_sort = current_app.config.get("RECORDS_REST_SORT_OPTIONS", {}).get(
+        document_request_index, {}
+    )
+
+    doc_req_sort_ui = [
+        {
+            "field": field,
+            "title": doc_req_sort[field]["title"],
+            "order": doc_req_sort[field]["order"],
+        }
+        for field in doc_req_sort.keys()
+    ]
+
+    ui_config["documentRequests"]["search"]["sortBy"]["values"] = sorted(
+        doc_req_sort_ui, key=lambda s: s["order"]
+    )
+
+    if "mostrecent" in doc_req_sort:
+        ui_config["documentRequests"]["search"]["sortBy"]["onEmptyQuery"] = \
+            "mostrecent"
+
+    doc_req_aggs = (
+        current_app.config.get("RECORDS_REST_FACETS", {})
+        .get(document_request_index, {})
+        .get("aggs", {})
+    )
+    ui_config["documentRequests"]["search"]["aggs"] = list(doc_req_aggs.keys())
+    return ui_config
+
+
 def _get_patrons_ui_config():
     """Get ui config for patrons search page."""
     ui_config = {
@@ -310,6 +354,7 @@ def index(path=None):
     ui_config.update(_get_loans_ui_config())
     ui_config.update(_get_series_ui_config())
     ui_config.update(_get_patrons_ui_config())
+    ui_config.update(_get_document_requests_ui_config())
     ui_config.update(
         {
             "editor": {"url": current_app.config["RECORDS_EDITOR_URL_PREFIX"]},

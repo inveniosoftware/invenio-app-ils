@@ -29,6 +29,8 @@ const BackOfficeRoutesList = {
   documentsList: `${BackOfficeBase}/documents`,
   documentsCreate: `${BackOfficeBase}/documents/create`,
   documentDetails: `${BackOfficeBase}/documents/:documentPid`,
+  documentRequestsList: `${BackOfficeBase}/document-requests`,
+  documentRequestDetails: `${BackOfficeBase}/document-requests/:documentRequestPid`,
   eitemsList: `${BackOfficeBase}/eitems`,
   eitemDetails: `${BackOfficeBase}/eitems/:eitemPid`,
   itemsList: `${BackOfficeBase}/items`,
@@ -50,6 +52,12 @@ const BackOfficeRouteGenerators = {
   documentDetailsFor: documentPid =>
     generatePath(BackOfficeRoutesList.documentDetails, {
       documentPid: documentPid,
+    }),
+  documentRequestsListWithQuery: qs =>
+    `${BackOfficeRoutesList.documentRequestsList}?q=${qs}`,
+  documentRequestDetailsFor: documentRequestPid =>
+    generatePath(BackOfficeRoutesList.documentRequestDetails, {
+      documentRequestPid: documentRequestPid,
     }),
   eitemDetailsFor: eitemPid =>
     generatePath(BackOfficeRoutesList.eitemDetails, { eitemPid: eitemPid }),

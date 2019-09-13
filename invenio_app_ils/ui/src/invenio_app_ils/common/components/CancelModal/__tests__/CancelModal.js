@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import CancelLoanModal from '../CancelLoanModal';
+import CancelModal from '../CancelModal';
 
 const loan = {
   pid: '1',
 };
 
-describe('CancelLoanModal tests', () => {
+describe('CancelModal tests', () => {
   let component;
   afterEach(() => {
     if (component) {
@@ -15,13 +15,31 @@ describe('CancelLoanModal tests', () => {
   });
 
   it('should load the cancel loan modal component', () => {
-    component = shallow(<CancelLoanModal action={() => {}} loan={loan} />);
+    const pid = loan.pid;
+    component = shallow(
+      <CancelModal
+        header={`Cancel Loan #${pid}`}
+        content={`You are about to cancel loan #${pid}. Please enter a reason for cancelling this loan.`}
+        cancelText="Cancel Loan"
+        buttonText="cancel"
+        action={() => {}}
+      />
+    );
     expect(component).toMatchSnapshot();
   });
 
   it('should not perform loan action with an empty reason', () => {
+    const pid = loan.pid;
     const mockAction = jest.fn();
-    component = mount(<CancelLoanModal action={mockAction} loan={loan} />);
+    component = mount(
+      <CancelModal
+        header={`Cancel Loan #${pid}`}
+        content={`You are about to cancel loan #${pid}. Please enter a reason for cancelling this loan.`}
+        cancelText="Cancel Loan"
+        buttonText="cancel"
+        action={mockAction}
+      />
+    );
     expect(component.state('open')).toEqual(false);
     component.find('button').simulate('click');
     expect(component.state('open')).toEqual(true);
@@ -33,7 +51,16 @@ describe('CancelLoanModal tests', () => {
   });
 
   it('should show a popup if trying to cancel without a reason', () => {
-    component = mount(<CancelLoanModal action={() => {}} loan={loan} />);
+    const pid = loan.pid;
+    component = mount(
+      <CancelModal
+        header={`Cancel Loan #${pid}`}
+        content={`You are about to cancel loan #${pid}. Please enter a reason for cancelling this loan.`}
+        cancelText="Cancel Loan"
+        buttonText="cancel"
+        action={() => {}}
+      />
+    );
     component.find('button').simulate('click');
     expect(component.state('showPopup')).toEqual(false);
     let popup = component.find('Popup');
@@ -51,7 +78,16 @@ describe('CancelLoanModal tests', () => {
   it('should perform the loan action given a reason', () => {
     const value = 'test';
     const mockAction = jest.fn();
-    component = mount(<CancelLoanModal action={mockAction} loan={loan} />);
+    const pid = loan.pid;
+    component = mount(
+      <CancelModal
+        header={`Cancel Loan #${pid}`}
+        content={`You are about to cancel loan #${pid}. Please enter a reason for cancelling this loan.`}
+        cancelText="Cancel Loan"
+        buttonText="cancel"
+        action={mockAction}
+      />
+    );
     component.find('button').simulate('click');
     component.setState({ value: value });
     expect(component.state('showPopup')).toEqual(false);

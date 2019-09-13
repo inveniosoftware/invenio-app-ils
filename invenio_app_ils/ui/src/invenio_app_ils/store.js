@@ -60,6 +60,7 @@ import {
   documentsDetailsReducer,
   loanRequestFormReducer,
 } from './pages/frontsite/DocumentsDetails/reducer';
+import { documentRequestDetailsReducer } from './pages/backoffice/DocumentRequestDetails/reducer';
 
 const rootReducer = combineReducers({
   availableItems: availableItemsReducer,
@@ -68,6 +69,7 @@ const rootReducer = combineReducers({
   documentItems: documentItems,
   documentPendingLoans: documentPendingLoans,
   documentRelations: documentRelations,
+  documentRequestDetails: documentRequestDetailsReducer,
   documentsCard: documentsCardReducer,
   documentsDetails: documentsDetailsReducer,
   documentStats: documentStatsReducer,

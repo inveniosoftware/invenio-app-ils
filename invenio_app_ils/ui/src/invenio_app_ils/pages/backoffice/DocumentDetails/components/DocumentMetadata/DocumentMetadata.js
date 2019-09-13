@@ -18,6 +18,7 @@ import { MetadataTable } from '../../../components/MetadataTable';
 import { EditButton } from '../../../components/buttons';
 import {
   document as documentApi,
+  documentRequest as documentRequestApi,
   loan as loanApi,
   item as itemApi,
   tag as tagApi,
@@ -123,6 +124,11 @@ export default class DocumentMetadata extends Component {
     window.open(navUrl, `_item_${itemPid}`);
   }
 
+  handleOnRequestRefClick(docReqPid) {
+    const navUrl = BackOfficeRoutes.documentRequestDetailsFor(docReqPid);
+    window.open(navUrl, `_document_request_${docReqPid}`);
+  }
+
   async getRelationRefs() {
     const hits = [];
     for (const [relation, records] of Object.entries(this.props.relations)) {
@@ -177,7 +183,19 @@ export default class DocumentMetadata extends Component {
       getRefData: () => this.getRelationRefs(),
     };
 
-    return [loanRefProps, itemRefProps, relationRefProps];
+    const requestRefProps = {
+      refType: 'DocumentRequest',
+      onRefClick: this.handleOnRequestRefClick,
+      getRefData: () =>
+        documentRequestApi.list(
+          documentRequestApi
+            .query()
+            .withDocPid(documentPid)
+            .qs()
+        ),
+    };
+
+    return [loanRefProps, itemRefProps, relationRefProps, requestRefProps];
   }
 
   renderHeader(document) {
@@ -223,6 +241,17 @@ export default class DocumentMetadata extends Component {
         value: this.renderTags(document.metadata.tags),
       },
     ];
+    const request = document.metadata.request;
+    if (!isEmpty(request)) {
+      rows.push({
+        name: 'Document Request',
+        value: (
+          <Link to={BackOfficeRoutes.documentRequestDetailsFor(request.pid)}>
+            {request.state}
+          </Link>
+        ),
+      });
+    }
     return rows;
   }
 

@@ -195,8 +195,29 @@ function formatRelatedToTableView(related, relation) {
   return obj;
 }
 
+function formatDocumentRequestToTableView(req) {
+  return {
+    ID: req.pid ? req.pid : req.id,
+    Created: toShortDate(fromISO(req.created)),
+    Updated: toShortDate(fromISO(req.updated)),
+    'Document ID': req.metadata.document_pid,
+    'Patron ID': req.metadata.patron_pid,
+    State: req.metadata.state,
+    Title: req.metadata.title,
+    Authors: req.metadata.authors,
+    ISSN: req.metadata.issn,
+    ISBN: req.metadata.isbn,
+    Issue: req.metadata.issue,
+    Note: req.metadata.note,
+    Page: req.metadata.page,
+    'Publication Year': req.metadata.publication_year,
+    Volume: req.metadata.volume,
+  };
+}
+
 export const formatter = {
   document: { toTable: formatDocumentToTableView },
+  documentRequest: { toTable: formatDocumentRequestToTableView },
   eitem: { toTable: formatEItemToTableView },
   internalLocation: { toTable: formatInternalLocationToTableView },
   item: { toTable: formatItemToTableView },

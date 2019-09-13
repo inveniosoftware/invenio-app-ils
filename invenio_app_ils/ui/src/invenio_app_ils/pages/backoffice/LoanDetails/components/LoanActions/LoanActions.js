@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List, Button } from 'semantic-ui-react';
 import { omit } from 'lodash/object';
-import { CancelLoanModal } from '../CancelLoanModal';
+import { CancelModal } from '../../../../../common/components/CancelModal';
 
 export default class LoanActions extends Component {
   constructor(props) {
@@ -22,8 +22,12 @@ export default class LoanActions extends Component {
       return (
         <List.Item key={action}>
           {action === 'cancel' ? (
-            <CancelLoanModal
-              loan={this.props.loanDetails}
+            <CancelModal
+              header={`Cancel Loan #${pid}`}
+              content={`You are about to cancel loan #${pid}.
+                Please enter a reason for cancelling this loan.`}
+              cancelText="Cancel Loan"
+              buttonText="cancel"
               action={cancelAction}
             />
           ) : (

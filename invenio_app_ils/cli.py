@@ -682,24 +682,14 @@ class DocumentRequestGenerator(Generator):
         """Generate."""
         size = self.holder.series['total']
         objs = []
-        doc_pids = random.sample(
-            self.holder.pids("documents", "pid"),
-            self.holder.documents['total']
-        )
         for pid in range(1, size + 1):
-            state = random.choice(self.STATES)
             obj = {
                 "pid": str(pid),
-                "state": state,
                 "patron_pid": random.choice(self.holder.patrons_pids),
                 "title": lorem.sentence(),
                 "authors": lorem.sentence(),
                 "publication_year": randint(1700, 2019),
             }
-            if state == "FULFILLED":
-                obj["document_pid"] = doc_pids.pop()
-            if state == "CANCELLED":
-                obj["cancel_reason"] = lorem.sentence()
             objs.append(obj)
 
         self.holder.document_requests['objs'] = objs

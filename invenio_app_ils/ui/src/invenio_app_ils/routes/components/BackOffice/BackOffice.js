@@ -6,6 +6,8 @@ import {
   Home,
   DocumentDetailsContainer,
   DocumentsSearch,
+  DocumentRequestDetailsContainer,
+  DocumentRequestsSearch,
   EItemsSearch,
   EItemDetailsContainer,
   ItemsSearch,
@@ -103,6 +105,17 @@ export class BackOffice extends Component {
             exact
             path={BackOfficeRoutes.seriesDetails}
             component={SeriesDetailsContainer}
+          />
+          {/* document requests */}
+          <Route
+            exact
+            path={BackOfficeRoutes.documentRequestDetails}
+            component={DocumentRequestDetailsContainer}
+          />
+          <Route
+            exact
+            path={BackOfficeRoutes.documentRequestsList}
+            component={DocumentRequestsSearch}
           />
           <Route exact path={BackOfficeRoutes.stats.home} component={Stats} />
         </div>
