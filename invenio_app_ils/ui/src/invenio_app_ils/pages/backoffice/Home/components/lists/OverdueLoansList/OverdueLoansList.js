@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../../common/components';
-import { ResultsTable } from '../../../../../../common/components';
+import {
+  Loader,
+  Error,
+  ResultsTable,
+} from '../../../../../../common/components';
 import { loan as loanApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
 import { goTo, goToHandler } from '../../../../../../history';
+import { SendMailModal } from '../../../../components';
 import pick from 'lodash/pick';
 
 export default class OverdueLoansList extends Component {
@@ -34,11 +38,13 @@ export default class OverdueLoansList extends Component {
 
   prepareData(data) {
     return data.hits.map(row => {
-      return pick(formatter.loan.toTable(row), [
+      const actions = <SendMailModal loan={row} />;
+      return pick(formatter.loan.toTable(row, actions), [
         'ID',
         'Patron ID',
         'Item barcode',
         'End date',
+        'Actions',
       ]);
     });
   }

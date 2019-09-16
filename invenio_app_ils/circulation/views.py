@@ -13,12 +13,17 @@ from functools import wraps
 
 from flask import Blueprint, current_app, request
 from invenio_circulation.links import loan_links_factory
+from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_records_rest.utils import obj_or_import_string
+from invenio_records_rest.views import pass_record
 from invenio_rest import ContentNegotiatedMethodView
 
+from invenio_app_ils.circulation.utils import circulation_overdue_loan_days
+from invenio_app_ils.errors import OverdueLoansMailError
 from invenio_app_ils.permissions import check_permission
 
 from .api import create_loan, request_loan
+from .mail.tasks import send_overdue_mail
 
 
 def need_permissions(action):
@@ -76,6 +81,18 @@ def create_circulation_blueprint(app):
         "/circulation/loans/create", view_func=loan_create, methods=["POST"]
     )
 
+    loan_mail = LoanMailResource.as_view(
+        LoanMailResource.view_name.format(CIRCULATION_LOAN_PID_TYPE),
+        serializers=serializers,
+        default_media_type=default_media_type,
+        ctx=dict(links_factory=loan_links_factory),
+    )
+
+    blueprint.add_url_rule(
+        "{0}/email-overdue".format(options["item_route"]),
+        view_func=loan_mail,
+        methods=["POST"]
+    )
     return blueprint
 
 
@@ -124,4 +141,21 @@ class LoanCreateResource(IlsCirculationResource):
 
         return self.make_response(
             pid, loan, 202, links_factory=self.links_factory
+        )
+
+
+class LoanMailResource(IlsCirculationResource):
+    """Loan send email."""
+
+    view_name = "{0}_email"
+
+    @need_permissions('circulation-overdue-loan-email')
+    @pass_record
+    def post(self, pid, record, **kwargs):
+        """Loan email post method."""
+        if not circulation_overdue_loan_days(record) > 0:
+            raise OverdueLoansMailError(description="This loan is not overdue")
+        send_overdue_mail(record)
+        return self.make_response(
+            pid, record, 202, links_factory=self.links_factory
         )

@@ -8,7 +8,7 @@ import { loan as loanApi } from '../../api';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { invenioConfig } from '../../config';
 
-function formatLoanToTableView(loan) {
+function formatLoanToTableView(loan, actions = null) {
   return {
     ID: loan.pid ? loan.pid : loan.id,
     Created: toShortDateTime(fromISO(loan.created)),
@@ -26,6 +26,7 @@ function formatLoanToTableView(loan) {
       fromISO(loan.metadata.request_expire_date)
     ),
     Renewals: loan.metadata.extension_count,
+    Actions: actions,
   };
 }
 

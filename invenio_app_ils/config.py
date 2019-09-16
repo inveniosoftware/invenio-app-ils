@@ -167,11 +167,13 @@ SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
 # ===============
 #: Loan status email templates
 LOAN_MAIL_TEMPLATES = {}
+OVERDUE_LOAN_MAIL_TEMPLATE = ''
 
 # Email message loaders
 # ===============
 #: Loan message loader
 LOAN_MSG_LOADER = "invenio_app_ils.circulation.mail.loader:loan_message_loader"
+OVERDUE_LOAN_MSG_LOADER = "invenio_app_ils.circulation.mail.loader:overdue_loan_message_loader"
 
 # Theme configuration
 # ===================
@@ -183,6 +185,8 @@ THEME_FRONTPAGE = False
 SUPPORT_EMAIL = "info@inveniosoftware.org"
 #: Disable email sending by default.
 MAIL_SUPPRESS_SEND = True
+#: Notification email for overdue loan every X days
+OVERDUE_LOAN_MAIL_INTERVAL = 3
 
 # Notification configuration
 # ==========================
@@ -192,6 +196,10 @@ MAIL_NOTIFY_SENDER = "noreply@inveniosoftware.org"
 MAIL_NOTIFY_CC = []
 #: Email BCC address(es) for email notification.
 MAIL_NOTIFY_BCC = []
+# Enable sending mail to test recipients.
+ENABLE_TEST_RECIPIENTS = True
+#: When variable ENABLE_TEST_RECIPIENTS is True all emails are send here.
+MAIL_NOTIFY_TEST_RECIPIENTS = ['test@inveniosoftware.org']
 
 # Assets
 # ======
@@ -225,6 +233,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "invenio_accounts.tasks.clean_session_table",
         "schedule": timedelta(minutes=60),
     },
+    "overdue_loans": {
+        "task": "invenio_app_ils.circulation.mail.tasks.send_overdue_loans_mail_reminder",
+        "schedule": timedelta(days=1),
+    }
 }
 
 # Database
@@ -273,7 +285,6 @@ OAISERVER_ID_PREFIX = "oai:invenio_app_ils.org:"
 DEBUG = True
 DEBUG_TB_ENABLED = True
 DEBUG_TB_INTERCEPT_REDIRECTS = False
-
 
 _DOCID_CONVERTER = (
     'pid(docid, record_class="invenio_app_ils.records.api:Document")'
@@ -695,12 +706,12 @@ CIRCULATION_REST_ENDPOINTS = dict(
         indexer_class=LoanIndexer,
         record_serializers={
             "application/json": (
-                "invenio_app_ils.records.serializers:json_v1_response"
+                "invenio_app_ils.records.serializers:loan_v1_response"
             )
         },
         search_serializers={
             "application/json": (
-                "invenio_records_rest.serializers:json_v1_search"
+                "invenio_app_ils.records.serializers:loan_v1_search"
             ),
             "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
         },

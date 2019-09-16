@@ -196,6 +196,14 @@ const list = query => {
   });
 };
 
+const sendOverdueLoansMailReminder = async payload => {
+  const url = generatePath(ApiURLS.loans.emailOverdue, {
+    loanPid: payload.loanPid,
+  });
+  const response = await http.post(url, payload);
+  return response;
+};
+
 const count = query => {
   return http.get(`${ApiURLS.loans.list}?q=${query}`).then(response => {
     response.data = response.data.hits.total;
@@ -211,5 +219,6 @@ export const loan = {
   get: get,
   count: count,
   postAction: postAction,
+  sendOverdueLoansMailReminder: sendOverdueLoansMailReminder,
   serializer: serializer,
 };

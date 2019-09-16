@@ -25,10 +25,7 @@ export default class Header extends Component {
       <Dropdown item trigger={trigger}>
         <Dropdown.Menu>
           <Dropdown.Item onClick={goToHandler(FrontSiteRoutes.patronProfile)}>
-            Your Requests
-          </Dropdown.Item>
-          <Dropdown.Item onClick={goToHandler(FrontSiteRoutes.patronProfile)}>
-            Your Loans
+            Your Profile
           </Dropdown.Item>
           {sessionManager.hasRoles(['admin', 'librarian']) ? (
             <>

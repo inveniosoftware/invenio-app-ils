@@ -30,7 +30,7 @@ ManageRelationsButton.propTypes = {
   enabled: PropTypes.bool.isRequired,
   onRemoveSelection: PropTypes.func.isRequired,
   Selector: PropTypes.func.isRequired,
-  SelectorModal: PropTypes.func.isRequired,
+  SelectorModal: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
 };
 

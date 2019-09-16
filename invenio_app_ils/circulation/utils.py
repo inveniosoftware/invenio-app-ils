@@ -9,8 +9,9 @@
 
 from __future__ import absolute_import, print_function
 
-from datetime import timedelta
+from datetime import datetime, timedelta
 
+import ciso8601
 from flask import current_app
 
 
@@ -51,3 +52,10 @@ def circulation_is_loan_duration_valid(loan):
 def circulation_can_be_requested(loan):
     """Return True if the Document/Item for the given Loan can be requested."""
     return True
+
+
+# FIXME: remove the date manipulation when dates are globally fixed
+def circulation_overdue_loan_days(loan):
+    """Return the amount of days a loan is overdue."""
+    end_date = ciso8601.parse_datetime(loan["end_date"]).replace(tzinfo=None)
+    return (datetime.utcnow() - end_date).days

@@ -8,6 +8,7 @@
 """Search utilities."""
 
 import re
+from datetime import datetime
 
 from elasticsearch_dsl import A, Q
 from flask import current_app, g, has_request_context, request
@@ -103,6 +104,16 @@ class IlsLoansSearch(LoansSearch):
         # No need for the loan hits
         search = search[:0]
 
+        return search
+
+    def get_all_overdue_loans(self):
+        """Return all loans that are overdue."""
+        search = current_circulation.loan_search
+        states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+        search = search.query("bool", must=[
+            Q("terms", state=states),
+            Q("range", end_date=dict(lt=datetime.utcnow())),
+        ])
         return search
 
     class Meta:

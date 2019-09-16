@@ -208,3 +208,11 @@ class RecordRelationsError(IlsException):
     def __init__(self, description):
         """Initialize exception."""
         super(RecordRelationsError, self).__init__(description=description)
+
+
+class OverdueLoansMailError(IlsException):
+    """Raised when an error occurs with related records."""
+
+    def __init__(self, description):
+        """Initialize exception."""
+        super(OverdueLoansMailError, self).__init__(description=description)

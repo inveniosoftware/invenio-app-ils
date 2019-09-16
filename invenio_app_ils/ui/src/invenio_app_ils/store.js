@@ -16,6 +16,7 @@ import {
   documentRelations,
 } from './pages/backoffice/DocumentDetails/reducer';
 import { deleteRecordModalReducer } from './pages/backoffice/components/DeleteRecordModal/reducer';
+import { sendMailModalReducer } from './pages/backoffice/components/SendMailModal/reducer';
 import { eitemDetailsReducer } from './pages/backoffice/EItemDetails/reducer';
 import {
   itemDetailsReducer,
@@ -66,10 +67,10 @@ const rootReducer = combineReducers({
   documentDetails: documentDetailsReducer,
   documentItems: documentItems,
   documentPendingLoans: documentPendingLoans,
+  documentRelations: documentRelations,
   documentsCard: documentsCardReducer,
   documentsDetails: documentsDetailsReducer,
   documentStats: documentStatsReducer,
-  documentRelations: documentRelations,
   eitemDetails: eitemDetailsReducer,
   esSelector: esSelectorReducer,
   idlePendingLoans: idleLoansReducer,
@@ -79,8 +80,8 @@ const rootReducer = combineReducers({
   itemsSearchInput: itemsSearchByBarcodeReducer,
   latestRenewedLoans: renewedLoansReducer,
   loanDetails: loanDetailsReducer,
-  loansCard: loansCardReducer,
   loanRequestForm: loanRequestFormReducer,
+  loansCard: loansCardReducer,
   locations: locationListReducer,
   mostLoanedBooks: mostLoanedBooksReducer,
   mostRecentBooks: mostRecentBooksReducer,
@@ -94,6 +95,7 @@ const rootReducer = combineReducers({
   patronPastLoans: patronPastLoansReducer,
   patronPendingLoans: patronPendingLoansReducer,
   pendingOverdueDocuments: pendingOverdueDocumentsReducer,
+  sendMailModal: sendMailModalReducer,
   seriesDetails: seriesDetailsReducer,
   seriesDocuments: seriesDocumentsReducer,
   seriesMultipartMonographs: seriesMultipartMonographsReducer,

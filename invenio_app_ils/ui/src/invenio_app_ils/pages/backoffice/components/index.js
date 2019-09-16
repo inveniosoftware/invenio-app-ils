@@ -5,3 +5,4 @@ export {
   ExportReactSearchKitResults,
   ExportSearchResults,
 } from './ExportSearchResults';
+export { SendMailModal } from './SendMailModal';

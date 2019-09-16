@@ -15,6 +15,7 @@ import { AvailableItems } from '../AvailableItems';
 import { MetadataTable } from '../../../components/MetadataTable';
 import isEmpty from 'lodash/isEmpty';
 import { toShortDateTime } from '../../../../../common/api/date';
+import { SendMailModal } from '../../../components';
 
 export default class LoanMetadata extends Component {
   constructor(props) {
@@ -53,15 +54,11 @@ export default class LoanMetadata extends Component {
         <Message
           warning
           icon="trash alternate"
-          header={`The Item ${
-            data.metadata.item_pid
-          } assigned to this loan has been deleted!`}
+          header={`The Item ${data.metadata.item_pid} assigned to this loan has been deleted!`}
           content={[
             'If you need further assistance contact ',
             <a
-              href={`mailto:${
-                invenioConfig.support_email
-              }?subject=Deleted Item ${data.metadata.item_pid}`}
+              href={`mailto:${invenioConfig.support_email}?subject=Deleted Item ${data.metadata.item_pid}`}
               key="support-email"
             >
               <Icon name="mail" />
@@ -123,8 +120,19 @@ export default class LoanMetadata extends Component {
         </Grid.Column>
         <Grid.Column>
           <MetadataTable rows={rightRows} />
+          {this.renderMailButton()}
         </Grid.Column>
       </Grid>
+    );
+  }
+
+  renderMailButton() {
+    const loan = this.props.loanDetails;
+    return (
+      loan.metadata.is_overdue &&
+      invenioConfig.circulation.loanActiveStates.includes(
+        loan.metadata.state
+      ) && <SendMailModal loan={loan} />
     );
   }
 

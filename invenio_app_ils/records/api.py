@@ -23,6 +23,7 @@ from werkzeug.utils import cached_property
 
 from invenio_app_ils.errors import DocumentKeywordNotFoundError, \
     ItemDocumentNotFoundError, ItemHasActiveLoanError, \
+    MissingRequiredParameterError, PatronNotFoundError, \
     RecordHasReferencesError
 from invenio_app_ils.records_relations.api import RecordRelationsRetriever
 from invenio_app_ils.search.api import DocumentSearch, \
@@ -480,6 +481,23 @@ class Patron:
             "name": self.profile.full_name if self.profile else "",
             "email": self.user.email,
         }
+
+    @staticmethod
+    def get_patron(patron_pid):
+        """Return the patron object given the patron_pid."""
+        if not patron_pid:
+            raise PatronNotFoundError(patron_pid)
+
+        _datastore = current_app.extensions["security"].datastore
+        # if not patron_pid throw PatronNotFoundError(patron_pid)
+        patron = _datastore.get_user(patron_pid)
+
+        if not patron:
+            raise PatronNotFoundError(patron_pid)
+        if not patron.email:
+            msg = "Patron with PID {} has no email address".format(patron_pid)
+            raise MissingRequiredParameterError(description=msg)
+        return patron
 
 
 class Series(IlsRecordWithRelations):
