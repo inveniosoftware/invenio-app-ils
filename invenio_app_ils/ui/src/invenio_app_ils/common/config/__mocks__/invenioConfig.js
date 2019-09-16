@@ -46,6 +46,7 @@ export const invenioConfig = {
     loanActiveStates: ['ITEM_ON_LOAN'],
     loanCompletedStates: ['ITEM_RETURNED'],
     defaultDuration: 30,
+    deliveryMethods: ['DELIVERY', 'PICK UP'],
   },
   series: {
     search: {

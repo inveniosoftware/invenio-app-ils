@@ -96,6 +96,10 @@ export default class LoanMetadata extends Component {
         name: 'Expire Date',
         value: toShortDateTime(data.metadata.request_expire_date),
       },
+      {
+        name: 'Delivery',
+        value: data.metadata.delivery.method,
+      },
     ];
     if (state === 'CANCELLED' && !isEmpty(reason)) {
       rows.push({

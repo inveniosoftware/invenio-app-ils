@@ -145,19 +145,24 @@ export const updateDocument = (documentPid, path, value) => {
   };
 };
 
-export const requestLoanForDocument = (docPid, patronPid) => {
+export const requestLoanForDocument = (docPid, loanData) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
     const currentUser = sessionManager.user;
     try {
-      const response = await loanApi.requestLoanOnDocument(
+      const response = await loanApi.postAction(
         ApiURLS.loans.request,
         docPid,
-        patronPid,
+        loanData,
         currentUser.id,
-        currentUser.locationPid
+        currentUser.locationPid,
+        {
+          start_date: loanData.metadata.start_date,
+          end_date: loanData.metadata.end_date,
+          delivery: loanData.metadata.delivery,
+        }
       );
       const loanPid = response.data.pid;
       const linkToLoan = (
