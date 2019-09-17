@@ -1,19 +1,66 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Document",
-  "type": "object",
-  "required": ["$schema", "pid", "title", "authors"],
   "properties": {
     "$schema": {
       "type": "string"
     },
     "_access": {
-      "type": "object",
       "properties": {
         "read": {
           "type": "array"
         }
-      }
+      },
+      "type": "object"
+    },
+    "abstracts": {
+      "items": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "value": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": ["value"],
+          "type": "object"
+        }
+      ],
+      "minItems": 1,
+      "title": "List of abstracts",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "affiliations": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "curated_relation": {
+            "default": false,
+            "type": "boolean"
+          },
+          "unit": {
+            "description": "Describes a type of the affiliation, ex. institution",
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "description": "Provides the name of affiliated unit",
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["unit", "value"],
+        "type": "object"
+      },
+      "minItems": 1,
+      "title": "List of related accelerators/experiments/study/project ",
+      "type": "array",
+      "uniqueItems": true
     },
     "arxiv_eprints": {
       "items": {
@@ -210,56 +257,6 @@
       "type": "array",
       "uniqueItems": true
     },
-    "abstracts": {
-      "items": [
-        {
-          "additionalProperties": false,
-          "properties": {
-            "source": {
-              "minLength": 1,
-              "type": "string"
-            },
-            "value": {
-              "minLength": 1,
-              "type": "string"
-            }
-          },
-          "required": ["value"],
-          "type": "object"
-        }
-      ],
-      "minItems": 1,
-      "title": "List of abstracts",
-      "type": "array",
-      "uniqueItems": true
-    },
-    "affiliations": {
-      "items": {
-        "additionalProperties": false,
-        "properties": {
-          "curated_relation": {
-            "default": false,
-            "type": "boolean"
-          },
-          "unit": {
-            "description": "Describes a type of the affiliation, ex. institution",
-            "minLength": 1,
-            "type": "string"
-          },
-          "value": {
-            "description": "Provides the name of affiliated unit",
-            "minLength": 1,
-            "type": "string"
-          }
-        },
-        "required": ["unit", "value"],
-        "type": "object"
-      },
-      "minItems": 1,
-      "title": "List of related accelerators/experiments/study/project ",
-      "type": "array",
-      "uniqueItems": true
-    },
     "authors": {
       "items": {
         "additionalProperties": false,
@@ -350,17 +347,28 @@
       "uniqueItems": false
     },
     "circulation": {
-      "type": "object",
       "properties": {
         "$ref": {
           "type": "string"
         }
-      }
+      },
+      "type": "object"
     },
     "conference_info": {
       "properties": {
         "acronym": {
           "minLength": 1,
+          "type": "string"
+        },
+        "closing_date": {
+          "format": "date",
+          "minLength": 1,
+          "type": "string"
+        },
+        "cnum": {
+          "minLength": 1,
+          "pattern": "^C\\d\\d-\\d\\d-\\d\\d(\\.\\d+)?$",
+          "title": "CNUM identifier of the conference",
           "type": "string"
         },
         "conference_codes": {
@@ -375,17 +383,6 @@
           },
           "minLength": 1,
           "type": "array"
-        },
-        "cnum": {
-          "minLength": 1,
-          "pattern": "^C\\d\\d-\\d\\d-\\d\\d(\\.\\d+)?$",
-          "title": "CNUM identifier of the conference",
-          "type": "string"
-        },
-        "closing_date": {
-          "format": "date",
-          "minLength": 1,
-          "type": "string"
         },
         "contact": {
           "minLength": 1,
@@ -406,11 +403,11 @@
         },
         "series": {
           "minLength": 1,
-          "type": "string",
           "number": {
             "minLength": 1,
             "type": "integer"
-          }
+          },
+          "type": "string"
         },
         "title": {
           "minLength": 1,
@@ -480,12 +477,19 @@
       "type": "array",
       "uniqueItems": true
     },
-    "curated": {
-      "type": "boolean"
-    },
     "created_by": {
       "additionalProperties": false,
       "properties": {
+        "method": {
+          "enum": ["batchuploader", "harvester", "oai", "submitter"],
+          "minLength": 1,
+          "title": "Data obtaining method",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "type": "string"
+        },
         "submitter": {
           "description": "This field is used only when the method is submitter",
           "email": {
@@ -498,26 +502,32 @@
             "title": "User ID of the submitter",
             "type": "integer"
           }
-        },
-        "method": {
-          "enum": ["batchuploader", "harvester", "oai", "submitter"],
-          "minLength": 1,
-          "title": "Data obtaining method",
-          "type": "string"
-        },
-        "source": {
-          "minLength": 1,
-          "type": "string"
         }
       },
       "title": "Origin of the metadata in the record",
       "type": "object"
     },
+    "curated": {
+      "type": "boolean"
+    },
     "document_type": {
-      "type": "string",
-      "enum": ["BOOK", "PROCEEDINGS", "STANDARD"],
       "default": "BOOK",
-      "title": "Document type"
+      "enum": ["BOOK", "PROCEEDINGS", "STANDARD"],
+      "title": "Document type",
+      "type": "string"
+    },
+    "edition": {
+      "minLength": 1,
+      "title": "Book edition indicator",
+      "type": "string"
+    },
+    "eitems": {
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "evaluation": {
       "properties": {
@@ -539,8 +549,8 @@
           "type": "string"
         },
         "evaluator": {
-          "type": "string",
-          "title": "Evaluation expert name."
+          "title": "Evaluation expert name.",
+          "type": "string"
         },
         "status": {
           "enum": [
@@ -554,19 +564,6 @@
         }
       },
       "type": "object"
-    },
-    "edition": {
-      "minLength": 1,
-      "type": "string",
-      "title": "Book edition indicator"
-    },
-    "eitems": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      }
     },
     "identifiers": {
       "properties": {
@@ -787,8 +784,8 @@
           "uniqueItems": true
         }
       },
-      "type": "object",
-      "title": "Document identifiers."
+      "title": "Document identifiers.",
+      "type": "object"
     },
     "imprints": {
       "items": {
@@ -835,27 +832,12 @@
       "uniqueItems": true
     },
     "items": {
-      "type": "object",
       "properties": {
         "$ref": {
           "type": "string"
         }
-      }
-    },
-    "keyword_pids": {
-      "type": "array",
-      "items": {
-        "type": "string"
       },
-      "uniqueItems": true
-    },
-    "keywords": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      }
+      "type": "object"
     },
     "languages": {
       "items": {
@@ -1140,8 +1122,8 @@
       "type": "integer"
     },
     "pid": {
-      "type": "string",
-      "title": "Document ID"
+      "title": "Document ID",
+      "type": "string"
     },
     "publication_info": {
       "items": {
@@ -1178,6 +1160,10 @@
             "minLength": 1,
             "type": "string"
           },
+          "note": {
+            "minLength": 1,
+            "type": "string"
+          },
           "page_end": {
             "minLength": 1,
             "title": "Last page of document",
@@ -1186,10 +1172,6 @@
           "page_start": {
             "minLength": 1,
             "title": "First page of document",
-            "type": "string"
-          },
-          "note": {
-            "minLength": 1,
             "type": "string"
           },
           "year": {
@@ -1205,70 +1187,70 @@
       "type": "array",
       "uniqueItems": true
     },
-    "relations_metadata": {
-      "type": "object",
-      "title": "Metadata to describe relations",
-      "properties": {
-        "multipart_monograph": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "pid": {
-                "type": "string"
-              },
-              "pid_type": {
-                "type": "string"
-              },
-              "volume": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "serial": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "pid": {
-                "type": "string"
-              },
-              "pid_type": {
-                "type": "string"
-              },
-              "volume": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "other": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "pid": {
-                "type": "string"
-              },
-              "pid_type": {
-                "type": "string"
-              },
-              "note": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      }
-    },
     "relations": {
-      "type": "object",
       "properties": {
         "$ref": {
           "type": "string"
         }
-      }
+      },
+      "type": "object"
+    },
+    "relations_metadata": {
+      "properties": {
+        "multipart_monograph": {
+          "items": {
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "other": {
+          "items": {
+            "properties": {
+              "note": {
+                "type": "string"
+              },
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "serial": {
+          "items": {
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "title": "Metadata to describe relations",
+      "type": "object"
     },
     "subject_classification": {
       "items": {
@@ -1308,9 +1290,22 @@
       "type": "array",
       "uniqueItems": true
     },
+    "tag_pids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "tags": {
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "title": {
-      "title": "Document title",
-      "type": "object",
       "additionalProperties": false,
       "properties": {
         "alternative_titles": {
@@ -1353,7 +1348,9 @@
           "type": "string"
         }
       },
-      "required": ["title"]
+      "required": ["title"],
+      "title": "Document title",
+      "type": "object"
     },
     "title_translations": {
       "items": {
@@ -1574,6 +1571,16 @@
     "updated_by": {
       "additionalProperties": false,
       "properties": {
+        "method": {
+          "enum": ["batchuploader", "oai", "submitter"],
+          "minLength": 1,
+          "title": "Data obtaining method",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "type": "string"
+        },
         "submitter": {
           "description": "This field is used only when the method is submitter",
           "email": {
@@ -1586,16 +1593,6 @@
             "title": "User ID of the submitter",
             "type": "integer"
           }
-        },
-        "method": {
-          "enum": ["batchuploader", "oai", "submitter"],
-          "minLength": 1,
-          "title": "Data obtaining method",
-          "type": "string"
-        },
-        "source": {
-          "minLength": 1,
-          "type": "string"
         }
       },
       "title": "Origin of the metadata in the record",
@@ -1623,5 +1620,8 @@
       "type": "array",
       "uniqueItems": true
     }
-  }
+  },
+  "required": ["$schema", "pid", "title", "authors"],
+  "title": "Document",
+  "type": "object"
 }
