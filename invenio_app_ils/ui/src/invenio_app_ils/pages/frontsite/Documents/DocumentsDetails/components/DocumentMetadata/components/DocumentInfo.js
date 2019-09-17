@@ -38,6 +38,7 @@ export class DocumentInfo extends Component {
                 {this.metadata.authors.map((author, index) => (
                   <span key={`Key${index}`}>{author.full_name}</span>
                 ))}
+                <span>{this.metadata.other_authors ? ' et al.' : null}</span>
               </Table.Cell>
             </Table.Row>
             <Table.Row>
@@ -47,7 +48,9 @@ export class DocumentInfo extends Component {
             {this.renderLanguages()}
             <Table.Row>
               <Table.Cell>Keywords</Table.Cell>
-              <Table.Cell>{this.metadata.keywords}</Table.Cell>
+              <Table.Cell>
+                {this.metadata.keywords.value} ({this.metadata.keywords.source})
+              </Table.Cell>
             </Table.Row>
           </Table.Body>
         </Table>

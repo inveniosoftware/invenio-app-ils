@@ -1,6 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "properties": {
+    "$schema": {
+      "type": "string"
+    },
     "_access": {
       "properties": {
         "read": {
@@ -9,21 +12,54 @@
       },
       "type": "object"
     },
-    "$schema": {
+    "abstract": {
+      "title": "Abstract of the document.",
       "type": "string"
     },
-    "abstracts": {
+    "alternative_abstracts": {
+      "items": {
+        "type": "string"
+      },
+      "title": "List of supplementary abstracts",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "alternative_identifiers": {
+      "items": {
+        "properties": {
+          "scheme": {
+            "title": "Scheme of the identifier",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value of the identifier",
+            "type": "string"
+          }
+        }
+      },
+      "title": "List of internal identifiers of the record",
+      "type": "array",
+      "required": ["value", "scheme"]
+    },
+    "alternative_titles": {
+      "description": "Alternative titles of the document",
       "items": [
         {
           "additionalProperties": false,
           "properties": {
-            "source": {
-              "minLength": 1,
+            "language": {
+              "maxLength": 2,
+              "minLength": 2,
+              "title": "ISO 639-1 language code",
               "type": "string"
             },
             "value": {
               "minLength": 1,
               "type": "string"
+            },
+            "source": {
+              "type": "string",
+              "title": "Source of the alternative title."
             }
           },
           "required": ["value"],
@@ -31,7 +67,6 @@
         }
       ],
       "minItems": 1,
-      "title": "List of abstracts",
       "type": "array",
       "uniqueItems": true
     },
@@ -43,16 +78,31 @@
             "items": {
               "additionalProperties": false,
               "properties": {
-                "curated_relation": {
-                  "type": "boolean"
+                "identifiers": {
+                  "items": {
+                    "properties": {
+                      "scheme": {
+                        "title": "Affiliation identifier scheme",
+                        "type": "string"
+                      },
+                      "value": {
+                        "title": "Affiliation identifier value",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object",
+                    "title": "Identifiers affiliation",
+                    "required": ["value", "scheme"]
+                  },
+                  "type": "array",
+                  "title": "Affiliations identifiers list"
                 },
-                "value": {
-                  "minLength": 1,
-                  "title": "ICN of affiliation",
+                "name": {
+                  "title": "Affiliation name",
                   "type": "string"
                 }
               },
-              "required": ["value"],
+              "required": ["name"],
               "type": "object"
             },
             "minItems": 1,
@@ -68,29 +118,48 @@
             "type": "array",
             "uniqueItems": true
           },
-          "email": {
-            "format": "email",
-            "minLength": 1,
-            "type": "string"
-          },
           "full_name": {
             "minLength": 1,
             "title": "Author name",
             "type": "string"
           },
-          "note": {
-            "type": "string"
+          "identifiers": {
+            "items": {
+              "additionalProperties": false,
+              "description": "It is mainly used to uniquely identify the authors of their articles.",
+              "properties": {
+                "scheme": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "value": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": ["scheme", "value"],
+              "title": "Author identifier",
+              "type": "object"
+            },
+            "minItems": 1,
+            "title": "Identifiers of the author",
+            "type": "array",
+            "uniqueItems": true
           },
           "roles": {
             "items": {
               "default": "author",
-              "enum": ["author", "editor"],
               "minLength": 1,
               "type": "string"
             },
             "minItems": 1,
             "type": "array",
             "uniqueItems": true
+          },
+          "type": {
+            "description": "Determines if the contributor is an institution or a person",
+            "title": "Type of the contributor",
+            "type": "string"
           }
         },
         "required": ["full_name"],
@@ -109,6 +178,57 @@
       },
       "type": "object"
     },
+    "conference_info": {
+      "properties": {
+        "acronym": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "country": {
+          "minLength": 1,
+          "title": "ISO Country",
+          "type": "string"
+        },
+        "dates": {
+          "minLength": 1,
+          "title": "Conference dates.",
+          "type": "string"
+        },
+        "identifiers": {
+          "description": "Conference identifiers",
+          "items": {
+            "scheme": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "minLength": 1,
+          "type": "array",
+          "required": ["scheme", "value"]
+        },
+        "place": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "series": {
+          "minLength": 1,
+          "title": "Conference as a part of series.",
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "year": {
+          "minLength": 1,
+          "type": "integer"
+        }
+      },
+      "required": ["place", "title"],
+      "type": "object"
+    },
     "copyrights": {
       "items": {
         "additionalProperties": false,
@@ -119,20 +239,6 @@
             "type": "string"
           },
           "material": {
-            "enum": [
-              "addendum",
-              "additional material",
-              "data",
-              "e-book",
-              "e-proceedings",
-              "editorial note",
-              "erratum",
-              "preprint",
-              "publication",
-              "reprint",
-              "software",
-              "translation"
-            ],
             "minLength": 1,
             "title": "Material to which the copyright refers",
             "type": "string"
@@ -149,6 +255,7 @@
             "type": "string"
           },
           "year": {
+            "minimum": 1900,
             "type": "integer"
           }
         },
@@ -159,52 +266,31 @@
       "type": "array",
       "uniqueItems": true
     },
-    "corporate_authors": {
-      "items": {
-        "minLength": 1,
-        "title": "List of corporate authors",
-        "type": "string"
-      },
-      "minItems": 1,
-      "type": "array",
-      "uniqueItems": true
-    },
-    "created_by": {
+    "created": {
       "additionalProperties": false,
       "properties": {
-        "method": {
-          "enum": ["batchuploader", "oai", "submitter"],
-          "minLength": 1,
-          "title": "Data obtaining method",
-          "type": "string"
-        },
-        "source": {
-          "minLength": 1,
-          "type": "string"
-        },
-        "submitter": {
-          "description": "This field is used only when the method is submitter",
-          "email": {
-            "format": "email",
-            "minLength": 4,
-            "title": "Email address of the submitter",
-            "type": "string"
+        "by": {
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
           },
-          "user_id": {
-            "title": "User ID of the submitter",
-            "type": "integer"
-          }
+          "type": "object"
+        },
+        "timestamp": {
+          "format": "datetime",
+          "title": "Timestamp of the update",
+          "type": "string"
         }
-      },
-      "title": "Origin of the metadata in the record",
-      "type": "object"
+      }
     },
     "curated": {
       "type": "boolean"
     },
     "document_type": {
-      "default": "BOOK",
-      "enum": ["BOOK", "PROCEEDINGS", "STANDARD"],
       "title": "Document type",
       "type": "string"
     },
@@ -221,184 +307,29 @@
       },
       "type": "object"
     },
-    "identifiers": {
-      "properties": {
-        "dois": {
-          "items": {
-            "additionalProperties": false,
-            "properties": {
-              "material": {
-                "enum": [
-                  "addendum",
-                  "additional material",
-                  "data",
-                  "e-book",
-                  "e-proceedings",
-                  "editorial note",
-                  "erratum",
-                  "preprint",
-                  "publication",
-                  "reprint",
-                  "software",
-                  "translation"
-                ],
-                "minLength": 1,
-                "title": "Material to which the DOI refers",
-                "type": "string"
-              },
-              "source": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "value": {
-                "minLength": 1,
-                "pattern": "^10\\.\\d+(\\.\\d+)?/\\S+$",
-                "title": "DOI",
-                "type": "string"
-              }
-            },
-            "required": ["value"],
-            "type": "object"
-          },
-          "minItems": 1,
-          "title": "List of DOIs",
-          "type": "array",
-          "uniqueItems": true
-        },
-        "external_system_identifiers": {
-          "items": {
-            "additionalProperties": false,
-            "properties": {
-              "schema": {
-                "enum": [
-                  "ARXIV",
-                  "ASIN",
-                  "DCL",
-                  "DESY",
-                  "DOE",
-                  "EBL",
-                  "FIZ",
-                  "HAL",
-                  "IEECONF",
-                  "INDICO.CERN.CH",
-                  "INIS",
-                  "INSPIRE",
-                  "INSPIRE-CNUM",
-                  "KEK",
-                  "LHCLHC",
-                  "SAFARI",
-                  "SCEM",
-                  "UDCCERN",
-                  "WAI01"
-                ],
-                "minLength": 1,
-                "pattern": "^\\w+$",
-                "type": "string"
-              },
-              "value": {
-                "minLength": 1,
-                "pattern": "^\\S+$",
-                "title": "External identifier",
-                "type": "string"
-              }
-            },
-            "required": ["schema", "value"],
-            "type": "object"
-          },
-          "minItems": 1,
-          "type": "array",
-          "uniqueItems": true
-        },
-        "isbns": {
-          "items": {
-            "additionalProperties": false,
-            "properties": {
-              "description": {
-                "minLength": 1,
-                "title": "Free text, used to describe the document to ISBN refers to.",
-                "type": "string"
-              },
-              "medium": {
-                "enum": [
-                  "audiobook",
-                  "CD-ROM",
-                  "DVD",
-                  "electronic version",
-                  "print version",
-                  "print version, hardback",
-                  "print version, paperback",
-                  "print version, spiral-bound"
-                ],
-                "minLength": 1,
-                "title": "Physical medium to which this ISBN refers",
-                "type": "string"
-              },
-              "value": {
-                "minLength": 1,
-                "pattern": "^\\d*[0-9X]$",
-                "type": "string"
-              }
-            },
-            "required": ["value"],
-            "type": "object"
-          },
-          "minItems": 1,
-          "title": "List of ISBNs",
-          "type": "array",
-          "uniqueItems": true
-        },
-        "persistent_identifiers": {
-          "items": {
-            "additionalProperties": false,
-            "properties": {
-              "material": {
-                "enum": [
-                  "addendum",
-                  "additional material",
-                  "data",
-                  "e-book",
-                  "e-proceedings",
-                  "editorial note",
-                  "erratum",
-                  "preprint",
-                  "publication",
-                  "reprint",
-                  "software",
-                  "translation"
-                ],
-                "minLength": 1,
-                "title": "Material to which the field refers",
-                "type": "string"
-              },
-              "schema": {
-                "description": "`HDL <http://handle.net>`_\n* `URN\n  <https://en.wikipedia.org/wiki/Uniform_Resource_Name>`_",
-                "enum": ["HDL", "URN"],
-                "minLength": 1,
-                "title": "Type of identifier",
-                "type": "string"
-              },
-              "source": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "value": {
-                "minLength": 1,
-                "pattern": "^\\S+$",
-                "title": "Persistent identifier",
-                "type": "string"
-              }
-            },
-            "required": ["schema", "value"],
-            "type": "object"
-          },
-          "minItems": 1,
-          "title": "List of persistent identifiers",
-          "type": "array",
-          "uniqueItems": true
-        }
-      },
-      "title": "Document identifiers.",
+    "extra_data": {
       "type": "object"
+    },
+    "identifiers": {
+      "items": {
+        "properties": {
+          "material": {
+            "type": "string",
+            "title": "Material to which the identifiers refers to."
+          },
+          "scheme": {
+            "title": "Scheme of the identifier",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value of the identifier",
+            "type": "string"
+          }
+        },
+        "required": ["value", "scheme"]
+      },
+      "title": "List of Identifiers of the record",
+      "type": "array"
     },
     "imprints": {
       "items": {
@@ -438,17 +369,20 @@
         "additionalProperties": false,
         "description": "Visible only for Librarians",
         "properties": {
-          "source": {
-            "minLength": 1,
+          "field": {
+            "title": "Field to which the note refers to",
             "type": "string"
           },
+          "user": {
+            "type": "string",
+            "title": "User who has composed the note."
+          },
           "value": {
-            "minLength": 1,
+            "title": "Note",
             "type": "string"
           }
         },
-        "required": ["value"],
-        "type": "object"
+        "required": ["value"]
       },
       "minItems": 1,
       "title": "List of internal notes",
@@ -464,199 +398,22 @@
       "type": "object"
     },
     "keywords": {
-      "type": "string"
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "title": "Keywords of the document"
     },
     "languages": {
       "items": {
-        "enum": [
-          "aa",
-          "ab",
-          "ae",
-          "af",
-          "ak",
-          "am",
-          "an",
-          "ar",
-          "as",
-          "av",
-          "ay",
-          "az",
-          "ba",
-          "be",
-          "bg",
-          "bi",
-          "bm",
-          "bn",
-          "bo",
-          "br",
-          "bs",
-          "ca",
-          "ce",
-          "ch",
-          "co",
-          "cr",
-          "cs",
-          "cu",
-          "cv",
-          "cy",
-          "da",
-          "de",
-          "dv",
-          "dz",
-          "ee",
-          "el",
-          "en",
-          "eo",
-          "es",
-          "et",
-          "eu",
-          "fa",
-          "ff",
-          "fi",
-          "fj",
-          "fo",
-          "fr",
-          "fy",
-          "ga",
-          "gd",
-          "gl",
-          "gn",
-          "gu",
-          "gv",
-          "ha",
-          "he",
-          "hi",
-          "ho",
-          "hr",
-          "ht",
-          "hu",
-          "hy",
-          "hz",
-          "ia",
-          "id",
-          "ie",
-          "ig",
-          "ii",
-          "ik",
-          "io",
-          "is",
-          "it",
-          "iu",
-          "ja",
-          "jv",
-          "ka",
-          "kg",
-          "ki",
-          "kj",
-          "kk",
-          "kl",
-          "km",
-          "kn",
-          "ko",
-          "kr",
-          "ks",
-          "ku",
-          "kv",
-          "kw",
-          "ky",
-          "la",
-          "lb",
-          "lg",
-          "li",
-          "ln",
-          "lo",
-          "lt",
-          "lu",
-          "lv",
-          "mg",
-          "mh",
-          "mi",
-          "mk",
-          "ml",
-          "mn",
-          "mr",
-          "ms",
-          "mt",
-          "my",
-          "na",
-          "nb",
-          "nd",
-          "ne",
-          "ng",
-          "nl",
-          "nn",
-          "no",
-          "nr",
-          "nv",
-          "ny",
-          "oc",
-          "oj",
-          "om",
-          "or",
-          "os",
-          "pa",
-          "pi",
-          "pl",
-          "ps",
-          "pt",
-          "qu",
-          "rm",
-          "rn",
-          "ro",
-          "ru",
-          "rw",
-          "sa",
-          "sc",
-          "sd",
-          "se",
-          "sg",
-          "sh",
-          "si",
-          "sk",
-          "sl",
-          "sm",
-          "sn",
-          "so",
-          "sq",
-          "sr",
-          "ss",
-          "st",
-          "su",
-          "sv",
-          "sw",
-          "ta",
-          "te",
-          "tg",
-          "th",
-          "ti",
-          "tk",
-          "tl",
-          "tn",
-          "to",
-          "tr",
-          "ts",
-          "tt",
-          "tw",
-          "ty",
-          "ug",
-          "uk",
-          "ur",
-          "uz",
-          "ve",
-          "vi",
-          "vo",
-          "wa",
-          "wo",
-          "xh",
-          "yi",
-          "yo",
-          "za",
-          "zh",
-          "zu"
-        ],
         "maxLength": 2,
         "minLength": 2,
-        "title": "ISO 639-1 alpha 2 language code",
+        "title": "ISO 639-1 language code",
         "type": "string"
       },
       "minItems": 1,
@@ -668,43 +425,30 @@
       "items": {
         "additionalProperties": false,
         "properties": {
-          "admin_info": {
-            "minLength": 1,
-            "title": "Administrative information",
-            "type": "string"
-          },
           "funder": {
+            "description": "#TODO",
             "minLength": 1,
             "title": "Open Access funder",
             "type": "string"
           },
-          "imposing": {
-            "minLength": 1,
-            "title": "Organization/person imposing the license",
-            "type": "string"
+          "identifier": {
+            "title": "Licence identifier",
+            "properties": {
+              "scheme": {
+                "title": "Scheme of the identifier",
+                "type": "string"
+              },
+              "value": {
+                "title": "Identifier value",
+                "type": "string"
+              }
+            },
+            "required": ["scheme", "value"],
+            "type": "object"
           },
-          "license": {
+          "statement": {
             "minLength": 1,
             "title": "License statement",
-            "type": "string"
-          },
-          "material": {
-            "enum": [
-              "addendum",
-              "additional material",
-              "data",
-              "e-book",
-              "e-proceedings",
-              "editorial note",
-              "erratum",
-              "preprint",
-              "publication",
-              "reprint",
-              "software",
-              "translation"
-            ],
-            "minLength": 1,
-            "title": "Material to which the field refers",
             "type": "string"
           },
           "url": {
@@ -721,32 +465,18 @@
       "type": "array",
       "uniqueItems": true
     },
-    "notes": {
-      "items": {
-        "additionalProperties": false,
-        "properties": {
-          "source": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "value": {
-            "minLength": 1,
-            "type": "string"
-          }
-        },
-        "required": ["value"],
-        "type": "object"
-      },
-      "minItems": 1,
-      "title": "List of public notes",
-      "type": "array",
-      "uniqueItems": true
+    "note": {
+      "title": "Notes of the record",
+      "type": "string"
     },
     "number_of_pages": {
-      "description": ":MARC: ``300``",
-      "minimum": 1,
+      "minLength": 1,
       "title": "Number of pages of the physical items",
-      "type": "integer"
+      "type": "string"
+    },
+    "other_authors": {
+      "title": "Indicates that there are other not listed authors.",
+      "type": "boolean"
     },
     "pid": {
       "title": "Document ID",
@@ -755,69 +485,12 @@
     "publication_info": {
       "items": {
         "additionalProperties": false,
+        "description": "#TODO DISCUSS",
         "properties": {
           "artid": {
             "minLength": 1,
             "title": "Article ID",
             "type": "string"
-          },
-          "conference": {
-            "properties": {
-              "acronym": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "cern_conference_code": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "closing_date": {
-                "format": "date",
-                "minLength": 1,
-                "type": "string"
-              },
-              "cnum": {
-                "minLength": 1,
-                "pattern": "^C\\d\\d-\\d\\d-\\d\\d(\\.\\d+)?$",
-                "title": "CNUM identifier of the conference",
-                "type": "string"
-              },
-              "contact": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "country": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "inspire_cnum": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "opening_date": {
-                "format": "date",
-                "minLength": 1,
-                "type": "string"
-              },
-              "place": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "series": {
-                "minLength": 1,
-                "number": {
-                  "minLength": 1,
-                  "type": "integer"
-                },
-                "type": "string"
-              },
-              "title": {
-                "minLength": 1,
-                "type": "string"
-              }
-            },
-            "required": ["place", "title"],
-            "type": "object"
           },
           "journal_issue": {
             "minLength": 1,
@@ -825,6 +498,7 @@
           },
           "journal_record": {
             "additionalProperties": false,
+            "description": "#TODO",
             "properties": {
               "$ref": {
                 "description": "URL to the referenced resource",
@@ -849,14 +523,9 @@
             "minLength": 1,
             "type": "string"
           },
-          "page_end": {
+          "pages": {
             "minLength": 1,
-            "title": "Last page of document",
-            "type": "string"
-          },
-          "page_start": {
-            "minLength": 1,
-            "title": "First page of document",
+            "title": "Page range of the document",
             "type": "string"
           },
           "year": {
@@ -937,16 +606,29 @@
       "title": "Metadata to describe relations",
       "type": "object"
     },
+    "source": {
+      "title": "Source of the metadata",
+      "type": "string"
+    },
+    "subjects": {
+      "properties": {
+        "scheme": {
+          "title": "Scheme of subject classification.",
+          "type": "string"
+        },
+        "value": {
+          "title": "Subject classification",
+          "type": "string"
+        }
+      },
+      "title": "List of subjects of the document.",
+      "type": "object",
+      "required": ["value", "scheme"]
+    },
     "table_of_content": {
       "description": "List of chapters",
       "items": {
-        "additionalProperties": false,
-        "properties": {
-          "value": {
-            "minLength": 1,
-            "type": "string"
-          }
-        }
+        "type": "string"
       },
       "minItems": 1,
       "type": "array",
@@ -968,252 +650,29 @@
       "type": "object"
     },
     "title": {
+      "title": "Title of the document",
       "type": "string"
     },
-    "title_translations": {
-      "items": {
-        "additionalProperties": false,
-        "properties": {
-          "language": {
-            "enum": [
-              "aa",
-              "ab",
-              "ae",
-              "af",
-              "ak",
-              "am",
-              "an",
-              "ar",
-              "as",
-              "av",
-              "ay",
-              "az",
-              "ba",
-              "be",
-              "bg",
-              "bi",
-              "bm",
-              "bn",
-              "bo",
-              "br",
-              "bs",
-              "ca",
-              "ce",
-              "ch",
-              "co",
-              "cr",
-              "cs",
-              "cu",
-              "cv",
-              "cy",
-              "da",
-              "de",
-              "dv",
-              "dz",
-              "ee",
-              "el",
-              "en",
-              "eo",
-              "es",
-              "et",
-              "eu",
-              "fa",
-              "ff",
-              "fi",
-              "fj",
-              "fo",
-              "fr",
-              "fy",
-              "ga",
-              "gd",
-              "gl",
-              "gn",
-              "gu",
-              "gv",
-              "ha",
-              "he",
-              "hi",
-              "ho",
-              "hr",
-              "ht",
-              "hu",
-              "hy",
-              "hz",
-              "ia",
-              "id",
-              "ie",
-              "ig",
-              "ii",
-              "ik",
-              "io",
-              "is",
-              "it",
-              "iu",
-              "ja",
-              "jv",
-              "ka",
-              "kg",
-              "ki",
-              "kj",
-              "kk",
-              "kl",
-              "km",
-              "kn",
-              "ko",
-              "kr",
-              "ks",
-              "ku",
-              "kv",
-              "kw",
-              "ky",
-              "la",
-              "lb",
-              "lg",
-              "li",
-              "ln",
-              "lo",
-              "lt",
-              "lu",
-              "lv",
-              "mg",
-              "mh",
-              "mi",
-              "mk",
-              "ml",
-              "mn",
-              "mr",
-              "ms",
-              "mt",
-              "my",
-              "na",
-              "nb",
-              "nd",
-              "ne",
-              "ng",
-              "nl",
-              "nn",
-              "no",
-              "nr",
-              "nv",
-              "ny",
-              "oc",
-              "oj",
-              "om",
-              "or",
-              "os",
-              "pa",
-              "pi",
-              "pl",
-              "ps",
-              "pt",
-              "qu",
-              "rm",
-              "rn",
-              "ro",
-              "ru",
-              "rw",
-              "sa",
-              "sc",
-              "sd",
-              "se",
-              "sg",
-              "sh",
-              "si",
-              "sk",
-              "sl",
-              "sm",
-              "sn",
-              "so",
-              "sq",
-              "sr",
-              "ss",
-              "st",
-              "su",
-              "sv",
-              "sw",
-              "ta",
-              "te",
-              "tg",
-              "th",
-              "ti",
-              "tk",
-              "tl",
-              "tn",
-              "to",
-              "tr",
-              "ts",
-              "tt",
-              "tw",
-              "ty",
-              "ug",
-              "uk",
-              "ur",
-              "uz",
-              "ve",
-              "vi",
-              "vo",
-              "wa",
-              "wo",
-              "xh",
-              "yi",
-              "yo",
-              "za",
-              "zh",
-              "zu"
-            ],
-            "maxLength": 2,
-            "minLength": 2,
-            "title": "ISO 639-1 alpha 2 language code",
-            "type": "string"
-          },
-          "source": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "subtitle": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "title": {
-            "minLength": 1,
-            "type": "string"
-          }
-        },
-        "required": ["language", "title"],
-        "type": "object"
-      },
-      "minItems": 1,
-      "type": "array",
-      "uniqueItems": true
-    },
-    "updated_by": {
-      "additionalProperties": false,
+    "updated": {
       "properties": {
-        "method": {
-          "enum": ["batchuploader", "oai", "submitter"],
-          "minLength": 1,
-          "title": "Data obtaining method",
-          "type": "string"
-        },
-        "source": {
-          "minLength": 1,
-          "type": "string"
-        },
-        "submitter": {
-          "description": "This field is used only when the method is submitter",
-          "email": {
-            "format": "email",
-            "minLength": 4,
-            "title": "Email address of the submitter",
-            "type": "string"
+        "by": {
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
           },
-          "user_id": {
-            "title": "User ID of the submitter",
-            "type": "integer"
-          }
+          "type": "object"
+        },
+        "timestamp": {
+          "format": "datetime",
+          "title": "Timestamp of the update",
+          "type": "string"
         }
       },
-      "title": "Origin of the metadata in the record",
+      "title": "Update information",
       "type": "object"
     },
     "urls": {
@@ -1239,7 +698,7 @@
       "uniqueItems": true
     }
   },
-  "required": ["$schema", "pid", "title"],
+  "required": ["$schema", "pid", "title", "authors"],
   "title": "Document",
   "type": "object"
 }

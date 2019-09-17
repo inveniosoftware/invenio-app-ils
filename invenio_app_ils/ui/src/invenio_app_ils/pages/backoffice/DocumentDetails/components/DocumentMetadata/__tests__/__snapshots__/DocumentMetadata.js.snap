@@ -121,7 +121,7 @@ exports[`DocumentMetadata tests should load the details component 1`] = `
               },
               Object {
                 "name": "Keywords",
-                "value": undefined,
+                "value": "Patata (X)",
               },
               Object {
                 "name": "Tags",

@@ -267,6 +267,37 @@ class DocumentGenerator(Generator):
 
     DOCUMENT_TYPES = ["BOOK", "STANDARD", "PROCEEDINGS"]
     LANGUAGES = [u"en", u"fr", u"it", u"el", u"pl", u"ro", u"sv", u"es"]
+    AUTHORS = [{"full_name": "Close, Frank"},
+               {"full_name": "Doe, Jane",
+                "affiliations": [{"name": "Imperial Coll., London",
+                                  "identifiers":
+                                      [
+                                          {"scheme": "INSPIRE",
+                                           "value": "12345"}
+                                      ]
+                                  }
+                                 ],
+                "identifiers": [
+                    {"scheme": "CERN", "value": "2108633"}
+                ],
+                "roles": ["editor"]
+                },
+               {"full_name": "Doe, John", "roles": ["author"],
+                "affiliations": [{"name": "CERN"}]
+                },
+               {"full_name": "CERN", "type": "organisation"}
+               ]
+    CONFERENCE_INFO = {"acronym": "CHEP", "country": "AU",
+                       "dates": "1 - 20 Nov. 2019",
+                       "identifiers": [{"scheme": "CERN",
+                                        "value": "CHEP2019"}
+                                       ],
+                       "place": "Adelaide",
+                       "series": "CHEP",
+                       "title": "Conference on Computing"
+                                " in High Energy Physics",
+                       "year": 2019,
+                       }
 
     def generate(self):
         """Generate."""
@@ -277,17 +308,25 @@ class DocumentGenerator(Generator):
             {
                 "pid": str(pid),
                 "title": lorem.sentence(),
-                "authors": [{"full_name": "{}".format(lorem.sentence())}],
-                "abstracts": [{"value": "{}".format(lorem.text())}],
+                "authors": random.sample(self.AUTHORS, randint(1, 3)),
+                "abstract": "{}".format(lorem.text()),
                 "document_type": random.choice(self.DOCUMENT_TYPES),
                 "_access": {},
-                "languages": random.sample(self.LANGUAGES, 1),
+                "languages": random.sample(self.LANGUAGES, randint(1, 3)),
                 "imprints": [{"publisher": "{}".format(lorem.sentence())}],
                 "table_of_content": ["{}".format(lorem.sentence())],
-                "notes": [{"value": "{}".format(lorem.text())}],
+                "note": "{}".format(lorem.text()),
                 "tag_pids": random.sample(tag_pids, randint(0, 5)),
                 "edition": str(pid),
-                "keywords": lorem.sentence(),
+                "keywords": {"source": lorem.sentence(),
+                             "value": lorem.sentence()},
+                "conference_info": self.CONFERENCE_INFO,
+                "number_of_pages": str(random.randint(0, 300)),
+                "urls": [{"description": "{}".format(lorem.sentence()),
+                          "value": "{}".format(lorem.sentence()),
+                          }],
+
+
             }
             for pid in range(1, size + 1)
         ]

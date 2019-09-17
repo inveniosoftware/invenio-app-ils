@@ -36,7 +36,7 @@ export default class DocumentPanel extends Component {
                 </List>
                 <br />
                 <br />
-                <p>{this.document.metadata.abstracts[0].value}</p>
+                <p>{this.document.metadata.abstract}</p>
               </Grid.Column>
               <Grid.Column>
                 <DocumentCirculation />

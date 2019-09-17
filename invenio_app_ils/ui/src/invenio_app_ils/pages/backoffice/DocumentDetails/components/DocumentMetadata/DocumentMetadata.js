@@ -219,7 +219,12 @@ export default class DocumentMetadata extends Component {
       },
       {
         name: 'Keywords',
-        value: document.metadata.keywords,
+        value: document.metadata.keywords
+          ? document.metadata.keywords.value +
+            ' (' +
+            document.metadata.keywords.source +
+            ')'
+          : null,
       },
       {
         name: 'Tags',
@@ -361,7 +366,7 @@ export default class DocumentMetadata extends Component {
             <Grid.Column>
               <Container>
                 <Header as="h3">Abstract</Header>
-                <p>{document.metadata.abstracts[0].value}</p>
+                <p>{document.metadata.abstract}</p>
               </Container>
             </Grid.Column>
           </Grid.Row>
