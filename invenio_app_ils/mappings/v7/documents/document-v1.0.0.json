@@ -20,34 +20,31 @@
       "$schema": {
         "type": "keyword"
       },
-      "abstracts": {
-        "properties": {
-          "source": {
-            "type": "text"
-          },
-          "value": {
-            "type": "text"
-          }
-        },
-        "type": "object"
+      "abstract": {
+        "type": "text"
       },
       "authors": {
         "properties": {
           "affiliations": {
             "properties": {
-              "curated_relation": {
-                "type": "boolean"
+              "identifiers": {
+                "properties": {
+                  "scheme": {
+                    "type": "keyword"
+                  },
+                  "value": {
+                    "type": "keyword"
+                  }
+                },
+                "type": "object"
               },
-              "value": {
+              "name": {
                 "type": "keyword"
               }
             },
             "type": "object"
           },
           "alternative_names": {
-            "type": "keyword"
-          },
-          "email": {
             "type": "keyword"
           },
           "full_name": {
@@ -154,7 +151,15 @@
         "type": "object"
       },
       "keywords": {
-        "type": "text"
+        "properties": {
+          "source": {
+            "type": "text"
+          },
+          "value": {
+            "type": "text"
+          }
+        },
+        "type": "object"
       },
       "languages": {
         "type": "keyword"

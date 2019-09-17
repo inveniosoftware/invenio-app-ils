@@ -36,7 +36,7 @@ describe('Document relations tests', () => {
     );
 
     const buttons = component.find('ManageRelationsButton');
-    expect(buttons).toHaveLength(5);
+    expect(buttons).toHaveLength(1);
   });
 
   it('should render pagination for many rows', () => {

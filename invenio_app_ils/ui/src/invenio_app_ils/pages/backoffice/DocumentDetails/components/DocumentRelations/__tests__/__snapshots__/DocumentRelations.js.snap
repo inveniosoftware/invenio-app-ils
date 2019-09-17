@@ -28,52 +28,6 @@ exports[`Document relations tests should load the relations component 1`] = `
                   0
                 </Label>
                 Editions
-                <ManageRelationsButton
-                  Selector={[Function]}
-                  SelectorModal={
-                    Object {
-                      "$$typeof": Symbol(react.memo),
-                      "WrappedComponent": [MockFunction],
-                      "apply": [MockFunction],
-                      "bind": [MockFunction],
-                      "call": [MockFunction],
-                      "compare": null,
-                      "displayName": "Connect(ESSelectorModal)",
-                      "type": [MockFunction],
-                    }
-                  }
-                  config={
-                    Object {
-                      "modal": Object {
-                        "content": "Select related editions.",
-                        "title": "Manage related editions",
-                      },
-                      "recordTypes": Object {
-                        "Document": Object {
-                          "pidType": "docid",
-                          "selectorProps": Object {
-                            "query": [Function],
-                            "serializer": [Function],
-                          },
-                          "serializeSelection": [Function],
-                        },
-                        "Multipart monograph": Object {
-                          "pidType": "serid",
-                          "selectorProps": Object {
-                            "query": [Function],
-                            "serializer": [Function],
-                          },
-                          "serializeSelection": [Function],
-                        },
-                      },
-                    }
-                  }
-                  enabled={true}
-                  initialSelections={Array []}
-                  onRemoveSelection={[Function]}
-                  onSave={[Function]}
-                  relation="edition"
-                />
               </React.Fragment>,
               "key": "edition",
             },
@@ -86,44 +40,6 @@ exports[`Document relations tests should load the relations component 1`] = `
                   0
                 </Label>
                 Languages
-                <ManageRelationsButton
-                  Selector={[Function]}
-                  SelectorModal={
-                    Object {
-                      "$$typeof": Symbol(react.memo),
-                      "WrappedComponent": [MockFunction],
-                      "apply": [MockFunction],
-                      "bind": [MockFunction],
-                      "call": [MockFunction],
-                      "compare": null,
-                      "displayName": "Connect(ESSelectorModal)",
-                      "type": [MockFunction],
-                    }
-                  }
-                  config={
-                    Object {
-                      "modal": Object {
-                        "content": "Select related languages.",
-                        "title": "Manage related languages",
-                      },
-                      "recordTypes": Object {
-                        "Document": Object {
-                          "pidType": "docid",
-                          "selectorProps": Object {
-                            "query": [Function],
-                            "serializer": [Function],
-                          },
-                          "serializeSelection": [Function],
-                        },
-                      },
-                    }
-                  }
-                  enabled={false}
-                  initialSelections={Array []}
-                  onRemoveSelection={[Function]}
-                  onSave={[Function]}
-                  relation="language"
-                />
               </React.Fragment>,
               "key": "language",
             },
@@ -136,53 +52,6 @@ exports[`Document relations tests should load the relations component 1`] = `
                   0
                 </Label>
                 Multipart monographs
-                <ManageRelationsButton
-                  Selector={[Function]}
-                  SelectorModal={
-                    Object {
-                      "$$typeof": Symbol(react.memo),
-                      "WrappedComponent": [MockFunction],
-                      "apply": [MockFunction],
-                      "bind": [MockFunction],
-                      "call": [MockFunction],
-                      "compare": null,
-                      "displayName": "Connect(ESSelectorModal)",
-                      "type": [MockFunction],
-                    }
-                  }
-                  config={
-                    Object {
-                      "modal": Object {
-                        "content": "Select related multipart monographs.",
-                        "extraFields": Object {
-                          "volume": Object {
-                            "component": [Function],
-                            "label": "Volume",
-                            "props": Object {
-                              "placeholder": "Enter volume number...",
-                            },
-                          },
-                        },
-                        "title": "Manage related multipart monographs",
-                      },
-                      "recordTypes": Object {
-                        "Multipart monograph": Object {
-                          "pidType": "serid",
-                          "selectorProps": Object {
-                            "query": [Function],
-                            "serializer": [Function],
-                          },
-                          "serializeSelection": [Function],
-                        },
-                      },
-                    }
-                  }
-                  enabled={false}
-                  initialSelections={Array []}
-                  onRemoveSelection={[Function]}
-                  onSave={[Function]}
-                  relation="multipart_monograph"
-                />
               </React.Fragment>,
               "key": "multipart_monograph",
             },
@@ -195,53 +64,6 @@ exports[`Document relations tests should load the relations component 1`] = `
                   0
                 </Label>
                 Serials
-                <ManageRelationsButton
-                  Selector={[Function]}
-                  SelectorModal={
-                    Object {
-                      "$$typeof": Symbol(react.memo),
-                      "WrappedComponent": [MockFunction],
-                      "apply": [MockFunction],
-                      "bind": [MockFunction],
-                      "call": [MockFunction],
-                      "compare": null,
-                      "displayName": "Connect(ESSelectorModal)",
-                      "type": [MockFunction],
-                    }
-                  }
-                  config={
-                    Object {
-                      "modal": Object {
-                        "content": "Select related serials.",
-                        "extraFields": Object {
-                          "volume": Object {
-                            "component": [Function],
-                            "label": "Volume",
-                            "props": Object {
-                              "placeholder": "Enter volume number...",
-                            },
-                          },
-                        },
-                        "title": "Manage related serials",
-                      },
-                      "recordTypes": Object {
-                        "Serial": Object {
-                          "pidType": "serid",
-                          "selectorProps": Object {
-                            "query": [Function],
-                            "serializer": [Function],
-                          },
-                          "serializeSelection": [Function],
-                        },
-                      },
-                    }
-                  }
-                  enabled={false}
-                  initialSelections={Array []}
-                  onRemoveSelection={[Function]}
-                  onSave={[Function]}
-                  relation="serial"
-                />
               </React.Fragment>,
               "key": "serial",
             },
@@ -254,53 +76,6 @@ exports[`Document relations tests should load the relations component 1`] = `
                   0
                 </Label>
                 Others
-                <ManageRelationsButton
-                  Selector={[Function]}
-                  SelectorModal={
-                    Object {
-                      "$$typeof": Symbol(react.memo),
-                      "WrappedComponent": [MockFunction],
-                      "apply": [MockFunction],
-                      "bind": [MockFunction],
-                      "call": [MockFunction],
-                      "compare": null,
-                      "displayName": "Connect(ESSelectorModal)",
-                      "type": [MockFunction],
-                    }
-                  }
-                  config={
-                    Object {
-                      "modal": Object {
-                        "content": "Select related others.",
-                        "extraFields": Object {
-                          "note": Object {
-                            "component": [Function],
-                            "label": "Note",
-                            "props": Object {
-                              "placeholder": "Enter note...",
-                            },
-                          },
-                        },
-                        "title": "Manage related others",
-                      },
-                      "recordTypes": Object {
-                        "Document": Object {
-                          "pidType": "docid",
-                          "selectorProps": Object {
-                            "query": [Function],
-                            "serializer": [Function],
-                          },
-                          "serializeSelection": [Function],
-                        },
-                      },
-                    }
-                  }
-                  enabled={false}
-                  initialSelections={Array []}
-                  onRemoveSelection={[Function]}
-                  onSave={[Function]}
-                  relation="other"
-                />
               </React.Fragment>,
               "key": "other",
             },
