@@ -1,16 +1,214 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Document",
+  "type": "object",
+  "required": ["$schema", "pid", "title", "authors"],
   "properties": {
+    "$schema": {
+      "type": "string"
+    },
     "_access": {
+      "type": "object",
       "properties": {
         "read": {
           "type": "array"
         }
-      },
-      "type": "object"
+      }
     },
-    "$schema": {
-      "type": "string"
+    "arxiv_eprints": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "categories": {
+            "description": "List of categories currently existing on arXiv",
+            "items": {
+              "enum": [
+                "astro-ph",
+                "astro-ph.CO",
+                "astro-ph.EP",
+                "astro-ph.GA",
+                "astro-ph.HE",
+                "astro-ph.IM",
+                "astro-ph.SR",
+                "cond-mat",
+                "cond-mat.dis-nn",
+                "cond-mat.mes-hall",
+                "cond-mat.mtrl-sci",
+                "cond-mat.other",
+                "cond-mat.quant-gas",
+                "cond-mat.soft",
+                "cond-mat.stat-mech",
+                "cond-mat.str-el",
+                "cond-mat.supr-con",
+                "cs",
+                "cs.AI",
+                "cs.AR",
+                "cs.CC",
+                "cs.CE",
+                "cs.CG",
+                "cs.CL",
+                "cs.CR",
+                "cs.CV",
+                "cs.CY",
+                "cs.DB",
+                "cs.DC",
+                "cs.DL",
+                "cs.DM",
+                "cs.DS",
+                "cs.ET",
+                "cs.FL",
+                "cs.GL",
+                "cs.GR",
+                "cs.GT",
+                "cs.HC",
+                "cs.IR",
+                "cs.IT",
+                "cs.LG",
+                "cs.LO",
+                "cs.MA",
+                "cs.MM",
+                "cs.MS",
+                "cs.NA",
+                "cs.NE",
+                "cs.NI",
+                "cs.OH",
+                "cs.OS",
+                "cs.PF",
+                "cs.PL",
+                "cs.RO",
+                "cs.SC",
+                "cs.SD",
+                "cs.SE",
+                "cs.SI",
+                "cs.SY",
+                "econ",
+                "econ.EM",
+                "eess",
+                "eess.AS",
+                "eess.IV",
+                "eess.SP",
+                "gr-qc",
+                "hep-ex",
+                "hep-lat",
+                "hep-ph",
+                "hep-th",
+                "math",
+                "math-ph",
+                "math.AC",
+                "math.AG",
+                "math.AP",
+                "math.AT",
+                "math.CA",
+                "math.CO",
+                "math.CT",
+                "math.CV",
+                "math.DG",
+                "math.DS",
+                "math.FA",
+                "math.GM",
+                "math.GN",
+                "math.GR",
+                "math.GT",
+                "math.HO",
+                "math.IT",
+                "math.KT",
+                "math.LO",
+                "math.MG",
+                "math.MP",
+                "math.NA",
+                "math.NT",
+                "math.OA",
+                "math.OC",
+                "math.PR",
+                "math.QA",
+                "math.RA",
+                "math.RT",
+                "math.SG",
+                "math.SP",
+                "math.ST",
+                "nlin",
+                "nlin.AO",
+                "nlin.CD",
+                "nlin.CG",
+                "nlin.PS",
+                "nlin.SI",
+                "nucl-ex",
+                "nucl-th",
+                "physics",
+                "physics.acc-ph",
+                "physics.ao-ph",
+                "physics.app-ph",
+                "physics.atm-clus",
+                "physics.atom-ph",
+                "physics.bio-ph",
+                "physics.chem-ph",
+                "physics.class-ph",
+                "physics.comp-ph",
+                "physics.data-an",
+                "physics.ed-ph",
+                "physics.flu-dyn",
+                "physics.gen-ph",
+                "physics.geo-ph",
+                "physics.hist-ph",
+                "physics.ins-det",
+                "physics.med-ph",
+                "physics.optics",
+                "physics.plasm-ph",
+                "physics.pop-ph",
+                "physics.soc-ph",
+                "physics.space-ph",
+                "q-bio",
+                "q-bio.BM",
+                "q-bio.CB",
+                "q-bio.GN",
+                "q-bio.MN",
+                "q-bio.NC",
+                "q-bio.OT",
+                "q-bio.PE",
+                "q-bio.QM",
+                "q-bio.SC",
+                "q-bio.TO",
+                "q-fin",
+                "q-fin.CP",
+                "q-fin.EC",
+                "q-fin.GN",
+                "q-fin.MF",
+                "q-fin.PM",
+                "q-fin.PR",
+                "q-fin.RM",
+                "q-fin.ST",
+                "q-fin.TR",
+                "quant-ph",
+                "stat",
+                "stat.AP",
+                "stat.CO",
+                "stat.ME",
+                "stat.ML",
+                "stat.OT",
+                "stat.TH"
+              ],
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "arXiv categories of the eprint",
+            "type": "array",
+            "uniqueItems": true
+          },
+          "value": {
+            "minLength": 1,
+            "pattern": "^\\d{4}.\\d{4,5}|[\\w.]+(-[\\w.]+)?/\\d+$",
+            "title": "arXiv eprint identifier",
+            "type": "string"
+          }
+        },
+        "required": ["value"],
+        "title": "arXiv metadata",
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
     },
     "abstracts": {
       "items": [
@@ -32,6 +230,33 @@
       ],
       "minItems": 1,
       "title": "List of abstracts",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "affiliations": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "curated_relation": {
+            "default": false,
+            "type": "boolean"
+          },
+          "unit": {
+            "description": "Describes a type of the affiliation, ex. institution",
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "description": "Provides the name of affiliated unit",
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["unit", "value"],
+        "type": "object"
+      },
+      "minItems": 1,
+      "title": "List of related accelerators/experiments/study/project ",
       "type": "array",
       "uniqueItems": true
     },
@@ -78,6 +303,29 @@
             "title": "Author name",
             "type": "string"
           },
+          "ids": {
+            "items": {
+              "additionalProperties": false,
+              "description": "It is mainly used to uniquely identify the authors of their articles.",
+              "properties": {
+                "schema": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "value": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": ["schema", "value"],
+              "title": "Author identifier",
+              "type": "object"
+            },
+            "minItems": 1,
+            "title": "Identifiers of the author",
+            "type": "array",
+            "uniqueItems": true
+          },
           "note": {
             "type": "string"
           },
@@ -102,11 +350,74 @@
       "uniqueItems": false
     },
     "circulation": {
+      "type": "object",
       "properties": {
         "$ref": {
           "type": "string"
         }
+      }
+    },
+    "conference_info": {
+      "properties": {
+        "acronym": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "conference_codes": {
+          "description": "Conference identifiers",
+          "items": {
+            "schema": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "minLength": 1,
+          "type": "array"
+        },
+        "cnum": {
+          "minLength": 1,
+          "pattern": "^C\\d\\d-\\d\\d-\\d\\d(\\.\\d+)?$",
+          "title": "CNUM identifier of the conference",
+          "type": "string"
+        },
+        "closing_date": {
+          "format": "date",
+          "minLength": 1,
+          "type": "string"
+        },
+        "contact": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "country": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "opening_date": {
+          "format": "date",
+          "minLength": 1,
+          "type": "string"
+        },
+        "place": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "series": {
+          "minLength": 1,
+          "type": "string",
+          "number": {
+            "minLength": 1,
+            "type": "integer"
+          }
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
       },
+      "required": ["place", "title"],
       "type": "object"
     },
     "copyrights": {
@@ -169,19 +480,12 @@
       "type": "array",
       "uniqueItems": true
     },
+    "curated": {
+      "type": "boolean"
+    },
     "created_by": {
       "additionalProperties": false,
       "properties": {
-        "method": {
-          "enum": ["batchuploader", "oai", "submitter"],
-          "minLength": 1,
-          "title": "Data obtaining method",
-          "type": "string"
-        },
-        "source": {
-          "minLength": 1,
-          "type": "string"
-        },
         "submitter": {
           "description": "This field is used only when the method is submitter",
           "email": {
@@ -194,32 +498,75 @@
             "title": "User ID of the submitter",
             "type": "integer"
           }
+        },
+        "method": {
+          "enum": ["batchuploader", "harvester", "oai", "submitter"],
+          "minLength": 1,
+          "title": "Data obtaining method",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "type": "string"
         }
       },
       "title": "Origin of the metadata in the record",
       "type": "object"
     },
-    "curated": {
-      "type": "boolean"
-    },
     "document_type": {
-      "default": "BOOK",
+      "type": "string",
       "enum": ["BOOK", "PROCEEDINGS", "STANDARD"],
-      "title": "Document type",
-      "type": "string"
+      "default": "BOOK",
+      "title": "Document type"
+    },
+    "evaluation": {
+      "properties": {
+        "applicable": {
+          "description": "Determines if the record is suitable for the institution's usage.",
+          "enum": ["applicable", "not yet applicable", "no longer applicable"],
+          "minLength": 1,
+          "title": "Applicability for the organisation",
+          "type": "string"
+        },
+        "comment": {
+          "minLength": 1,
+          "title": "Comment",
+          "type": "string"
+        },
+        "date": {
+          "format": "date",
+          "title": "Evaulation date.",
+          "type": "string"
+        },
+        "evaluator": {
+          "type": "string",
+          "title": "Evaluation expert name."
+        },
+        "status": {
+          "enum": [
+            "published",
+            "withdrawn",
+            "under development",
+            "not published"
+          ],
+          "minLength": 1,
+          "title": "Record status"
+        }
+      },
+      "type": "object"
     },
     "edition": {
       "minLength": 1,
-      "title": "Book edition indicator",
-      "type": "string"
+      "type": "string",
+      "title": "Book edition indicator"
     },
     "eitems": {
+      "type": "object",
       "properties": {
         "$ref": {
           "type": "string"
         }
-      },
-      "type": "object"
+      }
     },
     "identifiers": {
       "properties": {
@@ -371,8 +718,6 @@
                 "type": "string"
               },
               "schema": {
-                "description": "`HDL <http://handle.net>`_\n* `URN\n  <https://en.wikipedia.org/wiki/Uniform_Resource_Name>`_",
-                "enum": ["HDL", "URN"],
                 "minLength": 1,
                 "title": "Type of identifier",
                 "type": "string"
@@ -395,10 +740,55 @@
           "title": "List of persistent identifiers",
           "type": "array",
           "uniqueItems": true
+        },
+        "report_numbers": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "hidden": {
+                "description": "Used in cases when report number is not yet officially assigned.",
+                "type": "boolean"
+              },
+              "source": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "value": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": ["value"],
+            "type": "object"
+          },
+          "minItems": 1,
+          "title": "List of report numbers assigned to the record",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "standard_numbers": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "hidden": {
+                "type": "boolean"
+              },
+              "value": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": ["value"],
+            "type": "object"
+          },
+          "minItems": 1,
+          "title": "List of standard numbers",
+          "type": "array",
+          "uniqueItems": true
         }
       },
-      "title": "Document identifiers.",
-      "type": "object"
+      "type": "object",
+      "title": "Document identifiers."
     },
     "imprints": {
       "items": {
@@ -437,18 +827,7 @@
       "items": {
         "additionalProperties": false,
         "description": "Visible only for Librarians",
-        "properties": {
-          "source": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "value": {
-            "minLength": 1,
-            "type": "string"
-          }
-        },
-        "required": ["value"],
-        "type": "object"
+        "type": "string"
       },
       "minItems": 1,
       "title": "List of internal notes",
@@ -456,15 +835,27 @@
       "uniqueItems": true
     },
     "items": {
+      "type": "object",
       "properties": {
         "$ref": {
           "type": "string"
         }
+      }
+    },
+    "keyword_pids": {
+      "type": "array",
+      "items": {
+        "type": "string"
       },
-      "type": "object"
+      "uniqueItems": true
     },
     "keywords": {
-      "type": "string"
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
     },
     "languages": {
       "items": {
@@ -749,8 +1140,8 @@
       "type": "integer"
     },
     "pid": {
-      "title": "Document ID",
-      "type": "string"
+      "type": "string",
+      "title": "Document ID"
     },
     "publication_info": {
       "items": {
@@ -760,64 +1151,6 @@
             "minLength": 1,
             "title": "Article ID",
             "type": "string"
-          },
-          "conference": {
-            "properties": {
-              "acronym": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "cern_conference_code": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "closing_date": {
-                "format": "date",
-                "minLength": 1,
-                "type": "string"
-              },
-              "cnum": {
-                "minLength": 1,
-                "pattern": "^C\\d\\d-\\d\\d-\\d\\d(\\.\\d+)?$",
-                "title": "CNUM identifier of the conference",
-                "type": "string"
-              },
-              "contact": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "country": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "inspire_cnum": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "opening_date": {
-                "format": "date",
-                "minLength": 1,
-                "type": "string"
-              },
-              "place": {
-                "minLength": 1,
-                "type": "string"
-              },
-              "series": {
-                "minLength": 1,
-                "number": {
-                  "minLength": 1,
-                  "type": "integer"
-                },
-                "type": "string"
-              },
-              "title": {
-                "minLength": 1,
-                "type": "string"
-              }
-            },
-            "required": ["place", "title"],
-            "type": "object"
           },
           "journal_issue": {
             "minLength": 1,
@@ -845,10 +1178,6 @@
             "minLength": 1,
             "type": "string"
           },
-          "note": {
-            "minLength": 1,
-            "type": "string"
-          },
           "page_end": {
             "minLength": 1,
             "title": "Last page of document",
@@ -857,6 +1186,10 @@
           "page_start": {
             "minLength": 1,
             "title": "First page of document",
+            "type": "string"
+          },
+          "note": {
+            "minLength": 1,
             "type": "string"
           },
           "year": {
@@ -872,102 +1205,112 @@
       "type": "array",
       "uniqueItems": true
     },
+    "relations_metadata": {
+      "type": "object",
+      "title": "Metadata to describe relations",
+      "properties": {
+        "multipart_monograph": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "serial": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "other": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
     "relations": {
+      "type": "object",
       "properties": {
         "$ref": {
           "type": "string"
         }
-      },
-      "type": "object"
+      }
     },
-    "relations_metadata": {
-      "properties": {
-        "multipart_monograph": {
-          "items": {
-            "properties": {
-              "pid": {
-                "type": "string"
-              },
-              "pid_type": {
-                "type": "string"
-              },
-              "volume": {
-                "type": "string"
-              }
-            },
-            "type": "object"
+    "subject_classification": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "schema": {
+            "description": "Describes to which schema the classification code belong.",
+            "enum": ["DEWEY", "ICS", "LOC", "UDC"],
+            "minLength": 1,
+            "title": "Subject classification",
+            "type": "string"
           },
-          "type": "array"
+          "source": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "minLength": 1,
+            "title": "A keyword",
+            "type": "string"
+          }
         },
-        "other": {
-          "items": {
-            "properties": {
-              "note": {
-                "type": "string"
-              },
-              "pid": {
-                "type": "string"
-              },
-              "pid_type": {
-                "type": "string"
-              }
-            },
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "serial": {
-          "items": {
-            "properties": {
-              "pid": {
-                "type": "string"
-              },
-              "pid_type": {
-                "type": "string"
-              },
-              "volume": {
-                "type": "string"
-              }
-            },
-            "type": "object"
-          },
-          "type": "array"
-        }
+        "required": ["value"],
+        "type": "object"
       },
-      "title": "Metadata to describe relations",
-      "type": "object"
+      "minItems": 1,
+      "title": "List of keywords",
+      "type": "array",
+      "uniqueItems": true
     },
     "table_of_content": {
       "description": "List of chapters",
       "items": {
-        "additionalProperties": false,
-        "properties": {
-          "value": {
-            "minLength": 1,
-            "type": "string"
-          }
-        }
+        "type": "string"
       },
       "minItems": 1,
       "type": "array",
       "uniqueItems": true
     },
-    "tag_pids": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array",
-      "uniqueItems": true
-    },
-    "tags": {
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "title": {
+      "title": "Document title",
+      "type": "object",
       "additionalProperties": false,
       "properties": {
         "alternative_titles": {
@@ -1010,9 +1353,7 @@
           "type": "string"
         }
       },
-      "required": ["title"],
-      "title": "Document title",
-      "type": "object"
+      "required": ["title"]
     },
     "title_translations": {
       "items": {
@@ -1233,16 +1574,6 @@
     "updated_by": {
       "additionalProperties": false,
       "properties": {
-        "method": {
-          "enum": ["batchuploader", "oai", "submitter"],
-          "minLength": 1,
-          "title": "Data obtaining method",
-          "type": "string"
-        },
-        "source": {
-          "minLength": 1,
-          "type": "string"
-        },
         "submitter": {
           "description": "This field is used only when the method is submitter",
           "email": {
@@ -1255,6 +1586,16 @@
             "title": "User ID of the submitter",
             "type": "integer"
           }
+        },
+        "method": {
+          "enum": ["batchuploader", "oai", "submitter"],
+          "minLength": 1,
+          "title": "Data obtaining method",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "type": "string"
         }
       },
       "title": "Origin of the metadata in the record",
@@ -1282,8 +1623,5 @@
       "type": "array",
       "uniqueItems": true
     }
-  },
-  "required": ["$schema", "pid", "title", "authors"],
-  "title": "Document",
-  "type": "object"
+  }
 }
