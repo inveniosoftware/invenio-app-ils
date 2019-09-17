@@ -1,66 +1,16 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Document",
-  "type": "object",
-  "required": ["$schema", "pid", "title", "authors"],
   "properties": {
-    "$schema": {
-      "type": "string"
-    },
     "_access": {
-      "type": "object",
       "properties": {
         "read": {
           "type": "array"
         }
-      }
-    },
-    "title": {
-      "title": "Document title",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "alternative_titles": {
-          "description": "Alternative titles of the document",
-          "items": [
-            {
-              "additionalProperties": false,
-              "properties": {
-                "source": {
-                  "minLength": 1,
-                  "type": "string"
-                },
-                "subtitle": {
-                  "minLength": 1,
-                  "type": "string"
-                },
-                "title": {
-                  "minLength": 1,
-                  "type": "string"
-                }
-              },
-              "required": ["title"],
-              "type": "object"
-            }
-          ],
-          "minItems": 1,
-          "type": "array",
-          "uniqueItems": true
-        },
-        "source": {
-          "minLength": 1,
-          "type": "string"
-        },
-        "subtitle": {
-          "minLength": 1,
-          "type": "string"
-        },
-        "title": {
-          "minLength": 1,
-          "type": "string"
-        }
       },
-      "required": ["title"]
+      "type": "object"
+    },
+    "$schema": {
+      "type": "string"
     },
     "abstracts": {
       "items": [
@@ -152,12 +102,12 @@
       "uniqueItems": false
     },
     "circulation": {
-      "type": "object",
       "properties": {
         "$ref": {
           "type": "string"
         }
-      }
+      },
+      "type": "object"
     },
     "copyrights": {
       "items": {
@@ -219,12 +169,19 @@
       "type": "array",
       "uniqueItems": true
     },
-    "curated": {
-      "type": "boolean"
-    },
     "created_by": {
       "additionalProperties": false,
       "properties": {
+        "method": {
+          "enum": ["batchuploader", "oai", "submitter"],
+          "minLength": 1,
+          "title": "Data obtaining method",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "type": "string"
+        },
         "submitter": {
           "description": "This field is used only when the method is submitter",
           "email": {
@@ -237,39 +194,32 @@
             "title": "User ID of the submitter",
             "type": "integer"
           }
-        },
-        "method": {
-          "enum": ["batchuploader", "oai", "submitter"],
-          "minLength": 1,
-          "title": "Data obtaining method",
-          "type": "string"
-        },
-        "source": {
-          "minLength": 1,
-          "type": "string"
         }
       },
       "title": "Origin of the metadata in the record",
       "type": "object"
     },
+    "curated": {
+      "type": "boolean"
+    },
     "document_type": {
-      "type": "string",
-      "enum": ["BOOK", "PROCEEDINGS", "STANDARD"],
       "default": "BOOK",
-      "title": "Document type"
+      "enum": ["BOOK", "PROCEEDINGS", "STANDARD"],
+      "title": "Document type",
+      "type": "string"
     },
     "edition": {
       "minLength": 1,
-      "type": "string",
-      "title": "Book edition indicator"
+      "title": "Book edition indicator",
+      "type": "string"
     },
     "eitems": {
-      "type": "object",
       "properties": {
         "$ref": {
           "type": "string"
         }
-      }
+      },
+      "type": "object"
     },
     "identifiers": {
       "properties": {
@@ -312,6 +262,50 @@
           },
           "minItems": 1,
           "title": "List of DOIs",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "external_system_identifiers": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "schema": {
+                "enum": [
+                  "ARXIV",
+                  "ASIN",
+                  "DCL",
+                  "DESY",
+                  "DOE",
+                  "EBL",
+                  "FIZ",
+                  "HAL",
+                  "IEECONF",
+                  "INDICO.CERN.CH",
+                  "INIS",
+                  "INSPIRE",
+                  "INSPIRE-CNUM",
+                  "KEK",
+                  "LHCLHC",
+                  "SAFARI",
+                  "SCEM",
+                  "UDCCERN",
+                  "WAI01"
+                ],
+                "minLength": 1,
+                "pattern": "^\\w+$",
+                "type": "string"
+              },
+              "value": {
+                "minLength": 1,
+                "pattern": "^\\S+$",
+                "title": "External identifier",
+                "type": "string"
+              }
+            },
+            "required": ["schema", "value"],
+            "type": "object"
+          },
+          "minItems": 1,
           "type": "array",
           "uniqueItems": true
         },
@@ -401,54 +395,10 @@
           "title": "List of persistent identifiers",
           "type": "array",
           "uniqueItems": true
-        },
-        "external_system_identifiers": {
-          "items": {
-            "additionalProperties": false,
-            "properties": {
-              "schema": {
-                "enum": [
-                  "ARXIV",
-                  "ASIN",
-                  "DCL",
-                  "DESY",
-                  "DOE",
-                  "EBL",
-                  "FIZ",
-                  "HAL",
-                  "IEECONF",
-                  "INDICO.CERN.CH",
-                  "INIS",
-                  "INSPIRE",
-                  "INSPIRE-CNUM",
-                  "KEK",
-                  "LHCLHC",
-                  "SAFARI",
-                  "SCEM",
-                  "UDCCERN",
-                  "WAI01"
-                ],
-                "minLength": 1,
-                "pattern": "^\\w+$",
-                "type": "string"
-              },
-              "value": {
-                "minLength": 1,
-                "pattern": "^\\S+$",
-                "title": "External identifier",
-                "type": "string"
-              }
-            },
-            "required": ["schema", "value"],
-            "type": "object"
-          },
-          "minItems": 1,
-          "type": "array",
-          "uniqueItems": true
         }
       },
-      "type": "object",
-      "title": "Document identifiers."
+      "title": "Document identifiers.",
+      "type": "object"
     },
     "imprints": {
       "items": {
@@ -506,27 +456,15 @@
       "uniqueItems": true
     },
     "items": {
-      "type": "object",
       "properties": {
         "$ref": {
           "type": "string"
         }
-      }
-    },
-    "keyword_pids": {
-      "type": "array",
-      "items": {
-        "type": "string"
       },
-      "uniqueItems": true
+      "type": "object"
     },
     "keywords": {
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      }
+      "type": "string"
     },
     "languages": {
       "items": {
@@ -811,8 +749,8 @@
       "type": "integer"
     },
     "pid": {
-      "type": "string",
-      "title": "Document ID"
+      "title": "Document ID",
+      "type": "string"
     },
     "publication_info": {
       "items": {
@@ -833,15 +771,15 @@
                 "minLength": 1,
                 "type": "string"
               },
+              "closing_date": {
+                "format": "date",
+                "minLength": 1,
+                "type": "string"
+              },
               "cnum": {
                 "minLength": 1,
                 "pattern": "^C\\d\\d-\\d\\d-\\d\\d(\\.\\d+)?$",
                 "title": "CNUM identifier of the conference",
-                "type": "string"
-              },
-              "closing_date": {
-                "format": "date",
-                "minLength": 1,
                 "type": "string"
               },
               "contact": {
@@ -867,11 +805,11 @@
               },
               "series": {
                 "minLength": 1,
-                "type": "string",
                 "number": {
                   "minLength": 1,
                   "type": "integer"
-                }
+                },
+                "type": "string"
               },
               "title": {
                 "minLength": 1,
@@ -907,6 +845,10 @@
             "minLength": 1,
             "type": "string"
           },
+          "note": {
+            "minLength": 1,
+            "type": "string"
+          },
           "page_end": {
             "minLength": 1,
             "title": "Last page of document",
@@ -915,10 +857,6 @@
           "page_start": {
             "minLength": 1,
             "title": "First page of document",
-            "type": "string"
-          },
-          "note": {
-            "minLength": 1,
             "type": "string"
           },
           "year": {
@@ -934,70 +872,70 @@
       "type": "array",
       "uniqueItems": true
     },
-    "relations_metadata": {
-      "type": "object",
-      "title": "Metadata to describe relations",
-      "properties": {
-        "multipart_monograph": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "pid": {
-                "type": "string"
-              },
-              "pid_type": {
-                "type": "string"
-              },
-              "volume": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "serial": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "pid": {
-                "type": "string"
-              },
-              "pid_type": {
-                "type": "string"
-              },
-              "volume": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "other": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "pid": {
-                "type": "string"
-              },
-              "pid_type": {
-                "type": "string"
-              },
-              "note": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      }
-    },
     "relations": {
-      "type": "object",
       "properties": {
         "$ref": {
           "type": "string"
         }
-      }
+      },
+      "type": "object"
+    },
+    "relations_metadata": {
+      "properties": {
+        "multipart_monograph": {
+          "items": {
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "other": {
+          "items": {
+            "properties": {
+              "note": {
+                "type": "string"
+              },
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "serial": {
+          "items": {
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "volume": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "title": "Metadata to describe relations",
+      "type": "object"
     },
     "table_of_content": {
       "description": "List of chapters",
@@ -1013,6 +951,68 @@
       "minItems": 1,
       "type": "array",
       "uniqueItems": true
+    },
+    "tag_pids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "tags": {
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "title": {
+      "additionalProperties": false,
+      "properties": {
+        "alternative_titles": {
+          "description": "Alternative titles of the document",
+          "items": [
+            {
+              "additionalProperties": false,
+              "properties": {
+                "source": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "subtitle": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "title": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": ["title"],
+              "type": "object"
+            }
+          ],
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "source": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "subtitle": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["title"],
+      "title": "Document title",
+      "type": "object"
     },
     "title_translations": {
       "items": {
@@ -1233,6 +1233,16 @@
     "updated_by": {
       "additionalProperties": false,
       "properties": {
+        "method": {
+          "enum": ["batchuploader", "oai", "submitter"],
+          "minLength": 1,
+          "title": "Data obtaining method",
+          "type": "string"
+        },
+        "source": {
+          "minLength": 1,
+          "type": "string"
+        },
         "submitter": {
           "description": "This field is used only when the method is submitter",
           "email": {
@@ -1245,16 +1255,6 @@
             "title": "User ID of the submitter",
             "type": "integer"
           }
-        },
-        "method": {
-          "enum": ["batchuploader", "oai", "submitter"],
-          "minLength": 1,
-          "title": "Data obtaining method",
-          "type": "string"
-        },
-        "source": {
-          "minLength": 1,
-          "type": "string"
         }
       },
       "title": "Origin of the metadata in the record",
@@ -1282,5 +1282,8 @@
       "type": "array",
       "uniqueItems": true
     }
-  }
+  },
+  "required": ["$schema", "pid", "title", "authors"],
+  "title": "Document",
+  "type": "object"
 }

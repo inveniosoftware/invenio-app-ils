@@ -22,9 +22,9 @@ export default class DocumentTabMenu extends Component {
         menuItem: 'Information',
         render: () => (
           <Tab.Pane>
-            {!isEmpty(documentMetadata.keywords)
-              ? documentMetadata.keywords.map(keyword => (
-                  <p key={keyword.pid}>{keyword.name}</p>
+            {!isEmpty(documentMetadata.tags)
+              ? documentMetadata.tags.map(tag => (
+                  <p key={tag.pid}>{tag.name}</p>
                 ))
               : null}
           </Tab.Pane>

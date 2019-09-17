@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Schema for Keyword",
+  "title": "Schema for Tag",
   "type": "object",
   "required": ["$schema", "pid", "name"],
   "properties": {
@@ -9,14 +9,14 @@
     },
     "pid": {
       "type": "string",
-      "title": "The persistent identifier of this Keyword"
+      "title": "The persistent identifier of this Tag"
     },
     "name": {
-      "description": "The name of this Keyword",
+      "description": "The name of this Tag",
       "type": "string"
     },
     "provenance": {
-      "description": "Specifies the provenance of the keyword",
+      "description": "Specifies the provenance of the Tag",
       "type": "string"
     }
   }

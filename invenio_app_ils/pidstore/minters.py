@@ -8,8 +8,8 @@
 """Circulation minters."""
 
 from .providers import DocumentIdProvider, EItemIdProvider, \
-    InternalLocationIdProvider, ItemIdProvider, KeywordIdProvider, \
-    LocationIdProvider, SeriesIdProvider
+    InternalLocationIdProvider, ItemIdProvider, LocationIdProvider, \
+    SeriesIdProvider, TagIdProvider
 
 
 def document_pid_minter(record_uuid, data):
@@ -67,10 +67,10 @@ def internal_location_pid_minter(record_uuid, data):
     return provider.pid
 
 
-def keyword_pid_minter(record_uuid, data):
-    """Mint keyword identifiers."""
+def tag_pid_minter(record_uuid, data):
+    """Mint tag identifiers."""
     assert "pid" not in data
-    provider = KeywordIdProvider.create(
+    provider = TagIdProvider.create(
         object_type='rec',
         object_uuid=record_uuid,
     )

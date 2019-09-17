@@ -10,7 +10,7 @@
 from marshmallow import Schema, fields
 
 
-class KeywordSchemaV1(Schema):
+class TagSchemaV1(Schema):
     """Keyword schema."""
 
     def get_pid_field(self):

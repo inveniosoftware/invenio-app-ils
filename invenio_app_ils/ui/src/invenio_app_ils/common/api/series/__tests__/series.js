@@ -1,11 +1,11 @@
 import { series as seriesApi } from '../series';
 
 describe('Series query builder tests', () => {
-  it('should build query string with a keyword', () => {
+  it('should build query string with a tag', () => {
     const query = seriesApi
       .query()
-      .withKeyword({ name: 'Keyword 1' })
+      .withTag({ name: 'Tag 1' })
       .qs();
-    expect(query).toEqual('keywords.name:"Keyword 1"');
+    expect(query).toEqual('tags.name:"Tag 1"');
   });
 });

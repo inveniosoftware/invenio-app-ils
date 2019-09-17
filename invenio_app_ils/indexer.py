@@ -340,17 +340,17 @@ class SeriesIndexer(RecordIndexer):
 
 
 @shared_task(ignore_result=True)
-def index_documents_and_series_after_keyword_indexed(keyword_pid):
-    """Index documents and series to re-compute keyword information."""
+def index_documents_and_series_after_tag_indexed(tag_pid):
+    """Index documents and series to re-compute tag information."""
     def index_record(cls, search):
         log_func = partial(
             _log,
-            origin_rec_type='Keyword',
-            origin_recid=keyword_pid,
+            origin_rec_type='Tag',
+            origin_recid=tag_pid,
             dest_rec_type=cls.__name__)
 
         log_func(msg=MSG_ORIGIN)
-        for record in search.search_by_keyword_pid(keyword_pid).scan():
+        for record in search.search_by_tag_pid(tag_pid).scan():
             pid = record["pid"]
             _index_record_by_pid(cls, pid, log_func)
 
@@ -358,15 +358,15 @@ def index_documents_and_series_after_keyword_indexed(keyword_pid):
     index_record(Series, SeriesSearch())
 
 
-class KeywordIndexer(RecordIndexer):
-    """Indexer class for Keyword record."""
+class TagIndexer(RecordIndexer):
+    """Indexer class for Tag record."""
 
-    def index(self, keyword):
-        """Index a keyword."""
-        super(KeywordIndexer, self).index(keyword)
+    def index(self, tag):
+        """Index a tag."""
+        super(TagIndexer, self).index(tag)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
-        index_documents_and_series_after_keyword_indexed.apply_async(
-            (keyword["pid"],),
+        index_documents_and_series_after_tag_indexed.apply_async(
+            (tag["pid"],),
             eta=eta,
         )
 

@@ -16,7 +16,7 @@ from .pids import (  # isort:skip
     EITEM_PID_TYPE,
     LOCATION_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
-    KEYWORD_PID_TYPE,
+    TAG_PID_TYPE,
     SERIES_PID_TYPE,
 )
 
@@ -106,10 +106,10 @@ class InternalLocationIdProvider(RecordIdProvider):
     """Record IDs are by default registered immediately."""
 
 
-class KeywordIdProvider(RecordIdProvider):
-    """Keyword identifier provider."""
+class TagIdProvider(RecordIdProvider):
+    """Tag identifier provider."""
 
-    pid_type = KEYWORD_PID_TYPE
+    pid_type = TAG_PID_TYPE
     """Type of persistent identifier."""
 
     pid_provider = None

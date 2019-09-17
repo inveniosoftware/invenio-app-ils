@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { HitsSearch } from '../HitsSearch';
-import { serializeKeyword } from '../serializer';
+import { serializeTag } from '../serializer';
 
 jest.mock('../ESSelectorLoanRequest', () => {
   return {
@@ -10,7 +10,7 @@ jest.mock('../ESSelectorLoanRequest', () => {
 });
 
 describe('HitsSearch tests', () => {
-  const serializer = serializeKeyword;
+  const serializer = serializeTag;
 
   let component;
   afterEach(() => {
@@ -77,8 +77,7 @@ describe('HitsSearch tests', () => {
               id: 1,
               pid: '1',
               metadata: {
-                $schema:
-                  'https://127.0.0.1:5000/schemas/keywords/keyword-v1.0.0.json',
+                $schema: 'https://127.0.0.1:5000/schemas/tags/tag-v1.0.0.json',
                 pid: '1',
                 name: 'Dolorem',
                 provenance: 'Quaerat',

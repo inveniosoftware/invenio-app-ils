@@ -21,7 +21,7 @@ from invenio_search import current_search
 
 from invenio_app_ils.circulation.mail.factory import message_factory
 from invenio_app_ils.records.api import Document, EItem, InternalLocation, \
-    Item, Keyword, Location, Series
+    Item, Location, Series, Tag
 
 from ..helpers import load_json_from_datadir
 from .helpers import document_ref_builder, internal_location_ref_builder, \
@@ -33,7 +33,7 @@ from invenio_app_ils.pidstore.pids import (  # isort:skip
     ITEM_PID_TYPE,
     LOCATION_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
-    KEYWORD_PID_TYPE,
+    TAG_PID_TYPE,
     SERIES_PID_TYPE,
 )
 
@@ -112,10 +112,10 @@ def testdata(app, db, es_clear):
         db.session.commit()
         indexer.index(record)
 
-    keywords = load_json_from_datadir("keywords.json")
-    for keyword in keywords:
-        record = Keyword.create(keyword)
-        mint_record_pid(KEYWORD_PID_TYPE, "pid", record)
+    tags = load_json_from_datadir("tags.json")
+    for tag in tags:
+        record = Tag.create(tag)
+        mint_record_pid(TAG_PID_TYPE, "pid", record)
         record.commit()
         db.session.commit()
         indexer.index(record)
@@ -169,7 +169,7 @@ def testdata(app, db, es_clear):
         "documents": documents,
         "items": items,
         "loans": loans,
-        "keywords": keywords,
+        "tags": tags,
         "series": series_data,
     }
 
@@ -222,10 +222,10 @@ def testdata_most_loaned(app, db, es_clear):
         db.session.commit()
         indexer.index(record)
 
-    keywords = load_json_from_datadir("keywords.json")
-    for keyword in keywords:
-        record = Keyword.create(keyword)
-        mint_record_pid(KEYWORD_PID_TYPE, "pid", record)
+    tags = load_json_from_datadir("tags.json")
+    for tag in tags:
+        record = Tag.create(tag)
+        mint_record_pid(TAG_PID_TYPE, "pid", record)
         record.commit()
         db.session.commit()
         indexer.index(record)
@@ -279,6 +279,6 @@ def testdata_most_loaned(app, db, es_clear):
         "documents": documents,
         "items": items,
         "loans": loans,
-        "keywords": keywords,
+        "tags": tags,
         "series": series_data,
     }

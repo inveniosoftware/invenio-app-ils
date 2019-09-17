@@ -10,7 +10,7 @@
         "authors": {
           "type": "text",
           "fields": {
-            "keyword": {
+            "tag": {
               "type": "keyword"
             }
           }

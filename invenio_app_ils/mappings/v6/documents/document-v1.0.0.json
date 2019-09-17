@@ -4,47 +4,22 @@
       "date_detection": false,
       "numeric_detection": false,
       "properties": {
-        "$schema": {
-          "type": "keyword"
-        },
-        "pid": {
-          "type": "keyword"
-        },
         "_access": {
-          "type": "object",
           "properties": {
             "read": {
               "type": "keyword"
             }
-          }
-        },
-        "title": {
-          "properties": {
-            "alternative_titles": {
-              "type": "object",
-              "properties": {
-                "source": {
-                  "type": "text"
-                },
-                "title": {
-                  "type": "text"
-                },
-                "subtitle": {
-                  "type": "text"
-                }
-              }
-            },
-            "source": {
-              "type": "text"
-            },
-            "title": {
-              "type": "text"
-            },
-            "subtitle": {
-              "type": "text"
-            }
           },
           "type": "object"
+        },
+        "_created": {
+          "type": "date"
+        },
+        "_updated": {
+          "type": "date"
+        },
+        "$schema": {
+          "type": "keyword"
         },
         "abstracts": {
           "properties": {
@@ -58,10 +33,8 @@
           "type": "object"
         },
         "authors": {
-          "type": "object",
           "properties": {
             "affiliations": {
-              "type": "object",
               "properties": {
                 "curated_relation": {
                   "type": "boolean"
@@ -69,7 +42,8 @@
                 "value": {
                   "type": "keyword"
                 }
-              }
+              },
+              "type": "object"
             },
             "alternative_names": {
               "type": "keyword"
@@ -83,180 +57,48 @@
             "roles": {
               "type": "keyword"
             }
-          }
+          },
+          "type": "object"
         },
-        "edition": {
-          "type": "text"
+        "circulation": {
+          "properties": {
+            "active_loans": {
+              "type": "integer"
+            },
+            "can_circulate_items_count": {
+              "type": "integer"
+            },
+            "has_items_for_loan": {
+              "type": "integer"
+            },
+            "next_available_date": {
+              "type": "date"
+            },
+            "overbooked": {
+              "type": "boolean"
+            },
+            "overdue_loans": {
+              "type": "integer"
+            },
+            "past_loans_count": {
+              "type": "integer"
+            },
+            "pending_loans": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
         },
         "document_type": {
           "type": "keyword"
         },
-        "languages": {
-          "type": "keyword"
-        },
-        "keyword_pids": {
-          "type": "keyword"
-        },
-        "keywords": {
-          "type": "object",
-          "properties": {
-            "pid": {
-              "type": "keyword"
-            },
-            "name": {
-              "type": "keyword"
-            },
-            "provenance": {
-              "type": "keyword"
-            }
-          }
-        },
-        "relations_metadata": {
-          "type": "object",
-          "properties": {
-            "multipart_monograph": {
-              "type": "object",
-              "properties": {
-                "pid": {
-                  "type": "keyword"
-                },
-                "pid_type": {
-                  "type": "keyword"
-                },
-                "volume": {
-                  "type": "keyword"
-                }
-              }
-            },
-            "serial": {
-              "type": "object",
-              "properties": {
-                "pid": {
-                  "type": "keyword"
-                },
-                "pid_type": {
-                  "type": "keyword"
-                },
-                "volume": {
-                  "type": "keyword"
-                }
-              }
-            },
-            "other": {
-              "type": "object",
-              "properties": {
-                "pid": {
-                  "type": "keyword"
-                },
-                "pid_type": {
-                  "type": "keyword"
-                },
-                "note": {
-                  "type": "keyword"
-                }
-              }
-            }
-          }
-        },
-        "relations": {
-          "type": "object",
-          "properties": {
-            "multipart_monograph": {
-              "type": "object",
-              "properties": {
-                "pid": {
-                  "type": "keyword"
-                },
-                "pid_type": {
-                  "type": "keyword"
-                },
-                "volume": {
-                  "type": "keyword"
-                },
-                "title": {
-                  "type": "text"
-                }
-              }
-            },
-            "serial": {
-              "type": "object",
-              "properties": {
-                "pid": {
-                  "type": "keyword"
-                },
-                "pid_type": {
-                  "type": "keyword"
-                },
-                "volume": {
-                  "type": "keyword"
-                },
-                "title": {
-                  "type": "text"
-                }
-              }
-            },
-            "edition": {
-              "type": "object",
-              "properties": {
-                "pid": {
-                  "type": "keyword"
-                },
-                "pid_type": {
-                  "type": "keyword"
-                },
-                "title": {
-                  "type": "text"
-                }
-              }
-            },
-            "language": {
-              "type": "object",
-              "properties": {
-                "pid": {
-                  "type": "keyword"
-                },
-                "pid_type": {
-                  "type": "keyword"
-                },
-                "language": {
-                  "type": "keyword"
-                },
-                "title": {
-                  "type": "text"
-                }
-              }
-            },
-            "other": {
-              "type": "object",
-              "properties": {
-                "pid": {
-                  "type": "keyword"
-                },
-                "pid_type": {
-                  "type": "keyword"
-                },
-                "note": {
-                  "type": "keyword"
-                },
-                "title": {
-                  "type": "text"
-                }
-              }
-            }
-          }
+        "edition": {
+          "type": "text"
         },
         "eitems": {
-          "type": "object",
           "properties": {
-            "total": {
-              "type": "integer"
-            },
             "hits": {
-              "type": "object",
               "properties": {
-                "pid": {
-                  "type": "keyword"
-                },
                 "description": {
                   "type": "text"
                 },
@@ -265,79 +107,240 @@
                 },
                 "open_access": {
                   "type": "boolean"
-                }
-              }
-            }
-          }
-        },
-        "items": {
-          "type": "object",
-          "properties": {
-            "total": {
-              "type": "integer"
-            },
-            "hits": {
-              "type": "object",
-              "properties": {
+                },
                 "pid": {
                   "type": "keyword"
-                },
-                "internal_location_pid": {
+                }
+              },
+              "type": "object"
+            },
+            "total": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "items": {
+          "properties": {
+            "hits": {
+              "properties": {
+                "barcode": {
                   "type": "keyword"
                 },
                 "circulation_restriction": {
                   "type": "keyword"
                 },
-                "barcode": {
+                "description": {
+                  "type": "text"
+                },
+                "internal_location_pid": {
                   "type": "keyword"
                 },
                 "medium": {
                   "type": "keyword"
                 },
-                "status": {
+                "pid": {
                   "type": "keyword"
                 },
-                "description": {
+                "status": {
+                  "type": "keyword"
+                }
+              },
+              "type": "object"
+            },
+            "total": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "keywords": {
+          "type": "text"
+        },
+        "languages": {
+          "type": "keyword"
+        },
+        "pid": {
+          "type": "keyword"
+        },
+        "relations": {
+          "properties": {
+            "edition": {
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "title": {
                   "type": "text"
                 }
-              }
+              },
+              "type": "object"
+            },
+            "language": {
+              "properties": {
+                "language": {
+                  "type": "keyword"
+                },
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "title": {
+                  "type": "text"
+                }
+              },
+              "type": "object"
+            },
+            "multipart_monograph": {
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "title": {
+                  "type": "text"
+                },
+                "volume": {
+                  "type": "keyword"
+                }
+              },
+              "type": "object"
+            },
+            "other": {
+              "properties": {
+                "note": {
+                  "type": "keyword"
+                },
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "title": {
+                  "type": "text"
+                }
+              },
+              "type": "object"
+            },
+            "serial": {
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "title": {
+                  "type": "text"
+                },
+                "volume": {
+                  "type": "keyword"
+                }
+              },
+              "type": "object"
             }
-          }
+          },
+          "type": "object"
         },
-        "circulation": {
-          "type": "object",
+        "relations_metadata": {
           "properties": {
-            "active_loans": {
-              "type": "integer"
+            "multipart_monograph": {
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "volume": {
+                  "type": "keyword"
+                }
+              },
+              "type": "object"
             },
-            "has_items_for_loan": {
-              "type": "integer"
+            "other": {
+              "properties": {
+                "note": {
+                  "type": "keyword"
+                },
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                }
+              },
+              "type": "object"
             },
-            "past_loans_count": {
-              "type": "integer"
-            },
-            "can_circulate_items_count": {
-              "type": "integer"
-            },
-            "overbooked": {
-              "type": "boolean"
-            },
-            "overdue_loans": {
-              "type": "integer"
-            },
-            "pending_loans": {
-              "type": "integer"
-            },
-            "next_available_date": {
-              "type": "date"
+            "serial": {
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "pid_type": {
+                  "type": "keyword"
+                },
+                "volume": {
+                  "type": "keyword"
+                }
+              },
+              "type": "object"
             }
-          }
+          },
+          "type": "object"
         },
-        "_created": {
-          "type": "date"
+        "tag_pids": {
+          "type": "keyword"
         },
-        "_updated": {
-          "type": "date"
+        "tags": {
+          "properties": {
+            "name": {
+              "type": "keyword"
+            },
+            "pid": {
+              "type": "keyword"
+            },
+            "provenance": {
+              "type": "keyword"
+            }
+          },
+          "type": "object"
+        },
+        "title": {
+          "properties": {
+            "alternative_titles": {
+              "properties": {
+                "source": {
+                  "type": "text"
+                },
+                "subtitle": {
+                  "type": "text"
+                },
+                "title": {
+                  "type": "text"
+                }
+              },
+              "type": "object"
+            },
+            "source": {
+              "type": "text"
+            },
+            "subtitle": {
+              "type": "text"
+            },
+            "title": {
+              "type": "text"
+            }
+          },
+          "type": "object"
         }
       }
     }

@@ -25,13 +25,13 @@ class DocumentSearch(RecordsSearch):
         """Retrieve documents with the given pid(s)."""
         return self.filter("terms", pid=pids)
 
-    def search_by_keyword_pid(self, keyword_pid=None, filter_states=None,
+    def search_by_tag_pid(self, tag_pid=None, filter_states=None,
                               exclude_states=None):
-        """Retrieve documents based on the given keyword pid."""
+        """Retrieve documents based on the given tag pid."""
         search = self
-        return KeywordSearch.filter_by_keyword_pid(
+        return TagSearch.filter_by_tag_pid(
             search,
-            keyword_pid,
+            tag_pid,
             filter_states,
             exclude_states
         )
@@ -174,13 +174,13 @@ class SeriesSearch(RecordsSearch):
         index = "series"
         doc_types = None
 
-    def search_by_keyword_pid(self, keyword_pid=None, filter_states=None,
+    def search_by_tag_pid(self, tag_pid=None, filter_states=None,
                               exclude_states=None):
-        """Retrieve series with the given keyword pid."""
+        """Retrieve series with the given tag pid."""
         search = self
-        return KeywordSearch.filter_by_keyword_pid(
+        return TagSearch.filter_by_tag_pid(
             search,
-            keyword_pid,
+            tag_pid,
             filter_states,
             exclude_states
         )
@@ -196,24 +196,24 @@ class PatronsSearch(RecordsSearch):
         doc_types = None
 
 
-class KeywordSearch(RecordsSearch):
-    """Search for keywords."""
+class TagSearch(RecordsSearch):
+    """Search for tags."""
 
     class Meta:
-        """Search only on keywords index."""
+        """Search only on tags index."""
 
-        index = "keywords"
+        index = "tags"
         doc_types = None
 
     @classmethod
-    def filter_by_keyword_pid(cls, search, keyword_pid, filter_states=None,
+    def filter_by_tag_pid(cls, search, tag_pid, filter_states=None,
                               exclude_states=None):
-        """Filter a search by keyword PID."""
-        if keyword_pid:
-            search = search.filter("term", keyword_pids=keyword_pid)
+        """Filter a search by tag PID."""
+        if tag_pid:
+            search = search.filter("term", tag_pids=tag_pid)
         else:
             raise MissingRequiredParameterError(
-                description="keyword_pid is required"
+                description="tag_pid is required"
             )
 
         if filter_states:

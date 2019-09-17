@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Icon, Segment } from 'semantic-ui-react';
+import { Icon, Segment } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import PropTypes from 'prop-types';
 

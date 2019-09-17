@@ -30,8 +30,8 @@ describe('DocumentMetadata tests', () => {
       circulation: {},
       pid: '71',
       document_type: ['BOOK'],
-      keyword_pids: ['24'],
-      keywords: [],
+      tag_pids: ['24'],
+      tags: [],
       eitems: {
         total: 1,
         hits: [

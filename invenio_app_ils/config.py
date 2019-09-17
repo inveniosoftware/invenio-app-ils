@@ -64,7 +64,7 @@ from .indexer import (  # isort:skip
     DocumentIndexer,
     ItemIndexer,
     EItemIndexer,
-    KeywordIndexer,
+    TagIndexer,
     LoanIndexer,
     LocationIndexer,
     SeriesIndexer,
@@ -88,9 +88,9 @@ from .pidstore.pids import (  # isort:skip
     EITEM_PID_FETCHER,
     EITEM_PID_MINTER,
     EITEM_PID_TYPE,
-    KEYWORD_PID_TYPE,
-    KEYWORD_PID_MINTER,
-    KEYWORD_PID_FETCHER,
+    TAG_PID_TYPE,
+    TAG_PID_MINTER,
+    TAG_PID_FETCHER,
     LOCATION_PID_FETCHER,
     LOCATION_PID_MINTER,
     LOCATION_PID_TYPE,
@@ -105,7 +105,7 @@ from .records.api import (  # isort:skip
     Document,
     Item,
     EItem,
-    Keyword,
+    Tag,
     Location,
     InternalLocation,
     Patron,
@@ -121,7 +121,7 @@ from .search.api import (  # isort:skip
     DocumentSearch,
     ItemSearch,
     EItemSearch,
-    KeywordSearch,
+    TagSearch,
     LocationSearch,
     InternalLocationSearch,
     SeriesSearch,
@@ -301,8 +301,8 @@ _LOCID_CONVERTER = (
 _ILOCID_CONVERTER = (
     'pid(ilocid, record_class="invenio_app_ils.records.api:InternalLocation")'
 )
-_KEYID_CONVERTER = (
-    'pid(keyid, record_class="invenio_app_ils.records.api:Keyword")'
+_TAGID_CONVERTER = (
+    'pid(tagid, record_class="invenio_app_ils.records.api:Tag")'
 )
 _SERID_CONVERTER = (
     'pid(serid, record_class="invenio_app_ils.records.api:Series")'
@@ -575,13 +575,13 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all,
     ),
-    keyid=dict(
-        pid_type=KEYWORD_PID_TYPE,
-        pid_minter=KEYWORD_PID_MINTER,
-        pid_fetcher=KEYWORD_PID_FETCHER,
-        search_class=KeywordSearch,
-        record_class=Keyword,
-        indexer_class=KeywordIndexer,
+    tagid=dict(
+        pid_type=TAG_PID_TYPE,
+        pid_minter=TAG_PID_MINTER,
+        pid_fetcher=TAG_PID_FETCHER,
+        search_class=TagSearch,
+        record_class=Tag,
+        indexer_class=TagIndexer,
         record_serializers={
             "application/json": (
                 "invenio_records_rest.serializers" ":json_v1_response"
@@ -592,8 +592,8 @@ RECORDS_REST_ENDPOINTS = dict(
                 "invenio_records_rest.serializers:json_v1_search"
             )
         },
-        item_route="/keywords/<{0}:pid_value>".format(_KEYID_CONVERTER),
-        list_route="/keywords/",
+        item_route="/tags/<{0}:pid_value>".format(_TAGID_CONVERTER),
+        list_route="/tags/",
         default_media_type="application/json",
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
@@ -808,14 +808,14 @@ RECORDS_REST_SORT_OPTIONS = dict(
 #: Number of records to fetch by default
 RECORDS_REST_DEFAULT_RESULTS_SIZE = 10
 
-#: Number of keywords to display in the DocumentsSearch facet
-FACET_KEYWORD_LIMIT = 5
+#: Number of tags to display in the DocumentsSearch facet
+FACET_TAG_LIMIT = 5
 
 RECORDS_REST_FACETS = dict(
     documents=dict(  # DocumentSearch.Meta.index
         aggs=dict(
-            keywords=dict(
-                terms=dict(field="keywords.name", size=FACET_KEYWORD_LIMIT)
+            tags=dict(
+                terms=dict(field="tags.name", size=FACET_TAG_LIMIT)
             ),
             languages=dict(terms=dict(field="languages")),
             document_type=dict(terms=dict(field="document_type")),
@@ -842,7 +842,7 @@ RECORDS_REST_FACETS = dict(
         filters=dict(
             document_type=terms_filter("document_type"),
             languages=terms_filter("languages"),
-            keywords=terms_filter("keywords.name"),
+            tags=terms_filter("tags.name"),
             has_items=keyed_range_filter(
                 "items.total", {"printed versions": {"gt": 0}}
             ),
@@ -880,7 +880,7 @@ RECORDS_REST_FACETS = dict(
     ),
     series=dict(  # SeriesSearch.Meta.index
         aggs=dict(moi=dict(terms=dict(field="mode_of_issuance"))),
-        filters=dict(keywords=terms_filter("keywords.name")),
+        filters=dict(tags=terms_filter("tags.name")),
         post_filters=dict(moi=terms_filter("mode_of_issuance")),
     ),
 )
@@ -936,7 +936,7 @@ RECORDS_EDITOR_UI_CONFIG = {
                     "$schema": {"hidden": True},
                     "pid": {"hidden": True},
                     "circulation": {"hidden": True},
-                    "keywords": {"hidden": True},
+                    "tags": {"hidden": True},
                     "relations": {"hidden": True},
                     "relations_metadata": {"hidden": True},
                     "_access": {"hidden": True},
@@ -998,7 +998,7 @@ RECORDS_EDITOR_UI_CONFIG = {
                 "properties": {
                     "$schema": {"hidden": True},
                     "pid": {"hidden": True},
-                    "keywords": {"hidden": True},
+                    "tags": {"hidden": True},
                 },
             }
         },
@@ -1025,10 +1025,10 @@ RECORDS_EDITOR_UI_CONFIG = {
             }
         },
     },
-    "keywords": {
+    "tags": {
         "recordConfig": {
-            "apiUrl": "api/keywords/",
-            "schema": "keywords/keyword-v1.0.0.json",
+            "apiUrl": "api/tags/",
+            "schema": "tags/tag-v1.0.0.json",
         },
         "editorConfig": {
             "schemaOptions": {
