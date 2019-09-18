@@ -85,6 +85,7 @@ describe('DocumentRequestsSearch ResultsList tests', () => {
       'Updated',
       'State',
       'Document ID',
+      'Patron ID',
       'Title',
       'Authors',
     ]);

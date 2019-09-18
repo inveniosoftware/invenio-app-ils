@@ -20,6 +20,7 @@ export class ResultsList extends Component {
         'Created',
         'Updated',
         'State',
+        'Patron ID',
         'Document ID',
         'Title',
         'Authors',

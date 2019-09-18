@@ -9,7 +9,7 @@ import { MostLoanedBooks } from './components/MostLoanedBooks';
 import { MostRecentBooks } from './components/MostRecentBooks';
 import { MostRecentEbooks } from './components/MostRecentEbooks';
 import { default as config } from './config';
-import { goToHandler } from '../../../history';
+import { goTo } from '../../../history';
 
 export default class Home extends Component {
   constructor(props) {
@@ -22,6 +22,11 @@ export default class Home extends Component {
     this.setState({ query: event.target.value });
   }
 
+  onSubmit = () => {
+    const query = encodeURIComponent(this.state.query);
+    goTo(FrontSiteRoutes.documentsListWithQuery(query));
+  };
+
   render() {
     return (
       <div className="home-container">
@@ -30,11 +35,7 @@ export default class Home extends Component {
 
           <Grid.Row centered columns={2}>
             <Container className="books-search-searchbar">
-              <Form
-                onSubmit={goToHandler(
-                  FrontSiteRoutes.documentsListWithQuery(this.state.query)
-                )}
-              >
+              <Form onSubmit={this.onSubmit}>
                 <Input
                   fluid
                   icon={
@@ -43,9 +44,7 @@ export default class Home extends Component {
                       inverted
                       circular
                       link
-                      onClick={goToHandler(
-                        FrontSiteRoutes.documentsListWithQuery(this.state.query)
-                      )}
+                      onClick={this.onSubmit}
                     />
                   }
                   size="large"

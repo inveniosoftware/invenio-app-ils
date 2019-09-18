@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List, Button } from 'semantic-ui-react';
-import { omit } from 'lodash/object';
 import { CancelModal } from '../../../../../common/components/CancelModal';
 
 export default class RequestActions extends Component {
@@ -14,9 +13,8 @@ export default class RequestActions extends Component {
 
   getAvailableActions() {
     const { pid, state } = this.props.documentRequestDetails.metadata;
-    const actions = [];
 
-    if (state == 'PENDING') {
+    if (state === 'PENDING') {
       return [
         {
           name: 'Fulfill',

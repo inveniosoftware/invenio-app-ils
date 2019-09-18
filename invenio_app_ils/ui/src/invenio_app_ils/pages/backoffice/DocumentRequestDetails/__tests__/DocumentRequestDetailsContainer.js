@@ -20,9 +20,7 @@ describe('DocumentRequestDetailsContainer tests', () => {
     listen: () => () => {},
   };
   const routerUrlParams = {
-    params: {
-      documentRequestPid: 879,
-    },
+    params: {},
   };
 
   it('should load the details component', () => {
@@ -37,16 +35,14 @@ describe('DocumentRequestDetailsContainer tests', () => {
   });
 
   it('should fetch documentRequest details on mount', () => {
-    const mockedFetchDocumentRequestDetails = jest.fn();
+    const mockedFetchDocumentRequests = jest.fn();
     component = mount(
       <DocumentRequestDetailsContainer
         history={routerHistory}
         match={routerUrlParams}
-        fetchDocumentRequestDetails={mockedFetchDocumentRequestDetails}
+        fetchDocumentRequestDetails={mockedFetchDocumentRequests}
       />
     );
-    expect(mockedFetchDocumentRequestDetails).toHaveBeenCalledWith(
-      routerUrlParams.params.documentRequestPid
-    );
+    expect(mockedFetchDocumentRequests).toHaveBeenCalled();
   });
 });

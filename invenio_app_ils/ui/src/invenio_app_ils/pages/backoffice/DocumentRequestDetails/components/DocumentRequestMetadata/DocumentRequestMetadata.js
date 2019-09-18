@@ -1,19 +1,8 @@
-import { invenioConfig } from '../../../../../common/config';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {
-  Container,
-  Divider,
-  Grid,
-  Header,
-  Icon,
-  Message,
-  Segment,
-} from 'semantic-ui-react';
+import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import { MetadataTable } from '../../../components/MetadataTable';
-import isEmpty from 'lodash/isEmpty';
-import { toShortDateTime } from '../../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { RequestActions } from '../RequestActions';
 import { EditButton } from '../../../components/buttons';
@@ -50,13 +39,6 @@ export default class DocumentRequestMetadata extends Component {
     const docPid = data.metadata.document_pid;
     const rows = [];
     if (docPid) {
-      const title = (
-        <Link
-          to={BackOfficeRoutes.documentDetailsFor(data.metadata.document_pid)}
-        >
-          {data.metadata.document.title}
-        </Link>
-      );
       rows.push({
         name: 'Document',
         value: (

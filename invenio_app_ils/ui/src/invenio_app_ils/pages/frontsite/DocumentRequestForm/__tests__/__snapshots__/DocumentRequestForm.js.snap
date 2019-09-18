@@ -1,0 +1,763 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentRequestForm tests should render the document request form correctly 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <DocumentRequestForm>
+      <Loader>
+        <Container
+          id="document-request"
+        >
+          <div
+            className="ui container"
+            id="document-request"
+          >
+            <Header
+              as="h1"
+            >
+              <h1
+                className="ui header"
+              >
+                Request new book
+              </h1>
+            </Header>
+            <p>
+              Fill in the form below to request a new book from the library.
+            </p>
+            <p>
+              You can see all your book requests on your
+               
+              <Link
+                to="/profile"
+              >
+                <a
+                  href="/profile"
+                  onClick={[Function]}
+                >
+                  profile
+                </a>
+              </Link>
+               page.
+            </p>
+            <Segment>
+              <div
+                className="ui segment"
+              >
+                <Formik
+                  enableReinitialize={false}
+                  initialValues={
+                    Object {
+                      "authors": "",
+                      "isbn": "",
+                      "issn": "",
+                      "issue": "",
+                      "note": "",
+                      "page": "",
+                      "publication_year": "",
+                      "title": "",
+                      "volume": "",
+                    }
+                  }
+                  isInitialValid={false}
+                  onSubmit={[Function]}
+                  render={[Function]}
+                  validateOnBlur={true}
+                  validateOnChange={true}
+                  validationSchema={
+                    ObjectSchema {
+                      "_blacklist": RefSet {
+                        "list": Set {},
+                        "refs": Map {},
+                      },
+                      "_conditions": Array [],
+                      "_defaultDefault": [Function],
+                      "_deps": Array [],
+                      "_excludedEdges": Array [],
+                      "_exclusive": Object {},
+                      "_mutate": undefined,
+                      "_nodes": Array [
+                        "publication_year",
+                        "title",
+                      ],
+                      "_options": Object {
+                        "abortEarly": true,
+                        "recursive": true,
+                      },
+                      "_type": "object",
+                      "_typeError": [Function],
+                      "_whitelist": RefSet {
+                        "list": Set {},
+                        "refs": Map {},
+                      },
+                      "fields": Object {
+                        "publication_year": NumberSchema {
+                          "_blacklist": RefSet {
+                            "list": Set {},
+                            "refs": Map {},
+                          },
+                          "_conditions": Array [],
+                          "_deps": Array [],
+                          "_exclusive": Object {
+                            "integer": false,
+                          },
+                          "_mutate": undefined,
+                          "_options": Object {
+                            "abortEarly": true,
+                            "recursive": true,
+                          },
+                          "_type": "number",
+                          "_typeError": [Function],
+                          "_whitelist": RefSet {
+                            "list": Set {},
+                            "refs": Map {},
+                          },
+                          "tests": Array [
+                            [Function],
+                          ],
+                          "transforms": Array [
+                            [Function],
+                          ],
+                        },
+                        "title": StringSchema {
+                          "_blacklist": RefSet {
+                            "list": Set {},
+                            "refs": Map {},
+                          },
+                          "_conditions": Array [],
+                          "_deps": Array [],
+                          "_exclusive": Object {
+                            "required": true,
+                          },
+                          "_mutate": undefined,
+                          "_options": Object {
+                            "abortEarly": true,
+                            "recursive": true,
+                          },
+                          "_type": "string",
+                          "_typeError": [Function],
+                          "_whitelist": RefSet {
+                            "list": Set {},
+                            "refs": Map {},
+                          },
+                          "tests": Array [
+                            [Function],
+                          ],
+                          "transforms": Array [
+                            [Function],
+                          ],
+                        },
+                      },
+                      "tests": Array [],
+                      "transforms": Array [
+                        [Function],
+                      ],
+                    }
+                  }
+                >
+                  <Form
+                    as="form"
+                    id="document-request-form"
+                    onSubmit={[Function]}
+                  >
+                    <form
+                      className="ui form"
+                      id="document-request-form"
+                      onSubmit={[Function]}
+                    >
+                      <FormInput
+                        as={[Function]}
+                        control={[Function]}
+                        error={null}
+                        fluid={true}
+                        label="Title"
+                        name="title"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        placeholder="Title"
+                        required={true}
+                        value=""
+                      >
+                        <FormField
+                          control={[Function]}
+                          error={null}
+                          fluid={true}
+                          label="Title"
+                          name="title"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          placeholder="Title"
+                          required={true}
+                          value=""
+                        >
+                          <div
+                            className="required field"
+                          >
+                            <label>
+                              Title
+                            </label>
+                            <Input
+                              fluid={true}
+                              name="title"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              placeholder="Title"
+                              required={true}
+                              type="text"
+                              value=""
+                            >
+                              <div
+                                className="ui fluid input"
+                              >
+                                <input
+                                  name="title"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  placeholder="Title"
+                                  required={true}
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
+                            </Input>
+                          </div>
+                        </FormField>
+                      </FormInput>
+                      <FormInput
+                        as={[Function]}
+                        control={[Function]}
+                        error={null}
+                        fluid={true}
+                        label="Authors"
+                        name="authors"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        placeholder="Authors"
+                        value=""
+                      >
+                        <FormField
+                          control={[Function]}
+                          error={null}
+                          fluid={true}
+                          label="Authors"
+                          name="authors"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          placeholder="Authors"
+                          value=""
+                        >
+                          <div
+                            className="field"
+                          >
+                            <label>
+                              Authors
+                            </label>
+                            <Input
+                              fluid={true}
+                              name="authors"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              placeholder="Authors"
+                              type="text"
+                              value=""
+                            >
+                              <div
+                                className="ui fluid input"
+                              >
+                                <input
+                                  name="authors"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  placeholder="Authors"
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
+                            </Input>
+                          </div>
+                        </FormField>
+                      </FormInput>
+                      <FormGroup
+                        widths="equal"
+                      >
+                        <div
+                          className="equal width fields"
+                        >
+                          <FormInput
+                            as={[Function]}
+                            control={[Function]}
+                            error={null}
+                            fluid={true}
+                            label="ISBN"
+                            name="isbn"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            placeholder="ISBN"
+                            value=""
+                          >
+                            <FormField
+                              control={[Function]}
+                              error={null}
+                              fluid={true}
+                              label="ISBN"
+                              name="isbn"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              placeholder="ISBN"
+                              value=""
+                            >
+                              <div
+                                className="field"
+                              >
+                                <label>
+                                  ISBN
+                                </label>
+                                <Input
+                                  fluid={true}
+                                  name="isbn"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  placeholder="ISBN"
+                                  type="text"
+                                  value=""
+                                >
+                                  <div
+                                    className="ui fluid input"
+                                  >
+                                    <input
+                                      name="isbn"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      placeholder="ISBN"
+                                      type="text"
+                                      value=""
+                                    />
+                                  </div>
+                                </Input>
+                              </div>
+                            </FormField>
+                          </FormInput>
+                          <FormInput
+                            as={[Function]}
+                            control={[Function]}
+                            error={null}
+                            fluid={true}
+                            label="ISSN"
+                            name="issn"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            placeholder="ISSN"
+                            value=""
+                          >
+                            <FormField
+                              control={[Function]}
+                              error={null}
+                              fluid={true}
+                              label="ISSN"
+                              name="issn"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              placeholder="ISSN"
+                              value=""
+                            >
+                              <div
+                                className="field"
+                              >
+                                <label>
+                                  ISSN
+                                </label>
+                                <Input
+                                  fluid={true}
+                                  name="issn"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  placeholder="ISSN"
+                                  type="text"
+                                  value=""
+                                >
+                                  <div
+                                    className="ui fluid input"
+                                  >
+                                    <input
+                                      name="issn"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      placeholder="ISSN"
+                                      type="text"
+                                      value=""
+                                    />
+                                  </div>
+                                </Input>
+                              </div>
+                            </FormField>
+                          </FormInput>
+                        </div>
+                      </FormGroup>
+                      <FormGroup
+                        widths="equal"
+                      >
+                        <div
+                          className="equal width fields"
+                        >
+                          <FormInput
+                            as={[Function]}
+                            control={[Function]}
+                            error={null}
+                            fluid={true}
+                            label="Volume"
+                            name="volume"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            placeholder="Volume number"
+                            value=""
+                          >
+                            <FormField
+                              control={[Function]}
+                              error={null}
+                              fluid={true}
+                              label="Volume"
+                              name="volume"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              placeholder="Volume number"
+                              value=""
+                            >
+                              <div
+                                className="field"
+                              >
+                                <label>
+                                  Volume
+                                </label>
+                                <Input
+                                  fluid={true}
+                                  name="volume"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  placeholder="Volume number"
+                                  type="text"
+                                  value=""
+                                >
+                                  <div
+                                    className="ui fluid input"
+                                  >
+                                    <input
+                                      name="volume"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      placeholder="Volume number"
+                                      type="text"
+                                      value=""
+                                    />
+                                  </div>
+                                </Input>
+                              </div>
+                            </FormField>
+                          </FormInput>
+                          <FormInput
+                            as={[Function]}
+                            control={[Function]}
+                            error={null}
+                            fluid={true}
+                            label="Issue"
+                            name="issue"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            placeholder="Issue number"
+                            value=""
+                          >
+                            <FormField
+                              control={[Function]}
+                              error={null}
+                              fluid={true}
+                              label="Issue"
+                              name="issue"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              placeholder="Issue number"
+                              value=""
+                            >
+                              <div
+                                className="field"
+                              >
+                                <label>
+                                  Issue
+                                </label>
+                                <Input
+                                  fluid={true}
+                                  name="issue"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  placeholder="Issue number"
+                                  type="text"
+                                  value=""
+                                >
+                                  <div
+                                    className="ui fluid input"
+                                  >
+                                    <input
+                                      name="issue"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      placeholder="Issue number"
+                                      type="text"
+                                      value=""
+                                    />
+                                  </div>
+                                </Input>
+                              </div>
+                            </FormField>
+                          </FormInput>
+                          <FormInput
+                            as={[Function]}
+                            control={[Function]}
+                            error={null}
+                            fluid={true}
+                            label="Page"
+                            name="page"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            placeholder="Page number"
+                            value=""
+                          >
+                            <FormField
+                              control={[Function]}
+                              error={null}
+                              fluid={true}
+                              label="Page"
+                              name="page"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              placeholder="Page number"
+                              value=""
+                            >
+                              <div
+                                className="field"
+                              >
+                                <label>
+                                  Page
+                                </label>
+                                <Input
+                                  fluid={true}
+                                  name="page"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  placeholder="Page number"
+                                  type="text"
+                                  value=""
+                                >
+                                  <div
+                                    className="ui fluid input"
+                                  >
+                                    <input
+                                      name="page"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      placeholder="Page number"
+                                      type="text"
+                                      value=""
+                                    />
+                                  </div>
+                                </Input>
+                              </div>
+                            </FormField>
+                          </FormInput>
+                          <FormInput
+                            as={[Function]}
+                            control={[Function]}
+                            error={null}
+                            fluid={true}
+                            label="Publication Year"
+                            name="publication_year"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            placeholder="Publication Year"
+                            value=""
+                          >
+                            <FormField
+                              control={[Function]}
+                              error={null}
+                              fluid={true}
+                              label="Publication Year"
+                              name="publication_year"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              placeholder="Publication Year"
+                              value=""
+                            >
+                              <div
+                                className="field"
+                              >
+                                <label>
+                                  Publication Year
+                                </label>
+                                <Input
+                                  fluid={true}
+                                  name="publication_year"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  placeholder="Publication Year"
+                                  type="text"
+                                  value=""
+                                >
+                                  <div
+                                    className="ui fluid input"
+                                  >
+                                    <input
+                                      name="publication_year"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      placeholder="Publication Year"
+                                      type="text"
+                                      value=""
+                                    />
+                                  </div>
+                                </Input>
+                              </div>
+                            </FormField>
+                          </FormInput>
+                        </div>
+                      </FormGroup>
+                      <FormTextArea
+                        as={[Function]}
+                        control={[Function]}
+                        error={null}
+                        label="Note"
+                        name="note"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        placeholder="Notes for the library"
+                        value=""
+                      >
+                        <FormField
+                          control={[Function]}
+                          error={null}
+                          label="Note"
+                          name="note"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          placeholder="Notes for the library"
+                          value=""
+                        >
+                          <div
+                            className="field"
+                          >
+                            <label>
+                              Note
+                            </label>
+                            <TextArea
+                              as="textarea"
+                              name="note"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              placeholder="Notes for the library"
+                              rows={3}
+                              value=""
+                            >
+                              <Ref
+                                innerRef={
+                                  Object {
+                                    "current": <textarea
+                                      name="note"
+                                      placeholder="Notes for the library"
+                                      rows="3"
+                                    />,
+                                  }
+                                }
+                              >
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <textarea
+                                        name="note"
+                                        placeholder="Notes for the library"
+                                        rows="3"
+                                      />,
+                                    }
+                                  }
+                                >
+                                  <textarea
+                                    name="note"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    onInput={[Function]}
+                                    placeholder="Notes for the library"
+                                    rows={3}
+                                    value=""
+                                  />
+                                </RefFindNode>
+                              </Ref>
+                            </TextArea>
+                          </div>
+                        </FormField>
+                      </FormTextArea>
+                      <Button
+                        as="button"
+                        disabled={false}
+                        type="submit"
+                      >
+                        <Ref
+                          innerRef={
+                            Object {
+                              "current": <button
+                                class="ui button"
+                                type="submit"
+                              >
+                                Request Book
+                              </button>,
+                            }
+                          }
+                        >
+                          <RefFindNode
+                            innerRef={
+                              Object {
+                                "current": <button
+                                  class="ui button"
+                                  type="submit"
+                                >
+                                  Request Book
+                                </button>,
+                              }
+                            }
+                          >
+                            <button
+                              className="ui button"
+                              onClick={[Function]}
+                              type="submit"
+                            >
+                              Request Book
+                            </button>
+                          </RefFindNode>
+                        </Ref>
+                      </Button>
+                    </form>
+                  </Form>
+                </Formik>
+              </div>
+            </Segment>
+          </div>
+        </Container>
+      </Loader>
+    </DocumentRequestForm>
+  </Router>
+</BrowserRouter>
+`;
