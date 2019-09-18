@@ -7,6 +7,7 @@ const FrontSiteRoutesList = {
   patronProfile: `${FrontSiteBase}profile`,
   documentsList: `${FrontSiteBase}search`,
   documentDetails: `${FrontSiteBase}records/:documentPid`,
+  documentRequestForm: `${FrontSiteBase}request`,
 };
 
 const FrontSiteRoutesGenerators = {

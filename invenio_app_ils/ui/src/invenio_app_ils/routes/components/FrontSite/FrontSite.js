@@ -6,6 +6,7 @@ import {
   Header,
   Home,
   ProfileContainer,
+  DocumentRequestForm,
   DocumentsDetailsContainer,
   DocumentsSearch,
 } from '../../../pages/frontsite';
@@ -38,6 +39,11 @@ export class FrontSite extends Component {
             exact
             path={FrontSiteRoutes.patronProfile}
             component={ProfileContainer}
+          />
+          <Route
+            exact
+            path={FrontSiteRoutes.documentRequestForm}
+            component={DocumentRequestForm}
           />
         </Container>
         <Footer />

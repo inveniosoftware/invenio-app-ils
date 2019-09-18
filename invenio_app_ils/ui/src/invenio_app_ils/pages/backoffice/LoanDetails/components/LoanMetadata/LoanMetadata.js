@@ -98,7 +98,7 @@ export default class LoanMetadata extends Component {
       },
       {
         name: 'Delivery',
-        value: data.metadata.delivery.method,
+        value: data.metadata.delivery ? data.metadata.delivery.method : null,
       },
     ];
     if (state === 'CANCELLED' && !isEmpty(reason)) {

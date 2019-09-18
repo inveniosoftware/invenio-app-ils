@@ -17,6 +17,7 @@ ils = WebpackBundle(
     entry={"app_ils": "./invenio_app_ils/index.js"},
     dependencies={
         "axios": "^0.19.0",
+        "formik": "^1.5.8",
         "lodash": "^4.17.15",
         "luxon": "^1.17.2",
         "node-sass": "^4.12.0",
@@ -35,5 +36,6 @@ ils = WebpackBundle(
         "semantic-ui-calendar-react": "^0.15.3",
         "semantic-ui-css": "^2.4.1",
         "semantic-ui-react": "^0.88.0",
+        "yup": "^0.27.0",
     },
 )

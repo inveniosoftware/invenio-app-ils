@@ -202,6 +202,7 @@ exports[`DocumentRequestsSearch ResultsList tests should render a list of result
           "Created": "2018-01-01",
           "Document ID": undefined,
           "ID": "3",
+          "Patron ID": "1",
           "State": "PENDING",
           "Title": "This is a title",
           "Updated": "2018-01-01",
@@ -331,6 +332,7 @@ exports[`DocumentRequestsSearch ResultsList tests should render a list of result
                   "Created",
                   "Updated",
                   "State",
+                  "Patron ID",
                   "Document ID",
                   "Title",
                   "Authors",
@@ -433,6 +435,21 @@ exports[`DocumentRequestsSearch ResultsList tests should render a list of result
                       </TableHeaderCell>
                       <TableHeaderCell
                         as="th"
+                        key="Patron ID"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Patron ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
                         key="Document ID"
                       >
                         <TableCell
@@ -488,6 +505,7 @@ exports[`DocumentRequestsSearch ResultsList tests should render a list of result
                   "Created",
                   "Updated",
                   "State",
+                  "Patron ID",
                   "Document ID",
                   "Title",
                   "Authors",
@@ -501,6 +519,7 @@ exports[`DocumentRequestsSearch ResultsList tests should render a list of result
                     "Created": "2018-01-01",
                     "Document ID": undefined,
                     "ID": "3",
+                    "Patron ID": "1",
                     "State": "PENDING",
                     "Title": "This is a title",
                     "Updated": "2018-01-01",
@@ -640,8 +659,20 @@ exports[`DocumentRequestsSearch ResultsList tests should render a list of result
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Document ID-3"
+                        data-test="Patron ID-3"
                         key="4-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Patron ID-3"
+                        >
+                          1
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Document ID-3"
+                        key="5-3"
                       >
                         <td
                           className=""
@@ -653,7 +684,7 @@ exports[`DocumentRequestsSearch ResultsList tests should render a list of result
                       <TableCell
                         as="td"
                         data-test="Title-3"
-                        key="5-3"
+                        key="6-3"
                       >
                         <td
                           className=""
@@ -665,7 +696,7 @@ exports[`DocumentRequestsSearch ResultsList tests should render a list of result
                       <TableCell
                         as="td"
                         data-test="Authors-3"
-                        key="6-3"
+                        key="7-3"
                       >
                         <td
                           className=""
@@ -681,7 +712,7 @@ exports[`DocumentRequestsSearch ResultsList tests should render a list of result
             </ResultsTableBody>
             <ResultsTableFooter
               allRowsNumber={1}
-              columnsNumber={7}
+              columnsNumber={8}
               currentPage={1}
               paginationComponent={null}
               seeAllComponent={null}

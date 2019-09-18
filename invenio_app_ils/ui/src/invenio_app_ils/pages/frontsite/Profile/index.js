@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
 import {
   PatronCurrentLoans,
+  PatronDocumentRequests,
   PatronMetadata,
   PatronPastLoans,
   PatronPendingLoans,
@@ -17,6 +18,7 @@ export class ProfileContainer extends Component {
         <PatronPendingLoans patronPid={currentUser.id} />
         <PatronCurrentLoans patronPid={currentUser.id} />
         <PatronPastLoans patronPid={currentUser.id} />
+        <PatronDocumentRequests patronPid={currentUser.id} />
       </Container>
     );
   }

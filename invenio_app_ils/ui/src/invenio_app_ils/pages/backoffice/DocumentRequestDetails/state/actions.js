@@ -7,7 +7,6 @@ import {
   SUCCESS,
 } from './types';
 import { documentRequest as documentRequestApi } from '../../../../common/api';
-import { sessionManager } from '../../../../authentication/services';
 import {
   sendSuccessNotification,
   sendErrorNotification,
