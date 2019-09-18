@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 
 import {
   patronCurrentLoansReducer,
+  patronDocumentRequestsReducer,
   patronPastLoansReducer,
   patronPendingLoansReducer,
 } from './common/state';
@@ -61,6 +62,7 @@ import {
   loanRequestFormReducer,
 } from './pages/frontsite/DocumentsDetails/reducer';
 import { documentRequestDetailsReducer } from './pages/backoffice/DocumentRequestDetails/reducer';
+import documentRequestFormReducer from './pages/frontsite/DocumentRequestForm/state/reducer';
 
 const rootReducer = combineReducers({
   availableItems: availableItemsReducer,
@@ -70,6 +72,7 @@ const rootReducer = combineReducers({
   documentPendingLoans: documentPendingLoans,
   documentRelations: documentRelations,
   documentRequestDetails: documentRequestDetailsReducer,
+  documentRequestForm: documentRequestFormReducer,
   documentsCard: documentsCardReducer,
   documentsDetails: documentsDetailsReducer,
   documentStats: documentStatsReducer,
@@ -93,6 +96,7 @@ const rootReducer = combineReducers({
   overdueLoans: overdueLoansReducer,
   patronCurrentLoans: patronCurrentLoansReducer,
   patronDetails: patronDetailsReducer,
+  patronDocumentRequests: patronDocumentRequestsReducer,
   patronItemsCheckout: patronItemCheckoutReducer,
   patronPastLoans: patronPastLoansReducer,
   patronPendingLoans: patronPendingLoansReducer,

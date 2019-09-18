@@ -675,8 +675,6 @@ class RecordRelationsGenerator(Generator):
 class DocumentRequestGenerator(Generator):
     """Document requests generator."""
 
-    STATES = ["CANCELLED", "PENDING", "FULFILLED"]
-
     def random_document_pid(self, state):
         """Get a random document PID if the state is FULFILLED."""
         if state == "FULFILLED":

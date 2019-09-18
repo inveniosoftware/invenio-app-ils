@@ -555,6 +555,8 @@ class Series(IlsRecordWithRelations):
 class DocumentRequest(IlsRecord):
     """DocumentRequest record class."""
 
+    STATES = ["CANCELLED", "PENDING", "FULFILLED"]
+
     _pid_type = DOCUMENT_REQUEST_PID_TYPE
     _schema = "document_requests/document_request-v1.0.0.json"
 
@@ -597,16 +599,18 @@ class DocumentRequest(IlsRecord):
 
     def validate_patch(self, ops):
         """Validate document request data."""
-        for op in ops:
-            if "state" in op["path"] and op["value"] == "FULFILLED":
-                # Ensure there is also a document_pid in the ops
-                found_document_pid = False
-                for op in ops:
-                    if "document_pid" in op["path"]:
-                        self._validate_fulfilled(document_pid=op["value"])
-                        found_document_pid = True
-                if not found_document_pid:
-                    self._validate_fulfilled(document_pid=None)
+        # Check if state == 'FULFILLED' has been passed
+        fulfilled_state = any(
+            op['path'] == '/state' and op['value'] == 'FULFILLED'
+            for op in ops
+        )
+        if fulfilled_state:
+            # Fetch document_pid from ops
+            document_pid = next((
+                op['value']
+                for op in ops if op['path'] == '/document_pid'
+            ), None)
+            self._validate_fulfilled(document_pid=document_pid)
 
     def validate_update(self, data):
         """Validate document request data."""

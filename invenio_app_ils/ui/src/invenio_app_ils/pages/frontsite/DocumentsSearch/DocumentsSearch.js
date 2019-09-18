@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Container,
   Grid,
@@ -8,6 +9,7 @@ import {
   Responsive,
   Accordion,
   Menu,
+  Message,
 } from 'semantic-ui-react';
 import {
   ReactSearchKit,
@@ -176,6 +178,18 @@ export class DocumentsSearch extends Component {
   };
 
   render() {
+    const query = this.props.location.search;
+    const queryString = decodeURIComponent(query.match(/\?q=([^&]+)/)[1]);
+    const requestForm = (
+      <Link
+        to={{
+          pathname: FrontSiteRoutes.documentRequestForm,
+          state: { queryString },
+        }}
+      >
+        book request form
+      </Link>
+    );
     return (
       <ReactSearchKit searchApi={this.searchApi}>
         <Container className="documents-search-searchbar">
@@ -196,6 +210,18 @@ export class DocumentsSearch extends Component {
               {this.renderHeader()}
               <ResultsList renderElement={this.renderResultsList} />
               {this.renderFooter()}
+              <Container>
+                <Message icon color="yellow">
+                  <Icon name="info circle" />
+                  <Message.Content>
+                    <Message.Header>
+                      Couldn't find the book you were looking for?
+                    </Message.Header>
+                    Please fill in the {requestForm} to request a new book from
+                    the library.
+                  </Message.Content>
+                </Message>
+              </Container>
             </ResultsLoader>
           </Grid.Column>
         </Grid>

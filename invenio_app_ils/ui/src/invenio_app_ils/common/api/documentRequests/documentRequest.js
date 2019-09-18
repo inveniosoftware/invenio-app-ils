@@ -1,9 +1,17 @@
 import { http, apiConfig } from '../base';
 import { serializer } from './serializer';
 import { prepareSumQuery } from '../utils';
+import isEmpty from 'lodash/isEmpty';
 
 const documentRequestURL = '/document-requests/';
 const apiURL = `${apiConfig.baseURL}${documentRequestURL}`;
+
+const create = async data => {
+  const url = `${documentRequestURL}`;
+  const response = await http.post(url, data);
+  response.data = serializer.fromJSON(response.data);
+  return response;
+};
 
 const get = docRequestPid => {
   return http.get(`${documentRequestURL}${docRequestPid}`).then(response => {
@@ -32,14 +40,18 @@ const patch = async (docRequestPid, ops) => {
 class QueryBuilder {
   constructor() {
     this.documentQuery = [];
-    this.withStateQuery = [];
+    this.page = '';
+    this.patronQuery = [];
+    this.size = '';
+    this.sortBy = '';
+    this.stateQuery = [];
   }
 
   withState(state) {
     if (!state) {
       throw TypeError('State argument missing');
     }
-    this.withStateQuery.push(`state:"${state}"`);
+    this.stateQuery.push(`state:"${state}"`);
     return this;
   }
 
@@ -51,8 +63,35 @@ class QueryBuilder {
     return this;
   }
 
+  withPatronPid(patronPid) {
+    console.log('patron pid', patronPid);
+    if (!patronPid || (typeof patronPid != 'number' && isEmpty(patronPid))) {
+      throw TypeError('patronPid argument missing');
+    }
+    this.patronQuery.push(`patron_pid:${prepareSumQuery(patronPid)}`);
+    return this;
+  }
+
+  withPage(page = 0) {
+    if (page > 0) this.page = `&page=${page}`;
+    return this;
+  }
+
+  withSize(size) {
+    if (size > 0) this.size = `&size=${size}`;
+    return this;
+  }
+
+  sortByNewest() {
+    this.sortBy = `&sort=-mostrecent`;
+    return this;
+  }
+
   qs() {
-    return this.withStateQuery.concat(this.documentQuery).join(' AND ');
+    const searchCriteria = this.documentQuery
+      .concat(this.patronQuery, this.stateQuery)
+      .join(' AND ');
+    return `(${searchCriteria})${this.sortBy}${this.size}${this.page}`;
   }
 }
 
@@ -79,6 +118,7 @@ const count = query => {
 
 export const documentRequest = {
   url: apiURL,
+  create: create,
   get: get,
   delete: del,
   patch: patch,

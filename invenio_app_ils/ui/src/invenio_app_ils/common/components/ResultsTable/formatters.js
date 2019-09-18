@@ -5,8 +5,9 @@ import isEmpty from 'lodash/isEmpty';
 import assign from 'lodash/assign';
 import { formatPidTypeToName } from '../ManageRelationsButton/utils';
 import { loan as loanApi } from '../../api';
-import { BackOfficeRoutes } from '../../../routes/urls';
+import { BackOfficeRoutes, FrontSiteRoutes } from '../../../routes/urls';
 import { invenioConfig } from '../../config';
+import startCase from 'lodash/startCase';
 
 function formatLoanToTableView(loan, actions = null) {
   return {
@@ -193,7 +194,7 @@ function formatRelatedToTableView(related, relation) {
 }
 
 function formatDocumentRequestToTableView(req) {
-  return {
+  const request = {
     ID: req.pid ? req.pid : req.id,
     Created: toShortDate(fromISO(req.created)),
     Updated: toShortDate(fromISO(req.updated)),
@@ -210,6 +211,16 @@ function formatDocumentRequestToTableView(req) {
     'Publication Year': req.metadata.publication_year,
     Volume: req.metadata.volume,
   };
+  if (req.metadata.state === 'FULFILLED') {
+    request['Library Book'] = (
+      <Link to={FrontSiteRoutes.documentDetailsFor(req.metadata.document_pid)}>
+        {req.metadata.document.title}
+      </Link>
+    );
+  } else {
+    request['Library Book'] = startCase(req.metadata.state.toLowerCase());
+  }
+  return request;
 }
 
 export const formatter = {
