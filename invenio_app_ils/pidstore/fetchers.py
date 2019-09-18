@@ -11,13 +11,14 @@ from invenio_pidstore.fetchers import FetchedPID
 
 from .pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
-    ITEM_PID_TYPE,
+    DOCUMENT_REQUEST_PID_TYPE,
     EITEM_PID_TYPE,
-    LOCATION_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
-    TAG_PID_TYPE,
+    ITEM_PID_TYPE,
+    LOCATION_PID_TYPE,
+    PATRON_PID_TYPE,
     SERIES_PID_TYPE,
-    PATRON_PID_TYPE
+    TAG_PID_TYPE,
 )
 
 
@@ -90,4 +91,13 @@ def patron_pid_fetcher(record_uuid, data):
         provider=None,
         pid_type=PATRON_PID_TYPE,
         pid_value=str(data['id']),
+    )
+
+
+def document_request_pid_fetcher(record_uuid, data):
+    """Return DocumentRequest PID fetcher."""
+    return FetchedPID(
+        provider=None,
+        pid_type=DOCUMENT_REQUEST_PID_TYPE,
+        pid_value=str(data["pid"])
     )

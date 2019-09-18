@@ -20,8 +20,8 @@ from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 
 from invenio_app_ils.circulation.mail.factory import message_factory
-from invenio_app_ils.records.api import Document, EItem, InternalLocation, \
-    Item, Location, Series, Tag
+from invenio_app_ils.records.api import Document, DocumentRequest, EItem, \
+    InternalLocation, Item, Location, Series, Tag
 
 from ..helpers import load_json_from_datadir
 from .helpers import document_ref_builder, internal_location_ref_builder, \
@@ -29,12 +29,13 @@ from .helpers import document_ref_builder, internal_location_ref_builder, \
 
 from invenio_app_ils.pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
+    DOCUMENT_REQUEST_PID_TYPE,
     EITEM_PID_TYPE,
+    INTERNAL_LOCATION_PID_TYPE,
     ITEM_PID_TYPE,
     LOCATION_PID_TYPE,
-    INTERNAL_LOCATION_PID_TYPE,
-    TAG_PID_TYPE,
     SERIES_PID_TYPE,
+    TAG_PID_TYPE,
 )
 
 
@@ -160,17 +161,26 @@ def testdata(app, db, es_clear):
         db.session.commit()
         indexer.index(record)
 
+    document_requests = load_json_from_datadir("document_requests.json")
+    for request in document_requests:
+        record = DocumentRequest.create(request)
+        mint_record_pid(DOCUMENT_REQUEST_PID_TYPE, "pid", record)
+        record.commit()
+        db.session.commit()
+        indexer.index(record)
+
     # flush all indices after indexing, otherwise ES won't be ready for tests
     current_search.flush_and_refresh(index='*')
 
     return {
-        "locations": locations,
-        "internal_locations": internal_locations,
+        "document_requests": document_requests,
         "documents": documents,
+        "internal_locations": internal_locations,
         "items": items,
         "loans": loans,
-        "tags": tags,
+        "locations": locations,
         "series": series_data,
+        "tags": tags,
     }
 
 
@@ -201,7 +211,7 @@ def example_message_factory():
 
 @pytest.fixture()
 def testdata_most_loaned(app, db, es_clear):
-    """Create, index and return test data."""
+    """Create, index and return test data for most loans tests."""
     indexer = RecordIndexer()
 
     locations = load_json_from_datadir("locations.json")

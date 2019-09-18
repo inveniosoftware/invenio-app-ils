@@ -297,6 +297,29 @@
           },
           "type": "object"
         },
+        "request": {
+          "type": "object",
+          "properties": {
+            "authors": {
+              "type": "text"
+            },
+            "note": {
+              "type": "text"
+            },
+            "patron_pid": {
+              "type": "keyword"
+            },
+            "pid": {
+              "type": "keyword"
+            },
+            "state": {
+              "type": "keyword"
+            },
+            "title": {
+              "type": "text"
+            }
+          }
+        },
         "tag_pids": {
           "type": "keyword"
         },
@@ -339,8 +362,7 @@
             "title": {
               "type": "text"
             }
-          },
-          "type": "object"
+          }
         }
       }
     }

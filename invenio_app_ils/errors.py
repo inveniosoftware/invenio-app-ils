@@ -216,3 +216,11 @@ class OverdueLoansMailError(IlsException):
     def __init__(self, description):
         """Initialize exception."""
         super(OverdueLoansMailError, self).__init__(description=description)
+
+
+class DocumentRequestError(IlsException):
+    """Raised when there is an error with a document request."""
+
+    def __init__(self, description):
+        """Initialize exception."""
+        super(DocumentRequestError, self).__init__(description=description)

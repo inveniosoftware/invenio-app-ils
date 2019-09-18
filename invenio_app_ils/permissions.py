@@ -46,6 +46,17 @@ class LoanOwnerPermission(Permission):
         )
 
 
+class DocumentRequestOwnerPermission(Permission):
+    """Return Permission to evaluate if the current user owns the request."""
+
+    def __init__(self, record):
+        """Constructor."""
+        super(DocumentRequestOwnerPermission, self).__init__(
+            UserNeed(int(record['patron_pid'])),
+            backoffice_access_action
+        )
+
+
 def authenticated_user_permission(*args, **kwargs):
     """Return an object that evaluates if the current user is authenticated."""
     return Permission(authenticated_user)

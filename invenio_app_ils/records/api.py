@@ -21,22 +21,23 @@ from invenio_records.api import Record
 from invenio_userprofiles.api import UserProfile
 from werkzeug.utils import cached_property
 
-from invenio_app_ils.errors import DocumentTagNotFoundError, \
-    ItemDocumentNotFoundError, ItemHasActiveLoanError, \
-    MissingRequiredParameterError, PatronNotFoundError, \
-    RecordHasReferencesError
+from invenio_app_ils.errors import DocumentRequestError, \
+    DocumentTagNotFoundError, ItemDocumentNotFoundError, \
+    ItemHasActiveLoanError, MissingRequiredParameterError, \
+    PatronNotFoundError, RecordHasReferencesError
 from invenio_app_ils.records_relations.api import RecordRelationsRetriever
-from invenio_app_ils.search.api import DocumentSearch, \
+from invenio_app_ils.search.api import DocumentRequestSearch, DocumentSearch, \
     InternalLocationSearch, ItemSearch
 
 from ..pidstore.pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
-    ITEM_PID_TYPE,
+    DOCUMENT_REQUEST_PID_TYPE,
     EITEM_PID_TYPE,
-    LOCATION_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
-    TAG_PID_TYPE,
+    ITEM_PID_TYPE,
+    LOCATION_PID_TYPE,
     SERIES_PID_TYPE,
+    TAG_PID_TYPE,
 )
 
 
@@ -139,6 +140,9 @@ class Document(IlsRecordWithRelations):
     _relations_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/relations"
     )
+    _document_request_resolver_path = (
+        "{scheme}://{host}/api/resolver/documents/{document_pid}/request"
+    )
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
@@ -182,6 +186,13 @@ class Document(IlsRecordWithRelations):
                 document_pid=data["pid"]
             )
         }
+        data["request"] = {
+            "$ref": cls._document_request_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                document_pid=data["pid"]
+            )
+        }
         return super(Document, cls).create(data, id_=id_, **kwargs)
 
     def delete(self, **kwargs):
@@ -212,6 +223,20 @@ class Document(IlsRecordWithRelations):
                 ref_type="Item",
                 ref_ids=sorted(
                     [res["pid"] for res in item_search_res.scan()]
+                ),
+            )
+
+        req_search = DocumentRequestSearch()
+        req_search_res = req_search.search_by_document_pid(
+            document_pid=self["pid"]
+        )
+        if req_search_res.count():
+            raise RecordHasReferencesError(
+                record_type="Document",
+                record_id=self["pid"],
+                ref_type="DocumentRequest",
+                ref_ids=sorted(
+                    [res["pid"] for res in req_search_res.scan()]
                 ),
             )
 
@@ -525,3 +550,80 @@ class Series(IlsRecordWithRelations):
             )
         }
         return super(Series, cls).create(data, id_=id_, **kwargs)
+
+
+class DocumentRequest(IlsRecord):
+    """DocumentRequest record class."""
+
+    _pid_type = DOCUMENT_REQUEST_PID_TYPE
+    _schema = "document_requests/document_request-v1.0.0.json"
+
+    _document_resolver_path = (
+        "{scheme}://{host}/api/resolver/document-requests/"
+        "{document_request_pid}/document"
+    )
+
+    @classmethod
+    def _validate_fulfilled(cls, document_pid):
+        """Validate data for fulfilled state."""
+        # Fulfilled requests must have a document
+        if not document_pid:
+            raise DocumentRequestError(
+                "State cannot be 'FULFILLED' without a document"
+            )
+        try:
+            document = Document.get_record_by_pid(document_pid)
+            document = document.replace_refs()
+            request = document["request"]
+            if request:
+                # The document cannot already have a request
+                raise DocumentRequestError(
+                    "Document with PID {} already has a request".format(
+                        document_pid
+                    )
+                )
+        except PIDDoesNotExistError:
+            # Invalid document_pid
+            raise DocumentRequestError(
+                "State cannot be 'FULFILLED' because a document with "
+                "PID {} doesn't exist".format(document_pid)
+            )
+
+    @classmethod
+    def validate_create(cls, data):
+        """Validate document request data."""
+        if data.get("state", "") == "FULFILLED":
+            cls._validate_fulfilled(data.get("document_pid", None))
+
+    def validate_patch(self, ops):
+        """Validate document request data."""
+        for op in ops:
+            if "state" in op["path"] and op["value"] == "FULFILLED":
+                # Ensure there is also a document_pid in the ops
+                found_document_pid = False
+                for op in ops:
+                    if "document_pid" in op["path"]:
+                        self._validate_fulfilled(document_pid=op["value"])
+                        found_document_pid = True
+                if not found_document_pid:
+                    self._validate_fulfilled(document_pid=None)
+
+    def validate_update(self, data):
+        """Validate document request data."""
+        if data.get("state", "") == "FULFILLED":
+            self._validate_fulfilled(data.get("document_pid", None))
+
+    @classmethod
+    def create(cls, data, id_=None, **kwargs):
+        """Create DocumentRequest record."""
+        data["state"] = "PENDING"
+        if "document_pid" in data:
+            del data["document_pid"]
+        data["document"] = {
+            "$ref": cls._document_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                document_request_pid=data["pid"],
+            )
+        }
+        return super(DocumentRequest, cls).create(data, id_=id_, **kwargs)

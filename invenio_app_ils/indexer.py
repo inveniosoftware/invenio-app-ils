@@ -18,10 +18,10 @@ from invenio_circulation.api import Loan
 from invenio_circulation.search.api import search_by_pid as search_loans_by_pid
 from invenio_indexer.api import RecordIndexer
 
-from invenio_app_ils.records.api import Document, EItem, IlsRecord, \
-    InternalLocation, Item, Series
-from invenio_app_ils.search.api import DocumentSearch, EItemSearch, \
-    InternalLocationSearch, ItemSearch, SeriesSearch
+from invenio_app_ils.records.api import Document, DocumentRequest, EItem, \
+    IlsRecord, InternalLocation, Item, Series
+from invenio_app_ils.search.api import DocumentRequestSearch, DocumentSearch, \
+    EItemSearch, InternalLocationSearch, ItemSearch, SeriesSearch
 
 indexer = RecordIndexer()
 MSG_ORIGIN = "ils-indexer: {origin_rec_type} #{origin_recid} indexed, trigger"\
@@ -175,6 +175,22 @@ def index_related_records_after_record_changed(pid, pid_type, rec_type):
             )
 
 
+@shared_task(ignore_result=True)
+def index_request_after_document_indexed(document_pid):
+    """Index request to refresh document reference."""
+    log_func = partial(
+        _log,
+        origin_rec_type='Document',
+        origin_recid=document_pid,
+        dest_rec_type='DocumentRequest')
+
+    log_func(msg=MSG_ORIGIN)
+    for request in DocumentRequestSearch().search_by_document_pid(
+            document_pid=document_pid).scan():
+        request_pid = request["pid"]
+        _index_record_by_pid(DocumentRequest, request_pid, log_func)
+
+
 class DocumentIndexer(RecordIndexer):
     """Indexer class for Document record."""
 
@@ -193,6 +209,10 @@ class DocumentIndexer(RecordIndexer):
         index_related_records_after_record_changed.apply_async(
             (document["pid"], document._pid_type, document.__class__.__name__),
             eta=eta
+        )
+        index_request_after_document_indexed.apply_async(
+            (document["pid"],),
+            eta=eta,
         )
 
 
@@ -420,3 +440,29 @@ class RelationIndexer(RecordIndexer):
             for relation_type, related_records in relations.items():
                 for obj in related_records:
                     _index(record, obj["pid"], obj["pid_type"])
+
+
+@shared_task(ignore_result=True)
+def index_document_after_request_indexed(document_request_pid, document_pid):
+    """Index document to refresh document request reference."""
+    log_func = partial(
+        _log,
+        origin_rec_type='DocumentRequest',
+        origin_recid=document_request_pid,
+        dest_rec_type='Document')
+    log_func(msg=MSG_ORIGIN)
+    _index_record_by_pid(Document, document_pid, log_func)
+
+
+class DocumentRequestIndexer(RecordIndexer):
+    """Indexer class for Request record."""
+
+    def index(self, request):
+        """Index a document request."""
+        super(DocumentRequestIndexer, self).index(request)
+        eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
+        if "document_pid" in request:
+            index_document_after_request_indexed.apply_async(
+                (request["pid"], request["document_pid"]),
+                eta=eta,
+            )
