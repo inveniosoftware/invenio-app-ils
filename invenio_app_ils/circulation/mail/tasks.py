@@ -66,7 +66,7 @@ def send_overdue_mail(loan, **kwargs):
     factory = overdue_loan_message_factory()
     msg = factory(
         loan,
-        document_title=document["title"]["title"],
+        document_title=document["title"],
         patron_email=patron.email,
         days_ago=circulation_overdue_loan_days(loan),
         recipients=get_recipients([patron.email]),

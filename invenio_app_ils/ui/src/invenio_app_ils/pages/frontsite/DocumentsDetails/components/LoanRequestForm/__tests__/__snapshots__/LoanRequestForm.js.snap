@@ -48,9 +48,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
           "24",
         ],
         "tags": Array [],
-        "title": Object {
-          "title": "The Gulf: The Making of An American Sea",
-        },
+        "title": "The Gulf: The Making of An American Sea",
       },
       "updated": "2019-07-08T10:44:18.354+02:00",
     }

@@ -14,10 +14,6 @@ from marshmallow import fields
 class InternalLocationSchemaV1(RecordSchemaJSONV1):
     """Internal Location schema."""
 
-    def get_pid_field(self):
-        """Return pid_field value."""
-        return "pid"
-
     pid = PersistentIdentifier()
     location_pid = fields.Str(required=True)
     legacy_id = fields.Str()

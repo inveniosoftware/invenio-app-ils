@@ -968,51 +968,7 @@
       "type": "object"
     },
     "title": {
-      "additionalProperties": false,
-      "properties": {
-        "alternative_titles": {
-          "description": "Alternative titles of the document",
-          "items": [
-            {
-              "additionalProperties": false,
-              "properties": {
-                "source": {
-                  "minLength": 1,
-                  "type": "string"
-                },
-                "subtitle": {
-                  "minLength": 1,
-                  "type": "string"
-                },
-                "title": {
-                  "minLength": 1,
-                  "type": "string"
-                }
-              },
-              "required": ["title"],
-              "type": "object"
-            }
-          ],
-          "minItems": 1,
-          "type": "array",
-          "uniqueItems": true
-        },
-        "source": {
-          "minLength": 1,
-          "type": "string"
-        },
-        "subtitle": {
-          "minLength": 1,
-          "type": "string"
-        },
-        "title": {
-          "minLength": 1,
-          "type": "string"
-        }
-      },
-      "required": ["title"],
-      "title": "Document title",
-      "type": "object"
+      "type": "string"
     },
     "title_translations": {
       "items": {

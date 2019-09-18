@@ -338,31 +338,7 @@
           "type": "object"
         },
         "title": {
-          "properties": {
-            "alternative_titles": {
-              "properties": {
-                "source": {
-                  "type": "text"
-                },
-                "subtitle": {
-                  "type": "text"
-                },
-                "title": {
-                  "type": "text"
-                }
-              },
-              "type": "object"
-            },
-            "source": {
-              "type": "text"
-            },
-            "subtitle": {
-              "type": "text"
-            },
-            "title": {
-              "type": "text"
-            }
-          }
+          "type": "text"
         }
       }
     }

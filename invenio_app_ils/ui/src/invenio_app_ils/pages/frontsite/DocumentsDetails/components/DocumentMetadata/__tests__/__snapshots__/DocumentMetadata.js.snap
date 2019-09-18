@@ -46,9 +46,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
           "24",
         ],
         "tags": Array [],
-        "title": Object {
-          "title": "The Gulf: The Making of An American Sea",
-        },
+        "title": "The Gulf: The Making of An American Sea",
       },
       "updated": "2019-07-08T10:44:18.354+02:00",
     }
@@ -381,9 +379,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                     "24",
                                   ],
                                   "tags": Array [],
-                                  "title": Object {
-                                    "title": "The Gulf: The Making of An American Sea",
-                                  },
+                                  "title": "The Gulf: The Making of An American Sea",
                                 }
                               }
                             >
@@ -458,9 +454,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                   "24",
                                 ],
                                 "tags": Array [],
-                                "title": Object {
-                                  "title": "The Gulf: The Making of An American Sea",
-                                },
+                                "title": "The Gulf: The Making of An American Sea",
                               }
                             }
                           >
@@ -472,9 +466,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                               >
                                 <h2
                                   className="ui header"
-                                >
-                                  The Gulf: The Making of An American Sea
-                                </h2>
+                                />
                               </Header>
                               <List>
                                 <div
@@ -575,9 +567,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                         "24",
                                       ],
                                       "tags": Array [],
-                                      "title": Object {
-                                        "title": "The Gulf: The Making of An American Sea",
-                                      },
+                                      "title": "The Gulf: The Making of An American Sea",
                                     },
                                     "updated": "2019-07-08T10:44:18.354+02:00",
                                   }
@@ -633,9 +623,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                   "24",
                                 ],
                                 "tags": Array [],
-                                "title": Object {
-                                  "title": "The Gulf: The Making of An American Sea",
-                                },
+                                "title": "The Gulf: The Making of An American Sea",
                               }
                             }
                           >
@@ -689,9 +677,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                             "24",
                                           ],
                                           "tags": Array [],
-                                          "title": Object {
-                                            "title": "The Gulf: The Making of An American Sea",
-                                          },
+                                          "title": "The Gulf: The Making of An American Sea",
                                         }
                                       }
                                       getWidth={[Function]}
@@ -736,9 +722,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                               "24",
                                             ],
                                             "tags": Array [],
-                                            "title": Object {
-                                              "title": "The Gulf: The Making of An American Sea",
-                                            },
+                                            "title": "The Gulf: The Making of An American Sea",
                                           }
                                         }
                                       >
@@ -905,9 +889,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                                             "24",
                                           ],
                                           "tags": Array [],
-                                          "title": Object {
-                                            "title": "The Gulf: The Making of An American Sea",
-                                          },
+                                          "title": "The Gulf: The Making of An American Sea",
                                         }
                                       }
                                       getWidth={[Function]}

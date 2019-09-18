@@ -90,7 +90,7 @@ export default class ItemsSearch extends Component {
         }}
         value={this.props.queryString}
         onKeyPress={event => {
-          this.onKeyPressHandler(event);
+          this.onKeyPressHandler(event.target);
         }}
         ref={input => {
           this.searchInput = input;

@@ -2,16 +2,13 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Series",
   "type": "object",
-  "required": ["$schema", "pid"],
+  "required": ["$schema", "pid", "title", "mode_of_issuance"],
   "properties": {
     "$schema": {
       "type": "string"
     },
-    "abstracts": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array",
+    "abstract": {
+      "type": "string",
       "description": ""
     },
     "authors": {
@@ -28,6 +25,21 @@
     "issn": {
       "title": "ISSN",
       "type": "string"
+    },
+    "isbn": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "description": ""
+    },
+    "languages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "List of languages of the series",
+      "description": ""
     },
     "mode_of_issuance": {
       "title": "Mode of issuance",
@@ -105,12 +117,7 @@
       "type": "string"
     },
     "title": {
-      "type": "object",
-      "properties": {
-        "title": {
-          "type": "string"
-        }
-      }
+      "type": "string"
     }
   }
 }

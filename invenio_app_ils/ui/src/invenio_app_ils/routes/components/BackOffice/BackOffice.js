@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { BackOfficeRoutes } from '../../urls';
 import {
   Header,
@@ -8,6 +8,7 @@ import {
   DocumentsSearch,
   DocumentRequestDetailsContainer,
   DocumentRequestsSearch,
+  SeriesEditor,
   EItemsSearch,
   EItemDetailsContainer,
   ItemsSearch,
@@ -17,7 +18,7 @@ import {
   LocationList,
   PatronDetailsContainer,
   PatronsSearch,
-  SeriesDetailsContainer,
+  SeriesDetails,
   SeriesSearch,
   Stats,
 } from '../../../pages/backoffice';
@@ -32,92 +33,104 @@ export class BackOffice extends Component {
         <Notifications />
         <div className="container">
           {/* home */}
-          <Route exact path={BackOfficeRoutes.home} component={Home} />
-          {/* documents */}
-          <Route
-            exact
-            path={BackOfficeRoutes.documentDetails}
-            component={DocumentDetailsContainer}
-          />
-          {/* documents */}
-          <Route
-            exact
-            path={BackOfficeRoutes.documentsList}
-            component={DocumentsSearch}
-          />
-          {/* eitems */}
-          <Route
-            exact
-            path={BackOfficeRoutes.eitemsList}
-            component={EItemsSearch}
-          />
-          <Route
-            exact
-            path={BackOfficeRoutes.eitemDetails}
-            component={EItemDetailsContainer}
-          />
-          {/* items */}
-          <Route
-            exact
-            path={BackOfficeRoutes.itemsList}
-            component={ItemsSearch}
-          />
-          <Route
-            exact
-            path={BackOfficeRoutes.itemDetails}
-            component={ItemDetailsContainer}
-          />
-          {/* loans */}
-          <Route
-            exact
-            path={BackOfficeRoutes.loansList}
-            component={LoansSearch}
-          />
-          <Route
-            exact
-            path={BackOfficeRoutes.loanDetails}
-            component={LoanDetailsContainer}
-          />
-          {/* locations */}
-          <Route
-            exact
-            path={BackOfficeRoutes.locationsList}
-            component={LocationList}
-          />
-          {/* patrons */}
-          <Route
-            exact
-            path={BackOfficeRoutes.patronsList}
-            component={PatronsSearch}
-          />
-          <Route
-            exact
-            path={BackOfficeRoutes.patronDetails}
-            component={PatronDetailsContainer}
-          />
-          {/* series */}
-          <Route
-            exact
-            path={BackOfficeRoutes.seriesList}
-            component={SeriesSearch}
-          />
-          <Route
-            exact
-            path={BackOfficeRoutes.seriesDetails}
-            component={SeriesDetailsContainer}
-          />
-          {/* document requests */}
-          <Route
-            exact
-            path={BackOfficeRoutes.documentRequestDetails}
-            component={DocumentRequestDetailsContainer}
-          />
-          <Route
-            exact
-            path={BackOfficeRoutes.documentRequestsList}
-            component={DocumentRequestsSearch}
-          />
-          <Route exact path={BackOfficeRoutes.stats.home} component={Stats} />
+          <Switch>
+            <Route exact path={BackOfficeRoutes.home} component={Home} />
+            {/* documents */}
+            <Route
+              exact
+              path={BackOfficeRoutes.documentsList}
+              component={DocumentsSearch}
+            />
+            {/* documents */}
+            <Route
+              exact
+              path={BackOfficeRoutes.documentDetails}
+              component={DocumentDetailsContainer}
+            />
+            {/* eitems */}
+            <Route
+              exact
+              path={BackOfficeRoutes.eitemsList}
+              component={EItemsSearch}
+            />
+            <Route
+              exact
+              path={BackOfficeRoutes.eitemDetails}
+              component={EItemDetailsContainer}
+            />
+            {/* items */}
+            <Route
+              exact
+              path={BackOfficeRoutes.itemsList}
+              component={ItemsSearch}
+            />
+            <Route
+              exact
+              path={BackOfficeRoutes.itemDetails}
+              component={ItemDetailsContainer}
+            />
+            {/* loans */}
+            <Route
+              exact
+              path={BackOfficeRoutes.loansList}
+              component={LoansSearch}
+            />
+            <Route
+              exact
+              path={BackOfficeRoutes.loanDetails}
+              component={LoanDetailsContainer}
+            />
+            {/* locations */}
+            <Route
+              exact
+              path={BackOfficeRoutes.locationsList}
+              component={LocationList}
+            />
+            {/* patrons */}
+            <Route
+              exact
+              path={BackOfficeRoutes.patronsList}
+              component={PatronsSearch}
+            />
+            <Route
+              exact
+              path={BackOfficeRoutes.patronDetails}
+              component={PatronDetailsContainer}
+            />
+            {/* series */}
+            <Route
+              exact
+              path={BackOfficeRoutes.seriesList}
+              component={SeriesSearch}
+            />
+            <Route
+              exact
+              path={BackOfficeRoutes.seriesCreate}
+              component={SeriesEditor}
+            />
+            <Route
+              exact
+              path={BackOfficeRoutes.seriesEdit}
+              component={SeriesEditor}
+            />
+            <Route
+              exact
+              path={BackOfficeRoutes.seriesDetails}
+              component={SeriesDetails}
+            />
+            {/* document requests */}
+            <Route
+              exact
+              path={BackOfficeRoutes.documentRequestDetails}
+              component={DocumentRequestDetailsContainer}
+            />
+            <Route
+              exact
+              path={BackOfficeRoutes.documentRequestsList}
+              component={DocumentRequestsSearch}
+            />
+            <Route exact path={BackOfficeRoutes.stats.home} component={Stats} />
+          </Switch>
         </div>
       </div>
     );

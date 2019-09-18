@@ -37,9 +37,7 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
               "en",
             ],
             "pid": "123",
-            "title": Object {
-              "title": "The Gulf: The Making of An American Sea",
-            },
+            "title": "The Gulf: The Making of An American Sea",
           },
         },
         Object {
@@ -73,9 +71,7 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
               "it",
             ],
             "pid": "456",
-            "title": Object {
-              "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
-            },
+            "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
           },
         },
       ],
@@ -145,7 +141,7 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
                   "onClick": [Function],
                   "open_access": true,
                   "pid": "eitem1",
-                  "title": "The Gulf: The Making of An American Sea",
+                  "title": undefined,
                 }
               }
               key="eitem1"
@@ -177,9 +173,7 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
                       <CardHeader>
                         <div
                           className="header"
-                        >
-                          The Gulf: The Making of An American Sea
-                        </div>
+                        />
                       </CardHeader>
                     </div>
                   </CardContent>
@@ -196,7 +190,7 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
                   "onClick": [Function],
                   "open_access": false,
                   "pid": "eitem2",
-                  "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
+                  "title": undefined,
                 }
               }
               key="eitem2"
@@ -228,9 +222,7 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
                       <CardHeader>
                         <div
                           className="header"
-                        >
-                          Prairie Fires: The American Dreams of Laura Ingalls Wilder
-                        </div>
+                        />
                       </CardHeader>
                     </div>
                   </CardContent>
@@ -300,9 +292,7 @@ exports[`MostRecentEbooks tests should render list of most recent ebooks 1`] = `
               "en",
             ],
             "pid": "123",
-            "title": Object {
-              "title": "The Gulf: The Making of An American Sea",
-            },
+            "title": "The Gulf: The Making of An American Sea",
           },
         },
         Object {
@@ -336,9 +326,7 @@ exports[`MostRecentEbooks tests should render list of most recent ebooks 1`] = `
               "it",
             ],
             "pid": "456",
-            "title": Object {
-              "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
-            },
+            "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
           },
         },
       ],
@@ -407,7 +395,7 @@ exports[`MostRecentEbooks tests should render list of most recent ebooks 1`] = `
                   "onClick": [Function],
                   "open_access": true,
                   "pid": "eitem1",
-                  "title": "The Gulf: The Making of An American Sea",
+                  "title": undefined,
                 }
               }
               key="eitem1"
@@ -439,9 +427,7 @@ exports[`MostRecentEbooks tests should render list of most recent ebooks 1`] = `
                       <CardHeader>
                         <div
                           className="header"
-                        >
-                          The Gulf: The Making of An American Sea
-                        </div>
+                        />
                       </CardHeader>
                     </div>
                   </CardContent>
@@ -458,7 +444,7 @@ exports[`MostRecentEbooks tests should render list of most recent ebooks 1`] = `
                   "onClick": [Function],
                   "open_access": false,
                   "pid": "eitem2",
-                  "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
+                  "title": undefined,
                 }
               }
               key="eitem2"
@@ -490,9 +476,7 @@ exports[`MostRecentEbooks tests should render list of most recent ebooks 1`] = `
                       <CardHeader>
                         <div
                           className="header"
-                        >
-                          Prairie Fires: The American Dreams of Laura Ingalls Wilder
-                        </div>
+                        />
                       </CardHeader>
                     </div>
                   </CardContent>
@@ -544,9 +528,7 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
               "en",
             ],
             "pid": "123",
-            "title": Object {
-              "title": "The Gulf: The Making of An American Sea",
-            },
+            "title": "The Gulf: The Making of An American Sea",
           },
         },
         Object {
@@ -580,9 +562,7 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
               "it",
             ],
             "pid": "456",
-            "title": Object {
-              "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
-            },
+            "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
           },
         },
       ],
@@ -652,7 +632,7 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
                   "onClick": [Function],
                   "open_access": true,
                   "pid": "eitem1",
-                  "title": "The Gulf: The Making of An American Sea",
+                  "title": undefined,
                 }
               }
               key="eitem1"
@@ -684,9 +664,7 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
                       <CardHeader>
                         <div
                           className="header"
-                        >
-                          The Gulf: The Making of An American Sea
-                        </div>
+                        />
                       </CardHeader>
                     </div>
                   </CardContent>
@@ -703,7 +681,7 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
                   "onClick": [Function],
                   "open_access": false,
                   "pid": "eitem2",
-                  "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
+                  "title": undefined,
                 }
               }
               key="eitem2"
@@ -735,9 +713,7 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
                       <CardHeader>
                         <div
                           className="header"
-                        >
-                          Prairie Fires: The American Dreams of Laura Ingalls Wilder
-                        </div>
+                        />
                       </CardHeader>
                     </div>
                   </CardContent>

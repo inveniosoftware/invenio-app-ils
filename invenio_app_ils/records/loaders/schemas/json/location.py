@@ -14,10 +14,6 @@ from marshmallow import Schema, fields
 class LocationSchemaV1(Schema):
     """Location schema."""
 
-    def get_pid_field(self):
-        """Return pid_field value."""
-        return "pid"
-
     pid = PersistentIdentifier()
     name = fields.Str(required=True)
     email = fields.Email()

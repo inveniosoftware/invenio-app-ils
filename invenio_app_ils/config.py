@@ -119,10 +119,7 @@ from .records.api import (  # isort:skip
     Tag,
 )
 from .records.permissions import (  # isort:skip
-    record_create_permission_factory,
-    record_delete_permission_factory,
     record_read_permission_factory,
-    record_update_permission_factory,
 )
 from .search.api import (  # isort:skip
     DocumentRequestSearch,
@@ -322,7 +319,7 @@ _SERID_CONVERTER = (
 # RECORDS REST
 # ============
 _RECORDS_REST_MAX_RESULT_WINDOW = 10000
-
+PIDSTORE_RECID_FIELD="pid"
 # name of the URL arg to choose response serializer
 REST_MIMETYPE_QUERY_ARG_NAME = "format"
 
@@ -363,9 +360,9 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
-        create_permission_factory_imp=record_create_permission_factory,
-        update_permission_factory_imp=record_update_permission_factory,
-        delete_permission_factory_imp=record_delete_permission_factory,
+        create_permission_factory_imp=backoffice_permission,
+        update_permission_factory_imp=backoffice_permission,
+        delete_permission_factory_imp=backoffice_permission,
     ),
     pitmid=dict(
         pid_type=ITEM_PID_TYPE,
@@ -403,9 +400,9 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
-        create_permission_factory_imp=record_create_permission_factory,
-        update_permission_factory_imp=record_update_permission_factory,
-        delete_permission_factory_imp=record_delete_permission_factory,
+        create_permission_factory_imp=backoffice_permission,
+        update_permission_factory_imp=backoffice_permission,
+        delete_permission_factory_imp=backoffice_permission,
     ),
     eitmid=dict(
         pid_type=EITEM_PID_TYPE,
@@ -443,9 +440,9 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
-        create_permission_factory_imp=record_create_permission_factory,
-        update_permission_factory_imp=record_update_permission_factory,
-        delete_permission_factory_imp=record_delete_permission_factory,
+        create_permission_factory_imp=backoffice_permission,
+        update_permission_factory_imp=backoffice_permission,
+        delete_permission_factory_imp=backoffice_permission,
     ),
     locid=dict(
         pid_type=LOCATION_PID_TYPE,
@@ -478,9 +475,9 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
-        create_permission_factory_imp=record_create_permission_factory,
-        update_permission_factory_imp=record_update_permission_factory,
-        delete_permission_factory_imp=record_delete_permission_factory,
+        create_permission_factory_imp=backoffice_permission,
+        update_permission_factory_imp=backoffice_permission,
+        delete_permission_factory_imp=backoffice_permission,
     ),
     serid=dict(
         pid_type=SERIES_PID_TYPE,
@@ -518,9 +515,9 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
-        create_permission_factory_imp=record_create_permission_factory,
-        update_permission_factory_imp=record_update_permission_factory,
-        delete_permission_factory_imp=record_delete_permission_factory,
+        create_permission_factory_imp=backoffice_permission,
+        update_permission_factory_imp=backoffice_permission,
+        delete_permission_factory_imp=backoffice_permission,
     ),
     ilocid=dict(
         pid_type=INTERNAL_LOCATION_PID_TYPE,
@@ -555,9 +552,9 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=record_read_permission_factory,
-        create_permission_factory_imp=record_create_permission_factory,
-        update_permission_factory_imp=record_update_permission_factory,
-        delete_permission_factory_imp=record_delete_permission_factory,
+        create_permission_factory_imp=backoffice_permission,
+        update_permission_factory_imp=backoffice_permission,
+        delete_permission_factory_imp=backoffice_permission,
     ),
     patid=dict(
         pid_type=PATRON_PID_TYPE,
@@ -611,8 +608,8 @@ RECORDS_REST_ENDPOINTS = dict(
         error_handlers=dict(),
         list_permission_factory_imp=backoffice_permission,
         read_permission_factory_imp=record_read_permission_factory,
-        create_permission_factory_imp=record_create_permission_factory,
-        update_permission_factory_imp=record_update_permission_factory,
+        create_permission_factory_imp=backoffice_permission,
+        update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
     ),
     dreqid=dict(

@@ -12,17 +12,21 @@ const get = seriesPid => {
   });
 };
 
+const create = async data => {
+  const resp = await http.post(`${seriesURL}`, data);
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
+};
+
 const del = async seriesPid => {
   const response = await http.delete(`${seriesURL}${seriesPid}`);
   return response;
 };
 
-const patch = async (seriesPid, ops) => {
-  const response = await http.patch(`${seriesURL}${seriesPid}`, ops, {
-    headers: { 'Content-Type': 'application/json-patch+json' },
-  });
-  response.data = serializer.fromJSON(response.data);
-  return response;
+const update = async (seriesPid, data) => {
+  const resp = await http.put(`${seriesURL}${seriesPid}`, data);
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
 };
 
 const createRelation = async (seriesPid, data) => {
@@ -139,9 +143,10 @@ const count = query => {
 
 export const series = {
   url: apiURL,
+  create: create,
   get: get,
   delete: del,
-  patch: patch,
+  update: update,
   createRelation: createRelation,
   deleteRelation: deleteRelation,
   list: list,

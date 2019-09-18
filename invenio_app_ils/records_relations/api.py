@@ -17,7 +17,12 @@ from invenio_app_ils.relations.api import ParentChildRelation, SiblingsRelation
 class RecordRelationsMetadata(object):
     """Utilities to manage the `relations_metadata` field."""
 
-    field_name = "relations_metadata"
+    _field_name = "relations_metadata"
+
+    @classmethod
+    def field_name(cls):
+        """Return field name property."""
+        return cls._field_name
 
     @classmethod
     def build_metadata_object(cls, pid_value, pid_type, **kwargs):
@@ -29,7 +34,7 @@ class RecordRelationsMetadata(object):
     @classmethod
     def get_metadata_for(cls, record, relation_name, pid, pid_type):
         """Return the `relations_metadata` dict for the given PID and type."""
-        metadata = record.get(cls.field_name, {}).get(relation_name, [])
+        metadata = record.get(cls.field_name(), {}).get(relation_name, [])
         for m in metadata:
             if m.get("pid", "") == pid and m.get("pid_type", "") == pid_type:
                 return deepcopy(m)
@@ -39,7 +44,7 @@ class RecordRelationsMetadata(object):
         cls, record, relation_name, pid_value, pid_type, **kwargs
     ):
         """Add a new `relations_metadata` dict for the given PID and type."""
-        metadata = record.setdefault(cls.field_name, {})
+        metadata = record.setdefault(cls.field_name(), {})
         relation_metadata = metadata.setdefault(relation_name, [])
         for m in relation_metadata:
             if (
@@ -62,8 +67,8 @@ class RecordRelationsMetadata(object):
     def remove_metadata_from(cls, record, relation_name, pid_value, pid_type):
         """Remove any presence of the given PID in `relations_metadata`."""
         if (
-            cls.field_name in record
-            and relation_name in record[cls.field_name]
+            cls.field_name() in record
+            and relation_name in record[cls.field_name()]
         ):
             # filter out the `relations_metadata` for PID
             remaining_relations = list(
@@ -72,21 +77,21 @@ class RecordRelationsMetadata(object):
                         m.get("pid", "") == pid_value
                         and m.get("pid_type", "") == pid_type
                     ),
-                    record[cls.field_name][relation_name],
+                    record[cls.field_name()][relation_name],
                 )
             )
 
-            if remaining_relations != record[cls.field_name][relation_name]:
+            if remaining_relations != record[cls.field_name()][relation_name]:
                 # if there are no more relations of this type, remove the obj
                 if not remaining_relations:
-                    del record[cls.field_name][relation_name]
+                    del record[cls.field_name()][relation_name]
                 else:
-                    record[cls.field_name][relation_name] = remaining_relations
+                    record[cls.field_name()][relation_name] = remaining_relations
 
                 # if there are 0 `relations_metadata` left,
                 # delete `relations_metadata`
-                if not record[cls.field_name]:
-                    del record[cls.field_name]
+                if not record[cls.field_name()]:
+                    del record[cls.field_name()]
 
                 record.commit()
 
@@ -148,7 +153,7 @@ class RecordRelationsRetriever(object):
         r.update(metadata or {})
 
         # add also the title of the parent
-        r["title"] = parent.get("title", {}).get("title", "")
+        r["title"] = parent.get("title", "")
 
         return r
 
@@ -172,7 +177,7 @@ class RecordRelationsRetriever(object):
         r.update(metadata or {})
 
         # add also title, language and edition of the sibling
-        r["title"] = sibling.get("title", {}).get("title", "")
+        r["title"] = sibling.get("title", "")
         language = sibling.get('language')
         if language:
             r["language"] = language

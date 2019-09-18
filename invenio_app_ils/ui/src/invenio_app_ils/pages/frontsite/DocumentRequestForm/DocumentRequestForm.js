@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Formik, getIn } from 'formik';
 import { Button, Container, Form, Header, Segment } from 'semantic-ui-react';
 import { sessionManager } from '../../../authentication/services';
+import { StringField, TextField } from '../../../forms';
 import * as Yup from 'yup';
 import { FrontSiteRoutes } from '../../../routes/urls';
 import { documentRequest as documentRequestApi } from '../../../common/api';
@@ -31,16 +32,6 @@ export default class DocumentRequestForm extends Component {
     };
   }
 
-  renderError(errors, name, direction = 'above') {
-    const error = errors[name];
-    return error
-      ? {
-          content: error,
-          pointing: direction,
-        }
-      : null;
-  }
-
   onSubmit = async (values, actions) => {
     this.setState({ data: values });
 
@@ -50,6 +41,7 @@ export default class DocumentRequestForm extends Component {
     };
 
     try {
+      actions.setSubmitting(true);
       const response = await documentRequestApi.create(data);
 
       this.props.sendSuccessNotification(
@@ -81,114 +73,66 @@ export default class DocumentRequestForm extends Component {
         initialValues={this.state.data}
         validationSchema={RequestSchema}
         onSubmit={this.onSubmit}
-        render={({
-          values,
-          errors,
-          status,
-          touched,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          isSubmitting,
-        }) => (
-          <Form id="document-request-form" onSubmit={handleSubmit}>
-            <Form.Input
-              fluid
-              required
-              name="title"
-              error={this.renderError(errors, 'title')}
+        render={({ handleSubmit, isSubmitting }) => (
+          <Form
+            id="document-request-form"
+            onSubmit={handleSubmit}
+            loading={isSubmitting}
+          >
+            <StringField
+              fieldPath="title"
               label="Title"
               placeholder="Title"
-              value={getIn(values, 'title', '')}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            <Form.Input
-              fluid
-              name="authors"
-              error={this.renderError(errors, 'authors')}
+              required
+            ></StringField>
+            <StringField
+              fieldPath="authors"
               label="Authors"
               placeholder="Authors"
-              value={getIn(values, 'authors', '')}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+            ></StringField>
             <Form.Group widths="equal">
-              <Form.Input
-                fluid
-                name="isbn"
-                error={this.renderError(errors, 'isbn')}
+              <StringField
+                fieldPath="isbn"
                 label="ISBN"
                 placeholder="ISBN"
-                value={getIn(values, 'isbn', '')}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              <Form.Input
-                fluid
-                name="issn"
-                error={this.renderError(errors, 'issn')}
+              ></StringField>
+              <StringField
+                fieldPath="issn"
                 label="ISSN"
                 placeholder="ISSN"
-                value={getIn(values, 'issn', '')}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
+              ></StringField>
             </Form.Group>
             <Form.Group widths="equal">
-              <Form.Input
-                fluid
-                name="volume"
-                error={this.renderError(errors, 'volume')}
+              <StringField
+                fieldPath="volume"
                 label="Volume"
                 placeholder="Volume number"
-                value={getIn(values, 'volume', '')}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              <Form.Input
-                fluid
-                name="issue"
-                error={this.renderError(errors, 'issue')}
+              ></StringField>
+              <StringField
+                fieldPath="issue"
                 label="Issue"
                 placeholder="Issue number"
-                value={getIn(values, 'issue', '')}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              <Form.Input
-                fluid
-                name="page"
-                error={this.renderError(errors, 'page')}
+              ></StringField>
+              <StringField
+                fieldPath="page"
                 label="Page"
                 placeholder="Page number"
-                value={getIn(values, 'page', '')}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              <Form.Input
-                fluid
-                name="publication_year"
-                error={this.renderError(errors, 'publication_year')}
+              ></StringField>
+              <StringField
+                fieldPath="publication_year"
                 label="Publication Year"
                 placeholder="Publication Year"
-                value={getIn(values, 'publication_year', '')}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
+              ></StringField>
             </Form.Group>
-            <Form.TextArea
-              name="note"
-              error={this.renderError(errors, 'note')}
+            <TextField
+              fieldPath="note"
               label="Note"
               placeholder="Notes for the library"
-              value={getIn(values, 'note', '')}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
+              uiProps={{ rows: 5 }}
+            ></TextField>
 
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? 'Submitting...' : 'Request Book'}
+              Request Book
             </Button>
           </Form>
         )}

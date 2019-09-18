@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SeriesDetails tests should load the details component 1`] = `
+<Container>
+  <Loader>
+    <Error>
+      <SeriesMetadata />
+      <SeriesDocuments />
+    </Error>
+  </Loader>
+</Container>
+`;
