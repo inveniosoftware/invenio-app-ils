@@ -84,7 +84,6 @@ exports[`MostLoanedDocumentsList tests should load the component 1`] = `
             headerActionComponent={
               <ExportSearchResults
                 onExportClick={[Function]}
-                total={NaN}
               />
             }
             name="most loaned documents during this time period"
@@ -531,7 +530,6 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                     headerActionComponent={
                       <ExportSearchResults
                         onExportClick={[Function]}
-                        total={NaN}
                       />
                     }
                     name="most loaned documents during this time period"
@@ -595,7 +593,6 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                                   >
                                     <ExportSearchResults
                                       onExportClick={[Function]}
-                                      total={NaN}
                                     />
                                   </div>
                                 </GridColumn>

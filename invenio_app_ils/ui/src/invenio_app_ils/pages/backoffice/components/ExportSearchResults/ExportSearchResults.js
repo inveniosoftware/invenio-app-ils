@@ -8,15 +8,10 @@ import {
 } from 'react-searchkit';
 import { invenioConfig } from '../../../../common/config/invenioConfig';
 
-/** Simple component rendering a small dialog to choose format and page of results to export. */
+/** Simple component rendering a small dialog to choose format of results to export. */
 class ExportDialog extends Component {
   constructor(props) {
     super(props);
-    this.max = invenioConfig.max_results_window - 1;
-    const totalHits = this.props.total;
-    const lastPage = totalHits % this.max > 0 ? 1 : 0;
-    const totalPages = Math.floor(totalHits / this.max) + lastPage;
-
     this.formatOptions = [
       {
         key: 'csv',
@@ -30,22 +25,8 @@ class ExportDialog extends Component {
       },
     ];
 
-    this.resultsOptions = Array.from(Array(totalPages).keys()).map(i => {
-      const page = i + 1;
-      // build dropdown options, e.g.:
-      // 1 - 9999, 10000 - 19999, ...
-      const start = page === 1 ? 1 : i * this.max + 1;
-      const end = page === totalPages ? totalHits : page * this.max;
-      return {
-        key: i,
-        text: `${start} - ${end}`,
-        value: page,
-      };
-    });
-
     this.state = {
       currentFormat: this.formatOptions[0].value,
-      currentPage: this.resultsOptions[0].value,
     };
   }
 
@@ -77,22 +58,7 @@ class ExportDialog extends Component {
         </div>
         <br />
         <div>
-          <span>
-            Results{' '}
-            <Menu compact>
-              <Dropdown
-                simple
-                item
-                options={this.resultsOptions}
-                defaultValue={this.resultsOptions[0].value}
-                onChange={(e, { value }) => {
-                  this.setState({
-                    currentPage: value,
-                  });
-                }}
-              />
-            </Menu>
-          </span>
+          <span>Only the first {this.props.max} results will be exported.</span>
         </div>
         <br />
         <div style={{ textAlign: 'center' }}>
@@ -103,8 +69,7 @@ class ExportDialog extends Component {
             onClick={() => {
               this.props.onExportClick(
                 this.state.currentFormat,
-                this.state.currentPage,
-                this.max
+                this.props.max
               );
             }}
           />
@@ -116,7 +81,11 @@ class ExportDialog extends Component {
 
 ExportDialog.propTypes = {
   onExportClick: PropTypes.func.isRequired,
-  total: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+};
+
+ExportDialog.defaultProps = {
+  max: invenioConfig.max_results_window,
 };
 
 /** Wrapper component to export search results retrieved using ReactSearchKit */
@@ -127,10 +96,9 @@ class ExportSearchResultsWithState extends Component {
     this.exportBaseUrl = this.props.exportBaseUrl;
   }
 
-  onExportClick = (format, page, size) => {
+  onExportClick = (format, size) => {
     const newQueryState = {
       ...this.props.currentQueryState,
-      page: page,
       size: size,
     };
 
@@ -150,12 +118,7 @@ class ExportSearchResultsWithState extends Component {
 
   render() {
     const ExportDialogWithSearchState = withSearchState(ExportDialog);
-    return (
-      <ExportDialogWithSearchState
-        onExportClick={this.onExportClick}
-        total={this.total}
-      />
-    );
+    return <ExportDialogWithSearchState onExportClick={this.onExportClick} />;
   }
 }
 
@@ -167,14 +130,9 @@ ExportSearchResultsWithState.propTypes = {
 
 /** Wrapper component to export search results retrieved using ReactSearchKit and injecting its state */
 class ExportReactSearchKitResults extends Component {
-  constructor(props) {
-    super(props);
-    this.exportBaseUrl = this.props.exportBaseUrl;
-  }
-
   render() {
     const CmpWithState = withSearchState(ExportSearchResultsWithState);
-    return <CmpWithState exportBaseUrl={this.exportBaseUrl} />;
+    return <CmpWithState exportBaseUrl={this.props.exportBaseUrl} />;
   }
 }
 
@@ -184,23 +142,13 @@ ExportReactSearchKitResults.propTypes = {
 
 /** Wrapper component to export search results retrieved with custom backend APIs */
 class ExportSearchResults extends Component {
-  constructor(props) {
-    super(props);
-    this.onExportClick = this.props.onExportClick;
-    this.withPagination = this.props.withPagination;
-    this.total = this.props.total;
-  }
-
   render() {
-    return (
-      <ExportDialog onExportClick={this.onExportClick} total={this.total} />
-    );
+    return <ExportDialog onExportClick={this.props.onExportClick} />;
   }
 }
 
 ExportSearchResults.propTypes = {
   onExportClick: PropTypes.func.isRequired,
-  total: PropTypes.number.isRequired,
 };
 
 export { ExportReactSearchKitResults, ExportSearchResults };

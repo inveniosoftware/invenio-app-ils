@@ -114,8 +114,7 @@ export default class MostLoanedDocumentsList extends Component {
     rows.totalHits = data.total;
     const headerActionComponent = (
       <ExportSearchResults
-        total={invenioConfig.max_results_window - 1}
-        onExportClick={(format, page, size) => {
+        onExportClick={(format, size) => {
           // build params
           const params = statsApi.getMostLoanedDocumentsParams(
             this.state.fromDate,
