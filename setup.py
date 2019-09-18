@@ -184,6 +184,7 @@ setup(
     install_requires=install_requires,
     setup_requires=setup_requires,
     tests_require=tests_require,
+    python_requires='>=3',
     classifiers=[
         "Environment :: Web Environment",
         "Intended Audience :: Developers",

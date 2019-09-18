@@ -13,10 +13,6 @@ from marshmallow import Schema, fields
 class TagSchemaV1(Schema):
     """Keyword schema."""
 
-    def get_pid_field(self):
-        """Return pid_field value."""
-        return "pid"
-
     pid = fields.Str(required=True)
     name = fields.Str(required=True)
     provenance = fields.Str()

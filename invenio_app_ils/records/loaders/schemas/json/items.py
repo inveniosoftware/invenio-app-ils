@@ -14,10 +14,6 @@ from marshmallow import fields
 class ItemSchemaV1(RecordMetadataSchemaJSONV1):
     """Item schema."""
 
-    def get_pid_field(self):
-        """Return pid_field value."""
-        return "pid"
-
     document_pid = fields.Str(required=True)  # TODO: validate
     internal_location_pid = fields.Str(required=True)  # TODO: validate
     legacy_id = fields.Str()
@@ -33,10 +29,6 @@ class ItemSchemaV1(RecordMetadataSchemaJSONV1):
 
 class EItemSchemaV1(RecordMetadataSchemaJSONV1):
     """EItem schema."""
-
-    def get_pid_field(self):
-        """Return pid_field value."""
-        return "pid"
 
     document_pid = fields.Str(required=True)  # TODO: validate
     description = fields.Str()

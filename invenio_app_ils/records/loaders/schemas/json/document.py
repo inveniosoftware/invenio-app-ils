@@ -14,10 +14,6 @@ from marshmallow import fields
 class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     """Document schema."""
 
-    def get_pid_field(self):
-        """Return pid_field value."""
-        return "pid"
-
     authors = fields.Str()
     circulation = fields.Str()
     document_pid = fields.Str()

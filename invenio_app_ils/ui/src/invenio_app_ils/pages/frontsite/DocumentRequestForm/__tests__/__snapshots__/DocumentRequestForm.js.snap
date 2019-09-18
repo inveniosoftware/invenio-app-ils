@@ -169,6 +169,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                 <Form
                   as="form"
                   id="document-request-form"
+                  loading={false}
                   onSubmit={[Function]}
                 >
                   <form
@@ -176,531 +177,2405 @@ exports[`DocumentRequestForm tests should render the document request form corre
                     id="document-request-form"
                     onSubmit={[Function]}
                   >
-                    <FormInput
-                      as={[Function]}
-                      control={[Function]}
-                      error={null}
-                      fluid={true}
+                    <StringField
+                      fieldPath="title"
                       label="Title"
-                      name="title"
-                      onBlur={[Function]}
-                      onChange={[Function]}
                       placeholder="Title"
                       required={true}
-                      value=""
+                      uiProps={Object {}}
                     >
-                      <FormField
-                        control={[Function]}
-                        error={null}
-                        fluid={true}
-                        label="Title"
+                      <FormikConnect(FieldInner)
+                        component={[Function]}
                         name="title"
-                        onBlur={[Function]}
-                        onChange={[Function]}
-                        placeholder="Title"
-                        required={true}
-                        value=""
                       >
-                        <div
-                          className="required field"
+                        <FieldInner
+                          component={[Function]}
+                          formik={
+                            Object {
+                              "dirty": false,
+                              "errors": Object {},
+                              "handleBlur": [Function],
+                              "handleChange": [Function],
+                              "handleReset": [Function],
+                              "handleSubmit": [Function],
+                              "initialValues": Object {
+                                "title": "",
+                              },
+                              "isSubmitting": false,
+                              "isValid": false,
+                              "isValidating": false,
+                              "registerField": [Function],
+                              "resetForm": [Function],
+                              "setError": [Function],
+                              "setErrors": [Function],
+                              "setFieldError": [Function],
+                              "setFieldTouched": [Function],
+                              "setFieldValue": [Function],
+                              "setFormikState": [Function],
+                              "setStatus": [Function],
+                              "setSubmitting": [Function],
+                              "setTouched": [Function],
+                              "setValues": [Function],
+                              "status": undefined,
+                              "submitCount": 0,
+                              "submitForm": [Function],
+                              "touched": Object {},
+                              "unregisterField": [Function],
+                              "validate": undefined,
+                              "validateField": [Function],
+                              "validateForm": [Function],
+                              "validateOnBlur": true,
+                              "validateOnChange": true,
+                              "validationSchema": ObjectSchema {
+                                "_blacklist": RefSet {
+                                  "list": Set {},
+                                  "refs": Map {},
+                                },
+                                "_conditions": Array [],
+                                "_defaultDefault": [Function],
+                                "_deps": Array [],
+                                "_excludedEdges": Array [],
+                                "_exclusive": Object {},
+                                "_mutate": undefined,
+                                "_nodes": Array [
+                                  "publication_year",
+                                  "title",
+                                ],
+                                "_options": Object {
+                                  "abortEarly": true,
+                                  "recursive": true,
+                                },
+                                "_type": "object",
+                                "_typeError": [Function],
+                                "_whitelist": RefSet {
+                                  "list": Set {},
+                                  "refs": Map {},
+                                },
+                                "fields": Object {
+                                  "publication_year": NumberSchema {
+                                    "_blacklist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "_conditions": Array [],
+                                    "_deps": Array [],
+                                    "_exclusive": Object {
+                                      "integer": false,
+                                    },
+                                    "_mutate": undefined,
+                                    "_options": Object {
+                                      "abortEarly": true,
+                                      "recursive": true,
+                                    },
+                                    "_type": "number",
+                                    "_typeError": [Function],
+                                    "_whitelist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "tests": Array [
+                                      [Function],
+                                    ],
+                                    "transforms": Array [
+                                      [Function],
+                                    ],
+                                  },
+                                  "title": StringSchema {
+                                    "_blacklist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "_conditions": Array [],
+                                    "_deps": Array [],
+                                    "_exclusive": Object {
+                                      "required": true,
+                                    },
+                                    "_mutate": undefined,
+                                    "_options": Object {
+                                      "abortEarly": true,
+                                      "recursive": true,
+                                    },
+                                    "_type": "string",
+                                    "_typeError": [Function],
+                                    "_whitelist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "tests": Array [
+                                      [Function],
+                                    ],
+                                    "transforms": Array [
+                                      [Function],
+                                    ],
+                                  },
+                                },
+                                "tests": Array [],
+                                "transforms": Array [
+                                  [Function],
+                                ],
+                              },
+                              "values": Object {
+                                "title": "",
+                              },
+                            }
+                          }
+                          name="title"
                         >
-                          <label>
-                            Title
-                          </label>
-                          <Input
-                            fluid={true}
-                            name="title"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            placeholder="Title"
-                            required={true}
-                            type="text"
-                            value=""
+                          <Component
+                            field={
+                              Object {
+                                "name": "title",
+                                "onBlur": [Function],
+                                "onChange": [Function],
+                                "value": "",
+                              }
+                            }
+                            form={
+                              Object {
+                                "dirty": false,
+                                "errors": Object {},
+                                "handleBlur": [Function],
+                                "handleChange": [Function],
+                                "handleReset": [Function],
+                                "handleSubmit": [Function],
+                                "initialValues": Object {
+                                  "title": "",
+                                },
+                                "isSubmitting": false,
+                                "isValid": false,
+                                "isValidating": false,
+                                "registerField": [Function],
+                                "resetForm": [Function],
+                                "setError": [Function],
+                                "setErrors": [Function],
+                                "setFieldError": [Function],
+                                "setFieldTouched": [Function],
+                                "setFieldValue": [Function],
+                                "setFormikState": [Function],
+                                "setStatus": [Function],
+                                "setSubmitting": [Function],
+                                "setTouched": [Function],
+                                "setValues": [Function],
+                                "status": undefined,
+                                "submitCount": 0,
+                                "submitForm": [Function],
+                                "touched": Object {},
+                                "unregisterField": [Function],
+                                "validateField": [Function],
+                                "validateForm": [Function],
+                                "validateOnBlur": true,
+                                "validateOnChange": true,
+                                "values": Object {
+                                  "title": "",
+                                },
+                              }
+                            }
                           >
-                            <div
-                              className="ui fluid input"
-                            >
-                              <input
-                                name="title"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                placeholder="Title"
-                                required={true}
-                                type="text"
-                                value=""
-                              />
-                            </div>
-                          </Input>
-                        </div>
-                      </FormField>
-                    </FormInput>
-                    <FormInput
-                      as={[Function]}
-                      control={[Function]}
-                      error={null}
-                      fluid={true}
+                            <FormField>
+                              <div
+                                className="field"
+                              >
+                                <FormInput
+                                  as={[Function]}
+                                  control={[Function]}
+                                  error={null}
+                                  fluid={true}
+                                  label="Title"
+                                  name="title"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  placeholder="Title"
+                                  required={true}
+                                  value=""
+                                >
+                                  <FormField
+                                    control={[Function]}
+                                    error={null}
+                                    fluid={true}
+                                    label="Title"
+                                    name="title"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    placeholder="Title"
+                                    required={true}
+                                    value=""
+                                  >
+                                    <div
+                                      className="required field"
+                                    >
+                                      <label>
+                                        Title
+                                      </label>
+                                      <Input
+                                        fluid={true}
+                                        name="title"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        placeholder="Title"
+                                        required={true}
+                                        type="text"
+                                        value=""
+                                      >
+                                        <div
+                                          className="ui fluid input"
+                                        >
+                                          <input
+                                            name="title"
+                                            onBlur={[Function]}
+                                            onChange={[Function]}
+                                            placeholder="Title"
+                                            required={true}
+                                            type="text"
+                                            value=""
+                                          />
+                                        </div>
+                                      </Input>
+                                    </div>
+                                  </FormField>
+                                </FormInput>
+                              </div>
+                            </FormField>
+                          </Component>
+                        </FieldInner>
+                      </FormikConnect(FieldInner)>
+                    </StringField>
+                    <StringField
+                      fieldPath="authors"
                       label="Authors"
-                      name="authors"
-                      onBlur={[Function]}
-                      onChange={[Function]}
                       placeholder="Authors"
-                      value=""
+                      required={false}
+                      uiProps={Object {}}
                     >
-                      <FormField
-                        control={[Function]}
-                        error={null}
-                        fluid={true}
-                        label="Authors"
+                      <FormikConnect(FieldInner)
+                        component={[Function]}
                         name="authors"
-                        onBlur={[Function]}
-                        onChange={[Function]}
-                        placeholder="Authors"
-                        value=""
                       >
-                        <div
-                          className="field"
+                        <FieldInner
+                          component={[Function]}
+                          formik={
+                            Object {
+                              "dirty": false,
+                              "errors": Object {},
+                              "handleBlur": [Function],
+                              "handleChange": [Function],
+                              "handleReset": [Function],
+                              "handleSubmit": [Function],
+                              "initialValues": Object {
+                                "title": "",
+                              },
+                              "isSubmitting": false,
+                              "isValid": false,
+                              "isValidating": false,
+                              "registerField": [Function],
+                              "resetForm": [Function],
+                              "setError": [Function],
+                              "setErrors": [Function],
+                              "setFieldError": [Function],
+                              "setFieldTouched": [Function],
+                              "setFieldValue": [Function],
+                              "setFormikState": [Function],
+                              "setStatus": [Function],
+                              "setSubmitting": [Function],
+                              "setTouched": [Function],
+                              "setValues": [Function],
+                              "status": undefined,
+                              "submitCount": 0,
+                              "submitForm": [Function],
+                              "touched": Object {},
+                              "unregisterField": [Function],
+                              "validate": undefined,
+                              "validateField": [Function],
+                              "validateForm": [Function],
+                              "validateOnBlur": true,
+                              "validateOnChange": true,
+                              "validationSchema": ObjectSchema {
+                                "_blacklist": RefSet {
+                                  "list": Set {},
+                                  "refs": Map {},
+                                },
+                                "_conditions": Array [],
+                                "_defaultDefault": [Function],
+                                "_deps": Array [],
+                                "_excludedEdges": Array [],
+                                "_exclusive": Object {},
+                                "_mutate": undefined,
+                                "_nodes": Array [
+                                  "publication_year",
+                                  "title",
+                                ],
+                                "_options": Object {
+                                  "abortEarly": true,
+                                  "recursive": true,
+                                },
+                                "_type": "object",
+                                "_typeError": [Function],
+                                "_whitelist": RefSet {
+                                  "list": Set {},
+                                  "refs": Map {},
+                                },
+                                "fields": Object {
+                                  "publication_year": NumberSchema {
+                                    "_blacklist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "_conditions": Array [],
+                                    "_deps": Array [],
+                                    "_exclusive": Object {
+                                      "integer": false,
+                                    },
+                                    "_mutate": undefined,
+                                    "_options": Object {
+                                      "abortEarly": true,
+                                      "recursive": true,
+                                    },
+                                    "_type": "number",
+                                    "_typeError": [Function],
+                                    "_whitelist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "tests": Array [
+                                      [Function],
+                                    ],
+                                    "transforms": Array [
+                                      [Function],
+                                    ],
+                                  },
+                                  "title": StringSchema {
+                                    "_blacklist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "_conditions": Array [],
+                                    "_deps": Array [],
+                                    "_exclusive": Object {
+                                      "required": true,
+                                    },
+                                    "_mutate": undefined,
+                                    "_options": Object {
+                                      "abortEarly": true,
+                                      "recursive": true,
+                                    },
+                                    "_type": "string",
+                                    "_typeError": [Function],
+                                    "_whitelist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "tests": Array [
+                                      [Function],
+                                    ],
+                                    "transforms": Array [
+                                      [Function],
+                                    ],
+                                  },
+                                },
+                                "tests": Array [],
+                                "transforms": Array [
+                                  [Function],
+                                ],
+                              },
+                              "values": Object {
+                                "title": "",
+                              },
+                            }
+                          }
+                          name="authors"
                         >
-                          <label>
-                            Authors
-                          </label>
-                          <Input
-                            fluid={true}
-                            name="authors"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            placeholder="Authors"
-                            type="text"
-                            value=""
+                          <Component
+                            field={
+                              Object {
+                                "name": "authors",
+                                "onBlur": [Function],
+                                "onChange": [Function],
+                                "value": undefined,
+                              }
+                            }
+                            form={
+                              Object {
+                                "dirty": false,
+                                "errors": Object {},
+                                "handleBlur": [Function],
+                                "handleChange": [Function],
+                                "handleReset": [Function],
+                                "handleSubmit": [Function],
+                                "initialValues": Object {
+                                  "title": "",
+                                },
+                                "isSubmitting": false,
+                                "isValid": false,
+                                "isValidating": false,
+                                "registerField": [Function],
+                                "resetForm": [Function],
+                                "setError": [Function],
+                                "setErrors": [Function],
+                                "setFieldError": [Function],
+                                "setFieldTouched": [Function],
+                                "setFieldValue": [Function],
+                                "setFormikState": [Function],
+                                "setStatus": [Function],
+                                "setSubmitting": [Function],
+                                "setTouched": [Function],
+                                "setValues": [Function],
+                                "status": undefined,
+                                "submitCount": 0,
+                                "submitForm": [Function],
+                                "touched": Object {},
+                                "unregisterField": [Function],
+                                "validateField": [Function],
+                                "validateForm": [Function],
+                                "validateOnBlur": true,
+                                "validateOnChange": true,
+                                "values": Object {
+                                  "title": "",
+                                },
+                              }
+                            }
                           >
-                            <div
-                              className="ui fluid input"
-                            >
-                              <input
-                                name="authors"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                placeholder="Authors"
-                                type="text"
-                                value=""
-                              />
-                            </div>
-                          </Input>
-                        </div>
-                      </FormField>
-                    </FormInput>
+                            <FormField>
+                              <div
+                                className="field"
+                              >
+                                <FormInput
+                                  as={[Function]}
+                                  control={[Function]}
+                                  error={null}
+                                  fluid={true}
+                                  label="Authors"
+                                  name="authors"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  placeholder="Authors"
+                                  required={false}
+                                  value=""
+                                >
+                                  <FormField
+                                    control={[Function]}
+                                    error={null}
+                                    fluid={true}
+                                    label="Authors"
+                                    name="authors"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    placeholder="Authors"
+                                    required={false}
+                                    value=""
+                                  >
+                                    <div
+                                      className="field"
+                                    >
+                                      <label>
+                                        Authors
+                                      </label>
+                                      <Input
+                                        fluid={true}
+                                        name="authors"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        placeholder="Authors"
+                                        required={false}
+                                        type="text"
+                                        value=""
+                                      >
+                                        <div
+                                          className="ui fluid input"
+                                        >
+                                          <input
+                                            name="authors"
+                                            onBlur={[Function]}
+                                            onChange={[Function]}
+                                            placeholder="Authors"
+                                            required={false}
+                                            type="text"
+                                            value=""
+                                          />
+                                        </div>
+                                      </Input>
+                                    </div>
+                                  </FormField>
+                                </FormInput>
+                              </div>
+                            </FormField>
+                          </Component>
+                        </FieldInner>
+                      </FormikConnect(FieldInner)>
+                    </StringField>
                     <FormGroup
                       widths="equal"
                     >
                       <div
                         className="equal width fields"
                       >
-                        <FormInput
-                          as={[Function]}
-                          control={[Function]}
-                          error={null}
-                          fluid={true}
+                        <StringField
+                          fieldPath="isbn"
                           label="ISBN"
-                          name="isbn"
-                          onBlur={[Function]}
-                          onChange={[Function]}
                           placeholder="ISBN"
-                          value=""
+                          required={false}
+                          uiProps={Object {}}
                         >
-                          <FormField
-                            control={[Function]}
-                            error={null}
-                            fluid={true}
-                            label="ISBN"
+                          <FormikConnect(FieldInner)
+                            component={[Function]}
                             name="isbn"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            placeholder="ISBN"
-                            value=""
                           >
-                            <div
-                              className="field"
-                            >
-                              <label>
-                                ISBN
-                              </label>
-                              <Input
-                                fluid={true}
-                                name="isbn"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                placeholder="ISBN"
-                                type="text"
-                                value=""
-                              >
-                                <div
-                                  className="ui fluid input"
-                                >
-                                  <input
-                                    name="isbn"
-                                    onBlur={[Function]}
-                                    onChange={[Function]}
-                                    placeholder="ISBN"
-                                    type="text"
-                                    value=""
-                                  />
-                                </div>
-                              </Input>
-                            </div>
-                          </FormField>
-                        </FormInput>
-                        <FormInput
-                          as={[Function]}
-                          control={[Function]}
-                          error={null}
-                          fluid={true}
-                          label="ISSN"
-                          name="issn"
-                          onBlur={[Function]}
-                          onChange={[Function]}
-                          placeholder="ISSN"
-                          value=""
-                        >
-                          <FormField
-                            control={[Function]}
-                            error={null}
-                            fluid={true}
-                            label="ISSN"
-                            name="issn"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            placeholder="ISSN"
-                            value=""
-                          >
-                            <div
-                              className="field"
-                            >
-                              <label>
-                                ISSN
-                              </label>
-                              <Input
-                                fluid={true}
-                                name="issn"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                placeholder="ISSN"
-                                type="text"
-                                value=""
-                              >
-                                <div
-                                  className="ui fluid input"
-                                >
-                                  <input
-                                    name="issn"
-                                    onBlur={[Function]}
-                                    onChange={[Function]}
-                                    placeholder="ISSN"
-                                    type="text"
-                                    value=""
-                                  />
-                                </div>
-                              </Input>
-                            </div>
-                          </FormField>
-                        </FormInput>
-                      </div>
-                    </FormGroup>
-                    <FormGroup
-                      widths="equal"
-                    >
-                      <div
-                        className="equal width fields"
-                      >
-                        <FormInput
-                          as={[Function]}
-                          control={[Function]}
-                          error={null}
-                          fluid={true}
-                          label="Volume"
-                          name="volume"
-                          onBlur={[Function]}
-                          onChange={[Function]}
-                          placeholder="Volume number"
-                          value=""
-                        >
-                          <FormField
-                            control={[Function]}
-                            error={null}
-                            fluid={true}
-                            label="Volume"
-                            name="volume"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            placeholder="Volume number"
-                            value=""
-                          >
-                            <div
-                              className="field"
-                            >
-                              <label>
-                                Volume
-                              </label>
-                              <Input
-                                fluid={true}
-                                name="volume"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                placeholder="Volume number"
-                                type="text"
-                                value=""
-                              >
-                                <div
-                                  className="ui fluid input"
-                                >
-                                  <input
-                                    name="volume"
-                                    onBlur={[Function]}
-                                    onChange={[Function]}
-                                    placeholder="Volume number"
-                                    type="text"
-                                    value=""
-                                  />
-                                </div>
-                              </Input>
-                            </div>
-                          </FormField>
-                        </FormInput>
-                        <FormInput
-                          as={[Function]}
-                          control={[Function]}
-                          error={null}
-                          fluid={true}
-                          label="Issue"
-                          name="issue"
-                          onBlur={[Function]}
-                          onChange={[Function]}
-                          placeholder="Issue number"
-                          value=""
-                        >
-                          <FormField
-                            control={[Function]}
-                            error={null}
-                            fluid={true}
-                            label="Issue"
-                            name="issue"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            placeholder="Issue number"
-                            value=""
-                          >
-                            <div
-                              className="field"
-                            >
-                              <label>
-                                Issue
-                              </label>
-                              <Input
-                                fluid={true}
-                                name="issue"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                placeholder="Issue number"
-                                type="text"
-                                value=""
-                              >
-                                <div
-                                  className="ui fluid input"
-                                >
-                                  <input
-                                    name="issue"
-                                    onBlur={[Function]}
-                                    onChange={[Function]}
-                                    placeholder="Issue number"
-                                    type="text"
-                                    value=""
-                                  />
-                                </div>
-                              </Input>
-                            </div>
-                          </FormField>
-                        </FormInput>
-                        <FormInput
-                          as={[Function]}
-                          control={[Function]}
-                          error={null}
-                          fluid={true}
-                          label="Page"
-                          name="page"
-                          onBlur={[Function]}
-                          onChange={[Function]}
-                          placeholder="Page number"
-                          value=""
-                        >
-                          <FormField
-                            control={[Function]}
-                            error={null}
-                            fluid={true}
-                            label="Page"
-                            name="page"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            placeholder="Page number"
-                            value=""
-                          >
-                            <div
-                              className="field"
-                            >
-                              <label>
-                                Page
-                              </label>
-                              <Input
-                                fluid={true}
-                                name="page"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                placeholder="Page number"
-                                type="text"
-                                value=""
-                              >
-                                <div
-                                  className="ui fluid input"
-                                >
-                                  <input
-                                    name="page"
-                                    onBlur={[Function]}
-                                    onChange={[Function]}
-                                    placeholder="Page number"
-                                    type="text"
-                                    value=""
-                                  />
-                                </div>
-                              </Input>
-                            </div>
-                          </FormField>
-                        </FormInput>
-                        <FormInput
-                          as={[Function]}
-                          control={[Function]}
-                          error={null}
-                          fluid={true}
-                          label="Publication Year"
-                          name="publication_year"
-                          onBlur={[Function]}
-                          onChange={[Function]}
-                          placeholder="Publication Year"
-                          value=""
-                        >
-                          <FormField
-                            control={[Function]}
-                            error={null}
-                            fluid={true}
-                            label="Publication Year"
-                            name="publication_year"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            placeholder="Publication Year"
-                            value=""
-                          >
-                            <div
-                              className="field"
-                            >
-                              <label>
-                                Publication Year
-                              </label>
-                              <Input
-                                fluid={true}
-                                name="publication_year"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                placeholder="Publication Year"
-                                type="text"
-                                value=""
-                              >
-                                <div
-                                  className="ui fluid input"
-                                >
-                                  <input
-                                    name="publication_year"
-                                    onBlur={[Function]}
-                                    onChange={[Function]}
-                                    placeholder="Publication Year"
-                                    type="text"
-                                    value=""
-                                  />
-                                </div>
-                              </Input>
-                            </div>
-                          </FormField>
-                        </FormInput>
-                      </div>
-                    </FormGroup>
-                    <FormTextArea
-                      as={[Function]}
-                      control={[Function]}
-                      error={null}
-                      label="Note"
-                      name="note"
-                      onBlur={[Function]}
-                      onChange={[Function]}
-                      placeholder="Notes for the library"
-                      value=""
-                    >
-                      <FormField
-                        control={[Function]}
-                        error={null}
-                        label="Note"
-                        name="note"
-                        onBlur={[Function]}
-                        onChange={[Function]}
-                        placeholder="Notes for the library"
-                        value=""
-                      >
-                        <div
-                          className="field"
-                        >
-                          <label>
-                            Note
-                          </label>
-                          <TextArea
-                            as="textarea"
-                            name="note"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            placeholder="Notes for the library"
-                            rows={3}
-                            value=""
-                          >
-                            <Ref
-                              innerRef={
+                            <FieldInner
+                              component={[Function]}
+                              formik={
                                 Object {
-                                  "current": <textarea
-                                    name="note"
-                                    placeholder="Notes for the library"
-                                    rows="3"
-                                  />,
+                                  "dirty": false,
+                                  "errors": Object {},
+                                  "handleBlur": [Function],
+                                  "handleChange": [Function],
+                                  "handleReset": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": Object {
+                                    "title": "",
+                                  },
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "isValidating": false,
+                                  "registerField": [Function],
+                                  "resetForm": [Function],
+                                  "setError": [Function],
+                                  "setErrors": [Function],
+                                  "setFieldError": [Function],
+                                  "setFieldTouched": [Function],
+                                  "setFieldValue": [Function],
+                                  "setFormikState": [Function],
+                                  "setStatus": [Function],
+                                  "setSubmitting": [Function],
+                                  "setTouched": [Function],
+                                  "setValues": [Function],
+                                  "status": undefined,
+                                  "submitCount": 0,
+                                  "submitForm": [Function],
+                                  "touched": Object {},
+                                  "unregisterField": [Function],
+                                  "validate": undefined,
+                                  "validateField": [Function],
+                                  "validateForm": [Function],
+                                  "validateOnBlur": true,
+                                  "validateOnChange": true,
+                                  "validationSchema": ObjectSchema {
+                                    "_blacklist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "_conditions": Array [],
+                                    "_defaultDefault": [Function],
+                                    "_deps": Array [],
+                                    "_excludedEdges": Array [],
+                                    "_exclusive": Object {},
+                                    "_mutate": undefined,
+                                    "_nodes": Array [
+                                      "publication_year",
+                                      "title",
+                                    ],
+                                    "_options": Object {
+                                      "abortEarly": true,
+                                      "recursive": true,
+                                    },
+                                    "_type": "object",
+                                    "_typeError": [Function],
+                                    "_whitelist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "fields": Object {
+                                      "publication_year": NumberSchema {
+                                        "_blacklist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "integer": false,
+                                        },
+                                        "_mutate": undefined,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "number",
+                                        "_typeError": [Function],
+                                        "_whitelist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                      "title": StringSchema {
+                                        "_blacklist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "required": true,
+                                        },
+                                        "_mutate": undefined,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "string",
+                                        "_typeError": [Function],
+                                        "_whitelist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                    },
+                                    "tests": Array [],
+                                    "transforms": Array [
+                                      [Function],
+                                    ],
+                                  },
+                                  "values": Object {
+                                    "title": "",
+                                  },
                                 }
                               }
+                              name="isbn"
                             >
-                              <RefFindNode
-                                innerRef={
+                              <Component
+                                field={
                                   Object {
-                                    "current": <textarea
-                                      name="note"
-                                      placeholder="Notes for the library"
-                                      rows="3"
-                                    />,
+                                    "name": "isbn",
+                                    "onBlur": [Function],
+                                    "onChange": [Function],
+                                    "value": undefined,
+                                  }
+                                }
+                                form={
+                                  Object {
+                                    "dirty": false,
+                                    "errors": Object {},
+                                    "handleBlur": [Function],
+                                    "handleChange": [Function],
+                                    "handleReset": [Function],
+                                    "handleSubmit": [Function],
+                                    "initialValues": Object {
+                                      "title": "",
+                                    },
+                                    "isSubmitting": false,
+                                    "isValid": false,
+                                    "isValidating": false,
+                                    "registerField": [Function],
+                                    "resetForm": [Function],
+                                    "setError": [Function],
+                                    "setErrors": [Function],
+                                    "setFieldError": [Function],
+                                    "setFieldTouched": [Function],
+                                    "setFieldValue": [Function],
+                                    "setFormikState": [Function],
+                                    "setStatus": [Function],
+                                    "setSubmitting": [Function],
+                                    "setTouched": [Function],
+                                    "setValues": [Function],
+                                    "status": undefined,
+                                    "submitCount": 0,
+                                    "submitForm": [Function],
+                                    "touched": Object {},
+                                    "unregisterField": [Function],
+                                    "validateField": [Function],
+                                    "validateForm": [Function],
+                                    "validateOnBlur": true,
+                                    "validateOnChange": true,
+                                    "values": Object {
+                                      "title": "",
+                                    },
                                   }
                                 }
                               >
-                                <textarea
+                                <FormField>
+                                  <div
+                                    className="field"
+                                  >
+                                    <FormInput
+                                      as={[Function]}
+                                      control={[Function]}
+                                      error={null}
+                                      fluid={true}
+                                      label="ISBN"
+                                      name="isbn"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      placeholder="ISBN"
+                                      required={false}
+                                      value=""
+                                    >
+                                      <FormField
+                                        control={[Function]}
+                                        error={null}
+                                        fluid={true}
+                                        label="ISBN"
+                                        name="isbn"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        placeholder="ISBN"
+                                        required={false}
+                                        value=""
+                                      >
+                                        <div
+                                          className="field"
+                                        >
+                                          <label>
+                                            ISBN
+                                          </label>
+                                          <Input
+                                            fluid={true}
+                                            name="isbn"
+                                            onBlur={[Function]}
+                                            onChange={[Function]}
+                                            placeholder="ISBN"
+                                            required={false}
+                                            type="text"
+                                            value=""
+                                          >
+                                            <div
+                                              className="ui fluid input"
+                                            >
+                                              <input
+                                                name="isbn"
+                                                onBlur={[Function]}
+                                                onChange={[Function]}
+                                                placeholder="ISBN"
+                                                required={false}
+                                                type="text"
+                                                value=""
+                                              />
+                                            </div>
+                                          </Input>
+                                        </div>
+                                      </FormField>
+                                    </FormInput>
+                                  </div>
+                                </FormField>
+                              </Component>
+                            </FieldInner>
+                          </FormikConnect(FieldInner)>
+                        </StringField>
+                        <StringField
+                          fieldPath="issn"
+                          label="ISSN"
+                          placeholder="ISSN"
+                          required={false}
+                          uiProps={Object {}}
+                        >
+                          <FormikConnect(FieldInner)
+                            component={[Function]}
+                            name="issn"
+                          >
+                            <FieldInner
+                              component={[Function]}
+                              formik={
+                                Object {
+                                  "dirty": false,
+                                  "errors": Object {},
+                                  "handleBlur": [Function],
+                                  "handleChange": [Function],
+                                  "handleReset": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": Object {
+                                    "title": "",
+                                  },
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "isValidating": false,
+                                  "registerField": [Function],
+                                  "resetForm": [Function],
+                                  "setError": [Function],
+                                  "setErrors": [Function],
+                                  "setFieldError": [Function],
+                                  "setFieldTouched": [Function],
+                                  "setFieldValue": [Function],
+                                  "setFormikState": [Function],
+                                  "setStatus": [Function],
+                                  "setSubmitting": [Function],
+                                  "setTouched": [Function],
+                                  "setValues": [Function],
+                                  "status": undefined,
+                                  "submitCount": 0,
+                                  "submitForm": [Function],
+                                  "touched": Object {},
+                                  "unregisterField": [Function],
+                                  "validate": undefined,
+                                  "validateField": [Function],
+                                  "validateForm": [Function],
+                                  "validateOnBlur": true,
+                                  "validateOnChange": true,
+                                  "validationSchema": ObjectSchema {
+                                    "_blacklist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "_conditions": Array [],
+                                    "_defaultDefault": [Function],
+                                    "_deps": Array [],
+                                    "_excludedEdges": Array [],
+                                    "_exclusive": Object {},
+                                    "_mutate": undefined,
+                                    "_nodes": Array [
+                                      "publication_year",
+                                      "title",
+                                    ],
+                                    "_options": Object {
+                                      "abortEarly": true,
+                                      "recursive": true,
+                                    },
+                                    "_type": "object",
+                                    "_typeError": [Function],
+                                    "_whitelist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "fields": Object {
+                                      "publication_year": NumberSchema {
+                                        "_blacklist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "integer": false,
+                                        },
+                                        "_mutate": undefined,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "number",
+                                        "_typeError": [Function],
+                                        "_whitelist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                      "title": StringSchema {
+                                        "_blacklist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "required": true,
+                                        },
+                                        "_mutate": undefined,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "string",
+                                        "_typeError": [Function],
+                                        "_whitelist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                    },
+                                    "tests": Array [],
+                                    "transforms": Array [
+                                      [Function],
+                                    ],
+                                  },
+                                  "values": Object {
+                                    "title": "",
+                                  },
+                                }
+                              }
+                              name="issn"
+                            >
+                              <Component
+                                field={
+                                  Object {
+                                    "name": "issn",
+                                    "onBlur": [Function],
+                                    "onChange": [Function],
+                                    "value": undefined,
+                                  }
+                                }
+                                form={
+                                  Object {
+                                    "dirty": false,
+                                    "errors": Object {},
+                                    "handleBlur": [Function],
+                                    "handleChange": [Function],
+                                    "handleReset": [Function],
+                                    "handleSubmit": [Function],
+                                    "initialValues": Object {
+                                      "title": "",
+                                    },
+                                    "isSubmitting": false,
+                                    "isValid": false,
+                                    "isValidating": false,
+                                    "registerField": [Function],
+                                    "resetForm": [Function],
+                                    "setError": [Function],
+                                    "setErrors": [Function],
+                                    "setFieldError": [Function],
+                                    "setFieldTouched": [Function],
+                                    "setFieldValue": [Function],
+                                    "setFormikState": [Function],
+                                    "setStatus": [Function],
+                                    "setSubmitting": [Function],
+                                    "setTouched": [Function],
+                                    "setValues": [Function],
+                                    "status": undefined,
+                                    "submitCount": 0,
+                                    "submitForm": [Function],
+                                    "touched": Object {},
+                                    "unregisterField": [Function],
+                                    "validateField": [Function],
+                                    "validateForm": [Function],
+                                    "validateOnBlur": true,
+                                    "validateOnChange": true,
+                                    "values": Object {
+                                      "title": "",
+                                    },
+                                  }
+                                }
+                              >
+                                <FormField>
+                                  <div
+                                    className="field"
+                                  >
+                                    <FormInput
+                                      as={[Function]}
+                                      control={[Function]}
+                                      error={null}
+                                      fluid={true}
+                                      label="ISSN"
+                                      name="issn"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      placeholder="ISSN"
+                                      required={false}
+                                      value=""
+                                    >
+                                      <FormField
+                                        control={[Function]}
+                                        error={null}
+                                        fluid={true}
+                                        label="ISSN"
+                                        name="issn"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        placeholder="ISSN"
+                                        required={false}
+                                        value=""
+                                      >
+                                        <div
+                                          className="field"
+                                        >
+                                          <label>
+                                            ISSN
+                                          </label>
+                                          <Input
+                                            fluid={true}
+                                            name="issn"
+                                            onBlur={[Function]}
+                                            onChange={[Function]}
+                                            placeholder="ISSN"
+                                            required={false}
+                                            type="text"
+                                            value=""
+                                          >
+                                            <div
+                                              className="ui fluid input"
+                                            >
+                                              <input
+                                                name="issn"
+                                                onBlur={[Function]}
+                                                onChange={[Function]}
+                                                placeholder="ISSN"
+                                                required={false}
+                                                type="text"
+                                                value=""
+                                              />
+                                            </div>
+                                          </Input>
+                                        </div>
+                                      </FormField>
+                                    </FormInput>
+                                  </div>
+                                </FormField>
+                              </Component>
+                            </FieldInner>
+                          </FormikConnect(FieldInner)>
+                        </StringField>
+                      </div>
+                    </FormGroup>
+                    <FormGroup
+                      widths="equal"
+                    >
+                      <div
+                        className="equal width fields"
+                      >
+                        <StringField
+                          fieldPath="volume"
+                          label="Volume"
+                          placeholder="Volume number"
+                          required={false}
+                          uiProps={Object {}}
+                        >
+                          <FormikConnect(FieldInner)
+                            component={[Function]}
+                            name="volume"
+                          >
+                            <FieldInner
+                              component={[Function]}
+                              formik={
+                                Object {
+                                  "dirty": false,
+                                  "errors": Object {},
+                                  "handleBlur": [Function],
+                                  "handleChange": [Function],
+                                  "handleReset": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": Object {
+                                    "title": "",
+                                  },
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "isValidating": false,
+                                  "registerField": [Function],
+                                  "resetForm": [Function],
+                                  "setError": [Function],
+                                  "setErrors": [Function],
+                                  "setFieldError": [Function],
+                                  "setFieldTouched": [Function],
+                                  "setFieldValue": [Function],
+                                  "setFormikState": [Function],
+                                  "setStatus": [Function],
+                                  "setSubmitting": [Function],
+                                  "setTouched": [Function],
+                                  "setValues": [Function],
+                                  "status": undefined,
+                                  "submitCount": 0,
+                                  "submitForm": [Function],
+                                  "touched": Object {},
+                                  "unregisterField": [Function],
+                                  "validate": undefined,
+                                  "validateField": [Function],
+                                  "validateForm": [Function],
+                                  "validateOnBlur": true,
+                                  "validateOnChange": true,
+                                  "validationSchema": ObjectSchema {
+                                    "_blacklist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "_conditions": Array [],
+                                    "_defaultDefault": [Function],
+                                    "_deps": Array [],
+                                    "_excludedEdges": Array [],
+                                    "_exclusive": Object {},
+                                    "_mutate": undefined,
+                                    "_nodes": Array [
+                                      "publication_year",
+                                      "title",
+                                    ],
+                                    "_options": Object {
+                                      "abortEarly": true,
+                                      "recursive": true,
+                                    },
+                                    "_type": "object",
+                                    "_typeError": [Function],
+                                    "_whitelist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "fields": Object {
+                                      "publication_year": NumberSchema {
+                                        "_blacklist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "integer": false,
+                                        },
+                                        "_mutate": undefined,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "number",
+                                        "_typeError": [Function],
+                                        "_whitelist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                      "title": StringSchema {
+                                        "_blacklist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "required": true,
+                                        },
+                                        "_mutate": undefined,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "string",
+                                        "_typeError": [Function],
+                                        "_whitelist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                    },
+                                    "tests": Array [],
+                                    "transforms": Array [
+                                      [Function],
+                                    ],
+                                  },
+                                  "values": Object {
+                                    "title": "",
+                                  },
+                                }
+                              }
+                              name="volume"
+                            >
+                              <Component
+                                field={
+                                  Object {
+                                    "name": "volume",
+                                    "onBlur": [Function],
+                                    "onChange": [Function],
+                                    "value": undefined,
+                                  }
+                                }
+                                form={
+                                  Object {
+                                    "dirty": false,
+                                    "errors": Object {},
+                                    "handleBlur": [Function],
+                                    "handleChange": [Function],
+                                    "handleReset": [Function],
+                                    "handleSubmit": [Function],
+                                    "initialValues": Object {
+                                      "title": "",
+                                    },
+                                    "isSubmitting": false,
+                                    "isValid": false,
+                                    "isValidating": false,
+                                    "registerField": [Function],
+                                    "resetForm": [Function],
+                                    "setError": [Function],
+                                    "setErrors": [Function],
+                                    "setFieldError": [Function],
+                                    "setFieldTouched": [Function],
+                                    "setFieldValue": [Function],
+                                    "setFormikState": [Function],
+                                    "setStatus": [Function],
+                                    "setSubmitting": [Function],
+                                    "setTouched": [Function],
+                                    "setValues": [Function],
+                                    "status": undefined,
+                                    "submitCount": 0,
+                                    "submitForm": [Function],
+                                    "touched": Object {},
+                                    "unregisterField": [Function],
+                                    "validateField": [Function],
+                                    "validateForm": [Function],
+                                    "validateOnBlur": true,
+                                    "validateOnChange": true,
+                                    "values": Object {
+                                      "title": "",
+                                    },
+                                  }
+                                }
+                              >
+                                <FormField>
+                                  <div
+                                    className="field"
+                                  >
+                                    <FormInput
+                                      as={[Function]}
+                                      control={[Function]}
+                                      error={null}
+                                      fluid={true}
+                                      label="Volume"
+                                      name="volume"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      placeholder="Volume number"
+                                      required={false}
+                                      value=""
+                                    >
+                                      <FormField
+                                        control={[Function]}
+                                        error={null}
+                                        fluid={true}
+                                        label="Volume"
+                                        name="volume"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        placeholder="Volume number"
+                                        required={false}
+                                        value=""
+                                      >
+                                        <div
+                                          className="field"
+                                        >
+                                          <label>
+                                            Volume
+                                          </label>
+                                          <Input
+                                            fluid={true}
+                                            name="volume"
+                                            onBlur={[Function]}
+                                            onChange={[Function]}
+                                            placeholder="Volume number"
+                                            required={false}
+                                            type="text"
+                                            value=""
+                                          >
+                                            <div
+                                              className="ui fluid input"
+                                            >
+                                              <input
+                                                name="volume"
+                                                onBlur={[Function]}
+                                                onChange={[Function]}
+                                                placeholder="Volume number"
+                                                required={false}
+                                                type="text"
+                                                value=""
+                                              />
+                                            </div>
+                                          </Input>
+                                        </div>
+                                      </FormField>
+                                    </FormInput>
+                                  </div>
+                                </FormField>
+                              </Component>
+                            </FieldInner>
+                          </FormikConnect(FieldInner)>
+                        </StringField>
+                        <StringField
+                          fieldPath="issue"
+                          label="Issue"
+                          placeholder="Issue number"
+                          required={false}
+                          uiProps={Object {}}
+                        >
+                          <FormikConnect(FieldInner)
+                            component={[Function]}
+                            name="issue"
+                          >
+                            <FieldInner
+                              component={[Function]}
+                              formik={
+                                Object {
+                                  "dirty": false,
+                                  "errors": Object {},
+                                  "handleBlur": [Function],
+                                  "handleChange": [Function],
+                                  "handleReset": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": Object {
+                                    "title": "",
+                                  },
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "isValidating": false,
+                                  "registerField": [Function],
+                                  "resetForm": [Function],
+                                  "setError": [Function],
+                                  "setErrors": [Function],
+                                  "setFieldError": [Function],
+                                  "setFieldTouched": [Function],
+                                  "setFieldValue": [Function],
+                                  "setFormikState": [Function],
+                                  "setStatus": [Function],
+                                  "setSubmitting": [Function],
+                                  "setTouched": [Function],
+                                  "setValues": [Function],
+                                  "status": undefined,
+                                  "submitCount": 0,
+                                  "submitForm": [Function],
+                                  "touched": Object {},
+                                  "unregisterField": [Function],
+                                  "validate": undefined,
+                                  "validateField": [Function],
+                                  "validateForm": [Function],
+                                  "validateOnBlur": true,
+                                  "validateOnChange": true,
+                                  "validationSchema": ObjectSchema {
+                                    "_blacklist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "_conditions": Array [],
+                                    "_defaultDefault": [Function],
+                                    "_deps": Array [],
+                                    "_excludedEdges": Array [],
+                                    "_exclusive": Object {},
+                                    "_mutate": undefined,
+                                    "_nodes": Array [
+                                      "publication_year",
+                                      "title",
+                                    ],
+                                    "_options": Object {
+                                      "abortEarly": true,
+                                      "recursive": true,
+                                    },
+                                    "_type": "object",
+                                    "_typeError": [Function],
+                                    "_whitelist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "fields": Object {
+                                      "publication_year": NumberSchema {
+                                        "_blacklist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "integer": false,
+                                        },
+                                        "_mutate": undefined,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "number",
+                                        "_typeError": [Function],
+                                        "_whitelist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                      "title": StringSchema {
+                                        "_blacklist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "required": true,
+                                        },
+                                        "_mutate": undefined,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "string",
+                                        "_typeError": [Function],
+                                        "_whitelist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                    },
+                                    "tests": Array [],
+                                    "transforms": Array [
+                                      [Function],
+                                    ],
+                                  },
+                                  "values": Object {
+                                    "title": "",
+                                  },
+                                }
+                              }
+                              name="issue"
+                            >
+                              <Component
+                                field={
+                                  Object {
+                                    "name": "issue",
+                                    "onBlur": [Function],
+                                    "onChange": [Function],
+                                    "value": undefined,
+                                  }
+                                }
+                                form={
+                                  Object {
+                                    "dirty": false,
+                                    "errors": Object {},
+                                    "handleBlur": [Function],
+                                    "handleChange": [Function],
+                                    "handleReset": [Function],
+                                    "handleSubmit": [Function],
+                                    "initialValues": Object {
+                                      "title": "",
+                                    },
+                                    "isSubmitting": false,
+                                    "isValid": false,
+                                    "isValidating": false,
+                                    "registerField": [Function],
+                                    "resetForm": [Function],
+                                    "setError": [Function],
+                                    "setErrors": [Function],
+                                    "setFieldError": [Function],
+                                    "setFieldTouched": [Function],
+                                    "setFieldValue": [Function],
+                                    "setFormikState": [Function],
+                                    "setStatus": [Function],
+                                    "setSubmitting": [Function],
+                                    "setTouched": [Function],
+                                    "setValues": [Function],
+                                    "status": undefined,
+                                    "submitCount": 0,
+                                    "submitForm": [Function],
+                                    "touched": Object {},
+                                    "unregisterField": [Function],
+                                    "validateField": [Function],
+                                    "validateForm": [Function],
+                                    "validateOnBlur": true,
+                                    "validateOnChange": true,
+                                    "values": Object {
+                                      "title": "",
+                                    },
+                                  }
+                                }
+                              >
+                                <FormField>
+                                  <div
+                                    className="field"
+                                  >
+                                    <FormInput
+                                      as={[Function]}
+                                      control={[Function]}
+                                      error={null}
+                                      fluid={true}
+                                      label="Issue"
+                                      name="issue"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      placeholder="Issue number"
+                                      required={false}
+                                      value=""
+                                    >
+                                      <FormField
+                                        control={[Function]}
+                                        error={null}
+                                        fluid={true}
+                                        label="Issue"
+                                        name="issue"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        placeholder="Issue number"
+                                        required={false}
+                                        value=""
+                                      >
+                                        <div
+                                          className="field"
+                                        >
+                                          <label>
+                                            Issue
+                                          </label>
+                                          <Input
+                                            fluid={true}
+                                            name="issue"
+                                            onBlur={[Function]}
+                                            onChange={[Function]}
+                                            placeholder="Issue number"
+                                            required={false}
+                                            type="text"
+                                            value=""
+                                          >
+                                            <div
+                                              className="ui fluid input"
+                                            >
+                                              <input
+                                                name="issue"
+                                                onBlur={[Function]}
+                                                onChange={[Function]}
+                                                placeholder="Issue number"
+                                                required={false}
+                                                type="text"
+                                                value=""
+                                              />
+                                            </div>
+                                          </Input>
+                                        </div>
+                                      </FormField>
+                                    </FormInput>
+                                  </div>
+                                </FormField>
+                              </Component>
+                            </FieldInner>
+                          </FormikConnect(FieldInner)>
+                        </StringField>
+                        <StringField
+                          fieldPath="page"
+                          label="Page"
+                          placeholder="Page number"
+                          required={false}
+                          uiProps={Object {}}
+                        >
+                          <FormikConnect(FieldInner)
+                            component={[Function]}
+                            name="page"
+                          >
+                            <FieldInner
+                              component={[Function]}
+                              formik={
+                                Object {
+                                  "dirty": false,
+                                  "errors": Object {},
+                                  "handleBlur": [Function],
+                                  "handleChange": [Function],
+                                  "handleReset": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": Object {
+                                    "title": "",
+                                  },
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "isValidating": false,
+                                  "registerField": [Function],
+                                  "resetForm": [Function],
+                                  "setError": [Function],
+                                  "setErrors": [Function],
+                                  "setFieldError": [Function],
+                                  "setFieldTouched": [Function],
+                                  "setFieldValue": [Function],
+                                  "setFormikState": [Function],
+                                  "setStatus": [Function],
+                                  "setSubmitting": [Function],
+                                  "setTouched": [Function],
+                                  "setValues": [Function],
+                                  "status": undefined,
+                                  "submitCount": 0,
+                                  "submitForm": [Function],
+                                  "touched": Object {},
+                                  "unregisterField": [Function],
+                                  "validate": undefined,
+                                  "validateField": [Function],
+                                  "validateForm": [Function],
+                                  "validateOnBlur": true,
+                                  "validateOnChange": true,
+                                  "validationSchema": ObjectSchema {
+                                    "_blacklist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "_conditions": Array [],
+                                    "_defaultDefault": [Function],
+                                    "_deps": Array [],
+                                    "_excludedEdges": Array [],
+                                    "_exclusive": Object {},
+                                    "_mutate": undefined,
+                                    "_nodes": Array [
+                                      "publication_year",
+                                      "title",
+                                    ],
+                                    "_options": Object {
+                                      "abortEarly": true,
+                                      "recursive": true,
+                                    },
+                                    "_type": "object",
+                                    "_typeError": [Function],
+                                    "_whitelist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "fields": Object {
+                                      "publication_year": NumberSchema {
+                                        "_blacklist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "integer": false,
+                                        },
+                                        "_mutate": undefined,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "number",
+                                        "_typeError": [Function],
+                                        "_whitelist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                      "title": StringSchema {
+                                        "_blacklist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "required": true,
+                                        },
+                                        "_mutate": undefined,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "string",
+                                        "_typeError": [Function],
+                                        "_whitelist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                    },
+                                    "tests": Array [],
+                                    "transforms": Array [
+                                      [Function],
+                                    ],
+                                  },
+                                  "values": Object {
+                                    "title": "",
+                                  },
+                                }
+                              }
+                              name="page"
+                            >
+                              <Component
+                                field={
+                                  Object {
+                                    "name": "page",
+                                    "onBlur": [Function],
+                                    "onChange": [Function],
+                                    "value": undefined,
+                                  }
+                                }
+                                form={
+                                  Object {
+                                    "dirty": false,
+                                    "errors": Object {},
+                                    "handleBlur": [Function],
+                                    "handleChange": [Function],
+                                    "handleReset": [Function],
+                                    "handleSubmit": [Function],
+                                    "initialValues": Object {
+                                      "title": "",
+                                    },
+                                    "isSubmitting": false,
+                                    "isValid": false,
+                                    "isValidating": false,
+                                    "registerField": [Function],
+                                    "resetForm": [Function],
+                                    "setError": [Function],
+                                    "setErrors": [Function],
+                                    "setFieldError": [Function],
+                                    "setFieldTouched": [Function],
+                                    "setFieldValue": [Function],
+                                    "setFormikState": [Function],
+                                    "setStatus": [Function],
+                                    "setSubmitting": [Function],
+                                    "setTouched": [Function],
+                                    "setValues": [Function],
+                                    "status": undefined,
+                                    "submitCount": 0,
+                                    "submitForm": [Function],
+                                    "touched": Object {},
+                                    "unregisterField": [Function],
+                                    "validateField": [Function],
+                                    "validateForm": [Function],
+                                    "validateOnBlur": true,
+                                    "validateOnChange": true,
+                                    "values": Object {
+                                      "title": "",
+                                    },
+                                  }
+                                }
+                              >
+                                <FormField>
+                                  <div
+                                    className="field"
+                                  >
+                                    <FormInput
+                                      as={[Function]}
+                                      control={[Function]}
+                                      error={null}
+                                      fluid={true}
+                                      label="Page"
+                                      name="page"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      placeholder="Page number"
+                                      required={false}
+                                      value=""
+                                    >
+                                      <FormField
+                                        control={[Function]}
+                                        error={null}
+                                        fluid={true}
+                                        label="Page"
+                                        name="page"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        placeholder="Page number"
+                                        required={false}
+                                        value=""
+                                      >
+                                        <div
+                                          className="field"
+                                        >
+                                          <label>
+                                            Page
+                                          </label>
+                                          <Input
+                                            fluid={true}
+                                            name="page"
+                                            onBlur={[Function]}
+                                            onChange={[Function]}
+                                            placeholder="Page number"
+                                            required={false}
+                                            type="text"
+                                            value=""
+                                          >
+                                            <div
+                                              className="ui fluid input"
+                                            >
+                                              <input
+                                                name="page"
+                                                onBlur={[Function]}
+                                                onChange={[Function]}
+                                                placeholder="Page number"
+                                                required={false}
+                                                type="text"
+                                                value=""
+                                              />
+                                            </div>
+                                          </Input>
+                                        </div>
+                                      </FormField>
+                                    </FormInput>
+                                  </div>
+                                </FormField>
+                              </Component>
+                            </FieldInner>
+                          </FormikConnect(FieldInner)>
+                        </StringField>
+                        <StringField
+                          fieldPath="publication_year"
+                          label="Publication Year"
+                          placeholder="Publication Year"
+                          required={false}
+                          uiProps={Object {}}
+                        >
+                          <FormikConnect(FieldInner)
+                            component={[Function]}
+                            name="publication_year"
+                          >
+                            <FieldInner
+                              component={[Function]}
+                              formik={
+                                Object {
+                                  "dirty": false,
+                                  "errors": Object {},
+                                  "handleBlur": [Function],
+                                  "handleChange": [Function],
+                                  "handleReset": [Function],
+                                  "handleSubmit": [Function],
+                                  "initialValues": Object {
+                                    "title": "",
+                                  },
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "isValidating": false,
+                                  "registerField": [Function],
+                                  "resetForm": [Function],
+                                  "setError": [Function],
+                                  "setErrors": [Function],
+                                  "setFieldError": [Function],
+                                  "setFieldTouched": [Function],
+                                  "setFieldValue": [Function],
+                                  "setFormikState": [Function],
+                                  "setStatus": [Function],
+                                  "setSubmitting": [Function],
+                                  "setTouched": [Function],
+                                  "setValues": [Function],
+                                  "status": undefined,
+                                  "submitCount": 0,
+                                  "submitForm": [Function],
+                                  "touched": Object {},
+                                  "unregisterField": [Function],
+                                  "validate": undefined,
+                                  "validateField": [Function],
+                                  "validateForm": [Function],
+                                  "validateOnBlur": true,
+                                  "validateOnChange": true,
+                                  "validationSchema": ObjectSchema {
+                                    "_blacklist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "_conditions": Array [],
+                                    "_defaultDefault": [Function],
+                                    "_deps": Array [],
+                                    "_excludedEdges": Array [],
+                                    "_exclusive": Object {},
+                                    "_mutate": undefined,
+                                    "_nodes": Array [
+                                      "publication_year",
+                                      "title",
+                                    ],
+                                    "_options": Object {
+                                      "abortEarly": true,
+                                      "recursive": true,
+                                    },
+                                    "_type": "object",
+                                    "_typeError": [Function],
+                                    "_whitelist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "fields": Object {
+                                      "publication_year": NumberSchema {
+                                        "_blacklist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "integer": false,
+                                        },
+                                        "_mutate": undefined,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "number",
+                                        "_typeError": [Function],
+                                        "_whitelist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                      "title": StringSchema {
+                                        "_blacklist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "_conditions": Array [],
+                                        "_deps": Array [],
+                                        "_exclusive": Object {
+                                          "required": true,
+                                        },
+                                        "_mutate": undefined,
+                                        "_options": Object {
+                                          "abortEarly": true,
+                                          "recursive": true,
+                                        },
+                                        "_type": "string",
+                                        "_typeError": [Function],
+                                        "_whitelist": RefSet {
+                                          "list": Set {},
+                                          "refs": Map {},
+                                        },
+                                        "tests": Array [
+                                          [Function],
+                                        ],
+                                        "transforms": Array [
+                                          [Function],
+                                        ],
+                                      },
+                                    },
+                                    "tests": Array [],
+                                    "transforms": Array [
+                                      [Function],
+                                    ],
+                                  },
+                                  "values": Object {
+                                    "title": "",
+                                  },
+                                }
+                              }
+                              name="publication_year"
+                            >
+                              <Component
+                                field={
+                                  Object {
+                                    "name": "publication_year",
+                                    "onBlur": [Function],
+                                    "onChange": [Function],
+                                    "value": undefined,
+                                  }
+                                }
+                                form={
+                                  Object {
+                                    "dirty": false,
+                                    "errors": Object {},
+                                    "handleBlur": [Function],
+                                    "handleChange": [Function],
+                                    "handleReset": [Function],
+                                    "handleSubmit": [Function],
+                                    "initialValues": Object {
+                                      "title": "",
+                                    },
+                                    "isSubmitting": false,
+                                    "isValid": false,
+                                    "isValidating": false,
+                                    "registerField": [Function],
+                                    "resetForm": [Function],
+                                    "setError": [Function],
+                                    "setErrors": [Function],
+                                    "setFieldError": [Function],
+                                    "setFieldTouched": [Function],
+                                    "setFieldValue": [Function],
+                                    "setFormikState": [Function],
+                                    "setStatus": [Function],
+                                    "setSubmitting": [Function],
+                                    "setTouched": [Function],
+                                    "setValues": [Function],
+                                    "status": undefined,
+                                    "submitCount": 0,
+                                    "submitForm": [Function],
+                                    "touched": Object {},
+                                    "unregisterField": [Function],
+                                    "validateField": [Function],
+                                    "validateForm": [Function],
+                                    "validateOnBlur": true,
+                                    "validateOnChange": true,
+                                    "values": Object {
+                                      "title": "",
+                                    },
+                                  }
+                                }
+                              >
+                                <FormField>
+                                  <div
+                                    className="field"
+                                  >
+                                    <FormInput
+                                      as={[Function]}
+                                      control={[Function]}
+                                      error={null}
+                                      fluid={true}
+                                      label="Publication Year"
+                                      name="publication_year"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      placeholder="Publication Year"
+                                      required={false}
+                                      value=""
+                                    >
+                                      <FormField
+                                        control={[Function]}
+                                        error={null}
+                                        fluid={true}
+                                        label="Publication Year"
+                                        name="publication_year"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        placeholder="Publication Year"
+                                        required={false}
+                                        value=""
+                                      >
+                                        <div
+                                          className="field"
+                                        >
+                                          <label>
+                                            Publication Year
+                                          </label>
+                                          <Input
+                                            fluid={true}
+                                            name="publication_year"
+                                            onBlur={[Function]}
+                                            onChange={[Function]}
+                                            placeholder="Publication Year"
+                                            required={false}
+                                            type="text"
+                                            value=""
+                                          >
+                                            <div
+                                              className="ui fluid input"
+                                            >
+                                              <input
+                                                name="publication_year"
+                                                onBlur={[Function]}
+                                                onChange={[Function]}
+                                                placeholder="Publication Year"
+                                                required={false}
+                                                type="text"
+                                                value=""
+                                              />
+                                            </div>
+                                          </Input>
+                                        </div>
+                                      </FormField>
+                                    </FormInput>
+                                  </div>
+                                </FormField>
+                              </Component>
+                            </FieldInner>
+                          </FormikConnect(FieldInner)>
+                        </StringField>
+                      </div>
+                    </FormGroup>
+                    <TextField
+                      fieldPath="note"
+                      label="Note"
+                      placeholder="Notes for the library"
+                      required={false}
+                      uiProps={
+                        Object {
+                          "rows": 5,
+                        }
+                      }
+                    >
+                      <FormikConnect(FieldInner)
+                        component={[Function]}
+                        name="note"
+                      >
+                        <FieldInner
+                          component={[Function]}
+                          formik={
+                            Object {
+                              "dirty": false,
+                              "errors": Object {},
+                              "handleBlur": [Function],
+                              "handleChange": [Function],
+                              "handleReset": [Function],
+                              "handleSubmit": [Function],
+                              "initialValues": Object {
+                                "title": "",
+                              },
+                              "isSubmitting": false,
+                              "isValid": false,
+                              "isValidating": false,
+                              "registerField": [Function],
+                              "resetForm": [Function],
+                              "setError": [Function],
+                              "setErrors": [Function],
+                              "setFieldError": [Function],
+                              "setFieldTouched": [Function],
+                              "setFieldValue": [Function],
+                              "setFormikState": [Function],
+                              "setStatus": [Function],
+                              "setSubmitting": [Function],
+                              "setTouched": [Function],
+                              "setValues": [Function],
+                              "status": undefined,
+                              "submitCount": 0,
+                              "submitForm": [Function],
+                              "touched": Object {},
+                              "unregisterField": [Function],
+                              "validate": undefined,
+                              "validateField": [Function],
+                              "validateForm": [Function],
+                              "validateOnBlur": true,
+                              "validateOnChange": true,
+                              "validationSchema": ObjectSchema {
+                                "_blacklist": RefSet {
+                                  "list": Set {},
+                                  "refs": Map {},
+                                },
+                                "_conditions": Array [],
+                                "_defaultDefault": [Function],
+                                "_deps": Array [],
+                                "_excludedEdges": Array [],
+                                "_exclusive": Object {},
+                                "_mutate": undefined,
+                                "_nodes": Array [
+                                  "publication_year",
+                                  "title",
+                                ],
+                                "_options": Object {
+                                  "abortEarly": true,
+                                  "recursive": true,
+                                },
+                                "_type": "object",
+                                "_typeError": [Function],
+                                "_whitelist": RefSet {
+                                  "list": Set {},
+                                  "refs": Map {},
+                                },
+                                "fields": Object {
+                                  "publication_year": NumberSchema {
+                                    "_blacklist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "_conditions": Array [],
+                                    "_deps": Array [],
+                                    "_exclusive": Object {
+                                      "integer": false,
+                                    },
+                                    "_mutate": undefined,
+                                    "_options": Object {
+                                      "abortEarly": true,
+                                      "recursive": true,
+                                    },
+                                    "_type": "number",
+                                    "_typeError": [Function],
+                                    "_whitelist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "tests": Array [
+                                      [Function],
+                                    ],
+                                    "transforms": Array [
+                                      [Function],
+                                    ],
+                                  },
+                                  "title": StringSchema {
+                                    "_blacklist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "_conditions": Array [],
+                                    "_deps": Array [],
+                                    "_exclusive": Object {
+                                      "required": true,
+                                    },
+                                    "_mutate": undefined,
+                                    "_options": Object {
+                                      "abortEarly": true,
+                                      "recursive": true,
+                                    },
+                                    "_type": "string",
+                                    "_typeError": [Function],
+                                    "_whitelist": RefSet {
+                                      "list": Set {},
+                                      "refs": Map {},
+                                    },
+                                    "tests": Array [
+                                      [Function],
+                                    ],
+                                    "transforms": Array [
+                                      [Function],
+                                    ],
+                                  },
+                                },
+                                "tests": Array [],
+                                "transforms": Array [
+                                  [Function],
+                                ],
+                              },
+                              "values": Object {
+                                "title": "",
+                              },
+                            }
+                          }
+                          name="note"
+                        >
+                          <Component
+                            field={
+                              Object {
+                                "name": "note",
+                                "onBlur": [Function],
+                                "onChange": [Function],
+                                "value": undefined,
+                              }
+                            }
+                            form={
+                              Object {
+                                "dirty": false,
+                                "errors": Object {},
+                                "handleBlur": [Function],
+                                "handleChange": [Function],
+                                "handleReset": [Function],
+                                "handleSubmit": [Function],
+                                "initialValues": Object {
+                                  "title": "",
+                                },
+                                "isSubmitting": false,
+                                "isValid": false,
+                                "isValidating": false,
+                                "registerField": [Function],
+                                "resetForm": [Function],
+                                "setError": [Function],
+                                "setErrors": [Function],
+                                "setFieldError": [Function],
+                                "setFieldTouched": [Function],
+                                "setFieldValue": [Function],
+                                "setFormikState": [Function],
+                                "setStatus": [Function],
+                                "setSubmitting": [Function],
+                                "setTouched": [Function],
+                                "setValues": [Function],
+                                "status": undefined,
+                                "submitCount": 0,
+                                "submitForm": [Function],
+                                "touched": Object {},
+                                "unregisterField": [Function],
+                                "validateField": [Function],
+                                "validateForm": [Function],
+                                "validateOnBlur": true,
+                                "validateOnChange": true,
+                                "values": Object {
+                                  "title": "",
+                                },
+                              }
+                            }
+                          >
+                            <FormField>
+                              <div
+                                className="field"
+                              >
+                                <FormTextArea
+                                  as={[Function]}
+                                  control={[Function]}
+                                  error={null}
+                                  label="Note"
                                   name="note"
                                   onBlur={[Function]}
                                   onChange={[Function]}
-                                  onInput={[Function]}
                                   placeholder="Notes for the library"
-                                  rows={3}
+                                  required={false}
+                                  rows={5}
                                   value=""
-                                />
-                              </RefFindNode>
-                            </Ref>
-                          </TextArea>
-                        </div>
-                      </FormField>
-                    </FormTextArea>
+                                >
+                                  <FormField
+                                    control={[Function]}
+                                    error={null}
+                                    label="Note"
+                                    name="note"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    placeholder="Notes for the library"
+                                    required={false}
+                                    rows={5}
+                                    value=""
+                                  >
+                                    <div
+                                      className="field"
+                                    >
+                                      <label>
+                                        Note
+                                      </label>
+                                      <TextArea
+                                        as="textarea"
+                                        name="note"
+                                        onBlur={[Function]}
+                                        onChange={[Function]}
+                                        placeholder="Notes for the library"
+                                        required={false}
+                                        rows={5}
+                                        value=""
+                                      >
+                                        <Ref
+                                          innerRef={
+                                            Object {
+                                              "current": <textarea
+                                                name="note"
+                                                placeholder="Notes for the library"
+                                                rows="5"
+                                              />,
+                                            }
+                                          }
+                                        >
+                                          <RefFindNode
+                                            innerRef={
+                                              Object {
+                                                "current": <textarea
+                                                  name="note"
+                                                  placeholder="Notes for the library"
+                                                  rows="5"
+                                                />,
+                                              }
+                                            }
+                                          >
+                                            <textarea
+                                              name="note"
+                                              onBlur={[Function]}
+                                              onChange={[Function]}
+                                              onInput={[Function]}
+                                              placeholder="Notes for the library"
+                                              required={false}
+                                              rows={5}
+                                              value=""
+                                            />
+                                          </RefFindNode>
+                                        </Ref>
+                                      </TextArea>
+                                    </div>
+                                  </FormField>
+                                </FormTextArea>
+                              </div>
+                            </FormField>
+                          </Component>
+                        </FieldInner>
+                      </FormikConnect(FieldInner)>
+                    </TextField>
                     <Button
                       as="button"
                       disabled={false}

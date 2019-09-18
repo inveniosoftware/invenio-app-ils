@@ -156,7 +156,7 @@ function formatSeriesToTableView(series) {
     Updated: toShortDate(fromISO(series.updated)),
   };
   if (!isEmpty(series.metadata)) {
-    serialized['Title'] = series.metadata.title.title;
+    serialized['Title'] = series.metadata.title;
     serialized['Mode of Issuance'] = series.metadata.mode_of_issuance;
     if (series.metadata.authors && !isEmpty(series.metadata.authors)) {
       serialized['Authors'] = series.metadata.authors;
@@ -180,10 +180,7 @@ function formatRelatedToTableView(related, relation) {
   const obj = {
     ID: related.pid,
     Type: formatPidTypeToName(related.pid_type),
-    Title:
-      related.title && related.title.title
-        ? related.title.title
-        : related.title,
+    Title: related.title,
     Edition: related.edition,
     Language: related.language,
     Volume: related.volume,

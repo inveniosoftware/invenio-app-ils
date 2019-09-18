@@ -147,7 +147,7 @@ def _test_pc_mm_document(client, json_headers):
                         {
                             "pid": parent_pid,
                             "pid_type": parent_pid_type,
-                            "title": parent["title"]["title"],
+                            "title": parent["title"],
                         }
                     ]
                 }
@@ -240,7 +240,7 @@ def _test_pc_mm_document_with_volume(client, json_headers):
                         {
                             "pid": parent_pid,
                             "pid_type": parent_pid_type,
-                            "title": parent["title"]["title"],
+                            "title": parent["title"],
                             "volume": "v.3",
                         }
                     ]
@@ -710,13 +710,13 @@ def _test_sibl_language_relation(client, json_headers):
                         {
                             "pid": second_pid,
                             "pid_type": second_pid_type,
-                            "title": rec2["title"]["title"],
+                            "title": rec2["title"],
                             "language": rec2["language"],
                         },
                         {
                             "pid": third_pid,
                             "pid_type": third_pid_type,
-                            "title": rec3["title"]["title"],
+                            "title": rec3["title"],
                         },
                     ]
                 }
@@ -730,14 +730,14 @@ def _test_sibl_language_relation(client, json_headers):
                         {
                             "pid": first_pid,
                             "pid_type": first_pid_type,
-                            "title": rec1["title"]["title"],
+                            "title": rec1["title"],
                             "language": rec1["language"],
                             "edition": rec1["edition"],
                         },
                         {
                             "pid": third_pid,
                             "pid_type": third_pid_type,
-                            "title": rec3["title"]["title"],
+                            "title": rec3["title"],
                         },
                     ]
                 }
@@ -751,14 +751,14 @@ def _test_sibl_language_relation(client, json_headers):
                         {
                             "pid": first_pid,
                             "pid_type": first_pid_type,
-                            "title": rec1["title"]["title"],
+                            "title": rec1["title"],
                             "language": rec1["language"],
                             "edition": rec1["edition"],
                         },
                         {
                             "pid": second_pid,
                             "pid_type": second_pid_type,
-                            "title": rec2["title"]["title"],
+                            "title": rec2["title"],
                             "language": rec2["language"],
                         },
                     ]

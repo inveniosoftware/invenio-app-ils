@@ -6,9 +6,7 @@ exports[`should render correctly 1`] = `
 >
   <h2
     className="ui header"
-  >
-    The Swiss years : writings, 1900-1909
-  </h2>
+  />
   <div
     className="ui list"
     role="list"

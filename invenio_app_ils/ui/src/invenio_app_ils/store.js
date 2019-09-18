@@ -50,7 +50,7 @@ import {
   seriesDocumentsReducer,
   seriesMultipartMonographsReducer,
   seriesRelationsReducer,
-} from './pages/backoffice/SeriesDetails/reducer';
+} from './pages/backoffice/Series/SeriesDetails/reducer';
 
 import {
   mostLoanedBooksReducer,

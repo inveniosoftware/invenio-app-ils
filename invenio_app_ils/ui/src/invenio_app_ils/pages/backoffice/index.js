@@ -13,6 +13,5 @@ export { LoansSearch } from './LoansSearch';
 export { LocationList } from './LocationList';
 export { PatronDetailsContainer } from './PatronDetails';
 export { PatronsSearch } from './PatronsSearch';
-export { SeriesDetailsContainer } from './SeriesDetails';
-export { SeriesSearch } from './SeriesSearch';
+export { SeriesEditor, SeriesDetails, SeriesSearch } from './Series';
 export { Stats } from './Stats';

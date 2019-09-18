@@ -9,7 +9,7 @@ export const serializeError = error => ({
 export const serializeDocument = doc => ({
   id: doc.metadata.pid,
   key: doc.metadata.pid,
-  title: doc.metadata.title.title,
+  title: doc.metadata.title,
   description: `Authors: ${doc.metadata.authors.map(
     author => author.full_name
   )}`,
@@ -20,7 +20,7 @@ export const serializeDocument = doc => ({
 export const serializeEItem = eitem => ({
   id: eitem.metadata.pid,
   key: eitem.metadata.pid,
-  title: eitem.metadata.document.title.title,
+  title: eitem.metadata.document.title,
   description: `Open access: ${eitem.metadata.open_access ? 'Yes' : 'No'}`,
   extra: `EItem #${eitem.metadata.pid}`,
   metadata: eitem.metadata,
@@ -83,7 +83,7 @@ export const serializePatron = patron => ({
 export const serializeSeries = series => ({
   id: series.metadata.pid,
   key: series.metadata.pid,
-  title: series.metadata.title.title,
+  title: series.metadata.title,
   description: `Mode of Issuance: ${series.metadata.mode_of_issuance}`,
   extra: `Series #${series.metadata.pid}`,
   metadata: series.metadata,

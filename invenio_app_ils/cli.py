@@ -301,7 +301,7 @@ class DocumentGenerator(Generator):
 
         objs = [{
             "pid": str(pid),
-            "title": {'title': "{}".format(lorem.sentence())},
+            "title": lorem.sentence(),
             "authors": [
                 {"full_name": "{}".format(lorem.sentence())}
             ],
@@ -570,11 +570,10 @@ class SeriesGenerator(Generator):
                 "pid": str(pid),
                 "mode_of_issuance": moi,
                 "issn": self.random_issn(),
-                "title": {"title": "{}".format(lorem.sentence())},
-                "authors": ["{}".format(lorem.sentence())],
-                "abstracts": ["{}".format(lorem.text())],
-                "language": random.sample(self.LANGUAGES, 1),
-                "publishers": ["{}".format(lorem.sentence())],
+                "title": lorem.sentence(),
+                "authors": [lorem.sentence()],
+                "abstract": lorem.text(),
+                "languages": random.sample(self.LANGUAGES, 1),
             }
             if moi == "MULTIPART_MONOGRAPH":
                 obj["edition"] = str(pid)

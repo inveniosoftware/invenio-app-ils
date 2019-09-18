@@ -31,7 +31,7 @@ def jsonresolver_loader(url_map):
                 authors.append(author["full_name"])
         return {
             "pid": document.get("pid"),
-            "title": document.get("title", {}).get("title", ""),
+            "title": document.get("title", ""),
             "authors": authors,
         }
 

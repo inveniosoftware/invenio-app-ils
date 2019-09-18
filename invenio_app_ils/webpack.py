@@ -18,10 +18,12 @@ ils = WebpackBundle(
     dependencies={
         "axios": "^0.19.0",
         "formik": "^1.5.8",
+        "iso-639-1": "^2.1.0",
         "lodash": "^4.17.15",
         "luxon": "^1.17.2",
         "node-sass": "^4.12.0",
         "prop-types": "^15.7.2",
+        "formik": "^1.5.8",
         "qs": "^6.8.0",
         "react": "^16.9.0",
         "react-app-polyfill": "^1.0.2",

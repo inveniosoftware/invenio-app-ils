@@ -25,7 +25,8 @@ from invenio_app_ils.errors import DocumentRequestError, \
     DocumentTagNotFoundError, ItemDocumentNotFoundError, \
     ItemHasActiveLoanError, MissingRequiredParameterError, \
     PatronNotFoundError, RecordHasReferencesError
-from invenio_app_ils.records_relations.api import RecordRelationsRetriever
+from invenio_app_ils.records_relations.api import RecordRelationsMetadata, \
+    RecordRelationsRetriever
 from invenio_app_ils.search.api import DocumentRequestSearch, DocumentSearch, \
     InternalLocationSearch, ItemSearch
 
@@ -104,6 +105,13 @@ class IlsRecordWithRelations(IlsRecord):
         """Get record relations."""
         return self._relations
 
+    def clear(self):
+        """Clear IlsRecordWithRelations record."""
+        relations_metadata_field_name = RecordRelationsMetadata.field_name()
+        relations_metadata = self.get(relations_metadata_field_name, {})
+        super(IlsRecordWithRelations, self).clear()
+        self[relations_metadata_field_name] = relations_metadata
+
     def delete(self, **kwargs):
         """Delete record with relations."""
         related_refs = set()
@@ -145,8 +153,8 @@ class Document(IlsRecordWithRelations):
     )
 
     @classmethod
-    def create(cls, data, id_=None, **kwargs):
-        """Create Document record."""
+    def build_resolver_fields(cls, data):
+        """Build all resolver fields."""
         data["circulation"] = {
             "$ref": cls._circulation_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
@@ -193,7 +201,17 @@ class Document(IlsRecordWithRelations):
                 document_pid=data["pid"]
             )
         }
+
+    @classmethod
+    def create(cls, data, id_=None, **kwargs):
+        """Create Document record."""
+        cls.build_resolver_fields(data)
         return super(Document, cls).create(data, id_=id_, **kwargs)
+
+    def update(self, data):
+        """Update Document record."""
+        super(Document, self).update(data)
+        self.build_resolver_fields(self)
 
     def delete(self, **kwargs):
         """Delete Document record."""
@@ -530,17 +548,13 @@ class Series(IlsRecordWithRelations):
 
     _pid_type = SERIES_PID_TYPE
     _schema = "series/series-v1.0.0.json"
-
-    _tag_resolver_path = (
-        "{scheme}://{host}/api/resolver/series/{series_pid}/tags"
-    )
     _relations_path = (
         "{scheme}://{host}/api/resolver/series/{series_pid}/relations"
     )
 
     @classmethod
-    def create(cls, data, id_=None, **kwargs):
-        """Create Series record."""
+    def build_resolver_fields(cls, data):
+        """Build all resolver fields."""
         data.setdefault("relations", {})
         data["relations"] = {
             "$ref": cls._relations_path.format(
@@ -549,7 +563,17 @@ class Series(IlsRecordWithRelations):
                 series_pid=data["pid"],
             )
         }
+
+    @classmethod
+    def create(cls, data, id_=None, **kwargs):
+        """Create Series record."""
+        cls.build_resolver_fields(data)
         return super(Series, cls).create(data, id_=id_, **kwargs)
+
+    def update(self, data):
+        """Update Series record."""
+        super(Series, self).update(data)
+        self.build_resolver_fields(self)
 
 
 class DocumentRequest(IlsRecord):
