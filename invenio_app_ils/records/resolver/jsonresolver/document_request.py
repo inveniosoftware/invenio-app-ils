@@ -8,6 +8,7 @@
 """Resolve the DocumentRequest for a Document."""
 
 import jsonresolver
+from elasticsearch import VERSION as ES_VERSION
 from werkzeug.routing import Rule
 
 from invenio_app_ils.errors import DocumentRequestError
@@ -26,9 +27,13 @@ def jsonresolver_loader(url_map):
         """Return the DocumentRequest for the given Document or raise."""
         search = DocumentRequestSearch().search_by_document_pid(document_pid)
         results = search.execute()
-        if results.hits.total < 1:
+        if ES_VERSION[0] >= 7:
+            total = results.hits.total.value
+        else:
+            total = results.hits.total
+        if total < 1:
             return {}
-        elif results.hits.total > 1:
+        elif total > 1:
             raise DocumentRequestError(
                 "Found multiple requests associated with document {}".format(
                     document_pid

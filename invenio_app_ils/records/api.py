@@ -9,6 +9,7 @@
 
 from __future__ import absolute_import, print_function
 
+from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from invenio_accounts.models import User
 from invenio_circulation.proxies import current_circulation
@@ -330,7 +331,11 @@ class Item(_Item):
         loan_search = current_circulation.loan_search
         active_loan = loan_search\
             .get_active_loan_by_item_pid(self["pid"]).execute().hits
-        if self["status"] == "CAN_CIRCULATE" and active_loan.total > 0:
+        if ES_VERSION[0] >= 7:
+            total = active_loan.total.value
+        else:
+            total = active_loan.total
+        if self["status"] == "CAN_CIRCULATE" and total > 0:
             raise ItemHasActiveLoanError(active_loan[0]["pid"])
 
     def patch(self, patch):

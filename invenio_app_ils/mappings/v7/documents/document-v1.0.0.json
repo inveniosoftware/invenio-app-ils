@@ -1,0 +1,368 @@
+{
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "_access": {
+        "properties": {
+          "read": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      },
+      "$schema": {
+        "type": "keyword"
+      },
+      "abstracts": {
+        "properties": {
+          "source": {
+            "type": "text"
+          },
+          "value": {
+            "type": "text"
+          }
+        },
+        "type": "object"
+      },
+      "authors": {
+        "properties": {
+          "affiliations": {
+            "properties": {
+              "curated_relation": {
+                "type": "boolean"
+              },
+              "value": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "alternative_names": {
+            "type": "keyword"
+          },
+          "email": {
+            "type": "keyword"
+          },
+          "full_name": {
+            "type": "text"
+          },
+          "roles": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "circulation": {
+        "properties": {
+          "active_loans": {
+            "type": "integer"
+          },
+          "can_circulate_items_count": {
+            "type": "integer"
+          },
+          "has_items_for_loan": {
+            "type": "integer"
+          },
+          "next_available_date": {
+            "type": "date"
+          },
+          "overbooked": {
+            "type": "boolean"
+          },
+          "overdue_loans": {
+            "type": "integer"
+          },
+          "past_loans_count": {
+            "type": "integer"
+          },
+          "pending_loans": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "document_type": {
+        "type": "keyword"
+      },
+      "edition": {
+        "type": "text"
+      },
+      "eitems": {
+        "properties": {
+          "hits": {
+            "properties": {
+              "description": {
+                "type": "text"
+              },
+              "internal_notes": {
+                "type": "text"
+              },
+              "open_access": {
+                "type": "boolean"
+              },
+              "pid": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "items": {
+        "properties": {
+          "hits": {
+            "properties": {
+              "barcode": {
+                "type": "keyword"
+              },
+              "circulation_restriction": {
+                "type": "keyword"
+              },
+              "description": {
+                "type": "text"
+              },
+              "internal_location_pid": {
+                "type": "keyword"
+              },
+              "medium": {
+                "type": "keyword"
+              },
+              "pid": {
+                "type": "keyword"
+              },
+              "status": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "keywords": {
+        "type": "text"
+      },
+      "languages": {
+        "type": "keyword"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "relations": {
+        "properties": {
+          "edition": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "pid_type": {
+                "type": "keyword"
+              },
+              "title": {
+                "type": "text"
+              }
+            },
+            "type": "object"
+          },
+          "language": {
+            "properties": {
+              "language": {
+                "type": "keyword"
+              },
+              "pid": {
+                "type": "keyword"
+              },
+              "pid_type": {
+                "type": "keyword"
+              },
+              "title": {
+                "type": "text"
+              }
+            },
+            "type": "object"
+          },
+          "multipart_monograph": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "pid_type": {
+                "type": "keyword"
+              },
+              "title": {
+                "type": "text"
+              },
+              "volume": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "other": {
+            "properties": {
+              "note": {
+                "type": "keyword"
+              },
+              "pid": {
+                "type": "keyword"
+              },
+              "pid_type": {
+                "type": "keyword"
+              },
+              "title": {
+                "type": "text"
+              }
+            },
+            "type": "object"
+          },
+          "serial": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "pid_type": {
+                "type": "keyword"
+              },
+              "title": {
+                "type": "text"
+              },
+              "volume": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "relations_metadata": {
+        "properties": {
+          "multipart_monograph": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "pid_type": {
+                "type": "keyword"
+              },
+              "volume": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "other": {
+            "properties": {
+              "note": {
+                "type": "keyword"
+              },
+              "pid": {
+                "type": "keyword"
+              },
+              "pid_type": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "serial": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "pid_type": {
+                "type": "keyword"
+              },
+              "volume": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "request": {
+        "type": "object",
+        "properties": {
+          "authors": {
+            "type": "text"
+          },
+          "note": {
+            "type": "text"
+          },
+          "patron_pid": {
+            "type": "keyword"
+          },
+          "pid": {
+            "type": "keyword"
+          },
+          "state": {
+            "type": "keyword"
+          },
+          "title": {
+            "type": "text"
+          }
+        }
+      },
+      "tag_pids": {
+        "type": "keyword"
+      },
+      "tags": {
+        "properties": {
+          "name": {
+            "type": "keyword"
+          },
+          "pid": {
+            "type": "keyword"
+          },
+          "provenance": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "title": {
+        "properties": {
+          "alternative_titles": {
+            "properties": {
+              "source": {
+                "type": "text"
+              },
+              "subtitle": {
+                "type": "text"
+              },
+              "title": {
+                "type": "text"
+              }
+            },
+            "type": "object"
+          },
+          "source": {
+            "type": "text"
+          },
+          "subtitle": {
+            "type": "text"
+          },
+          "title": {
+            "type": "text"
+          }
+        }
+      }
+    }
+  }
+}

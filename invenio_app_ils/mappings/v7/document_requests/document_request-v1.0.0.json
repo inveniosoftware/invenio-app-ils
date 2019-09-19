@@ -1,0 +1,73 @@
+{
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      },
+      "authors": {
+        "type": "text"
+      },
+      "cancel_reason": {
+        "type": "text"
+      },
+      "document": {
+        "type": "object",
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "title": {
+            "type": "text"
+          },
+          "authors": {
+            "type": "text"
+          }
+        }
+      },
+      "document_pid": {
+        "type": "keyword"
+      },
+      "isbn": {
+        "type": "keyword"
+      },
+      "issn": {
+        "type": "keyword"
+      },
+      "issue": {
+        "type": "keyword"
+      },
+      "note": {
+        "type": "text"
+      },
+      "page": {
+        "type": "keyword"
+      },
+      "patron_pid": {
+        "type": "keyword"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "publication_year": {
+        "type": "keyword"
+      },
+      "state": {
+        "type": "keyword"
+      },
+      "title": {
+        "type": "text"
+      },
+      "volume": {
+        "type": "text"
+      }
+    }
+  }
+}

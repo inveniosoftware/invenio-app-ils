@@ -1,0 +1,89 @@
+{
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "authors": {
+        "type": "text",
+        "fields": {
+          "tag": {
+            "type": "keyword"
+          }
+        }
+      },
+      "abstracts": {
+        "type": "text"
+      },
+      "issn": {
+        "type": "keyword"
+      },
+      "edition": {
+        "type": "keyword"
+      },
+      "mode_of_issuance": {
+        "type": "keyword"
+      },
+      "language": {
+        "type": "keyword"
+      },
+      "relations": {
+        "type": "object",
+        "properties": {
+          "edition": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "pid_type": {
+                "type": "keyword"
+              }
+            }
+          },
+          "multipart_monograph": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "pid_type": {
+                "type": "keyword"
+              },
+              "volume": {
+                "type": "keyword"
+              }
+            }
+          },
+          "serial": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "pid_type": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "title": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "keyword"
+          }
+        }
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      }
+    }
+  }
+}
