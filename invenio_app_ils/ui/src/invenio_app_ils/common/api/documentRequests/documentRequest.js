@@ -64,7 +64,6 @@ class QueryBuilder {
   }
 
   withPatronPid(patronPid) {
-    console.log('patron pid', patronPid);
     if (!patronPid || (typeof patronPid != 'number' && isEmpty(patronPid))) {
       throw TypeError('patronPid argument missing');
     }

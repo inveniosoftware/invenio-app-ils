@@ -1,20 +1,13 @@
 import { connect } from 'react-redux';
-import { createDocumentRequest } from './state/actions';
 import DocumentRequestFormComponent from './DocumentRequestForm';
-
-const mapStateToProps = state => ({
-  data: state.documentRequestForm.data,
-  error: state.documentRequestForm.error,
-  isLoading: state.documentRequestForm.isLoading,
-  hasError: state.documentRequestForm.hasError,
-});
+import { sendSuccessNotification } from '../../../common/components/Notifications';
 
 const mapDispatchToProps = dispatch => ({
-  createDocumentRequest: (data, actions) =>
-    dispatch(createDocumentRequest(data, actions)),
+  sendSuccessNotification: (title, content) =>
+    dispatch(sendSuccessNotification(title, content)),
 });
 
 export const DocumentRequestForm = connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(DocumentRequestFormComponent);
