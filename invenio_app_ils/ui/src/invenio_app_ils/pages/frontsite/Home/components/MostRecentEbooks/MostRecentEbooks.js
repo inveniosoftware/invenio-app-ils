@@ -61,7 +61,8 @@ export default class MostRecentEbooks extends Component {
               content="See All"
               onClick={goToHandler(
                 FrontSiteRoutes.documentsListWithQuery(
-                  '&sort=mostrecent&order=desc'
+                  '&sort=mostrecent&order=desc' +
+                    '&aggr[0][has_eitems][value]=has_eitems.electronic versions'
                 )
               )}
             />
