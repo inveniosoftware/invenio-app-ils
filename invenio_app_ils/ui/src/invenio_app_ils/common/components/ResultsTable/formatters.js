@@ -22,9 +22,6 @@ function formatLoanToTableView(loan, actions = null) {
     'Transaction date': toShortDateTime(
       fromISO(loan.metadata.transaction_date)
     ),
-    'Expiration date': toShortDateTime(
-      fromISO(loan.metadata.request_expire_date)
-    ),
     Renewals: loan.metadata.extension_count,
     Actions: actions,
   };

@@ -117,7 +117,6 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
           "Created": "2018-01-01 10:05",
           "Document ID": undefined,
           "End date": "2018-02-01",
-          "Expiration date": "Invalid DateTime",
           "ID": 3,
           "Item barcode": null,
           "Patron ID": 1,
@@ -192,7 +191,6 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                   "Start date",
                   "End date",
                   "Transaction date",
-                  "Expiration date",
                   "Renewals",
                   "Actions",
                 ]
@@ -384,21 +382,6 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                       </TableHeaderCell>
                       <TableHeaderCell
                         as="th"
-                        key="Expiration date"
-                      >
-                        <TableCell
-                          as="th"
-                          className=""
-                        >
-                          <th
-                            className=""
-                          >
-                            Expiration date
-                          </th>
-                        </TableCell>
-                      </TableHeaderCell>
-                      <TableHeaderCell
-                        as="th"
                         key="Renewals"
                       >
                         <TableCell
@@ -445,7 +428,6 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                   "Start date",
                   "End date",
                   "Transaction date",
-                  "Expiration date",
                   "Renewals",
                   "Actions",
                 ]
@@ -458,7 +440,6 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                     "Created": "2018-01-01 10:05",
                     "Document ID": undefined,
                     "End date": "2018-02-01",
-                    "Expiration date": "Invalid DateTime",
                     "ID": 3,
                     "Item barcode": null,
                     "Patron ID": 1,
@@ -675,20 +656,8 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Expiration date-3"
-                        key="10-3"
-                      >
-                        <td
-                          className=""
-                          data-test="Expiration date-3"
-                        >
-                          Invalid DateTime
-                        </td>
-                      </TableCell>
-                      <TableCell
-                        as="td"
                         data-test="Renewals-3"
-                        key="11-3"
+                        key="10-3"
                       >
                         <td
                           className=""
@@ -700,7 +669,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                       <TableCell
                         as="td"
                         data-test="Actions-3"
-                        key="12-3"
+                        key="11-3"
                       >
                         <td
                           className=""
@@ -716,7 +685,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
             </ResultsTableBody>
             <ResultsTableFooter
               allRowsNumber={1}
-              columnsNumber={13}
+              columnsNumber={12}
               currentPage={1}
               paginationComponent={null}
               seeAllComponent={null}

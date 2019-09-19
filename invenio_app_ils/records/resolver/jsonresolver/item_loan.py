@@ -31,7 +31,6 @@ def jsonresolver_loader(url_map):
             "state": loan.get("state"),
             "start_date": loan.get("start_date"),
             "end_date": loan.get("end_date"),
-            "request_expire_date": loan.get("request_expire_date"),
             "extension_count": loan.get("extension_count"),
         }
 

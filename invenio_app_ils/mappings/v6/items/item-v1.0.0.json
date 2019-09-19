@@ -70,9 +70,6 @@
             "end_date": {
               "type": "date"
             },
-            "request_expire_date": {
-              "type": "date"
-            },
             "extension_count": {
               "type": "short"
             }

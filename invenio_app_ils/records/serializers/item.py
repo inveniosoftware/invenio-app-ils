@@ -21,7 +21,6 @@ class ItemJSONSerializer(JSONSerializer):
         "start_date",
         "end_date",
         "extension_count",
-        "request_expire_date",
     ]
 
     def transform_record(self, pid, record, links_factory=None, **kwargs):

@@ -8,7 +8,6 @@
     "start_date": "2019-01-02",
     "end_date": "2019-02-02",
     "transaction_date": "2019-01-02",
-    "request_expire_date": "2019-02-02",
     "extension_count": 0
   },
   {
@@ -23,7 +22,6 @@
     "transaction_location_pid": "1",
     "transaction_user_pid": "1",
     "pickup_location_pid": "1",
-    "request_expire_date": "2019-03-02",
     "extension_count": 0
   },
   {
@@ -38,7 +36,6 @@
     "transaction_location_pid": "1",
     "transaction_user_pid": "1",
     "pickup_location_pid": "1",
-    "request_expire_date": "2019-04-02",
     "extension_count": 0
   },
   {
@@ -53,7 +50,6 @@
     "transaction_location_pid": "1",
     "transaction_user_pid": "1",
     "pickup_location_pid": "1",
-    "request_expire_date": "2019-04-10",
     "extension_count": 1
   },
   {
@@ -68,7 +64,6 @@
     "transaction_location_pid": "1",
     "transaction_user_pid": "1",
     "pickup_location_pid": "1",
-    "request_expire_date": "2019-06-10",
     "extension_count": 1
   },
   {
@@ -83,7 +78,6 @@
     "transaction_location_pid": "1",
     "transaction_user_pid": "1",
     "pickup_location_pid": "1",
-    "request_expire_date": "2019-05-20",
     "extension_count": 3
   },
   {
@@ -98,7 +92,6 @@
     "transaction_location_pid": "1",
     "transaction_user_pid": "1",
     "pickup_location_pid": "1",
-    "request_expire_date": "2019-08-20",
     "extension_count": 3
   },
   {
@@ -113,7 +106,6 @@
     "transaction_location_pid": "1",
     "transaction_user_pid": "1",
     "pickup_location_pid": "1",
-    "request_expire_date": "2019-04-07",
     "extension_count": 0
   }
 ]
