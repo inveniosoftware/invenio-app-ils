@@ -1,0 +1,38 @@
+{
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "location": {
+        "type": "object"
+      },
+      "location_pid": {
+        "type": "keyword"
+      },
+      "legacy_id": {
+        "type": "keyword"
+      },
+      "name": {
+        "type": "text"
+      },
+      "physical_location": {
+        "type": "text"
+      },
+      "notes": {
+        "type": "text"
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      }
+    }
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "document_pid": {
+        "type": "keyword"
+      },
+      "internal_location_pid": {
+        "type": "keyword"
+      },
+      "internal_location": {
+        "type": "object"
+      },
+      "legacy_id": {
+        "type": "keyword"
+      },
+      "legacy_library_id": {
+        "type": "keyword"
+      },
+      "barcode": {
+        "type": "keyword"
+      },
+      "shelf": {
+        "type": "text"
+      },
+      "description": {
+        "type": "text"
+      },
+      "internal_notes": {
+        "type": "text"
+      },
+      "circulation_restriction": {
+        "type": "keyword"
+      },
+      "medium": {
+        "type": "keyword"
+      },
+      "status": {
+        "type": "keyword"
+      },
+      "circulation": {
+        "type": "object",
+        "properties": {
+          "loan_pid": {
+            "type": "keyword"
+          },
+          "patron_pid": {
+            "type": "keyword"
+          },
+          "document_pid": {
+            "type": "keyword"
+          },
+          "item_pid": {
+            "type": "keyword"
+          },
+          "state": {
+            "type": "keyword"
+          },
+          "start_date": {
+            "type": "date"
+          },
+          "end_date": {
+            "type": "date"
+          },
+          "request_expire_date": {
+            "type": "date"
+          },
+          "extension_count": {
+            "type": "short"
+          }
+        }
+      },
+      "document": {
+        "type": "object",
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "title": {
+            "properties": {
+              "title": {
+                "type": "text"
+              },
+              "subtitle": {
+                "type": "text"
+              }
+            },
+            "type": "object"
+          },
+          "authors": {
+            "type": "object",
+            "properties": {
+              "full_name": {
+                "type": "text"
+              }
+            }
+          }
+        }
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      }
+    }
+  }
+}

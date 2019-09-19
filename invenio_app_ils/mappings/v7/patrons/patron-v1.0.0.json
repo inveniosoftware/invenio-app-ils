@@ -1,0 +1,17 @@
+{
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "id": {
+        "type": "integer"
+      },
+      "name": {
+        "type": "text"
+      },
+      "email": {
+        "type": "text"
+      }
+    }
+  }
+}

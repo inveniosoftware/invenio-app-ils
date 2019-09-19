@@ -13,6 +13,7 @@ from datetime import datetime
 from functools import partial
 
 from celery import shared_task
+from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from invenio_circulation.api import Loan
 from invenio_circulation.search.api import search_by_pid as search_loans_by_pid
@@ -370,7 +371,10 @@ class PatronsIndexer(RecordIndexer):
         :param record: The record where to look for the information.
         :returns: A tuple (index, doc_type).
         """
-        return (record._index, record._doc_type)
+        doc_type = "_doc"
+        if ES_VERSION[0] < 7:
+            doc_type = record._doc_type
+        return (record._index, doc_type)
 
 
 @shared_task(ignore_result=True)

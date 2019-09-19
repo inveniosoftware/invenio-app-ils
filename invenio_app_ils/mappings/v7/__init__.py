@@ -1,15 +1,8 @@
-#!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2019 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-set -e
-
-pip install -r requirements.txt
-pip install -e .[all,elasticsearch7]
-
-CWD=`pwd`
-bash "${CWD}/scripts/build_assets"
+"""Invenio App ILS ES v7 mappings."""

@@ -11,6 +11,7 @@ from __future__ import absolute_import, print_function
 
 import json
 
+from elasticsearch import VERSION as ES_VERSION
 from flask import url_for
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
@@ -70,9 +71,12 @@ def test_librarian_can_request_loan_on_item(client, json_headers, users,
         login_user_via_session(client, email=User.query.get(user.id).email)
         url = url_for('invenio_app_ils_circulation.loan_create')
 
-        item_exists = True if search_by_pid(
-            item_pid=NEW_FORCED_LOAN["item_pid"])\
-            .execute().hits.total > 0 else False
+        results = search_by_pid(item_pid=NEW_FORCED_LOAN["item_pid"]).execute()
+        if ES_VERSION[0] >= 7:
+            total = results.hits.total.value
+        else:
+            total = results.hits.total
+        item_exists = True if total > 0 else False
 
         if item_exists and patron_has_active_loan_on_item(
             patron_pid=NEW_FORCED_LOAN["patron_pid"],
@@ -96,9 +100,12 @@ def test_loan_can_be_created_on_missing_item_by_force(client, json_headers,
         login_user_via_session(client, email=User.query.get(user.id).email)
         url = url_for('invenio_app_ils_circulation.loan_create')
 
-        item_exists = True if search_by_pid(
-            item_pid=NEW_FORCED_LOAN["item_pid"]) \
-            .execute().hits.total > 0 else False
+        results = search_by_pid(item_pid=NEW_FORCED_LOAN["item_pid"]).execute()
+        if ES_VERSION[0] >= 7:
+            total = results.hits.total.value
+        else:
+            total = results.hits.total
+        item_exists = True if total > 0 else False
 
         if item_exists and patron_has_active_loan_on_item(
                 patron_pid=NEW_FORCED_LOAN["patron_pid"],
