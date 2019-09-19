@@ -25,7 +25,6 @@ NEW_LOAN = {
     "transaction_location_pid": "locid-1",
     "transaction_user_pid": "4",
     "pickup_location_pid": "locid-1",
-    "request_expire_date": "2018-07-28",
     "delivery":
         {"method": "PICK_UP"},
 }

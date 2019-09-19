@@ -382,15 +382,12 @@ class LoanGenerator(Generator):
                 "extension_count": randint(0, 3),
                 "patron_pid": "{}".format(patron_id),
                 "pickup_location_pid": "{}".format(loc_pid),
-                "request_expire_date": expire_date.isoformat(),
                 "state": "{}".format(status),
                 "start_date": start_date.isoformat(),
                 "end_date": end_date.isoformat(),
                 "transaction_date": transaction_date.isoformat(),
                 "transaction_location_pid": "{}".format(loc_pid),
                 "transaction_user_pid": "{}".format(librarian_pid),
-                "delivery": {"method": "{}".format(random.choice(
-                    current_app.config["CIRCULATION_DELIVERY_METHODS"]))}
             }
 
             if status == "PENDING":
@@ -438,7 +435,6 @@ class MostLoanedGenerator(Generator):
             "transaction_location_pid": "1",
             "transaction_user_pid": "1",
             "pickup_location_pid": "1",
-            "request_expire_date": end_date.isoformat(),
             "extension_count": extensions,
         }
 
@@ -446,8 +442,8 @@ class MostLoanedGenerator(Generator):
         """Generate four document-item pairs."""
         doc_pids, item_pids = [], []
         for item in self.holder.items['objs']:
-            if item['status'] == 'CAN_CIRCULATE' and item[
-                'document_pid'] not in doc_pids:
+            if item['status'] == 'CAN_CIRCULATE' and \
+                    item['document_pid'] not in doc_pids:
                 doc_pids.append(item['document_pid'])
                 item_pids.append(item['pid'])
                 if len(doc_pids) == 4:

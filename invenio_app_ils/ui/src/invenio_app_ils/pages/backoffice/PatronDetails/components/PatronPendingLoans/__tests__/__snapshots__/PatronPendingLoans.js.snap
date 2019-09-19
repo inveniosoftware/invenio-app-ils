@@ -98,13 +98,11 @@ exports[`PatronLoans tests should render patron loans 1`] = `
           Array [
             Object {
               "Document ID": "doc1",
-              "Expiration date": "Invalid DateTime",
               "ID": "loan1",
               "Start date": "2018-01-01",
             },
             Object {
               "Document ID": "doc1",
-              "Expiration date": "Invalid DateTime",
               "ID": "loan2",
               "Start date": "2018-01-01",
             },
@@ -187,7 +185,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                       "ID",
                       "Document ID",
                       "Start date",
-                      "Expiration date",
                     ]
                   }
                   withRowAction={true}
@@ -270,21 +267,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               </th>
                             </TableCell>
                           </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Expiration date"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Expiration date
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
                         </tr>
                       </TableRow>
                     </thead>
@@ -296,7 +278,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                       "ID",
                       "Document ID",
                       "Start date",
-                      "Expiration date",
                     ]
                   }
                   rowActionClickHandler={[Function]}
@@ -304,13 +285,11 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                     Array [
                       Object {
                         "Document ID": "doc1",
-                        "Expiration date": "Invalid DateTime",
                         "ID": "loan1",
                         "Start date": "2018-01-01",
                       },
                       Object {
                         "Document ID": "doc1",
-                        "Expiration date": "Invalid DateTime",
                         "ID": "loan2",
                         "Start date": "2018-01-01",
                       },
@@ -435,18 +414,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               2018-01-01
                             </td>
                           </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Expiration date-loan1"
-                            key="3-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Expiration date-loan1"
-                            >
-                              Invalid DateTime
-                            </td>
-                          </TableCell>
                         </tr>
                       </TableRow>
                       <TableRow
@@ -561,18 +528,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               2018-01-01
                             </td>
                           </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Expiration date-loan2"
-                            key="3-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="Expiration date-loan2"
-                            >
-                              Invalid DateTime
-                            </td>
-                          </TableCell>
                         </tr>
                       </TableRow>
                     </tbody>
@@ -580,7 +535,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={4}
+                  columnsNumber={3}
                   currentPage={1}
                   paginationComponent={null}
                   seeAllComponent={
@@ -792,13 +747,11 @@ exports[`PatronLoans tests should render the see all button when showing only a 
           Array [
             Object {
               "Document ID": "doc1",
-              "Expiration date": "Invalid DateTime",
               "ID": "loan1",
               "Start date": "2018-01-01",
             },
             Object {
               "Document ID": "doc1",
-              "Expiration date": "Invalid DateTime",
               "ID": "loan2",
               "Start date": "2018-01-01",
             },
@@ -881,7 +834,6 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                       "ID",
                       "Document ID",
                       "Start date",
-                      "Expiration date",
                     ]
                   }
                   withRowAction={true}
@@ -964,21 +916,6 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                               </th>
                             </TableCell>
                           </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Expiration date"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Expiration date
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
                         </tr>
                       </TableRow>
                     </thead>
@@ -990,7 +927,6 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                       "ID",
                       "Document ID",
                       "Start date",
-                      "Expiration date",
                     ]
                   }
                   rowActionClickHandler={[Function]}
@@ -998,7 +934,6 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                     Array [
                       Object {
                         "Document ID": "doc1",
-                        "Expiration date": "Invalid DateTime",
                         "ID": "loan1",
                         "Start date": "2018-01-01",
                       },
@@ -1123,18 +1058,6 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                               2018-01-01
                             </td>
                           </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Expiration date-loan1"
-                            key="3-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Expiration date-loan1"
-                            >
-                              Invalid DateTime
-                            </td>
-                          </TableCell>
                         </tr>
                       </TableRow>
                     </tbody>
@@ -1142,7 +1065,7 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={4}
+                  columnsNumber={3}
                   currentPage={1}
                   paginationComponent={null}
                   seeAllComponent={
@@ -1177,18 +1100,18 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                           >
                             <TableHeaderCell
                               as="th"
-                              colSpan={5}
+                              colSpan={4}
                               textAlign="right"
                             >
                               <TableCell
                                 as="th"
                                 className=""
-                                colSpan={5}
+                                colSpan={4}
                                 textAlign="right"
                               >
                                 <th
                                   className="right aligned"
-                                  colSpan={5}
+                                  colSpan={4}
                                 >
                                   <span>
                                     Showing entries 

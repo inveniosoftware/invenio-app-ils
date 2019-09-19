@@ -105,14 +105,12 @@ exports[`PatronLoans tests should render patron loans 1`] = `
           Array [
             Object {
               "Document ID": "doc1",
-              "Expiration date": "Invalid DateTime",
               "ID": "loan1",
               "Start date": "2018-01-01",
               "Updated": "2018-01-01 10:05",
             },
             Object {
               "Document ID": "doc1",
-              "Expiration date": "Invalid DateTime",
               "ID": "loan2",
               "Start date": "2018-01-01",
               "Updated": "2018-01-01 10:05",
@@ -191,7 +189,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                       "Updated",
                       "Document ID",
                       "Start date",
-                      "Expiration date",
                     ]
                   }
                   withRowAction={false}
@@ -289,21 +286,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               </th>
                             </TableCell>
                           </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Expiration date"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Expiration date
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
                         </tr>
                       </TableRow>
                     </thead>
@@ -316,7 +298,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                       "Updated",
                       "Document ID",
                       "Start date",
-                      "Expiration date",
                     ]
                   }
                   rowActionClickHandler={null}
@@ -324,14 +305,12 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                     Array [
                       Object {
                         "Document ID": "doc1",
-                        "Expiration date": "Invalid DateTime",
                         "ID": "loan1",
                         "Start date": "2018-01-01",
                         "Updated": "2018-01-01 10:05",
                       },
                       Object {
                         "Document ID": "doc1",
-                        "Expiration date": "Invalid DateTime",
                         "ID": "loan2",
                         "Start date": "2018-01-01",
                         "Updated": "2018-01-01 10:05",
@@ -411,18 +390,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               2018-01-01
                             </td>
                           </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Expiration date-loan1"
-                            key="4-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Expiration date-loan1"
-                            >
-                              Invalid DateTime
-                            </td>
-                          </TableCell>
                         </tr>
                       </TableRow>
                       <TableRow
@@ -491,18 +458,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               2018-01-01
                             </td>
                           </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Expiration date-loan2"
-                            key="4-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="Expiration date-loan2"
-                            >
-                              Invalid DateTime
-                            </td>
-                          </TableCell>
                         </tr>
                       </TableRow>
                     </tbody>
@@ -510,7 +465,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={5}
+                  columnsNumber={4}
                   currentPage={1}
                   paginationComponent={
                     <Pagination

@@ -93,10 +93,6 @@ export default class LoanMetadata extends Component {
         value: toShortDateTime(data.metadata.transaction_date),
       },
       {
-        name: 'Expire Date',
-        value: toShortDateTime(data.metadata.request_expire_date),
-      },
-      {
         name: 'Delivery',
         value: data.metadata.delivery
           ? data.metadata.delivery.method
@@ -146,7 +142,7 @@ export default class LoanMetadata extends Component {
     return (
       this.state.isAvailableItemsVisible && (
         <>
-          <Divider />
+          {this.isItemDeleted() && <Divider />}
           <AvailableItems loan={this.props.loanDetails} />
         </>
       )

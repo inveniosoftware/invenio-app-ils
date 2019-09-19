@@ -23,7 +23,6 @@ NEW_LOAN = {
     "transaction_location_pid": "locid-1",
     "transaction_user_pid": "4",
     "pickup_location_pid": "locid-1",
-    "request_expire_date": "2018-07-28"
 }
 
 
@@ -117,8 +116,8 @@ def _test_patch_existing_loan(client, json_patch_headers, loanid,
     url = url_for('invenio_records_rest.loanid_item', pid_value=loanid)
     patch = [{
         "op": "replace",
-        "path": "/request_expire_date",
-        "value": "2019-01-01"
+        "path": "/transaction_user_pid",
+        "value": "4"
     }]
     res = client.patch(url, headers=json_patch_headers, data=json.dumps(patch))
     assert res.status_code == response_code

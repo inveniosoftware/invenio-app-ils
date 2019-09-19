@@ -20,9 +20,6 @@ function serializeResponse(hit) {
       result['metadata']['transaction_date'] = fromISO(
         hit.metadata.transaction_date
       );
-      result['metadata']['request_expire_date'] = fromISO(
-        hit.metadata.request_expire_date
-      );
     }
   }
 
