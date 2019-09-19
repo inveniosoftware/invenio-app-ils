@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
 import DocumentRequestForm from '../DocumentRequestForm';
+import { documentRequest as documentRequestApi } from '../../../../common/api';
 
 describe('DocumentRequestForm tests', () => {
   let component;
@@ -47,8 +48,8 @@ describe('DocumentRequestForm tests', () => {
 
   it('should call create document request on submit', done => {
     const titleText = 'Hello world!';
-
-    const onCreateDocumentRequest = values => {
+    const mockedSuccessNotification = jest.fn();
+    documentRequestApi.create = values => {
       expect(values.title).toEqual(titleText);
       done();
     };
@@ -56,7 +57,7 @@ describe('DocumentRequestForm tests', () => {
     component = mount(
       <BrowserRouter>
         <DocumentRequestForm
-          createDocumentRequest={onCreateDocumentRequest}
+          sendSuccessNotification={mockedSuccessNotification}
           location={{
             state: {
               queryString: titleText,
@@ -72,5 +73,7 @@ describe('DocumentRequestForm tests', () => {
       .filterWhere(element => element.prop('type') === 'submit');
     expect(submitButton).toHaveLength(1);
     submitButton.simulate('submit');
+
+    expect();
   });
 });

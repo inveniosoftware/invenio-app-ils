@@ -13,11 +13,10 @@ const selectQuery = (patronPid, page = 1) => {
 };
 
 export const fetchPatronDocumentRequests = (patronPid, page) => {
+  const query = selectQuery(patronPid, page);
   const fetchRequests = async (patronPid, dispatch) => {
     try {
-      const response = await documentRequestApi.list(
-        selectQuery(patronPid, page)
-      );
+      const response = await documentRequestApi.list(query);
       dispatch({
         type: SUCCESS,
         payload: response.data,
