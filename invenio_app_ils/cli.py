@@ -12,6 +12,7 @@ from random import randint
 
 import click
 import lorem
+from flask import current_app
 from flask.cli import with_appcontext
 from invenio_accounts.models import User
 from invenio_circulation.api import Loan
@@ -21,6 +22,8 @@ from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
     RecordIdentifier
 from invenio_search import current_search
+
+from invenio_app_ils.config import CIRCULATION_DELIVERY_METHODS
 
 from .indexer import PatronsIndexer
 from .records.api import Document, DocumentRequest, EItem, InternalLocation, \
@@ -231,7 +234,8 @@ class ItemGenerator(Generator):
             "internal_notes": "{}".format(lorem.text()),
             "medium": random.choice(self.ITEM_MEDIUMS),
             "status": random.choice(self.ITEM_STATUSES),
-            "circulation_restriction": random.choice(self.ITEM_CIRCULATION_RESTRICTIONS),
+            "circulation_restriction": random.choice(
+                self.ITEM_CIRCULATION_RESTRICTIONS),
         } for pid in range(1, size + 1)]
 
         self.holder.items['objs'] = objs
@@ -385,6 +389,8 @@ class LoanGenerator(Generator):
                 "transaction_date": transaction_date.isoformat(),
                 "transaction_location_pid": "{}".format(loc_pid),
                 "transaction_user_pid": "{}".format(librarian_pid),
+                "delivery": {"method": "{}".format(random.choice(
+                    current_app.config["CIRCULATION_DELIVERY_METHODS"]))}
             }
 
             if status == "PENDING":
@@ -440,7 +446,8 @@ class MostLoanedGenerator(Generator):
         """Generate four document-item pairs."""
         doc_pids, item_pids = [], []
         for item in self.holder.items['objs']:
-            if item['status'] == 'CAN_CIRCULATE' and item['document_pid'] not in doc_pids:
+            if item['status'] == 'CAN_CIRCULATE' and item[
+                'document_pid'] not in doc_pids:
                 doc_pids.append(item['document_pid'])
                 item_pids.append(item['pid'])
                 if len(doc_pids) == 4:
@@ -617,7 +624,8 @@ class RecordRelationsGenerator(Generator):
         objs.append(serial_parent)
         rr = RecordRelationsParentChild()
         serial_relation = Relation.get_relation_by_name('serial')
-        multipart_relation = Relation.get_relation_by_name('multipart_monograph')
+        multipart_relation = Relation.get_relation_by_name(
+            'multipart_monograph')
         for index, child in enumerate(serial_children):
             rr.add(
                 serial_parent,
@@ -641,7 +649,8 @@ class RecordRelationsGenerator(Generator):
         rr = RecordRelationsSiblings()
 
         def add_random_relations(relation_type):
-            random_docs = random.sample(documents, randint(2, min(5, len(documents))))
+            random_docs = random.sample(documents,
+                                        randint(2, min(5, len(documents))))
 
             objs.append(random_docs[0])
             for record in random_docs[1:]:
@@ -884,7 +893,8 @@ def index():
 
 @click.command()
 @click.option('--recreate-db', is_flag=True, help='Recreating DB.')
-@click.option('--skip-demo-data', is_flag=True, help='Skip creating demo data.')
+@click.option('--skip-demo-data', is_flag=True,
+              help='Skip creating demo data.')
 @click.option('--skip-patrons', is_flag=True, help='Skip creating patrons.')
 @click.option('--verbose', is_flag=True, help='Verbose output.')
 @with_appcontext
@@ -897,7 +907,8 @@ def setup(recreate_db, skip_demo_data, skip_patrons, verbose):
     click.secho('ils setup started...', fg='blue')
 
     # Clean redis
-    redis.StrictRedis.from_url(current_app.config['CACHE_REDIS_URL']).flushall()
+    redis.StrictRedis.from_url(
+        current_app.config['CACHE_REDIS_URL']).flushall()
     click.secho('redis cache cleared...', fg='red')
 
     cli = create_cli()
@@ -926,12 +937,17 @@ def setup(recreate_db, skip_demo_data, skip_patrons, verbose):
 
     if not skip_patrons:
         # Create users
-        run_command('users create patron1@test.ch -a --password=123456')  # ID 1
-        run_command('users create patron2@test.ch -a --password=123456')  # ID 2
+        run_command(
+            'users create patron1@test.ch -a --password=123456')  # ID 1
+        run_command(
+            'users create patron2@test.ch -a --password=123456')  # ID 2
         run_command('users create admin@test.ch -a --password=123456')  # ID 3
-        run_command('users create librarian@test.ch -a --password=123456')  # ID 4
-        run_command('users create patron3@test.ch -a --password=123456')  # ID 5
-        run_command('users create patron4@test.ch -a --password=123456')  # ID 6
+        run_command(
+            'users create librarian@test.ch -a --password=123456')  # ID 4
+        run_command(
+            'users create patron3@test.ch -a --password=123456')  # ID 5
+        run_command(
+            'users create patron4@test.ch -a --password=123456')  # ID 6
 
         # Assign roles
         run_command('roles add admin@test.ch admin')
