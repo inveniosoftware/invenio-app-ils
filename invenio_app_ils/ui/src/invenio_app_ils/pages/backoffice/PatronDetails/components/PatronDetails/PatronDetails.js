@@ -6,6 +6,7 @@ import { Grid } from 'semantic-ui-react';
 import { PatronCurrentLoans } from '../PatronCurrentLoans';
 import { ItemsCheckout } from '../ItemsCheckout';
 import { ItemsSearch } from '../ItemsSearch';
+import { PatronDocumentRequests } from '../PatronDocumentRequests';
 
 export default class PatronDetails extends Component {
   render() {
@@ -33,6 +34,11 @@ export default class PatronDetails extends Component {
               </Grid.Column>
               <Grid.Column width={8}>
                 <PatronCurrentLoans patronPid={data.user_pid} />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row stretched columns={2}>
+              <Grid.Column width={8}>
+                <PatronDocumentRequests patronPid={data.user_pid} />
               </Grid.Column>
             </Grid.Row>
           </Grid>
