@@ -13,6 +13,9 @@ from setuptools import find_packages, setup
 
 readme = open("README.rst").read()
 
+invenio_search_version = '1.2.1,<1.3.0'
+invenio_circulation_version = '1.0.0a17,<1.1.0'
+
 tests_require = [
     "check-manifest>=0.35",
     "coverage>=4.4.1",
@@ -31,11 +34,24 @@ extras_require = {
     "docs": ["Sphinx>=1.5.1"],
     "lorem": ["lorem>=0.1.1 "],
     "tests": tests_require,
+    'elasticsearch6': [
+        'invenio-search[elasticsearch6]>={}'.format(invenio_search_version),
+        'invenio-circulation[elasticsearch6]>={}'.format(invenio_circulation_version),
+    ],
+    'elasticsearch7': [
+        'invenio-search[elasticsearch7]>={}'.format(invenio_search_version),
+        'invenio-circulation[elasticsearch7]>={}'.format(invenio_circulation_version),
+    ],
 }
 
 extras_require["all"] = []
-for reqs in extras_require.values():
-    extras_require["all"].extend(reqs)
+for name, reqs in extras_require.items():
+    if name in (
+        'elasticsearch6',
+        'elasticsearch7',
+    ):
+        continue
+    extras_require['all'].extend(reqs)
 
 setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
 
@@ -44,8 +60,6 @@ install_requires = [
     "Flask-BabelEx>=0.9.3",
     "Flask-Debugtoolbar>=0.10.1",
     "invenio[postgresql,base,auth]==3.2.0a4",
-    # extra invenio-search
-    'invenio-search[elasticsearch6]>=1.2.1,<1.3.0',
     # metadata bundle without records UI
     "invenio-indexer>=1.1.0,<1.2.0",
     "invenio-jsonschemas>=1.0.0,<1.1.0",
@@ -59,7 +73,6 @@ install_requires = [
     "invenio-i18n>=1.1.0,<1.2.0",
     "invenio-userprofiles>=1.0.1,<1.1.0",
     # extra
-    "invenio-circulation==1.0.0a17",
     "invenio-records-editor>=1.0.0a3,<1.1.0",
     # until flask-sqlalchemy is fixed
     "SQLAlchemy>=1.2.16,<1.3.0",

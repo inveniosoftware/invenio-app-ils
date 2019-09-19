@@ -8,6 +8,7 @@
 """Test record delete."""
 import json
 
+from elasticsearch import VERSION as ES_VERSION
 from flask import url_for
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
@@ -30,7 +31,11 @@ def test_update_item_status(client, users, json_patch_headers,
                 active_loan = loan_search\
                     .get_active_loan_by_item_pid(t["pid"])\
                     .execute().hits
-                if active_loan.total > 0:
+                if ES_VERSION[0] >= 7:
+                    total = active_loan.total.value
+                else:
+                    total = active_loan.total
+                if total > 0:
                     return t["pid"], active_loan[0]["pid"]
 
     login_user_via_session(

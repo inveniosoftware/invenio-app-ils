@@ -30,12 +30,16 @@ cache:
 env:
   global:
     - ES6_DOWNLOAD_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.0.tar.gz"
+    - ES7_DOWNLOAD_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.3.0-linux-x86_64.tar.gz"
     - ES_HOST=127.0.0.1
     - NODE_PATH=src
   matrix:
-    - REQUIREMENTS=lowest EXTRAS=all ES_URL=$ES6_DOWNLOAD_URL
-    - REQUIREMENTS=release EXTRAS=all ES_URL=$ES6_DOWNLOAD_URL DEPLOY=true
-    - REQUIREMENTS=devel EXTRAS=all ES_URL=$ES6_DOWNLOAD_URL
+    - REQUIREMENTS=lowest EXTRAS=all,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
+    - REQUIREMENTS=release EXTRAS=all,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
+    - REQUIREMENTS=devel EXTRAS=all,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
+    - REQUIREMENTS=lowest EXTRAS=all,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
+    - REQUIREMENTS=release EXTRAS=all,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL DEPLOY=true
+    - REQUIREMENTS=devel EXTRAS=all,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
 
 python:
   - "3.6"
