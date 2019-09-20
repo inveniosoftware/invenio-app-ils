@@ -150,7 +150,6 @@ export default class DocumentMetadata extends Component {
 
   createRefProps(documentPid) {
     const loanStates = invenioConfig.circulation.loanActiveStates;
-    loanStates.push('PENDING');
 
     const loanRefProps = {
       refType: 'Loan',
@@ -160,7 +159,7 @@ export default class DocumentMetadata extends Component {
           loanApi
             .query()
             .withDocPid(documentPid)
-            .withState(loanStates)
+            .withState(loanStates.concat(['PENDING']))
             .qs()
         ),
     };
