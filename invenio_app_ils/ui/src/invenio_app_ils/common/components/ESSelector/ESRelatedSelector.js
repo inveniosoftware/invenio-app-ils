@@ -57,7 +57,7 @@ export default class ESRelatedSelector extends Component {
     result.metadata.extraFields = result.metadata.extraFields || {};
     if (!isEmpty(this.extraRefs)) {
       for (const name in this.props.extraFields) {
-        const input = this.extraRefs[name].inputRef;
+        const input = this.extraRefs[name].inputRef.current;
         result.metadata.extraFields[name] = input.value;
         input.value = '';
       }

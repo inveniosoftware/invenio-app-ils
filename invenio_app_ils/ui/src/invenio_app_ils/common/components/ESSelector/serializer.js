@@ -10,7 +10,9 @@ export const serializeDocument = doc => ({
   id: doc.metadata.pid,
   key: doc.metadata.pid,
   title: doc.metadata.title.title,
-  description: `Authors: ${doc.metadata.authors.join(', ')}`,
+  description: `Authors: ${doc.metadata.authors.map(
+    author => author.full_name
+  )}`,
   extra: `Document #${doc.metadata.pid}`,
   metadata: doc.metadata,
 });
