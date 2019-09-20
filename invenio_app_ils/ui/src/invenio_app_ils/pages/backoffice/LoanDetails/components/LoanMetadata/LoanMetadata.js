@@ -31,7 +31,7 @@ export default class LoanMetadata extends Component {
 
   isItemDeleted = () => {
     const data = this.props.loanDetails;
-    return isEmpty(data.metadata.item) && data.metadata.item_pid !== '';
+    return isEmpty(data.metadata.item) && data.metadata.item_pid;
   };
 
   renderItem() {
