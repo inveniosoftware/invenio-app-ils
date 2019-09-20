@@ -64,6 +64,7 @@ from .indexer import (  # isort:skip
     DocumentIndexer,
     DocumentRequestIndexer,
     EItemIndexer,
+    InternalLocationIndexer,
     ItemIndexer,
     LoanIndexer,
     LocationIndexer,
@@ -527,6 +528,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher=INTERNAL_LOCATION_PID_FETCHER,
         search_class=InternalLocationSearch,
         record_class=InternalLocation,
+        indexer_class=InternalLocationIndexer,
         record_loaders={
             "application/json": (
                 "invenio_app_ils.records.loaders:internal_location_loader"

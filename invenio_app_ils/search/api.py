@@ -98,7 +98,7 @@ class _ItemSearch(RecordsSearch):
         filter_states=None,
         exclude_states=None
     ):
-        """Retrieve internal locations based on the given location pid."""
+        """Retrieve items based on the given internal location pid."""
         search = self
 
         if internal_location_pid:
@@ -109,6 +109,33 @@ class _ItemSearch(RecordsSearch):
         else:
             raise MissingRequiredParameterError(
                 description="internal_location_pid is required"
+            )
+
+        if filter_states:
+            search = search.filter("terms", status=filter_states)
+        elif exclude_states:
+            search = search.exclude("terms", status=exclude_states)
+
+        return search
+
+
+    def search_by_location_pid(
+        self,
+        location_pid=None,
+        filter_states=None,
+        exclude_states=None
+    ):
+        """Retrieve items based on the given location pid."""
+        search = self
+
+        if location_pid:
+            search = search.filter(
+                "term",
+                internal_location__location_pid=location_pid
+            )
+        else:
+            raise MissingRequiredParameterError(
+                description="location_pid is required"
             )
 
         if filter_states:

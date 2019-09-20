@@ -289,6 +289,21 @@ def index_internal_location_after_location_indexed(loc_pid):
         _index_record_by_pid(InternalLocation, iloc_pid, log_func)
 
 
+@shared_task(ignore_result=True)
+def index_items_after_location_indexed(loc_pid):
+    """Index items referencing location."""
+    log_func = partial(
+        _log,
+        origin_rec_type='Location',
+        origin_recid=loc_pid,
+        dest_rec_type='Item')
+
+    log_func(msg=MSG_ORIGIN)
+    for item in ItemSearch().search_by_location_pid(
+            location_pid=loc_pid).scan():
+        _index_record_by_pid(Item, item["pid"], log_func)
+
+
 class LocationIndexer(RecordIndexer):
     """Indexer class for Location record."""
 
@@ -297,6 +312,38 @@ class LocationIndexer(RecordIndexer):
         super(LocationIndexer, self).index(location)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
         index_internal_location_after_location_indexed.apply_async(
+            (location["pid"],),
+            eta=eta
+        )
+        index_items_after_location_indexed.apply_async(
+            (location["pid"],),
+            eta=eta
+        )
+
+
+@shared_task(ignore_result=True)
+def index_items_after_internal_location_indexed(iloc_pid):
+    """Index items referencing internal location."""
+    log_func = partial(
+        _log,
+        origin_rec_type='InternalLocation',
+        origin_recid=iloc_pid,
+        dest_rec_type='Item')
+
+    log_func(msg=MSG_ORIGIN)
+    for item in ItemSearch().search_by_internal_location_pid(
+            internal_location_pid=iloc_pid).scan():
+        _index_record_by_pid(Item, item["pid"], log_func)
+
+
+class InternalLocationIndexer(RecordIndexer):
+    """Indexer class for InternalLocation record."""
+
+    def index(self, location):
+        """Index an InternalLocation."""
+        super(InternalLocationIndexer, self).index(location)
+        eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
+        index_items_after_internal_location_indexed.apply_async(
             (location["pid"],),
             eta=eta
         )
