@@ -539,9 +539,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                             <td
                               className=""
                               data-test="Document ID-loan1"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -551,9 +549,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                             <td
                               className=""
                               data-test="State-loan1"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -599,9 +595,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                             <td
                               className=""
                               data-test="Renewals-loan1"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                         </tr>
                       </TableRow>
@@ -725,9 +719,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                             <td
                               className=""
                               data-test="Document ID-loan2"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -737,9 +729,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                             <td
                               className=""
                               data-test="State-loan2"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -785,9 +775,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                             <td
                               className=""
                               data-test="Renewals-loan2"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                         </tr>
                       </TableRow>

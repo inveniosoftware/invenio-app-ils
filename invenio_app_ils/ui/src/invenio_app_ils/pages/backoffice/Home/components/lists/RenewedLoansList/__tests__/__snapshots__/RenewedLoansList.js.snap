@@ -457,9 +457,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                             <td
                               className=""
                               data-test="State-loan1"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -469,9 +467,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                             <td
                               className=""
                               data-test="Item barcode-loan1"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -493,9 +489,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                             <td
                               className=""
                               data-test="Renewals-loan1"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                         </tr>
                       </TableRow>
@@ -607,9 +601,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                             <td
                               className=""
                               data-test="State-loan2"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -619,9 +611,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                             <td
                               className=""
                               data-test="Item barcode-loan2"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -643,9 +633,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                             <td
                               className=""
                               data-test="Renewals-loan2"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                         </tr>
                       </TableRow>

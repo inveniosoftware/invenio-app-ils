@@ -416,9 +416,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                             <td
                               className=""
                               data-test="Document ID-documentRequest1"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -542,9 +540,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                             <td
                               className=""
                               data-test="Document ID-documentRequest2"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -1101,9 +1097,7 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                             <td
                               className=""
                               data-test="Document ID-documentRequest1"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"

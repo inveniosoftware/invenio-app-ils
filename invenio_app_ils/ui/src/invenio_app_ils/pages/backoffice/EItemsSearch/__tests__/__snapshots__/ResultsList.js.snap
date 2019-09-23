@@ -200,10 +200,10 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
       Array [
         Object {
           "Description": "A description.",
-          "Document ID": 987,
+          "Document ID": 1342,
           "ID": 987,
           "Internal Notes": "Internal notes.",
-          "Open access": "No",
+          "Open access": undefined,
         },
       ]
     }
@@ -463,10 +463,10 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
                 Array [
                   Object {
                     "Description": "A description.",
-                    "Document ID": 987,
+                    "Document ID": 1342,
                     "ID": 987,
                     "Internal Notes": "Internal notes.",
-                    "Open access": "No",
+                    "Open access": undefined,
                   },
                 ]
               }
@@ -574,7 +574,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
                           className=""
                           data-test="Document ID-987"
                         >
-                          987
+                          1342
                         </td>
                       </TableCell>
                       <TableCell
@@ -585,9 +585,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
                         <td
                           className=""
                           data-test="Open access-987"
-                        >
-                          No
-                        </td>
+                        />
                       </TableCell>
                       <TableCell
                         as="td"

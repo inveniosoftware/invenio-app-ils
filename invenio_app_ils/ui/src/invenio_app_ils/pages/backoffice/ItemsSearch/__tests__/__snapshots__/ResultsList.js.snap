@@ -689,9 +689,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                         <td
                           className=""
                           data-test="Medium-987"
-                        >
-                          -
-                        </td>
+                        />
                       </TableCell>
                       <TableCell
                         as="td"
@@ -701,9 +699,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                         <td
                           className=""
                           data-test="Circulation status-987"
-                        >
-                          -
-                        </td>
+                        />
                       </TableCell>
                       <TableCell
                         as="td"
@@ -725,9 +721,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                         <td
                           className=""
                           data-test="Location-987"
-                        >
-                          -
-                        </td>
+                        />
                       </TableCell>
                       <TableCell
                         as="td"
@@ -737,9 +731,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                         <td
                           className=""
                           data-test="Shelf-987"
-                        >
-                          -
-                        </td>
+                        />
                       </TableCell>
                     </tr>
                   </TableRow>

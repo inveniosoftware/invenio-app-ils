@@ -561,9 +561,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                             <td
                                               className=""
                                               data-test="Circulation status-item1"
-                                            >
-                                              -
-                                            </td>
+                                            />
                                           </TableCell>
                                           <TableCell
                                             as="td"

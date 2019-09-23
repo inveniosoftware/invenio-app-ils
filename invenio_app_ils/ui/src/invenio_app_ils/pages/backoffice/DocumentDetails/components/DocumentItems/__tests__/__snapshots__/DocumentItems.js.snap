@@ -473,9 +473,7 @@ exports[`DocumentItems tests should render item 1`] = `
                             <td
                               className=""
                               data-test="Status-item1"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -485,9 +483,7 @@ exports[`DocumentItems tests should render item 1`] = `
                             <td
                               className=""
                               data-test="Medium-item1"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -623,9 +619,7 @@ exports[`DocumentItems tests should render item 1`] = `
                             <td
                               className=""
                               data-test="Status-item2"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -635,9 +629,7 @@ exports[`DocumentItems tests should render item 1`] = `
                             <td
                               className=""
                               data-test="Medium-item2"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -1240,9 +1232,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
                             <td
                               className=""
                               data-test="Status-1"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"
@@ -1252,9 +1242,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
                             <td
                               className=""
                               data-test="Medium-1"
-                            >
-                              -
-                            </td>
+                            />
                           </TableCell>
                           <TableCell
                             as="td"

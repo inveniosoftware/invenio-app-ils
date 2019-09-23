@@ -21,7 +21,7 @@ export const serializeEItem = eitem => ({
   id: eitem.metadata.pid,
   key: eitem.metadata.pid,
   title: eitem.metadata.document.title.title,
-  description: `Open access: ${eitem.metadata.open_access ? 'Yes' : 'No'}`,
+  description: `Open access: ${String(eitem.metadata.open_access)}`,
   extra: `EItem #${eitem.metadata.pid}`,
   metadata: eitem.metadata,
 });

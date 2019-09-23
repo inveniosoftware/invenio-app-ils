@@ -623,9 +623,7 @@ exports[`SeriesSearch ResultsList tests should render a list of results 1`] = `
                         <td
                           className=""
                           data-test="Mode of Issuance-3"
-                        >
-                          -
-                        </td>
+                        />
                       </TableCell>
                       <TableCell
                         as="td"

@@ -1,50 +1,59 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Table } from 'semantic-ui-react';
+import isBoolean from 'lodash/isBoolean';
+import isNumber from 'lodash/isNumber';
 
 export default class ResultsTableBody extends Component {
-  renderCell = (cell, column, id, colIndex) => {
-    return (
-      <Table.Cell key={colIndex + '-' + id} data-test={column + '-' + id}>
-        {cell}
-      </Table.Cell>
-    );
+  renderValue = value => {
+    switch (true) {
+      case isBoolean(value):
+        return String(value);
+      case isNumber(value):
+        return value > 0 ? value : '-';
+      default:
+        return value;
+    }
   };
 
-  renderRow = (columns, rows) => {
-    return rows.map(row => {
-      const withRowAction = this.props.rowActionClickHandler ? (
-        <Button
-          circular
-          compact
-          icon="eye"
-          onClick={() => {
-            this.props.rowActionClickHandler(row);
-          }}
-          data-test={'btn-view-details-' + row.ID}
-        />
-      ) : null;
+  renderRowAction = row => {
+    return this.props.rowActionClickHandler ? (
+      <Button
+        circular
+        compact
+        icon="eye"
+        onClick={() => {
+          this.props.rowActionClickHandler(row);
+        }}
+        data-test={'btn-view-details-' + row.ID}
+      />
+    ) : null;
+  };
 
+  renderRows = (columns, rows) => {
+    return rows.map(row => {
       return (
         <Table.Row key={row.ID} data-test={row.ID}>
-          <Table.Cell textAlign="center">{withRowAction}</Table.Cell>
-          {columns.map((column, idx) =>
-            this.renderCell(
-              row[column] ? row[column] : '-',
-              column,
-              row.ID,
-              idx
-            )
-          )}
+          <Table.Cell textAlign="center">
+            {this.renderRowAction(row)}
+          </Table.Cell>
+
+          {columns.map((column, idx) => (
+            <Table.Cell
+              key={`${idx}-${row.ID}`}
+              data-test={`${column}-${row.ID}`}
+            >
+              {this.renderValue(row[column])}
+            </Table.Cell>
+          ))}
         </Table.Row>
       );
     });
   };
 
   render() {
-    const { columns, rows, detailsURL } = this.props;
-
-    return <Table.Body>{this.renderRow(columns, rows, detailsURL)}</Table.Body>;
+    const { columns, rows } = this.props;
+    return <Table.Body>{this.renderRows(columns, rows)}</Table.Body>;
   }
 }
 

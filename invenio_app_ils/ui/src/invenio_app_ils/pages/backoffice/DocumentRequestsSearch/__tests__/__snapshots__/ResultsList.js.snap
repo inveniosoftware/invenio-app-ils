@@ -677,9 +677,7 @@ exports[`DocumentRequestsSearch ResultsList tests should render a list of result
                         <td
                           className=""
                           data-test="Document ID-3"
-                        >
-                          -
-                        </td>
+                        />
                       </TableCell>
                       <TableCell
                         as="td"

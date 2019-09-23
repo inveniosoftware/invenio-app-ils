@@ -59,7 +59,7 @@ export default class EItemMetadata extends Component {
                   <Table.Row>
                     <Table.Cell>Open access</Table.Cell>
                     <Table.Cell>
-                      {eitem.metadata.open_access ? 'Yes' : 'No'}
+                      {String(eitem.metadata.open_access)}
                     </Table.Cell>
                   </Table.Row>
                   <Table.Row>

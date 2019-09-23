@@ -590,9 +590,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                         <td
                           className=""
                           data-test="Document ID-3"
-                        >
-                          -
-                        </td>
+                        />
                       </TableCell>
                       <TableCell
                         as="td"
@@ -614,9 +612,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                         <td
                           className=""
                           data-test="Item barcode-3"
-                        >
-                          -
-                        </td>
+                        />
                       </TableCell>
                       <TableCell
                         as="td"
@@ -662,9 +658,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                         <td
                           className=""
                           data-test="Renewals-3"
-                        >
-                          -
-                        </td>
+                        />
                       </TableCell>
                       <TableCell
                         as="td"
@@ -674,9 +668,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                         <td
                           className=""
                           data-test="Actions-3"
-                        >
-                          -
-                        </td>
+                        />
                       </TableCell>
                     </tr>
                   </TableRow>

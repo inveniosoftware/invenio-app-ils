@@ -109,8 +109,8 @@ function formatItemToTableView(item) {
 function formatEItemToTableView(eitem) {
   return {
     ID: eitem.pid ? eitem.pid : eitem.id,
-    'Document ID': eitem.metadata.pid,
-    'Open access': eitem.metadata.open_access ? 'Yes' : 'No',
+    'Document ID': eitem.metadata.document.pid,
+    'Open access': eitem.metadata.open_access,
     Created: toShortDate(fromISO(eitem.created)),
     Updated: toShortDate(fromISO(eitem.updated)),
     Description: eitem.metadata.description,
