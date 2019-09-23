@@ -43,7 +43,7 @@ describe('Series relations tests', () => {
     );
 
     const buttons = component.find('ManageRelationsButton');
-    expect(buttons).toHaveLength(2);
+    expect(buttons).toHaveLength(1);
   });
 
   it('should render pagination for many rows', () => {

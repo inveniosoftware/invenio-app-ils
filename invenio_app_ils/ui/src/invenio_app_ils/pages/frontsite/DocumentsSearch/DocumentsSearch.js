@@ -178,8 +178,7 @@ export class DocumentsSearch extends Component {
   };
 
   render() {
-    const query = this.props.location.search;
-    const queryString = decodeURIComponent(query.match(/\?q=([^&]+)/)[1]);
+    const queryString = this.props.location.search;
     const requestForm = (
       <Link
         to={{
