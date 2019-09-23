@@ -48,9 +48,8 @@ install_requires = [
     # metadata bundle without records UI
     "invenio-indexer>=1.1.0,<1.2.0",
     "invenio-jsonschemas>=1.0.0,<1.1.0",
-    "invenio-oaiserver>=1.0.3,<1.1.0",
     "invenio-pidstore>=1.0.0,<1.1.0",
-    "invenio-records-rest>=1.6.0,<1.7.0",
+    "invenio-records-rest>=1.6.1,<1.7.0",
     "invenio-records>=1.3.0,<1.4.0",
     # upgraded packages
     "invenio-accounts-rest>=1.0.0a4,<1.1.0",
@@ -65,7 +64,6 @@ install_requires = [
     "SQLAlchemy>=1.2.16,<1.3.0",
     "invenio-pidrelations>=1.0.0a6,<1.1.0",
     "sentry-sdk>=0.10.2",
-    "webargs>=5.5.0",
     # Avoid version 4.3 it breaks the emails with datetime
     # https://github.com/celery/celery/pull/5606
     "celery>=4.2.1<4.3.0",
