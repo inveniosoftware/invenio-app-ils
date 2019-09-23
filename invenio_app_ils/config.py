@@ -349,7 +349,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         search_serializers={
             "application/json": (
-                "invenio_records_rest.serializers:json_v1_search"
+                "invenio_app_ils.records.serializers:json_v1_search"
             ),
             "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
         },
@@ -639,7 +639,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         search_serializers={
             "application/json": (
-                "invenio_records_rest.serializers:json_v1_search"
+                "invenio_app_ils.records.serializers:json_v1_search"
             ),
             "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
         },

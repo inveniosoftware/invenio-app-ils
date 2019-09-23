@@ -38,7 +38,6 @@ env:
     - REQUIREMENTS=devel EXTRAS=all ES_URL=$ES6_DOWNLOAD_URL
 
 python:
-  - "2.7"
   - "3.6"
 
 before_install:
@@ -89,5 +88,5 @@ jobs:
         distributions: "compile_catalog sdist bdist_wheel"
         on:
           tags: true
-          python: "2.7"
+          python: "3.6"
           repo: inveniosoftware/invenio-app-ils
