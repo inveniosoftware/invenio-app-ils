@@ -16,9 +16,10 @@ export const ManageRelationsButton = ({ config, SelectorModal, ...props }) => (
       <Button
         disabled={!props.enabled}
         className="edit-related"
-        labelPosition={'left'}
+        icon
+        labelPosition="left"
       >
-        <Icon name={'edit'} />
+        <Icon name="edit" />
         {props.editButtonLabel ? props.editButtonLabel : 'Edit relation'}
       </Button>
     }
