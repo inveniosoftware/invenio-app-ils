@@ -6,12 +6,12 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Internal Location schema for marshmallow loader."""
-
+from invenio_records_rest.schemas import RecordSchemaJSONV1
 from invenio_records_rest.schemas.fields import PersistentIdentifier
-from marshmallow import Schema, fields
+from marshmallow import fields
 
 
-class InternalLocationSchemaV1(Schema):
+class InternalLocationSchemaV1(RecordSchemaJSONV1):
     """Internal Location schema."""
 
     def get_pid_field(self):
