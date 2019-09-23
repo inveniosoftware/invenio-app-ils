@@ -200,7 +200,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
       Array [
         Object {
           "Description": "A description.",
-          "Document ID": 987,
+          "Document ID": 1342,
           "ID": 987,
           "Internal Notes": "Internal notes.",
           "Open access": "No",
@@ -463,7 +463,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
                 Array [
                   Object {
                     "Description": "A description.",
-                    "Document ID": 987,
+                    "Document ID": 1342,
                     "ID": 987,
                     "Internal Notes": "Internal notes.",
                     "Open access": "No",
@@ -574,7 +574,7 @@ exports[`EItemsSearch ResultsList tests should render a list of results 1`] = `
                           className=""
                           data-test="Document ID-987"
                         >
-                          987
+                          1342
                         </td>
                       </TableCell>
                       <TableCell
