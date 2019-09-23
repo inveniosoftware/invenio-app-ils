@@ -32,6 +32,7 @@ import './SeriesRelations.scss';
 import {
   serializeDocument,
   serializeSeries,
+  serializeSeriesLanguages,
 } from '../../../../../common/components/ESSelector/serializer';
 
 export const serializeEdition = hit => {
@@ -43,24 +44,12 @@ export const serializeEdition = hit => {
   return result;
 };
 
-export const serializeSerialChildren = hit => {
-  const pidType = hit.metadata.pidType;
-  const result =
-    pidType === 'docid' ? serializeDocument(hit) : serializeSeries(hit);
-  if (pidType === 'docid') {
-    result.description = `Authors: ${hit.metadata.authors.join(', ')}`;
-  } else {
-    result.description = `Mode of Issuance: ${hit.metadata.mode_of_issuance}`;
+export const serializeLanguageSelection = selection => {
+  if (!selection.metadata.extraFields.language) {
+    selection.metadata.extraFields.language = selection.metadata.language;
   }
-
-  return result;
-};
-
-export const serializeSelection = selection => {
-  const extras = Object.entries(selection.metadata.extraFields);
-  selection.description = extras
-    .map(([name, value]) => `${capitalize(name)}: ${value}`)
-    .join(', ');
+  selection.description = `Language: ${selection.metadata.extraFields
+    .language || '-'}`;
   return selection;
 };
 
@@ -133,13 +122,121 @@ export default class SeriesRelations extends Component {
     );
   }
 
-  renderTab = (rows, name) => {
+  getEditButton = key => {
+    const buttons = {
+      editions: (
+        <ManageRelationsButton
+          SelectorModal={ESSelectorModal}
+          Selector={ESRelatedSelector}
+          enabled={true}
+          config={{
+            modal: {
+              title: 'Manage related editions',
+              content: 'Select related editions.',
+            },
+            recordTypes: {
+              Document: {
+                pidType: 'docid',
+                serializeSelection: serializeEditionSelection,
+                selectorProps: {
+                  query: documentApi.list,
+                  serializer: serializeEdition,
+                },
+              },
+              'Multipart monograph': {
+                pidType: 'serid',
+                serializeSelection: serializeEditionSelection,
+                selectorProps: {
+                  query: seriesApi.multipartMonographs,
+                  serializer: serializeEdition,
+                },
+              },
+            },
+          }}
+          editButtonLabel={'Edit edition relations'}
+          initialSelections={this.getSelections('edition')}
+          relation="edition"
+          onRemoveSelection={this.onRemoveSelection}
+          onSave={this.onSave}
+        />
+      ),
+      languages: (
+        <ManageRelationsButton
+          SelectorModal={ESSelectorModal}
+          Selector={ESRelatedSelector}
+          enabled={true}
+          config={{
+            modal: {
+              title: 'Manage related languages',
+              content: 'Select related languages.',
+            },
+            recordTypes: {
+              'Multipart monograph': {
+                pidType: 'serid',
+                serializeSelection: serializeLanguageSelection,
+                selectorProps: {
+                  query: seriesApi.multipartMonographs,
+                  serializer: serializeSeriesLanguages,
+                },
+              },
+            },
+          }}
+          editButtonLabel={'Edit language relations'}
+          initialSelections={this.getSelections('language')}
+          relation="language"
+          onRemoveSelection={this.onRemoveSelection}
+          onSave={this.onSave}
+        />
+      ),
+      serials: (
+        <ManageRelationsButton
+          SelectorModal={ESSelectorModal}
+          Selector={ESRelatedSelector}
+          enabled={true}
+          config={{
+            modal: {
+              title: 'Manage related serials',
+              content: 'Select related serials.',
+              extraFields: {
+                volume: {
+                  component: Input,
+                  label: 'Volume',
+                  props: {
+                    placeholder: 'Enter volume number...',
+                  },
+                },
+              },
+            },
+            recordTypes: {
+              Serial: {
+                pidType: 'serid',
+                serializeSelection: serializeSeriesSelection,
+                selectorProps: {
+                  query: seriesApi.serials,
+                  serializer: serializeSeries,
+                },
+              },
+            },
+          }}
+          editButtonLabel={'Edit serials relations'}
+          initialSelections={this.getSelections('serial')}
+          relation="serial"
+          onRemoveSelection={this.onRemoveSelection}
+          onSave={this.onSave}
+        />
+      ),
+    };
+    return buttons[key];
+  };
+
+  renderTab = (rows, name, editButton) => {
     const activePage = this.activePage;
     const size = this.props.showMaxRows;
     const activeRows = rows.slice((activePage - 1) * size, activePage * size);
     activeRows.totalHits = rows.length;
     return (
       <Tab.Pane>
+        {editButton}
         <ResultsTable
           rows={activeRows}
           name={name}
@@ -269,6 +366,14 @@ export default class SeriesRelations extends Component {
       'Type',
       'Volume',
     ]);
+
+    const languages = this.getTabRows('language', [
+      'ID',
+      'Title',
+      'Type',
+      'Language',
+    ]);
+
     const activeIndex = this.state.activeIndex;
 
     return [
@@ -279,43 +384,32 @@ export default class SeriesRelations extends Component {
             <>
               <Label>{editions.length}</Label>
               Editions
-              <ManageRelationsButton
-                SelectorModal={ESSelectorModal}
-                Selector={ESRelatedSelector}
-                enabled={activeIndex === 0}
-                config={{
-                  modal: {
-                    title: 'Manage related editions',
-                    content: 'Select related editions.',
-                  },
-                  recordTypes: {
-                    Document: {
-                      pidType: 'docid',
-                      serializeSelection: serializeEditionSelection,
-                      selectorProps: {
-                        query: documentApi.list,
-                        serializer: serializeEdition,
-                      },
-                    },
-                    'Multipart monograph': {
-                      pidType: 'serid',
-                      serializeSelection: serializeEditionSelection,
-                      selectorProps: {
-                        query: seriesApi.multipartMonographs,
-                        serializer: serializeEdition,
-                      },
-                    },
-                  },
-                }}
-                initialSelections={this.getSelections('edition')}
-                relation="edition"
-                onRemoveSelection={this.onRemoveSelection}
-                onSave={this.onSave}
-              />
             </>
           ),
         },
-        render: () => this.renderTab(editions, 'related editions'),
+        render: () =>
+          this.renderTab(
+            editions,
+            'related editions',
+            this.getEditButton('editions')
+          ),
+      },
+      {
+        menuItem: {
+          key: 'language',
+          content: (
+            <>
+              <Label>{languages.length}</Label>
+              Languages
+            </>
+          ),
+        },
+        render: () =>
+          this.renderTab(
+            languages,
+            'related languages',
+            this.getEditButton('languages')
+          ),
       },
       {
         menuItem: {
@@ -324,44 +418,15 @@ export default class SeriesRelations extends Component {
             <>
               <Label>{serials.length}</Label>
               Serials
-              <ManageRelationsButton
-                SelectorModal={ESSelectorModal}
-                Selector={ESRelatedSelector}
-                enabled={activeIndex === 1}
-                config={{
-                  modal: {
-                    title: 'Manage related serials',
-                    content: 'Select related serials.',
-                    extraFields: {
-                      volume: {
-                        component: Input,
-                        label: 'Volume',
-                        props: {
-                          placeholder: 'Enter volume number...',
-                        },
-                      },
-                    },
-                  },
-                  recordTypes: {
-                    Serial: {
-                      pidType: 'serid',
-                      serializeSelection: serializeSeriesSelection,
-                      selectorProps: {
-                        query: seriesApi.serials,
-                        serializer: serializeSeries,
-                      },
-                    },
-                  },
-                }}
-                initialSelections={this.getSelections('serial')}
-                relation="serial"
-                onRemoveSelection={this.onRemoveSelection}
-                onSave={this.onSave}
-              />
             </>
           ),
         },
-        render: () => this.renderTab(serials, 'related serials'),
+        render: () =>
+          this.renderTab(
+            serials,
+            'related serials',
+            this.getEditButton('serials')
+          ),
       },
     ];
   }

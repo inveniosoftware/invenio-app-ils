@@ -89,6 +89,15 @@ export const serializeSeries = series => ({
   metadata: series.metadata,
 });
 
+export const serializeSeriesLanguages = series => ({
+  id: series.metadata.pid,
+  key: series.metadata.pid,
+  title: series.metadata.title.title,
+  description: `Language: ${series.metadata.language}`,
+  extra: `Series #${series.metadata.pid}`,
+  metadata: series.metadata,
+});
+
 export const serializeAccessList = patron => ({
   id: patron.metadata.email,
   key: patron.metadata.email,

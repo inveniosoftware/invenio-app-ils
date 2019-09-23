@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 
 export const ManageRelationsButton = ({ config, SelectorModal, ...props }) => (
   <SelectorModal
@@ -14,12 +14,13 @@ export const ManageRelationsButton = ({ config, SelectorModal, ...props }) => (
     config={config}
     trigger={
       <Button
-        circular
         disabled={!props.enabled}
-        color={props.enabled ? 'blue' : 'grey'}
-        icon="edit"
         className="edit-related"
-      />
+        labelPosition={'left'}
+      >
+        <Icon name={'edit'} />
+        {props.editButtonLabel ? props.editButtonLabel : 'Edit relation'}
+      </Button>
     }
     {...props}
   />
