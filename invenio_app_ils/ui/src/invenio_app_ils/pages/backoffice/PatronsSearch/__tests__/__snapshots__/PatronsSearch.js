@@ -5,7 +5,7 @@ import { formatter } from '../../../../common/components/ResultsTable/formatters
 
 jest.mock('../../components');
 
-describe('PatronsSearch ResultsList tests', () => {
+describe('PatronsSearch tests', () => {
   const results = [
     {
       metadata: {

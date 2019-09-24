@@ -18,9 +18,10 @@ import {
   ResultsSort,
 } from '../../../common/components';
 import { patron as patronApi } from '../../../common/api';
+import { ResultsTable } from '../../../common/components/ResultsTable';
 import { getSearchConfig } from '../../../common/config';
 import { ClearButton } from '../components/buttons';
-import { ResultsList as PatronsResultsList } from './components';
+import { ExportReactSearchKitResults } from '../components';
 import { goTo } from '../../../history';
 import './PatronsSearch.scss';
 
@@ -42,13 +43,18 @@ export class PatronsSearch extends Component {
     );
   };
 
-  renderResultsList = results => {
+  renderTable = data => {
     return (
       <div className="results-list">
-        <PatronsResultsList
-          results={results}
-          viewDetailsClickHandler={row =>
-            goTo(BackOfficeRoutes.patronDetailsFor(row.ID))
+        <ResultsTable
+          data={data}
+          entity="patron"
+          displayProps={['ID', 'Name', 'Email']}
+          headerActionComponent={
+            <ExportReactSearchKitResults exportBaseUrl={patronApi.url} />
+          }
+          viewDetailsHandler={rowId =>
+            goTo(BackOfficeRoutes.patronDetailsFor(rowId))
           }
         />
       </div>
@@ -131,7 +137,7 @@ export class PatronsSearch extends Component {
               <EmptyResults renderElement={this.renderEmptyResults} />
               <Error renderElement={this.renderError} />
               {this.renderHeader()}
-              <ResultsList renderElement={this.renderResultsList} />
+              <ResultsList renderElement={this.renderTable} />
               {this.renderFooter()}
             </ResultsLoader>
           </Grid.Column>

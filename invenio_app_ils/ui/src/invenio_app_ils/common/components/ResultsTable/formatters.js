@@ -232,7 +232,7 @@ export const formatter = {
   loan: { toTable: formatLoanToTableView },
   location: { toTable: formatLocationToTableView },
   mostLoanedDocument: { toTable: formatMostLoanedDocumentToTableView },
-  patron: { toTable: formatPatronToTableView },
+  patron: formatPatronToTableView,
   related: { toTable: formatRelatedToTableView },
   series: { toTable: formatSeriesToTableView },
 };

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Table } from 'semantic-ui-react';
+import isFunction from 'lodash/isFunction';
 
 export default class ResultsTableBody extends Component {
   renderCell = (cell, column, id, colIndex) => {
@@ -13,13 +14,13 @@ export default class ResultsTableBody extends Component {
 
   renderRow = (columns, rows) => {
     return rows.map(row => {
-      const withRowAction = this.props.rowActionClickHandler ? (
+      const withRowAction = isFunction(this.props.viewDetailsHandler) ? (
         <Button
           circular
           compact
           icon="eye"
           onClick={() => {
-            this.props.rowActionClickHandler(row);
+            this.props.viewDetailsHandler(row.ID);
           }}
           data-test={'btn-view-details-' + row.ID}
         />
@@ -42,9 +43,8 @@ export default class ResultsTableBody extends Component {
   };
 
   render() {
-    const { columns, rows, detailsURL } = this.props;
-
-    return <Table.Body>{this.renderRow(columns, rows, detailsURL)}</Table.Body>;
+    const { columns, rows } = this.props;
+    return <Table.Body>{this.renderRow(columns, rows)}</Table.Body>;
   }
 }
 

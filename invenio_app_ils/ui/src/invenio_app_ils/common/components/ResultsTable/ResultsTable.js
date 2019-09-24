@@ -1,16 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import pick from 'lodash/pick';
 import { Segment, Message, Header, Table, Grid } from 'semantic-ui-react';
 import ResultsTableHeader from './ResultsTableHeader';
 import ResultsTableBody from './ResultsTableBody';
 import ResultsTableFooter from './ResultsTableFooter';
+import { formatter } from './formatters';
 
 export class ResultsTable extends Component {
+  constructor(props) {
+    super(props);
+    this.rows = [];
+    this.columns = [];
+    this.totalRows = 0;
+  }
+
+  prepareData = () => {
+    const { data, entity, displayProps } = this.props;
+    console.log(data, entity, displayProps);
+    return data.map(row => {
+      return pick(formatter[entity](row), displayProps);
+    });
+  };
+
   renderTable = () => {
-    const { rows, showMaxRows, singleLine, fixed } = this.props;
-    const columns = rows ? Object.keys(rows[0]) : [];
-    const totalRows =
-      rows.totalHits > rows.length ? rows.totalHits : rows.length;
+    const { showMaxRows, singleLine, fixed } = this.props;
     return (
       <Table
         striped
@@ -19,36 +33,36 @@ export class ResultsTable extends Component {
         selectable
       >
         <ResultsTableHeader
-          columns={columns}
+          columns={this.columns}
           withRowAction={this.props.rowActionClickHandler ? true : false}
         />
         <ResultsTableBody
-          columns={columns}
-          rows={rows.slice(0, showMaxRows)}
+          columns={this.columns}
+          rows={this.rows.slice(0, showMaxRows)}
           rowActionClickHandler={this.props.rowActionClickHandler}
         />
         <ResultsTableFooter
-          allRowsNumber={totalRows}
+          allRowsNumber={this.totalRows}
           showMaxRows={this.props.showMaxRows}
           seeAllComponent={this.props.seeAllComponent}
           currentPage={this.props.currentPage}
           paginationComponent={this.props.paginationComponent}
-          columnsNumber={columns.length}
+          columnsNumber={this.columns.length}
         />
       </Table>
     );
   };
 
-  renderResultsOrEmpty() {
-    const { rows, name } = this.props;
-    return rows.length ? (
-      this.renderTable(rows)
+  renderResultsOrEmpty = () => {
+    const { name } = this.props;
+    return this.rows.length ? (
+      this.renderTable(this.rows)
     ) : (
       <Message data-test="no-results">There are no {name}.</Message>
     );
-  }
+  };
 
-  renderTitle() {
+  renderTitle = () => {
     const { title, subtitle, headerActionComponent } = this.props;
     const header = title ? (
       <Header as="h3" content={title} subheader={subtitle} />
@@ -66,9 +80,16 @@ export class ResultsTable extends Component {
         </Grid.Row>
       </Grid>
     );
-  }
+  };
 
   render() {
+    this.rows = this.prepareData();
+    this.columns = this.rows ? Object.keys(this.rows[0]) : [];
+    this.totalRows =
+      this.rows.totalHits > this.rows.length
+        ? this.totalHits
+        : this.rows.length;
+
     if (this.props.renderSegment) {
       return (
         <Segment>
@@ -76,19 +97,21 @@ export class ResultsTable extends Component {
           {this.renderResultsOrEmpty()}
         </Segment>
       );
-    } else {
-      return (
-        <>
-          {this.renderTitle()}
-          {this.renderResultsOrEmpty()}
-        </>
-      );
     }
+    return (
+      <>
+        {this.renderTitle()}
+        {this.renderResultsOrEmpty()}
+      </>
+    );
   }
 }
 
 ResultsTable.propTypes = {
-  rows: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
+  entity: PropTypes.string.isRequired,
+  displayProps: PropTypes.array.isRequired,
+
   showMaxRows: PropTypes.number,
   currentPage: PropTypes.number,
   title: PropTypes.string,
@@ -104,6 +127,8 @@ ResultsTable.propTypes = {
 };
 
 ResultsTable.defaultProps = {
+  data: [],
+
   showMaxRows: 10,
   currentPage: 1,
   title: '',
