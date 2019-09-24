@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import pick from 'lodash/pick';
+import omit from 'lodash/omit';
 import { Segment, Message, Header, Table, Grid } from 'semantic-ui-react';
 import ResultsTableHeader from './ResultsTableHeader';
 import ResultsTableBody from './ResultsTableBody';
@@ -16,10 +17,10 @@ export class ResultsTable extends Component {
   }
 
   prepareData = () => {
-    const { data, entity, displayProps } = this.props;
-    console.log(data, entity, displayProps);
+    const { data, entity, displayProps, hideProps } = this.props;
     return data.map(row => {
-      return pick(formatter[entity](row), displayProps);
+      if (displayProps) return pick(formatter[entity](row), displayProps);
+      if (hideProps) return omit(formatter[entity](row), hideProps);
     });
   };
 
@@ -110,7 +111,8 @@ export class ResultsTable extends Component {
 ResultsTable.propTypes = {
   data: PropTypes.array.isRequired,
   entity: PropTypes.string.isRequired,
-  displayProps: PropTypes.array.isRequired,
+  displayProps: PropTypes.array,
+  hideProps: PropTypes.array,
 
   showMaxRows: PropTypes.number,
   currentPage: PropTypes.number,

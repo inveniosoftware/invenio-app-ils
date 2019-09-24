@@ -7,8 +7,7 @@ import { Error, Loader, ResultsTable } from '../../../common/components';
 import { DeleteRecordModal } from '../../backoffice/components';
 import { Button } from 'semantic-ui-react';
 import { NewButton } from '../components/buttons';
-import { formatter } from '../../../common/components/ResultsTable/formatters';
-import omit from 'lodash/omit';
+import isEmpty from 'lodash/isEmpty';
 
 export default class LocationList extends Component {
   constructor(props) {
@@ -55,18 +54,14 @@ export default class LocationList extends Component {
     );
   }
 
-  prepareData(data) {
-    const rows = data.hits.map(row => {
-      let serialized = formatter.location.toTable(row);
-      serialized['Actions'] = this.rowActions(row.pid);
-      return omit(serialized, ['Created', 'Updated', 'Link']);
+  renderResults() {
+    const { data } = this.props;
+    if (isEmpty(data.hits)) return null;
+    const curratedData = data.hits.map(row => {
+      row['actions'] = this.rowActions(row.pid);
+      return row;
     });
-    rows.totalHits = data.total;
-    return rows;
-  }
-
-  renderResults(data) {
-    const rows = this.prepareData(data);
+    curratedData.totalHits = data.total;
     const headerActionComponent = (
       <NewButton
         clickHandler={() => {
@@ -76,9 +71,11 @@ export default class LocationList extends Component {
     );
     return (
       <ResultsTable
-        rows={rows}
+        data={curratedData}
         title={'Locations'}
         name={'locations'}
+        entity={'location'}
+        hideProps={['Created', 'Updated', 'Link']}
         headerActionComponent={headerActionComponent}
         showMaxRows={this.props.showMaxItems}
       />
@@ -86,13 +83,13 @@ export default class LocationList extends Component {
   }
 
   render() {
-    let { data, isLoading, error } = this.props;
+    const { data, isLoading, error } = this.props;
     return (
       <Container>
         <Loader isLoading={isLoading}>
-          <Error error={error}>{this.renderResults(data)}</Error>
+          <Error error={error}>{this.renderResults()}</Error>
         </Loader>
-        <InternalLocationList />
+        <InternalLocationList data={data} />
       </Container>
     );
   }

@@ -4,9 +4,8 @@ import { item as itemApi } from '../../../../../common/api';
 import { Error, Loader, ResultsTable } from '../../../../../common/components';
 import { Button } from 'semantic-ui-react';
 import { NewButton } from '../../../components/buttons';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { DeleteRecordModal } from '../../../../backoffice/components';
-import omit from 'lodash/omit';
+import isEmpty from 'lodash/isEmpty';
 
 export default class InternalLocationList extends Component {
   constructor(props) {
@@ -54,18 +53,14 @@ export default class InternalLocationList extends Component {
     );
   }
 
-  prepareData(data) {
-    const rows = data.hits.map(row => {
-      let serialized = formatter.internalLocation.toTable(row);
-      serialized['Actions'] = this.rowActions(row.pid);
-      return omit(serialized, ['Created', 'Updated', 'Link']);
+  renderResults() {
+    const { data } = this.props;
+    if (isEmpty(data.hits)) return null;
+    const curratedData = data.hits.map(row => {
+      row['actions'] = this.rowActions(row.pid);
+      return row;
     });
-    rows.totalHits = data.total;
-    return rows;
-  }
-
-  renderResults(data) {
-    const rows = this.prepareData(data);
+    curratedData.totalHits = data.total;
     const headerActionComponent = (
       <NewButton
         clickHandler={() => {
@@ -75,9 +70,11 @@ export default class InternalLocationList extends Component {
     );
     return (
       <ResultsTable
-        rows={rows}
+        data={curratedData}
         title={'Internal Locations'}
         name={'internal locations'}
+        entity={'internalLocation'}
+        hideProps={['Created', 'Updated', 'Link']}
         headerActionComponent={headerActionComponent}
         showMaxRows={this.props.showMaxItems}
       />
@@ -88,7 +85,7 @@ export default class InternalLocationList extends Component {
     let { data, error, isLoading } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this.renderResults(data)}</Error>
+        <Error error={error}>{this.renderResults()}</Error>
       </Loader>
     );
   }

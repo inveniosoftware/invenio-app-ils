@@ -127,6 +127,7 @@ function formatLocationToTableView(location) {
     Name: location.metadata.name,
     Address: location.metadata.address,
     Email: location.metadata.email,
+    Actions: location.actions,
   };
 }
 
@@ -146,6 +147,7 @@ function formatInternalLocationToTableView(internalLoc) {
       'Location id': internalLoc.metadata.location.pid,
     });
   }
+  entry['Actions'] = internalLoc.actions;
   return entry;
 }
 
@@ -227,12 +229,12 @@ export const formatter = {
   document: { toTable: formatDocumentToTableView },
   documentRequest: { toTable: formatDocumentRequestToTableView },
   eitem: { toTable: formatEItemToTableView },
-  internalLocation: { toTable: formatInternalLocationToTableView },
   item: { toTable: formatItemToTableView },
   loan: { toTable: formatLoanToTableView },
-  location: { toTable: formatLocationToTableView },
   mostLoanedDocument: { toTable: formatMostLoanedDocumentToTableView },
-  patron: formatPatronToTableView,
   related: { toTable: formatRelatedToTableView },
   series: { toTable: formatSeriesToTableView },
+  internalLocation: formatInternalLocationToTableView,
+  location: formatLocationToTableView,
+  patron: formatPatronToTableView,
 };

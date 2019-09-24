@@ -48,7 +48,7 @@ export class PatronsSearch extends Component {
       <div className="results-list">
         <ResultsTable
           data={data}
-          entity="patron"
+          entity={'patron'}
           displayProps={['ID', 'Name', 'Email']}
           headerActionComponent={
             <ExportReactSearchKitResults exportBaseUrl={patronApi.url} />
