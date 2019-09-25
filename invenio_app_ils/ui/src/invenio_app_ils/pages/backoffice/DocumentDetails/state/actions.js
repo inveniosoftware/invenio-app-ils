@@ -14,13 +14,13 @@ import {
   document as documentApi,
   loan as loanApi,
 } from '../../../../common/api';
+import { DateTime } from 'luxon';
+import { toShortDate } from '../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../routes/urls';
 import {
   sendErrorNotification,
   sendSuccessNotification,
 } from '../../../../common/components/Notifications';
-import { sessionManager } from '../../../../authentication/services';
-import { ApiURLS } from '../../../../common/api/urls';
 import isEmpty from 'lodash/isEmpty';
 
 export const setRestrictionsOnDocument = (pid, accessList) => {
@@ -145,25 +145,22 @@ export const updateDocument = (documentPid, path, value) => {
   };
 };
 
-export const requestLoanForDocument = (docPid, loanData) => {
+export const requestLoanForPatron = (
+  documentPid,
+  patronPid,
+  { requestEndDate = null, deliveryMethod = null } = {}
+) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
-    const currentUser = sessionManager.user;
+    const today = toShortDate(DateTime.local());
     try {
-      const response = await loanApi.postAction(
-        ApiURLS.loans.request,
-        docPid,
-        loanData,
-        currentUser.id,
-        currentUser.locationPid,
-        {
-          start_date: loanData.metadata.start_date,
-          end_date: loanData.metadata.end_date,
-          delivery: loanData.metadata.delivery,
-        }
-      );
+      const response = await loanApi.doRequest(documentPid, patronPid, {
+        requestExpireDate: requestEndDate,
+        requestStartDate: today,
+        deliveryMethod: deliveryMethod,
+      });
       const loanPid = response.data.pid;
       const linkToLoan = (
         <p>
@@ -175,7 +172,7 @@ export const requestLoanForDocument = (docPid, loanData) => {
       );
       dispatch(sendSuccessNotification('Success!', linkToLoan));
       setTimeout(() => {
-        dispatch(fetchDocumentDetails(docPid));
+        dispatch(fetchDocumentDetails(documentPid));
       }, ES_DELAY);
     } catch (error) {
       dispatch({

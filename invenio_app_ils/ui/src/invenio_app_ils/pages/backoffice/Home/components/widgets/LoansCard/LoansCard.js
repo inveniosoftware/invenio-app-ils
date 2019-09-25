@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../../common/components';
+import { invenioConfig } from '../../../../../../common/config';
 import { loan as loanApi } from '../../../../../../common/api';
 import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
@@ -22,7 +23,7 @@ export default class LoansCard extends Component {
     const path = this.seeAllUrl(
       loanApi
         .query()
-        .withState('PENDING')
+        .withState(invenioConfig.circulation.loanRequestStates)
         .qs()
     );
     return <SeeAllButton fluid disabled clickHandler={goToHandler(path)} />;

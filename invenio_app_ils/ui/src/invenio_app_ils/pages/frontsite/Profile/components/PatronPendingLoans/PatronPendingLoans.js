@@ -44,10 +44,9 @@ export default class PatronPendingLoans extends Component {
     return data.hits.map(row => {
       return pick(formatter.loan.toTable(row), [
         'ID',
-        'Updated',
         'Document ID',
-        'Start date',
-        'Expiration date',
+        'Request start date',
+        'Request end date',
       ]);
     });
   }

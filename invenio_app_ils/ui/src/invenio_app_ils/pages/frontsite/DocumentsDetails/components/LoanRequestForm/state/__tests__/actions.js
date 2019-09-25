@@ -6,13 +6,14 @@ import * as types from '../types';
 import { loan as loanApi } from '../../../../../../../common/api';
 import * as testData from '../../../../../../../../../../../tests/data/loans.json';
 import { sessionManager } from '../../../../../../../authentication/services';
-import { ApiURLS } from '../../../../../../../common/api/urls';
+import { toShortDate } from '../../../../../../../common/api/date';
+import { DateTime } from 'luxon';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-const mockPost = jest.fn();
-loanApi.postAction = mockPost;
+const mockDoRequest = jest.fn();
+loanApi.doRequest = mockDoRequest;
 
 const response = { data: { ...testData[0] } };
 const expectedPayload = {
@@ -20,32 +21,24 @@ const expectedPayload = {
   title: 'Success!',
   type: 'success',
 };
-
 sessionManager.user = { id: '2', locationPid: '2' };
+const documentPid = '123';
+const userId = '2';
+const requestStartDate = toShortDate(DateTime.local());
+const requestEndDate = '2020-09-21';
 
 let store;
 beforeEach(() => {
-  mockPost.mockClear();
+  mockDoRequest.mockClear();
 
   store = mockStore(initialState);
   store.clearActions();
 });
 
-const docPid = '123';
-
-const loanData = {
-  metadata: {
-    start_date: '2019-08-17',
-    end_date: '2019-09-17',
-    document_pid: docPid,
-    patron_pid: '4',
-  },
-};
-
-describe('Document details actions', () => {
-  describe('Fetch document details tests', () => {
-    it('should dispatch an action when fetching an item', async () => {
-      mockPost.mockResolvedValue(response);
+describe('Loan Request form actions', () => {
+  describe('Request a loan tests', () => {
+    it('should dispatch an action when requesting a loan without delivery and end date', async () => {
+      mockDoRequest.mockResolvedValue(response);
 
       const expectedActions = [
         {
@@ -53,24 +46,65 @@ describe('Document details actions', () => {
         },
       ];
 
-      await store.dispatch(actions.requestLoanForDocument(docPid, loanData));
-      expect(mockPost).toHaveBeenCalledWith(
-        ApiURLS.loans.request,
-        docPid,
-        loanData,
-        '2',
-        '2',
-        {
-          start_date: loanData.metadata.start_date,
-          end_date: loanData.metadata.end_date,
-        }
-      );
+      await store.dispatch(actions.requestLoanForDocument(documentPid));
+      expect(mockDoRequest).toHaveBeenCalledWith(documentPid, userId, {
+        requestExpireDate: null,
+        requestStartDate: requestStartDate,
+        deliveryMethod: null,
+      });
       const storeActions = store.getActions();
       expect(storeActions[0]).toEqual(expectedActions[0]);
     });
 
-    it('should dispatch an action when document fetch succeeds', async () => {
-      mockPost.mockResolvedValue(response);
+    it('should dispatch an action when requesting a loan with delivery but no end date', async () => {
+      mockDoRequest.mockResolvedValue(response);
+
+      const expectedActions = [
+        {
+          type: types.IS_LOADING,
+        },
+      ];
+
+      await store.dispatch(
+        actions.requestLoanForDocument(documentPid, {
+          deliveryMethod: 'PICKUP',
+        })
+      );
+      expect(mockDoRequest).toHaveBeenCalledWith(documentPid, userId, {
+        requestExpireDate: null,
+        requestStartDate: requestStartDate,
+        deliveryMethod: 'PICKUP',
+      });
+      const storeActions = store.getActions();
+      expect(storeActions[0]).toEqual(expectedActions[0]);
+    });
+
+    it('should dispatch an action when requesting a loan with delivery and end date', async () => {
+      mockDoRequest.mockResolvedValue(response);
+
+      const expectedActions = [
+        {
+          type: types.IS_LOADING,
+        },
+      ];
+
+      await store.dispatch(
+        actions.requestLoanForDocument(documentPid, {
+          requestEndDate: requestEndDate,
+          deliveryMethod: 'PICKUP',
+        })
+      );
+      expect(mockDoRequest).toHaveBeenCalledWith(documentPid, userId, {
+        requestExpireDate: requestEndDate,
+        requestStartDate: requestStartDate,
+        deliveryMethod: 'PICKUP',
+      });
+      const storeActions = store.getActions();
+      expect(storeActions[0]).toEqual(expectedActions[0]);
+    });
+
+    it('should dispatch an action when request succeeds', async () => {
+      mockDoRequest.mockResolvedValue(response);
 
       const expectedActions = [
         {
@@ -79,25 +113,19 @@ describe('Document details actions', () => {
         },
       ];
 
-      await store.dispatch(actions.requestLoanForDocument(docPid, loanData));
+      await store.dispatch(actions.requestLoanForDocument(documentPid));
 
-      expect(mockPost).toHaveBeenCalledWith(
-        ApiURLS.loans.request,
-        docPid,
-        loanData,
-        '2',
-        '2',
-        {
-          start_date: loanData.metadata.start_date,
-          end_date: loanData.metadata.end_date,
-        }
-      );
+      expect(mockDoRequest).toHaveBeenCalledWith(documentPid, userId, {
+        requestStartDate: requestStartDate,
+        requestExpireDate: null,
+        deliveryMethod: null,
+      });
       const storeActions = store.getActions();
       expect(storeActions[1]).toEqual(expectedActions[0]);
     });
 
-    it('should dispatch an action when document fetch fails', async () => {
-      mockPost.mockRejectedValue([500, 'Error']);
+    it('should dispatch an action when request fails', async () => {
+      mockDoRequest.mockRejectedValue([500, 'Error']);
 
       const storeActions = store.getActions();
 
@@ -108,18 +136,12 @@ describe('Document details actions', () => {
         },
       ];
 
-      await store.dispatch(actions.requestLoanForDocument(docPid, loanData));
-      expect(mockPost).toHaveBeenCalledWith(
-        ApiURLS.loans.request,
-        docPid,
-        loanData,
-        '2',
-        '2',
-        {
-          start_date: loanData.metadata.start_date,
-          end_date: loanData.metadata.end_date,
-        }
-      );
+      await store.dispatch(actions.requestLoanForDocument(documentPid));
+      expect(mockDoRequest).toHaveBeenCalledWith(documentPid, userId, {
+        requestStartDate: requestStartDate,
+        requestExpireDate: null,
+        deliveryMethod: null,
+      });
       expect(storeActions[1]).toEqual(expectedActions[0]);
     });
   });

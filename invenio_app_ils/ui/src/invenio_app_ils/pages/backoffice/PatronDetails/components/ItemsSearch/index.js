@@ -12,8 +12,8 @@ const mapDispatchToProps = dispatch => ({
   fetchItems: barcode => dispatch(fetchItems(barcode)),
   updateQueryString: qs => dispatch(updateQueryString(qs)),
   clearResults: () => dispatch(clearResults()),
-  checkoutItem: (item, patronPid, shouldForceCheckout) =>
-    dispatch(checkoutItem(item, patronPid, shouldForceCheckout)),
+  checkoutItem: (documentPid, itemPid, patronPid, force = false) =>
+    dispatch(checkoutItem(documentPid, itemPid, patronPid, force)),
   fetchUpdatedCurrentLoans: patronPid =>
     dispatch(fetchUpdatedCurrentLoans(patronPid)),
 });

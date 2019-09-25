@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { sendOverdueLoansMailReminder } from './state/actions';
-import SendMailModalComponent from './SendMailModal';
+import OverdueLoanSendMailModalComponent from './OverdueLoanSendMailModal';
 
 const mapStateToProps = state => ({
-  ...state.sendMailModal,
+  ...state.overdueLoanSendMailModal,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -11,7 +11,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(sendOverdueLoansMailReminder(loanPid)),
 });
 
-export const SendMailModal = connect(
+export const OverdueLoanSendMailModal = connect(
   mapStateToProps,
   mapDispatchToProps
-)(SendMailModalComponent);
+)(OverdueLoanSendMailModalComponent);

@@ -95,8 +95,6 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
               "Renewals": undefined,
               "Start date": "2018-01-01",
               "State": undefined,
-              "Transaction date": "Invalid DateTime",
-              "Updated": "2018-01-01 10:05",
             },
             Object {
               "Document ID": undefined,
@@ -106,8 +104,6 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
               "Renewals": undefined,
               "Start date": "2018-01-01",
               "State": undefined,
-              "Transaction date": "Invalid DateTime",
-              "Updated": "2018-01-01 10:05",
             },
           ]
         }
@@ -186,13 +182,11 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                   columns={
                     Array [
                       "ID",
-                      "Updated",
                       "Patron ID",
                       "Document ID",
                       "State",
                       "Start date",
                       "End date",
-                      "Transaction date",
                       "Renewals",
                     ]
                   }
@@ -243,21 +237,6 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                                 className="two wide"
                               >
                                 ID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Updated"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Updated
                               </th>
                             </TableCell>
                           </TableHeaderCell>
@@ -338,21 +317,6 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Transaction date"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Transaction date
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
                             key="Renewals"
                           >
                             <TableCell
@@ -375,13 +339,11 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                   columns={
                     Array [
                       "ID",
-                      "Updated",
                       "Patron ID",
                       "Document ID",
                       "State",
                       "Start date",
                       "End date",
-                      "Transaction date",
                       "Renewals",
                     ]
                   }
@@ -396,8 +358,6 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                         "Renewals": undefined,
                         "Start date": "2018-01-01",
                         "State": undefined,
-                        "Transaction date": "Invalid DateTime",
-                        "Updated": "2018-01-01 10:05",
                       },
                       Object {
                         "Document ID": undefined,
@@ -407,8 +367,6 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                         "Renewals": undefined,
                         "Start date": "2018-01-01",
                         "State": undefined,
-                        "Transaction date": "Invalid DateTime",
-                        "Updated": "2018-01-01 10:05",
                       },
                     ]
                   }
@@ -509,20 +467,8 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Updated-loan1"
-                            key="1-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Updated-loan1"
-                            >
-                              2018-01-01 10:05
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
                             data-test="Patron ID-loan1"
-                            key="2-loan1"
+                            key="1-loan1"
                           >
                             <td
                               className=""
@@ -534,7 +480,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           <TableCell
                             as="td"
                             data-test="Document ID-loan1"
-                            key="3-loan1"
+                            key="2-loan1"
                           >
                             <td
                               className=""
@@ -546,7 +492,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           <TableCell
                             as="td"
                             data-test="State-loan1"
-                            key="4-loan1"
+                            key="3-loan1"
                           >
                             <td
                               className=""
@@ -558,7 +504,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           <TableCell
                             as="td"
                             data-test="Start date-loan1"
-                            key="5-loan1"
+                            key="4-loan1"
                           >
                             <td
                               className=""
@@ -570,7 +516,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           <TableCell
                             as="td"
                             data-test="End date-loan1"
-                            key="6-loan1"
+                            key="5-loan1"
                           >
                             <td
                               className=""
@@ -581,20 +527,8 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Transaction date-loan1"
-                            key="7-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Transaction date-loan1"
-                            >
-                              Invalid DateTime
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
                             data-test="Renewals-loan1"
-                            key="8-loan1"
+                            key="6-loan1"
                           >
                             <td
                               className=""
@@ -695,20 +629,8 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Updated-loan2"
-                            key="1-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="Updated-loan2"
-                            >
-                              2018-01-01 10:05
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
                             data-test="Patron ID-loan2"
-                            key="2-loan2"
+                            key="1-loan2"
                           >
                             <td
                               className=""
@@ -720,7 +642,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           <TableCell
                             as="td"
                             data-test="Document ID-loan2"
-                            key="3-loan2"
+                            key="2-loan2"
                           >
                             <td
                               className=""
@@ -732,7 +654,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           <TableCell
                             as="td"
                             data-test="State-loan2"
-                            key="4-loan2"
+                            key="3-loan2"
                           >
                             <td
                               className=""
@@ -744,7 +666,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           <TableCell
                             as="td"
                             data-test="Start date-loan2"
-                            key="5-loan2"
+                            key="4-loan2"
                           >
                             <td
                               className=""
@@ -756,7 +678,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           <TableCell
                             as="td"
                             data-test="End date-loan2"
-                            key="6-loan2"
+                            key="5-loan2"
                           >
                             <td
                               className=""
@@ -767,20 +689,8 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Transaction date-loan2"
-                            key="7-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="Transaction date-loan2"
-                            >
-                              Invalid DateTime
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
                             data-test="Renewals-loan2"
-                            key="8-loan2"
+                            key="6-loan2"
                           >
                             <td
                               className=""
@@ -796,7 +706,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={9}
+                  columnsNumber={7}
                   currentPage={1}
                   paginationComponent={null}
                   seeAllComponent={

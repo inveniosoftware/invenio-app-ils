@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Header, Modal, Button, Icon } from 'semantic-ui-react';
 import { BackOfficeRoutes } from '../../../../routes/urls';
 
-export default class SendMailModal extends Component {
+export default class OverdueLoanSendMailModal extends Component {
   state = { isModalOpen: false };
 
   toggle = () => this.setState({ isModalOpen: !this.state.isModalOpen });
@@ -54,7 +54,7 @@ export default class SendMailModal extends Component {
               {' is overdue!'}
             </Header>
             <p>
-              {'An email reminder will be send to '}
+              {'An email reminder will be sent to '}
               <strong>
                 <Link
                   to={BackOfficeRoutes.patronDetailsFor(

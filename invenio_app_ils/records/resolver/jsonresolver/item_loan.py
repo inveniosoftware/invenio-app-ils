@@ -22,17 +22,20 @@ def jsonresolver_loader(url_map):
 
     def loan_for_item_resolver(item_pid):
         """Return the loan for the given item."""
-        loan = get_loan_for_item(item_pid) or {}
-        return {
-            "loan_pid": loan.get("pid"),
-            "patron_pid": loan.get("patron_pid"),
-            "document_pid": loan.get("document_pid"),
-            "item_pid": loan.get("item_pid"),
-            "state": loan.get("state"),
-            "start_date": loan.get("start_date"),
-            "end_date": loan.get("end_date"),
-            "extension_count": loan.get("extension_count"),
-        }
+        loan = get_loan_for_item(item_pid)
+        if not loan:
+            return {}
+        else:
+            return {
+                "loan_pid": loan.get("pid"),
+                "patron_pid": loan.get("patron_pid"),
+                "document_pid": loan.get("document_pid"),
+                "item_pid": loan.get("item_pid"),
+                "state": loan.get("state"),
+                "start_date": loan.get("start_date"),
+                "end_date": loan.get("end_date"),
+                "extension_count": loan.get("extension_count"),
+            }
 
     url_map.add(
         Rule(

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
-import { loan as loanApi } from '../../../../../common/api/';
+import { loan as loanApi } from '../../../../../common/api';
+import { invenioConfig } from '../../../../../common/config';
 import { ResultsTable } from '../../../../../common/components';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
@@ -24,11 +25,14 @@ export default class ItemPastLoans extends Component {
 
   seeAllButton = () => {
     const { pid } = this.props.itemDetails;
+    const loanStates = invenioConfig.circulation.loanCompletedStates.concat(
+      invenioConfig.circulation.loanCancelledStates
+    );
     const path = this.seeAllUrl(
       loanApi
         .query()
         .withItemPid(pid)
-        .withState(['ITEM_RETURNED', 'CANCELLED'])
+        .withState(loanStates)
         .qs()
     );
     return <SeeAllButton clickHandler={goToHandler(path)} />;

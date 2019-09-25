@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { Formik, getIn } from 'formik';
 import _ from 'lodash';
 import isEmpty from 'lodash/isEmpty';
-import IsoLanguages from 'iso-639-1';
 import { Form, Segment, Button, Grid, Header } from 'semantic-ui-react';
 import { StringField, TextField } from '../../../../../../../forms';
 import { internalLocation as internalLocationApi } from '../../../../../../../common/api/locations/internalLocation';
@@ -25,7 +24,7 @@ export class InternalLocationForm extends Component {
   onSubmit = async (values, actions) => {
     try {
       actions.setSubmitting(true);
-      const response = !isEmpty(this.formInitialData)
+      !isEmpty(this.formInitialData)
         ? await internalLocationApi.update(this.formInitialData.pid, values)
         : await internalLocationApi.create(values);
 

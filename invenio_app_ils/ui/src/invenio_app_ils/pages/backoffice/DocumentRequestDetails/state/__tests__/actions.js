@@ -18,11 +18,6 @@ sessionManager.user = { id: '2', locationPid: '2' };
 
 const response = { data: {} };
 
-const documentRequest = {
-  patron_pid: 6,
-  item_pid: 3,
-};
-
 const _initialState = {
   ...initialState,
   userSession: {

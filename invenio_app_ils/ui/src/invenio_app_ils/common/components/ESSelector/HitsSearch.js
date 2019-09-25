@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import { Search } from 'semantic-ui-react';
 import { serializeError } from './serializer';
-import { PatronSearchInputContext } from './ESSelectorLoanRequest';
 
 const initialState = {
   isLoading: false,
@@ -24,7 +23,6 @@ const ResultRenderer = ({ id, title, description, extra }) => (
 export class HitsSearch extends Component {
   state = initialState;
 
-  static contextType = PatronSearchInputContext;
   constructor(props) {
     super(props);
     this.searchInputRef = null;

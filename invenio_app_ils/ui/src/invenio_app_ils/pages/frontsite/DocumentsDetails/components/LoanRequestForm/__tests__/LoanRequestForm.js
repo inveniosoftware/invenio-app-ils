@@ -2,8 +2,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 import LoanRequestForm from '../LoanRequestForm';
 import * as testData from '../../../../../../../../../../tests/data/documents.json';
-import { toShortDate } from '../../../../../../common/api/date';
-import { DateTime } from 'luxon';
 
 jest.mock('../../../../../../common/config/invenioConfig');
 
@@ -50,20 +48,15 @@ describe('DocumentMetadata tests', () => {
       <LoanRequestForm
         document={document}
         requestLoanForDocument={mockRequestLoanForDocument}
-        defaultStartDate={'2019-09-04'}
-        defaultEndDate={'2019-10-04'}
       />
     );
 
     expect(component).toMatchSnapshot();
 
-    const tomorrow = DateTime.local(2019, 9, 4);
     const fields = component
       .find('LoanRequestForm')
       .find('DateInput')
-      .filterWhere(
-        element => element.prop('data-test') === toShortDate(tomorrow)
-      );
+      .filterWhere(element => element.prop('data-test') === '');
     expect(fields).toHaveLength(1);
   });
 });

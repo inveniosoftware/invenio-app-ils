@@ -24,7 +24,6 @@
     },
     "circulation_restriction": {
       "type": "string",
-      "enum": ["NO_RESTRICTION", "FOR_REFERENCE_ONLY"],
       "title": "The circulation restriction on this Item"
     },
     "circulation": {
@@ -94,7 +93,6 @@
     },
     "medium": {
       "type": "string",
-      "enum": ["NOT_SPECIFIED", "ONLINE", "PAPER", "CDROM", "DVD", "VHS"],
       "title": "The medium of this Item"
     },
     "number_of_pages": {
@@ -116,7 +114,6 @@
     },
     "status": {
       "type": "string",
-      "enum": ["CAN_CIRCULATE", "MISSING", "IN_BINDING", "SCANNING"],
       "title": "The current status of this Item"
     }
   }

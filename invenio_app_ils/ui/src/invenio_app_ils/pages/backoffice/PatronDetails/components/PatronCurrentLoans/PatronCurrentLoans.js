@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
-import { loan as loanApi } from '../../../../../common/api/';
-
+import { loan as loanApi } from '../../../../../common/api';
+import { invenioConfig } from '../../../../../common/config';
 import { ResultsTable } from '../../../../../common/components';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
@@ -31,7 +31,7 @@ export default class PatronCurrentLoans extends Component {
       loanApi
         .query()
         .withPatronPid(patronPid)
-        .withState('ITEM_ON_LOAN')
+        .withState(invenioConfig.circulation.loanActiveStates)
         .sortByNewest()
         .qs()
     );

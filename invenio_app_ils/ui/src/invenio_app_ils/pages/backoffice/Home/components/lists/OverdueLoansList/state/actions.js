@@ -1,3 +1,4 @@
+import { invenioConfig } from '../../../../../../../common/config';
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { loan as loanApi } from '../../../../../../../common/api';
 import { sendErrorNotification } from '../../../../../../../common/components/Notifications';
@@ -13,7 +14,7 @@ export const fetchOverdueLoans = () => {
         loanApi
           .query()
           .overdue()
-          .withState('ITEM_ON_LOAN')
+          .withState(invenioConfig.circulation.loanActiveStates)
           .qs()
       )
       .then(response => {

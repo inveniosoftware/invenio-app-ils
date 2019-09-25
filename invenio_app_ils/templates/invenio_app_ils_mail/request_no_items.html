@@ -1,9 +1,11 @@
 {% block subject %}
-Your loan request has been confirmed
+Request for "{{ document.title }}" registered
 {% endblock %}
 
 
 {% block body %}
-The item you want to loan is not currently available. You will be notified when
-the item can be picked up.
+Dear {{ patron.email }},
+
+The request for "{{ document.title }}" has been registered but the are no available copies at the moment.
+You will be notified the requested document will be available.
 {% endblock %}

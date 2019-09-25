@@ -11,7 +11,7 @@ from __future__ import absolute_import, print_function
 
 from datetime import datetime, timedelta
 
-import ciso8601
+import arrow
 from flask import current_app
 
 
@@ -20,6 +20,18 @@ def circulation_build_item_ref(loan_pid):
     return {
         "$ref": "{scheme}://{host}/api/resolver/circulation/loans/{loan_pid}/"
                 "item".format(
+                    scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                    host=current_app.config["JSONSCHEMAS_HOST"],
+                    loan_pid=loan_pid,
+                )
+    }
+
+
+def circulation_build_patron_ref(loan_pid):
+    """Build $ref for the Patron of the Loan."""
+    return {
+        "$ref": "{scheme}://{host}/api/resolver/circulation/loans/{loan_pid}/"
+                "patron".format(
                     scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                     host=current_app.config["JSONSCHEMAS_HOST"],
                     loan_pid=loan_pid,
@@ -54,8 +66,7 @@ def circulation_can_be_requested(loan):
     return True
 
 
-# FIXME: remove the date manipulation when dates are globally fixed
 def circulation_overdue_loan_days(loan):
     """Return the amount of days a loan is overdue."""
-    end_date = ciso8601.parse_datetime(loan["end_date"]).replace(tzinfo=None)
-    return (datetime.utcnow() - end_date).days
+    end_date = arrow.get(loan["end_date"])
+    return (arrow.get().utcnow() - end_date).days

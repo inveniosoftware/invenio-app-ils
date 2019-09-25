@@ -114,17 +114,16 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
       Array [
         Object {
           "Actions": null,
-          "Created": "2018-01-01 10:05",
           "Document ID": undefined,
           "End date": "2018-02-01",
           "ID": 3,
           "Item barcode": null,
           "Patron ID": 1,
           "Renewals": undefined,
+          "Request end date": null,
+          "Request start date": null,
           "Start date": "2018-01-02",
           "State": "ITEM_ON_LOAN",
-          "Transaction date": "Invalid DateTime",
-          "Updated": "Invalid DateTime",
         },
       ]
     }
@@ -182,15 +181,14 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
               columns={
                 Array [
                   "ID",
-                  "Created",
-                  "Updated",
                   "Patron ID",
                   "Document ID",
                   "State",
                   "Item barcode",
+                  "Request start date",
+                  "Request end date",
                   "Start date",
                   "End date",
-                  "Transaction date",
                   "Renewals",
                   "Actions",
                 ]
@@ -242,36 +240,6 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                             className="two wide"
                           >
                             ID
-                          </th>
-                        </TableCell>
-                      </TableHeaderCell>
-                      <TableHeaderCell
-                        as="th"
-                        key="Created"
-                      >
-                        <TableCell
-                          as="th"
-                          className=""
-                        >
-                          <th
-                            className=""
-                          >
-                            Created
-                          </th>
-                        </TableCell>
-                      </TableHeaderCell>
-                      <TableHeaderCell
-                        as="th"
-                        key="Updated"
-                      >
-                        <TableCell
-                          as="th"
-                          className=""
-                        >
-                          <th
-                            className=""
-                          >
-                            Updated
                           </th>
                         </TableCell>
                       </TableHeaderCell>
@@ -337,6 +305,36 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                       </TableHeaderCell>
                       <TableHeaderCell
                         as="th"
+                        key="Request start date"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Request start date
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Request end date"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Request end date
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
                         key="Start date"
                       >
                         <TableCell
@@ -362,21 +360,6 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                             className=""
                           >
                             End date
-                          </th>
-                        </TableCell>
-                      </TableHeaderCell>
-                      <TableHeaderCell
-                        as="th"
-                        key="Transaction date"
-                      >
-                        <TableCell
-                          as="th"
-                          className=""
-                        >
-                          <th
-                            className=""
-                          >
-                            Transaction date
                           </th>
                         </TableCell>
                       </TableHeaderCell>
@@ -419,15 +402,14 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
               columns={
                 Array [
                   "ID",
-                  "Created",
-                  "Updated",
                   "Patron ID",
                   "Document ID",
                   "State",
                   "Item barcode",
+                  "Request start date",
+                  "Request end date",
                   "Start date",
                   "End date",
-                  "Transaction date",
                   "Renewals",
                   "Actions",
                 ]
@@ -437,17 +419,16 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                 Array [
                   Object {
                     "Actions": null,
-                    "Created": "2018-01-01 10:05",
                     "Document ID": undefined,
                     "End date": "2018-02-01",
                     "ID": 3,
                     "Item barcode": null,
                     "Patron ID": 1,
                     "Renewals": undefined,
+                    "Request end date": null,
+                    "Request start date": null,
                     "Start date": "2018-01-02",
                     "State": "ITEM_ON_LOAN",
-                    "Transaction date": "Invalid DateTime",
-                    "Updated": "Invalid DateTime",
                   },
                 ]
               }
@@ -548,32 +529,8 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Created-3"
-                        key="1-3"
-                      >
-                        <td
-                          className=""
-                          data-test="Created-3"
-                        >
-                          2018-01-01 10:05
-                        </td>
-                      </TableCell>
-                      <TableCell
-                        as="td"
-                        data-test="Updated-3"
-                        key="2-3"
-                      >
-                        <td
-                          className=""
-                          data-test="Updated-3"
-                        >
-                          Invalid DateTime
-                        </td>
-                      </TableCell>
-                      <TableCell
-                        as="td"
                         data-test="Patron ID-3"
-                        key="3-3"
+                        key="1-3"
                       >
                         <td
                           className=""
@@ -585,7 +542,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                       <TableCell
                         as="td"
                         data-test="Document ID-3"
-                        key="4-3"
+                        key="2-3"
                       >
                         <td
                           className=""
@@ -597,7 +554,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                       <TableCell
                         as="td"
                         data-test="State-3"
-                        key="5-3"
+                        key="3-3"
                       >
                         <td
                           className=""
@@ -609,11 +566,35 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                       <TableCell
                         as="td"
                         data-test="Item barcode-3"
-                        key="6-3"
+                        key="4-3"
                       >
                         <td
                           className=""
                           data-test="Item barcode-3"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Request start date-3"
+                        key="5-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Request start date-3"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Request end date-3"
+                        key="6-3"
+                      >
+                        <td
+                          className=""
+                          data-test="Request end date-3"
                         >
                           -
                         </td>
@@ -644,20 +625,8 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Transaction date-3"
-                        key="9-3"
-                      >
-                        <td
-                          className=""
-                          data-test="Transaction date-3"
-                        >
-                          Invalid DateTime
-                        </td>
-                      </TableCell>
-                      <TableCell
-                        as="td"
                         data-test="Renewals-3"
-                        key="10-3"
+                        key="9-3"
                       >
                         <td
                           className=""
@@ -669,7 +638,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
                       <TableCell
                         as="td"
                         data-test="Actions-3"
-                        key="11-3"
+                        key="10-3"
                       >
                         <td
                           className=""
@@ -685,7 +654,7 @@ exports[`LoansSearch ResultsList tests should render a list of results 1`] = `
             </ResultsTableBody>
             <ResultsTableFooter
               allRowsNumber={1}
-              columnsNumber={12}
+              columnsNumber={11}
               currentPage={1}
               paginationComponent={null}
               seeAllComponent={null}

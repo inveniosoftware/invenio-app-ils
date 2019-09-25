@@ -13,13 +13,29 @@ import { invenioConfig } from '../../../../../common/config';
 import './ItemMetadata.scss';
 
 export default class ItemMetadata extends Component {
+  getTitle(loanState) {
+    const isRequest = invenioConfig.circulation.loanRequestStates.includes(
+      loanState
+    );
+    const isActiveLoan = invenioConfig.circulation.loanActiveStates.includes(
+      loanState
+    );
+    let title = 'Item for this loan';
+    if (isRequest) {
+      title = 'Assigned item for this request';
+    } else if (isActiveLoan) {
+      title = 'Item currently on loan';
+    }
+    return title;
+  }
+
   render() {
     const { item, loanState, changeItemClickHandler } = this.props;
     return (
       <Grid className="item-metadata" padded columns={2}>
         <Grid.Column width={16}>
           <Header as="h1">
-            Item - {item.barcode}
+            {this.getTitle(loanState)}
             {invenioConfig.circulation.loanActiveStates.includes(loanState) && (
               <Button
                 primary

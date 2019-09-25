@@ -7,10 +7,10 @@
 
 """Ils serializers."""
 
-from datetime import datetime
-
-import ciso8601
+from flask import current_app
 from invenio_records_rest.serializers.json import JSONSerializer
+
+from invenio_app_ils.circulation.utils import circulation_overdue_loan_days
 
 
 class LoanJSONSerializer(JSONSerializer):
@@ -19,32 +19,28 @@ class LoanJSONSerializer(JSONSerializer):
     def transform_record(self, pid, record, links_factory=None, **kwargs):
         """Transform record into an intermediate representation."""
         loan = super(LoanJSONSerializer, self).transform_record(
-            pid,
-            record,
-            links_factory=links_factory,
-            **kwargs
+            pid, record, links_factory=links_factory, **kwargs
         )
-        self.is_overdue(loan)
+        self.is_overdue(loan["metadata"])
         return loan
 
-    def transform_search_hit(self, pid, record_hit, links_factory=None,
-                             **kwargs):
+    def transform_search_hit(
+        self, pid, record_hit, links_factory=None, **kwargs
+    ):
         """Transform search result hit into an intermediate representation."""
         hit = super(LoanJSONSerializer, self).transform_search_hit(
-            pid,
-            record_hit,
-            links_factory=links_factory,
-            **kwargs
+            pid, record_hit, links_factory=links_factory, **kwargs
         )
-        self.is_overdue(hit)
+        self.is_overdue(hit["metadata"])
         return hit
 
-    # FIXME: remove the date manipulation when dates are globally fixed
-    def is_overdue(self, data):
+    def is_overdue(self, metadata):
         """Calculate if the loan is overdue and add it as a property."""
-        data["metadata"]["is_overdue"] = False
-        if "end_date" in data["metadata"]:
-            data["metadata"]["is_overdue"] = ciso8601.parse_datetime(
-                data["metadata"]["end_date"]
-            ).replace(tzinfo=None) < datetime.utcnow()
-        return data
+        metadata["is_overdue"] = False
+        if (
+            "state" in current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+            and "end_date" in metadata
+        ):
+            metadata["is_overdue"] = (
+                circulation_overdue_loan_days(metadata) > 0
+            )

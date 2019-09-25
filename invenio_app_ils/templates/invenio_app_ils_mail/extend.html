@@ -1,13 +1,17 @@
 {% block subject %}
-Your loan has been extended
+The loan for "{{ document.title }}" has been extended
 {% endblock %}
 
 
 {% block body %}
+Dear {{ patron.email }},
+
 Your loan has been extended to {{ loan.end_date }}.
 {% endblock %}
 
 
 {% block html %}
+Dear {{ patron.email }},
+
 Your loan has been extended to <strong>{{ loan.end_date }}</strong>.
 {% endblock %}

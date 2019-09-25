@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../../common/components';
 import { ResultsTable } from '../../../../../../common/components';
+import { invenioConfig } from '../../../../../../common/config';
 import { loan as loanApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { DateTime } from 'luxon';
@@ -27,7 +28,7 @@ export default class IdleLoansList extends Component {
     const path = this.seeAllUrl(
       loanApi
         .query()
-        .withState('PENDING')
+        .withState(invenioConfig.circulation.loanRequestStates)
         .withUpdated({ to: toShortDate(DateTime.local().minus({ days: 10 })) })
         .qs()
     );
@@ -54,7 +55,7 @@ export default class IdleLoansList extends Component {
       <ResultsTable
         rows={rows}
         title={'Idle loans'}
-        subtitle={'Loan requests in PENDING state longer than 10 days.'}
+        subtitle={'Loan requests pending since more than 10 days.'}
         name={'idle loans'}
         rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}

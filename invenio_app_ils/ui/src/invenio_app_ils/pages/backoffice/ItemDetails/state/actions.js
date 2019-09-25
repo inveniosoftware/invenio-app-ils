@@ -16,8 +16,6 @@ import {
   sendSuccessNotification,
 } from '../../../../common/components/Notifications';
 import { goTo } from '../../../../history';
-import { sessionManager } from '../../../../authentication/services';
-import { ApiURLS } from '../../../../common/api/urls';
 
 export const fetchItemDetails = itemPid => {
   return async dispatch => {
@@ -72,24 +70,27 @@ export const deleteItem = itemPid => {
   };
 };
 
-export const createNewLoanForItem = loanData => {
+export const checkoutItem = (
+  documentPid,
+  itemPid,
+  patronPid,
+  force = false
+) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
-    const currentUser = sessionManager.user;
     try {
-      const response = await loanApi.postAction(
-        ApiURLS.loans.create,
-        loanData.metadata.item_pid,
-        loanData,
-        currentUser.id,
-        currentUser.locationPid
+      const response = await loanApi.doCheckout(
+        documentPid,
+        itemPid,
+        patronPid,
+        { force: force }
       );
       const { pid, item_pid, patron_pid } = response.data.metadata;
       const linkToLoan = (
         <p>
-          The loan {pid} has been requested on behalf of patron {patron_pid}.{' '}
+          The loan {pid} has been created on behalf of patron {patron_pid}.{' '}
           <Link to={BackOfficeRoutes.loanDetailsFor(pid)}>
             You can now view the loan details.
           </Link>
@@ -114,33 +115,31 @@ export const updateItem = (itemPid, path, value) => {
     dispatch({
       type: IS_LOADING,
     });
-
-    await itemApi
-      .patch(itemPid, [
+    try {
+      const response = await itemApi.patch(itemPid, [
         {
           op: 'replace',
           path: path,
           value: value,
         },
-      ])
-      .then(response => {
-        dispatch({
-          type: SUCCESS,
-          payload: response.data,
-        });
-        dispatch(
-          sendSuccessNotification(
-            'Success!',
-            `The item ${itemPid} has been updated.`
-          )
-        );
-      })
-      .catch(error => {
-        dispatch({
-          type: HAS_ERROR,
-          payload: error,
-        });
-        dispatch(sendErrorNotification(error));
+      ]);
+
+      dispatch({
+        type: SUCCESS,
+        payload: response.data,
       });
+      dispatch(
+        sendSuccessNotification(
+          'Success!',
+          `The item ${itemPid} has been updated.`
+        )
+      );
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
   };
 };

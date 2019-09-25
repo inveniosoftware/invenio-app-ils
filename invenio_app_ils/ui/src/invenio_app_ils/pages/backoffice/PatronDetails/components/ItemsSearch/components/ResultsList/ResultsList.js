@@ -20,21 +20,33 @@ export class ResultsList extends Component {
 
   toggleModal = () => this.setState({ isModalOpen: !this.state.isModalOpen });
 
-  onClickCheckoutHandler = (item, patron, shouldForceCheckout) =>
-    this.checkoutItem(item, patron, shouldForceCheckout).then(() => {
-      this.clearResults();
-      setTimeout(() => {
-        this.fetchPatronCurrentLoans(patron);
-      }, ES_DELAY);
-    });
+  onClickCheckoutHandler = async (
+    documentPid,
+    itemPid,
+    patronPid,
+    force = false
+  ) => {
+    await this.checkoutItem(documentPid, itemPid, patronPid, force);
+    this.clearResults();
+    setTimeout(() => {
+      this.fetchPatronCurrentLoans(patronPid);
+    }, ES_DELAY);
+  };
 
   actions(item, itemState) {
     const buttonCheckout = (
       <Button
         content={'Checkout'}
-        onClick={() =>
-          this.onClickCheckoutHandler(item, this.props.patronPid, false)
-        }
+        onClick={() => {
+          const documentPid = item.document.pid;
+          const itemPid = item.pid;
+          this.onClickCheckoutHandler(
+            documentPid,
+            itemPid,
+            this.props.patronPid,
+            false
+          );
+        }}
       />
     );
 
@@ -44,7 +56,7 @@ export class ResultsList extends Component {
 
     return !invenioConfig.circulation.loanActiveStates.includes(
       circulationStatus
-    ) && invenioConfig.items.available.status.includes(itemState)
+    ) && invenioConfig.items.canCirculateStates.includes(itemState)
       ? buttonCheckout
       : this.renderForceCheckoutModal(item);
   }

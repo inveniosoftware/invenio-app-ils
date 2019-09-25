@@ -79,7 +79,7 @@ describe('Available items tests', () => {
 
       store.dispatch(actions.fetchAvailableItems('1342'));
       expect(mockList).toHaveBeenCalledWith(
-        'document_pid:1342 AND status:CAN_CIRCULATE AND NOT circulation:*'
+        'document_pid:1342 AND status:(CAN_CIRCULATE) AND NOT circulation:*'
       );
       expect(store.getActions()[0]).toEqual(expectedActions[0]);
     });
@@ -96,7 +96,7 @@ describe('Available items tests', () => {
 
       store.dispatch(actions.fetchAvailableItems('1342')).then(() => {
         expect(mockList).toHaveBeenCalledWith(
-          'document_pid:1342 AND status:CAN_CIRCULATE AND NOT circulation:*'
+          'document_pid:1342 AND status:(CAN_CIRCULATE) AND NOT circulation:*'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);
@@ -116,7 +116,7 @@ describe('Available items tests', () => {
 
       store.dispatch(actions.fetchAvailableItems('456')).then(() => {
         expect(mockList).toHaveBeenCalledWith(
-          'document_pid:456 AND status:CAN_CIRCULATE AND NOT circulation:*'
+          'document_pid:456 AND status:(CAN_CIRCULATE) AND NOT circulation:*'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedActions[0]);

@@ -11,7 +11,6 @@ from __future__ import absolute_import, print_function
 
 from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
-from invenio_accounts.models import User
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
 from invenio_jsonschemas import current_jsonschemas
@@ -24,8 +23,7 @@ from werkzeug.utils import cached_property
 
 from invenio_app_ils.errors import DocumentRequestError, \
     DocumentTagNotFoundError, ItemDocumentNotFoundError, \
-    ItemHasActiveLoanError, MissingRequiredParameterError, \
-    PatronNotFoundError, RecordHasReferencesError
+    ItemHasActiveLoanError, PatronNotFoundError, RecordHasReferencesError
 from invenio_app_ils.records_relations.api import RecordRelationsMetadata, \
     RecordRelationsRetriever
 from invenio_app_ils.search.api import DocumentRequestSearch, DocumentSearch, \
@@ -50,8 +48,7 @@ class IlsRecord(Record):
     def pid(self):
         """Get the PersistentIdentifier for this record."""
         return PersistentIdentifier.get(
-            pid_type=self._pid_type,
-            pid_value=self["pid"],
+            pid_type=self._pid_type, pid_value=self["pid"]
         )
 
     @staticmethod
@@ -79,7 +76,7 @@ class IlsRecord(Record):
     def create(cls, data, id_=None, **kwargs):
         """Create IlsRecord record."""
         data["$schema"] = current_jsonschemas.path_to_url(cls._schema)
-        getattr(cls, 'validate_create', lambda x: x)(data)
+        getattr(cls, "validate_create", lambda x: x)(data)
         return super(IlsRecord, cls).create(data, id_=id_, **kwargs)
 
     def clear(self):
@@ -89,12 +86,12 @@ class IlsRecord(Record):
 
     def patch(self, patch):
         """Validate patch metadata."""
-        getattr(self, 'validate_patch', lambda x: x)(patch)
+        getattr(self, "validate_patch", lambda x: x)(patch)
         return super(IlsRecord, self).patch(patch)
 
     def update(self, data):
         """Validate update metadata."""
-        getattr(self, 'validate_update', lambda x: x)(data)
+        getattr(self, "validate_update", lambda x: x)(data)
         super(IlsRecord, self).update(data)
 
 
@@ -130,7 +127,7 @@ class IlsRecordWithRelations(IlsRecord):
                 record_type=self.__class__.__name__,
                 record_id=self["pid"],
                 ref_type="related",
-                ref_ids=sorted(ref for ref in related_refs)
+                ref_ids=sorted(ref for ref in related_refs),
             )
 
 
@@ -189,7 +186,7 @@ class Document(IlsRecordWithRelations):
             "$ref": cls._eitem_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
-                document_pid=data["pid"]
+                document_pid=data["pid"],
             )
         }
         data.setdefault("items", {})
@@ -197,14 +194,14 @@ class Document(IlsRecordWithRelations):
             "$ref": cls._item_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
-                document_pid=data["pid"]
+                document_pid=data["pid"],
             )
         }
         data["request"] = {
             "$ref": cls._document_request_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
-                document_pid=data["pid"]
+                document_pid=data["pid"],
             )
         }
 
@@ -223,17 +220,15 @@ class Document(IlsRecordWithRelations):
         """Delete Document record."""
         loan_search_res = search_by_pid(
             document_pid=self["pid"],
-            filter_states=['PENDING'] +
-            current_app.config['CIRCULATION_STATES_LOAN_ACTIVE'],
+            filter_states=["PENDING"]
+            + current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"],
         )
         if loan_search_res.count():
             raise RecordHasReferencesError(
                 record_type="Document",
                 record_id=self["pid"],
                 ref_type="Loan",
-                ref_ids=sorted(
-                    [res["pid"] for res in loan_search_res.scan()]
-                ),
+                ref_ids=sorted([res["pid"] for res in loan_search_res.scan()]),
             )
 
         item_search = ItemSearch()
@@ -245,9 +240,7 @@ class Document(IlsRecordWithRelations):
                 record_type="Document",
                 record_id=self["pid"],
                 ref_type="Item",
-                ref_ids=sorted(
-                    [res["pid"] for res in item_search_res.scan()]
-                ),
+                ref_ids=sorted([res["pid"] for res in item_search_res.scan()]),
             )
 
         req_search = DocumentRequestSearch()
@@ -259,9 +252,7 @@ class Document(IlsRecordWithRelations):
                 record_type="Document",
                 record_id=self["pid"],
                 ref_type="DocumentRequest",
-                ref_ids=sorted(
-                    [res["pid"] for res in req_search_res.scan()]
-                ),
+                ref_ids=sorted([res["pid"] for res in req_search_res.scan()]),
             )
 
         return super(Document, self).delete(**kwargs)
@@ -277,9 +268,7 @@ class Document(IlsRecordWithRelations):
         :returns: True if tag was removed
         """
         if tag["pid"] not in self["tag_pids"]:
-            raise DocumentTagNotFoundError(
-                self["pid"], tag["pid"]
-            )
+            raise DocumentTagNotFoundError(self["pid"], tag["pid"])
 
         self["tag_pids"].remove(tag["pid"])
         return True
@@ -309,6 +298,14 @@ class Item(_Item):
     _document_resolver_path = (
         "{scheme}://{host}/api/resolver/items/{item_pid}/document"
     )
+    STATUSES = [
+        "CAN_CIRCULATE",
+        "FOR_REFERENCE_ONLY",
+        "MISSING",
+        "IN_BINDING",
+        "SCANNING",
+    ]
+    CIRCULATION_RESTRICTIONS = ["NO_RESTRICTION"]
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
@@ -346,14 +343,15 @@ class Item(_Item):
     def validate_patch(self, patch):
         """Validate patch for Document."""
         for change in patch:
-            if change['path'] == "/document_pid":
-                self.ensure_document_exists(change['value'])
+            if change["path"] == "/document_pid":
+                self.ensure_document_exists(change["value"])
 
     def ensure_item_can_be_updated(self):
         """Raises an exception if the item's status cannot be updated."""
         loan_search = current_circulation.loan_search
-        active_loan = loan_search\
-            .get_active_loan_by_item_pid(self["pid"]).execute().hits
+        active_loan = (
+            loan_search.get_active_loan_by_item_pid(self["pid"]).execute().hits
+        )
         if ES_VERSION[0] >= 7:
             total = active_loan.total.value
         else:
@@ -370,15 +368,14 @@ class Item(_Item):
         """Delete Item record."""
         loan_search_res = search_by_pid(
             item_pid=self["pid"],
-            filter_states=current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
+            filter_states=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"],
         )
         if loan_search_res.count():
             raise RecordHasReferencesError(
-                record_type='Item',
+                record_type="Item",
                 record_id=self["pid"],
-                ref_type='Loan',
-                ref_ids=sorted([res["pid"]
-                                for res in loan_search_res.scan()])
+                ref_type="Loan",
+                ref_ids=sorted([res["pid"] for res in loan_search_res.scan()]),
             )
         return super(Item, self).delete(**kwargs)
 
@@ -427,12 +424,7 @@ class Location(IlsRecord):
                 record_type="Location",
                 record_id=self["pid"],
                 ref_type="Internal Location",
-                ref_ids=sorted(
-                    [
-                        res["pid"]
-                        for res in iloc_search_res.scan()
-                    ]
-                ),
+                ref_ids=sorted([res["pid"] for res in iloc_search_res.scan()]),
             )
         return super(Location, self).delete(**kwargs)
 
@@ -478,11 +470,10 @@ class InternalLocation(IlsRecord):
 
         if item_search_res.count():
             raise RecordHasReferencesError(
-                record_type='Internal Location',
+                record_type="Internal Location",
                 record_id=self["pid"],
-                ref_type='Item',
-                ref_ids=sorted([res["pid"]
-                                for res in item_search_res.scan()])
+                ref_type="Item",
+                ref_ids=sorted([res["pid"] for res in item_search_res.scan()]),
             )
         return super(InternalLocation, self).delete(**kwargs)
 
@@ -501,21 +492,18 @@ class Tag(IlsRecord):
     def delete(self, **kwargs):
         """Delete Tag record."""
         doc_search = DocumentSearch()
-        doc_search_res = doc_search.search_by_tag_pid(
-            tag_pid=self["pid"]
-        )
+        doc_search_res = doc_search.search_by_tag_pid(tag_pid=self["pid"])
         if doc_search_res.count():
             raise RecordHasReferencesError(
-                record_type='Tag',
+                record_type="Tag",
                 record_id=self["pid"],
-                ref_type='Document',
-                ref_ids=sorted([res["pid"]
-                                for res in doc_search_res.scan()])
+                ref_type="Document",
+                ref_ids=sorted([res["pid"] for res in doc_search_res.scan()]),
             )
         return super(Tag, self).delete(**kwargs)
 
 
-class Patron:
+class Patron(dict):
     """Patron record class."""
 
     _index = "patrons-patron-v1.0.0"
@@ -529,20 +517,29 @@ class Patron:
         Patron instances are not stored in the database
         but are indexed in ElasticSearch.
         """
-        self.user = User.query.filter_by(id=id).one()
-        self.id = self.user.id
+        _id = int(id)  # internally it is an int
+        _datastore = current_app.extensions["security"].datastore
+        # if not _id throw PatronNotFoundError(_id)
+        user = _datastore.get_user(_id)
+        if not user:
+            raise PatronNotFoundError(_id)
+
+        self._user = user
+        self.id = self._user.id
         # set revision as it is needed by the indexer but always to the same
-        # value as we dont need it
+        # value as we don't need it
         self.revision_id = 1
-        self.profile = UserProfile.get_by_userid(id)
+        self._profile = UserProfile.get_by_userid(id)
+        self.name = self._profile.full_name if self._profile else ""
+        self.email = self._user.email
 
     def dumps(self):
         """Return python representation of Patron metadata."""
         return {
             "$schema": self._schema,
-            "id": self.id,
-            "name": self.profile.full_name if self.profile else "",
-            "email": self.user.email,
+            "id": str(self.id),  # expose it as a string
+            "name": self.name,
+            "email": self.email,
         }
 
     @staticmethod
@@ -551,16 +548,7 @@ class Patron:
         if not patron_pid:
             raise PatronNotFoundError(patron_pid)
 
-        _datastore = current_app.extensions["security"].datastore
-        # if not patron_pid throw PatronNotFoundError(patron_pid)
-        patron = _datastore.get_user(patron_pid)
-
-        if not patron:
-            raise PatronNotFoundError(patron_pid)
-        if not patron.email:
-            msg = "Patron with PID {} has no email address".format(patron_pid)
-            raise MissingRequiredParameterError(description=msg)
-        return patron
+        return Patron(patron_pid)
 
 
 class Series(IlsRecordWithRelations):
@@ -645,15 +633,14 @@ class DocumentRequest(IlsRecord):
         """Validate document request data."""
         # Check if state == 'FULFILLED' has been passed
         fulfilled_state = any(
-            op['path'] == '/state' and op['value'] == 'FULFILLED'
-            for op in ops
+            op["path"] == "/state" and op["value"] == "FULFILLED" for op in ops
         )
         if fulfilled_state:
             # Fetch document_pid from ops
-            document_pid = next((
-                op['value']
-                for op in ops if op['path'] == '/document_pid'
-            ), None)
+            document_pid = next(
+                (op["value"] for op in ops if op["path"] == "/document_pid"),
+                None,
+            )
             self._validate_fulfilled(document_pid=document_pid)
 
     def validate_update(self, data):

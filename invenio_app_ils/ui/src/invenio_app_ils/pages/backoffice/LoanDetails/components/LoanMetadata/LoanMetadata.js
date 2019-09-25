@@ -15,13 +15,16 @@ import { AvailableItems } from '../AvailableItems';
 import { MetadataTable } from '../../../components/MetadataTable';
 import isEmpty from 'lodash/isEmpty';
 import { toShortDateTime } from '../../../../../common/api/date';
-import { SendMailModal } from '../../../components';
+import { OverdueLoanSendMailModal } from '../../../components';
 
 export default class LoanMetadata extends Component {
   constructor(props) {
     super(props);
+    const isRequest = invenioConfig.circulation.loanRequestStates.includes(
+      this.props.loanDetails.metadata.state
+    );
     this.state = {
-      isAvailableItemsVisible: isEmpty(this.props.loanDetails.metadata.item),
+      isAvailableItemsVisible: isRequest,
     };
   }
 
@@ -85,6 +88,13 @@ export default class LoanMetadata extends Component {
     return rows;
   }
 
+  getDelivery(delivery) {
+    if (delivery && 'method' in delivery) {
+      return invenioConfig.circulation.deliveryMethods[delivery.method];
+    }
+    return 'NOT PROVIDED';
+  }
+
   prepareRightData(data) {
     const { cancel_reason: reason, state } = data.metadata;
     const rows = [
@@ -94,9 +104,7 @@ export default class LoanMetadata extends Component {
       },
       {
         name: 'Delivery',
-        value: data.metadata.delivery
-          ? data.metadata.delivery.method
-          : 'NOT PROVIDED',
+        value: this.getDelivery(data.metadata.delivery),
       },
     ];
     if (state === 'CANCELLED' && !isEmpty(reason)) {
@@ -130,12 +138,7 @@ export default class LoanMetadata extends Component {
 
   renderMailButton() {
     const loan = this.props.loanDetails;
-    return (
-      loan.metadata.is_overdue &&
-      invenioConfig.circulation.loanActiveStates.includes(
-        loan.metadata.state
-      ) && <SendMailModal loan={loan} />
-    );
+    return loan.metadata.is_overdue && <OverdueLoanSendMailModal loan={loan} />;
   }
 
   renderAvailableItems() {

@@ -14,7 +14,7 @@ from setuptools import find_packages, setup
 readme = open("README.rst").read()
 
 invenio_search_version = '1.2.1,<1.3.0'
-invenio_circulation_version = '1.0.0a17,<1.1.0'
+invenio_circulation_version = '1.0.0a19,<1.1.0'
 
 tests_require = [
     "check-manifest>=0.35",
@@ -56,7 +56,7 @@ for name, reqs in extras_require.items():
 setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
 
 install_requires = [
-    'ciso8601>=2.0.1',
+    "arrow>=0.15.0",
     "Flask-BabelEx>=0.9.3",
     "Flask-Debugtoolbar>=0.10.1",
     "invenio[postgresql,base,auth]==3.2.0a4",

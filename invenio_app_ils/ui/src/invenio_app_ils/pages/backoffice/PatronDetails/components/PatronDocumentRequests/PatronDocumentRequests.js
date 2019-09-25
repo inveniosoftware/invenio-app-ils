@@ -60,8 +60,8 @@ export default class PatronDocumentRequests extends Component {
         <Error error={error}>
           <ResultsTable
             rows={rows}
-            title={"Patron's document requests"}
-            name={'document requests'}
+            title={"Patron's new book requests"}
+            name={'new book requests'}
             rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
             seeAllComponent={this.seeAllButton()}
             showMaxRows={this.props.showMaxDocumentRequests}

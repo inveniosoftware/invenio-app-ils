@@ -27,6 +27,8 @@ describe('Loans serialization tests', () => {
       created: stringDate,
       metadata: {
         pid: '123',
+        request_expire_date: stringDate,
+        request_start_date: stringDate,
         start_date: stringDate,
         end_date: stringDate,
         patron_pid: '1',
@@ -47,6 +49,8 @@ describe('Loans serialization tests', () => {
       availableActions: {},
       metadata: {
         pid: '123',
+        request_expire_date: fromISO(stringDate),
+        request_start_date: fromISO(stringDate),
         start_date: fromISO(stringDate),
         end_date: fromISO(stringDate),
         patron_pid: '1',

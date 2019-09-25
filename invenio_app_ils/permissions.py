@@ -66,15 +66,17 @@ def views_permissions_factory(action):
     """Return ILS views permissions factory."""
     if action == "circulation-loan-request":
         return authenticated_user_permission()
-    elif action == "circulation-loan-create":
+    elif action == "circulation-loan-checkout":
+        return backoffice_permission()
+    elif action == "circulation-loan-force-checkout":
         return backoffice_permission()
     elif action == "circulation-overdue-loan-email":
         return backoffice_permission()
     elif action == "relations-create":
         return backoffice_permission()
-    elif action == "stats-most-loaned":
-        return backoffice_permission()
     elif action == "relations-delete":
+        return backoffice_permission()
+    elif action == "stats-most-loaned":
         return backoffice_permission()
     else:
         return deny_all()

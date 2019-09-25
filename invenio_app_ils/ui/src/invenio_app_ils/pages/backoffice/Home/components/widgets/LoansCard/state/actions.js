@@ -1,4 +1,5 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
+import { invenioConfig } from '../../../../../../../common/config';
 import { loan as loanApi } from '../../../../../../../common/api';
 import { sendErrorNotification } from '../../../../../../../common/components/Notifications';
 
@@ -11,7 +12,7 @@ export const fetchPendingLoans = () => {
       .count(
         loanApi
           .query()
-          .withState('PENDING')
+          .withState(invenioConfig.circulation.loanRequestStates)
           .qs()
       )
       .then(response => {

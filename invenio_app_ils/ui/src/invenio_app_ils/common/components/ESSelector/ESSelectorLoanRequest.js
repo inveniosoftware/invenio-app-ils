@@ -5,8 +5,8 @@ import { ESSelector } from './';
 import './ESSelector.scss';
 import { DateTime } from 'luxon';
 import { invenioConfig } from '../../config';
-import { toShortDate, toUTCShortDate } from '../../api/date';
-import { DateRangePicker } from '../DateRangePicker';
+import { DatePicker } from '../../components';
+import { toShortDate } from '../../api/date';
 import { isEmpty } from 'lodash';
 
 export const PatronSearchInputContext = React.createContext({
@@ -14,25 +14,30 @@ export const PatronSearchInputContext = React.createContext({
 });
 
 export default class ESSelectorLoanRequest extends Component {
-  state = { visible: false };
-
   constructor(props) {
     super(props);
-    this.selectorRef = null;
-    this.state = { missingPatron: 'false' };
-    const tomorrow = DateTime.local().plus({ days: 1 });
-    const loanDuration = new DateTime(
-      tomorrow.plus({ days: invenioConfig.circulation.defaultDuration })
-    );
     this.state = {
-      fromDate: props.defaultStartDate
-        ? props.defaultStartDate
-        : toShortDate(tomorrow),
-      toDate: props.defaultEndDate
-        ? props.defaultEndDate
-        : toShortDate(loanDuration),
-      deliveryMethod: this.deliveryMethods()[1].value,
+      visible: false,
+      missingPatron: 'false',
+      requestEndDate: '',
+      deliveryMethod: '',
     };
+    this.selectorRef = null;
+
+    // init delivery method
+    this.withDeliveryMethod = !isEmpty(
+      invenioConfig.circulation.deliveryMethods
+    );
+    this.deliveryMethods = this.withDeliveryMethod
+      ? Object.keys(invenioConfig.circulation.deliveryMethods).map(key => ({
+          key: key,
+          value: key,
+          text: invenioConfig.circulation.deliveryMethods[key],
+        }))
+      : [];
+    this.state['deliveryMethod'] = this.withDeliveryMethod
+      ? this.deliveryMethods[1].value
+      : null;
   }
 
   toggle = () => this.setState({ visible: !this.state.visible });
@@ -43,29 +48,63 @@ export default class ESSelectorLoanRequest extends Component {
       this.setState({ missingPatron: 'true' });
     } else {
       if (onSave) {
-        onSave(
-          this.props.selections,
-          toUTCShortDate(this.state.fromDate),
-          toUTCShortDate(this.state.toDate),
-          this.state.deliveryMethod
-        );
+        const patronPid = this.props.selections[0].metadata.id.toString();
+        const optionalParams = {};
+        if (!isEmpty(this.state.requestEndDate)) {
+          optionalParams.requestEndDate = this.state.requestEndDate;
+        }
+        if (!isEmpty(this.state.deliveryMethod)) {
+          optionalParams.deliveryMethod = this.state.deliveryMethod;
+        }
+        onSave(patronPid, optionalParams);
       }
       this.toggle();
     }
   };
 
-  handleDateChange = (name, value) => {
-    this.setState({ [name]: value });
+  handleRequestEndDateChange = value => {
+    this.setState({ requestEndDate: value });
   };
 
-  handleDeliveryMethodChange = (event, object) => {
-    this.setState({ deliveryMethod: object.value });
+  handleDeliveryMethodChange = (_, { value }) => {
+    this.setState({ deliveryMethod: value });
   };
 
-  deliveryMethods = () => {
-    return invenioConfig.circulation.deliveryMethods.map(method => {
-      return { key: method, value: method, text: method };
-    });
+  renderOptionalRequestExpirationDate = () => {
+    const today = DateTime.local();
+    const initialDate = new DateTime(today.plus({ days: 10 }));
+    const max = new DateTime(
+      today.plus({ days: invenioConfig.circulation.requestDuration })
+    );
+    return (
+      <div>
+        <Segment.Inline>
+          <div>Optionally, select a limit date for your request</div>
+          <DatePicker
+            initialDate={toShortDate(initialDate)}
+            minDate={toShortDate(today)}
+            maxDate={toShortDate(max)}
+            placeholder="Request limit date"
+            handleDateChange={this.handleRequestEndDateChange}
+          />
+        </Segment.Inline>
+      </div>
+    );
+  };
+
+  renderDeliveryMethodSelector = () => {
+    return this.withDeliveryMethod ? (
+      <Form.Field>
+        <label>Choose the book delivery method</label>
+        <Form.Dropdown
+          placeholder={'Select delivery method'}
+          options={this.deliveryMethods}
+          onChange={this.handleDeliveryMethodChange}
+          defaultValue={this.deliveryMethods[1].value}
+          selection
+        />
+      </Form.Field>
+    ) : null;
   };
 
   render() {
@@ -96,30 +135,13 @@ export default class ESSelectorLoanRequest extends Component {
         <Form>
           <Segment.Group>
             <Segment>
-              <Header
-                as="h3"
-                content="Request loan"
-                subheader="Choose the period of interest for the book"
-              />
+              <Header as="h3" content="Request loan" />
             </Segment>
             <Segment>
-              <Segment.Group horizontal>
-                <DateRangePicker
-                  defaultStart={this.state.fromDate}
-                  defaultEnd={this.state.toDate}
-                  handleDateChange={this.handleDateChange}
-                />
-              </Segment.Group>
-              <Form.Field>
-                <label>Choose the book delivery method</label>
-                <Form.Dropdown
-                  placeholder={'Select delivery method'}
-                  options={this.deliveryMethods()}
-                  onChange={this.handleDeliveryMethodChange}
-                  defaultValue={this.deliveryMethods()[1].value}
-                  selection
-                />
-              </Form.Field>
+              {this.renderDeliveryMethodSelector()}
+              {this.renderOptionalRequestExpirationDate()}
+            </Segment>
+            <Segment>
               <Modal.Actions>
                 <Button color="black" onClick={this.toggle}>
                   Close

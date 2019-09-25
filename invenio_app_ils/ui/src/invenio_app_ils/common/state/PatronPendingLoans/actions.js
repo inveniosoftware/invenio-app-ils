@@ -1,4 +1,5 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
+import { invenioConfig } from '../../config';
 import { loan as loanApi } from '../../api';
 import { sendErrorNotification } from '../../components/Notifications';
 
@@ -6,7 +7,7 @@ const selectQuery = (patronPid, page = 1) => {
   return loanApi
     .query()
     .withPatronPid(patronPid)
-    .withState('PENDING')
+    .withState(invenioConfig.circulation.loanRequestStates)
     .withPage(page)
     .qs();
 };

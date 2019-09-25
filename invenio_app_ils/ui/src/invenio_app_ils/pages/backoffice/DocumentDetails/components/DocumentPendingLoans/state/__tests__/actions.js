@@ -5,6 +5,7 @@ import { initialState } from '../reducer';
 import * as types from '../types';
 import { loan as loanApi } from '../../../../../../../common/api';
 
+jest.mock('../../../../../../../common/config/invenioConfig');
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
@@ -45,7 +46,7 @@ describe('Pending loans tests', () => {
 
       store.dispatch(actions.fetchPendingLoans('123')).then(() => {
         expect(mockFetchPendingOnDocument).toHaveBeenCalledWith(
-          '(document_pid:123 AND state:PENDING)'
+          '(document_pid:123 AND state:(PENDING))'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
@@ -63,7 +64,7 @@ describe('Pending loans tests', () => {
 
       store.dispatch(actions.fetchPendingLoans('123')).then(() => {
         expect(mockFetchPendingOnDocument).toHaveBeenCalledWith(
-          '(document_pid:123 AND state:PENDING)'
+          '(document_pid:123 AND state:(PENDING))'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -81,7 +82,7 @@ describe('Pending loans tests', () => {
 
       store.dispatch(actions.fetchPendingLoans('123')).then(() => {
         expect(mockFetchPendingOnDocument).toHaveBeenCalledWith(
-          '(document_pid:123 AND state:PENDING)'
+          '(document_pid:123 AND state:(PENDING))'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);

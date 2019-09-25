@@ -1,8 +1,10 @@
 {% block subject %}
-Your loan has been cancelled
+Your loan on "{{ document.title }}" has been cancelled
 {% endblock %}
 
 
 {% block body %}
-Your loan has been cancelled.
+Dear {{ patron.email }},
+
+Your loan on "{{ document.title }}" has been cancelled.
 {% endblock %}
