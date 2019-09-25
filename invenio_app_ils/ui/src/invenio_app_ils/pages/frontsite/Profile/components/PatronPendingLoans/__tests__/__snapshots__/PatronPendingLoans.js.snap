@@ -106,14 +106,14 @@ exports[`PatronLoans tests should render patron loans 1`] = `
             Object {
               "Document ID": "doc1",
               "ID": "loan1",
-              "Start date": "2018-01-01",
-              "Updated": "2018-01-01 10:05",
+              "Request end date": null,
+              "Request start date": null,
             },
             Object {
               "Document ID": "doc1",
               "ID": "loan2",
-              "Start date": "2018-01-01",
-              "Updated": "2018-01-01 10:05",
+              "Request end date": null,
+              "Request start date": null,
             },
           ]
         }
@@ -186,9 +186,9 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                   columns={
                     Array [
                       "ID",
-                      "Updated",
                       "Document ID",
-                      "Start date",
+                      "Request start date",
+                      "Request end date",
                     ]
                   }
                   withRowAction={false}
@@ -243,21 +243,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Updated"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Updated
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
                             key="Document ID"
                           >
                             <TableCell
@@ -273,7 +258,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Start date"
+                            key="Request start date"
                           >
                             <TableCell
                               as="th"
@@ -282,7 +267,22 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               <th
                                 className=""
                               >
-                                Start date
+                                Request start date
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Request end date"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Request end date
                               </th>
                             </TableCell>
                           </TableHeaderCell>
@@ -295,9 +295,9 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                   columns={
                     Array [
                       "ID",
-                      "Updated",
                       "Document ID",
-                      "Start date",
+                      "Request start date",
+                      "Request end date",
                     ]
                   }
                   rowActionClickHandler={null}
@@ -306,14 +306,14 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                       Object {
                         "Document ID": "doc1",
                         "ID": "loan1",
-                        "Start date": "2018-01-01",
-                        "Updated": "2018-01-01 10:05",
+                        "Request end date": null,
+                        "Request start date": null,
                       },
                       Object {
                         "Document ID": "doc1",
                         "ID": "loan2",
-                        "Start date": "2018-01-01",
-                        "Updated": "2018-01-01 10:05",
+                        "Request end date": null,
+                        "Request start date": null,
                       },
                     ]
                   }
@@ -356,20 +356,8 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Updated-loan1"
-                            key="1-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Updated-loan1"
-                            >
-                              2018-01-01 10:05
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
                             data-test="Document ID-loan1"
-                            key="2-loan1"
+                            key="1-loan1"
                           >
                             <td
                               className=""
@@ -380,14 +368,26 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Start date-loan1"
+                            data-test="Request start date-loan1"
+                            key="2-loan1"
+                          >
+                            <td
+                              className=""
+                              data-test="Request start date-loan1"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Request end date-loan1"
                             key="3-loan1"
                           >
                             <td
                               className=""
-                              data-test="Start date-loan1"
+                              data-test="Request end date-loan1"
                             >
-                              2018-01-01
+                              -
                             </td>
                           </TableCell>
                         </tr>
@@ -424,20 +424,8 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Updated-loan2"
-                            key="1-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="Updated-loan2"
-                            >
-                              2018-01-01 10:05
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
                             data-test="Document ID-loan2"
-                            key="2-loan2"
+                            key="1-loan2"
                           >
                             <td
                               className=""
@@ -448,14 +436,26 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Start date-loan2"
+                            data-test="Request start date-loan2"
+                            key="2-loan2"
+                          >
+                            <td
+                              className=""
+                              data-test="Request start date-loan2"
+                            >
+                              -
+                            </td>
+                          </TableCell>
+                          <TableCell
+                            as="td"
+                            data-test="Request end date-loan2"
                             key="3-loan2"
                           >
                             <td
                               className=""
-                              data-test="Start date-loan2"
+                              data-test="Request end date-loan2"
                             >
-                              2018-01-01
+                              -
                             </td>
                           </TableCell>
                         </tr>

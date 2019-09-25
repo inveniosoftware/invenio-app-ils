@@ -15,6 +15,12 @@ function serializeResponse(hit) {
     if (!isEmpty(hit.metadata)) {
       result['metadata'] = hit.metadata;
       result['pid'] = hit.metadata.pid;
+      result['metadata']['request_start_date'] = fromISO(
+        hit.metadata.request_start_date
+      );
+      result['metadata']['request_expire_date'] = fromISO(
+        hit.metadata.request_expire_date
+      );
       result['metadata']['start_date'] = fromISO(hit.metadata.start_date);
       result['metadata']['end_date'] = fromISO(hit.metadata.end_date);
       result['metadata']['transaction_date'] = fromISO(

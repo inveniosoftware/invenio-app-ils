@@ -93,7 +93,7 @@ def _get_items_ui_config():
                 "sortOrder": ["asc", "desc"],
                 "aggs": [],
             },
-            "available": {"status": "CAN_CIRCULATE"},
+            "canCirculateStates": ["CAN_CIRCULATE"],
         }
     }
     items_index = ItemSearch.Meta.index
@@ -133,8 +133,7 @@ def _get_eitems_ui_config():
                 "sortBy": {"values": [], "onEmptyQuery": None},
                 "sortOrder": ["asc", "desc"],
                 "aggs": [],
-            },
-            "available": {"status": "CAN_CIRCULATE"},
+            }
         }
     }
     eitems_index = EItemSearch.Meta.index
@@ -170,7 +169,7 @@ def _get_loans_ui_config():
                 "aggs": [],
             }
         },
-        "circulation": {"loanActiveStates": [], "loanCompletedStates": []},
+        "circulation": {},
     }
     loans_index = current_circulation.loan_search.Meta.index
 
@@ -199,19 +198,26 @@ def _get_loans_ui_config():
     )
     ui_config["loans"]["search"]["aggs"] = list(loans_aggs.keys())
 
-    ui_config["circulation"]["loanActiveStates"] = current_app.config.get(
-        "CIRCULATION_STATES_LOAN_ACTIVE", []
-    )
-    ui_config["circulation"]["loanCompletedStates"] = current_app.config.get(
-        "CIRCULATION_STATES_LOAN_COMPLETED", []
-    )
-
-    ui_config["circulation"]["defaultDuration"] = current_app.config.get(
-        "CIRCULATION_POLICIES").get(
-        "checkout").get("duration_default")(None).days
-
-    ui_config["circulation"]["deliveryMethods"] = current_app.config.get(
-        "CIRCULATION_DELIVERY_METHODS")
+    ui_config["circulation"] = {
+        "loanRequestStates": current_app.config.get(
+            "CIRCULATION_STATES_LOAN_REQUEST", []
+        ),
+        "loanActiveStates": current_app.config.get(
+            "CIRCULATION_STATES_LOAN_ACTIVE", []
+        ),
+        "loanCompletedStates": current_app.config.get(
+            "CIRCULATION_STATES_LOAN_COMPLETED", []
+        ),
+        "loanCancelledStates": current_app.config.get(
+            "CIRCULATION_STATES_LOAN_CANCELLED", []
+        ),
+        "deliveryMethods": current_app.config.get(
+            "CIRCULATION_DELIVERY_METHODS", {}
+        ),
+        "requestDuration": current_app.config.get(
+            "CIRCULATION_LOAN_REQUEST_DURATION_DAYS"
+        ),
+    }
 
     return ui_config
 
@@ -289,8 +295,9 @@ def _get_document_requests_ui_config():
     )
 
     if "mostrecent" in doc_req_sort:
-        ui_config["documentRequests"]["search"]["sortBy"]["onEmptyQuery"] = \
-            "mostrecent"
+        ui_config["documentRequests"]["search"]["sortBy"][
+            "onEmptyQuery"
+        ] = "mostrecent"
 
     doc_req_aggs = (
         current_app.config.get("RECORDS_REST_FACETS", {})

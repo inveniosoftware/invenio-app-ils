@@ -7,6 +7,7 @@ import OverdueLoansList from '../OverdueLoansList';
 import history from '../../../../../../../history';
 
 jest.mock('../../../../../components');
+jest.mock('../../../../../../../common/config/invenioConfig');
 
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');

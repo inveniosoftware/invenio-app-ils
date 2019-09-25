@@ -1,6 +1,5 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { loan as loanApi } from '../../../../common/api';
-import { sessionManager } from '../../../../authentication/services';
 import {
   sendSuccessNotification,
   sendErrorNotification,
@@ -11,58 +10,58 @@ export const fetchLoanDetails = loanPid => {
     dispatch({
       type: IS_LOADING,
     });
-
-    await loanApi
-      .get(loanPid)
-      .then(response => {
-        dispatch({
-          type: SUCCESS,
-          payload: response.data,
-        });
-      })
-      .catch(error => {
-        dispatch({
-          type: HAS_ERROR,
-          payload: error,
-        });
+    try {
+      const response = await loanApi.get(loanPid);
+      dispatch({
+        type: SUCCESS,
+        payload: response.data,
       });
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+    }
   };
 };
 
-export const performLoanAction = (pid, loan, url, cancelReason = null) => {
+export const performLoanAction = (
+  actionURL,
+  documentPid,
+  patronPid,
+  { itemPid = null, cancelReason = null } = {}
+) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
-    const currentUser = sessionManager.user;
-    const params = cancelReason ? { cancel_reason: cancelReason } : {};
-    await loanApi
-      .postAction(
-        url,
-        pid,
-        loan,
-        currentUser.id,
-        currentUser.locationPid,
-        params
-      )
-      .then(details => {
-        dispatch({
-          type: SUCCESS,
-          payload: details.data,
-        });
-        dispatch(
-          sendSuccessNotification(
-            'Successful loan action!',
-            `The loan action was successful for loan PID ${pid}.`
-          )
-        );
-      })
-      .catch(error => {
-        dispatch({
-          type: HAS_ERROR,
-          payload: error,
-        });
-        dispatch(sendErrorNotification(error));
+    try {
+      const response = await loanApi.doAction(
+        actionURL,
+        documentPid,
+        patronPid,
+        {
+          itemPid: itemPid,
+          cancelReason: cancelReason,
+        }
+      );
+      dispatch({
+        type: SUCCESS,
+        payload: response.data,
       });
+      const loanPid = response.data.pid;
+      dispatch(
+        sendSuccessNotification(
+          'Successful loan action!',
+          `The loan action was successful for loan PID ${loanPid}.`
+        )
+      );
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
   };
 };

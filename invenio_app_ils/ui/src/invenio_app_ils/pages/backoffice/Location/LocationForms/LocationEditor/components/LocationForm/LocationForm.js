@@ -3,14 +3,8 @@ import React, { Component } from 'react';
 import { Formik, getIn } from 'formik';
 import _ from 'lodash';
 import isEmpty from 'lodash/isEmpty';
-import IsoLanguages from 'iso-639-1';
 import { Form, Segment, Button, Grid, Header } from 'semantic-ui-react';
-import {
-  ArrayStringField,
-  SelectField,
-  StringField,
-  TextField,
-} from '../../../../../../../forms';
+import { StringField, TextField } from '../../../../../../../forms';
 import { location as locationApi } from '../../../../../../../common/api/locations/location';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import { goTo } from '../../../../../../../history';
@@ -30,7 +24,7 @@ export class LocationForm extends Component {
   onSubmit = async (values, actions) => {
     try {
       actions.setSubmitting(true);
-      const response = !isEmpty(this.formInitialData)
+      !isEmpty(this.formInitialData)
         ? await locationApi.update(this.formInitialData.pid, values)
         : await locationApi.create(values);
 

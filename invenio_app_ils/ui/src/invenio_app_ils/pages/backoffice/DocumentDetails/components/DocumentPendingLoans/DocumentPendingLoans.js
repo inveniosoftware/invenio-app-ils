@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
 import { ResultsTable } from '../../../../../common/components';
 import { loan as loanApi } from '../../../../../common/api';
-
+import { invenioConfig } from '../../../../../common/config';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
@@ -29,7 +29,7 @@ export default class DocumentPendingLoans extends Component {
       loanApi
         .query()
         .withDocPid(pid)
-        .withState('PENDING')
+        .withState(invenioConfig.circulation.loanRequestStates)
         .qs()
     );
     return <SeeAllButton clickHandler={goToHandler(path)} />;
@@ -38,7 +38,12 @@ export default class DocumentPendingLoans extends Component {
   prepareData(data) {
     return data.hits.map(row => {
       const serialized = formatter.loan.toTable(row);
-      return pick(serialized, ['ID', 'Updated', 'Patron ID', 'Start date']);
+      return pick(serialized, [
+        'ID',
+        'Patron ID',
+        'Request start date',
+        'Request end date',
+      ]);
     });
   }
 

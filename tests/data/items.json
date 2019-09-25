@@ -165,5 +165,50 @@
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
     "status": "CAN_CIRCULATE"
+  },
+  {
+    "pid": "itemid-MISSING",
+    "barcode": "123456789-55",
+    "document_pid": "docid-1",
+    "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
+    "status": "MISSING"
+  },
+  {
+    "pid": "itemid-60",
+    "barcode": "123456789-55",
+    "document_pid": "docid-1",
+    "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
+    "status": "CAN_CIRCULATE"
+  },
+  {
+    "pid": "itemid-61",
+    "barcode": "123456789-55",
+    "document_pid": "docid-1",
+    "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
+    "status": "CAN_CIRCULATE"
+  },
+  {
+    "pid": "itemid-62",
+    "barcode": "123456789-55",
+    "document_pid": "docid-1",
+    "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
+    "status": "CAN_CIRCULATE"
+  },
+  {
+    "pid": "itemid-63",
+    "barcode": "123456789-55",
+    "document_pid": "docid-1",
+    "internal_location_pid": "ilocid-1",
+    "circulation_restriction": "NO_RESTRICTION",
+    "medium": "NOT_SPECIFIED",
+    "status": "CAN_CIRCULATE"
   }
 ]

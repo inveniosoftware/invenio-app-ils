@@ -2,10 +2,10 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
-
 import * as types from '../types';
 import { loan as loanApi } from '../../../../../../../common/api';
 
+jest.mock('../../../../../../../common/config/invenioConfig');
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 

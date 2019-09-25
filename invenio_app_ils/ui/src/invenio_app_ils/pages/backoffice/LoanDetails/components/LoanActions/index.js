@@ -8,8 +8,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  performLoanAction: (pid, loan, url, cancelReason = null) =>
-    dispatch(performLoanAction(pid, loan, url, cancelReason)),
+  performLoanAction: (actionURL, documentPid, patronPid, optionalParams = {}) =>
+    dispatch(
+      performLoanAction(actionURL, documentPid, patronPid, optionalParams)
+    ),
 });
 
 export const LoanActions = connect(

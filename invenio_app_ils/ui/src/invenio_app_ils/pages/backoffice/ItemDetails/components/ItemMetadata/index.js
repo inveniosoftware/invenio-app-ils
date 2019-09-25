@@ -4,7 +4,7 @@ import ItemMetadataComponent from './ItemMetadata';
 import {
   deleteItem,
   fetchItemDetails,
-  createNewLoanForItem,
+  checkoutItem,
   updateItem,
 } from '../../state/actions';
 
@@ -16,8 +16,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchItemDetails: itemPid => dispatch(fetchItemDetails(itemPid)),
   deleteItem: itemPid => dispatch(deleteItem(itemPid)),
-  createNewLoanForItem: (loanData, url) =>
-    dispatch(createNewLoanForItem(loanData, url)),
+  checkoutItem: (documentPid, itemPid, patronPid, force = false) =>
+    dispatch(checkoutItem(documentPid, itemPid, patronPid, force)),
   updateItem: (itemPid, path, value) =>
     dispatch(updateItem(itemPid, path, value)),
 });

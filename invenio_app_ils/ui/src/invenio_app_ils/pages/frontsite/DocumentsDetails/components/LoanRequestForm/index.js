@@ -3,8 +3,8 @@ import LoanRequestFormComponent from './LoanRequestForm';
 import { requestLoanForDocument } from './state/actions';
 
 const mapDispatchToProps = dispatch => ({
-  requestLoanForDocument: (docPid, loanRequestData) =>
-    dispatch(requestLoanForDocument(docPid, loanRequestData)),
+  requestLoanForDocument: (documentPid, optionalParams = {}) =>
+    dispatch(requestLoanForDocument(documentPid, optionalParams)),
 });
 
 export const LoanRequestForm = connect(

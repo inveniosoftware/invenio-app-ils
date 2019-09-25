@@ -6,22 +6,19 @@ import * as types from '../types';
 import { loan as loanApi } from '../../../../../common/api';
 import { sessionManager } from '../../../../../authentication/services';
 
+jest.mock('../../../../../common/config/invenioConfig');
+
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 const mockGet = jest.fn();
 loanApi.get = mockGet;
-const mockPostAction = jest.fn();
-loanApi.postAction = mockPostAction;
+const mockDoAction = jest.fn();
+loanApi.doAction = mockDoAction;
 
 sessionManager.user = { id: '2', locationPid: '2' };
 
 const response = { data: {} };
-
-const loan = {
-  patron_pid: 6,
-  item_pid: 3,
-};
 
 const _initialState = {
   ...initialState,
@@ -34,7 +31,7 @@ const _initialState = {
 let store;
 beforeEach(() => {
   mockGet.mockClear();
-  mockPostAction.mockClear();
+  mockDoAction.mockClear();
 
   store = mockStore(_initialState);
   store.clearActions();
@@ -98,7 +95,7 @@ describe('Loan details tests', () => {
 
   describe('Fetch loan action tests', () => {
     it('should dispatch a loading action when performing loan action', done => {
-      mockPostAction.mockResolvedValue(response);
+      mockDoAction.mockResolvedValue(response);
 
       const expectedActions = [
         {
@@ -107,15 +104,13 @@ describe('Loan details tests', () => {
       ];
 
       store
-        .dispatch(actions.performLoanAction('123', loan, 'urlForAction'))
+        .dispatch(actions.performLoanAction('urlForAction', '123', '1'))
         .then(() => {
-          expect(mockPostAction).toHaveBeenCalledWith(
+          expect(mockDoAction).toHaveBeenCalledWith(
             'urlForAction',
             '123',
-            loan,
-            sessionManager.user.id,
-            sessionManager.user.locationPid,
-            {}
+            '1',
+            { itemPid: null, cancelReason: null }
           );
           const actions = store.getActions();
           expect(actions[0]).toEqual(expectedActions[0]);
@@ -123,8 +118,46 @@ describe('Loan details tests', () => {
         });
     });
 
+    it('should call loan action with itemPid when passed', done => {
+      mockDoAction.mockResolvedValue(response);
+      return store
+        .dispatch(
+          actions.performLoanAction('urlForAction', '123', '1', {
+            itemPid: '333',
+          })
+        )
+        .then(() => {
+          expect(mockDoAction).toHaveBeenCalledWith(
+            'urlForAction',
+            '123',
+            '1',
+            { itemPid: '333', cancelReason: null }
+          );
+          done();
+        });
+    });
+
+    it('should call loan action with cancelReason when passed', done => {
+      mockDoAction.mockResolvedValue(response);
+      return store
+        .dispatch(
+          actions.performLoanAction('urlForAction', '123', '1', {
+            cancelReason: 'Not valid anymore',
+          })
+        )
+        .then(() => {
+          expect(mockDoAction).toHaveBeenCalledWith(
+            'urlForAction',
+            '123',
+            '1',
+            { itemPid: null, cancelReason: 'Not valid anymore' }
+          );
+          done();
+        });
+    });
+
     it('should dispatch a success action when loan action succeeds', done => {
-      mockPostAction.mockResolvedValue(response);
+      mockDoAction.mockResolvedValue(response);
 
       const expectedActions = [
         {
@@ -134,15 +167,13 @@ describe('Loan details tests', () => {
       ];
 
       return store
-        .dispatch(actions.performLoanAction('123', loan, 'urlForAction'))
+        .dispatch(actions.performLoanAction('urlForAction', '123', '1'))
         .then(() => {
-          expect(mockPostAction).toHaveBeenCalledWith(
+          expect(mockDoAction).toHaveBeenCalledWith(
             'urlForAction',
             '123',
-            loan,
-            sessionManager.user.id,
-            sessionManager.user.locationPid,
-            {}
+            '1',
+            { itemPid: null, cancelReason: null }
           );
           const actions = store.getActions();
           expect(actions[1]).toEqual(expectedActions[0]);
@@ -151,7 +182,7 @@ describe('Loan details tests', () => {
     });
 
     it('should dispatch an error action when oan action fails', done => {
-      mockPostAction.mockRejectedValue([500, 'Error']);
+      mockDoAction.mockRejectedValue([500, 'Error']);
 
       const expectedActions = [
         {
@@ -161,15 +192,13 @@ describe('Loan details tests', () => {
       ];
 
       return store
-        .dispatch(actions.performLoanAction('123', loan, 'wrongUrlForAction'))
+        .dispatch(actions.performLoanAction('wrongUrlForAction', '123', '1'))
         .then(() => {
-          expect(mockPostAction).toHaveBeenCalledWith(
+          expect(mockDoAction).toHaveBeenCalledWith(
             'wrongUrlForAction',
             '123',
-            loan,
-            sessionManager.user.id,
-            sessionManager.user.locationPid,
-            {}
+            '1',
+            { itemPid: null, cancelReason: null }
           );
           const actions = store.getActions();
           expect(actions[1]).toEqual(expectedActions[0]);

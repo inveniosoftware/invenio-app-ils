@@ -59,20 +59,19 @@ export default class DocumentMetadata extends Component {
     this.props.updateDocument(this.documentPid, '/tag_pids', tagPids);
   };
 
-  requestLoan = (results, dateFrom, dateTo, deliveryMethod) => {
+  requestLoan = (
+    patronPid,
+    { requestEndDate = null, deliveryMethod = null } = {}
+  ) => {
     const documentPid = this.props.document.metadata.pid;
-    const loanRequestData = {
-      metadata: {
-        start_date: dateFrom,
-        end_date: dateTo,
-        document_pid: documentPid,
-        patron_pid: results[0].metadata.id.toString(),
-        delivery: {
-          method: deliveryMethod,
-        },
-      },
-    };
-    this.props.requestLoanForDocument(documentPid, loanRequestData);
+    const optionalParams = {};
+    if (!isEmpty(requestEndDate)) {
+      optionalParams.requestEndDate = requestEndDate;
+    }
+    if (!isEmpty(deliveryMethod)) {
+      optionalParams.deliveryMethod = deliveryMethod;
+    }
+    this.props.requestLoanForPatron(documentPid, patronPid, optionalParams);
   };
 
   renderTags(tags) {
@@ -149,7 +148,9 @@ export default class DocumentMetadata extends Component {
   }
 
   createRefProps(documentPid) {
-    const loanStates = invenioConfig.circulation.loanActiveStates;
+    const loanStates = invenioConfig.circulation.loanRequestStates.concat(
+      invenioConfig.circulation.loanActiveStates
+    );
 
     const loanRefProps = {
       refType: 'Loan',
@@ -159,7 +160,7 @@ export default class DocumentMetadata extends Component {
           loanApi
             .query()
             .withDocPid(documentPid)
-            .withState(loanStates.concat(['PENDING']))
+            .withState(loanStates)
             .qs()
         ),
     };

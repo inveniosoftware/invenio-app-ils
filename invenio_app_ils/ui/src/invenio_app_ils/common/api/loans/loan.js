@@ -1,65 +1,129 @@
 import { http, apiConfig } from '../base';
-import { toISO, toShortDate } from '../date';
+import { sessionManager } from '../../../authentication/services';
+import { toShortDate } from '../date';
 import { DateTime } from 'luxon';
 import { serializer } from './serializer';
 import isEmpty from 'lodash/isEmpty';
 import { prepareDateQuery, prepareSumQuery } from '../utils';
-import { ApiURLS } from '../urls';
 import { generatePath } from 'react-router-dom';
 
-const apiURL = `${apiConfig.baseURL}${ApiURLS.loans.list}`;
-const loanURL = loanPid => {
-  return generatePath(ApiURLS.loans.loan, { loanPid: loanPid });
+const apiPaths = {
+  checkout: '/circulation/loans/checkout',
+  emailOverdue: '/circulation/loans/:loanPid/email-overdue',
+  item: '/circulation/loans/:loanPid',
+  list: '/circulation/loans/',
+  request: '/circulation/loans/request',
+  replaceItem: '/circulation/loans/:loanPid/replace-item',
+};
+const apiList = `${apiConfig.baseURL}${apiPaths.list}`;
+const get = async loanPid => {
+  const path = generatePath(apiPaths.item, { loanPid: loanPid });
+  const response = await http.get(`${apiConfig.baseURL}${path}`);
+  response.data = serializer.fromJSON(response.data);
+  return response;
 };
 
-const get = loanPid =>
-  http.get(`${loanURL(loanPid)}`).then(response => {
-    response.data = serializer.fromJSON(response.data);
-    return response;
-  });
-
-const getLoanReplaceItemUrl = loanPid => `${loanURL(loanPid)}/replace-item`;
-
-const postAction = (
+const doAction = async (
   url,
-  pid,
-  loan,
-  transactionUserPid,
-  transactionLocationPid,
-  params = {}
+  documentPid,
+  patronPid,
+  { itemPid = null, cancelReason = null } = {}
 ) => {
-  if (
-    !loan.metadata.hasOwnProperty('item_pid') &&
-    !loan.metadata.hasOwnProperty('document_pid')
-  ) {
-    throw new Error(
-      `No 'item_pid' and 'document_pid' attached to loan '${pid}'`
-    );
-  }
-  const now = DateTime.local();
+  const currentUser = sessionManager.user;
   const payload = {
-    transaction_user_pid: transactionUserPid,
-    patron_pid: loan.metadata.patron_pid,
-    document_pid: loan.metadata.document_pid,
-    item_pid: loan.metadata.item_pid,
-    transaction_location_pid: transactionLocationPid,
-    transaction_date: toISO(now),
-    ...params,
+    document_pid: documentPid,
+    patron_pid: patronPid,
+    transaction_location_pid: currentUser.locationPid,
+    transaction_user_pid: currentUser.id,
+  };
+  if (itemPid) {
+    payload.item_pid = itemPid;
+  }
+  if (cancelReason) {
+    payload.cancel_reason = cancelReason;
+  }
+
+  const response = await http.post(url, payload);
+  response.data = serializer.fromJSON(response.data);
+  return response;
+};
+
+const doRequest = async (
+  documentPid,
+  patronPid,
+  {
+    requestExpireDate = null,
+    requestStartDate = null,
+    deliveryMethod = null,
+  } = {}
+) => {
+  const currentUser = sessionManager.user;
+  const payload = {
+    document_pid: documentPid,
+    patron_pid: patronPid,
+    transaction_location_pid: currentUser.locationPid,
+    transaction_user_pid: currentUser.id,
   };
 
-  return http.post(url, payload).then(response => {
-    response.data = serializer.fromJSON(response.data);
-    return response;
-  });
+  if (requestStartDate) {
+    payload.request_start_date = requestStartDate;
+  }
+  if (requestExpireDate) {
+    payload.request_expire_date = requestExpireDate;
+  }
+  if (deliveryMethod) {
+    payload.delivery = {
+      method: deliveryMethod,
+    };
+  }
+
+  const response = await http.post(
+    `${apiConfig.baseURL}${apiPaths.request}`,
+    payload
+  );
+  response.data = serializer.fromJSON(response.data);
+  return response;
 };
 
-const assignItemToLoan = (itemPid, loanPid) => {
-  const url = getLoanReplaceItemUrl(loanPid);
+const doCheckout = async (
+  documentPid,
+  itemPid,
+  patronPid,
+  { startDate = null, endDate = null, force = false } = {}
+) => {
+  const currentUser = sessionManager.user;
+  const payload = {
+    document_pid: documentPid,
+    item_pid: itemPid,
+    patron_pid: patronPid,
+    transaction_location_pid: currentUser.locationPid,
+    transaction_user_pid: currentUser.id,
+  };
+
+  if (startDate) {
+    payload.start_date = startDate;
+  }
+  if (endDate) {
+    payload.end_date = endDate;
+  }
+  if (force) {
+    payload.force = true;
+  }
+
+  const response = await http.post(
+    `${apiConfig.baseURL}${apiPaths.checkout}`,
+    payload
+  );
+  response.data = serializer.fromJSON(response.data);
+  return response;
+};
+
+const assignItemToLoan = async (itemPid, loanPid) => {
+  const path = generatePath(apiPaths.replaceItem, { loanPid: loanPid });
   const payload = { item_pid: itemPid };
-  return http.post(url, payload).then(response => {
-    response.data = serializer.fromJSON(response.data);
-    return response;
-  });
+  const response = await http.post(`${apiConfig.baseURL}${path}`, payload);
+  response.data = serializer.fromJSON(response.data);
+  return response;
 };
 
 class QueryBuilder {
@@ -186,39 +250,38 @@ const queryBuilder = () => {
   return new QueryBuilder();
 };
 
-const list = query => {
-  return http.get(`${ApiURLS.loans.list}?q=${query}`).then(response => {
-    response.data.total = response.data.hits.total;
-    response.data.hits = response.data.hits.hits.map(hit =>
-      serializer.fromJSON(hit)
-    );
-    return response;
-  });
-};
-
-const sendOverdueLoansMailReminder = async payload => {
-  const url = generatePath(ApiURLS.loans.emailOverdue, {
-    loanPid: payload.loanPid,
-  });
-  const response = await http.post(url, payload);
+const list = async query => {
+  const response = await http.get(`${apiList}?q=${query}`);
+  response.data.total = response.data.hits.total;
+  response.data.hits = response.data.hits.hits.map(hit =>
+    serializer.fromJSON(hit)
+  );
   return response;
 };
 
-const count = query => {
-  return http.get(`${ApiURLS.loans.list}?q=${query}`).then(response => {
-    response.data = response.data.hits.total;
-    return response;
+const sendOverdueLoansMailReminder = async payload => {
+  const path = generatePath(apiPaths.emailOverdue, {
+    loanPid: payload.loanPid,
   });
+  return await http.post(`${apiConfig.baseURL}${path}`, payload);
+};
+
+const count = async query => {
+  const response = await http.get(`${apiList}?q=${query}`);
+  response.data = response.data.hits.total;
+  return response;
 };
 
 export const loan = {
-  url: apiURL,
+  url: apiList,
   assignItemToLoan: assignItemToLoan,
   query: queryBuilder,
   list: list,
   get: get,
   count: count,
-  postAction: postAction,
+  doAction: doAction,
+  doRequest: doRequest,
+  doCheckout: doCheckout,
   sendOverdueLoansMailReminder: sendOverdueLoansMailReminder,
   serializer: serializer,
 };

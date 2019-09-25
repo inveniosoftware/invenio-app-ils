@@ -5,7 +5,7 @@ import {
   deleteDocument,
   fetchDocumentDetails,
   updateDocument,
-  requestLoanForDocument,
+  requestLoanForPatron,
   setRestrictionsOnDocument,
 } from '../../state/actions';
 
@@ -21,8 +21,8 @@ const mapDispatchToProps = dispatch => ({
   deleteDocument: documentPid => dispatch(deleteDocument(documentPid)),
   updateDocument: (documentPid, path, value) =>
     dispatch(updateDocument(documentPid, path, value)),
-  requestLoanForDocument: (docPid, patronPid, url) =>
-    dispatch(requestLoanForDocument(docPid, patronPid, url)),
+  requestLoanForPatron: (documentPid, patronPid, optionalParams = {}) =>
+    dispatch(requestLoanForPatron(documentPid, patronPid, optionalParams)),
   setRestrictionsOnDocument: (pid, accessList) =>
     dispatch(setRestrictionsOnDocument(pid, accessList)),
 });

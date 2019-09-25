@@ -3,6 +3,8 @@ import { shallow, mount } from 'enzyme';
 import { Settings } from 'luxon';
 import LoansCard from '../LoansCard';
 
+jest.mock('../../../../../../../common/config/invenioConfig');
+
 Settings.defaultZoneName = 'utc';
 
 describe('LoansCard tests', () => {

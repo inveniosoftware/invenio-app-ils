@@ -14,8 +14,11 @@
           }
         }
       },
-      "abstracts": {
+      "abstract": {
         "type": "text"
+      },
+      "isbn": {
+        "type": "keyword"
       },
       "issn": {
         "type": "keyword"
@@ -26,8 +29,13 @@
       "mode_of_issuance": {
         "type": "keyword"
       },
-      "language": {
-        "type": "keyword"
+      "languages": {
+        "type": "text",
+        "fields": {
+          "tag": {
+            "type": "keyword"
+          }
+        }
       },
       "relations": {
         "type": "object",
@@ -71,12 +79,7 @@
         }
       },
       "title": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "keyword"
-          }
-        }
+        "type": "text"
       },
       "_created": {
         "type": "date"

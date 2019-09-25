@@ -23,7 +23,6 @@ from invenio_app_ils.search.api import filter_by_patron_search_factory
 NEW_LOAN = {
     "item_pid": "200",
     "patron_pid": "1",
-    "transaction_date": "2018-06-29",
     "transaction_location_pid": "locid-1",
     "transaction_user_pid": "4",
     "pickup_location_pid": "locid-1",

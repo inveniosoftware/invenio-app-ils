@@ -67,22 +67,18 @@ export default class ItemMetadata extends Component {
         invenioConfig.circulation.loanActiveStates.includes(
           this.props.itemDetails.metadata.circulation.state
         ) ||
-        !invenioConfig.items.available.status.includes(
+        !invenioConfig.items.canCirculateStates.includes(
           this.props.itemDetails.metadata.status
         )
       }
     />
   );
 
-  requestLoan = results => {
-    const loanData = {
-      metadata: {
-        document_pid: this.props.itemDetails.metadata.document_pid,
-        item_pid: this.props.itemDetails.metadata.pid,
-        patron_pid: results[0].metadata.id.toString(),
-      },
-    };
-    this.props.createNewLoanForItem(loanData);
+  checkoutItem = results => {
+    const documentPid = this.props.itemDetails.metadata.document_pid;
+    const itemPid = this.props.itemDetails.metadata.pid;
+    const patronPid = results[0].metadata.id.toString();
+    this.props.checkoutItem(documentPid, itemPid, patronPid);
   };
 
   updateDocument = results => {
@@ -108,13 +104,13 @@ export default class ItemMetadata extends Component {
             title={`You are about to checkout the item with
                     barcode ${itemDetails.metadata.barcode}.`}
             content={
-              'Search for the patron to whom the loan should be assigned:'
+              'Search for the patron to whom the loan should be created:'
             }
             selectionInfoText={
-              'The loan will be assigned to the following patron:'
+              'The loan will be created for the following patron:'
             }
             emptySelectionInfoText={'No patron selected yet'}
-            onSave={this.requestLoan}
+            onSave={this.checkoutItem}
             saveButtonContent={'Checkout item'}
           />
 

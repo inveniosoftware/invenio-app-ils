@@ -28,9 +28,7 @@ export const invenioConfig = {
       sortOrder: [],
       aggs: [],
     },
-    available: {
-      status: 'CAN_CIRCULATE',
-    },
+    canCirculateStates: ['CAN_CIRCULATE'],
   },
   loans: {
     search: {
@@ -43,10 +41,12 @@ export const invenioConfig = {
     },
   },
   circulation: {
+    loanRequestStates: ['PENDING'],
     loanActiveStates: ['ITEM_ON_LOAN'],
     loanCompletedStates: ['ITEM_RETURNED'],
-    defaultDuration: 30,
-    deliveryMethods: ['DELIVERY', 'PICK UP'],
+    loanCancelledStates: ['CANCELLED'],
+    deliveryMethods: { DELIVERY: '', 'PICK UP': '' },
+    requestDuration: 60,
   },
   series: {
     search: {

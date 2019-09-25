@@ -22,7 +22,7 @@ exports[`IdleLoansList tests should load the details component 1`] = `
       }
       showMaxRows={5}
       singleLine={false}
-      subtitle="Loan requests in PENDING state longer than 10 days."
+      subtitle="Loan requests pending since more than 10 days."
       title="Idle loans"
     />
   </Error>
@@ -85,14 +85,12 @@ exports[`IdleLoansList tests should render loans 1`] = `
               "ID": "loan1",
               "Patron ID": "patron_1",
               "Start date": "2018-01-01",
-              "Updated": "2018-01-01 10:05",
             },
             Object {
               "Document ID": "doc1",
               "ID": "loan2",
               "Patron ID": "patron_2",
               "Start date": "2018-01-01",
-              "Updated": "2018-01-01 10:05",
             },
           ]
         }
@@ -105,7 +103,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
         }
         showMaxRows={5}
         singleLine={false}
-        subtitle="Loan requests in PENDING state longer than 10 days."
+        subtitle="Loan requests pending since more than 10 days."
         title="Idle loans"
       >
         <Segment>
@@ -130,19 +128,19 @@ exports[`IdleLoansList tests should render loans 1`] = `
                         <Header
                           as="h3"
                           content="Idle loans"
-                          subheader="Loan requests in PENDING state longer than 10 days."
+                          subheader="Loan requests pending since more than 10 days."
                         >
                           <h3
                             className="ui header"
                           >
                             Idle loans
                             <HeaderSubheader
-                              content="Loan requests in PENDING state longer than 10 days."
+                              content="Loan requests pending since more than 10 days."
                             >
                               <div
                                 className="sub header"
                               >
-                                Loan requests in PENDING state longer than 10 days.
+                                Loan requests pending since more than 10 days.
                               </div>
                             </HeaderSubheader>
                           </h3>
@@ -173,7 +171,6 @@ exports[`IdleLoansList tests should render loans 1`] = `
                   columns={
                     Array [
                       "ID",
-                      "Updated",
                       "Patron ID",
                       "Document ID",
                       "Start date",
@@ -231,21 +228,6 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Updated"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Updated
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
                             key="Patron ID"
                           >
                             <TableCell
@@ -298,7 +280,6 @@ exports[`IdleLoansList tests should render loans 1`] = `
                   columns={
                     Array [
                       "ID",
-                      "Updated",
                       "Patron ID",
                       "Document ID",
                       "Start date",
@@ -312,14 +293,12 @@ exports[`IdleLoansList tests should render loans 1`] = `
                         "ID": "loan1",
                         "Patron ID": "patron_1",
                         "Start date": "2018-01-01",
-                        "Updated": "2018-01-01 10:05",
                       },
                       Object {
                         "Document ID": "doc1",
                         "ID": "loan2",
                         "Patron ID": "patron_2",
                         "Start date": "2018-01-01",
-                        "Updated": "2018-01-01 10:05",
                       },
                     ]
                   }
@@ -420,20 +399,8 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Updated-loan1"
-                            key="1-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Updated-loan1"
-                            >
-                              2018-01-01 10:05
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
                             data-test="Patron ID-loan1"
-                            key="2-loan1"
+                            key="1-loan1"
                           >
                             <td
                               className=""
@@ -445,7 +412,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           <TableCell
                             as="td"
                             data-test="Document ID-loan1"
-                            key="3-loan1"
+                            key="2-loan1"
                           >
                             <td
                               className=""
@@ -457,7 +424,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           <TableCell
                             as="td"
                             data-test="Start date-loan1"
-                            key="4-loan1"
+                            key="3-loan1"
                           >
                             <td
                               className=""
@@ -558,20 +525,8 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Updated-loan2"
-                            key="1-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="Updated-loan2"
-                            >
-                              2018-01-01 10:05
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
                             data-test="Patron ID-loan2"
-                            key="2-loan2"
+                            key="1-loan2"
                           >
                             <td
                               className=""
@@ -583,7 +538,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           <TableCell
                             as="td"
                             data-test="Document ID-loan2"
-                            key="3-loan2"
+                            key="2-loan2"
                           >
                             <td
                               className=""
@@ -595,7 +550,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           <TableCell
                             as="td"
                             data-test="Start date-loan2"
-                            key="4-loan2"
+                            key="3-loan2"
                           >
                             <td
                               className=""
@@ -611,7 +566,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={5}
+                  columnsNumber={4}
                   currentPage={1}
                   paginationComponent={null}
                   seeAllComponent={
@@ -665,7 +620,7 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
         }
         showMaxRows={5}
         singleLine={false}
-        subtitle="Loan requests in PENDING state longer than 10 days."
+        subtitle="Loan requests pending since more than 10 days."
         title="Idle loans"
       >
         <Segment>
@@ -690,19 +645,19 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
                         <Header
                           as="h3"
                           content="Idle loans"
-                          subheader="Loan requests in PENDING state longer than 10 days."
+                          subheader="Loan requests pending since more than 10 days."
                         >
                           <h3
                             className="ui header"
                           >
                             Idle loans
                             <HeaderSubheader
-                              content="Loan requests in PENDING state longer than 10 days."
+                              content="Loan requests pending since more than 10 days."
                             >
                               <div
                                 className="sub header"
                               >
-                                Loan requests in PENDING state longer than 10 days.
+                                Loan requests pending since more than 10 days.
                               </div>
                             </HeaderSubheader>
                           </h3>

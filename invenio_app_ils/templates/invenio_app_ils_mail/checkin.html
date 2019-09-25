@@ -1,8 +1,10 @@
 {% block subject %}
-Your loan item was returned to the library
+Your loan on "{{ document.title }}" is now completed
 {% endblock %}
 
 
 {% block body %}
-Item returned to the library.
+Dear {{ patron.email }},
+
+Your loan on "{{ document.title }}" is now completed.
 {% endblock %}

@@ -99,12 +99,10 @@ exports[`PatronLoans tests should render patron loans 1`] = `
             Object {
               "Document ID": "doc1",
               "ID": "loan1",
-              "Start date": "2018-01-01",
             },
             Object {
               "Document ID": "doc1",
               "ID": "loan2",
-              "Start date": "2018-01-01",
             },
           ]
         }
@@ -184,7 +182,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                     Array [
                       "ID",
                       "Document ID",
-                      "Start date",
                     ]
                   }
                   withRowAction={true}
@@ -252,21 +249,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               </th>
                             </TableCell>
                           </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Start date"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Start date
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
                         </tr>
                       </TableRow>
                     </thead>
@@ -277,7 +259,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                     Array [
                       "ID",
                       "Document ID",
-                      "Start date",
                     ]
                   }
                   rowActionClickHandler={[Function]}
@@ -286,12 +267,10 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                       Object {
                         "Document ID": "doc1",
                         "ID": "loan1",
-                        "Start date": "2018-01-01",
                       },
                       Object {
                         "Document ID": "doc1",
                         "ID": "loan2",
-                        "Start date": "2018-01-01",
                       },
                     ]
                   }
@@ -402,18 +381,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               doc1
                             </td>
                           </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Start date-loan1"
-                            key="2-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Start date-loan1"
-                            >
-                              2018-01-01
-                            </td>
-                          </TableCell>
                         </tr>
                       </TableRow>
                       <TableRow
@@ -516,18 +483,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               doc1
                             </td>
                           </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Start date-loan2"
-                            key="2-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="Start date-loan2"
-                            >
-                              2018-01-01
-                            </td>
-                          </TableCell>
                         </tr>
                       </TableRow>
                     </tbody>
@@ -535,7 +490,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={3}
+                  columnsNumber={2}
                   currentPage={1}
                   paginationComponent={null}
                   seeAllComponent={
@@ -748,12 +703,10 @@ exports[`PatronLoans tests should render the see all button when showing only a 
             Object {
               "Document ID": "doc1",
               "ID": "loan1",
-              "Start date": "2018-01-01",
             },
             Object {
               "Document ID": "doc1",
               "ID": "loan2",
-              "Start date": "2018-01-01",
             },
           ]
         }
@@ -833,7 +786,6 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                     Array [
                       "ID",
                       "Document ID",
-                      "Start date",
                     ]
                   }
                   withRowAction={true}
@@ -901,21 +853,6 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                               </th>
                             </TableCell>
                           </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Start date"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Start date
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
                         </tr>
                       </TableRow>
                     </thead>
@@ -926,7 +863,6 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                     Array [
                       "ID",
                       "Document ID",
-                      "Start date",
                     ]
                   }
                   rowActionClickHandler={[Function]}
@@ -935,7 +871,6 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                       Object {
                         "Document ID": "doc1",
                         "ID": "loan1",
-                        "Start date": "2018-01-01",
                       },
                     ]
                   }
@@ -1046,18 +981,6 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                               doc1
                             </td>
                           </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Start date-loan1"
-                            key="2-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Start date-loan1"
-                            >
-                              2018-01-01
-                            </td>
-                          </TableCell>
                         </tr>
                       </TableRow>
                     </tbody>
@@ -1065,7 +988,7 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={3}
+                  columnsNumber={2}
                   currentPage={1}
                   paginationComponent={null}
                   seeAllComponent={
@@ -1100,18 +1023,18 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                           >
                             <TableHeaderCell
                               as="th"
-                              colSpan={4}
+                              colSpan={3}
                               textAlign="right"
                             >
                               <TableCell
                                 as="th"
                                 className=""
-                                colSpan={4}
+                                colSpan={3}
                                 textAlign="right"
                               >
                                 <th
                                   className="right aligned"
-                                  colSpan={4}
+                                  colSpan={3}
                                 >
                                   <span>
                                     Showing entries 

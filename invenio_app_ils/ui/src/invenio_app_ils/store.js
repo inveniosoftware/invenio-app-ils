@@ -17,7 +17,7 @@ import {
   documentRelations,
 } from './pages/backoffice/DocumentDetails/reducer';
 import { deleteRecordModalReducer } from './pages/backoffice/components/DeleteRecordModal/reducer';
-import { sendMailModalReducer } from './pages/backoffice/components/SendMailModal/reducer';
+import { overdueLoanSendMailModalReducer } from './pages/backoffice/components/OverdueLoanSendMailModal/reducer';
 import { eitemDetailsReducer } from './pages/backoffice/EItemDetails/reducer';
 import {
   itemDetailsReducer,
@@ -99,7 +99,7 @@ const rootReducer = combineReducers({
   patronPastLoans: patronPastLoansReducer,
   patronPendingLoans: patronPendingLoansReducer,
   pendingOverdueDocuments: pendingOverdueDocumentsReducer,
-  sendMailModal: sendMailModalReducer,
+  overdueLoanSendMailModal: overdueLoanSendMailModalReducer,
   seriesDetails: seriesDetailsReducer,
   seriesDocuments: seriesDocumentsReducer,
   seriesMultipartMonographs: seriesMultipartMonographsReducer,

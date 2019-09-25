@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
-import { loan as loanApi } from '../../../../../common/api/';
+import { loan as loanApi } from '../../../../../common/api';
 import './PatronLoans.scss';
-
+import { invenioConfig } from '../../../../../common/config';
 import { ResultsTable } from '../../../../../common/components';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
@@ -30,7 +30,7 @@ export default class PatronPendingLoans extends Component {
       loanApi
         .query()
         .withPatronPid(patronPid)
-        .withState('PENDING')
+        .withState(invenioConfig.circulation.loanRequestStates)
         .qs()
     );
     return <SeeAllButton clickHandler={goToHandler(path)} />;
@@ -38,12 +38,7 @@ export default class PatronPendingLoans extends Component {
 
   prepareData(data) {
     return data.hits.map(row => {
-      return pick(formatter.loan.toTable(row), [
-        'ID',
-        'Document ID',
-        'Start date',
-        'Expiration date',
-      ]);
+      return pick(formatter.loan.toTable(row), ['ID', 'Document ID']);
     });
   }
 

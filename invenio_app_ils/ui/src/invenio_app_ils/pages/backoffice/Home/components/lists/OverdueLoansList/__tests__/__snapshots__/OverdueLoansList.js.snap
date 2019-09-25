@@ -87,7 +87,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
         rows={
           Array [
             Object {
-              "Actions": <Memo(Connect(SendMailModal))
+              "Actions": <Memo(Connect(OverdueLoanSendMailModal))
                 loan={
                   Object {
                     "created": "2018-01-01T10:05:00.000Z",
@@ -113,7 +113,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
               "Patron ID": "patron_1",
             },
             Object {
-              "Actions": <Memo(Connect(SendMailModal))
+              "Actions": <Memo(Connect(OverdueLoanSendMailModal))
                 loan={
                   Object {
                     "created": "2018-01-01T10:05:00.000Z",
@@ -352,7 +352,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                   rows={
                     Array [
                       Object {
-                        "Actions": <Memo(Connect(SendMailModal))
+                        "Actions": <Memo(Connect(OverdueLoanSendMailModal))
                           loan={
                             Object {
                               "created": "2018-01-01T10:05:00.000Z",
@@ -378,7 +378,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                         "Patron ID": "patron_1",
                       },
                       Object {
-                        "Actions": <Memo(Connect(SendMailModal))
+                        "Actions": <Memo(Connect(OverdueLoanSendMailModal))
                           loan={
                             Object {
                               "created": "2018-01-01T10:05:00.000Z",
@@ -545,7 +545,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                               className=""
                               data-test="Actions-loan1"
                             >
-                              <Connect(SendMailModal)
+                              <Connect(OverdueLoanSendMailModal)
                                 loan={
                                   Object {
                                     "created": "2018-01-01T10:05:00.000Z",
@@ -702,7 +702,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                               className=""
                               data-test="Actions-loan2"
                             >
-                              <Connect(SendMailModal)
+                              <Connect(OverdueLoanSendMailModal)
                                 loan={
                                   Object {
                                     "created": "2018-01-01T10:05:00.000Z",

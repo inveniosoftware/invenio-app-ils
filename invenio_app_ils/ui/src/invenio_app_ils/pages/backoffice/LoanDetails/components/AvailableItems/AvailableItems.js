@@ -5,6 +5,7 @@ import { Loader, Error, ResultsTable } from '../../../../../common/components';
 import './AvailableItems.scss';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { item as itemApi } from '../../../../../common/api';
+import { invenioConfig } from '../../../../../common/config';
 import { SeeAllButton } from '../../../components/buttons/SeeAllButton';
 import { goTo, goToHandler } from '../../../../../history';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
@@ -15,7 +16,7 @@ export default class AvailableItems extends Component {
     super(props);
     this.fetchAvailableItems = props.fetchAvailableItems;
     this.assignItemToLoan = props.assignItemToLoan;
-    this.assignItemAndCheckout = props.assignItemAndCheckout;
+    this.performCheckoutAction = props.performCheckoutAction;
     this.showDetailsUrl = BackOfficeRoutes.itemDetailsFor;
     this.seeAllUrl = BackOfficeRoutes.itemsListWithQuery;
   }
@@ -55,11 +56,15 @@ export default class AvailableItems extends Component {
         size="mini"
         color="teal"
         onClick={() => {
-          this.assignItemAndCheckout(
-            this.props.loan.pid,
-            loan,
-            loan.availableActions.checkout,
-            item.metadata.pid
+          const checkoutUrl = loan.availableActions.checkout;
+          const patronPid = loan.metadata.patron_pid;
+          const documentPid = item.metadata.document.pid;
+          const itemPid = item.metadata.pid;
+          this.performCheckoutAction(
+            checkoutUrl,
+            documentPid,
+            patronPid,
+            itemPid
           );
         }}
       >
@@ -101,7 +106,10 @@ export default class AvailableItems extends Component {
 
   rowActionButton(row) {
     const { loan } = this.props;
-    if (loan.metadata.state === 'PENDING') {
+    const isRequested = invenioConfig.circulation.loanRequestStates.includes(
+      loan.metadata.state
+    );
+    if (isRequested) {
       return this.checkoutItemButton(row, loan);
     } else {
       return this.assignItemButton(row);

@@ -7,7 +7,7 @@
 
 """Circulation mail message objects."""
 
-from flask import current_app, request
+from flask import current_app
 from flask_mail import Message
 from invenio_circulation.api import get_available_item_by_doc_pid
 from jinja2.exceptions import TemplateError
@@ -58,28 +58,30 @@ class LoanMessage(BlockTemplatedMessage):
         checkin="invenio_app_ils_mail/checkin.html",
         extend="invenio_app_ils_mail/extend.html",
         cancel="invenio_app_ils_mail/cancel.html",
+        overdue_reminder="invenio_app_ils_mail/overdue.html",
     )
 
-    def __init__(self, prev_loan, loan, trigger, **kwargs):
+    def __init__(self, trigger, message_ctx, **kwargs):
         """Create loan message based on the trigger."""
-        self.prev_loan = prev_loan
-        self.loan = loan
         self.trigger = trigger
+        self.loan = message_ctx.get("loan", {})
+        templates = dict(
+            self.default_templates,
+            **current_app.config["ILS_MAIL_LOAN_TEMPLATES"]
+        )
+        if not self.trigger or self.trigger not in templates:
+            raise KeyError(
+                "Invalid trigger argument `{0}` or not found in "
+                "templates `{1}`.".format(self.trigger, list(templates.keys()))
+            )
 
-        templates = dict(self.default_templates,
-                         **current_app.config["LOAN_MAIL_TEMPLATES"])
         sender = current_app.config["MAIL_NOTIFY_SENDER"]
         bcc = current_app.config["MAIL_NOTIFY_BCC"]
         cc = current_app.config["MAIL_NOTIFY_CC"]
 
         super(LoanMessage, self).__init__(
             template=templates[self.trigger_template],
-            ctx=dict(
-                trigger=trigger,
-                prev_loan=prev_loan,
-                loan=loan,
-                **kwargs
-            ),
+            ctx=dict(**message_ctx, **kwargs),
             sender=kwargs.pop("sender", sender),
             cc=kwargs.pop("cc", cc),
             bcc=kwargs.pop("bcc", bcc),
@@ -89,37 +91,15 @@ class LoanMessage(BlockTemplatedMessage):
     @property
     def trigger_template(self):
         """Get the template filename based on the trigger."""
-        if self.trigger == "request":
-            if not get_available_item_by_doc_pid(self.loan["document_pid"]):
-                return "request_no_items"
-        return self.trigger
-
-
-class OverdueLoanMessage(BlockTemplatedMessage):
-    """Loader for loan overdue messages."""
-
-    default_template = "invenio_app_ils_mail/overdue.html"
-
-    def __init__(self, loan, document_title, patron_email, days_ago, **kwargs):
-        """Create overdue loan message."""
-        sender = current_app.config["MAIL_NOTIFY_SENDER"]
-        bcc = current_app.config["MAIL_NOTIFY_BCC"]
-        cc = current_app.config["MAIL_NOTIFY_CC"]
-
-        template = current_app.config["OVERDUE_LOAN_MAIL_TEMPLATE"] or \
-            self.default_template
-
-        super(OverdueLoanMessage, self).__init__(
-            template=template,
-            ctx=dict(
-                loan=loan,
-                document_title=document_title,
-                patron_email=patron_email,
-                days_ago=days_ago,
-                **kwargs
-            ),
-            sender=kwargs.pop("sender", sender),
-            cc=kwargs.pop("cc", cc),
-            bcc=kwargs.pop("bcc", bcc),
-            **kwargs
+        new_state = self.loan.get("state")
+        document_pid = self.loan.get("document_pid")
+        is_request = (
+            new_state in current_app.config["CIRCULATION_STATES_LOAN_REQUEST"]
         )
+        if (
+            is_request
+            and document_pid
+            and not get_available_item_by_doc_pid(document_pid)
+        ):
+            return "request_no_items"
+        return self.trigger

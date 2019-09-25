@@ -11,7 +11,7 @@ import { NewButton } from '../../../../components/buttons';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { DeleteRecordModal } from '../../../../../backoffice/components';
 import omit from 'lodash/omit';
-import { goTo, goToHandler } from '../../../../../../history';
+import { goToHandler } from '../../../../../../history';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 
 export default class InternalLocationList extends Component {

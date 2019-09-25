@@ -1,8 +1,10 @@
 {% block subject %}
-Your loan has been confirmed
+Your loan on "{{ document.title }}" has started
 {% endblock %}
 
 
 {% block body %}
-Your loan has been confirmed.
+Dear {{ patron.email }},
+
+Your loan on "{{ document.title }}" has started.
 {% endblock %}

@@ -27,7 +27,7 @@ from invenio_records_rest.utils import deny_all
 from .circulation.search import IlsLoansSearch
 from .facets import keyed_range_filter
 from .jwt import ils_jwt_create_token
-from .records.resolver.loan import item_resolver
+from .records.resolver.loan import item_resolver, patron_resolver
 
 from .api import (  # isort:skip
     can_item_circulate,
@@ -50,6 +50,7 @@ from invenio_circulation.transitions.transitions import (  # isort:skip
     CreatedToPending,
     ItemOnLoanToItemReturned,
     ItemOnLoanToItemOnLoan,
+    ToCancelled,
 )
 
 from .circulation.utils import (  # isort:skip
@@ -58,6 +59,7 @@ from .circulation.utils import (  # isort:skip
     circulation_default_loan_duration,
     circulation_is_loan_duration_valid,
     circulation_build_item_ref,
+    circulation_build_patron_ref,
     circulation_can_be_requested,
 )
 from .indexer import (  # isort:skip
@@ -168,18 +170,6 @@ HEADER_TEMPLATE = "invenio_theme/header.html"
 #: Settings base template.
 SETTINGS_TEMPLATE = "invenio_theme/page_settings.html"
 
-# Email templates
-# ===============
-#: Loan status email templates
-LOAN_MAIL_TEMPLATES = {}
-OVERDUE_LOAN_MAIL_TEMPLATE = ''
-
-# Email message loaders
-# ===============
-#: Loan message loader
-LOAN_MSG_LOADER = "invenio_app_ils.circulation.mail.loader:loan_message_loader"
-OVERDUE_LOAN_MSG_LOADER = "invenio_app_ils.circulation.mail.loader:overdue_loan_message_loader"
-
 # Theme configuration
 # ===================
 THEME_FRONTPAGE = False
@@ -190,11 +180,6 @@ THEME_FRONTPAGE = False
 SUPPORT_EMAIL = "info@inveniosoftware.org"
 #: Disable email sending by default.
 MAIL_SUPPRESS_SEND = True
-#: Notification email for overdue loan every X days
-OVERDUE_LOAN_MAIL_INTERVAL = 3
-
-# Notification configuration
-# ==========================
 #: Email address for email notification sender.
 MAIL_NOTIFY_SENDER = "noreply@inveniosoftware.org"
 #: Email CC address(es) for email notifications.
@@ -202,9 +187,17 @@ MAIL_NOTIFY_CC = []
 #: Email BCC address(es) for email notification.
 MAIL_NOTIFY_BCC = []
 # Enable sending mail to test recipients.
-ENABLE_TEST_RECIPIENTS = True
-#: When variable ENABLE_TEST_RECIPIENTS is True all emails are send here.
-MAIL_NOTIFY_TEST_RECIPIENTS = ['test@inveniosoftware.org']
+ILS_MAIL_ENABLE_TEST_RECIPIENTS = True
+#: When ILS_MAIL_ENABLE_TEST_RECIPIENTS=True, all emails are sent here
+ILS_MAIL_NOTIFY_TEST_RECIPIENTS = ["onlyme@inveniosoftware.org"]
+#: Loan status email templates
+ILS_MAIL_LOAN_TEMPLATES = {}
+#: Loan message loader
+ILS_MAIL_LOAN_MSG_LOADER = (
+    "invenio_app_ils.circulation.mail.loader:loan_message_loader"
+)
+#: Notification email for overdue loan sent automatically every X days
+ILS_MAIL_LOAN_OVERDUE_REMINDER_INTERVAL = 3
 
 # Assets
 # ======
@@ -241,7 +234,7 @@ CELERY_BEAT_SCHEDULE = {
     "overdue_loans": {
         "task": "invenio_app_ils.circulation.mail.tasks.send_overdue_loans_mail_reminder",
         "schedule": timedelta(days=1),
-    }
+    },
 }
 
 # Database
@@ -306,9 +299,7 @@ _LOCID_CONVERTER = (
 _ILOCID_CONVERTER = (
     'pid(ilocid, record_class="invenio_app_ils.records.api:InternalLocation")'
 )
-_TAGID_CONVERTER = (
-    'pid(tagid, record_class="invenio_app_ils.records.api:Tag")'
-)
+_TAGID_CONVERTER = 'pid(tagid, record_class="invenio_app_ils.records.api:Tag")'
 _DREQID_CONVERTER = (
     'pid(dreqid, record_class="invenio_app_ils.records.api:DocumentRequest")'
 )
@@ -469,6 +460,10 @@ RECORDS_REST_ENDPOINTS = dict(
                 "invenio_records_rest.serializers:json_v1_search"
             )
         },
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "json": "application/json",
+        },
         list_route="/locations/",
         item_route="/locations/<{0}:pid_value>".format(_LOCID_CONVERTER),
         default_media_type="application/json",
@@ -544,6 +539,10 @@ RECORDS_REST_ENDPOINTS = dict(
                 "invenio_records_rest.serializers:json_v1_search"
             )
         },
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "json": "application/json",
+        },
         list_route="/internal-locations/",
         item_route="/internal-locations/<{0}:pid_value>".format(
             _ILOCID_CONVERTER
@@ -573,6 +572,10 @@ RECORDS_REST_ENDPOINTS = dict(
             ),
             "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
         },
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "json": "application/json",
+        },
         item_route="/patrons/<pid({}):pid_value>".format(PATRON_PID_TYPE),
         list_route="/patrons/",
         default_media_type="application/json",
@@ -601,6 +604,10 @@ RECORDS_REST_ENDPOINTS = dict(
                 "invenio_records_rest.serializers:json_v1_search"
             )
         },
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "json": "application/json",
+        },
         item_route="/tags/<{0}:pid_value>".format(_TAGID_CONVERTER),
         list_route="/tags/",
         default_media_type="application/json",
@@ -620,7 +627,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=DocumentRequest,
         indexer_class=DocumentRequestIndexer,
         search_factory_imp="invenio_app_ils.search.api"
-                           ":filter_by_patron_search_factory",
+        ":filter_by_patron_search_factory",
         record_loaders={
             "application/json": (
                 "invenio_app_ils.records.loaders:document_request_loader"
@@ -632,7 +639,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_response"
-            ),
+            )
         },
         search_serializers={
             "application/json": (
@@ -673,7 +680,12 @@ CIRCULATION_DOCUMENT_EXISTS = document_exists
 
 CIRCULATION_ITEM_LOCATION_RETRIEVER = get_location_pid_by_item_pid
 
-CIRCULATION_DELIVERY_METHODS = ['PICK_UP', 'DELIVERY']
+CIRCULATION_LOAN_REQUEST_DURATION_DAYS = 60
+
+CIRCULATION_DELIVERY_METHODS = {
+    "PICKUP": "Pick it up at the library desk",
+    "DELIVERY": "Delivery",
+}
 
 CIRCULATION_POLICIES = dict(
     checkout=dict(
@@ -689,13 +701,21 @@ CIRCULATION_POLICIES = dict(
     request=dict(can_be_requested=circulation_can_be_requested),
 )
 
+CIRCULATION_ITEM_REF_BUILDER = circulation_build_item_ref
+
 CIRCULATION_ITEM_RESOLVING_PATH = (
     "/api/resolver/circulation/loans/<loan_pid>/item"
 )
 
 CIRCULATION_ITEM_RESOLVER_ENDPOINT = item_resolver
 
-CIRCULATION_ITEM_REF_BUILDER = circulation_build_item_ref
+CIRCULATION_PATRON_REF_BUILDER = circulation_build_patron_ref
+
+CIRCULATION_PATRON_RESOLVING_PATH = (
+    "/api/resolver/circulation/loans/<loan_pid>/patron"
+)
+
+CIRCULATION_PATRON_RESOLVER_ENDPOINT = patron_resolver
 
 CIRCULATION_LOAN_TRANSITIONS = {
     "CREATED": [
@@ -704,6 +724,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
             trigger="request",
             transition=CreatedToPending,
             permission_factory=authenticated_user_permission,
+            assign_item=False,
         ),
         dict(
             dest="ITEM_ON_LOAN",
@@ -722,6 +743,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
         dict(
             dest="CANCELLED",
             trigger="cancel",
+            transition=ToCancelled,
             permission_factory=backoffice_permission,
         ),
     ],
@@ -731,6 +753,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
             trigger="checkin",
             transition=ItemOnLoanToItemReturned,
             permission_factory=backoffice_permission,
+            assign_item=False,
         ),
         dict(
             dest="ITEM_ON_LOAN",
@@ -741,6 +764,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
         dict(
             dest="CANCELLED",
             trigger="cancel",
+            transition=ToCancelled,
             permission_factory=backoffice_permission,
         ),
     ],
@@ -755,9 +779,14 @@ CIRCULATION_REST_ENDPOINTS = dict(
         pid_fetcher=CIRCULATION_LOAN_FETCHER,
         search_class=IlsLoansSearch,
         search_factory_imp="invenio_app_ils.search.api"
-                           ":filter_by_patron_search_factory",
+        ":filter_by_patron_search_factory",
         record_class="invenio_circulation.api:Loan",
         indexer_class=LoanIndexer,
+        record_loaders={
+            "application/json": (
+                "invenio_circulation.records.loaders:loan_loader"
+            )
+        },
         record_serializers={
             "application/json": (
                 "invenio_app_ils.records.serializers:loan_v1_response"
@@ -778,7 +807,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
         error_handlers=dict(),
         read_permission_factory_imp=LoanOwnerPermission,
-        create_permission_factory_imp=backoffice_permission,
+        create_permission_factory_imp=deny_all,
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
         list_permission_factory_imp=authenticated_user_permission,
@@ -868,9 +897,7 @@ FACET_TAG_LIMIT = 5
 RECORDS_REST_FACETS = dict(
     documents=dict(  # DocumentSearch.Meta.index
         aggs=dict(
-            tags=dict(
-                terms=dict(field="tags.name", size=FACET_TAG_LIMIT)
-            ),
+            tags=dict(terms=dict(field="tags.name", size=FACET_TAG_LIMIT)),
             languages=dict(terms=dict(field="languages")),
             document_type=dict(terms=dict(field="document_type")),
             relations=dict(terms=dict(field="relations")),

@@ -8,7 +8,7 @@ exports[`PatronDocumentRequests tests should load the details component 1`] = `
       fixed={false}
       headerActionClickHandler={null}
       headerActionComponent={null}
-      name="document requests"
+      name="new book requests"
       paginationComponent={null}
       renderSegment={true}
       rowActionClickHandler={[Function]}
@@ -23,7 +23,7 @@ exports[`PatronDocumentRequests tests should load the details component 1`] = `
       showMaxRows={5}
       singleLine={false}
       subtitle=""
-      title="Patron's document requests"
+      title="Patron's new book requests"
     />
   </Error>
 </Loader>
@@ -87,7 +87,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
-        name="document requests"
+        name="new book requests"
         paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
@@ -117,7 +117,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
         showMaxRows={5}
         singleLine={false}
         subtitle=""
-        title="Patron's document requests"
+        title="Patron's new book requests"
       >
         <Segment>
           <div
@@ -140,13 +140,13 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       >
                         <Header
                           as="h3"
-                          content="Patron's document requests"
+                          content="Patron's new book requests"
                           subheader=""
                         >
                           <h3
                             className="ui header"
                           >
-                            Patron's document requests
+                            Patron's new book requests
                             <HeaderSubheader
                               content=""
                             >
@@ -632,7 +632,7 @@ exports[`PatronDocumentRequests tests should render show a message with no user 
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
-        name="document requests"
+        name="new book requests"
         paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
@@ -647,7 +647,7 @@ exports[`PatronDocumentRequests tests should render show a message with no user 
         showMaxRows={5}
         singleLine={false}
         subtitle=""
-        title="Patron's document requests"
+        title="Patron's new book requests"
       >
         <Segment>
           <div
@@ -670,13 +670,13 @@ exports[`PatronDocumentRequests tests should render show a message with no user 
                       >
                         <Header
                           as="h3"
-                          content="Patron's document requests"
+                          content="Patron's new book requests"
                           subheader=""
                         >
                           <h3
                             className="ui header"
                           >
-                            Patron's document requests
+                            Patron's new book requests
                             <HeaderSubheader
                               content=""
                             >
@@ -708,7 +708,7 @@ exports[`PatronDocumentRequests tests should render show a message with no user 
                 data-test="no-results"
               >
                 There are no 
-                document requests
+                new book requests
                 .
               </div>
             </Message>
@@ -778,7 +778,7 @@ exports[`PatronDocumentRequests tests should render the see all button when show
         fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
-        name="document requests"
+        name="new book requests"
         paginationComponent={null}
         renderSegment={true}
         rowActionClickHandler={[Function]}
@@ -808,7 +808,7 @@ exports[`PatronDocumentRequests tests should render the see all button when show
         showMaxRows={1}
         singleLine={false}
         subtitle=""
-        title="Patron's document requests"
+        title="Patron's new book requests"
       >
         <Segment>
           <div
@@ -831,13 +831,13 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                       >
                         <Header
                           as="h3"
-                          content="Patron's document requests"
+                          content="Patron's new book requests"
                           subheader=""
                         >
                           <h3
                             className="ui header"
                           >
-                            Patron's document requests
+                            Patron's new book requests
                             <HeaderSubheader
                               content=""
                             >

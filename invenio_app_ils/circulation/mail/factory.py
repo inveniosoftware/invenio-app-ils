@@ -27,14 +27,5 @@ def message_factory(loader, *args, **kwargs):
 def loan_message_factory():
     """Create a loan message factory."""
     return partial(
-        message_factory,
-        current_app.config["LOAN_MSG_LOADER"]
-    )
-
-
-def overdue_loan_message_factory():
-    """Create a loan overdue message factory."""
-    return partial(
-        message_factory,
-        current_app.config["OVERDUE_LOAN_MSG_LOADER"]
+        message_factory, current_app.config["ILS_MAIL_LOAN_MSG_LOADER"]
     )

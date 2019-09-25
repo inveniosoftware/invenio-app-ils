@@ -50,7 +50,7 @@ class UnauthorizedSearchError(IlsException):
     """The user performing the search is not authorized."""
 
     code = 403
-    description = "Search `{query}` not allowed by `patron_pid:{pid}`"
+    description = "Search '{query}' not allowed by 'patron_pid:{pid}'"
 
     def __init__(self, query, patron_pid=None, **kwargs):
         """Initialize UnauthorizedSearchError exception.
@@ -115,7 +115,7 @@ class PatronNotFoundError(IlsException):
     """A patron could not be found."""
 
     code = 404
-    description = "Patron with PID `{patron_pid}` was not found."
+    description = "Patron with PID '{patron_pid}' was not found."
 
     def __init__(self, patron_pid, **kwargs):
         """Initialize PatronNotFoundError exception."""
@@ -126,8 +126,8 @@ class PatronNotFoundError(IlsException):
 class PatronHasLoanOnItemError(IlsException):
     """A patron already has an active loan or a loan request on an item."""
 
-    description = ("Patron `patron_pid:{patron_pid}` already has an active "
-                   "loan or a loan request on item `item_pid:{item_pid}`")
+    description = ("Patron '{patron_pid}' has already an active "
+                   "loan on item '{item_pid}'")
 
     def __init__(self, patron_pid, item_pid, **kwargs):
         """Initialize PatronHasActiveLoanOnItem exception.
@@ -140,12 +140,11 @@ class PatronHasLoanOnItemError(IlsException):
             patron_pid=patron_pid, item_pid=item_pid)
 
 
-class PatronHasLoanOnDocumentError(IlsException):
-    """A patron already has an active loan or a loan request on a document."""
+class PatronHasRequestOnDocumentError(IlsException):
+    """A patron already has a loan request on a document."""
 
-    description = ("Patron `patron_pid:{patron_pid}` already has an active "
-                   "loan or a loan request on document "
-                   "`document_pid:{document_pid}`")
+    description = ("Patron '{patron_pid}' has already a loan "
+                   "request on document '{document_pid}'")
 
     def __init__(self, patron_pid, document_pid, **kwargs):
         """Initialize PatronHasActiveLoanOnDocument exception.
@@ -153,7 +152,7 @@ class PatronHasLoanOnDocumentError(IlsException):
         :param loan_params: Loan request parameters.
         :param prop: Missing property from loan request.
         """
-        super(PatronHasLoanOnDocumentError, self).__init__(**kwargs)
+        super(PatronHasRequestOnDocumentError, self).__init__(**kwargs)
         self.description = self.description.format(
             patron_pid=patron_pid, document_pid=document_pid)
 

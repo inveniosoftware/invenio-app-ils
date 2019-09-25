@@ -4,73 +4,34 @@ import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as types from '../types';
 import { loan as loanApi } from '../../../../../../../common/api';
-import { ApiURLS } from '../../../../../../../common/api/urls';
-import { sessionManager } from '../../../../../../../authentication/services';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-const mockPOST = jest.fn();
-loanApi.postAction = mockPOST;
+const mockDoCheckout = jest.fn();
+loanApi.doCheckout = mockDoCheckout;
 
 const response = { data: {} };
 const expectedPayload = {};
 
 const patronPid = '2';
 const documentPid = '123';
-const item = { pid: '2', metadata: { document_pid: documentPid } };
-const shouldForceCheckout = false;
+const itemPid = '22';
+const noForceCheckout = false;
 const doForceCheckout = true;
-
-sessionManager.user = { id: '2', locationPid: '2' };
 
 let store;
 beforeEach(() => {
-  mockPOST.mockClear();
+  mockDoCheckout.mockClear();
 
   store = mockStore(initialState);
   store.clearActions();
 });
 
 describe('ItemsCheckout actions tests', () => {
-  describe('POST Loan for checkout', () => {
-    const loan = {
-      metadata: {
-        item_pid: item.pid,
-        patron_pid: patronPid,
-        document_pid: documentPid,
-      },
-    };
-
+  describe('Direct checkout of an item', () => {
     it('should dispatch an action when checkout', done => {
-      mockPOST.mockResolvedValue(response);
-
-      const expectedActions = [
-        {
-          type: types.IS_LOADING,
-        },
-      ];
-
-      store.dispatch(actions.checkoutItem(item, patronPid)).then(() => {
-        expect(mockPOST).toHaveBeenCalledWith(
-          ApiURLS.loans.create,
-          item.pid,
-          loan,
-          sessionManager.user.id,
-          sessionManager.user.locationPid,
-          {
-            force_checkout: shouldForceCheckout,
-          }
-        );
-
-        const actions = store.getActions();
-        expect(actions[0]).toEqual(expectedActions[0]);
-        done();
-      });
-    });
-
-    it('should dispatch an action when forcing checkout', done => {
-      mockPOST.mockResolvedValue(response);
+      mockDoCheckout.mockResolvedValue(response);
 
       const expectedActions = [
         {
@@ -79,16 +40,14 @@ describe('ItemsCheckout actions tests', () => {
       ];
 
       store
-        .dispatch(actions.checkoutItem(item, patronPid, doForceCheckout))
+        .dispatch(actions.checkoutItem(documentPid, itemPid, patronPid))
         .then(() => {
-          expect(mockPOST).toHaveBeenCalledWith(
-            ApiURLS.loans.create,
-            item.pid,
-            loan,
-            sessionManager.user.id,
-            sessionManager.user.locationPid,
+          expect(mockDoCheckout).toHaveBeenCalledWith(
+            documentPid,
+            itemPid,
+            patronPid,
             {
-              force_checkout: doForceCheckout,
+              force: noForceCheckout,
             }
           );
 
@@ -98,8 +57,37 @@ describe('ItemsCheckout actions tests', () => {
         });
     });
 
-    it('should dispatch an action when user fetch succeeds', done => {
-      mockPOST.mockResolvedValue(response);
+    it('should dispatch an action forcing checkout', done => {
+      mockDoCheckout.mockResolvedValue(response);
+
+      const expectedActions = [
+        {
+          type: types.IS_LOADING,
+        },
+      ];
+
+      store
+        .dispatch(
+          actions.checkoutItem(documentPid, itemPid, patronPid, doForceCheckout)
+        )
+        .then(() => {
+          expect(mockDoCheckout).toHaveBeenCalledWith(
+            documentPid,
+            itemPid,
+            patronPid,
+            {
+              force: doForceCheckout,
+            }
+          );
+
+          const actions = store.getActions();
+          expect(actions[0]).toEqual(expectedActions[0]);
+          done();
+        });
+    });
+
+    it('should dispatch an action without forcing checkout', done => {
+      mockDoCheckout.mockResolvedValue(response);
 
       const expectedActions = [
         {
@@ -108,25 +96,25 @@ describe('ItemsCheckout actions tests', () => {
         },
       ];
 
-      store.dispatch(actions.checkoutItem(item, patronPid)).then(() => {
-        expect(mockPOST).toHaveBeenCalledWith(
-          ApiURLS.loans.create,
-          item.pid,
-          loan,
-          sessionManager.user.id,
-          sessionManager.user.locationPid,
-          {
-            force_checkout: shouldForceCheckout,
-          }
-        );
-        const actions = store.getActions();
-        expect(actions[1]).toEqual(expectedActions[0]);
-        done();
-      });
+      store
+        .dispatch(actions.checkoutItem(documentPid, itemPid, patronPid))
+        .then(() => {
+          expect(mockDoCheckout).toHaveBeenCalledWith(
+            documentPid,
+            itemPid,
+            patronPid,
+            {
+              force: noForceCheckout,
+            }
+          );
+          const actions = store.getActions();
+          expect(actions[1]).toEqual(expectedActions[0]);
+          done();
+        });
     });
 
     it('should dispatch an action when user fetch fails', done => {
-      mockPOST.mockRejectedValue([500, 'Error']);
+      mockDoCheckout.mockRejectedValue([500, 'Error']);
 
       const expectedActions = [
         {
@@ -135,21 +123,21 @@ describe('ItemsCheckout actions tests', () => {
         },
       ];
 
-      store.dispatch(actions.checkoutItem(item, patronPid)).then(() => {
-        expect(mockPOST).toHaveBeenCalledWith(
-          ApiURLS.loans.create,
-          item.pid,
-          loan,
-          sessionManager.user.id,
-          sessionManager.user.locationPid,
-          {
-            force_checkout: shouldForceCheckout,
-          }
-        );
-        const actions = store.getActions();
-        expect(actions[1]).toEqual(expectedActions[0]);
-        done();
-      });
+      store
+        .dispatch(actions.checkoutItem(documentPid, itemPid, patronPid))
+        .then(() => {
+          expect(mockDoCheckout).toHaveBeenCalledWith(
+            documentPid,
+            itemPid,
+            patronPid,
+            {
+              force: noForceCheckout,
+            }
+          );
+          const actions = store.getActions();
+          expect(actions[1]).toEqual(expectedActions[0]);
+          done();
+        });
     });
   });
 });

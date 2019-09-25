@@ -1,4 +1,5 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
+import { invenioConfig } from '../../../../../../../common/config';
 import { loan as loanApi } from '../../../../../../../common/api';
 import { DateTime } from 'luxon';
 import { toShortDate } from '../../../../../../../common/api/date';
@@ -13,7 +14,7 @@ export const fetchIdlePendingLoans = () => {
       .list(
         loanApi
           .query()
-          .withState('PENDING')
+          .withState(invenioConfig.circulation.loanRequestStates)
           .withUpdated({
             to: toShortDate(DateTime.local().minus({ days: 10 })),
           })

@@ -1,31 +1,28 @@
 import { HAS_ERROR, IS_LOADING } from '../state/types';
 import { sessionManager } from '../../../../../../authentication/services';
+import { DateTime } from 'luxon';
+import { toShortDate } from '../../../../../../common/api/date';
 import { loan as loanApi } from '../../../../../../common/api';
-import { ApiURLS } from '../../../../../../common/api/urls';
 import {
   sendErrorNotification,
   sendSuccessNotification,
 } from '../../../../../../common/components/Notifications';
 
-export const requestLoanForDocument = (docPid, loanData) => {
+export const requestLoanForDocument = (
+  documentPid,
+  { requestEndDate = null, deliveryMethod = null } = {}
+) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
-    const currentUser = sessionManager.user;
+    const today = toShortDate(DateTime.local());
     try {
-      await loanApi.postAction(
-        ApiURLS.loans.request,
-        docPid,
-        loanData,
-        currentUser.id,
-        currentUser.locationPid,
-        {
-          start_date: loanData.metadata.start_date,
-          end_date: loanData.metadata.end_date,
-          delivery: loanData.metadata.delivery,
-        }
-      );
+      await loanApi.doRequest(documentPid, sessionManager.user.id, {
+        requestExpireDate: requestEndDate,
+        requestStartDate: today,
+        deliveryMethod: deliveryMethod,
+      });
       dispatch(
         sendSuccessNotification(
           'Success!',

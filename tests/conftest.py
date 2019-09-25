@@ -25,8 +25,12 @@ def users(app, db):
                                         password='123456', active=True)
         patron2 = datastore.create_user(email='patron2@test.com',
                                         password='123456', active=True)
+        patron3 = datastore.create_user(email='patron3@test.com',
+                                        password='123456', active=True)
         librarian = datastore.create_user(email='librarian@test.com',
                                           password='123456', active=True)
+        librarian2 = datastore.create_user(email='librarian2@test.com',
+                                           password='123456', active=True)
         admin = datastore.create_user(email='admin@test.com',
                                       password='123456', active=True)
         # Give role to admin
@@ -39,11 +43,17 @@ def users(app, db):
         db.session.add(ActionRoles(action=backoffice_access_action.value,
                                    role=librarian_role))
         datastore.add_role_to_user(librarian, librarian_role)
+        # Give role to librarian2
+        db.session.add(ActionRoles(action=backoffice_access_action.value,
+                                   role=librarian_role))
+        datastore.add_role_to_user(librarian2, librarian_role)
     db.session.commit()
 
     return {
         'admin': admin,
         'librarian': librarian,
+        'librarian2': librarian2,
         'patron1': patron1,
         'patron2': patron2,
+        'patron3': patron3,
     }

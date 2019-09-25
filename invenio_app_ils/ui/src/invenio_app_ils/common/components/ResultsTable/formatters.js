@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { fromISO, toShortDate, toShortDateTime } from '../../api/date';
+import { fromISO, toShortDate } from '../../api/date';
 import isEmpty from 'lodash/isEmpty';
 import assign from 'lodash/assign';
 import { formatPidTypeToName } from '../ManageRelationsButton/utils';
@@ -10,19 +10,28 @@ import { invenioConfig } from '../../config';
 import startCase from 'lodash/startCase';
 
 function formatLoanToTableView(loan, actions = null) {
+  const requestStartDate = loan.metadata.request_start_date
+    ? toShortDate(fromISO(loan.metadata.request_start_date))
+    : null;
+  const requestEndDate = loan.metadata.request_expire_date
+    ? toShortDate(fromISO(loan.metadata.request_expire_date))
+    : null;
+  const startDate = loan.metadata.start_date
+    ? toShortDate(fromISO(loan.metadata.start_date))
+    : null;
+  const endDate = loan.metadata.start_date
+    ? toShortDate(fromISO(loan.metadata.end_date))
+    : null;
   return {
     ID: loan.pid ? loan.pid : loan.id,
-    Created: toShortDateTime(fromISO(loan.created)),
-    Updated: toShortDateTime(fromISO(loan.updated)),
     'Patron ID': loan.metadata.patron_pid,
     'Document ID': loan.metadata.document_pid,
     State: loan.metadata.state,
     'Item barcode': loan.metadata.item ? loan.metadata.item.barcode : null,
-    'Start date': toShortDate(fromISO(loan.metadata.start_date)),
-    'End date': toShortDate(fromISO(loan.metadata.end_date)),
-    'Transaction date': toShortDateTime(
-      fromISO(loan.metadata.transaction_date)
-    ),
+    'Request start date': requestStartDate,
+    'Request end date': requestEndDate,
+    'Start date': startDate,
+    'End date': endDate,
     Renewals: loan.metadata.extension_count,
     Actions: actions,
   };

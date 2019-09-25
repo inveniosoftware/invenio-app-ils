@@ -10,15 +10,19 @@ export default class LoanActions extends Component {
     this.performLoanAction = this.props.performLoanAction;
   }
 
-  renderAvailableActions(pid, loan, actions = {}) {
-    if ('checkout' in actions && loan.metadata.state === 'PENDING') {
+  renderAvailableActions(pid, patronPid, documentPid, itemPid, actions = {}) {
+    // omit checkout because it must done in one of the available items
+    if (!itemPid) {
       actions = omit(actions, 'checkout');
     }
+
     return Object.keys(actions).map(action => {
       const cancelAction = (cancelReason = null) =>
-        this.performLoanAction(pid, loan, actions[action], cancelReason);
+        this.performLoanAction(actions[action], documentPid, patronPid, {
+          cancelReason: cancelReason,
+        });
       const loanAction = () =>
-        this.performLoanAction(pid, loan, actions[action]);
+        this.performLoanAction(actions[action], documentPid, patronPid);
       return (
         <List.Item key={action}>
           {action === 'cancel' ? (
@@ -44,23 +48,20 @@ export default class LoanActions extends Component {
     const { availableActions, pid } = this.props.loanDetails;
     const {
       document_pid,
-      patron_pid,
       item_pid,
-      state,
+      patron_pid,
     } = this.props.loanDetails.metadata;
-    const loan = {
-      metadata: {
-        document_pid: document_pid,
-        patron_pid: patron_pid,
-        item_pid: item_pid,
-        state: state,
-      },
-    };
     if (availableActions) {
       return (
         <List horizontal>
           {Object.keys(availableActions).length ? (
-            this.renderAvailableActions(pid, loan, availableActions)
+            this.renderAvailableActions(
+              pid,
+              patron_pid,
+              document_pid,
+              item_pid,
+              availableActions
+            )
           ) : (
             <List.Header as="h3">No actions available</List.Header>
           )}

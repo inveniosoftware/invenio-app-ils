@@ -62,11 +62,11 @@ def test_record_generic_access(db, users, access, action, is_allowed):
             assert factory.can() if is_allowed else not factory.can()
 
     # Test standard user
-    login_and_test(1)
+    login_and_test(users["patron1"].id)
     # Test librarian access
-    login_and_test(3)
+    login_and_test(users["librarian"].id)
     # Test superuser access
-    login_and_test(4)
+    login_and_test(users["admin"].id)
 
 
 @pytest.mark.parametrize('access,action,is_allowed', [
@@ -78,7 +78,7 @@ def test_record_generic_access(db, users, access, action, is_allowed):
 ])
 def test_record_librarian_access(db, users, access, action, is_allowed):
     """Test Librarian access."""
-    login_user(User.query.get(3))
+    login_user(users["librarian"])
     id = uuid.uuid4()
     record = Record.create(access, id_=id)
     factory = RecordPermission(record, action)
@@ -95,7 +95,7 @@ def test_record_librarian_access(db, users, access, action, is_allowed):
 ])
 def test_record_patron_access(db, users, access, action, is_allowed):
     """Test patron access."""
-    login_user(User.query.get(1))
+    login_user(users["patron1"])
     id = uuid.uuid4()
     record = Record.create(access, id_=id)
     factory = RecordPermission(record, action)
@@ -116,7 +116,7 @@ def test_record_patron_create(db, users, access, action, is_allowed):
         # Gives the user additional roles, f.e. based on his groups
         identity.provides |= set(roles)
 
-    login_user(User.query.get(1))
+    login_user(users["patron1"])
 
     id = uuid.uuid4()
     record = Record.create(access, id_=id)

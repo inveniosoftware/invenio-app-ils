@@ -6,6 +6,8 @@ import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import DocumentPendingLoans from '../DocumentPendingLoans';
 import history from '../../../../../../history';
 
+jest.mock('../../../../../../common/config/invenioConfig');
+
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 

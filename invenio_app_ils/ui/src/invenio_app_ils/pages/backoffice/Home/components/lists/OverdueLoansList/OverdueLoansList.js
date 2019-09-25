@@ -5,12 +5,13 @@ import {
   Error,
   ResultsTable,
 } from '../../../../../../common/components';
+import { invenioConfig } from '../../../../../../common/config';
 import { loan as loanApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
 import { goTo, goToHandler } from '../../../../../../history';
-import { SendMailModal } from '../../../../components';
+import { OverdueLoanSendMailModal } from '../../../../components';
 import pick from 'lodash/pick';
 
 export default class OverdueLoansList extends Component {
@@ -30,7 +31,7 @@ export default class OverdueLoansList extends Component {
       loanApi
         .query()
         .overdue()
-        .withState('ITEM_ON_LOAN')
+        .withState(invenioConfig.circulation.loanActiveStates)
         .qs()
     );
     return <SeeAllButton clickHandler={goToHandler(path)} />;
@@ -38,7 +39,7 @@ export default class OverdueLoansList extends Component {
 
   prepareData(data) {
     return data.hits.map(row => {
-      const actions = <SendMailModal loan={row} />;
+      const actions = <OverdueLoanSendMailModal loan={row} />;
       return pick(formatter.loan.toTable(row, actions), [
         'ID',
         'Patron ID',

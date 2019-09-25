@@ -1,5 +1,6 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { loan as loanApi } from '../../../../../../common/api';
+import { invenioConfig } from '../../../../../../common/config';
 import { sendErrorNotification } from '../../../../../../common/components/Notifications';
 
 export const fetchPastLoans = itemPid => {
@@ -7,13 +8,15 @@ export const fetchPastLoans = itemPid => {
     dispatch({
       type: IS_LOADING,
     });
-
+    const loanStates = invenioConfig.circulation.loanCompletedStates.concat(
+      invenioConfig.circulation.loanCancelledStates
+    );
     await loanApi
       .list(
         loanApi
           .query()
           .withItemPid(itemPid)
-          .withState(['ITEM_RETURNED', 'CANCELLED'])
+          .withState(loanStates)
           .qs()
       )
       .then(response => {

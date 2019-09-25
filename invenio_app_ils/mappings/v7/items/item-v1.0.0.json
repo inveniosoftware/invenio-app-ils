@@ -84,15 +84,7 @@
             "type": "keyword"
           },
           "title": {
-            "properties": {
-              "title": {
-                "type": "text"
-              },
-              "subtitle": {
-                "type": "text"
-              }
-            },
-            "type": "object"
+            "type": "text"
           },
           "authors": {
             "type": "object",

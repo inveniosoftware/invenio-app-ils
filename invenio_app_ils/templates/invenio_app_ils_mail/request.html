@@ -1,8 +1,10 @@
 {% block subject %}
-Your loan is pending
+Request for "{{ document.title }}" registered
 {% endblock %}
 
 
 {% block body %}
-Your loan of "{{ loan.pid }}" is now pending.
+Dear {{ patron.email }},
+
+The request for "{{ document.title }}" has been registered.
 {% endblock %}

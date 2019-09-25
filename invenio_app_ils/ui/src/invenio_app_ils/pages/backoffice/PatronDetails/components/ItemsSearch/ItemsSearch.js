@@ -56,7 +56,14 @@ export default class ItemsSearch extends Component {
         hits.length === 1 &&
         hits[0].metadata.status === 'CAN_CIRCULATE';
       if (hasOneHit) {
-        await this.checkoutItem(hits[0], this.props.patronPid);
+        const documentPid = hits[0].metadata.document.pid;
+        const itemPid = hits[0].metadata.pid;
+        await this.checkoutItem(
+          documentPid,
+          itemPid,
+          this.props.patronPid,
+          true
+        );
         this.clearResults();
         this.fetchUpdatedCurrentLoans(this.props.patronPid);
         this.setState({ prevSearchQuery: '' });
