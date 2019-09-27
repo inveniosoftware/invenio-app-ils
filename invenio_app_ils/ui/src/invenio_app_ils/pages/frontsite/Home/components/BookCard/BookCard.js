@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Card, Image } from 'semantic-ui-react';
-import { EitemsButton } from '../../../components/EitemsButton';
 
 export default class BookCard extends Component {
   render() {
@@ -14,7 +13,6 @@ export default class BookCard extends Component {
           <Card.Header>{bookData.title}</Card.Header>
           <Card.Meta>{bookData.authors}</Card.Meta>
         </Card.Content>
-        <EitemsButton eitems={bookData.eitems} />
       </Card>
     );
   }

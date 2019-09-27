@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentsDetailsContainer tests should load the details component 1`] = `
+<Container>
+  <SearchBar
+    currentQueryString=""
+    executeSearch={[Function]}
+    onInputChange={[Function]}
+    placeholder="Search for books..."
+  />
+  <br />
+  <Loader>
+    <Error>
+      <Breadcrumb>
+        <BreadcrumbSection
+          link={true}
+        >
+          Home
+        </BreadcrumbSection>
+        <BreadcrumbDivider
+          icon="right chevron"
+        />
+        <BreadcrumbSection
+          link={true}
+        >
+          Search
+        </BreadcrumbSection>
+        <BreadcrumbDivider
+          icon="right arrow"
+        />
+        <BreadcrumbSection
+          active={true}
+        />
+      </Breadcrumb>
+      <br />
+      <DocumentPanel />
+      <DocumentMetadata />
+    </Error>
+  </Loader>
+</Container>
+`;

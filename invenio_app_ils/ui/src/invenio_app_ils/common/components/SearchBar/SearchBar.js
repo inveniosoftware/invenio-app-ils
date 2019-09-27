@@ -5,7 +5,7 @@ import { QueryBuildHelper } from './components/QueryBuildHelper/';
 
 export class SearchBar extends Component {
   onChangeHandler = (e, { value }, onInputChange) => {
-    onInputChange(value);
+    onInputChange(value, e);
   };
 
   onKeyPressHandler = (event, executeSearch) => {
@@ -25,17 +25,8 @@ export class SearchBar extends Component {
     return (
       <>
         <Input
-          icon={
-            <Icon
-              onClick={executeSearch}
-              name="search"
-              inverted
-              circular
-              link
-            />
-          }
-          iconPosition="left"
-          size="massive"
+          icon={<Icon onClick={executeSearch} name="search" link />}
+          size="big"
           fluid
           placeholder={placeholder}
           onChange={(e, { value }) =>

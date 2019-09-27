@@ -1,0 +1,469 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentMetadata tests should render the document correctly 1`] = `
+<DocumentMetadata
+  documentsDetails={
+    Object {
+      "created": "2019-07-08T10:44:02.366+02:00",
+      "id": 71,
+      "links": Object {
+        "self": "https://127.0.0.1:5000/api/documents/71",
+      },
+      "metadata": Object {
+        "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+        "_access": Object {},
+        "abstracts": Array [
+          Object {
+            "value": "This is an abstract",
+          },
+        ],
+        "authors": Array [
+          Object {
+            "full_name": "Jack E. Davis",
+          },
+        ],
+        "circulation": Object {},
+        "document_type": Array [
+          "BOOK",
+        ],
+        "edition": "ed. 1",
+        "eitems": Object {
+          "hits": Array [
+            Object {
+              "description": "Non ipsum",
+              "open_access": true,
+              "pid": "145",
+            },
+          ],
+          "total": 1,
+        },
+        "languages": Array [
+          "en",
+        ],
+        "pid": "71",
+        "relations": Object {},
+        "tag_pids": Array [
+          "24",
+        ],
+        "tags": Array [],
+        "title": "The Gulf: The Making of An American Sea",
+      },
+      "updated": "2019-07-08T10:44:18.354+02:00",
+    }
+  }
+>
+  <Segment
+    className="document-metadata"
+    data-test="71"
+  >
+    <div
+      className="ui segment document-metadata"
+      data-test="71"
+    >
+      <Grid>
+        <div
+          className="ui grid"
+        >
+          <GridRow>
+            <div
+              className="row"
+            >
+              <Grid
+                columns={1}
+                stackable={true}
+              >
+                <div
+                  className="ui stackable one column grid"
+                >
+                  <GridColumn
+                    width={16}
+                  >
+                    <div
+                      className="sixteen wide column"
+                    >
+                      <DocumentTags
+                        tags={Array []}
+                      />
+                      <br />
+                      <br />
+                      <Tab
+                        grid={
+                          Object {
+                            "paneWidth": 12,
+                            "tabWidth": 4,
+                          }
+                        }
+                        menu={
+                          Object {
+                            "pointing": true,
+                          }
+                        }
+                        panes={
+                          Array [
+                            Object {
+                              "menuItem": "Details",
+                              "render": [Function],
+                            },
+                            Object {
+                              "menuItem": "Content",
+                              "render": [Function],
+                            },
+                            Object {
+                              "menuItem": "Publications",
+                              "render": [Function],
+                            },
+                            Object {
+                              "menuItem": "Conference",
+                              "render": [Function],
+                            },
+                            Object {
+                              "menuItem": "Notes",
+                              "render": [Function],
+                            },
+                          ]
+                        }
+                        renderActiveOnly={true}
+                      >
+                        <div>
+                          <Menu
+                            activeIndex={0}
+                            items={
+                              Array [
+                                "Details",
+                                "Content",
+                                "Publications",
+                                "Conference",
+                                "Notes",
+                              ]
+                            }
+                            onItemClick={[Function]}
+                            pointing={true}
+                          >
+                            <div
+                              className="ui pointing menu"
+                            >
+                              <MenuItem
+                                active={true}
+                                content="Details"
+                                index={0}
+                                key="Details"
+                                name="Details"
+                                onClick={[Function]}
+                              >
+                                <a
+                                  className="active item"
+                                  onClick={[Function]}
+                                >
+                                  Details
+                                </a>
+                              </MenuItem>
+                              <MenuItem
+                                active={false}
+                                content="Content"
+                                index={1}
+                                key="Content"
+                                name="Content"
+                                onClick={[Function]}
+                              >
+                                <a
+                                  className="item"
+                                  onClick={[Function]}
+                                >
+                                  Content
+                                </a>
+                              </MenuItem>
+                              <MenuItem
+                                active={false}
+                                content="Publications"
+                                index={2}
+                                key="Publications"
+                                name="Publications"
+                                onClick={[Function]}
+                              >
+                                <a
+                                  className="item"
+                                  onClick={[Function]}
+                                >
+                                  Publications
+                                </a>
+                              </MenuItem>
+                              <MenuItem
+                                active={false}
+                                content="Conference"
+                                index={3}
+                                key="Conference"
+                                name="Conference"
+                                onClick={[Function]}
+                              >
+                                <a
+                                  className="item"
+                                  onClick={[Function]}
+                                >
+                                  Conference
+                                </a>
+                              </MenuItem>
+                              <MenuItem
+                                active={false}
+                                content="Notes"
+                                index={4}
+                                key="Notes"
+                                name="Notes"
+                                onClick={[Function]}
+                              >
+                                <a
+                                  className="item"
+                                  onClick={[Function]}
+                                >
+                                  Notes
+                                </a>
+                              </MenuItem>
+                            </div>
+                          </Menu>
+                          <TabPane
+                            active={true}
+                            as={[Function]}
+                            attached={false}
+                          >
+                            <Segment
+                              attached={false}
+                              className="active tab"
+                            >
+                              <div
+                                className="ui segment active tab"
+                              >
+                                <DocumentRelations
+                                  relations={Object {}}
+                                >
+                                  <Divider
+                                    horizontal={true}
+                                  >
+                                    <div
+                                      className="ui horizontal divider"
+                                    >
+                                      Related
+                                    </div>
+                                  </Divider>
+                                </DocumentRelations>
+                                <DocumentInfo
+                                  metadata={
+                                    Object {
+                                      "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+                                      "_access": Object {},
+                                      "abstracts": Array [
+                                        Object {
+                                          "value": "This is an abstract",
+                                        },
+                                      ],
+                                      "authors": Array [
+                                        Object {
+                                          "full_name": "Jack E. Davis",
+                                        },
+                                      ],
+                                      "circulation": Object {},
+                                      "document_type": Array [
+                                        "BOOK",
+                                      ],
+                                      "edition": "ed. 1",
+                                      "eitems": Object {
+                                        "hits": Array [
+                                          Object {
+                                            "description": "Non ipsum",
+                                            "open_access": true,
+                                            "pid": "145",
+                                          },
+                                        ],
+                                        "total": 1,
+                                      },
+                                      "languages": Array [
+                                        "en",
+                                      ],
+                                      "pid": "71",
+                                      "relations": Object {},
+                                      "tag_pids": Array [
+                                        "24",
+                                      ],
+                                      "tags": Array [],
+                                      "title": "The Gulf: The Making of An American Sea",
+                                    }
+                                  }
+                                >
+                                  <Divider
+                                    horizontal={true}
+                                  >
+                                    <div
+                                      className="ui horizontal divider"
+                                    >
+                                      Details
+                                    </div>
+                                  </Divider>
+                                  <Table
+                                    as="table"
+                                  >
+                                    <table
+                                      className="ui table"
+                                    >
+                                      <TableBody
+                                        as="tbody"
+                                      >
+                                        <tbody
+                                          className=""
+                                        >
+                                          <TableRow
+                                            as="tr"
+                                            cellAs="td"
+                                          >
+                                            <tr
+                                              className=""
+                                            >
+                                              <TableCell
+                                                as="td"
+                                              >
+                                                <td
+                                                  className=""
+                                                >
+                                                  Title
+                                                </td>
+                                              </TableCell>
+                                              <TableCell
+                                                as="td"
+                                              >
+                                                <td
+                                                  className=""
+                                                >
+                                                  The Gulf: The Making of An American Sea
+                                                </td>
+                                              </TableCell>
+                                            </tr>
+                                          </TableRow>
+                                          <TableRow
+                                            as="tr"
+                                            cellAs="td"
+                                          >
+                                            <tr
+                                              className=""
+                                            >
+                                              <TableCell
+                                                as="td"
+                                              >
+                                                <td
+                                                  className=""
+                                                >
+                                                  Authors
+                                                </td>
+                                              </TableCell>
+                                              <TableCell
+                                                as="td"
+                                              >
+                                                <td
+                                                  className=""
+                                                >
+                                                  <span
+                                                    key="Key0"
+                                                  >
+                                                    Jack E. Davis
+                                                  </span>
+                                                </td>
+                                              </TableCell>
+                                            </tr>
+                                          </TableRow>
+                                          <TableRow
+                                            as="tr"
+                                            cellAs="td"
+                                          >
+                                            <tr
+                                              className=""
+                                            >
+                                              <TableCell
+                                                as="td"
+                                              >
+                                                <td
+                                                  className=""
+                                                >
+                                                  Edition
+                                                </td>
+                                              </TableCell>
+                                              <TableCell
+                                                as="td"
+                                              >
+                                                <td
+                                                  className=""
+                                                >
+                                                  ed. 1
+                                                </td>
+                                              </TableCell>
+                                            </tr>
+                                          </TableRow>
+                                          <TableRow
+                                            as="tr"
+                                            cellAs="td"
+                                          >
+                                            <tr
+                                              className=""
+                                            >
+                                              <TableCell
+                                                as="td"
+                                              >
+                                                <td
+                                                  className=""
+                                                >
+                                                  Languages
+                                                </td>
+                                              </TableCell>
+                                              <TableCell
+                                                as="td"
+                                              >
+                                                <td
+                                                  className=""
+                                                >
+                                                  en,
+                                                </td>
+                                              </TableCell>
+                                            </tr>
+                                          </TableRow>
+                                          <TableRow
+                                            as="tr"
+                                            cellAs="td"
+                                          >
+                                            <tr
+                                              className=""
+                                            >
+                                              <TableCell
+                                                as="td"
+                                              >
+                                                <td
+                                                  className=""
+                                                >
+                                                  Keywords
+                                                </td>
+                                              </TableCell>
+                                              <TableCell
+                                                as="td"
+                                              >
+                                                <td
+                                                  className=""
+                                                />
+                                              </TableCell>
+                                            </tr>
+                                          </TableRow>
+                                        </tbody>
+                                      </TableBody>
+                                    </table>
+                                  </Table>
+                                </DocumentInfo>
+                              </div>
+                            </Segment>
+                          </TabPane>
+                        </div>
+                      </Tab>
+                    </div>
+                  </GridColumn>
+                </div>
+              </Grid>
+            </div>
+          </GridRow>
+        </div>
+      </Grid>
+    </div>
+  </Segment>
+</DocumentMetadata>
+`;

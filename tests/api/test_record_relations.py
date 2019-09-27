@@ -711,7 +711,7 @@ def _test_sibl_language_relation(client, json_headers):
                             "pid": second_pid,
                             "pid_type": second_pid_type,
                             "title": rec2["title"],
-                            "language": rec2["language"],
+                            "languages": rec2["languages"],
                         },
                         {
                             "pid": third_pid,
@@ -731,7 +731,7 @@ def _test_sibl_language_relation(client, json_headers):
                             "pid": first_pid,
                             "pid_type": first_pid_type,
                             "title": rec1["title"],
-                            "language": rec1["language"],
+                            "languages": rec1["languages"],
                             "edition": rec1["edition"],
                         },
                         {
@@ -752,14 +752,14 @@ def _test_sibl_language_relation(client, json_headers):
                             "pid": first_pid,
                             "pid_type": first_pid_type,
                             "title": rec1["title"],
-                            "language": rec1["language"],
+                            "languages": rec1["languages"],
                             "edition": rec1["edition"],
                         },
                         {
                             "pid": second_pid,
                             "pid_type": second_pid_type,
                             "title": rec2["title"],
-                            "language": rec2["language"],
+                            "languages": rec2["languages"],
                         },
                     ]
                 }
@@ -816,7 +816,7 @@ def _test_sibl_edition_relation(client, json_headers):
                             "pid_type": second_pid_type,
                             "title": rec2["title"],
                             "edition": rec2["edition"],
-                            "language": rec2["language"],
+                            "languages": rec2["languages"],
                         }
                     ]
                 }
@@ -840,7 +840,7 @@ def _test_sibl_edition_relation(client, json_headers):
                             "pid_type": "docid",
                             "title": "Prairie Fires: The American Dreams of "
                                      "Laura Ingalls Wilder",
-                            "language": ["it"],
+                            "languages": ["it"],
                         },
                         {
                             "pid": "docid-6",
@@ -870,7 +870,7 @@ def _test_sibl_edition_relation(client, json_headers):
                             "pid_type": "docid",
                             "title": "Prairie Fires: The American Dreams of "
                                      "Laura Ingalls Wilder",
-                            "language": ["it"],
+                            "languages": ["it"],
                         },
                         {
                             "pid": "docid-6",
@@ -928,7 +928,7 @@ def _test_sibl_other_relation(client, json_headers):
                             "pid": "docid-1",
                             "pid_type": "docid",
                             "title": "The Gulf: The Making of An American Sea",
-                            "language": ["en"],
+                            "languages": ["en"],
                             "edition": "ed. 1",
                         },
                         {
@@ -958,7 +958,7 @@ def _test_sibl_other_relation(client, json_headers):
                             "pid": "docid-1",
                             "pid_type": "docid",
                             "title": "The Gulf: The Making of An American Sea",
-                            "language": ["en"],
+                            "languages": ["en"],
                             "edition": "ed. 1",
                         }
                     ],
@@ -967,7 +967,7 @@ def _test_sibl_other_relation(client, json_headers):
                             "pid": first_pid,
                             "pid_type": first_pid_type,
                             "title": rec1["title"],
-                            "language": rec1["language"],
+                            "languages": rec1["languages"],
                         }
                     ],
                 }
@@ -990,7 +990,7 @@ def _test_sibl_other_relation(client, json_headers):
                             "pid": "docid-1",
                             "pid_type": "docid",
                             "title": "The Gulf: The Making of An American Sea",
-                            "language": ["en"],
+                            "languages": ["en"],
                             "edition": "ed. 1",
                         },
                         {

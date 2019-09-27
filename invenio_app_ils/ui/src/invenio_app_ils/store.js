@@ -60,7 +60,7 @@ import {
 import {
   documentsDetailsReducer,
   loanRequestFormReducer,
-} from './pages/frontsite/DocumentsDetails/reducer';
+} from './pages/frontsite/Documents/DocumentsDetails/reducer';
 import { documentRequestDetailsReducer } from './pages/backoffice/DocumentRequestDetails/reducer';
 
 const rootReducer = combineReducers({

@@ -10,19 +10,19 @@ import { MostRecentBooks } from './components/MostRecentBooks';
 import { MostRecentEbooks } from './components/MostRecentEbooks';
 import { default as config } from './config';
 import { goTo } from '../../../history';
+import { SearchBar } from '../../../common/components/SearchBar';
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = { query: '' };
-    this.updateQuery = this.updateQuery.bind(this);
   }
 
-  updateQuery(event) {
+  updateSearchQuery = (value, event) => {
     this.setState({ query: event.target.value });
-  }
+  };
 
-  onSubmit = () => {
+  onSearchExecute = () => {
     const query = encodeURIComponent(this.state.query);
     goTo(FrontSiteRoutes.documentsListWithQuery(query));
   };
@@ -35,24 +35,12 @@ export default class Home extends Component {
 
           <Grid.Row centered columns={2}>
             <Container className="books-search-searchbar">
-              <Form onSubmit={this.onSubmit}>
-                <Input
-                  fluid
-                  icon={
-                    <Icon
-                      name="search"
-                      inverted
-                      circular
-                      link
-                      onClick={this.onSubmit}
-                    />
-                  }
-                  size="large"
-                  query={this.state.query}
-                  onChange={this.updateQuery}
-                  placeholder="Search for books, articles, proceedings..."
-                />
-              </Form>
+              <SearchBar
+                currentQueryString={this.state.searchQuery}
+                onInputChange={this.updateSearchQuery}
+                executeSearch={this.onSearchExecute}
+                placeholder={'Search for books...'}
+              />
             </Container>
           </Grid.Row>
 

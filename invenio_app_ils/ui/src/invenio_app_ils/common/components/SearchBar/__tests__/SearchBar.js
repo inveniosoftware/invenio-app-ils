@@ -35,8 +35,12 @@ describe('LoansSearch SearchBar tests', () => {
     );
 
     const input = component.find('Input').find('input');
-    input.simulate('change', { target: { value: newQueryString } });
-    expect(mockedOnInputChange).toHaveBeenCalledWith(newQueryString);
+    const event = { target: { value: newQueryString } };
+    input.simulate('change', event);
+    expect(mockedOnInputChange).toHaveBeenCalledWith(
+      newQueryString,
+      expect.objectContaining(event)
+    );
   });
 
   it('should call executeSearch on key `enter` pressed only', () => {

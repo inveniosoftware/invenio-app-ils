@@ -4,7 +4,7 @@
     "title": "The Gulf: The Making of An American Sea",
     "authors": [{ "full_name": "Jack E. Davis" }],
     "abstracts": [{ "value": "This is an abstract" }],
-    "language": ["en"],
+    "languages": ["en"],
     "edition": "ed. 1"
   },
   {
@@ -12,7 +12,7 @@
     "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
     "authors": [{ "full_name": "Caroline Fraser" }],
     "abstracts": [{ "value": "This is an abstract" }],
-    "language": ["it"]
+    "languages": ["it"]
   },
   {
     "pid": "docid-3",
