@@ -44,11 +44,11 @@ export const serializeEdition = hit => {
 };
 
 export const serializeLanguageSelection = selection => {
-  if (!selection.metadata.extraFields.language) {
-    selection.metadata.extraFields.language = selection.metadata.language;
+  if (!selection.metadata.extraFields.languages) {
+    selection.metadata.extraFields.languages = selection.metadata.languages;
   }
   selection.description = `Language: ${selection.metadata.extraFields
-    .language || '-'}`;
+    .languages || '-'}`;
   return selection;
 };
 
@@ -70,12 +70,18 @@ export const serializeSeriesSelection = selection => {
   return selection;
 };
 
-export default class SeriesRelations extends Component {
-  state = {
-    activeIndex: 0,
-    activePage: {},
-    removedRelations: [],
-  };
+class SeriesRelationsTabPanel extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeIndex: 0,
+      activePage: {},
+      removedRelations: [],
+      error: {},
+      isLoading: true,
+      relations: {},
+    };
+  }
 
   get activePage() {
     const { activeIndex, activePage } = this.state;
@@ -181,7 +187,7 @@ export default class SeriesRelations extends Component {
             },
           }}
           editButtonLabel={'Edit language relations'}
-          initialSelections={this.getSelections('language')}
+          initialSelections={this.getSelections('languages')}
           relation="language"
           onRemoveSelection={this.onRemoveSelection}
           onSave={this.onSave}
@@ -233,6 +239,7 @@ export default class SeriesRelations extends Component {
     const size = this.props.showMaxRows;
     const activeRows = rows.slice((activePage - 1) * size, activePage * size);
     activeRows.totalHits = rows.length;
+
     return (
       <Tab.Pane>
         {editButton}
@@ -298,7 +305,7 @@ export default class SeriesRelations extends Component {
 
   generateActions(results, type) {
     const actions = [];
-    const moi = this.props.series.metadata.mode_of_issuance;
+    const moi = this.props.seriesDetails.metadata.mode_of_issuance;
 
     const generateCreatePayload = relationType => {
       if (['serial', 'multipart_monograph'].includes(relationType))
@@ -340,7 +347,7 @@ export default class SeriesRelations extends Component {
       this.state.removedRelations,
       'delete'
     );
-    const pid = this.props.series.pid;
+    const pid = this.props.seriesDetails.pid;
     this.props.createRelations(pid, createRelations);
     this.props.deleteRelations(pid, deleteRelations);
     this.setState({ removedRelations: [] });
@@ -432,11 +439,11 @@ export default class SeriesRelations extends Component {
     return [];
   }
 
-  renderTabs() {
+  render() {
     let panes = [];
-    if (!isEmpty(this.props.series)) {
+    if (!isEmpty(this.props.seriesDetails)) {
       panes =
-        this.props.series.metadata.mode_of_issuance === 'SERIAL'
+        this.props.seriesDetails.metadata.mode_of_issuance === 'SERIAL'
           ? this.getSerialTabPanes()
           : this.getMultipartTabPanes();
     }
@@ -453,16 +460,26 @@ export default class SeriesRelations extends Component {
       />
     );
   }
-
-  render() {
-    const { isLoading, error } = this.props;
-    return (
-      <Loader isLoading={isLoading}>
-        <Error error={error}>{this.renderTabs()}</Error>
-      </Loader>
-    );
-  }
 }
+
+const SeriesRelations = ({ isLoading, error, ...props }) => {
+  const isMultipart =
+    props.seriesDetails.metadata.mode_of_issuance === 'MULTIPART_MONOGRAPH';
+
+  return (
+    <>
+      {isMultipart && (
+        <Loader isLoading={isLoading}>
+          <Error error={error}>
+            <SeriesRelationsTabPanel {...props} />
+          </Error>
+        </Loader>
+      )}
+    </>
+  );
+};
+
+export default SeriesRelations;
 
 SeriesRelations.propTypes = {
   relations: PropTypes.object.isRequired,

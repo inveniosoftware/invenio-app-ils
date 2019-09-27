@@ -3,27 +3,26 @@
 exports[`SeriesDocuments tests should load the SeriesDocuments component 1`] = `
 <Loader>
   <Error>
-    <ResultsTable
-      currentPage={1}
-      fixed={false}
-      headerActionClickHandler={null}
-      headerActionComponent={null}
-      name="documents"
-      paginationComponent={null}
-      renderSegment={true}
-      rowActionClickHandler={[Function]}
-      rows={Array []}
-      seeAllComponent={
-        <SeeAllButton
-          clickHandler={[Function]}
-          disabled={false}
-          fluid={false}
-        />
+    <TableData
+      data={
+        Object {
+          "metadata": Object {
+            "mode_of_issuance": "SERIAL",
+            "pid": 111,
+            "relations": Object {},
+          },
+          "pid": 111,
+        }
       }
-      showMaxRows={5}
-      singleLine={false}
-      subtitle=""
-      title="Documents"
+      documents={
+        Object {
+          "hits": Array [],
+          "total": 0,
+        }
+      }
+      seeAllButton={[Function]}
+      showDetailsUrl={[Function]}
+      showMaxDocuments={5}
     />
   </Error>
 </Loader>

@@ -8,16 +8,18 @@ import {
   DocumentsSearch,
   DocumentRequestDetailsContainer,
   DocumentRequestsSearch,
-  SeriesEditor,
   EItemsSearch,
   EItemDetailsContainer,
   ItemsSearch,
   ItemDetailsContainer,
+  InternalLocationEditor,
   LoansSearch,
   LoanDetailsContainer,
+  LocationEditor,
   LocationList,
   PatronDetailsContainer,
   PatronsSearch,
+  SeriesEditor,
   SeriesDetails,
   SeriesSearch,
   Stats,
@@ -80,7 +82,28 @@ export class BackOffice extends Component {
               path={BackOfficeRoutes.loanDetails}
               component={LoanDetailsContainer}
             />
+            {/* internal locations */}
+            <Route
+              exact
+              path={BackOfficeRoutes.ilocationsCreate}
+              component={InternalLocationEditor}
+            />
+            <Route
+              exact
+              path={BackOfficeRoutes.ilocationsEdit}
+              component={InternalLocationEditor}
+            />
             {/* locations */}
+            <Route
+              exact
+              path={BackOfficeRoutes.locationsCreate}
+              component={LocationEditor}
+            />
+            <Route
+              exact
+              path={BackOfficeRoutes.locationsEdit}
+              component={LocationEditor}
+            />
             <Route
               exact
               path={BackOfficeRoutes.locationsList}

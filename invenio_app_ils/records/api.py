@@ -76,10 +76,15 @@ class IlsRecord(Record):
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
-        """Create Document record."""
+        """Create IlsRecord record."""
         data["$schema"] = current_jsonschemas.path_to_url(cls._schema)
         getattr(cls, 'validate_create', lambda x: x)(data)
         return super(IlsRecord, cls).create(data, id_=id_, **kwargs)
+
+    def clear(self):
+        """Clear IlsRecord data."""
+        super(IlsRecord, self).clear()
+        self["$schema"] = current_jsonschemas.path_to_url(self._schema)
 
     def patch(self, patch):
         """Validate patch metadata."""
@@ -438,8 +443,8 @@ class InternalLocation(IlsRecord):
     )
 
     @classmethod
-    def create(cls, data, id_=None, **kwargs):
-        """Create Internal Location record."""
+    def build_resolver_fields(cls, data):
+        """Build all resolver fields."""
         data["location"] = {
             "$ref": cls._location_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
@@ -447,7 +452,17 @@ class InternalLocation(IlsRecord):
                 internal_location_pid=data["pid"],
             )
         }
+
+    @classmethod
+    def create(cls, data, id_=None, **kwargs):
+        """Create Internal Location record."""
+        cls.build_resolver_fields(data)
         return super(InternalLocation, cls).create(data, id_=id_, **kwargs)
+
+    def update(self, data):
+        """Update InternalLocation data."""
+        super(InternalLocation, self).update(data)
+        self.build_resolver_fields(self)
 
     def delete(self, **kwargs):
         """Delete Location record."""

@@ -16,6 +16,18 @@ const del = async ilocPid => {
   return response;
 };
 
+const create = async data => {
+  const resp = await http.post(`${internalLocationURL}`, data);
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
+};
+
+const update = async (ilocPid, data) => {
+  const response = await http.put(`${internalLocationURL}${ilocPid}`, data);
+  response.data = serializer.fromJSON(response.data);
+  return response;
+};
+
 const list = async (query = '') => {
   const response = await http.get(`${internalLocationURL}?q=${query}`);
   response.data.total = response.data.hits.total;
@@ -29,5 +41,7 @@ export const internalLocation = {
   list: list,
   get: get,
   delete: del,
+  create: create,
+  update: update,
   url: internalLocationURL,
 };

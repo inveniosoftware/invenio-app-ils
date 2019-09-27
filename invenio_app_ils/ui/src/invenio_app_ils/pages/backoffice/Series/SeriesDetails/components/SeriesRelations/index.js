@@ -4,7 +4,7 @@ import SeriesRelationsComponent from './SeriesRelations';
 import { createRelations, deleteRelations } from './state/actions';
 
 const mapStateToProps = state => ({
-  series: state.seriesDetails.data,
+  seriesDetails: state.seriesDetails.data,
   error: state.seriesRelations.error,
   isLoading: state.seriesRelations.isLoading,
   relations: state.seriesRelations.data,

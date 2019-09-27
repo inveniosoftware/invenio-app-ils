@@ -9,73 +9,97 @@ import { formatter } from '../../../../../../common/components/ResultsTable/form
 import pick from 'lodash/pick';
 import { goTo, goToHandler } from '../../../../../../history';
 
-export default class SeriesMultipartMonographs extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchSeriesMultipartMonographs = props.fetchSeriesMultipartMonographs;
-    this.showDetailsUrl = BackOfficeRoutes.seriesDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.seriesListWithQuery;
-  }
-
-  componentDidMount() {
-    const { series } = this.props;
-    this.fetchSeriesMultipartMonographs(series.pid);
-  }
-
-  seeAllButton = () => {
-    const path = this.seeAllUrl(
-      seriesApi
-        .query()
-        .withSerialPid(this.props.series.pid)
-        .qs()
-    );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
-  };
-
-  prepareData(data) {
-    const serials = this.props.series.metadata.relations.serial || [];
+const TableData = ({
+  multipartMonographs,
+  data,
+  showMaxSeries,
+  seeAllButton,
+  showDetailsUrl,
+}) => {
+  const prepareData = multipartMonographs => {
+    const serials = data.metadata.relations.serial || [];
     const volumes = {};
     for (const serial of serials) {
       volumes[[serial.pid, serial.pid_type]] = serial.volume;
     }
-    return data.hits.map(row => {
+    return multipartMonographs.hits.map(row => {
       const key = [row.metadata.pid, 'serid'];
       const volume = key in volumes ? volumes[key] : '?';
       const entry = formatter.series.toTable(row);
       entry.Volume = volume;
       return pick(entry, ['ID', 'Volume', 'Title', 'Authors']);
     });
+  };
+  const rows = prepareData(multipartMonographs);
+  rows.totalHits = multipartMonographs.total;
+  return (
+    <ResultsTable
+      rows={rows}
+      title={'Multipart Monographs'}
+      name={'multipart monographs'}
+      rowActionClickHandler={row => goTo(showDetailsUrl(row.ID))}
+      seeAllComponent={seeAllButton()}
+      showMaxRows={showMaxSeries}
+    />
+  );
+};
+
+class SeriesMultipartMonographsData extends Component {
+  constructor(props) {
+    super(props);
+    this.showDetailsUrl = BackOfficeRoutes.seriesDetailsFor;
+    this.seeAllUrl = BackOfficeRoutes.seriesListWithQuery;
+    this.seriesPid = props.seriesDetails.metadata.pid;
+    this.seriesType = props.seriesDetails.metadata.mode_of_issuance;
+    this.fetchSeriesMultipartMonographs = props.fetchSeriesMultipartMonographs;
   }
 
-  renderTable(data) {
-    const rows = this.prepareData(data);
-    rows.totalHits = data.total;
-    return (
-      <ResultsTable
-        rows={rows}
-        title={'Multipart Monographs'}
-        name={'multipart monographs'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
-        seeAllComponent={this.seeAllButton()}
-        showMaxRows={this.props.showMaxSeries}
-      />
-    );
+  componentDidMount() {
+    this.fetchSeriesMultipartMonographs(this.seriesPid);
   }
+
+  seeAllButton = () => {
+    const path = this.seeAllUrl(
+      seriesApi
+        .query()
+        .withSerialPid(this.seriesPid)
+        .qs()
+    );
+    return <SeeAllButton clickHandler={goToHandler(path)} />;
+  };
 
   render() {
-    const { data, isLoading, error } = this.props;
+    const {
+      multipartMonographs,
+      seriesDetails,
+      isLoading,
+      showMaxSeries,
+      error,
+    } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this.renderTable(data)}</Error>
+        <Error error={error}>
+          <TableData
+            multipartMonographs={multipartMonographs}
+            data={seriesDetails}
+            showMaxSeries={showMaxSeries}
+            seeAllButton={this.seeAllButton}
+            showDetailsUrl={this.showDetailsUrl}
+          ></TableData>
+        </Error>
       </Loader>
     );
   }
 }
 
+const SeriesMultipartMonographs = props => {
+  const isSerial = props.seriesDetails.metadata.mode_of_issuance === 'SERIAL';
+  return <>{isSerial && <SeriesMultipartMonographsData {...props} />}</>;
+};
+
+export default SeriesMultipartMonographs;
+
 SeriesMultipartMonographs.propTypes = {
-  series: PropTypes.object.isRequired,
-  fetchSeriesMultipartMonographs: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
   showMaxSeries: PropTypes.number,
 };
 

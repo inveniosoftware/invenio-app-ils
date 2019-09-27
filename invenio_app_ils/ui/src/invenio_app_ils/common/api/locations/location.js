@@ -14,6 +14,18 @@ const del = async locationPid => {
   return response;
 };
 
+const create = async data => {
+  const resp = await http.post(`${locationURL}`, data);
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
+};
+
+const update = async (locationPid, data) => {
+  const response = await http.put(`${locationURL}${locationPid}`, data);
+  response.data = serializer.fromJSON(response.data);
+  return response;
+};
+
 const list = async (query = '') => {
   const response = await http.get(`${locationURL}?q=${query}`);
   response.data.total = response.data.hits.total;
@@ -27,5 +39,7 @@ export const location = {
   list: list,
   get: get,
   delete: del,
+  create: create,
+  update: update,
   url: locationURL,
 };
