@@ -1,3 +1,7 @@
 /*******************************
          Site Overrides
 *******************************/
+
+.document-panel .ui.image.large{
+    width: 350px;
+}

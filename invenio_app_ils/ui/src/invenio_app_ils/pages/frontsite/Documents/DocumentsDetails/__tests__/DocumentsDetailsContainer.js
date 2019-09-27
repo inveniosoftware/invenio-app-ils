@@ -44,7 +44,7 @@ describe('DocumentsDetailsContainer tests', () => {
         history={routerHistory}
         match={routerUrlParams}
         fetchDocumentsDetails={() => {}}
-        data={testData[0]}
+        data={{ metadata: testData[0] }}
       />
     );
     expect(component).toMatchSnapshot();
@@ -58,7 +58,7 @@ describe('DocumentsDetailsContainer tests', () => {
           history={routerHistory}
           match={routerUrlParams}
           fetchDocumentsDetails={mockedFetchDocumentsDetails}
-          data={testData[0]}
+          data={{ metadata: testData[0] }}
         />
       </BrowserRouter>
     );

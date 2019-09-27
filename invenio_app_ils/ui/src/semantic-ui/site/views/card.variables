@@ -1,3 +1,12 @@
 /*******************************
     User Variable Overrides
 *******************************/
+
+@boxShadow: none;
+
+@linkHoverRaiseDistance: 0;
+@linkHoverTransform: none;
+
+@shadowHoverBoxShadow: 0;
+@linkHoverBoxShadow: none;
+@linkHoverBackground: @highlightBackgroundColor;

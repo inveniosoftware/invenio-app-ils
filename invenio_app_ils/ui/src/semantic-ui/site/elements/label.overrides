@@ -1,3 +1,16 @@
 /*******************************
          Site Overrides
 *******************************/
+
+.ui.label.highlighted{
+  border: 1px solid @orange;
+  background-color: white;
+  color: @orange;
+  a{
+    color: @orange;
+    opacity: 1;
+    &:hover{
+      color: @linkHoverColor;
+    }
+  }
+}

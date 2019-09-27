@@ -1,3 +1,22 @@
 /*******************************
          Site Overrides
 *******************************/
+
+.document-panel .ui.segment{
+    background-color: @highlightBackgroundColor;
+    padding: 1.6em;
+}
+
+.ui.segment.tab{
+  background-color: inherit;
+  padding: 0;
+}
+
+.section {
+  .ui.segment{
+    .table{
+      background-color: inherit;
+    }
+  }
+
+}
