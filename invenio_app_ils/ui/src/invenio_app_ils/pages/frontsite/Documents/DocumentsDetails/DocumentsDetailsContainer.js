@@ -9,6 +9,36 @@ import { DocumentPanel } from './components/DocumentPanel';
 import { Error } from '../../../../common/components/Error';
 import { Loader } from '../../../../common/components/Loader';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
+import { DocumentTags } from './components/DocumentMetadata/components';
+
+export class DocumentDetails extends Component {
+  breadcrumbs = () => [
+    { to: FrontSiteRoutes.home, label: 'Home' },
+    { to: FrontSiteRoutes.documentsList, label: 'Search' },
+  ];
+
+  render() {
+    return (
+      <>
+        <Container className="document-details-container default-margin-top">
+          <Breadcrumbs
+            elements={this.breadcrumbs()}
+            currentElement={this.props.data.metadata.title}
+          />
+          <DocumentPanel />
+        </Container>
+        <Container className="document-tags">
+          <DocumentTags tags={this.props.data.metadata.tags} />
+        </Container>
+        <Container className="section" fluid>
+          <Container>
+            <DocumentMetadata />
+          </Container>
+        </Container>
+      </>
+    );
+  }
+}
 
 export default class DocumentsDetailsContainer extends Component {
   constructor(props) {
@@ -40,11 +70,6 @@ export default class DocumentsDetailsContainer extends Component {
     this.setState({ searchQuery: event.target.value });
   };
 
-  breadcrumbs = () => [
-    { to: FrontSiteRoutes.home, label: 'Home' },
-    { to: FrontSiteRoutes.documentsList, label: 'Search' },
-  ];
-
   _renderElement(isLoading, error, data) {
     return (
       <>
@@ -59,18 +84,12 @@ export default class DocumentsDetailsContainer extends Component {
             />
           </Container>
         </Container>
-        <Container className={'document-details-container'}>
-          <Loader isLoading={isLoading}>
-            <Error error={error}>
-              <Breadcrumbs
-                elements={this.breadcrumbs()}
-                currentElement={data.metadata ? data.metadata.title : null}
-              />
-              <DocumentPanel />
-              <DocumentMetadata />
-            </Error>
-          </Loader>
-        </Container>
+
+        <Loader isLoading={isLoading}>
+          <Error error={error}>
+            <DocumentDetails data={data} />
+          </Error>
+        </Loader>
       </>
     );
   }
@@ -83,5 +102,5 @@ export default class DocumentsDetailsContainer extends Component {
 
 DocumentsDetailsContainer.propTypes = {
   fetchDocumentsDetails: PropTypes.func.isRequired,
-  renderElement: PropTypes.func,
+  renderElement: PropTypes.node,
 };

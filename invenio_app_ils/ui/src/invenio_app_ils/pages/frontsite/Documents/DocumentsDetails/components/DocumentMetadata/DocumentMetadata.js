@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Tab } from 'semantic-ui-react';
+import { Container, Divider, Grid, Segment, Tab } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { DocumentTags, DocumentRelations, DocumentInfo } from './components';
+import { DocumentTableOfContent } from './components/DocumentTableOfContent';
+import { DocumentConference } from './components/DocumentConference';
 
 export default class DocumentMetadata extends Component {
   constructor(props) {
@@ -15,7 +17,10 @@ export default class DocumentMetadata extends Component {
         menuItem: 'Details',
         render: () => (
           <Tab.Pane attached={false}>
-            <DocumentRelations relations={this.document.metadata.relations} />
+            <DocumentRelations
+              relations={this.document.metadata.relations}
+              documentType={this.document.metadata.document_type}
+            />
             <DocumentInfo metadata={this.document.metadata} />
           </Tab.Pane>
         ),
@@ -23,7 +28,12 @@ export default class DocumentMetadata extends Component {
       {
         menuItem: 'Content',
         render: () => (
-          <Tab.Pane attached={false}>We wait for the schema!</Tab.Pane>
+          <Tab.Pane attached={false}>
+            <DocumentTableOfContent
+              toc={this.document.metadata.table_of_content}
+              abstract={this.document.metadata.abstract}
+            />
+          </Tab.Pane>
         ),
       },
       {
@@ -35,14 +45,20 @@ export default class DocumentMetadata extends Component {
       {
         menuItem: 'Conference',
         render: () => (
-          <Tab.Pane attached={false}>We wait for the schema!</Tab.Pane>
+          <Tab.Pane attached={false}>
+            <DocumentConference
+              conference={this.document.metadata.conference_info}
+              documentType={this.document.metadata.document_type}
+            />
+          </Tab.Pane>
         ),
       },
       {
         menuItem: 'Notes',
         render: () => (
           <Tab.Pane attached={false}>
-            {this.document.metadata.notes[0].value}
+            <Divider horizontal>Librarian's note</Divider>
+            {this.document.metadata.note}
           </Tab.Pane>
         ),
       },
@@ -51,26 +67,15 @@ export default class DocumentMetadata extends Component {
 
   render() {
     return (
-      <Segment
+      <Container
         className="document-metadata"
         data-test={this.document.metadata.pid}
       >
-        <Grid>
-          <Grid.Row>
-            <Grid stackable columns={1}>
-              <Grid.Column width={16}>
-                <DocumentTags tags={this.document.metadata.tags} />
-                <br />
-                <br />
-                <Tab
-                  menu={{ secondary: true, pointing: true }}
-                  panes={this.renderTabPanes()}
-                />
-              </Grid.Column>
-            </Grid>
-          </Grid.Row>
-        </Grid>
-      </Segment>
+        <Tab
+          menu={{ secondary: true, pointing: true }}
+          panes={this.renderTabPanes()}
+        />
+      </Container>
     );
   }
 }

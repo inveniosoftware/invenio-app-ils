@@ -14,7 +14,7 @@ export class DocumentInfo extends Component {
         <Table.Row>
           <Table.Cell>Languages</Table.Cell>
           <Table.Cell>
-            {this.metadata.languages.map(lang => lang + ',')}
+            {this.metadata.languages.map(lang => lang + ', ')}
           </Table.Cell>
         </Table.Row>
       );
@@ -26,7 +26,7 @@ export class DocumentInfo extends Component {
     return (
       <>
         <Divider horizontal>Details</Divider>
-        <Table>
+        <Table definition>
           <Table.Body>
             <Table.Row>
               <Table.Cell>Title</Table.Cell>
@@ -36,7 +36,7 @@ export class DocumentInfo extends Component {
               <Table.Cell>Authors</Table.Cell>
               <Table.Cell>
                 {this.metadata.authors.map((author, index) => (
-                  <span key={`Key${index}`}>{author.full_name}</span>
+                  <span key={`Key${index}`}>{author.full_name}; </span>
                 ))}
                 <span>{this.metadata.other_authors ? ' et al.' : null}</span>
               </Table.Cell>

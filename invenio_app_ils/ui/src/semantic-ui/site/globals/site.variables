@@ -1,5 +1,5 @@
 /*******************************
-     User Global Variables
+ SEMANTIC User Global Variables
 *******************************/
 
 @headerFont        : 'Roboto', Arial, Helvetica, sans-serif;
@@ -7,13 +7,29 @@
 @googleFontFamily  : 'Roboto:400italic,400|Raleway:400,700';
 
 @fontSmoothing     : antialiased;
-@headerMenuHeight  : 66px;
-
 
 /*******************************
-     Colors
+  SEMANTIC Colors override
 ********************************/
 
-@primaryColor: #f2711c;
-@secondaryColor: #6899D0;
-@highlightGray: #dad8d8;
+@primaryColor      : #F2711C;
+@secondaryColor    : #6899D0;
+@orange            : #FC6F51;
+
+/********************************
+  ILS variables
+********************************/
+
+@headerMenuHeight         : 66px;
+@highlightBorder          : 2px solid @primaryColor;
+@sectionDefaultPadding    : 1em;
+@defaultMarginValue       : 1em;
+
+/********************************
+  ILS colors
+********************************/
+
+@highlightBackgroundColor  : #ebedf1;
+@contrastColor             : #34373e;
+
+

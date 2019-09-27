@@ -1,3 +1,8 @@
 /*******************************
          Site Overrides
 *******************************/
+
+.button-show-more{
+  color: @orange;
+  font-weight: bold;
+}

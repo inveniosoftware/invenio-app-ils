@@ -8,10 +8,32 @@
     flex-direction: column;
 }
 
-.frontsite-footer{
-    margin-top: @headerMenuHeight;
-}
-
 .front-app{
     margin-top: @headerMenuHeight;
+
+    footer{
+      margin-top: @headerMenuHeight;
+
+    }
+
+}
+
+.no-border{
+  border: 0 !important;
+}
+
+.default-margin-top{
+  margin-top: @defaultMarginValue !important;
+}
+
+.default-margin-bottom{
+  margin-bottom: @defaultMarginValue !important;
+}
+
+.default-margin{
+  margin: @defaultMarginValue !important;
+}
+
+.background-highlight{
+  background-color: @highlightBackgroundColor;
 }

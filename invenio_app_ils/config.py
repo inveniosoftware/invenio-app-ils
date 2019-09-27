@@ -683,7 +683,7 @@ CIRCULATION_LOAN_REQUEST_DURATION_DAYS = 60
 
 CIRCULATION_DELIVERY_METHODS = {
     "PICKUP": "Pick it up at the library desk",
-    "DELIVERY": "Delivery",
+    "DELIVERY": "Have it delivered to my office",
 }
 
 CIRCULATION_POLICIES = dict(

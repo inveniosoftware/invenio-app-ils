@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Image, Header, List } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { DocumentCirculation } from '../DocumentCirculation';
+import ShowMore from 'react-show-more';
 
 export default class DocumentPanel extends Component {
   constructor(props) {
@@ -23,9 +24,11 @@ export default class DocumentPanel extends Component {
               </Grid.Column>
               <Grid.Column>
                 <Header as={'h2'}>{this.document.metadata.title}</Header>
-                <Header sub as={'h3'}>
-                  {this.document.metadata.subtitle}
-                </Header>
+                {this.document.metadata.subtitle ? (
+                  <Header sub as={'h3'}>
+                    {this.document.metadata.subtitle}
+                  </Header>
+                ) : null}
                 by{' '}
                 <List horizontal>
                   {this.document.metadata.authors.map((author, index) => (
@@ -34,12 +37,17 @@ export default class DocumentPanel extends Component {
                     </List.Item>
                   ))}
                 </List>
-                <br />
-                <br />
-                <p>{this.document.metadata.abstract}</p>
+                <ShowMore
+                  lines={20}
+                  more="Show more"
+                  less="Show less"
+                  anchorClass="button-show-more"
+                >
+                  {this.document.metadata.abstract}
+                </ShowMore>
               </Grid.Column>
               <Grid.Column>
-                <DocumentCirculation />
+                <DocumentCirculation test />
               </Grid.Column>
             </Grid.Row>
           </Grid>

@@ -51,7 +51,7 @@ describe('DocumentMetadata tests', () => {
 
     const rows = component
       .find('DocumentMetadata')
-      .find('Segment')
+      .find('Container')
       .filterWhere(
         element => element.prop('data-test') === documentDetails.metadata.pid
       );

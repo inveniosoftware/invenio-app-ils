@@ -60,7 +60,7 @@ export default class DocumentCirculation extends Component {
         <List.Item key={eitem.pid}>
           <List.Icon name={'linkify'} />
           <List.Content>
-            Read <a href="#TODO">online(e-book)</a>
+            Read <a href="#TODO">online</a>
           </List.Content>
         </List.Item>
       );
@@ -70,7 +70,6 @@ export default class DocumentCirculation extends Component {
         <>
           <Header as="h3">Access online</Header>
           <List>{eitems}</List>
-          <br />
           <Divider horizontal>Or</Divider>
         </>
       );
@@ -80,7 +79,7 @@ export default class DocumentCirculation extends Component {
 
   render() {
     return (
-      <Segment className={'#TODO'} color="orange">
+      <Segment color="orange">
         {this.renderEItems()}
         <Header as="h3" content="Request loan" />
         <List>
