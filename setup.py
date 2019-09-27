@@ -40,6 +40,7 @@ for reqs in extras_require.values():
 setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
 
 install_requires = [
+    'ciso8601>=2.0.1',
     "Flask-BabelEx>=0.9.3",
     "Flask-Debugtoolbar>=0.10.1",
     "invenio[postgresql,base,auth]==3.2.0a4",
@@ -58,7 +59,7 @@ install_requires = [
     "invenio-i18n>=1.1.0,<1.2.0",
     "invenio-userprofiles>=1.0.1,<1.1.0",
     # extra
-    "invenio-circulation>=1.0.0a17,<1.1.0",
+    "invenio-circulation==1.0.0a17",
     "invenio-records-editor>=1.0.0a3,<1.1.0",
     # until flask-sqlalchemy is fixed
     "SQLAlchemy>=1.2.16,<1.3.0",

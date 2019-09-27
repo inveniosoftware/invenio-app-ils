@@ -13,16 +13,16 @@ class Header extends Component {
       ? this.removeTrailingSlashes(this.props.location.pathname)
       : '';
 
-    const itemsActive = activePath == BackOfficeRoutes.itemsList;
-    const eitemsActive = activePath == BackOfficeRoutes.eitemsList;
-    const loansActive = activePath == BackOfficeRoutes.loansList;
-    const locationsActive = activePath == BackOfficeRoutes.locationsList;
-    const documentsActive = activePath == BackOfficeRoutes.documentsList;
+    const itemsActive = activePath === BackOfficeRoutes.itemsList;
+    const eitemsActive = activePath === BackOfficeRoutes.eitemsList;
+    const loansActive = activePath === BackOfficeRoutes.loansList;
+    const locationsActive = activePath === BackOfficeRoutes.locationsList;
+    const documentsActive = activePath === BackOfficeRoutes.documentsList;
     const documentRequestsActive =
-      activePath == BackOfficeRoutes.documentRequestsList;
-    const patronsActive = activePath == BackOfficeRoutes.patronsList;
-    const seriesActive = activePath == BackOfficeRoutes.seriesList;
-    const statsActive = activePath == BackOfficeRoutes.stats.home;
+      activePath === BackOfficeRoutes.documentRequestsList;
+    const patronsActive = activePath === BackOfficeRoutes.patronsList;
+    const seriesActive = activePath === BackOfficeRoutes.seriesList;
+    const statsActive = activePath === BackOfficeRoutes.stats.home;
     return (
       <Segment inverted vertical className="header">
         <Grid verticalAlign="middle">
