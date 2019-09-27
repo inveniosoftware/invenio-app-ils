@@ -13,7 +13,6 @@ import { Loader, Error } from '../../../../../common/components';
 import PropTypes from 'prop-types';
 import sumBy from 'lodash/sumBy';
 
-import './DocumentStats.scss';
 import { toUTCShortDate } from '../../../../../common/api/date';
 
 const DEFAULT_TITLE = 'for all time';

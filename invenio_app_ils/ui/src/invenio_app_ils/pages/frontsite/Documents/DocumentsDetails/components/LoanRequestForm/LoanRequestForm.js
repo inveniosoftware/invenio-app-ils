@@ -66,7 +66,7 @@ export default class LoanRequestForm extends Component {
   renderDeliveryMethodSelector = () => {
     return this.withDeliveryMethod ? (
       <Form.Field>
-        <label>Choose the book delivery method</label>
+        <label>I would like to</label>
         <Form.Dropdown
           placeholder={'Select delivery method'}
           options={this.deliveryMethods}
@@ -85,18 +85,16 @@ export default class LoanRequestForm extends Component {
       today.plus({ days: invenioConfig.circulation.requestDuration })
     );
     return (
-      <div>
-        <Segment.Inline>
-          <div>Optionally, select a limit date for your request</div>
-          <DatePicker
-            initialDate={toShortDate(initialDate)}
-            minDate={toShortDate(today)}
-            maxDate={toShortDate(max)}
-            placeholder="Request limit date"
-            handleDateChange={this.handleRequestEndDateChange}
-          />
-        </Segment.Inline>
-      </div>
+      <Form.Field>
+        <label>Do you require it before a certain date?</label>
+        <DatePicker
+          initialDate={toShortDate(initialDate)}
+          minDate={toShortDate(today)}
+          maxDate={toShortDate(max)}
+          placeholder="Pick the date"
+          handleDateChange={this.handleRequestEndDateChange}
+        />
+      </Form.Field>
     );
   };
 
@@ -105,18 +103,11 @@ export default class LoanRequestForm extends Component {
     return (
       <Error error={error}>
         <Form>
-          <Segment.Group>
-            <Segment>
-              <Header as="h3" content="Request loan" />
-            </Segment>
-            <Segment>
-              {this.renderDeliveryMethodSelector()}
-              {this.renderOptionalRequestExpirationDate()}
-            </Segment>
-            <Segment>
-              <Form.Button onClick={this.handleSubmit}>Request</Form.Button>
-            </Segment>
-          </Segment.Group>
+          {this.renderDeliveryMethodSelector()}
+          {this.renderOptionalRequestExpirationDate()}
+          <Form.Button fluid primary onClick={this.handleSubmit}>
+            Request
+          </Form.Button>
         </Form>
       </Error>
     );

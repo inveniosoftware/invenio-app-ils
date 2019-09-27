@@ -1,0 +1,19 @@
+/*******************************
+     User Global Variables
+*******************************/
+
+@headerFont        : 'Roboto', Arial, Helvetica, sans-serif;
+@pageFont          : 'Raleway', Arial, Helvetica, sans-serif;
+@googleFontFamily  : 'Roboto:400italic,400|Raleway:400,700';
+
+@fontSmoothing     : antialiased;
+@headerMenuHeight  : 66px;
+
+
+/*******************************
+     Colors
+********************************/
+
+@primaryColor: #f2711c;
+@secondaryColor: #6899D0;
+@highlightGray: #dad8d8;

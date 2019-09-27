@@ -18,7 +18,6 @@ import { goTo } from '../../../../../history';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import pick from 'lodash/pick';
 import capitalize from 'lodash/capitalize';
-import './DocumentRelations.scss';
 import ESRelatedSelector from '../../../../../common/components/ESSelector/ESRelatedSelector';
 import {
   parentChildRelationPayload,

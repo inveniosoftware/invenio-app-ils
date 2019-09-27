@@ -1,6 +1,5 @@
 import React from 'react';
 import { ResultsPerPage, SortBy, SortOrder } from 'react-searchkit';
-import './ResultsSort.scss';
 
 export function ResultsSort(props) {
   return props.searchConfig.SORT_BY.length ? (

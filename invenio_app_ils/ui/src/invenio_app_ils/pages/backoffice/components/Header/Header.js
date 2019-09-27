@@ -4,7 +4,6 @@ import { Menu, Segment, Grid } from 'semantic-ui-react';
 import { BackOfficeRoutes } from '../../../../routes/urls';
 import { goToHandler } from '../../../../history';
 import has from 'lodash/has';
-import './Header.scss';
 
 class Header extends Component {
   removeTrailingSlashes = path => path.replace(/\/+$/, '');

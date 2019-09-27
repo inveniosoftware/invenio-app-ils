@@ -1,0 +1,46 @@
+/*******************************
+         Site Overrides
+*******************************/
+
+.ui.container.document-details-search-container{
+    background-color: @highlightGray;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #b8b8b8;
+    position:relative;
+    margin-bottom: 1em;
+}
+
+.ui.container.document-details-search-container:before,
+.ui.container.document-details-search-container:after
+{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    box-shadow:0 0 20px -8px rgba(0,0,0,0.2);
+    top:50%;
+    bottom:0;
+    left: 43%;
+    right: 43%;
+    border-radius:100px / 10px;
+}
+
+.ui.container.front-app-content{
+    flex: 1;
+    justify-content: space-between;
+}
+
+.ui.container.footer-lower{
+    background-color: #2A2D34;
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+    color: white;
+}
+
+.ui.container.footer-upper{
+    background: rgb(52,55,62);
+    background: linear-gradient(155deg, rgba(52,55,62,1) 0%, rgba(71,75,85,1) 100%);
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+    color: #c1bbbb;
+}

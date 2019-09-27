@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form, Header, Modal, Segment } from 'semantic-ui-react';
 import { ESSelector } from './';
-import './ESSelector.scss';
 import { DateTime } from 'luxon';
 import { invenioConfig } from '../../config';
 import { DatePicker } from '../../components';

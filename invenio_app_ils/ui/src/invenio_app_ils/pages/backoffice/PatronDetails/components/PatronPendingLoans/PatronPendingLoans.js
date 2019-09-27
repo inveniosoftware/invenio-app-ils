@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
 import { loan as loanApi } from '../../../../../common/api';
-import './PatronLoans.scss';
 import { invenioConfig } from '../../../../../common/config';
 import { ResultsTable } from '../../../../../common/components';
 import { BackOfficeRoutes } from '../../../../../routes/urls';

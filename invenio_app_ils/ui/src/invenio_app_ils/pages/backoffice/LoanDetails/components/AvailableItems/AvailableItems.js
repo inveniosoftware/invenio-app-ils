@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 import { Loader, Error, ResultsTable } from '../../../../../common/components';
-import './AvailableItems.scss';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { item as itemApi } from '../../../../../common/api';
 import { invenioConfig } from '../../../../../common/config';

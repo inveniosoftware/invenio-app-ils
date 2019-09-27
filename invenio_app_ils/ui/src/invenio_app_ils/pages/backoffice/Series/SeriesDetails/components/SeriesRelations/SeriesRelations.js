@@ -27,7 +27,6 @@ import {
   parentChildRelationPayload,
   siblingRelationPayload,
 } from '../../../../../../common/api/utils';
-import './SeriesRelations.scss';
 import {
   serializeDocument,
   serializeSeries,

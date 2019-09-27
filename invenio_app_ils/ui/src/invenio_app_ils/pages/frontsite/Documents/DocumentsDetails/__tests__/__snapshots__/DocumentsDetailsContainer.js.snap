@@ -1,41 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DocumentsDetailsContainer tests should load the details component 1`] = `
-<Container>
-  <SearchBar
-    currentQueryString=""
-    executeSearch={[Function]}
-    onInputChange={[Function]}
-    placeholder="Search for books..."
-  />
-  <br />
-  <Loader>
-    <Error>
-      <Breadcrumb>
-        <BreadcrumbSection
-          link={true}
-        >
-          Home
-        </BreadcrumbSection>
-        <BreadcrumbDivider
-          icon="right chevron"
+<Fragment>
+  <Container
+    className="document-details-search-container"
+    fluid={true}
+  >
+    <Container>
+      <SearchBar
+        className="document-details-search-bar"
+        currentQueryString=""
+        executeSearch={[Function]}
+        onInputChange={[Function]}
+        placeholder="Search for books..."
+      />
+    </Container>
+  </Container>
+  <Container
+    className="document-details-container"
+  >
+    <Loader>
+      <Error>
+        <Breadcrumbs
+          currentElement={null}
+          elements={
+            Array [
+              Object {
+                "label": "Home",
+                "to": "/",
+              },
+              Object {
+                "label": "Search",
+                "to": "/search",
+              },
+            ]
+          }
         />
-        <BreadcrumbSection
-          link={true}
-        >
-          Search
-        </BreadcrumbSection>
-        <BreadcrumbDivider
-          icon="right arrow"
-        />
-        <BreadcrumbSection
-          active={true}
-        />
-      </Breadcrumb>
-      <br />
-      <DocumentPanel />
-      <DocumentMetadata />
-    </Error>
-  </Loader>
-</Container>
+        <DocumentPanel />
+        <DocumentMetadata />
+      </Error>
+    </Loader>
+  </Container>
+</Fragment>
 `;

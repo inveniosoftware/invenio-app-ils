@@ -22,7 +22,6 @@ import { getSearchConfig } from '../../../common/config';
 import { ClearButton } from '../components/buttons';
 import { ResultsList as PatronsResultsList } from './components';
 import { goTo } from '../../../history';
-import './PatronsSearch.scss';
 
 export class PatronsSearch extends Component {
   searchApi = new InvenioSearchApi({

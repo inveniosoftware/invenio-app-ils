@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Segment, Tab } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import '../../DocumentsDetails.scss';
 import { DocumentTags, DocumentRelations, DocumentInfo } from './components';
 
 export default class DocumentMetadata extends Component {
@@ -63,7 +62,10 @@ export default class DocumentMetadata extends Component {
                 <DocumentTags tags={this.document.metadata.tags} />
                 <br />
                 <br />
-                <Tab menu={{ pointing: true }} panes={this.renderTabPanes()} />
+                <Tab
+                  menu={{ secondary: true, pointing: true }}
+                  panes={this.renderTabPanes()}
+                />
               </Grid.Column>
             </Grid>
           </Grid.Row>

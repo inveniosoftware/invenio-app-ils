@@ -5,8 +5,6 @@ import { Grid, Segment, Container, Header, Table } from 'semantic-ui-react';
 import { EditButton } from '../../../components/buttons';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 
-import './EItemMetadata.scss';
-
 export default class EItemMetadata extends Component {
   renderUrlLinks = urls =>
     urls.map((url, index) => (

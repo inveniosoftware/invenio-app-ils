@@ -8,13 +8,13 @@ import { SearchBar } from '../../../../common/components/SearchBar';
 import { DocumentPanel } from './components/DocumentPanel';
 import { Error } from '../../../../common/components/Error';
 import { Loader } from '../../../../common/components/Loader';
+import { Breadcrumbs } from '../../components/Breadcrumbs';
 
 export default class DocumentsDetailsContainer extends Component {
   constructor(props) {
     super(props);
     this.fetchDocumentsDetails = this.props.fetchDocumentsDetails;
     this.state = { searchQuery: '' };
-    this.onSearchInputChange = this.onSearchInputChange.bind(this);
     this.renderElement = props.renderElement || this._renderElement;
   }
 
@@ -36,37 +36,42 @@ export default class DocumentsDetailsContainer extends Component {
     goTo(FrontSiteRoutes.documentsListWithQuery(query));
   };
 
-  onSearchInputChange(value, event) {
+  onSearchInputChange = (value, event) => {
     this.setState({ searchQuery: event.target.value });
-  }
+  };
+
+  breadcrumbs = () => [
+    { to: FrontSiteRoutes.home, label: 'Home' },
+    { to: FrontSiteRoutes.documentsList, label: 'Search' },
+  ];
 
   _renderElement(isLoading, error, data) {
     return (
-      <Container>
-        <SearchBar
-          currentQueryString={this.state.searchQuery}
-          onInputChange={this.onSearchInputChange}
-          executeSearch={this.onSearchClick}
-          placeholder={'Search for books...'}
-        />
-        <br />
-        <Loader isLoading={isLoading}>
-          <Error error={error}>
-            <Breadcrumb>
-              <Breadcrumb.Section link>Home</Breadcrumb.Section>
-              <Breadcrumb.Divider icon="right chevron" />
-              <Breadcrumb.Section link>Search</Breadcrumb.Section>
-              <Breadcrumb.Divider icon="right arrow" />
-              <Breadcrumb.Section active>
-                {data.metadata ? data.metadata.title : null}
-              </Breadcrumb.Section>
-            </Breadcrumb>
-            <br />
-            <DocumentPanel />
-            <DocumentMetadata />
-          </Error>
-        </Loader>
-      </Container>
+      <>
+        <Container fluid className="document-details-search-container">
+          <Container>
+            <SearchBar
+              currentQueryString={this.state.searchQuery}
+              onInputChange={this.onSearchInputChange}
+              executeSearch={this.onSearchClick}
+              placeholder={'Search for books...'}
+              className="document-details-search-bar"
+            />
+          </Container>
+        </Container>
+        <Container className={'document-details-container'}>
+          <Loader isLoading={isLoading}>
+            <Error error={error}>
+              <Breadcrumbs
+                elements={this.breadcrumbs()}
+                currentElement={data.metadata ? data.metadata.title : null}
+              />
+              <DocumentPanel />
+              <DocumentMetadata />
+            </Error>
+          </Loader>
+        </Container>
+      </>
     );
   }
 

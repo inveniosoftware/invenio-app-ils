@@ -9,7 +9,6 @@ import {
 } from '../../../pages/frontsite';
 import { Container } from 'semantic-ui-react';
 import { Notifications } from '../../../common/components/Notifications';
-import './FrontSite.scss';
 
 import {
   DocumentsDetailsContainer,
@@ -24,32 +23,34 @@ export class FrontSite extends Component {
       <div className="app">
         <Header />
         <Notifications />
-        <Container className="app-content">
-          {/* home */}
-          <Route exact path={FrontSiteRoutes.home} component={Home} />
-          {/* documents */}
-          <Route
-            exact
-            path={FrontSiteRoutes.documentDetails}
-            component={DocumentsDetailsContainer}
-          />
-          {/* documents */}
-          <Route
-            exact
-            path={FrontSiteRoutes.documentsList}
-            component={DocumentsSearch}
-          />
-          <Route
-            exact
-            path={FrontSiteRoutes.patronProfile}
-            component={ProfileContainer}
-          />
-          <Route
-            exact
-            path={FrontSiteRoutes.documentRequestForm}
-            component={DocumentRequestForm}
-          />
-        </Container>
+        <div className="front-app">
+          <Container fluid className="front-app-content">
+            {/* home */}
+            <Route exact path={FrontSiteRoutes.home} component={Home} />
+            {/* documents */}
+            <Route
+              exact
+              path={FrontSiteRoutes.documentDetails}
+              component={DocumentsDetailsContainer}
+            />
+            {/* documents */}
+            <Route
+              exact
+              path={FrontSiteRoutes.documentsList}
+              component={DocumentsSearch}
+            />
+            <Route
+              exact
+              path={FrontSiteRoutes.patronProfile}
+              component={ProfileContainer}
+            />
+            <Route
+              exact
+              path={FrontSiteRoutes.documentRequestForm}
+              component={DocumentRequestForm}
+            />
+          </Container>
+        </div>
         <Footer />
       </div>
     );

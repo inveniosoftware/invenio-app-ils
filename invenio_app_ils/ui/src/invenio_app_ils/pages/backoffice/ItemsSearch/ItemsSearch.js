@@ -23,7 +23,6 @@ import { ClearButton, NewButton } from '../components/buttons';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { ResultsList as ItemsResultsList } from './components';
 import { goTo } from '../../../history';
-import './ItemsSearch.scss';
 
 export class ItemsSearch extends Component {
   searchApi = new InvenioSearchApi({

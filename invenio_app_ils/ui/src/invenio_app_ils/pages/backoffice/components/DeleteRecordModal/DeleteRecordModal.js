@@ -6,7 +6,6 @@ import sortBy from 'lodash/sortBy';
 import { Button, Header, Icon, Modal, Table, Segment } from 'semantic-ui-react';
 import { Loader, Error } from '../../../../common/components';
 import { DeleteButton } from './components/DeleteButton';
-import './DeleteRecordModal.scss';
 
 export default class DeleteRecordModal extends Component {
   state = { isModalOpen: false };

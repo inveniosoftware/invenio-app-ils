@@ -96,6 +96,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                         menu={
                           Object {
                             "pointing": true,
+                            "secondary": true,
                           }
                         }
                         panes={
@@ -138,9 +139,10 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                             }
                             onItemClick={[Function]}
                             pointing={true}
+                            secondary={true}
                           >
                             <div
-                              className="ui pointing menu"
+                              className="ui pointing secondary menu"
                             >
                               <MenuItem
                                 active={true}

@@ -25,7 +25,6 @@ import {
   SeriesSearch,
   Stats,
 } from '../../../pages/backoffice';
-import './BackOffice.scss';
 import { Notifications } from '../../../common/components/Notifications';
 
 export class BackOffice extends Component {

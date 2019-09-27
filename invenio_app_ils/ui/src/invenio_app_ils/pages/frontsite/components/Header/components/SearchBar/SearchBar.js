@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Input } from 'semantic-ui-react';
 
-import './SearchBar.scss';
-
 class SearchBar extends Component {
   render() {
     let { placeholder } = this.props;

@@ -10,8 +10,6 @@ import {
 } from 'semantic-ui-react';
 import { invenioConfig } from '../../../../../common/config';
 
-import './ItemMetadata.scss';
-
 export default class ItemMetadata extends Component {
   getTitle(loanState) {
     const isRequest = invenioConfig.circulation.loanRequestStates.includes(
