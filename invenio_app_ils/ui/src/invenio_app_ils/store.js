@@ -32,7 +32,7 @@ import {
 import {
   locationListReducer,
   internalLocationListReducer,
-} from './pages/backoffice/LocationList/reducer';
+} from './pages/backoffice/Location/LocationList/reducer';
 import {
   loansCardReducer,
   documentsCardReducer,

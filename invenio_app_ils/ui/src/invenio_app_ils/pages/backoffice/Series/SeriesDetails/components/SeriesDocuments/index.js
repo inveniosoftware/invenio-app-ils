@@ -3,10 +3,10 @@ import { fetchSeriesDocuments } from './state/actions';
 import SeriesDocumentsComponent from './SeriesDocuments';
 
 const mapStateToProps = state => ({
-  data: state.seriesDocuments.data,
+  seriesDocuments: state.seriesDocuments.data,
   error: state.seriesDocuments.error,
   isLoading: state.seriesDocuments.isLoading,
-  hasError: state.seriesDocuments.hasError,
+  seriesDetails: state.seriesDetails.data,
 });
 
 const mapDispatchToProps = dispatch => ({

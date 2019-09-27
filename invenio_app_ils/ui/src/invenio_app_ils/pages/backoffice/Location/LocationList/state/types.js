@@ -1,6 +1,6 @@
-export const IS_LOADING = 'fetchLocations/IS_LOADING';
-export const SUCCESS = 'fetchLocations/SUCCESS';
-export const HAS_ERROR = 'fetchLocations/HAS_ERROR';
+export const IS_LOADING = 'fetchAllLocations/IS_LOADING';
+export const SUCCESS = 'fetchAllLocations/SUCCESS';
+export const HAS_ERROR = 'fetchAllLocations/HAS_ERROR';
 
 export const DELETE_IS_LOADING = 'deleteLocation/DELETE_IS_LOADING';
 export const DELETE_SUCCESS = 'deleteLocation/DELETE_SUCCESS';

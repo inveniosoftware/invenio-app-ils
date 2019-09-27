@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
-import { internalLocation as internalLocationApi } from '../../../common/api';
-import { InternalLocationList } from './components';
-import { Error, Loader, ResultsTable } from '../../../common/components';
-import { DeleteRecordModal } from '../../backoffice/components';
-import { Button } from 'semantic-ui-react';
-import { NewButton } from '../components/buttons';
-import { formatter } from '../../../common/components/ResultsTable/formatters';
 import omit from 'lodash/omit';
+import { internalLocation as internalLocationApi } from '../../../../common/api';
+import { InternalLocationList } from './components';
+import { Error, Loader, ResultsTable } from '../../../../common/components';
+import { DeleteRecordModal } from '../../../backoffice/components';
+import { Button } from 'semantic-ui-react';
+import { NewButton } from '../../components/buttons';
+import { formatter } from '../../../../common/components/ResultsTable/formatters';
+import { BackOfficeRoutes } from '../../../../routes/urls';
+import { goToHandler, goTo } from '../../../../history';
 
 export default class LocationList extends Component {
   constructor(props) {
     super(props);
-    this.fetchLocations = props.fetchLocations;
+    this.fetchAllLocations = props.fetchAllLocations;
     this.deleteLocation = props.deleteLocation;
   }
 
   componentDidMount() {
-    this.fetchLocations();
+    this.fetchAllLocations();
   }
 
   createRefProps(locationPid) {
@@ -26,7 +28,7 @@ export default class LocationList extends Component {
       {
         refType: 'Internal Location',
         onRefClick: iLocPid => {
-          // TODO: EDITOR, implement edit form
+          goTo(BackOfficeRoutes.ilocationsEditFor(iLocPid));
         },
         getRefData: () =>
           internalLocationApi.list(`location_pid:${locationPid}`),
@@ -39,9 +41,7 @@ export default class LocationList extends Component {
       <>
         <Button
           icon={'edit'}
-          onClick={() => {
-            // TODO: EDITOR, implement edit form
-          }}
+          onClick={goToHandler(BackOfficeRoutes.locationsEditFor(locationPid))}
           size="small"
           title={'Edit Record'}
         />
@@ -68,11 +68,7 @@ export default class LocationList extends Component {
   renderResults(data) {
     const rows = this.prepareData(data);
     const headerActionComponent = (
-      <NewButton
-        clickHandler={() => {
-          // TODO: EDITOR, implement create form
-        }}
-      />
+      <NewButton clickHandler={goToHandler(BackOfficeRoutes.locationsCreate)} />
     );
     return (
       <ResultsTable
@@ -87,6 +83,7 @@ export default class LocationList extends Component {
 
   render() {
     let { data, isLoading, error } = this.props;
+
     return (
       <Container>
         <Loader isLoading={isLoading}>
@@ -100,7 +97,7 @@ export default class LocationList extends Component {
 
 LocationList.propTypes = {
   data: PropTypes.object.isRequired,
-  fetchLocations: PropTypes.func.isRequired,
+  fetchAllLocations: PropTypes.func.isRequired,
   deleteLocation: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   hasError: PropTypes.bool.isRequired,

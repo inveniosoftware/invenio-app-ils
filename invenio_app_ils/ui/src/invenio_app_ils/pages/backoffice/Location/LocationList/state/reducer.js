@@ -8,7 +8,7 @@ import {
 } from './types';
 
 export const initialState = {
-  isLoading: false,
+  isLoading: true,
   hasError: false,
   data: { hits: [], total: 0 },
   error: {},

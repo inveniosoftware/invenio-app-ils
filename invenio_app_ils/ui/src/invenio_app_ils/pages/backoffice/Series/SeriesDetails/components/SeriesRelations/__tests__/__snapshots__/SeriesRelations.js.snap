@@ -1,27 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Series relations tests should load the relations component 1`] = `
-<Loader>
-  <Error>
-    <Tab
-      activeIndex={0}
-      grid={
-        Object {
-          "paneWidth": 12,
-          "tabWidth": 4,
+<Fragment>
+  <Loader>
+    <Error>
+      <SeriesRelationsTabPanel
+        relations={Object {}}
+        seriesDetails={
+          Object {
+            "id": "1",
+            "metadata": Object {
+              "mode_of_issuance": "MULTIPART_MONOGRAPH",
+              "pid": "1",
+              "relations": Object {},
+            },
+          }
         }
-      }
-      id="series-relations"
-      menu={
-        Object {
-          "pointing": true,
-          "secondary": true,
-        }
-      }
-      onTabChange={[Function]}
-      panes={Array []}
-      renderActiveOnly={true}
-    />
-  </Error>
-</Loader>
+        showMaxRows={5}
+      />
+    </Error>
+  </Loader>
+</Fragment>
 `;

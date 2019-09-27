@@ -29,8 +29,8 @@ describe('SeriesMultipartMonographs tests', () => {
   it('should load the SeriesMultipartMonographs component', () => {
     const component = shallow(
       <SeriesMultipartMonographs
-        series={series}
-        data={{ hits: [], total: 0 }}
+        seriesDetails={series}
+        multipartMonographs={{ hits: [], total: 0 }}
         fetchSeriesMultipartMonographs={() => {}}
       />
     );
@@ -41,8 +41,8 @@ describe('SeriesMultipartMonographs tests', () => {
     const mockedFetchSeriesMultipartMonographs = jest.fn();
     component = mount(
       <SeriesMultipartMonographs
-        series={series}
-        data={{ hits: [], total: 0 }}
+        seriesDetails={series}
+        multipartMonographs={{ hits: [], total: 0 }}
         fetchSeriesMultipartMonographs={mockedFetchSeriesMultipartMonographs}
       />
     );
@@ -54,8 +54,8 @@ describe('SeriesMultipartMonographs tests', () => {
   it('should render show a message with no series', () => {
     component = mount(
       <SeriesMultipartMonographs
-        series={series}
-        data={{ hits: [], total: 0 }}
+        seriesDetails={series}
+        multipartMonographs={{ hits: [], total: 0 }}
         fetchSeriesMultipartMonographs={() => {}}
       />
     );
@@ -97,8 +97,8 @@ describe('SeriesMultipartMonographs tests', () => {
 
     component = mount(
       <SeriesMultipartMonographs
-        series={series}
-        data={data}
+        seriesDetails={series}
+        multipartMonographs={data}
         fetchSeriesMultipartMonographs={() => {}}
       />
     );
@@ -147,8 +147,8 @@ describe('SeriesMultipartMonographs tests', () => {
 
     component = mount(
       <SeriesMultipartMonographs
-        series={series}
-        data={data}
+        seriesDetails={series}
+        multipartMonographs={data}
         fetchSeriesMultipartMonographs={() => {}}
         showMaxSeries={1}
       />
@@ -182,8 +182,8 @@ describe('SeriesMultipartMonographs tests', () => {
 
     component = mount(
       <SeriesMultipartMonographs
-        series={series}
-        data={data}
+        seriesDetails={series}
+        multipartMonographs={data}
         fetchSeriesMultipartMonographs={() => {}}
         showMaxItems={1}
       />

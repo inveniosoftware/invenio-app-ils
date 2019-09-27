@@ -30,8 +30,8 @@ describe('SeriesDocuments tests', () => {
   it('should load the SeriesDocuments component', () => {
     const component = shallow(
       <SeriesDocuments
-        series={series}
-        data={{ hits: [], total: 0 }}
+        seriesDetails={series}
+        seriesDocuments={{ hits: [], total: 0 }}
         fetchSeriesDocuments={() => {}}
       />
     );
@@ -42,8 +42,8 @@ describe('SeriesDocuments tests', () => {
     const mockedFetchSeriesDocuments = jest.fn();
     component = mount(
       <SeriesDocuments
-        series={series}
-        data={{ hits: [], total: 0 }}
+        seriesDetails={series}
+        seriesDocuments={{ hits: [], total: 0 }}
         fetchSeriesDocuments={mockedFetchSeriesDocuments}
       />
     );
@@ -56,8 +56,8 @@ describe('SeriesDocuments tests', () => {
   it('should render show a message with no documents', () => {
     component = mount(
       <SeriesDocuments
-        series={series}
-        data={{ hits: [], total: 0 }}
+        seriesDetails={series}
+        seriesDocuments={{ hits: [], total: 0 }}
         fetchSeriesDocuments={() => {}}
       />
     );
@@ -97,8 +97,8 @@ describe('SeriesDocuments tests', () => {
 
     component = mount(
       <SeriesDocuments
-        series={series}
-        data={data}
+        seriesDetails={series}
+        seriesDocuments={data}
         fetchSeriesDocuments={() => {}}
       />
     );
@@ -145,8 +145,8 @@ describe('SeriesDocuments tests', () => {
 
     component = mount(
       <SeriesDocuments
-        series={series}
-        data={data}
+        seriesDetails={series}
+        seriesDocuments={data}
         fetchSeriesDocuments={() => {}}
         showMaxDocuments={1}
       />
@@ -180,8 +180,8 @@ describe('SeriesDocuments tests', () => {
 
     component = mount(
       <SeriesDocuments
-        series={series}
-        data={data}
+        seriesDetails={series}
+        seriesDocuments={data}
         fetchSeriesDocuments={() => {}}
         showMaxItems={1}
       />

@@ -40,6 +40,10 @@ const BackOfficeRoutesList = {
   loanDetails: `${BackOfficeBase}/loans/:loanPid`,
   patronsList: `${BackOfficeBase}/patrons`,
   patronDetails: `${BackOfficeBase}/patrons/:patronPid`,
+  ilocationsCreate: `${BackOfficeBase}/internal-locations/create`,
+  ilocationsEdit: `${BackOfficeBase}/internal-locations/:ilocationPid/edit`,
+  locationsCreate: `${BackOfficeBase}/locations/create`,
+  locationsEdit: `${BackOfficeBase}/locations/:locationPid/edit`,
   locationsList: `${BackOfficeBase}/locations`,
   seriesCreate: `${BackOfficeBase}/series/create`,
   seriesEdit: `${BackOfficeBase}/series/:seriesPid/edit`,
@@ -70,6 +74,14 @@ const BackOfficeRouteGenerators = {
   loansListWithQuery: qs => `${BackOfficeRoutesList.loansList}?q=${qs}`,
   loanDetailsFor: loanPid =>
     generatePath(BackOfficeRoutesList.loanDetails, { loanPid: loanPid }),
+  ilocationsEditFor: ilocationPid =>
+    generatePath(BackOfficeRoutesList.ilocationsEdit, {
+      ilocationPid: ilocationPid,
+    }),
+  locationsEditFor: locationPid =>
+    generatePath(BackOfficeRoutesList.locationsEdit, {
+      locationPid: locationPid,
+    }),
   patronDetailsFor: patronPid =>
     generatePath(BackOfficeRoutesList.patronDetails, { patronPid: patronPid }),
   seriesListWithQuery: qs => `${BackOfficeRoutesList.seriesList}?q=${qs}`,

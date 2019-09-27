@@ -18,8 +18,18 @@ describe('Series relations tests', () => {
   });
 
   it('should load the relations component', () => {
+    const series = {
+      id: '1',
+      metadata: {
+        pid: '1',
+        mode_of_issuance: 'MULTIPART_MONOGRAPH',
+        relations: {},
+      },
+    };
     const relations = {};
-    const component = shallow(<SeriesRelations relations={relations} />);
+    const component = shallow(
+      <SeriesRelations seriesDetails={series} relations={relations} />
+    );
     expect(component).toMatchSnapshot();
   });
 
@@ -32,11 +42,22 @@ describe('Series relations tests', () => {
         relations: {},
       },
     };
-    const relations = {};
+    const relations = {
+      edition: [
+        {
+          pid: '2',
+          pid_type: 'docid',
+        },
+        {
+          pid: '3',
+          pid_type: 'docid',
+        },
+      ],
+    };
 
     component = mount(
       <SeriesRelations
-        series={series}
+        seriesDetails={series}
         relations={relations}
         isLoading={false}
       />
@@ -69,7 +90,7 @@ describe('Series relations tests', () => {
 
     component = mount(
       <SeriesRelations
-        series={series}
+        seriesDetails={series}
         relations={relations}
         isLoading={false}
         showMaxRows={1}
@@ -112,7 +133,7 @@ describe('Series relations tests', () => {
 
     component = mount(
       <SeriesRelations
-        series={series}
+        seriesDetails={series}
         relations={relations}
         isLoading={false}
         showMaxRows={1}

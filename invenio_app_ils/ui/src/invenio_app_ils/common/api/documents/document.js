@@ -146,14 +146,13 @@ const queryBuilder = () => {
   return new QueryBuilder();
 };
 
-const list = query => {
-  return http.get(`${documentURL}?q=${query}`).then(response => {
-    response.data.total = response.data.hits.total;
-    response.data.hits = response.data.hits.hits.map(hit =>
-      serializer.fromJSON(hit)
-    );
-    return response;
-  });
+const list = async query => {
+  const response = await http.get(`${documentURL}?q=${query}`);
+  response.data.total = response.data.hits.total;
+  response.data.hits = response.data.hits.hits.map(hit =>
+    serializer.fromJSON(hit)
+  );
+  return response;
 };
 
 const count = query => {

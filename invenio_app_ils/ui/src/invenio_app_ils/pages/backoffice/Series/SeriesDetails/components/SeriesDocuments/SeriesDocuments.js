@@ -9,75 +9,90 @@ import { formatter } from '../../../../../../common/components/ResultsTable/form
 import pick from 'lodash/pick';
 import { goTo, goToHandler } from '../../../../../../history';
 
+const TableData = ({
+  documents,
+  data,
+  showMaxDocuments,
+  seeAllButton,
+  showDetailsUrl,
+}) => {
+  const prepareData = documents => {
+    const serials = data.metadata.relations.serial || [];
+    const volumes = {};
+    for (const serial of serials) {
+      volumes[[serial.pid, serial.pid_type]] = serial.volume;
+    }
+    return documents.hits.map(row => {
+      const key = [row.metadata.pid, 'docid'];
+      const volume = key in volumes ? volumes[key] : '?';
+      const entry = formatter.document.toTable(row, volume);
+      return pick(entry, ['ID', 'Volume', 'Title', 'Authors']);
+    });
+  };
+  const rows = prepareData(documents);
+  rows.totalHits = documents.total;
+  return (
+    <ResultsTable
+      rows={rows}
+      title={'Documents'}
+      name={'documents'}
+      rowActionClickHandler={row => goTo(showDetailsUrl(row.ID))}
+      seeAllComponent={seeAllButton()}
+      showMaxRows={showMaxDocuments}
+    />
+  );
+};
+
 export default class SeriesDocuments extends Component {
   constructor(props) {
     super(props);
-    this.fetchSeriesDocuments = props.fetchSeriesDocuments;
     this.showDetailsUrl = BackOfficeRoutes.documentDetailsFor;
     this.seeAllUrl = BackOfficeRoutes.documentsListWithQuery;
+    this.seriesPid = props.seriesDetails.metadata.pid;
+    this.seriesType = props.seriesDetails.metadata.mode_of_issuance;
+    this.fetchSeriesDocuments = props.fetchSeriesDocuments;
   }
 
   componentDidMount() {
-    const { series } = this.props;
-    this.fetchSeriesDocuments(series.pid, series.metadata.mode_of_issuance);
+    this.fetchSeriesDocuments(this.seriesPid, this.seriesType);
   }
 
   seeAllButton = () => {
     const path = this.seeAllUrl(
       documentApi
         .query()
-        .withSeriesPid(
-          this.props.series.pid,
-          this.props.series.metadata.mode_of_issuance
-        )
+        .withSeriesPid(this.seriesPid, this.seriesType)
         .qs()
     );
     return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
-  prepareData(data) {
-    const serials = this.props.series.metadata.relations.serial || [];
-    const volumes = {};
-    for (const serial of serials) {
-      volumes[[serial.pid, serial.pid_type]] = serial.volume;
-    }
-    return data.hits.map(row => {
-      const key = [row.metadata.pid, 'docid'];
-      const volume = key in volumes ? volumes[key] : '?';
-      const entry = formatter.document.toTable(row, volume);
-      return pick(entry, ['ID', 'Volume', 'Title', 'Authors']);
-    });
-  }
-
-  renderTable(data) {
-    const rows = this.prepareData(data);
-    rows.totalHits = data.total;
-    return (
-      <ResultsTable
-        rows={rows}
-        title={'Documents'}
-        name={'documents'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
-        seeAllComponent={this.seeAllButton()}
-        showMaxRows={this.props.showMaxDocuments}
-      />
-    );
-  }
-
   render() {
-    const { data, isLoading, error } = this.props;
+    const {
+      seriesDetails,
+      showMaxDocuments,
+      seriesDocuments,
+      isLoading,
+      error,
+    } = this.props;
+
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this.renderTable(data)}</Error>
+        <Error error={error}>
+          <TableData
+            documents={seriesDocuments}
+            data={seriesDetails}
+            showMaxDocuments={showMaxDocuments}
+            showDetailsUrl={this.showDetailsUrl}
+            seeAllButton={this.seeAllButton}
+          ></TableData>
+        </Error>
       </Loader>
     );
   }
 }
 
 SeriesDocuments.propTypes = {
-  series: PropTypes.object.isRequired,
-  fetchSeriesDocuments: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
   showMaxDocuments: PropTypes.number,
 };
 

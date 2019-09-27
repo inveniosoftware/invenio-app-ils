@@ -92,8 +92,8 @@ export const serializeSeries = series => ({
 export const serializeSeriesLanguages = series => ({
   id: series.metadata.pid,
   key: series.metadata.pid,
-  title: series.metadata.title.title,
-  description: `Language: ${series.metadata.language}`,
+  title: series.metadata.title,
+  description: `Language: ${series.metadata.languages}`,
   extra: `Series #${series.metadata.pid}`,
   metadata: series.metadata,
 });

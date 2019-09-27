@@ -6,17 +6,22 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Internal Location schema for marshmallow loader."""
-from invenio_records_rest.schemas import RecordSchemaJSONV1
+from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from invenio_records_rest.schemas.fields import PersistentIdentifier
 from marshmallow import fields
 
 
-class InternalLocationSchemaV1(RecordSchemaJSONV1):
+class InternalLocationSchemaV1(RecordMetadataSchemaJSONV1):
     """Internal Location schema."""
 
+    class Meta:
+        """Meta attributes for the schema."""
+
+        from marshmallow import EXCLUDE
+        unknown = EXCLUDE
+
     pid = PersistentIdentifier()
+    name = fields.Str(required=True)
     location_pid = fields.Str(required=True)
-    legacy_id = fields.Str()
-    name = fields.Str()
     physical_location = fields.Str()
     notes = fields.Str()

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
-import isEmpty from 'lodash/isEmpty';
 import { Loader, Error } from '../../../../common/components';
 import {
   SeriesDocuments,
@@ -26,21 +25,15 @@ export default class SeriesDetails extends Component {
   }
 
   render() {
-    const { data, isLoading, error } = this.props;
-
-    const isMultipart =
-      !isEmpty(data) &&
-      data.metadata.mode_of_issuance === 'MULTIPART_MONOGRAPH';
-    const isSerial =
-      !isEmpty(data) && data.metadata.mode_of_issuance === 'SERIAL';
+    const { isLoading, error } = this.props;
     return (
       <Container>
         <Loader isLoading={isLoading}>
           <Error error={error}>
             <SeriesMetadata />
-            <SeriesDocuments series={data} />
-            {isSerial && <SeriesMultipartMonographs series={data} />}
-            {isMultipart && <SeriesRelations />}
+            <SeriesDocuments />
+            <SeriesMultipartMonographs />
+            <SeriesRelations />
           </Error>
         </Loader>
       </Container>

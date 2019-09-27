@@ -7,16 +7,23 @@
 
 """Location schema for marshmallow loader."""
 
+from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from invenio_records_rest.schemas.fields import PersistentIdentifier
 from marshmallow import Schema, fields
 
 
-class LocationSchemaV1(Schema):
+class LocationSchemaV1(RecordMetadataSchemaJSONV1):
     """Location schema."""
+
+    class Meta:
+        """Meta attributes for the schema."""
+
+        from marshmallow import EXCLUDE
+        unknown = EXCLUDE
 
     pid = PersistentIdentifier()
     name = fields.Str(required=True)
-    email = fields.Email()
     address = fields.Str()
+    email = fields.Email()
     phone = fields.Str()
     notes = fields.Str()

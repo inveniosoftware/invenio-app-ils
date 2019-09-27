@@ -1,4 +1,5 @@
-import { ES_DELAY } from '../../../../../../common/config';
+import { location as locationApi } from '../../../../../common/api';
+import { ES_DELAY } from '../../../../../common/config';
 import {
   IS_LOADING,
   SUCCESS,
@@ -7,18 +8,18 @@ import {
   DELETE_SUCCESS,
   DELETE_HAS_ERROR,
 } from './types';
-import { internalLocation as internalLocationApi } from '../../../../../../common/api';
 import {
   sendErrorNotification,
   sendSuccessNotification,
-} from '../../../../../../common/components/Notifications';
+} from '../../../../../common/components/Notifications';
 
-export const fetchInternalLocations = () => {
+export const fetchAllLocations = () => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
-    await internalLocationApi
+
+    await locationApi
       .list()
       .then(response => {
         dispatch({
@@ -36,27 +37,27 @@ export const fetchInternalLocations = () => {
   };
 };
 
-export const deleteInternalLocation = ilocPid => {
+export const deleteLocation = locationPid => {
   return async dispatch => {
     dispatch({
       type: DELETE_IS_LOADING,
     });
 
-    await internalLocationApi
-      .delete(ilocPid)
+    await locationApi
+      .delete(locationPid)
       .then(response => {
         dispatch({
           type: DELETE_SUCCESS,
-          payload: { internalLocationPid: ilocPid },
+          payload: { locationPid: locationPid },
         });
         dispatch(
           sendSuccessNotification(
             'Success!',
-            `The internal location ${ilocPid} has been deleted.`
+            `The location ${locationPid} has been deleted.`
           )
         );
         setTimeout(() => {
-          dispatch(fetchInternalLocations());
+          dispatch(fetchAllLocations());
         }, ES_DELAY);
       })
       .catch(error => {

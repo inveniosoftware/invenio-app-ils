@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { item as itemApi } from '../../../../../common/api';
-import { Error, Loader, ResultsTable } from '../../../../../common/components';
+import { item as itemApi } from '../../../../../../common/api';
+import {
+  Error,
+  Loader,
+  ResultsTable,
+} from '../../../../../../common/components';
 import { Button } from 'semantic-ui-react';
-import { NewButton } from '../../../components/buttons';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
-import { DeleteRecordModal } from '../../../../backoffice/components';
+import { NewButton } from '../../../../components/buttons';
+import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
+import { DeleteRecordModal } from '../../../../../backoffice/components';
 import omit from 'lodash/omit';
+import { goTo, goToHandler } from '../../../../../../history';
+import { BackOfficeRoutes } from '../../../../../../routes/urls';
 
 export default class InternalLocationList extends Component {
   constructor(props) {
@@ -20,7 +26,7 @@ export default class InternalLocationList extends Component {
   }
 
   handleOnRefClick(itemPid) {
-    // TODO: EDITOR, implement edit form
+    // TODO: navigate to item edit form
   }
 
   createRefProps(ilocPid) {
@@ -40,9 +46,7 @@ export default class InternalLocationList extends Component {
           icon={'edit'}
           size="small"
           title={'Edit Record'}
-          onClick={() => {
-            // TODO: EDITOR, implement edit form
-          }}
+          onClick={goToHandler(BackOfficeRoutes.ilocationsEditFor(ilocPid))}
         />
         <DeleteRecordModal
           refProps={this.createRefProps(ilocPid)}
@@ -68,9 +72,7 @@ export default class InternalLocationList extends Component {
     const rows = this.prepareData(data);
     const headerActionComponent = (
       <NewButton
-        clickHandler={() => {
-          // TODO: EDITOR, implement create form
-        }}
+        clickHandler={goToHandler(BackOfficeRoutes.ilocationsCreate)}
       />
     );
     return (
