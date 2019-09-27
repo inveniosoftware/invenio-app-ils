@@ -11,7 +11,6 @@ import { Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import { stats as statsApi } from '../../../../../common/api';
 import { ExportSearchResults } from '../../../components';
-import { invenioConfig } from '../../../../../common/config/invenioConfig';
 
 export default class MostLoanedDocumentsList extends Component {
   constructor(props) {

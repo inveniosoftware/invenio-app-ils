@@ -42,7 +42,7 @@ export default class DocumentRequestForm extends Component {
 
     try {
       actions.setSubmitting(true);
-      const response = await documentRequestApi.create(data);
+      await documentRequestApi.create(data);
 
       this.props.sendSuccessNotification(
         'Success!',

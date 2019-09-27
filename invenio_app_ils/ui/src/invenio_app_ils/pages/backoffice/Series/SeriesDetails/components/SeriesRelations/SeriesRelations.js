@@ -22,7 +22,6 @@ import { goTo } from '../../../../../../history';
 import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import pick from 'lodash/pick';
 import isEmpty from 'lodash/isEmpty';
-import capitalize from 'lodash/capitalize';
 import ESRelatedSelector from '../../../../../../common/components/ESSelector/ESRelatedSelector';
 import {
   parentChildRelationPayload,
@@ -373,8 +372,6 @@ export default class SeriesRelations extends Component {
       'Type',
       'Language',
     ]);
-
-    const activeIndex = this.state.activeIndex;
 
     return [
       {
