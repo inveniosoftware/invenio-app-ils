@@ -56,18 +56,21 @@ export default class Header extends Component {
       this.renderRightDropDown()
     );
   };
-
   render() {
     return (
-      <Menu borderless inverted fixed="top">
-        <Container>
-          <Menu.Item header position="left">
-            <Link to="/">ILS</Link>
-          </Menu.Item>
-          <Menu.Item header position="right">
-            {this.renderRightMenuItem()}
-          </Menu.Item>
-        </Container>
+      <Menu
+        stackable
+        borderless
+        fluid
+        fixed="top"
+        className="header-menu"
+        widths={3}
+      ><Container>
+        <Menu.Item>
+          <Link to="/">ILS</Link>
+        </Menu.Item>
+        <Menu.Item position={'right'}>{this.renderRightMenuItem()}</Menu.Item>
+      </Container>
       </Menu>
     );
   }

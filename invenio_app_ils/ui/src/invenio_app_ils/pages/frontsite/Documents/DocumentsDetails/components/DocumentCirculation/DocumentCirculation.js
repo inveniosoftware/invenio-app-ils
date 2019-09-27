@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Divider, Header, List, Segment } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import '../../DocumentsDetails.scss';
 import { LoginRedirectButton } from '../../../../../../authentication/components';
 import { LoanRequestForm } from '../LoanRequestForm';
 import { AuthenticationGuard } from '../../../../../../authentication/components/AuthenticationGuard';
@@ -66,16 +65,23 @@ export default class DocumentCirculation extends Component {
         </List.Item>
       );
     });
-    return eitems;
+    if (eitems.length > 0) {
+      return (
+        <>
+          <Header as="h3">Access online</Header>
+          <List>{eitems}</List>
+          <br />
+          <Divider horizontal>Or</Divider>
+        </>
+      );
+    }
+    return null;
   };
 
   render() {
     return (
       <Segment className={'#TODO'} color="orange">
-        <Header as="h3">Access online</Header>
-        <List>{this.renderEItems()}</List>
-        <br />
-        <Divider horizontal>Or</Divider>
+        {this.renderEItems()}
         <Header as="h3" content="Request loan" />
         <List>
           {this.renderBookAvailability()}

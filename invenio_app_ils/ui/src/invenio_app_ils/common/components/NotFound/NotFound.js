@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Button, Icon } from 'semantic-ui-react';
 
-import './NotFound.scss';
-
 export class NotFound extends Component {
   render() {
     return (

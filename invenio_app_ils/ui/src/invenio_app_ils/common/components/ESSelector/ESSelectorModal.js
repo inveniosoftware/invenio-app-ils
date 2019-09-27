@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Modal } from 'semantic-ui-react';
 import { ESSelector } from './';
-import './ESSelector.scss';
 
 export default class ESSelectorModal extends Component {
   state = { visible: false };

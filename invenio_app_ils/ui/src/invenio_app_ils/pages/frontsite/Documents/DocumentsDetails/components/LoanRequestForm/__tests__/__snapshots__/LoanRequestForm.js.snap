@@ -61,574 +61,544 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
         className="ui form"
         onSubmit={[Function]}
       >
-        <SegmentGroup>
+        <FormField>
           <div
-            className="ui segments"
+            className="field"
           >
-            <Segment>
-              <div
-                className="ui segment"
+            <label>
+              I would like to
+            </label>
+            <FormDropdown
+              as={[Function]}
+              control={[Function]}
+              defaultValue="PICK UP"
+              onChange={[Function]}
+              options={
+                Array [
+                  Object {
+                    "key": "DELIVERY",
+                    "text": "",
+                    "value": "DELIVERY",
+                  },
+                  Object {
+                    "key": "PICK UP",
+                    "text": "",
+                    "value": "PICK UP",
+                  },
+                ]
+              }
+              placeholder="Select delivery method"
+              selection={true}
+            >
+              <FormField
+                control={[Function]}
+                defaultValue="PICK UP"
+                onChange={[Function]}
+                options={
+                  Array [
+                    Object {
+                      "key": "DELIVERY",
+                      "text": "",
+                      "value": "DELIVERY",
+                    },
+                    Object {
+                      "key": "PICK UP",
+                      "text": "",
+                      "value": "PICK UP",
+                    },
+                  ]
+                }
+                placeholder="Select delivery method"
+                selection={true}
               >
-                <Header
-                  as="h3"
-                  content="Request loan"
+                <div
+                  className="field"
                 >
-                  <h3
-                    className="ui header"
+                  <Dropdown
+                    additionLabel="Add "
+                    additionPosition="top"
+                    closeOnBlur={true}
+                    closeOnEscape={true}
+                    deburr={false}
+                    defaultValue="PICK UP"
+                    icon="dropdown"
+                    minCharacters={1}
+                    noResultsMessage="No results found."
+                    onChange={[Function]}
+                    openOnFocus={true}
+                    options={
+                      Array [
+                        Object {
+                          "key": "DELIVERY",
+                          "text": "",
+                          "value": "DELIVERY",
+                        },
+                        Object {
+                          "key": "PICK UP",
+                          "text": "",
+                          "value": "PICK UP",
+                        },
+                      ]
+                    }
+                    placeholder="Select delivery method"
+                    renderLabel={[Function]}
+                    searchInput="text"
+                    selectOnBlur={true}
+                    selectOnNavigation={true}
+                    selection={true}
+                    wrapSelection={true}
                   >
-                    Request loan
-                  </h3>
-                </Header>
-              </div>
-            </Segment>
-            <Segment>
-              <div
-                className="ui segment"
-              >
-                <FormField>
-                  <div
-                    className="field"
-                  >
-                    <label>
-                      Choose the book delivery method
-                    </label>
-                    <FormDropdown
-                      as={[Function]}
-                      control={[Function]}
-                      defaultValue="PICK UP"
-                      onChange={[Function]}
-                      options={
-                        Array [
-                          Object {
-                            "key": "DELIVERY",
-                            "text": "",
-                            "value": "DELIVERY",
-                          },
-                          Object {
-                            "key": "PICK UP",
-                            "text": "",
-                            "value": "PICK UP",
-                          },
-                        ]
+                    <Ref
+                      innerRef={
+                        Object {
+                          "current": <div
+                            aria-expanded="false"
+                            class="ui selection dropdown"
+                            role="listbox"
+                            tabindex="0"
+                          >
+                            <div
+                              aria-atomic="true"
+                              aria-live="polite"
+                              class="text"
+                              role="alert"
+                            />
+                            <i
+                              aria-hidden="true"
+                              class="dropdown icon"
+                            />
+                            <div
+                              class="menu transition"
+                            >
+                              <div
+                                aria-checked="false"
+                                aria-selected="false"
+                                class="item"
+                                role="option"
+                                style="pointer-events: all;"
+                              >
+                                <span
+                                  class="text"
+                                />
+                              </div>
+                              <div
+                                aria-checked="true"
+                                aria-selected="true"
+                                class="active selected item"
+                                role="option"
+                                style="pointer-events: all;"
+                              >
+                                <span
+                                  class="text"
+                                />
+                              </div>
+                            </div>
+                          </div>,
+                        }
                       }
-                      placeholder="Select delivery method"
-                      selection={true}
+                    >
+                      <RefFindNode
+                        innerRef={
+                          Object {
+                            "current": <div
+                              aria-expanded="false"
+                              class="ui selection dropdown"
+                              role="listbox"
+                              tabindex="0"
+                            >
+                              <div
+                                aria-atomic="true"
+                                aria-live="polite"
+                                class="text"
+                                role="alert"
+                              />
+                              <i
+                                aria-hidden="true"
+                                class="dropdown icon"
+                              />
+                              <div
+                                class="menu transition"
+                              >
+                                <div
+                                  aria-checked="false"
+                                  aria-selected="false"
+                                  class="item"
+                                  role="option"
+                                  style="pointer-events: all;"
+                                >
+                                  <span
+                                    class="text"
+                                  />
+                                </div>
+                                <div
+                                  aria-checked="true"
+                                  aria-selected="true"
+                                  class="active selected item"
+                                  role="option"
+                                  style="pointer-events: all;"
+                                >
+                                  <span
+                                    class="text"
+                                  />
+                                </div>
+                              </div>
+                            </div>,
+                          }
+                        }
+                      >
+                        <div
+                          aria-expanded={false}
+                          className="ui selection dropdown"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onMouseDown={[Function]}
+                          role="listbox"
+                          tabIndex={0}
+                        >
+                          <div
+                            aria-atomic={true}
+                            aria-live="polite"
+                            className="text"
+                            role="alert"
+                          />
+                          <Icon
+                            as="i"
+                            className=""
+                            name="dropdown"
+                            onClick={[Function]}
+                          >
+                            <i
+                              aria-hidden="true"
+                              className="dropdown icon"
+                              onClick={[Function]}
+                            />
+                          </Icon>
+                          <DropdownMenu>
+                            <div
+                              className="menu transition"
+                            >
+                              <DropdownItem
+                                active={false}
+                                key="DELIVERY"
+                                onClick={[Function]}
+                                selected={false}
+                                style={
+                                  Object {
+                                    "pointerEvents": "all",
+                                  }
+                                }
+                                text=""
+                                value="DELIVERY"
+                              >
+                                <div
+                                  aria-checked={false}
+                                  aria-selected={false}
+                                  className="item"
+                                  onClick={[Function]}
+                                  role="option"
+                                  style={
+                                    Object {
+                                      "pointerEvents": "all",
+                                    }
+                                  }
+                                >
+                                  <span
+                                    className="text"
+                                  />
+                                </div>
+                              </DropdownItem>
+                              <DropdownItem
+                                active={true}
+                                key="PICK UP"
+                                onClick={[Function]}
+                                selected={true}
+                                style={
+                                  Object {
+                                    "pointerEvents": "all",
+                                  }
+                                }
+                                text=""
+                                value="PICK UP"
+                              >
+                                <div
+                                  aria-checked={true}
+                                  aria-selected={true}
+                                  className="active selected item"
+                                  onClick={[Function]}
+                                  role="option"
+                                  style={
+                                    Object {
+                                      "pointerEvents": "all",
+                                    }
+                                  }
+                                >
+                                  <span
+                                    className="text"
+                                  />
+                                </div>
+                              </DropdownItem>
+                            </div>
+                          </DropdownMenu>
+                        </div>
+                      </RefFindNode>
+                    </Ref>
+                  </Dropdown>
+                </div>
+              </FormField>
+            </FormDropdown>
+          </div>
+        </FormField>
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Do you require it before a certain date?
+            </label>
+            <DatePicker
+              defaultValue=""
+              handleDateChange={[Function]}
+              initialDate="2019-10-13"
+              maxDate="2019-12-02"
+              minDate="2019-10-03"
+              placeholder="Pick the date"
+            >
+              <DateInput
+                autoComplete="off"
+                clearIcon={
+                  <Icon
+                    as="i"
+                    color="red"
+                    name="remove"
+                  />
+                }
+                clearable={true}
+                closable={true}
+                data-test=""
+                dateFormat="YYYY-MM-DD"
+                icon="calendar"
+                iconPosition="left"
+                initialDate="2019-10-13"
+                inline={false}
+                localization="en"
+                maxDate="2019-12-02"
+                minDate="2019-10-03"
+                name="selectedDate"
+                onChange={[Function]}
+                placeholder="Pick the date"
+                preserveViewMode={true}
+                startMode="day"
+                value=""
+              >
+                <InputView
+                  animation="scale"
+                  autoComplete="off"
+                  clearIcon={
+                    <Icon
+                      as="i"
+                      color="red"
+                      name="remove"
+                    />
+                  }
+                  clearable={true}
+                  closeOnMouseLeave={true}
+                  closePopup={[Function]}
+                  data-test=""
+                  duration={200}
+                  icon="calendar"
+                  iconPosition="left"
+                  inline={false}
+                  name="selectedDate"
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onMount={[Function]}
+                  openPopup={[Function]}
+                  placeholder="Pick the date"
+                  popupIsClosed={true}
+                  renderPicker={[Function]}
+                  tabIndex="0"
+                  value=""
+                >
+                  <FormInputWithRef
+                    autoComplete="off"
+                    clearIcon={
+                      <Icon
+                        as="i"
+                        color="red"
+                        name="remove"
+                      />
+                    }
+                    clearable={true}
+                    data-test=""
+                    icon="calendar"
+                    iconPosition="left"
+                    innerRef={[Function]}
+                    name="selectedDate"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onClear={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    placeholder="Pick the date"
+                    tabIndex="0"
+                    value=""
+                  >
+                    <FormInput
+                      as={[Function]}
+                      autoComplete="off"
+                      control={[Function]}
+                      data-test=""
+                      icon={true}
+                      iconPosition="left"
+                      name="selectedDate"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onMouseEnter={[Function]}
+                      placeholder="Pick the date"
+                      tabIndex="0"
                     >
                       <FormField
+                        autoComplete="off"
                         control={[Function]}
-                        defaultValue="PICK UP"
+                        data-test=""
+                        icon={true}
+                        iconPosition="left"
+                        name="selectedDate"
+                        onBlur={[Function]}
                         onChange={[Function]}
-                        options={
-                          Array [
-                            Object {
-                              "key": "DELIVERY",
-                              "text": "",
-                              "value": "DELIVERY",
-                            },
-                            Object {
-                              "key": "PICK UP",
-                              "text": "",
-                              "value": "PICK UP",
-                            },
-                          ]
-                        }
-                        placeholder="Select delivery method"
-                        selection={true}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onMouseEnter={[Function]}
+                        placeholder="Pick the date"
+                        tabIndex="0"
                       >
                         <div
                           className="field"
                         >
-                          <Dropdown
-                            additionLabel="Add "
-                            additionPosition="top"
-                            closeOnBlur={true}
-                            closeOnEscape={true}
-                            deburr={false}
-                            defaultValue="PICK UP"
-                            icon="dropdown"
-                            minCharacters={1}
-                            noResultsMessage="No results found."
-                            onChange={[Function]}
-                            openOnFocus={true}
-                            options={
-                              Array [
-                                Object {
-                                  "key": "DELIVERY",
-                                  "text": "",
-                                  "value": "DELIVERY",
-                                },
-                                Object {
-                                  "key": "PICK UP",
-                                  "text": "",
-                                  "value": "PICK UP",
-                                },
-                              ]
-                            }
-                            placeholder="Select delivery method"
-                            renderLabel={[Function]}
-                            searchInput="text"
-                            selectOnBlur={true}
-                            selectOnNavigation={true}
-                            selection={true}
-                            wrapSelection={true}
-                          >
-                            <Ref
-                              innerRef={
-                                Object {
-                                  "current": <div
-                                    aria-expanded="false"
-                                    class="ui selection dropdown"
-                                    role="listbox"
-                                    tabindex="0"
-                                  >
-                                    <div
-                                      aria-atomic="true"
-                                      aria-live="polite"
-                                      class="text"
-                                      role="alert"
-                                    />
-                                    <i
-                                      aria-hidden="true"
-                                      class="dropdown icon"
-                                    />
-                                    <div
-                                      class="menu transition"
-                                    >
-                                      <div
-                                        aria-checked="false"
-                                        aria-selected="false"
-                                        class="item"
-                                        role="option"
-                                        style="pointer-events: all;"
-                                      >
-                                        <span
-                                          class="text"
-                                        />
-                                      </div>
-                                      <div
-                                        aria-checked="true"
-                                        aria-selected="true"
-                                        class="active selected item"
-                                        role="option"
-                                        style="pointer-events: all;"
-                                      >
-                                        <span
-                                          class="text"
-                                        />
-                                      </div>
-                                    </div>
-                                  </div>,
-                                }
-                              }
-                            >
-                              <RefFindNode
-                                innerRef={
-                                  Object {
-                                    "current": <div
-                                      aria-expanded="false"
-                                      class="ui selection dropdown"
-                                      role="listbox"
-                                      tabindex="0"
-                                    >
-                                      <div
-                                        aria-atomic="true"
-                                        aria-live="polite"
-                                        class="text"
-                                        role="alert"
-                                      />
-                                      <i
-                                        aria-hidden="true"
-                                        class="dropdown icon"
-                                      />
-                                      <div
-                                        class="menu transition"
-                                      >
-                                        <div
-                                          aria-checked="false"
-                                          aria-selected="false"
-                                          class="item"
-                                          role="option"
-                                          style="pointer-events: all;"
-                                        >
-                                          <span
-                                            class="text"
-                                          />
-                                        </div>
-                                        <div
-                                          aria-checked="true"
-                                          aria-selected="true"
-                                          class="active selected item"
-                                          role="option"
-                                          style="pointer-events: all;"
-                                        >
-                                          <span
-                                            class="text"
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>,
-                                  }
-                                }
-                              >
-                                <div
-                                  aria-expanded={false}
-                                  className="ui selection dropdown"
-                                  onBlur={[Function]}
-                                  onChange={[Function]}
-                                  onClick={[Function]}
-                                  onFocus={[Function]}
-                                  onMouseDown={[Function]}
-                                  role="listbox"
-                                  tabIndex={0}
-                                >
-                                  <div
-                                    aria-atomic={true}
-                                    aria-live="polite"
-                                    className="text"
-                                    role="alert"
-                                  />
-                                  <Icon
-                                    as="i"
-                                    className=""
-                                    name="dropdown"
-                                    onClick={[Function]}
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      className="dropdown icon"
-                                      onClick={[Function]}
-                                    />
-                                  </Icon>
-                                  <DropdownMenu>
-                                    <div
-                                      className="menu transition"
-                                    >
-                                      <DropdownItem
-                                        active={false}
-                                        key="DELIVERY"
-                                        onClick={[Function]}
-                                        selected={false}
-                                        style={
-                                          Object {
-                                            "pointerEvents": "all",
-                                          }
-                                        }
-                                        text=""
-                                        value="DELIVERY"
-                                      >
-                                        <div
-                                          aria-checked={false}
-                                          aria-selected={false}
-                                          className="item"
-                                          onClick={[Function]}
-                                          role="option"
-                                          style={
-                                            Object {
-                                              "pointerEvents": "all",
-                                            }
-                                          }
-                                        >
-                                          <span
-                                            className="text"
-                                          />
-                                        </div>
-                                      </DropdownItem>
-                                      <DropdownItem
-                                        active={true}
-                                        key="PICK UP"
-                                        onClick={[Function]}
-                                        selected={true}
-                                        style={
-                                          Object {
-                                            "pointerEvents": "all",
-                                          }
-                                        }
-                                        text=""
-                                        value="PICK UP"
-                                      >
-                                        <div
-                                          aria-checked={true}
-                                          aria-selected={true}
-                                          className="active selected item"
-                                          onClick={[Function]}
-                                          role="option"
-                                          style={
-                                            Object {
-                                              "pointerEvents": "all",
-                                            }
-                                          }
-                                        >
-                                          <span
-                                            className="text"
-                                          />
-                                        </div>
-                                      </DropdownItem>
-                                    </div>
-                                  </DropdownMenu>
-                                </div>
-                              </RefFindNode>
-                            </Ref>
-                          </Dropdown>
-                        </div>
-                      </FormField>
-                    </FormDropdown>
-                  </div>
-                </FormField>
-                <div>
-                  <SegmentInline>
-                    <div
-                      className="inline"
-                    >
-                      <div>
-                        Optionally, select a limit date for your request
-                      </div>
-                      <DatePicker
-                        defaultValue=""
-                        handleDateChange={[Function]}
-                        initialDate="2019-10-11"
-                        maxDate="2019-11-30"
-                        minDate="2019-10-01"
-                        placeholder="Request limit date"
-                      >
-                        <DateInput
-                          autoComplete="off"
-                          clearIcon={
-                            <Icon
-                              as="i"
-                              color="red"
-                              name="remove"
-                            />
-                          }
-                          clearable={true}
-                          closable={true}
-                          data-test=""
-                          dateFormat="YYYY-MM-DD"
-                          icon="calendar"
-                          iconPosition="left"
-                          initialDate="2019-10-11"
-                          inline={false}
-                          localization="en"
-                          maxDate="2019-11-30"
-                          minDate="2019-10-01"
-                          name="selectedDate"
-                          onChange={[Function]}
-                          placeholder="Request limit date"
-                          preserveViewMode={true}
-                          startMode="day"
-                          value=""
-                        >
-                          <InputView
-                            animation="scale"
+                          <Input
                             autoComplete="off"
-                            clearIcon={
+                            data-test=""
+                            icon={true}
+                            iconPosition="left"
+                            name="selectedDate"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onMouseEnter={[Function]}
+                            placeholder="Pick the date"
+                            tabIndex="0"
+                            type="text"
+                          >
+                            <div
+                              className="ui left icon input"
+                              data-test=""
+                            >
                               <Icon
                                 as="i"
-                                color="red"
-                                name="remove"
-                              />
-                            }
-                            clearable={true}
-                            closeOnMouseLeave={true}
-                            closePopup={[Function]}
-                            data-test=""
-                            duration={200}
-                            icon="calendar"
-                            iconPosition="left"
-                            inline={false}
-                            name="selectedDate"
-                            onChange={[Function]}
-                            onFocus={[Function]}
-                            onMount={[Function]}
-                            openPopup={[Function]}
-                            placeholder="Request limit date"
-                            popupIsClosed={true}
-                            renderPicker={[Function]}
-                            tabIndex="0"
-                            value=""
-                          >
-                            <FormInputWithRef
-                              autoComplete="off"
-                              clearIcon={
-                                <Icon
-                                  as="i"
-                                  color="red"
-                                  name="remove"
+                                key=".0"
+                                name="calendar"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="calendar icon"
+                                  onClick={[Function]}
                                 />
-                              }
-                              clearable={true}
-                              data-test=""
-                              icon="calendar"
-                              iconPosition="left"
-                              innerRef={[Function]}
-                              name="selectedDate"
-                              onBlur={[Function]}
-                              onChange={[Function]}
-                              onClear={[Function]}
-                              onFocus={[Function]}
-                              onMouseEnter={[Function]}
-                              placeholder="Request limit date"
-                              tabIndex="0"
-                              value=""
-                            >
-                              <FormInput
-                                as={[Function]}
+                              </Icon>
+                              <input
                                 autoComplete="off"
-                                control={[Function]}
-                                data-test=""
-                                icon={true}
-                                iconPosition="left"
+                                key=".1"
                                 name="selectedDate"
                                 onBlur={[Function]}
                                 onChange={[Function]}
                                 onClick={[Function]}
                                 onFocus={[Function]}
                                 onMouseEnter={[Function]}
-                                placeholder="Request limit date"
+                                placeholder="Pick the date"
                                 tabIndex="0"
-                              >
-                                <FormField
-                                  autoComplete="off"
-                                  control={[Function]}
-                                  data-test=""
-                                  icon={true}
-                                  iconPosition="left"
-                                  name="selectedDate"
-                                  onBlur={[Function]}
-                                  onChange={[Function]}
-                                  onClick={[Function]}
-                                  onFocus={[Function]}
-                                  onMouseEnter={[Function]}
-                                  placeholder="Request limit date"
-                                  tabIndex="0"
-                                >
-                                  <div
-                                    className="field"
-                                  >
-                                    <Input
-                                      autoComplete="off"
-                                      data-test=""
-                                      icon={true}
-                                      iconPosition="left"
-                                      name="selectedDate"
-                                      onBlur={[Function]}
-                                      onChange={[Function]}
-                                      onClick={[Function]}
-                                      onFocus={[Function]}
-                                      onMouseEnter={[Function]}
-                                      placeholder="Request limit date"
-                                      tabIndex="0"
-                                      type="text"
-                                    >
-                                      <div
-                                        className="ui left icon input"
-                                        data-test=""
-                                      >
-                                        <Icon
-                                          as="i"
-                                          key=".0"
-                                          name="calendar"
-                                        >
-                                          <i
-                                            aria-hidden="true"
-                                            className="calendar icon"
-                                            onClick={[Function]}
-                                          />
-                                        </Icon>
-                                        <input
-                                          autoComplete="off"
-                                          key=".1"
-                                          name="selectedDate"
-                                          onBlur={[Function]}
-                                          onChange={[Function]}
-                                          onClick={[Function]}
-                                          onFocus={[Function]}
-                                          onMouseEnter={[Function]}
-                                          placeholder="Request limit date"
-                                          tabIndex="0"
-                                          type="text"
-                                          value=""
-                                        />
-                                      </div>
-                                    </Input>
-                                  </div>
-                                </FormField>
-                              </FormInput>
-                            </FormInputWithRef>
-                            <Transition
-                              animation="scale"
-                              duration={200}
-                              mountOnShow={true}
-                              onComplete={[Function]}
-                              transitionOnMount={false}
-                              unmountOnHide={true}
-                              visible={false}
-                            />
-                          </InputView>
-                        </DateInput>
-                      </DatePicker>
-                    </div>
-                  </SegmentInline>
-                </div>
-              </div>
-            </Segment>
-            <Segment>
-              <div
-                className="ui segment"
-              >
-                <FormButton
-                  as={[Function]}
-                  control={[Function]}
-                  onClick={[Function]}
-                >
-                  <FormField
-                    control={[Function]}
-                    onClick={[Function]}
-                  >
-                    <div
-                      className="field"
-                    >
-                      <Button
-                        as="button"
-                        onClick={[Function]}
-                      >
-                        <Ref
-                          innerRef={
-                            Object {
-                              "current": <button
-                                class="ui button"
-                              >
-                                Request
-                              </button>,
-                            }
-                          }
-                        >
-                          <RefFindNode
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui button"
-                                >
-                                  Request
-                                </button>,
-                              }
-                            }
-                          >
-                            <button
-                              className="ui button"
-                              onClick={[Function]}
-                            >
-                              Request
-                            </button>
-                          </RefFindNode>
-                        </Ref>
-                      </Button>
-                    </div>
-                  </FormField>
-                </FormButton>
-              </div>
-            </Segment>
+                                type="text"
+                                value=""
+                              />
+                            </div>
+                          </Input>
+                        </div>
+                      </FormField>
+                    </FormInput>
+                  </FormInputWithRef>
+                  <Transition
+                    animation="scale"
+                    duration={200}
+                    mountOnShow={true}
+                    onComplete={[Function]}
+                    transitionOnMount={false}
+                    unmountOnHide={true}
+                    visible={false}
+                  />
+                </InputView>
+              </DateInput>
+            </DatePicker>
           </div>
-        </SegmentGroup>
+        </FormField>
+        <FormButton
+          as={[Function]}
+          control={[Function]}
+          fluid={true}
+          onClick={[Function]}
+          primary={true}
+        >
+          <FormField
+            control={[Function]}
+            fluid={true}
+            onClick={[Function]}
+            primary={true}
+          >
+            <div
+              className="field"
+            >
+              <Button
+                as="button"
+                fluid={true}
+                onClick={[Function]}
+                primary={true}
+              >
+                <Ref
+                  innerRef={
+                    Object {
+                      "current": <button
+                        class="ui fluid primary button"
+                      >
+                        Request
+                      </button>,
+                    }
+                  }
+                >
+                  <RefFindNode
+                    innerRef={
+                      Object {
+                        "current": <button
+                          class="ui fluid primary button"
+                        >
+                          Request
+                        </button>,
+                      }
+                    }
+                  >
+                    <button
+                      className="ui fluid primary button"
+                      onClick={[Function]}
+                    >
+                      Request
+                    </button>
+                  </RefFindNode>
+                </Ref>
+              </Button>
+            </div>
+          </FormField>
+        </FormButton>
       </form>
     </Form>
   </Error>

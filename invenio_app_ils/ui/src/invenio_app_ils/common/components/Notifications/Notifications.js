@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ErrorMessage, SuccessMessage, WarningMessage } from './messages';
-import './Notifications.scss';
 
 export default class Notifications extends Component {
   renderNotification(notification) {

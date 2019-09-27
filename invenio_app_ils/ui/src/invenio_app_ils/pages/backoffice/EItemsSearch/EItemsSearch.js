@@ -22,7 +22,6 @@ import { ClearButton, NewButton } from '../components/buttons';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { ResultsList as EItemsResultsList } from './components';
 import { goTo } from '../../../history';
-import './EItemsSearch.scss';
 
 export class EItemsSearch extends Component {
   searchApi = new InvenioSearchApi({

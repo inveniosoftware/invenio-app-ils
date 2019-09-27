@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination as Paginator } from 'semantic-ui-react';
-import './Pagination.scss';
 
 export class Pagination extends Component {
   constructor(props) {

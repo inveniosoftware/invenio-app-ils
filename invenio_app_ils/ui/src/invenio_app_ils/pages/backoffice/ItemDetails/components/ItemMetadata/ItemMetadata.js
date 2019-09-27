@@ -19,7 +19,6 @@ import {
 import { invenioConfig } from '../../../../../common/config';
 import { EditButton } from '../../../components/buttons';
 
-import './ItemMetadata.scss';
 import { ESSelectorModal } from '../../../../../common/components/ESSelector';
 import {
   serializeDocument,

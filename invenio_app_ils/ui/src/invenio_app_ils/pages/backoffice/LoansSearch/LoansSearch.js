@@ -27,7 +27,6 @@ import {
 } from '../../../common/components';
 import { loan as loanApi } from '../../../common/api/loans/loan';
 import { ResultsList as LoansResultsList } from './components';
-import './LoansSearch.scss';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { goTo } from '../../../history';
 

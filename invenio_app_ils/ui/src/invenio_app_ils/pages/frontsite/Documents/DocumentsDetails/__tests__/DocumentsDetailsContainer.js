@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import * as testData from '../../../../../../../../../tests/data/documents.json';
 
 import DocumentsDetailsContainer from '../DocumentsDetailsContainer';
+import { BrowserRouter } from 'react-router-dom';
 
 jest.mock('../components/DocumentPanel', () => {
   return {
@@ -52,12 +53,14 @@ describe('DocumentsDetailsContainer tests', () => {
   it('should fetch item details on mount', () => {
     const mockedFetchDocumentsDetails = jest.fn();
     component = mount(
-      <DocumentsDetailsContainer
-        history={routerHistory}
-        match={routerUrlParams}
-        fetchDocumentsDetails={mockedFetchDocumentsDetails}
-        data={testData[0]}
-      />
+      <BrowserRouter>
+        <DocumentsDetailsContainer
+          history={routerHistory}
+          match={routerUrlParams}
+          fetchDocumentsDetails={mockedFetchDocumentsDetails}
+          data={testData[0]}
+        />
+      </BrowserRouter>
     );
     expect(mockedFetchDocumentsDetails).toHaveBeenCalledWith(
       routerUrlParams.params.documentPid

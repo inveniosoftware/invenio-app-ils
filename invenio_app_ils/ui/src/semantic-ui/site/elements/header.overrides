@@ -1,0 +1,15 @@
+/*******************************
+         Site Overrides
+*******************************/
+
+.ui.container.footer-upper .ui.header{
+    color: @secondaryColor;
+}
+
+.ui.container.footer-lower .ui.header{
+    color: #c1bbbb;
+}
+
+.footer-upper .ui.header .sub.header{
+    color: #9e9ea0;
+}

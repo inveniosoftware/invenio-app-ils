@@ -36,6 +36,7 @@ ils = WebpackBundle(
         "redux-thunk": "^2.3.0",
         "semantic-ui-calendar-react": "^0.15.3",
         "semantic-ui-css": "^2.4.1",
+        "semantic-ui-less": "^2.4.1",
         "semantic-ui-react": "^0.88.0",
         "yup": "^0.27.0",
     },

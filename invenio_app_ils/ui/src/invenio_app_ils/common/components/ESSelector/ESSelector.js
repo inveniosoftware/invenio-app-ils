@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { List, Container, Icon } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 import { HitsSearch } from './HitsSearch';
-import './ESSelector.scss';
 
 export default class ESSelector extends Component {
   constructor(props) {

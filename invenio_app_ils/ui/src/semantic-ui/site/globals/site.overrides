@@ -1,0 +1,17 @@
+/*******************************
+         Site Overrides
+*******************************/
+
+.app{
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.frontsite-footer{
+    margin-top: @headerMenuHeight;
+}
+
+.front-app{
+    margin-top: @headerMenuHeight;
+}

@@ -13,7 +13,6 @@ import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { Error, Loader } from '../../../../../common/components';
 import { ResultsList as ItemsResultsList } from './components';
 import isEmpty from 'lodash/isEmpty';
-import './ItemsSearch.scss';
 import { goTo } from '../../../../../history';
 
 export default class ItemsSearch extends Component {

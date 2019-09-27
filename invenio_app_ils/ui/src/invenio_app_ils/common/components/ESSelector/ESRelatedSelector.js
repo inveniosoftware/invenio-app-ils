@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { List, Form, Tab, Label, Popup } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 import { ESSelector } from './';
-import './ESRelatedSelector.scss';
 import { recordToPidType } from '../../api/utils';
 
 export default class ESRelatedSelector extends Component {
