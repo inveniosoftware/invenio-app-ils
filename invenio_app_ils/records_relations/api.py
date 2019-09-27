@@ -178,9 +178,9 @@ class RecordRelationsRetriever(object):
 
         # add also title, language and edition of the sibling
         r["title"] = sibling.get("title", "")
-        language = sibling.get('language')
+        language = sibling.get('languages')
         if language:
-            r["language"] = language
+            r["languages"] = language
         edition = sibling.get('edition')
         if edition:
             r["edition"] = edition

@@ -33,7 +33,7 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
               ],
               "total": 1,
             },
-            "language": Array [
+            "languages": Array [
               "en",
             ],
             "pid": "123",
@@ -67,7 +67,7 @@ exports[`MostRecentEbooks tests should go to book details when clicking on a boo
               ],
               "total": 1,
             },
-            "language": Array [
+            "languages": Array [
               "it",
             ],
             "pid": "456",
@@ -288,7 +288,7 @@ exports[`MostRecentEbooks tests should render list of most recent ebooks 1`] = `
               ],
               "total": 1,
             },
-            "language": Array [
+            "languages": Array [
               "en",
             ],
             "pid": "123",
@@ -322,7 +322,7 @@ exports[`MostRecentEbooks tests should render list of most recent ebooks 1`] = `
               ],
               "total": 1,
             },
-            "language": Array [
+            "languages": Array [
               "it",
             ],
             "pid": "456",
@@ -524,7 +524,7 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
               ],
               "total": 1,
             },
-            "language": Array [
+            "languages": Array [
               "en",
             ],
             "pid": "123",
@@ -558,7 +558,7 @@ exports[`MostRecentEbooks tests should render the see all button when showing mo
               ],
               "total": 1,
             },
-            "language": Array [
+            "languages": Array [
               "it",
             ],
             "pid": "456",

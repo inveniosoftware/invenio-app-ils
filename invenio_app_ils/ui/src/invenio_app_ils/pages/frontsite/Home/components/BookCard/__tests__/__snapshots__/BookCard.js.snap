@@ -54,9 +54,6 @@ exports[`BookCard tests should render the document correctly 1`] = `
           </CardMeta>
         </div>
       </CardContent>
-      <EitemsButton
-        eitems={Array []}
-      />
     </a>
   </Card>
 </BookCard>

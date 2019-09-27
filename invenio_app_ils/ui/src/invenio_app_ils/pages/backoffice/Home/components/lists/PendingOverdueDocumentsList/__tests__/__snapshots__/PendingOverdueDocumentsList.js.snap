@@ -49,7 +49,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
               },
             ],
             "edition": "ed. 1",
-            "language": Array [
+            "languages": Array [
               "en",
             ],
             "pid": "docid-1",
@@ -72,7 +72,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                 "full_name": "Caroline Fraser",
               },
             ],
-            "language": Array [
+            "languages": Array [
               "it",
             ],
             "pid": "docid-2",

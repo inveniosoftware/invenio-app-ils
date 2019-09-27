@@ -25,23 +25,20 @@ exports[`LoansSearch SearchBar tests should render search bar with query helper 
     icon={
       <Icon
         as="i"
-        circular={true}
-        inverted={true}
         link={true}
         name="search"
         onClick={[MockFunction]}
       />
     }
-    iconPosition="left"
     onChange={[Function]}
     onKeyPress={[Function]}
     placeholder="Search"
-    size="massive"
+    size="big"
     type="text"
     value=""
   >
     <div
-      className="ui massive fluid left icon input"
+      className="ui big fluid icon input"
     >
       <input
         onChange={[Function]}
@@ -52,15 +49,13 @@ exports[`LoansSearch SearchBar tests should render search bar with query helper 
       />
       <Icon
         as="i"
-        circular={true}
-        inverted={true}
         link={true}
         name="search"
         onClick={[MockFunction]}
       >
         <i
           aria-hidden="true"
-          className="search circular inverted link icon"
+          className="search link icon"
           onClick={[Function]}
         />
       </Icon>
@@ -158,23 +153,20 @@ exports[`LoansSearch SearchBar tests should render the current query string 1`] 
     icon={
       <Icon
         as="i"
-        circular={true}
-        inverted={true}
         link={true}
         name="search"
         onClick={[Function]}
       />
     }
-    iconPosition="left"
     onChange={[Function]}
     onKeyPress={[Function]}
     placeholder="Search"
-    size="massive"
+    size="big"
     type="text"
     value="The Gulf: The Making of An American Sea"
   >
     <div
-      className="ui massive fluid left icon input"
+      className="ui big fluid icon input"
     >
       <input
         onChange={[Function]}
@@ -185,15 +177,13 @@ exports[`LoansSearch SearchBar tests should render the current query string 1`] 
       />
       <Icon
         as="i"
-        circular={true}
-        inverted={true}
         link={true}
         name="search"
         onClick={[Function]}
       >
         <i
           aria-hidden="true"
-          className="search circular inverted link icon"
+          className="search link icon"
           onClick={[Function]}
         />
       </Icon>

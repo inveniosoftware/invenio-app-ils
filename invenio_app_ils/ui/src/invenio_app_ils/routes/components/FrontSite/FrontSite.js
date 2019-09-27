@@ -6,13 +6,17 @@ import {
   Header,
   Home,
   ProfileContainer,
-  DocumentRequestForm,
-  DocumentsDetailsContainer,
-  DocumentsSearch,
 } from '../../../pages/frontsite';
 import { Container } from 'semantic-ui-react';
 import './FrontSite.scss';
 import { Notifications } from '../../../common/components/Notifications';
+
+import {
+  DocumentsDetailsContainer,
+  DocumentsSearch,
+} from '../../../pages/frontsite/Documents';
+
+import { DocumentRequestForm } from '../../../pages/frontsite/DocumentRequests';
 
 export class FrontSite extends Component {
   render() {

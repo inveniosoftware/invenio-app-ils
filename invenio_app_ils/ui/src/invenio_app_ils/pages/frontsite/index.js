@@ -1,6 +1,6 @@
 export * from './components';
 export { Home } from './Home';
-export { DocumentsDetailsContainer } from './DocumentsDetails';
-export { DocumentRequestForm } from './DocumentRequestForm';
-export { DocumentsSearch } from './DocumentsSearch';
+export { DocumentsDetailsContainer, DocumentsSearch } from './Documents';
+
+export { DocumentRequestForm } from './DocumentRequests';
 export { ProfileContainer } from './Profile';

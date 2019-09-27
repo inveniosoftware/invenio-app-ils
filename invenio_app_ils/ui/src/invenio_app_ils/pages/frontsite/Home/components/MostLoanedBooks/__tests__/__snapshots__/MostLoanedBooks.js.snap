@@ -140,9 +140,6 @@ exports[`MostLoanedBooks tests should go to book details when clicking on a book
                       </CardMeta>
                     </div>
                   </CardContent>
-                  <EitemsButton
-                    eitems={Array []}
-                  />
                 </a>
               </Card>
             </BookCard>
@@ -198,9 +195,6 @@ exports[`MostLoanedBooks tests should go to book details when clicking on a book
                       </CardMeta>
                     </div>
                   </CardContent>
-                  <EitemsButton
-                    eitems={Array []}
-                  />
                 </a>
               </Card>
             </BookCard>
@@ -369,9 +363,6 @@ exports[`MostLoanedBooks tests should render pending loans 1`] = `
                       </CardMeta>
                     </div>
                   </CardContent>
-                  <EitemsButton
-                    eitems={Array []}
-                  />
                 </a>
               </Card>
             </BookCard>
@@ -427,9 +418,6 @@ exports[`MostLoanedBooks tests should render pending loans 1`] = `
                       </CardMeta>
                     </div>
                   </CardContent>
-                  <EitemsButton
-                    eitems={Array []}
-                  />
                 </a>
               </Card>
             </BookCard>
@@ -581,9 +569,6 @@ exports[`MostLoanedBooks tests should render the see all button when showing mos
                       </CardMeta>
                     </div>
                   </CardContent>
-                  <EitemsButton
-                    eitems={Array []}
-                  />
                 </a>
               </Card>
             </BookCard>
@@ -639,9 +624,6 @@ exports[`MostLoanedBooks tests should render the see all button when showing mos
                       </CardMeta>
                     </div>
                   </CardContent>
-                  <EitemsButton
-                    eitems={Array []}
-                  />
                 </a>
               </Card>
             </BookCard>
