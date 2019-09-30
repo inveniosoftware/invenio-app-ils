@@ -27,7 +27,7 @@ import './ItemsSearch.scss';
 
 export class ItemsSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: itemApi.url,
+    url: itemApi.searchBaseURL,
     withCredentials: true,
   });
   searchConfig = getSearchConfig('items');

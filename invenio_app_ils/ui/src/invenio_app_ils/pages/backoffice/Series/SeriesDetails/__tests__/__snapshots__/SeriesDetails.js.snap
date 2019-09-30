@@ -2,7 +2,9 @@
 
 exports[`SeriesDetails tests should load the details component 1`] = `
 <Container>
-  <Loader>
+  <Loader
+    isLoading={false}
+  >
     <Error>
       <SeriesMetadata />
       <SeriesDocuments />

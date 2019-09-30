@@ -3,7 +3,6 @@ import { serializer } from './serializer';
 import { prepareSumQuery } from '../utils';
 
 const seriesURL = '/series/';
-const apiURL = `${apiConfig.baseURL}${seriesURL}`;
 
 const get = seriesPid => {
   return http.get(`${seriesURL}${seriesPid}`).then(response => {
@@ -142,7 +141,7 @@ const count = query => {
 };
 
 export const series = {
-  url: apiURL,
+  searchBaseURL: `${apiConfig.baseURL}${seriesURL}`,
   create: create,
   get: get,
   delete: del,

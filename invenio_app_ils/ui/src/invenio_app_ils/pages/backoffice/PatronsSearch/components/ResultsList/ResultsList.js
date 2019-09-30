@@ -21,7 +21,7 @@ export class ResultsList extends Component {
   render() {
     const rows = this.prepareData(this.props.results);
     const headerActionComponent = (
-      <ExportReactSearchKitResults exportBaseUrl={patronApi.url} />
+      <ExportReactSearchKitResults exportBaseUrl={patronApi.searchBaseURL} />
     );
 
     return (

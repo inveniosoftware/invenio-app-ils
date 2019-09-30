@@ -26,7 +26,7 @@ import './EItemsSearch.scss';
 
 export class EItemsSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: eitemApi.url,
+    url: eitemApi.searchBaseURL,
     withCredentials: true,
   });
   searchConfig = getSearchConfig('eitems');

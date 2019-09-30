@@ -26,7 +26,7 @@ import './PatronsSearch.scss';
 
 export class PatronsSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: patronApi.url,
+    url: patronApi.searchBaseURL,
     withCredentials: true,
   });
   searchConfig = getSearchConfig('patrons');

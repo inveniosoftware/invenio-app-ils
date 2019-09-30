@@ -14,7 +14,6 @@ from setuptools import find_packages, setup
 readme = open("README.rst").read()
 
 invenio_search_version = '1.2.1,<1.3.0'
-invenio_circulation_version = '1.0.0a19,<1.1.0'
 
 tests_require = [
     "check-manifest>=0.35",
@@ -36,11 +35,9 @@ extras_require = {
     "tests": tests_require,
     'elasticsearch6': [
         'invenio-search[elasticsearch6]>={}'.format(invenio_search_version),
-        'invenio-circulation[elasticsearch6]>={}'.format(invenio_circulation_version),
     ],
     'elasticsearch7': [
         'invenio-search[elasticsearch7]>={}'.format(invenio_search_version),
-        'invenio-circulation[elasticsearch7]>={}'.format(invenio_circulation_version),
     ],
 }
 
@@ -73,6 +70,7 @@ install_requires = [
     "invenio-i18n>=1.1.0,<1.2.0",
     "invenio-userprofiles>=1.0.1,<1.1.0",
     # extra
+    "invenio-circulation>=1.0.0a19,<1.1.0",
     "invenio-records-editor>=1.0.0a3,<1.1.0",
     # until flask-sqlalchemy is fixed
     "SQLAlchemy>=1.2.16,<1.3.0",
@@ -81,6 +79,8 @@ install_requires = [
     # Avoid version 4.3 it breaks the emails with datetime
     # https://github.com/celery/celery/pull/5606
     "celery>=4.2.1<4.3.0",
+    # namedtuple are json serialized as dict
+    "simplejson>=3"
 ]
 
 packages = find_packages()

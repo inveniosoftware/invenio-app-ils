@@ -33,7 +33,7 @@ export class ResultsList extends Component {
             // TODO: EDITOR, implement create form
           }}
         />
-        <ExportReactSearchKitResults exportBaseUrl={eitemApi.url} />
+        <ExportReactSearchKitResults exportBaseUrl={eitemApi.searchBaseURL} />
       </div>
     );
 

@@ -3,7 +3,6 @@ import { serializer } from './serializer';
 import { prepareSumQuery } from '../utils';
 
 const itemURL = '/items/';
-const apiURL = `${apiConfig.baseURL}${itemURL}`;
 
 const get = async itemPid => {
   const response = await http.get(`${itemURL}${itemPid}`);
@@ -86,7 +85,7 @@ const queryBuilder = () => {
 };
 
 export const item = {
-  url: apiURL,
+  searchBaseURL: `${apiConfig.baseURL}${itemURL}`,
   query: queryBuilder,
   list: list,
   patch: patch,

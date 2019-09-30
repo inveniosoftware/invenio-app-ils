@@ -24,7 +24,7 @@ export class ResultsList extends Component {
         : ResultsTable.defaultProps.showMaxRows;
 
     const headerActionComponent = (
-      <ExportReactSearchKitResults exportBaseUrl={loanApi.url} />
+      <ExportReactSearchKitResults exportBaseUrl={loanApi.searchBaseURL} />
     );
 
     return (

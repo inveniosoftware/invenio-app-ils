@@ -27,7 +27,7 @@ import './SeriesSearch.scss';
 
 export class SeriesSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: seriesApi.url,
+    url: seriesApi.searchBaseURL,
     withCredentials: true,
   });
   searchConfig = getSearchConfig('series');

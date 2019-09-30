@@ -14,6 +14,8 @@ from werkzeug.routing import Rule
 from invenio_app_ils.errors import DocumentRequestError
 from invenio_app_ils.search.api import DocumentRequestSearch
 
+lt_es7 = ES_VERSION[0] < 7
+
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
 
@@ -27,10 +29,7 @@ def jsonresolver_loader(url_map):
         """Return the DocumentRequest for the given Document or raise."""
         search = DocumentRequestSearch().search_by_document_pid(document_pid)
         results = search.execute()
-        if ES_VERSION[0] >= 7:
-            total = results.hits.total.value
-        else:
-            total = results.hits.total
+        total = results.hits.total if lt_es7 else results.hits.total.value
         if total < 1:
             return {}
         elif total > 1:

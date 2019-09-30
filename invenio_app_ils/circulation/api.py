@@ -6,6 +6,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Invenio App ILS Circulation APIs."""
+"""Invenio App ILS Circulation APIs."""
 
 import uuid
 from copy import deepcopy
@@ -22,6 +23,8 @@ from invenio_app_ils.errors import MissingRequiredParameterError, \
     PatronHasLoanOnItemError, PatronHasRequestOnDocumentError
 from invenio_app_ils.proxies import current_app_ils_extension
 from invenio_app_ils.records.api import Item
+
+lt_es7 = ES_VERSION[0] < 7
 
 
 def _validate_delivery(delivery):
@@ -56,10 +59,11 @@ def patron_has_request_on_document(patron_pid, document_pid):
         filter_states=current_app.config["CIRCULATION_STATES_LOAN_REQUEST"],
     )
     search_result = search.execute()
-    if ES_VERSION[0] >= 7:
-        return search_result.hits.total.value > 0
-    else:
-        return search_result.hits.total > 0
+    return (
+        search_result.hits.total > 0
+        if lt_es7
+        else search_result.hits.total.value > 0
+    )
 
 
 def request_loan(
@@ -105,10 +109,11 @@ def patron_has_active_loan_on_item(patron_pid, item_pid):
         filter_states=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"],
     )
     search_result = search.execute()
-    if ES_VERSION[0] >= 7:
-        return search_result.hits.total.value > 0
-    else:
-        return search_result.hits.total > 0
+    return (
+        search_result.hits.total > 0
+        if lt_es7
+        else search_result.hits.total.value > 0
+    )
 
 
 def checkout_loan(

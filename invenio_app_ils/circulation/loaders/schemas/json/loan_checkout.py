@@ -15,10 +15,10 @@ from marshmallow import ValidationError, fields, post_load, validates
 
 from invenio_app_ils.permissions import check_permission
 
-from .common import LoanCommonSchemaV1
+from .base import LoanBaseSchemaV1
 
 
-class LoanCheckoutSchemaV1(LoanCommonSchemaV1):
+class LoanCheckoutSchemaV1(LoanBaseSchemaV1):
     """Loan checkout schema."""
 
     item_pid = fields.Str(required=True)

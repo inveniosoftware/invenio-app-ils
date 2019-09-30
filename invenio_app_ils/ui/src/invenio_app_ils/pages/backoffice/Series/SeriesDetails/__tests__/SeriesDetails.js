@@ -35,6 +35,7 @@ describe('SeriesDetails tests', () => {
         match={routerUrlParams}
         fetchSeriesDetails={() => {}}
         deleteSeries={() => {}}
+        isLoading={false}
       />
     );
     expect(component).toMatchSnapshot();

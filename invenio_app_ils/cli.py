@@ -26,22 +26,14 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
 from invenio_search import current_search
 
 from .indexer import PatronsIndexer
+from .pidstore.pids import DOCUMENT_PID_TYPE, DOCUMENT_REQUEST_PID_TYPE, \
+    EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, \
+    LOCATION_PID_TYPE, SERIES_PID_TYPE, TAG_PID_TYPE
 from .records.api import Document, DocumentRequest, EItem, InternalLocation, \
     Item, Location, Patron, Series, Tag
 from .records_relations.api import RecordRelationsParentChild, \
     RecordRelationsSiblings
 from .relations.api import Relation
-
-from .pidstore.pids import (  # isort:skip
-    DOCUMENT_PID_TYPE,
-    DOCUMENT_REQUEST_PID_TYPE,
-    EITEM_PID_TYPE,
-    ITEM_PID_TYPE,
-    INTERNAL_LOCATION_PID_TYPE,
-    LOCATION_PID_TYPE,
-    SERIES_PID_TYPE,
-    TAG_PID_TYPE,
-)
 
 
 def minter(pid_type, pid_field, record):
@@ -333,8 +325,8 @@ class LoanGenerator(Generator):
         request_start_date = transaction_date + timedelta(days=15)
         request_expire_date = transaction_date + timedelta(days=180)
         loan["transaction_date"] = transaction_date.isoformat()
-        loan["request_start_date"] = request_start_date.isoformat()
-        loan["request_expire_date"] = request_expire_date.isoformat()
+        loan["request_start_date"] = request_start_date.date().isoformat()
+        loan["request_expire_date"] = request_expire_date.date().isoformat()
 
     def _fill_loan_with_valid_loan(self, loan):
         """Add fields to the loan with dates valid for a on-going loan."""
@@ -342,8 +334,8 @@ class LoanGenerator(Generator):
         start_date = transaction_date - timedelta(days=randint(1, 5))
         end_date = start_date + timedelta(days=30)
         loan["transaction_date"] = transaction_date.isoformat()
-        loan["start_date"] = start_date.isoformat()
-        loan["end_date"] = end_date.isoformat()
+        loan["start_date"] = start_date.date().isoformat()
+        loan["end_date"] = end_date.date().isoformat()
         loan["extension_count"] = randint(0, 3)
 
     def _fill_loan_with_loan_returned(self, loan):
@@ -352,8 +344,8 @@ class LoanGenerator(Generator):
         start_date = transaction_date - timedelta(days=randint(40, 50))
         end_date = start_date + timedelta(days=30)
         loan["transaction_date"] = transaction_date.isoformat()
-        loan["start_date"] = start_date.isoformat()
-        loan["end_date"] = end_date.isoformat()
+        loan["start_date"] = start_date.date().isoformat()
+        loan["end_date"] = end_date.date().isoformat()
 
     def _fill_loan_with_loan_cancelled(self, loan):
         """Add fields to the loan with dates valid for a cancelled loan."""
@@ -362,9 +354,9 @@ class LoanGenerator(Generator):
         start_date = transaction_date - timedelta(days=randint(40, 50))
         end_date = start_date + timedelta(days=30)
         loan["transaction_date"] = transaction_date.isoformat()
-        loan["request_expire_date"] = request_expire_date.isoformat()
-        loan["start_date"] = start_date.isoformat()
-        loan["end_date"] = end_date.isoformat()
+        loan["request_expire_date"] = request_expire_date.date().isoformat()
+        loan["start_date"] = start_date.date().isoformat()
+        loan["end_date"] = end_date.date().isoformat()
         loan["cancel_reason"] = "{}".format(lorem.sentence())
 
     def _fill_loan(self, loan):
