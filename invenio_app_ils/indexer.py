@@ -24,6 +24,8 @@ from invenio_app_ils.records.api import Document, DocumentRequest, EItem, \
 from invenio_app_ils.search.api import DocumentRequestSearch, DocumentSearch, \
     EItemSearch, InternalLocationSearch, ItemSearch, SeriesSearch
 
+lt_es7 = ES_VERSION[0] < 7
+
 indexer = RecordIndexer()
 MSG_ORIGIN = "ils-indexer: {origin_rec_type} #{origin_recid} indexed, trigger"\
              " indexing of referenced records"
@@ -84,7 +86,7 @@ def index_document_after_item_indexed(item_pid):
 class ItemIndexer(RecordIndexer):
     """Indexer class for Item record."""
 
-    def index(self, item):
+    def index(self, item, arguments=None, **kwargs):
         """Index an Item."""
         super(ItemIndexer, self).index(item)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
@@ -115,7 +117,7 @@ def index_document_after_eitem_indexed(item_pid):
 class EItemIndexer(RecordIndexer):
     """Indexer class for EItem record."""
 
-    def index(self, item):
+    def index(self, item, arguments=None, **kwargs):
         """Index an EItem."""
         super(EItemIndexer, self).index(item)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
@@ -195,7 +197,7 @@ def index_request_after_document_indexed(document_pid):
 class DocumentIndexer(RecordIndexer):
     """Indexer class for Document record."""
 
-    def index(self, document):
+    def index(self, document, arguments=None, **kwargs):
         """Index a Document."""
         super(DocumentIndexer, self).index(document)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
@@ -260,7 +262,7 @@ def index_document_after_loan_indexed(loan):
 class LoanIndexer(RecordIndexer):
     """Indexer class for Loan record."""
 
-    def index(self, loan):
+    def index(self, loan, arguments=None, **kwargs):
         """Index a Loan."""
         super(LoanIndexer, self).index(loan)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
@@ -308,7 +310,7 @@ def index_items_after_location_indexed(loc_pid):
 class LocationIndexer(RecordIndexer):
     """Indexer class for Location record."""
 
-    def index(self, location):
+    def index(self, location, arguments=None, **kwargs):
         """Index a Location."""
         super(LocationIndexer, self).index(location)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
@@ -340,7 +342,7 @@ def index_items_after_internal_location_indexed(iloc_pid):
 class InternalLocationIndexer(RecordIndexer):
     """Indexer class for InternalLocation record."""
 
-    def index(self, location):
+    def index(self, location, arguments=None, **kwargs):
         """Index an InternalLocation."""
         super(InternalLocationIndexer, self).index(location)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
@@ -371,9 +373,7 @@ class PatronsIndexer(RecordIndexer):
         :param record: The record where to look for the information.
         :returns: A tuple (index, doc_type).
         """
-        doc_type = "_doc"
-        if ES_VERSION[0] < 7:
-            doc_type = record._doc_type
+        doc_type = record._doc_type if lt_es7 else "_doc"
         return (record._index, doc_type)
 
 
@@ -396,7 +396,7 @@ def index_documents_after_series_indexed(series_pid):
 class SeriesIndexer(RecordIndexer):
     """Indexer class for Series record."""
 
-    def index(self, series):
+    def index(self, series, arguments=None, **kwargs):
         """Index a Series."""
         super(SeriesIndexer, self).index(series)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
@@ -432,7 +432,7 @@ def index_documents_and_series_after_tag_indexed(tag_pid):
 class TagIndexer(RecordIndexer):
     """Indexer class for Tag record."""
 
-    def index(self, tag):
+    def index(self, tag, arguments=None, **kwargs):
         """Index a tag."""
         super(TagIndexer, self).index(tag)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
@@ -508,7 +508,7 @@ def index_document_after_request_indexed(document_request_pid, document_pid):
 class DocumentRequestIndexer(RecordIndexer):
     """Indexer class for Request record."""
 
-    def index(self, request):
+    def index(self, request, arguments=None, **kwargs):
         """Index a document request."""
         super(DocumentRequestIndexer, self).index(request)
         eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]

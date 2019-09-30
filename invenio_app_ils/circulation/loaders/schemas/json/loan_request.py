@@ -16,7 +16,7 @@ from invenio_circulation.records.loaders.schemas.json import DateString
 from marshmallow import Schema, ValidationError, fields, post_load, \
     validates, validates_schema
 
-from .common import LoanCommonSchemaV1
+from .base import LoanBaseSchemaV1
 
 
 def request_start_date_default():
@@ -55,7 +55,7 @@ class LoanRequestDeliverySchemaV1(Schema):
             raise ValidationError(_("Invalid loan request delivery method."))
 
 
-class LoanRequestSchemaV1(LoanCommonSchemaV1):
+class LoanRequestSchemaV1(LoanBaseSchemaV1):
     """Loan request schema."""
 
     delivery = fields.Nested(LoanRequestDeliverySchemaV1)

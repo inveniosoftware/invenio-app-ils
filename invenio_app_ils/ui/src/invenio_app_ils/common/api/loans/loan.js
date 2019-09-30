@@ -15,10 +15,10 @@ const apiPaths = {
   request: '/circulation/loans/request',
   replaceItem: '/circulation/loans/:loanPid/replace-item',
 };
-const apiList = `${apiConfig.baseURL}${apiPaths.list}`;
+
 const get = async loanPid => {
   const path = generatePath(apiPaths.item, { loanPid: loanPid });
-  const response = await http.get(`${apiConfig.baseURL}${path}`);
+  const response = await http.get(path);
   response.data = serializer.fromJSON(response.data);
   return response;
 };
@@ -77,10 +77,7 @@ const doRequest = async (
     };
   }
 
-  const response = await http.post(
-    `${apiConfig.baseURL}${apiPaths.request}`,
-    payload
-  );
+  const response = await http.post(apiPaths.request, payload);
   response.data = serializer.fromJSON(response.data);
   return response;
 };
@@ -110,10 +107,7 @@ const doCheckout = async (
     payload.force = true;
   }
 
-  const response = await http.post(
-    `${apiConfig.baseURL}${apiPaths.checkout}`,
-    payload
-  );
+  const response = await http.post(apiPaths.checkout, payload);
   response.data = serializer.fromJSON(response.data);
   return response;
 };
@@ -121,7 +115,7 @@ const doCheckout = async (
 const assignItemToLoan = async (itemPid, loanPid) => {
   const path = generatePath(apiPaths.replaceItem, { loanPid: loanPid });
   const payload = { item_pid: itemPid };
-  const response = await http.post(`${apiConfig.baseURL}${path}`, payload);
+  const response = await http.post(path, payload);
   response.data = serializer.fromJSON(response.data);
   return response;
 };
@@ -251,7 +245,7 @@ const queryBuilder = () => {
 };
 
 const list = async query => {
-  const response = await http.get(`${apiList}?q=${query}`);
+  const response = await http.get(`${apiPaths.list}?q=${query}`);
   response.data.total = response.data.hits.total;
   response.data.hits = response.data.hits.hits.map(hit =>
     serializer.fromJSON(hit)
@@ -263,17 +257,17 @@ const sendOverdueLoansMailReminder = async payload => {
   const path = generatePath(apiPaths.emailOverdue, {
     loanPid: payload.loanPid,
   });
-  return await http.post(`${apiConfig.baseURL}${path}`, payload);
+  return await http.post(path, payload);
 };
 
 const count = async query => {
-  const response = await http.get(`${apiList}?q=${query}`);
+  const response = await http.get(`${apiPaths.list}?q=${query}`);
   response.data = response.data.hits.total;
   return response;
 };
 
 export const loan = {
-  url: apiList,
+  searchBaseURL: `${apiConfig.baseURL}${apiPaths.list}`,
   assignItemToLoan: assignItemToLoan,
   query: queryBuilder,
   list: list,

@@ -29,16 +29,11 @@ from invenio_app_ils.records_relations.api import RecordRelationsMetadata, \
 from invenio_app_ils.search.api import DocumentRequestSearch, DocumentSearch, \
     InternalLocationSearch, ItemSearch
 
-from ..pidstore.pids import (  # isort:skip
-    DOCUMENT_PID_TYPE,
-    DOCUMENT_REQUEST_PID_TYPE,
-    EITEM_PID_TYPE,
-    INTERNAL_LOCATION_PID_TYPE,
-    ITEM_PID_TYPE,
-    LOCATION_PID_TYPE,
-    SERIES_PID_TYPE,
-    TAG_PID_TYPE,
-)
+from ..pidstore.pids import DOCUMENT_PID_TYPE, DOCUMENT_REQUEST_PID_TYPE, \
+    EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, \
+    LOCATION_PID_TYPE, SERIES_PID_TYPE, TAG_PID_TYPE
+
+lt_es7 = ES_VERSION[0] < 7
 
 
 class IlsRecord(Record):
@@ -352,10 +347,7 @@ class Item(_Item):
         active_loan = (
             loan_search.get_active_loan_by_item_pid(self["pid"]).execute().hits
         )
-        if ES_VERSION[0] >= 7:
-            total = active_loan.total.value
-        else:
-            total = active_loan.total
+        total = active_loan.total if lt_es7 else active_loan.total.value
         if self["status"] == "CAN_CIRCULATE" and total > 0:
             raise ItemHasActiveLoanError(active_loan[0]["pid"])
 

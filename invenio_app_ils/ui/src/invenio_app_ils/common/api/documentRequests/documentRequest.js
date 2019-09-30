@@ -4,7 +4,6 @@ import { prepareSumQuery } from '../utils';
 import isEmpty from 'lodash/isEmpty';
 
 const documentRequestURL = '/document-requests/';
-const apiURL = `${apiConfig.baseURL}${documentRequestURL}`;
 
 const create = async data => {
   const url = `${documentRequestURL}`;
@@ -116,7 +115,7 @@ const count = query => {
 };
 
 export const documentRequest = {
-  url: apiURL,
+  searchBaseURL: `${apiConfig.baseURL}${documentRequestURL}`,
   create: create,
   get: get,
   delete: del,

@@ -9,7 +9,7 @@
 set -e
 
 pip install -r requirements.txt
-pip install -e .[all,elasticsearch7]
+pip install -e .[all]
 
 CWD=`pwd`
 bash "${CWD}/scripts/build_assets"

@@ -37,7 +37,7 @@ import './DocumentsSearch.scss';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: documentApi.url,
+    url: documentApi.searchBaseURL,
     withCredentials: true,
   });
   state = { activeIndex: 0 };

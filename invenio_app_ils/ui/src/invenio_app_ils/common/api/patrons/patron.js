@@ -2,7 +2,6 @@ import { http, apiConfig } from '../base';
 import { serializer } from './serializer';
 
 const listUrl = '/patrons/';
-const apiURL = `${apiConfig.baseURL}${listUrl}`;
 // Here we use a different url to access Patron details
 // as patrons are only records indexed in elasticsearch
 // but not stored in the database. Instead we are using
@@ -28,7 +27,7 @@ const list = queryText => {
 };
 
 export const patron = {
-  url: apiURL,
+  searchBaseURL: `${apiConfig.baseURL}${listUrl}`,
   get: get,
   list: list,
 };

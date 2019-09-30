@@ -38,7 +38,7 @@ export class ResultsList extends Component {
             goTo(BackOfficeRoutes.seriesCreate);
           }}
         />
-        <ExportReactSearchKitResults exportBaseUrl={seriesApi.url} />
+        <ExportReactSearchKitResults exportBaseUrl={seriesApi.searchBaseURL} />
       </div>
     );
 

@@ -27,7 +27,7 @@ import './DocumentRequestsSearch.scss';
 
 export class DocumentRequestsSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: documentRequestApi.url,
+    url: documentRequestApi.searchBaseURL,
     withCredentials: true,
   });
   searchConfig = getSearchConfig('documentRequests');
