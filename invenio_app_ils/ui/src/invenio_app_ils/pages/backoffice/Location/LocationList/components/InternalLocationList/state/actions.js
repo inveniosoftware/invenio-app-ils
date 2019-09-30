@@ -18,21 +18,19 @@ export const fetchInternalLocations = () => {
     dispatch({
       type: IS_LOADING,
     });
-    await internalLocationApi
-      .list()
-      .then(response => {
-        dispatch({
-          type: SUCCESS,
-          payload: response.data,
-        });
-      })
-      .catch(error => {
-        dispatch({
-          type: HAS_ERROR,
-          payload: error,
-        });
-        dispatch(sendErrorNotification(error));
+    try {
+      const response = await internalLocationApi.list();
+      dispatch({
+        type: SUCCESS,
+        payload: response.data,
       });
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
   };
 };
 
@@ -42,29 +40,27 @@ export const deleteInternalLocation = ilocPid => {
       type: DELETE_IS_LOADING,
     });
 
-    await internalLocationApi
-      .delete(ilocPid)
-      .then(response => {
-        dispatch({
-          type: DELETE_SUCCESS,
-          payload: { internalLocationPid: ilocPid },
-        });
-        dispatch(
-          sendSuccessNotification(
-            'Success!',
-            `The internal location ${ilocPid} has been deleted.`
-          )
-        );
-        setTimeout(() => {
-          dispatch(fetchInternalLocations());
-        }, ES_DELAY);
-      })
-      .catch(error => {
-        dispatch({
-          type: DELETE_HAS_ERROR,
-          payload: error,
-        });
-        dispatch(sendErrorNotification(error));
+    try {
+      await internalLocationApi.delete(ilocPid);
+      dispatch({
+        type: DELETE_SUCCESS,
+        payload: { internalLocationPid: ilocPid },
       });
+      dispatch(
+        sendSuccessNotification(
+          'Success!',
+          `The internal location ${ilocPid} has been deleted.`
+        )
+      );
+      setTimeout(() => {
+        dispatch(fetchInternalLocations());
+      }, ES_DELAY);
+    } catch (error) {
+      dispatch({
+        type: DELETE_HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
   };
 };

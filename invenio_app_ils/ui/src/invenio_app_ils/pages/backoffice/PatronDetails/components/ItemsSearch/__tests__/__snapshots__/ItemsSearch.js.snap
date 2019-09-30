@@ -296,6 +296,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                           ]
                         }
                         seeAllComponent={null}
+                        showAllResults={false}
                         showMaxRows={10}
                         singleLine={false}
                         subtitle=""
@@ -623,6 +624,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                   currentPage={1}
                                   paginationComponent={null}
                                   seeAllComponent={null}
+                                  showAllResults={false}
                                   showMaxRows={10}
                                 />
                               </table>

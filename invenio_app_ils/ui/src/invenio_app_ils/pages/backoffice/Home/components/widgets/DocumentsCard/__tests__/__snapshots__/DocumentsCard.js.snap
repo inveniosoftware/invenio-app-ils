@@ -3,25 +3,8 @@
 exports[`DocumentsCard tests should load the details component 1`] = `
 <Loader>
   <Error>
-    <RecordsBriefCard
-      buttonLeft={
-        <NewButton
-          clickHandler={[Function]}
-          disabled={true}
-          fluid={true}
-          text="New"
-        />
-      }
-      buttonRight={
-        <SeeAllButton
-          clickHandler={[Function]}
-          disabled={true}
-          fluid={true}
-        />
-      }
-      stats={0}
-      text="requested on shelf"
-      title="Documents"
+    <DataCard
+      data={0}
     />
   </Error>
 </Loader>
@@ -46,101 +29,87 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
 >
   <Loader>
     <Error>
-      <RecordsBriefCard
-        buttonLeft={
-          <NewButton
-            clickHandler={[Function]}
-            disabled={true}
-            fluid={true}
-            text="New"
-          />
-        }
-        buttonRight={
-          <SeeAllButton
-            clickHandler={[Function]}
-            disabled={true}
-            fluid={true}
-          />
-        }
-        stats={2}
-        text="requested on shelf"
-        title="Documents"
+      <DataCard
+        data={2}
       >
-        <Segment
-          className="brief-card"
-          raised={true}
+        <RecordsBriefCard
+          buttonLeft={
+            <NewButton
+              clickHandler={[Function]}
+              disabled={true}
+              fluid={true}
+              text="New"
+            />
+          }
+          buttonRight={
+            <SeeAllButton
+              clickHandler={[Function]}
+              disabled={true}
+              fluid={true}
+            />
+          }
+          stats={2}
+          text="requested on shelf"
+          title="Documents"
         >
-          <div
-            className="ui raised segment brief-card"
+          <Segment
+            className="brief-card"
+            raised={true}
           >
-            <Header
-              as="h3"
-              textAlign="right"
+            <div
+              className="ui raised segment brief-card"
             >
-              <h3
-                className="ui right aligned header"
+              <Header
+                as="h3"
+                textAlign="right"
               >
-                Documents
-              </h3>
-            </Header>
-            <p>
-               
-              <span
-                data-test={2}
-              >
-                2
-              </span>
-               
-              requested on shelf
-            </p>
-            <Grid>
-              <div
-                className="ui grid"
-              >
-                <GridRow>
-                  <div
-                    className="row"
-                  >
-                    <GridColumn
-                      width={8}
+                <h3
+                  className="ui right aligned header"
+                >
+                  Documents
+                </h3>
+              </Header>
+              <p>
+                 
+                <span
+                  data-test={2}
+                >
+                  2
+                </span>
+                 
+                requested on shelf
+              </p>
+              <Grid>
+                <div
+                  className="ui grid"
+                >
+                  <GridRow>
+                    <div
+                      className="row"
                     >
-                      <div
-                        className="eight wide column"
+                      <GridColumn
+                        width={8}
                       >
-                        <NewButton
-                          clickHandler={[Function]}
-                          disabled={true}
-                          fluid={true}
-                          text="New"
+                        <div
+                          className="eight wide column"
                         >
-                          <Button
-                            as="button"
+                          <NewButton
+                            clickHandler={[Function]}
                             disabled={true}
                             fluid={true}
-                            icon={true}
-                            labelPosition="left"
-                            onClick={[Function]}
-                            positive={true}
-                            size="small"
+                            text="New"
                           >
-                            <Ref
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui small fluid icon positive disabled left labeled button"
-                                    disabled=""
-                                    tabindex="-1"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      class="plus icon"
-                                    />
-                                    New
-                                  </button>,
-                                }
-                              }
+                            <Button
+                              as="button"
+                              disabled={true}
+                              fluid={true}
+                              icon={true}
+                              labelPosition="left"
+                              onClick={[Function]}
+                              positive={true}
+                              size="small"
                             >
-                              <RefFindNode
+                              <Ref
                                 innerRef={
                                   Object {
                                     "current": <button
@@ -157,62 +126,66 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                   }
                                 }
                               >
-                                <button
-                                  className="ui small fluid icon positive disabled left labeled button"
-                                  disabled={true}
-                                  onClick={[Function]}
-                                  tabIndex={-1}
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui small fluid icon positive disabled left labeled button"
+                                        disabled=""
+                                        tabindex="-1"
+                                      >
+                                        <i
+                                          aria-hidden="true"
+                                          class="plus icon"
+                                        />
+                                        New
+                                      </button>,
+                                    }
+                                  }
                                 >
-                                  <Icon
-                                    as="i"
-                                    name="plus"
+                                  <button
+                                    className="ui small fluid icon positive disabled left labeled button"
+                                    disabled={true}
+                                    onClick={[Function]}
+                                    tabIndex={-1}
                                   >
-                                    <i
-                                      aria-hidden="true"
-                                      className="plus icon"
-                                      onClick={[Function]}
-                                    />
-                                  </Icon>
-                                  New
-                                </button>
-                              </RefFindNode>
-                            </Ref>
-                          </Button>
-                        </NewButton>
-                      </div>
-                    </GridColumn>
-                    <GridColumn
-                      width={8}
-                    >
-                      <div
-                        className="eight wide column"
+                                    <Icon
+                                      as="i"
+                                      name="plus"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        className="plus icon"
+                                        onClick={[Function]}
+                                      />
+                                    </Icon>
+                                    New
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                          </NewButton>
+                        </div>
+                      </GridColumn>
+                      <GridColumn
+                        width={8}
                       >
-                        <SeeAllButton
-                          clickHandler={[Function]}
-                          disabled={true}
-                          fluid={true}
+                        <div
+                          className="eight wide column"
                         >
-                          <Button
-                            as="button"
+                          <SeeAllButton
+                            clickHandler={[Function]}
                             disabled={true}
                             fluid={true}
-                            onClick={[Function]}
-                            size="small"
                           >
-                            <Ref
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui small fluid disabled button"
-                                    disabled=""
-                                    tabindex="-1"
-                                  >
-                                    See all
-                                  </button>,
-                                }
-                              }
+                            <Button
+                              as="button"
+                              disabled={true}
+                              fluid={true}
+                              onClick={[Function]}
+                              size="small"
                             >
-                              <RefFindNode
+                              <Ref
                                 innerRef={
                                   Object {
                                     "current": <button
@@ -225,27 +198,41 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                   }
                                 }
                               >
-                                <button
-                                  className="ui small fluid disabled button"
-                                  disabled={true}
-                                  onClick={[Function]}
-                                  tabIndex={-1}
+                                <RefFindNode
+                                  innerRef={
+                                    Object {
+                                      "current": <button
+                                        class="ui small fluid disabled button"
+                                        disabled=""
+                                        tabindex="-1"
+                                      >
+                                        See all
+                                      </button>,
+                                    }
+                                  }
                                 >
-                                  See all
-                                </button>
-                              </RefFindNode>
-                            </Ref>
-                          </Button>
-                        </SeeAllButton>
-                      </div>
-                    </GridColumn>
-                  </div>
-                </GridRow>
-              </div>
-            </Grid>
-          </div>
-        </Segment>
-      </RecordsBriefCard>
+                                  <button
+                                    className="ui small fluid disabled button"
+                                    disabled={true}
+                                    onClick={[Function]}
+                                    tabIndex={-1}
+                                  >
+                                    See all
+                                  </button>
+                                </RefFindNode>
+                              </Ref>
+                            </Button>
+                          </SeeAllButton>
+                        </div>
+                      </GridColumn>
+                    </div>
+                  </GridRow>
+                </div>
+              </Grid>
+            </div>
+          </Segment>
+        </RecordsBriefCard>
+      </DataCard>
     </Error>
   </Loader>
 </DocumentsCard>

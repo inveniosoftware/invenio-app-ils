@@ -20,6 +20,7 @@ exports[`IdleLoansList tests should load the details component 1`] = `
           fluid={false}
         />
       }
+      showAllResults={false}
       showMaxRows={5}
       singleLine={false}
       subtitle="Loan requests pending since more than 10 days."
@@ -101,6 +102,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={false}
         subtitle="Loan requests pending since more than 10 days."
@@ -576,6 +578,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                       fluid={false}
                     />
                   }
+                  showAllResults={false}
                   showMaxRows={5}
                 />
               </table>
@@ -618,6 +621,7 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={false}
         subtitle="Loan requests pending since more than 10 days."

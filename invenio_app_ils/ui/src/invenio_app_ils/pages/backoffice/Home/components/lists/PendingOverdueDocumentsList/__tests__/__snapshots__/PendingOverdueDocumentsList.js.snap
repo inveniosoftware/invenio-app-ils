@@ -20,6 +20,7 @@ exports[`PendingOverdueDocumentsList tests should load the details component 1`]
           fluid={false}
         />
       }
+      showAllResults={false}
       showMaxRows={5}
       singleLine={false}
       subtitle="Documents with pending loan requests, no available items and an active loan that's overdue."
@@ -118,6 +119,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={false}
         subtitle="Documents with pending loan requests, no available items and an active loan that's overdue."
@@ -507,6 +509,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                       fluid={false}
                     />
                   }
+                  showAllResults={false}
                   showMaxRows={5}
                 />
               </table>
@@ -549,6 +552,7 @@ exports[`PendingOverdueDocumentsList tests should render show a message with no 
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={false}
         subtitle="Documents with pending loan requests, no available items and an active loan that's overdue."

@@ -31,10 +31,10 @@ import {
   ESSelectorModal,
 } from '../../../../../common/components/ESSelector';
 import {
-  serializeTag,
   serializeAccessList,
   serializePatron,
 } from '../../../../../common/components/ESSelector/serializer';
+import { goToHandler } from '../../../../../history';
 import has from 'lodash/has';
 import { formatPidTypeToName } from '../../../../../common/components/ManageRelationsButton/utils';
 import { isEmpty } from 'lodash';
@@ -76,7 +76,6 @@ export default class DocumentMetadata extends Component {
 
   renderTags(tags) {
     if (!isEmpty(tags)) {
-      const tagSelection = tags.map(tag => serializeTag({ metadata: tag }));
       return (
         <List horizontal>
           {tags.map(tag => (
@@ -93,19 +92,6 @@ export default class DocumentMetadata extends Component {
               </Link>
             </List.Item>
           ))}
-          <List.Item>
-            <ESSelectorModal
-              multiple
-              initialSelections={tagSelection}
-              trigger={
-                <Button basic color="blue" size="small" content="edit" />
-              }
-              query={tagApi.list}
-              serializer={serializeTag}
-              title="Select Tags"
-              onSave={this.updateTags}
-            />
-          </List.Item>
         </List>
       );
     } else {
@@ -208,9 +194,9 @@ export default class DocumentMetadata extends Component {
         </Grid.Column>
         <Grid.Column width={3} textAlign={'right'}>
           <EditButton
-            clickHandler={() => {
-              // TODO: EDITOR, implement edit form
-            }}
+            clickHandler={goToHandler(
+              BackOfficeRoutes.documentEditFor(this.documentPid)
+            )}
           />
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Document
@@ -229,8 +215,8 @@ export default class DocumentMetadata extends Component {
       {
         name: 'Authors',
         value: document.metadata.authors
-          .map(author => author.full_name)
-          .join(','),
+          ? document.metadata.authors.map(author => author.full_name).join(',')
+          : '',
       },
       {
         name: 'Keywords',

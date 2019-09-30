@@ -28,6 +28,7 @@ exports[`DocumentRequestsSearch ResultsList tests should not render when empty r
     rowActionClickHandler={[Function]}
     rows={Array []}
     seeAllComponent={null}
+    showAllResults={false}
     showMaxRows={10}
     singleLine={false}
     subtitle=""
@@ -210,6 +211,7 @@ exports[`DocumentRequestsSearch ResultsList tests should render a list of result
       ]
     }
     seeAllComponent={null}
+    showAllResults={false}
     showMaxRows={10}
     singleLine={false}
     subtitle=""
@@ -716,6 +718,7 @@ exports[`DocumentRequestsSearch ResultsList tests should render a list of result
               currentPage={1}
               paginationComponent={null}
               seeAllComponent={null}
+              showAllResults={false}
               showMaxRows={10}
             />
           </table>

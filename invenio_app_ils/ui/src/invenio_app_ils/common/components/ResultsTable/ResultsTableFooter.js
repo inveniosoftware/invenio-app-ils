@@ -9,11 +9,18 @@ export default class ResultsTableFooter extends Component {
   }
 
   render() {
-    const { allRowsNumber, currentPage, showMaxRows } = this.props;
+    const {
+      allRowsNumber,
+      currentPage,
+      showMaxRows,
+      showAllResults,
+    } = this.props;
     const itemNumber = allRowsNumber;
-    const start = (currentPage - 1) * showMaxRows;
-    const end = Math.min(start + showMaxRows, allRowsNumber);
-    return itemNumber > showMaxRows ? (
+    const start = showAllResults ? 0 : (currentPage - 1) * showMaxRows;
+    const end = showAllResults
+      ? allRowsNumber
+      : Math.min(start + showMaxRows, allRowsNumber);
+    return showAllResults || itemNumber > showMaxRows ? (
       <Table.Footer fullWidth data-test="footer">
         <Table.Row>
           <Table.HeaderCell colSpan={this.colspan + 1} textAlign="right">
@@ -35,9 +42,11 @@ ResultsTableFooter.propTypes = {
   showMaxRows: PropTypes.number.isRequired,
   seeAllComponent: PropTypes.node,
   paginationComponent: PropTypes.node,
+  showAllResults: PropTypes.bool,
 };
 
 ResultsTableFooter.defaultProps = {
   seeAllComponent: null,
   paginationComponent: null,
+  showAllResults: false,
 };

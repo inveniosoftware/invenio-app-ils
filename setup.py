@@ -71,7 +71,6 @@ install_requires = [
     "invenio-userprofiles>=1.0.1,<1.1.0",
     # extra
     "invenio-circulation>=1.0.0a19,<1.1.0",
-    "invenio-records-editor>=1.0.0a3,<1.1.0",
     # until flask-sqlalchemy is fixed
     "SQLAlchemy>=1.2.16,<1.3.0",
     "invenio-pidrelations>=1.0.0a6,<1.1.0",

@@ -364,7 +364,6 @@ def index(path=None):
     ui_config.update(_get_document_requests_ui_config())
     ui_config.update(
         {
-            "editor": {"url": current_app.config["RECORDS_EDITOR_URL_PREFIX"]},
             "support_email": current_app.config["SUPPORT_EMAIL"],
             "relationTypes": current_app.config["ILS_PIDRELATIONS_TYPES"],
             "default_results_size": current_app.config[

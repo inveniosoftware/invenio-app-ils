@@ -26,8 +26,8 @@ const update = async (locationPid, data) => {
   return response;
 };
 
-const list = async (query = '') => {
-  const response = await http.get(`${locationURL}?q=${query}`);
+const list = async (query = '', size = 100) => {
+  const response = await http.get(`${locationURL}?q=${query}&size=${size}`);
   response.data.total = response.data.hits.total;
   response.data.hits = response.data.hits.hits.map(hit =>
     serializer.fromJSON(hit)

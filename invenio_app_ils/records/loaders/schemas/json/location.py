@@ -15,12 +15,6 @@ from marshmallow import Schema, fields
 class LocationSchemaV1(RecordMetadataSchemaJSONV1):
     """Location schema."""
 
-    class Meta:
-        """Meta attributes for the schema."""
-
-        from marshmallow import EXCLUDE
-        unknown = EXCLUDE
-
     pid = PersistentIdentifier()
     name = fields.Str(required=True)
     address = fields.Str()

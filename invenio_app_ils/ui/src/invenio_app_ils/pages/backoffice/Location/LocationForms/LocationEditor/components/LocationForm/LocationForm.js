@@ -1,14 +1,12 @@
 // EditUserDialog.js
 import React, { Component } from 'react';
-import { Formik, getIn } from 'formik';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
-import isEmpty from 'lodash/isEmpty';
-import { Form, Segment, Button, Grid, Header } from 'semantic-ui-react';
 import { StringField, TextField } from '../../../../../../../forms';
 import { location as locationApi } from '../../../../../../../common/api/locations/location';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import { goTo } from '../../../../../../../history';
-import { ES_DELAY } from '../../../../../../../common/config';
+import { BaseForm } from '../../../../../../../forms';
 
 export class LocationForm extends Component {
   constructor(props) {
@@ -16,82 +14,50 @@ export class LocationForm extends Component {
     this.formInitialData = props.data;
     this.successSubmitMessage = props.successSubmitMessage;
     this.title = props.title;
+    this.pid = props.pid;
   }
   prepareData = data => {
     return _.pick(data, ['name', 'address', 'email', 'phone', 'notes']);
   };
 
-  onSubmit = async (values, actions) => {
-    try {
-      actions.setSubmitting(true);
-      !isEmpty(this.formInitialData)
-        ? await locationApi.update(this.formInitialData.pid, values)
-        : await locationApi.create(values);
-
-      setTimeout(() => {
-        this.props.sendSuccessNotification(
-          'Success!',
-          this.successSubmitMessage
-        );
-        goTo(BackOfficeRoutes.locationsList);
-      }, ES_DELAY);
-    } catch (error) {
-      const errors = getIn(error, 'response.data.errors', []);
-
-      if (isEmpty(errors)) {
-        throw error;
-      } else {
-        const errorData = error.response.data;
-        const payload = {};
-        for (const fieldError of errorData.errors) {
-          payload[fieldError.field] = fieldError.message;
-        }
-        actions.setErrors(payload);
-        actions.setSubmitting(false);
-      }
-    }
+  updateLocation = (pid, data) => {
+    return locationApi.update(pid, data);
   };
+
+  createLocation = data => {
+    return locationApi.create(data);
+  };
+
+  successCallback = () => goTo(BackOfficeRoutes.locationsList);
 
   render() {
     return (
-      <>
-        <Grid>
-          <Grid.Row centered>
-            <Header>{this.title}</Header>
-          </Grid.Row>
-        </Grid>
-
-        <Formik
-          initialValues={
-            this.formInitialData
-              ? this.prepareData(this.formInitialData.metadata)
-              : {}
-          }
-          onSubmit={this.onSubmit}
-          render={({ isSubmitting, handleSubmit }) => (
-            <Form onSubmit={handleSubmit} loading={isSubmitting}>
-              <Segment>
-                <StringField label="Name" fieldPath="name" required />
-                <StringField label="Address" fieldPath="address" />
-                <StringField
-                  label="Email"
-                  fieldPath="email"
-                  uiProps={{ rows: 10 }}
-                />
-                <StringField label="Phone" fieldPath="phone" />
-                <TextField
-                  label="Notes"
-                  fieldPath="notes"
-                  uiProps={{ rows: 5 }}
-                />
-              </Segment>
-              <Button color="green" disabled={isSubmitting}>
-                Submit
-              </Button>
-            </Form>
-          )}
-        />
-      </>
+      <BaseForm
+        initialValues={
+          this.formInitialData
+            ? this.prepareData(this.formInitialData.metadata)
+            : {}
+        }
+        editApiMethod={this.updateLocation}
+        createApiMethod={this.createLocation}
+        successCallback={this.successCallback}
+        successSubmitMessage={this.successSubmitMessage}
+        title={this.title}
+        pid={this.pid ? this.pid : undefined}
+      >
+        <StringField label="Name" fieldPath="name" required />
+        <StringField label="Address" fieldPath="address" />
+        <StringField label="Email" fieldPath="email" />
+        <StringField label="Phone" fieldPath="phone" />
+        <TextField label="Notes" fieldPath="notes" uiProps={{ rows: 5 }} />
+      </BaseForm>
     );
   }
 }
+
+LocationForm.propTypes = {
+  formInitialData: PropTypes.object,
+  successSubmitMessage: PropTypes.string,
+  title: PropTypes.string,
+  pid: PropTypes.string,
+};

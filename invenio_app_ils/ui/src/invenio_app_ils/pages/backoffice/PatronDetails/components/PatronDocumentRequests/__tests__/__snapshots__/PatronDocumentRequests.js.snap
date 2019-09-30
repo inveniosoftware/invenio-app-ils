@@ -20,6 +20,7 @@ exports[`PatronDocumentRequests tests should load the details component 1`] = `
           fluid={false}
         />
       }
+      showAllResults={false}
       showMaxRows={5}
       singleLine={false}
       subtitle=""
@@ -114,6 +115,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={false}
         subtitle=""
@@ -587,6 +589,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       fluid={false}
                     />
                   }
+                  showAllResults={false}
                   showMaxRows={5}
                 />
               </table>
@@ -644,6 +647,7 @@ exports[`PatronDocumentRequests tests should render show a message with no user 
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={false}
         subtitle=""
@@ -805,6 +809,7 @@ exports[`PatronDocumentRequests tests should render the see all button when show
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={1}
         singleLine={false}
         subtitle=""
@@ -1146,6 +1151,7 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                       fluid={false}
                     />
                   }
+                  showAllResults={false}
                   showMaxRows={1}
                 >
                   <TableFooter

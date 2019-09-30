@@ -22,7 +22,7 @@ import { getSearchConfig } from '../../../common/config';
 import { ClearButton, NewButton } from '../components/buttons';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { ResultsList as DocumentsResultsList } from './components';
-import { goTo } from '../../../history';
+import { goTo, goToHandler } from '../../../history';
 import './DocumentsSearch.scss';
 
 export class DocumentsSearch extends Component {
@@ -86,9 +86,7 @@ export class DocumentsSearch extends Component {
           />
           <NewButton
             text={'New document'}
-            clickHandler={() => {
-              // TODO: EDITOR, implement create form
-            }}
+            clickHandler={goToHandler(BackOfficeRoutes.documentCreate)}
           />
         </Segment.Inline>
       </Segment>

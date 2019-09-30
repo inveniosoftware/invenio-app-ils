@@ -30,12 +30,13 @@ export class LocationEditor extends Component {
     }
   }
 
-  renderEditForm = () => {
+  renderEditForm = pid => {
     const { isLoading, error, data } = this.state;
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <LocationForm
+            pid={pid}
             data={data}
             title="Edit location"
             successSubmitMessage="Your location has been updated."
@@ -55,7 +56,7 @@ export class LocationEditor extends Component {
     return (
       <>
         {isEditForm ? (
-          this.renderEditForm()
+          this.renderEditForm(locationPid)
         ) : (
           <LocationForm
             title="Create new location"

@@ -7,18 +7,22 @@ import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { document as documentApi } from '../../../../../../common/api';
 import { goToHandler } from '../../../../../../history';
 
-export default class DocumentsCard extends Component {
+class DataCard extends Component {
   constructor(props) {
     super(props);
-    this.fetchRequestedWithAvailableItems =
-      props.fetchRequestedWithAvailableItems;
+    this.data = props.data;
     this.seeAllUrl = BackOfficeRoutes.documentsListWithQuery;
-    this.newDocumentURL = BackOfficeRoutes.documentsCreate;
+    this.newDocumentURL = BackOfficeRoutes.documentCreate;
   }
-
-  componentDidMount() {
-    this.fetchRequestedWithAvailableItems();
-  }
+  newDocumentButton = () => {
+    return (
+      <NewButton
+        fluid
+        disabled
+        clickHandler={goToHandler(this.newDocumentURL)}
+      />
+    );
+  };
 
   seeAllButton = () => {
     const path = this.seeAllUrl(
@@ -31,33 +35,37 @@ export default class DocumentsCard extends Component {
     return <SeeAllButton fluid disabled clickHandler={goToHandler(path)} />;
   };
 
-  newDocumentButton = () => {
-    return (
-      <NewButton
-        fluid
-        disabled
-        clickHandler={goToHandler(this.newDocumentURL)}
-      />
-    );
-  };
-
-  renderCard = data => {
+  render() {
     return (
       <RecordsBriefCard
         title={'Documents'}
-        stats={data}
+        stats={this.data}
         text={'requested on shelf'}
         buttonLeft={this.newDocumentButton()}
         buttonRight={this.seeAllButton()}
       />
     );
-  };
+  }
+}
+
+export default class DocumentsCard extends Component {
+  constructor(props) {
+    super(props);
+    this.fetchRequestedWithAvailableItems =
+      props.fetchRequestedWithAvailableItems;
+  }
+
+  componentDidMount() {
+    this.fetchRequestedWithAvailableItems();
+  }
 
   render() {
     const { data, isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this.renderCard(data)}</Error>
+        <Error error={error}>
+          <DataCard data={data}></DataCard>
+        </Error>
       </Loader>
     );
   }

@@ -78,10 +78,10 @@ export default class InternalLocationList extends Component {
     return (
       <ResultsTable
         rows={rows}
+        showAllResults={true}
         title={'Internal Locations'}
         name={'internal locations'}
         headerActionComponent={headerActionComponent}
-        showMaxRows={this.props.showMaxItems}
       />
     );
   }
@@ -101,9 +101,4 @@ InternalLocationList.propTypes = {
   fetchInternalLocations: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   hasError: PropTypes.bool.isRequired,
-  showMaxItems: PropTypes.number,
-};
-
-InternalLocationList.defaultProps = {
-  showMaxItems: 10,
 };

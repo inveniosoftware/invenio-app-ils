@@ -14,9 +14,11 @@ from marshmallow import fields
 class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     """Document schema."""
 
-    authors = fields.Str()
-    circulation = fields.Str()
-    document_pid = fields.Str()
-    keywords = fields.Str()
-    tags = fields.List(fields.Str())
+    class Meta:
+        """Meta attributes for the schema."""
+
+        from marshmallow import EXCLUDE
+        unknown = EXCLUDE
+
+    tag_pids = fields.List(fields.Str())
     title = fields.Str()
