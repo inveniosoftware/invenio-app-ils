@@ -20,6 +20,7 @@ exports[`ItemPastLoans tests should load the past loans component 1`] = `
           fluid={false}
         />
       }
+      showAllResults={false}
       showMaxRows={5}
       singleLine={false}
       subtitle=""
@@ -114,6 +115,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={false}
         subtitle=""
@@ -716,6 +718,7 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       fluid={false}
                     />
                   }
+                  showAllResults={false}
                   showMaxRows={5}
                 />
               </table>
@@ -767,6 +770,7 @@ exports[`ItemPastLoans tests should render show a message with no past loans 1`]
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={false}
         subtitle=""

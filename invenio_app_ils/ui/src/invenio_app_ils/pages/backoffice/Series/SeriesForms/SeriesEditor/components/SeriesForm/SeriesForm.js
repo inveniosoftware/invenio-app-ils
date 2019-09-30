@@ -1,12 +1,12 @@
 // EditUserDialog.js
 import React, { Component } from 'react';
-import { Formik, getIn } from 'formik';
+import PropTypes from 'prop-types';
+import { getIn } from 'formik';
 import _ from 'lodash';
-import isEmpty from 'lodash/isEmpty';
 import IsoLanguages from 'iso-639-1';
-import { Form, Segment, Button, Grid, Header } from 'semantic-ui-react';
 import {
   ArrayStringField,
+  BaseForm,
   SelectField,
   StringField,
   TextField,
@@ -14,7 +14,6 @@ import {
 import { series as seriesApi } from '../../../../../../../common/api/series/series';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import { goTo } from '../../../../../../../history';
-import { ES_DELAY } from '../../../../../../../common/config';
 
 export class SeriesForm extends Component {
   constructor(props) {
@@ -22,6 +21,8 @@ export class SeriesForm extends Component {
     this.formInitialData = props.data;
     this.successSubmitMessage = props.successSubmitMessage;
     this.title = props.title;
+    this.pid = props.pid;
+    this.languageCodes = this.getLanguageCodes();
   }
   prepareData = data => {
     return _.pick(data, [
@@ -35,39 +36,18 @@ export class SeriesForm extends Component {
     ]);
   };
 
-  onSubmit = async (values, actions) => {
-    try {
-      actions.setSubmitting(true);
-      const response = !isEmpty(this.formInitialData)
-        ? await seriesApi.update(this.formInitialData.pid, values)
-        : await seriesApi.create(values);
+  updateSeries = (pid, data) => {
+    return seriesApi.update(pid, data);
+  };
 
-      setTimeout(() => {
-        this.props.sendSuccessNotification(
-          'Success!',
-          this.successSubmitMessage
-        );
-        goTo(
-          BackOfficeRoutes.seriesDetailsFor(
-            getIn(response, 'data.metadata.pid')
-          )
-        );
-      }, ES_DELAY);
-    } catch (error) {
-      const errors = getIn(error, 'response.data.errors', []);
+  createSeries = data => {
+    return seriesApi.create(data);
+  };
 
-      if (isEmpty(errors)) {
-        throw error;
-      } else {
-        const errorData = error.response.data;
-        const payload = {};
-        for (const fieldError of errorData.errors) {
-          payload[fieldError.field] = fieldError.message;
-        }
-        actions.setErrors(payload);
-        actions.setSubmitting(false);
-      }
-    }
+  successCallback = response => {
+    goTo(
+      BackOfficeRoutes.seriesDetailsFor(getIn(response, 'data.metadata.pid'))
+    );
   };
 
   getLanguageCodes = () => {
@@ -79,65 +59,61 @@ export class SeriesForm extends Component {
 
   render() {
     return (
-      <>
-        <Grid>
-          <Grid.Row centered>
-            <Header>{this.title}</Header>
-          </Grid.Row>
-        </Grid>
-
-        <Formik
-          initialValues={
-            this.formInitialData
-              ? this.prepareData(this.formInitialData.metadata)
-              : {}
-          }
-          onSubmit={this.onSubmit}
-          render={({ isSubmitting, handleSubmit }) => (
-            <Form onSubmit={handleSubmit} loading={isSubmitting}>
-              <Segment>
-                <StringField label="Title" fieldPath="title" required />
-                <SelectField
-                  label="Mode of issuance"
-                  fieldPath="mode_of_issuance"
-                  options={[
-                    {
-                      text: 'MULTIPART_MONOGRAPH',
-                      value: 'MULTIPART_MONOGRAPH',
-                    },
-                    {
-                      text: 'SERIAL',
-                      value: 'SERIAL',
-                    },
-                  ]}
-                  required
-                ></SelectField>
-                <TextField
-                  label="Abstract"
-                  fieldPath="abstract"
-                  uiProps={{ rows: 10 }}
-                />
-                <ArrayStringField
-                  label="Authors"
-                  fieldPath="authors"
-                ></ArrayStringField>
-                <SelectField
-                  multiple
-                  label="Languages"
-                  fieldPath="languages"
-                  options={this.getLanguageCodes()}
-                  uiProps={{ upward: false }}
-                ></SelectField>
-                <StringField label="Edition" fieldPath="edition" />
-                <StringField label="ISSN" fieldPath="issn" />
-              </Segment>
-              <Button color="green" disabled={isSubmitting}>
-                Submit
-              </Button>
-            </Form>
-          )}
+      <BaseForm
+        initialValues={
+          this.formInitialData
+            ? this.prepareData(this.formInitialData.metadata)
+            : {}
+        }
+        editApiMethod={this.updateSeries}
+        createApiMethod={this.createSeries}
+        successCallback={this.successCallback}
+        successSubmitMessage={this.successSubmitMessage}
+        title={this.title}
+        pid={this.pid ? this.pid : undefined}
+      >
+        <StringField label="Title" fieldPath="title" required />
+        <SelectField
+          label="Mode of issuance"
+          fieldPath="mode_of_issuance"
+          options={[
+            {
+              text: 'MULTIPART MONOGRAPH',
+              value: 'MULTIPART_MONOGRAPH',
+            },
+            {
+              text: 'SERIAL',
+              value: 'SERIAL',
+            },
+          ]}
+          required
+        ></SelectField>
+        <TextField
+          label="Abstract"
+          fieldPath="abstract"
+          uiProps={{ rows: 10 }}
         />
-      </>
+        <ArrayStringField
+          label="Authors"
+          fieldPath="authors"
+        ></ArrayStringField>
+        <SelectField
+          multiple
+          label="Languages"
+          fieldPath="languages"
+          options={this.languageCodes}
+          uiProps={{ upward: false }}
+        ></SelectField>
+        <StringField label="Edition" fieldPath="edition" />
+        <StringField label="ISSN" fieldPath="issn" />
+      </BaseForm>
     );
   }
 }
+
+SeriesForm.propTypes = {
+  formInitialData: PropTypes.object,
+  successSubmitMessage: PropTypes.string,
+  title: PropTypes.string,
+  pid: PropTypes.string,
+};

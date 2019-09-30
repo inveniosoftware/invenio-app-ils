@@ -6,6 +6,8 @@ import { formatter } from '../../../../../common/components/ResultsTable/formatt
 import pick from 'lodash/pick';
 import { ExportReactSearchKitResults } from '../../../components';
 import { document as documentApi } from '../../../../../common/api';
+import { BackOfficeRoutes } from '../../../../../routes/urls';
+import { goToHandler } from '../../../../../history';
 
 export class ResultsList extends Component {
   prepareData(data) {
@@ -29,9 +31,7 @@ export class ResultsList extends Component {
       <div>
         <NewButton
           text={'New document'}
-          clickHandler={() => {
-            // TODO: EDITOR, implement create form
-          }}
+          clickHandler={goToHandler(BackOfficeRoutes.documentCreate)}
         />
         <ExportReactSearchKitResults
           exportBaseUrl={documentApi.searchBaseURL}

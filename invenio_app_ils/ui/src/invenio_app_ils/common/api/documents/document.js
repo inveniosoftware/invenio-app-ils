@@ -11,6 +11,18 @@ const get = documentPid => {
   });
 };
 
+const create = async data => {
+  const resp = await http.post(`${documentURL}`, data);
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
+};
+
+const update = async (docPid, data) => {
+  const response = await http.put(`${documentURL}${docPid}`, data);
+  response.data = serializer.fromJSON(response.data);
+  return response;
+};
+
 const del = async docPid => {
   return await http.delete(`${documentURL}${docPid}`);
 };
@@ -164,6 +176,8 @@ const count = query => {
 export const document = {
   searchBaseURL: `${apiConfig.baseURL}${documentURL}`,
   get: get,
+  create: create,
+  update: update,
   delete: del,
   patch: patch,
   createRelation: createRelation,

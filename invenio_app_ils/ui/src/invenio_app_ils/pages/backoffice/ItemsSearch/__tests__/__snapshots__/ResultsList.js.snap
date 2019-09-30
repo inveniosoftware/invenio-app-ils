@@ -28,6 +28,7 @@ exports[`ItemsSearch ResultsList tests should not render when empty results 1`] 
     rowActionClickHandler={[Function]}
     rows={Array []}
     seeAllComponent={null}
+    showAllResults={false}
     showMaxRows={10}
     singleLine={false}
     subtitle=""
@@ -216,6 +217,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
       ]
     }
     seeAllComponent={null}
+    showAllResults={false}
     showMaxRows={10}
     singleLine={false}
     subtitle=""
@@ -752,6 +754,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
               currentPage={1}
               paginationComponent={null}
               seeAllComponent={null}
+              showAllResults={false}
               showMaxRows={10}
             />
           </table>

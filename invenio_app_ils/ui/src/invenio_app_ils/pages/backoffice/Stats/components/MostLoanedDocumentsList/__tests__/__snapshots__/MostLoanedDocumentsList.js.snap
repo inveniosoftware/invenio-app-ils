@@ -92,6 +92,7 @@ exports[`MostLoanedDocumentsList tests should load the component 1`] = `
             rowActionClickHandler={[Function]}
             rows={Array []}
             seeAllComponent={null}
+            showAllResults={false}
             showMaxRows={30}
             singleLine={false}
             subtitle="Showing the 0 most checked-out documents."
@@ -538,6 +539,7 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                     rowActionClickHandler={[Function]}
                     rows={Array []}
                     seeAllComponent={null}
+                    showAllResults={false}
                     showMaxRows={30}
                     singleLine={false}
                     subtitle="Showing the 0 most checked-out documents."

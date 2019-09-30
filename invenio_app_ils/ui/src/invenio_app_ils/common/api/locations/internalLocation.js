@@ -28,8 +28,9 @@ const update = async (ilocPid, data) => {
   return response;
 };
 
-const list = async (query = '') => {
-  const response = await http.get(`${internalLocationURL}?q=${query}`);
+const list = async (query = '', size = 100) => {
+  const queryString = `${internalLocationURL}?q=${query}&size=${size}`;
+  const response = await http.get(queryString);
   response.data.total = response.data.hits.total;
   response.data.hits = response.data.hits.hits.map(hit =>
     serializer.fromJSON(hit)

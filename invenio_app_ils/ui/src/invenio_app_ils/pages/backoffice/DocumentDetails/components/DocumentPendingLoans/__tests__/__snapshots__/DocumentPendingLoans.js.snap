@@ -20,6 +20,7 @@ exports[`DocumentPendingLoans tests should load the details component 1`] = `
           fluid={false}
         />
       }
+      showAllResults={false}
       showMaxRows={5}
       singleLine={false}
       subtitle=""
@@ -110,6 +111,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={false}
         subtitle=""
@@ -583,6 +585,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                       fluid={false}
                     />
                   }
+                  showAllResults={false}
                   showMaxRows={5}
                 />
               </table>
@@ -634,6 +637,7 @@ exports[`DocumentPendingLoans tests should render show a message with no pending
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={false}
         subtitle=""
@@ -791,6 +795,7 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={1}
         singleLine={false}
         subtitle=""
@@ -1132,6 +1137,7 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                       fluid={false}
                     />
                   }
+                  showAllResults={false}
                   showMaxRows={1}
                 >
                   <TableFooter

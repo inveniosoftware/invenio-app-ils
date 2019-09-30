@@ -13,8 +13,22 @@ const list = query => {
   });
 };
 
+const create = async data => {
+  const resp = await http.post(`${tagURL}`, data);
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
+};
+
+const update = async (tagPid, data) => {
+  const response = await http.put(`${tagURL}${tagPid}`, data);
+  response.data = serializer.fromJSON(response.data);
+  return response;
+};
+
 export const tag = {
   list: list,
+  create: create,
+  update: update,
   serializer: serializer,
   url: tagURL,
 };

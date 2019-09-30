@@ -20,6 +20,7 @@ exports[`OverbookedDocumentsList tests should load the details component 1`] = `
           fluid={false}
         />
       }
+      showAllResults={false}
       showMaxRows={5}
       singleLine={true}
       subtitle="Documents with more requests than the number of available items for loan."
@@ -107,6 +108,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={true}
         subtitle="Documents with more requests than the number of available items for loan."
@@ -582,6 +584,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                       fluid={false}
                     />
                   }
+                  showAllResults={false}
                   showMaxRows={5}
                 />
               </table>
@@ -624,6 +627,7 @@ exports[`OverbookedDocumentsList tests should render show a message with no docu
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={true}
         subtitle="Documents with more requests than the number of available items for loan."

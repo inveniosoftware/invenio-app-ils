@@ -30,12 +30,13 @@ export class InternalLocationEditor extends Component {
     }
   }
 
-  renderEditForm = () => {
+  renderEditForm = pid => {
     const { isLoading, error, data } = this.state;
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <InternalLocationForm
+            pid={pid}
             data={data}
             title="Edit internal location"
             successSubmitMessage="Your internal location has been updated."
@@ -55,7 +56,7 @@ export class InternalLocationEditor extends Component {
     return (
       <>
         {isEditForm ? (
-          this.renderEditForm()
+          this.renderEditForm(ilocationPid)
         ) : (
           <InternalLocationForm
             title="Create new internal location"

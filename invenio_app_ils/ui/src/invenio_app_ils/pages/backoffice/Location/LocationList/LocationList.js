@@ -76,7 +76,6 @@ export default class LocationList extends Component {
         title={'Locations'}
         name={'locations'}
         headerActionComponent={headerActionComponent}
-        showMaxRows={this.props.showMaxItems}
       />
     );
   }
@@ -102,8 +101,4 @@ LocationList.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   hasError: PropTypes.bool.isRequired,
   showMaxItems: PropTypes.number,
-};
-
-LocationList.defaultProps = {
-  showMaxItems: 5,
 };

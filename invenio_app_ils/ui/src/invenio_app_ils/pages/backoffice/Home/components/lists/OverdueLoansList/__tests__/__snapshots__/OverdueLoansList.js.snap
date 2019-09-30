@@ -20,6 +20,7 @@ exports[`OverdueLoansList tests should load the details component 1`] = `
           fluid={false}
         />
       }
+      showAllResults={false}
       showMaxRows={5}
       singleLine={false}
       subtitle="Active loans with past due end date."
@@ -147,6 +148,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={false}
         subtitle="Active loans with past due end date."
@@ -741,6 +743,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                       fluid={false}
                     />
                   }
+                  showAllResults={false}
                   showMaxRows={5}
                 />
               </table>
@@ -783,6 +786,7 @@ exports[`OverdueLoansList tests should render show a message with no loans 1`] =
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={false}
         subtitle="Active loans with past due end date."

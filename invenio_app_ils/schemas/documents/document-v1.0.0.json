@@ -1239,7 +1239,7 @@
       "uniqueItems": true
     }
   },
-  "required": ["$schema", "pid", "title", "authors"],
+  "required": ["$schema", "pid", "title"],
   "title": "Document",
   "type": "object"
 }

@@ -10,12 +10,13 @@ export class SeriesEditor extends Component {
     }
   }
 
-  renderEditForm = () => {
+  renderEditForm = pid => {
     const { isLoading, error, data } = this.props;
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <SeriesForm
+            pid={pid}
             data={data}
             title="Edit series"
             successSubmitMessage="Your series has been updated."
@@ -35,7 +36,7 @@ export class SeriesEditor extends Component {
     return (
       <>
         {isEditForm ? (
-          this.renderEditForm()
+          this.renderEditForm(seriesPid)
         ) : (
           <SeriesForm
             title="Create new series"

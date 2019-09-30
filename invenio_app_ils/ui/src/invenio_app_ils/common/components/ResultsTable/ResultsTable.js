@@ -7,7 +7,16 @@ import ResultsTableFooter from './ResultsTableFooter';
 
 export class ResultsTable extends Component {
   renderTable = () => {
-    const { rows, showMaxRows, singleLine, fixed } = this.props;
+    const {
+      rows,
+      showMaxRows,
+      showAllResults,
+      singleLine,
+      fixed,
+      currentPage,
+      paginationComponent,
+      seeAllComponent,
+    } = this.props;
     const columns = rows ? Object.keys(rows[0]) : [];
     const totalRows =
       rows.totalHits > rows.length ? rows.totalHits : rows.length;
@@ -24,15 +33,16 @@ export class ResultsTable extends Component {
         />
         <ResultsTableBody
           columns={columns}
-          rows={rows.slice(0, showMaxRows)}
+          rows={showAllResults ? rows : rows.slice(0, showMaxRows)}
           rowActionClickHandler={this.props.rowActionClickHandler}
         />
         <ResultsTableFooter
           allRowsNumber={totalRows}
-          showMaxRows={this.props.showMaxRows}
-          seeAllComponent={this.props.seeAllComponent}
-          currentPage={this.props.currentPage}
-          paginationComponent={this.props.paginationComponent}
+          showAllResults={showAllResults}
+          showMaxRows={showMaxRows}
+          seeAllComponent={seeAllComponent}
+          currentPage={currentPage}
+          paginationComponent={paginationComponent}
           columnsNumber={columns.length}
         />
       </Table>
@@ -90,6 +100,7 @@ export class ResultsTable extends Component {
 ResultsTable.propTypes = {
   rows: PropTypes.array.isRequired,
   showMaxRows: PropTypes.number,
+  showAllResults: PropTypes.bool,
   currentPage: PropTypes.number,
   title: PropTypes.string,
   subtitle: PropTypes.string,
@@ -105,6 +116,7 @@ ResultsTable.propTypes = {
 
 ResultsTable.defaultProps = {
   showMaxRows: 10,
+  showAllResults: false,
   currentPage: 1,
   title: '',
   subtitle: '',

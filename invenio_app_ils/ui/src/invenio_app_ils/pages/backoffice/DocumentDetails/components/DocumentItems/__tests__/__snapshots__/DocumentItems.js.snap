@@ -20,6 +20,7 @@ exports[`DocumentItems tests should load the DocumentItems component 1`] = `
           fluid={false}
         />
       }
+      showAllResults={false}
       showMaxRows={5}
       singleLine={false}
       subtitle=""
@@ -121,6 +122,7 @@ exports[`DocumentItems tests should render item 1`] = `
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={false}
         subtitle=""
@@ -680,6 +682,7 @@ exports[`DocumentItems tests should render item 1`] = `
                       fluid={false}
                     />
                   }
+                  showAllResults={false}
                   showMaxRows={5}
                 />
               </table>
@@ -730,6 +733,7 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={5}
         singleLine={false}
         subtitle=""
@@ -896,6 +900,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
             fluid={false}
           />
         }
+        showAllResults={false}
         showMaxRows={1}
         singleLine={false}
         subtitle=""
@@ -1297,6 +1302,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       fluid={false}
                     />
                   }
+                  showAllResults={false}
                   showMaxRows={1}
                 >
                   <TableFooter

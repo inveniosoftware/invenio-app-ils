@@ -1,5 +1,6 @@
 export * from './components';
 export { Home } from './Home';
+export { DocumentEditor } from './Document';
 export { DocumentDetailsContainer } from './DocumentDetails';
 export { DocumentsSearch } from './DocumentsSearch';
 export { DocumentRequestDetailsContainer } from './DocumentRequestDetails';
