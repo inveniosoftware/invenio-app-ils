@@ -87,10 +87,10 @@ export const checkoutItem = (
         patronPid,
         { force: force }
       );
-      const { pid, item_pid, patron_pid } = response.data.metadata;
+      const { pid } = response.data.metadata;
       const linkToLoan = (
         <p>
-          The loan {pid} has been created on behalf of patron {patron_pid}.{' '}
+          The loan {pid} has been created on behalf of patron {patronPid}.{' '}
           <Link to={BackOfficeRoutes.loanDetailsFor(pid)}>
             You can now view the loan details.
           </Link>
@@ -98,7 +98,7 @@ export const checkoutItem = (
       );
       dispatch(sendSuccessNotification('Success!', linkToLoan));
       setTimeout(() => {
-        dispatch(fetchItemDetails(item_pid));
+        dispatch(fetchItemDetails(itemPid));
       }, ES_DELAY);
     } catch (error) {
       dispatch({

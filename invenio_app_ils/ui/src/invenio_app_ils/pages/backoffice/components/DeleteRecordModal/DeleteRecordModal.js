@@ -47,9 +47,7 @@ export default class DeleteRecordModal extends Component {
       <Header
         key={`${refEntry}`}
         icon={'exclamation'}
-        content={`You cannot delete the record, the following ${
-          refEntry.refType
-        } records use it!`}
+        content={`You cannot delete the record, the following ${refEntry.refType} records use it!`}
       />
     );
   };
