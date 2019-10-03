@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Schema EItem",
   "type": "object",
-  "required": ["$schema", "pid", "document_pid", "document"],
+  "required": ["$schema", "pid", "document_pid"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -69,10 +69,25 @@
     },
     "urls": {
       "items": {
-        "type": "string"
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["value"],
+        "title": "URL of external resource",
+        "type": "object"
       },
+      "minItems": 1,
       "type": "array",
-      "description": "A list of urls."
+      "uniqueItems": true
     }
   }
 }

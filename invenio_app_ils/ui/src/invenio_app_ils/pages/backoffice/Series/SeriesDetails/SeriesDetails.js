@@ -44,4 +44,5 @@ export default class SeriesDetails extends Component {
 SeriesDetails.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   data: PropTypes.object,
+  error: PropTypes.object,
 };

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EItemDetails tests should load the details component 1`] = `
+<Container>
+  <Loader
+    isLoading={true}
+  >
+    <Error>
+      <Connect(EItemMetadata) />
+    </Error>
+  </Loader>
+</Container>
+`;

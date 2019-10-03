@@ -10,6 +10,7 @@ export class StringField extends Component {
     this.label = props.label;
     this.placeholder = props.placeholder;
     this.required = props.required;
+    this.inline = props.inline;
     this.uiProps = props.uiProps;
   }
 
@@ -29,7 +30,7 @@ export class StringField extends Component {
     } = props;
 
     return (
-      <Form.Field>
+      <Form.Field inline={this.inline}>
         <Form.Input
           required={this.required}
           name={this.fieldPath}
@@ -57,6 +58,7 @@ StringField.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
+  required: PropTypes.bool,
   uiProps: PropTypes.object,
 };
 
@@ -64,5 +66,6 @@ StringField.defaultProps = {
   label: '',
   placeholder: '',
   required: false,
+  inline: false,
   uiProps: {},
 };

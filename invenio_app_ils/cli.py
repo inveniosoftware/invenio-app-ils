@@ -236,8 +236,14 @@ class EItemGenerator(Generator):
                 "description": "{}".format(lorem.text()),
                 "internal_notes": "{}".format(lorem.text()),
                 "urls": [
-                    "https://home.cern/science/physics/dark-matter",
-                    "https://home.cern/science/physics/antimatter",
+                    {
+                        "value": "https://home.cern/science/physics/dark-matter",
+                        "description": "Dark matter"
+                    },
+                    {
+                        "value": "https://home.cern/science/physics/antimatter",
+                        "description": "Anti matter"
+                    },
                 ],
                 "open_access": bool(random.getrandbits(1)),
             }

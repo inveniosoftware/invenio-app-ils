@@ -24,7 +24,7 @@ export class TagsField extends Component {
       : null;
   }
 
-  renderSelectField = props => {
+  renderTagsField = props => {
     const {
       form: { values, setFieldValue },
       ...arrayHelpers
@@ -87,7 +87,7 @@ export class TagsField extends Component {
     return (
       <FieldArray
         name={this.fieldPath}
-        component={this.renderSelectField}
+        component={this.renderTagsField}
       ></FieldArray>
     );
   }

@@ -1,4 +1,3 @@
-// EditUserDialog.js
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button, Icon } from 'semantic-ui-react';
@@ -19,7 +18,7 @@ export class CreateNewTagForm extends Component {
 
   handleClose = () => this.setState({ modalOpen: false });
 
-  createLocation = data => {
+  createTag = data => {
     return tagApi.create(data);
   };
 
@@ -41,7 +40,7 @@ export class CreateNewTagForm extends Component {
         <Modal.Content>
           <BaseForm
             initialValues={{}}
-            createApiMethod={this.createLocation}
+            createApiMethod={this.createTag}
             successCallback={this.handleClose}
             successSubmitMessage={this.successSubmitMessage}
             title={this.title}
