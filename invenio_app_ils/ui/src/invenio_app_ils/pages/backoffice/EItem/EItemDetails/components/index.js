@@ -1,0 +1,1 @@
+export { EItemMetadata } from './EItemMetadata';

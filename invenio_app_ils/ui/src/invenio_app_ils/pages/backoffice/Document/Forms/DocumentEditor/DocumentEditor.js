@@ -1,4 +1,3 @@
-// EditUserDialog.js
 import React, { Component } from 'react';
 import { Loader, Error } from '../../../../../common/components';
 import { document as documentApi } from '../../../../../common/api/documents/document';

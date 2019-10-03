@@ -34,7 +34,7 @@ export default class SeriesMetadata extends Component {
     return obj;
   }
 
-  createRefProps(seriesPid) {
+  createRefProps() {
     return [
       {
         refType: 'Related',
@@ -49,7 +49,7 @@ export default class SeriesMetadata extends Component {
       <Grid.Row>
         <Grid.Column width={13} verticalAlign={'middle'}>
           <Header as="h1">
-            Series #{series.pid} - {series.metadata.title.title}
+            Series #{series.pid} - {series.metadata.title}
           </Header>
         </Grid.Column>
         <Grid.Column width={3} textAlign={'right'}>
@@ -61,7 +61,7 @@ export default class SeriesMetadata extends Component {
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Series record
             with ID ${series.pid}?`}
-            refProps={this.createRefProps(series.pid)}
+            refProps={this.createRefProps()}
             onDelete={() => this.deleteSeries(series.pid)}
           />
         </Grid.Column>

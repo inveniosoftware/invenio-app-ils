@@ -9,8 +9,9 @@ import {
   DocumentsSearch,
   DocumentRequestDetailsContainer,
   DocumentRequestsSearch,
-  EItemsSearch,
-  EItemDetailsContainer,
+  EItemEditor,
+  EItemSearch,
+  EItemDetails,
   ItemsSearch,
   ItemDetailsContainer,
   InternalLocationEditor,
@@ -40,6 +41,11 @@ export class BackOffice extends Component {
             {/* documents */}
             <Route
               exact
+              path={BackOfficeRoutes.documentsList}
+              component={DocumentsSearch}
+            />
+            <Route
+              exact
               path={BackOfficeRoutes.documentCreate}
               component={DocumentEditor}
             />
@@ -50,24 +56,29 @@ export class BackOffice extends Component {
             />
             <Route
               exact
-              path={BackOfficeRoutes.documentsList}
-              component={DocumentsSearch}
-            />
-            <Route
-              exact
               path={BackOfficeRoutes.documentDetails}
               component={DocumentDetailsContainer}
             />
             {/* eitems */}
             <Route
               exact
+              path={BackOfficeRoutes.eitemCreate}
+              component={EItemEditor}
+            />
+            <Route
+              exact
+              path={BackOfficeRoutes.eitemEdit}
+              component={EItemEditor}
+            />
+            <Route
+              exact
               path={BackOfficeRoutes.eitemsList}
-              component={EItemsSearch}
+              component={EItemSearch}
             />
             <Route
               exact
               path={BackOfficeRoutes.eitemDetails}
-              component={EItemDetailsContainer}
+              component={EItemDetails}
             />
             {/* items */}
             <Route

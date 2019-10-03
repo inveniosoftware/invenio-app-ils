@@ -1,9 +1,15 @@
-// EditUserDialog.js
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, getIn } from 'formik';
 import isEmpty from 'lodash/isEmpty';
-import { Form, Segment, Button, Grid, Header } from 'semantic-ui-react';
+import {
+  Form,
+  Segment,
+  Button,
+  Grid,
+  Header,
+  Container,
+} from 'semantic-ui-react';
 import { ES_DELAY } from '../../../common/config';
 
 export class BaseForm extends Component {
@@ -55,7 +61,7 @@ export class BaseForm extends Component {
 
   render() {
     return (
-      <>
+      <Container>
         <Grid>
           <Grid.Row centered>
             <Header>{this.title}</Header>
@@ -66,14 +72,14 @@ export class BaseForm extends Component {
           onSubmit={this.onSubmit}
           render={({ isSubmitting, handleSubmit }) => (
             <Form onSubmit={handleSubmit} loading={isSubmitting}>
-              <Segment>{this.props.children}</Segment>
+              {this.props.children}
               <Button color="green" disabled={isSubmitting} type="submit">
                 Submit
               </Button>
             </Form>
           )}
         />
-      </>
+      </Container>
     );
   }
 }

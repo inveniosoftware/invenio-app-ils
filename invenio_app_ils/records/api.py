@@ -303,8 +303,8 @@ class Item(_Item):
     CIRCULATION_RESTRICTIONS = ["NO_RESTRICTION"]
 
     @classmethod
-    def create(cls, data, id_=None, **kwargs):
-        """Create Item record."""
+    def build_resolver_fields(cls, data):
+        """Build all resolver fields."""
         data["circulation"] = {
             "$ref": cls._loan_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
@@ -326,7 +326,17 @@ class Item(_Item):
                 item_pid=data["pid"],
             )
         }
+
+    @classmethod
+    def create(cls, data, id_=None, **kwargs):
+        """Create Item record."""
+        cls.build_resolver_fields(data)
         return super(Item, cls).create(data, id_=id_, **kwargs)
+
+    def update(self, data):
+        """Update Item record."""
+        super(Item, self).update(data)
+        self.build_resolver_fields(self)
 
     def ensure_document_exists(self, document_pid):
         """Ensure document exists or raise."""
@@ -382,8 +392,8 @@ class EItem(_Item):
     )
 
     @classmethod
-    def create(cls, data, id_=None, **kwargs):
-        """Create EItem record."""
+    def build_resolver_fields(cls, data):
+        """Build all resolver fields."""
         data["document"] = {
             "$ref": cls._document_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
@@ -391,8 +401,17 @@ class EItem(_Item):
                 eitem_pid=data["pid"],
             )
         }
+
+    @classmethod
+    def create(cls, data, id_=None, **kwargs):
+        """Create EItem record."""
+        cls.build_resolver_fields(data)
         return super(EItem, cls).create(data, id_=id_, **kwargs)
 
+    def update(self, data):
+        """Update EItem record."""
+        super(EItem, self).update(data)
+        self.build_resolver_fields(self)
 
 class Location(IlsRecord):
     """Location record class."""

@@ -1,7 +1,6 @@
-// EditUserDialog.js
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import pick from 'lodash/pick';
 import { StringField, TextField } from '../../../../../../../forms';
 import { location as locationApi } from '../../../../../../../common/api/locations/location';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
@@ -17,7 +16,7 @@ export class LocationForm extends Component {
     this.pid = props.pid;
   }
   prepareData = data => {
-    return _.pick(data, ['name', 'address', 'email', 'phone', 'notes']);
+    return pick(data, ['name', 'address', 'email', 'phone', 'notes']);
   };
 
   updateLocation = (pid, data) => {

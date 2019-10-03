@@ -2,10 +2,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getIn } from 'formik';
-import _ from 'lodash';
+import { Form } from 'semantic-ui-react';
+import pick from 'lodash/pick';
 import IsoLanguages from 'iso-639-1';
 import {
-  ArrayStringField,
+  ArrayField,
   BaseForm,
   SelectField,
   StringField,
@@ -25,7 +26,7 @@ export class SeriesForm extends Component {
     this.languageCodes = this.getLanguageCodes();
   }
   prepareData = data => {
-    return _.pick(data, [
+    return pick(data, [
       'title',
       'abstract',
       'authors',
@@ -55,6 +56,25 @@ export class SeriesForm extends Component {
       text: code,
       value: code,
     }));
+  };
+
+  renderAuthorsField = ({ arrayPath, indexPath, ...arrayHelpers }) => {
+    return (
+      <StringField
+        fieldPath={`${arrayPath}.${indexPath}`}
+        uiProps={{
+          action: (
+            <Form.Button
+              color="red"
+              icon="trash"
+              onClick={() => {
+                arrayHelpers.remove(indexPath);
+              }}
+            ></Form.Button>
+          ),
+        }}
+      />
+    );
   };
 
   render() {
@@ -93,10 +113,12 @@ export class SeriesForm extends Component {
           fieldPath="abstract"
           uiProps={{ rows: 10 }}
         />
-        <ArrayStringField
-          label="Authors"
+        <ArrayField
           fieldPath="authors"
-        ></ArrayStringField>
+          label="Authors"
+          defaultNewValue=""
+          render={this.renderAuthorsField}
+        ></ArrayField>
         <SelectField
           multiple
           label="Languages"

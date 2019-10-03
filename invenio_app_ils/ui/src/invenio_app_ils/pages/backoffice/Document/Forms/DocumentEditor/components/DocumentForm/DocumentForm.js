@@ -1,4 +1,3 @@
-// EditUserDialog.js
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getIn } from 'formik';
@@ -7,6 +6,7 @@ import { document as documentApi } from '../../../../../../../common/api/documen
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import { goTo } from '../../../../../../../history';
 import { TagsField } from './components';
+import documentSubmitSerializer from './documentSubmitSerializer';
 
 export class DocumentForm extends Component {
   constructor(props) {
@@ -43,14 +43,7 @@ export class DocumentForm extends Component {
         successSubmitMessage={this.successSubmitMessage}
         title={this.title}
         pid={this.pid ? this.pid : undefined}
-        submitSerializer={values => {
-          const submittingValues = { ...values };
-          submittingValues['tag_pids'] = submittingValues['tags'].map(
-            tag => tag.pid
-          );
-          delete submittingValues['tags'];
-          return submittingValues;
-        }}
+        submitSerializer={documentSubmitSerializer}
       >
         <StringField label="Title" fieldPath="title" required />
         <TagsField label="Tags" fieldPath="tags" />

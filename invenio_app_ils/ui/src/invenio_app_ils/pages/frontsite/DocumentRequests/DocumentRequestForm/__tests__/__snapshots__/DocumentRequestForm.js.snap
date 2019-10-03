@@ -179,6 +179,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                   >
                     <StringField
                       fieldPath="title"
+                      inline={false}
                       label="Title"
                       placeholder="Title"
                       required={true}
@@ -371,7 +372,9 @@ exports[`DocumentRequestForm tests should render the document request form corre
                               }
                             }
                           >
-                            <FormField>
+                            <FormField
+                              inline={false}
+                            >
                               <div
                                 className="field"
                               >
@@ -441,6 +444,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                     </StringField>
                     <StringField
                       fieldPath="authors"
+                      inline={false}
                       label="Authors"
                       placeholder="Authors"
                       required={false}
@@ -633,7 +637,9 @@ exports[`DocumentRequestForm tests should render the document request form corre
                               }
                             }
                           >
-                            <FormField>
+                            <FormField
+                              inline={false}
+                            >
                               <div
                                 className="field"
                               >
@@ -709,6 +715,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                       >
                         <StringField
                           fieldPath="isbn"
+                          inline={false}
                           label="ISBN"
                           placeholder="ISBN"
                           required={false}
@@ -901,7 +908,9 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                   }
                                 }
                               >
-                                <FormField>
+                                <FormField
+                                  inline={false}
+                                >
                                   <div
                                     className="field"
                                   >
@@ -971,6 +980,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                         </StringField>
                         <StringField
                           fieldPath="issn"
+                          inline={false}
                           label="ISSN"
                           placeholder="ISSN"
                           required={false}
@@ -1163,7 +1173,9 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                   }
                                 }
                               >
-                                <FormField>
+                                <FormField
+                                  inline={false}
+                                >
                                   <div
                                     className="field"
                                   >
@@ -1241,6 +1253,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                       >
                         <StringField
                           fieldPath="volume"
+                          inline={false}
                           label="Volume"
                           placeholder="Volume number"
                           required={false}
@@ -1433,7 +1446,9 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                   }
                                 }
                               >
-                                <FormField>
+                                <FormField
+                                  inline={false}
+                                >
                                   <div
                                     className="field"
                                   >
@@ -1503,6 +1518,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                         </StringField>
                         <StringField
                           fieldPath="issue"
+                          inline={false}
                           label="Issue"
                           placeholder="Issue number"
                           required={false}
@@ -1695,7 +1711,9 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                   }
                                 }
                               >
-                                <FormField>
+                                <FormField
+                                  inline={false}
+                                >
                                   <div
                                     className="field"
                                   >
@@ -1765,6 +1783,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                         </StringField>
                         <StringField
                           fieldPath="page"
+                          inline={false}
                           label="Page"
                           placeholder="Page number"
                           required={false}
@@ -1957,7 +1976,9 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                   }
                                 }
                               >
-                                <FormField>
+                                <FormField
+                                  inline={false}
+                                >
                                   <div
                                     className="field"
                                   >
@@ -2027,6 +2048,7 @@ exports[`DocumentRequestForm tests should render the document request form corre
                         </StringField>
                         <StringField
                           fieldPath="publication_year"
+                          inline={false}
                           label="Publication Year"
                           placeholder="Publication Year"
                           required={false}
@@ -2219,7 +2241,9 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                   }
                                 }
                               >
-                                <FormField>
+                                <FormField
+                                  inline={false}
+                                >
                                   <div
                                     className="field"
                                   >

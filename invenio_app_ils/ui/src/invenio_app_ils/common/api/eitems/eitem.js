@@ -15,6 +15,18 @@ const del = async eitemPid => {
   return response;
 };
 
+const create = async data => {
+  const resp = await http.post(`${eitemURL}`, data);
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
+};
+
+const update = async (eitemPid, data) => {
+  const response = await http.put(`${eitemURL}${eitemPid}`, data);
+  response.data = serializer.fromJSON(response.data);
+  return response;
+};
+
 const list = async query => {
   const response = await http.get(`${eitemURL}?q=${query}`);
   response.data.total = response.data.hits.total;
@@ -52,4 +64,6 @@ export const eitem = {
   list: list,
   get: get,
   delete: del,
+  create: create,
+  update: update,
 };

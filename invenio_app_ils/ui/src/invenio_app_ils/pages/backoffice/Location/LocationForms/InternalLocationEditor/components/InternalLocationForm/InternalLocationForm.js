@@ -1,7 +1,6 @@
-// EditUserDialog.js
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import pick from 'lodash/pick';
 import { StringField, TextField } from '../../../../../../../forms';
 import { internalLocation as internalLocationApi } from '../../../../../../../common/api/locations/internalLocation';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
@@ -18,7 +17,7 @@ export class InternalLocationForm extends Component {
   }
 
   prepareData = data => {
-    return _.pick(data, ['name', 'location_pid', 'physical_location', 'notes']);
+    return pick(data, ['name', 'location_pid', 'physical_location', 'notes']);
   };
 
   updateInternalLocation = (pid, data) => {

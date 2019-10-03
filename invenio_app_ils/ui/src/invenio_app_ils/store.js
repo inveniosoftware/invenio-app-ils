@@ -18,7 +18,7 @@ import {
 } from './pages/backoffice/DocumentDetails/reducer';
 import { deleteRecordModalReducer } from './pages/backoffice/components/DeleteRecordModal/reducer';
 import { overdueLoanSendMailModalReducer } from './pages/backoffice/components/OverdueLoanSendMailModal/reducer';
-import { eitemDetailsReducer } from './pages/backoffice/EItemDetails/reducer';
+import { eitemDetailsReducer } from './pages/backoffice/EItem/EItemDetails/reducer';
 import {
   itemDetailsReducer,
   itemPastLoansReducer,

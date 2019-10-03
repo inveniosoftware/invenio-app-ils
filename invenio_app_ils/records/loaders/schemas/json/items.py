@@ -8,7 +8,7 @@
 """Items schema for marshmallow loader."""
 
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
-from marshmallow import fields
+from marshmallow import Schema, fields
 
 
 class ItemSchemaV1(RecordMetadataSchemaJSONV1):
@@ -27,10 +27,30 @@ class ItemSchemaV1(RecordMetadataSchemaJSONV1):
     status = fields.Str()  # TODO: this should be an enum
 
 
+class EItemUrlsSchema(Schema):
+    """EItem urls schema."""
+
+    class Meta:
+        """Meta attributes for the schema."""
+
+        from marshmallow import EXCLUDE
+        unknown = EXCLUDE
+
+    value = fields.URL(required=True)
+    description = fields.Str()
+
+
 class EItemSchemaV1(RecordMetadataSchemaJSONV1):
     """EItem schema."""
+
+    class Meta:
+        """Meta attributes for the schema."""
+
+        from marshmallow import EXCLUDE
+        unknown = EXCLUDE
 
     document_pid = fields.Str(required=True)  # TODO: validate
     description = fields.Str()
     internal_notes = fields.Str()
     open_access = fields.Bool(default=True)
+    urls = fields.List(fields.Nested(EItemUrlsSchema))
