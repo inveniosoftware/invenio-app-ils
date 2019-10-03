@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Icon, Menu, Dropdown } from 'semantic-ui-react';
+import { Container, Icon, Menu, Dropdown } from 'semantic-ui-react';
 import {
   authenticationService,
   sessionManager,
@@ -8,19 +8,15 @@ import {
 import { FrontSiteRoutes, BackOfficeRoutes } from '../../../../routes/urls';
 import { LoginButton } from '../../../../common/components';
 import { goToHandler } from '../../../../history';
-import './Header.scss';
 
 export default class Header extends Component {
-  state = {};
-
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
-
   renderRightDropDown = () => {
     const trigger = (
       <span>
         <Icon name="user" /> Hello, {sessionManager.user.username}
       </span>
     );
+
     return (
       <Dropdown item trigger={trigger}>
         <Dropdown.Menu>
@@ -60,21 +56,18 @@ export default class Header extends Component {
       this.renderRightDropDown()
     );
   };
+
   render() {
     return (
-      <Menu
-        stackable
-        borderless
-        fluid
-        fixed="top"
-        inverted
-        className="header-menu"
-        widths={3}
-      >
-        <Menu.Item>
-          <Link to="/">ILS</Link>
-        </Menu.Item>
-        <Menu.Item>{this.renderRightMenuItem()}</Menu.Item>
+      <Menu borderless inverted fixed="top">
+        <Container>
+          <Menu.Item header position="left">
+            <Link to="/">ILS</Link>
+          </Menu.Item>
+          <Menu.Item header position="right">
+            {this.renderRightMenuItem()}
+          </Menu.Item>
+        </Container>
       </Menu>
     );
   }

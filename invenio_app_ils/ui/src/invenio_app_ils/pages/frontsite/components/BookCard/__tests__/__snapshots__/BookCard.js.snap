@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookCard tests should go to book details when clicking on a book 1`] = `
+<BookCard
+  data={
+    Object {
+      "metadata": Object {
+        "abstracts": Array [
+          Object {
+            "value": "This is an abstract",
+          },
+        ],
+        "authors": Array [
+          "Author1",
+          "Author2",
+        ],
+        "circulation": Object {
+          "has_items_for_loan": 2,
+        },
+        "edition": "ed. 1",
+        "eitems": Object {
+          "total": 2,
+        },
+        "imageCover": "",
+        "imageSize": "small",
+        "languages": Array [
+          "en",
+        ],
+        "pid": "docid-1",
+        "title": "Lorem",
+      },
+    }
+  }
+>
+  <Card
+    centered={true}
+    data-test="docid-1"
+    link={true}
+    onClick={[Function]}
+  >
+    <a
+      className="ui centered link card"
+      data-test="docid-1"
+      onClick={[Function]}
+    >
+      <Label
+        attached="bottom left"
+        icon="check"
+        title="The book is currently avaialble"
+      >
+        <div
+          className="ui bottom left attached label"
+          onClick={[Function]}
+          title="The book is currently avaialble"
+        >
+          <Icon
+            as="i"
+            name="check"
+          >
+            <i
+              aria-hidden="true"
+              className="check icon"
+              onClick={[Function]}
+            />
+          </Icon>
+        </div>
+      </Label>
+      <Label
+        attached="bottom right"
+        icon="edge"
+        title="An electronic version of the book is avaialble"
+      >
+        <div
+          className="ui bottom right attached label"
+          onClick={[Function]}
+          title="An electronic version of the book is avaialble"
+        >
+          <Icon
+            as="i"
+            name="edge"
+          >
+            <i
+              aria-hidden="true"
+              className="edge icon"
+              onClick={[Function]}
+            />
+          </Icon>
+        </div>
+      </Label>
+      <Image
+        as="img"
+        centered={true}
+        onError={[Function]}
+        size="tiny"
+        src="https://assets.thalia.media/img/462768NaN-00-00.jpg"
+        ui={true}
+      >
+        <img
+          className="ui tiny centered image"
+          onError={[Function]}
+          src="https://assets.thalia.media/img/462768NaN-00-00.jpg"
+        />
+      </Image>
+      <CardContent>
+        <div
+          className="content"
+        >
+          <CardHeader>
+            <div
+              className="header"
+            >
+              Lorem
+            </div>
+          </CardHeader>
+          <CardMeta>
+            <div
+              className="meta"
+            />
+          </CardMeta>
+        </div>
+      </CardContent>
+    </a>
+  </Card>
+</BookCard>
+`;
+
+exports[`BookCard tests should render the BookCard 1`] = `
+<BookCard
+  data={
+    Object {
+      "metadata": Object {
+        "abstracts": Array [
+          Object {
+            "value": "This is an abstract",
+          },
+        ],
+        "authors": Array [
+          "Author1",
+          "Author2",
+        ],
+        "circulation": Object {
+          "has_items_for_loan": 2,
+        },
+        "edition": "ed. 1",
+        "eitems": Object {
+          "total": 2,
+        },
+        "imageCover": "",
+        "imageSize": "small",
+        "languages": Array [
+          "en",
+        ],
+        "pid": "docid-1",
+        "title": "Lorem",
+      },
+    }
+  }
+>
+  <Card
+    centered={true}
+    data-test="docid-1"
+    link={true}
+    onClick={[Function]}
+  >
+    <a
+      className="ui centered link card"
+      data-test="docid-1"
+      onClick={[Function]}
+    >
+      <Label
+        attached="bottom left"
+        icon="check"
+        title="The book is currently avaialble"
+      >
+        <div
+          className="ui bottom left attached label"
+          onClick={[Function]}
+          title="The book is currently avaialble"
+        >
+          <Icon
+            as="i"
+            name="check"
+          >
+            <i
+              aria-hidden="true"
+              className="check icon"
+              onClick={[Function]}
+            />
+          </Icon>
+        </div>
+      </Label>
+      <Label
+        attached="bottom right"
+        icon="edge"
+        title="An electronic version of the book is avaialble"
+      >
+        <div
+          className="ui bottom right attached label"
+          onClick={[Function]}
+          title="An electronic version of the book is avaialble"
+        >
+          <Icon
+            as="i"
+            name="edge"
+          >
+            <i
+              aria-hidden="true"
+              className="edge icon"
+              onClick={[Function]}
+            />
+          </Icon>
+        </div>
+      </Label>
+      <Image
+        as="img"
+        centered={true}
+        onError={[Function]}
+        size="tiny"
+        src="https://assets.thalia.media/img/462768NaN-00-00.jpg"
+        ui={true}
+      >
+        <img
+          className="ui tiny centered image"
+          onError={[Function]}
+          src="https://assets.thalia.media/img/462768NaN-00-00.jpg"
+        />
+      </Image>
+      <CardContent>
+        <div
+          className="content"
+        >
+          <CardHeader>
+            <div
+              className="header"
+            >
+              Lorem
+            </div>
+          </CardHeader>
+          <CardMeta>
+            <div
+              className="meta"
+            />
+          </CardMeta>
+        </div>
+      </CardContent>
+    </a>
+  </Card>
+</BookCard>
+`;

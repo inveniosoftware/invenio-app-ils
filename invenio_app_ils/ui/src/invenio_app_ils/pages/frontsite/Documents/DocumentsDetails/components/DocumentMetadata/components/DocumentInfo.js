@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Divider, Grid, Label, Table } from 'semantic-ui-react';
+import { Divider, Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 export class DocumentInfo extends Component {

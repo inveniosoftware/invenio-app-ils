@@ -5,9 +5,6 @@ import thunk from 'redux-thunk';
 import App from '../App';
 import configureMockStore from 'redux-mock-store';
 import { initialState as notificationsInitialState } from '../common/components/Notifications/state/reducer';
-import { initialState as mostRecentBooksInitialState } from '../pages/frontsite/Home/components/MostRecentBooks/state/reducer';
-import { initialState as mostLoanedBooksInitialState } from '../pages/frontsite/Home/components/MostLoanedBooks/state/reducer';
-import { initialState as mostRecentEbooksInitialState } from '../pages/frontsite/Home/components/MostRecentEbooks/state/reducer';
 
 jest.mock('../common/config/invenioConfig');
 
@@ -20,15 +17,6 @@ beforeEach(() => {
   store = mockStore({
     notifications: {
       ...notificationsInitialState,
-    },
-    mostLoanedBooks: {
-      ...mostLoanedBooksInitialState,
-    },
-    mostRecentBooks: {
-      ...mostRecentBooksInitialState,
-    },
-    mostRecentEbooks: {
-      ...mostRecentEbooksInitialState,
     },
   });
   store.clearActions();

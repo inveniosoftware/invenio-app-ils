@@ -1,0 +1,243 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookGroup tests should load the BookGroup component 1`] = `
+<div>
+  <Header
+    dividing={true}
+    size="medium"
+  >
+    TEST
+  </Header>
+  <HeaderSubheader>
+    <Link
+      to=""
+    >
+      VIEW ALL
+    </Link>
+     
+    test
+  </HeaderSubheader>
+  <Divider
+    hidden={true}
+  />
+  <Loader
+    isLoading={false}
+  >
+    <Error
+      error={Object {}}
+    >
+      <CardGroup
+        doubling={true}
+        itemsPerRow={5}
+        stackable={true}
+      />
+    </Error>
+  </Loader>
+</div>
+`;
+
+exports[`BookGroup tests should render book cards 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <BookGroup
+      fetchDataMethod={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Promise {},
+            },
+          ],
+        }
+      }
+      fetchDataQuery=""
+      title="Test"
+      viewAllUrl="/test"
+    >
+      <div>
+        <Header
+          dividing={true}
+          size="medium"
+        >
+          <div
+            className="ui medium dividing header"
+          >
+            TEST
+          </div>
+        </Header>
+        <HeaderSubheader>
+          <div
+            className="sub header"
+          >
+            <Link
+              to="/test"
+            >
+              <a
+                href="/test"
+                onClick={[Function]}
+              >
+                VIEW ALL
+              </a>
+            </Link>
+             
+            test
+          </div>
+        </HeaderSubheader>
+        <Divider
+          hidden={true}
+        >
+          <div
+            className="ui hidden divider"
+          />
+        </Divider>
+        <Loader
+          isLoading={false}
+        >
+          <Error
+            error={Object {}}
+          >
+            <CardGroup
+              doubling={true}
+              itemsPerRow={5}
+              stackable={true}
+            >
+              <div
+                className="ui doubling stackable five cards"
+              />
+            </CardGroup>
+          </Error>
+        </Loader>
+      </div>
+    </BookGroup>
+  </Router>
+</BrowserRouter>
+`;
+
+exports[`BookGroup tests should render the VIEW ALL link 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <BookGroup
+      fetchDataMethod={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "",
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Promise {},
+            },
+          ],
+        }
+      }
+      fetchDataQuery=""
+      title="Test"
+      viewAllUrl="/test"
+    >
+      <div>
+        <Header
+          dividing={true}
+          size="medium"
+        >
+          <div
+            className="ui medium dividing header"
+          >
+            TEST
+          </div>
+        </Header>
+        <HeaderSubheader>
+          <div
+            className="sub header"
+          >
+            <Link
+              to="/test"
+            >
+              <a
+                href="/test"
+                onClick={[Function]}
+              >
+                VIEW ALL
+              </a>
+            </Link>
+             
+            test
+          </div>
+        </HeaderSubheader>
+        <Divider
+          hidden={true}
+        >
+          <div
+            className="ui hidden divider"
+          />
+        </Divider>
+        <Loader
+          isLoading={false}
+        >
+          <Error
+            error={Object {}}
+          >
+            <CardGroup
+              doubling={true}
+              itemsPerRow={5}
+              stackable={true}
+            >
+              <div
+                className="ui doubling stackable five cards"
+              />
+            </CardGroup>
+          </Error>
+        </Loader>
+      </div>
+    </BookGroup>
+  </Router>
+</BrowserRouter>
+`;

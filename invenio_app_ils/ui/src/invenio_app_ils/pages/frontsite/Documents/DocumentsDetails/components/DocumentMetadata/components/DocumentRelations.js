@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Divider, Grid } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 
 export class DocumentRelations extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ export class DocumentRelations extends Component {
         <p>
           This is part of the series:{' '}
           {this.relations.serial.map(serial => (
-            <span>
+            <span key={serial.pid}>
               {serial.title} ({serial.volume})
             </span>
           ))}

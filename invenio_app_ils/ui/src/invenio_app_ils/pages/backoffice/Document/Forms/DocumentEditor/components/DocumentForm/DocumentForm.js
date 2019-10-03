@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getIn } from 'formik';
-import _ from 'lodash';
 import { BaseForm, StringField } from '../../../../../../../forms';
 import { document as documentApi } from '../../../../../../../common/api/documents/document';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';

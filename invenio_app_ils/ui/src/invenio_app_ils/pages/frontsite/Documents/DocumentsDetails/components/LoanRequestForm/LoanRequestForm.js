@@ -5,7 +5,7 @@ import { DatePicker } from '../../../../../../common/components';
 import PropTypes from 'prop-types';
 import { invenioConfig } from '../../../../../../common/config';
 import { DateTime } from 'luxon';
-import { toShortDate} from '../../../../../../common/api/date';
+import { toShortDate } from '../../../../../../common/api/date';
 import isEmpty from 'lodash/isEmpty';
 
 export default class LoanRequestForm extends Component {

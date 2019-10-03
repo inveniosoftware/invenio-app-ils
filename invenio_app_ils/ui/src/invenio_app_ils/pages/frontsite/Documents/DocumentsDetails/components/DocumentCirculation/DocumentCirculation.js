@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Divider, Header, Label, List, Segment } from 'semantic-ui-react';
+import { Divider, Header, List, Segment } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import '../../DocumentsDetails.scss';
 import { LoginRedirectButton } from '../../../../../../authentication/components';
 import { LoanRequestForm } from '../LoanRequestForm';
 import { AuthenticationGuard } from '../../../../../../authentication/components/AuthenticationGuard';
-import { Link } from 'react-router-dom';
 
 export default class DocumentCirculation extends Component {
   constructor(props) {
@@ -59,7 +58,7 @@ export default class DocumentCirculation extends Component {
   renderEItems = () => {
     const eitems = this.document.metadata.eitems.hits.map(eitem => {
       return (
-        <List.Item>
+        <List.Item key={eitem.pid}>
           <List.Icon name={'linkify'} />
           <List.Content>
             Read <a href="#TODO">online(e-book)</a>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {
+  Button,
+  Card,
   Container,
   Grid,
   Segment,
@@ -15,6 +17,7 @@ import {
   ReactSearchKit,
   SearchBar,
   ResultsList,
+  ResultsGrid,
   ResultsLoader,
   EmptyResults,
   Error,
@@ -31,23 +34,22 @@ import {
   ResultsSort,
 } from '../../../../common/components';
 import { document as documentApi } from '../../../../common/api';
-import { ResultsList as RecordsResultsList } from './components';
+import { DocumentItem } from './components';
+import { BookCard } from '../../components';
 import { goTo } from '../../../../history';
-import './DocumentsSearch.scss';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({
     url: documentApi.searchBaseURL,
     withCredentials: true,
   });
-  state = { activeIndex: 0 };
+  state = { activeIndex: 0, isLayoutGrid: true };
   searchConfig = getSearchConfig('documents');
 
   toggleAccordion = (e, titleProps) => {
     const { index } = titleProps;
     const { activeIndex } = this.state;
     const newIndex = activeIndex === index ? -1 : index;
-
     this.setState({ activeIndex: newIndex });
   };
 
@@ -88,17 +90,48 @@ export class DocumentsSearch extends Component {
     );
   };
 
-  renderResultsList = results => {
+  renderResultsLayoutOptions = () => {
+    const toggleLayout = () => {
+      this.setState({ isLayoutGrid: !this.state.isLayoutGrid });
+    };
     return (
-      <div className="results-list">
-        <RecordsResultsList
-          results={results}
-          viewDetailsClickHandler={pid =>
-            goTo(FrontSiteRoutes.documentDetailsFor(pid))
-          }
-        />
-      </div>
+      <Button.Group basic icon>
+        <Button disabled={this.state.isLayoutGrid} onClick={toggleLayout}>
+          <Icon name="grid layout" />
+        </Button>
+        <Button disabled={!this.state.isLayoutGrid} onClick={toggleLayout}>
+          <Icon name="list layout" />
+        </Button>
+      </Button.Group>
     );
+  };
+
+  renderResultsGrid = results => {
+    const cards = results.map(book => {
+      return <BookCard key={book.metadata.pid} data={book} />;
+    });
+    return (
+      <Card.Group doubling stackable itemsPerRow={4}>
+        {cards}
+      </Card.Group>
+    );
+  };
+
+  renderResultsList = results => {
+    return results.length ? (
+      <div>
+        {results.map(book => (
+          <DocumentItem
+            key={book.metadata.pid}
+            data-test={book.metadata.pid}
+            metadata={book.metadata}
+            rowActionClickHandler={pid =>
+              goTo(FrontSiteRoutes.documentDetailsFor(pid))
+            }
+          />
+        ))}
+      </div>
+    ) : null;
   };
 
   renderEmptyResults = (queryString, resetQuery) => {
@@ -152,7 +185,8 @@ export class DocumentsSearch extends Component {
   renderHeader = () => {
     return (
       <Grid columns={3} verticalAlign="middle" stackable relaxed>
-        <Grid.Column width={5} textAlign="left">
+        <Grid.Column width={2}>{this.renderResultsLayoutOptions()}</Grid.Column>
+        <Grid.Column width={3} textAlign="left">
           <Count renderElement={this.renderCount} />
         </Grid.Column>
         <Grid.Column width={6}>
@@ -207,20 +241,22 @@ export class DocumentsSearch extends Component {
               <EmptyResults renderElement={this.renderEmptyResults} />
               <Error renderElement={this.renderError} />
               {this.renderHeader()}
-              <ResultsList renderElement={this.renderResultsList} />
+              {this.state.isLayoutGrid ? (
+                <ResultsGrid renderElement={this.renderResultsGrid} />
+              ) : (
+                <ResultsList renderElement={this.renderResultsList} />
+              )}
               {this.renderFooter()}
-              <Container>
-                <Message icon color="yellow">
-                  <Icon name="info circle" />
-                  <Message.Content>
-                    <Message.Header>
-                      Couldn't find the book you were looking for?
-                    </Message.Header>
-                    Please fill in the {requestForm} to request a new book from
-                    the library.
-                  </Message.Content>
-                </Message>
-              </Container>
+              <Message icon color="yellow">
+                <Icon name="info circle" />
+                <Message.Content>
+                  <Message.Header>
+                    Couldn't find the book you were looking for?
+                  </Message.Header>
+                  Please fill in the {requestForm} to request a new book from
+                  the library.
+                </Message.Content>
+              </Message>
             </ResultsLoader>
           </Grid.Column>
         </Grid>

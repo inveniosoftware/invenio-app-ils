@@ -51,12 +51,6 @@ import {
   seriesMultipartMonographsReducer,
   seriesRelationsReducer,
 } from './pages/backoffice/Series/SeriesDetails/reducer';
-
-import {
-  mostLoanedBooksReducer,
-  mostRecentBooksReducer,
-  mostRecentEbooksReducer,
-} from './pages/frontsite/Home/reducer';
 import {
   documentsDetailsReducer,
   loanRequestFormReducer,
@@ -86,12 +80,10 @@ const rootReducer = combineReducers({
   loanRequestForm: loanRequestFormReducer,
   loansCard: loansCardReducer,
   locations: locationListReducer,
-  mostLoanedBooks: mostLoanedBooksReducer,
-  mostRecentBooks: mostRecentBooksReducer,
-  mostRecentEbooks: mostRecentEbooksReducer,
   notifications: notificationsReducer,
   overbookedDocuments: overbookedDocumentsReducer,
   overdueLoans: overdueLoansReducer,
+  overdueLoanSendMailModal: overdueLoanSendMailModalReducer,
   patronCurrentLoans: patronCurrentLoansReducer,
   patronDetails: patronDetailsReducer,
   patronDocumentRequests: patronDocumentRequestsReducer,
@@ -99,7 +91,6 @@ const rootReducer = combineReducers({
   patronPastLoans: patronPastLoansReducer,
   patronPendingLoans: patronPendingLoansReducer,
   pendingOverdueDocuments: pendingOverdueDocumentsReducer,
-  overdueLoanSendMailModal: overdueLoanSendMailModalReducer,
   seriesDetails: seriesDetailsReducer,
   seriesDocuments: seriesDocumentsReducer,
   seriesMultipartMonographs: seriesMultipartMonographsReducer,

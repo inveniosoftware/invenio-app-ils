@@ -1,6 +1,6 @@
 import * as testData from '../../../../../../../../../../tests/data/documents.json';
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import DocumentMetadata from '../DocumentMetadata';
 
 jest.mock('../../../../../../common/config/invenioConfig');

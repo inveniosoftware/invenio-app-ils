@@ -21,7 +21,6 @@ import {
   documentRequest as documentRequestApi,
   loan as loanApi,
   item as itemApi,
-  tag as tagApi,
   patron as patronApi,
 } from '../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
