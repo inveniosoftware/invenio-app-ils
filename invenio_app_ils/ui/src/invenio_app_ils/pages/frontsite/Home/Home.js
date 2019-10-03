@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
-import { Container, Grid, Input, Form, Icon } from 'semantic-ui-react';
-import Statistics from './components/Statistics';
-
-import './Home.scss';
+import { Header, Grid } from 'semantic-ui-react';
 import { FrontSiteRoutes } from '../../../routes/urls';
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
-import { MostLoanedBooks } from './components/MostLoanedBooks';
-import { MostRecentBooks } from './components/MostRecentBooks';
-import { MostRecentEbooks } from './components/MostRecentEbooks';
-import { default as config } from './config';
 import { goTo } from '../../../history';
 import { SearchBar } from '../../../common/components/SearchBar';
+import { document as documentApi } from '../../../common/api';
+import { BookGroup } from './components/BookGroup';
 
-export default class Home extends Component {
+export class Home extends Component {
   constructor(props) {
     super(props);
     this.state = { query: '' };
@@ -29,41 +23,64 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div className="home-container">
-        <Grid centered columns={2}>
+      <Grid>
+        <Grid.Row centered columns={1}>
           <Header size="huge">CERN Library</Header>
+          <SearchBar
+            currentQueryString={this.state.searchQuery}
+            onInputChange={this.updateSearchQuery}
+            executeSearch={this.onSearchExecute}
+            placeholder={'Search for books...'}
+          />
+        </Grid.Row>
 
-          <Grid.Row centered columns={2}>
-            <Container className="books-search-searchbar">
-              <SearchBar
-                currentQueryString={this.state.searchQuery}
-                onInputChange={this.updateSearchQuery}
-                executeSearch={this.onSearchExecute}
-                placeholder={'Search for books...'}
-              />
-            </Container>
-          </Grid.Row>
+        <Grid.Row centered columns={1}>
+          <BookGroup
+            title={'Most Loaned Books'}
+            fetchDataMethod={documentApi.list}
+            fetchDataQuery={documentApi
+              .query()
+              .withDocumentType('BOOK')
+              .sortBy('-mostloaned')
+              .qs()}
+            viewAllUrl={FrontSiteRoutes.documentsListWithQuery(
+              '&sort=mostloaned&order=desc'
+            )}
+          />
+        </Grid.Row>
 
-          <Grid.Row centered columns={2}>
-            <Header size="medium">Most Loaned Books</Header>
-            <MostLoanedBooks maxDisplayedItems={config.MAX_ITEMS_TO_DISPLAY} />
-          </Grid.Row>
+        <Grid.Row centered columns={1}>
+          <BookGroup
+            title={'Most Recent Books'}
+            fetchDataMethod={documentApi.list}
+            fetchDataQuery={documentApi
+              .query()
+              .withDocumentType('BOOK')
+              .sortBy('mostrecent')
+              .qs()}
+            viewAllUrl={FrontSiteRoutes.documentsListWithQuery(
+              '&sort=mostrecent&order=desc'
+            )}
+          />
+        </Grid.Row>
 
-          <Grid.Row centered columns={2}>
-            <Header size="medium">Most Recent Books</Header>
-            <MostRecentBooks maxDisplayedItems={config.MAX_ITEMS_TO_DISPLAY} />
-          </Grid.Row>
-
-          <Grid.Row centered columns={2}>
-            <Header size="medium">Most Recent E-books</Header>
-            <MostRecentEbooks maxDisplayedItems={config.MAX_ITEMS_TO_DISPLAY} />
-          </Grid.Row>
-
-          <Grid.Row centered columns={2}>
-            <Statistics />
-          </Grid.Row>
-        </Grid>
-      </div>
+        <Grid.Row centered columns={1}>
+          <BookGroup
+            title={'Most Recent E-Books'}
+            fetchDataMethod={documentApi.list}
+            fetchDataQuery={documentApi
+              .query()
+              .withDocumentType('BOOK')
+              .withEitems()
+              .sortBy('-mostrecent')
+              .qs()}
+            viewAllUrl={FrontSiteRoutes.documentsListWithQuery(
+              'document_type:BOOK&sort=mostrecent&order=desc' +
+                '&aggr[0][has_eitems][value]=has_eitems.electronic versions'
+            )}
+          />
+        </Grid.Row>
+      </Grid>
     );
   }
 }

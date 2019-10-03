@@ -1,5 +1,7 @@
+// These will go in the global style configuration
 $header-height: 80px;
 
+// Sticky footer
 .app {
   display: flex;
   min-height: 100vh;
@@ -9,5 +11,4 @@ $header-height: 80px;
 .app-content {
   flex: 1;
   margin-top: $header-height;
-  justify-content: space-between;
 }

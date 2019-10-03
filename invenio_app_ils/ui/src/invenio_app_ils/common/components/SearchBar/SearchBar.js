@@ -51,7 +51,7 @@ export class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-  currentQueryString: PropTypes.string.isRequired,
+  currentQueryString: PropTypes.string,
   onInputChange: PropTypes.func.isRequired,
   executeSearch: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,

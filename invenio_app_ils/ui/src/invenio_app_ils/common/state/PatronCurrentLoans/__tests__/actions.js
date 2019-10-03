@@ -4,7 +4,6 @@ import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as types from '../types';
 import { loan as loanApi } from '../../../api';
-import { ES_DELAY } from '../../../config';
 
 jest.mock('../../../config/invenioConfig');
 

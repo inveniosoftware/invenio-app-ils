@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Field, FieldArray, getIn } from 'formik';
+import { FieldArray, getIn } from 'formik';
 import { Form, Button, Label, Icon, Segment } from 'semantic-ui-react';
 import { tag as tagApi } from '../../../../../../../../../common/api/tags/tag';
 import { ESSelectorModal } from '../../../../../../../../../common/components/ESSelector';
@@ -26,7 +26,7 @@ export class TagsField extends Component {
 
   renderSelectField = props => {
     const {
-      form: { values, setFieldValue, handleBlur, errors, handleChange },
+      form: { values, setFieldValue },
       ...arrayHelpers
     } = props;
     const tags = getIn(values, this.fieldPath, []);

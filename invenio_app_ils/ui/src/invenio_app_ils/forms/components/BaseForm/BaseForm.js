@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, getIn } from 'formik';
-import _ from 'lodash';
 import isEmpty from 'lodash/isEmpty';
 import { Form, Segment, Button, Grid, Header } from 'semantic-ui-react';
 import { ES_DELAY } from '../../../common/config';

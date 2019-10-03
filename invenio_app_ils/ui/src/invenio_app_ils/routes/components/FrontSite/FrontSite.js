@@ -8,8 +8,8 @@ import {
   ProfileContainer,
 } from '../../../pages/frontsite';
 import { Container } from 'semantic-ui-react';
-import './FrontSite.scss';
 import { Notifications } from '../../../common/components/Notifications';
+import './FrontSite.scss';
 
 import {
   DocumentsDetailsContainer,
@@ -24,7 +24,7 @@ export class FrontSite extends Component {
       <div className="app">
         <Header />
         <Notifications />
-        <Container fluid className="app-content">
+        <Container className="app-content">
           {/* home */}
           <Route exact path={FrontSiteRoutes.home} component={Home} />
           {/* documents */}

@@ -1,8 +1,7 @@
 // EditUserDialog.js
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
-import { Modal, Button, Icon, Header } from 'semantic-ui-react';
+import { Modal, Button, Icon } from 'semantic-ui-react';
 import { BaseForm, StringField } from '../../../../../../../../../../forms';
 import { tag as tagApi } from '../../../../../../../../../../common/api/tags/tag';
 

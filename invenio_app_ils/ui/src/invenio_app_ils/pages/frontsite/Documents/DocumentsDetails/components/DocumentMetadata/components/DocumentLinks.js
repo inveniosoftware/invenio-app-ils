@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Divider, Label, List } from 'semantic-ui-react';
+import { Divider, List } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 export class DocumentTags extends Component {

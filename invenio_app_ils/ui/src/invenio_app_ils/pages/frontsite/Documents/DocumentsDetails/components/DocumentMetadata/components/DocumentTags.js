@@ -3,21 +3,15 @@ import { Label } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 export class DocumentTags extends Component {
-  constructor(props) {
-    super(props);
-    this.tags = props.tags;
-  }
-
   renderTags = () => {
-    return this.tags.map(tag => <Label>{tag.name}</Label>);
+    return this.props.tags.map(tag => <Label key={tag.pid}>{tag.name}</Label>);
   };
 
   render() {
-    if (this.tags.length > 0) {
+    if (this.props.tags.length > 0) {
       return <>{this.renderTags()}</>;
-    } else {
-      return null;
     }
+    return null;
   }
 }
 
