@@ -129,9 +129,6 @@ setup(
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config"
         ],
-        "invenio_assets.webpack": [
-            "invenio_app_ils = invenio_app_ils.webpack:ils"
-        ],
         "invenio_i18n.translations": ["messages = invenio_app_ils"],
         "invenio_jsonschemas.schemas": [
             "ils_schemas = invenio_app_ils.schemas"

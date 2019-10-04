@@ -360,9 +360,9 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
             <DatePicker
               defaultValue=""
               handleDateChange={[Function]}
-              initialDate="2019-10-13"
-              maxDate="2019-12-02"
-              minDate="2019-10-03"
+              initialDate="2019-10-11"
+              maxDate="2019-11-30"
+              minDate="2019-10-01"
               placeholder="Pick the date"
             >
               <DateInput
@@ -380,11 +380,11 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                 dateFormat="YYYY-MM-DD"
                 icon="calendar"
                 iconPosition="left"
-                initialDate="2019-10-13"
+                initialDate="2019-10-11"
                 inline={false}
                 localization="en"
-                maxDate="2019-12-02"
-                minDate="2019-10-03"
+                maxDate="2019-11-30"
+                minDate="2019-10-01"
                 name="selectedDate"
                 onChange={[Function]}
                 placeholder="Pick the date"
