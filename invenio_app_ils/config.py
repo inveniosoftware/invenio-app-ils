@@ -26,7 +26,6 @@ from invenio_records_rest.utils import deny_all
 
 from .circulation.search import IlsLoansSearch
 from .facets import keyed_range_filter
-from .jwt import ils_jwt_create_token
 from .records.resolver.loan import item_resolver, patron_resolver
 
 from .api import (  # isort:skip
@@ -988,9 +987,6 @@ ACCOUNTS_REST_UPDATE_USER_PROPERTIES_PERMISSION_FACTORY = backoffice_permission
 
 ACCOUNTS_REST_READ_USERS_LIST_PERMISSION_FACTORY = backoffice_permission
 """Default list users permission factory: reject any request."""
-
-ACCOUNTS_JWT_CREATION_FACTORY = ils_jwt_create_token
-"""ILS Jwt creation factory"""
 
 # PID Relations
 # ==============

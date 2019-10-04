@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Grid, Image, Header, List } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { DocumentCirculation } from '../DocumentCirculation';
-import '../../DocumentsDetails.scss';
 
 export default class DocumentPanel extends Component {
   constructor(props) {

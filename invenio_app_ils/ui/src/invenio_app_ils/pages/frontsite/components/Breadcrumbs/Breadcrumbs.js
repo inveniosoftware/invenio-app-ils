@@ -6,11 +6,12 @@ import { Link } from 'react-router-dom';
 export default class Breadcrumbs extends Component {
   constructor(props) {
     super(props);
+    this.elements = props.elements;
   }
 
   _renderBreadcrumbElements = () => {
     const lastElemIdx = this.elements.length - 1;
-    return this.props.elements.map((element, i) => (
+    return this.elements.map((element, i) => (
       <>
         <Breadcrumb.Section link>
           <Link key={element.to} to={element.to}>

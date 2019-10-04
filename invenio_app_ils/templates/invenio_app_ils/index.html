@@ -9,8 +9,6 @@
 <html>
   <head>
     {%- block css %}
-    {{ webpack['vendor.css']}}
-    {{ webpack['app_ils.css']}}
     {%-endblock %}
   </head>
   <body>
@@ -18,9 +16,6 @@
     <div id="app"></div>
     {{ jwt() }}
     {%- block javascript %}
-    {{ webpack['vendor.js']}}
-    {{ webpack['app_ils.js']}}
-    {{ webpack['manifest.js']}}
     {%- endblock %}
   </body>
 </html>
