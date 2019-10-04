@@ -19,6 +19,8 @@ ils = WebpackBundle(
         "axios": "^0.19.0",
         "formik": "^1.5.8",
         "iso-639-1": "^2.1.0",
+        "less": "^3.10.3",
+        "less-loader": "^5.0.0",
         "lodash": "^4.17.15",
         "luxon": "^1.17.2",
         "node-sass": "^4.12.0",

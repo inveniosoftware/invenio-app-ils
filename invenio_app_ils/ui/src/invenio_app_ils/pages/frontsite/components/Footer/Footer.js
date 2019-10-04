@@ -11,10 +11,11 @@ export default class Footer extends Component {
               <Grid.Column>
                 <Header as="h4" content={'Address'} />
                 <p>
-                  CERN Library <br />
-                  Building 52-1-052 <br />
-                  CERN Meyrin Site <br />
-                  Phone: +41 22 767 2444
+                  Library
+                  <br />
+                  Address line 1 <br />
+                  Address line 2 <br />
+                  Phone: +41 00 000 000
                 </p>
               </Grid.Column>
               <Grid.Column>
@@ -30,7 +31,7 @@ export default class Footer extends Component {
         <Container fluid className="footer-lower">
           <Container>
             <Header as="h4" textAlign={'center'}>
-              <Header.Content>CERN Internal Library System</Header.Content>
+              <Header.Content>Internal Library System</Header.Content>
               <Header.Subheader>Powered by INVENIO</Header.Subheader>
             </Header>
           </Container>
