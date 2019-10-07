@@ -6,7 +6,10 @@ class SessionManager {
     // Initialize to anonymous user
     this.setAnonymous();
 
-    if (process.env.NODE_ENV === 'production') {
+    if (
+      process.env.NODE_ENV === 'production' &&
+      !process.env.REACT_APP_JWT_TOKEN
+    ) {
       let encodedToken = authenticationService.getTokenFromDOM();
       if (encodedToken) {
         tokenData = authenticationService.decodeProductionToken(encodedToken);
