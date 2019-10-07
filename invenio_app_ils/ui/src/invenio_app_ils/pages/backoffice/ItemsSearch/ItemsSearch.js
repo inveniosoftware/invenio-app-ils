@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Grid, Segment, Icon, Header } from 'semantic-ui-react';
+import { Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
@@ -44,14 +44,12 @@ export class ItemsSearch extends Component {
 
   renderResultsList = results => {
     return (
-      <div className="results-list">
-        <ItemsResultsList
-          results={results}
-          viewDetailsClickHandler={row => {
-            goTo(BackOfficeRoutes.itemDetailsFor(row.ID));
-          }}
-        />
-      </div>
+      <ItemsResultsList
+        results={results}
+        viewDetailsClickHandler={row => {
+          goTo(BackOfficeRoutes.itemDetailsFor(row.ID));
+        }}
+      />
     );
   };
 
@@ -62,9 +60,7 @@ export class ItemsSearch extends Component {
           <Icon name="search" />
           No items found!
         </Header>
-        <div className="empty-results-current">
-          Current search "{queryString}"
-        </div>
+        <div>Current search "{queryString}"</div>
         <Segment.Inline>
           <ClearButton
             clickHandler={() => {
@@ -92,17 +88,17 @@ export class ItemsSearch extends Component {
 
   renderAggregations = () => {
     const components = this.searchConfig.AGGREGATIONS.map(agg => (
-      <div className="aggregator" key={agg.field}>
+      <div key={agg.field}>
         <Aggregator title={agg.title} field={agg.field} />
       </div>
     ));
-    return <div className="aggregators">{components}</div>;
+    return <div>{components}</div>;
   };
 
   renderHeader = () => {
     return (
-      <Grid columns={3} verticalAlign="middle" stackable relaxed>
-        <Grid.Column width={5} textAlign="left">
+      <Grid columns={3}>
+        <Grid.Column width={5}>
           <Count renderElement={this.renderCount} />
         </Grid.Column>
         <Grid.Column width={6}>
@@ -117,7 +113,7 @@ export class ItemsSearch extends Component {
 
   renderFooter = () => {
     return (
-      <Grid columns={3} verticalAlign="middle" stackable relaxed>
+      <Grid columns={3}>
         <Grid.Column width={5} />
         <Grid.Column width={6}>
           <Pagination />
@@ -130,21 +126,25 @@ export class ItemsSearch extends Component {
   render() {
     return (
       <ReactSearchKit searchApi={this.searchApi}>
-        <Container className="items-search-searchbar">
-          <SearchBar renderElement={this.renderSearchBar} />
-        </Container>
+        <Grid>
+          <Grid.Row columns={1}>
+            <Grid.Column>
+              <SearchBar renderElement={this.renderSearchBar} />
+            </Grid.Column>
+          </Grid.Row>
 
-        <Grid columns={2} stackable relaxed className="items-search-container">
-          <Grid.Column width={3}>{this.renderAggregations()}</Grid.Column>
-          <Grid.Column width={13}>
+          <Grid.Row columns={2}>
             <ResultsLoader>
-              <EmptyResults renderElement={this.renderEmptyResults} />
-              <Error renderElement={this.renderError} />
-              {this.renderHeader()}
-              <ResultsList renderElement={this.renderResultsList} />
-              {this.renderFooter()}
+              <Grid.Column width={3}>{this.renderAggregations()}</Grid.Column>
+              <Grid.Column width={13}>
+                <EmptyResults renderElement={this.renderEmptyResults} />
+                <Error renderElement={this.renderError} />
+                {this.renderHeader()}
+                <ResultsList renderElement={this.renderResultsList} />
+                {this.renderFooter()}
+              </Grid.Column>
             </ResultsLoader>
-          </Grid.Column>
+          </Grid.Row>
         </Grid>
       </ReactSearchKit>
     );

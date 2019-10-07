@@ -6,3 +6,4 @@ export {
   ExportSearchResults,
 } from './ExportSearchResults';
 export { OverdueLoanSendMailModal } from './OverdueLoanSendMailModal';
+export { Sidebar } from './Sidebar';

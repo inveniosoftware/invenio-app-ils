@@ -316,18 +316,18 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                   >
                                     <GridColumn
                                       verticalAlign="middle"
-                                      width={13}
+                                      width={8}
                                     >
                                       <div
-                                        className="middle aligned thirteen wide column"
+                                        className="middle aligned eight wide column"
                                       />
                                     </GridColumn>
                                     <GridColumn
                                       textAlign="right"
-                                      width={3}
+                                      width={8}
                                     >
                                       <div
-                                        className="right aligned three wide column"
+                                        className="right aligned eight wide column"
                                       />
                                     </GridColumn>
                                   </div>

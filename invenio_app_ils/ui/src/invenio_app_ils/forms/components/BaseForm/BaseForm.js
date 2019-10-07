@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, getIn } from 'formik';
 import isEmpty from 'lodash/isEmpty';
-import {
-  Form,
-  Segment,
-  Button,
-  Grid,
-  Header,
-  Container,
-} from 'semantic-ui-react';
+import { Form, Button, Grid, Header, Container } from 'semantic-ui-react';
 import { ES_DELAY } from '../../../common/config';
 
 export class BaseForm extends Component {

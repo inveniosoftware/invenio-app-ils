@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Container,
-  Grid,
-  Segment,
-  Icon,
-  Header,
-  Button,
-} from 'semantic-ui-react';
+import { Grid, Segment, Icon, Header, Button } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
@@ -50,24 +43,22 @@ export class LoansSearch extends Component {
 
   renderResultsList = results => {
     return (
-      <div className="results-list">
-        <LoansResultsList
-          results={results}
-          viewDetailsClickHandler={row =>
-            goTo(BackOfficeRoutes.loanDetailsFor(row.ID))
-          }
-        />
-      </div>
+      <LoansResultsList
+        results={results}
+        viewDetailsClickHandler={row =>
+          goTo(BackOfficeRoutes.loanDetailsFor(row.ID))
+        }
+      />
     );
   };
 
   renderAggregations = () => {
     const components = this.searchConfig.AGGREGATIONS.map(agg => (
-      <div className="aggregator" key={agg.field}>
+      <div key={agg.field}>
         <Aggregator title={agg.title} field={agg.field} />
       </div>
     ));
-    return <div className="aggregators">{components}</div>;
+    return <div>{components}</div>;
   };
 
   renderEmptyResults = (queryString, resetQuery) => {
@@ -77,9 +68,7 @@ export class LoansSearch extends Component {
           <Icon name="search" />
           No loans found!
         </Header>
-        <div className="empty-results-current">
-          Current search "{queryString}"
-        </div>
+        <div>Current search "{queryString}"</div>
         <Segment.Inline>
           <Button primary onClick={() => resetQuery()}>
             Clear query
@@ -99,8 +88,8 @@ export class LoansSearch extends Component {
 
   renderHeader = () => {
     return (
-      <Grid columns={3} verticalAlign="middle" relaxed>
-        <Grid.Column width={5} textAlign="left">
+      <Grid columns={3}>
+        <Grid.Column width={5}>
           <Count renderElement={this.renderCount} />
         </Grid.Column>
         <Grid.Column width={6}>
@@ -115,7 +104,7 @@ export class LoansSearch extends Component {
 
   renderFooter = () => {
     return (
-      <Grid columns={3} verticalAlign="middle" relaxed>
+      <Grid columns={3}>
         <Grid.Column width={5} />
         <Grid.Column width={6}>
           <Pagination />
@@ -128,21 +117,25 @@ export class LoansSearch extends Component {
   render() {
     return (
       <ReactSearchKit searchApi={this.searchApi}>
-        <Container className="loans-search-searchbar">
-          <SearchBar renderElement={this.renderSearchBar} />
-        </Container>
+        <Grid>
+          <Grid.Row columns={1}>
+            <Grid.Column>
+              <SearchBar renderElement={this.renderSearchBar} />
+            </Grid.Column>
+          </Grid.Row>
 
-        <Grid columns={2} stackable relaxed className="loans-search-container">
-          <Grid.Column width={3}>{this.renderAggregations()}</Grid.Column>
-          <Grid.Column width={13} textAlign="center">
+          <Grid.Row columns={2}>
             <ResultsLoader>
-              <EmptyResults renderElement={this.renderEmptyResults} />
-              <Error renderElement={this.renderError} />
-              {this.renderHeader()}
-              <ResultsList renderElement={this.renderResultsList} />
-              {this.renderFooter()}
+              <Grid.Column width={3}>{this.renderAggregations()}</Grid.Column>
+              <Grid.Column width={13}>
+                <EmptyResults renderElement={this.renderEmptyResults} />
+                <Error renderElement={this.renderError} />
+                {this.renderHeader()}
+                <ResultsList renderElement={this.renderResultsList} />
+                {this.renderFooter()}
+              </Grid.Column>
             </ResultsLoader>
-          </Grid.Column>
+          </Grid.Row>
         </Grid>
       </ReactSearchKit>
     );

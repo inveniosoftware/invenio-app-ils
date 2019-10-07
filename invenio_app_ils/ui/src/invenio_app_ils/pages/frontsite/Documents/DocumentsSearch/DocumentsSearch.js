@@ -158,7 +158,7 @@ export class DocumentsSearch extends Component {
 
   renderAggregations = () => {
     const accordionPanels = this.searchConfig.AGGREGATIONS.map((agg, idx) => (
-      <div className="aggregator" key={agg.field}>
+      <div key={agg.field}>
         <Aggregator
           title={agg.title}
           field={agg.field}
@@ -169,7 +169,7 @@ export class DocumentsSearch extends Component {
     ));
 
     const cardPanels = this.searchConfig.AGGREGATIONS.map(agg => (
-      <div className="aggregator" key={agg.field}>
+      <div key={agg.field}>
         <Aggregator title={agg.title} field={agg.field} />
       </div>
     ));
@@ -235,9 +235,9 @@ export class DocumentsSearch extends Component {
           relaxed
           className="documents-search-container"
         >
-          <Grid.Column width={3}>{this.renderAggregations()}</Grid.Column>
-          <Grid.Column width={13}>
-            <ResultsLoader>
+          <ResultsLoader>
+            <Grid.Column width={3}>{this.renderAggregations()}</Grid.Column>
+            <Grid.Column width={13}>
               <EmptyResults renderElement={this.renderEmptyResults} />
               <Error renderElement={this.renderError} />
               {this.renderHeader()}
@@ -257,8 +257,8 @@ export class DocumentsSearch extends Component {
                   the library.
                 </Message.Content>
               </Message>
-            </ResultsLoader>
-          </Grid.Column>
+            </Grid.Column>
+          </ResultsLoader>
         </Grid>
       </ReactSearchKit>
     );

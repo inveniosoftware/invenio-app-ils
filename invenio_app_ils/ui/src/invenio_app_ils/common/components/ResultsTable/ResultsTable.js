@@ -67,10 +67,10 @@ export class ResultsTable extends Component {
     return (
       <Grid>
         <Grid.Row>
-          <Grid.Column width={13} verticalAlign={'middle'}>
+          <Grid.Column width={8} verticalAlign={'middle'}>
             {header}
           </Grid.Column>
-          <Grid.Column width={3} textAlign={'right'}>
+          <Grid.Column width={8} textAlign={'right'}>
             {headerActionComponent}
           </Grid.Column>
         </Grid.Row>

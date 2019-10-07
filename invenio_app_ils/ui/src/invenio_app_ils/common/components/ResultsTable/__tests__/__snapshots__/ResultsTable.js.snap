@@ -6,11 +6,11 @@ exports[`ResultsTable tests should load the ResultTable component 1`] = `
     <GridRow>
       <GridColumn
         verticalAlign="middle"
-        width={13}
+        width={8}
       />
       <GridColumn
         textAlign="right"
-        width={3}
+        width={8}
       />
     </GridRow>
   </Grid>
@@ -71,18 +71,18 @@ exports[`ResultsTable tests should not render the see all button when showing on
             >
               <GridColumn
                 verticalAlign="middle"
-                width={13}
+                width={8}
               >
                 <div
-                  className="middle aligned thirteen wide column"
+                  className="middle aligned eight wide column"
                 />
               </GridColumn>
               <GridColumn
                 textAlign="right"
-                width={3}
+                width={8}
               >
                 <div
-                  className="right aligned three wide column"
+                  className="right aligned eight wide column"
                 />
               </GridColumn>
             </div>
@@ -611,18 +611,18 @@ exports[`ResultsTable tests should render the see all button when showing only a
             >
               <GridColumn
                 verticalAlign="middle"
-                width={13}
+                width={8}
               >
                 <div
-                  className="middle aligned thirteen wide column"
+                  className="middle aligned eight wide column"
                 />
               </GridColumn>
               <GridColumn
                 textAlign="right"
-                width={3}
+                width={8}
               >
                 <div
-                  className="right aligned three wide column"
+                  className="right aligned eight wide column"
                 />
               </GridColumn>
             </div>

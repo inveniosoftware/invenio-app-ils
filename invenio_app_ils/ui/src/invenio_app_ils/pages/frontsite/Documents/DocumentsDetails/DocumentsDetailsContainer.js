@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Breadcrumb, Container } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { DocumentMetadata } from './components';
 import { goTo } from '../../../../history';
 import { FrontSiteRoutes } from '../../../../routes/urls';

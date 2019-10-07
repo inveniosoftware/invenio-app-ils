@@ -47,7 +47,7 @@ export default class BookGroup extends Component {
     return (
       <div>
         <Header size="medium" dividing>
-          {title.toUpperCase()}
+          {title}
         </Header>
         <Header.Subheader>
           <Link to={viewAllUrl}>VIEW ALL</Link> {title.toLowerCase()}

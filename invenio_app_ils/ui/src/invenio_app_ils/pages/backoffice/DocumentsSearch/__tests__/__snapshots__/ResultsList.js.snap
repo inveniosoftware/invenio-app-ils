@@ -48,18 +48,18 @@ exports[`DocumentsSearch ResultsList tests should not render when empty results 
               >
                 <GridColumn
                   verticalAlign="middle"
-                  width={13}
+                  width={8}
                 >
                   <div
-                    className="middle aligned thirteen wide column"
+                    className="middle aligned eight wide column"
                   />
                 </GridColumn>
                 <GridColumn
                   textAlign="right"
-                  width={3}
+                  width={8}
                 >
                   <div
-                    className="right aligned three wide column"
+                    className="right aligned eight wide column"
                   >
                     <div>
                       <NewButton
@@ -237,18 +237,18 @@ exports[`DocumentsSearch ResultsList tests should render a list of results 1`] =
               >
                 <GridColumn
                   verticalAlign="middle"
-                  width={13}
+                  width={8}
                 >
                   <div
-                    className="middle aligned thirteen wide column"
+                    className="middle aligned eight wide column"
                   />
                 </GridColumn>
                 <GridColumn
                   textAlign="right"
-                  width={3}
+                  width={8}
                 >
                   <div
-                    className="right aligned three wide column"
+                    className="right aligned eight wide column"
                   >
                     <div>
                       <NewButton

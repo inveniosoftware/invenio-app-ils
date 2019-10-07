@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Grid, Segment, Icon, Header } from 'semantic-ui-react';
+import { Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
@@ -43,14 +43,12 @@ export class EItemSearch extends Component {
 
   renderResultsList = results => {
     return (
-      <div className="results-list">
-        <EItemsResultsList
-          results={results}
-          viewDetailsClickHandler={row =>
-            goTo(BackOfficeRoutes.eitemDetailsFor(row.ID))
-          }
-        />
-      </div>
+      <EItemsResultsList
+        results={results}
+        viewDetailsClickHandler={row =>
+          goTo(BackOfficeRoutes.eitemDetailsFor(row.ID))
+        }
+      />
     );
   };
 
@@ -61,9 +59,7 @@ export class EItemSearch extends Component {
           <Icon name="search" />
           No eitems found!
         </Header>
-        <div className="empty-results-current">
-          Current search "{queryString}"
-        </div>
+        <div>Current search "{queryString}"</div>
         <Segment.Inline>
           <ClearButton
             clickHandler={() => {
@@ -89,8 +85,8 @@ export class EItemSearch extends Component {
 
   renderHeader = () => {
     return (
-      <Grid columns={3} verticalAlign="middle" stackable relaxed>
-        <Grid.Column width={5} textAlign="left">
+      <Grid columns={3}>
+        <Grid.Column width={5}>
           <Count renderElement={this.renderCount} />
         </Grid.Column>
         <Grid.Column width={6}>
@@ -105,7 +101,7 @@ export class EItemSearch extends Component {
 
   renderFooter = () => {
     return (
-      <Grid columns={3} verticalAlign="middle" stackable relaxed>
+      <Grid columns={3}>
         <Grid.Column width={5} />
         <Grid.Column width={6}>
           <Pagination />
@@ -118,20 +114,24 @@ export class EItemSearch extends Component {
   render() {
     return (
       <ReactSearchKit searchApi={this.searchApi}>
-        <Container className="eitems-search-searchbar">
-          <SearchBar renderElement={this.renderSearchBar} />
-        </Container>
+        <Grid>
+          <Grid.Row columns={1}>
+            <Grid.Column>
+              <SearchBar renderElement={this.renderSearchBar} />
+            </Grid.Column>
+          </Grid.Row>
 
-        <Grid columns={2} stackable relaxed className="eitems-search-container">
-          <Grid.Column width={16}>
+          <Grid.Row columns={1}>
             <ResultsLoader>
-              <EmptyResults renderElement={this.renderEmptyResults} />
-              <Error renderElement={this.renderError} />
-              {this.renderHeader()}
-              <ResultsList renderElement={this.renderResultsList} />
-              {this.renderFooter()}
+              <Grid.Column>
+                <EmptyResults renderElement={this.renderEmptyResults} />
+                <Error renderElement={this.renderError} />
+                {this.renderHeader()}
+                <ResultsList renderElement={this.renderResultsList} />
+                {this.renderFooter()}
+              </Grid.Column>
             </ResultsLoader>
-          </Grid.Column>
+          </Grid.Row>
         </Grid>
       </ReactSearchKit>
     );

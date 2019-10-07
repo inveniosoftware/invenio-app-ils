@@ -45,7 +45,7 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
     >
       <Label
         attached="bottom left"
-        icon="check"
+        icon="book"
         title="The book is currently avaialble"
       >
         <div
@@ -55,11 +55,11 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
         >
           <Icon
             as="i"
-            name="check"
+            name="book"
           >
             <i
               aria-hidden="true"
-              className="check icon"
+              className="book icon"
               onClick={[Function]}
             />
           </Icon>
@@ -67,7 +67,7 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
       </Label>
       <Label
         attached="bottom right"
-        icon="edge"
+        icon="computer"
         title="An electronic version of the book is avaialble"
       >
         <div
@@ -77,11 +77,11 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
         >
           <Icon
             as="i"
-            name="edge"
+            name="computer"
           >
             <i
               aria-hidden="true"
-              className="edge icon"
+              className="computer icon"
               onClick={[Function]}
             />
           </Icon>
@@ -169,7 +169,7 @@ exports[`BookCard tests should render the BookCard 1`] = `
     >
       <Label
         attached="bottom left"
-        icon="check"
+        icon="book"
         title="The book is currently avaialble"
       >
         <div
@@ -179,11 +179,11 @@ exports[`BookCard tests should render the BookCard 1`] = `
         >
           <Icon
             as="i"
-            name="check"
+            name="book"
           >
             <i
               aria-hidden="true"
-              className="check icon"
+              className="book icon"
               onClick={[Function]}
             />
           </Icon>
@@ -191,7 +191,7 @@ exports[`BookCard tests should render the BookCard 1`] = `
       </Label>
       <Label
         attached="bottom right"
-        icon="edge"
+        icon="computer"
         title="An electronic version of the book is avaialble"
       >
         <div
@@ -201,11 +201,11 @@ exports[`BookCard tests should render the BookCard 1`] = `
         >
           <Icon
             as="i"
-            name="edge"
+            name="computer"
           >
             <i
               aria-hidden="true"
-              className="edge icon"
+              className="computer icon"
               onClick={[Function]}
             />
           </Icon>

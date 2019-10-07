@@ -7,20 +7,19 @@ import { goTo } from '../../../../history';
 
 export class BookCard extends Component {
   renderLabels = meta => {
-    // meta.circulation.has_items_for_loan > 0 ? true : false
     return (
       <>
         {meta.circulation.has_items_for_loan > 0 ? (
           <Label
             attached="bottom left"
-            icon="check"
+            icon="book"
             title="The book is currently avaialble"
           />
         ) : null}
         {meta.eitems.total > 0 ? (
           <Label
             attached="bottom right"
-            icon="edge"
+            icon="computer"
             title="An electronic version of the book is avaialble"
           />
         ) : null}
