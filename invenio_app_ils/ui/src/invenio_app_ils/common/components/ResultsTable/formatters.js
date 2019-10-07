@@ -6,8 +6,9 @@ import assign from 'lodash/assign';
 import { formatPidTypeToName } from '../ManageRelationsButton/utils';
 import { loan as loanApi } from '../../api';
 import { BackOfficeRoutes, FrontSiteRoutes } from '../../../routes/urls';
-import { invenioConfig } from '../../config';
+import { invenioConfig, TRUNCATE_LENGTH } from '../../config';
 import startCase from 'lodash/startCase';
+import truncate from 'lodash/truncate';
 
 function formatLoanToTableView(loan, actions = null) {
   const requestStartDate = loan.metadata.request_start_date
@@ -122,8 +123,12 @@ function formatEItemToTableView(eitem) {
     'Open access': eitem.metadata.open_access ? 'Yes' : 'No',
     Created: toShortDate(fromISO(eitem.created)),
     Updated: toShortDate(fromISO(eitem.updated)),
-    Description: eitem.metadata.description,
-    'Internal Notes': eitem.metadata.internal_notes,
+    Description: truncate(eitem.metadata.description, {
+      length: TRUNCATE_LENGTH,
+    }),
+    'Internal Notes': truncate(eitem.metadata.internal_notes, {
+      length: TRUNCATE_LENGTH,
+    }),
   };
 }
 

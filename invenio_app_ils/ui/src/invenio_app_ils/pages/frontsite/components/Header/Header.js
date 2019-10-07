@@ -39,7 +39,6 @@ export default class Header extends Component {
           >
             Sign out
           </Dropdown.Item>
-          )}
         </Dropdown.Menu>
       </Dropdown>
     );
@@ -65,12 +64,13 @@ export default class Header extends Component {
         fixed="top"
         className="header-menu"
         widths={3}
-      ><Container>
-        <Menu.Item>
-          <Link to="/">ILS</Link>
-        </Menu.Item>
-        <Menu.Item position={'right'}>{this.renderRightMenuItem()}</Menu.Item>
-      </Container>
+      >
+        <Container>
+          <Menu.Item>
+            <Link to="/">ILS</Link>
+          </Menu.Item>
+          <Menu.Item position={'right'}>{this.renderRightMenuItem()}</Menu.Item>
+        </Container>
       </Menu>
     );
   }

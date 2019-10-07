@@ -14,30 +14,17 @@ export default class PatronDetails extends Component {
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
-          <Grid columns={2}>
-            <Grid.Row stretched>
-              <Grid.Column width={6}>
+          <Grid>
+            <Grid.Row columns={2}>
+              <Grid.Column>
                 <PatronMetadata />
-              </Grid.Column>
-              <Grid.Column width={10}>
-                <PatronPendingLoans patronPid={data.user_pid} />
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row columns={1}>
-              <Grid.Column width={16}>
                 <ItemsCheckout patron={data.user_pid} />
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row stretched columns={2}>
-              <Grid.Column width={8}>
                 <ItemsSearch patronPid={data.user_pid} />
               </Grid.Column>
-              <Grid.Column width={8}>
+
+              <Grid.Column>
                 <PatronCurrentLoans patronPid={data.user_pid} />
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row stretched columns={2}>
-              <Grid.Column width={8}>
+                <PatronPendingLoans patronPid={data.user_pid} />
                 <PatronDocumentRequests patronPid={data.user_pid} />
               </Grid.Column>
             </Grid.Row>

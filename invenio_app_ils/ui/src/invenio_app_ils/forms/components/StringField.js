@@ -58,7 +58,6 @@ StringField.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
-  required: PropTypes.bool,
   uiProps: PropTypes.object,
 };
 

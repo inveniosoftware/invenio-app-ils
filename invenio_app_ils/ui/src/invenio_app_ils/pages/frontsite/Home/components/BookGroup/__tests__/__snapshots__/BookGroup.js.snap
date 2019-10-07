@@ -6,7 +6,7 @@ exports[`BookGroup tests should load the BookGroup component 1`] = `
     dividing={true}
     size="medium"
   >
-    TEST
+    Test
   </Header>
   <HeaderSubheader>
     <Link
@@ -88,7 +88,7 @@ exports[`BookGroup tests should render book cards 1`] = `
           <div
             className="ui medium dividing header"
           >
-            TEST
+            Test
           </div>
         </Header>
         <HeaderSubheader>
@@ -191,7 +191,7 @@ exports[`BookGroup tests should render the VIEW ALL link 1`] = `
           <div
             className="ui medium dividing header"
           >
-            TEST
+            Test
           </div>
         </Header>
         <HeaderSubheader>

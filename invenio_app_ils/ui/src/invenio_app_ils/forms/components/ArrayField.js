@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getIn, FieldArray } from 'formik';
-import { Form, Button, Segment } from 'semantic-ui-react';
+import { Form, Button } from 'semantic-ui-react';
 
 export class ArrayField extends Component {
   constructor(props) {

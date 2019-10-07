@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Header, Segment } from 'semantic-ui-react';
+import { Button, Form } from 'semantic-ui-react';
 import { Error } from '../../../../../../common/components/Error';
 import { DatePicker } from '../../../../../../common/components';
 import PropTypes from 'prop-types';

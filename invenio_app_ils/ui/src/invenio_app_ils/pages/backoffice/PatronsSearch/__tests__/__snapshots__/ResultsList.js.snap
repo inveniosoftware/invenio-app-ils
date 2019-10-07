@@ -39,18 +39,18 @@ exports[`PatronsSearch ResultsList tests should not render when empty results 1`
               >
                 <GridColumn
                   verticalAlign="middle"
-                  width={13}
+                  width={8}
                 >
                   <div
-                    className="middle aligned thirteen wide column"
+                    className="middle aligned eight wide column"
                   />
                 </GridColumn>
                 <GridColumn
                   textAlign="right"
-                  width={3}
+                  width={8}
                 >
                   <div
-                    className="right aligned three wide column"
+                    className="right aligned eight wide column"
                   >
                     <ExportReactSearchKitResults
                       exportBaseUrl="https://127.0.0.1:5000/api/patrons/"
@@ -138,18 +138,18 @@ exports[`PatronsSearch ResultsList tests should render a list of results 1`] = `
               >
                 <GridColumn
                   verticalAlign="middle"
-                  width={13}
+                  width={8}
                 >
                   <div
-                    className="middle aligned thirteen wide column"
+                    className="middle aligned eight wide column"
                   />
                 </GridColumn>
                 <GridColumn
                   textAlign="right"
-                  width={3}
+                  width={8}
                 >
                   <div
-                    className="right aligned three wide column"
+                    className="right aligned eight wide column"
                   >
                     <ExportReactSearchKitResults
                       exportBaseUrl="https://127.0.0.1:5000/api/patrons/"

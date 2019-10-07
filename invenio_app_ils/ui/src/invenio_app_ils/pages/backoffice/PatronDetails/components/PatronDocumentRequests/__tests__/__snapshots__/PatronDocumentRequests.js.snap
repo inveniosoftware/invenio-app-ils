@@ -135,10 +135,10 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                   >
                     <GridColumn
                       verticalAlign="middle"
-                      width={13}
+                      width={8}
                     >
                       <div
-                        className="middle aligned thirteen wide column"
+                        className="middle aligned eight wide column"
                       >
                         <Header
                           as="h3"
@@ -162,10 +162,10 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                     </GridColumn>
                     <GridColumn
                       textAlign="right"
-                      width={3}
+                      width={8}
                     >
                       <div
-                        className="right aligned three wide column"
+                        className="right aligned eight wide column"
                       />
                     </GridColumn>
                   </div>
@@ -667,10 +667,10 @@ exports[`PatronDocumentRequests tests should render show a message with no user 
                   >
                     <GridColumn
                       verticalAlign="middle"
-                      width={13}
+                      width={8}
                     >
                       <div
-                        className="middle aligned thirteen wide column"
+                        className="middle aligned eight wide column"
                       >
                         <Header
                           as="h3"
@@ -694,10 +694,10 @@ exports[`PatronDocumentRequests tests should render show a message with no user 
                     </GridColumn>
                     <GridColumn
                       textAlign="right"
-                      width={3}
+                      width={8}
                     >
                       <div
-                        className="right aligned three wide column"
+                        className="right aligned eight wide column"
                       />
                     </GridColumn>
                   </div>
@@ -829,10 +829,10 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                   >
                     <GridColumn
                       verticalAlign="middle"
-                      width={13}
+                      width={8}
                     >
                       <div
-                        className="middle aligned thirteen wide column"
+                        className="middle aligned eight wide column"
                       >
                         <Header
                           as="h3"
@@ -856,10 +856,10 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                     </GridColumn>
                     <GridColumn
                       textAlign="right"
-                      width={3}
+                      width={8}
                     >
                       <div
-                        className="right aligned three wide column"
+                        className="right aligned eight wide column"
                       />
                     </GridColumn>
                   </div>
