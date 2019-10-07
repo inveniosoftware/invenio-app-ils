@@ -65,7 +65,7 @@ install_requires = [
     "invenio-records>=1.3.0,<1.4.0",
     # upgraded packages
     "invenio-accounts-rest>=1.0.0a4,<1.1.0",
-    "invenio-app>=1.2.1,<1.3.0",
+    "invenio-app>=1.2.3,<1.3.0",
     "invenio-assets>=1.1.3,<1.2.0",
     "invenio-i18n>=1.1.0,<1.2.0",
     "invenio-userprofiles>=1.0.1,<1.1.0",
@@ -117,9 +117,6 @@ setup(
         ],
         "invenio_base.api_apps": [
             "invenio_app_ils_rest = invenio_app_ils.ext:InvenioAppIlsREST"
-        ],
-        "invenio_base.blueprints": [
-           "invenio_app_ils_ui = invenio_app_ils.views:blueprint",
         ],
         "invenio_base.api_blueprints": [
             "invenio_app_ils_circulation = invenio_app_ils.circulation.views:create_circulation_blueprint",
