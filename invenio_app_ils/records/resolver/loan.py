@@ -41,9 +41,7 @@ def patron_resolver(loan_pid):
         return {}
 
     try:
-        p = Patron.get_patron(patron_pid)
-        patron = p.dumps()
-        patron.pop("$schema", None)
+        patron = Patron.get_patron(patron_pid).dumps_loader()
     except PatronNotFoundError:
         patron = {}
     return patron

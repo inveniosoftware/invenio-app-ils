@@ -38,6 +38,7 @@ import { document as documentApi } from '../../../../common/api';
 import { DocumentItem } from './components';
 import { BookCard } from '../../components';
 import { goTo } from '../../../../history';
+import Qs from 'qs';
 
 class SearchAggregations extends Component {
   state = { activeIndex: 0 };
@@ -251,17 +252,18 @@ export class DocumentsSearch extends Component {
     );
   };
 
+  onClickBookRequestLink = location => {
+    const params = Qs.parse(window.location.search);
+    const queryString = params['?q'];
+    return {
+      pathname: FrontSiteRoutes.documentRequestForm,
+      state: { queryString },
+    };
+  };
+
   render() {
-    const queryString = this.props.location.search;
-    const requestForm = (
-      <Link
-        to={{
-          pathname: FrontSiteRoutes.documentRequestForm,
-          state: { queryString },
-        }}
-      >
-        book request form
-      </Link>
+    const requestFormLink = (
+      <Link to={this.onClickBookRequestLink}>request form</Link>
     );
     return (
       <ReactSearchKit searchApi={this.searchApi}>
@@ -292,8 +294,8 @@ export class DocumentsSearch extends Component {
                     <Message.Header>
                       Couldn't find the book you were looking for?
                     </Message.Header>
-                    Please fill in the {requestForm} to request a new book from
-                    the library.
+                    Please fill in the {requestFormLink} to request a new book
+                    from the library.
                   </Message.Content>
                 </Message>
               </Grid.Column>

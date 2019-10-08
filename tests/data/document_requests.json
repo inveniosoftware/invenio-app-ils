@@ -7,20 +7,20 @@
   },
   {
     "pid": "dreq-2",
-    "state": "CANCELLED",
+    "state": "REJECTED",
     "patron_pid": "2",
     "title": "Test title 2"
   },
   {
     "pid": "dreq-3",
-    "state": "FULFILLED",
+    "state": "ACCEPTED",
     "patron_pid": "3",
     "document_pid": "docid-1",
     "title": "Test title 3"
   },
   {
     "pid": "dreq-4",
-    "state": "FULFILLED",
+    "state": "ACCEPTED",
     "patron_pid": "4",
     "document_pid": "docid-2",
     "title": "Test title 4"

@@ -35,7 +35,7 @@ exports[`CancelModal tests should load the cancel loan modal component 1`] = `
         fluid={true}
         focus={true}
         onChange={[Function]}
-        placeholder="Enter a cancel reason..."
+        placeholder="Enter a reason..."
         type="text"
         value=""
       />

@@ -8,9 +8,9 @@
 """DocumentRequest schema for marshmallow loader."""
 
 from flask import g
+from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from invenio_records_rest.schemas.fields import PersistentIdentifier
 from invenio_records_rest.schemas.fields.sanitizedhtml import SanitizedHTML
-from invenio_records_rest.schemas.json import StrictKeysMixin
 from marshmallow import ValidationError, fields
 
 from invenio_app_ils.permissions import backoffice_permission
@@ -26,21 +26,26 @@ def validate_patron(patron_pid):
             )
 
 
-class DocumentRequestSchemaV1(StrictKeysMixin):
+class DocumentRequestSchemaV1(RecordMetadataSchemaJSONV1):
     """Document Request schema."""
 
+    class Meta:
+        """Meta attributes for the schema."""
+
+        from marshmallow import EXCLUDE
+        unknown = EXCLUDE
+
     authors = SanitizedHTML()
-    cancel_reason = fields.Str()
-    document = fields.Raw()
-    document_pid = fields.Str()
+    edition = SanitizedHTML()
     isbn = SanitizedHTML()
     issn = SanitizedHTML()
     issue = SanitizedHTML()
+    journal_title = SanitizedHTML()
     note = SanitizedHTML()
     page = SanitizedHTML()
     patron_pid = fields.Str(required=True, validate=validate_patron)
-    pid = PersistentIdentifier()  # needed for records rest PUT
+    pid = PersistentIdentifier()
     publication_year = fields.Int()
-    state = fields.Str()
+    standard_number = SanitizedHTML()
     title = SanitizedHTML(required=True)
     volume = SanitizedHTML()

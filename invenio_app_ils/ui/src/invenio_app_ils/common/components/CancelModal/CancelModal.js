@@ -63,7 +63,7 @@ export default class CancelModal extends Component {
             <Input
               focus
               fluid
-              placeholder="Enter a cancel reason..."
+              placeholder="Enter a reason..."
               onChange={this.handleOnChange}
               ref={this.updateInputRef}
               value={this.state.value}

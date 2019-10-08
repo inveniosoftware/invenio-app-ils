@@ -16,9 +16,6 @@
         "authors": {
           "type": "text"
         },
-        "cancel_reason": {
-          "type": "text"
-        },
         "document": {
           "type": "object",
           "properties": {
@@ -36,6 +33,9 @@
         "document_pid": {
           "type": "keyword"
         },
+        "edition": {
+          "type": "keyword"
+        },
         "isbn": {
           "type": "keyword"
         },
@@ -44,6 +44,9 @@
         },
         "issue": {
           "type": "keyword"
+        },
+        "journal_title": {
+          "type": "text"
         },
         "note": {
           "type": "text"
@@ -58,6 +61,12 @@
           "type": "keyword"
         },
         "publication_year": {
+          "type": "keyword"
+        },
+        "reject_reason": {
+          "type": "text"
+        },
+        "standard_number": {
           "type": "keyword"
         },
         "state": {

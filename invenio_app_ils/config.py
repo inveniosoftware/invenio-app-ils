@@ -309,7 +309,7 @@ _SERID_CONVERTER = (
 # RECORDS REST
 # ============
 _RECORDS_REST_MAX_RESULT_WINDOW = 10000
-PIDSTORE_RECID_FIELD="pid"
+PIDSTORE_RECID_FIELD = "pid"
 # name of the URL arg to choose response serializer
 REST_MIMETYPE_QUERY_ARG_NAME = "format"
 
@@ -405,9 +405,6 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.records.loaders:eitem_loader"
             ),
-            "application/json-patch+json": (
-                lambda: request.get_json(force=True)
-            ),
         },
         record_serializers={
             "application/json": (
@@ -445,9 +442,6 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.records.loaders:location_loader"
             ),
-            "application/json-patch+json": (
-                lambda: request.get_json(force=True)
-            ),
         },
         record_serializers={
             "application/json": (
@@ -483,9 +477,6 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             "application/json": (
                 "invenio_app_ils.records.loaders:series_loader"
-            ),
-            "application/json-patch+json": (
-                lambda: request.get_json(force=True)
             ),
         },
         record_serializers={
@@ -523,9 +514,6 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             "application/json": (
                 "invenio_app_ils.records.loaders:internal_location_loader"
-            ),
-            "application/json-patch+json": (
-                lambda: request.get_json(force=True)
             ),
         },
         record_serializers={
@@ -630,9 +618,6 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             "application/json": (
                 "invenio_app_ils.records.loaders:document_request_loader"
-            ),
-            "application/json-patch+json": (
-                lambda: request.get_json(force=True)
             ),
         },
         record_serializers={

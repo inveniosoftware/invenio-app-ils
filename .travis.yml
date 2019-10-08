@@ -34,12 +34,12 @@ env:
     - ES_HOST=127.0.0.1
     - NODE_PATH=src
   matrix:
-    - REQUIREMENTS=lowest EXTRAS=all,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
-    - REQUIREMENTS=release EXTRAS=all,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
-    - REQUIREMENTS=devel EXTRAS=all,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
-    - REQUIREMENTS=lowest EXTRAS=all,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
-    - REQUIREMENTS=release EXTRAS=all,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL DEPLOY=true
-    - REQUIREMENTS=devel EXTRAS=all,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
+    - REQUIREMENTS=lowest EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
+    - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
+    - REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
+    - REQUIREMENTS=lowest EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
+    - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL DEPLOY=true
+    - REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch7 ES_URL=$ES7_DOWNLOAD_URL
 
 python:
   - "3.6"

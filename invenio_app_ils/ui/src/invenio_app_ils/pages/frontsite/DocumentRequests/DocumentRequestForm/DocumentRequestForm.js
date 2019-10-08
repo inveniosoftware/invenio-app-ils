@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Formik, getIn } from 'formik';
-import { Button, Container, Form, Header, Segment } from 'semantic-ui-react';
+import { getIn } from 'formik';
+import { Container, Form, Header, Segment } from 'semantic-ui-react';
 import { sessionManager } from '../../../../authentication/services';
 import { StringField, TextField } from '../../../../forms';
 import * as Yup from 'yup';
 import { FrontSiteRoutes } from '../../../../routes/urls';
 import { documentRequest as documentRequestApi } from '../../../../common/api';
 import { goTo } from '../../../../history';
-import { ES_DELAY } from '../../../../common/config';
-import isEmpty from 'lodash/isEmpty';
+import { BaseForm } from '../../../../forms/components';
 
 const ERROR_MSGS = {
   publication_year: 'Not a valid year',
@@ -32,111 +31,88 @@ export default class DocumentRequestForm extends Component {
     };
   }
 
-  onSubmit = async (values, actions) => {
-    this.setState({ data: values });
-
-    const data = {
-      patron_pid: sessionManager.user.id,
+  onSerializeSubmit = values => {
+    return {
       ...values,
+      patron_pid: sessionManager.user.id,
     };
+  };
 
-    try {
-      actions.setSubmitting(true);
-      await documentRequestApi.create(data);
-
-      this.props.sendSuccessNotification(
-        'Success!',
-        `Your book request has been sent to the library.`
-      );
-      setTimeout(() => {
-        goTo(FrontSiteRoutes.patronProfile);
-      }, ES_DELAY);
-    } catch (error) {
-      const errors = getIn(error, 'response.data.errors', []);
-      if (isEmpty(errors)) {
-        throw error;
-      } else {
-        const errorData = error.response.data;
-        const payload = {};
-        for (const fieldError of errorData.errors) {
-          payload[fieldError.field] = fieldError.message;
-        }
-        actions.setErrors(payload);
-        actions.setSubmitting(false);
-      }
-    }
+  onSubmitSuccess = response => {
+    goTo(FrontSiteRoutes.patronProfile);
   };
 
   renderForm() {
     return (
-      <Formik
+      <BaseForm
         initialValues={this.state.data}
         validationSchema={RequestSchema}
-        onSubmit={this.onSubmit}
-        render={({ handleSubmit, isSubmitting }) => (
-          <Form
-            id="document-request-form"
-            onSubmit={handleSubmit}
-            loading={isSubmitting}
-          >
-            <StringField
-              fieldPath="title"
-              label="Title"
-              placeholder="Title"
-              required
-            ></StringField>
-            <StringField
-              fieldPath="authors"
-              label="Authors"
-              placeholder="Authors"
-            ></StringField>
-            <Form.Group widths="equal">
-              <StringField
-                fieldPath="isbn"
-                label="ISBN"
-                placeholder="ISBN"
-              ></StringField>
-              <StringField
-                fieldPath="issn"
-                label="ISSN"
-                placeholder="ISSN"
-              ></StringField>
-            </Form.Group>
-            <Form.Group widths="equal">
-              <StringField
-                fieldPath="volume"
-                label="Volume"
-                placeholder="Volume number"
-              ></StringField>
-              <StringField
-                fieldPath="issue"
-                label="Issue"
-                placeholder="Issue number"
-              ></StringField>
-              <StringField
-                fieldPath="page"
-                label="Page"
-                placeholder="Page number"
-              ></StringField>
-              <StringField
-                fieldPath="publication_year"
-                label="Publication Year"
-                placeholder="Publication Year"
-              ></StringField>
-            </Form.Group>
-            <TextField
-              fieldPath="note"
-              label="Note"
-              placeholder="Notes for the library"
-              uiProps={{ rows: 5 }}
-            ></TextField>
-
-            <Button type="submit" disabled={isSubmitting}>
-              Request Book
-            </Button>
-          </Form>
-        )}
-      />
+        submitSerializer={this.onSerializeSubmit}
+        successCallback={this.onSubmitSuccess}
+        successSubmitMessage="Your book request has been sent to the library."
+        createApiMethod={documentRequestApi.create}
+      >
+        <StringField
+          fieldPath="title"
+          label="Title"
+          placeholder="Title"
+          required
+        />
+        <StringField
+          fieldPath="journal_title"
+          label="Journal title"
+          placeholder="Journal title"
+        />
+        <StringField
+          fieldPath="authors"
+          label="Authors"
+          placeholder="Authors"
+        />
+        <Form.Group widths="equal">
+          <StringField fieldPath="isbn" label="ISBN" placeholder="ISBN" />
+          <StringField fieldPath="issn" label="ISSN" placeholder="ISSN" />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <StringField
+            fieldPath="edition"
+            label="Edition"
+            placeholder="Edition number"
+          />
+          <StringField
+            fieldPath="volume"
+            label="Volume"
+            placeholder="Volume number"
+          />
+          <StringField
+            fieldPath="issue"
+            label="Issue"
+            placeholder="Issue number"
+          />
+          <StringField
+            fieldPath="standard_number"
+            label="Standard number"
+            placeholder="Standard number"
+          />
+        </Form.Group>
+        <Form.Group widths="equal">
+          <StringField
+            fieldPath="page"
+            label="Page"
+            placeholder="Page number"
+          />
+          <StringField
+            fieldPath="publication_year"
+            label="Publication Year"
+            placeholder="Publication Year"
+          />
+        </Form.Group>
+        <TextField
+          fieldPath="note"
+          label="Note"
+          placeholder="Notes for the library"
+          uiProps={{ rows: 5 }}
+        />
+      </BaseForm>
     );
   }
 

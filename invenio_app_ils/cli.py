@@ -590,8 +590,8 @@ class DocumentRequestGenerator(Generator):
     """Document requests generator."""
 
     def random_document_pid(self, state):
-        """Get a random document PID if the state is FULFILLED."""
-        if state == "FULFILLED":
+        """Get a random document PID if the state is ACCEPTED."""
+        if state == "ACCEPTED":
             return random.choice(self.holder.pids("documents", "pid"))
         return None
 

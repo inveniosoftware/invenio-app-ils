@@ -11,13 +11,9 @@ from __future__ import unicode_literals
 
 import json
 
-import pytest
 from flask import url_for
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
-
-from invenio_app_ils.errors import DocumentRequestError
-from invenio_app_ils.records.api import DocumentRequest
 
 
 def _compare_list_data(all_expected, data, user_id, is_admin):
@@ -71,7 +67,7 @@ def test_create_document_request(client, testdata, json_headers, users):
             ),
         ),
         (
-            'admin', 400, dict(
+            'admin', 201, dict(
                 patron_pid="1",
                 title="Test",
                 invalid_param="Test"
@@ -107,3 +103,5 @@ def test_create_document_request(client, testdata, json_headers, users):
         url = url_for("invenio_records_rest.dreqid_list")
         res = client.post(url, headers=json_headers, data=json.dumps(data))
         assert res.status_code == expected_status
+        if res.status_code == 201:
+            assert 'invalid_param' not in json.loads(res.data)['metadata']
