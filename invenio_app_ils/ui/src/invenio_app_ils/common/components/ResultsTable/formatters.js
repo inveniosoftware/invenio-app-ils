@@ -221,7 +221,8 @@ function formatDocumentRequestToTableView(req) {
     Created: toShortDate(fromISO(req.created)),
     Updated: toShortDate(fromISO(req.updated)),
     'Document ID': req.metadata.document_pid,
-    'Patron ID': req.metadata.patron_pid,
+    'Patron ID': req.metadata.patron_id,
+    'Patron Email': req.metadata.patron.email,
     State: req.metadata.state,
     Title: req.metadata.title,
     Authors: req.metadata.authors,
@@ -233,7 +234,7 @@ function formatDocumentRequestToTableView(req) {
     'Publication Year': req.metadata.publication_year,
     Volume: req.metadata.volume,
   };
-  if (req.metadata.state === 'FULFILLED') {
+  if (req.metadata.state === 'ACCEPTED') {
     request['Library Book'] = (
       <Link to={FrontSiteRoutes.documentDetailsFor(req.metadata.document_pid)}>
         {req.metadata.document.title}

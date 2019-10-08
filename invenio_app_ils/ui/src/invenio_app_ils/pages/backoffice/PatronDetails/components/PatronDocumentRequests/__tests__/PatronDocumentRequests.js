@@ -19,6 +19,8 @@ describe('PatronDocumentRequests tests', () => {
 
   const patron = {
     pid: '2',
+    name: 'Name',
+    email: 'name@test.ch',
   };
 
   it('should load the details component', () => {
@@ -63,6 +65,11 @@ describe('PatronDocumentRequests tests', () => {
           metadata: {
             pid: 'documentRequest1',
             patron_pid: 'patron_1',
+            patron: {
+              id: 'patron_1',
+              name: 'patron_1',
+              email: 'patron_1@test.ch',
+            },
             state: 'PENDING',
             title: 'Test',
           },
@@ -75,6 +82,11 @@ describe('PatronDocumentRequests tests', () => {
           metadata: {
             pid: 'documentRequest2',
             patron_pid: 'patron_2',
+            patron: {
+              id: 'patron_2',
+              name: 'patron_2',
+              email: 'patron_2@test.ch',
+            },
             state: 'PENDING',
             title: 'Test',
           },
@@ -119,6 +131,11 @@ describe('PatronDocumentRequests tests', () => {
           metadata: {
             pid: 'documentRequest1',
             patron_pid: 'patron_1',
+            patron: {
+              id: 'patron_1',
+              name: 'patron_1',
+              email: 'patron_1@test.ch',
+            },
             state: 'PENDING',
             title: 'Test',
           },
@@ -131,6 +148,11 @@ describe('PatronDocumentRequests tests', () => {
           metadata: {
             pid: 'documentRequest2',
             patron_pid: 'patron_2',
+            patron: {
+              id: 'patron_2',
+              name: 'patron_2',
+              email: 'patron_2@test.ch',
+            },
             state: 'PENDING',
             title: 'Test',
           },
@@ -167,6 +189,11 @@ describe('PatronDocumentRequests tests', () => {
           metadata: {
             pid: 'documentRequest1',
             patron_pid: 'patron_1',
+            patron: {
+              id: 'patron_1',
+              name: 'patron_1',
+              email: 'patron_1@test.ch',
+            },
             state: 'PENDING',
             title: 'Test',
           },

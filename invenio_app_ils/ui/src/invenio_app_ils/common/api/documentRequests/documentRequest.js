@@ -12,11 +12,10 @@ const create = async data => {
   return response;
 };
 
-const get = docRequestPid => {
-  return http.get(`${documentRequestURL}${docRequestPid}`).then(response => {
-    response.data = serializer.fromJSON(response.data);
-    return response;
-  });
+const get = async docRequestPid => {
+  const response = await http.get(`${documentRequestURL}${docRequestPid}`);
+  response.data = serializer.fromJSON(response.data);
+  return response;
 };
 
 const del = async docRequestPid => {
@@ -24,14 +23,9 @@ const del = async docRequestPid => {
   return response;
 };
 
-const patch = async (docRequestPid, ops) => {
-  const response = await http.patch(
-    `${documentRequestURL}${docRequestPid}`,
-    ops,
-    {
-      headers: { 'Content-Type': 'application/json-patch+json' },
-    }
-  );
+const performAction = async (docRequestPid, action, data) => {
+  const url = `${documentRequestURL}${docRequestPid}/${action}`;
+  const response = await http.post(url, data);
   response.data = serializer.fromJSON(response.data);
   return response;
 };
@@ -119,8 +113,8 @@ export const documentRequest = {
   create: create,
   get: get,
   delete: del,
-  patch: patch,
   list: list,
+  performAction: performAction,
   count: count,
   query: queryBuilder,
   serializer: serializer,

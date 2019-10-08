@@ -13,7 +13,8 @@ from setuptools import find_packages, setup
 
 readme = open("README.rst").read()
 
-invenio_search_version = '1.2.1,<1.3.0'
+invenio_db_version = ">=1.0.4,<1.1.0"
+invenio_search_version = "1.2.1,<1.3.0"
 
 tests_require = [
     "check-manifest>=0.35",
@@ -33,22 +34,34 @@ extras_require = {
     "docs": ["Sphinx>=1.5.1"],
     "lorem": ["lorem>=0.1.1 "],
     "tests": tests_require,
-    'elasticsearch6': [
-        'invenio-search[elasticsearch6]>={}'.format(invenio_search_version),
+    "elasticsearch6": [
+        "invenio-search[elasticsearch6]>={}".format(invenio_search_version),
     ],
-    'elasticsearch7': [
-        'invenio-search[elasticsearch7]>={}'.format(invenio_search_version),
+    "elasticsearch7": [
+        "invenio-search[elasticsearch7]>={}".format(invenio_search_version),
+    ],
+    "postgresql": [
+        "invenio-db[postgresql,versioning]{}".format(invenio_db_version),
+    ],
+    "mysql": [
+        "invenio-db[mysql,versioning]{}".format(invenio_db_version),
+    ],
+    "sqlite": [
+        "invenio-db[versioning]{}".format(invenio_db_version),
     ],
 }
 
 extras_require["all"] = []
 for name, reqs in extras_require.items():
     if name in (
-        'elasticsearch6',
-        'elasticsearch7',
+        "mysql",
+        "posgresql",
+        "sqlite",
+        "elasticsearch6",
+        "elasticsearch7",
     ):
         continue
-    extras_require['all'].extend(reqs)
+    extras_require["all"].extend(reqs)
 
 setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
 
@@ -56,7 +69,7 @@ install_requires = [
     "arrow>=0.15.0",
     "Flask-BabelEx>=0.9.3",
     "Flask-Debugtoolbar>=0.10.1",
-    "invenio[postgresql,base,auth]==3.2.0a4",
+    "invenio[base,auth]==3.2.0a4",
     # metadata bundle without records UI
     "invenio-indexer>=1.1.0,<1.2.0",
     "invenio-jsonschemas>=1.0.0,<1.1.0",
@@ -122,6 +135,7 @@ setup(
             "invenio_app_ils_circulation = invenio_app_ils.circulation.views:create_circulation_blueprint",
             "invenio_app_ils_stats = invenio_app_ils.circulation.stats.views:create_stats_blueprint",
             "invenio_app_ils_relations = invenio_app_ils.records_relations.views:create_relations_blueprint",
+            "invenio_app_ils_document_request = invenio_app_ils.records.views:create_document_request_action_blueprint",
         ],
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config"
@@ -173,6 +187,7 @@ setup(
             "document_item = invenio_app_ils.records.resolver.jsonresolver.document_item",
             "document_relations = invenio_app_ils.records.resolver.jsonresolver.document_relations",
             "document_request = invenio_app_ils.records.resolver.jsonresolver.document_request",
+            "document_request_patron = invenio_app_ils.records.resolver.jsonresolver.document_request_patron",
             "document_tag = invenio_app_ils.records.resolver.jsonresolver.document_tag",
             "eitem = invenio_app_ils.records.resolver.jsonresolver.eitem",
             "internal_location = invenio_app_ils.records.resolver.jsonresolver.internal_location",
@@ -183,15 +198,15 @@ setup(
             "series_relations = invenio_app_ils.records.resolver.jsonresolver.series_relations",
             "series_tag = invenio_app_ils.records.resolver.jsonresolver.series_tag",
         ],
-        'invenio_celery.tasks': [
-            'indexer = invenio_app_ils.indexer'
+        "invenio_celery.tasks": [
+            "indexer = invenio_app_ils.indexer"
         ]
     },
     extras_require=extras_require,
     install_requires=install_requires,
     setup_requires=setup_requires,
     tests_require=tests_require,
-    python_requires='>=3',
+    python_requires=">=3",
     classifiers=[
         "Environment :: Web Environment",
         "Intended Audience :: Developers",

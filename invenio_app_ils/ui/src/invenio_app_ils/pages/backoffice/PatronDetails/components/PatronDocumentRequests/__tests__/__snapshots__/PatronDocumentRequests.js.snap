@@ -39,6 +39,11 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
           "created": "2018-01-01T10:05:00.000Z",
           "id": 1,
           "metadata": Object {
+            "patron": Object {
+              "email": "patron_1@test.ch",
+              "id": "patron_1",
+              "name": "patron_1",
+            },
             "patron_pid": "patron_1",
             "pid": "documentRequest1",
             "state": "PENDING",
@@ -51,6 +56,11 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
           "created": "2018-01-01T10:05:00.000Z",
           "id": 2,
           "metadata": Object {
+            "patron": Object {
+              "email": "patron_2@test.ch",
+              "id": "patron_2",
+              "name": "patron_2",
+            },
             "patron_pid": "patron_2",
             "pid": "documentRequest2",
             "state": "PENDING",
@@ -726,6 +736,11 @@ exports[`PatronDocumentRequests tests should render the see all button when show
           "created": "2018-01-01T10:05:00.000Z",
           "id": 1,
           "metadata": Object {
+            "patron": Object {
+              "email": "patron_1@test.ch",
+              "id": "patron_1",
+              "name": "patron_1",
+            },
             "patron_pid": "patron_1",
             "pid": "documentRequest1",
             "state": "PENDING",
@@ -738,6 +753,11 @@ exports[`PatronDocumentRequests tests should render the see all button when show
           "created": "2018-01-01T10:05:00.000Z",
           "id": 2,
           "metadata": Object {
+            "patron": Object {
+              "email": "patron_2@test.ch",
+              "id": "patron_2",
+              "name": "patron_2",
+            },
             "patron_pid": "patron_2",
             "pid": "documentRequest2",
             "state": "PENDING",

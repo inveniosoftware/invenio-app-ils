@@ -553,6 +553,14 @@ class Patron(dict):
             "email": self.email,
         }
 
+    def dumps_loader(self, include_keys=None):
+        """Return a simpler patron representation for loaders."""
+        return {
+            "id": str(self.id),
+            "name": self.name,
+            "email": self.email,
+        }
+
     @staticmethod
     def get_patron(patron_pid):
         """Return the patron object given the patron_pid."""
@@ -598,7 +606,7 @@ class Series(IlsRecordWithRelations):
 class DocumentRequest(IlsRecord):
     """DocumentRequest record class."""
 
-    STATES = ["CANCELLED", "PENDING", "FULFILLED"]
+    STATES = ["ACCEPTED", "PENDING", "REJECTED"]
 
     _pid_type = DOCUMENT_REQUEST_PID_TYPE
     _schema = "document_requests/document_request-v1.0.0.json"
@@ -607,57 +615,77 @@ class DocumentRequest(IlsRecord):
         "{scheme}://{host}/api/resolver/document-requests/"
         "{document_request_pid}/document"
     )
+    _patron_resolver_path = (
+        "{scheme}://{host}/api/resolver/document-requests/"
+        "{document_request_pid}/patron"
+    )
 
     @classmethod
-    def _validate_fulfilled(cls, document_pid):
-        """Validate data for fulfilled state."""
-        # Fulfilled requests must have a document
-        if not document_pid:
+    def validate_state(cls, state, document_pid=None):
+        """Validate state."""
+        if state not in cls.STATES:
             raise DocumentRequestError(
-                "State cannot be 'FULFILLED' without a document"
+                "Invalid state: {}".format(state)
             )
-        try:
-            document = Document.get_record_by_pid(document_pid)
-            document = document.replace_refs()
-            request = document["request"]
-            if request:
-                # The document cannot already have a request
-                raise DocumentRequestError(
-                    "Document with PID {} already has a request".format(
-                        document_pid
+
+    @classmethod
+    def validate_document_pid(cls, document_pid, state):
+        """Validate data for accepted state."""
+        # Accepted requests must have a document
+        if document_pid and (not state or state != "ACCEPTED"):
+            raise DocumentRequestError(
+                "document_pid can only be provided when accepting a request"
+            )
+        if state == "ACCEPTED":
+            if document_pid:
+                try:
+                    document = Document.get_record_by_pid(document_pid)
+                    document = document.replace_refs()
+                    request = document["request"]
+                    if request:
+                        # The document cannot already have a request
+                        raise DocumentRequestError(
+                            "Document PID {} already has a request".format(
+                                document_pid
+                            )
+                        )
+                except PIDDoesNotExistError:
+                    # Invalid document_pid
+                    raise DocumentRequestError(
+                        "State cannot be ACCEPTED because a document with "
+                        "PID {} doesn't exist".format(document_pid)
                     )
+            else:
+                raise DocumentRequestError(
+                    "State cannot be ACCEPTED without a document"
                 )
-        except PIDDoesNotExistError:
-            # Invalid document_pid
+
+    @classmethod
+    def validate_rejection(cls, state, reason):
+        """Validate rejection is correct."""
+        if state == "REJECTED" and not reason:
             raise DocumentRequestError(
-                "State cannot be 'FULFILLED' because a document with "
-                "PID {} doesn't exist".format(document_pid)
+                "Need to provide a reason when rejecting a request"
             )
+
+    @classmethod
+    def validate_document_request(cls, data):
+        """Validate document request data."""
+        document_pid = data.get("document_pid", None)
+        state = data.get("state", None)
+        reason = data.get("reason", None)
+        cls.validate_state(state)
+        cls.validate_document_pid(document_pid, state)
+        cls.validate_rejection(state, reason)
 
     @classmethod
     def validate_create(cls, data):
         """Validate document request data."""
-        if data.get("state", "") == "FULFILLED":
-            cls._validate_fulfilled(data.get("document_pid", None))
-
-    def validate_patch(self, ops):
-        """Validate document request data."""
-        # Check if state == 'FULFILLED' has been passed
-        fulfilled_state = any(
-            op["path"] == "/state" and op["value"] == "FULFILLED" for op in ops
-        )
-        if fulfilled_state:
-            # Fetch document_pid from ops
-            document_pid = next(
-                (op["value"] for op in ops if op["path"] == "/document_pid"),
-                None,
-            )
-            self._validate_fulfilled(document_pid=document_pid)
+        cls.validate_document_request(data)
 
     def validate_update(self, data):
         """Validate document request data."""
-        if data.get("state", "") == "FULFILLED":
-            self._validate_fulfilled(data.get("document_pid", None))
+        self.validate_document_request(data)
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
@@ -667,6 +695,13 @@ class DocumentRequest(IlsRecord):
             del data["document_pid"]
         data["document"] = {
             "$ref": cls._document_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                document_request_pid=data["pid"],
+            )
+        }
+        data["patron"] = {
+            "$ref": cls._patron_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 document_request_pid=data["pid"],

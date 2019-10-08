@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { performCancelAction, performFulfillAction } from '../../state/actions';
+import { performAction } from '../../state/actions';
 import RequestActionsComponent from './RequestActions';
 
 const mapStateToProps = state => ({
@@ -8,10 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  performCancelAction: (pid, cancelReason) =>
-    dispatch(performCancelAction(pid, cancelReason)),
-  performFulfillAction: (pid, documentPid) =>
-    dispatch(performFulfillAction(pid, documentPid)),
+  performAction: (pid, action, data) =>
+    dispatch(performAction(pid, action, data)),
 });
 
 export const RequestActions = connect(

@@ -4,10 +4,11 @@ import { List, Button } from 'semantic-ui-react';
 import { CancelModal } from '../../../../../common/components/CancelModal';
 
 export default class RequestActions extends Component {
-  onCancel = reason => {
-    this.props.performCancelAction(
+  onReject = reason => {
+    this.props.performAction(
       this.props.documentRequestDetails.metadata.pid,
-      reason
+      'reject',
+      { reason }
     );
   };
 
@@ -17,23 +18,23 @@ export default class RequestActions extends Component {
     if (state === 'PENDING') {
       return [
         {
-          name: 'Fulfill',
+          name: 'Accept',
           value: (
             <Button primary disabled>
-              Fulfill
+              Accept
             </Button>
           ),
         },
         {
-          name: 'Cancel',
+          name: 'Reject',
           value: (
             <CancelModal
-              header={`Cancel Document Request #${pid}`}
-              content={`You are about to cancel document request #${pid}.
-                Please enter a reason for cancelling this request.`}
-              buttonText="Cancel"
-              cancelText="Cancel Request"
-              action={this.onCancel}
+              header={`Reject Document Request #${pid}`}
+              content={`You are about to reject document request #${pid}.
+                Please enter a reason for rejecting this request.`}
+              buttonText="Reject"
+              cancelText="Reject Request"
+              action={this.onReject}
             />
           ),
         },

@@ -16,6 +16,7 @@ export class BaseForm extends Component {
     this.submitSerializer = props.submitSerializer || this._submitSerializer;
     this.title = props.title;
     this.pid = props.pid;
+    this.validationSchema = props.validationSchema;
   }
 
   _submitSerializer = values => ({ ...values });
@@ -33,7 +34,9 @@ export class BaseForm extends Component {
           'Success!',
           this.successSubmitMessage
         );
-        this.successCallback(response);
+        if (this.successCallback) {
+          this.successCallback(response);
+        }
       }, ES_DELAY);
     } catch (error) {
       const errors = getIn(error, 'response.data.errors', []);
@@ -55,14 +58,17 @@ export class BaseForm extends Component {
   render() {
     return (
       <Container>
-        <Grid>
-          <Grid.Row centered>
-            <Header>{this.title}</Header>
-          </Grid.Row>
-        </Grid>
+        {this.title && (
+          <Grid>
+            <Grid.Row centered>
+              <Header>{this.title}</Header>
+            </Grid.Row>
+          </Grid>
+        )}
         <Formik
           initialValues={this.initialValues}
           onSubmit={this.onSubmit}
+          validationSchema={this.validationSchema}
           render={({ isSubmitting, handleSubmit }) => (
             <Form onSubmit={handleSubmit} loading={isSubmitting}>
               {this.props.children}
@@ -86,4 +92,5 @@ BaseForm.propTypes = {
   submitSerializer: PropTypes.func,
   title: PropTypes.string,
   pid: PropTypes.string,
+  validationSchema: PropTypes.object,
 };

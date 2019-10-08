@@ -21,20 +21,18 @@ export const fetchDocumentRequestDetails = documentRequestPid => {
       type: IS_LOADING,
     });
 
-    await documentRequestApi
-      .get(documentRequestPid)
-      .then(response => {
-        dispatch({
-          type: SUCCESS,
-          payload: response.data,
-        });
-      })
-      .catch(error => {
-        dispatch({
-          type: HAS_ERROR,
-          payload: error,
-        });
+    try {
+      const response = await documentRequestApi.get(documentRequestPid);
+      dispatch({
+        type: SUCCESS,
+        payload: response.data,
       });
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+    }
   };
 };
 
@@ -69,50 +67,30 @@ export const deleteRequest = requestPid => {
   };
 };
 
-export const performCancelAction = (pid, cancelReason) => {
-  const ops = [
-    {
-      op: 'replace',
-      path: '/state',
-      value: 'CANCELLED',
-    },
-    {
-      op: 'add',
-      path: '/cancel_reason',
-      value: cancelReason,
-    },
-  ];
+export const performAction = (pid, action, data) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
 
-    await documentRequestApi
-      .patch(pid, ops)
-      .then(response => {
-        dispatch({
-          type: SUCCESS,
-          payload: response.data,
-        });
-        dispatch(
-          sendSuccessNotification(
-            'Successfully cancelled!',
-            `The document request was successful cancelled for document request with PID ${pid}.`
-          )
-        );
-      })
-      .catch(error => {
-        dispatch({
-          type: HAS_ERROR,
-          payload: error,
-        });
-        dispatch(sendErrorNotification(error));
+    try {
+      const resp = await documentRequestApi.performAction(pid, action, data);
+      dispatch({
+        type: SUCCESS,
+        payload: resp.data,
       });
-  };
-};
-
-export const performFulfillAction = (pid, documentPid) => {
-  return async dispatch => {
-    throw new Error('Not yet implemented!');
+      dispatch(
+        sendSuccessNotification(
+          'Successfully rejected!',
+          `The document request was successful rejected for document request ``with PID ${pid}.`
+        )
+      );
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
   };
 };

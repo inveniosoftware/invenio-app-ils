@@ -11,12 +11,12 @@
       "title": "Authors of the requested document",
       "type": "string"
     },
-    "cancel_reason": {
-      "type": "string",
-      "title": "Reason for cancelling the document request"
-    },
     "document_pid": {
       "title": "The persistent identifier of the created Document",
+      "type": "string"
+    },
+    "edition": {
+      "title": "Edition of the requested document",
       "type": "string"
     },
     "isbn": {
@@ -29,6 +29,10 @@
     },
     "issue": {
       "title": "Issue of the requested document",
+      "type": "string"
+    },
+    "journal_title": {
+      "title": "Journal title of the requested document",
       "type": "string"
     },
     "note": {
@@ -51,9 +55,16 @@
       "title": "Publication year of the requested document",
       "type": "integer"
     },
+    "reject_reason": {
+      "type": "string",
+      "title": "Reason for rejecting the document request"
+    },
+    "standard_number": {
+      "title": "Standard number of the requested document",
+      "type": "string"
+    },
     "state": {
       "description": "The state of this Request",
-      "enum": ["CANCELLED", "FULFILLED", "PENDING"],
       "type": "string"
     },
     "title": {

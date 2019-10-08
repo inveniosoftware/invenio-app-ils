@@ -5,7 +5,6 @@ import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import { MetadataTable } from '../../../components/MetadataTable';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { RequestActions } from '../RequestActions';
-import { EditButton } from '../../../components/buttons';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 
 export default class DocumentRequestMetadata extends Component {
@@ -18,14 +17,15 @@ export default class DocumentRequestMetadata extends Component {
   prepareLeftData(data) {
     const patronLink = (
       <Link to={BackOfficeRoutes.patronDetailsFor(data.metadata.patron_pid)}>
-        {data.metadata.patron_pid}
+        {data.metadata.patron.email}
       </Link>
     );
     const rows = [
       { name: 'State', value: data.metadata.state },
-      { name: 'Patron ID', value: patronLink },
+      { name: 'Patron', value: patronLink },
       { name: 'Title', value: data.metadata.title },
     ];
+    this.addRow(rows, 'Journal Title', data.metadata.journal_title);
     this.addRow(rows, 'Authors', data.metadata.authors);
     this.addRow(rows, 'ISBN', data.metadata.isbn);
     this.addRow(rows, 'ISSN', data.metadata.issn);
@@ -38,6 +38,8 @@ export default class DocumentRequestMetadata extends Component {
   prepareRightData(data) {
     const docPid = data.metadata.document_pid;
     const rows = [];
+    this.addRow(rows, 'Edition', data.metadata.edition);
+    this.addRow(rows, 'Standard Number', data.metadata.standard_number);
     if (docPid) {
       rows.push({
         name: 'Document',
@@ -52,7 +54,7 @@ export default class DocumentRequestMetadata extends Component {
     } else {
       rows.push({ name: 'Document', value: 'None' });
     }
-    this.addRow(rows, 'Cancel Reason', data.metadata.cancel_reason);
+    this.addRow(rows, 'Reject Reason', data.metadata.reject_reason);
     this.addRow(rows, 'Note', data.metadata.note);
     return rows;
   }
@@ -66,11 +68,6 @@ export default class DocumentRequestMetadata extends Component {
           </Header>
         </Grid.Column>
         <Grid.Column width={3} textAlign={'right'}>
-          <EditButton
-            clickHandler={() => {
-              // TODO: EDITOR, implement edit form
-            }}
-          />
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Document Request
             record with ID ${request.pid}?`}
