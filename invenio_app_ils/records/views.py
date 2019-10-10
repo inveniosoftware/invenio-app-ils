@@ -18,8 +18,8 @@ from invenio_rest.errors import FieldError
 
 from invenio_app_ils.circulation.views import need_permissions
 from invenio_app_ils.errors import DocumentRequestError
-from invenio_app_ils.indexer import DocumentRequestIndexer
 from invenio_app_ils.pidstore.pids import DOCUMENT_REQUEST_PID_TYPE
+from invenio_app_ils.proxies import current_app_ils_extension
 
 
 def create_document_request_action_blueprint(app):
@@ -108,7 +108,7 @@ class RejectRequestResource(DocumentRequestActionResource):
         record["reject_reason"] = reason
         record.commit()
         db.session.commit()
-        DocumentRequestIndexer().index(record)
+        current_app_ils_extension.document_request_indexer.index(record)
         return self.make_response(
             pid, record, 202
         )
