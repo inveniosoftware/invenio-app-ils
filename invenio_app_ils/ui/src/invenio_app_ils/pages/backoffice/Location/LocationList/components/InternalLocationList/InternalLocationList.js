@@ -25,7 +25,7 @@ export default class InternalLocationList extends Component {
     this.fetchInternalLocations();
   }
 
-  handleOnRefClick(itemPid) {
+  handleOnRefClick(ilocPid) {
     // TODO: navigate to item edit form
   }
 
@@ -62,7 +62,13 @@ export default class InternalLocationList extends Component {
     const rows = data.hits.map(row => {
       let serialized = formatter.internalLocation.toTable(row);
       serialized['Actions'] = this.rowActions(row.pid);
-      return omit(serialized, ['Created', 'Updated', 'Link']);
+      return omit(serialized, [
+        'Created',
+        'Updated',
+        'Link',
+        'Location ID',
+        'Location e-mail',
+      ]);
     });
     rows.totalHits = data.total;
     return rows;

@@ -20,19 +20,29 @@ function formatLoanToTableView(loan, actions = null) {
   const startDate = loan.metadata.start_date
     ? toShortDate(fromISO(loan.metadata.start_date))
     : null;
-  const endDate = loan.metadata.start_date
+  const endDate = loan.metadata.end_date
     ? toShortDate(fromISO(loan.metadata.end_date))
     : null;
+  const requested = loan.metadata.request_start_date
+    ? fromISO(loan.metadata.request_start_date).toRelativeCalendar()
+    : null;
+  const expired = loan.metadata.end_date
+    ? fromISO(loan.metadata.end_date).toRelativeCalendar()
+    : null;
+
   return {
     ID: loan.pid ? loan.pid : loan.id,
     'Patron ID': loan.metadata.patron_pid,
     'Document ID': loan.metadata.document_pid,
+    Patron: loan.metadata.patron.email,
     State: loan.metadata.state,
     'Item barcode': loan.metadata.item ? loan.metadata.item.barcode : null,
     'Request start date': requestStartDate,
     'Request end date': requestEndDate,
     'Start date': startDate,
     'End date': endDate,
+    Requested: requested,
+    Expired: expired,
     Renewals: loan.metadata.extension_count,
     Actions: actions,
   };
@@ -45,12 +55,11 @@ function formatDocumentToTableView(document, volume = null) {
     Updated: toShortDate(fromISO(document.updated)),
   };
   if (!isEmpty(document.metadata)) {
-    serialized['Title'] = document.metadata.title.title;
+    serialized['Title'] = document.metadata.title;
     serialized['Authors'] = document.metadata.authors
       .map(author => author.full_name)
       .join(',');
     if (document.metadata.circulation) {
-      serialized['Requests'] = document.metadata.circulation.pending_loans;
       serialized['Available Items'] =
         document.metadata.circulation.has_items_for_loan;
       serialized['Overdue Loans'] = document.metadata.circulation.overdue_loans;
@@ -97,12 +106,13 @@ function formatMostLoanedDocumentToTableView(document, fromDate, toDate) {
 function formatItemToTableView(item) {
   return {
     ID: item.pid ? item.pid : item.id,
+    'Document ID': item.metadata.document_pid,
     Created: toShortDate(fromISO(item.created)),
     Updated: toShortDate(fromISO(item.updated)),
     Barcode: item.metadata.barcode,
-    'Document ID': item.metadata.document_pid,
-    Status: item.metadata.status,
+    Title: item.metadata.document.title,
     Medium: item.metadata.medium,
+    Status: item.metadata.status,
     'Circulation status': item.metadata.circulation
       ? item.metadata.circulation.state
       : null,
@@ -123,6 +133,7 @@ function formatEItemToTableView(eitem) {
     'Open access': eitem.metadata.open_access ? 'Yes' : 'No',
     Created: toShortDate(fromISO(eitem.created)),
     Updated: toShortDate(fromISO(eitem.updated)),
+    Title: eitem.metadata.document.title,
     Description: truncate(eitem.metadata.description, {
       length: TRUNCATE_LENGTH,
     }),
@@ -153,11 +164,11 @@ function formatInternalLocationToTableView(internalLoc) {
   };
   if (!isEmpty(internalLoc.metadata)) {
     assign(entry, {
+      'Location ID': internalLoc.metadata.location.pid,
       Name: internalLoc.metadata.name,
       'Physical location': internalLoc.metadata.physical_location,
+      Location: internalLoc.metadata.location.name,
       'Location e-mail': internalLoc.metadata.location.email,
-      'Location name': internalLoc.metadata.location.name,
-      'Location id': internalLoc.metadata.location.pid,
     });
   }
   return entry;

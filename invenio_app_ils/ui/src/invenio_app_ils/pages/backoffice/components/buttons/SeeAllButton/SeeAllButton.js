@@ -7,7 +7,7 @@ export default class SeeAllButton extends Component {
     const { fluid, disabled } = this.props;
     return (
       <Button
-        size="small"
+        size="tiny"
         {...(disabled ? { disabled: true } : {})}
         {...(fluid ? { fluid: true } : {})}
         onClick={this.props.clickHandler}

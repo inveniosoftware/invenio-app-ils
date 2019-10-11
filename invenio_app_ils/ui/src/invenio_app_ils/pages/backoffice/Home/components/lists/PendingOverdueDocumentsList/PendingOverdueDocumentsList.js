@@ -38,7 +38,6 @@ export default class PendingOverdueDocumentsList extends Component {
         'Title',
         'Overdue Loans',
         'Pending Requests',
-        'Available Items',
       ]);
     });
   }
@@ -49,7 +48,7 @@ export default class PendingOverdueDocumentsList extends Component {
     return (
       <ResultsTable
         rows={rows}
-        title={'Pending Overdue Documents'}
+        title={'Pending overdue documents'}
         subtitle={`Documents with pending loan requests, no available items and an active loan that's overdue.`}
         name={'pending overdue documents'}
         rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}

@@ -33,13 +33,13 @@ export default class Home extends Component {
 
         <Grid.Row columns={2}>
           <Grid.Column>
-            <OverbookedDocumentsList />
+            <IdleLoansList />
             <OverdueLoansList />
+            <RenewedLoansList />
           </Grid.Column>
           <Grid.Column>
+            <OverbookedDocumentsList />
             <PendingOverdueDocumentsList />
-            <RenewedLoansList />
-            <IdleLoansList />
           </Grid.Column>
         </Grid.Row>
       </Grid>

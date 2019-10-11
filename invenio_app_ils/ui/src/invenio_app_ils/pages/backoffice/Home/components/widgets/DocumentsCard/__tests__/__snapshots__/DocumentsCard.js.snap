@@ -183,13 +183,13 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                               disabled={true}
                               fluid={true}
                               onClick={[Function]}
-                              size="small"
+                              size="tiny"
                             >
                               <Ref
                                 innerRef={
                                   Object {
                                     "current": <button
-                                      class="ui small fluid disabled button"
+                                      class="ui tiny fluid disabled button"
                                       disabled=""
                                       tabindex="-1"
                                     >
@@ -202,7 +202,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui small fluid disabled button"
+                                        class="ui tiny fluid disabled button"
                                         disabled=""
                                         tabindex="-1"
                                       >
@@ -212,7 +212,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                   }
                                 >
                                   <button
-                                    className="ui small fluid disabled button"
+                                    className="ui tiny fluid disabled button"
                                     disabled={true}
                                     onClick={[Function]}
                                     tabIndex={-1}

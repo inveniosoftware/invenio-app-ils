@@ -48,7 +48,7 @@ export default class DocumentItem extends Component {
               <div className="document-share-buttons"></div>
             </Responsive>
             <Item.Content>
-              <Item.Header>{this.metadata.title.title}</Item.Header>
+              <Item.Header>{this.metadata.title}</Item.Header>
               <Item.Meta>
                 <span className="author">
                   Authors:{' '}
@@ -63,14 +63,10 @@ export default class DocumentItem extends Component {
                 </span>
               </Item.Meta>
               <Responsive {...Responsive.onlyMobile}>
-                <Item.Description>
-                  {this.metadata.abstracts[0].value}
-                </Item.Description>
+                <Item.Description>{this.metadata.abstract}</Item.Description>
               </Responsive>
               <Responsive {...Responsive.onlyComputer}>
-                <Item.Description>
-                  {this.metadata.abstracts[0].value}
-                </Item.Description>
+                <Item.Description>{this.metadata.abstract}</Item.Description>
               </Responsive>
               <Item.Extra>
                 <Button

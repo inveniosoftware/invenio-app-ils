@@ -1,13 +1,25 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { Settings } from 'luxon';
-import { fromISO } from '../../../../../../common/api/date';
 import ItemPastLoans from '../ItemPastLoans';
+import testData from '../../../../../../../../../../tests/data/loans.json';
 
 jest.mock('../../../../../../common/config/invenioConfig');
 
-Settings.defaultZoneName = 'utc';
-const stringDate = fromISO('2018-01-01T11:05:00+01:00');
+const data = {
+  hits: [
+    {
+      id: 1,
+      pid: 'loan1',
+      metadata: testData[0],
+    },
+    {
+      id: 2,
+      pid: 'loan2',
+      metadata: testData[1],
+    },
+  ],
+  total: 2,
+};
 
 describe('ItemPastLoans tests', () => {
   let component;
@@ -65,36 +77,6 @@ describe('ItemPastLoans tests', () => {
   });
 
   it('should render pending loans', () => {
-    const data = {
-      hits: [
-        {
-          id: 1,
-          updated: stringDate,
-          created: stringDate,
-          pid: 'loan1',
-          metadata: {
-            pid: 'loan1',
-            patron_pid: 'patron_1',
-            start_date: stringDate,
-            end_date: stringDate,
-          },
-        },
-        {
-          id: 2,
-          updated: stringDate,
-          created: stringDate,
-          pid: 'loan2',
-          metadata: {
-            pid: 'loan2',
-            patron_pid: 'patron_2',
-            start_date: stringDate,
-            end_date: stringDate,
-          },
-        },
-      ],
-      total: 2,
-    };
-
     component = mount(
       <ItemPastLoans itemDetails={item} data={data} fetchPastLoans={() => {}} />
     );

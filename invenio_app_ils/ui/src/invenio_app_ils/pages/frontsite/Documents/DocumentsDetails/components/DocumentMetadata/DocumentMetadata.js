@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Container, Divider, Grid, Segment, Tab } from 'semantic-ui-react';
+import { Container, Divider, Tab } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { DocumentTags, DocumentRelations, DocumentInfo } from './components';
+import { DocumentRelations, DocumentInfo } from './components';
 import { DocumentTableOfContent } from './components/DocumentTableOfContent';
 import { DocumentConference } from './components/DocumentConference';
 

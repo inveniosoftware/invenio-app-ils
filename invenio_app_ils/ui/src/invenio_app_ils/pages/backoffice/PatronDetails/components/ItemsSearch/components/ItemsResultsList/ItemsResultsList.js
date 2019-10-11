@@ -7,7 +7,7 @@ import { invenioConfig, ES_DELAY } from '../../../../../../../common/config';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
 
-export class ResultsList extends Component {
+export class ItemsResultsList extends Component {
   constructor(props) {
     super(props);
     this.viewDetailsClickHandler = this.props.viewDetailsClickHandler;
@@ -128,7 +128,7 @@ export class ResultsList extends Component {
   }
 }
 
-ResultsList.propTypes = {
+ItemsResultsList.propTypes = {
   results: PropTypes.object.isRequired,
   viewDetailsClickHandler: PropTypes.func.isRequired,
   clearResults: PropTypes.func.isRequired,

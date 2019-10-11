@@ -17,11 +17,17 @@ import {
   Error as IlsError,
   SearchBar as LoansSearchBar,
   ResultsSort,
+  ResultsTable,
 } from '../../../common/components';
+import { formatter } from '../../../common/components/ResultsTable/formatters';
+import {
+  ExportReactSearchKitResults,
+  OverdueLoanSendMailModal,
+} from '../components';
 import { loan as loanApi } from '../../../common/api/loans/loan';
-import { ResultsList as LoansResultsList } from './components';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { goTo } from '../../../history';
+import _pick from 'lodash/pick';
 
 export class LoansSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -41,13 +47,44 @@ export class LoansSearch extends Component {
     );
   };
 
-  renderResultsList = results => {
+  prepareData(data) {
+    return data.map(row => {
+      const actions = row.metadata.is_overdue && (
+        <OverdueLoanSendMailModal loan={row} />
+      );
+      return _pick(formatter.loan.toTable(row, actions), [
+        'ID',
+        'Document ID',
+        'Patron',
+        'State',
+        'Requested',
+        'Expired',
+        'Renewals',
+        'Actions',
+      ]);
+    });
+  }
+
+  renderResultsTable = results => {
+    const rows = this.prepareData(results);
+    const maxRowsToShow =
+      rows.length > ResultsTable.defaultProps.showMaxRows
+        ? rows.length
+        : ResultsTable.defaultProps.showMaxRows;
+
+    const headerActionComponent = (
+      <ExportReactSearchKitResults exportBaseUrl={loanApi.searchBaseURL} />
+    );
+
     return (
-      <LoansResultsList
-        results={results}
-        viewDetailsClickHandler={row =>
+      <ResultsTable
+        rows={rows}
+        name={'loans'}
+        headerActionComponent={headerActionComponent}
+        rowActionClickHandler={row =>
           goTo(BackOfficeRoutes.loanDetailsFor(row.ID))
         }
+        showMaxRows={maxRowsToShow}
       />
     );
   };
@@ -131,7 +168,7 @@ export class LoansSearch extends Component {
                 <EmptyResults renderElement={this.renderEmptyResults} />
                 <Error renderElement={this.renderError} />
                 {this.renderHeader()}
-                <ResultsList renderElement={this.renderResultsList} />
+                <ResultsList renderElement={this.renderResultsTable} />
                 {this.renderFooter()}
               </Grid.Column>
             </ResultsLoader>

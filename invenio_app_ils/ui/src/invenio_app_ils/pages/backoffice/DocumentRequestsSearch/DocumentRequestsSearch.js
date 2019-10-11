@@ -16,13 +16,16 @@ import {
   Error as IlsError,
   SearchBar as DocumentRequestsSearchBar,
   ResultsSort,
+  ResultsTable,
 } from '../../../common/components';
+import { formatter } from '../../../common/components/ResultsTable/formatters';
 import { documentRequest as documentRequestApi } from '../../../common/api/documentRequests/documentRequest';
 import { getSearchConfig } from '../../../common/config';
 import { ClearButton, NewButton } from '../components/buttons';
+import { ExportReactSearchKitResults } from '../components';
 import { BackOfficeRoutes } from '../../../routes/urls';
-import { ResultsList as DocumentRequestResultsList } from './components';
 import { goTo } from '../../../history';
+import _pick from 'lodash/pick';
 
 export class DocumentRequestsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -55,11 +58,40 @@ export class DocumentRequestsSearch extends Component {
     );
   };
 
-  renderResultsList = results => {
+  prepareData(data) {
+    return data.map(row => {
+      return _pick(formatter.documentRequest.toTable(row), [
+        'ID',
+        'Patron ID',
+        'Title',
+        'Library Book',
+      ]);
+    });
+  }
+
+  renderResultsTable = results => {
+    const rows = this.prepareData(results);
+    const headerActionComponent = (
+      <div>
+        <NewButton
+          text={'New document request'}
+          clickHandler={() => {
+            // TODO: EDITOR, implement create form
+          }}
+        />
+        <ExportReactSearchKitResults
+          exportBaseUrl={documentRequestApi.searchBaseURL}
+        />
+      </div>
+    );
+
     return (
-      <DocumentRequestResultsList
-        results={results}
-        viewDetailsClickHandler={row =>
+      <ResultsTable
+        rows={rows}
+        title={''}
+        name={'document request'}
+        headerActionComponent={headerActionComponent}
+        rowActionClickHandler={row =>
           goTo(BackOfficeRoutes.documentRequestDetailsFor(row.ID))
         }
       />
@@ -153,7 +185,7 @@ export class DocumentRequestsSearch extends Component {
                 <EmptyResults renderElement={this.renderEmptyResults} />
                 <Error renderElement={this.renderError} />
                 {this.renderHeader()}
-                <ResultsList renderElement={this.renderResultsList} />
+                <ResultsList renderElement={this.renderResultsTable} />
                 {this.renderFooter()}
               </Grid.Column>
             </ResultsLoader>

@@ -2,12 +2,34 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import DocumentItems from '../DocumentItems';
-import { Settings } from 'luxon';
-import { fromISO } from '../../../../../../common/api/date';
 import history from '../../../../../../history';
+import testData from '../../../../../../../../../../tests/data/items.json';
 
-Settings.defaultZoneName = 'utc';
-const stringDate = fromISO('2018-01-01T11:05:00+01:00');
+const data = {
+  hits: [
+    {
+      ID: '1',
+      pid: 'item1',
+      metadata: {
+        ...testData[0],
+        document: { title: 'Document 1 title' },
+        internal_location: { location: { name: 'Somewhere' } },
+        shelf: 'Shelf 1',
+      },
+    },
+    {
+      id: '2',
+      pid: 'item2',
+      metadata: {
+        ...testData[1],
+        document: { title: 'Document 2 title' },
+        internal_location: { location: { name: 'Somewhere Else' } },
+        shelf: 'Shelf 2',
+      },
+    },
+  ],
+  total: 2,
+};
 
 describe('DocumentItems tests', () => {
   let component;
@@ -64,38 +86,6 @@ describe('DocumentItems tests', () => {
   });
 
   it('should render item', () => {
-    const data = {
-      hits: [
-        {
-          ID: '1',
-          updated: stringDate,
-          created: stringDate,
-          pid: 'item1',
-          metadata: {
-            document_pid: 'doc1',
-            pid: 'item1',
-            internal_location: { location: { name: 'Somewhere' } },
-            barcode: '44444',
-            shelf: 'P',
-          },
-        },
-        {
-          id: '2',
-          updated: stringDate,
-          created: stringDate,
-          pid: 'item2',
-          metadata: {
-            document_pid: 'doc2',
-            pid: 'item2',
-            internal_location: { location: { name: 'Somewhere' } },
-            barcode: '44444',
-            shelf: 'P',
-          },
-        },
-      ],
-      total: 2,
-    };
-
     component = mount(
       <DocumentItems document={doc} data={data} fetchDocumentItems={() => {}} />
     );
@@ -117,36 +107,6 @@ describe('DocumentItems tests', () => {
   });
 
   it('should render the see all button when showing only a few items', () => {
-    const data = {
-      hits: [
-        {
-          id: '1',
-          updated: stringDate,
-          created: stringDate,
-          metadata: {
-            document_pid: 'doc1',
-            pid: 'item1',
-            internal_location: { location: { name: 'Somewhere' } },
-            barcode: '44444',
-            shelf: 'P',
-          },
-        },
-        {
-          id: '2',
-          updated: stringDate,
-          created: stringDate,
-          metadata: {
-            document_pid: 'doc2',
-            pid: 'item2',
-            internal_location: { location: { name: 'Somewhere' } },
-            barcode: '44444',
-            shelf: 'P',
-          },
-        },
-      ],
-      total: 2,
-    };
-
     component = mount(
       <DocumentItems
         document={doc}
@@ -166,25 +126,6 @@ describe('DocumentItems tests', () => {
   it('should go to items details when clicking on a item row', () => {
     const mockedHistoryPush = jest.fn();
     history.push = mockedHistoryPush;
-    const data = {
-      hits: [
-        {
-          ID: '1',
-          updated: stringDate,
-          created: stringDate,
-          pid: 'item1',
-          metadata: {
-            document_pid: 'doc1',
-            pid: 'item1',
-            internal_location: { location: { name: 'Somewhere' } },
-            shelf: 'P',
-            barcode: '44444',
-          },
-        },
-      ],
-      total: 2,
-    };
-
     component = mount(
       <DocumentItems
         document={doc}

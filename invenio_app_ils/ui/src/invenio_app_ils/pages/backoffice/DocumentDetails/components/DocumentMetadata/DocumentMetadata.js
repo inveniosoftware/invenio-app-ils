@@ -188,7 +188,7 @@ export default class DocumentMetadata extends Component {
       <Grid.Row>
         <Grid.Column width={13} verticalAlign={'middle'}>
           <Header as="h1">
-            Document #{document.pid} - {document.metadata.title.title}
+            Document #{document.pid} - {document.metadata.title}
           </Header>
         </Grid.Column>
         <Grid.Column width={3} textAlign={'right'}>
@@ -210,7 +210,7 @@ export default class DocumentMetadata extends Component {
 
   prepareData(document) {
     const rows = [
-      { name: 'Title', value: document.metadata.title.title },
+      { name: 'Title', value: document.metadata.title },
       {
         name: 'Authors',
         value: document.metadata.authors

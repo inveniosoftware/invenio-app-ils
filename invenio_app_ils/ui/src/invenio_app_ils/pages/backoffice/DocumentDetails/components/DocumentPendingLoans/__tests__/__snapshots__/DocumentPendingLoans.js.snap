@@ -36,30 +36,44 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
     Object {
       "hits": Array [
         Object {
-          "created": "2018-01-01T10:05:00.000Z",
           "id": 1,
           "metadata": Object {
-            "document_pid": "doc1",
-            "end_date": "2018-01-01T10:05:00.000Z",
-            "patron_pid": "patron_1",
-            "pid": "loan1",
-            "start_date": "2018-01-01T10:05:00.000Z",
+            "document_pid": "docid-1",
+            "end_date": "2018-07-28",
+            "item_pid": "itemid-1",
+            "patron": Object {
+              "email": "patron1@test.ch",
+            },
+            "patron_pid": "1",
+            "pickup_location_pid": "locid-1",
+            "pid": "loanid-1",
+            "start_date": "2018-06-28",
+            "state": "PENDING",
+            "transaction_date": "2018-06-29",
+            "transaction_location_pid": "locid-1",
+            "transaction_user_pid": "user_pid",
           },
           "pid": "loan1",
-          "updated": "2018-01-01T10:05:00.000Z",
         },
         Object {
-          "created": "2018-01-01T10:05:00.000Z",
           "id": 2,
           "metadata": Object {
-            "document_pid": "doc1",
-            "end_date": "2018-01-01T10:05:00.000Z",
-            "patron_pid": "patron_2",
-            "pid": "loan2",
-            "start_date": "2018-01-01T10:05:00.000Z",
+            "document_pid": "docid-1",
+            "end_date": "2018-07-28",
+            "item_pid": "itemid-2",
+            "patron": Object {
+              "email": "patron2@test.ch",
+            },
+            "patron_pid": "1",
+            "pickup_location_pid": "locid-1",
+            "pid": "loanid-2",
+            "start_date": "2018-06-28",
+            "state": "PENDING",
+            "transaction_date": "2018-06-29",
+            "transaction_location_pid": "locid-1",
+            "transaction_user_pid": "user_pid",
           },
           "pid": "loan2",
-          "updated": "2018-01-01T10:05:00.000Z",
         },
       ],
       "total": 2,
@@ -92,13 +106,13 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
           Array [
             Object {
               "ID": "loan1",
-              "Patron ID": "patron_1",
+              "Patron": "patron1@test.ch",
               "Request end date": null,
               "Request start date": null,
             },
             Object {
               "ID": "loan2",
-              "Patron ID": "patron_2",
+              "Patron": "patron2@test.ch",
               "Request end date": null,
               "Request start date": null,
             },
@@ -131,10 +145,10 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                   >
                     <GridColumn
                       verticalAlign="middle"
-                      width={8}
+                      width={16}
                     >
                       <div
-                        className="middle aligned eight wide column"
+                        className="middle aligned sixteen wide column"
                       >
                         <Header
                           as="h3"
@@ -170,22 +184,23 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
             </Grid>
             <Table
               as="table"
+              compact={true}
               selectable={true}
               striped={true}
             >
               <table
-                className="ui selectable striped table"
+                className="ui selectable striped compact table"
               >
                 <ResultsTableHeader
                   columns={
                     Array [
                       "ID",
-                      "Patron ID",
+                      "Patron",
                       "Request start date",
                       "Request end date",
                     ]
                   }
-                  withRowAction={true}
+                  withRowAction={false}
                 >
                   <TableHeader
                     as="thead"
@@ -204,40 +219,19 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                         >
                           <TableHeaderCell
                             as="th"
-                            collapsing={true}
-                            width={2}
                           >
                             <TableCell
                               as="th"
                               className=""
-                              collapsing={true}
-                              width={2}
                             >
                               <th
-                                className="collapsing two wide"
+                                className=""
                               />
                             </TableCell>
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
                             key="ID"
-                            width={2}
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                              width={2}
-                            >
-                              <th
-                                className="two wide"
-                              >
-                                ID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Patron ID"
                           >
                             <TableCell
                               as="th"
@@ -246,7 +240,22 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                               <th
                                 className=""
                               >
-                                Patron ID
+                                ID
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Patron"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Patron
                               </th>
                             </TableCell>
                           </TableHeaderCell>
@@ -289,7 +298,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                   columns={
                     Array [
                       "ID",
-                      "Patron ID",
+                      "Patron",
                       "Request start date",
                       "Request end date",
                     ]
@@ -299,13 +308,13 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                     Array [
                       Object {
                         "ID": "loan1",
-                        "Patron ID": "patron_1",
+                        "Patron": "patron1@test.ch",
                         "Request end date": null,
                         "Request start date": null,
                       },
                       Object {
                         "ID": "loan2",
-                        "Patron ID": "patron_2",
+                        "Patron": "patron2@test.ch",
                         "Request end date": null,
                         "Request start date": null,
                       },
@@ -337,22 +346,21 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                             >
                               <Button
                                 as="button"
-                                circular={true}
                                 compact={true}
                                 data-test="btn-view-details-loan1"
-                                icon="eye"
+                                icon="info"
                                 onClick={[Function]}
                               >
                                 <Ref
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui circular compact icon button"
+                                        class="ui compact icon button"
                                         data-test="btn-view-details-loan1"
                                       >
                                         <i
                                           aria-hidden="true"
-                                          class="eye icon"
+                                          class="info icon"
                                         />
                                       </button>,
                                     }
@@ -362,29 +370,29 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                                     innerRef={
                                       Object {
                                         "current": <button
-                                          class="ui circular compact icon button"
+                                          class="ui compact icon button"
                                           data-test="btn-view-details-loan1"
                                         >
                                           <i
                                             aria-hidden="true"
-                                            class="eye icon"
+                                            class="info icon"
                                           />
                                         </button>,
                                       }
                                     }
                                   >
                                     <button
-                                      className="ui circular compact icon button"
+                                      className="ui compact icon button"
                                       data-test="btn-view-details-loan1"
                                       onClick={[Function]}
                                     >
                                       <Icon
                                         as="i"
-                                        name="eye"
+                                        name="info"
                                       >
                                         <i
                                           aria-hidden="true"
-                                          className="eye icon"
+                                          className="info icon"
                                           onClick={[Function]}
                                         />
                                       </Icon>
@@ -408,14 +416,14 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Patron ID-loan1"
+                            data-test="Patron-loan1"
                             key="1-loan1"
                           >
                             <td
                               className=""
-                              data-test="Patron ID-loan1"
+                              data-test="Patron-loan1"
                             >
-                              patron_1
+                              patron1@test.ch
                             </td>
                           </TableCell>
                           <TableCell
@@ -463,22 +471,21 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                             >
                               <Button
                                 as="button"
-                                circular={true}
                                 compact={true}
                                 data-test="btn-view-details-loan2"
-                                icon="eye"
+                                icon="info"
                                 onClick={[Function]}
                               >
                                 <Ref
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui circular compact icon button"
+                                        class="ui compact icon button"
                                         data-test="btn-view-details-loan2"
                                       >
                                         <i
                                           aria-hidden="true"
-                                          class="eye icon"
+                                          class="info icon"
                                         />
                                       </button>,
                                     }
@@ -488,29 +495,29 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                                     innerRef={
                                       Object {
                                         "current": <button
-                                          class="ui circular compact icon button"
+                                          class="ui compact icon button"
                                           data-test="btn-view-details-loan2"
                                         >
                                           <i
                                             aria-hidden="true"
-                                            class="eye icon"
+                                            class="info icon"
                                           />
                                         </button>,
                                       }
                                     }
                                   >
                                     <button
-                                      className="ui circular compact icon button"
+                                      className="ui compact icon button"
                                       data-test="btn-view-details-loan2"
                                       onClick={[Function]}
                                     >
                                       <Icon
                                         as="i"
-                                        name="eye"
+                                        name="info"
                                       >
                                         <i
                                           aria-hidden="true"
-                                          className="eye icon"
+                                          className="info icon"
                                           onClick={[Function]}
                                         />
                                       </Icon>
@@ -534,14 +541,14 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Patron ID-loan2"
+                            data-test="Patron-loan2"
                             key="1-loan2"
                           >
                             <td
                               className=""
-                              data-test="Patron ID-loan2"
+                              data-test="Patron-loan2"
                             >
-                              patron_2
+                              patron2@test.ch
                             </td>
                           </TableCell>
                           <TableCell
@@ -657,10 +664,10 @@ exports[`DocumentPendingLoans tests should render show a message with no pending
                   >
                     <GridColumn
                       verticalAlign="middle"
-                      width={8}
+                      width={16}
                     >
                       <div
-                        className="middle aligned eight wide column"
+                        className="middle aligned sixteen wide column"
                       >
                         <Header
                           as="h3"
@@ -720,30 +727,44 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
     Object {
       "hits": Array [
         Object {
-          "created": "2018-01-01T10:05:00.000Z",
           "id": 1,
           "metadata": Object {
-            "document_pid": "doc1",
-            "end_date": "2018-01-01T10:05:00.000Z",
-            "patron_pid": "patron_1",
-            "pid": "loan1",
-            "start_date": "2018-01-01T10:05:00.000Z",
+            "document_pid": "docid-1",
+            "end_date": "2018-07-28",
+            "item_pid": "itemid-1",
+            "patron": Object {
+              "email": "patron1@test.ch",
+            },
+            "patron_pid": "1",
+            "pickup_location_pid": "locid-1",
+            "pid": "loanid-1",
+            "start_date": "2018-06-28",
+            "state": "PENDING",
+            "transaction_date": "2018-06-29",
+            "transaction_location_pid": "locid-1",
+            "transaction_user_pid": "user_pid",
           },
           "pid": "loan1",
-          "updated": "2018-01-01T10:05:00.000Z",
         },
         Object {
-          "created": "2018-01-01T10:05:00.000Z",
           "id": 2,
           "metadata": Object {
-            "document_pid": "doc1",
-            "end_date": "2018-01-01T10:05:00.000Z",
-            "patron_pid": "patron_2",
-            "pid": "loan2",
-            "start_date": "2018-01-01T10:05:00.000Z",
+            "document_pid": "docid-1",
+            "end_date": "2018-07-28",
+            "item_pid": "itemid-2",
+            "patron": Object {
+              "email": "patron2@test.ch",
+            },
+            "patron_pid": "1",
+            "pickup_location_pid": "locid-1",
+            "pid": "loanid-2",
+            "start_date": "2018-06-28",
+            "state": "PENDING",
+            "transaction_date": "2018-06-29",
+            "transaction_location_pid": "locid-1",
+            "transaction_user_pid": "user_pid",
           },
           "pid": "loan2",
-          "updated": "2018-01-01T10:05:00.000Z",
         },
       ],
       "total": 2,
@@ -776,13 +797,13 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
           Array [
             Object {
               "ID": "loan1",
-              "Patron ID": "patron_1",
+              "Patron": "patron1@test.ch",
               "Request end date": null,
               "Request start date": null,
             },
             Object {
               "ID": "loan2",
-              "Patron ID": "patron_2",
+              "Patron": "patron2@test.ch",
               "Request end date": null,
               "Request start date": null,
             },
@@ -815,10 +836,10 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                   >
                     <GridColumn
                       verticalAlign="middle"
-                      width={8}
+                      width={16}
                     >
                       <div
-                        className="middle aligned eight wide column"
+                        className="middle aligned sixteen wide column"
                       >
                         <Header
                           as="h3"
@@ -854,22 +875,23 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
             </Grid>
             <Table
               as="table"
+              compact={true}
               selectable={true}
               striped={true}
             >
               <table
-                className="ui selectable striped table"
+                className="ui selectable striped compact table"
               >
                 <ResultsTableHeader
                   columns={
                     Array [
                       "ID",
-                      "Patron ID",
+                      "Patron",
                       "Request start date",
                       "Request end date",
                     ]
                   }
-                  withRowAction={true}
+                  withRowAction={false}
                 >
                   <TableHeader
                     as="thead"
@@ -888,40 +910,19 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                         >
                           <TableHeaderCell
                             as="th"
-                            collapsing={true}
-                            width={2}
                           >
                             <TableCell
                               as="th"
                               className=""
-                              collapsing={true}
-                              width={2}
                             >
                               <th
-                                className="collapsing two wide"
+                                className=""
                               />
                             </TableCell>
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
                             key="ID"
-                            width={2}
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                              width={2}
-                            >
-                              <th
-                                className="two wide"
-                              >
-                                ID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Patron ID"
                           >
                             <TableCell
                               as="th"
@@ -930,7 +931,22 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                               <th
                                 className=""
                               >
-                                Patron ID
+                                ID
+                              </th>
+                            </TableCell>
+                          </TableHeaderCell>
+                          <TableHeaderCell
+                            as="th"
+                            key="Patron"
+                          >
+                            <TableCell
+                              as="th"
+                              className=""
+                            >
+                              <th
+                                className=""
+                              >
+                                Patron
                               </th>
                             </TableCell>
                           </TableHeaderCell>
@@ -973,7 +989,7 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                   columns={
                     Array [
                       "ID",
-                      "Patron ID",
+                      "Patron",
                       "Request start date",
                       "Request end date",
                     ]
@@ -983,7 +999,7 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                     Array [
                       Object {
                         "ID": "loan1",
-                        "Patron ID": "patron_1",
+                        "Patron": "patron1@test.ch",
                         "Request end date": null,
                         "Request start date": null,
                       },
@@ -1015,22 +1031,21 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                             >
                               <Button
                                 as="button"
-                                circular={true}
                                 compact={true}
                                 data-test="btn-view-details-loan1"
-                                icon="eye"
+                                icon="info"
                                 onClick={[Function]}
                               >
                                 <Ref
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui circular compact icon button"
+                                        class="ui compact icon button"
                                         data-test="btn-view-details-loan1"
                                       >
                                         <i
                                           aria-hidden="true"
-                                          class="eye icon"
+                                          class="info icon"
                                         />
                                       </button>,
                                     }
@@ -1040,29 +1055,29 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                                     innerRef={
                                       Object {
                                         "current": <button
-                                          class="ui circular compact icon button"
+                                          class="ui compact icon button"
                                           data-test="btn-view-details-loan1"
                                         >
                                           <i
                                             aria-hidden="true"
-                                            class="eye icon"
+                                            class="info icon"
                                           />
                                         </button>,
                                       }
                                     }
                                   >
                                     <button
-                                      className="ui circular compact icon button"
+                                      className="ui compact icon button"
                                       data-test="btn-view-details-loan1"
                                       onClick={[Function]}
                                     >
                                       <Icon
                                         as="i"
-                                        name="eye"
+                                        name="info"
                                       >
                                         <i
                                           aria-hidden="true"
-                                          className="eye icon"
+                                          className="info icon"
                                           onClick={[Function]}
                                         />
                                       </Icon>
@@ -1086,14 +1101,14 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Patron ID-loan1"
+                            data-test="Patron-loan1"
                             key="1-loan1"
                           >
                             <td
                               className=""
-                              data-test="Patron ID-loan1"
+                              data-test="Patron-loan1"
                             >
-                              patron_1
+                              patron1@test.ch
                             </td>
                           </TableCell>
                           <TableCell
@@ -1194,13 +1209,13 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                                       <Button
                                         as="button"
                                         onClick={[Function]}
-                                        size="small"
+                                        size="tiny"
                                       >
                                         <Ref
                                           innerRef={
                                             Object {
                                               "current": <button
-                                                class="ui small button"
+                                                class="ui tiny button"
                                               >
                                                 See all
                                               </button>,
@@ -1211,7 +1226,7 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                                             innerRef={
                                               Object {
                                                 "current": <button
-                                                  class="ui small button"
+                                                  class="ui tiny button"
                                                 >
                                                   See all
                                                 </button>,
@@ -1219,7 +1234,7 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                                             }
                                           >
                                             <button
-                                              className="ui small button"
+                                              className="ui tiny button"
                                               onClick={[Function]}
                                             >
                                               See all

@@ -16,12 +16,15 @@ import {
   Error as IlsError,
   SearchBar as EItemsSearchBar,
   ResultsSort,
+  ResultsTable,
 } from '../../../../common/components';
+import { formatter } from '../../../../common/components/ResultsTable/formatters';
 import { eitem as eitemApi } from '../../../../common/api';
+import { ExportReactSearchKitResults } from '../../components';
 import { ClearButton, NewButton } from '../../components/buttons';
 import { BackOfficeRoutes } from '../../../../routes/urls';
-import { ResultsList as EItemsResultsList } from './components';
 import { goTo, goToHandler } from '../../../../history';
+import _omit from 'lodash/omit';
 
 export class EItemSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -41,13 +44,43 @@ export class EItemSearch extends Component {
     );
   };
 
-  renderResultsList = results => {
+  prepareData(data) {
+    return data.map(row => {
+      return _omit(formatter.eitem.toTable(row), [
+        'Created',
+        'Updated',
+        'Document ID',
+        'Internal Notes',
+      ]);
+    });
+  }
+
+  renderResultsTable = results => {
+    const rows = this.prepareData(results);
+    const maxRowsToShow =
+      rows.length > ResultsTable.defaultProps.showMaxRows
+        ? rows.length
+        : ResultsTable.defaultProps.showMaxRows;
+    const headerActionComponent = (
+      <div>
+        <NewButton
+          text={'New eitem'}
+          clickHandler={goToHandler(BackOfficeRoutes.eitemCreate)}
+        />
+        <ExportReactSearchKitResults exportBaseUrl={eitemApi.searchBaseURL} />
+      </div>
+    );
+
     return (
-      <EItemsResultsList
-        results={results}
-        viewDetailsClickHandler={row =>
+      <ResultsTable
+        rows={rows}
+        title={''}
+        name={'eitems'}
+        headerActionComponent={headerActionComponent}
+        rowActionClickHandler={row =>
           goTo(BackOfficeRoutes.eitemDetailsFor(row.ID))
         }
+        showMaxRows={maxRowsToShow}
       />
     );
   };
@@ -127,7 +160,7 @@ export class EItemSearch extends Component {
                 <EmptyResults renderElement={this.renderEmptyResults} />
                 <Error renderElement={this.renderError} />
                 {this.renderHeader()}
-                <ResultsList renderElement={this.renderResultsList} />
+                <ResultsList renderElement={this.renderResultsTable} />
                 {this.renderFooter()}
               </Grid.Column>
             </ResultsLoader>

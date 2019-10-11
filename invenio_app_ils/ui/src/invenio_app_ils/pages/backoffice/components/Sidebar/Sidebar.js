@@ -92,7 +92,7 @@ class Sidebar extends Component {
               active={patronsActive}
               onClick={goToHandler(BackOfficeRoutes.patronsList)}
             >
-              All Users
+              All of them
             </Menu.Item>
           </Menu.Menu>
         </Menu.Item>

@@ -40,7 +40,7 @@ export default class DocumentPendingLoans extends Component {
       const serialized = formatter.loan.toTable(row);
       return pick(serialized, [
         'ID',
-        'Patron ID',
+        'Patron',
         'Request start date',
         'Request end date',
       ]);

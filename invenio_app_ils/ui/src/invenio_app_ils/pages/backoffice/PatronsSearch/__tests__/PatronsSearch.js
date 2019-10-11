@@ -1,12 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { ResultsList } from '../components';
+import { ResultsTable } from '../../../../common/components';
 import { formatter } from '../../../../common/components/ResultsTable/formatters';
 
 jest.mock('../../components');
 
 describe('PatronsSearch ResultsList tests', () => {
-  const results = [
+  const data = [
     {
       metadata: {
         email: 'admin@test.ch',
@@ -26,17 +26,20 @@ describe('PatronsSearch ResultsList tests', () => {
 
   it('should not render when empty results', () => {
     component = mount(
-      <ResultsList results={[]} viewDetailsClickHandler={() => {}} />
+      <ResultsTable rows={[]} rowActionClickHandler={() => {}} />
     );
     expect(component).toMatchSnapshot();
   });
 
   it('should render a list of results', () => {
     component = mount(
-      <ResultsList results={results} viewDetailsClickHandler={() => {}} />
+      <ResultsTable
+        rows={data.map(row => formatter.patron.toTable(row))}
+        rowActionClickHandler={() => {}}
+      />
     );
     expect(component).toMatchSnapshot();
-    const firstResult = results[0].metadata;
+    const firstResult = data[0].metadata;
     const resultRows = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstResult.id);
@@ -48,7 +51,6 @@ describe('PatronsSearch ResultsList tests', () => {
         element => element.prop('data-test') === 'Email-' + firstResult.id
       );
     expect(mappedStatusElements).toHaveLength(1);
-
     expect(mappedStatusElements.text()).toEqual(firstResult.email);
 
     mappedStatusElements = resultRows
@@ -57,25 +59,24 @@ describe('PatronsSearch ResultsList tests', () => {
         element => element.prop('data-test') === 'Name-' + firstResult.id
       );
     expect(mappedStatusElements).toHaveLength(1);
-
     expect(mappedStatusElements.text()).toEqual(firstResult.name);
   });
 
   it('should call click handler on view details click', () => {
     const mockedClickHandler = jest.fn();
     component = mount(
-      <ResultsList
-        results={results}
-        viewDetailsClickHandler={mockedClickHandler}
+      <ResultsTable
+        rows={data.map(row => formatter.patron.toTable(row))}
+        rowActionClickHandler={mockedClickHandler}
       />
     );
-    const firstId = results[0].metadata.id;
+    const firstId = data[0].metadata.id;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)
       .find('button');
     button.simulate('click');
-    const expected = formatter.patron.toTable(results[0]);
+    const expected = formatter.patron.toTable(data[0]);
     expect(mockedClickHandler).toHaveBeenCalledWith(expected);
   });
 });

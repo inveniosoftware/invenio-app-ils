@@ -6,7 +6,7 @@ exports[`ResultsTable tests should load the ResultTable component 1`] = `
     <GridRow>
       <GridColumn
         verticalAlign="middle"
-        width={8}
+        width={16}
       />
       <GridColumn
         textAlign="right"
@@ -71,10 +71,10 @@ exports[`ResultsTable tests should not render the see all button when showing on
             >
               <GridColumn
                 verticalAlign="middle"
-                width={8}
+                width={16}
               >
                 <div
-                  className="middle aligned eight wide column"
+                  className="middle aligned sixteen wide column"
                 />
               </GridColumn>
               <GridColumn
@@ -91,11 +91,12 @@ exports[`ResultsTable tests should not render the see all button when showing on
       </Grid>
       <Table
         as="table"
+        compact={true}
         selectable={true}
         striped={true}
       >
         <table
-          className="ui selectable striped table"
+          className="ui selectable striped compact table"
         >
           <ResultsTableHeader
             columns={
@@ -107,7 +108,7 @@ exports[`ResultsTable tests should not render the see all button when showing on
                 "end_date",
               ]
             }
-            withRowAction={true}
+            withRowAction={false}
           >
             <TableHeader
               as="thead"
@@ -126,32 +127,26 @@ exports[`ResultsTable tests should not render the see all button when showing on
                   >
                     <TableHeaderCell
                       as="th"
-                      collapsing={true}
-                      width={2}
                     >
                       <TableCell
                         as="th"
                         className=""
-                        collapsing={true}
-                        width={2}
                       >
                         <th
-                          className="collapsing two wide"
+                          className=""
                         />
                       </TableCell>
                     </TableHeaderCell>
                     <TableHeaderCell
                       as="th"
                       key="ID"
-                      width={2}
                     >
                       <TableCell
                         as="th"
                         className=""
-                        width={2}
                       >
                         <th
-                          className="two wide"
+                          className=""
                         >
                           ID
                         </th>
@@ -277,22 +272,21 @@ exports[`ResultsTable tests should not render the see all button when showing on
                       >
                         <Button
                           as="button"
-                          circular={true}
                           compact={true}
                           data-test="btn-view-details-loan1"
-                          icon="eye"
+                          icon="info"
                           onClick={[Function]}
                         >
                           <Ref
                             innerRef={
                               Object {
                                 "current": <button
-                                  class="ui circular compact icon button"
+                                  class="ui compact icon button"
                                   data-test="btn-view-details-loan1"
                                 >
                                   <i
                                     aria-hidden="true"
-                                    class="eye icon"
+                                    class="info icon"
                                   />
                                 </button>,
                               }
@@ -302,29 +296,29 @@ exports[`ResultsTable tests should not render the see all button when showing on
                               innerRef={
                                 Object {
                                   "current": <button
-                                    class="ui circular compact icon button"
+                                    class="ui compact icon button"
                                     data-test="btn-view-details-loan1"
                                   >
                                     <i
                                       aria-hidden="true"
-                                      class="eye icon"
+                                      class="info icon"
                                     />
                                   </button>,
                                 }
                               }
                             >
                               <button
-                                className="ui circular compact icon button"
+                                className="ui compact icon button"
                                 data-test="btn-view-details-loan1"
                                 onClick={[Function]}
                               >
                                 <Icon
                                   as="i"
-                                  name="eye"
+                                  name="info"
                                 >
                                   <i
                                     aria-hidden="true"
-                                    className="eye icon"
+                                    className="info icon"
                                     onClick={[Function]}
                                   />
                                 </Icon>
@@ -415,22 +409,21 @@ exports[`ResultsTable tests should not render the see all button when showing on
                       >
                         <Button
                           as="button"
-                          circular={true}
                           compact={true}
                           data-test="btn-view-details-loan2"
-                          icon="eye"
+                          icon="info"
                           onClick={[Function]}
                         >
                           <Ref
                             innerRef={
                               Object {
                                 "current": <button
-                                  class="ui circular compact icon button"
+                                  class="ui compact icon button"
                                   data-test="btn-view-details-loan2"
                                 >
                                   <i
                                     aria-hidden="true"
-                                    class="eye icon"
+                                    class="info icon"
                                   />
                                 </button>,
                               }
@@ -440,29 +433,29 @@ exports[`ResultsTable tests should not render the see all button when showing on
                               innerRef={
                                 Object {
                                   "current": <button
-                                    class="ui circular compact icon button"
+                                    class="ui compact icon button"
                                     data-test="btn-view-details-loan2"
                                   >
                                     <i
                                       aria-hidden="true"
-                                      class="eye icon"
+                                      class="info icon"
                                     />
                                   </button>,
                                 }
                               }
                             >
                               <button
-                                className="ui circular compact icon button"
+                                className="ui compact icon button"
                                 data-test="btn-view-details-loan2"
                                 onClick={[Function]}
                               >
                                 <Icon
                                   as="i"
-                                  name="eye"
+                                  name="info"
                                 >
                                   <i
                                     aria-hidden="true"
-                                    className="eye icon"
+                                    className="info icon"
                                     onClick={[Function]}
                                   />
                                 </Icon>
@@ -611,10 +604,10 @@ exports[`ResultsTable tests should render the see all button when showing only a
             >
               <GridColumn
                 verticalAlign="middle"
-                width={8}
+                width={16}
               >
                 <div
-                  className="middle aligned eight wide column"
+                  className="middle aligned sixteen wide column"
                 />
               </GridColumn>
               <GridColumn
@@ -631,11 +624,12 @@ exports[`ResultsTable tests should render the see all button when showing only a
       </Grid>
       <Table
         as="table"
+        compact={true}
         selectable={true}
         striped={true}
       >
         <table
-          className="ui selectable striped table"
+          className="ui selectable striped compact table"
         >
           <ResultsTableHeader
             columns={
@@ -648,7 +642,7 @@ exports[`ResultsTable tests should render the see all button when showing only a
                 "end_date",
               ]
             }
-            withRowAction={true}
+            withRowAction={false}
           >
             <TableHeader
               as="thead"
@@ -667,17 +661,13 @@ exports[`ResultsTable tests should render the see all button when showing only a
                   >
                     <TableHeaderCell
                       as="th"
-                      collapsing={true}
-                      width={2}
                     >
                       <TableCell
                         as="th"
                         className=""
-                        collapsing={true}
-                        width={2}
                       >
                         <th
-                          className="collapsing two wide"
+                          className=""
                         />
                       </TableCell>
                     </TableHeaderCell>
@@ -699,15 +689,13 @@ exports[`ResultsTable tests should render the see all button when showing only a
                     <TableHeaderCell
                       as="th"
                       key="ID"
-                      width={2}
                     >
                       <TableCell
                         as="th"
                         className=""
-                        width={2}
                       >
                         <th
-                          className="two wide"
+                          className=""
                         >
                           ID
                         </th>
@@ -828,22 +816,21 @@ exports[`ResultsTable tests should render the see all button when showing only a
                       >
                         <Button
                           as="button"
-                          circular={true}
                           compact={true}
                           data-test="btn-view-details-1"
-                          icon="eye"
+                          icon="info"
                           onClick={[Function]}
                         >
                           <Ref
                             innerRef={
                               Object {
                                 "current": <button
-                                  class="ui circular compact icon button"
+                                  class="ui compact icon button"
                                   data-test="btn-view-details-1"
                                 >
                                   <i
                                     aria-hidden="true"
-                                    class="eye icon"
+                                    class="info icon"
                                   />
                                 </button>,
                               }
@@ -853,29 +840,29 @@ exports[`ResultsTable tests should render the see all button when showing only a
                               innerRef={
                                 Object {
                                   "current": <button
-                                    class="ui circular compact icon button"
+                                    class="ui compact icon button"
                                     data-test="btn-view-details-1"
                                   >
                                     <i
                                       aria-hidden="true"
-                                      class="eye icon"
+                                      class="info icon"
                                     />
                                   </button>,
                                 }
                               }
                             >
                               <button
-                                className="ui circular compact icon button"
+                                className="ui compact icon button"
                                 data-test="btn-view-details-1"
                                 onClick={[Function]}
                               >
                                 <Icon
                                   as="i"
-                                  name="eye"
+                                  name="info"
                                 >
                                   <i
                                     aria-hidden="true"
-                                    className="eye icon"
+                                    className="info icon"
                                     onClick={[Function]}
                                   />
                                 </Icon>

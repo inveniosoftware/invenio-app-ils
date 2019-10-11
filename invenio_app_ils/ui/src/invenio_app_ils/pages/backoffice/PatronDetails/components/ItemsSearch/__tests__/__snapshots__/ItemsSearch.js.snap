@@ -94,6 +94,9 @@ exports[`PatronLoans tests should render items in search 1`] = `
           "metadata": Object {
             "barcode": "44444",
             "circulation": Object {},
+            "document": Object {
+              "title": "Here is a title",
+            },
             "document_pid": "doc1",
             "internal_location": Object {
               "location": Object {
@@ -236,7 +239,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                       1
                        item(s).
                     </p>
-                    <ResultsList
+                    <ItemsResultsList
                       checkoutItem={[MockFunction]}
                       clearResults={[MockFunction]}
                       fetchPatronCurrentLoans={[MockFunction]}
@@ -250,6 +253,9 @@ exports[`PatronLoans tests should render items in search 1`] = `
                               "metadata": Object {
                                 "barcode": "44444",
                                 "circulation": Object {},
+                                "document": Object {
+                                  "title": "Here is a title",
+                                },
                                 "document_pid": "doc1",
                                 "internal_location": Object {
                                   "location": Object {
@@ -316,10 +322,10 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                   >
                                     <GridColumn
                                       verticalAlign="middle"
-                                      width={8}
+                                      width={16}
                                     >
                                       <div
-                                        className="middle aligned eight wide column"
+                                        className="middle aligned sixteen wide column"
                                       />
                                     </GridColumn>
                                     <GridColumn
@@ -336,11 +342,12 @@ exports[`PatronLoans tests should render items in search 1`] = `
                             </Grid>
                             <Table
                               as="table"
+                              compact={true}
                               selectable={true}
                               striped={true}
                             >
                               <table
-                                className="ui selectable striped table"
+                                className="ui selectable striped compact table"
                               >
                                 <ResultsTableHeader
                                   columns={
@@ -371,32 +378,26 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                         >
                                           <TableHeaderCell
                                             as="th"
-                                            collapsing={true}
-                                            width={1}
                                           >
                                             <TableCell
                                               as="th"
                                               className=""
-                                              collapsing={true}
-                                              width={1}
                                             >
                                               <th
-                                                className="collapsing one wide"
+                                                className=""
                                               />
                                             </TableCell>
                                           </TableHeaderCell>
                                           <TableHeaderCell
                                             as="th"
                                             key="ID"
-                                            width={2}
                                           >
                                             <TableCell
                                               as="th"
                                               className=""
-                                              width={2}
                                             >
                                               <th
-                                                className="two wide"
+                                                className=""
                                               >
                                                 ID
                                               </th>
@@ -632,7 +633,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                           </div>
                         </Segment>
                       </ResultsTable>
-                    </ResultsList>
+                    </ItemsResultsList>
                   </div>
                 </Error>
               </Loader>

@@ -24,7 +24,7 @@ exports[`PendingOverdueDocumentsList tests should load the details component 1`]
       showMaxRows={5}
       singleLine={false}
       subtitle="Documents with pending loan requests, no available items and an active loan that's overdue."
-      title="Pending Overdue Documents"
+      title="Pending overdue documents"
     />
   </Error>
 </Loader>
@@ -104,11 +104,11 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
           Array [
             Object {
               "ID": "document1",
-              "Title": undefined,
+              "Title": "The Gulf: The Making of An American Sea",
             },
             Object {
               "ID": "document2",
-              "Title": undefined,
+              "Title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
             },
           ]
         }
@@ -123,7 +123,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
         showMaxRows={5}
         singleLine={false}
         subtitle="Documents with pending loan requests, no available items and an active loan that's overdue."
-        title="Pending Overdue Documents"
+        title="Pending overdue documents"
       >
         <Segment>
           <div
@@ -139,20 +139,20 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                   >
                     <GridColumn
                       verticalAlign="middle"
-                      width={8}
+                      width={16}
                     >
                       <div
-                        className="middle aligned eight wide column"
+                        className="middle aligned sixteen wide column"
                       >
                         <Header
                           as="h3"
-                          content="Pending Overdue Documents"
+                          content="Pending overdue documents"
                           subheader="Documents with pending loan requests, no available items and an active loan that's overdue."
                         >
                           <h3
                             className="ui header"
                           >
-                            Pending Overdue Documents
+                            Pending overdue documents
                             <HeaderSubheader
                               content="Documents with pending loan requests, no available items and an active loan that's overdue."
                             >
@@ -180,11 +180,12 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
             </Grid>
             <Table
               as="table"
+              compact={true}
               selectable={true}
               striped={true}
             >
               <table
-                className="ui selectable striped table"
+                className="ui selectable striped compact table"
               >
                 <ResultsTableHeader
                   columns={
@@ -193,7 +194,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                       "Title",
                     ]
                   }
-                  withRowAction={true}
+                  withRowAction={false}
                 >
                   <TableHeader
                     as="thead"
@@ -212,32 +213,26 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                         >
                           <TableHeaderCell
                             as="th"
-                            collapsing={true}
-                            width={2}
                           >
                             <TableCell
                               as="th"
                               className=""
-                              collapsing={true}
-                              width={2}
                             >
                               <th
-                                className="collapsing two wide"
+                                className=""
                               />
                             </TableCell>
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
                             key="ID"
-                            width={2}
                           >
                             <TableCell
                               as="th"
                               className=""
-                              width={2}
                             >
                               <th
-                                className="two wide"
+                                className=""
                               >
                                 ID
                               </th>
@@ -275,11 +270,11 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                     Array [
                       Object {
                         "ID": "document1",
-                        "Title": undefined,
+                        "Title": "The Gulf: The Making of An American Sea",
                       },
                       Object {
                         "ID": "document2",
-                        "Title": undefined,
+                        "Title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
                       },
                     ]
                   }
@@ -309,22 +304,21 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                             >
                               <Button
                                 as="button"
-                                circular={true}
                                 compact={true}
                                 data-test="btn-view-details-document1"
-                                icon="eye"
+                                icon="info"
                                 onClick={[Function]}
                               >
                                 <Ref
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui circular compact icon button"
+                                        class="ui compact icon button"
                                         data-test="btn-view-details-document1"
                                       >
                                         <i
                                           aria-hidden="true"
-                                          class="eye icon"
+                                          class="info icon"
                                         />
                                       </button>,
                                     }
@@ -334,29 +328,29 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                                     innerRef={
                                       Object {
                                         "current": <button
-                                          class="ui circular compact icon button"
+                                          class="ui compact icon button"
                                           data-test="btn-view-details-document1"
                                         >
                                           <i
                                             aria-hidden="true"
-                                            class="eye icon"
+                                            class="info icon"
                                           />
                                         </button>,
                                       }
                                     }
                                   >
                                     <button
-                                      className="ui circular compact icon button"
+                                      className="ui compact icon button"
                                       data-test="btn-view-details-document1"
                                       onClick={[Function]}
                                     >
                                       <Icon
                                         as="i"
-                                        name="eye"
+                                        name="info"
                                       >
                                         <i
                                           aria-hidden="true"
-                                          className="eye icon"
+                                          className="info icon"
                                           onClick={[Function]}
                                         />
                                       </Icon>
@@ -387,7 +381,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                               className=""
                               data-test="Title-document1"
                             >
-                              -
+                              The Gulf: The Making of An American Sea
                             </td>
                           </TableCell>
                         </tr>
@@ -411,22 +405,21 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                             >
                               <Button
                                 as="button"
-                                circular={true}
                                 compact={true}
                                 data-test="btn-view-details-document2"
-                                icon="eye"
+                                icon="info"
                                 onClick={[Function]}
                               >
                                 <Ref
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui circular compact icon button"
+                                        class="ui compact icon button"
                                         data-test="btn-view-details-document2"
                                       >
                                         <i
                                           aria-hidden="true"
-                                          class="eye icon"
+                                          class="info icon"
                                         />
                                       </button>,
                                     }
@@ -436,29 +429,29 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                                     innerRef={
                                       Object {
                                         "current": <button
-                                          class="ui circular compact icon button"
+                                          class="ui compact icon button"
                                           data-test="btn-view-details-document2"
                                         >
                                           <i
                                             aria-hidden="true"
-                                            class="eye icon"
+                                            class="info icon"
                                           />
                                         </button>,
                                       }
                                     }
                                   >
                                     <button
-                                      className="ui circular compact icon button"
+                                      className="ui compact icon button"
                                       data-test="btn-view-details-document2"
                                       onClick={[Function]}
                                     >
                                       <Icon
                                         as="i"
-                                        name="eye"
+                                        name="info"
                                       >
                                         <i
                                           aria-hidden="true"
-                                          className="eye icon"
+                                          className="info icon"
                                           onClick={[Function]}
                                         />
                                       </Icon>
@@ -489,7 +482,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                               className=""
                               data-test="Title-document2"
                             >
-                              -
+                              Prairie Fires: The American Dreams of Laura Ingalls Wilder
                             </td>
                           </TableCell>
                         </tr>
@@ -556,7 +549,7 @@ exports[`PendingOverdueDocumentsList tests should render show a message with no 
         showMaxRows={5}
         singleLine={false}
         subtitle="Documents with pending loan requests, no available items and an active loan that's overdue."
-        title="Pending Overdue Documents"
+        title="Pending overdue documents"
       >
         <Segment>
           <div
@@ -572,20 +565,20 @@ exports[`PendingOverdueDocumentsList tests should render show a message with no 
                   >
                     <GridColumn
                       verticalAlign="middle"
-                      width={8}
+                      width={16}
                     >
                       <div
-                        className="middle aligned eight wide column"
+                        className="middle aligned sixteen wide column"
                       >
                         <Header
                           as="h3"
-                          content="Pending Overdue Documents"
+                          content="Pending overdue documents"
                           subheader="Documents with pending loan requests, no available items and an active loan that's overdue."
                         >
                           <h3
                             className="ui header"
                           >
-                            Pending Overdue Documents
+                            Pending overdue documents
                             <HeaderSubheader
                               content="Documents with pending loan requests, no available items and an active loan that's overdue."
                             >

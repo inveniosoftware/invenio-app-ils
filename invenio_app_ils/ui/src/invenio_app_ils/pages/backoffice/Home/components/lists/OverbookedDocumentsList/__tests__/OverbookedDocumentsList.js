@@ -1,13 +1,25 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { Settings } from 'luxon';
-import { fromISO } from '../../../../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import OverbookedDocumentsList from '../OverbookedDocumentsList';
 import history from '../../../../../../../history';
+import testData from '../../../../../../../../../../../tests/data/documents.json';
 
-Settings.defaultZoneName = 'utc';
-const stringDate = fromISO('2018-01-01T11:05:00+01:00');
+const data = {
+  hits: [
+    {
+      id: 1,
+      pid: 'doc1',
+      metadata: testData[0],
+    },
+    {
+      id: 2,
+      pid: 'doc2',
+      metadata: testData[1],
+    },
+  ],
+  total: 2,
+};
 
 describe('OverbookedDocumentsList tests', () => {
   let component;
@@ -54,38 +66,6 @@ describe('OverbookedDocumentsList tests', () => {
   });
 
   it('should render documents', () => {
-    const data = {
-      hits: [
-        {
-          id: 1,
-          updated: stringDate,
-          created: stringDate,
-          pid: 'doc1',
-          metadata: {
-            title: { title: 'X' },
-            authors: ['Author1'],
-            abstracts: 'This is an abstract',
-            circulation: {
-              pending_loans: 1,
-              has_items_for_loan: 2,
-            },
-          },
-        },
-        {
-          id: 2,
-          updated: stringDate,
-          created: stringDate,
-          pid: 'doc2',
-          metadata: {
-            title: { title: 'X' },
-            authors: ['Author1'],
-            abstracts: 'This is an abstract',
-          },
-        },
-      ],
-      total: 2,
-    };
-
     component = mount(
       <OverbookedDocumentsList
         data={data}
@@ -112,22 +92,6 @@ describe('OverbookedDocumentsList tests', () => {
   it('should go to loan details when clicking on a document', () => {
     const mockedHistoryPush = jest.fn();
     history.push = mockedHistoryPush;
-    const data = {
-      hits: [
-        {
-          id: 2,
-          updated: stringDate,
-          created: stringDate,
-          pid: 'doc2',
-          metadata: {
-            title: { title: 'X' },
-            authors: ['Author1'],
-            abstracts: 'This is an abstract',
-          },
-        },
-      ],
-      total: 1,
-    };
 
     component = mount(
       <OverbookedDocumentsList

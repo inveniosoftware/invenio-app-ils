@@ -25,7 +25,9 @@ exports[`should render correctly 1`] = `
       >
         <div
           className="header"
-        />
+        >
+          Lorem ipsum
+        </div>
         <div
           className="meta"
         >
