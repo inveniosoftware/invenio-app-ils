@@ -1,53 +1,50 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Settings } from 'luxon';
-import { fromISO } from '../../../../../common/api/date';
-import { ResultsList } from '../components';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import { fromISO } from '../../../../common/api/date';
+import { ResultsTable } from '../../../../common/components';
+import { formatter } from '../../../../common/components/ResultsTable/formatters';
 
-jest.mock('../../../components');
+jest.mock('../../components');
 
 Settings.defaultZoneName = 'utc';
-
-describe('SeriesSearch ResultsList tests', () => {
-  const stringDate = fromISO('2018-01-01T11:05:00+01:00');
-
-  const results = [
-    {
-      id: '3',
-      created: stringDate,
-      updated: stringDate,
+const stringDate = fromISO('2018-01-01T11:05:00+01:00');
+const data = [
+  {
+    id: 3,
+    created: stringDate,
+    updated: stringDate,
+    pid: '3',
+    metadata: {
       pid: '3',
-      metadata: {
-        authors: ['Author1'],
-        title: 'This is a title',
-        abstract: 'This is an abstract',
-        mode_of_issuance: 'SERIAL',
-        languages: ['en'],
-        pid: '3',
-        related_records: [],
-      },
+      authors: [{ full_name: 'Author1' }],
+      title: 'This is a title',
     },
-  ];
+  },
+];
 
-  let component;
-  afterEach(() => {
-    component.unmount();
-  });
+let component;
+afterEach(() => {
+  component.unmount();
+});
 
+describe('DocumentsSearch ResultsTable tests', () => {
   it('should not render when empty results', () => {
     component = mount(
-      <ResultsList results={[]} viewDetailsClickHandler={() => {}} />
+      <ResultsTable rows={[]} rowActionClickHandler={() => {}} />
     );
     expect(component).toMatchSnapshot();
   });
 
   it('should render a list of results', () => {
     component = mount(
-      <ResultsList results={results} viewDetailsClickHandler={() => {}} />
+      <ResultsTable
+        rows={data.map(row => formatter.document.toTable(row))}
+        rowActionClickHandler={() => {}}
+      />
     );
     expect(component).toMatchSnapshot();
-    const firstResult = results[0];
+    const firstResult = data[0];
     const resultRows = component
       .find('TableRow')
       .filterWhere(
@@ -62,25 +59,24 @@ describe('SeriesSearch ResultsList tests', () => {
           element.prop('data-test') === 'Title-' + firstResult.metadata.pid
       );
     expect(mappedStatusElements).toHaveLength(1);
-
     expect(mappedStatusElements.text()).toEqual(firstResult.metadata.title);
   });
 
   it('should call click handler on view details click', () => {
     const mockedClickHandler = jest.fn();
     component = mount(
-      <ResultsList
-        results={results}
-        viewDetailsClickHandler={mockedClickHandler}
+      <ResultsTable
+        rows={data.map(row => formatter.document.toTable(row))}
+        rowActionClickHandler={mockedClickHandler}
       />
     );
-    const firstId = results[0].pid;
+    const firstId = data[0].pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)
       .find('button');
     button.simulate('click');
-    const expected = formatter.series.toTable(results[0]);
+    const expected = formatter.document.toTable(data[0]);
     expect(mockedClickHandler).toHaveBeenCalledWith(expected);
   });
 });

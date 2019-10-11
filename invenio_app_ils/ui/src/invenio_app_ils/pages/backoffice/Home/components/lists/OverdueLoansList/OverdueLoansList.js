@@ -44,7 +44,7 @@ export default class OverdueLoansList extends Component {
         'ID',
         'Patron ID',
         'Item barcode',
-        'End date',
+        'Expired',
         'Actions',
       ]);
     });
@@ -57,7 +57,7 @@ export default class OverdueLoansList extends Component {
       <ResultsTable
         rows={rows}
         title={'Overdue loans'}
-        subtitle={'Active loans with past due end date.'}
+        subtitle={'Active loans that passed their end date.'}
         name={'overdue loans'}
         rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}

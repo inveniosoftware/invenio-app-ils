@@ -15,9 +15,8 @@ export default class ResultsTableBody extends Component {
     return rows.map(row => {
       const withRowAction = this.props.rowActionClickHandler ? (
         <Button
-          circular
           compact
-          icon="eye"
+          icon="info"
           onClick={() => {
             this.props.rowActionClickHandler(row);
           }}
@@ -42,9 +41,8 @@ export default class ResultsTableBody extends Component {
   };
 
   render() {
-    const { columns, rows, detailsURL } = this.props;
-
-    return <Table.Body>{this.renderRow(columns, rows, detailsURL)}</Table.Body>;
+    const { columns, rows } = this.props;
+    return <Table.Body>{this.renderRow(columns, rows)}</Table.Body>;
   }
 }
 

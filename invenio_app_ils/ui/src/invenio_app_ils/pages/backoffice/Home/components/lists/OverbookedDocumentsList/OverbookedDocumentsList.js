@@ -38,7 +38,7 @@ export default class OverbookedDocumentsList extends Component {
   prepareData(data) {
     return data.hits.map(row => {
       let entry = formatter.document.toTable(row);
-      return pick(entry, ['ID', 'Title', 'Requests', 'Available Items']);
+      return pick(entry, ['ID', 'Title', 'Pending Requests']);
     });
   }
 
@@ -56,7 +56,6 @@ export default class OverbookedDocumentsList extends Component {
         rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
-        fixed
         singleLine
       />
     );

@@ -1,23 +1,36 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { Settings } from 'luxon';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import IdleLoansList from '../IdleLoansList';
 import history from '../../../../../../../history';
+import testData from '../../../../../../../../../../../tests/data/loans.json';
 
 jest.mock('../../../../../../../common/config/invenioConfig');
 
-Settings.defaultZoneName = 'utc';
-const stringDate = '2018-01-01T11:05:00+01:00';
+const data = {
+  hits: [
+    {
+      id: 1,
+      pid: 'loan1',
+      metadata: testData[0],
+    },
+    {
+      id: 2,
+      pid: 'loan2',
+      metadata: testData[1],
+    },
+  ],
+  total: 2,
+};
+
+let component;
+afterEach(() => {
+  if (component) {
+    component.unmount();
+  }
+});
 
 describe('IdleLoansList tests', () => {
-  let component;
-  afterEach(() => {
-    if (component) {
-      component.unmount();
-    }
-  });
-
   it('should load the details component', () => {
     const component = shallow(
       <IdleLoansList
@@ -55,38 +68,6 @@ describe('IdleLoansList tests', () => {
   });
 
   it('should render loans', () => {
-    const data = {
-      hits: [
-        {
-          id: 1,
-          updated: stringDate,
-          created: stringDate,
-          pid: 'loan1',
-          metadata: {
-            pid: 'loan1',
-            patron_pid: 'patron_1',
-            start_date: stringDate,
-            end_date: stringDate,
-            document_pid: 'doc1',
-          },
-        },
-        {
-          id: 2,
-          updated: stringDate,
-          created: stringDate,
-          pid: 'loan2',
-          metadata: {
-            pid: 'loan2',
-            patron_pid: 'patron_2',
-            start_date: stringDate,
-            end_date: stringDate,
-            document_pid: 'doc1',
-          },
-        },
-      ],
-      total: 2,
-    };
-
     component = mount(
       <IdleLoansList data={data} fetchIdlePendingLoans={() => {}} />
     );
@@ -110,24 +91,6 @@ describe('IdleLoansList tests', () => {
   it('should go to loan details when clicking on a loan', () => {
     const mockedHistoryPush = jest.fn();
     history.push = mockedHistoryPush;
-    const data = {
-      hits: [
-        {
-          id: 1,
-          updated: stringDate,
-          created: stringDate,
-          pid: 'loan1',
-          metadata: {
-            pid: 'loan1',
-            document_pid: 'doc1',
-            patron_pid: 'patron_1',
-            start_date: stringDate,
-            end_date: stringDate,
-          },
-        },
-      ],
-      total: 1,
-    };
 
     component = mount(
       <IdleLoansList

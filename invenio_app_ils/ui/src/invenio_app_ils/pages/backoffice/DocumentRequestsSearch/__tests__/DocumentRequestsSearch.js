@@ -2,31 +2,30 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Settings } from 'luxon';
 import { fromISO } from '../../../../common/api/date';
-import { ResultsList } from '../components';
+import { ResultsTable } from '../../../../common/components';
 import { formatter } from '../../../../common/components/ResultsTable/formatters';
 
 jest.mock('../../components');
 
 Settings.defaultZoneName = 'utc';
-
-describe('DocumentsSearch ResultsList tests', () => {
-  const stringDate = fromISO('2018-01-01T11:05:00+01:00');
-
-  const results = [
-    {
-      id: 3,
-      created: stringDate,
-      updated: stringDate,
+const stringDate = fromISO('2018-01-01T11:05:00+01:00');
+const data = [
+  {
+    id: 3,
+    created: stringDate,
+    updated: stringDate,
+    pid: '3',
+    metadata: {
+      authors: 'Author1',
+      title: 'This is a title',
+      state: 'PENDING',
+      patron_pid: '1',
       pid: '3',
-      metadata: {
-        authors: [{ full_name: 'Author1' }],
-        title: { title: 'This is a title' },
-        abstracts: [{ value: 'This is an abstract' }],
-        pid: '3',
-      },
     },
-  ];
+  },
+];
 
+describe('DocumentRequestsSearch ResultsTable tests', () => {
   let component;
   afterEach(() => {
     component.unmount();
@@ -34,17 +33,20 @@ describe('DocumentsSearch ResultsList tests', () => {
 
   it('should not render when empty results', () => {
     component = mount(
-      <ResultsList results={[]} viewDetailsClickHandler={() => {}} />
+      <ResultsTable rows={[]} rowActionClickHandler={() => {}} />
     );
     expect(component).toMatchSnapshot();
   });
 
   it('should render a list of results', () => {
     component = mount(
-      <ResultsList results={results} viewDetailsClickHandler={() => {}} />
+      <ResultsTable
+        rows={data.map(row => formatter.documentRequest.toTable(row))}
+        rowActionClickHandler={() => {}}
+      />
     );
     expect(component).toMatchSnapshot();
-    const firstResult = results[0];
+    const firstResult = data[0];
     const resultRows = component
       .find('TableRow')
       .filterWhere(
@@ -59,27 +61,24 @@ describe('DocumentsSearch ResultsList tests', () => {
           element.prop('data-test') === 'Title-' + firstResult.metadata.pid
       );
     expect(mappedStatusElements).toHaveLength(1);
-
-    expect(mappedStatusElements.text()).toEqual(
-      firstResult.metadata.title.title
-    );
+    expect(mappedStatusElements.text()).toEqual(firstResult.metadata.title);
   });
 
   it('should call click handler on view details click', () => {
     const mockedClickHandler = jest.fn();
     component = mount(
-      <ResultsList
-        results={results}
-        viewDetailsClickHandler={mockedClickHandler}
+      <ResultsTable
+        rows={data.map(row => formatter.documentRequest.toTable(row))}
+        rowActionClickHandler={mockedClickHandler}
       />
     );
-    const firstId = results[0].pid;
+    const firstId = data[0].pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)
       .find('button');
     button.simulate('click');
-    const expected = formatter.document.toTable(results[0]);
+    const expected = formatter.documentRequest.toTable(data[0]);
     expect(mockedClickHandler).toHaveBeenCalledWith(expected);
   });
 });

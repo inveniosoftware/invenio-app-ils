@@ -23,14 +23,12 @@ export class ResultsTable extends Component {
     return (
       <Table
         striped
+        compact
+        selectable
         {...(singleLine ? { singleLine: true } : {})}
         {...(fixed ? { fixed: true } : {})}
-        selectable
       >
-        <ResultsTableHeader
-          columns={columns}
-          withRowAction={this.props.rowActionClickHandler ? true : false}
-        />
+        <ResultsTableHeader columns={columns} />
         <ResultsTableBody
           columns={columns}
           rows={showAllResults ? rows : rows.slice(0, showMaxRows)}
@@ -67,7 +65,10 @@ export class ResultsTable extends Component {
     return (
       <Grid>
         <Grid.Row>
-          <Grid.Column width={8} verticalAlign={'middle'}>
+          <Grid.Column
+            width={headerActionComponent ? 8 : 16}
+            verticalAlign="middle"
+          >
             {header}
           </Grid.Column>
           <Grid.Column width={8} textAlign={'right'}>

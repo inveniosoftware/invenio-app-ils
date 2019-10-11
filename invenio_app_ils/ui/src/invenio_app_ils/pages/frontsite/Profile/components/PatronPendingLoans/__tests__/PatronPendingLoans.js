@@ -1,13 +1,25 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { Settings } from 'luxon';
-import { fromISO } from '../../../../../../common/api/date';
 import PatronPendingLoans from '../PatronPendingLoans';
+import testData from '../../../../../../../../../../tests/data/loans.json';
 
 jest.mock('../../../../../../common/config');
 
-Settings.defaultZoneName = 'utc';
-const stringDate = fromISO('2018-01-01T11:05:00+01:00');
+const data = {
+  hits: [
+    {
+      id: 1,
+      pid: 'loan1',
+      metadata: testData[0],
+    },
+    {
+      id: 2,
+      pid: 'loan2',
+      metadata: testData[1],
+    },
+  ],
+  total: 2,
+};
 
 describe('PatronLoans tests', () => {
   let component;
@@ -55,38 +67,6 @@ describe('PatronLoans tests', () => {
 
   it('should render patron loans', () => {
     const mockedFetchPatronLoans = jest.fn();
-    const data = {
-      hits: [
-        {
-          id: 1,
-          updated: stringDate,
-          created: stringDate,
-          pid: 'loan1',
-          metadata: {
-            pid: 'loan1',
-            document_pid: 'doc1',
-            patron_pid: 'patron_1',
-            start_date: stringDate,
-            end_date: stringDate,
-          },
-        },
-        {
-          id: 2,
-          updated: stringDate,
-          created: stringDate,
-          pid: 'loan2',
-          metadata: {
-            pid: 'loan2',
-            document_pid: 'doc1',
-            patron_pid: 'patron_2',
-            start_date: stringDate,
-            end_date: stringDate,
-          },
-        },
-      ],
-      total: 2,
-    };
-
     component = mount(
       <PatronPendingLoans
         patronPid={patron.pid}

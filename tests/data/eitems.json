@@ -4,13 +4,19 @@
     "document_pid": "docid-1",
     "internal_notes": "An internal note",
     "description": "Description of the electronic item",
-    "open_access": true
+    "open_access": true,
+    "document": {
+      "title": "Document 1 title"
+    }
   },
   {
     "pid": "eitemid-2",
     "document_pid": "docid-2",
     "internal_notes": "An internal note",
     "description": "Description of the electronic item",
-    "open_access": false
+    "open_access": false,
+    "document": {
+      "title": "Document 2 title"
+    }
   }
 ]

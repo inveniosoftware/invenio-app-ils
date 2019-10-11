@@ -1,52 +1,55 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Settings } from 'luxon';
-import { fromISO } from '../../../../common/api/date';
-import { ResultsList } from '../components';
-import { formatter } from '../../../../common/components/ResultsTable/formatters';
-import pick from 'lodash/pick';
+import { fromISO } from '../../../../../common/api/date';
+import { ResultsTable } from '../../../../../common/components';
+import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 
-jest.mock('../../components');
+jest.mock('../../../components');
 
 Settings.defaultZoneName = 'utc';
+const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 
-describe('DocumentRequestsSearch ResultsList tests', () => {
-  const stringDate = fromISO('2018-01-01T11:05:00+01:00');
-
-  const results = [
-    {
-      id: 3,
-      created: stringDate,
-      updated: stringDate,
+const data = [
+  {
+    id: '3',
+    created: stringDate,
+    updated: stringDate,
+    pid: '3',
+    metadata: {
       pid: '3',
-      metadata: {
-        authors: 'Author1',
-        title: 'This is a title',
-        state: 'PENDING',
-        patron_pid: '1',
-        pid: '3',
-      },
+      authors: ['Author1'],
+      title: 'This is a title',
+      abstract: 'This is an abstract',
+      mode_of_issuance: 'SERIAL',
+      languages: ['en'],
+      related_records: [],
     },
-  ];
+  },
+];
 
-  let component;
-  afterEach(() => {
-    component.unmount();
-  });
+let component;
+afterEach(() => {
+  component.unmount();
+});
 
+describe('SeriesSearch ResultsTable tests', () => {
   it('should not render when empty results', () => {
     component = mount(
-      <ResultsList results={[]} viewDetailsClickHandler={() => {}} />
+      <ResultsTable rows={[]} rowActionClickHandler={() => {}} />
     );
     expect(component).toMatchSnapshot();
   });
 
   it('should render a list of results', () => {
     component = mount(
-      <ResultsList results={results} viewDetailsClickHandler={() => {}} />
+      <ResultsTable
+        rows={data.map(row => formatter.series.toTable(row))}
+        rowActionClickHandler={() => {}}
+      />
     );
     expect(component).toMatchSnapshot();
-    const firstResult = results[0];
+    const firstResult = data[0];
     const resultRows = component
       .find('TableRow')
       .filterWhere(
@@ -68,27 +71,18 @@ describe('DocumentRequestsSearch ResultsList tests', () => {
   it('should call click handler on view details click', () => {
     const mockedClickHandler = jest.fn();
     component = mount(
-      <ResultsList
-        results={results}
-        viewDetailsClickHandler={mockedClickHandler}
+      <ResultsTable
+        rows={data.map(row => formatter.series.toTable(row))}
+        rowActionClickHandler={mockedClickHandler}
       />
     );
-    const firstId = results[0].pid;
+    const firstId = data[0].pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)
       .find('button');
     button.simulate('click');
-    const expected = pick(formatter.documentRequest.toTable(results[0]), [
-      'ID',
-      'Created',
-      'Updated',
-      'State',
-      'Document ID',
-      'Patron ID',
-      'Title',
-      'Authors',
-    ]);
+    const expected = formatter.series.toTable(data[0]);
     expect(mockedClickHandler).toHaveBeenCalledWith(expected);
   });
 });

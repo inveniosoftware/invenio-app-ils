@@ -63,6 +63,9 @@ describe('PatronLoans tests', () => {
             status: 'CAN_CIRCULATE',
             circulation: {},
             medium: 'book',
+            document: {
+              title: 'Here is a title',
+            },
           },
         },
       ],

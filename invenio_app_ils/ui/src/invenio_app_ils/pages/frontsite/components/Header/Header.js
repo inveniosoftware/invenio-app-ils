@@ -55,6 +55,7 @@ export default class Header extends Component {
       this.renderRightDropDown()
     );
   };
+
   render() {
     return (
       <Menu
@@ -63,7 +64,6 @@ export default class Header extends Component {
         fluid
         inverted
         fixed="top"
-        inverted
         className="header-menu"
         widths={3}
       >

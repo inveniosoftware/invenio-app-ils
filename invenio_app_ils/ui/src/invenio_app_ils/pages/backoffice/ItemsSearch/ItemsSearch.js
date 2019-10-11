@@ -17,12 +17,15 @@ import {
   Error as IlsError,
   SearchBar as ItemsSearchBar,
   ResultsSort,
+  ResultsTable,
 } from '../../../common/components';
+import { formatter } from '../../../common/components/ResultsTable/formatters';
 import { item as itemApi } from '../../../common/api';
+import { ExportReactSearchKitResults } from '../components';
 import { ClearButton, NewButton } from '../components/buttons';
 import { BackOfficeRoutes } from '../../../routes/urls';
-import { ResultsList as ItemsResultsList } from './components';
 import { goTo } from '../../../history';
+import _omit from 'lodash/omit';
 
 export class ItemsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -42,13 +45,47 @@ export class ItemsSearch extends Component {
     );
   };
 
-  renderResultsList = results => {
+  prepareData(data) {
+    return data.map(row => {
+      return _omit(formatter.item.toTable(row), [
+        'Created',
+        'Updated',
+        'Document ID',
+        'Internal location',
+        'Location',
+        'Shelf',
+      ]);
+    });
+  }
+
+  renderResultsTable = results => {
+    const rows = this.prepareData(results);
+    const maxRowsToShow =
+      rows.length > ResultsTable.defaultProps.showMaxRows
+        ? rows.length
+        : ResultsTable.defaultProps.showMaxRows;
+    const headerActionComponent = (
+      <div>
+        <NewButton
+          text={'New item'}
+          clickHandler={() => {
+            // TODO: EDITOR, implement create form
+          }}
+        />
+        <ExportReactSearchKitResults exportBaseUrl={itemApi.searchBaseURL} />
+      </div>
+    );
+
     return (
-      <ItemsResultsList
-        results={results}
-        viewDetailsClickHandler={row => {
+      <ResultsTable
+        rows={rows}
+        title={''}
+        name={'items'}
+        headerActionComponent={headerActionComponent}
+        rowActionClickHandler={row => {
           goTo(BackOfficeRoutes.itemDetailsFor(row.ID));
         }}
+        showMaxRows={maxRowsToShow}
       />
     );
   };
@@ -140,7 +177,7 @@ export class ItemsSearch extends Component {
                 <EmptyResults renderElement={this.renderEmptyResults} />
                 <Error renderElement={this.renderError} />
                 {this.renderHeader()}
-                <ResultsList renderElement={this.renderResultsList} />
+                <ResultsList renderElement={this.renderResultsTable} />
                 {this.renderFooter()}
               </Grid.Column>
             </ResultsLoader>

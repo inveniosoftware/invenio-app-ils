@@ -11,7 +11,7 @@ import {
 } from 'semantic-ui-react';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { Error, Loader } from '../../../../../common/components';
-import { ResultsList as ItemsResultsList } from './components';
+import { ItemsResultsList } from './components';
 import isEmpty from 'lodash/isEmpty';
 import { goTo } from '../../../../../history';
 

@@ -10,7 +10,10 @@
     "state": "PENDING",
     "transaction_date": "2018-06-29",
     "transaction_location_pid": "locid-1",
-    "transaction_user_pid": "user_pid"
+    "transaction_user_pid": "user_pid",
+    "patron": {
+      "email": "patron1@test.ch"
+    }
   },
   {
     "document_pid": "docid-1",
@@ -23,7 +26,10 @@
     "state": "PENDING",
     "transaction_date": "2018-06-29",
     "transaction_location_pid": "locid-1",
-    "transaction_user_pid": "user_pid"
+    "transaction_user_pid": "user_pid",
+    "patron": {
+      "email": "patron2@test.ch"
+    }
   },
   {
     "document_pid": "docid-3",

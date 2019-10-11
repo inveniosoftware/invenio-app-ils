@@ -43,7 +43,7 @@ export default class IdleLoansList extends Component {
         'Updated',
         'Patron ID',
         'Document ID',
-        'Start date',
+        'Requested',
       ]);
     });
   }
@@ -54,9 +54,9 @@ export default class IdleLoansList extends Component {
     return (
       <ResultsTable
         rows={rows}
-        title={'Idle loans'}
+        title={'Idle loan requests'}
         subtitle={'Loan requests pending since more than 10 days.'}
-        name={'idle loans'}
+        name={'idle loan requests'}
         rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}

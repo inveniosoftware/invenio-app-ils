@@ -16,12 +16,15 @@ import {
   Error as IlsError,
   SearchBar as PatronsSearchBar,
   ResultsSort,
+  ResultsTable,
 } from '../../../common/components';
+import { formatter } from '../../../common/components/ResultsTable/formatters';
 import { patron as patronApi } from '../../../common/api';
 import { getSearchConfig } from '../../../common/config';
 import { ClearButton } from '../components/buttons';
-import { ResultsList as PatronsResultsList } from './components';
+import { ExportReactSearchKitResults } from '../components';
 import { goTo } from '../../../history';
+import _pick from 'lodash/pick';
 
 export class PatronsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -41,11 +44,24 @@ export class PatronsSearch extends Component {
     );
   };
 
-  renderResultsList = results => {
+  prepareData(data) {
+    return data.map(row => {
+      return _pick(formatter.patron.toTable(row), ['ID', 'Name', 'Email']);
+    });
+  }
+
+  renderResultsTable = results => {
+    const rows = this.prepareData(results);
+    const headerActionComponent = (
+      <ExportReactSearchKitResults exportBaseUrl={patronApi.searchBaseURL} />
+    );
+
     return (
-      <PatronsResultsList
-        results={results}
-        viewDetailsClickHandler={row =>
+      <ResultsTable
+        rows={rows}
+        title={''}
+        headerActionComponent={headerActionComponent}
+        rowActionClickHandler={row =>
           goTo(BackOfficeRoutes.patronDetailsFor(row.ID))
         }
       />
@@ -123,7 +139,7 @@ export class PatronsSearch extends Component {
                 <EmptyResults renderElement={this.renderEmptyResults} />
                 <Error renderElement={this.renderError} />
                 {this.renderHeader()}
-                <ResultsList renderElement={this.renderResultsList} />
+                <ResultsList renderElement={this.renderResultsTable} />
                 {this.renderFooter()}
               </Grid.Column>
             </ResultsLoader>

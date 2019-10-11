@@ -16,13 +16,16 @@ import {
   Error as IlsError,
   SearchBar as DocumentsSearchBar,
   ResultsSort,
+  ResultsTable,
 } from '../../../common/components';
+import { formatter } from '../../../common/components/ResultsTable/formatters';
 import { document as documentApi } from '../../../common/api/documents/document';
 import { getSearchConfig } from '../../../common/config';
 import { ClearButton, NewButton } from '../components/buttons';
 import { BackOfficeRoutes } from '../../../routes/urls';
-import { ResultsList as DocumentsResultsList } from './components';
+import { ExportReactSearchKitResults } from '../components';
 import { goTo, goToHandler } from '../../../history';
+import _pick from 'lodash/pick';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -54,11 +57,38 @@ export class DocumentsSearch extends Component {
     );
   };
 
-  renderResultsList = results => {
+  prepareData(data) {
+    return data.map(row => {
+      return _pick(formatter.document.toTable(row), [
+        'ID',
+        'Title',
+        'Authors',
+        'Available Items',
+      ]);
+    });
+  }
+
+  renderResultsTable = results => {
+    const rows = this.prepareData(results);
+    const headerActionComponent = (
+      <div>
+        <NewButton
+          text={'New document'}
+          clickHandler={goToHandler(BackOfficeRoutes.documentCreate)}
+        />
+        <ExportReactSearchKitResults
+          exportBaseUrl={documentApi.searchBaseURL}
+        />
+      </div>
+    );
+
     return (
-      <DocumentsResultsList
-        results={results}
-        viewDetailsClickHandler={row =>
+      <ResultsTable
+        rows={rows}
+        title={''}
+        name={'documents'}
+        headerActionComponent={headerActionComponent}
+        rowActionClickHandler={row =>
           goTo(BackOfficeRoutes.documentDetailsFor(row.ID))
         }
       />
@@ -149,7 +179,7 @@ export class DocumentsSearch extends Component {
                 <EmptyResults renderElement={this.renderEmptyResults} />
                 <Error renderElement={this.renderError} />
                 {this.renderHeader()}
-                <ResultsList renderElement={this.renderResultsList} />
+                <ResultsList renderElement={this.renderResultsTable} />
                 {this.renderFooter()}
               </Grid.Column>
             </ResultsLoader>

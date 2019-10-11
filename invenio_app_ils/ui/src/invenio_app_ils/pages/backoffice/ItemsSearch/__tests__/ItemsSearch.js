@@ -3,7 +3,7 @@ import omit from 'lodash/omit';
 import { mount } from 'enzyme';
 import { Settings } from 'luxon';
 import { fromISO, toISO } from '../../../../common/api/date';
-import { ResultsList } from '../components';
+import { ResultsTable } from '../../../../common/components';
 import { formatter } from '../../../../common/components/ResultsTable/formatters';
 
 jest.mock('../../components');
@@ -13,7 +13,7 @@ Settings.defaultZoneName = 'utc';
 describe('ItemsSearch ResultsList tests', () => {
   const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 
-  const results = [
+  const data = [
     {
       id: 987,
       created: toISO(stringDate),
@@ -41,17 +41,20 @@ describe('ItemsSearch ResultsList tests', () => {
 
   it('should not render when empty results', () => {
     component = mount(
-      <ResultsList results={[]} viewDetailsClickHandler={() => {}} />
+      <ResultsTable rows={[]} rowActionClickHandler={() => {}} />
     );
     expect(component).toMatchSnapshot();
   });
 
   it('should render a list of results', () => {
     component = mount(
-      <ResultsList results={results} viewDetailsClickHandler={() => {}} />
+      <ResultsTable
+        rows={data.map(row => formatter.item.toTable(row))}
+        rowActionClickHandler={() => {}}
+      />
     );
     expect(component).toMatchSnapshot();
-    const firstResult = results[0];
+    const firstResult = data[0];
     const resultRows = component
       .find('TableRow')
       .filterWhere(
@@ -73,21 +76,18 @@ describe('ItemsSearch ResultsList tests', () => {
   it('should call click handler on view details click', () => {
     const mockedClickHandler = jest.fn();
     component = mount(
-      <ResultsList
-        results={results}
-        viewDetailsClickHandler={mockedClickHandler}
+      <ResultsTable
+        rows={data.map(row => formatter.item.toTable(row))}
+        rowActionClickHandler={mockedClickHandler}
       />
     );
-    const firstId = results[0].metadata.pid;
+    const firstId = data[0].metadata.pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)
       .find('button');
     button.simulate('click');
-    const expected = omit(formatter.item.toTable(results[0]), [
-      'Created',
-      'Updated',
-    ]);
+    const expected = formatter.item.toTable(data[0]);
     expect(mockedClickHandler).toHaveBeenCalledWith(expected);
   });
 });

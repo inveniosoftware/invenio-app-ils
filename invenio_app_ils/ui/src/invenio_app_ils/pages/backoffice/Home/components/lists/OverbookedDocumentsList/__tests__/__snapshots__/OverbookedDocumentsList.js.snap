@@ -5,7 +5,7 @@ exports[`OverbookedDocumentsList tests should load the details component 1`] = `
   <Error>
     <ResultsTable
       currentPage={1}
-      fixed={true}
+      fixed={false}
       headerActionClickHandler={null}
       headerActionComponent={null}
       name="overbooked documents"
@@ -36,38 +36,47 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
     Object {
       "hits": Array [
         Object {
-          "created": "2018-01-01T10:05:00.000Z",
           "id": 1,
           "metadata": Object {
-            "abstracts": "This is an abstract",
+            "abstract": "This is an abstract",
             "authors": Array [
-              "Author1",
+              Object {
+                "full_name": "Jack E. Davis",
+              },
             ],
-            "circulation": Object {
-              "has_items_for_loan": 2,
-              "pending_loans": 1,
+            "edition": "ed. 1",
+            "keywords": Object {
+              "source": "X",
+              "value": "Patata",
             },
-            "title": Object {
-              "title": "X",
-            },
+            "languages": Array [
+              "en",
+            ],
+            "pid": "docid-1",
+            "title": "The Gulf: The Making of An American Sea",
           },
           "pid": "doc1",
-          "updated": "2018-01-01T10:05:00.000Z",
         },
         Object {
-          "created": "2018-01-01T10:05:00.000Z",
           "id": 2,
           "metadata": Object {
-            "abstracts": "This is an abstract",
+            "abstract": "This is an abstract",
             "authors": Array [
-              "Author1",
+              Object {
+                "full_name": "Caroline Fraser",
+              },
             ],
-            "title": Object {
-              "title": "X",
+            "keywords": Object {
+              "source": "X",
+              "value": "Patata",
             },
+            "languages": Array [
+              "it",
+            ],
+            "pid": "docid-2",
+            "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
           },
           "pid": "doc2",
-          "updated": "2018-01-01T10:05:00.000Z",
         },
       ],
       "total": 2,
@@ -80,7 +89,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
     <Error>
       <ResultsTable
         currentPage={1}
-        fixed={true}
+        fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="overbooked documents"
@@ -90,14 +99,12 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
         rows={
           Array [
             Object {
-              "Available Items": 2,
               "ID": "doc1",
-              "Requests": 1,
-              "Title": "X",
+              "Title": "The Gulf: The Making of An American Sea",
             },
             Object {
               "ID": "doc2",
-              "Title": "X",
+              "Title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
             },
           ]
         }
@@ -128,10 +135,10 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                   >
                     <GridColumn
                       verticalAlign="middle"
-                      width={8}
+                      width={16}
                     >
                       <div
-                        className="middle aligned eight wide column"
+                        className="middle aligned sixteen wide column"
                       >
                         <Header
                           as="h3"
@@ -169,24 +176,22 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
             </Grid>
             <Table
               as="table"
-              fixed={true}
+              compact={true}
               selectable={true}
               singleLine={true}
               striped={true}
             >
               <table
-                className="ui fixed selectable single line striped table"
+                className="ui selectable single line striped compact table"
               >
                 <ResultsTableHeader
                   columns={
                     Array [
                       "ID",
                       "Title",
-                      "Requests",
-                      "Available Items",
                     ]
                   }
-                  withRowAction={true}
+                  withRowAction={false}
                 >
                   <TableHeader
                     as="thead"
@@ -205,32 +210,26 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                         >
                           <TableHeaderCell
                             as="th"
-                            collapsing={true}
-                            width={2}
                           >
                             <TableCell
                               as="th"
                               className=""
-                              collapsing={true}
-                              width={2}
                             >
                               <th
-                                className="collapsing two wide"
+                                className=""
                               />
                             </TableCell>
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
                             key="ID"
-                            width={2}
                           >
                             <TableCell
                               as="th"
                               className=""
-                              width={2}
                             >
                               <th
-                                className="two wide"
+                                className=""
                               >
                                 ID
                               </th>
@@ -251,36 +250,6 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                               </th>
                             </TableCell>
                           </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Requests"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Requests
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Available Items"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Available Items
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
                         </tr>
                       </TableRow>
                     </thead>
@@ -291,22 +260,18 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                     Array [
                       "ID",
                       "Title",
-                      "Requests",
-                      "Available Items",
                     ]
                   }
                   rowActionClickHandler={[Function]}
                   rows={
                     Array [
                       Object {
-                        "Available Items": 2,
                         "ID": "doc1",
-                        "Requests": 1,
-                        "Title": "X",
+                        "Title": "The Gulf: The Making of An American Sea",
                       },
                       Object {
                         "ID": "doc2",
-                        "Title": "X",
+                        "Title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
                       },
                     ]
                   }
@@ -336,22 +301,21 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                             >
                               <Button
                                 as="button"
-                                circular={true}
                                 compact={true}
                                 data-test="btn-view-details-doc1"
-                                icon="eye"
+                                icon="info"
                                 onClick={[Function]}
                               >
                                 <Ref
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui circular compact icon button"
+                                        class="ui compact icon button"
                                         data-test="btn-view-details-doc1"
                                       >
                                         <i
                                           aria-hidden="true"
-                                          class="eye icon"
+                                          class="info icon"
                                         />
                                       </button>,
                                     }
@@ -361,29 +325,29 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                                     innerRef={
                                       Object {
                                         "current": <button
-                                          class="ui circular compact icon button"
+                                          class="ui compact icon button"
                                           data-test="btn-view-details-doc1"
                                         >
                                           <i
                                             aria-hidden="true"
-                                            class="eye icon"
+                                            class="info icon"
                                           />
                                         </button>,
                                       }
                                     }
                                   >
                                     <button
-                                      className="ui circular compact icon button"
+                                      className="ui compact icon button"
                                       data-test="btn-view-details-doc1"
                                       onClick={[Function]}
                                     >
                                       <Icon
                                         as="i"
-                                        name="eye"
+                                        name="info"
                                       >
                                         <i
                                           aria-hidden="true"
-                                          className="eye icon"
+                                          className="info icon"
                                           onClick={[Function]}
                                         />
                                       </Icon>
@@ -414,31 +378,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                               className=""
                               data-test="Title-doc1"
                             >
-                              X
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Requests-doc1"
-                            key="2-doc1"
-                          >
-                            <td
-                              className=""
-                              data-test="Requests-doc1"
-                            >
-                              1
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Available Items-doc1"
-                            key="3-doc1"
-                          >
-                            <td
-                              className=""
-                              data-test="Available Items-doc1"
-                            >
-                              2
+                              The Gulf: The Making of An American Sea
                             </td>
                           </TableCell>
                         </tr>
@@ -462,22 +402,21 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                             >
                               <Button
                                 as="button"
-                                circular={true}
                                 compact={true}
                                 data-test="btn-view-details-doc2"
-                                icon="eye"
+                                icon="info"
                                 onClick={[Function]}
                               >
                                 <Ref
                                   innerRef={
                                     Object {
                                       "current": <button
-                                        class="ui circular compact icon button"
+                                        class="ui compact icon button"
                                         data-test="btn-view-details-doc2"
                                       >
                                         <i
                                           aria-hidden="true"
-                                          class="eye icon"
+                                          class="info icon"
                                         />
                                       </button>,
                                     }
@@ -487,29 +426,29 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                                     innerRef={
                                       Object {
                                         "current": <button
-                                          class="ui circular compact icon button"
+                                          class="ui compact icon button"
                                           data-test="btn-view-details-doc2"
                                         >
                                           <i
                                             aria-hidden="true"
-                                            class="eye icon"
+                                            class="info icon"
                                           />
                                         </button>,
                                       }
                                     }
                                   >
                                     <button
-                                      className="ui circular compact icon button"
+                                      className="ui compact icon button"
                                       data-test="btn-view-details-doc2"
                                       onClick={[Function]}
                                     >
                                       <Icon
                                         as="i"
-                                        name="eye"
+                                        name="info"
                                       >
                                         <i
                                           aria-hidden="true"
-                                          className="eye icon"
+                                          className="info icon"
                                           onClick={[Function]}
                                         />
                                       </Icon>
@@ -540,31 +479,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                               className=""
                               data-test="Title-doc2"
                             >
-                              X
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Requests-doc2"
-                            key="2-doc2"
-                          >
-                            <td
-                              className=""
-                              data-test="Requests-doc2"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Available Items-doc2"
-                            key="3-doc2"
-                          >
-                            <td
-                              className=""
-                              data-test="Available Items-doc2"
-                            >
-                              -
+                              Prairie Fires: The American Dreams of Laura Ingalls Wilder
                             </td>
                           </TableCell>
                         </tr>
@@ -574,7 +489,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                 </ResultsTableBody>
                 <ResultsTableFooter
                   allRowsNumber={2}
-                  columnsNumber={4}
+                  columnsNumber={2}
                   currentPage={1}
                   paginationComponent={null}
                   seeAllComponent={
@@ -612,7 +527,7 @@ exports[`OverbookedDocumentsList tests should render show a message with no docu
     <Error>
       <ResultsTable
         currentPage={1}
-        fixed={true}
+        fixed={false}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="overbooked documents"
@@ -647,10 +562,10 @@ exports[`OverbookedDocumentsList tests should render show a message with no docu
                   >
                     <GridColumn
                       verticalAlign="middle"
-                      width={8}
+                      width={16}
                     >
                       <div
-                        className="middle aligned eight wide column"
+                        className="middle aligned sixteen wide column"
                       >
                         <Header
                           as="h3"

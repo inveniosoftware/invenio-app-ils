@@ -1,53 +1,38 @@
 import React from 'react';
-import omit from 'lodash/omit';
 import { mount } from 'enzyme';
-import { Settings } from 'luxon';
-import { fromISO, toISO } from '../../../../../common/api/date';
-import { ResultsList } from '../components';
+import { ResultsTable } from '../../../../../common/components/';
+import testData from '../../../../../../../../../tests/data/eitems.json';
 import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 
 jest.mock('../../../components');
 
-Settings.defaultZoneName = 'utc';
+let component;
+const data = [
+  { pid: testData[0].pid, metadata: testData[0] },
+  { pid: testData[1].pid, metadata: testData[1] },
+];
 
-describe('EItemsSearch ResultsList tests', () => {
-  const stringDate = fromISO('2018-01-01T11:05:00+01:00');
+afterEach(() => {
+  component.unmount();
+});
 
-  const results = [
-    {
-      id: 987,
-      created: toISO(stringDate),
-      updated: toISO(stringDate),
-      metadata: {
-        pid: 987,
-        description: 'A description.',
-        document_pid: 1342,
-        document: {
-          pid: 1342,
-        },
-        internal_notes: 'Internal notes.',
-      },
-    },
-  ];
-
-  let component;
-  afterEach(() => {
-    component.unmount();
-  });
-
+describe('EItemsSearch ResultsTable tests', () => {
   it('should not render when empty results', () => {
     component = mount(
-      <ResultsList results={[]} viewDetailsClickHandler={() => {}} />
+      <ResultsTable rows={[]} rowActionClickHandler={() => {}} />
     );
     expect(component).toMatchSnapshot();
   });
 
   it('should render a list of results', () => {
     component = mount(
-      <ResultsList results={results} viewDetailsClickHandler={() => {}} />
+      <ResultsTable
+        rows={data.map(row => formatter.eitem.toTable(row))}
+        rowActionClickHandler={() => {}}
+      />
     );
     expect(component).toMatchSnapshot();
-    const firstResult = results[0];
+    const firstResult = data[0];
     const resultRows = component
       .find('TableRow')
       .filterWhere(
@@ -72,21 +57,18 @@ describe('EItemsSearch ResultsList tests', () => {
   it('should call click handler on view details click', () => {
     const mockedClickHandler = jest.fn();
     component = mount(
-      <ResultsList
-        results={results}
-        viewDetailsClickHandler={mockedClickHandler}
+      <ResultsTable
+        rows={data.map(row => formatter.eitem.toTable(row))}
+        rowActionClickHandler={mockedClickHandler}
       />
     );
-    const firstId = results[0].metadata.pid;
+    const firstId = data[0].metadata.pid;
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)
       .find('button');
     button.simulate('click');
-    const expected = omit(formatter.eitem.toTable(results[0]), [
-      'Created',
-      'Updated',
-    ]);
+    const expected = formatter.eitem.toTable(data[0]);
     expect(mockedClickHandler).toHaveBeenCalledWith(expected);
   });
 });

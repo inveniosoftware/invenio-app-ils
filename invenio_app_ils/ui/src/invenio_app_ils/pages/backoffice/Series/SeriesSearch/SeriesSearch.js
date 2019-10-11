@@ -16,12 +16,16 @@ import {
   Error as IlsError,
   SearchBar as SeriesSearchBar,
   ResultsSort,
+  ResultsTable,
 } from '../../../../common/components';
+import { formatter } from '../../../../common/components/ResultsTable/formatters';
 import { series as seriesApi } from '../../../../common/api/series/series';
 import { getSearchConfig } from '../../../../common/config';
+import { ExportReactSearchKitResults } from '../../components';
 import { ClearButton, NewButton } from '../../components/buttons';
 import { BackOfficeRoutes } from '../../../../routes/urls';
-import { ResultsList as SeriesResultsList } from './components';
+import _pick from 'lodash/pick';
+
 import { goTo } from '../../../../history';
 
 export class SeriesSearch extends Component {
@@ -59,11 +63,37 @@ export class SeriesSearch extends Component {
     );
   };
 
-  renderResultsList = results => {
+  prepareData(data) {
+    return data.map(row => {
+      return _pick(formatter.series.toTable(row), [
+        'ID',
+        'Mode of Issuance',
+        'Title',
+      ]);
+    });
+  }
+
+  renderResultsTable = results => {
+    const rows = this.prepareData(results);
+    const headerActionComponent = (
+      <div>
+        <NewButton
+          text={'New series'}
+          clickHandler={() => {
+            goTo(BackOfficeRoutes.seriesCreate);
+          }}
+        />
+        <ExportReactSearchKitResults exportBaseUrl={seriesApi.searchBaseURL} />
+      </div>
+    );
+
     return (
-      <SeriesResultsList
-        results={results}
-        viewDetailsClickHandler={row =>
+      <ResultsTable
+        rows={rows}
+        title={''}
+        name={'series'}
+        headerActionComponent={headerActionComponent}
+        rowActionClickHandler={row =>
           goTo(BackOfficeRoutes.seriesDetailsFor(row.ID))
         }
       />
@@ -157,7 +187,7 @@ export class SeriesSearch extends Component {
                 <EmptyResults renderElement={this.renderEmptyResults} />
                 <Error renderElement={this.renderError} />
                 {this.renderHeader()}
-                <ResultsList renderElement={this.renderResultsList} />
+                <ResultsList renderElement={this.renderResultsTable} />
                 {this.renderFooter()}
               </Grid.Column>
             </ResultsLoader>
