@@ -15,7 +15,7 @@ export const invenioConfig = {
     loanRequestStates: ['PENDING'],
     requestDuration: 60,
   },
-  default_results_size: 10,
+  default_results_size: 15,
   documentRequests: {
     search: {
       aggs: ['state'],

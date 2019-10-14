@@ -5,11 +5,11 @@ import { DocumentMetadata } from './components';
 import { goTo } from '../../../../history';
 import { FrontSiteRoutes } from '../../../../routes/urls';
 import { SearchBar } from '../../../../common/components/SearchBar';
-import { DocumentPanel } from './components/DocumentPanel';
+import { DocumentPanel } from './DocumentPanel';
 import { Error } from '../../../../common/components/Error';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
-import { DocumentTags } from './components/DocumentMetadata/components';
-import { ILSParagraphPlaceholder } from '../../../../common/ILSPlaceholder';
+import { DocumentTags } from './DocumentMetadata/components';
+import { ILSParagraphPlaceholder } from '../../../../common/components/ILSPlaceholder';
 
 export default class DocumentsDetails extends Component {
   constructor(props) {
@@ -60,8 +60,7 @@ export default class DocumentsDetails extends Component {
             />
           </Container>
         </Container>
-
-        <Error error={error}>
+        <Error boundary={true} error={error}>
           <Container className="document-details-container default-margin-top">
             <ILSParagraphPlaceholder isLoading={isLoading} lines={1}>
               <Breadcrumbs

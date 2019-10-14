@@ -23,9 +23,9 @@ export class SearchControls extends Component {
   render() {
     return (
       <>
-        <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+        <Responsive {...Responsive.onlyComputer}>
           <Grid columns={3} className={'search-controls'}>
-            <Grid.Column width={4}>
+            <Grid.Column largeScreen={5} computer={7}>
               <Grid>
                 <Grid.Column width={4}>{this.props.layoutToggle()}</Grid.Column>
                 <Grid.Column width={12}>
@@ -35,15 +35,19 @@ export class SearchControls extends Component {
               </Grid>
             </Grid.Column>
             <Grid.Column
-              width={8}
+              largeScreen={6}
+              computer={2}
               textAlign={'center'}
               className={'search-pagination-column'}
             >
-              <SearchPagination />
+              <Responsive minWidth={Responsive.onlyLargeScreen.minWidth}>
+                <SearchPagination />
+              </Responsive>
             </Grid.Column>
             <Grid.Column
               textAlign={'right'}
-              width={4}
+              largeScreen={5}
+              computer={7}
               className={'search-sort-options-column'}
             >
               <div className={'sort-by-filters'}>
@@ -53,7 +57,14 @@ export class SearchControls extends Component {
             </Grid.Column>
           </Grid>
         </Responsive>
-        <Responsive {...Responsive.onlyMobile}>
+        <Responsive maxWidth={Responsive.onlyLargeScreen.minWidth - 1}>
+          <Grid>
+            <Grid.Column width={16} textAlign="center">
+              <SearchPagination />
+            </Grid.Column>
+          </Grid>
+        </Responsive>
+        <Responsive maxWidth={Responsive.onlyTablet.maxWidth}>
           <SearchControlsMobile searchConfig={this.searchConfig} />
         </Responsive>
       </>

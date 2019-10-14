@@ -4,7 +4,7 @@ import { Card, Image, Label } from 'semantic-ui-react';
 import { FrontSiteRoutes } from '../../../../routes/urls';
 import { getCover } from '../../config';
 import { goTo } from '../../../../history';
-import { DocumentAuthors } from '../../Documents/DocumentsDetails/components/DocumentMetadata/components';
+import { DocumentAuthors } from '../../Documents/DocumentsDetails/DocumentMetadata/components';
 
 export class BookCard extends Component {
   renderLabels = meta => {

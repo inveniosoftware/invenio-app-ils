@@ -5,23 +5,23 @@ import * as testData from '../../../../../../../../../tests/data/documents.json'
 import DocumentsDetails from '../DocumentsDetails';
 import { BrowserRouter } from 'react-router-dom';
 
-jest.mock('../components/DocumentPanel', () => {
+jest.mock('../DocumentPanel', () => {
   return {
     DocumentPanel: () => null,
   };
 });
-jest.mock('../components/DocumentMetadata', () => {
+jest.mock('../DocumentMetadata', () => {
   return {
     DocumentMetadata: () => null,
   };
 });
-jest.mock('../components/DocumentCirculation', () => {
+jest.mock('../DocumentCirculation', () => {
   return {
     DocumentCirculation: () => null,
   };
 });
 
-jest.mock('../components/DocumentMetadata/components', () => {
+jest.mock('../DocumentMetadata/components', () => {
   return {
     DocumentTags: () => null,
   };

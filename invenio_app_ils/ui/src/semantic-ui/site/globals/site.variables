@@ -12,16 +12,15 @@
   SEMANTIC Colors override
 ********************************/
 
-@primaryColor      : #F2711C;
 @secondaryColor    : #6899D0;
-@orange            : #FC6F51;
+@orange            : #F2711C;
 
 /********************************
   ILS variables
 ********************************/
 
 @headerMenuHeight         : 66px;
-@highlightBorder          : 2px solid @primaryColor;
+@highlightBorder          : 2px solid @orange;
 @sectionDefaultPadding    : 2em;
 @defaultMarginValue       : 1em;
 

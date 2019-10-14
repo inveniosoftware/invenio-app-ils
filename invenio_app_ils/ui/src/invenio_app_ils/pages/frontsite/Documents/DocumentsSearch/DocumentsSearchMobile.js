@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-import { Container, Grid, Ref, Sticky } from 'semantic-ui-react';
+import { Container, Ref, Sticky } from 'semantic-ui-react';
 import { ResultsLoader, Error, InvenioSearchApi } from 'react-searchkit';
 import { getSearchConfig } from '../../../../common/config';
 import { document as documentApi } from '../../../../common/api';
@@ -9,8 +9,8 @@ import {
   SearchPagination,
 } from '../../../../common/components/SearchControls/components';
 import { SearchControlsMobile } from '../../../../common/components/SearchControls/SearchControlsMobile';
-import { SearchMessage } from './components';
-import { DocumentSearchResultsGrid } from './components/DocumentSearchResultsGrid';
+import { SearchMessage } from './SearchMessage';
+import { DocumentSearchResultsGrid } from './DocumentSearchResultsGrid';
 
 export class DocumentsSearchMobile extends Component {
   searchApi = new InvenioSearchApi({

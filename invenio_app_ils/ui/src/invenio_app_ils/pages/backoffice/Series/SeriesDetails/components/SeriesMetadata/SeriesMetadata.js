@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { MetadataTable } from '../../../../components/MetadataTable';
 import { EditButton } from '../../../../components/buttons';
 import { DeleteRecordModal } from '../../../../components/DeleteRecordModal';
-import { formatPidTypeToName } from '../../../../../../common/components/ManageRelationsButton/utils';
+import { formatPidTypeToName } from '../../../../components/ManageRelationsButton/utils';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { goTo } from '../../../../../../history';
 

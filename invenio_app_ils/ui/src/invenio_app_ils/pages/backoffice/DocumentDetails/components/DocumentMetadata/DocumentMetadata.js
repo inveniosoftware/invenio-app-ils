@@ -35,7 +35,7 @@ import {
 } from '../../../../../common/components/ESSelector/serializer';
 import { goToHandler } from '../../../../../history';
 import has from 'lodash/has';
-import { formatPidTypeToName } from '../../../../../common/components/ManageRelationsButton/utils';
+import { formatPidTypeToName } from '../../../components/ManageRelationsButton/utils';
 import { isEmpty } from 'lodash';
 
 export default class DocumentMetadata extends Component {

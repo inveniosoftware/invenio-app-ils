@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { fromISO, toShortDate } from '../../api/date';
 import isEmpty from 'lodash/isEmpty';
 import assign from 'lodash/assign';
-import { formatPidTypeToName } from '../ManageRelationsButton/utils';
+import { formatPidTypeToName } from '../../../pages/backoffice/components/ManageRelationsButton/utils';
 import { FrontSiteRoutes } from '../../../routes/urls';
 import { TRUNCATE_LENGTH } from '../../config';
 import startCase from 'lodash/startCase';
