@@ -22,7 +22,7 @@
 
 @headerMenuHeight         : 66px;
 @highlightBorder          : 2px solid @primaryColor;
-@sectionDefaultPadding    : 1em;
+@sectionDefaultPadding    : 2em;
 @defaultMarginValue       : 1em;
 
 /********************************

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form } from 'semantic-ui-react';
+import { Button, Checkbox, Form } from 'semantic-ui-react';
 import { Error } from '../../../../../../common/components/Error';
 import { DatePicker } from '../../../../../../common/components';
 import PropTypes from 'prop-types';
@@ -63,18 +63,27 @@ export default class LoanRequestForm extends Component {
     this.props.requestLoanForDocument(documentPid, optionalParams);
   };
 
+  renderDeliveryRadioButtons = () => {
+    return this.deliveryMethods.map(method => (
+      <Checkbox
+        radio
+        label={method.text}
+        name={'deliveryMethodRadioGroup'}
+        value={method.value}
+        checked={this.state.deliveryMethod === method.value}
+        onChange={this.handleDeliveryMethodChange}
+      />
+    ));
+  };
+
   renderDeliveryMethodSelector = () => {
     return this.withDeliveryMethod ? (
-      <Form.Field>
-        <label>I would like to</label>
-        <Form.Dropdown
-          placeholder={'Select delivery method'}
-          options={this.deliveryMethods}
-          onChange={this.handleDeliveryMethodChange}
-          defaultValue={this.deliveryMethods[1].value}
-          selection
-        />
-      </Form.Field>
+      <>
+        <Form.Field>
+          <label>I would like to</label>
+        </Form.Field>
+        <Form.Field>{this.renderDeliveryRadioButtons()}</Form.Field>
+      </>
     ) : null;
   };
 

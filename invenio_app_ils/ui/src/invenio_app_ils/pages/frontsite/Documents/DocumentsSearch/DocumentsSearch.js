@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
   Button,
@@ -38,13 +39,13 @@ import { DocumentItem } from './components';
 import { BookCard } from '../../components';
 import { goTo } from '../../../../history';
 
-export class DocumentsSearch extends Component {
-  searchApi = new InvenioSearchApi({
-    url: documentApi.searchBaseURL,
-    withCredentials: true,
-  });
-  state = { activeIndex: 0, isLayoutGrid: true };
-  searchConfig = getSearchConfig('documents');
+class SearchAggregations extends Component {
+  state = { activeIndex: 0 };
+
+  constructor(props) {
+    super(props);
+    this.searchConfig = props.searchConfig;
+  }
 
   toggleAccordion = (e, titleProps) => {
     const { index } = titleProps;
@@ -78,6 +79,45 @@ export class DocumentsSearch extends Component {
       </Accordion>
     ) : null;
   };
+
+  render() {
+    const accordionPanels = this.searchConfig.AGGREGATIONS.map((agg, idx) => (
+      <div key={agg.field}>
+        <Aggregator
+          title={agg.title}
+          field={agg.field}
+          customProps={{ index: idx }}
+          renderElement={this.renderAccordionAggregations}
+        />
+      </div>
+    ));
+
+    const cardPanels = this.searchConfig.AGGREGATIONS.map(agg => (
+      <div key={agg.field}>
+        <Aggregator title={agg.title} field={agg.field} />
+      </div>
+    ));
+
+    return (
+      <div>
+        <Responsive {...Responsive.onlyMobile}>{accordionPanels}</Responsive>
+        <Responsive {...Responsive.onlyComputer}>{cardPanels}</Responsive>
+      </div>
+    );
+  }
+}
+
+SearchAggregations.propTypes = {
+  searchConfig: PropTypes.object.isRequired,
+};
+
+export class DocumentsSearch extends Component {
+  searchApi = new InvenioSearchApi({
+    url: documentApi.searchBaseURL,
+    withCredentials: true,
+  });
+  searchConfig = getSearchConfig('documents');
+  state = { activeIndex: 0, isLayoutGrid: true };
 
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
     return (
@@ -225,41 +265,41 @@ export class DocumentsSearch extends Component {
     );
     return (
       <ReactSearchKit searchApi={this.searchApi}>
-        <Container className="documents-search-searchbar">
-          <SearchBar renderElement={this.renderSearchBar} />
+        <Container fluid className="document-details-search-container">
+          <Container>
+            <SearchBar renderElement={this.renderSearchBar} />
+          </Container>
         </Container>
-
-        <Grid
-          columns={2}
-          stackable
-          relaxed
-          className="documents-search-container"
-        >
-          <ResultsLoader>
-            <Grid.Column width={3}>{this.renderAggregations()}</Grid.Column>
-            <Grid.Column width={13}>
-              <EmptyResults renderElement={this.renderEmptyResults} />
-              <Error renderElement={this.renderError} />
-              {this.renderHeader()}
-              {this.state.isLayoutGrid ? (
-                <ResultsGrid renderElement={this.renderResultsGrid} />
-              ) : (
-                <ResultsList renderElement={this.renderResultsList} />
-              )}
-              {this.renderFooter()}
-              <Message icon color="yellow">
-                <Icon name="info circle" />
-                <Message.Content>
-                  <Message.Header>
-                    Couldn't find the book you were looking for?
-                  </Message.Header>
-                  Please fill in the {requestForm} to request a new book from
-                  the library.
-                </Message.Content>
-              </Message>
-            </Grid.Column>
-          </ResultsLoader>
-        </Grid>
+        <Container fluid className="search-body">
+          <Grid columns={2} stackable relaxed className="grid-documents-search">
+            <ResultsLoader>
+              <Grid.Column width={3}>
+                <SearchAggregations searchConfig={this.searchConfig} />
+              </Grid.Column>
+              <Grid.Column width={13}>
+                <EmptyResults renderElement={this.renderEmptyResults} />
+                <Error renderElement={this.renderError} />
+                {this.renderHeader()}
+                {this.state.isLayoutGrid ? (
+                  <ResultsGrid renderElement={this.renderResultsGrid} />
+                ) : (
+                  <ResultsList renderElement={this.renderResultsList} />
+                )}
+                {this.renderFooter()}
+                <Message icon color="yellow">
+                  <Icon name="info circle" />
+                  <Message.Content>
+                    <Message.Header>
+                      Couldn't find the book you were looking for?
+                    </Message.Header>
+                    Please fill in the {requestForm} to request a new book from
+                    the library.
+                  </Message.Content>
+                </Message>
+              </Grid.Column>
+            </ResultsLoader>
+          </Grid>
+        </Container>
       </ReactSearchKit>
     );
   }

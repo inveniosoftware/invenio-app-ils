@@ -52,7 +52,7 @@ import {
   seriesRelationsReducer,
 } from './pages/backoffice/Series/SeriesDetails/reducer';
 import {
-  documentsDetailsReducer,
+  documentDetailsFrontReducer,
   loanRequestFormReducer,
 } from './pages/frontsite/Documents/DocumentsDetails/reducer';
 import { documentRequestDetailsReducer } from './pages/backoffice/DocumentRequestDetails/reducer';
@@ -66,7 +66,7 @@ const rootReducer = combineReducers({
   documentRelations: documentRelations,
   documentRequestDetails: documentRequestDetailsReducer,
   documentsCard: documentsCardReducer,
-  documentsDetails: documentsDetailsReducer,
+  documentDetailsFront: documentDetailsFrontReducer,
   documentStats: documentStatsReducer,
   eitemDetails: eitemDetailsReducer,
   esSelector: esSelectorReducer,

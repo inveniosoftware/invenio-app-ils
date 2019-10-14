@@ -2,7 +2,7 @@
 
 exports[`DocumentMetadata tests should render the document correctly 1`] = `
 <DocumentMetadata
-  documentsDetails={
+  documentDetails={
     Object {
       "created": "2019-07-08T10:44:02.366+02:00",
       "id": 71,
@@ -214,17 +214,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                     ]
                   }
                   relations={Object {}}
-                >
-                  <Divider
-                    horizontal={true}
-                  >
-                    <div
-                      className="ui horizontal divider"
-                    >
-                      Related
-                    </div>
-                  </Divider>
-                </DocumentRelations>
+                />
                 <DocumentInfo
                   metadata={
                     Object {
@@ -267,178 +257,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                       "title": "The Gulf: The Making of An American Sea",
                     }
                   }
-                >
-                  <Divider
-                    horizontal={true}
-                  >
-                    <div
-                      className="ui horizontal divider"
-                    >
-                      Details
-                    </div>
-                  </Divider>
-                  <Table
-                    as="table"
-                    definition={true}
-                  >
-                    <table
-                      className="ui definition table"
-                    >
-                      <TableBody
-                        as="tbody"
-                      >
-                        <tbody
-                          className=""
-                        >
-                          <TableRow
-                            as="tr"
-                            cellAs="td"
-                          >
-                            <tr
-                              className=""
-                            >
-                              <TableCell
-                                as="td"
-                              >
-                                <td
-                                  className=""
-                                >
-                                  Title
-                                </td>
-                              </TableCell>
-                              <TableCell
-                                as="td"
-                              >
-                                <td
-                                  className=""
-                                >
-                                  The Gulf: The Making of An American Sea
-                                </td>
-                              </TableCell>
-                            </tr>
-                          </TableRow>
-                          <TableRow
-                            as="tr"
-                            cellAs="td"
-                          >
-                            <tr
-                              className=""
-                            >
-                              <TableCell
-                                as="td"
-                              >
-                                <td
-                                  className=""
-                                >
-                                  Authors
-                                </td>
-                              </TableCell>
-                              <TableCell
-                                as="td"
-                              >
-                                <td
-                                  className=""
-                                >
-                                  <span
-                                    key="Key0"
-                                  >
-                                    Jack E. Davis
-                                    ; 
-                                  </span>
-                                  <span />
-                                </td>
-                              </TableCell>
-                            </tr>
-                          </TableRow>
-                          <TableRow
-                            as="tr"
-                            cellAs="td"
-                          >
-                            <tr
-                              className=""
-                            >
-                              <TableCell
-                                as="td"
-                              >
-                                <td
-                                  className=""
-                                >
-                                  Edition
-                                </td>
-                              </TableCell>
-                              <TableCell
-                                as="td"
-                              >
-                                <td
-                                  className=""
-                                >
-                                  ed. 1
-                                </td>
-                              </TableCell>
-                            </tr>
-                          </TableRow>
-                          <TableRow
-                            as="tr"
-                            cellAs="td"
-                          >
-                            <tr
-                              className=""
-                            >
-                              <TableCell
-                                as="td"
-                              >
-                                <td
-                                  className=""
-                                >
-                                  Languages
-                                </td>
-                              </TableCell>
-                              <TableCell
-                                as="td"
-                              >
-                                <td
-                                  className=""
-                                >
-                                  en, 
-                                </td>
-                              </TableCell>
-                            </tr>
-                          </TableRow>
-                          <TableRow
-                            as="tr"
-                            cellAs="td"
-                          >
-                            <tr
-                              className=""
-                            >
-                              <TableCell
-                                as="td"
-                              >
-                                <td
-                                  className=""
-                                >
-                                  Keywords
-                                </td>
-                              </TableCell>
-                              <TableCell
-                                as="td"
-                              >
-                                <td
-                                  className=""
-                                >
-                                  Patata
-                                   (
-                                  X
-                                  )
-                                </td>
-                              </TableCell>
-                            </tr>
-                          </TableRow>
-                        </tbody>
-                      </TableBody>
-                    </table>
-                  </Table>
-                </DocumentInfo>
+                />
               </div>
             </Segment>
           </TabPane>

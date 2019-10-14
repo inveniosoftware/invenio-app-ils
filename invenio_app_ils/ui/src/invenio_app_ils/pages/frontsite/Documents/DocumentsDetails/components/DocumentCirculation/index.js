@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import DocumentCirculationComponent from './DocumentCirculation';
 
 const mapStateToProps = state => ({
-  documentsDetails: state.documentsDetails.data,
+  documentDetails: state.documentDetailsFront.data,
+  isLoading: state.documentDetailsFront.isLoading,
 });
 
 export const DocumentCirculation = connect(

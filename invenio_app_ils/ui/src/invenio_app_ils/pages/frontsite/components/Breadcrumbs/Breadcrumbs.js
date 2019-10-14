@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Breadcrumb } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { ILSParagraphPlaceholder } from '../../../../common/ILSPlaceholder';
 
 export default class Breadcrumbs extends Component {
   constructor(props) {
@@ -28,13 +29,18 @@ export default class Breadcrumbs extends Component {
   };
 
   render() {
+    const { isLoading } = this.props.isLoading;
     return (
-      <Breadcrumb>
-        {this._renderBreadcrumbElements()}
-        <Breadcrumb.Section active>
-          {this.props.currentElement}
-        </Breadcrumb.Section>
-      </Breadcrumb>
+      <div className={'breadcrumbs'}>
+        <ILSParagraphPlaceholder isLoading={isLoading} lines={1}>
+          <Breadcrumb>
+            {this._renderBreadcrumbElements()}
+            <Breadcrumb.Section active>
+              {this.props.currentElement}
+            </Breadcrumb.Section>
+          </Breadcrumb>
+        </ILSParagraphPlaceholder>
+      </div>
     );
   }
 }
@@ -42,4 +48,9 @@ export default class Breadcrumbs extends Component {
 Breadcrumbs.propTypes = {
   elements: PropTypes.array.isRequired,
   currentElement: PropTypes.node.isRequired,
+  isLoading: PropTypes.bool,
+};
+
+Breadcrumbs.defaultProps = {
+  isLoading: false,
 };

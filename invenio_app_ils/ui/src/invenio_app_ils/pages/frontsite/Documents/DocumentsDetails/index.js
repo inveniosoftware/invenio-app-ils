@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { fetchDocumentsDetails } from './state/actions';
-import DocumentsDetailsContainerComponent from './DocumentsDetailsContainer';
+import DocumentsDetailsContainerComponent from './DocumentsDetails';
 
 const mapDispatchToProps = dispatch => ({
   fetchDocumentsDetails: documentPid =>
@@ -8,9 +8,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  isLoading: state.documentsDetails.isLoading,
-  data: state.documentsDetails.data,
-  hasError: state.documentsDetails.hasError,
+  isLoading: state.documentDetailsFront.isLoading,
+  documentDetails: state.documentDetailsFront.data,
+  hasError: state.documentDetailsFront.hasError,
 });
 
 export const DocumentsDetailsContainer = connect(

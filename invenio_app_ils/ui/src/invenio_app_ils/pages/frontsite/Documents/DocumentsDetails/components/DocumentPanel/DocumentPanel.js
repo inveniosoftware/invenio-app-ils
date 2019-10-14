@@ -1,53 +1,51 @@
 import React, { Component } from 'react';
-import { Grid, Image, Header, List } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { DocumentCirculation } from '../DocumentCirculation';
-import ShowMore from 'react-show-more';
+
+import {
+  ILSHeaderPlaceholder,
+  ILSParagraphPlaceholder,
+} from '../../../../../../common/ILSPlaceholder';
+import {
+  DocumentAbstract,
+  DocumentAuthors,
+  DocumentCover,
+  DocumentTitle,
+} from '../DocumentMetadata/components';
 
 export default class DocumentPanel extends Component {
   constructor(props) {
     super(props);
-    this.document = props.documentsDetails;
+    this.document = props.documentDetails;
   }
 
   render() {
-    const cover = 'https://assets.thalia.media/img/46276899-00-00.jpg';
+    const { isLoading } = this.props;
     return (
       <>
-        <br />
-        <br />
-        <div className="document-panel" data-test={this.document.metadata.pid}>
+        <div
+          className="document-panel"
+          data-test={this.document.metadata ? this.document.metadata.pid : 0}
+        >
           <Grid columns={3}>
             <Grid.Row>
               <Grid.Column>
-                <Image className="document-cover" src={cover} size={'large'} />
+                <DocumentCover />
               </Grid.Column>
               <Grid.Column>
-                <Header as={'h2'}>{this.document.metadata.title}</Header>
-                {this.document.metadata.subtitle ? (
-                  <Header sub as={'h3'}>
-                    {this.document.metadata.subtitle}
-                  </Header>
-                ) : null}
-                by{' '}
-                <List horizontal>
-                  {this.document.metadata.authors.map((author, index) => (
-                    <List.Item as="h4" key={`Key${index}`}>
-                      {author.full_name}
-                    </List.Item>
-                  ))}
-                </List>
-                <ShowMore
-                  lines={20}
-                  more="Show more"
-                  less="Show less"
-                  anchorClass="button-show-more"
-                >
-                  {this.document.metadata.abstract}
-                </ShowMore>
+                <ILSHeaderPlaceholder isLoading={isLoading}>
+                  <DocumentTitle />
+                </ILSHeaderPlaceholder>
+                <ILSParagraphPlaceholder linesNumber={1} isLoading={isLoading}>
+                  <DocumentAuthors prefix={'by:'} />
+                </ILSParagraphPlaceholder>
+                <ILSParagraphPlaceholder linesNumber={20} isLoading={isLoading}>
+                  <DocumentAbstract />
+                </ILSParagraphPlaceholder>
               </Grid.Column>
               <Grid.Column>
-                <DocumentCirculation test />
+                <DocumentCirculation />
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -58,5 +56,5 @@ export default class DocumentPanel extends Component {
 }
 
 DocumentPanel.propTypes = {
-  documentsDetails: PropTypes.object.isRequired,
+  documentDetails: PropTypes.object.isRequired,
 };

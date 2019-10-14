@@ -2,38 +2,35 @@
          Site Overrides
 *******************************/
 
-.app{
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+.app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
-.front-app{
+.front-app {
+  .front-app-content {
     margin-top: @headerMenuHeight;
-
-    footer{
-      margin-top: @headerMenuHeight;
-
-    }
+  }
 
 }
 
-.no-border{
+.no-border {
   border: 0 !important;
 }
 
-.default-margin-top{
+.default-margin-top {
   margin-top: @defaultMarginValue !important;
 }
 
-.default-margin-bottom{
+.default-margin-bottom {
   margin-bottom: @defaultMarginValue !important;
 }
 
-.default-margin{
+.default-margin {
   margin: @defaultMarginValue !important;
 }
 
-.background-highlight{
+.background-highlight {
   background-color: @highlightBackgroundColor;
 }

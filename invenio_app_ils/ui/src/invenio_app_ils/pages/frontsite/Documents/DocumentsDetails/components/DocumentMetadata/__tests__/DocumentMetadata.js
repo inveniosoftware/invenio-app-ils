@@ -9,8 +9,16 @@ jest.mock('../../../components/LoanRequestForm', () => {
   };
 });
 
+jest.mock('../components', () => {
+  return {
+    DocumentRelations: () => null,
+    DocumentInfo: () => null,
+  };
+});
+
 describe('DocumentMetadata tests', () => {
   let component;
+
   afterEach(() => {
     if (component) {
       component.unmount();
@@ -46,7 +54,7 @@ describe('DocumentMetadata tests', () => {
   };
 
   it('should render the document correctly', () => {
-    component = mount(<DocumentMetadata documentsDetails={documentDetails} />);
+    component = mount(<DocumentMetadata documentDetails={documentDetails} />);
     expect(component).toMatchSnapshot();
 
     const rows = component
