@@ -1,1 +1,1 @@
-export { DocumentItem } from './DocumentItem';
+export { DocumentListEntry } from './DocumentListEntry';

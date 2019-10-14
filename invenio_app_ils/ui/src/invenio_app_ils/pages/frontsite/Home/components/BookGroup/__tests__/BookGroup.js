@@ -101,7 +101,7 @@ describe('BookGroup tests', () => {
     expect(cards).toHaveLength(2);
   });
 
-  it('should render the VIEW ALL link', () => {
+  it('should render the VIEW ALL link properly', () => {
     mockFetchDataMethod.mockResolvedValue(mockResponse);
 
     component = mount(

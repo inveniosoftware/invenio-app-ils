@@ -38,7 +38,11 @@ export default class DocumentPanel extends Component {
                   <DocumentTitle />
                 </ILSHeaderPlaceholder>
                 <ILSParagraphPlaceholder linesNumber={1} isLoading={isLoading}>
-                  <DocumentAuthors prefix={'by:'} />
+                  <DocumentAuthors
+                    prefix={'by: '}
+                    listItemAs={'h4'}
+                    metadata={this.props.documentDetails.metadata}
+                  />
                 </ILSParagraphPlaceholder>
                 <ILSParagraphPlaceholder linesNumber={20} isLoading={isLoading}>
                   <DocumentAbstract />

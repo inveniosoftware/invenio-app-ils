@@ -1,3 +1,9 @@
 /*******************************
         User Overrides
 *******************************/
+
+.sort-by-filters {
+  .ui.dropdown {
+    margin-left: 0.5em;
+  }
+}

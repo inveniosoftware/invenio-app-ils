@@ -20,22 +20,25 @@ exports[`DocumentsDetailsContainer tests should load the details component 1`] =
     <Container
       className="document-details-container default-margin-top"
     >
-      <Breadcrumbs
-        currentElement="The Gulf: The Making of An American Sea"
-        elements={
-          Array [
-            Object {
-              "label": "Home",
-              "to": "/",
-            },
-            Object {
-              "label": "Search",
-              "to": "/search",
-            },
-          ]
-        }
-        isLoading={false}
-      />
+      <ILSParagraphPlaceholder
+        lines={1}
+      >
+        <Breadcrumbs
+          currentElement="The Gulf: The Making of An American Sea"
+          elements={
+            Array [
+              Object {
+                "label": "Home",
+                "to": "/",
+              },
+              Object {
+                "label": "Search",
+                "to": "/search",
+              },
+            ]
+          }
+        />
+      </ILSParagraphPlaceholder>
       <DocumentPanel />
     </Container>
     <Container

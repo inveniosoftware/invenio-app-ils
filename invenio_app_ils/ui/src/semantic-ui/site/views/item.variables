@@ -1,3 +1,7 @@
 /*******************************
     User Variable Overrides
 *******************************/
+
+@padding: 1em;
+@headerLinkColor: black;
+@headerColor: black;

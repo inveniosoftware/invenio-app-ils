@@ -16,7 +16,7 @@ export class Home extends Component {
     this.setState({ query: event.target.value });
   };
 
-  onSubmit = () => {
+  onSearchExecute = () => {
     const query = encodeURIComponent(this.state.query);
     goTo(FrontSiteRoutes.documentsListWithQuery(query));
   };

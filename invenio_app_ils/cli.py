@@ -299,6 +299,17 @@ class DocumentGenerator(Generator):
                                 " in High Energy Physics",
                        "year": 2019,
                        }
+    IMPRINTS = [
+        {"date": "2019-08-02",
+         "place": "Geneva",
+         "publisher": "CERN"
+         },
+        {"date": "2017-08-02",
+         "place": "Hamburg",
+         "publisher": "Springer"
+         },
+
+    ]
 
     def generate(self):
         """Generate."""
@@ -314,7 +325,6 @@ class DocumentGenerator(Generator):
                 "document_type": random.choice(self.DOCUMENT_TYPES),
                 "_access": {},
                 "languages": random.sample(self.LANGUAGES, randint(1, 3)),
-                "imprints": [{"publisher": "{}".format(lorem.sentence())}],
                 "table_of_content": ["{}".format(lorem.sentence())],
                 "note": "{}".format(lorem.text()),
                 "tag_pids": random.sample(tag_pids, randint(0, 5)),
@@ -323,6 +333,7 @@ class DocumentGenerator(Generator):
                              "value": lorem.sentence()},
                 "conference_info": self.CONFERENCE_INFO,
                 "number_of_pages": str(random.randint(0, 300)),
+                "imprints": [self.IMPRINTS[randint(0, 1)]],
                 "urls": [{"description": "{}".format(lorem.sentence()),
                           "value": "{}".format(lorem.sentence()),
                           }],

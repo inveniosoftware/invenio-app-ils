@@ -823,6 +823,12 @@ RECORDS_REST_SORT_OPTIONS = dict(
             default_order="desc",
             order=4,
         ),
+        published_date=dict(
+            fields=["imprints.date"],
+            title="Published date",
+            default_order="desc",
+            order=4,
+        ),
     ),
     eitems=dict(  # ItemSearch.Meta.index
         bestmatch=dict(
