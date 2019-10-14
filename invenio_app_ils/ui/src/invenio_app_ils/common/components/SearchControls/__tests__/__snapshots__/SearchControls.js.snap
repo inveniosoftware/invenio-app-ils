@@ -1,0 +1,918 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchControls tests should load the SearchControls component 1`] = `
+<Fragment>
+  <Responsive
+    getWidth={[Function]}
+    minWidth={768}
+  >
+    <Grid
+      className="search-controls"
+      columns={3}
+    >
+      <GridColumn
+        width={4}
+      >
+        <Grid>
+          <GridColumn
+            width={4}
+          />
+          <GridColumn
+            width={12}
+          >
+            <Connect(Count)
+              renderElement={[Function]}
+            />
+            <SearchResultsPerPage
+              searchConfig={
+                Object {
+                  "AGGREGATIONS": Array [
+                    Object {
+                      "field": "tags",
+                      "title": "Tags",
+                    },
+                    Object {
+                      "field": "languages",
+                      "title": "Languages",
+                    },
+                    Object {
+                      "field": "document_type",
+                      "title": "Document types",
+                    },
+                    Object {
+                      "field": "relations",
+                      "title": "Relations",
+                    },
+                    Object {
+                      "field": "has_items",
+                      "title": "Select books with",
+                    },
+                    Object {
+                      "field": "has_eitems",
+                      "title": "Select books with",
+                    },
+                    Object {
+                      "field": "has_items_for_loan",
+                      "title": "Select books with",
+                    },
+                  ],
+                  "RESULTS_PER_PAGE": Array [
+                    Object {
+                      "text": "10",
+                      "value": 10,
+                    },
+                    Object {
+                      "text": "20",
+                      "value": 20,
+                    },
+                    Object {
+                      "text": "50",
+                      "value": 50,
+                    },
+                  ],
+                  "SORT_BY": Array [
+                    Object {
+                      "defaultValue": "asc",
+                      "text": "Newest",
+                      "value": "mostrecent",
+                    },
+                    Object {
+                      "defaultValue": "asc",
+                      "text": "Best match",
+                      "value": "bestmatch",
+                    },
+                    Object {
+                      "defaultValue": "asc",
+                      "text": "Available copies",
+                      "value": "available_items",
+                    },
+                    Object {
+                      "defaultValue": "desc",
+                      "text": "Most loaned",
+                      "value": "mostloaned",
+                    },
+                    Object {
+                      "defaultValue": "asc",
+                      "text": "Published date",
+                      "value": "published",
+                    },
+                  ],
+                  "SORT_BY_ON_EMPTY_QUERY": "mostrecent",
+                  "SORT_ORDER": Array [
+                    Object {
+                      "text": "Asc",
+                      "value": "asc",
+                    },
+                    Object {
+                      "text": "Desc",
+                      "value": "desc",
+                    },
+                  ],
+                }
+              }
+            />
+          </GridColumn>
+        </Grid>
+      </GridColumn>
+      <GridColumn
+        className="search-pagination-column"
+        textAlign="center"
+        width={8}
+      >
+        <SearchPagination />
+      </GridColumn>
+      <GridColumn
+        className="search-sort-options-column"
+        textAlign="right"
+        width={4}
+      >
+        <div
+          className="sort-by-filters"
+        >
+          <SearchSortBy
+            prefix="Sort by:"
+          />
+          <SearchSortOrder
+            searchConfig={
+              Object {
+                "AGGREGATIONS": Array [
+                  Object {
+                    "field": "tags",
+                    "title": "Tags",
+                  },
+                  Object {
+                    "field": "languages",
+                    "title": "Languages",
+                  },
+                  Object {
+                    "field": "document_type",
+                    "title": "Document types",
+                  },
+                  Object {
+                    "field": "relations",
+                    "title": "Relations",
+                  },
+                  Object {
+                    "field": "has_items",
+                    "title": "Select books with",
+                  },
+                  Object {
+                    "field": "has_eitems",
+                    "title": "Select books with",
+                  },
+                  Object {
+                    "field": "has_items_for_loan",
+                    "title": "Select books with",
+                  },
+                ],
+                "RESULTS_PER_PAGE": Array [
+                  Object {
+                    "text": "10",
+                    "value": 10,
+                  },
+                  Object {
+                    "text": "20",
+                    "value": 20,
+                  },
+                  Object {
+                    "text": "50",
+                    "value": 50,
+                  },
+                ],
+                "SORT_BY": Array [
+                  Object {
+                    "defaultValue": "asc",
+                    "text": "Newest",
+                    "value": "mostrecent",
+                  },
+                  Object {
+                    "defaultValue": "asc",
+                    "text": "Best match",
+                    "value": "bestmatch",
+                  },
+                  Object {
+                    "defaultValue": "asc",
+                    "text": "Available copies",
+                    "value": "available_items",
+                  },
+                  Object {
+                    "defaultValue": "desc",
+                    "text": "Most loaned",
+                    "value": "mostloaned",
+                  },
+                  Object {
+                    "defaultValue": "asc",
+                    "text": "Published date",
+                    "value": "published",
+                  },
+                ],
+                "SORT_BY_ON_EMPTY_QUERY": "mostrecent",
+                "SORT_ORDER": Array [
+                  Object {
+                    "text": "Asc",
+                    "value": "asc",
+                  },
+                  Object {
+                    "text": "Desc",
+                    "value": "desc",
+                  },
+                ],
+              }
+            }
+          />
+        </div>
+      </GridColumn>
+    </Grid>
+  </Responsive>
+  <Responsive
+    getWidth={[Function]}
+    maxWidth={767}
+    minWidth={320}
+  >
+    <SearchControlsMobile
+      searchConfig={
+        Object {
+          "AGGREGATIONS": Array [
+            Object {
+              "field": "tags",
+              "title": "Tags",
+            },
+            Object {
+              "field": "languages",
+              "title": "Languages",
+            },
+            Object {
+              "field": "document_type",
+              "title": "Document types",
+            },
+            Object {
+              "field": "relations",
+              "title": "Relations",
+            },
+            Object {
+              "field": "has_items",
+              "title": "Select books with",
+            },
+            Object {
+              "field": "has_eitems",
+              "title": "Select books with",
+            },
+            Object {
+              "field": "has_items_for_loan",
+              "title": "Select books with",
+            },
+          ],
+          "RESULTS_PER_PAGE": Array [
+            Object {
+              "text": "10",
+              "value": 10,
+            },
+            Object {
+              "text": "20",
+              "value": 20,
+            },
+            Object {
+              "text": "50",
+              "value": 50,
+            },
+          ],
+          "SORT_BY": Array [
+            Object {
+              "defaultValue": "asc",
+              "text": "Newest",
+              "value": "mostrecent",
+            },
+            Object {
+              "defaultValue": "asc",
+              "text": "Best match",
+              "value": "bestmatch",
+            },
+            Object {
+              "defaultValue": "asc",
+              "text": "Available copies",
+              "value": "available_items",
+            },
+            Object {
+              "defaultValue": "desc",
+              "text": "Most loaned",
+              "value": "mostloaned",
+            },
+            Object {
+              "defaultValue": "asc",
+              "text": "Published date",
+              "value": "published",
+            },
+          ],
+          "SORT_BY_ON_EMPTY_QUERY": "mostrecent",
+          "SORT_ORDER": Array [
+            Object {
+              "text": "Asc",
+              "value": "asc",
+            },
+            Object {
+              "text": "Desc",
+              "value": "desc",
+            },
+          ],
+        }
+      }
+    />
+  </Responsive>
+</Fragment>
+`;
+
+exports[`SearchControls tests should mount SearchControls component 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <ReactSearchKit
+    defaultSortByOnEmptyQuery={null}
+    persistentUrl={
+      Object {
+        "customHandler": null,
+        "enabled": true,
+        "overrideConfig": Object {
+          "withHistory": true,
+        },
+      }
+    }
+    searchApi={
+      InvenioSearchApi {
+        "http": [Function],
+        "requestSerializer": InvenioRequestSerializer {
+          "serialize": [Function],
+        },
+        "responseSerializer": InvenioResponseSerializer {
+          "serialize": [Function],
+        },
+        "search": [Function],
+      }
+    }
+    searchOnInit={true}
+    suggestionApi={null}
+  >
+    <Provider
+      store={
+        Object {
+          "dispatch": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+          Symbol(observable): [Function],
+        }
+      }
+    >
+      <Connect(Bootstrap)
+        searchOnInit={true}
+      >
+        <Bootstrap
+          onAppInitialized={[Function]}
+          searchOnInit={true}
+          searchOnUrlQueryStringChanged={[Function]}
+        >
+          <SearchControls
+            layoutToggle={
+              [MockFunction] {
+                "calls": Array [
+                  Array [],
+                  Array [],
+                ],
+                "results": Array [
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                ],
+              }
+            }
+          >
+            <Responsive
+              getWidth={[Function]}
+              minWidth={768}
+            >
+              <div>
+                <Grid
+                  className="search-controls"
+                  columns={3}
+                >
+                  <div
+                    className="ui three column grid search-controls"
+                  >
+                    <GridColumn
+                      width={4}
+                    >
+                      <div
+                        className="four wide column"
+                      >
+                        <Grid>
+                          <div
+                            className="ui grid"
+                          >
+                            <GridColumn
+                              width={4}
+                            >
+                              <div
+                                className="four wide column"
+                              />
+                            </GridColumn>
+                            <GridColumn
+                              width={12}
+                            >
+                              <div
+                                className="twelve wide column"
+                              >
+                                <Connect(Count)
+                                  renderElement={[Function]}
+                                >
+                                  <Count
+                                    dispatch={[Function]}
+                                    loading={true}
+                                    renderElement={[Function]}
+                                    totalResults={0}
+                                  >
+                                    <ShouldRender
+                                      condition={false}
+                                    />
+                                  </Count>
+                                </Connect(Count)>
+                                <SearchResultsPerPage
+                                  searchConfig={
+                                    Object {
+                                      "AGGREGATIONS": Array [
+                                        Object {
+                                          "field": "tags",
+                                          "title": "Tags",
+                                        },
+                                        Object {
+                                          "field": "languages",
+                                          "title": "Languages",
+                                        },
+                                        Object {
+                                          "field": "document_type",
+                                          "title": "Document types",
+                                        },
+                                        Object {
+                                          "field": "relations",
+                                          "title": "Relations",
+                                        },
+                                        Object {
+                                          "field": "has_items",
+                                          "title": "Select books with",
+                                        },
+                                        Object {
+                                          "field": "has_eitems",
+                                          "title": "Select books with",
+                                        },
+                                        Object {
+                                          "field": "has_items_for_loan",
+                                          "title": "Select books with",
+                                        },
+                                      ],
+                                      "RESULTS_PER_PAGE": Array [
+                                        Object {
+                                          "text": "10",
+                                          "value": 10,
+                                        },
+                                        Object {
+                                          "text": "20",
+                                          "value": 20,
+                                        },
+                                        Object {
+                                          "text": "50",
+                                          "value": 50,
+                                        },
+                                      ],
+                                      "SORT_BY": Array [
+                                        Object {
+                                          "defaultValue": "asc",
+                                          "text": "Newest",
+                                          "value": "mostrecent",
+                                        },
+                                        Object {
+                                          "defaultValue": "asc",
+                                          "text": "Best match",
+                                          "value": "bestmatch",
+                                        },
+                                        Object {
+                                          "defaultValue": "asc",
+                                          "text": "Available copies",
+                                          "value": "available_items",
+                                        },
+                                        Object {
+                                          "defaultValue": "desc",
+                                          "text": "Most loaned",
+                                          "value": "mostloaned",
+                                        },
+                                        Object {
+                                          "defaultValue": "asc",
+                                          "text": "Published date",
+                                          "value": "published",
+                                        },
+                                      ],
+                                      "SORT_BY_ON_EMPTY_QUERY": "mostrecent",
+                                      "SORT_ORDER": Array [
+                                        Object {
+                                          "text": "Asc",
+                                          "value": "asc",
+                                        },
+                                        Object {
+                                          "text": "Desc",
+                                          "value": "desc",
+                                        },
+                                      ],
+                                    }
+                                  }
+                                >
+                                  Show
+                                   
+                                  <Connect(ResultsPerPage)
+                                    defaultValue={10}
+                                    values={
+                                      Array [
+                                        Object {
+                                          "text": "10",
+                                          "value": 10,
+                                        },
+                                        Object {
+                                          "text": "20",
+                                          "value": 20,
+                                        },
+                                        Object {
+                                          "text": "50",
+                                          "value": 50,
+                                        },
+                                      ]
+                                    }
+                                  >
+                                    <ResultsPerPage
+                                      currentSize={10}
+                                      defaultValue={10}
+                                      loading={true}
+                                      renderElement={null}
+                                      setInitialState={[Function]}
+                                      totalResults={0}
+                                      updateQuerySize={[Function]}
+                                      values={
+                                        Array [
+                                          Object {
+                                            "text": "10",
+                                            "value": 10,
+                                          },
+                                          Object {
+                                            "text": "20",
+                                            "value": 20,
+                                          },
+                                          Object {
+                                            "text": "50",
+                                            "value": 50,
+                                          },
+                                        ]
+                                      }
+                                    >
+                                      <ShouldRender
+                                        condition={false}
+                                      />
+                                    </ResultsPerPage>
+                                  </Connect(ResultsPerPage)>
+                                   
+                                  results per page
+                                </SearchResultsPerPage>
+                              </div>
+                            </GridColumn>
+                          </div>
+                        </Grid>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      className="search-pagination-column"
+                      textAlign="center"
+                      width={8}
+                    >
+                      <div
+                        className="center aligned eight wide column search-pagination-column"
+                      >
+                        <SearchPagination>
+                          <Responsive
+                            getWidth={[Function]}
+                            minWidth={768}
+                          >
+                            <div>
+                              <Connect(Pagination)>
+                                <Pagination
+                                  currentPage={1}
+                                  currentSize={10}
+                                  loading={true}
+                                  options={
+                                    Object {
+                                      "boundaryRangeCount": 1,
+                                      "showEllipsis": true,
+                                      "showFirst": true,
+                                      "showLast": true,
+                                      "showNext": true,
+                                      "showPrev": true,
+                                      "siblingRangeCount": 1,
+                                    }
+                                  }
+                                  renderElement={null}
+                                  setInitialState={[Function]}
+                                  totalResults={0}
+                                  updateQueryPage={[Function]}
+                                >
+                                  <ShouldRender
+                                    condition={false}
+                                  />
+                                </Pagination>
+                              </Connect(Pagination)>
+                            </div>
+                          </Responsive>
+                          <Responsive
+                            getWidth={[Function]}
+                            maxWidth={767}
+                            minWidth={320}
+                          />
+                        </SearchPagination>
+                      </div>
+                    </GridColumn>
+                    <GridColumn
+                      className="search-sort-options-column"
+                      textAlign="right"
+                      width={4}
+                    >
+                      <div
+                        className="right aligned four wide column search-sort-options-column"
+                      >
+                        <div
+                          className="sort-by-filters"
+                        >
+                          <SearchSortBy
+                            prefix="Sort by:"
+                          >
+                            <Responsive
+                              getWidth={[Function]}
+                              minWidth={768}
+                            >
+                              <div>
+                                <label>
+                                  Sort by: 
+                                </label>
+                                <Connect(SortBy)
+                                  defaultValue="mostrecent"
+                                  defaultValueOnEmptyString="mostrecent"
+                                  renderElement={[Function]}
+                                  values={
+                                    Array [
+                                      Object {
+                                        "defaultValue": "asc",
+                                        "text": "Newest",
+                                        "value": "mostrecent",
+                                      },
+                                      Object {
+                                        "defaultValue": "asc",
+                                        "text": "Best match",
+                                        "value": "bestmatch",
+                                      },
+                                      Object {
+                                        "defaultValue": "asc",
+                                        "text": "Available copies",
+                                        "value": "available_items",
+                                      },
+                                      Object {
+                                        "defaultValue": "desc",
+                                        "text": "Most loaned",
+                                        "value": "mostloaned",
+                                      },
+                                      Object {
+                                        "defaultValue": "asc",
+                                        "text": "Published date",
+                                        "value": "published",
+                                      },
+                                    ]
+                                  }
+                                >
+                                  <SortBy
+                                    currentQueryString=""
+                                    currentSortBy="mostrecent"
+                                    defaultValue="mostrecent"
+                                    defaultValueOnEmptyString="mostrecent"
+                                    loading={true}
+                                    renderElement={[Function]}
+                                    setInitialState={[Function]}
+                                    totalResults={0}
+                                    updateQuerySortBy={[Function]}
+                                    values={
+                                      Array [
+                                        Object {
+                                          "defaultValue": "asc",
+                                          "text": "Newest",
+                                          "value": "mostrecent",
+                                        },
+                                        Object {
+                                          "defaultValue": "asc",
+                                          "text": "Best match",
+                                          "value": "bestmatch",
+                                        },
+                                        Object {
+                                          "defaultValue": "asc",
+                                          "text": "Available copies",
+                                          "value": "available_items",
+                                        },
+                                        Object {
+                                          "defaultValue": "desc",
+                                          "text": "Most loaned",
+                                          "value": "mostloaned",
+                                        },
+                                        Object {
+                                          "defaultValue": "asc",
+                                          "text": "Published date",
+                                          "value": "published",
+                                        },
+                                      ]
+                                    }
+                                  >
+                                    <ShouldRender
+                                      condition={false}
+                                    />
+                                  </SortBy>
+                                </Connect(SortBy)>
+                              </div>
+                            </Responsive>
+                            <Responsive
+                              getWidth={[Function]}
+                              maxWidth={767}
+                              minWidth={320}
+                            />
+                          </SearchSortBy>
+                          <SearchSortOrder
+                            searchConfig={
+                              Object {
+                                "AGGREGATIONS": Array [
+                                  Object {
+                                    "field": "tags",
+                                    "title": "Tags",
+                                  },
+                                  Object {
+                                    "field": "languages",
+                                    "title": "Languages",
+                                  },
+                                  Object {
+                                    "field": "document_type",
+                                    "title": "Document types",
+                                  },
+                                  Object {
+                                    "field": "relations",
+                                    "title": "Relations",
+                                  },
+                                  Object {
+                                    "field": "has_items",
+                                    "title": "Select books with",
+                                  },
+                                  Object {
+                                    "field": "has_eitems",
+                                    "title": "Select books with",
+                                  },
+                                  Object {
+                                    "field": "has_items_for_loan",
+                                    "title": "Select books with",
+                                  },
+                                ],
+                                "RESULTS_PER_PAGE": Array [
+                                  Object {
+                                    "text": "10",
+                                    "value": 10,
+                                  },
+                                  Object {
+                                    "text": "20",
+                                    "value": 20,
+                                  },
+                                  Object {
+                                    "text": "50",
+                                    "value": 50,
+                                  },
+                                ],
+                                "SORT_BY": Array [
+                                  Object {
+                                    "defaultValue": "asc",
+                                    "text": "Newest",
+                                    "value": "mostrecent",
+                                  },
+                                  Object {
+                                    "defaultValue": "asc",
+                                    "text": "Best match",
+                                    "value": "bestmatch",
+                                  },
+                                  Object {
+                                    "defaultValue": "asc",
+                                    "text": "Available copies",
+                                    "value": "available_items",
+                                  },
+                                  Object {
+                                    "defaultValue": "desc",
+                                    "text": "Most loaned",
+                                    "value": "mostloaned",
+                                  },
+                                  Object {
+                                    "defaultValue": "asc",
+                                    "text": "Published date",
+                                    "value": "published",
+                                  },
+                                ],
+                                "SORT_BY_ON_EMPTY_QUERY": "mostrecent",
+                                "SORT_ORDER": Array [
+                                  Object {
+                                    "text": "Asc",
+                                    "value": "asc",
+                                  },
+                                  Object {
+                                    "text": "Desc",
+                                    "value": "desc",
+                                  },
+                                ],
+                              }
+                            }
+                          >
+                            <Responsive
+                              getWidth={[Function]}
+                              minWidth={768}
+                            >
+                              <div>
+                                <Connect(SortOrder)
+                                  defaultValue="asc"
+                                  values={
+                                    Array [
+                                      Object {
+                                        "text": "Asc",
+                                        "value": "asc",
+                                      },
+                                      Object {
+                                        "text": "Desc",
+                                        "value": "desc",
+                                      },
+                                    ]
+                                  }
+                                >
+                                  <SortOrder
+                                    currentSortOrder="asc"
+                                    defaultValue="asc"
+                                    loading={true}
+                                    renderElement={null}
+                                    setInitialState={[Function]}
+                                    totalResults={0}
+                                    updateQuerySortOrder={[Function]}
+                                    values={
+                                      Array [
+                                        Object {
+                                          "text": "Asc",
+                                          "value": "asc",
+                                        },
+                                        Object {
+                                          "text": "Desc",
+                                          "value": "desc",
+                                        },
+                                      ]
+                                    }
+                                  >
+                                    <ShouldRender
+                                      condition={false}
+                                    />
+                                  </SortOrder>
+                                </Connect(SortOrder)>
+                              </div>
+                            </Responsive>
+                            <Responsive
+                              getWidth={[Function]}
+                              maxWidth={767}
+                              minWidth={320}
+                            />
+                          </SearchSortOrder>
+                        </div>
+                      </div>
+                    </GridColumn>
+                  </div>
+                </Grid>
+              </div>
+            </Responsive>
+            <Responsive
+              getWidth={[Function]}
+              maxWidth={767}
+              minWidth={320}
+            />
+          </SearchControls>
+        </Bootstrap>
+      </Connect(Bootstrap)>
+    </Provider>
+  </ReactSearchKit>
+</Provider>
+`;

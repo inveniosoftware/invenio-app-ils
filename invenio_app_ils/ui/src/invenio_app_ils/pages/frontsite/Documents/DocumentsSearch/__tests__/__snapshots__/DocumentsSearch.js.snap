@@ -1,0 +1,372 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentsSearch tests should load the DocumentsSearch component 1`] = `
+<ReactSearchKit
+  defaultSortByOnEmptyQuery={null}
+  persistentUrl={
+    Object {
+      "customHandler": null,
+      "enabled": true,
+      "overrideConfig": Object {
+        "withHistory": true,
+      },
+    }
+  }
+  searchApi={
+    InvenioSearchApi {
+      "http": [Function],
+      "requestSerializer": InvenioRequestSerializer {
+        "serialize": [Function],
+      },
+      "responseSerializer": InvenioResponseSerializer {
+        "serialize": [Function],
+      },
+      "search": [Function],
+    }
+  }
+  searchOnInit={true}
+  suggestionApi={null}
+>
+  <Container
+    className="document-details-search-container"
+    fluid={true}
+  >
+    <Container>
+      <Connect(SearchBarUncontrolled)
+        renderElement={[Function]}
+      />
+    </Container>
+  </Container>
+  <Responsive
+    getWidth={[Function]}
+    minWidth={768}
+  >
+    <Container
+      className="search-body"
+      fluid={true}
+    >
+      <Grid
+        className="grid-documents-search"
+        columns={2}
+        relaxed={true}
+        stackable={true}
+      >
+        <Connect(ResultsLoader)>
+          <GridColumn
+            className="search-aggregations"
+            width={3}
+          >
+            <Header
+              content="Filter by"
+            />
+            <SearchAggregationsCards />
+          </GridColumn>
+          <GridColumn
+            className="search-results"
+            width={13}
+          >
+            <SearchEmptyResults />
+            <Connect(Error)
+              renderElement={[Function]}
+            />
+            <SearchControls
+              layoutToggle={[Function]}
+            />
+            <DocumentSearchResultsGrid />
+            <Container
+              className="search-results-footer"
+              fluid={true}
+            >
+              <SearchFooter />
+              <Container
+                className="search-results-message"
+              >
+                <SearchMessage />
+              </Container>
+            </Container>
+          </GridColumn>
+        </Connect(ResultsLoader)>
+      </Grid>
+    </Container>
+  </Responsive>
+  <Responsive
+    getWidth={[Function]}
+    maxWidth={767}
+    minWidth={320}
+  >
+    <DocumentsSearchMobile />
+  </Responsive>
+</ReactSearchKit>
+`;
+
+exports[`DocumentsSearch tests should mount DocumentsSearch component 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <Provider
+      store={
+        Object {
+          "clearActions": [Function],
+          "dispatch": [Function],
+          "getActions": [Function],
+          "getState": [Function],
+          "replaceReducer": [Function],
+          "subscribe": [Function],
+        }
+      }
+    >
+      <ReactSearchKit
+        defaultSortByOnEmptyQuery={null}
+        persistentUrl={
+          Object {
+            "customHandler": null,
+            "enabled": true,
+            "overrideConfig": Object {
+              "withHistory": true,
+            },
+          }
+        }
+        searchApi={
+          InvenioSearchApi {
+            "http": [Function],
+            "requestSerializer": InvenioRequestSerializer {
+              "serialize": [Function],
+            },
+            "responseSerializer": InvenioResponseSerializer {
+              "serialize": [Function],
+            },
+            "search": [Function],
+          }
+        }
+        searchOnInit={true}
+        suggestionApi={null}
+      >
+        <Provider
+          store={
+            Object {
+              "dispatch": [Function],
+              "getState": [Function],
+              "replaceReducer": [Function],
+              "subscribe": [Function],
+              Symbol(observable): [Function],
+            }
+          }
+        >
+          <Connect(Bootstrap)
+            searchOnInit={true}
+          >
+            <Bootstrap
+              onAppInitialized={[Function]}
+              searchOnInit={true}
+              searchOnUrlQueryStringChanged={[Function]}
+            >
+              <DocumentsSearch
+                layoutToggle={[MockFunction]}
+              >
+                <ReactSearchKit
+                  defaultSortByOnEmptyQuery={null}
+                  persistentUrl={
+                    Object {
+                      "customHandler": null,
+                      "enabled": true,
+                      "overrideConfig": Object {
+                        "withHistory": true,
+                      },
+                    }
+                  }
+                  searchApi={
+                    InvenioSearchApi {
+                      "http": [Function],
+                      "requestSerializer": InvenioRequestSerializer {
+                        "serialize": [Function],
+                      },
+                      "responseSerializer": InvenioResponseSerializer {
+                        "serialize": [Function],
+                      },
+                      "search": [Function],
+                    }
+                  }
+                  searchOnInit={true}
+                  suggestionApi={null}
+                >
+                  <Provider
+                    store={
+                      Object {
+                        "dispatch": [Function],
+                        "getState": [Function],
+                        "replaceReducer": [Function],
+                        "subscribe": [Function],
+                        Symbol(observable): [Function],
+                      }
+                    }
+                  >
+                    <Connect(Bootstrap)
+                      searchOnInit={true}
+                    >
+                      <Bootstrap
+                        onAppInitialized={[Function]}
+                        searchOnInit={true}
+                        searchOnUrlQueryStringChanged={[Function]}
+                      >
+                        <Container
+                          className="document-details-search-container"
+                          fluid={true}
+                        >
+                          <div
+                            className="ui fluid container document-details-search-container"
+                          >
+                            <Container>
+                              <div
+                                className="ui container"
+                              >
+                                <Connect(SearchBarUncontrolled)
+                                  renderElement={[Function]}
+                                >
+                                  <SearchBarUncontrolled
+                                    queryString=""
+                                    renderElement={[Function]}
+                                    updateQueryString={[Function]}
+                                  >
+                                    <SearchBar
+                                      key=""
+                                      queryString=""
+                                      renderElement={[Function]}
+                                      updateQueryString={[Function]}
+                                    >
+                                      <SearchBar
+                                        currentQueryString=""
+                                        executeSearch={[Function]}
+                                        onInputChange={[Function]}
+                                        placeholder="Search for records..."
+                                      >
+                                        <Input
+                                          fluid={true}
+                                          icon={
+                                            <Icon
+                                              as="i"
+                                              link={true}
+                                              name="search"
+                                              onClick={[Function]}
+                                            />
+                                          }
+                                          onChange={[Function]}
+                                          onKeyPress={[Function]}
+                                          placeholder="Search for records..."
+                                          size="big"
+                                          type="text"
+                                          value=""
+                                        >
+                                          <div
+                                            className="ui big fluid icon input"
+                                          >
+                                            <input
+                                              onChange={[Function]}
+                                              onKeyPress={[Function]}
+                                              placeholder="Search for records..."
+                                              type="text"
+                                              value=""
+                                            />
+                                            <Icon
+                                              as="i"
+                                              link={true}
+                                              name="search"
+                                              onClick={[Function]}
+                                            >
+                                              <i
+                                                aria-hidden="true"
+                                                className="search link icon"
+                                                onClick={[Function]}
+                                              />
+                                            </Icon>
+                                          </div>
+                                        </Input>
+                                      </SearchBar>
+                                    </SearchBar>
+                                  </SearchBarUncontrolled>
+                                </Connect(SearchBarUncontrolled)>
+                              </div>
+                            </Container>
+                          </div>
+                        </Container>
+                        <Responsive
+                          getWidth={[Function]}
+                          minWidth={768}
+                        >
+                          <div>
+                            <Container
+                              className="search-body"
+                              fluid={true}
+                            >
+                              <div
+                                className="ui fluid container search-body"
+                              >
+                                <Grid
+                                  className="grid-documents-search"
+                                  columns={2}
+                                  relaxed={true}
+                                  stackable={true}
+                                >
+                                  <div
+                                    className="ui stackable relaxed two column grid grid-documents-search"
+                                  >
+                                    <Connect(ResultsLoader)>
+                                      <ResultsLoader
+                                        dispatch={[Function]}
+                                        loading={true}
+                                        renderElement={null}
+                                      >
+                                        <Loader
+                                          active={true}
+                                          inline="centered"
+                                          size="huge"
+                                        >
+                                          <div
+                                            className="ui huge active centered inline loader"
+                                          />
+                                        </Loader>
+                                      </ResultsLoader>
+                                    </Connect(ResultsLoader)>
+                                  </div>
+                                </Grid>
+                              </div>
+                            </Container>
+                          </div>
+                        </Responsive>
+                        <Responsive
+                          getWidth={[Function]}
+                          maxWidth={767}
+                          minWidth={320}
+                        />
+                      </Bootstrap>
+                    </Connect(Bootstrap)>
+                  </Provider>
+                </ReactSearchKit>
+              </DocumentsSearch>
+            </Bootstrap>
+          </Connect(Bootstrap)>
+        </Provider>
+      </ReactSearchKit>
+    </Provider>
+  </Router>
+</BrowserRouter>
+`;

@@ -69,7 +69,7 @@ export const invenioConfig = {
             default_order: 'asc',
             field: 'available_items',
             order: 3,
-            title: 'Available Items',
+            title: 'Available copies',
           },
           {
             default_order: 'desc',

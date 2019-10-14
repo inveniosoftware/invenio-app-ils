@@ -6,3 +6,9 @@
   color: @orange;
   font-weight: bold;
 }
+
+.ui.button.basic.fs-button-sort-mobile{
+  box-shadow: none;
+  border: 0;
+
+}

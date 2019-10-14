@@ -41,7 +41,7 @@ export default class DocumentPanelMobile extends Component {
                 </ILSHeaderPlaceholder>
                 <ILSParagraphPlaceholder linesNumber={1} isLoading={isLoading}>
                   <DocumentAuthors
-                    prefix={'by: '}
+                    prefix={'by '}
                     listItemAs={'h4'}
                     metadata={this.props.documentDetails.metadata}
                   />
