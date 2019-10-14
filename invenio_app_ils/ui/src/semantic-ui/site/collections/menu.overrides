@@ -6,6 +6,10 @@
     border-top: @highlightBorder;
 }
 
+.ui.menu.mobile-header-menu{
+  display: block;
+}
+
 .backoffice {
 
   .ui.menu.vertical.bo-menu {
@@ -21,3 +25,4 @@
     }
   }
 }
+

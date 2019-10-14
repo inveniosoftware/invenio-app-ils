@@ -2,12 +2,28 @@
          Site Overrides
 *******************************/
 
+/* Mobile */
+@media only screen and (max-width: @largestMobileScreen) {
+    .ui.container.fluid {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
 .frontsite {
 
   .ui.container {
+
     &.document-details-container {
       margin-top: @defaultMarginValue;
     }
+
+    &.fs-content {
+    margin-top: @headerMenuHeight;
+    flex: 1;
+    justify-content: space-between;
+  }
 
     &.document-tags {
       margin-top: 2em;
@@ -20,6 +36,7 @@
   }
 
   /* Frontsite search bar container */
+
   .ui.container.document-details-search-container {
     background-color: @highlightBackgroundColor;
     padding-top: 2em;
@@ -42,6 +59,7 @@
   }
 
   /* frontsite footer */
+
   .ui.container.footer-lower {
     background-color: #2A2D34;
     padding-top: @footerPaddings/2;
@@ -58,6 +76,7 @@
   }
 
   /* Highlighted sections */
+
   .ui.container.section {
     background-color: @highlightBackgroundColor;
     padding-top: 1em;
@@ -68,11 +87,12 @@
   }
 
   /* search pages */
-  .ui.container.search-body{
+
+  .ui.container.search-body {
     padding: @sectionDefaultPadding;
   }
 
-  .ui.container.search-results-message{
+  .ui.container.search-results-message {
     padding-top: @sectionDefaultPadding/2;
   }
 

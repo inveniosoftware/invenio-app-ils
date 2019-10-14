@@ -76,6 +76,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
           >
             <Checkbox
               checked={false}
+              key="DELIVERY"
               label=""
               name="deliveryMethodRadioGroup"
               onChange={[Function]}
@@ -150,6 +151,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
             </Checkbox>
             <Checkbox
               checked={true}
+              key="PICK UP"
               label=""
               name="deliveryMethodRadioGroup"
               onChange={[Function]}

@@ -9,12 +9,17 @@ export class DocumentCover extends Component {
     return (
       <ILSImagePlaceholder
         isLoading={this.props.isLoading}
-        style={{ width: 350, height: 500 }}
+        style={
+          this.props.placeholderStyle
+            ? this.props.placeholderStyle
+            : { width: 350, height: 500 }
+        }
       >
         <Image
           className="document-cover"
           src={this.props.metadata ? getCover(this.props.metadata.pid) : null}
-          size={'large'}
+          size={this.props.imageSize ? this.props.imageSize : 'large'}
+          centered
         />
       </ILSImagePlaceholder>
     );
@@ -22,6 +27,8 @@ export class DocumentCover extends Component {
 }
 
 DocumentCover.propTypes = {
-  documentDetails: PropTypes.object.isRequired,
-  isLoading: PropTypes.object.isRequired,
+  documentDetails: PropTypes.object,
+  isLoading: PropTypes.bool.isRequired,
+  imageSize: PropTypes.string,
+  placeholderStyle: PropTypes.object,
 };

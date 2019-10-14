@@ -5,8 +5,8 @@ import { DocumentInfo as DocumentInfoComponent } from './DocumentInfo';
 import { DocumentCover as DocumentCoverComponent } from './DocumentCover';
 import { DocumentAbstract as DocumentAbstractComponent } from './DocumentAbstract';
 import { DocumentTitle as DocumentTitleComponent } from './DocumentTitle';
-export { DocumentTableOfContent } from './DocumentTableOfContent';
-export { DocumentConference } from './DocumentConference';
+import { DocumentMetadataTabs as DocumentMetadataTabsComponent } from './DocumentMetadataTabs';
+import { DocumentMetadataAccordion as DocumentMetadataAccordionComponent } from './DocumentMetadataAccordion';
 
 export { DocumentAuthors } from './DocumentAuthors';
 
@@ -45,3 +45,13 @@ export const DocumentTitle = connect(
   mapStateToProps,
   null
 )(DocumentTitleComponent);
+
+export const DocumentMetadataTabs = connect(
+  mapStateToProps,
+  null
+)(DocumentMetadataTabsComponent);
+
+export const DocumentMetadataAccordion = connect(
+  mapStateToProps,
+  null
+)(DocumentMetadataAccordionComponent);

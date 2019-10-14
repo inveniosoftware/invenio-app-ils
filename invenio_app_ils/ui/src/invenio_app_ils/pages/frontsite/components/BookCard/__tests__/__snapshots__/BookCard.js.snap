@@ -105,38 +105,42 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
                   }
                 }
               >
-                <List
-                  className="document-authors-list"
-                  horizontal={true}
+                <div
+                  className="document-authors-list-wrapper"
                 >
-                  <div
-                    className="ui horizontal list document-authors-list"
-                    role="list"
+                  <List
+                    className="document-authors-list"
+                    horizontal={true}
                   >
-                    <ListItem
-                      as=""
-                      key="Key0"
+                    <div
+                      className="ui horizontal list document-authors-list"
+                      role="list"
                     >
-                      <div
-                        className="item"
-                        onClick={[Function]}
-                        role="listitem"
+                      <ListItem
+                        as=""
+                        key="Key0"
                       >
-                        ; 
-                      </div>
-                    </ListItem>
-                    <ListItem
-                      as=""
-                      key="Key1"
-                    >
-                      <div
-                        className="item"
-                        onClick={[Function]}
-                        role="listitem"
-                      />
-                    </ListItem>
-                  </div>
-                </List>
+                        <div
+                          className="item"
+                          onClick={[Function]}
+                          role="listitem"
+                        >
+                          ; 
+                        </div>
+                      </ListItem>
+                      <ListItem
+                        as=""
+                        key="Key1"
+                      >
+                        <div
+                          className="item"
+                          onClick={[Function]}
+                          role="listitem"
+                        />
+                      </ListItem>
+                    </div>
+                  </List>
+                </div>
               </DocumentAuthors>
             </div>
           </CardMeta>
@@ -268,38 +272,42 @@ exports[`BookCard tests should render the BookCard 1`] = `
                   }
                 }
               >
-                <List
-                  className="document-authors-list"
-                  horizontal={true}
+                <div
+                  className="document-authors-list-wrapper"
                 >
-                  <div
-                    className="ui horizontal list document-authors-list"
-                    role="list"
+                  <List
+                    className="document-authors-list"
+                    horizontal={true}
                   >
-                    <ListItem
-                      as=""
-                      key="Key0"
+                    <div
+                      className="ui horizontal list document-authors-list"
+                      role="list"
                     >
-                      <div
-                        className="item"
-                        onClick={[Function]}
-                        role="listitem"
+                      <ListItem
+                        as=""
+                        key="Key0"
                       >
-                        ; 
-                      </div>
-                    </ListItem>
-                    <ListItem
-                      as=""
-                      key="Key1"
-                    >
-                      <div
-                        className="item"
-                        onClick={[Function]}
-                        role="listitem"
-                      />
-                    </ListItem>
-                  </div>
-                </List>
+                        <div
+                          className="item"
+                          onClick={[Function]}
+                          role="listitem"
+                        >
+                          ; 
+                        </div>
+                      </ListItem>
+                      <ListItem
+                        as=""
+                        key="Key1"
+                      >
+                        <div
+                          className="item"
+                          onClick={[Function]}
+                          role="listitem"
+                        />
+                      </ListItem>
+                    </div>
+                  </List>
+                </div>
               </DocumentAuthors>
             </div>
           </CardMeta>

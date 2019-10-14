@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Icon, Menu, Dropdown } from 'semantic-ui-react';
+import { Container, Menu, Dropdown, Responsive } from 'semantic-ui-react';
 import {
   authenticationService,
   sessionManager,
@@ -10,15 +10,9 @@ import { LoginButton } from '../../../../common/components';
 import { goToHandler } from '../../../../history';
 
 export default class Header extends Component {
-  renderRightDropDown = () => {
-    const trigger = (
-      <span>
-        <Icon name="user" /> Hello, {sessionManager.user.username}
-      </span>
-    );
-
+  renderRightDropDown = userMenuText => {
     return (
-      <Dropdown item trigger={trigger}>
+      <Dropdown item text={userMenuText} icon="user">
         <Dropdown.Menu>
           <Dropdown.Item onClick={goToHandler(FrontSiteRoutes.patronProfile)}>
             Your Profile
@@ -44,7 +38,7 @@ export default class Header extends Component {
     );
   };
 
-  renderRightMenuItem = () => {
+  renderRightMenuItem = (userMenuText = '') => {
     return !sessionManager.authenticated ? (
       <LoginButton
         clickHandler={() => {
@@ -52,27 +46,48 @@ export default class Header extends Component {
         }}
       />
     ) : (
-      this.renderRightDropDown()
+      this.renderRightDropDown(userMenuText)
     );
   };
 
   render() {
     return (
-      <Menu
-        stackable
-        borderless
-        fluid
-        inverted
-        fixed="top"
-        className="header-menu"
-      >
-        <Container>
-          <Menu.Item>
-            <Link to="/">ILS</Link>
-          </Menu.Item>
-          <Menu.Item position={'right'}>{this.renderRightMenuItem()}</Menu.Item>
-        </Container>
-      </Menu>
+      <>
+        <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+          <Menu
+            stackable
+            borderless
+            inverted
+            fixed="top"
+            className="header-menu"
+          >
+            <Container>
+              <Menu.Item header>
+                <Link to="/">ILS</Link>
+              </Menu.Item>
+              <Menu.Menu position="right">
+                <Menu.Item>
+                  {this.renderRightMenuItem(
+                    `Hello, ${sessionManager.user.username}`
+                  )}
+                </Menu.Item>
+              </Menu.Menu>
+            </Container>
+          </Menu>
+        </Responsive>
+        <Responsive {...Responsive.onlyMobile}>
+          <Menu borderless inverted fixed="top" className="mobile-header-menu">
+            <Container>
+              <Menu.Item header>
+                <Link to="/">ILS</Link>
+              </Menu.Item>
+              <Menu.Menu position="right">
+                <Menu.Item>{this.renderRightMenuItem()}</Menu.Item>
+              </Menu.Menu>
+            </Container>
+          </Menu>
+        </Responsive>
+      </>
     );
   }
 }
