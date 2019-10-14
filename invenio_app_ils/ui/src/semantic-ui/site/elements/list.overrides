@@ -1,13 +1,29 @@
 /*******************************
     User Variable Overrides
 *******************************/
-.ui.list{
-  &.bulleted.horizontal.document-authors-list{
-    .item{
-      margin-left: 1.25rem;
+.ui.list {
+  &.horizontal{
+  &.document-authors-list, &.document-languages-list {
+    .item {
+      margin-left: 0.5rem;
     }
-    .item:before{
-      content: '; '
+
+    .item:before {
+      content: ' '
     }
   }
 }
+}
+
+.ui.container.search-body {
+  .ui.card {
+    .ui.list {
+      &.horizontal.document-authors-list {
+        .item {
+          margin-left: 0.1rem;
+        }
+      }
+    }
+  }
+}
+

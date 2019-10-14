@@ -63,15 +63,17 @@ export default class DocumentsDetails extends Component {
 
         <Error error={error}>
           <Container className="document-details-container default-margin-top">
-            <Breadcrumbs
-              isLoading={isLoading}
-              elements={this.breadcrumbs()}
-              currentElement={
-                this.props.documentDetails.metadata
-                  ? this.props.documentDetails.metadata.title
-                  : null
-              }
-            />
+            <ILSParagraphPlaceholder isLoading={isLoading} lines={1}>
+              <Breadcrumbs
+                isLoading={isLoading}
+                elements={this.breadcrumbs()}
+                currentElement={
+                  this.props.documentDetails.metadata
+                    ? this.props.documentDetails.metadata.title
+                    : null
+                }
+              />
+            </ILSParagraphPlaceholder>
             <DocumentPanel />
           </Container>
           <Container className="document-tags">

@@ -1,29 +1,31 @@
-import React from 'react';
 import { ResultsPerPage, SortBy, SortOrder } from 'react-searchkit';
+import React, { Component } from 'react';
 
-export function ResultsSort(props) {
-  return props.searchConfig.SORT_BY.length ? (
-    <div>
-      <span>
-        Show&nbsp;
+export class ResultsSort extends Component {
+  render() {
+    return this.props.searchConfig.SORT_BY.length ? (
+      <div className={'search-results-page-size'}>
+        Show{' '}
         <ResultsPerPage
-          values={props.searchConfig.RESULTS_PER_PAGE}
-          defaultValue={props.searchConfig.RESULTS_PER_PAGE[0].value}
-        />
-        &nbsp;results per page sorted by
-      </span>
-      <div>
-        <SortBy
-          values={props.searchConfig.SORT_BY}
-          defaultValue={props.searchConfig.SORT_BY[0].value}
-          defaultValueOnEmptyString={props.searchConfig.SORT_BY_ON_EMPTY_QUERY}
-        />
-        &nbsp;
-        <SortOrder
-          values={props.searchConfig.SORT_ORDER}
-          defaultValue={props.searchConfig.SORT_ORDER[0]['value']}
-        />
+          values={this.props.searchConfig.RESULTS_PER_PAGE}
+          defaultValue={this.props.searchConfig.RESULTS_PER_PAGE[0].value}
+        />{' '}
+        results per page
+        <div className={'search-results-sort-options'}>
+          Sort by:{' '}
+          <SortBy
+            values={this.props.searchConfig.SORT_BY}
+            defaultValue={this.props.searchConfig.SORT_BY[0].value}
+            defaultValueOnEmptyString={
+              this.props.searchConfig.SORT_BY_ON_EMPTY_QUERY
+            }
+          />
+          <SortOrder
+            values={this.props.searchConfig.SORT_ORDER}
+            defaultValue={this.props.searchConfig.SORT_ORDER[0]['value']}
+          />
+        </div>
       </div>
-    </div>
-  ) : null;
+    ) : null;
+  }
 }

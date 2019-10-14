@@ -4,9 +4,18 @@
 
 @boxShadow: none;
 
-@linkHoverRaiseDistance: 0;
-@linkHoverTransform: none;
 
 @shadowHoverBoxShadow: 0;
+
+/* Link */
+@linkHoverRaiseDistance: 0;
+@linkHoverTransform: none;
 @linkHoverBoxShadow: none;
 @linkHoverBackground: @highlightBackgroundColor;
+
+/* Header */
+@headerFontSize: 1.2em;
+
+/* Content */
+@contentDivider: none;
+@contentPadding: 2em 1em 1em 1em;

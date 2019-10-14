@@ -64,6 +64,12 @@ export const invenioConfig = {
             order: 4,
             title: 'Most loaned',
           },
+          {
+            default_order: 'asc',
+            field: 'published',
+            order: 5,
+            title: 'Published date',
+          },
         ],
       },
       sortOrder: ['asc', 'desc'],

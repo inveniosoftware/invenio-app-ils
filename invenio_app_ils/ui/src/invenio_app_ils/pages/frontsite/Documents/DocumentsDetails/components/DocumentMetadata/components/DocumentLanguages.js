@@ -2,33 +2,30 @@ import { List } from 'semantic-ui-react';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export class DocumentAuthors extends Component {
+export class DocumentLanguages extends Component {
   render() {
-    const { metadata, prefix, otherAuthorsDisplay, delimiter } = this.props;
-    const otherAuthors = otherAuthorsDisplay ? otherAuthorsDisplay : 'et al.';
+    const { metadata, delimiter } = this.props;
     return (
       <>
-        {prefix ? prefix + ' ' : null}
-        <List horizontal className={'document-authors-list'}>
+        <List horizontal className={'document-languages-list'}>
           {metadata
-            ? metadata.authors.map((author, index) => (
+            ? metadata.languages.map((language, index) => (
                 <List.Item
                   as={this.props.listItemAs ? this.props.listItemAs : ''}
                   key={`Key${index}`}
                 >
-                  {author.full_name}
-                  {index !== metadata.authors.length - 1 ? delimiter : null}
+                  {language}
+                  {index !== metadata.languages.length - 1 ? delimiter : null}
                 </List.Item>
               ))
             : null}
-          {metadata && metadata.other_authors ? otherAuthors : null}
         </List>
       </>
     );
   }
 }
 
-DocumentAuthors.propTypes = {
+DocumentLanguages.propTypes = {
   metadata: PropTypes.object.isRequired,
   prefix: PropTypes.string,
   otherAuthorsDisplay: PropTypes.string,
@@ -36,6 +33,6 @@ DocumentAuthors.propTypes = {
   delimiter: PropTypes.string.isRequired,
 };
 
-DocumentAuthors.defaultProps = {
-  delimiter: '; ',
+DocumentLanguages.defaultProps = {
+  delimiter: ', ',
 };

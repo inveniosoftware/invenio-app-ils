@@ -144,7 +144,7 @@ exports[`BookGroup tests should render book cards 1`] = `
 </BrowserRouter>
 `;
 
-exports[`BookGroup tests should render the VIEW ALL link 1`] = `
+exports[`BookGroup tests should render the VIEW ALL link properly 1`] = `
 <BrowserRouter>
   <Router
     history={

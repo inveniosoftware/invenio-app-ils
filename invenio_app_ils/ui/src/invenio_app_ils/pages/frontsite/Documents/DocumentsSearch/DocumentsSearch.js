@@ -13,6 +13,7 @@ import {
   Accordion,
   Menu,
   Message,
+  Item,
 } from 'semantic-ui-react';
 import {
   ReactSearchKit,
@@ -23,7 +24,6 @@ import {
   EmptyResults,
   Error,
   Pagination,
-  Count,
   Aggregator,
   InvenioSearchApi,
 } from 'react-searchkit';
@@ -32,12 +32,12 @@ import { FrontSiteRoutes } from '../../../../routes/urls';
 import {
   Error as IlsError,
   SearchBar as DocumentsSearchBar,
-  ResultsSort,
 } from '../../../../common/components';
 import { document as documentApi } from '../../../../common/api';
-import { DocumentItem } from './components';
+import { DocumentListEntry } from './components';
 import { BookCard } from '../../components';
 import { goTo } from '../../../../history';
+import { SearchControls } from '../../../../common/components';
 import Qs from 'qs';
 
 class SearchAggregations extends Component {
@@ -83,27 +83,24 @@ class SearchAggregations extends Component {
 
   render() {
     const accordionPanels = this.searchConfig.AGGREGATIONS.map((agg, idx) => (
-      <div key={agg.field}>
-        <Aggregator
-          title={agg.title}
-          field={agg.field}
-          customProps={{ index: idx }}
-          renderElement={this.renderAccordionAggregations}
-        />
-      </div>
+      <Aggregator
+        title={agg.title}
+        field={agg.field}
+        key={agg.field}
+        customProps={{ index: idx }}
+        renderElement={this.renderAccordionAggregations}
+      />
     ));
 
     const cardPanels = this.searchConfig.AGGREGATIONS.map(agg => (
-      <div key={agg.field}>
-        <Aggregator title={agg.title} field={agg.field} />
-      </div>
+      <Aggregator key={agg.field} title={agg.title} field={agg.field} />
     ));
 
     return (
-      <div>
+      <>
         <Responsive {...Responsive.onlyMobile}>{accordionPanels}</Responsive>
         <Responsive {...Responsive.onlyComputer}>{cardPanels}</Responsive>
-      </div>
+      </>
     );
   }
 }
@@ -136,7 +133,7 @@ export class DocumentsSearch extends Component {
       this.setState({ isLayoutGrid: !this.state.isLayoutGrid });
     };
     return (
-      <Button.Group basic icon>
+      <Button.Group basic icon className={'search-layout-toggle'}>
         <Button disabled={this.state.isLayoutGrid} onClick={toggleLayout}>
           <Icon name="grid layout" />
         </Button>
@@ -152,7 +149,7 @@ export class DocumentsSearch extends Component {
       return <BookCard key={book.metadata.pid} data={book} />;
     });
     return (
-      <Card.Group doubling stackable itemsPerRow={4}>
+      <Card.Group doubling stackable itemsPerRow={5}>
         {cards}
       </Card.Group>
     );
@@ -160,9 +157,9 @@ export class DocumentsSearch extends Component {
 
   renderResultsList = results => {
     return results.length ? (
-      <div>
+      <Item.Group>
         {results.map(book => (
-          <DocumentItem
+          <DocumentListEntry
             key={book.metadata.pid}
             data-test={book.metadata.pid}
             metadata={book.metadata}
@@ -171,7 +168,7 @@ export class DocumentsSearch extends Component {
             }
           />
         ))}
-      </div>
+      </Item.Group>
     ) : null;
   };
 
@@ -197,62 +194,23 @@ export class DocumentsSearch extends Component {
     return <div>{totalResults} results</div>;
   };
 
-  renderAggregations = () => {
-    const accordionPanels = this.searchConfig.AGGREGATIONS.map((agg, idx) => (
-      <div key={agg.field}>
-        <Aggregator
-          title={agg.title}
-          field={agg.field}
-          customProps={{ index: idx }}
-          renderElement={this.renderAccordionAggregations}
-        />
-      </div>
-    ));
-
-    const cardPanels = this.searchConfig.AGGREGATIONS.map(agg => (
-      <div key={agg.field}>
-        <Aggregator title={agg.title} field={agg.field} />
-      </div>
-    ));
-
-    return (
-      <div>
-        <Responsive {...Responsive.onlyMobile}>{accordionPanels}</Responsive>
-        <Responsive {...Responsive.onlyComputer}>{cardPanels}</Responsive>
-      </div>
-    );
-  };
-
-  renderHeader = () => {
-    return (
-      <Grid columns={3} verticalAlign="middle" stackable relaxed>
-        <Grid.Column width={2}>{this.renderResultsLayoutOptions()}</Grid.Column>
-        <Grid.Column width={3} textAlign="left">
-          <Count renderElement={this.renderCount} />
-        </Grid.Column>
-        <Grid.Column width={6}>
-          <Pagination />
-        </Grid.Column>
-        <Grid.Column width={5} textAlign="right">
-          <ResultsSort searchConfig={this.searchConfig} />
-        </Grid.Column>
-      </Grid>
-    );
-  };
-
   renderFooter = () => {
     return (
-      <Grid columns={3} verticalAlign="middle" stackable relaxed>
-        <Grid.Column width={5} />
-        <Grid.Column width={6}>
+      <Grid
+        columns={3}
+        textAlign={'center'}
+        className={'search-footer-pagination'}
+      >
+        <Grid.Column />
+        <Grid.Column>
           <Pagination />
         </Grid.Column>
-        <Grid.Column width={5} />
+        <Grid.Column />
       </Grid>
     );
   };
 
-  onClickBookRequestLink = location => {
+  onClickBookRequestLink = () => {
     const params = Qs.parse(window.location.search);
     const queryString = params['?q'];
     return {
@@ -261,10 +219,25 @@ export class DocumentsSearch extends Component {
     };
   };
 
-  render() {
+  renderMessage = () => {
     const requestFormLink = (
-      <Link to={this.onClickBookRequestLink}>request form</Link>
+      <Link to={this.onClickBookRequestLink()}>request form</Link>
     );
+    return (
+      <Message icon color="yellow">
+        <Icon name="info circle" />
+        <Message.Content>
+          <Message.Header>
+            Couldn't find the book you were looking for?
+          </Message.Header>
+          Please fill in the {requestFormLink} to request a new book from the
+          library.
+        </Message.Content>
+      </Message>
+    );
+  };
+
+  render() {
     return (
       <ReactSearchKit searchApi={this.searchApi}>
         <Container fluid className="document-details-search-container">
@@ -272,32 +245,32 @@ export class DocumentsSearch extends Component {
             <SearchBar renderElement={this.renderSearchBar} />
           </Container>
         </Container>
+
         <Container fluid className="search-body">
           <Grid columns={2} stackable relaxed className="grid-documents-search">
             <ResultsLoader>
-              <Grid.Column width={3}>
+              <Grid.Column width={3} className="search-aggregations">
+                <Header content={'Filter by'} />
                 <SearchAggregations searchConfig={this.searchConfig} />
               </Grid.Column>
-              <Grid.Column width={13}>
+              <Grid.Column width={13} className="search-results">
                 <EmptyResults renderElement={this.renderEmptyResults} />
                 <Error renderElement={this.renderError} />
-                {this.renderHeader()}
+                <SearchControls
+                  searchConfig={this.searchConfig}
+                  layoutToggle={this.renderResultsLayoutOptions}
+                />
                 {this.state.isLayoutGrid ? (
                   <ResultsGrid renderElement={this.renderResultsGrid} />
                 ) : (
                   <ResultsList renderElement={this.renderResultsList} />
                 )}
-                {this.renderFooter()}
-                <Message icon color="yellow">
-                  <Icon name="info circle" />
-                  <Message.Content>
-                    <Message.Header>
-                      Couldn't find the book you were looking for?
-                    </Message.Header>
-                    Please fill in the {requestFormLink} to request a new book
-                    from the library.
-                  </Message.Content>
-                </Message>
+                <Container fluid className={'search-results-footer'}>
+                  {this.renderFooter()}
+                  <Container className={'search-results-message'}>
+                    {this.renderMessage()}
+                  </Container>
+                </Container>
               </Grid.Column>
             </ResultsLoader>
           </Grid>

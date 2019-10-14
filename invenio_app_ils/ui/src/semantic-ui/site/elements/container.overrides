@@ -74,8 +74,11 @@
 
   /* search pages */
   .ui.container.search-body{
-    padding-bottom: @sectionDefaultPadding;
-    padding-top: @sectionDefaultPadding;
+    padding: @sectionDefaultPadding;
+  }
+
+  .ui.container.search-results-message{
+    padding-top: @sectionDefaultPadding/2;
   }
 
 }

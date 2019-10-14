@@ -2,3 +2,43 @@
     User Variable Overrides
 *******************************/
 
+.ui.container.search-body {
+
+  .search-results{
+    .ui.card{
+      text-align: center;
+    }
+  }
+  .ui.card {
+    .content {
+
+      &.extra{
+        div{
+          width: 100%;
+        }
+      }
+    }
+
+    .meta {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+
+}
+
+.search-aggregations{
+  .ui.card{
+    border-bottom: 1px solid @borderColor;
+    border-radius: 0;
+    margin-bottom: 2em;
+    .content{
+      padding-top: 0.5em;
+      .header{
+        text-transform: uppercase;
+      }
+    }
+  }
+}

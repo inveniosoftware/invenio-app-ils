@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Divider, Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import { DocumentAuthors } from './index';
 
 export class DocumentInfo extends Component {
   constructor(props) {
@@ -35,10 +36,7 @@ export class DocumentInfo extends Component {
             <Table.Row>
               <Table.Cell>Authors</Table.Cell>
               <Table.Cell>
-                {this.metadata.authors.map((author, index) => (
-                  <span key={`Key${index}`}>{author.full_name}; </span>
-                ))}
-                <span>{this.metadata.other_authors ? ' et al.' : null}</span>
+                <DocumentAuthors metadata={this.metadata} />
               </Table.Cell>
             </Table.Row>
             <Table.Row>

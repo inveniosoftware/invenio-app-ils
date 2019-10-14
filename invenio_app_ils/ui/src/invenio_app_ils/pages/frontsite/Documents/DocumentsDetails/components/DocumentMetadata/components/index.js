@@ -4,8 +4,9 @@ import { DocumentRelations as DocumentRelationsComponent } from './DocumentRelat
 import { DocumentInfo as DocumentInfoComponent } from './DocumentInfo';
 import { DocumentCover as DocumentCoverComponent } from './DocumentCover';
 import { DocumentAbstract as DocumentAbstractComponent } from './DocumentAbstract';
-import { DocumentAuthors as DocumentAuthorsComponent } from './DocumentAuthors';
 import { DocumentTitle as DocumentTitleComponent } from './DocumentTitle';
+
+export { DocumentAuthors } from './DocumentAuthors';
 
 const mapStateToProps = state => ({
   isLoading: state.documentDetailsFront.isLoading,
@@ -37,11 +38,6 @@ export const DocumentAbstract = connect(
   mapStateToProps,
   null
 )(DocumentAbstractComponent);
-
-export const DocumentAuthors = connect(
-  mapStateToProps,
-  null
-)(DocumentAuthorsComponent);
 
 export const DocumentTitle = connect(
   mapStateToProps,

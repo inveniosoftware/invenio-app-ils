@@ -10,3 +10,4 @@ export { PatronSearchBox } from './PatronSearchBox/PatronSearchBox';
 export { Pagination } from './Pagination';
 export { DatePicker } from './DatePicker';
 export { DateRangePicker } from './DateRangePicker';
+export { SearchControls } from './SearchControls';
