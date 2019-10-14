@@ -6,27 +6,28 @@ import { FrontSiteRoutes } from '../../../../../../../routes/urls';
 
 export class DocumentTags extends Component {
   renderTags = () => {
-    return this.props.tags.map(tag => (
-      <Label className={'highlighted'} key={tag.pid}>
-        <Link
-          to={FrontSiteRoutes.documentsListWithQuery(
-            '&sort=mostrecent&order=desc&aggr[0][tags][value]=tags.' + tag.name
-          )}
-        >
-          {tag.name}
-        </Link>
-      </Label>
-    ));
+    if (this.props.metadata.tags) {
+      return this.props.metadata.tags.map(tag => (
+        <Label className={'highlighted'} key={tag.pid}>
+          <Link
+            to={FrontSiteRoutes.documentsListWithQuery(
+              '&sort=mostrecent&order=desc&aggr[0][tags][value]=tags.' +
+                tag.name
+            )}
+          >
+            {tag.name}
+          </Link>
+        </Label>
+      ));
+    }
+    return null;
   };
 
   render() {
-    if (this.props.tags && this.props.tags.length > 0) {
-      return <>{this.renderTags()}</>;
-    }
-    return null;
+    return this.renderTags();
   }
 }
 
 DocumentTags.propTypes = {
-  tags: PropTypes.array.isRequired,
+  metadata: PropTypes.object.isRequired,
 };

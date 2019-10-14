@@ -7,40 +7,11 @@ import { FrontSiteRoutes } from '../../../../routes/urls';
 import { SearchBar } from '../../../../common/components/SearchBar';
 import { DocumentPanel } from './components/DocumentPanel';
 import { Error } from '../../../../common/components/Error';
-import { Loader } from '../../../../common/components/Loader';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { DocumentTags } from './components/DocumentMetadata/components';
+import { ILSParagraphPlaceholder } from '../../../../common/ILSPlaceholder';
 
-export class DocumentDetails extends Component {
-  breadcrumbs = () => [
-    { to: FrontSiteRoutes.home, label: 'Home' },
-    { to: FrontSiteRoutes.documentsList, label: 'Search' },
-  ];
-
-  render() {
-    return (
-      <>
-        <Container className="document-details-container default-margin-top">
-          <Breadcrumbs
-            elements={this.breadcrumbs()}
-            currentElement={this.props.data.metadata.title}
-          />
-          <DocumentPanel />
-        </Container>
-        <Container className="document-tags">
-          <DocumentTags tags={this.props.data.metadata.tags} />
-        </Container>
-        <Container className="section" fluid>
-          <Container>
-            <DocumentMetadata />
-          </Container>
-        </Container>
-      </>
-    );
-  }
-}
-
-export default class DocumentsDetailsContainer extends Component {
+export default class DocumentsDetails extends Component {
   constructor(props) {
     super(props);
     this.fetchDocumentsDetails = this.props.fetchDocumentsDetails;
@@ -70,7 +41,12 @@ export default class DocumentsDetailsContainer extends Component {
     this.setState({ searchQuery: event.target.value });
   };
 
-  _renderElement(isLoading, error, data) {
+  breadcrumbs = () => [
+    { to: FrontSiteRoutes.home, label: 'Home' },
+    { to: FrontSiteRoutes.documentsList, label: 'Search' },
+  ];
+
+  _renderElement(isLoading, error) {
     return (
       <>
         <Container fluid className="document-details-search-container">
@@ -85,11 +61,32 @@ export default class DocumentsDetailsContainer extends Component {
           </Container>
         </Container>
 
-        <Loader isLoading={isLoading}>
-          <Error error={error}>
-            <DocumentDetails data={data} />
-          </Error>
-        </Loader>
+        <Error error={error}>
+          <Container className="document-details-container default-margin-top">
+            <Breadcrumbs
+              isLoading={isLoading}
+              elements={this.breadcrumbs()}
+              currentElement={
+                this.props.documentDetails.metadata
+                  ? this.props.documentDetails.metadata.title
+                  : null
+              }
+            />
+            <DocumentPanel />
+          </Container>
+          <Container className="document-tags">
+            <ILSParagraphPlaceholder linesNumber={1} isLoading={isLoading}>
+              <DocumentTags />
+            </ILSParagraphPlaceholder>
+          </Container>
+          <Container className="section" fluid>
+            <Container>
+              <ILSParagraphPlaceholder linesNumber={20} isLoading={isLoading}>
+                <DocumentMetadata />
+              </ILSParagraphPlaceholder>
+            </Container>
+          </Container>
+        </Error>
       </>
     );
   }
@@ -100,7 +97,7 @@ export default class DocumentsDetailsContainer extends Component {
   }
 }
 
-DocumentsDetailsContainer.propTypes = {
+DocumentsDetails.propTypes = {
   fetchDocumentsDetails: PropTypes.func.isRequired,
   renderElement: PropTypes.node,
 };

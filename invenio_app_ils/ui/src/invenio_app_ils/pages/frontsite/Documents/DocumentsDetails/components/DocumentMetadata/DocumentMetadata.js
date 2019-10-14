@@ -8,7 +8,7 @@ import { DocumentConference } from './components/DocumentConference';
 export default class DocumentMetadata extends Component {
   constructor(props) {
     super(props);
-    this.document = props.documentsDetails;
+    this.document = props.documentDetails;
   }
 
   renderTabPanes = () => {
@@ -81,5 +81,5 @@ export default class DocumentMetadata extends Component {
 }
 
 DocumentMetadata.propTypes = {
-  documentsDetails: PropTypes.object.isRequired,
+  documentDetails: PropTypes.object.isRequired,
 };

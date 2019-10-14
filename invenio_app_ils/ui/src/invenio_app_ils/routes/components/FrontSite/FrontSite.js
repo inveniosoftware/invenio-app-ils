@@ -20,10 +20,10 @@ import { DocumentRequestForm } from '../../../pages/frontsite/DocumentRequests';
 export class FrontSite extends Component {
   render() {
     return (
-      <div className="app">
+      <div className="front-app app">
         <Header />
         <Notifications />
-        <div className="front-app">
+        <div>
           <Container fluid className="front-app-content">
             {/* home */}
             <Route exact path={FrontSiteRoutes.home} component={Home} />

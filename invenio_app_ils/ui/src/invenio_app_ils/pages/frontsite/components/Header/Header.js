@@ -65,7 +65,6 @@ export default class Header extends Component {
         inverted
         fixed="top"
         className="header-menu"
-        widths={3}
       >
         <Container>
           <Menu.Item>

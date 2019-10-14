@@ -3,7 +3,7 @@ import DocumentMetadataComponent from './DocumentMetadata';
 import { fetchDocumentsDetails } from '../../state/actions';
 
 const mapStateToProps = state => ({
-  documentsDetails: state.documentsDetails.data,
+  documentDetails: state.documentDetailsFront.data,
 });
 
 const mapDispatchToProps = dispatch => ({

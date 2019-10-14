@@ -1,3 +1,13 @@
 /*******************************
     User Variable Overrides
 *******************************/
+.ui.list{
+  &.bulleted.horizontal.document-authors-list{
+    .item{
+      margin-left: 1.25rem;
+    }
+    .item:before{
+      content: '; '
+    }
+  }
+}

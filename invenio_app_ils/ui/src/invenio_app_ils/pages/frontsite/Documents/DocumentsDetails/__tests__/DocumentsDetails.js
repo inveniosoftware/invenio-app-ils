@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import * as testData from '../../../../../../../../../tests/data/documents.json';
 
-import DocumentsDetailsContainer from '../DocumentsDetailsContainer';
+import DocumentsDetails from '../DocumentsDetails';
 import { BrowserRouter } from 'react-router-dom';
 
 jest.mock('../components/DocumentPanel', () => {
@@ -18,6 +18,12 @@ jest.mock('../components/DocumentMetadata', () => {
 jest.mock('../components/DocumentCirculation', () => {
   return {
     DocumentCirculation: () => null,
+  };
+});
+
+jest.mock('../components/DocumentMetadata/components', () => {
+  return {
+    DocumentTags: () => null,
   };
 });
 
@@ -40,11 +46,11 @@ describe('DocumentsDetailsContainer tests', () => {
 
   it('should load the details component', () => {
     const component = shallow(
-      <DocumentsDetailsContainer
+      <DocumentsDetails
         history={routerHistory}
         match={routerUrlParams}
         fetchDocumentsDetails={() => {}}
-        data={{ metadata: testData[0] }}
+        documentDetails={{ metadata: testData[0] }}
       />
     );
     expect(component).toMatchSnapshot();
@@ -54,11 +60,11 @@ describe('DocumentsDetailsContainer tests', () => {
     const mockedFetchDocumentsDetails = jest.fn();
     component = mount(
       <BrowserRouter>
-        <DocumentsDetailsContainer
+        <DocumentsDetails
           history={routerHistory}
           match={routerUrlParams}
           fetchDocumentsDetails={mockedFetchDocumentsDetails}
-          data={{ metadata: testData[0] }}
+          documentDetails={{ metadata: testData[0] }}
         />
       </BrowserRouter>
     );

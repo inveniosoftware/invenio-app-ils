@@ -2,63 +2,80 @@
          Site Overrides
 *******************************/
 
+.front-app {
 
-.ui.container.document-details-search-container {
-  background-color: @highlightBackgroundColor;
-  padding-top: 2em;
-  padding-bottom: 2em;
-  border-bottom: 1px solid #c6c4d0;
-  position: relative;
-}
+  .ui.container {
+    &.document-details-container {
+      margin-top: @defaultMarginValue;
+    }
 
-.ui.container {
-  &.document-details-container {
-    margin-top: @defaultMarginValue;
+    &.document-tags {
+      margin-top: 2em;
+      margin-bottom: 2em;
+    }
   }
-  &.document-tags{
-    margin-top: 2em;
-    margin-bottom: 2em;
+
+  .ui.container.front-app-content {
+    flex: 1;
+    justify-content: space-between;
   }
-}
 
-.ui.container.document-details-search-container:before,
-.ui.container.document-details-search-container:after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  box-shadow: 0 0 20px -8px rgba(0, 0, 0, 0.2);
-  top: 50%;
-  bottom: 0;
-  left: 43%;
-  right: 43%;
-  border-radius: 100px / 10px;
-}
+  .breadcrumbs{
+    padding-bottom: 2em;
+  }
 
-.ui.container.front-app-content {
-  flex: 1;
-  justify-content: space-between;
-}
+  /* Frontsite search bar container */
+  .ui.container.document-details-search-container {
+    background-color: @highlightBackgroundColor;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    border-bottom: 1px solid #c6c4d0;
+    position: relative;
+  }
 
-.ui.container.footer-lower {
-  background-color: #2A2D34;
-  padding-top: @footerPaddings/2;
-  padding-bottom: @footerPaddings/2;
-  color: white;
-}
+  .ui.container.document-details-search-container:before,
+  .ui.container.document-details-search-container:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    box-shadow: 0 0 20px -8px rgba(0, 0, 0, 0.2);
+    top: 50%;
+    bottom: 0;
+    left: 43%;
+    right: 43%;
+    border-radius: 100px / 10px;
+  }
 
-.ui.container.footer-upper {
-  background: rgb(52, 55, 62);
-  background: linear-gradient(155deg, rgba(52, 55, 62, 1) 0%, rgba(71, 75, 85, 1) 100%);
-  padding-top: @footerPaddings;
-  padding-bottom: @footerPaddings;
-  color: #c1bbbb;
-}
+  /* frontsite footer */
+  .ui.container.footer-lower {
+    background-color: #2A2D34;
+    padding-top: @footerPaddings/2;
+    padding-bottom: @footerPaddings/2;
+    color: white;
+  }
 
-.ui.container.section{
-  background-color: @highlightBackgroundColor;
-  padding-top: 1em;
-  padding-bottom: 3em;
-  border-bottom: 1px solid #c6c4d0;
-  border-top: 1px solid #c6c4d0;
-  position: relative;
+  .ui.container.footer-upper {
+    background: rgb(52, 55, 62);
+    background: linear-gradient(155deg, rgba(52, 55, 62, 1) 0%, rgba(71, 75, 85, 1) 100%);
+    padding-top: @footerPaddings;
+    padding-bottom: @footerPaddings;
+    color: #c1bbbb;
+  }
+
+  /* Highlighted sections */
+  .ui.container.section {
+    background-color: @highlightBackgroundColor;
+    padding-top: 1em;
+    padding-bottom: 3em;
+    border-bottom: 1px solid #c6c4d0;
+    border-top: 1px solid #c6c4d0;
+    position: relative;
+  }
+
+  /* search pages */
+  .ui.container.search-body{
+    padding-bottom: @sectionDefaultPadding;
+    padding-top: @sectionDefaultPadding;
+  }
+
 }

@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentsDetailsContainer tests should load the details component 1`] = `
+<Fragment>
+  <Container
+    className="document-details-search-container"
+    fluid={true}
+  >
+    <Container>
+      <SearchBar
+        className="document-details-search-bar"
+        currentQueryString=""
+        executeSearch={[Function]}
+        onInputChange={[Function]}
+        placeholder="Search for books..."
+      />
+    </Container>
+  </Container>
+  <Error>
+    <Container
+      className="document-details-container default-margin-top"
+    >
+      <Breadcrumbs
+        currentElement="The Gulf: The Making of An American Sea"
+        elements={
+          Array [
+            Object {
+              "label": "Home",
+              "to": "/",
+            },
+            Object {
+              "label": "Search",
+              "to": "/search",
+            },
+          ]
+        }
+        isLoading={false}
+      />
+      <DocumentPanel />
+    </Container>
+    <Container
+      className="document-tags"
+    >
+      <ILSParagraphPlaceholder
+        linesNumber={1}
+      >
+        <DocumentTags />
+      </ILSParagraphPlaceholder>
+    </Container>
+    <Container
+      className="section"
+      fluid={true}
+    >
+      <Container>
+        <ILSParagraphPlaceholder
+          linesNumber={20}
+        >
+          <DocumentMetadata />
+        </ILSParagraphPlaceholder>
+      </Container>
+    </Container>
+  </Error>
+</Fragment>
+`;
