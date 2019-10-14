@@ -6,9 +6,22 @@
     border-top: @highlightBorder;
 }
 
-.ui.menu.mobile-header-menu{
+.ui.menu.mobile-header-menu {
   display: block;
 }
+
+.fs-search-controls-mobile {
+  background: rgb(255, 255, 255);
+  box-shadow: @boxShadow;
+  .ui.menu {
+    margin: 0 0 0.5em 0;
+    box-shadow: none;
+  }
+
+  margin-bottom: @defaultMarginValue*2;
+  padding-bottom: @sectionDefaultPadding/2;
+}
+
 
 .backoffice {
 
@@ -25,4 +38,5 @@
     }
   }
 }
+
 

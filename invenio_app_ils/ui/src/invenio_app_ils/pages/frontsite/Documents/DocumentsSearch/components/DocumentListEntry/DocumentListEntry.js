@@ -79,7 +79,7 @@ export default class DocumentListEntry extends Component {
             {this.metadata.title}
           </Item.Header>
           <Item.Meta>
-            <DocumentAuthors metadata={this.metadata} prefix={'by: '} />
+            <DocumentAuthors metadata={this.metadata} prefix={'by '} />
           </Item.Meta>
           <Item.Description>
             <Truncate lines={3}>{this.metadata.abstract}</Truncate>
