@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container } from 'semantic-ui-react';
+import { Container, Responsive } from 'semantic-ui-react';
 import { DocumentMetadata } from './components';
 import { goTo } from '../../../../history';
 import { FrontSiteRoutes } from '../../../../routes/urls';
@@ -77,9 +77,11 @@ export default class DocumentsDetails extends Component {
             <DocumentPanel />
           </Container>
           <Container className="document-tags">
-            <ILSParagraphPlaceholder linesNumber={1} isLoading={isLoading}>
-              <DocumentTags />
-            </ILSParagraphPlaceholder>
+            <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+              <ILSParagraphPlaceholder linesNumber={1} isLoading={isLoading}>
+                <DocumentTags />
+              </ILSParagraphPlaceholder>
+            </Responsive>
           </Container>
           <Container className="section" fluid>
             <Container>

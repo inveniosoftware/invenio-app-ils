@@ -72,6 +72,7 @@ export default class LoanRequestForm extends Component {
         value={method.value}
         checked={this.state.deliveryMethod === method.value}
         onChange={this.handleDeliveryMethodChange}
+        key={method.value}
       />
     ));
   };

@@ -7,6 +7,7 @@ export class ILSParagraphPlaceholder extends Component {
     for (let i = 0; i < this.props.linesNumber; i++) {
       lines.push(
         <Placeholder.Line
+          key={i}
           length={this.props.lineLength ? this.props.lineLength : 'full'}
         />
       );

@@ -1,18 +1,13 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import DocumentMetadata from '../DocumentMetadata';
 import * as testData from '../../../../../../../../../../../tests/data/documents.json';
-
-jest.mock('../../../components/LoanRequestForm', () => {
-  return {
-    LoanRequestForm: () => null,
-  };
-});
+import { Provider } from 'react-redux';
+import DocumentMetadata from '../DocumentMetadata';
 
 jest.mock('../components', () => {
   return {
-    DocumentRelations: () => null,
-    DocumentInfo: () => null,
+    DocumentMetadataAccordion: () => null,
+    DocumentMetadataTabs: () => null,
   };
 });
 

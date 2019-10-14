@@ -1,15 +1,16 @@
 /*******************************
     User Variable Overrides
 *******************************/
+
+.document-authors-list-wrapper{
+  width: 100%;
+}
+
 .ui.list {
   &.horizontal{
   &.document-authors-list, &.document-languages-list {
     .item {
       margin-left: 0.5rem;
-    }
-
-    .item:before {
-      content: ' '
     }
   }
 }

@@ -7,7 +7,7 @@ export class DocumentAuthors extends Component {
     const { metadata, prefix, otherAuthorsDisplay, delimiter } = this.props;
     const otherAuthors = otherAuthorsDisplay ? otherAuthorsDisplay : 'et al.';
     return (
-      <>
+      <div className="document-authors-list-wrapper">
         {prefix ? prefix + ' ' : null}
         <List horizontal className={'document-authors-list'}>
           {metadata
@@ -23,13 +23,13 @@ export class DocumentAuthors extends Component {
             : null}
           {metadata && metadata.other_authors ? otherAuthors : null}
         </List>
-      </>
+      </div>
     );
   }
 }
 
 DocumentAuthors.propTypes = {
-  metadata: PropTypes.object.isRequired,
+  metadata: PropTypes.object,
   prefix: PropTypes.string,
   otherAuthorsDisplay: PropTypes.string,
   listItemAs: PropTypes.string,

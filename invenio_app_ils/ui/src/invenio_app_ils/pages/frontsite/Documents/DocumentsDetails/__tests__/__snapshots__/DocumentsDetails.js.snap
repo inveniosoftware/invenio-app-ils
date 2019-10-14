@@ -44,11 +44,16 @@ exports[`DocumentsDetailsContainer tests should load the details component 1`] =
     <Container
       className="document-tags"
     >
-      <ILSParagraphPlaceholder
-        linesNumber={1}
+      <Responsive
+        getWidth={[Function]}
+        minWidth={768}
       >
-        <DocumentTags />
-      </ILSParagraphPlaceholder>
+        <ILSParagraphPlaceholder
+          linesNumber={1}
+        >
+          <DocumentTags />
+        </ILSParagraphPlaceholder>
+      </Responsive>
     </Container>
     <Container
       className="section"

@@ -42,5 +42,5 @@ export default class Breadcrumbs extends Component {
 
 Breadcrumbs.propTypes = {
   elements: PropTypes.array.isRequired,
-  currentElement: PropTypes.node.isRequired,
+  currentElement: PropTypes.node,
 };

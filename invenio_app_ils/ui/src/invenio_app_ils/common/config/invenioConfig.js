@@ -1,7 +1,7 @@
 export const invenioConfig = {
   circulation: {
     deliveryMethods: {
-      DELIVERY: 'Delivery',
+      DELIVERY: 'Have it delivered to my office',
       PICKUP: 'Pick it up at the library desk',
     },
     loanActiveStates: [
