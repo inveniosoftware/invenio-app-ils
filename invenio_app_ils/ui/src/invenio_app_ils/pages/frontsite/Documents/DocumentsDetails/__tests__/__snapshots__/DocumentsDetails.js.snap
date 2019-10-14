@@ -16,7 +16,9 @@ exports[`DocumentsDetailsContainer tests should load the details component 1`] =
       />
     </Container>
   </Container>
-  <Error>
+  <Error
+    boundary={true}
+  >
     <Container
       className="document-details-container default-margin-top"
     >

@@ -27,9 +27,9 @@ import {
   SearchEmptyResults,
 } from '../../../../common/components/SearchControls/components';
 import { DocumentsSearchMobile } from './DocumentsSearchMobile';
-import { SearchMessage } from './components';
-import { DocumentSearchResultsGrid } from './components/DocumentSearchResultsGrid';
-import { DocumentSearchResultsList } from './components/DocumentSearchResultsList/';
+import { SearchMessage } from './SearchMessage';
+import { DocumentSearchResultsGrid } from './DocumentSearchResultsGrid';
+import { DocumentSearchResultsList } from './DocumentSearchResultsList/';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -76,53 +76,55 @@ export class DocumentsSearch extends Component {
 
   render() {
     return (
-      <ReactSearchKit searchApi={this.searchApi}>
-        <Container fluid className="document-details-search-container">
-          <Container>
-            <SearchBar renderElement={this.renderSearchBar} />
+      <>
+        <ReactSearchKit searchApi={this.searchApi}>
+          <Container fluid className="document-details-search-container">
+            <Container>
+              <SearchBar renderElement={this.renderSearchBar} />
+            </Container>
           </Container>
-        </Container>
-        <Responsive minWidth={Responsive.onlyTablet.minWidth}>
-          <Container fluid className="search-body">
-            <Grid
-              columns={2}
-              stackable
-              relaxed
-              className="grid-documents-search"
-            >
-              <ResultsLoader>
-                <Grid.Column width={3} className="search-aggregations">
-                  <Header content={'Filter by'} />
-                  <SearchAggregationsCards />
-                </Grid.Column>
-                <Grid.Column width={13} className="search-results">
-                  <SearchEmptyResults />
+          <Responsive minWidth={Responsive.onlyComputer.minWidth}>
+            <Container fluid className="search-body">
+              <Grid
+                columns={2}
+                stackable
+                relaxed
+                className="grid-documents-search"
+              >
+                <ResultsLoader>
+                  <Grid.Column width={3} className="search-aggregations">
+                    <Header content={'Filter by'} />
+                    <SearchAggregationsCards />
+                  </Grid.Column>
+                  <Grid.Column width={13} className="search-results">
+                    <SearchEmptyResults />
 
-                  <Error renderElement={this.renderError} />
+                    <Error renderElement={this.renderError} />
 
-                  <SearchControls
-                    layoutToggle={this.renderResultsLayoutOptions}
-                  />
-                  {this.state.isLayoutGrid ? (
-                    <DocumentSearchResultsGrid />
-                  ) : (
-                    <DocumentSearchResultsList />
-                  )}
-                  <Container fluid className={'search-results-footer'}>
-                    <SearchFooter />
-                    <Container className={'search-results-message'}>
-                      <SearchMessage />
+                    <SearchControls
+                      layoutToggle={this.renderResultsLayoutOptions}
+                    />
+                    {this.state.isLayoutGrid ? (
+                      <DocumentSearchResultsGrid />
+                    ) : (
+                      <DocumentSearchResultsList />
+                    )}
+                    <Container fluid className={'search-results-footer'}>
+                      <SearchFooter />
+                      <Container className={'search-results-message'}>
+                        <SearchMessage />
+                      </Container>
                     </Container>
-                  </Container>
-                </Grid.Column>
-              </ResultsLoader>
-            </Grid>
-          </Container>
-        </Responsive>
-        <Responsive {...Responsive.onlyMobile}>
-          <DocumentsSearchMobile />
-        </Responsive>
-      </ReactSearchKit>
+                  </Grid.Column>
+                </ResultsLoader>
+              </Grid>
+            </Container>
+          </Responsive>
+          <Responsive maxWidth={Responsive.onlyTablet.maxWidth}>
+            <DocumentsSearchMobile />
+          </Responsive>
+        </ReactSearchKit>
+      </>
     );
   }
 }

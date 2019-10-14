@@ -1,33 +1,12 @@
-import { Accordion, Dropdown, Menu, Responsive } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 import { Aggregator } from 'react-searchkit';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { getSearchConfig } from '../../../../config';
 
 export default class SearchAggregationsCards extends Component {
-  state = { activeIndex: 0 };
-
   searchConfig = getSearchConfig('documents');
 
-  constructor(props) {
-    super(props);
-  }
-
-  toggleAccordion = (e, titleProps) => {
-    const { index } = titleProps;
-    const { activeIndex } = this.state;
-    const newIndex = activeIndex === index ? -1 : index;
-    this.setState({ activeIndex: newIndex });
-  };
-
-  renderAccordionAggregations = (
-    title,
-    resultsAggregations,
-    aggregations,
-    customProps
-  ) => {
-    const { activeIndex } = this.state;
-
+  renderAccordionAggregations = (title, resultsAggregations, aggregations) => {
     return resultsAggregations !== undefined ? (
       <>
         <Dropdown.Header content={title} />

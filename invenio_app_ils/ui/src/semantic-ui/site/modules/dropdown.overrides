@@ -3,7 +3,11 @@
 *******************************/
 
 .sort-by-filters {
+  div{
+    display: inline-block;
+  }
   .ui.dropdown {
     margin-left: 0.5em;
+    min-width: 10em;
   }
 }

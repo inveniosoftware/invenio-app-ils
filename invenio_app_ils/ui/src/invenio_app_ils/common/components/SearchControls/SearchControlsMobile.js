@@ -1,14 +1,6 @@
 import { Count } from 'react-searchkit';
-import React, { Component, createRef } from 'react';
-import {
-  Container,
-  Dropdown,
-  Grid,
-  Menu,
-  Ref,
-  Sticky,
-} from 'semantic-ui-react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Container, Dropdown, Menu, Sticky } from 'semantic-ui-react';
 import { SearchResultsPerPage } from './components/SearchResultsPerPage';
 import { SearchAggregationsMenu } from './components/SearchAggregations';
 import { SearchSortBy } from './components/SearchSortBy';

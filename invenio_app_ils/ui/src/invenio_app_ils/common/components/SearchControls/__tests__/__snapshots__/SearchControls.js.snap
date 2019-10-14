@@ -4,14 +4,15 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
 <Fragment>
   <Responsive
     getWidth={[Function]}
-    minWidth={768}
+    minWidth={992}
   >
     <Grid
       className="search-controls"
       columns={3}
     >
       <GridColumn
-        width={4}
+        computer={7}
+        largeScreen={5}
       >
         <Grid>
           <GridColumn
@@ -58,16 +59,16 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
                   ],
                   "RESULTS_PER_PAGE": Array [
                     Object {
-                      "text": "10",
-                      "value": 10,
+                      "text": "15",
+                      "value": 15,
                     },
                     Object {
-                      "text": "20",
-                      "value": 20,
+                      "text": "30",
+                      "value": 30,
                     },
                     Object {
-                      "text": "50",
-                      "value": 50,
+                      "text": "60",
+                      "value": 60,
                     },
                   ],
                   "SORT_BY": Array [
@@ -116,15 +117,22 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
       </GridColumn>
       <GridColumn
         className="search-pagination-column"
+        computer={2}
+        largeScreen={6}
         textAlign="center"
-        width={8}
       >
-        <SearchPagination />
+        <Responsive
+          getWidth={[Function]}
+          minWidth={1200}
+        >
+          <SearchPagination />
+        </Responsive>
       </GridColumn>
       <GridColumn
         className="search-sort-options-column"
+        computer={7}
+        largeScreen={5}
         textAlign="right"
-        width={4}
       >
         <div
           className="sort-by-filters"
@@ -167,16 +175,16 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
                 ],
                 "RESULTS_PER_PAGE": Array [
                   Object {
-                    "text": "10",
-                    "value": 10,
+                    "text": "15",
+                    "value": 15,
                   },
                   Object {
-                    "text": "20",
-                    "value": 20,
+                    "text": "30",
+                    "value": 30,
                   },
                   Object {
-                    "text": "50",
-                    "value": 50,
+                    "text": "60",
+                    "value": 60,
                   },
                 ],
                 "SORT_BY": Array [
@@ -226,8 +234,20 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
   </Responsive>
   <Responsive
     getWidth={[Function]}
-    maxWidth={767}
-    minWidth={320}
+    maxWidth={1199}
+  >
+    <Grid>
+      <GridColumn
+        textAlign="center"
+        width={16}
+      >
+        <SearchPagination />
+      </GridColumn>
+    </Grid>
+  </Responsive>
+  <Responsive
+    getWidth={[Function]}
+    maxWidth={991}
   >
     <SearchControlsMobile
       searchConfig={
@@ -264,16 +284,16 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
           ],
           "RESULTS_PER_PAGE": Array [
             Object {
-              "text": "10",
-              "value": 10,
+              "text": "15",
+              "value": 15,
             },
             Object {
-              "text": "20",
-              "value": 20,
+              "text": "30",
+              "value": 30,
             },
             Object {
-              "text": "50",
-              "value": 50,
+              "text": "60",
+              "value": 60,
             },
           ],
           "SORT_BY": Array [
@@ -401,7 +421,7 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
           >
             <Responsive
               getWidth={[Function]}
-              minWidth={768}
+              minWidth={992}
             >
               <div>
                 <Grid
@@ -412,10 +432,11 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                     className="ui three column grid search-controls"
                   >
                     <GridColumn
-                      width={4}
+                      computer={7}
+                      largeScreen={5}
                     >
                       <div
-                        className="four wide column"
+                        className="seven wide computer five wide large screen column"
                       >
                         <Grid>
                           <div
@@ -483,16 +504,16 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                       ],
                                       "RESULTS_PER_PAGE": Array [
                                         Object {
-                                          "text": "10",
-                                          "value": 10,
+                                          "text": "15",
+                                          "value": 15,
                                         },
                                         Object {
-                                          "text": "20",
-                                          "value": 20,
+                                          "text": "30",
+                                          "value": 30,
                                         },
                                         Object {
-                                          "text": "50",
-                                          "value": 50,
+                                          "text": "60",
+                                          "value": 60,
                                         },
                                       ],
                                       "SORT_BY": Array [
@@ -539,27 +560,27 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                   Show
                                    
                                   <Connect(ResultsPerPage)
-                                    defaultValue={10}
+                                    defaultValue={15}
                                     values={
                                       Array [
                                         Object {
-                                          "text": "10",
-                                          "value": 10,
+                                          "text": "15",
+                                          "value": 15,
                                         },
                                         Object {
-                                          "text": "20",
-                                          "value": 20,
+                                          "text": "30",
+                                          "value": 30,
                                         },
                                         Object {
-                                          "text": "50",
-                                          "value": 50,
+                                          "text": "60",
+                                          "value": 60,
                                         },
                                       ]
                                     }
                                   >
                                     <ResultsPerPage
-                                      currentSize={10}
-                                      defaultValue={10}
+                                      currentSize={15}
+                                      defaultValue={15}
                                       loading={true}
                                       renderElement={null}
                                       setInitialState={[Function]}
@@ -568,16 +589,16 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                       values={
                                         Array [
                                           Object {
-                                            "text": "10",
-                                            "value": 10,
+                                            "text": "15",
+                                            "value": 15,
                                           },
                                           Object {
-                                            "text": "20",
-                                            "value": 20,
+                                            "text": "30",
+                                            "value": 30,
                                           },
                                           Object {
-                                            "text": "50",
-                                            "value": 50,
+                                            "text": "60",
+                                            "value": 60,
                                           },
                                         ]
                                       }
@@ -598,61 +619,27 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                     </GridColumn>
                     <GridColumn
                       className="search-pagination-column"
+                      computer={2}
+                      largeScreen={6}
                       textAlign="center"
-                      width={8}
                     >
                       <div
-                        className="center aligned eight wide column search-pagination-column"
+                        className="center aligned two wide computer six wide large screen column search-pagination-column"
                       >
-                        <SearchPagination>
-                          <Responsive
-                            getWidth={[Function]}
-                            minWidth={768}
-                          >
-                            <div>
-                              <Connect(Pagination)>
-                                <Pagination
-                                  currentPage={1}
-                                  currentSize={10}
-                                  loading={true}
-                                  options={
-                                    Object {
-                                      "boundaryRangeCount": 1,
-                                      "showEllipsis": true,
-                                      "showFirst": true,
-                                      "showLast": true,
-                                      "showNext": true,
-                                      "showPrev": true,
-                                      "siblingRangeCount": 1,
-                                    }
-                                  }
-                                  renderElement={null}
-                                  setInitialState={[Function]}
-                                  totalResults={0}
-                                  updateQueryPage={[Function]}
-                                >
-                                  <ShouldRender
-                                    condition={false}
-                                  />
-                                </Pagination>
-                              </Connect(Pagination)>
-                            </div>
-                          </Responsive>
-                          <Responsive
-                            getWidth={[Function]}
-                            maxWidth={767}
-                            minWidth={320}
-                          />
-                        </SearchPagination>
+                        <Responsive
+                          getWidth={[Function]}
+                          minWidth={1200}
+                        />
                       </div>
                     </GridColumn>
                     <GridColumn
                       className="search-sort-options-column"
+                      computer={7}
+                      largeScreen={5}
                       textAlign="right"
-                      width={4}
                     >
                       <div
-                        className="right aligned four wide column search-sort-options-column"
+                        className="right aligned seven wide computer five wide large screen column search-sort-options-column"
                       >
                         <div
                           className="sort-by-filters"
@@ -790,16 +777,16 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                 ],
                                 "RESULTS_PER_PAGE": Array [
                                   Object {
-                                    "text": "10",
-                                    "value": 10,
+                                    "text": "15",
+                                    "value": 15,
                                   },
                                   Object {
-                                    "text": "20",
-                                    "value": 20,
+                                    "text": "30",
+                                    "value": 30,
                                   },
                                   Object {
-                                    "text": "50",
-                                    "value": 50,
+                                    "text": "60",
+                                    "value": 60,
                                   },
                                 ],
                                 "SORT_BY": Array [
@@ -906,8 +893,69 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
             </Responsive>
             <Responsive
               getWidth={[Function]}
-              maxWidth={767}
-              minWidth={320}
+              maxWidth={1199}
+            >
+              <div>
+                <Grid>
+                  <div
+                    className="ui grid"
+                  >
+                    <GridColumn
+                      textAlign="center"
+                      width={16}
+                    >
+                      <div
+                        className="center aligned sixteen wide column"
+                      >
+                        <SearchPagination>
+                          <Responsive
+                            getWidth={[Function]}
+                            minWidth={768}
+                          >
+                            <div>
+                              <Connect(Pagination)>
+                                <Pagination
+                                  currentPage={1}
+                                  currentSize={15}
+                                  loading={true}
+                                  options={
+                                    Object {
+                                      "boundaryRangeCount": 1,
+                                      "showEllipsis": true,
+                                      "showFirst": true,
+                                      "showLast": true,
+                                      "showNext": true,
+                                      "showPrev": true,
+                                      "siblingRangeCount": 1,
+                                    }
+                                  }
+                                  renderElement={null}
+                                  setInitialState={[Function]}
+                                  totalResults={0}
+                                  updateQueryPage={[Function]}
+                                >
+                                  <ShouldRender
+                                    condition={false}
+                                  />
+                                </Pagination>
+                              </Connect(Pagination)>
+                            </div>
+                          </Responsive>
+                          <Responsive
+                            getWidth={[Function]}
+                            maxWidth={767}
+                            minWidth={320}
+                          />
+                        </SearchPagination>
+                      </div>
+                    </GridColumn>
+                  </div>
+                </Grid>
+              </div>
+            </Responsive>
+            <Responsive
+              getWidth={[Function]}
+              maxWidth={991}
             />
           </SearchControls>
         </Bootstrap>

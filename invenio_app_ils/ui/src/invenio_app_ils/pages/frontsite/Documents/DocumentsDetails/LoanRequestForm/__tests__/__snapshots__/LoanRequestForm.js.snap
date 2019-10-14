@@ -1,0 +1,484 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentMetadata tests should render the loan request form correctly 1`] = `
+<LoanRequestForm
+  document={
+    Object {
+      "created": "2019-07-08T10:44:02.366+02:00",
+      "id": 71,
+      "links": Object {
+        "self": "https://127.0.0.1:5000/api/documents/71",
+      },
+      "metadata": Object {
+        "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+        "_access": Object {},
+        "abstract": "This is an abstract",
+        "authors": Array [
+          Object {
+            "full_name": "Jack E. Davis",
+          },
+        ],
+        "circulation": Object {},
+        "document_type": Array [
+          "BOOK",
+        ],
+        "edition": "ed. 1",
+        "eitems": Object {
+          "hits": Array [
+            Object {
+              "description": "Non ipsum",
+              "open_access": true,
+              "pid": "145",
+            },
+          ],
+          "total": 1,
+        },
+        "keywords": Object {
+          "source": "X",
+          "value": "Patata",
+        },
+        "languages": Array [
+          "en",
+        ],
+        "pid": "71",
+        "relations": Object {},
+        "tag_pids": Array [
+          "24",
+        ],
+        "tags": Array [],
+        "title": "The Gulf: The Making of An American Sea",
+      },
+      "updated": "2019-07-08T10:44:18.354+02:00",
+    }
+  }
+  requestLoanForDocument={[MockFunction]}
+>
+  <Error>
+    <Form
+      as="form"
+    >
+      <form
+        className="ui form"
+        onSubmit={[Function]}
+      >
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              I would like to
+            </label>
+          </div>
+        </FormField>
+        <FormField>
+          <div
+            className="field"
+          >
+            <Checkbox
+              checked={false}
+              key="DELIVERY"
+              label=""
+              name="deliveryMethodRadioGroup"
+              onChange={[Function]}
+              radio={true}
+              type="checkbox"
+              value="DELIVERY"
+            >
+              <div
+                className="ui radio checkbox"
+                onChange={[Function]}
+                onClick={[Function]}
+                onMouseDown={[Function]}
+                onMouseUp={[Function]}
+              >
+                <Ref
+                  innerRef={
+                    Object {
+                      "current": <input
+                        class="hidden"
+                        name="deliveryMethodRadioGroup"
+                        readonly=""
+                        tabindex="0"
+                        type="checkbox"
+                        value="DELIVERY"
+                      />,
+                    }
+                  }
+                >
+                  <RefFindNode
+                    innerRef={
+                      Object {
+                        "current": <input
+                          class="hidden"
+                          name="deliveryMethodRadioGroup"
+                          readonly=""
+                          tabindex="0"
+                          type="checkbox"
+                          value="DELIVERY"
+                        />,
+                      }
+                    }
+                  >
+                    <input
+                      checked={false}
+                      className="hidden"
+                      name="deliveryMethodRadioGroup"
+                      readOnly={true}
+                      tabIndex={0}
+                      type="checkbox"
+                      value="DELIVERY"
+                    />
+                  </RefFindNode>
+                </Ref>
+                <Ref
+                  innerRef={
+                    Object {
+                      "current": <label />,
+                    }
+                  }
+                >
+                  <RefFindNode
+                    innerRef={
+                      Object {
+                        "current": <label />,
+                      }
+                    }
+                  >
+                    <label />
+                  </RefFindNode>
+                </Ref>
+              </div>
+            </Checkbox>
+            <Checkbox
+              checked={true}
+              key="PICK UP"
+              label=""
+              name="deliveryMethodRadioGroup"
+              onChange={[Function]}
+              radio={true}
+              type="checkbox"
+              value="PICK UP"
+            >
+              <div
+                className="ui checked radio checkbox"
+                onChange={[Function]}
+                onClick={[Function]}
+                onMouseDown={[Function]}
+                onMouseUp={[Function]}
+              >
+                <Ref
+                  innerRef={
+                    Object {
+                      "current": <input
+                        checked=""
+                        class="hidden"
+                        name="deliveryMethodRadioGroup"
+                        readonly=""
+                        tabindex="0"
+                        type="checkbox"
+                        value="PICK UP"
+                      />,
+                    }
+                  }
+                >
+                  <RefFindNode
+                    innerRef={
+                      Object {
+                        "current": <input
+                          checked=""
+                          class="hidden"
+                          name="deliveryMethodRadioGroup"
+                          readonly=""
+                          tabindex="0"
+                          type="checkbox"
+                          value="PICK UP"
+                        />,
+                      }
+                    }
+                  >
+                    <input
+                      checked={true}
+                      className="hidden"
+                      name="deliveryMethodRadioGroup"
+                      readOnly={true}
+                      tabIndex={0}
+                      type="checkbox"
+                      value="PICK UP"
+                    />
+                  </RefFindNode>
+                </Ref>
+                <Ref
+                  innerRef={
+                    Object {
+                      "current": <label />,
+                    }
+                  }
+                >
+                  <RefFindNode
+                    innerRef={
+                      Object {
+                        "current": <label />,
+                      }
+                    }
+                  >
+                    <label />
+                  </RefFindNode>
+                </Ref>
+              </div>
+            </Checkbox>
+          </div>
+        </FormField>
+        <FormField>
+          <div
+            className="field"
+          >
+            <label>
+              Do you require it before a certain date?
+            </label>
+            <DatePicker
+              defaultValue=""
+              handleDateChange={[Function]}
+              initialDate="2019-10-11"
+              maxDate="2019-11-30"
+              minDate="2019-10-01"
+              placeholder="Pick the date"
+            >
+              <DateInput
+                autoComplete="off"
+                clearIcon={
+                  <Icon
+                    as="i"
+                    color="red"
+                    name="remove"
+                  />
+                }
+                clearable={true}
+                closable={true}
+                data-test=""
+                dateFormat="YYYY-MM-DD"
+                icon="calendar"
+                iconPosition="left"
+                initialDate="2019-10-11"
+                inline={false}
+                localization="en"
+                maxDate="2019-11-30"
+                minDate="2019-10-01"
+                name="selectedDate"
+                onChange={[Function]}
+                placeholder="Pick the date"
+                preserveViewMode={true}
+                startMode="day"
+                value=""
+              >
+                <InputView
+                  animation="scale"
+                  autoComplete="off"
+                  clearIcon={
+                    <Icon
+                      as="i"
+                      color="red"
+                      name="remove"
+                    />
+                  }
+                  clearable={true}
+                  closeOnMouseLeave={true}
+                  closePopup={[Function]}
+                  data-test=""
+                  duration={200}
+                  icon="calendar"
+                  iconPosition="left"
+                  inline={false}
+                  name="selectedDate"
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onMount={[Function]}
+                  openPopup={[Function]}
+                  placeholder="Pick the date"
+                  popupIsClosed={true}
+                  renderPicker={[Function]}
+                  tabIndex="0"
+                  value=""
+                >
+                  <FormInputWithRef
+                    autoComplete="off"
+                    clearIcon={
+                      <Icon
+                        as="i"
+                        color="red"
+                        name="remove"
+                      />
+                    }
+                    clearable={true}
+                    data-test=""
+                    icon="calendar"
+                    iconPosition="left"
+                    innerRef={[Function]}
+                    name="selectedDate"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onClear={[Function]}
+                    onFocus={[Function]}
+                    onMouseEnter={[Function]}
+                    placeholder="Pick the date"
+                    tabIndex="0"
+                    value=""
+                  >
+                    <FormInput
+                      as={[Function]}
+                      autoComplete="off"
+                      control={[Function]}
+                      data-test=""
+                      icon={true}
+                      iconPosition="left"
+                      name="selectedDate"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onMouseEnter={[Function]}
+                      placeholder="Pick the date"
+                      tabIndex="0"
+                    >
+                      <FormField
+                        autoComplete="off"
+                        control={[Function]}
+                        data-test=""
+                        icon={true}
+                        iconPosition="left"
+                        name="selectedDate"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onMouseEnter={[Function]}
+                        placeholder="Pick the date"
+                        tabIndex="0"
+                      >
+                        <div
+                          className="field"
+                        >
+                          <Input
+                            autoComplete="off"
+                            data-test=""
+                            icon={true}
+                            iconPosition="left"
+                            name="selectedDate"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onMouseEnter={[Function]}
+                            placeholder="Pick the date"
+                            tabIndex="0"
+                            type="text"
+                          >
+                            <div
+                              className="ui left icon input"
+                              data-test=""
+                            >
+                              <Icon
+                                as="i"
+                                key=".0"
+                                name="calendar"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="calendar icon"
+                                  onClick={[Function]}
+                                />
+                              </Icon>
+                              <input
+                                autoComplete="off"
+                                key=".1"
+                                name="selectedDate"
+                                onBlur={[Function]}
+                                onChange={[Function]}
+                                onClick={[Function]}
+                                onFocus={[Function]}
+                                onMouseEnter={[Function]}
+                                placeholder="Pick the date"
+                                tabIndex="0"
+                                type="text"
+                                value=""
+                              />
+                            </div>
+                          </Input>
+                        </div>
+                      </FormField>
+                    </FormInput>
+                  </FormInputWithRef>
+                  <Transition
+                    animation="scale"
+                    duration={200}
+                    mountOnShow={true}
+                    onComplete={[Function]}
+                    transitionOnMount={false}
+                    unmountOnHide={true}
+                    visible={false}
+                  />
+                </InputView>
+              </DateInput>
+            </DatePicker>
+          </div>
+        </FormField>
+        <FormButton
+          as={[Function]}
+          color="orange"
+          control={[Function]}
+          fluid={true}
+          onClick={[Function]}
+        >
+          <FormField
+            color="orange"
+            control={[Function]}
+            fluid={true}
+            onClick={[Function]}
+          >
+            <div
+              className="field"
+            >
+              <Button
+                as="button"
+                color="orange"
+                fluid={true}
+                onClick={[Function]}
+              >
+                <Ref
+                  innerRef={
+                    Object {
+                      "current": <button
+                        class="ui orange fluid button"
+                      >
+                        Request
+                      </button>,
+                    }
+                  }
+                >
+                  <RefFindNode
+                    innerRef={
+                      Object {
+                        "current": <button
+                          class="ui orange fluid button"
+                        >
+                          Request
+                        </button>,
+                      }
+                    }
+                  >
+                    <button
+                      className="ui orange fluid button"
+                      onClick={[Function]}
+                    >
+                      Request
+                    </button>
+                  </RefFindNode>
+                </Ref>
+              </Button>
+            </div>
+          </FormField>
+        </FormButton>
+      </form>
+    </Form>
+  </Error>
+</LoanRequestForm>
+`;

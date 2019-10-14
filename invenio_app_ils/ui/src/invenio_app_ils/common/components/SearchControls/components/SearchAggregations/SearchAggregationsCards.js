@@ -1,13 +1,8 @@
 import { Aggregator } from 'react-searchkit';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { getSearchConfig } from '../../../../config';
 
 export default class SearchAggregationsCards extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   searchConfig = getSearchConfig('documents');
 
   render() {

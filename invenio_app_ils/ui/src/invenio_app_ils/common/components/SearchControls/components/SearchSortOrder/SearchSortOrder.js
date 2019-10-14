@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import { SortOrder } from 'react-searchkit';
-import PropTypes from 'prop-types';
-import {
-  Button,
-  Checkbox,
-  Dropdown,
-  Icon,
-  Responsive,
-} from 'semantic-ui-react';
+import { Button, Dropdown, Icon, Responsive } from 'semantic-ui-react';
 import { getSearchConfig } from '../../../../config';
 
 export default class SearchSortOrder extends Component {

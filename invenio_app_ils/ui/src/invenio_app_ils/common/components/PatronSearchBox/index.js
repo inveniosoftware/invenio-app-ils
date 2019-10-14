@@ -1,1 +1,0 @@
-export { PatronSearchBox } from './PatronSearchBox';

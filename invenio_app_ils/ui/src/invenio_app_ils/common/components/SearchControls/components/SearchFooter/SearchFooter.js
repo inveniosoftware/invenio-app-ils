@@ -1,5 +1,4 @@
 import { Grid, Responsive } from 'semantic-ui-react';
-import { Pagination } from 'react-searchkit';
 import React, { Component } from 'react';
 import { SearchPagination } from '../SearchPagination';
 

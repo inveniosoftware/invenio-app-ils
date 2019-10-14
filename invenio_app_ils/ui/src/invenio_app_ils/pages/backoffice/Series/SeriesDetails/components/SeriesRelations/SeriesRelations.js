@@ -7,11 +7,11 @@ import {
   Pagination,
 } from '../../../../../../common/components';
 import { Tab, Label, Input } from 'semantic-ui-react';
-import { ManageRelationsButton } from '../../../../../../common/components/ManageRelationsButton';
+import { ManageRelationsButton } from '../../../../components/ManageRelationsButton';
 import {
   formatPidTypeToName,
   getRelationTypeByName,
-} from '../../../../../../common/components/ManageRelationsButton/utils';
+} from '../../../../components/ManageRelationsButton/utils';
 import { ESSelectorModal } from '../../../../../../common/components/ESSelector';
 import {
   document as documentApi,

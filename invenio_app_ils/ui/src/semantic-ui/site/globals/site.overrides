@@ -6,10 +6,27 @@
   height: 100%;
 }
 
+
 .frontsite {
   height: 100%;
   display: flex;
   flex-direction: column;
+
+  #notifications {
+    z-index: 9999;
+    width: 100%;
+    margin-top: 1rem;
+    &.compact {
+      position: fixed;
+      right: 1em;
+      top: 1em;
+      z-index: 9999;
+      margin: 0;
+    }
+    .message {
+      padding-right: 2.5em;
+    }
+  }
 }
 
 .backoffice {
@@ -17,11 +34,23 @@
   display: flex;
   width: 100%;
 
+  #notifications {
+    position: fixed;
+    right: 1em;
+    top: 1em;
+    z-index: 9999;
+
+    .message {
+      padding-right: 2.5em;
+    }
+  }
+
   .bo-sidebar {
     width: 230px;
     padding: 1.5em;
     background-color: @boSidebarBackgroundColor;
   }
+
   .bo-content {
     flex: 1;
     padding: 1.5em;

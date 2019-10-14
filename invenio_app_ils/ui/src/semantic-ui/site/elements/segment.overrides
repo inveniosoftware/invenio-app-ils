@@ -2,9 +2,15 @@
          Site Overrides
 *******************************/
 
-.document-panel .ui.segment{
-    background-color: @highlightBackgroundColor;
-    padding: 1.6em;
+.ui.segment.highlighted{
+  background-color: @highlightBackgroundColor;
+  padding: 1.6em;
+}
+
+.document-panel{
+  .ui.segment{
+    margin: 0 0 1rem 0;
+  }
 }
 
 .ui.segment.tab{

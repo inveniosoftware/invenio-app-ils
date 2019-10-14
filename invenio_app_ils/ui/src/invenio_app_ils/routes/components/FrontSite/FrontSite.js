@@ -22,7 +22,7 @@ export class FrontSite extends Component {
     return (
       <div className="frontsite">
         <Header />
-        <Notifications />
+        <Notifications className="compact" />
         <Container fluid className="fs-content">
           {/* home */}
           <Route exact path={FrontSiteRoutes.home} component={Home} />
