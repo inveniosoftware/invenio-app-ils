@@ -10,9 +10,10 @@
 from invenio_circulation.api import Loan
 from invenio_pidstore.errors import PIDDeletedError
 
-from ...errors import PatronNotFoundError
-from ..api import Item, Patron
-from .resolver import get_field_value_for_record as get_field_value
+from invenio_app_ils.records.api import Item
+from invenio_app_ils.records.resolver.resolver import \
+    get_field_value_for_record as get_field_value
+from invenio_app_ils.records.resolver.resolver import get_patron
 
 
 def item_resolver(loan_pid):
@@ -33,15 +34,11 @@ def item_resolver(loan_pid):
     return item
 
 
-def patron_resolver(loan_pid):
+def loan_patron_resolver(loan_pid):
     """Resolve a Patron given a Loan PID."""
     try:
         patron_pid = get_field_value(Loan, loan_pid, "patron_pid")
     except KeyError:
         return {}
 
-    try:
-        patron = Patron.get_patron(patron_pid).dumps_loader()
-    except PatronNotFoundError:
-        patron = {}
-    return patron
+    return get_patron(patron_pid)

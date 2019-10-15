@@ -17,7 +17,7 @@ export default class DocumentRequestMetadata extends Component {
   prepareLeftData(data) {
     const patronLink = (
       <Link to={BackOfficeRoutes.patronDetailsFor(data.metadata.patron_pid)}>
-        {data.metadata.patron.email}
+        {data.metadata.patron.name}
       </Link>
     );
     const rows = [

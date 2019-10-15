@@ -26,7 +26,7 @@ from invenio_records_rest.utils import deny_all
 
 from .circulation.search import IlsLoansSearch
 from .facets import keyed_range_filter
-from .records.resolver.loan import item_resolver, patron_resolver
+from .records.resolver.loan import item_resolver, loan_patron_resolver
 
 from .api import (  # isort:skip
     can_item_circulate,
@@ -699,7 +699,7 @@ CIRCULATION_PATRON_RESOLVING_PATH = (
     "/api/resolver/circulation/loans/<loan_pid>/patron"
 )
 
-CIRCULATION_PATRON_RESOLVER_ENDPOINT = patron_resolver
+CIRCULATION_PATRON_RESOLVER_ENDPOINT = loan_patron_resolver
 
 CIRCULATION_LOAN_TRANSITIONS = {
     "CREATED": [

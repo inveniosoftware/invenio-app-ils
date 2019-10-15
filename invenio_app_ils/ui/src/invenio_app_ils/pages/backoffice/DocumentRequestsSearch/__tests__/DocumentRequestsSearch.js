@@ -20,6 +20,7 @@ const data = [
       title: 'This is a title',
       state: 'PENDING',
       patron_pid: '1',
+      patron: { name: 'John Doe' },
       pid: '3',
     },
   },

@@ -83,7 +83,7 @@ exports[`LoansSearch ResultsTable tests should render a list of results 1`] = `
         "Expired": "last year",
         "ID": 3,
         "Item barcode": null,
-        "Patron": "patron@test.ch",
+        "Patron": undefined,
         "Patron ID": 1,
         "Renewals": undefined,
         "Request end date": null,
@@ -434,7 +434,7 @@ exports[`LoansSearch ResultsTable tests should render a list of results 1`] = `
                   "Expired": "last year",
                   "ID": 3,
                   "Item barcode": null,
-                  "Patron": "patron@test.ch",
+                  "Patron": undefined,
                   "Patron ID": 1,
                   "Renewals": undefined,
                   "Request end date": null,
@@ -572,7 +572,7 @@ exports[`LoansSearch ResultsTable tests should render a list of results 1`] = `
                         className=""
                         data-test="Patron-3"
                       >
-                        patron@test.ch
+                        -
                       </td>
                     </TableCell>
                     <TableCell
