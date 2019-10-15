@@ -5,7 +5,7 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-version: '2.3'
+version: "2.3"
 services:
   # Load balancer
   lb:
@@ -20,10 +20,18 @@ services:
       file: docker-services.yml
       service: frontend
     volumes:
-      - static_data:/opt/invenio_app_ils/var/instance/static
+      - static_data:/opt/invenio_app_ils/var/instance
+      - react_static_data:/opt/invenio_app_ils/react-assets
     links:
       - web-ui
       - web-api
+      - react-ui
+  react-ui:
+    extends:
+      file: docker-services.yml
+      service: react-ui
+    volumes:
+      - react_static_data:/opt/invenio_app_ils/react-assets
   # UI Application
   web-ui:
     extends:
@@ -34,7 +42,7 @@ services:
     ports:
       - "5000"
     volumes:
-      - static_data:/opt/invenio_app_ils/var/instance/static
+      - static_data:/opt/invenio_app_ils/var/instance
     links:
       - cache
       - es
@@ -48,9 +56,9 @@ services:
     command: uwsgi /opt/invenio_app_ils/var/instance/uwsgi_rest.ini
     image: invenio_app_ils-web-api
     ports:
-      - "5001"
+      - "5000"
     volumes:
-      - static_data:/opt/invenio_app_ils/var/instance/static
+      - static_data:/opt/invenio_app_ils/var/instance
     links:
       - cache
       - es
@@ -95,3 +103,4 @@ services:
       service: es
 volumes:
   static_data:
+  react_static_data:
