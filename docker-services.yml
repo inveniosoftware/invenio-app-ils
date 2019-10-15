@@ -22,9 +22,12 @@ services:
       - "INVENIO_CELERY_RESULT_BACKEND=redis://cache:6379/2"
       - "INVENIO_SEARCH_ELASTIC_HOSTS=['es:9200']"
       - "INVENIO_SECRET_KEY=CHANGE_ME"
-      - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://invenio_app_ils:invenio_app_ils@db/invenio_app_ils"
-      - "INVENIO_WSGI_PROXIES=2"
+      - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://test:psw@db/ils"
       - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
+  react-ui:
+    build:
+      context: ./invenio_app_ils/ui/
+    image: invenio_app_ils-react-ui
   lb:
     build: ./docker/haproxy/
     image: invenio_app_ils-lb
@@ -34,7 +37,7 @@ services:
       - "443:443"
       - "8080:8080"
   frontend:
-    build: ./docker/nginx/
+    build: ./docker/nginx
     image: invenio_app_ils-frontend
     restart: "always"
     ports:
@@ -77,7 +80,7 @@ services:
       - "9200:9200"
       - "9300:9300"
   kibana:
-    image: docker.elastic.co/kibana/kibana-oss:6.2.2
+    image: docker.elastic.co/kibana/kibana-oss:7.3.0
     environment:
       - "ELASTICSEARCH_URL=http://es:9200"
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
