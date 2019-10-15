@@ -11,20 +11,19 @@ export default class Breadcrumbs extends Component {
   }
 
   _renderBreadcrumbElements = () => {
-    const lastElemIdx = this.elements.length - 1;
-    return this.elements.map((element, i) => (
-      <>
-        <Breadcrumb.Section link>
+    return this.elements.map((element, i, arr) => (
+      <span key={i}>
+        <Breadcrumb.Section>
           <Link key={element.to} to={element.to}>
             {element.label}
           </Link>
         </Breadcrumb.Section>
-        {i !== lastElemIdx ? (
+        {i + 1 !== arr.length ? (
           <Breadcrumb.Divider icon="right chevron" />
         ) : (
           <Breadcrumb.Divider icon="right arrow" />
         )}
-      </>
+      </span>
     ));
   };
 

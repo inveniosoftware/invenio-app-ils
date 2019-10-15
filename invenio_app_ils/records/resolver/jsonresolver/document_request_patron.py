@@ -10,11 +10,10 @@
 import jsonresolver
 from werkzeug.routing import Rule
 
-from invenio_app_ils.errors import PatronNotFoundError
-from invenio_app_ils.proxies import current_app_ils_extension
-
-from ...api import DocumentRequest
-from ..resolver import get_field_value_for_record as get_field_value
+from invenio_app_ils.records.api import DocumentRequest
+from invenio_app_ils.records.resolver.resolver import \
+    get_field_value_for_record as get_field_value
+from invenio_app_ils.records.resolver.resolver import get_patron
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
@@ -25,24 +24,16 @@ def jsonresolver_loader(url_map):
     """Resolve the referred Patron for an DocumentRequest record."""
     from flask import current_app
 
-    def get_patron(patron_pid):
-        """Return the Patron record."""
-        patron = current_app_ils_extension.patron_cls.get_patron(patron_pid)
-        return patron.dumps_loader()
-
     def patron_resolver(document_request_pid):
         """Get the Patron record for the given DocumentRequest or raise."""
         try:
             patron_pid = get_field_value(
-                DocumentRequest,
-                document_request_pid,
-                "patron_pid"
+                DocumentRequest, document_request_pid, "patron_pid"
             )
-            if not patron_pid:
-                return {}
-            return get_patron(patron_pid)
-        except PatronNotFoundError:
+        except KeyError:
             return {}
+
+        return get_patron(patron_pid)
 
     url_map.add(
         Rule(

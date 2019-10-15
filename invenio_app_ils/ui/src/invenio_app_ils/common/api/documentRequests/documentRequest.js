@@ -2,32 +2,49 @@ import { http, apiConfig } from '../base';
 import { serializer } from './serializer';
 import { prepareSumQuery } from '../utils';
 import isEmpty from 'lodash/isEmpty';
+import { generatePath } from 'react-router-dom';
 
 const documentRequestURL = '/document-requests/';
+const apiPaths = {
+  accept: `${documentRequestURL}:docReqPid/accept`,
+  item: `${documentRequestURL}:docReqPid`,
+  list: documentRequestURL,
+  reject: `${documentRequestURL}:docReqPid/reject`,
+};
 
 const create = async data => {
-  const url = `${documentRequestURL}`;
-  const response = await http.post(url, data);
+  const response = await http.post(apiPaths.list, data);
   response.data = serializer.fromJSON(response.data);
   return response;
 };
 
 const get = async docRequestPid => {
-  const response = await http.get(`${documentRequestURL}${docRequestPid}`);
+  const path = generatePath(apiPaths.item, { docReqPid: docRequestPid });
+  const response = await http.get(path);
   response.data = serializer.fromJSON(response.data);
   return response;
 };
 
 const del = async docRequestPid => {
-  const response = await http.delete(`${documentRequestURL}${docRequestPid}`);
+  const path = generatePath(apiPaths.item, { docReqPid: docRequestPid });
+  const response = await http.delete(path);
   return response;
 };
 
-const performAction = async (docRequestPid, action, data) => {
-  const url = `${documentRequestURL}${docRequestPid}/${action}`;
-  const response = await http.post(url, data);
+const performAction = async (urlPath, data) => {
+  const response = await http.post(urlPath, data);
   response.data = serializer.fromJSON(response.data);
   return response;
+};
+
+const accept = async (docRequestPid, data) => {
+  const urlPath = generatePath(apiPaths.accept, { docReqPid: docRequestPid });
+  return performAction(urlPath, data);
+};
+
+const reject = async (docRequestPid, data) => {
+  const urlPath = generatePath(apiPaths.reject, { docReqPid: docRequestPid });
+  return performAction(urlPath, data);
 };
 
 class QueryBuilder {
@@ -114,7 +131,8 @@ export const documentRequest = {
   get: get,
   delete: del,
   list: list,
-  performAction: performAction,
+  accept: accept,
+  reject: reject,
   count: count,
   query: queryBuilder,
   serializer: serializer,

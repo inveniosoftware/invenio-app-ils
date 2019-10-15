@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { performAction } from '../../state/actions';
+import { reject } from '../../state/actions';
 import RequestActionsComponent from './RequestActions';
 
 const mapStateToProps = state => ({
@@ -8,8 +8,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  performAction: (pid, action, data) =>
-    dispatch(performAction(pid, action, data)),
+  reject: (pid, action, data) => dispatch(reject(pid, action, data)),
 });
 
 export const RequestActions = connect(

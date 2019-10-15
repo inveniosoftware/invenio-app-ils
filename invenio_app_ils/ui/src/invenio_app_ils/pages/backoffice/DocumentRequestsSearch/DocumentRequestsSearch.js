@@ -64,7 +64,7 @@ export class DocumentRequestsSearch extends Component {
         'ID',
         'Patron ID',
         'Title',
-        'Library Book',
+        'State',
       ]);
     });
   }
@@ -74,7 +74,7 @@ export class DocumentRequestsSearch extends Component {
     const headerActionComponent = (
       <div>
         <NewButton
-          text={'New document request'}
+          text={'New book request'}
           clickHandler={() => {
             // TODO: EDITOR, implement create form
           }}
@@ -89,7 +89,7 @@ export class DocumentRequestsSearch extends Component {
       <ResultsTable
         rows={rows}
         title={''}
-        name={'document request'}
+        name={'book requests'}
         headerActionComponent={headerActionComponent}
         rowActionClickHandler={row =>
           goTo(BackOfficeRoutes.documentRequestDetailsFor(row.ID))
@@ -103,7 +103,7 @@ export class DocumentRequestsSearch extends Component {
       <Segment placeholder textAlign="center">
         <Header icon>
           <Icon name="search" />
-          No document request found!
+          No book requests found!
         </Header>
         <div>Current search "{queryString}"</div>
         <Segment.Inline>
@@ -113,7 +113,7 @@ export class DocumentRequestsSearch extends Component {
             }}
           />
           <NewButton
-            text={'New document request'}
+            text={'New book request'}
             clickHandler={() => {
               // TODO: EDITOR, implement create form
             }}

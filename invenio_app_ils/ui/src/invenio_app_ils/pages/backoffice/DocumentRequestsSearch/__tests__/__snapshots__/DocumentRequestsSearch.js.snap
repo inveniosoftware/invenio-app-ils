@@ -87,7 +87,8 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
         "Library Book": "Pending",
         "Note": undefined,
         "Page": undefined,
-        "Patron ID": "1",
+        "Patron ID": undefined,
+        "Patron Name": "John Doe",
         "Publication Year": undefined,
         "State": "PENDING",
         "Title": "This is a title",
@@ -152,6 +153,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                 "Updated",
                 "Document ID",
                 "Patron ID",
+                "Patron Name",
                 "State",
                 "Title",
                 "Authors",
@@ -266,6 +268,21 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                           className=""
                         >
                           Patron ID
+                        </th>
+                      </TableCell>
+                    </TableHeaderCell>
+                    <TableHeaderCell
+                      as="th"
+                      key="Patron Name"
+                    >
+                      <TableCell
+                        as="th"
+                        className=""
+                      >
+                        <th
+                          className=""
+                        >
+                          Patron Name
                         </th>
                       </TableCell>
                     </TableHeaderCell>
@@ -447,6 +464,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                 "Updated",
                 "Document ID",
                 "Patron ID",
+                "Patron Name",
                 "State",
                 "Title",
                 "Authors",
@@ -474,7 +492,8 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                   "Library Book": "Pending",
                   "Note": undefined,
                   "Page": undefined,
-                  "Patron ID": "1",
+                  "Patron ID": undefined,
+                  "Patron Name": "John Doe",
                   "Publication Year": undefined,
                   "State": "PENDING",
                   "Title": "This is a title",
@@ -622,13 +641,25 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                         className=""
                         data-test="Patron ID-3"
                       >
-                        1
+                        -
+                      </td>
+                    </TableCell>
+                    <TableCell
+                      as="td"
+                      data-test="Patron Name-3"
+                      key="5-3"
+                    >
+                      <td
+                        className=""
+                        data-test="Patron Name-3"
+                      >
+                        John Doe
                       </td>
                     </TableCell>
                     <TableCell
                       as="td"
                       data-test="State-3"
-                      key="5-3"
+                      key="6-3"
                     >
                       <td
                         className=""
@@ -640,7 +671,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                     <TableCell
                       as="td"
                       data-test="Title-3"
-                      key="6-3"
+                      key="7-3"
                     >
                       <td
                         className=""
@@ -652,7 +683,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                     <TableCell
                       as="td"
                       data-test="Authors-3"
-                      key="7-3"
+                      key="8-3"
                     >
                       <td
                         className=""
@@ -664,7 +695,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                     <TableCell
                       as="td"
                       data-test="ISSN-3"
-                      key="8-3"
+                      key="9-3"
                     >
                       <td
                         className=""
@@ -676,7 +707,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                     <TableCell
                       as="td"
                       data-test="ISBN-3"
-                      key="9-3"
+                      key="10-3"
                     >
                       <td
                         className=""
@@ -688,7 +719,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                     <TableCell
                       as="td"
                       data-test="Issue-3"
-                      key="10-3"
+                      key="11-3"
                     >
                       <td
                         className=""
@@ -700,7 +731,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                     <TableCell
                       as="td"
                       data-test="Note-3"
-                      key="11-3"
+                      key="12-3"
                     >
                       <td
                         className=""
@@ -712,7 +743,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                     <TableCell
                       as="td"
                       data-test="Page-3"
-                      key="12-3"
+                      key="13-3"
                     >
                       <td
                         className=""
@@ -724,7 +755,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                     <TableCell
                       as="td"
                       data-test="Publication Year-3"
-                      key="13-3"
+                      key="14-3"
                     >
                       <td
                         className=""
@@ -736,7 +767,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                     <TableCell
                       as="td"
                       data-test="Volume-3"
-                      key="14-3"
+                      key="15-3"
                     >
                       <td
                         className=""
@@ -748,7 +779,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                     <TableCell
                       as="td"
                       data-test="Library Book-3"
-                      key="15-3"
+                      key="16-3"
                     >
                       <td
                         className=""
@@ -764,7 +795,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
           </ResultsTableBody>
           <ResultsTableFooter
             allRowsNumber={1}
-            columnsNumber={16}
+            columnsNumber={17}
             currentPage={1}
             paginationComponent={null}
             seeAllComponent={null}

@@ -24,6 +24,7 @@ from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
     RecordIdentifier
 from invenio_search import current_search
+from invenio_userprofiles.models import UserProfile
 
 from .indexer import PatronsIndexer
 from .pidstore.pids import DOCUMENT_PID_TYPE, DOCUMENT_REQUEST_PID_TYPE, \
@@ -809,6 +810,17 @@ def index():
         indexer.index(patron)
 
 
+def create_userprofile_for(email, username, full_name):
+    """Create a fake user profile."""
+    user = User.query.filter_by(email=email).one_or_none()
+    if user:
+        profile = UserProfile(user_id=int(user.get_id()))
+        profile.username = username
+        profile.full_name = full_name
+        db.session.add(profile)
+        db.session.commit()
+
+
 @click.command()
 @click.option("--recreate-db", is_flag=True, help="Recreating DB.")
 @click.option(
@@ -860,19 +872,25 @@ def setup(recreate_db, skip_demo_data, skip_patrons, verbose):
         run_command(
             "users create patron1@test.ch -a --password=123456"
         )  # ID 1
+        create_userprofile_for("patron1@test.ch", "patron1", "Yannic Vilma")
         run_command(
             "users create patron2@test.ch -a --password=123456"
         )  # ID 2
+        create_userprofile_for("patron2@test.ch", "patron2", "Diana Adi")
         run_command("users create admin@test.ch -a --password=123456")  # ID 3
+        create_userprofile_for("admin@test.ch", "admin", "Zeki Ryoichi")
         run_command(
             "users create librarian@test.ch -a --password=123456"
         )  # ID 4
+        create_userprofile_for("librarian@test.ch", "librarian", "Hector Nabu")
         run_command(
             "users create patron3@test.ch -a --password=123456"
         )  # ID 5
+        create_userprofile_for("patron3@test.ch", "patron3", "Medrod Tara")
         run_command(
             "users create patron4@test.ch -a --password=123456"
         )  # ID 6
+        create_userprofile_for("patron4@test.ch", "patron4", "Devi Cupid")
 
         # Assign roles
         run_command("roles add admin@test.ch admin")

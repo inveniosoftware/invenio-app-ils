@@ -44,7 +44,7 @@ class Sidebar extends Component {
               active={documentRequestsActive}
               onClick={goToHandler(BackOfficeRoutes.documentRequestsList)}
             >
-              Document Requests
+              New Book Requests
             </Menu.Item>
             <Menu.Item
               active={locationsActive}
@@ -74,7 +74,7 @@ class Sidebar extends Component {
               active={itemsActive}
               onClick={goToHandler(BackOfficeRoutes.itemsList)}
             >
-              Physical Items
+              Physical Copies
             </Menu.Item>
             <Menu.Item
               active={eitemsActive}
@@ -92,7 +92,7 @@ class Sidebar extends Component {
               active={patronsActive}
               onClick={goToHandler(BackOfficeRoutes.patronsList)}
             >
-              All of them
+              Patrons
             </Menu.Item>
           </Menu.Menu>
         </Menu.Item>

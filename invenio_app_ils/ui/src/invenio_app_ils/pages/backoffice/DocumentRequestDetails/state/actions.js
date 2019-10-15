@@ -67,23 +67,45 @@ export const deleteRequest = requestPid => {
   };
 };
 
-export const performAction = (pid, action, data) => {
+export const accept = (pid, action, data) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
 
     try {
-      const resp = await documentRequestApi.performAction(pid, action, data);
+      const resp = await documentRequestApi.accept(pid, action, data);
       dispatch({
         type: SUCCESS,
         payload: resp.data,
       });
       dispatch(
-        sendSuccessNotification(
-          'Successfully rejected!',
-          `The document request was successful rejected for document request ``with PID ${pid}.`
-        )
+        sendSuccessNotification('Success!', `Request ${pid} has been accepted.`)
+      );
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
+  };
+};
+
+export const reject = (pid, action, data) => {
+  return async dispatch => {
+    dispatch({
+      type: IS_LOADING,
+    });
+
+    try {
+      const resp = await documentRequestApi.reject(pid, action, data);
+      dispatch({
+        type: SUCCESS,
+        payload: resp.data,
+      });
+      dispatch(
+        sendSuccessNotification('Success!', `Request ${pid} has been rejected.`)
       );
     } catch (error) {
       dispatch({

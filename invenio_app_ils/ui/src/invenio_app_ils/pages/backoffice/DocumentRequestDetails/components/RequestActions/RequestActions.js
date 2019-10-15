@@ -5,11 +5,9 @@ import { CancelModal } from '../../../../../common/components/CancelModal';
 
 export default class RequestActions extends Component {
   onReject = reason => {
-    this.props.performAction(
-      this.props.documentRequestDetails.metadata.pid,
-      'reject',
-      { reason }
-    );
+    this.props.reject(this.props.documentRequestDetails.metadata.pid, {
+      reason,
+    });
   };
 
   getAvailableActions() {
