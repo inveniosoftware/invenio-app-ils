@@ -34,7 +34,7 @@ services:
       - "443:443"
       - "8080:8080"
   frontend:
-    build: ./docker/nginx/
+    build: ./docker/nginx
     image: invenio_app_ils-frontend
     restart: "always"
     ports:

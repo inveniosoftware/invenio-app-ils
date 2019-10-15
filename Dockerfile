@@ -5,10 +5,19 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
+FROM node:10 as react-build
+
+ENV WORKING_DIR=/code
+WORKDIR ${WORKING_DIR}
+COPY ./ ${WORKING_DIR}
+
+# Install/create static files
+RUN cd invenio_app_ils/ui && npm install && npm run build
+
 FROM python:3.5
 
 RUN apt-get update -y && apt-get upgrade -y
-RUN apt-get install -y git curl vim
+RUN apt-get install -y git curl vim npm
 RUN pip install --upgrade setuptools wheel pip uwsgi uwsgitop uwsgi-tools
 
 # Install Node
@@ -22,6 +31,8 @@ RUN python -m site --user-site
 # Install Invenio
 ENV WORKING_DIR=/opt/invenio_app_ils
 ENV INVENIO_INSTANCE_PATH=${WORKING_DIR}/var/instance
+ENV INVENIO_STATIC_URL_PATH='/invenio-assets'
+ENV INVENIO_STATIC_FOLDER=${INVENIO_INSTANCE_PATH}/invenio-assets
 
 # copy everything inside /src
 RUN mkdir -p ${WORKING_DIR}/src
@@ -30,10 +41,19 @@ WORKDIR ${WORKING_DIR}/src
 
 # Install/create static files
 RUN mkdir -p ${INVENIO_INSTANCE_PATH}
+RUN mkdir -p ${INVENIO_STATIC_FOLDER}
+
 RUN ./scripts/bootstrap
 
+ENV REACT_ASSETS=/opt/invenio_app_ils/var/instance/react-assets
+RUN mkdir -p ${REACT_ASSETS}
+COPY --from=react-build /code/invenio_app_ils/ui/build ${REACT_ASSETS}
+
+RUN ls -al ${INVENIO_INSTANCE_PATH}
 # copy uwsgi config files
 COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
+
+RUN ls -al ${INVENIO_INSTANCE_PATH}
 
 # Set folder permissions
 RUN chgrp -R 0 ${WORKING_DIR} && \
