@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { item as itemApi } from '../../../../../../common/api';
 import {
   Error,
@@ -11,18 +12,11 @@ import { Button } from 'semantic-ui-react';
 import { NewButton } from '../../../../components/buttons';
 import { DeleteRecordModal } from '../../../../../backoffice/components';
 import omit from 'lodash/omit';
-import { goToHandler } from '../../../../../../history';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 
 export default class InternalLocationList extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchInternalLocations = props.fetchInternalLocations;
-    this.deleteInternalLocation = props.deleteInternalLocation;
-  }
-
   componentDidMount() {
-    this.fetchInternalLocations();
+    this.props.fetchInternalLocations();
   }
 
   handleOnRefClick(ilocPid) {
@@ -46,11 +40,12 @@ export default class InternalLocationList extends Component {
           icon={'edit'}
           size="small"
           title={'Edit Record'}
-          onClick={goToHandler(BackOfficeRoutes.ilocationsEditFor(ilocPid))}
+          as={Link}
+          to={BackOfficeRoutes.ilocationsEditFor(ilocPid)}
         />
         <DeleteRecordModal
           refProps={this.createRefProps(ilocPid)}
-          onDelete={() => this.deleteInternalLocation(ilocPid)}
+          onDelete={() => this.props.deleteInternalLocation(ilocPid)}
           deleteHeader={`Are you sure you want to delete the Internal Location
           record with ID ${ilocPid}?`}
         />
@@ -77,9 +72,7 @@ export default class InternalLocationList extends Component {
   renderResults(data) {
     const rows = this.prepareData(data);
     const headerActionComponent = (
-      <NewButton
-        clickHandler={goToHandler(BackOfficeRoutes.ilocationsCreate)}
-      />
+      <NewButton url={BackOfficeRoutes.ilocationsCreate} />
     );
     return (
       <ResultsTable

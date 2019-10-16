@@ -14,19 +14,21 @@ export default class SeeAllButton extends Component {
         {...(fluid ? { fluid: true } : {})}
         to={this.props.url}
       >
-        See all
+        {this.props.text}
       </Button>
     );
   }
 }
 
 SeeAllButton.propTypes = {
-  fluid: PropTypes.bool,
   disabled: PropTypes.bool,
+  fluid: PropTypes.bool,
+  text: PropTypes.string,
   url: PropTypes.string.isRequired,
 };
 
 SeeAllButton.defaultProps = {
-  fluid: false,
   disabled: false,
+  fluid: false,
+  text: 'See All',
 };

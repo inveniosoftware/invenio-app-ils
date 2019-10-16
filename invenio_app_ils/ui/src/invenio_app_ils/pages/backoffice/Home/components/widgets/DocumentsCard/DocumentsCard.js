@@ -5,17 +5,10 @@ import { RecordsBriefCard } from '../../../../components/statistics/RecordsBrief
 import { NewButton, SeeAllButton } from '../../../../components/buttons';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { document as documentApi } from '../../../../../../common/api';
-import { goToHandler } from '../../../../../../history';
 
 class DataCard extends Component {
   newDocumentButton = () => {
-    return (
-      <NewButton
-        fluid
-        disabled
-        clickHandler={goToHandler(BackOfficeRoutes.documentCreate)}
-      />
-    );
+    return <NewButton fluid disabled url={BackOfficeRoutes.documentCreate} />;
   };
 
   seeAllButton = () => {
@@ -43,14 +36,8 @@ class DataCard extends Component {
 }
 
 export default class DocumentsCard extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchRequestedWithAvailableItems =
-      props.fetchRequestedWithAvailableItems;
-  }
-
   componentDidMount() {
-    this.fetchRequestedWithAvailableItems();
+    this.props.fetchRequestedWithAvailableItems();
   }
 
   render() {

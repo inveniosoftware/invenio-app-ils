@@ -23,15 +23,7 @@ export default class LoansCard extends Component {
   };
 
   newLoanButton = () => {
-    return (
-      <NewButton
-        fluid
-        disabled
-        clickHandler={() => {
-          /* not implemented */
-        }}
-      />
-    );
+    return <NewButton fluid disabled url={BackOfficeRoutes.loansCreate} />;
   };
 
   renderCard = data => {

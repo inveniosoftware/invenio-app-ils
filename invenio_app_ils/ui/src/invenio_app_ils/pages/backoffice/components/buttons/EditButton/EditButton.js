@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
-import { Button, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { Button, Icon } from 'semantic-ui-react';
 
 export default class EditButton extends Component {
   render() {
     const { fluid, disabled } = this.props;
     return (
       <Button
+        as={Link}
+        to={this.props.url}
         icon
         primary
         size="small"
         labelPosition="left"
         {...(disabled ? { disabled: true } : {})}
         {...(fluid ? { fluid: true } : {})}
-        onClick={this.props.clickHandler}
       >
         <Icon name="edit" />
         {this.props.text}
@@ -23,14 +25,14 @@ export default class EditButton extends Component {
 }
 
 EditButton.propTypes = {
-  clickHandler: PropTypes.func.isRequired,
-  text: PropTypes.string,
-  fluid: PropTypes.bool,
   disabled: PropTypes.bool,
+  fluid: PropTypes.bool,
+  text: PropTypes.string,
+  url: PropTypes.func.isRequired,
 };
 
 EditButton.defaultProps = {
-  text: 'Edit',
-  fluid: false,
   disabled: false,
+  fluid: false,
+  text: 'Edit',
 };

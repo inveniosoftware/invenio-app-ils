@@ -65,12 +65,7 @@ export class ItemsSearch extends Component {
         : ResultsTable.defaultProps.showMaxRows;
     const headerActionComponent = (
       <div>
-        <NewButton
-          text={'New item'}
-          clickHandler={() => {
-            // TODO: EDITOR, implement create form
-          }}
-        />
+        <NewButton text={'New item'} url={BackOfficeRoutes.itemsCreate} />
         <ExportReactSearchKitResults exportBaseUrl={itemApi.searchBaseURL} />
       </div>
     );
@@ -101,12 +96,7 @@ export class ItemsSearch extends Component {
               resetQuery();
             }}
           />
-          <NewButton
-            text={'New item'}
-            clickHandler={() => {
-              // TODO: EDITOR, implement create form
-            }}
-          />
+          <NewButton text={'New item'} url={BackOfficeRoutes.itemsCreate} />
         </Segment.Inline>
       </Segment>
     );

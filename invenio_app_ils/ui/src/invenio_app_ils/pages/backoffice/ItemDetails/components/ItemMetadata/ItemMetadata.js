@@ -113,11 +113,7 @@ export default class ItemMetadata extends Component {
             saveButtonContent={'Checkout item'}
           />
 
-          <EditButton
-            clickHandler={() => {
-              // TODO: EDITOR, implement edit form
-            }}
-          />
+          <EditButton url={BackOfficeRoutes.itemEditFor(itemDetails.pid)} />
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Item
             record with ID ${itemDetails.pid}?`}

@@ -26,8 +26,6 @@ import { ClearButton, NewButton } from '../../components/buttons';
 import { BackOfficeRoutes } from '../../../../routes/urls';
 import _pick from 'lodash/pick';
 
-import { goTo } from '../../../../history';
-
 export class SeriesSearch extends Component {
   searchApi = new InvenioSearchApi({
     url: seriesApi.searchBaseURL,
@@ -77,12 +75,7 @@ export class SeriesSearch extends Component {
     const rows = this.prepareData(results);
     const headerActionComponent = (
       <div>
-        <NewButton
-          text={'New series'}
-          clickHandler={() => {
-            goTo(BackOfficeRoutes.seriesCreate);
-          }}
-        />
+        <NewButton text={'New series'} url={BackOfficeRoutes.seriesCreate} />
         <ExportReactSearchKitResults exportBaseUrl={seriesApi.searchBaseURL} />
       </div>
     );
@@ -112,12 +105,7 @@ export class SeriesSearch extends Component {
               resetQuery();
             }}
           />
-          <NewButton
-            text={'New series'}
-            clickHandler={() => {
-              goTo(BackOfficeRoutes.seriesCreate);
-            }}
-          />
+          <NewButton text={'New series'} url={BackOfficeRoutes.seriesCreate} />
         </Segment.Inline>
       </Segment>
     );

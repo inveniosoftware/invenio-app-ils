@@ -3,18 +3,14 @@ import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../../common/components';
 import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
 import { NewButton, SeeAllButton } from '../../../../components/buttons';
-import { goToHandler } from '../../../../../../history';
 
 export default class ILLCard extends Component {
   constructor(props) {
     super(props);
-
     // TODO when acquisition module
-    this.seeAllUrl = '';
-    this.newILLUrl = '';
+    this.seeAllUrl = 'seeAllUrl';
+    this.newILLUrl = 'newILLUrl';
   }
-
-  componentDidMount() {}
 
   seeAllButton = () => {
     // TODO when #155 solved
@@ -22,9 +18,7 @@ export default class ILLCard extends Component {
   };
 
   newAcqButton = () => {
-    return (
-      <NewButton fluid disabled clickHandler={goToHandler(this.newILLUrl)} />
-    );
+    return <NewButton fluid disabled url={this.newILLUrl} />;
   };
 
   renderCard = data => {
@@ -50,6 +44,5 @@ export default class ILLCard extends Component {
 }
 
 ILLCard.propTypes = {
-  // fetchOngoingILLRequests: PropTypes.func.isRequired,
   data: PropTypes.number.isRequired,
 };

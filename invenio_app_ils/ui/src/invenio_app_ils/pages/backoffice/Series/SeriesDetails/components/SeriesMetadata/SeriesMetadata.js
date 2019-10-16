@@ -6,7 +6,6 @@ import { EditButton } from '../../../../components/buttons';
 import { DeleteRecordModal } from '../../../../components/DeleteRecordModal';
 import { formatPidTypeToName } from '../../../../../../common/components/ManageRelationsButton/utils';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
-import { goTo } from '../../../../../../history';
 
 export default class SeriesMetadata extends Component {
   constructor(props) {
@@ -53,11 +52,7 @@ export default class SeriesMetadata extends Component {
           </Header>
         </Grid.Column>
         <Grid.Column width={3} textAlign={'right'}>
-          <EditButton
-            clickHandler={() => {
-              goTo(BackOfficeRoutes.seriesEditFor(this.seriesPid));
-            }}
-          />
+          <EditButton url={BackOfficeRoutes.seriesEditFor(this.seriesPid)} />
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Series record
             with ID ${series.pid}?`}

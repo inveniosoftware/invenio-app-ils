@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import { Button, Icon } from 'semantic-ui-react';
 
 export default class ClearButton extends Component {
   render() {
@@ -24,13 +24,13 @@ export default class ClearButton extends Component {
 
 ClearButton.propTypes = {
   clickHandler: PropTypes.func.isRequired,
-  text: PropTypes.string,
-  fluid: PropTypes.bool,
   disabled: PropTypes.bool,
+  fluid: PropTypes.bool,
+  text: PropTypes.string,
 };
 
 ClearButton.defaultProps = {
-  text: 'Clear query',
-  fluid: false,
   disabled: false,
+  fluid: false,
+  text: 'Clear query',
 };

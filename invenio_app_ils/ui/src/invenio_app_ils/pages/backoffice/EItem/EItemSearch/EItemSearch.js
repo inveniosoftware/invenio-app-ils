@@ -23,7 +23,6 @@ import { eitem as eitemApi } from '../../../../common/api';
 import { ExportReactSearchKitResults } from '../../components';
 import { ClearButton, NewButton } from '../../components/buttons';
 import { BackOfficeRoutes } from '../../../../routes/urls';
-import { goToHandler } from '../../../../history';
 import _omit from 'lodash/omit';
 
 export class EItemSearch extends Component {
@@ -63,10 +62,7 @@ export class EItemSearch extends Component {
         : ResultsTable.defaultProps.showMaxRows;
     const headerActionComponent = (
       <div>
-        <NewButton
-          text={'New eitem'}
-          clickHandler={goToHandler(BackOfficeRoutes.eitemCreate)}
-        />
+        <NewButton text={'New eitem'} url={BackOfficeRoutes.eitemCreate} />
         <ExportReactSearchKitResults exportBaseUrl={eitemApi.searchBaseURL} />
       </div>
     );
@@ -97,10 +93,7 @@ export class EItemSearch extends Component {
               resetQuery();
             }}
           />
-          <NewButton
-            text={'New eitem'}
-            clickHandler={goToHandler(BackOfficeRoutes.eitemCreate)}
-          />
+          <NewButton text={'New eitem'} url={BackOfficeRoutes.eitemCreate} />
         </Segment.Inline>
       </Segment>
     );

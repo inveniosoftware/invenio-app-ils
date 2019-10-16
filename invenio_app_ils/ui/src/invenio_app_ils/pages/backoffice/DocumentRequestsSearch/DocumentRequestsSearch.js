@@ -74,9 +74,7 @@ export class DocumentRequestsSearch extends Component {
       <div>
         <NewButton
           text={'New book request'}
-          clickHandler={() => {
-            // TODO: EDITOR, implement create form
-          }}
+          url={BackOfficeRoutes.documentRequestCreate}
         />
         <ExportReactSearchKitResults
           exportBaseUrl={documentRequestApi.searchBaseURL}
@@ -111,9 +109,7 @@ export class DocumentRequestsSearch extends Component {
           />
           <NewButton
             text={'New book request'}
-            clickHandler={() => {
-              // TODO: EDITOR, implement create form
-            }}
+            url={BackOfficeRoutes.documentRequestCreate}
           />
         </Segment.Inline>
       </Segment>
