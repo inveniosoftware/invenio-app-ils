@@ -28,7 +28,7 @@ EditButton.propTypes = {
   disabled: PropTypes.bool,
   fluid: PropTypes.bool,
   text: PropTypes.string,
-  url: PropTypes.func.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 EditButton.defaultProps = {

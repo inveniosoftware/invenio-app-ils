@@ -11,10 +11,9 @@ import {
   formatter,
 } from '../../../../common/components';
 import { DeleteRecordModal } from '../../../backoffice/components';
-import { Button } from 'semantic-ui-react';
-import { NewButton } from '../../components/buttons';
+import { EditButton, NewButton } from '../../components/buttons';
 import { BackOfficeRoutes } from '../../../../routes/urls';
-import { goToHandler, goTo } from '../../../../history';
+import { goTo } from '../../../../history';
 
 export default class LocationList extends Component {
   constructor(props) {
@@ -43,12 +42,7 @@ export default class LocationList extends Component {
   rowActions(locationPid) {
     return (
       <>
-        <Button
-          icon={'edit'}
-          onClick={goToHandler(BackOfficeRoutes.locationsEditFor(locationPid))}
-          size="small"
-          title={'Edit Record'}
-        />
+        <EditButton url={BackOfficeRoutes.locationsEditFor(locationPid)} />
         <DeleteRecordModal
           deleteHeader={`Are you sure you want to delete the Location
           record with ID ${locationPid}?`}

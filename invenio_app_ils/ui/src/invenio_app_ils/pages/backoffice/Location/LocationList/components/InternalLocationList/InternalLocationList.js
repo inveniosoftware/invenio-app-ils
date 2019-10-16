@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { item as itemApi } from '../../../../../../common/api';
 import {
   Error,
@@ -8,11 +7,10 @@ import {
   ResultsTable,
   formatter,
 } from '../../../../../../common/components';
-import { Button } from 'semantic-ui-react';
-import { NewButton } from '../../../../components/buttons';
+import { NewButton, EditButton } from '../../../../components/buttons';
 import { DeleteRecordModal } from '../../../../../backoffice/components';
-import omit from 'lodash/omit';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
+import omit from 'lodash/omit';
 
 export default class InternalLocationList extends Component {
   componentDidMount() {
@@ -36,13 +34,7 @@ export default class InternalLocationList extends Component {
   rowActions(ilocPid) {
     return (
       <>
-        <Button
-          icon={'edit'}
-          size="small"
-          title={'Edit Record'}
-          as={Link}
-          to={BackOfficeRoutes.ilocationsEditFor(ilocPid)}
-        />
+        <EditButton url={BackOfficeRoutes.ilocationsEditFor(ilocPid)} />
         <DeleteRecordModal
           refProps={this.createRefProps(ilocPid)}
           onDelete={() => this.props.deleteInternalLocation(ilocPid)}
