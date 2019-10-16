@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Qs from 'qs';
-import { Loader, Error } from '../../../../../common/components';
-import { ResultsTable } from '../../../../../common/components';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import {
+  Loader,
+  Error,
+  ResultsTable,
+  formatter,
+} from '../../../../../common/components';
 import pick from 'lodash/pick';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
-import { goTo } from '../../../../../history';
 import { Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import { stats as statsApi } from '../../../../../common/api';
@@ -16,7 +18,6 @@ export default class MostLoanedDocumentsList extends Component {
   constructor(props) {
     super(props);
     this.fetchMostLoanedDocuments = props.fetchMostLoanedDocuments;
-    this.showDetailsUrl = BackOfficeRoutes.documentDetailsFor;
     this.state = {
       fromDate: '',
       toDate: '',
@@ -137,7 +138,7 @@ export default class MostLoanedDocumentsList extends Component {
         subtitle={this.subtitle}
         name={'most loaned documents during this time period'}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
+        rowActionClickHandler={BackOfficeRoutes.documentDetailsFor}
         showMaxRows={this.props.showMaxDocuments}
       />
     );

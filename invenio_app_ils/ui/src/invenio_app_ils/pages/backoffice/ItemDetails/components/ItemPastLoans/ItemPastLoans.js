@@ -1,26 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../common/components';
+import {
+  Loader,
+  Error,
+  ResultsTable,
+  formatter,
+} from '../../../../../common/components';
 import { loan as loanApi } from '../../../../../common/api';
 import { invenioConfig } from '../../../../../common/config';
-import { ResultsTable } from '../../../../../common/components';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
-import { goTo, goToHandler } from '../../../../../history';
 import pick from 'lodash/pick';
 
 export default class ItemPastLoans extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchPastLoans = props.fetchPastLoans;
-    this.showDetailsUrl = BackOfficeRoutes.loanDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
-  }
-
   componentDidMount() {
     const { pid } = this.props.itemDetails;
-    this.fetchPastLoans(pid);
+    this.props.fetchPastLoans(pid);
   }
 
   seeAllButton = () => {
@@ -28,14 +23,14 @@ export default class ItemPastLoans extends Component {
     const loanStates = invenioConfig.circulation.loanCompletedStates.concat(
       invenioConfig.circulation.loanCancelledStates
     );
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.loansListWithQuery(
       loanApi
         .query()
         .withItemPid(pid)
         .withState(loanStates)
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton url={path} />;
   };
 
   prepareData(data) {
@@ -62,7 +57,7 @@ export default class ItemPastLoans extends Component {
         rows={rows}
         title={'Loans history'}
         name={'loans'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
+        rowActionClickHandler={BackOfficeRoutes.loanDetailsFor}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxPastLoans}
       />

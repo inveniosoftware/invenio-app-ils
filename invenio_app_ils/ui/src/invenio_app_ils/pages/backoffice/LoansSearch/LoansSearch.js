@@ -18,15 +18,14 @@ import {
   SearchBar as LoansSearchBar,
   ResultsSort,
   ResultsTable,
+  formatter,
 } from '../../../common/components';
-import { formatter } from '../../../common/components/ResultsTable/formatters';
 import {
   ExportReactSearchKitResults,
   OverdueLoanSendMailModal,
 } from '../components';
 import { loan as loanApi } from '../../../common/api/loans/loan';
 import { BackOfficeRoutes } from '../../../routes/urls';
-import { goTo } from '../../../history';
 import _pick from 'lodash/pick';
 
 export class LoansSearch extends Component {
@@ -81,9 +80,7 @@ export class LoansSearch extends Component {
         rows={rows}
         name={'loans'}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={row =>
-          goTo(BackOfficeRoutes.loanDetailsFor(row.ID))
-        }
+        rowActionClickHandler={BackOfficeRoutes.loanDetailsFor}
         showMaxRows={maxRowsToShow}
       />
     );

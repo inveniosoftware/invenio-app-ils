@@ -17,13 +17,12 @@ import {
   SearchBar as PatronsSearchBar,
   ResultsSort,
   ResultsTable,
+  formatter,
 } from '../../../common/components';
-import { formatter } from '../../../common/components/ResultsTable/formatters';
 import { patron as patronApi } from '../../../common/api';
 import { getSearchConfig } from '../../../common/config';
 import { ClearButton } from '../components/buttons';
 import { ExportReactSearchKitResults } from '../components';
-import { goTo } from '../../../history';
 import _pick from 'lodash/pick';
 
 export class PatronsSearch extends Component {
@@ -61,9 +60,7 @@ export class PatronsSearch extends Component {
         rows={rows}
         title={''}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={row =>
-          goTo(BackOfficeRoutes.patronDetailsFor(row.ID))
-        }
+        rowActionClickHandler={BackOfficeRoutes.patronDetailsFor}
       />
     );
   };

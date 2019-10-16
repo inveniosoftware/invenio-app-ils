@@ -17,9 +17,7 @@ export default class ACQRequestsCard extends Component {
   componentDidMount() {}
 
   seeAllButton = () => {
-    return (
-      <SeeAllButton fluid disabled clickHandler={goToHandler(this.seeAllUrl)} />
-    );
+    return <SeeAllButton fluid disabled url={this.seeAllUrl} />;
   };
 
   newAcqButton = () => {

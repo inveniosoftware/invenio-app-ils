@@ -8,8 +8,8 @@ import {
   Error,
   ResultsTable,
   Pagination,
+  formatter,
 } from '../../../../../common/components';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { invenioConfig } from '../../../../../common/config';
 
 export default class PatronPastLoans extends Component {

@@ -3,8 +3,7 @@ import omit from 'lodash/omit';
 import { mount } from 'enzyme';
 import { Settings } from 'luxon';
 import { fromISO, toISO } from '../../../../common/api/date';
-import { ResultsTable } from '../../../../common/components';
-import { formatter } from '../../../../common/components/ResultsTable/formatters';
+import { ResultsTable, formatter } from '../../../../common/components';
 
 jest.mock('../../components');
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { ResultsTable } from '../../../../../common/components/';
+import { ResultsTable, formatter } from '../../../../../common/components/';
 import testData from '../../../../../../../../../tests/data/eitems.json';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 
 jest.mock('../../../components');
 

@@ -4,11 +4,15 @@ import { Container } from 'semantic-ui-react';
 import omit from 'lodash/omit';
 import { internalLocation as internalLocationApi } from '../../../../common/api';
 import { InternalLocationList } from './components';
-import { Error, Loader, ResultsTable } from '../../../../common/components';
+import {
+  Error,
+  Loader,
+  ResultsTable,
+  formatter,
+} from '../../../../common/components';
 import { DeleteRecordModal } from '../../../backoffice/components';
 import { Button } from 'semantic-ui-react';
 import { NewButton } from '../../components/buttons';
-import { formatter } from '../../../../common/components/ResultsTable/formatters';
 import { BackOfficeRoutes } from '../../../../routes/urls';
 import { goToHandler, goTo } from '../../../../history';
 

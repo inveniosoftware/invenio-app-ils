@@ -37,7 +37,6 @@ import {
 import { document as documentApi } from '../../../../common/api';
 import { DocumentItem } from './components';
 import { BookCard } from '../../components';
-import { goTo } from '../../../../history';
 import Qs from 'qs';
 
 class SearchAggregations extends Component {
@@ -166,9 +165,7 @@ export class DocumentsSearch extends Component {
             key={book.metadata.pid}
             data-test={book.metadata.pid}
             metadata={book.metadata}
-            rowActionClickHandler={pid =>
-              goTo(FrontSiteRoutes.documentDetailsFor(pid))
-            }
+            rowActionClickHandler={FrontSiteRoutes.documentDetailsFor}
           />
         ))}
       </div>

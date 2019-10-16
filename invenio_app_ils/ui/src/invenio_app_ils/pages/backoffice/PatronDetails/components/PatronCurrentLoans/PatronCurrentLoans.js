@@ -1,33 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../common/components';
+import {
+  Loader,
+  Error,
+  ResultsTable,
+  formatter,
+} from '../../../../../common/components';
 import { loan as loanApi } from '../../../../../common/api';
 import { invenioConfig } from '../../../../../common/config';
-import { ResultsTable } from '../../../../../common/components';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
-import { goTo, goToHandler } from '../../../../../history';
-
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
 
 export default class PatronCurrentLoans extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchPatronCurrentLoans = props.fetchPatronCurrentLoans;
-    this.showDetailsUrl = BackOfficeRoutes.loanDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
-  }
-
   componentDidMount() {
     const patronPid = this.props.patronPid ? this.props.patronPid : null;
-    this.fetchPatronCurrentLoans(patronPid);
+    this.props.fetchPatronCurrentLoans(patronPid);
   }
 
   seeAllButton = () => {
     const { patronPid } = this.props;
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.loansListWithQuery(
       loanApi
         .query()
         .withPatronPid(patronPid)
@@ -35,7 +29,7 @@ export default class PatronCurrentLoans extends Component {
         .sortByNewest()
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton url={path} />;
   };
 
   prepareData(data) {
@@ -64,7 +58,7 @@ export default class PatronCurrentLoans extends Component {
             rows={rows}
             title={"Patron's current loans"}
             name={'current loans'}
-            rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
+            rowActionClickHandler={BackOfficeRoutes.loanDetailsFor}
             seeAllComponent={this.seeAllButton()}
             showMaxRows={this.props.showMaxLoans}
           />

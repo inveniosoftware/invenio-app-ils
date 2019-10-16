@@ -5,10 +5,10 @@ import {
   Error,
   Loader,
   ResultsTable,
+  formatter,
 } from '../../../../../../common/components';
 import { Button } from 'semantic-ui-react';
 import { NewButton } from '../../../../components/buttons';
-import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { DeleteRecordModal } from '../../../../../backoffice/components';
 import omit from 'lodash/omit';
 import { goToHandler } from '../../../../../../history';

@@ -5,6 +5,7 @@ import {
   Loader,
   ResultsTable,
   Pagination,
+  formatter,
 } from '../../../../../common/components';
 import { Tab, Label, Input } from 'semantic-ui-react';
 import { ManageRelationsButton } from '../../../../../common/components/ManageRelationsButton';
@@ -15,7 +16,6 @@ import {
 } from '../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { goTo } from '../../../../../history';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import pick from 'lodash/pick';
 import capitalize from 'lodash/capitalize';
 import ESRelatedSelector from '../../../../../common/components/ESSelector/ESRelatedSelector';

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ResultsTable } from '../../../../../../../common/components';
+import {
+  ResultsTable,
+  formatter,
+} from '../../../../../../../common/components';
 import { Button, Modal, Header, Icon } from 'semantic-ui-react';
-import { ResultsTableFormatter as formatter } from '../../../../../../../common/components';
 import { invenioConfig, ES_DELAY } from '../../../../../../../common/config';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';

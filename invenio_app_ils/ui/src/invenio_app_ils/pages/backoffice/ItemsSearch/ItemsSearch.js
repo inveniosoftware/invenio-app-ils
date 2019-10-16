@@ -18,13 +18,12 @@ import {
   SearchBar as ItemsSearchBar,
   ResultsSort,
   ResultsTable,
+  formatter,
 } from '../../../common/components';
-import { formatter } from '../../../common/components/ResultsTable/formatters';
 import { item as itemApi } from '../../../common/api';
 import { ExportReactSearchKitResults } from '../components';
 import { ClearButton, NewButton } from '../components/buttons';
 import { BackOfficeRoutes } from '../../../routes/urls';
-import { goTo } from '../../../history';
 import _omit from 'lodash/omit';
 
 export class ItemsSearch extends Component {
@@ -82,9 +81,7 @@ export class ItemsSearch extends Component {
         title={''}
         name={'items'}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={row => {
-          goTo(BackOfficeRoutes.itemDetailsFor(row.ID));
-        }}
+        rowActionClickHandler={BackOfficeRoutes.itemDetailsFor}
         showMaxRows={maxRowsToShow}
       />
     );

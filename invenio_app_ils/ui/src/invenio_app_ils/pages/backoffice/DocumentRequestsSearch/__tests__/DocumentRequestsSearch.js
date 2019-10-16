@@ -2,8 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Settings } from 'luxon';
 import { fromISO } from '../../../../common/api/date';
-import { ResultsTable } from '../../../../common/components';
-import { formatter } from '../../../../common/components/ResultsTable/formatters';
+import { ResultsTable, formatter } from '../../../../common/components';
 
 jest.mock('../../components');
 

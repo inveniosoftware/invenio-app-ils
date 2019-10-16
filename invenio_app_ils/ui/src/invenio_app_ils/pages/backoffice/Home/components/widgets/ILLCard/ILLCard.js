@@ -18,9 +18,7 @@ export default class ILLCard extends Component {
 
   seeAllButton = () => {
     // TODO when #155 solved
-    return (
-      <SeeAllButton fluid disabled clickHandler={goToHandler(this.seeAllUrl)} />
-    );
+    return <SeeAllButton fluid disabled url={this.seeAllUrl} />;
   };
 
   newAcqButton = () => {

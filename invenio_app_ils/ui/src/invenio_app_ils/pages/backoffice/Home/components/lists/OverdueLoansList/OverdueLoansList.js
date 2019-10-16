@@ -4,37 +4,29 @@ import {
   Loader,
   Error,
   ResultsTable,
+  formatter,
 } from '../../../../../../common/components';
 import { invenioConfig } from '../../../../../../common/config';
 import { loan as loanApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
-import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
-import { goTo, goToHandler } from '../../../../../../history';
 import { OverdueLoanSendMailModal } from '../../../../components';
 import pick from 'lodash/pick';
 
 export default class OverdueLoansList extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchOverdueLoans = props.fetchOverdueLoans;
-    this.showDetailsUrl = BackOfficeRoutes.loanDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
-  }
-
   componentDidMount() {
-    this.fetchOverdueLoans();
+    this.props.fetchOverdueLoans();
   }
 
   seeAllButton = () => {
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.loansListWithQuery(
       loanApi
         .query()
         .overdue()
         .withState(invenioConfig.circulation.loanActiveStates)
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton url={path} />;
   };
 
   prepareData(data) {
@@ -59,7 +51,7 @@ export default class OverdueLoansList extends Component {
         title={'Overdue loans'}
         subtitle={'Active loans that passed their end date.'}
         name={'overdue loans'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
+        rowActionClickHandler={BackOfficeRoutes.loanDetailsFor}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
       />

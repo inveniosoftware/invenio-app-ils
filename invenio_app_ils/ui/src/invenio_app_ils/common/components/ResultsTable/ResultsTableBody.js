@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Button, Table } from 'semantic-ui-react';
 
 export default class ResultsTableBody extends Component {
@@ -11,15 +12,15 @@ export default class ResultsTableBody extends Component {
     );
   };
 
+  // This is wrong row.ID is something we create on prepare data, not data itself
   renderRow = (columns, rows) => {
     return rows.map(row => {
       const withRowAction = this.props.rowActionClickHandler ? (
         <Button
           compact
           icon="info"
-          onClick={() => {
-            this.props.rowActionClickHandler(row);
-          }}
+          as={Link}
+          to={this.props.rowActionClickHandler(row.ID)}
           data-test={'btn-view-details-' + row.ID}
         />
       ) : null;

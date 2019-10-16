@@ -1,29 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../../common/components';
-import { ResultsTable } from '../../../../../../common/components';
+import {
+  Loader,
+  Error,
+  ResultsTable,
+  formatter,
+} from '../../../../../../common/components';
+import {} from '../../../../../../common/components';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { listQuery } from './state/listQuery';
-import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
-import { goTo, goToHandler } from '../../../../../../history';
 import pick from 'lodash/pick';
 
 export default class RenewedLoansList extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchRenewedLoans = props.fetchRenewedLoans;
-    this.showDetailsUrl = BackOfficeRoutes.loanDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
-  }
-
   componentDidMount() {
-    this.fetchRenewedLoans();
+    this.props.fetchRenewedLoans();
   }
 
   seeAllButton = () => {
     return (
-      <SeeAllButton clickHandler={goToHandler(this.seeAllUrl(listQuery))} />
+      <SeeAllButton url={BackOfficeRoutes.loansListWithQuery(listQuery)} />
     );
   };
 
@@ -49,7 +45,7 @@ export default class RenewedLoansList extends Component {
         title={'Frequently renewed loans'}
         subtitle={'Loans renewed more than 3 times - last 7 days.'}
         name={'frequently renewed loans'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
+        rowActionClickHandler={BackOfficeRoutes.loanDetailsFor}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
       />

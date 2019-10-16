@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../../common/components';
-import { ResultsTable } from '../../../../../../common/components';
+import {
+  Loader,
+  Error,
+  ResultsTable,
+  formatter,
+} from '../../../../../../common/components';
 import { series as seriesApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { SeeAllButton } from '../../../../components/buttons';
-import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import pick from 'lodash/pick';
-import { goTo, goToHandler } from '../../../../../../history';
 
 const TableData = ({
   multipartMonographs,
@@ -37,7 +39,7 @@ const TableData = ({
       rows={rows}
       title={'Multipart Monographs'}
       name={'multipart monographs'}
-      rowActionClickHandler={row => goTo(showDetailsUrl(row.ID))}
+      rowActionClickHandler={showDetailsUrl}
       seeAllComponent={seeAllButton()}
       showMaxRows={showMaxSeries}
     />
@@ -47,25 +49,22 @@ const TableData = ({
 class SeriesMultipartMonographsData extends Component {
   constructor(props) {
     super(props);
-    this.showDetailsUrl = BackOfficeRoutes.seriesDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.seriesListWithQuery;
     this.seriesPid = props.seriesDetails.metadata.pid;
     this.seriesType = props.seriesDetails.metadata.mode_of_issuance;
-    this.fetchSeriesMultipartMonographs = props.fetchSeriesMultipartMonographs;
   }
 
   componentDidMount() {
-    this.fetchSeriesMultipartMonographs(this.seriesPid);
+    this.props.fetchSeriesMultipartMonographs(this.seriesPid);
   }
 
   seeAllButton = () => {
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.seriesListWithQuery(
       seriesApi
         .query()
         .withSerialPid(this.seriesPid)
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton url={path} />;
   };
 
   render() {
@@ -84,7 +83,7 @@ class SeriesMultipartMonographsData extends Component {
             data={seriesDetails}
             showMaxSeries={showMaxSeries}
             seeAllButton={this.seeAllButton}
-            showDetailsUrl={this.showDetailsUrl}
+            showDetailsUrl={BackOfficeRoutes.seriesDetailsFor}
           ></TableData>
         </Error>
       </Loader>

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../../common/components';
-import { ResultsTable } from '../../../../../../common/components';
+import {
+  Loader,
+  Error,
+  ResultsTable,
+  formatter,
+} from '../../../../../../common/components';
 import { document as documentApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { SeeAllButton } from '../../../../components/buttons';
-import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
+import {} from '../../../../../../common/components/ResultsTable/formatters';
 import pick from 'lodash/pick';
-import { goTo, goToHandler } from '../../../../../../history';
 
 const TableData = ({
   documents,
@@ -36,7 +39,7 @@ const TableData = ({
       rows={rows}
       title={'Documents'}
       name={'documents'}
-      rowActionClickHandler={row => goTo(showDetailsUrl(row.ID))}
+      rowActionClickHandler={showDetailsUrl}
       seeAllComponent={seeAllButton()}
       showMaxRows={showMaxDocuments}
     />
@@ -46,25 +49,22 @@ const TableData = ({
 export default class SeriesDocuments extends Component {
   constructor(props) {
     super(props);
-    this.showDetailsUrl = BackOfficeRoutes.documentDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.documentsListWithQuery;
     this.seriesPid = props.seriesDetails.metadata.pid;
     this.seriesType = props.seriesDetails.metadata.mode_of_issuance;
-    this.fetchSeriesDocuments = props.fetchSeriesDocuments;
   }
 
   componentDidMount() {
-    this.fetchSeriesDocuments(this.seriesPid, this.seriesType);
+    this.props.fetchSeriesDocuments(this.seriesPid, this.seriesType);
   }
 
   seeAllButton = () => {
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.documentsListWithQuery(
       documentApi
         .query()
         .withSeriesPid(this.seriesPid, this.seriesType)
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton url={path} />;
   };
 
   render() {
@@ -83,7 +83,7 @@ export default class SeriesDocuments extends Component {
             documents={seriesDocuments}
             data={seriesDetails}
             showMaxDocuments={showMaxDocuments}
-            showDetailsUrl={this.showDetailsUrl}
+            showDetailsUrl={BackOfficeRoutes.documentDetailsFor}
             seeAllButton={this.seeAllButton}
           ></TableData>
         </Error>

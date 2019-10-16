@@ -17,14 +17,13 @@ import {
   SearchBar as DocumentRequestsSearchBar,
   ResultsSort,
   ResultsTable,
+  formatter,
 } from '../../../common/components';
-import { formatter } from '../../../common/components/ResultsTable/formatters';
 import { documentRequest as documentRequestApi } from '../../../common/api/documentRequests/documentRequest';
 import { getSearchConfig } from '../../../common/config';
 import { ClearButton, NewButton } from '../components/buttons';
 import { ExportReactSearchKitResults } from '../components';
 import { BackOfficeRoutes } from '../../../routes/urls';
-import { goTo } from '../../../history';
 import _pick from 'lodash/pick';
 
 export class DocumentRequestsSearch extends Component {
@@ -91,9 +90,7 @@ export class DocumentRequestsSearch extends Component {
         title={''}
         name={'book requests'}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={row =>
-          goTo(BackOfficeRoutes.documentRequestDetailsFor(row.ID))
-        }
+        rowActionClickHandler={BackOfficeRoutes.documentRequestDetailsFor}
       />
     );
   };

@@ -1,40 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../common/components';
+import {
+  Loader,
+  Error,
+  ResultsTable,
+  formatter,
+} from '../../../../../common/components';
 import { documentRequest as documentRequestApi } from '../../../../../common/api/';
-
-import { ResultsTable } from '../../../../../common/components';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
-import { goTo, goToHandler } from '../../../../../history';
-
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
 
 export default class PatronDocumentRequests extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchPatronDocumentRequests = props.fetchPatronDocumentRequests;
-    this.showDetailsUrl = BackOfficeRoutes.documentRequestDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.documentRequestsListWithQuery;
-  }
-
   componentDidMount() {
     const patronPid = this.props.patronPid ? this.props.patronPid : null;
-    this.fetchPatronDocumentRequests(patronPid);
+    this.props.fetchPatronDocumentRequests(patronPid);
   }
 
   seeAllButton = () => {
     const { patronPid } = this.props;
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.documentRequestsListWithQuery(
       documentRequestApi
         .query()
         .withPatronPid(patronPid)
         .sortByNewest()
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton url={path} />;
   };
 
   prepareData(data) {
@@ -62,7 +55,7 @@ export default class PatronDocumentRequests extends Component {
             rows={rows}
             title={"Patron's new book requests"}
             name={'new book requests'}
-            rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
+            rowActionClickHandler={BackOfficeRoutes.documentRequestDetailsFor}
             seeAllComponent={this.seeAllButton()}
             showMaxRows={this.props.showMaxDocumentRequests}
           />

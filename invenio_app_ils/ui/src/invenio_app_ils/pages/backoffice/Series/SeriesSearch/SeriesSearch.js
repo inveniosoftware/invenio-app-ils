@@ -17,8 +17,8 @@ import {
   SearchBar as SeriesSearchBar,
   ResultsSort,
   ResultsTable,
+  formatter,
 } from '../../../../common/components';
-import { formatter } from '../../../../common/components/ResultsTable/formatters';
 import { series as seriesApi } from '../../../../common/api/series/series';
 import { getSearchConfig } from '../../../../common/config';
 import { ExportReactSearchKitResults } from '../../components';
@@ -93,9 +93,7 @@ export class SeriesSearch extends Component {
         title={''}
         name={'series'}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={row =>
-          goTo(BackOfficeRoutes.seriesDetailsFor(row.ID))
-        }
+        rowActionClickHandler={BackOfficeRoutes.seriesDetailsFor}
       />
     );
   };

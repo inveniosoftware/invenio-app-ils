@@ -6,27 +6,20 @@ import { loan as loanApi } from '../../../../../../common/api';
 import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { NewButton, SeeAllButton } from '../../../../components/buttons';
-import { goToHandler } from '../../../../../../history';
 
 export default class LoansCard extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchPendingLoans = props.fetchPendingLoans;
-    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
-  }
-
   componentDidMount() {
-    this.fetchPendingLoans();
+    this.props.fetchPendingLoans();
   }
 
   seeAllButton = () => {
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.loansListWithQuery(
       loanApi
         .query()
         .withState(invenioConfig.circulation.loanRequestStates)
         .qs()
     );
-    return <SeeAllButton fluid disabled clickHandler={goToHandler(path)} />;
+    return <SeeAllButton fluid disabled url={path} />;
   };
 
   newLoanButton = () => {

@@ -1,35 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../common/components';
-import { ResultsTable } from '../../../../../common/components';
+import {
+  Loader,
+  Error,
+  ResultsTable,
+  formatter,
+} from '../../../../../common/components';
 import { item as itemApi } from '../../../../../common/api';
-
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { SeeAllButton } from '../../../components/buttons';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
-import { goTo, goToHandler } from '../../../../../history';
 import pick from 'lodash/pick';
 
 export default class DocumentItems extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchDocumentItems = props.fetchDocumentItems;
-    this.showDetailsUrl = BackOfficeRoutes.itemDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.itemsListWithQuery;
-  }
-
   componentDidMount() {
-    this.fetchDocumentItems(this.props.document.pid);
+    this.props.fetchDocumentItems(this.props.document.pid);
   }
 
   seeAllButton = () => {
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.itemsListWithQuery(
       itemApi
         .query()
         .withDocPid(this.props.document.pid)
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton url={path} />;
   };
 
   prepareData(data) {
@@ -54,7 +48,7 @@ export default class DocumentItems extends Component {
         rows={rows}
         title={'Attached items'}
         name={'attached items'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
+        rowActionClickHandler={BackOfficeRoutes.itemDetailsFor}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxItems}
       />
@@ -79,5 +73,5 @@ DocumentItems.propTypes = {
 };
 
 DocumentItems.defaultProps = {
-  showMaxItems: 5,
+  showMaxItems: 1,
 };

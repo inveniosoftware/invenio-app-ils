@@ -4,35 +4,26 @@ import {
   Loader,
   Error,
   ResultsTable,
+  formatter,
 } from '../../../../../../common/components';
 import { document as documentApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
-import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
-import { goTo, goToHandler } from '../../../../../../history';
 import pick from 'lodash/pick';
 
 export default class OverbookedDocumentsList extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchOverbookedDocuments = props.fetchOverbookedDocuments;
-    this.showDetailsUrl = BackOfficeRoutes.documentDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.documentsListWithQuery;
-  }
-
   componentDidMount() {
-    this.fetchOverbookedDocuments();
+    this.props.fetchOverbookedDocuments();
   }
 
   seeAllButton = () => {
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.documentsListWithQuery(
       documentApi
         .query()
         .overbooked()
         .qs()
     );
-
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton url={path} />;
   };
 
   prepareData(data) {
@@ -53,7 +44,7 @@ export default class OverbookedDocumentsList extends Component {
           'Documents with more requests than the number of available items for loan.'
         }
         name={'overbooked documents'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
+        rowActionClickHandler={BackOfficeRoutes.documentDetailsFor}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
         singleLine

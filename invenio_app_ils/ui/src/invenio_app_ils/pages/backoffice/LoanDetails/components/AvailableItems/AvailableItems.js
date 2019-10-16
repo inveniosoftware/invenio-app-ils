@@ -1,38 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
-import { Loader, Error, ResultsTable } from '../../../../../common/components';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import {
+  Loader,
+  Error,
+  ResultsTable,
+  formatter,
+} from '../../../../../common/components';
+import {} from '../../../../../common/components/ResultsTable/formatters';
 import { item as itemApi } from '../../../../../common/api';
 import { invenioConfig } from '../../../../../common/config';
 import { SeeAllButton } from '../../../components/buttons/SeeAllButton';
-import { goTo, goToHandler } from '../../../../../history';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import pick from 'lodash/pick';
 
 export default class AvailableItems extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchAvailableItems = props.fetchAvailableItems;
-    this.assignItemToLoan = props.assignItemToLoan;
-    this.performCheckoutAction = props.performCheckoutAction;
-    this.showDetailsUrl = BackOfficeRoutes.itemDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.itemsListWithQuery;
-  }
-
   componentDidMount() {
-    this.fetchAvailableItems(this.props.loan.metadata.document_pid);
+    this.props.fetchAvailableItems(this.props.loan.metadata.document_pid);
   }
 
   seeAllButton = () => {
     const { document_pid } = this.props.loan.metadata;
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.itemsListWithQuery(
       itemApi
         .query()
         .withDocPid(document_pid)
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton url={path} />;
   };
 
   assignItemButton(item) {
@@ -41,7 +36,7 @@ export default class AvailableItems extends Component {
         size="mini"
         color="teal"
         onClick={() => {
-          this.assignItemToLoan(item.metadata.pid, this.props.loan.pid);
+          this.props.assignItemToLoan(item.metadata.pid, this.props.loan.pid);
         }}
       >
         assign
@@ -59,7 +54,7 @@ export default class AvailableItems extends Component {
           const patronPid = loan.metadata.patron_pid;
           const documentPid = item.metadata.document.pid;
           const itemPid = item.metadata.pid;
-          this.performCheckoutAction(
+          this.props.performCheckoutAction(
             checkoutUrl,
             documentPid,
             patronPid,
@@ -96,7 +91,7 @@ export default class AvailableItems extends Component {
         rows={rows}
         title={'Available items'}
         name={'available items'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
+        rowActionClickHandler={BackOfficeRoutes.itemDetailsFor}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxItems}
       />

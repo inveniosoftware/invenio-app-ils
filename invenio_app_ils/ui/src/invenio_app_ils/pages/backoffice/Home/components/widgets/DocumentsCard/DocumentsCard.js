@@ -8,38 +8,32 @@ import { document as documentApi } from '../../../../../../common/api';
 import { goToHandler } from '../../../../../../history';
 
 class DataCard extends Component {
-  constructor(props) {
-    super(props);
-    this.data = props.data;
-    this.seeAllUrl = BackOfficeRoutes.documentsListWithQuery;
-    this.newDocumentURL = BackOfficeRoutes.documentCreate;
-  }
   newDocumentButton = () => {
     return (
       <NewButton
         fluid
         disabled
-        clickHandler={goToHandler(this.newDocumentURL)}
+        clickHandler={goToHandler(BackOfficeRoutes.documentCreate)}
       />
     );
   };
 
   seeAllButton = () => {
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.documentsListWithQuery(
       documentApi
         .query()
         .withAvailableItems()
         .withPendingLoans()
         .qs()
     );
-    return <SeeAllButton fluid disabled clickHandler={goToHandler(path)} />;
+    return <SeeAllButton fluid disabled url={path} />;
   };
 
   render() {
     return (
       <RecordsBriefCard
         title={'Documents'}
-        stats={this.data}
+        stats={this.props.data}
         text={'requested on shelf'}
         buttonLeft={this.newDocumentButton()}
         buttonRight={this.seeAllButton()}

@@ -1,38 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../common/components';
-import { ResultsTable } from '../../../../../common/components';
+import {
+  Loader,
+  Error,
+  ResultsTable,
+  formatter,
+} from '../../../../../common/components';
 import { loan as loanApi } from '../../../../../common/api';
 import { invenioConfig } from '../../../../../common/config';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../components/buttons';
-import { goTo, goToHandler } from '../../../../../history';
 import pick from 'lodash/pick';
 
 export default class DocumentPendingLoans extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchPendingLoans = props.fetchPendingLoans;
-    this.showDetailsUrl = BackOfficeRoutes.loanDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
-  }
-
   componentDidMount() {
     const { pid } = this.props.document;
-    this.fetchPendingLoans(pid);
+    this.props.fetchPendingLoans(pid);
   }
 
   seeAllButton = () => {
     const { pid } = this.props.document;
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.loansListWithQuery(
       loanApi
         .query()
         .withDocPid(pid)
         .withState(invenioConfig.circulation.loanRequestStates)
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton url={path} />;
   };
 
   prepareData(data) {
@@ -55,7 +50,7 @@ export default class DocumentPendingLoans extends Component {
         rows={rows}
         title={'Pending loans requests'}
         name={'pending loan requests'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
+        rowActionClickHandler={BackOfficeRoutes.loanDetailsFor}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxPendingLoans}
       />

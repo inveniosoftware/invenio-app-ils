@@ -17,13 +17,13 @@ import {
   SearchBar as EItemsSearchBar,
   ResultsSort,
   ResultsTable,
+  formatter,
 } from '../../../../common/components';
-import { formatter } from '../../../../common/components/ResultsTable/formatters';
 import { eitem as eitemApi } from '../../../../common/api';
 import { ExportReactSearchKitResults } from '../../components';
 import { ClearButton, NewButton } from '../../components/buttons';
 import { BackOfficeRoutes } from '../../../../routes/urls';
-import { goTo, goToHandler } from '../../../../history';
+import { goToHandler } from '../../../../history';
 import _omit from 'lodash/omit';
 
 export class EItemSearch extends Component {
@@ -77,9 +77,7 @@ export class EItemSearch extends Component {
         title={''}
         name={'eitems'}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={row =>
-          goTo(BackOfficeRoutes.eitemDetailsFor(row.ID))
-        }
+        rowActionClickHandler={BackOfficeRoutes.eitemDetailsFor}
         showMaxRows={maxRowsToShow}
       />
     );
