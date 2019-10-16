@@ -40,7 +40,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
           "metadata": Object {
             "document_pid": "docid-1",
             "end_date": "2018-07-28",
-            "item_pid": "itemid-1",
+            "item_pid": "",
             "patron": Object {
               "email": "patron1@test.ch",
             },
@@ -790,7 +790,7 @@ exports[`PatronLoans tests should render the see all button when showing only a 
           "metadata": Object {
             "document_pid": "docid-1",
             "end_date": "2018-07-28",
-            "item_pid": "itemid-1",
+            "item_pid": "",
             "patron": Object {
               "email": "patron1@test.ch",
             },
