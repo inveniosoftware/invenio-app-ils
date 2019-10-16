@@ -15,9 +15,10 @@ exports[`OverbookedDocumentsList tests should load the details component 1`] = `
       rows={Array []}
       seeAllComponent={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={false}
           fluid={false}
+          text="See All"
+          url="/backoffice/documents?q=circulation.overbooked:true"
         />
       }
       showAllResults={false}
@@ -537,9 +538,10 @@ exports[`OverbookedDocumentsList tests should render show a message with no docu
         rows={Array []}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            text="See All"
+            url="/backoffice/documents?q=circulation.overbooked:true"
           />
         }
         showAllResults={false}

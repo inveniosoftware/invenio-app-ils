@@ -15,9 +15,10 @@ exports[`OverdueLoansList tests should load the details component 1`] = `
       rows={Array []}
       seeAllComponent={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={false}
           fluid={false}
+          text="See All"
+          url="/backoffice/loans?q=(state:(ITEM_ON_LOAN) AND end_date:%7B*%20TO%202019-10-16%7D)"
         />
       }
       showAllResults={false}
@@ -830,9 +831,10 @@ exports[`OverdueLoansList tests should render show a message with no loans 1`] =
         rows={Array []}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            text="See All"
+            url="/backoffice/loans?q=(state:(ITEM_ON_LOAN) AND end_date:%7B*%20TO%202019-10-16%7D)"
           />
         }
         showAllResults={false}

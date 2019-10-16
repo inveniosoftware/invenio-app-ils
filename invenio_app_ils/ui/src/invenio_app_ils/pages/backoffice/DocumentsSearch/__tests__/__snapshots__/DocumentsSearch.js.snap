@@ -8,7 +8,7 @@ exports[`DocumentsSearch ResultsTable tests should not render when empty results
   headerActionComponent={null}
   paginationComponent={null}
   renderSegment={true}
-  rowActionClickHandler={[Function]}
+  rowActionClickHandler={[MockFunction]}
   rows={Array []}
   seeAllComponent={null}
   showAllResults={false}
@@ -73,7 +73,21 @@ exports[`DocumentsSearch ResultsTable tests should render a list of results 1`] 
   headerActionComponent={null}
   paginationComponent={null}
   renderSegment={true}
-  rowActionClickHandler={[Function]}
+  rowActionClickHandler={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          "3",
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": "/documents/3",
+        },
+      ],
+    }
+  }
   rows={
     Array [
       Object {
@@ -262,7 +276,21 @@ exports[`DocumentsSearch ResultsTable tests should render a list of results 1`] 
                 "Authors",
               ]
             }
-            rowActionClickHandler={[Function]}
+            rowActionClickHandler={
+              [MockFunction] {
+                "calls": Array [
+                  Array [
+                    "3",
+                  ],
+                ],
+                "results": Array [
+                  Object {
+                    "type": "return",
+                    "value": "/documents/3",
+                  },
+                ],
+              }
+            }
             rows={
               Array [
                 Object {
@@ -303,7 +331,7 @@ exports[`DocumentsSearch ResultsTable tests should render a list of results 1`] 
                           compact={true}
                           data-test="btn-view-details-3"
                           icon="info"
-                          onClick={[Function]}
+                          to="/documents/3"
                         >
                           <Ref
                             innerRef={
@@ -311,6 +339,7 @@ exports[`DocumentsSearch ResultsTable tests should render a list of results 1`] 
                                 "current": <button
                                   class="ui compact icon button"
                                   data-test="btn-view-details-3"
+                                  to="/documents/3"
                                 >
                                   <i
                                     aria-hidden="true"
@@ -326,6 +355,7 @@ exports[`DocumentsSearch ResultsTable tests should render a list of results 1`] 
                                   "current": <button
                                     class="ui compact icon button"
                                     data-test="btn-view-details-3"
+                                    to="/documents/3"
                                   >
                                     <i
                                       aria-hidden="true"
@@ -339,6 +369,7 @@ exports[`DocumentsSearch ResultsTable tests should render a list of results 1`] 
                                 className="ui compact icon button"
                                 data-test="btn-view-details-3"
                                 onClick={[Function]}
+                                to="/documents/3"
                               >
                                 <Icon
                                   as="i"

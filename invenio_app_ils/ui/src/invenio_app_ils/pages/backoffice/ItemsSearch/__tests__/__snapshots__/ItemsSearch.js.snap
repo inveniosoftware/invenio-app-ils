@@ -436,7 +436,6 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                           compact={true}
                           data-test="btn-view-details-987"
                           icon="info"
-                          onClick={[Function]}
                         >
                           <Ref
                             innerRef={

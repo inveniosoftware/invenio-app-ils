@@ -73,5 +73,5 @@ DocumentItems.propTypes = {
 };
 
 DocumentItems.defaultProps = {
-  showMaxItems: 1,
+  showMaxItems: 5,
 };

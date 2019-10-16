@@ -275,7 +275,6 @@ exports[`ResultsTable tests should not render the see all button when showing on
                           compact={true}
                           data-test="btn-view-details-loan1"
                           icon="info"
-                          onClick={[Function]}
                         >
                           <Ref
                             innerRef={
@@ -412,7 +411,6 @@ exports[`ResultsTable tests should not render the see all button when showing on
                           compact={true}
                           data-test="btn-view-details-loan2"
                           icon="info"
-                          onClick={[Function]}
                         >
                           <Ref
                             innerRef={
@@ -819,7 +817,6 @@ exports[`ResultsTable tests should render the see all button when showing only a
                           compact={true}
                           data-test="btn-view-details-1"
                           icon="info"
-                          onClick={[Function]}
                         >
                           <Ref
                             innerRef={

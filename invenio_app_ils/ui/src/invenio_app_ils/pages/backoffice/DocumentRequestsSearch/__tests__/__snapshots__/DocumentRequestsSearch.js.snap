@@ -531,7 +531,6 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                           compact={true}
                           data-test="btn-view-details-3"
                           icon="info"
-                          onClick={[Function]}
                         >
                           <Ref
                             innerRef={

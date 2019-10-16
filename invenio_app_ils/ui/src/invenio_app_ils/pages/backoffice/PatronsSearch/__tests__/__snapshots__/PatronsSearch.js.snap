@@ -265,7 +265,6 @@ exports[`PatronsSearch ResultsList tests should render a list of results 1`] = `
                           compact={true}
                           data-test="btn-view-details-3"
                           icon="info"
-                          onClick={[Function]}
                         >
                           <Ref
                             innerRef={

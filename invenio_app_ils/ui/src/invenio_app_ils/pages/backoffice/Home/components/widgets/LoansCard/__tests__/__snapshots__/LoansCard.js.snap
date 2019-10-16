@@ -6,17 +6,18 @@ exports[`LoansCard tests should load the details component 1`] = `
     <RecordsBriefCard
       buttonLeft={
         <NewButton
-          clickHandler={[Function]}
           disabled={true}
           fluid={true}
           text="New"
+          url="/backoffice/loans/create"
         />
       }
       buttonRight={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={true}
           fluid={true}
+          text="See All"
+          url="/backoffice/loans?q=(state:(PENDING))"
         />
       }
       stats={0}
@@ -49,17 +50,18 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
       <RecordsBriefCard
         buttonLeft={
           <NewButton
-            clickHandler={[Function]}
             disabled={true}
             fluid={true}
             text="New"
+            url="/backoffice/loans/create"
           />
         }
         buttonRight={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={true}
             fluid={true}
+            text="See All"
+            url="/backoffice/loans?q=(state:(PENDING))"
           />
         }
         stats={2}
@@ -108,10 +110,10 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                         className="eight wide column"
                       >
                         <NewButton
-                          clickHandler={[Function]}
                           disabled={true}
                           fluid={true}
                           text="New"
+                          url="/backoffice/loans/create"
                         >
                           <Button
                             as="button"
@@ -119,9 +121,9 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                             fluid={true}
                             icon={true}
                             labelPosition="left"
-                            onClick={[Function]}
                             positive={true}
                             size="small"
+                            to="/backoffice/loans/create"
                           >
                             <Ref
                               innerRef={
@@ -130,6 +132,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                     class="ui small fluid icon positive disabled left labeled button"
                                     disabled=""
                                     tabindex="-1"
+                                    to="/backoffice/loans/create"
                                   >
                                     <i
                                       aria-hidden="true"
@@ -147,6 +150,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                       class="ui small fluid icon positive disabled left labeled button"
                                       disabled=""
                                       tabindex="-1"
+                                      to="/backoffice/loans/create"
                                     >
                                       <i
                                         aria-hidden="true"
@@ -162,6 +166,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                   disabled={true}
                                   onClick={[Function]}
                                   tabIndex={-1}
+                                  to="/backoffice/loans/create"
                                 >
                                   <Icon
                                     as="i"
@@ -188,16 +193,17 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                         className="eight wide column"
                       >
                         <SeeAllButton
-                          clickHandler={[Function]}
                           disabled={true}
                           fluid={true}
+                          text="See All"
+                          url="/backoffice/loans?q=(state:(PENDING))"
                         >
                           <Button
                             as="button"
                             disabled={true}
                             fluid={true}
-                            onClick={[Function]}
                             size="tiny"
+                            to="/backoffice/loans?q=(state:(PENDING))"
                           >
                             <Ref
                               innerRef={
@@ -206,8 +212,9 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                     class="ui tiny fluid disabled button"
                                     disabled=""
                                     tabindex="-1"
+                                    to="/backoffice/loans?q=(state:(PENDING))"
                                   >
-                                    See all
+                                    See All
                                   </button>,
                                 }
                               }
@@ -219,8 +226,9 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                       class="ui tiny fluid disabled button"
                                       disabled=""
                                       tabindex="-1"
+                                      to="/backoffice/loans?q=(state:(PENDING))"
                                     >
-                                      See all
+                                      See All
                                     </button>,
                                   }
                                 }
@@ -230,8 +238,9 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                   disabled={true}
                                   onClick={[Function]}
                                   tabIndex={-1}
+                                  to="/backoffice/loans?q=(state:(PENDING))"
                                 >
-                                  See all
+                                  See All
                                 </button>
                               </RefFindNode>
                             </Ref>

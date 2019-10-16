@@ -7,7 +7,6 @@ import {
 } from '../../../../authentication/services';
 import { FrontSiteRoutes, BackOfficeRoutes } from '../../../../routes/urls';
 import { LoginButton } from '../../../../common/components';
-import { goToHandler } from '../../../../history';
 
 export default class Header extends Component {
   renderRightDropDown = () => {
@@ -20,13 +19,13 @@ export default class Header extends Component {
     return (
       <Dropdown item trigger={trigger}>
         <Dropdown.Menu>
-          <Dropdown.Item onClick={goToHandler(FrontSiteRoutes.patronProfile)}>
+          <Dropdown.Item as={Link} to={FrontSiteRoutes.patronProfile}>
             Your Profile
           </Dropdown.Item>
           {sessionManager.hasRoles(['admin', 'librarian']) ? (
             <>
               <Dropdown.Divider />
-              <Dropdown.Item onClick={goToHandler(BackOfficeRoutes.home)}>
+              <Dropdown.Item as={Link} to={BackOfficeRoutes.home}>
                 Backoffice
               </Dropdown.Item>
             </>

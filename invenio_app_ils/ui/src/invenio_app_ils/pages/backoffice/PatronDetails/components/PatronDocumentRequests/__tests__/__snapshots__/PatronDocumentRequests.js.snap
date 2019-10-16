@@ -15,9 +15,10 @@ exports[`PatronDocumentRequests tests should load the details component 1`] = `
       rows={Array []}
       seeAllComponent={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={false}
           fluid={false}
+          text="See All"
+          url="/backoffice/document-requests?q=(patron_pid:2)&sort=-mostrecent"
         />
       }
       showAllResults={false}
@@ -645,9 +646,10 @@ exports[`PatronDocumentRequests tests should render show a message with no user 
         rows={Array []}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            text="See All"
+            url="/backoffice/document-requests?q=(patron_pid:2)&sort=-mostrecent"
           />
         }
         showAllResults={false}

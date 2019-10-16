@@ -4,6 +4,7 @@ import { Settings } from 'luxon';
 import { fromISO } from '../../../../common/api/date';
 import { ResultsTable, formatter } from '../../../../common/components';
 
+jest.mock('react-router-dom');
 jest.mock('../../components');
 
 Settings.defaultZoneName = 'utc';
@@ -22,6 +23,9 @@ const data = [
   },
 ];
 
+const mockRowActionClickHandler = jest.fn();
+mockRowActionClickHandler.mockImplementation(pid => `/documents/${pid}`);
+
 let component;
 afterEach(() => {
   component.unmount();
@@ -30,7 +34,10 @@ afterEach(() => {
 describe('DocumentsSearch ResultsTable tests', () => {
   it('should not render when empty results', () => {
     component = mount(
-      <ResultsTable rows={[]} rowActionClickHandler={() => {}} />
+      <ResultsTable
+        rows={[]}
+        rowActionClickHandler={mockRowActionClickHandler}
+      />
     );
     expect(component).toMatchSnapshot();
   });
@@ -39,7 +46,7 @@ describe('DocumentsSearch ResultsTable tests', () => {
     component = mount(
       <ResultsTable
         rows={data.map(row => formatter.document.toTable(row))}
-        rowActionClickHandler={() => {}}
+        rowActionClickHandler={mockRowActionClickHandler}
       />
     );
     expect(component).toMatchSnapshot();
@@ -62,11 +69,10 @@ describe('DocumentsSearch ResultsTable tests', () => {
   });
 
   it('should call click handler on view details click', () => {
-    const mockedClickHandler = jest.fn();
     component = mount(
       <ResultsTable
         rows={data.map(row => formatter.document.toTable(row))}
-        rowActionClickHandler={mockedClickHandler}
+        rowActionClickHandler={mockRowActionClickHandler}
       />
     );
     const firstId = data[0].pid;
@@ -75,7 +81,6 @@ describe('DocumentsSearch ResultsTable tests', () => {
       .filterWhere(element => element.prop('data-test') === firstId)
       .find('button');
     button.simulate('click');
-    const expected = formatter.document.toTable(data[0]);
-    expect(mockedClickHandler).toHaveBeenCalledWith(expected);
+    expect(mockRowActionClickHandler).toHaveBeenCalledWith(firstId);
   });
 });

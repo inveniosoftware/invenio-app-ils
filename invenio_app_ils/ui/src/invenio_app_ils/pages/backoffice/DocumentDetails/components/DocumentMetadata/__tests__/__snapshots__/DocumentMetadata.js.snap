@@ -26,10 +26,10 @@ exports[`DocumentMetadata tests should load the details component 1`] = `
         width={3}
       >
         <EditButton
-          clickHandler={[Function]}
           disabled={false}
           fluid={false}
           text="Edit"
+          url="/backoffice/documents/docid-1/edit"
         />
         <DeleteRecordModal
           deleteHeader="Are you sure you want to delete the Document

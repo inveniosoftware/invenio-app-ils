@@ -15,9 +15,10 @@ exports[`DocumentItems tests should load the DocumentItems component 1`] = `
       rows={Array []}
       seeAllComponent={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={false}
           fluid={false}
+          text="See All"
+          url="/backoffice/items?q=document_pid:111"
         />
       }
       showAllResults={false}
@@ -731,9 +732,10 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
         rows={Array []}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            text="See All"
+            url="/backoffice/items?q=document_pid:111"
           />
         }
         showAllResults={false}

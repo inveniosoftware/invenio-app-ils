@@ -11,13 +11,14 @@ exports[`ItemPastLoans tests should load the past loans component 1`] = `
       name="loans"
       paginationComponent={null}
       renderSegment={true}
-      rowActionClickHandler={[Function]}
+      rowActionClickHandler={[MockFunction]}
       rows={Array []}
       seeAllComponent={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={false}
           fluid={false}
+          text="See All"
+          url="/backoffice/loans?q=(item_pid:222 AND state:(ITEM_RETURNED OR CANCELLED))"
         />
       }
       showAllResults={false}
@@ -101,7 +102,28 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
         name="loans"
         paginationComponent={null}
         renderSegment={true}
-        rowActionClickHandler={[Function]}
+        rowActionClickHandler={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "loan1",
+              ],
+              Array [
+                "loan2",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+            ],
+          }
+        }
         rows={
           Array [
             Object {
@@ -126,9 +148,10 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
         }
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            text="See All"
+            url="/backoffice/loans?q=(item_pid:222 AND state:(ITEM_RETURNED OR CANCELLED))"
           />
         }
         showAllResults={false}
@@ -360,7 +383,28 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       "Renewals",
                     ]
                   }
-                  rowActionClickHandler={[Function]}
+                  rowActionClickHandler={
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          "loan1",
+                        ],
+                        Array [
+                          "loan2",
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                      ],
+                    }
+                  }
                   rows={
                     Array [
                       Object {
@@ -412,7 +456,6 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                                 compact={true}
                                 data-test="btn-view-details-loan1"
                                 icon="info"
-                                onClick={[Function]}
                               >
                                 <Ref
                                   innerRef={
@@ -573,7 +616,6 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                                 compact={true}
                                 data-test="btn-view-details-loan2"
                                 icon="info"
-                                onClick={[Function]}
                               >
                                 <Ref
                                   innerRef={
@@ -722,9 +764,10 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                   paginationComponent={null}
                   seeAllComponent={
                     <SeeAllButton
-                      clickHandler={[Function]}
                       disabled={false}
                       fluid={false}
+                      text="See All"
+                      url="/backoffice/loans?q=(item_pid:222 AND state:(ITEM_RETURNED OR CANCELLED))"
                     />
                   }
                   showAllResults={false}
@@ -770,13 +813,14 @@ exports[`ItemPastLoans tests should render show a message with no past loans 1`]
         name="loans"
         paginationComponent={null}
         renderSegment={true}
-        rowActionClickHandler={[Function]}
+        rowActionClickHandler={[MockFunction]}
         rows={Array []}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            text="See All"
+            url="/backoffice/loans?q=(item_pid:222 AND state:(ITEM_RETURNED OR CANCELLED))"
           />
         }
         showAllResults={false}

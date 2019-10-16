@@ -15,9 +15,10 @@ exports[`PendingOverdueDocumentsList tests should load the details component 1`]
       rows={Array []}
       seeAllComponent={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={false}
           fluid={false}
+          text="See All"
+          url="/backoffice/documents?q=circulation.has_items_for_loan:0%20AND%20circulation.pending_loans:%3E0%20AND%20circulation.overdue_loans:%3E0%20AND%20items.total:%3E0"
         />
       }
       showAllResults={false}
@@ -540,9 +541,10 @@ exports[`PendingOverdueDocumentsList tests should render show a message with no 
         rows={Array []}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            text="See All"
+            url="/backoffice/documents?q=circulation.has_items_for_loan:0%20AND%20circulation.pending_loans:%3E0%20AND%20circulation.overdue_loans:%3E0%20AND%20items.total:%3E0"
           />
         }
         showAllResults={false}

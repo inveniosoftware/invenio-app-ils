@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button, Table } from 'semantic-ui-react';
+import _isFunction from 'lodash/isFunction';
 
 export default class ResultsTableBody extends Component {
   renderCell = (cell, column, id, colIndex) => {
@@ -14,13 +15,14 @@ export default class ResultsTableBody extends Component {
 
   // This is wrong row.ID is something we create on prepare data, not data itself
   renderRow = (columns, rows) => {
+    const { rowActionClickHandler } = this.props;
     return rows.map(row => {
-      const withRowAction = this.props.rowActionClickHandler ? (
+      const withRowAction = _isFunction(rowActionClickHandler) ? (
         <Button
           compact
           icon="info"
           as={Link}
-          to={this.props.rowActionClickHandler(row.ID)}
+          to={rowActionClickHandler(row.ID)}
           data-test={'btn-view-details-' + row.ID}
         />
       ) : null;

@@ -1,9 +1,11 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import ItemPastLoans from '../ItemPastLoans';
 import testData from '../../../../../../../../../../tests/data/loans.json';
 
 jest.mock('../../../../../../common/config/invenioConfig');
+BackOfficeRoutes.loanDetailsFor = jest.fn();
 
 const data = {
   hits: [

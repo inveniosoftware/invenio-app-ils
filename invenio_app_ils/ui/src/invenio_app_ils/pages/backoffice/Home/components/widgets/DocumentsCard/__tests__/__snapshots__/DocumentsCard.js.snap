@@ -35,17 +35,18 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
         <RecordsBriefCard
           buttonLeft={
             <NewButton
-              clickHandler={[Function]}
               disabled={true}
               fluid={true}
               text="New"
+              url="/backoffice/documents/create"
             />
           }
           buttonRight={
             <SeeAllButton
-              clickHandler={[Function]}
               disabled={true}
               fluid={true}
+              text="See All"
+              url="/backoffice/documents?q=circulation.has_items_for_loan:>0 AND circulation.pending_loans:>0"
             />
           }
           stats={2}
@@ -94,10 +95,10 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                           className="eight wide column"
                         >
                           <NewButton
-                            clickHandler={[Function]}
                             disabled={true}
                             fluid={true}
                             text="New"
+                            url="/backoffice/documents/create"
                           >
                             <Button
                               as="button"
@@ -105,9 +106,9 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                               fluid={true}
                               icon={true}
                               labelPosition="left"
-                              onClick={[Function]}
                               positive={true}
                               size="small"
+                              to="/backoffice/documents/create"
                             >
                               <Ref
                                 innerRef={
@@ -116,6 +117,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                       class="ui small fluid icon positive disabled left labeled button"
                                       disabled=""
                                       tabindex="-1"
+                                      to="/backoffice/documents/create"
                                     >
                                       <i
                                         aria-hidden="true"
@@ -133,6 +135,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                         class="ui small fluid icon positive disabled left labeled button"
                                         disabled=""
                                         tabindex="-1"
+                                        to="/backoffice/documents/create"
                                       >
                                         <i
                                           aria-hidden="true"
@@ -148,6 +151,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                     disabled={true}
                                     onClick={[Function]}
                                     tabIndex={-1}
+                                    to="/backoffice/documents/create"
                                   >
                                     <Icon
                                       as="i"
@@ -174,16 +178,17 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                           className="eight wide column"
                         >
                           <SeeAllButton
-                            clickHandler={[Function]}
                             disabled={true}
                             fluid={true}
+                            text="See All"
+                            url="/backoffice/documents?q=circulation.has_items_for_loan:>0 AND circulation.pending_loans:>0"
                           >
                             <Button
                               as="button"
                               disabled={true}
                               fluid={true}
-                              onClick={[Function]}
                               size="tiny"
+                              to="/backoffice/documents?q=circulation.has_items_for_loan:>0 AND circulation.pending_loans:>0"
                             >
                               <Ref
                                 innerRef={
@@ -192,8 +197,9 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                       class="ui tiny fluid disabled button"
                                       disabled=""
                                       tabindex="-1"
+                                      to="/backoffice/documents?q=circulation.has_items_for_loan:>0 AND circulation.pending_loans:>0"
                                     >
-                                      See all
+                                      See All
                                     </button>,
                                   }
                                 }
@@ -205,8 +211,9 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                         class="ui tiny fluid disabled button"
                                         disabled=""
                                         tabindex="-1"
+                                        to="/backoffice/documents?q=circulation.has_items_for_loan:>0 AND circulation.pending_loans:>0"
                                       >
-                                        See all
+                                        See All
                                       </button>,
                                     }
                                   }
@@ -216,8 +223,9 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                     disabled={true}
                                     onClick={[Function]}
                                     tabIndex={-1}
+                                    to="/backoffice/documents?q=circulation.has_items_for_loan:>0 AND circulation.pending_loans:>0"
                                   >
-                                    See all
+                                    See All
                                   </button>
                                 </RefFindNode>
                               </Ref>

@@ -91,11 +91,7 @@ export class ItemsSearch extends Component {
         </Header>
         <div>Current search "{queryString}"</div>
         <Segment.Inline>
-          <ClearButton
-            clickHandler={() => {
-              resetQuery();
-            }}
-          />
+          <ClearButton clickHandler={resetQuery} />
           <NewButton text={'New item'} url={BackOfficeRoutes.itemsCreate} />
         </Segment.Inline>
       </Segment>

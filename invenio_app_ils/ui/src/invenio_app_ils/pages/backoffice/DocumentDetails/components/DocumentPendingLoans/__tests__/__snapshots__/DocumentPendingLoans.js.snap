@@ -15,9 +15,10 @@ exports[`DocumentPendingLoans tests should load the details component 1`] = `
       rows={Array []}
       seeAllComponent={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={false}
           fluid={false}
+          text="See All"
+          url="/backoffice/loans?q=(document_pid:111 AND state:(PENDING))"
         />
       }
       showAllResults={false}
@@ -639,9 +640,10 @@ exports[`DocumentPendingLoans tests should render show a message with no pending
         rows={Array []}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            text="See All"
+            url="/backoffice/loans?q=(document_pid:111 AND state:(PENDING))"
           />
         }
         showAllResults={false}
