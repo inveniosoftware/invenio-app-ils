@@ -12,6 +12,7 @@ from werkzeug.routing import Rule
 
 from ...api import Document, DocumentRequest
 from ..resolver import get_field_value_for_record as get_field_value
+from ..resolver import get_pid_or_default
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
@@ -22,6 +23,7 @@ def jsonresolver_loader(url_map):
     """Resolve the referred Document for an DocumentRequest record."""
     from flask import current_app
 
+    @get_pid_or_default(default_value=dict())
     def get_document(document_pid):
         """Return the Document record."""
         document = Document.get_record_by_pid(document_pid)

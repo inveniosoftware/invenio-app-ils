@@ -12,6 +12,8 @@ from werkzeug.routing import Rule
 
 from invenio_app_ils.records.api import Document
 
+from ..resolver import get_pid_or_default
+
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
 
@@ -21,6 +23,7 @@ def jsonresolver_loader(url_map):
     """Resolve the relations of a Document record."""
     from flask import current_app
 
+    @get_pid_or_default(default_value=dict())
     def relations_resolver(document_pid):
         """Resolve record relations and add metadata."""
         document = Document.get_record_by_pid(document_pid)

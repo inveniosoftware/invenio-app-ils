@@ -12,6 +12,7 @@ from werkzeug.routing import Rule
 
 from ...api import Series, Tag
 from ..resolver import get_field_value_for_record as get_field_value
+from ..resolver import get_pid_or_default
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
@@ -22,6 +23,7 @@ def jsonresolver_loader(url_map):
     """Resolve the referred Tags for a Series record."""
     from flask import current_app
 
+    @get_pid_or_default(default_value=[])
     def tags_resolver(series_pid):
         """Return the Tag records for the given Tag or raise."""
         tag_pids = get_field_value(Series, series_pid, "tag_pids")

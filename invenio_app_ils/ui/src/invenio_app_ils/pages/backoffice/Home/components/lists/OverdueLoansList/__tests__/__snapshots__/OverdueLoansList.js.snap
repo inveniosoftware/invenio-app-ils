@@ -43,7 +43,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
             "item": Object {
               "barcode": 123,
             },
-            "item_pid": "itemid-1",
+            "item_pid": "",
             "patron": Object {
               "email": "patron1@test.ch",
             },
@@ -112,7 +112,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                       "item": Object {
                         "barcode": 123,
                       },
-                      "item_pid": "itemid-1",
+                      "item_pid": "",
                       "patron": Object {
                         "email": "patron1@test.ch",
                       },
@@ -387,7 +387,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                                 "item": Object {
                                   "barcode": 123,
                                 },
-                                "item_pid": "itemid-1",
+                                "item_pid": "",
                                 "patron": Object {
                                   "email": "patron1@test.ch",
                                 },
@@ -593,7 +593,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                                       "item": Object {
                                         "barcode": 123,
                                       },
-                                      "item_pid": "itemid-1",
+                                      "item_pid": "",
                                       "patron": Object {
                                         "email": "patron1@test.ch",
                                       },

@@ -13,9 +13,11 @@ from invenio_pidstore.errors import PIDDeletedError
 from invenio_app_ils.records.api import Item
 from invenio_app_ils.records.resolver.resolver import \
     get_field_value_for_record as get_field_value
-from invenio_app_ils.records.resolver.resolver import get_patron
+from invenio_app_ils.records.resolver.resolver import get_patron, \
+    get_pid_or_default
 
 
+@get_pid_or_default(default_value=dict())
 def item_resolver(loan_pid):
     """Resolve an Item given a Loan PID."""
     try:

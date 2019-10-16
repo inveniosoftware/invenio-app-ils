@@ -12,6 +12,7 @@ from werkzeug.routing import Rule
 
 from ...api import InternalLocation, Item
 from ..resolver import get_field_value_for_record as get_field_value
+from ..resolver import get_pid_or_default
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
@@ -22,6 +23,7 @@ def jsonresolver_loader(url_map):
     """Resolve the referredInternal Location for an Item record."""
     from flask import current_app
 
+    @get_pid_or_default(default_value=dict())
     def get_internal_location(internal_location_pid):
         """Return the InternalLocation record."""
         internal_location = InternalLocation.get_record_by_pid(

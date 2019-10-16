@@ -2,7 +2,7 @@
   {
     "document_pid": "docid-1",
     "end_date": "2018-07-28",
-    "item_pid": "itemid-1",
+    "item_pid": "",
     "patron_pid": "1",
     "pickup_location_pid": "locid-1",
     "pid": "loanid-1",
