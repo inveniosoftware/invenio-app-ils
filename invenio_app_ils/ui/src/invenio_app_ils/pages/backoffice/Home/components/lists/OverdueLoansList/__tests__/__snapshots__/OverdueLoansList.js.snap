@@ -129,7 +129,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                   }
                 }
               />,
-              "Expired": "last year",
+              "End date": "2018-07-28",
               "ID": "loan1",
               "Item barcode": 123,
               "Patron ID": "1",
@@ -162,7 +162,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                   }
                 }
               />,
-              "Expired": "last year",
+              "End date": "2018-07-28",
               "ID": "loan2",
               "Item barcode": 123,
               "Patron ID": "1",
@@ -250,7 +250,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                       "ID",
                       "Patron ID",
                       "Item barcode",
-                      "Expired",
+                      "End date",
                       "Actions",
                     ]
                   }
@@ -330,7 +330,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Expired"
+                            key="End date"
                           >
                             <TableCell
                               as="th"
@@ -339,7 +339,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                               <th
                                 className=""
                               >
-                                Expired
+                                End date
                               </th>
                             </TableCell>
                           </TableHeaderCell>
@@ -369,7 +369,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                       "ID",
                       "Patron ID",
                       "Item barcode",
-                      "Expired",
+                      "End date",
                       "Actions",
                     ]
                   }
@@ -404,7 +404,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                             }
                           }
                         />,
-                        "Expired": "last year",
+                        "End date": "2018-07-28",
                         "ID": "loan1",
                         "Item barcode": 123,
                         "Patron ID": "1",
@@ -437,7 +437,7 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                             }
                           }
                         />,
-                        "Expired": "last year",
+                        "End date": "2018-07-28",
                         "ID": "loan2",
                         "Item barcode": 123,
                         "Patron ID": "1",
@@ -564,14 +564,14 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Expired-loan1"
+                            data-test="End date-loan1"
                             key="3-loan1"
                           >
                             <td
                               className=""
-                              data-test="Expired-loan1"
+                              data-test="End date-loan1"
                             >
-                              last year
+                              2018-07-28
                             </td>
                           </TableCell>
                           <TableCell
@@ -727,14 +727,14 @@ exports[`OverdueLoansList tests should render loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Expired-loan2"
+                            data-test="End date-loan2"
                             key="3-loan2"
                           >
                             <td
                               className=""
-                              data-test="Expired-loan2"
+                              data-test="End date-loan2"
                             >
-                              last year
+                              2018-07-28
                             </td>
                           </TableCell>
                           <TableCell

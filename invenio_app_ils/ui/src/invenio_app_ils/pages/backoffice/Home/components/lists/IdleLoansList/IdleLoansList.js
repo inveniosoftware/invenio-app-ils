@@ -43,7 +43,7 @@ export default class IdleLoansList extends Component {
         'Updated',
         'Patron ID',
         'Document ID',
-        'Requested',
+        'Request start date',
       ]);
     });
   }

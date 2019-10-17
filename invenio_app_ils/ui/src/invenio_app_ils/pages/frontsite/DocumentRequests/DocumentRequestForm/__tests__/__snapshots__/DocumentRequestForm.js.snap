@@ -62,17 +62,12 @@ exports[`DocumentRequestForm tests should render the document request form corre
               <Link
                 to="/profile"
               >
-                <LinkAnchor
+                <a
                   href="/profile"
-                  navigate={[Function]}
+                  onClick={[Function]}
                 >
-                  <a
-                    href="/profile"
-                    onClick={[Function]}
-                  >
-                    profile
-                  </a>
-                </LinkAnchor>
+                  profile
+                </a>
               </Link>
                page.
             </p>

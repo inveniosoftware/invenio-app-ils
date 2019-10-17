@@ -98,17 +98,12 @@ exports[`BookGroup tests should render book cards 1`] = `
             <Link
               to="/test"
             >
-              <LinkAnchor
+              <a
                 href="/test"
-                navigate={[Function]}
+                onClick={[Function]}
               >
-                <a
-                  href="/test"
-                  onClick={[Function]}
-                >
-                  VIEW ALL
-                </a>
-              </LinkAnchor>
+                VIEW ALL
+              </a>
             </Link>
              
             test
@@ -206,17 +201,12 @@ exports[`BookGroup tests should render the VIEW ALL link 1`] = `
             <Link
               to="/test"
             >
-              <LinkAnchor
+              <a
                 href="/test"
-                navigate={[Function]}
+                onClick={[Function]}
               >
-                <a
-                  href="/test"
-                  onClick={[Function]}
-                >
-                  VIEW ALL
-                </a>
-              </LinkAnchor>
+                VIEW ALL
+              </a>
             </Link>
              
             test

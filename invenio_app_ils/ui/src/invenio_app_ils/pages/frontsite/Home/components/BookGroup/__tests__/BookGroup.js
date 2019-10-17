@@ -120,7 +120,7 @@ describe('BookGroup tests', () => {
       .find('Link')
       .find('a');
     expect(link).toHaveLength(1);
-    expect(link.text() === 'VIEW ALL');
-    expect(link.prop('href') === '/test');
+    expect(link.props().text === 'VIEW ALL');
+    expect(link.props().href === '/test');
   });
 });

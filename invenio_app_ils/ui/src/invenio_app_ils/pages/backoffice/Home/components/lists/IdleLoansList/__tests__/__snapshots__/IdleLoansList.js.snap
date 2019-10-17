@@ -99,13 +99,13 @@ exports[`IdleLoansList tests should render loans 1`] = `
               "Document ID": "docid-1",
               "ID": "loan1",
               "Patron ID": "1",
-              "Requested": null,
+              "Request start date": null,
             },
             Object {
               "Document ID": "docid-1",
               "ID": "loan2",
               "Patron ID": "1",
-              "Requested": null,
+              "Request start date": null,
             },
           ]
         }
@@ -190,7 +190,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                       "ID",
                       "Patron ID",
                       "Document ID",
-                      "Requested",
+                      "Request start date",
                     ]
                   }
                   withRowAction={false}
@@ -269,7 +269,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           </TableHeaderCell>
                           <TableHeaderCell
                             as="th"
-                            key="Requested"
+                            key="Request start date"
                           >
                             <TableCell
                               as="th"
@@ -278,7 +278,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                               <th
                                 className=""
                               >
-                                Requested
+                                Request start date
                               </th>
                             </TableCell>
                           </TableHeaderCell>
@@ -293,7 +293,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                       "ID",
                       "Patron ID",
                       "Document ID",
-                      "Requested",
+                      "Request start date",
                     ]
                   }
                   rowActionClickHandler={[Function]}
@@ -303,13 +303,13 @@ exports[`IdleLoansList tests should render loans 1`] = `
                         "Document ID": "docid-1",
                         "ID": "loan1",
                         "Patron ID": "1",
-                        "Requested": null,
+                        "Request start date": null,
                       },
                       Object {
                         "Document ID": "docid-1",
                         "ID": "loan2",
                         "Patron ID": "1",
-                        "Requested": null,
+                        "Request start date": null,
                       },
                     ]
                   }
@@ -433,12 +433,12 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Requested-loan1"
+                            data-test="Request start date-loan1"
                             key="3-loan1"
                           >
                             <td
                               className=""
-                              data-test="Requested-loan1"
+                              data-test="Request start date-loan1"
                             >
                               -
                             </td>
@@ -558,12 +558,12 @@ exports[`IdleLoansList tests should render loans 1`] = `
                           </TableCell>
                           <TableCell
                             as="td"
-                            data-test="Requested-loan2"
+                            data-test="Request start date-loan2"
                             key="3-loan2"
                           >
                             <td
                               className=""
-                              data-test="Requested-loan2"
+                              data-test="Request start date-loan2"
                             >
                               -
                             </td>

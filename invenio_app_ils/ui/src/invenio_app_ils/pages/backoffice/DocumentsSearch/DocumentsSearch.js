@@ -6,8 +6,8 @@ import {
   EmptyResults,
   Error,
   Pagination,
-  ReactSearchKit,
   ResultsList,
+  ReactSearchKit,
   ResultsLoader,
   SearchBar,
   InvenioSearchApi,
@@ -16,15 +16,14 @@ import {
   Error as IlsError,
   SearchBar as DocumentsSearchBar,
   ResultsSort,
-  ResultsTable,
 } from '../../../common/components';
 import { formatter } from '../../../common/components/ResultsTable/formatters';
 import { document as documentApi } from '../../../common/api/documents/document';
 import { getSearchConfig } from '../../../common/config';
 import { ClearButton, NewButton } from '../components/buttons';
 import { BackOfficeRoutes } from '../../../routes/urls';
-import { ExportReactSearchKitResults } from '../components';
-import { goTo, goToHandler } from '../../../history';
+import { DocumentList, ExportReactSearchKitResults } from '../components';
+import { goToHandler } from '../../../history';
 import _pick from 'lodash/pick';
 
 export class DocumentsSearch extends Component {
@@ -68,33 +67,6 @@ export class DocumentsSearch extends Component {
     });
   }
 
-  renderResultsTable = results => {
-    const rows = this.prepareData(results);
-    const headerActionComponent = (
-      <div>
-        <NewButton
-          text={'New document'}
-          clickHandler={goToHandler(BackOfficeRoutes.documentCreate)}
-        />
-        <ExportReactSearchKitResults
-          exportBaseUrl={documentApi.searchBaseURL}
-        />
-      </div>
-    );
-
-    return (
-      <ResultsTable
-        rows={rows}
-        title={''}
-        name={'documents'}
-        headerActionComponent={headerActionComponent}
-        rowActionClickHandler={row =>
-          goTo(BackOfficeRoutes.documentDetailsFor(row.ID))
-        }
-      />
-    );
-  };
-
   renderEmptyResults = (queryString, resetQuery) => {
     return (
       <Segment placeholder textAlign="center">
@@ -128,14 +100,11 @@ export class DocumentsSearch extends Component {
 
   renderHeader = () => {
     return (
-      <Grid columns={3}>
-        <Grid.Column width={5}>
+      <Grid columns={2}>
+        <Grid.Column>
           <Count renderElement={this.renderCount} />
         </Grid.Column>
-        <Grid.Column width={6}>
-          <Pagination />
-        </Grid.Column>
-        <Grid.Column width={5} textAlign="right">
+        <Grid.Column textAlign={'right'}>
           <ResultsSort searchConfig={this.searchConfig} />
         </Grid.Column>
       </Grid>
@@ -149,7 +118,11 @@ export class DocumentsSearch extends Component {
         <Grid.Column width={6}>
           <Pagination />
         </Grid.Column>
-        <Grid.Column width={5} />
+        <Grid.Column width={5} textAlign={'right'}>
+          <ExportReactSearchKitResults
+            exportBaseUrl={documentApi.searchBaseURL}
+          />
+        </Grid.Column>
       </Grid>
     );
   };
@@ -160,7 +133,20 @@ export class DocumentsSearch extends Component {
         <Aggregator title={agg.title} field={agg.field} />
       </div>
     ));
-    return <div>{components}</div>;
+    return (
+      <>
+        <NewButton
+          fluid
+          text={'New document'}
+          clickHandler={goToHandler(BackOfficeRoutes.documentCreate)}
+        />
+        {components}
+      </>
+    );
+  };
+
+  renderDocumentList = results => {
+    return <DocumentList hits={results}></DocumentList>;
   };
 
   render() {
@@ -179,7 +165,7 @@ export class DocumentsSearch extends Component {
                 <EmptyResults renderElement={this.renderEmptyResults} />
                 <Error renderElement={this.renderError} />
                 {this.renderHeader()}
-                <ResultsList renderElement={this.renderResultsTable} />
+                <ResultsList renderElement={this.renderDocumentList} />
                 {this.renderFooter()}
               </Grid.Column>
             </ResultsLoader>

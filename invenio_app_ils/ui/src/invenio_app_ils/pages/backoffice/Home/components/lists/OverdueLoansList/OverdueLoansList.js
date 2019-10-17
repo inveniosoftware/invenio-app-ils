@@ -44,7 +44,7 @@ export default class OverdueLoansList extends Component {
         'ID',
         'Patron ID',
         'Item barcode',
-        'Expired',
+        'End date',
         'Actions',
       ]);
     });

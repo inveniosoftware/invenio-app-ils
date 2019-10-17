@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Qs from 'qs';
-import { Loader, Error } from '../../../../../common/components';
-import { ResultsTable } from '../../../../../common/components';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
-import pick from 'lodash/pick';
-import { BackOfficeRoutes } from '../../../../../routes/urls';
-import { goTo } from '../../../../../history';
-import { Grid, Segment, Icon, Header } from 'semantic-ui-react';
+import { Grid, List, Icon, Header } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
-import { stats as statsApi } from '../../../../../common/api';
-import { ExportSearchResults } from '../../../components';
+import { Loader, Error } from '../../../../../common/components';
+import { BackOfficeRoutes } from '../../../../../routes/urls';
+import { stats as statsApi, loan as loanApi } from '../../../../../common/api';
+import { DocumentList, ExportSearchResults } from '../../../components';
+import { invenioConfig } from '../../../../../common/config/invenioConfig';
 
 export default class MostLoanedDocumentsList extends Component {
   constructor(props) {
@@ -43,18 +40,6 @@ export default class MostLoanedDocumentsList extends Component {
     this.fetchMostLoanedDocuments(this.state.fromDate, this.state.toDate);
   }
 
-  prepareData(data) {
-    const { fromDate, toDate } = this.state;
-    return data.hits.map(row => {
-      return pick(formatter.mostLoanedDocument.toTable(row, fromDate, toDate), [
-        'ID',
-        'Title',
-        'Loan Count',
-        'Extension Count',
-      ]);
-    });
-  }
-
   handleDateChange = (event, { name, value }) => {
     const fromDate = name === 'fromDate' ? value : this.state.fromDate;
     const toDate = name === 'toDate' ? value : this.state.toDate;
@@ -64,97 +49,121 @@ export default class MostLoanedDocumentsList extends Component {
 
   renderDateRangePicker() {
     return (
-      <Segment.Group>
-        <Segment>
-          <Header
-            as="h3"
-            content="Pick range of dates"
-            subheader="Choose between which dates to search the most loaned documents"
-          />
-        </Segment>
-        <Segment.Group horizontal>
-          <Segment>
-            <DateInput
-              autoComplete="off"
-              clearable
-              clearIcon={<Icon name="remove" color="red" />}
-              closable
-              dateFormat="YYYY-MM-DD"
-              iconPosition="left"
-              maxDate={this.state.toDate}
-              name="fromDate"
-              onChange={this.handleDateChange}
-              placeholder="Start Date"
-              value={this.state.fromDate}
-            />
-          </Segment>
-          <Segment>
-            <DateInput
-              autoComplete="off"
-              clearable
-              clearIcon={<Icon name="remove" color="red" />}
-              closable
-              dateFormat="YYYY-MM-DD"
-              iconPosition="left"
-              minDate={this.state.fromDate}
-              name="toDate"
-              onChange={this.handleDateChange}
-              placeholder="End Date"
-              value={this.state.toDate}
-            />
-          </Segment>
-        </Segment.Group>
-      </Segment.Group>
+      <>
+        <Header as="h3">
+          Pick range of dates
+          <Header.Subheader>
+            Choose between which dates to search the most loaned documents
+          </Header.Subheader>
+        </Header>
+
+        <List horizontal>
+          <List.Item>
+            <List.Content>
+              <DateInput
+                autoComplete="off"
+                clearable
+                clearIcon={<Icon name="remove" color="red" />}
+                closable
+                dateFormat="YYYY-MM-DD"
+                iconPosition="left"
+                maxDate={this.state.toDate}
+                name="fromDate"
+                onChange={this.handleDateChange}
+                placeholder="Start Date"
+                value={this.state.fromDate}
+              />
+            </List.Content>
+          </List.Item>
+
+          <List.Item>
+            <List.Content>
+              <DateInput
+                autoComplete="off"
+                clearable
+                clearIcon={<Icon name="remove" color="red" />}
+                closable
+                dateFormat="YYYY-MM-DD"
+                iconPosition="left"
+                minDate={this.state.fromDate}
+                name="toDate"
+                onChange={this.handleDateChange}
+                placeholder="End Date"
+                value={this.state.toDate}
+              />
+            </List.Content>
+          </List.Item>
+        </List>
+      </>
     );
   }
 
-  renderTable(data) {
-    const rows = this.prepareData(data);
-    rows.totalHits = data.total;
-    const headerActionComponent = (
-      <ExportSearchResults
-        onExportClick={(format, size) => {
-          // build params
-          const params = statsApi.getMostLoanedDocumentsParams(
-            this.state.fromDate,
-            this.state.toDate,
-            size,
-            format
-          );
-          const args = Qs.stringify(params);
-          // build final url
-          const exportUrl = `${statsApi.mostLoanedUrl}?${args}`;
-          // open in a new tab
-          window.open(exportUrl, '_blank');
-        }}
-      ></ExportSearchResults>
-    );
-
+  renderHeader = () => {
     return (
-      <ResultsTable
-        rows={rows}
-        title={'Most Loaned Documents'}
-        subtitle={this.subtitle}
-        name={'most loaned documents during this time period'}
-        headerActionComponent={headerActionComponent}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
-        showMaxRows={this.props.showMaxDocuments}
-      />
+      <Grid columns={2}>
+        <Grid.Column>
+          <Header as="h3">
+            Most Loaned Documents
+            <Header.Subheader>{this.subtitle}</Header.Subheader>
+          </Header>
+        </Grid.Column>
+        <Grid.Column textAlign={'right'}>
+          <ExportSearchResults
+            onExportClick={(format, size) => {
+              // build params
+              const params = statsApi.getMostLoanedDocumentsParams(
+                this.state.fromDate,
+                this.state.toDate,
+                size,
+                format
+              );
+              const args = Qs.stringify(params);
+              // build final url
+              const exportUrl = `${statsApi.mostLoanedUrl}?${args}`;
+              // open in a new tab
+              window.open(exportUrl, '_blank');
+            }}
+          ></ExportSearchResults>
+        </Grid.Column>
+      </Grid>
     );
-  }
+  };
+
+  createLoansUrl = (hit, fromDate, toDate) => {
+    const query = loanApi
+      .query()
+      .withDocPid(hit.metadata.pid)
+      .withStartDate({ fromDate, toDate })
+      .withState(
+        invenioConfig.circulation.loanActiveStates.concat(
+          invenioConfig.circulation.loanCompletedStates
+        )
+      )
+      .qs();
+    return BackOfficeRoutes.loansListWithQuery(query);
+  };
 
   render() {
     const { data, isLoading, error } = this.props;
+    const hitsWithLinks = data.hits.map(hit => {
+      hit.metadata.loan_count_url = this.createLoansUrl(
+        hit,
+        this.state.fromDate,
+        this.state.toDate
+      );
+      return hit;
+    });
     return (
-      <Grid>
-        <Grid.Row>
-          <Grid.Column width={4}>{this.renderDateRangePicker()}</Grid.Column>
-          <Grid.Column width={12}>
-            <Loader isLoading={isLoading}>
-              <Error error={error}>{this.renderTable(data)}</Error>
-            </Loader>
-          </Grid.Column>
-        </Grid.Row>
+      <Grid columns={1}>
+        <Grid.Column>{this.renderDateRangePicker()}</Grid.Column>
+        <Grid.Column>{this.renderHeader()}</Grid.Column>
+        <Grid.Column>
+          <Loader isLoading={isLoading}>
+            <Error error={error}>
+              <DocumentList hits={hitsWithLinks} />
+            </Error>
+          </Loader>
+        </Grid.Column>
       </Grid>
     );
   }
@@ -163,9 +172,4 @@ export default class MostLoanedDocumentsList extends Component {
 MostLoanedDocumentsList.propTypes = {
   fetchMostLoanedDocuments: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
-  showMaxDocuments: PropTypes.number,
-};
-
-MostLoanedDocumentsList.defaultProps = {
-  showMaxDocuments: 30,
 };

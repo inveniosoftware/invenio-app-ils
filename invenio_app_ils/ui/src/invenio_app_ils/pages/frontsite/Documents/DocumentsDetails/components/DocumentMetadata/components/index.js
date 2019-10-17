@@ -6,6 +6,8 @@ import { DocumentCover as DocumentCoverComponent } from './DocumentCover';
 import { DocumentAbstract as DocumentAbstractComponent } from './DocumentAbstract';
 import { DocumentAuthors as DocumentAuthorsComponent } from './DocumentAuthors';
 import { DocumentTitle as DocumentTitleComponent } from './DocumentTitle';
+export { DocumentTableOfContent } from './DocumentTableOfContent';
+export { DocumentConference } from './DocumentConference';
 
 const mapStateToProps = state => ({
   isLoading: state.documentDetailsFront.isLoading,
