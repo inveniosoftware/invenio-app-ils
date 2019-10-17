@@ -172,13 +172,12 @@ export class DocumentRequestsSearch extends Component {
     return (
       <ReactSearchKit searchApi={this.searchApi}>
         <Grid>
-          <Grid.Row>
+          <Grid.Row columns={1}>
             <Grid.Column>
               <SearchBar renderElement={this.renderSearchBar} />
             </Grid.Column>
           </Grid.Row>
-
-          <Grid.Row>
+          <Grid.Row columns={2}>
             <ResultsLoader>
               <Grid.Column width={3}>{this.renderAggregations()}</Grid.Column>
               <Grid.Column width={13}>

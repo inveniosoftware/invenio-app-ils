@@ -20,8 +20,21 @@ export const invenioConfig = {
     search: {
       aggs: ['state'],
       sortBy: {
-        onEmptyQuery: null,
-        values: [],
+        onEmptyQuery: 'mostrecent',
+        values: [
+          {
+            default_order: 'asc',
+            field: 'mostrecent',
+            order: 1,
+            title: 'Newest',
+          },
+          {
+            default_order: 'asc',
+            field: 'bestmatch',
+            order: 2,
+            title: 'Best match',
+          },
+        ],
       },
       sortOrder: ['asc', 'desc'],
     },
