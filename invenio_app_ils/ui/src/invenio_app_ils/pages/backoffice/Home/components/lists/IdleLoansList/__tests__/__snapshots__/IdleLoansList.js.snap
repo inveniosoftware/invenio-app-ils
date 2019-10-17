@@ -18,7 +18,7 @@ exports[`IdleLoansList tests should load the details component 1`] = `
           disabled={false}
           fluid={false}
           text="See All"
-          url="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-06%7D)"
+          url="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-07%7D)"
         />
       }
       showAllResults={false}
@@ -627,7 +627,7 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
             disabled={false}
             fluid={false}
             text="See All"
-            url="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-06%7D)"
+            url="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-07%7D)"
           />
         }
         showAllResults={false}

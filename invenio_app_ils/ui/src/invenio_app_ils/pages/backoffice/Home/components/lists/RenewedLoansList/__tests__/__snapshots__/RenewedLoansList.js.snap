@@ -18,7 +18,7 @@ exports[`RenewedLoansList tests should load the details component 1`] = `
           disabled={false}
           fluid={false}
           text="See All"
-          url="/backoffice/loans?q=(_updated:%7B2019-10-09%20TO%20*%7D AND extension_count:>=3)"
+          url="/backoffice/loans?q=(_updated:%7B2019-10-10%20TO%20*%7D AND extension_count:>=3)"
         />
       }
       showAllResults={false}
@@ -717,7 +717,7 @@ exports[`RenewedLoansList tests should render show a message with no loans 1`] =
             disabled={false}
             fluid={false}
             text="See All"
-            url="/backoffice/loans?q=(_updated:%7B2019-10-09%20TO%20*%7D AND extension_count:>=3)"
+            url="/backoffice/loans?q=(_updated:%7B2019-10-10%20TO%20*%7D AND extension_count:>=3)"
           />
         }
         showAllResults={false}

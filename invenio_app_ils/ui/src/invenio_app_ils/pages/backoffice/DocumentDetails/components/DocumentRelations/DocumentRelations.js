@@ -15,7 +15,6 @@ import {
   series as seriesApi,
 } from '../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
-import { goTo } from '../../../../../history';
 import pick from 'lodash/pick';
 import capitalize from 'lodash/capitalize';
 import ESRelatedSelector from '../../../../../common/components/ESSelector/ESRelatedSelector';
@@ -107,18 +106,16 @@ export default class DocumentRelations extends Component {
     this.setState({ activePage: activePage });
   };
 
-  onRelatedClick = row => {
-    const pid = row.ID;
-    const type = row.Type;
+  onRelatedClick = (rowId, rowType) => {
     let detailsFor;
-    if (type === 'Document') {
+    if (rowType === 'Document') {
       detailsFor = BackOfficeRoutes.documentDetailsFor;
-    } else if (type === 'Series') {
+    } else if (rowType === 'Series') {
       detailsFor = BackOfficeRoutes.seriesDetailsFor;
     } else {
-      console.warn(`Unknown pid type: ${type}`);
+      console.warn(`Unknown pid type: ${rowType}`);
     }
-    return goTo(detailsFor(pid), { pid: pid, type: type });
+    return detailsFor(rowId);
   };
 
   getPaginator(rows, activePage) {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Header, Grid } from 'semantic-ui-react';
 import { FrontSiteRoutes } from '../../../routes/urls';
-import { goTo } from '../../../history';
 import { SearchBar } from '../../../common/components/SearchBar';
 import { document as documentApi } from '../../../common/api';
 import { BookGroup } from './components/BookGroup';
@@ -14,11 +13,6 @@ export class Home extends Component {
 
   updateSearchQuery = (value, event) => {
     this.setState({ query: event.target.value });
-  };
-
-  onSubmit = () => {
-    const query = encodeURIComponent(this.state.query);
-    goTo(FrontSiteRoutes.documentsListWithQuery(query));
   };
 
   render() {

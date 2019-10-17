@@ -16,13 +16,14 @@ export default class ResultsTableBody extends Component {
   // This is wrong row.ID is something we create on prepare data, not data itself
   renderRow = (columns, rows) => {
     const { rowActionClickHandler } = this.props;
+
     return rows.map(row => {
       const withRowAction = _isFunction(rowActionClickHandler) ? (
         <Button
           compact
           icon="info"
           as={Link}
-          to={rowActionClickHandler(row.ID)}
+          to={rowActionClickHandler(row.ID, row.Type)}
           data-test={'btn-view-details-' + row.ID}
         />
       ) : null;
