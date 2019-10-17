@@ -87,7 +87,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
         "Library Book": "Pending",
         "Note": undefined,
         "Page": undefined,
-        "Patron ID": undefined,
+        "Patron ID": "1",
         "Patron Name": "John Doe",
         "Publication Year": undefined,
         "State": "PENDING",
@@ -492,7 +492,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                   "Library Book": "Pending",
                   "Note": undefined,
                   "Page": undefined,
-                  "Patron ID": undefined,
+                  "Patron ID": "1",
                   "Patron Name": "John Doe",
                   "Publication Year": undefined,
                   "State": "PENDING",
@@ -641,7 +641,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                         className=""
                         data-test="Patron ID-3"
                       >
-                        -
+                        1
                       </td>
                     </TableCell>
                     <TableCell

@@ -9,7 +9,8 @@
     "pid": "dreq-2",
     "state": "REJECTED",
     "patron_pid": "2",
-    "title": "Test title 2"
+    "title": "Test title 2",
+    "reject_reason": "Test."
   },
   {
     "pid": "dreq-3",

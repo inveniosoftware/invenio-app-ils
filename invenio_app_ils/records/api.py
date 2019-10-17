@@ -11,19 +11,16 @@ from __future__ import absolute_import, print_function
 
 from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
-from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
 from invenio_jsonschemas import current_jsonschemas
-from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
 from invenio_userprofiles.api import UserProfile
 from werkzeug.utils import cached_property
 
-from invenio_app_ils.errors import DocumentRequestError, \
-    DocumentTagNotFoundError, ItemDocumentNotFoundError, \
-    ItemHasActiveLoanError, PatronNotFoundError, RecordHasReferencesError
+from invenio_app_ils.errors import DocumentTagNotFoundError, \
+    PatronNotFoundError, RecordHasReferencesError
 from invenio_app_ils.records_relations.api import RecordRelationsMetadata, \
     RecordRelationsRetriever
 from invenio_app_ils.search.api import DocumentRequestSearch, DocumentSearch, \
@@ -32,12 +29,15 @@ from invenio_app_ils.search.api import DocumentRequestSearch, DocumentSearch, \
 from ..pidstore.pids import DOCUMENT_PID_TYPE, DOCUMENT_REQUEST_PID_TYPE, \
     EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, \
     LOCATION_PID_TYPE, SERIES_PID_TYPE, TAG_PID_TYPE
+from .validator import DocumentRequestValidator, ItemValidator, RecordValidator
 
 lt_es7 = ES_VERSION[0] < 7
 
 
 class IlsRecord(Record):
     """Ils record class."""
+
+    _validator = RecordValidator()
 
     @cached_property
     def pid(self):
@@ -71,7 +71,6 @@ class IlsRecord(Record):
     def create(cls, data, id_=None, **kwargs):
         """Create IlsRecord record."""
         data["$schema"] = current_jsonschemas.path_to_url(cls._schema)
-        getattr(cls, "validate_create", lambda x: x)(data)
         return super(IlsRecord, cls).create(data, id_=id_, **kwargs)
 
     def clear(self):
@@ -79,15 +78,14 @@ class IlsRecord(Record):
         super(IlsRecord, self).clear()
         self["$schema"] = current_jsonschemas.path_to_url(self._schema)
 
-    def patch(self, patch):
-        """Validate patch metadata."""
-        getattr(self, "validate_patch", lambda x: x)(patch)
-        return super(IlsRecord, self).patch(patch)
+    def validate(self, **kwargs):
+        """Validate ILS record."""
+        # JSON schema validation
+        super(IlsRecord, self).validate(**kwargs)
 
-    def update(self, data):
-        """Validate update metadata."""
-        getattr(self, "validate_update", lambda x: x)(data)
-        super(IlsRecord, self).update(data)
+        # Custom record validation
+        if self._validator:
+            self._validator.validate(self, **kwargs)
 
 
 class IlsRecordWithRelations(IlsRecord):
@@ -284,6 +282,7 @@ class Item(_Item):
 
     _pid_type = ITEM_PID_TYPE
     _schema = "items/item-v1.0.0.json"
+    _validator = ItemValidator()
     _loan_resolver_path = (
         "{scheme}://{host}/api/resolver/items/{item_pid}/loan"
     )
@@ -338,34 +337,6 @@ class Item(_Item):
         super(Item, self).update(data)
         self.build_resolver_fields(self)
 
-    def ensure_document_exists(self, document_pid):
-        """Ensure document exists or raise."""
-        try:
-            Document.get_record_by_pid(document_pid)
-        except PIDDoesNotExistError:
-            raise ItemDocumentNotFoundError(document_pid)
-
-    def validate_patch(self, patch):
-        """Validate patch for Document."""
-        for change in patch:
-            if change["path"] == "/document_pid":
-                self.ensure_document_exists(change["value"])
-
-    def ensure_item_can_be_updated(self):
-        """Raises an exception if the item's status cannot be updated."""
-        loan_search = current_circulation.loan_search
-        active_loan = (
-            loan_search.get_active_loan_by_item_pid(self["pid"]).execute().hits
-        )
-        total = active_loan.total if lt_es7 else active_loan.total.value
-        if self["status"] == "CAN_CIRCULATE" and total > 0:
-            raise ItemHasActiveLoanError(active_loan[0]["pid"])
-
-    def patch(self, patch):
-        """Update Item record."""
-        self.ensure_item_can_be_updated()
-        return super(Item, self).patch(patch=patch)
-
     def delete(self, **kwargs):
         """Delete Item record."""
         loan_search_res = search_by_pid(
@@ -412,6 +383,7 @@ class EItem(_Item):
         """Update EItem record."""
         super(EItem, self).update(data)
         self.build_resolver_fields(self)
+
 
 class Location(IlsRecord):
     """Location record class."""
@@ -610,6 +582,7 @@ class DocumentRequest(IlsRecord):
 
     _pid_type = DOCUMENT_REQUEST_PID_TYPE
     _schema = "document_requests/document_request-v1.0.0.json"
+    _validator = DocumentRequestValidator()
 
     _document_resolver_path = (
         "{scheme}://{host}/api/resolver/document-requests/"
@@ -621,78 +594,10 @@ class DocumentRequest(IlsRecord):
     )
 
     @classmethod
-    def validate_state(cls, state, document_pid=None):
-        """Validate state."""
-        if state not in cls.STATES:
-            raise DocumentRequestError(
-                "Invalid state: {}".format(state)
-            )
-
-    @classmethod
-    def validate_document_pid(cls, document_pid, state):
-        """Validate data for accepted state."""
-        # Accepted requests must have a document
-        if document_pid and (not state or state != "ACCEPTED"):
-            raise DocumentRequestError(
-                "document_pid can only be provided when accepting a request"
-            )
-        if state == "ACCEPTED":
-            if document_pid:
-                try:
-                    document = Document.get_record_by_pid(document_pid)
-                    document = document.replace_refs()
-                    request = document["request"]
-                    if request:
-                        # The document cannot already have a request
-                        raise DocumentRequestError(
-                            "Document PID {} already has a request".format(
-                                document_pid
-                            )
-                        )
-                except PIDDoesNotExistError:
-                    # Invalid document_pid
-                    raise DocumentRequestError(
-                        "State cannot be ACCEPTED because a document with "
-                        "PID {} doesn't exist".format(document_pid)
-                    )
-            else:
-                raise DocumentRequestError(
-                    "State cannot be ACCEPTED without a document"
-                )
-
-    @classmethod
-    def validate_rejection(cls, state, reason):
-        """Validate rejection is correct."""
-        if state == "REJECTED" and not reason:
-            raise DocumentRequestError(
-                "Need to provide a reason when rejecting a request"
-            )
-
-    @classmethod
-    def validate_document_request(cls, data):
-        """Validate document request data."""
-        document_pid = data.get("document_pid", None)
-        state = data.get("state", None)
-        reason = data.get("reason", None)
-        cls.validate_state(state)
-        cls.validate_document_pid(document_pid, state)
-        cls.validate_rejection(state, reason)
-
-    @classmethod
-    def validate_create(cls, data):
-        """Validate document request data."""
-        cls.validate_document_request(data)
-
-    def validate_update(self, data):
-        """Validate document request data."""
-        self.validate_document_request(data)
-
-    @classmethod
     def create(cls, data, id_=None, **kwargs):
         """Create DocumentRequest record."""
-        data["state"] = "PENDING"
-        if "document_pid" in data:
-            del data["document_pid"]
+        if "state" not in data:
+            data["state"] = "PENDING"
         data["document"] = {
             "$ref": cls._document_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
