@@ -801,9 +801,26 @@ CIRCULATION_REST_ENDPOINTS = dict(
 # RECORDS REST sort options
 # =========================
 RECORDS_REST_SORT_OPTIONS = dict(
+    document_requests=dict(  # DocumentRequestSearch.Meta.index
+        mostrecent=dict(
+            fields=["_updated"],
+            title="Newest",
+            default_order="asc",
+            order=1,
+        ),
+        bestmatch=dict(
+            fields=["-_score"],
+            title="Best match",
+            default_order="asc",
+            order=2,
+        ),
+    ),
     documents=dict(  # DocumentSearch.Meta.index
         mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="asc", order=1
+            fields=["_updated"],
+            title="Newest",
+            default_order="asc",
+            order=1,
         ),
         bestmatch=dict(
             fields=["-_score"],
@@ -831,47 +848,67 @@ RECORDS_REST_SORT_OPTIONS = dict(
         ),
     ),
     eitems=dict(  # ItemSearch.Meta.index
+        mostrecent=dict(
+            fields=["_updated"],
+            title="Newest",
+            default_order="asc",
+            order=1,
+        ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
             default_order="asc",
             order=2,
-        ),
-        mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="asc", order=1
         ),
     ),
     items=dict(  # ItemSearch.Meta.index
+        mostrecent=dict(
+            fields=["_updated"],
+            title="Newest",
+            default_order="asc",
+            order=1,
+        ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
             default_order="asc",
             order=2,
-        ),
-        mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="asc", order=1
         ),
     ),
     loans=dict(  # IlsLoansSearch.Meta.index
+        mostrecent=dict(
+            fields=["_updated"],
+            title="Newest",
+            default_order="asc",
+            order=1,
+        ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
             default_order="asc",
             order=2,
         ),
-        mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="asc", order=1
+    ),
+    patrons=dict(  # PatronsSearch.Meta.index
+        bestmatch=dict(
+            fields=["-_score"],
+            title="Best match",
+            default_order="asc",
+            order=1,
         ),
     ),
     series=dict(  # SeriesSearch.Meta.index
+        mostrecent=dict(
+            fields=["_updated"],
+            title="Newest",
+            default_order="asc",
+            order=1,
+        ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
             default_order="asc",
             order=2,
-        ),
-        mostrecent=dict(
-            fields=["_updated"], title="Newest", default_order="asc", order=1
         ),
     ),
 )

@@ -183,7 +183,7 @@ function formatDocumentRequestToTableView(req) {
     Created: toShortDate(fromISO(req.created)),
     Updated: toShortDate(fromISO(req.updated)),
     'Document ID': req.metadata.document_pid,
-    'Patron ID': req.metadata.patron_id,
+    'Patron ID': req.metadata.patron_pid,
     'Patron Name': req.metadata.patron.name,
     State: req.metadata.state,
     Title: req.metadata.title,

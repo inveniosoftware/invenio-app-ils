@@ -10,7 +10,7 @@
 import pytest
 from invenio_accounts.models import User
 
-from invenio_app_ils.records.api import Document, IlsRecord, Item, Series, Tag
+from invenio_app_ils.records.api import Document, IlsRecord, Series, Tag
 
 from invenio_app_ils.api import (  # isort:skip
     get_document_pid_by_item_pid,
