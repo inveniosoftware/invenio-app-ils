@@ -5,3 +5,5 @@ export { BooleanField } from './BooleanField';
 export { BaseForm } from './BaseForm';
 export { AccordionField } from './AccordionField';
 export { ArrayField } from './ArrayField';
+export { GroupField } from './GroupField';
+export { SelectorField } from './SelectorField';

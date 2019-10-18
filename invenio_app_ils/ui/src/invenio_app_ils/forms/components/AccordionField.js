@@ -9,7 +9,6 @@ export class AccordionField extends Component {
     this.fieldPath = props.fieldPath;
     this.label = props.label;
     this.required = props.required;
-    this.uiProps = props.uiProps;
     this.state = { active: false };
     this.iconActive = (
       <Icon
@@ -74,11 +73,9 @@ AccordionField.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
-  uiProps: PropTypes.object,
 };
 
 AccordionField.defaultProps = {
   label: '',
   required: false,
-  uiProps: {},
 };

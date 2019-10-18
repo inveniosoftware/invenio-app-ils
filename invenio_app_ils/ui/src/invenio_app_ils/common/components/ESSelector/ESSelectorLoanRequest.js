@@ -20,6 +20,7 @@ export default class ESSelectorLoanRequest extends Component {
       missingPatron: 'false',
       requestEndDate: '',
       deliveryMethod: '',
+      selections: [],
     };
     this.selectorRef = null;
 
@@ -39,15 +40,17 @@ export default class ESSelectorLoanRequest extends Component {
       : null;
   }
 
+  onSelectionsUpdate = selections => this.setState({ selections });
+
   toggle = () => this.setState({ visible: !this.state.visible });
 
   save = () => {
     const { onSave } = this.props;
-    if (isEmpty(this.props.selections)) {
+    if (isEmpty(this.state.selections)) {
       this.setState({ missingPatron: 'true' });
     } else {
       if (onSave) {
-        const patronPid = this.props.selections[0].metadata.id.toString();
+        const patronPid = this.state.selections[0].metadata.id.toString();
         const optionalParams = {};
         if (!isEmpty(this.state.requestEndDate)) {
           optionalParams.requestEndDate = this.state.requestEndDate;
@@ -128,7 +131,10 @@ export default class ESSelectorLoanRequest extends Component {
           <PatronSearchInputContext.Provider
             value={{ patronSelectionError: this.state.missingPatron }}
           >
-            <Selector {...this.props} />
+            <Selector
+              onSelectionsUpdate={this.onSelectionsUpdate}
+              {...this.props}
+            />
           </PatronSearchInputContext.Provider>
         </Modal.Content>
         <Form>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { List, Container, Icon } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 import { HitsSearch } from './HitsSearch';
+import find from 'lodash/find';
 
 export default class ESSelector extends Component {
   constructor(props) {
@@ -17,32 +18,59 @@ export default class ESSelector extends Component {
     }
 
     this.searchRef = null;
-    this.props.updateSelections(selections);
+    this.state = {
+      selections: selections,
+    };
   }
+
+  updateSelections = selections => {
+    this.setState({ selections });
+    this.props.onSelectionsUpdate(selections);
+  };
+
+  addSingleSelection = selection => {
+    const selections = [selection];
+    this.updateSelections(selections);
+  };
+
+  addMultiSelection = selection => {
+    const currentSelections = [...this.state.selections];
+    let hasMatch = find(currentSelections, sel => sel.id === selection.id);
+
+    if (!hasMatch) {
+      currentSelections.push(selection);
+      this.updateSelections(currentSelections);
+    }
+  };
 
   onSelectResult = result => {
     if (this.props.onSelectResult) {
       this.props.onSelectResult(result);
     }
     return this.props.multiple
-      ? this.props.addMultiSelection(result)
-      : this.props.addSingleSelection(result);
+      ? this.addMultiSelection(result)
+      : this.addSingleSelection(result);
   };
 
   removeSelection = selection => {
+    // Remove from state
+    const selections = this.state.selections.filter(
+      currentSelection => currentSelection.id !== selection.id
+    );
+    this.updateSelections(selections);
+
     if (this.searchRef) {
       this.searchRef.searchInputRef.focus();
     }
     if (this.props.onRemoveSelection) {
       this.props.onRemoveSelection(selection);
     }
-    this.props.removeSelection(selection);
   };
 
-  renderSelection = selection => (
+  renderSelection = (selection, removeSelection) => (
     <List.Item key={selection.id}>
       <List.Icon name="angle right" size="small" verticalAlign="middle" />
-      <List.Content onClick={() => this.removeSelection(selection)}>
+      <List.Content onClick={() => removeSelection(selection)}>
         <List.Header as="a">
           <span className="extra">{selection.extra}</span>
           {selection.title}
@@ -53,20 +81,19 @@ export default class ESSelector extends Component {
     </List.Item>
   );
 
-  renderSelections = (selections, renderSelection) => (
+  renderSelections = (selections, renderSelection, removeSelection) => (
     <Container className="result-selections">
       <List divided relaxed>
-        {selections.map(selection => renderSelection(selection))}
+        {selections.map(selection =>
+          renderSelection(selection, removeSelection)
+        )}
       </List>
     </Container>
   );
 
   renderSelectionInfoText = () => {
-    const {
-      selections,
-      selectionInfoText,
-      emptySelectionInfoText,
-    } = this.props;
+    const { selectionInfoText, emptySelectionInfoText } = this.props;
+    const selections = this.state.selections;
     if (!isEmpty(selections) && (selectionInfoText || emptySelectionInfoText)) {
       return (
         <p>
@@ -77,7 +104,8 @@ export default class ESSelector extends Component {
   };
 
   render() {
-    const { placeholder, selections } = this.props;
+    const { placeholder } = this.props;
+    const selections = this.state.selections;
     const renderSelection = this.props.renderSelection
       ? this.props.renderSelection
       : this.renderSelection;
@@ -87,6 +115,8 @@ export default class ESSelector extends Component {
     return (
       <div id="es-selector">
         <HitsSearch
+          id={this.props.id}
+          name={this.props.name}
           query={this.props.query}
           delay={this.props.delay}
           alwaysWildcard={this.props.alwaysWildcard}
@@ -98,7 +128,7 @@ export default class ESSelector extends Component {
           ref={element => (this.searchRef = element)}
         />
         {this.renderSelectionInfoText()}
-        {renderSelections(selections, renderSelection)}
+        {renderSelections(selections, renderSelection, this.removeSelection)}
       </div>
     );
   }
@@ -114,13 +144,17 @@ ESSelector.propTypes = {
   query: PropTypes.func.isRequired,
   onSearchChange: PropTypes.func,
   onSelectResult: PropTypes.func,
+  onSelectionsUpdate: PropTypes.func,
   onRemoveSelection: PropTypes.func,
   renderSelections: PropTypes.func,
   renderSelection: PropTypes.func,
+  id: PropTypes.string,
+  name: PropTypes.string,
 };
 
 ESSelector.defaultProps = {
   delay: 250,
   initialSelections: [],
   minCharacters: 3,
+  onSelectionsUpdate: () => {},
 };

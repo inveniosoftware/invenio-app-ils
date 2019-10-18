@@ -6,28 +6,37 @@ import { Form, Button } from 'semantic-ui-react';
 export class ArrayField extends Component {
   constructor(props) {
     super(props);
-    this.fieldPath = props.fieldPath;
-    this.label = props.label;
-    this.addButtonLabel = props.addButtonLabel;
-    this.defaultNewValue = props.defaultNewValue;
-    this.required = props.required;
-    this.uiProps = props.uiProps;
+
+    const {
+      fieldPath,
+      addButtonLabel,
+      defaultNewValue,
+      label,
+      renderArrayItem,
+      ...uiProps
+    } = props;
+    this.fieldPath = fieldPath;
+    this.label = label;
+    this.addButtonLabel = addButtonLabel;
+    this.defaultNewValue = defaultNewValue;
+    this.renderArrayItem = renderArrayItem;
+    this.uiProps = uiProps;
   }
 
-  renderArrayField = props => {
+  renderFormField = props => {
     const {
       form: { values },
       ...arrayHelpers
     } = props;
     return (
-      <Form.Field required={this.required} {...this.uiProps}>
+      <Form.Field {...this.uiProps}>
         <label>{this.label}</label>
         {getIn(values, this.fieldPath, []).map((value, index) => {
           const arrayPath = this.fieldPath;
           const indexPath = index;
           return (
             <Form.Group widths="equal" key={`${arrayPath}.${indexPath}`}>
-              {this.props.render({ arrayPath, indexPath, ...props })}
+              {this.renderArrayItem({ arrayPath, indexPath, ...props })}
             </Form.Group>
           );
         })}
@@ -48,7 +57,7 @@ export class ArrayField extends Component {
     return (
       <FieldArray
         name={this.fieldPath}
-        component={this.renderArrayField}
+        component={this.renderFormField}
       ></FieldArray>
     );
   }
@@ -60,15 +69,11 @@ ArrayField.propTypes = {
   addButtonLabel: PropTypes.string,
   defaultNewValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
     .isRequired,
-  render: PropTypes.func.isRequired,
-  required: PropTypes.bool,
-  uiProps: PropTypes.object,
+  renderArrayItem: PropTypes.func.isRequired,
 };
 
 ArrayField.defaultProps = {
   label: '',
   addButtonLabel: 'Add new row',
   placeholder: '',
-  required: false,
-  uiProps: {},
 };

@@ -6,6 +6,7 @@ export { DocumentsSearch } from './DocumentsSearch';
 export { DocumentRequestDetailsContainer } from './DocumentRequestDetails';
 export { DocumentRequestsSearch } from './DocumentRequestsSearch';
 export { EItemEditor, EItemDetails, EItemSearch } from './EItem';
+export { ItemEditor } from './Item/ItemForms';
 export { ItemDetailsContainer } from './ItemDetails';
 export { ItemsSearch } from './ItemsSearch';
 export { LoanDetailsContainer } from './LoanDetails';

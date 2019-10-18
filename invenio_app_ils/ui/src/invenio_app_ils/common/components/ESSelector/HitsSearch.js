@@ -99,6 +99,8 @@ export class HitsSearch extends Component {
     return (
       <Search
         fluid
+        id={this.props.id}
+        name={this.props.name}
         className={
           hasError || this.context.patronSelectionError === 'true'
             ? 'error'
@@ -122,4 +124,6 @@ HitsSearch.propTypes = {
   delay: PropTypes.number.isRequired,
   placeholder: PropTypes.string,
   serializer: PropTypes.func.isRequired,
+  id: PropTypes.string,
+  name: PropTypes.string,
 };

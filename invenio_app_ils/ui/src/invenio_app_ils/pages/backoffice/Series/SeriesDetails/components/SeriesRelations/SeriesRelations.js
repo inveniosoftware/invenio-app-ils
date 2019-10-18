@@ -318,12 +318,12 @@ class SeriesRelationsTabPanel extends Component {
         type === 'create' ? result.metadata.new : !result.metadata.new;
       if (addAction) {
         let first = result;
-        let second = this.props.series;
+        let second = this.props.seriesDetails;
         if (
           (relation === 'serial' && moi === 'SERIAL') ||
           (relation === 'multipart_monograph' && moi === 'MULTIPART_MONOGRAPH')
         ) {
-          first = this.props.series;
+          first = this.props.seriesDetails;
           second = result;
         }
         actions.push(

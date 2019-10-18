@@ -2,6 +2,8 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import DocumentsCard from '../DocumentsCard';
 
+jest.mock('react-router-dom');
+
 describe('DocumentsCard tests', () => {
   let component;
   afterEach(() => {

@@ -6,13 +6,12 @@ import { Form } from 'semantic-ui-react';
 export class SelectField extends Component {
   constructor(props) {
     super(props);
-    this.fieldPath = props.fieldPath;
-    this.label = props.label;
-    this.placeholder = props.placeholder;
-    this.options = props.options;
-    this.uiProps = props.uiProps;
-    this.multiple = props.multiple || false;
-    this.required = props.required || false;
+
+    const { fieldPath, label, multiple, ...uiProps } = props;
+    this.fieldPath = fieldPath;
+    this.label = label;
+    this.multiple = multiple;
+    this.uiProps = uiProps;
   }
 
   renderError(errors, name, direction = 'above') {
@@ -25,59 +24,41 @@ export class SelectField extends Component {
       : null;
   }
 
-  renderSelectField = props => {
+  renderFormField = props => {
     const {
       form: { values, setFieldValue, handleBlur, errors },
     } = props;
     return (
-      <Form.Field>
-        <Form.Dropdown
-          id={this.fieldPath}
-          required={this.required}
-          name={this.fieldPath}
-          onChange={(event, data) => {
-            setFieldValue(this.fieldPath, data.value);
-          }}
-          onBlur={handleBlur}
-          label={this.label}
-          placeholder={this.placeholder}
-          value={getIn(values, this.fieldPath, this.multiple ? [] : '')}
-          error={this.renderError(errors, this.fieldPath)}
-          fluid
-          selection
-          options={this.options}
-          multiple={this.multiple}
-          {...this.uiProps}
-        ></Form.Dropdown>
-      </Form.Field>
+      <Form.Dropdown
+        fluid
+        selection
+        searchInput={{ id: this.fieldPath }}
+        label={{ children: this.label, htmlFor: this.fieldPath }}
+        multiple={this.multiple}
+        name={this.fieldPath}
+        onChange={(event, data) => {
+          setFieldValue(this.fieldPath, data.value);
+        }}
+        onBlur={handleBlur}
+        value={getIn(values, this.fieldPath, this.multiple ? [] : '')}
+        error={this.renderError(errors, this.fieldPath)}
+        {...this.uiProps}
+      />
     );
   };
+
   render() {
     return (
-      <Field name={this.fieldPath} component={this.renderSelectField}></Field>
+      <Field name={this.props.fieldPath} component={this.renderFormField} />
     );
   }
 }
 
 SelectField.propTypes = {
   fieldPath: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      text: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  label: PropTypes.string,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool,
   multiple: PropTypes.bool,
-  uiProps: PropTypes.object,
 };
 
 SelectField.defaultProps = {
-  label: '',
-  placeholder: '',
-  required: false,
   multiple: false,
-  uiProps: {},
 };

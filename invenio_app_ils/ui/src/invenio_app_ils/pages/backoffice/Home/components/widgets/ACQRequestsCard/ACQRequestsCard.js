@@ -23,9 +23,7 @@ export default class ACQRequestsCard extends Component {
   };
 
   newAcqButton = () => {
-    return (
-      <NewButton fluid disabled clickHandler={goToHandler(this.newAcqURL)} />
-    );
+    return <NewButton fluid disabled to={this.newAcqURL} />;
   };
 
   renderCard = data => {

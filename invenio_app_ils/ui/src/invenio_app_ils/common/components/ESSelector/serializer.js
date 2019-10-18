@@ -67,7 +67,7 @@ export const serializeLocation = location => ({
   key: location.metadata.pid,
   title: location.metadata.name,
   description: `Address: ${location.metadata.address}`,
-  extra: `Location #{location.metadata.pid}`,
+  extra: `Location #${location.metadata.pid}`,
   metadata: location.metadata,
 });
 

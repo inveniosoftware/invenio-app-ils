@@ -48,7 +48,7 @@ export class LocationForm extends Component {
         <StringField label="Address" fieldPath="address" />
         <StringField label="Email" fieldPath="email" />
         <StringField label="Phone" fieldPath="phone" />
-        <TextField label="Notes" fieldPath="notes" uiProps={{ rows: 5 }} />
+        <TextField label="Notes" fieldPath="notes" rows={5} />
       </BaseForm>
     );
   }

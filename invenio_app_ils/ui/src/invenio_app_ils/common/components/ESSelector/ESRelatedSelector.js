@@ -82,17 +82,17 @@ export default class ESRelatedSelector extends Component {
     this.setState({ showPopup: { [field]: value === '' } });
   };
 
-  renderSelectionsGroup = (selections, renderSelection) => (
+  renderSelectionsGroup = (selections, renderSelection, removeSelection) => (
     <List>
       {isEmpty(selections) ? (
         <List.Item>None</List.Item>
       ) : (
-        selections.map(selection => renderSelection(selection))
+        selections.map(selection => renderSelection(selection, removeSelection))
       )}
     </List>
   );
 
-  getTabPanes = (records, renderSelection) => {
+  getTabPanes = (records, renderSelection, removeSelection) => {
     const config = this.props.config;
     return Object.keys(config['recordTypes']).map(type => ({
       menuItem: {
@@ -107,7 +107,11 @@ export default class ESRelatedSelector extends Component {
       },
       render: () => (
         <Tab.Pane>
-          {this.renderSelectionsGroup(records[type], renderSelection)}
+          {this.renderSelectionsGroup(
+            records[type],
+            renderSelection,
+            removeSelection
+          )}
         </Tab.Pane>
       ),
     }));
@@ -140,7 +144,7 @@ export default class ESRelatedSelector extends Component {
     return records;
   }
 
-  renderSelections = (selections, renderSelection) => {
+  renderSelections = (selections, renderSelection, removeSelection) => {
     const records = this.prepareSelections(selections);
     const menu = {
       secondary: true,
@@ -150,7 +154,7 @@ export default class ESRelatedSelector extends Component {
       <div className="result-selections">
         <Tab
           menu={menu}
-          panes={this.getTabPanes(records, renderSelection)}
+          panes={this.getTabPanes(records, renderSelection, removeSelection)}
           activeIndex={this.state.tabNames.indexOf(this.state.recordType)}
           onTabChange={this.onTabChange}
         />

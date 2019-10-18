@@ -15,13 +15,7 @@ class DataCard extends Component {
     this.newDocumentURL = BackOfficeRoutes.documentCreate;
   }
   newDocumentButton = () => {
-    return (
-      <NewButton
-        fluid
-        disabled
-        clickHandler={goToHandler(this.newDocumentURL)}
-      />
-    );
+    return <NewButton fluid disabled to={this.newDocumentURL} />;
   };
 
   seeAllButton = () => {

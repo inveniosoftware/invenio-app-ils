@@ -23,7 +23,6 @@ import { getSearchConfig } from '../../../common/config';
 import { ClearButton, NewButton } from '../components/buttons';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { DocumentList, ExportReactSearchKitResults } from '../components';
-import { goToHandler } from '../../../history';
 import _pick from 'lodash/pick';
 
 export class DocumentsSearch extends Component {
@@ -83,7 +82,7 @@ export class DocumentsSearch extends Component {
           />
           <NewButton
             text={'New document'}
-            clickHandler={goToHandler(BackOfficeRoutes.documentCreate)}
+            to={BackOfficeRoutes.documentCreate}
           />
         </Segment.Inline>
       </Segment>
@@ -138,7 +137,7 @@ export class DocumentsSearch extends Component {
         <NewButton
           fluid
           text={'New document'}
-          clickHandler={goToHandler(BackOfficeRoutes.documentCreate)}
+          to={BackOfficeRoutes.documentCreate}
         />
         {components}
       </>

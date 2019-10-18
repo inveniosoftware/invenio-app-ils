@@ -10,12 +10,14 @@ import {
   AccordionField,
   ArrayField,
   TextField,
+  SelectorField,
 } from '../../../../../../../forms';
 import { eitem as eitemApi } from '../../../../../../../common/api/eitems/eitem';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import { goTo } from '../../../../../../../history';
-import { DocumentField } from './components';
 import eitemSubmitSerializer from './eitemSubmitSerializer';
+import { document as documentApi } from '../../../../../../../common/api';
+import { serializeDocument } from '../../../../../../../common/components/ESSelector/serializer';
 
 export class EItemForm extends Component {
   constructor(props) {
@@ -25,6 +27,7 @@ export class EItemForm extends Component {
     this.title = props.title;
     this.pid = props.pid;
   }
+
   prepareData = data => {
     return pick(data, [
       'description',
@@ -37,11 +40,11 @@ export class EItemForm extends Component {
     ]);
   };
 
-  updateSeries = (pid, data) => {
+  update = (pid, data) => {
     return eitemApi.update(pid, data);
   };
 
-  createSeries = data => {
+  create = data => {
     return eitemApi.create(data);
   };
 
@@ -64,17 +67,15 @@ export class EItemForm extends Component {
           label="Description"
           fieldPath={`${objectPath}.description`}
           inline={true}
-          uiProps={{
-            action: (
-              <Form.Button
-                color="red"
-                icon="trash"
-                onClick={() => {
-                  arrayHelpers.remove(indexPath);
-                }}
-              ></Form.Button>
-            ),
-          }}
+          action={
+            <Form.Button
+              color="red"
+              icon="trash"
+              onClick={() => {
+                arrayHelpers.remove(indexPath);
+              }}
+            ></Form.Button>
+          }
         />
       </>
     );
@@ -88,37 +89,35 @@ export class EItemForm extends Component {
             ? this.prepareData(this.formInitialData.metadata)
             : {}
         }
-        editApiMethod={this.updateSeries}
-        createApiMethod={this.createSeries}
+        editApiMethod={this.update}
+        createApiMethod={this.create}
         successCallback={this.successCallback}
         successSubmitMessage={this.successSubmitMessage}
         title={this.title}
         pid={this.pid ? this.pid : undefined}
         submitSerializer={eitemSubmitSerializer}
       >
-        <DocumentField label="Document" fieldPath="document" />
-        <TextField
-          label="Description"
-          fieldPath="description"
-          uiProps={{ rows: 5 }}
+        <SelectorField
+          required
+          emptyHeader="No document selected"
+          emptyDescription="Please select a document."
+          fieldPath="document"
+          errorPath="document_pid"
+          label="Document"
+          placeholder="Search for a document..."
+          query={documentApi.list}
+          serializer={serializeDocument}
         />
-        <BooleanField
-          label="Open access"
-          fieldPath="open_access"
-          uiProps={{ toggle: true }}
-        />
+        <TextField label="Description" fieldPath="description" rows={5} />
+        <BooleanField toggle label="Open access" fieldPath="open_access" />
         <AccordionField label="Urls" fieldPath="urls">
           <ArrayField
             fieldPath="urls"
             defaultNewValue={{ value: '', url: '' }}
-            render={this.renderUrlsObjectField}
+            renderArrayItem={this.renderUrlsObjectField}
           ></ArrayField>
         </AccordionField>
-        <TextField
-          label="Internal notes"
-          fieldPath="internal_notes"
-          uiProps={{ rows: 5 }}
-        />
+        <TextField label="Internal notes" fieldPath="internal_notes" rows={5} />
       </BaseForm>
     );
   }

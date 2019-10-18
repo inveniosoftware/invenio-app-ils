@@ -18,7 +18,7 @@ export class SeriesEditor extends Component {
             pid={pid}
             data={data}
             title="Edit series"
-            successSubmitMessage="Your series has been updated."
+            successSubmitMessage="The series was successfully updated."
           />
         </Error>
       </Loader>
@@ -39,7 +39,7 @@ export class SeriesEditor extends Component {
         ) : (
           <SeriesForm
             title="Create new series"
-            successSubmitMessage="Your series has been created."
+            successSubmitMessage="The series was successfully created."
           />
         )}
       </>

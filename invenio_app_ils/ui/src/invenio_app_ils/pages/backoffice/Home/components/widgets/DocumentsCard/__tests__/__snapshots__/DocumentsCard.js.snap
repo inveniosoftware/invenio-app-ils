@@ -35,10 +35,10 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
         <RecordsBriefCard
           buttonLeft={
             <NewButton
-              clickHandler={[Function]}
               disabled={true}
               fluid={true}
               text="New"
+              to="/backoffice/documents/create"
             />
           }
           buttonRight={
@@ -94,74 +94,423 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                           className="eight wide column"
                         >
                           <NewButton
-                            clickHandler={[Function]}
                             disabled={true}
                             fluid={true}
                             text="New"
+                            to="/backoffice/documents/create"
                           >
                             <Button
-                              as="button"
+                              as={
+                                Object {
+                                  "$$typeof": Symbol(react.forward_ref),
+                                  "displayName": "Link",
+                                  "propTypes": Object {
+                                    "innerRef": [MockFunction] {
+                                      "calls": Array [
+                                        Array [
+                                          Object {
+                                            "aria-pressed": undefined,
+                                            "children": Array [
+                                              Array [
+                                                <Icon
+                                                  as="i"
+                                                  name="plus"
+                                                />,
+                                                "New",
+                                              ],
+                                              false,
+                                              false,
+                                            ],
+                                            "className": "ui small fluid icon positive disabled left labeled button",
+                                            "disabled": undefined,
+                                            "onClick": [Function],
+                                            "role": "button",
+                                            "tabIndex": -1,
+                                            "to": "/backoffice/documents/create",
+                                          },
+                                          "innerRef",
+                                          "Link",
+                                          "prop",
+                                          null,
+                                          "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                        ],
+                                        Array [
+                                          Object {
+                                            "aria-pressed": undefined,
+                                            "children": Array [
+                                              Array [
+                                                <Icon
+                                                  as="i"
+                                                  name="plus"
+                                                />,
+                                                "New",
+                                              ],
+                                              false,
+                                              false,
+                                            ],
+                                            "className": "ui small fluid icon positive disabled left labeled button",
+                                            "disabled": undefined,
+                                            "onClick": [Function],
+                                            "role": "button",
+                                            "tabIndex": -1,
+                                            "to": "/backoffice/documents/create",
+                                          },
+                                          "innerRef",
+                                          "Link",
+                                          "prop",
+                                          null,
+                                          "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                        ],
+                                      ],
+                                      "results": Array [
+                                        Object {
+                                          "type": "return",
+                                          "value": undefined,
+                                        },
+                                        Object {
+                                          "type": "return",
+                                          "value": undefined,
+                                        },
+                                      ],
+                                    },
+                                    "onClick": [MockFunction] {
+                                      "calls": Array [
+                                        Array [
+                                          Object {
+                                            "aria-pressed": undefined,
+                                            "children": Array [
+                                              Array [
+                                                <Icon
+                                                  as="i"
+                                                  name="plus"
+                                                />,
+                                                "New",
+                                              ],
+                                              false,
+                                              false,
+                                            ],
+                                            "className": "ui small fluid icon positive disabled left labeled button",
+                                            "disabled": undefined,
+                                            "onClick": [Function],
+                                            "role": "button",
+                                            "tabIndex": -1,
+                                            "to": "/backoffice/documents/create",
+                                          },
+                                          "onClick",
+                                          "Link",
+                                          "prop",
+                                          null,
+                                          "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                        ],
+                                        Array [
+                                          Object {
+                                            "aria-pressed": undefined,
+                                            "children": Array [
+                                              Array [
+                                                <Icon
+                                                  as="i"
+                                                  name="plus"
+                                                />,
+                                                "New",
+                                              ],
+                                              false,
+                                              false,
+                                            ],
+                                            "className": "ui small fluid icon positive disabled left labeled button",
+                                            "disabled": undefined,
+                                            "onClick": [Function],
+                                            "role": "button",
+                                            "tabIndex": -1,
+                                            "to": "/backoffice/documents/create",
+                                          },
+                                          "onClick",
+                                          "Link",
+                                          "prop",
+                                          null,
+                                          "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                        ],
+                                      ],
+                                      "results": Array [
+                                        Object {
+                                          "type": "return",
+                                          "value": undefined,
+                                        },
+                                        Object {
+                                          "type": "return",
+                                          "value": undefined,
+                                        },
+                                      ],
+                                    },
+                                    "replace": [MockFunction] {
+                                      "calls": Array [
+                                        Array [
+                                          Object {
+                                            "aria-pressed": undefined,
+                                            "children": Array [
+                                              Array [
+                                                <Icon
+                                                  as="i"
+                                                  name="plus"
+                                                />,
+                                                "New",
+                                              ],
+                                              false,
+                                              false,
+                                            ],
+                                            "className": "ui small fluid icon positive disabled left labeled button",
+                                            "disabled": undefined,
+                                            "onClick": [Function],
+                                            "role": "button",
+                                            "tabIndex": -1,
+                                            "to": "/backoffice/documents/create",
+                                          },
+                                          "replace",
+                                          "Link",
+                                          "prop",
+                                          null,
+                                          "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                        ],
+                                        Array [
+                                          Object {
+                                            "aria-pressed": undefined,
+                                            "children": Array [
+                                              Array [
+                                                <Icon
+                                                  as="i"
+                                                  name="plus"
+                                                />,
+                                                "New",
+                                              ],
+                                              false,
+                                              false,
+                                            ],
+                                            "className": "ui small fluid icon positive disabled left labeled button",
+                                            "disabled": undefined,
+                                            "onClick": [Function],
+                                            "role": "button",
+                                            "tabIndex": -1,
+                                            "to": "/backoffice/documents/create",
+                                          },
+                                          "replace",
+                                          "Link",
+                                          "prop",
+                                          null,
+                                          "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                        ],
+                                      ],
+                                      "results": Array [
+                                        Object {
+                                          "type": "return",
+                                          "value": undefined,
+                                        },
+                                        Object {
+                                          "type": "return",
+                                          "value": undefined,
+                                        },
+                                      ],
+                                    },
+                                    "target": [MockFunction] {
+                                      "calls": Array [
+                                        Array [
+                                          Object {
+                                            "aria-pressed": undefined,
+                                            "children": Array [
+                                              Array [
+                                                <Icon
+                                                  as="i"
+                                                  name="plus"
+                                                />,
+                                                "New",
+                                              ],
+                                              false,
+                                              false,
+                                            ],
+                                            "className": "ui small fluid icon positive disabled left labeled button",
+                                            "disabled": undefined,
+                                            "onClick": [Function],
+                                            "role": "button",
+                                            "tabIndex": -1,
+                                            "to": "/backoffice/documents/create",
+                                          },
+                                          "target",
+                                          "Link",
+                                          "prop",
+                                          null,
+                                          "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                        ],
+                                        Array [
+                                          Object {
+                                            "aria-pressed": undefined,
+                                            "children": Array [
+                                              Array [
+                                                <Icon
+                                                  as="i"
+                                                  name="plus"
+                                                />,
+                                                "New",
+                                              ],
+                                              false,
+                                              false,
+                                            ],
+                                            "className": "ui small fluid icon positive disabled left labeled button",
+                                            "disabled": undefined,
+                                            "onClick": [Function],
+                                            "role": "button",
+                                            "tabIndex": -1,
+                                            "to": "/backoffice/documents/create",
+                                          },
+                                          "target",
+                                          "Link",
+                                          "prop",
+                                          null,
+                                          "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                        ],
+                                      ],
+                                      "results": Array [
+                                        Object {
+                                          "type": "return",
+                                          "value": undefined,
+                                        },
+                                        Object {
+                                          "type": "return",
+                                          "value": undefined,
+                                        },
+                                      ],
+                                    },
+                                    "to": [MockFunction] {
+                                      "calls": Array [
+                                        Array [
+                                          Object {
+                                            "aria-pressed": undefined,
+                                            "children": Array [
+                                              Array [
+                                                <Icon
+                                                  as="i"
+                                                  name="plus"
+                                                />,
+                                                "New",
+                                              ],
+                                              false,
+                                              false,
+                                            ],
+                                            "className": "ui small fluid icon positive disabled left labeled button",
+                                            "disabled": undefined,
+                                            "onClick": [Function],
+                                            "role": "button",
+                                            "tabIndex": -1,
+                                            "to": "/backoffice/documents/create",
+                                          },
+                                          "to",
+                                          "Link",
+                                          "prop",
+                                          null,
+                                          "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                        ],
+                                        Array [
+                                          Object {
+                                            "aria-pressed": undefined,
+                                            "children": Array [
+                                              Array [
+                                                <Icon
+                                                  as="i"
+                                                  name="plus"
+                                                />,
+                                                "New",
+                                              ],
+                                              false,
+                                              false,
+                                            ],
+                                            "className": "ui small fluid icon positive disabled left labeled button",
+                                            "disabled": undefined,
+                                            "onClick": [Function],
+                                            "role": "button",
+                                            "tabIndex": -1,
+                                            "to": "/backoffice/documents/create",
+                                          },
+                                          "to",
+                                          "Link",
+                                          "prop",
+                                          null,
+                                          "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                        ],
+                                      ],
+                                      "results": Array [
+                                        Object {
+                                          "type": "return",
+                                          "value": undefined,
+                                        },
+                                        Object {
+                                          "type": "return",
+                                          "value": undefined,
+                                        },
+                                      ],
+                                    },
+                                  },
+                                  "render": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            Array [
+                                              <Icon
+                                                as="i"
+                                                name="plus"
+                                              />,
+                                              "New",
+                                            ],
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui small fluid icon positive disabled left labeled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/documents/create",
+                                        },
+                                        [Function],
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                }
+                              }
                               disabled={true}
                               fluid={true}
                               icon={true}
                               labelPosition="left"
-                              onClick={[Function]}
                               positive={true}
                               size="small"
+                              to="/backoffice/documents/create"
                             >
                               <Ref
                                 innerRef={
                                   Object {
-                                    "current": <button
-                                      class="ui small fluid icon positive disabled left labeled button"
-                                      disabled=""
-                                      tabindex="-1"
-                                    >
-                                      <i
-                                        aria-hidden="true"
-                                        class="plus icon"
-                                      />
-                                      New
-                                    </button>,
+                                    "current": null,
                                   }
                                 }
                               >
-                                <RefFindNode
+                                <RefForward
                                   innerRef={
                                     Object {
-                                      "current": <button
-                                        class="ui small fluid icon positive disabled left labeled button"
-                                        disabled=""
-                                        tabindex="-1"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          class="plus icon"
-                                        />
-                                        New
-                                      </button>,
+                                      "current": null,
                                     }
                                   }
                                 >
-                                  <button
+                                  <Link
                                     className="ui small fluid icon positive disabled left labeled button"
-                                    disabled={true}
                                     onClick={[Function]}
+                                    role="button"
                                     tabIndex={-1}
-                                  >
-                                    <Icon
-                                      as="i"
-                                      name="plus"
-                                    >
-                                      <i
-                                        aria-hidden="true"
-                                        className="plus icon"
-                                        onClick={[Function]}
-                                      />
-                                    </Icon>
-                                    New
-                                  </button>
-                                </RefFindNode>
+                                    to="/backoffice/documents/create"
+                                  />
+                                </RefForward>
                               </Ref>
                             </Button>
                           </NewButton>

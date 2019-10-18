@@ -44,7 +44,6 @@ import {
 } from './pages/backoffice/Home/reducer';
 import { mostLoanedDocumentsReducer } from './pages/backoffice/Stats/reducer';
 import { notificationsReducer } from './common/components/Notifications/reducer';
-import { esSelectorReducer } from './common/components/ESSelector/reducer';
 import {
   seriesDetailsReducer,
   seriesDocumentsReducer,
@@ -69,7 +68,6 @@ const rootReducer = combineReducers({
   documentDetailsFront: documentDetailsFrontReducer,
   documentStats: documentStatsReducer,
   eitemDetails: eitemDetailsReducer,
-  esSelector: esSelectorReducer,
   idlePendingLoans: idleLoansReducer,
   internalLocations: internalLocationListReducer,
   itemDetails: itemDetailsReducer,
