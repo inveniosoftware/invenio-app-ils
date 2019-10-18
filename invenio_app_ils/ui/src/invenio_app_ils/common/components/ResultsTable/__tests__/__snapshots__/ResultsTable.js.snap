@@ -273,7 +273,7 @@ exports[`ResultsTable tests should not render the see all button when showing on
                         <Button
                           as="button"
                           compact={true}
-                          data-test="btn-view-details-loan1"
+                          data-test="loan1"
                           icon="info"
                         >
                           <Ref
@@ -281,7 +281,7 @@ exports[`ResultsTable tests should not render the see all button when showing on
                               Object {
                                 "current": <button
                                   class="ui compact icon button"
-                                  data-test="btn-view-details-loan1"
+                                  data-test="loan1"
                                 >
                                   <i
                                     aria-hidden="true"
@@ -296,7 +296,7 @@ exports[`ResultsTable tests should not render the see all button when showing on
                                 Object {
                                   "current": <button
                                     class="ui compact icon button"
-                                    data-test="btn-view-details-loan1"
+                                    data-test="loan1"
                                   >
                                     <i
                                       aria-hidden="true"
@@ -308,7 +308,7 @@ exports[`ResultsTable tests should not render the see all button when showing on
                             >
                               <button
                                 className="ui compact icon button"
-                                data-test="btn-view-details-loan1"
+                                data-test="loan1"
                                 onClick={[Function]}
                               >
                                 <Icon
@@ -409,7 +409,7 @@ exports[`ResultsTable tests should not render the see all button when showing on
                         <Button
                           as="button"
                           compact={true}
-                          data-test="btn-view-details-loan2"
+                          data-test="loan2"
                           icon="info"
                         >
                           <Ref
@@ -417,7 +417,7 @@ exports[`ResultsTable tests should not render the see all button when showing on
                               Object {
                                 "current": <button
                                   class="ui compact icon button"
-                                  data-test="btn-view-details-loan2"
+                                  data-test="loan2"
                                 >
                                   <i
                                     aria-hidden="true"
@@ -432,7 +432,7 @@ exports[`ResultsTable tests should not render the see all button when showing on
                                 Object {
                                   "current": <button
                                     class="ui compact icon button"
-                                    data-test="btn-view-details-loan2"
+                                    data-test="loan2"
                                   >
                                     <i
                                       aria-hidden="true"
@@ -444,7 +444,7 @@ exports[`ResultsTable tests should not render the see all button when showing on
                             >
                               <button
                                 className="ui compact icon button"
-                                data-test="btn-view-details-loan2"
+                                data-test="loan2"
                                 onClick={[Function]}
                               >
                                 <Icon
@@ -815,7 +815,7 @@ exports[`ResultsTable tests should render the see all button when showing only a
                         <Button
                           as="button"
                           compact={true}
-                          data-test="btn-view-details-1"
+                          data-test="1"
                           icon="info"
                         >
                           <Ref
@@ -823,7 +823,7 @@ exports[`ResultsTable tests should render the see all button when showing only a
                               Object {
                                 "current": <button
                                   class="ui compact icon button"
-                                  data-test="btn-view-details-1"
+                                  data-test="1"
                                 >
                                   <i
                                     aria-hidden="true"
@@ -838,7 +838,7 @@ exports[`ResultsTable tests should render the see all button when showing only a
                                 Object {
                                   "current": <button
                                     class="ui compact icon button"
-                                    data-test="btn-view-details-1"
+                                    data-test="1"
                                   >
                                     <i
                                       aria-hidden="true"
@@ -850,7 +850,7 @@ exports[`ResultsTable tests should render the see all button when showing only a
                             >
                               <button
                                 className="ui compact icon button"
-                                data-test="btn-view-details-1"
+                                data-test="1"
                                 onClick={[Function]}
                               >
                                 <Icon

@@ -24,7 +24,7 @@ export default class ResultsTableBody extends Component {
           icon="info"
           as={Link}
           to={rowActionClickHandler(row.ID, row.Type)}
-          data-test={'btn-view-details-' + row.ID}
+          data-test={row.ID}
         />
       ) : null;
 

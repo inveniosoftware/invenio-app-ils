@@ -127,13 +127,15 @@ describe('ResultsTable tests', () => {
     component = mount(
       <ResultsTable rows={results} rowActionClickHandler={mockedClickHandler} />
     );
+
     const firstId = results[0].ID;
-    const button = component
+    component
       .find('TableRow')
+      .find('button')
       .filterWhere(element => element.prop('data-test') === firstId)
-      .find('button');
-    button.simulate('click');
-    expect(mockedClickHandler).toHaveBeenCalledWith(results[0]);
+      .simulate('click');
+
+    expect(mockedClickHandler.mock.calls.length).toEqual(1);
   });
 
   it('should call see all click handler on see all click', () => {
@@ -197,9 +199,7 @@ describe('ResultsTable tests', () => {
     const button = component
       .find('TableRow')
       .find('button')
-      .filterWhere(
-        element => element.prop('data-test') === 'btn-view-details-' + firstId
-      );
+      .filterWhere(element => element.prop('data-test') === firstId);
     expect(button).toHaveLength(1);
   });
 
@@ -220,9 +220,7 @@ describe('ResultsTable tests', () => {
     const button = component
       .find('TableRow')
       .find('button')
-      .filterWhere(
-        element => element.prop('data-test') === 'btn-view-details-' + firstId
-      );
+      .filterWhere(element => element.prop('data-test') === firstId);
     expect(button).toHaveLength(0);
   });
 });
