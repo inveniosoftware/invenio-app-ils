@@ -21,7 +21,7 @@ import {
 import { formatter } from '../../../common/components/ResultsTable/formatters';
 import { documentRequest as documentRequestApi } from '../../../common/api/documentRequests/documentRequest';
 import { getSearchConfig } from '../../../common/config';
-import { ClearButton, NewButton } from '../components/buttons';
+import { ClearButton } from '../components/buttons';
 import { ExportReactSearchKitResults } from '../components';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { goTo } from '../../../history';
@@ -73,12 +73,6 @@ export class DocumentRequestsSearch extends Component {
     const rows = this.prepareData(results);
     const headerActionComponent = (
       <div>
-        <NewButton
-          text={'New book request'}
-          clickHandler={() => {
-            // TODO: EDITOR, implement create form
-          }}
-        />
         <ExportReactSearchKitResults
           exportBaseUrl={documentRequestApi.searchBaseURL}
         />
@@ -110,12 +104,6 @@ export class DocumentRequestsSearch extends Component {
           <ClearButton
             clickHandler={() => {
               resetQuery();
-            }}
-          />
-          <NewButton
-            text={'New book request'}
-            clickHandler={() => {
-              // TODO: EDITOR, implement create form
             }}
           />
         </Segment.Inline>

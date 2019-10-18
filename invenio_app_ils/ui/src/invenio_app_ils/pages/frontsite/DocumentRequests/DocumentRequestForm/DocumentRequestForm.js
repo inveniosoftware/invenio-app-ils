@@ -110,7 +110,7 @@ export default class DocumentRequestForm extends Component {
           fieldPath="note"
           label="Note"
           placeholder="Notes for the library"
-          uiProps={{ rows: 5 }}
+          rows={5}
         />
       </BaseForm>
     );

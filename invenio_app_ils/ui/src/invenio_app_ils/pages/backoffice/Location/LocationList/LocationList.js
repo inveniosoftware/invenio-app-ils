@@ -68,7 +68,7 @@ export default class LocationList extends Component {
   renderResults(data) {
     const rows = this.prepareData(data);
     const headerActionComponent = (
-      <NewButton clickHandler={goToHandler(BackOfficeRoutes.locationsCreate)} />
+      <NewButton text="New location" to={BackOfficeRoutes.locationsCreate} />
     );
     return (
       <ResultsTable

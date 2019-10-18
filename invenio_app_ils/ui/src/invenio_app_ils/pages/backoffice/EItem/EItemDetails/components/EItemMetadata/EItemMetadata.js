@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Grid, Segment, Container, Header, Table } from 'semantic-ui-react';
 import { EditButton } from '../../../../components/buttons';
 import { DeleteRecordModal } from '../../../../components/DeleteRecordModal';
-import { goToHandler } from '../../../../../../history';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 
 export default class EItemMetadata extends Component {
@@ -31,11 +30,7 @@ export default class EItemMetadata extends Component {
         <Header as="h1">EItem - {this.eitemPid}</Header>
       </Grid.Column>
       <Grid.Column width={6} textAlign={'right'}>
-        <EditButton
-          clickHandler={goToHandler(
-            BackOfficeRoutes.eitemEditFor(this.eitemPid)
-          )}
-        />
+        <EditButton to={BackOfficeRoutes.eitemEditFor(this.eitemPid)} />
         <DeleteRecordModal
           deleteHeader={`Are you sure you want to delete the EItem record
             with ID ${this.eitemPid}?`}

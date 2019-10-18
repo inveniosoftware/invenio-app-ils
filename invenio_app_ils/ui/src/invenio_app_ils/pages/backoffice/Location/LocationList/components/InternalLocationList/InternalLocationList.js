@@ -78,7 +78,8 @@ export default class InternalLocationList extends Component {
     const rows = this.prepareData(data);
     const headerActionComponent = (
       <NewButton
-        clickHandler={goToHandler(BackOfficeRoutes.ilocationsCreate)}
+        text="New internal location"
+        to={BackOfficeRoutes.ilocationsCreate}
       />
     );
     return (

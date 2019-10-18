@@ -13,17 +13,12 @@ import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import {
   loan as loanApi,
-  document as documentApi,
   patron as patronApi,
 } from '../../../../../common/api';
 import { invenioConfig } from '../../../../../common/config';
 import { EditButton } from '../../../components/buttons';
-
 import { ESSelectorModal } from '../../../../../common/components/ESSelector';
-import {
-  serializeDocument,
-  serializePatron,
-} from '../../../../../common/components/ESSelector/serializer';
+import { serializePatron } from '../../../../../common/components/ESSelector/serializer';
 
 export default class ItemMetadata extends Component {
   constructor(props) {
@@ -80,16 +75,8 @@ export default class ItemMetadata extends Component {
     this.props.checkoutItem(documentPid, itemPid, patronPid);
   };
 
-  updateDocument = results => {
-    const newDocumentPid = results[0].metadata.pid;
-    this.props.updateItem(this.itemPid, '/document_pid', newDocumentPid);
-  };
-
   render() {
     const { itemDetails } = this.props;
-    const selectedDocument = new Array(
-      serializeDocument({ metadata: itemDetails.metadata.document })
-    );
     const header = (
       <Grid.Row>
         <Grid.Column width={10} verticalAlign={'middle'}>
@@ -113,11 +100,7 @@ export default class ItemMetadata extends Component {
             saveButtonContent={'Checkout item'}
           />
 
-          <EditButton
-            clickHandler={() => {
-              // TODO: EDITOR, implement edit form
-            }}
-          />
+          <EditButton to={BackOfficeRoutes.itemEditFor(this.itemPid)} />
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Item
             record with ID ${itemDetails.pid}?`}
@@ -176,24 +159,6 @@ export default class ItemMetadata extends Component {
                       <List horizontal>
                         <List.Item>
                           {itemDetails.metadata.document_pid}
-                        </List.Item>
-                        <List.Item>
-                          <ESSelectorModal
-                            initialSelections={selectedDocument}
-                            trigger={
-                              <Button
-                                basic
-                                color="blue"
-                                size="small"
-                                content="edit"
-                              />
-                            }
-                            minCharacters={1}
-                            query={documentApi.list}
-                            serializer={serializeDocument}
-                            title="Select Document"
-                            onSave={this.updateDocument}
-                          />
                         </List.Item>
                       </List>
                     </Table.Cell>

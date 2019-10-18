@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import pick from 'lodash/pick';
-import { StringField, TextField } from '../../../../../../../forms';
+import {
+  SelectorField,
+  StringField,
+  TextField,
+} from '../../../../../../../forms';
 import { internalLocation as internalLocationApi } from '../../../../../../../common/api/locations/internalLocation';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import { goTo } from '../../../../../../../history';
 import { BaseForm } from '../../../../../../../forms';
+import { location as locationApi } from '../../../../../../../common/api';
+import { serializeLocation } from '../../../../../../../common/components/ESSelector/serializer';
 
 export class InternalLocationForm extends Component {
   constructor(props) {
@@ -17,7 +23,13 @@ export class InternalLocationForm extends Component {
   }
 
   prepareData = data => {
-    return pick(data, ['name', 'location_pid', 'physical_location', 'notes']);
+    return pick(data, [
+      'name',
+      'location',
+      'location_pid',
+      'physical_location',
+      'notes',
+    ]);
   };
 
   updateInternalLocation = (pid, data) => {
@@ -29,6 +41,13 @@ export class InternalLocationForm extends Component {
   };
 
   successCallback = () => goTo(BackOfficeRoutes.locationsList);
+
+  submitSerializer = values => {
+    const submitValues = { ...values };
+    submitValues.location_pid = values.location.pid;
+    delete submitValues.location;
+    return submitValues;
+  };
 
   render() {
     return (
@@ -44,12 +63,22 @@ export class InternalLocationForm extends Component {
         successSubmitMessage={this.successSubmitMessage}
         title={this.title}
         pid={this.pid ? this.pid : undefined}
+        submitSerializer={this.submitSerializer}
       >
         <StringField label="Name" fieldPath="name" required />
-        {/* TODO make this an autocompletion field from `location.list` endpoint */}
-        <StringField label="Location pid" fieldPath="location_pid" required />
+        <SelectorField
+          required
+          emptyHeader="No location selected"
+          emptyDescription="Please select a location."
+          fieldPath="location"
+          errorPath="location_pid"
+          label="Location"
+          placeholder="Search for a location..."
+          query={locationApi.list}
+          serializer={serializeLocation}
+        />
         <StringField label="Physical Location" fieldPath="physical_location" />
-        <TextField label="Notes" fieldPath="notes" uiProps={{ rows: 5 }} />
+        <TextField label="Notes" fieldPath="notes" rows={5} />
       </BaseForm>
     );
   }

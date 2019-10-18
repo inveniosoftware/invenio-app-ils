@@ -1,3 +1,8 @@
 /*******************************
     User Variable Overrides
 *******************************/
+@fieldsetBorder: @inputBorder;
+@fieldsetBorderRadius: @inputBorderRadius;
+
+@fieldsetErrorBorderColor: @errorBorderColor;
+@fieldsetErrorTextColor: @errorTextColor;

@@ -15,10 +15,14 @@ const del = async itemPid => {
   return response;
 };
 
-const patch = async (itemPid, ops) => {
-  const response = await http.patch(`${itemURL}${itemPid}`, ops, {
-    headers: { 'Content-Type': 'application/json-patch+json' },
-  });
+const create = async data => {
+  const resp = await http.post(`${itemURL}`, data);
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
+};
+
+const update = async (itemPid, data) => {
+  const response = await http.put(`${itemURL}${itemPid}`, data);
   response.data = serializer.fromJSON(response.data);
   return response;
 };
@@ -88,7 +92,8 @@ export const item = {
   searchBaseURL: `${apiConfig.baseURL}${itemURL}`,
   query: queryBuilder,
   list: list,
-  patch: patch,
+  create: create,
+  update: update,
   get: get,
   delete: del,
 };

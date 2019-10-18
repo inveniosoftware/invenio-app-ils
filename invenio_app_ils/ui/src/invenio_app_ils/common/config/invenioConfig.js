@@ -116,6 +116,21 @@ export const invenioConfig = {
   },
   items: {
     canCirculateStates: ['CAN_CIRCULATE'],
+    circulationRestrictions: [
+      { value: 'NO_RESTRICTION', text: 'No restriction' },
+      { value: 'ONE_WEEK', text: '1 week' },
+      { value: 'TWO_WEEKS', text: '2 weeks' },
+      { value: 'THREE_WEEKS', text: '3 weeks' },
+      { value: 'FOUR_WEEKS', text: '4 weeks' },
+    ],
+    mediums: [
+      { value: 'NOT_SPECIFIED', text: 'Not specified' },
+      { value: 'ONLINE', text: 'Online' },
+      { value: 'PAPER', text: 'Paper' },
+      { value: 'CDROM', text: 'CD-ROM' },
+      { value: 'DVD', text: 'DVD' },
+      { value: 'VHS', text: 'VHS' },
+    ],
     search: {
       aggs: ['status', 'medium', 'circulation'],
       sortBy: {
@@ -137,6 +152,13 @@ export const invenioConfig = {
       },
       sortOrder: ['asc', 'desc'],
     },
+    statuses: [
+      { value: 'CAN_CIRCULATE', text: 'Can circulate' },
+      { value: 'FOR_REFERENCE_ONLY', text: 'For reference only' },
+      { value: 'MISSING', text: 'Missing' },
+      { value: 'IN_BINDING', text: 'In binding' },
+      { value: 'SCANNING', text: 'Scanning' },
+    ],
   },
   loans: {
     search: {

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Loader, Error } from '../../../../../common/components';
-import { EItemForm } from './components';
+import { ItemForm } from './components';
 
-export class EItemEditor extends Component {
+export class ItemEditor extends Component {
   componentDidMount() {
-    if (this.props.match.params.eitemPid) {
-      this.props.fetchEItemDetails(this.props.match.params.eitemPid);
+    if (this.props.match.params.itemPid) {
+      this.props.fetchItemDetails(this.props.match.params.itemPid);
     }
   }
 
@@ -14,11 +14,11 @@ export class EItemEditor extends Component {
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
-          <EItemForm
+          <ItemForm
             pid={pid}
             data={data}
-            title="Edit eitem"
-            successSubmitMessage="The eitem was successfully updated."
+            title="Edit item"
+            successSubmitMessage="The item was successfully updated."
           />
         </Error>
       </Loader>
@@ -28,18 +28,18 @@ export class EItemEditor extends Component {
   render() {
     const {
       match: {
-        params: { eitemPid },
+        params: { itemPid },
       },
     } = this.props;
-    const isEditForm = eitemPid ? true : false;
+    const isEditForm = itemPid ? true : false;
     return (
       <>
         {isEditForm ? (
-          this.renderEditForm(eitemPid)
+          this.renderEditForm(itemPid)
         ) : (
-          <EItemForm
-            title="Create new eitem"
-            successSubmitMessage="The eitem was successfully created."
+          <ItemForm
+            title="Create new item"
+            successSubmitMessage="The item was successfully created."
           />
         )}
       </>

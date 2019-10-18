@@ -77,12 +77,7 @@ export class SeriesSearch extends Component {
     const rows = this.prepareData(results);
     const headerActionComponent = (
       <div>
-        <NewButton
-          text={'New series'}
-          clickHandler={() => {
-            goTo(BackOfficeRoutes.seriesCreate);
-          }}
-        />
+        <NewButton text={'New series'} to={BackOfficeRoutes.seriesCreate} />
         <ExportReactSearchKitResults exportBaseUrl={seriesApi.searchBaseURL} />
       </div>
     );
@@ -114,12 +109,7 @@ export class SeriesSearch extends Component {
               resetQuery();
             }}
           />
-          <NewButton
-            text={'New series'}
-            clickHandler={() => {
-              goTo(BackOfficeRoutes.seriesCreate);
-            }}
-          />
+          <NewButton text={'New series'} to={BackOfficeRoutes.seriesCreate} />
         </Segment.Inline>
       </Segment>
     );

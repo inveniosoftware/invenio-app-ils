@@ -1,3 +1,20 @@
 /*******************************
          Site Overrides
 *******************************/
+
+fieldset.form-group {
+  border: @fieldsetBorder;
+  border-radius: @fieldsetBorderRadius;
+
+  legend {
+    font-weight: bold;
+  }
+
+  &.error {
+    border-color: @fieldsetErrorBorderColor;
+
+    legend {
+      color: @fieldsetErrorTextColor;
+    }
+  }
+}

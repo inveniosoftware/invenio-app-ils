@@ -181,10 +181,6 @@ class TagGenerator(Generator):
 class ItemGenerator(Generator):
     """Item Generator."""
 
-    ITEM_CIRCULATION_RESTRICTIONS = ["NO_RESTRICTION", "FOR_REFERENCE_ONLY"]
-    ITEM_MEDIUMS = ["NOT_SPECIFIED", "ONLINE", "PAPER", "CDROM", "DVD", "VHS"]
-    ITEM_STATUSES = ["CAN_CIRCULATE", "MISSING", "IN_BINDING"]
-
     def generate(self):
         """Generate."""
         size = self.holder.items["total"]
@@ -201,10 +197,10 @@ class ItemGenerator(Generator):
                 "shelf": "{}".format(lorem.sentence()),
                 "description": "{}".format(lorem.text()),
                 "internal_notes": "{}".format(lorem.text()),
-                "medium": random.choice(self.ITEM_MEDIUMS),
-                "status": random.choice(self.ITEM_STATUSES),
+                "medium": random.choice(Item.MEDIUMS),
+                "status": random.choice(Item.STATUSES),
                 "circulation_restriction": random.choice(
-                    self.ITEM_CIRCULATION_RESTRICTIONS
+                    Item.CIRCULATION_RESTRICTIONS
                 ),
             }
             for pid in range(1, size + 1)

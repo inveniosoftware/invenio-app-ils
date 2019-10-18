@@ -6,12 +6,11 @@ import { Form } from 'semantic-ui-react';
 export class StringField extends Component {
   constructor(props) {
     super(props);
-    this.fieldPath = props.fieldPath;
-    this.label = props.label;
-    this.placeholder = props.placeholder;
-    this.required = props.required;
-    this.inline = props.inline;
-    this.uiProps = props.uiProps;
+
+    const { fieldPath, inline, ...uiProps } = props;
+    this.fieldPath = fieldPath;
+    this.inline = inline;
+    this.uiProps = uiProps;
   }
 
   renderError(errors, name, direction = 'above') {
@@ -24,7 +23,7 @@ export class StringField extends Component {
       : null;
   }
 
-  renderStringField = props => {
+  renderFormField = props => {
     const {
       form: { values, handleChange, handleBlur, errors },
     } = props;
@@ -33,6 +32,7 @@ export class StringField extends Component {
       <Form.Field inline={this.inline}>
         <Form.Input
           required={this.required}
+          id={this.fieldPath}
           name={this.fieldPath}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -46,25 +46,19 @@ export class StringField extends Component {
       </Form.Field>
     );
   };
+
   render() {
     return (
-      <Field name={this.fieldPath} component={this.renderStringField}></Field>
+      <Field name={this.fieldPath} component={this.renderFormField}></Field>
     );
   }
 }
 
 StringField.propTypes = {
   fieldPath: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool,
-  uiProps: PropTypes.object,
+  inline: PropTypes.bool,
 };
 
 StringField.defaultProps = {
-  label: '',
-  placeholder: '',
-  required: false,
   inline: false,
-  uiProps: {},
 };

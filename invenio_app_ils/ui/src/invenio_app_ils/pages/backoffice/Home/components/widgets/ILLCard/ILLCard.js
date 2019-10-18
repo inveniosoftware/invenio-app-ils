@@ -24,9 +24,7 @@ export default class ILLCard extends Component {
   };
 
   newAcqButton = () => {
-    return (
-      <NewButton fluid disabled clickHandler={goToHandler(this.newILLUrl)} />
-    );
+    return <NewButton fluid disabled to={this.newILLUrl} />;
   };
 
   renderCard = data => {

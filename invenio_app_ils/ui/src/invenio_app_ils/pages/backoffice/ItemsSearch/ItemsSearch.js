@@ -21,6 +21,7 @@ import {
 import { item as itemApi } from '../../../common/api';
 import { ExportReactSearchKitResults, ItemListEntry } from '../components';
 import { ClearButton, NewButton } from '../components/buttons';
+import { BackOfficeRoutes } from '../../../routes/urls';
 
 export class ItemsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -54,12 +55,7 @@ export class ItemsSearch extends Component {
               resetQuery();
             }}
           />
-          <NewButton
-            text={'New item'}
-            clickHandler={() => {
-              // TODO: EDITOR, implement create form
-            }}
-          />
+          <NewButton text={'New item'} to={BackOfficeRoutes.itemCreate} />
         </Segment.Inline>
       </Segment>
     );
@@ -81,13 +77,7 @@ export class ItemsSearch extends Component {
     ));
     return (
       <>
-        <NewButton
-          fluid
-          text={'New item'}
-          clickHandler={() => {
-            // TODO: EDITOR, implement create form
-          }}
-        />
+        <NewButton fluid text={'New item'} to={BackOfficeRoutes.itemCreate} />
         {components}
       </>
     );

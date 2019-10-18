@@ -226,3 +226,15 @@ class DocumentRequestError(IlsException):
             description=description,
             **kwargs
         )
+
+
+class IlsValidationError(IlsException):
+    """Raised when there is an error during record validation."""
+
+    def __init__(self, errors, original_exception=None, **kwargs):
+        """Initialize exception."""
+        super(IlsValidationError, self).__init__(
+            errors=errors,
+            **kwargs
+        )
+        self.original_exception = original_exception

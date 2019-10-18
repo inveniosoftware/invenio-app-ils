@@ -6,11 +6,10 @@ import { Form } from 'semantic-ui-react';
 export class TextField extends Component {
   constructor(props) {
     super(props);
-    this.fieldPath = props.fieldPath;
-    this.label = props.label;
-    this.placeholder = props.placeholder;
-    this.required = props.required;
-    this.uiProps = props.uiProps;
+
+    const { fieldPath, ...uiProps } = props;
+    this.fieldPath = fieldPath;
+    this.uiProps = uiProps;
   }
 
   renderError(errors, name, direction = 'above') {
@@ -23,19 +22,17 @@ export class TextField extends Component {
       : null;
   }
 
-  renderTextField = props => {
+  renderFormField = props => {
     const {
       form: { values, handleChange, handleBlur, errors },
     } = props;
     return (
       <Form.Field>
         <Form.TextArea
-          required={this.required}
+          id={this.fieldPath}
           name={this.fieldPath}
           onChange={handleChange}
           onBlur={handleBlur}
-          label={this.label}
-          placeholder={this.placeholder}
           value={getIn(values, this.fieldPath, '')}
           error={this.renderError(errors, this.fieldPath)}
           {...this.uiProps}
@@ -43,24 +40,16 @@ export class TextField extends Component {
       </Form.Field>
     );
   };
+
   render() {
     return (
-      <Field name={this.fieldPath} component={this.renderTextField}></Field>
+      <Field name={this.fieldPath} component={this.renderFormField}></Field>
     );
   }
 }
 
 TextField.propTypes = {
   fieldPath: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool,
-  uiProps: PropTypes.object,
 };
 
-TextField.defaultProps = {
-  label: '',
-  placeholder: '',
-  required: false,
-  uiProps: {},
-};
+TextField.defaultProps = {};

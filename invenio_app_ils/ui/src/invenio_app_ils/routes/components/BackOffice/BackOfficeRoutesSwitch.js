@@ -11,6 +11,7 @@ import {
   EItemEditor,
   EItemSearch,
   EItemDetails,
+  ItemEditor,
   ItemsSearch,
   ItemDetailsContainer,
   InternalLocationEditor,
@@ -74,6 +75,12 @@ export default class extends Component {
           component={EItemDetails}
         />
         {/* items */}
+        <Route
+          exact
+          path={BackOfficeRoutes.itemCreate}
+          component={ItemEditor}
+        />
+        <Route exact path={BackOfficeRoutes.itemEdit} component={ItemEditor} />
         <Route
           exact
           path={BackOfficeRoutes.itemsList}

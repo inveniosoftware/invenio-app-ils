@@ -38,7 +38,7 @@ export class DocumentEditor extends Component {
             pid={pid}
             data={data}
             title="Edit document"
-            successSubmitMessage="Your document has been updated."
+            successSubmitMessage="The document was successfully updated."
           />
         </Error>
       </Loader>
@@ -59,7 +59,7 @@ export class DocumentEditor extends Component {
         ) : (
           <DocumentForm
             title="Create new document"
-            successSubmitMessage="Your document has been created."
+            successSubmitMessage="The document was successfully created."
           />
         )}
       </>

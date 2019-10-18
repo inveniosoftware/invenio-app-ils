@@ -33,7 +33,6 @@ import {
   serializeAccessList,
   serializePatron,
 } from '../../../../../common/components/ESSelector/serializer';
-import { goToHandler } from '../../../../../history';
 import has from 'lodash/has';
 import { formatPidTypeToName } from '../../../components/ManageRelationsButton/utils';
 import { isEmpty } from 'lodash';
@@ -192,11 +191,7 @@ export default class DocumentMetadata extends Component {
           </Header>
         </Grid.Column>
         <Grid.Column width={3} textAlign={'right'}>
-          <EditButton
-            clickHandler={goToHandler(
-              BackOfficeRoutes.documentEditFor(this.documentPid)
-            )}
-          />
+          <EditButton to={BackOfficeRoutes.documentEditFor(this.documentPid)} />
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Document
             record with ID ${document.pid}?`}

@@ -38,7 +38,7 @@ export class InternalLocationEditor extends Component {
             pid={pid}
             data={data}
             title="Edit internal location"
-            successSubmitMessage="Your internal location has been updated."
+            successSubmitMessage="The internal location was successfully updated."
           />
         </Error>
       </Loader>
@@ -59,7 +59,7 @@ export class InternalLocationEditor extends Component {
         ) : (
           <InternalLocationForm
             title="Create new internal location"
-            successSubmitMessage="Your internal location has been created."
+            successSubmitMessage="The internal location was successfully created."
           />
         )}
       </>

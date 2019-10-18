@@ -62,17 +62,16 @@ export class SeriesForm extends Component {
     return (
       <StringField
         fieldPath={`${arrayPath}.${indexPath}`}
-        uiProps={{
-          action: (
-            <Form.Button
-              color="red"
-              icon="trash"
-              onClick={() => {
-                arrayHelpers.remove(indexPath);
-              }}
-            ></Form.Button>
-          ),
-        }}
+        action={
+          <Form.Button
+            color="red"
+            icon="trash"
+            type="button"
+            onClick={() => {
+              arrayHelpers.remove(indexPath);
+            }}
+          ></Form.Button>
+        }
       />
     );
   };
@@ -107,25 +106,23 @@ export class SeriesForm extends Component {
             },
           ]}
           required
-        ></SelectField>
-        <TextField
-          label="Abstract"
-          fieldPath="abstract"
-          uiProps={{ rows: 10 }}
+          search
         />
+        <TextField label="Abstract" fieldPath="abstract" rows={10} />
         <ArrayField
           fieldPath="authors"
           label="Authors"
           defaultNewValue=""
-          render={this.renderAuthorsField}
-        ></ArrayField>
+          renderArrayItem={this.renderAuthorsField}
+        />
         <SelectField
           multiple
+          search
           label="Languages"
           fieldPath="languages"
           options={this.languageCodes}
-          uiProps={{ upward: false }}
-        ></SelectField>
+          upward={false}
+        />
         <StringField label="Edition" fieldPath="edition" />
         <StringField label="ISSN" fieldPath="issn" />
       </BaseForm>

@@ -1,1 +1,0 @@
-export const UPDATE_SELECTIONS = 'esSelector/UPDATE_SELECTIONS';

@@ -38,7 +38,7 @@ export class LocationEditor extends Component {
             pid={pid}
             data={data}
             title="Edit location"
-            successSubmitMessage="Your location has been updated."
+            successSubmitMessage="The location was successfully updated."
           />
         </Error>
       </Loader>
@@ -59,7 +59,7 @@ export class LocationEditor extends Component {
         ) : (
           <LocationForm
             title="Create new location"
-            successSubmitMessage="Your location has been created."
+            successSubmitMessage="The location was successfully created."
           />
         )}
       </>

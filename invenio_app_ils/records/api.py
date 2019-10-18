@@ -16,11 +16,13 @@ from invenio_jsonschemas import current_jsonschemas
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
+from invenio_rest.errors import FieldError
 from invenio_userprofiles.api import UserProfile
+from jsonschema.exceptions import ValidationError
 from werkzeug.utils import cached_property
 
 from invenio_app_ils.errors import DocumentTagNotFoundError, \
-    PatronNotFoundError, RecordHasReferencesError
+    IlsValidationError, PatronNotFoundError, RecordHasReferencesError
 from invenio_app_ils.records_relations.api import RecordRelationsMetadata, \
     RecordRelationsRetriever
 from invenio_app_ils.search.api import DocumentRequestSearch, DocumentSearch, \
@@ -81,7 +83,15 @@ class IlsRecord(Record):
     def validate(self, **kwargs):
         """Validate ILS record."""
         # JSON schema validation
-        super(IlsRecord, self).validate(**kwargs)
+        try:
+            super(IlsRecord, self).validate(**kwargs)
+        except ValidationError as jve:
+            errors = [FieldError(".".join(jve.path), jve.message)]
+            raise IlsValidationError(
+                description="Record validation error",
+                errors=errors,
+                original_exception=jve
+            )
 
         # Custom record validation
         if self._validator:
@@ -299,7 +309,21 @@ class Item(_Item):
         "IN_BINDING",
         "SCANNING",
     ]
-    CIRCULATION_RESTRICTIONS = ["NO_RESTRICTION"]
+    CIRCULATION_RESTRICTIONS = [
+        "NO_RESTRICTION",
+        "ONE_WEEK",
+        "TWO_WEEKS",
+        "THREE_WEEKS",
+        "FOUR_WEEKS",
+    ]
+    MEDIUMS = [
+        "NOT_SPECIFIED",
+        "ONLINE",
+        "PAPER",
+        "CDROM",
+        "DVD",
+        "VHS",
+    ]
 
     @classmethod
     def build_resolver_fields(cls, data):
@@ -525,7 +549,7 @@ class Patron(dict):
             "email": self.email,
         }
 
-    def dumps_loader(self, include_keys=None):
+    def dumps_loader(self, **kwargs):
         """Return a simpler patron representation for loaders."""
         return {
             "id": str(self.id),
