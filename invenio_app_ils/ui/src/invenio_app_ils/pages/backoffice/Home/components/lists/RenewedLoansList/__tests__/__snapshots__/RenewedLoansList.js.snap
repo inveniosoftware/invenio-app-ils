@@ -11,14 +11,14 @@ exports[`RenewedLoansList tests should load the details component 1`] = `
       name="frequently renewed loans"
       paginationComponent={null}
       renderSegment={true}
-      rowActionClickHandler={[Function]}
+      rowActionClickHandler={[MockFunction]}
       rows={Array []}
       seeAllComponent={
         <SeeAllButton
           disabled={false}
           fluid={false}
           text="See All"
-          url="/backoffice/loans?q=(_updated:%7B2019-10-10%20TO%20*%7D AND extension_count:>=3)"
+          url="/backoffice/loans?q=(_updated:%7B2019-10-11%20TO%20*%7D AND extension_count:>=3)"
         />
       }
       showAllResults={false}
@@ -93,7 +93,30 @@ exports[`RenewedLoansList tests should render loans 1`] = `
         name="frequently renewed loans"
         paginationComponent={null}
         renderSegment={true}
-        rowActionClickHandler={[Function]}
+        rowActionClickHandler={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "loan1",
+                undefined,
+              ],
+              Array [
+                "loan2",
+                undefined,
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "backoffice/loans/loan1",
+              },
+              Object {
+                "type": "return",
+                "value": "backoffice/loans/loan2",
+              },
+            ],
+          }
+        }
         rows={
           Array [
             Object {
@@ -116,9 +139,10 @@ exports[`RenewedLoansList tests should render loans 1`] = `
         }
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            text="See All"
+            url="/backoffice/loans?q=(_updated:%7B2019-10-11%20TO%20*%7D AND extension_count:>=3)"
           />
         }
         showAllResults={false}
@@ -335,7 +359,30 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                       "Renewals",
                     ]
                   }
-                  rowActionClickHandler={[Function]}
+                  rowActionClickHandler={
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          "loan1",
+                          undefined,
+                        ],
+                        Array [
+                          "loan2",
+                          undefined,
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": "backoffice/loans/loan1",
+                        },
+                        Object {
+                          "type": "return",
+                          "value": "backoffice/loans/loan2",
+                        },
+                      ],
+                    }
+                  }
                   rows={
                     Array [
                       Object {
@@ -385,7 +432,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                                 compact={true}
                                 data-test="btn-view-details-loan1"
                                 icon="info"
-                                onClick={[Function]}
+                                to="backoffice/loans/loan1"
                               >
                                 <Ref
                                   innerRef={
@@ -393,6 +440,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                                       "current": <button
                                         class="ui compact icon button"
                                         data-test="btn-view-details-loan1"
+                                        to="backoffice/loans/loan1"
                                       >
                                         <i
                                           aria-hidden="true"
@@ -408,6 +456,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                                         "current": <button
                                           class="ui compact icon button"
                                           data-test="btn-view-details-loan1"
+                                          to="backoffice/loans/loan1"
                                         >
                                           <i
                                             aria-hidden="true"
@@ -421,6 +470,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                                       className="ui compact icon button"
                                       data-test="btn-view-details-loan1"
                                       onClick={[Function]}
+                                      to="backoffice/loans/loan1"
                                     >
                                       <Icon
                                         as="i"
@@ -534,7 +584,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                                 compact={true}
                                 data-test="btn-view-details-loan2"
                                 icon="info"
-                                onClick={[Function]}
+                                to="backoffice/loans/loan2"
                               >
                                 <Ref
                                   innerRef={
@@ -542,6 +592,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                                       "current": <button
                                         class="ui compact icon button"
                                         data-test="btn-view-details-loan2"
+                                        to="backoffice/loans/loan2"
                                       >
                                         <i
                                           aria-hidden="true"
@@ -557,6 +608,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                                         "current": <button
                                           class="ui compact icon button"
                                           data-test="btn-view-details-loan2"
+                                          to="backoffice/loans/loan2"
                                         >
                                           <i
                                             aria-hidden="true"
@@ -570,6 +622,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                                       className="ui compact icon button"
                                       data-test="btn-view-details-loan2"
                                       onClick={[Function]}
+                                      to="backoffice/loans/loan2"
                                     >
                                       <Icon
                                         as="i"
@@ -671,9 +724,10 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                   paginationComponent={null}
                   seeAllComponent={
                     <SeeAllButton
-                      clickHandler={[Function]}
                       disabled={false}
                       fluid={false}
+                      text="See All"
+                      url="/backoffice/loans?q=(_updated:%7B2019-10-11%20TO%20*%7D AND extension_count:>=3)"
                     />
                   }
                   showAllResults={false}
@@ -710,14 +764,14 @@ exports[`RenewedLoansList tests should render show a message with no loans 1`] =
         name="frequently renewed loans"
         paginationComponent={null}
         renderSegment={true}
-        rowActionClickHandler={[Function]}
+        rowActionClickHandler={[MockFunction]}
         rows={Array []}
         seeAllComponent={
           <SeeAllButton
             disabled={false}
             fluid={false}
             text="See All"
-            url="/backoffice/loans?q=(_updated:%7B2019-10-10%20TO%20*%7D AND extension_count:>=3)"
+            url="/backoffice/loans?q=(_updated:%7B2019-10-11%20TO%20*%7D AND extension_count:>=3)"
           />
         }
         showAllResults={false}

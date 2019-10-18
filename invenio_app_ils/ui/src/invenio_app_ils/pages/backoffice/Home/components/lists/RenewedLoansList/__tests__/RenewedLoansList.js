@@ -5,6 +5,8 @@ import RenewedLoansList from '../RenewedLoansList';
 import history from '../../../../../../../history';
 import testData from '../../../../../../../../../../../tests/data/loans.json';
 
+BackOfficeRoutes.loanDetailsFor = jest.fn(pid => `backoffice/loans/${pid}`);
+
 const data = {
   hits: [
     {
@@ -101,10 +103,7 @@ describe('RenewedLoansList tests', () => {
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)
-      .find('i');
-    button.simulate('click');
-
-    const expectedParam = BackOfficeRoutes.loanDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
+      .find('button');
+    expect(button.prop('to')).toEqual(BackOfficeRoutes.loanDetailsFor(firstId));
   });
 });
