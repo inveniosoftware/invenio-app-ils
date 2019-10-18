@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Qs from 'qs';
-import { Grid, List, Icon, Header } from 'semantic-ui-react';
-import { DateInput } from 'semantic-ui-calendar-react';
-import { Loader, Error } from '../../../../../common/components';
+import { Grid, List, Header } from 'semantic-ui-react';
+import { DatePicker, Loader, Error } from '../../../../../common/components';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { stats as statsApi, loan as loanApi } from '../../../../../common/api';
 import { DocumentList, ExportSearchResults } from '../../../components';
@@ -37,14 +36,19 @@ export default class MostLoanedDocumentsList extends Component {
   }
 
   componentDidMount() {
+    this.fetchDocuments();
+  }
+
+  fetchDocuments() {
     this.fetchMostLoanedDocuments(this.state.fromDate, this.state.toDate);
   }
 
-  handleDateChange = (event, { name, value }) => {
-    const fromDate = name === 'fromDate' ? value : this.state.fromDate;
-    const toDate = name === 'toDate' ? value : this.state.toDate;
-    this.setState({ [name]: value });
-    this.fetchMostLoanedDocuments(fromDate, toDate);
+  handleFromDateChange = value => {
+    this.setState({ fromDate: value }, this.fetchDocuments);
+  };
+
+  handleToDateChange = value => {
+    this.setState({ toDate: value }, this.fetchDocuments);
   };
 
   renderDateRangePicker() {
@@ -60,36 +64,20 @@ export default class MostLoanedDocumentsList extends Component {
         <List horizontal>
           <List.Item>
             <List.Content>
-              <DateInput
-                autoComplete="off"
-                clearable
-                clearIcon={<Icon name="remove" color="red" />}
-                closable
-                dateFormat="YYYY-MM-DD"
-                iconPosition="left"
+              <DatePicker
                 maxDate={this.state.toDate}
-                name="fromDate"
-                onChange={this.handleDateChange}
-                placeholder="Start Date"
-                value={this.state.fromDate}
+                placeholder="From Date"
+                handleDateChange={this.handleFromDateChange}
               />
             </List.Content>
           </List.Item>
 
           <List.Item>
             <List.Content>
-              <DateInput
-                autoComplete="off"
-                clearable
-                clearIcon={<Icon name="remove" color="red" />}
-                closable
-                dateFormat="YYYY-MM-DD"
-                iconPosition="left"
+              <DatePicker
                 minDate={this.state.fromDate}
-                name="toDate"
-                onChange={this.handleDateChange}
-                placeholder="End Date"
-                value={this.state.toDate}
+                placeholder="To Date"
+                handleDateChange={this.handleToDateChange}
               />
             </List.Content>
           </List.Item>

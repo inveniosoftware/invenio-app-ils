@@ -18,57 +18,25 @@ exports[`MostLoanedDocumentsList tests should load the component 1`] = `
     >
       <ListItem>
         <ListContent>
-          <DateInput
-            autoComplete="off"
-            clearIcon={
-              <Icon
-                as="i"
-                color="red"
-                name="remove"
-              />
-            }
-            clearable={true}
-            closable={true}
-            dateFormat="YYYY-MM-DD"
-            icon="calendar"
-            iconPosition="left"
-            inline={false}
-            localization="en"
+          <DatePicker
+            defaultValue=""
+            handleDateChange={[Function]}
+            initialDate=""
             maxDate=""
-            name="fromDate"
-            onChange={[Function]}
-            placeholder="Start Date"
-            preserveViewMode={true}
-            startMode="day"
-            value=""
+            minDate=""
+            placeholder="From Date"
           />
         </ListContent>
       </ListItem>
       <ListItem>
         <ListContent>
-          <DateInput
-            autoComplete="off"
-            clearIcon={
-              <Icon
-                as="i"
-                color="red"
-                name="remove"
-              />
-            }
-            clearable={true}
-            closable={true}
-            dateFormat="YYYY-MM-DD"
-            icon="calendar"
-            iconPosition="left"
-            inline={false}
-            localization="en"
+          <DatePicker
+            defaultValue=""
+            handleDateChange={[Function]}
+            initialDate=""
+            maxDate=""
             minDate=""
-            name="toDate"
-            onChange={[Function]}
-            placeholder="End Date"
-            preserveViewMode={true}
-            startMode="day"
-            value=""
+            placeholder="To Date"
           />
         </ListContent>
       </ListItem>
@@ -162,32 +130,15 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                     <div
                       className="content"
                     >
-                      <DateInput
-                        autoComplete="off"
-                        clearIcon={
-                          <Icon
-                            as="i"
-                            color="red"
-                            name="remove"
-                          />
-                        }
-                        clearable={true}
-                        closable={true}
-                        dateFormat="YYYY-MM-DD"
-                        icon="calendar"
-                        iconPosition="left"
-                        inline={false}
-                        localization="en"
+                      <DatePicker
+                        defaultValue=""
+                        handleDateChange={[Function]}
+                        initialDate=""
                         maxDate=""
-                        name="fromDate"
-                        onChange={[Function]}
-                        placeholder="Start Date"
-                        preserveViewMode={true}
-                        startMode="day"
-                        value=""
+                        minDate=""
+                        placeholder="From Date"
                       >
-                        <InputView
-                          animation="scale"
+                        <DateInput
                           autoComplete="off"
                           clearIcon={
                             <Icon
@@ -197,24 +148,25 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                             />
                           }
                           clearable={true}
-                          closeOnMouseLeave={true}
-                          closePopup={[Function]}
-                          duration={200}
+                          closable={true}
+                          data-test=""
+                          dateFormat="YYYY-MM-DD"
                           icon="calendar"
                           iconPosition="left"
+                          initialDate=""
                           inline={false}
-                          name="fromDate"
+                          localization="en"
+                          maxDate=""
+                          minDate=""
+                          name="selectedDate"
                           onChange={[Function]}
-                          onFocus={[Function]}
-                          onMount={[Function]}
-                          openPopup={[Function]}
-                          placeholder="Start Date"
-                          popupIsClosed={true}
-                          renderPicker={[Function]}
-                          tabIndex="0"
+                          placeholder="From Date"
+                          preserveViewMode={true}
+                          startMode="day"
                           value=""
                         >
-                          <FormInputWithRef
+                          <InputView
+                            animation="scale"
                             autoComplete="off"
                             clearIcon={
                               <Icon
@@ -224,110 +176,144 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                               />
                             }
                             clearable={true}
+                            closeOnMouseLeave={true}
+                            closePopup={[Function]}
+                            data-test=""
+                            duration={200}
                             icon="calendar"
                             iconPosition="left"
-                            innerRef={[Function]}
-                            name="fromDate"
-                            onBlur={[Function]}
+                            inline={false}
+                            name="selectedDate"
                             onChange={[Function]}
-                            onClear={[Function]}
                             onFocus={[Function]}
-                            onMouseEnter={[Function]}
-                            placeholder="Start Date"
+                            onMount={[Function]}
+                            openPopup={[Function]}
+                            placeholder="From Date"
+                            popupIsClosed={true}
+                            renderPicker={[Function]}
                             tabIndex="0"
                             value=""
                           >
-                            <FormInput
-                              as={[Function]}
+                            <FormInputWithRef
                               autoComplete="off"
-                              control={[Function]}
-                              icon={true}
+                              clearIcon={
+                                <Icon
+                                  as="i"
+                                  color="red"
+                                  name="remove"
+                                />
+                              }
+                              clearable={true}
+                              data-test=""
+                              icon="calendar"
                               iconPosition="left"
-                              name="fromDate"
+                              innerRef={[Function]}
+                              name="selectedDate"
                               onBlur={[Function]}
                               onChange={[Function]}
-                              onClick={[Function]}
+                              onClear={[Function]}
                               onFocus={[Function]}
                               onMouseEnter={[Function]}
-                              placeholder="Start Date"
+                              placeholder="From Date"
                               tabIndex="0"
+                              value=""
                             >
-                              <FormField
+                              <FormInput
+                                as={[Function]}
                                 autoComplete="off"
                                 control={[Function]}
+                                data-test=""
                                 icon={true}
                                 iconPosition="left"
-                                name="fromDate"
+                                name="selectedDate"
                                 onBlur={[Function]}
                                 onChange={[Function]}
                                 onClick={[Function]}
                                 onFocus={[Function]}
                                 onMouseEnter={[Function]}
-                                placeholder="Start Date"
+                                placeholder="From Date"
                                 tabIndex="0"
                               >
-                                <div
-                                  className="field"
+                                <FormField
+                                  autoComplete="off"
+                                  control={[Function]}
+                                  data-test=""
+                                  icon={true}
+                                  iconPosition="left"
+                                  name="selectedDate"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onMouseEnter={[Function]}
+                                  placeholder="From Date"
+                                  tabIndex="0"
                                 >
-                                  <Input
-                                    autoComplete="off"
-                                    icon={true}
-                                    iconPosition="left"
-                                    name="fromDate"
-                                    onBlur={[Function]}
-                                    onChange={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onMouseEnter={[Function]}
-                                    placeholder="Start Date"
-                                    tabIndex="0"
-                                    type="text"
+                                  <div
+                                    className="field"
                                   >
-                                    <div
-                                      className="ui left icon input"
+                                    <Input
+                                      autoComplete="off"
+                                      data-test=""
+                                      icon={true}
+                                      iconPosition="left"
+                                      name="selectedDate"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      onClick={[Function]}
+                                      onFocus={[Function]}
+                                      onMouseEnter={[Function]}
+                                      placeholder="From Date"
+                                      tabIndex="0"
+                                      type="text"
                                     >
-                                      <Icon
-                                        as="i"
-                                        key=".0"
-                                        name="calendar"
+                                      <div
+                                        className="ui left icon input"
+                                        data-test=""
                                       >
-                                        <i
-                                          aria-hidden="true"
-                                          className="calendar icon"
+                                        <Icon
+                                          as="i"
+                                          key=".0"
+                                          name="calendar"
+                                        >
+                                          <i
+                                            aria-hidden="true"
+                                            className="calendar icon"
+                                            onClick={[Function]}
+                                          />
+                                        </Icon>
+                                        <input
+                                          autoComplete="off"
+                                          key=".1"
+                                          name="selectedDate"
+                                          onBlur={[Function]}
+                                          onChange={[Function]}
                                           onClick={[Function]}
+                                          onFocus={[Function]}
+                                          onMouseEnter={[Function]}
+                                          placeholder="From Date"
+                                          tabIndex="0"
+                                          type="text"
+                                          value=""
                                         />
-                                      </Icon>
-                                      <input
-                                        autoComplete="off"
-                                        key=".1"
-                                        name="fromDate"
-                                        onBlur={[Function]}
-                                        onChange={[Function]}
-                                        onClick={[Function]}
-                                        onFocus={[Function]}
-                                        onMouseEnter={[Function]}
-                                        placeholder="Start Date"
-                                        tabIndex="0"
-                                        type="text"
-                                        value=""
-                                      />
-                                    </div>
-                                  </Input>
-                                </div>
-                              </FormField>
-                            </FormInput>
-                          </FormInputWithRef>
-                          <Transition
-                            animation="scale"
-                            duration={200}
-                            mountOnShow={true}
-                            onComplete={[Function]}
-                            transitionOnMount={false}
-                            unmountOnHide={true}
-                            visible={false}
-                          />
-                        </InputView>
-                      </DateInput>
+                                      </div>
+                                    </Input>
+                                  </div>
+                                </FormField>
+                              </FormInput>
+                            </FormInputWithRef>
+                            <Transition
+                              animation="scale"
+                              duration={200}
+                              mountOnShow={true}
+                              onComplete={[Function]}
+                              transitionOnMount={false}
+                              unmountOnHide={true}
+                              visible={false}
+                            />
+                          </InputView>
+                        </DateInput>
+                      </DatePicker>
                     </div>
                   </ListContent>
                 </div>
@@ -342,32 +328,15 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                     <div
                       className="content"
                     >
-                      <DateInput
-                        autoComplete="off"
-                        clearIcon={
-                          <Icon
-                            as="i"
-                            color="red"
-                            name="remove"
-                          />
-                        }
-                        clearable={true}
-                        closable={true}
-                        dateFormat="YYYY-MM-DD"
-                        icon="calendar"
-                        iconPosition="left"
-                        inline={false}
-                        localization="en"
+                      <DatePicker
+                        defaultValue=""
+                        handleDateChange={[Function]}
+                        initialDate=""
+                        maxDate=""
                         minDate=""
-                        name="toDate"
-                        onChange={[Function]}
-                        placeholder="End Date"
-                        preserveViewMode={true}
-                        startMode="day"
-                        value=""
+                        placeholder="To Date"
                       >
-                        <InputView
-                          animation="scale"
+                        <DateInput
                           autoComplete="off"
                           clearIcon={
                             <Icon
@@ -377,24 +346,25 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                             />
                           }
                           clearable={true}
-                          closeOnMouseLeave={true}
-                          closePopup={[Function]}
-                          duration={200}
+                          closable={true}
+                          data-test=""
+                          dateFormat="YYYY-MM-DD"
                           icon="calendar"
                           iconPosition="left"
+                          initialDate=""
                           inline={false}
-                          name="toDate"
+                          localization="en"
+                          maxDate=""
+                          minDate=""
+                          name="selectedDate"
                           onChange={[Function]}
-                          onFocus={[Function]}
-                          onMount={[Function]}
-                          openPopup={[Function]}
-                          placeholder="End Date"
-                          popupIsClosed={true}
-                          renderPicker={[Function]}
-                          tabIndex="0"
+                          placeholder="To Date"
+                          preserveViewMode={true}
+                          startMode="day"
                           value=""
                         >
-                          <FormInputWithRef
+                          <InputView
+                            animation="scale"
                             autoComplete="off"
                             clearIcon={
                               <Icon
@@ -404,110 +374,144 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                               />
                             }
                             clearable={true}
+                            closeOnMouseLeave={true}
+                            closePopup={[Function]}
+                            data-test=""
+                            duration={200}
                             icon="calendar"
                             iconPosition="left"
-                            innerRef={[Function]}
-                            name="toDate"
-                            onBlur={[Function]}
+                            inline={false}
+                            name="selectedDate"
                             onChange={[Function]}
-                            onClear={[Function]}
                             onFocus={[Function]}
-                            onMouseEnter={[Function]}
-                            placeholder="End Date"
+                            onMount={[Function]}
+                            openPopup={[Function]}
+                            placeholder="To Date"
+                            popupIsClosed={true}
+                            renderPicker={[Function]}
                             tabIndex="0"
                             value=""
                           >
-                            <FormInput
-                              as={[Function]}
+                            <FormInputWithRef
                               autoComplete="off"
-                              control={[Function]}
-                              icon={true}
+                              clearIcon={
+                                <Icon
+                                  as="i"
+                                  color="red"
+                                  name="remove"
+                                />
+                              }
+                              clearable={true}
+                              data-test=""
+                              icon="calendar"
                               iconPosition="left"
-                              name="toDate"
+                              innerRef={[Function]}
+                              name="selectedDate"
                               onBlur={[Function]}
                               onChange={[Function]}
-                              onClick={[Function]}
+                              onClear={[Function]}
                               onFocus={[Function]}
                               onMouseEnter={[Function]}
-                              placeholder="End Date"
+                              placeholder="To Date"
                               tabIndex="0"
+                              value=""
                             >
-                              <FormField
+                              <FormInput
+                                as={[Function]}
                                 autoComplete="off"
                                 control={[Function]}
+                                data-test=""
                                 icon={true}
                                 iconPosition="left"
-                                name="toDate"
+                                name="selectedDate"
                                 onBlur={[Function]}
                                 onChange={[Function]}
                                 onClick={[Function]}
                                 onFocus={[Function]}
                                 onMouseEnter={[Function]}
-                                placeholder="End Date"
+                                placeholder="To Date"
                                 tabIndex="0"
                               >
-                                <div
-                                  className="field"
+                                <FormField
+                                  autoComplete="off"
+                                  control={[Function]}
+                                  data-test=""
+                                  icon={true}
+                                  iconPosition="left"
+                                  name="selectedDate"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onMouseEnter={[Function]}
+                                  placeholder="To Date"
+                                  tabIndex="0"
                                 >
-                                  <Input
-                                    autoComplete="off"
-                                    icon={true}
-                                    iconPosition="left"
-                                    name="toDate"
-                                    onBlur={[Function]}
-                                    onChange={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onMouseEnter={[Function]}
-                                    placeholder="End Date"
-                                    tabIndex="0"
-                                    type="text"
+                                  <div
+                                    className="field"
                                   >
-                                    <div
-                                      className="ui left icon input"
+                                    <Input
+                                      autoComplete="off"
+                                      data-test=""
+                                      icon={true}
+                                      iconPosition="left"
+                                      name="selectedDate"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      onClick={[Function]}
+                                      onFocus={[Function]}
+                                      onMouseEnter={[Function]}
+                                      placeholder="To Date"
+                                      tabIndex="0"
+                                      type="text"
                                     >
-                                      <Icon
-                                        as="i"
-                                        key=".0"
-                                        name="calendar"
+                                      <div
+                                        className="ui left icon input"
+                                        data-test=""
                                       >
-                                        <i
-                                          aria-hidden="true"
-                                          className="calendar icon"
+                                        <Icon
+                                          as="i"
+                                          key=".0"
+                                          name="calendar"
+                                        >
+                                          <i
+                                            aria-hidden="true"
+                                            className="calendar icon"
+                                            onClick={[Function]}
+                                          />
+                                        </Icon>
+                                        <input
+                                          autoComplete="off"
+                                          key=".1"
+                                          name="selectedDate"
+                                          onBlur={[Function]}
+                                          onChange={[Function]}
                                           onClick={[Function]}
+                                          onFocus={[Function]}
+                                          onMouseEnter={[Function]}
+                                          placeholder="To Date"
+                                          tabIndex="0"
+                                          type="text"
+                                          value=""
                                         />
-                                      </Icon>
-                                      <input
-                                        autoComplete="off"
-                                        key=".1"
-                                        name="toDate"
-                                        onBlur={[Function]}
-                                        onChange={[Function]}
-                                        onClick={[Function]}
-                                        onFocus={[Function]}
-                                        onMouseEnter={[Function]}
-                                        placeholder="End Date"
-                                        tabIndex="0"
-                                        type="text"
-                                        value=""
-                                      />
-                                    </div>
-                                  </Input>
-                                </div>
-                              </FormField>
-                            </FormInput>
-                          </FormInputWithRef>
-                          <Transition
-                            animation="scale"
-                            duration={200}
-                            mountOnShow={true}
-                            onComplete={[Function]}
-                            transitionOnMount={false}
-                            unmountOnHide={true}
-                            visible={false}
-                          />
-                        </InputView>
-                      </DateInput>
+                                      </div>
+                                    </Input>
+                                  </div>
+                                </FormField>
+                              </FormInput>
+                            </FormInputWithRef>
+                            <Transition
+                              animation="scale"
+                              duration={200}
+                              mountOnShow={true}
+                              onComplete={[Function]}
+                              transitionOnMount={false}
+                              unmountOnHide={true}
+                              visible={false}
+                            />
+                          </InputView>
+                        </DateInput>
+                      </DatePicker>
                     </div>
                   </ListContent>
                 </div>

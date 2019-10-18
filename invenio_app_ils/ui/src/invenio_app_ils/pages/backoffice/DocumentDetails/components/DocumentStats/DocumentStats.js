@@ -8,12 +8,9 @@ import {
   Segment,
   Table,
 } from 'semantic-ui-react';
-import { DateInput } from 'semantic-ui-calendar-react';
-import { Loader, Error } from '../../../../../common/components';
+import { DatePicker, Loader, Error } from '../../../../../common/components';
 import PropTypes from 'prop-types';
 import sumBy from 'lodash/sumBy';
-
-import { toUTCShortDate } from '../../../../../common/api/date';
 
 const DEFAULT_TITLE = 'for all time';
 
@@ -29,10 +26,7 @@ export default class DocumentStats extends Component {
   }
 
   componentDidMount() {
-    const { document } = this.props;
-    this.fetchDocumentStats({
-      documentPid: document.pid,
-    });
+    this._fetchDocumentStats();
   }
 
   renderStats() {
@@ -78,6 +72,24 @@ export default class DocumentStats extends Component {
     );
   }
 
+  _fetchDocumentStats() {
+    const { document } = this.props;
+    this.buildTitle();
+    this.fetchDocumentStats({
+      documentPid: document.pid,
+      fromDate: this.state.fromDate,
+      toDate: this.state.toDate,
+    });
+  }
+
+  handleFromDateChange = value => {
+    this.setState({ fromDate: value }, this._fetchDocumentStats);
+  };
+
+  handleToDateChange = value => {
+    this.setState({ toDate: value }, this._fetchDocumentStats);
+  };
+
   buildTitle() {
     let title = '';
     if (this.state.fromDate) {
@@ -92,28 +104,6 @@ export default class DocumentStats extends Component {
     this.setState({ title: title });
   }
 
-  handleChange = (event, { name, value }) => {
-    if (this.state.hasOwnProperty(name)) {
-      this.setState({ [name]: value });
-    }
-    if (name === 'fromDate') {
-      this.setState({ maxDate: this.state.toDate });
-    }
-    if (name === 'toDate') {
-      this.setState({ minDate: this.state.fromDate });
-    }
-  };
-
-  handleSubmit = () => {
-    const { document } = this.props;
-    this.buildTitle();
-    this.fetchDocumentStats({
-      documentPid: document.pid,
-      fromDate: toUTCShortDate(this.state.fromDate),
-      toDate: toUTCShortDate(this.state.toDate),
-    });
-  };
-
   renderFilters() {
     return (
       <>
@@ -122,38 +112,19 @@ export default class DocumentStats extends Component {
         </Header>
         <Form>
           <Form.Field>
-            <DateInput
-              autoComplete="off"
-              clearable
-              clearIcon={<Icon name="remove" color="red" />}
-              closable
-              dateFormat="YYYY-MM-DD"
-              iconPosition="left"
+            <DatePicker
               maxDate={this.state.toDate}
-              name="fromDate"
-              onChange={this.handleChange}
               placeholder="From Date"
-              value={this.state.fromDate}
+              handleDateChange={this.handleFromDateChange}
             />
           </Form.Field>
           <Form.Field>
-            <DateInput
-              autoComplete="off"
-              clearable
-              clearIcon={<Icon name="remove" color="red" />}
-              closable
-              dateFormat="YYYY-MM-DD"
-              iconPosition="left"
+            <DatePicker
               minDate={this.state.fromDate}
-              name="toDate"
-              onChange={this.handleChange}
               placeholder="To Date"
-              value={this.state.toDate}
+              handleDateChange={this.handleToDateChange}
             />
           </Form.Field>
-          <Form.Button floated="right" onClick={this.handleSubmit}>
-            Submit
-          </Form.Button>
         </Form>
       </>
     );
