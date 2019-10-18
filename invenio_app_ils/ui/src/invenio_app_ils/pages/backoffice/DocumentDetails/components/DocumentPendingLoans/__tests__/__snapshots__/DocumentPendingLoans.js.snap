@@ -11,7 +11,7 @@ exports[`DocumentPendingLoans tests should load the details component 1`] = `
       name="pending loan requests"
       paginationComponent={null}
       renderSegment={true}
-      rowActionClickHandler={[Function]}
+      rowActionClickHandler={[MockFunction]}
       rows={Array []}
       seeAllComponent={
         <SeeAllButton
@@ -102,7 +102,30 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
         name="pending loan requests"
         paginationComponent={null}
         renderSegment={true}
-        rowActionClickHandler={[Function]}
+        rowActionClickHandler={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "loan1",
+                undefined,
+              ],
+              Array [
+                "loan2",
+                undefined,
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "backoffice/loans/loan1",
+              },
+              Object {
+                "type": "return",
+                "value": "backoffice/loans/loan2",
+              },
+            ],
+          }
+        }
         rows={
           Array [
             Object {
@@ -121,9 +144,10 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
         }
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            text="See All"
+            url="/backoffice/loans?q=(document_pid:111 AND state:(PENDING))"
           />
         }
         showAllResults={false}
@@ -304,7 +328,30 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                       "Request end date",
                     ]
                   }
-                  rowActionClickHandler={[Function]}
+                  rowActionClickHandler={
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          "loan1",
+                          undefined,
+                        ],
+                        Array [
+                          "loan2",
+                          undefined,
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": "backoffice/loans/loan1",
+                        },
+                        Object {
+                          "type": "return",
+                          "value": "backoffice/loans/loan2",
+                        },
+                      ],
+                    }
+                  }
                   rows={
                     Array [
                       Object {
@@ -350,7 +397,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                                 compact={true}
                                 data-test="btn-view-details-loan1"
                                 icon="info"
-                                onClick={[Function]}
+                                to="backoffice/loans/loan1"
                               >
                                 <Ref
                                   innerRef={
@@ -358,6 +405,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                                       "current": <button
                                         class="ui compact icon button"
                                         data-test="btn-view-details-loan1"
+                                        to="backoffice/loans/loan1"
                                       >
                                         <i
                                           aria-hidden="true"
@@ -373,6 +421,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                                         "current": <button
                                           class="ui compact icon button"
                                           data-test="btn-view-details-loan1"
+                                          to="backoffice/loans/loan1"
                                         >
                                           <i
                                             aria-hidden="true"
@@ -386,6 +435,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                                       className="ui compact icon button"
                                       data-test="btn-view-details-loan1"
                                       onClick={[Function]}
+                                      to="backoffice/loans/loan1"
                                     >
                                       <Icon
                                         as="i"
@@ -475,7 +525,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                                 compact={true}
                                 data-test="btn-view-details-loan2"
                                 icon="info"
-                                onClick={[Function]}
+                                to="backoffice/loans/loan2"
                               >
                                 <Ref
                                   innerRef={
@@ -483,6 +533,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                                       "current": <button
                                         class="ui compact icon button"
                                         data-test="btn-view-details-loan2"
+                                        to="backoffice/loans/loan2"
                                       >
                                         <i
                                           aria-hidden="true"
@@ -498,6 +549,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                                         "current": <button
                                           class="ui compact icon button"
                                           data-test="btn-view-details-loan2"
+                                          to="backoffice/loans/loan2"
                                         >
                                           <i
                                             aria-hidden="true"
@@ -511,6 +563,7 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                                       className="ui compact icon button"
                                       data-test="btn-view-details-loan2"
                                       onClick={[Function]}
+                                      to="backoffice/loans/loan2"
                                     >
                                       <Icon
                                         as="i"
@@ -588,9 +641,10 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
                   paginationComponent={null}
                   seeAllComponent={
                     <SeeAllButton
-                      clickHandler={[Function]}
                       disabled={false}
                       fluid={false}
+                      text="See All"
+                      url="/backoffice/loans?q=(document_pid:111 AND state:(PENDING))"
                     />
                   }
                   showAllResults={false}
@@ -636,7 +690,7 @@ exports[`DocumentPendingLoans tests should render show a message with no pending
         name="pending loan requests"
         paginationComponent={null}
         renderSegment={true}
-        rowActionClickHandler={[Function]}
+        rowActionClickHandler={[MockFunction]}
         rows={Array []}
         seeAllComponent={
           <SeeAllButton
@@ -794,7 +848,38 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
         name="pending loan requests"
         paginationComponent={null}
         renderSegment={true}
-        rowActionClickHandler={[Function]}
+        rowActionClickHandler={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "loan1",
+                undefined,
+              ],
+              Array [
+                "loan2",
+                undefined,
+              ],
+              Array [
+                "loan1",
+                undefined,
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "backoffice/loans/loan1",
+              },
+              Object {
+                "type": "return",
+                "value": "backoffice/loans/loan2",
+              },
+              Object {
+                "type": "return",
+                "value": "backoffice/loans/loan1",
+              },
+            ],
+          }
+        }
         rows={
           Array [
             Object {
@@ -813,9 +898,10 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
         }
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            text="See All"
+            url="/backoffice/loans?q=(document_pid:111 AND state:(PENDING))"
           />
         }
         showAllResults={false}
@@ -996,7 +1082,38 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                       "Request end date",
                     ]
                   }
-                  rowActionClickHandler={[Function]}
+                  rowActionClickHandler={
+                    [MockFunction] {
+                      "calls": Array [
+                        Array [
+                          "loan1",
+                          undefined,
+                        ],
+                        Array [
+                          "loan2",
+                          undefined,
+                        ],
+                        Array [
+                          "loan1",
+                          undefined,
+                        ],
+                      ],
+                      "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": "backoffice/loans/loan1",
+                        },
+                        Object {
+                          "type": "return",
+                          "value": "backoffice/loans/loan2",
+                        },
+                        Object {
+                          "type": "return",
+                          "value": "backoffice/loans/loan1",
+                        },
+                      ],
+                    }
+                  }
                   rows={
                     Array [
                       Object {
@@ -1036,7 +1153,7 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                                 compact={true}
                                 data-test="btn-view-details-loan1"
                                 icon="info"
-                                onClick={[Function]}
+                                to="backoffice/loans/loan1"
                               >
                                 <Ref
                                   innerRef={
@@ -1044,6 +1161,7 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                                       "current": <button
                                         class="ui compact icon button"
                                         data-test="btn-view-details-loan1"
+                                        to="backoffice/loans/loan1"
                                       >
                                         <i
                                           aria-hidden="true"
@@ -1059,6 +1177,7 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                                         "current": <button
                                           class="ui compact icon button"
                                           data-test="btn-view-details-loan1"
+                                          to="backoffice/loans/loan1"
                                         >
                                           <i
                                             aria-hidden="true"
@@ -1072,6 +1191,7 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                                       className="ui compact icon button"
                                       data-test="btn-view-details-loan1"
                                       onClick={[Function]}
+                                      to="backoffice/loans/loan1"
                                     >
                                       <Icon
                                         as="i"
@@ -1149,9 +1269,10 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                   paginationComponent={null}
                   seeAllComponent={
                     <SeeAllButton
-                      clickHandler={[Function]}
                       disabled={false}
                       fluid={false}
+                      text="See All"
+                      url="/backoffice/loans?q=(document_pid:111 AND state:(PENDING))"
                     />
                   }
                   showAllResults={false}
@@ -1204,22 +1325,24 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                                   </span>
                                   <span>
                                     <SeeAllButton
-                                      clickHandler={[Function]}
                                       disabled={false}
                                       fluid={false}
+                                      text="See All"
+                                      url="/backoffice/loans?q=(document_pid:111 AND state:(PENDING))"
                                     >
                                       <Button
                                         as="button"
-                                        onClick={[Function]}
                                         size="tiny"
+                                        to="/backoffice/loans?q=(document_pid:111 AND state:(PENDING))"
                                       >
                                         <Ref
                                           innerRef={
                                             Object {
                                               "current": <button
                                                 class="ui tiny button"
+                                                to="/backoffice/loans?q=(document_pid:111 AND state:(PENDING))"
                                               >
-                                                See all
+                                                See All
                                               </button>,
                                             }
                                           }
@@ -1229,8 +1352,9 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                                               Object {
                                                 "current": <button
                                                   class="ui tiny button"
+                                                  to="/backoffice/loans?q=(document_pid:111 AND state:(PENDING))"
                                                 >
-                                                  See all
+                                                  See All
                                                 </button>,
                                               }
                                             }
@@ -1238,8 +1362,9 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                                             <button
                                               className="ui tiny button"
                                               onClick={[Function]}
+                                              to="/backoffice/loans?q=(document_pid:111 AND state:(PENDING))"
                                             >
-                                              See all
+                                              See All
                                             </button>
                                           </RefFindNode>
                                         </Ref>

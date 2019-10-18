@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import RenewedLoansList from '../RenewedLoansList';
-import history from '../../../../../../../history';
 import testData from '../../../../../../../../../../../tests/data/loans.json';
 
 BackOfficeRoutes.loanDetailsFor = jest.fn(pid => `backoffice/loans/${pid}`);
@@ -89,8 +88,6 @@ describe('RenewedLoansList tests', () => {
   });
 
   it('should go to loan details when clicking on a loan', () => {
-    const mockedHistoryPush = jest.fn();
-    history.push = mockedHistoryPush;
     component = mount(
       <RenewedLoansList
         data={data}

@@ -2,8 +2,9 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import DocumentPendingLoans from '../DocumentPendingLoans';
-import history from '../../../../../../history';
 import testData from '../../../../../../../../../../tests/data/loans.json';
+
+BackOfficeRoutes.loanDetailsFor = jest.fn(pid => `backoffice/loans/${pid}`);
 
 jest.mock('../../../../../../common/config/invenioConfig');
 
@@ -121,9 +122,6 @@ describe('DocumentPendingLoans tests', () => {
   });
 
   it('should go to loan details when clicking on a pending loan', () => {
-    const mockedHistoryPush = jest.fn();
-    history.push = mockedHistoryPush;
-
     component = mount(
       <DocumentPendingLoans
         document={doc}
@@ -137,10 +135,7 @@ describe('DocumentPendingLoans tests', () => {
     const button = component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === firstId)
-      .find('i');
-    button.simulate('click');
-
-    const expectedParam = BackOfficeRoutes.loanDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
+      .find('button');
+    expect(button.prop('to')).toEqual(BackOfficeRoutes.loanDetailsFor(firstId));
   });
 });
