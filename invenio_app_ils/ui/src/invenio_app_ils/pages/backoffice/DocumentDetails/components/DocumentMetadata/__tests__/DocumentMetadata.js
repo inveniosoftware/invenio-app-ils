@@ -2,24 +2,27 @@ import * as testData from '../../../../../../../../../../tests/data/documents.js
 import React from 'react';
 import { shallow } from 'enzyme';
 import DocumentMetadata from '../DocumentMetadata';
+import { BackOfficeRoutes } from '../../../../../../routes/urls';
 
+BackOfficeRoutes.documentEditFor = jest.fn(
+  pid => `/backoffice/documents/${pid}/edit`
+);
 jest.mock('../../../../../../common/config/invenioConfig');
-
 jest.mock('../../DocumentMetadata', () => {
   return {
     DocumentMetadata: () => null,
   };
 });
-
 jest.mock('../../../../components/DeleteRecordModal', () => {
   return {
     DeleteRecordModal: () => null,
   };
 });
-
 jest.mock('../../../../../../common/components/ESSelector', () => {
   return {
     ESSelector: () => null,
+    ESSelectorLoanRequest: () => null,
+    ESSelectorModal: () => null,
   };
 });
 

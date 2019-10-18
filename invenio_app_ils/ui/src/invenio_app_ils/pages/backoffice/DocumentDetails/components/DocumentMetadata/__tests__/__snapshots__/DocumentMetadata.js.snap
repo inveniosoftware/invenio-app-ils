@@ -62,7 +62,7 @@ exports[`DocumentMetadata tests should load the details component 1`] = `
         />
       </GridColumn>
     </GridRow>
-    <Component
+    <ESSelectorLoanRequest
       content="Search for the patron to whom the loan should be assigned"
       emptySelectionInfoText="No patrons selected yet"
       onSave={[Function]}
@@ -140,7 +140,7 @@ exports[`DocumentMetadata tests should load the details component 1`] = `
         <Divider
           hidden={true}
         />
-        <Component
+        <ESSelectorModal
           content="Search for patrons:"
           emptySelectionInfoText="Document will be made public"
           initialSelections={Array []}
