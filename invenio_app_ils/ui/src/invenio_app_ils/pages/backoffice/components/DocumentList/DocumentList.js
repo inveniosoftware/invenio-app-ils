@@ -10,7 +10,7 @@ import {
   Label,
   List,
 } from 'semantic-ui-react';
-import { getCover, CARD_IMAGE_SIZE } from '../../../frontsite/config';
+import { getCover } from '../../../frontsite/config';
 import { BackOfficeRoutes } from '../../../../routes/urls';
 import _isEmpty from 'lodash/isEmpty';
 
@@ -149,7 +149,7 @@ const DocumentListEntry = ({ document }) => {
         <Image
           as={Link}
           to={BackOfficeRoutes.documentDetailsFor(document.metadata.pid)}
-          size={CARD_IMAGE_SIZE}
+          size={'tiny'}
           src={getCover(document.metadata.pid)}
           onError={e => (e.target.style.display = 'none')}
           label={getRestrictions(document.metadata)}
