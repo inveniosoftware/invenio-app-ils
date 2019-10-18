@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import { BackOfficeRoutes } from '../../../../routes/urls';
-import { goToHandler } from '../../../../history';
 import has from 'lodash/has';
 
 class Sidebar extends Component {
@@ -29,26 +29,30 @@ class Sidebar extends Component {
           <Menu.Header>Library</Menu.Header>
           <Menu.Menu>
             <Menu.Item
+              as={Link}
               active={overviewActive}
-              onClick={goToHandler(BackOfficeRoutes.home)}
+              to={BackOfficeRoutes.home}
             >
               Overview
             </Menu.Item>
             <Menu.Item
+              as={Link}
               active={loansActive}
-              onClick={goToHandler(BackOfficeRoutes.loansList)}
+              to={BackOfficeRoutes.loansList}
             >
               Loans
             </Menu.Item>
             <Menu.Item
+              as={Link}
               active={documentRequestsActive}
-              onClick={goToHandler(BackOfficeRoutes.documentRequestsList)}
+              to={BackOfficeRoutes.documentRequestsList}
             >
               New Book Requests
             </Menu.Item>
             <Menu.Item
+              as={Link}
               active={locationsActive}
-              onClick={goToHandler(BackOfficeRoutes.locationsList)}
+              to={BackOfficeRoutes.locationsList}
             >
               Locations
             </Menu.Item>
@@ -59,26 +63,30 @@ class Sidebar extends Component {
           <Menu.Header>Catalogue</Menu.Header>
           <Menu.Menu>
             <Menu.Item
+              as={Link}
               active={documentsActive}
-              onClick={goToHandler(BackOfficeRoutes.documentsList)}
+              to={BackOfficeRoutes.documentsList}
             >
-              Books / Articles etc.
+              Books / Articles
             </Menu.Item>
             <Menu.Item
+              as={Link}
               active={seriesActive}
-              onClick={goToHandler(BackOfficeRoutes.seriesList)}
+              to={BackOfficeRoutes.seriesList}
             >
               Series / Monographs
             </Menu.Item>
             <Menu.Item
+              as={Link}
               active={itemsActive}
-              onClick={goToHandler(BackOfficeRoutes.itemsList)}
+              to={BackOfficeRoutes.itemsList}
             >
               Physical Copies
             </Menu.Item>
             <Menu.Item
+              as={Link}
               active={eitemsActive}
-              onClick={goToHandler(BackOfficeRoutes.eitemsList)}
+              to={BackOfficeRoutes.eitemsList}
             >
               Electronic Items
             </Menu.Item>
@@ -89,8 +97,9 @@ class Sidebar extends Component {
           <Menu.Header>Patrons</Menu.Header>
           <Menu.Menu>
             <Menu.Item
+              as={Link}
               active={patronsActive}
-              onClick={goToHandler(BackOfficeRoutes.patronsList)}
+              to={BackOfficeRoutes.patronsList}
             >
               Patrons
             </Menu.Item>
@@ -101,8 +110,9 @@ class Sidebar extends Component {
           <Menu.Header>Statistics</Menu.Header>
           <Menu.Menu>
             <Menu.Item
+              as={Link}
               active={statsActive}
-              onClick={goToHandler(BackOfficeRoutes.stats.home)}
+              to={BackOfficeRoutes.stats.home}
             >
               Most Loaned
             </Menu.Item>

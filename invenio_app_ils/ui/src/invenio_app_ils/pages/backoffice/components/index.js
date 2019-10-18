@@ -7,3 +7,5 @@ export {
 } from './ExportSearchResults';
 export { OverdueLoanSendMailModal } from './OverdueLoanSendMailModal';
 export { Sidebar } from './Sidebar';
+export { DocumentList } from './DocumentList';
+export { ItemListEntry } from './ItemListEntry';

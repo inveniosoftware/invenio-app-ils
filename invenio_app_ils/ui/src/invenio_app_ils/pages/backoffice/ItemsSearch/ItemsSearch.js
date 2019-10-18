@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Icon, Header } from 'semantic-ui-react';
+import { Grid, Item, Segment, Icon, Header } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
@@ -17,15 +17,10 @@ import {
   Error as IlsError,
   SearchBar as ItemsSearchBar,
   ResultsSort,
-  ResultsTable,
 } from '../../../common/components';
-import { formatter } from '../../../common/components/ResultsTable/formatters';
 import { item as itemApi } from '../../../common/api';
-import { ExportReactSearchKitResults } from '../components';
+import { ExportReactSearchKitResults, ItemListEntry } from '../components';
 import { ClearButton, NewButton } from '../components/buttons';
-import { BackOfficeRoutes } from '../../../routes/urls';
-import { goTo } from '../../../history';
-import _omit from 'lodash/omit';
 
 export class ItemsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -41,51 +36,6 @@ export class ItemsSearch extends Component {
         onInputChange={onInputChange}
         executeSearch={executeSearch}
         placeholder={'Search for items'}
-      />
-    );
-  };
-
-  prepareData(data) {
-    return data.map(row => {
-      return _omit(formatter.item.toTable(row), [
-        'Created',
-        'Updated',
-        'Document ID',
-        'Internal location',
-        'Location',
-        'Shelf',
-      ]);
-    });
-  }
-
-  renderResultsTable = results => {
-    const rows = this.prepareData(results);
-    const maxRowsToShow =
-      rows.length > ResultsTable.defaultProps.showMaxRows
-        ? rows.length
-        : ResultsTable.defaultProps.showMaxRows;
-    const headerActionComponent = (
-      <div>
-        <NewButton
-          text={'New item'}
-          clickHandler={() => {
-            // TODO: EDITOR, implement create form
-          }}
-        />
-        <ExportReactSearchKitResults exportBaseUrl={itemApi.searchBaseURL} />
-      </div>
-    );
-
-    return (
-      <ResultsTable
-        rows={rows}
-        title={''}
-        name={'items'}
-        headerActionComponent={headerActionComponent}
-        rowActionClickHandler={row => {
-          goTo(BackOfficeRoutes.itemDetailsFor(row.ID));
-        }}
-        showMaxRows={maxRowsToShow}
       />
     );
   };
@@ -129,19 +79,27 @@ export class ItemsSearch extends Component {
         <Aggregator title={agg.title} field={agg.field} />
       </div>
     ));
-    return <div>{components}</div>;
+    return (
+      <>
+        <NewButton
+          fluid
+          text={'New item'}
+          clickHandler={() => {
+            // TODO: EDITOR, implement create form
+          }}
+        />
+        {components}
+      </>
+    );
   };
 
   renderHeader = () => {
     return (
-      <Grid columns={3}>
-        <Grid.Column width={5}>
+      <Grid columns={2}>
+        <Grid.Column>
           <Count renderElement={this.renderCount} />
         </Grid.Column>
-        <Grid.Column width={6}>
-          <Pagination />
-        </Grid.Column>
-        <Grid.Column width={5} textAlign="right">
+        <Grid.Column textAlign="right">
           <ResultsSort searchConfig={this.searchConfig} />
         </Grid.Column>
       </Grid>
@@ -155,9 +113,18 @@ export class ItemsSearch extends Component {
         <Grid.Column width={6}>
           <Pagination />
         </Grid.Column>
-        <Grid.Column width={5} />
+        <Grid.Column width={5} textAlign="right">
+          <ExportReactSearchKitResults exportBaseUrl={itemApi.searchBaseURL} />
+        </Grid.Column>
       </Grid>
     );
+  };
+
+  renderItemList = results => {
+    const entries = results.map(res => (
+      <ItemListEntry item={res} key={res.id} />
+    ));
+    return <Item.Group>{entries}</Item.Group>;
   };
 
   render() {
@@ -177,7 +144,7 @@ export class ItemsSearch extends Component {
                 <EmptyResults renderElement={this.renderEmptyResults} />
                 <Error renderElement={this.renderError} />
                 {this.renderHeader()}
-                <ResultsList renderElement={this.renderResultsTable} />
+                <ResultsList renderElement={this.renderItemList} />
                 {this.renderFooter()}
               </Grid.Column>
             </ResultsLoader>

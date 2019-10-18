@@ -57,8 +57,8 @@ export class LoansSearch extends Component {
         'Document ID',
         'Patron',
         'State',
-        'Requested',
-        'Expired',
+        'Request start date',
+        'End date',
         'Renewals',
         'Actions',
       ]);

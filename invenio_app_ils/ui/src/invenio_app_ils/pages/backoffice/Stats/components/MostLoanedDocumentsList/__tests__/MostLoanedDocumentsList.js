@@ -8,7 +8,7 @@ import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { MemoryRouter } from 'react-router';
 import * as testData from '../../../../../../../../../../tests/data/documents.json';
 
-jest.mock('../../../../components');
+jest.mock('../../../../components/ExportSearchResults');
 jest.mock('../../../../../../common/config/invenioConfig');
 
 Settings.defaultZoneName = 'utc';
@@ -105,22 +105,11 @@ describe('MostLoanedDocumentsList tests', () => {
       </MemoryRouter>
     );
 
-    const rows = component
-      .find('TableRow')
-      .filterWhere(
-        element =>
-          element.prop('data-test') === 'doc1' ||
-          element.prop('data-test') === 'doc2'
-      );
+    const rows = component.find('GridRow');
     expect(rows).toHaveLength(2);
-
-    const footer = component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === 'footer');
-    expect(footer).toHaveLength(0);
   });
 
-  it('should go to loan details when clicking on a document', () => {
+  it('should go to document details when clicking on a document', () => {
     const mockedHistoryPush = jest.fn();
     history.push = mockedHistoryPush;
     const data = {
@@ -150,19 +139,19 @@ describe('MostLoanedDocumentsList tests', () => {
         <MostLoanedDocumentsList
           data={data}
           fetchMostLoanedDocuments={() => {}}
-          showMaxDocuments={1}
         />
       </MemoryRouter>
     );
 
     const firstId = data.hits[0].pid;
     const button = component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === firstId)
-      .find('i');
-    button.simulate('click');
-
+      .find('GridRow')
+      .find('ItemContent')
+      .find('a')
+      .filterWhere(
+        element => element.prop('data-test') === `navigate-${firstId}`
+      );
     const expectedParam = BackOfficeRoutes.documentDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
+    expect(button.props().href).toBe(expectedParam);
   });
 });

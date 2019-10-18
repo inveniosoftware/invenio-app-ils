@@ -4,9 +4,8 @@ import { fromISO, toShortDate } from '../../api/date';
 import isEmpty from 'lodash/isEmpty';
 import assign from 'lodash/assign';
 import { formatPidTypeToName } from '../ManageRelationsButton/utils';
-import { loan as loanApi } from '../../api';
-import { BackOfficeRoutes, FrontSiteRoutes } from '../../../routes/urls';
-import { invenioConfig, TRUNCATE_LENGTH } from '../../config';
+import { FrontSiteRoutes } from '../../../routes/urls';
+import { TRUNCATE_LENGTH } from '../../config';
 import startCase from 'lodash/startCase';
 import truncate from 'lodash/truncate';
 
@@ -23,13 +22,6 @@ function formatLoanToTableView(loan, actions = null) {
   const endDate = loan.metadata.end_date
     ? toShortDate(fromISO(loan.metadata.end_date))
     : null;
-  const requested = loan.metadata.request_start_date
-    ? fromISO(loan.metadata.request_start_date).toRelativeCalendar()
-    : null;
-  const expired = loan.metadata.end_date
-    ? fromISO(loan.metadata.end_date).toRelativeCalendar()
-    : null;
-
   return {
     ID: loan.pid ? loan.pid : loan.id,
     'Patron ID': loan.metadata.patron_pid,
@@ -41,8 +33,6 @@ function formatLoanToTableView(loan, actions = null) {
     'Request end date': requestEndDate,
     'Start date': startDate,
     'End date': endDate,
-    Requested: requested,
-    Expired: expired,
     Renewals: loan.metadata.extension_count,
     Actions: actions,
   };
@@ -70,34 +60,6 @@ function formatDocumentToTableView(document, volume = null) {
     }
     if (volume) {
       serialized['Volume'] = volume;
-    }
-  }
-  return serialized;
-}
-
-function formatMostLoanedDocumentToTableView(document, fromDate, toDate) {
-  let serialized = formatDocumentToTableView(document);
-  if (serialized.Title) {
-    const documentUrl = BackOfficeRoutes.documentDetailsFor(serialized.ID);
-    serialized['Title'] = <Link to={documentUrl}>{serialized.Title}</Link>;
-  }
-  if (!isEmpty(document.metadata)) {
-    if (document.metadata.loan_count) {
-      const query = loanApi
-        .query()
-        .withDocPid(serialized.ID)
-        .withStartDate({ fromDate, toDate })
-        .withState(
-          invenioConfig.circulation.loanActiveStates.concat(
-            invenioConfig.circulation.loanCompletedStates
-          )
-        )
-        .qs();
-      const url = BackOfficeRoutes.loansListWithQuery(query);
-      serialized['Loan Count'] = (
-        <Link to={url}>{document.metadata.loan_count}</Link>
-      );
-      serialized['Extension Count'] = document.metadata.loan_extensions;
     }
   }
   return serialized;
@@ -254,7 +216,6 @@ export const formatter = {
   item: { toTable: formatItemToTableView },
   loan: { toTable: formatLoanToTableView },
   location: { toTable: formatLocationToTableView },
-  mostLoanedDocument: { toTable: formatMostLoanedDocumentToTableView },
   patron: { toTable: formatPatronToTableView },
   related: { toTable: formatRelatedToTableView },
   series: { toTable: formatSeriesToTableView },

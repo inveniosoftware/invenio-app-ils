@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { Container, Divider, Tab } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { DocumentRelations, DocumentInfo } from './components';
-import { DocumentTableOfContent } from './components/DocumentTableOfContent';
-import { DocumentConference } from './components/DocumentConference';
+import { Container, Divider, Tab } from 'semantic-ui-react';
+import {
+  DocumentRelations,
+  DocumentInfo,
+  DocumentTableOfContent,
+  DocumentConference,
+} from './components';
 
 export default class DocumentMetadata extends Component {
   constructor(props) {
