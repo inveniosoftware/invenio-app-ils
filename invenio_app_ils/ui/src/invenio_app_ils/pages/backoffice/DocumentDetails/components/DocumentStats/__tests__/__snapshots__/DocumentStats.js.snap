@@ -33,65 +33,25 @@ exports[`DocumentStats tests should load the component 1`] = `
           as="form"
         >
           <FormField>
-            <DateInput
-              autoComplete="off"
-              clearIcon={
-                <Icon
-                  as="i"
-                  color="red"
-                  name="remove"
-                />
-              }
-              clearable={true}
-              closable={true}
-              dateFormat="YYYY-MM-DD"
-              icon="calendar"
-              iconPosition="left"
-              inline={false}
-              localization="en"
+            <DatePicker
+              defaultValue=""
+              handleDateChange={[Function]}
+              initialDate=""
               maxDate=""
-              name="fromDate"
-              onChange={[Function]}
+              minDate=""
               placeholder="From Date"
-              preserveViewMode={true}
-              startMode="day"
-              value=""
             />
           </FormField>
           <FormField>
-            <DateInput
-              autoComplete="off"
-              clearIcon={
-                <Icon
-                  as="i"
-                  color="red"
-                  name="remove"
-                />
-              }
-              clearable={true}
-              closable={true}
-              dateFormat="YYYY-MM-DD"
-              icon="calendar"
-              iconPosition="left"
-              inline={false}
-              localization="en"
+            <DatePicker
+              defaultValue=""
+              handleDateChange={[Function]}
+              initialDate=""
+              maxDate=""
               minDate=""
-              name="toDate"
-              onChange={[Function]}
               placeholder="To Date"
-              preserveViewMode={true}
-              startMode="day"
-              value=""
             />
           </FormField>
-          <FormButton
-            as={[Function]}
-            control={[Function]}
-            floated="right"
-            onClick={[Function]}
-          >
-            Submit
-          </FormButton>
         </Form>
       </GridColumn>
       <GridColumn
