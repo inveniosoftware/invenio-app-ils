@@ -321,7 +321,6 @@ export default class DocumentRelations extends Component {
         <ResultsTable
           rows={rows}
           name={name}
-          renderSegment={false}
           showMaxRows={size}
           paginationComponent={this.getPaginator(rows, activePage)}
           currentPage={activePage}

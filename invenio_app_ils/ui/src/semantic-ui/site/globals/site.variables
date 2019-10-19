@@ -31,5 +31,6 @@
 
 @highlightBackgroundColor  : #ebedf1;
 @contrastColor             : #34373e;
+@boSidebarBackgroundColor  : #eee;
 
 

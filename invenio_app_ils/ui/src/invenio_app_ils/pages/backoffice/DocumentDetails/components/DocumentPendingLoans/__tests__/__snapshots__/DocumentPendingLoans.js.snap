@@ -10,7 +10,6 @@ exports[`DocumentPendingLoans tests should load the details component 1`] = `
       headerActionComponent={null}
       name="pending loan requests"
       paginationComponent={null}
-      renderSegment={true}
       rowActionClickHandler={[Function]}
       rows={Array []}
       seeAllComponent={
@@ -100,7 +99,6 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
         headerActionComponent={null}
         name="pending loan requests"
         paginationComponent={null}
-        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
           Array [
@@ -131,474 +129,468 @@ exports[`DocumentPendingLoans tests should render pending loans 1`] = `
         subtitle=""
         title="Pending loans requests"
       >
-        <Segment>
+        <Grid>
           <div
-            className="ui segment"
+            className="ui grid"
           >
-            <Grid>
+            <GridRow>
               <div
-                className="ui grid"
+                className="row"
               >
-                <GridRow>
+                <GridColumn
+                  verticalAlign="middle"
+                  width={16}
+                >
                   <div
-                    className="row"
+                    className="middle aligned sixteen wide column"
                   >
-                    <GridColumn
-                      verticalAlign="middle"
-                      width={16}
+                    <Header
+                      as="h3"
+                      content="Pending loans requests"
+                      subheader=""
                     >
-                      <div
-                        className="middle aligned sixteen wide column"
+                      <h3
+                        className="ui header"
                       >
-                        <Header
-                          as="h3"
-                          content="Pending loans requests"
-                          subheader=""
+                        Pending loans requests
+                        <HeaderSubheader
+                          content=""
                         >
-                          <h3
-                            className="ui header"
-                          >
-                            Pending loans requests
-                            <HeaderSubheader
-                              content=""
-                            >
-                              <div
-                                className="sub header"
-                              />
-                            </HeaderSubheader>
-                          </h3>
-                        </Header>
-                      </div>
-                    </GridColumn>
-                    <GridColumn
-                      textAlign="right"
-                      width={8}
-                    >
-                      <div
-                        className="right aligned eight wide column"
-                      />
-                    </GridColumn>
+                          <div
+                            className="sub header"
+                          />
+                        </HeaderSubheader>
+                      </h3>
+                    </Header>
                   </div>
-                </GridRow>
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={8}
+                >
+                  <div
+                    className="right aligned eight wide column"
+                  />
+                </GridColumn>
               </div>
-            </Grid>
-            <Table
-              as="table"
-              compact={true}
-              selectable={true}
-              striped={true}
-            >
-              <table
-                className="ui selectable striped compact table"
-              >
-                <ResultsTableHeader
-                  columns={
-                    Array [
-                      "ID",
-                      "Patron",
-                      "Request start date",
-                      "Request end date",
-                    ]
-                  }
-                  withRowAction={false}
-                >
-                  <TableHeader
-                    as="thead"
-                  >
-                    <thead
-                      className=""
-                    >
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="header"
-                      >
-                        <tr
-                          className=""
-                          data-test="header"
-                        >
-                          <TableHeaderCell
-                            as="th"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              />
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="ID"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                ID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Patron"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Patron
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Request start date"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Request start date
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Request end date"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Request end date
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                        </tr>
-                      </TableRow>
-                    </thead>
-                  </TableHeader>
-                </ResultsTableHeader>
-                <ResultsTableBody
-                  columns={
-                    Array [
-                      "ID",
-                      "Patron",
-                      "Request start date",
-                      "Request end date",
-                    ]
-                  }
-                  rowActionClickHandler={[Function]}
-                  rows={
-                    Array [
-                      Object {
-                        "ID": "loan1",
-                        "Patron": undefined,
-                        "Request end date": null,
-                        "Request start date": null,
-                      },
-                      Object {
-                        "ID": "loan2",
-                        "Patron": undefined,
-                        "Request end date": null,
-                        "Request start date": null,
-                      },
-                    ]
-                  }
-                >
-                  <TableBody
-                    as="tbody"
-                  >
-                    <tbody
-                      className=""
-                    >
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="loan1"
-                        key="loan1"
-                      >
-                        <tr
-                          className=""
-                          data-test="loan1"
-                        >
-                          <TableCell
-                            as="td"
-                            textAlign="center"
-                          >
-                            <td
-                              className="center aligned"
-                            >
-                              <Button
-                                as="button"
-                                compact={true}
-                                data-test="btn-view-details-loan1"
-                                icon="info"
-                                onClick={[Function]}
-                              >
-                                <Ref
-                                  innerRef={
-                                    Object {
-                                      "current": <button
-                                        class="ui compact icon button"
-                                        data-test="btn-view-details-loan1"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          class="info icon"
-                                        />
-                                      </button>,
-                                    }
-                                  }
-                                >
-                                  <RefFindNode
-                                    innerRef={
-                                      Object {
-                                        "current": <button
-                                          class="ui compact icon button"
-                                          data-test="btn-view-details-loan1"
-                                        >
-                                          <i
-                                            aria-hidden="true"
-                                            class="info icon"
-                                          />
-                                        </button>,
-                                      }
-                                    }
-                                  >
-                                    <button
-                                      className="ui compact icon button"
-                                      data-test="btn-view-details-loan1"
-                                      onClick={[Function]}
-                                    >
-                                      <Icon
-                                        as="i"
-                                        name="info"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          className="info icon"
-                                          onClick={[Function]}
-                                        />
-                                      </Icon>
-                                    </button>
-                                  </RefFindNode>
-                                </Ref>
-                              </Button>
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="ID-loan1"
-                            key="0-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="ID-loan1"
-                            >
-                              loan1
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Patron-loan1"
-                            key="1-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Patron-loan1"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Request start date-loan1"
-                            key="2-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Request start date-loan1"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Request end date-loan1"
-                            key="3-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Request end date-loan1"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                        </tr>
-                      </TableRow>
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="loan2"
-                        key="loan2"
-                      >
-                        <tr
-                          className=""
-                          data-test="loan2"
-                        >
-                          <TableCell
-                            as="td"
-                            textAlign="center"
-                          >
-                            <td
-                              className="center aligned"
-                            >
-                              <Button
-                                as="button"
-                                compact={true}
-                                data-test="btn-view-details-loan2"
-                                icon="info"
-                                onClick={[Function]}
-                              >
-                                <Ref
-                                  innerRef={
-                                    Object {
-                                      "current": <button
-                                        class="ui compact icon button"
-                                        data-test="btn-view-details-loan2"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          class="info icon"
-                                        />
-                                      </button>,
-                                    }
-                                  }
-                                >
-                                  <RefFindNode
-                                    innerRef={
-                                      Object {
-                                        "current": <button
-                                          class="ui compact icon button"
-                                          data-test="btn-view-details-loan2"
-                                        >
-                                          <i
-                                            aria-hidden="true"
-                                            class="info icon"
-                                          />
-                                        </button>,
-                                      }
-                                    }
-                                  >
-                                    <button
-                                      className="ui compact icon button"
-                                      data-test="btn-view-details-loan2"
-                                      onClick={[Function]}
-                                    >
-                                      <Icon
-                                        as="i"
-                                        name="info"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          className="info icon"
-                                          onClick={[Function]}
-                                        />
-                                      </Icon>
-                                    </button>
-                                  </RefFindNode>
-                                </Ref>
-                              </Button>
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="ID-loan2"
-                            key="0-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="ID-loan2"
-                            >
-                              loan2
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Patron-loan2"
-                            key="1-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="Patron-loan2"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Request start date-loan2"
-                            key="2-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="Request start date-loan2"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Request end date-loan2"
-                            key="3-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="Request end date-loan2"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                        </tr>
-                      </TableRow>
-                    </tbody>
-                  </TableBody>
-                </ResultsTableBody>
-                <ResultsTableFooter
-                  allRowsNumber={2}
-                  columnsNumber={4}
-                  currentPage={1}
-                  paginationComponent={null}
-                  seeAllComponent={
-                    <SeeAllButton
-                      clickHandler={[Function]}
-                      disabled={false}
-                      fluid={false}
-                    />
-                  }
-                  showAllResults={false}
-                  showMaxRows={5}
-                />
-              </table>
-            </Table>
+            </GridRow>
           </div>
-        </Segment>
+        </Grid>
+        <Table
+          as="table"
+          compact={true}
+          selectable={true}
+          striped={true}
+        >
+          <table
+            className="ui selectable striped compact table"
+          >
+            <ResultsTableHeader
+              columns={
+                Array [
+                  "ID",
+                  "Patron",
+                  "Request start date",
+                  "Request end date",
+                ]
+              }
+              withRowAction={false}
+            >
+              <TableHeader
+                as="thead"
+              >
+                <thead
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="header"
+                  >
+                    <tr
+                      className=""
+                      data-test="header"
+                    >
+                      <TableHeaderCell
+                        as="th"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          />
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="ID"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Patron"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Patron
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Request start date"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Request start date
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Request end date"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Request end date
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                    </tr>
+                  </TableRow>
+                </thead>
+              </TableHeader>
+            </ResultsTableHeader>
+            <ResultsTableBody
+              columns={
+                Array [
+                  "ID",
+                  "Patron",
+                  "Request start date",
+                  "Request end date",
+                ]
+              }
+              rowActionClickHandler={[Function]}
+              rows={
+                Array [
+                  Object {
+                    "ID": "loan1",
+                    "Patron": undefined,
+                    "Request end date": null,
+                    "Request start date": null,
+                  },
+                  Object {
+                    "ID": "loan2",
+                    "Patron": undefined,
+                    "Request end date": null,
+                    "Request start date": null,
+                  },
+                ]
+              }
+            >
+              <TableBody
+                as="tbody"
+              >
+                <tbody
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="loan1"
+                    key="loan1"
+                  >
+                    <tr
+                      className=""
+                      data-test="loan1"
+                    >
+                      <TableCell
+                        as="td"
+                        textAlign="center"
+                      >
+                        <td
+                          className="center aligned"
+                        >
+                          <Button
+                            as="button"
+                            compact={true}
+                            data-test="btn-view-details-loan1"
+                            icon="info"
+                            onClick={[Function]}
+                          >
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui compact icon button"
+                                    data-test="btn-view-details-loan1"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="info icon"
+                                    />
+                                  </button>,
+                                }
+                              }
+                            >
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui compact icon button"
+                                      data-test="btn-view-details-loan1"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        class="info icon"
+                                      />
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <button
+                                  className="ui compact icon button"
+                                  data-test="btn-view-details-loan1"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="info"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="info icon"
+                                      onClick={[Function]}
+                                    />
+                                  </Icon>
+                                </button>
+                              </RefFindNode>
+                            </Ref>
+                          </Button>
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="ID-loan1"
+                        key="0-loan1"
+                      >
+                        <td
+                          className=""
+                          data-test="ID-loan1"
+                        >
+                          loan1
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Patron-loan1"
+                        key="1-loan1"
+                      >
+                        <td
+                          className=""
+                          data-test="Patron-loan1"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Request start date-loan1"
+                        key="2-loan1"
+                      >
+                        <td
+                          className=""
+                          data-test="Request start date-loan1"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Request end date-loan1"
+                        key="3-loan1"
+                      >
+                        <td
+                          className=""
+                          data-test="Request end date-loan1"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="loan2"
+                    key="loan2"
+                  >
+                    <tr
+                      className=""
+                      data-test="loan2"
+                    >
+                      <TableCell
+                        as="td"
+                        textAlign="center"
+                      >
+                        <td
+                          className="center aligned"
+                        >
+                          <Button
+                            as="button"
+                            compact={true}
+                            data-test="btn-view-details-loan2"
+                            icon="info"
+                            onClick={[Function]}
+                          >
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui compact icon button"
+                                    data-test="btn-view-details-loan2"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="info icon"
+                                    />
+                                  </button>,
+                                }
+                              }
+                            >
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui compact icon button"
+                                      data-test="btn-view-details-loan2"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        class="info icon"
+                                      />
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <button
+                                  className="ui compact icon button"
+                                  data-test="btn-view-details-loan2"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="info"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="info icon"
+                                      onClick={[Function]}
+                                    />
+                                  </Icon>
+                                </button>
+                              </RefFindNode>
+                            </Ref>
+                          </Button>
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="ID-loan2"
+                        key="0-loan2"
+                      >
+                        <td
+                          className=""
+                          data-test="ID-loan2"
+                        >
+                          loan2
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Patron-loan2"
+                        key="1-loan2"
+                      >
+                        <td
+                          className=""
+                          data-test="Patron-loan2"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Request start date-loan2"
+                        key="2-loan2"
+                      >
+                        <td
+                          className=""
+                          data-test="Request start date-loan2"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Request end date-loan2"
+                        key="3-loan2"
+                      >
+                        <td
+                          className=""
+                          data-test="Request end date-loan2"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                </tbody>
+              </TableBody>
+            </ResultsTableBody>
+            <ResultsTableFooter
+              allRowsNumber={2}
+              columnsNumber={4}
+              currentPage={1}
+              paginationComponent={null}
+              seeAllComponent={
+                <SeeAllButton
+                  clickHandler={[Function]}
+                  disabled={false}
+                  fluid={false}
+                />
+              }
+              showAllResults={false}
+              showMaxRows={5}
+            />
+          </table>
+        </Table>
       </ResultsTable>
     </Error>
   </Loader>
@@ -634,7 +626,6 @@ exports[`DocumentPendingLoans tests should render show a message with no pending
         headerActionComponent={null}
         name="pending loan requests"
         paginationComponent={null}
-        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={Array []}
         seeAllComponent={
@@ -650,71 +641,65 @@ exports[`DocumentPendingLoans tests should render show a message with no pending
         subtitle=""
         title="Pending loans requests"
       >
-        <Segment>
+        <Grid>
           <div
-            className="ui segment"
+            className="ui grid"
           >
-            <Grid>
+            <GridRow>
               <div
-                className="ui grid"
+                className="row"
               >
-                <GridRow>
+                <GridColumn
+                  verticalAlign="middle"
+                  width={16}
+                >
                   <div
-                    className="row"
+                    className="middle aligned sixteen wide column"
                   >
-                    <GridColumn
-                      verticalAlign="middle"
-                      width={16}
+                    <Header
+                      as="h3"
+                      content="Pending loans requests"
+                      subheader=""
                     >
-                      <div
-                        className="middle aligned sixteen wide column"
+                      <h3
+                        className="ui header"
                       >
-                        <Header
-                          as="h3"
-                          content="Pending loans requests"
-                          subheader=""
+                        Pending loans requests
+                        <HeaderSubheader
+                          content=""
                         >
-                          <h3
-                            className="ui header"
-                          >
-                            Pending loans requests
-                            <HeaderSubheader
-                              content=""
-                            >
-                              <div
-                                className="sub header"
-                              />
-                            </HeaderSubheader>
-                          </h3>
-                        </Header>
-                      </div>
-                    </GridColumn>
-                    <GridColumn
-                      textAlign="right"
-                      width={8}
-                    >
-                      <div
-                        className="right aligned eight wide column"
-                      />
-                    </GridColumn>
+                          <div
+                            className="sub header"
+                          />
+                        </HeaderSubheader>
+                      </h3>
+                    </Header>
                   </div>
-                </GridRow>
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={8}
+                >
+                  <div
+                    className="right aligned eight wide column"
+                  />
+                </GridColumn>
               </div>
-            </Grid>
-            <Message
-              data-test="no-results"
-            >
-              <div
-                className="ui message"
-                data-test="no-results"
-              >
-                There are no 
-                pending loan requests
-                .
-              </div>
-            </Message>
+            </GridRow>
           </div>
-        </Segment>
+        </Grid>
+        <Message
+          data-test="no-results"
+        >
+          <div
+            className="ui message"
+            data-test="no-results"
+          >
+            There are no 
+            pending loan requests
+            .
+          </div>
+        </Message>
       </ResultsTable>
     </Error>
   </Loader>
@@ -791,7 +776,6 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
         headerActionComponent={null}
         name="pending loan requests"
         paginationComponent={null}
-        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
           Array [
@@ -822,442 +806,436 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
         subtitle=""
         title="Pending loans requests"
       >
-        <Segment>
+        <Grid>
           <div
-            className="ui segment"
+            className="ui grid"
           >
-            <Grid>
+            <GridRow>
               <div
-                className="ui grid"
+                className="row"
               >
-                <GridRow>
+                <GridColumn
+                  verticalAlign="middle"
+                  width={16}
+                >
                   <div
-                    className="row"
+                    className="middle aligned sixteen wide column"
                   >
-                    <GridColumn
-                      verticalAlign="middle"
-                      width={16}
+                    <Header
+                      as="h3"
+                      content="Pending loans requests"
+                      subheader=""
                     >
-                      <div
-                        className="middle aligned sixteen wide column"
+                      <h3
+                        className="ui header"
                       >
-                        <Header
-                          as="h3"
-                          content="Pending loans requests"
-                          subheader=""
+                        Pending loans requests
+                        <HeaderSubheader
+                          content=""
                         >
-                          <h3
-                            className="ui header"
-                          >
-                            Pending loans requests
-                            <HeaderSubheader
-                              content=""
-                            >
-                              <div
-                                className="sub header"
-                              />
-                            </HeaderSubheader>
-                          </h3>
-                        </Header>
-                      </div>
-                    </GridColumn>
-                    <GridColumn
-                      textAlign="right"
-                      width={8}
-                    >
-                      <div
-                        className="right aligned eight wide column"
-                      />
-                    </GridColumn>
+                          <div
+                            className="sub header"
+                          />
+                        </HeaderSubheader>
+                      </h3>
+                    </Header>
                   </div>
-                </GridRow>
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={8}
+                >
+                  <div
+                    className="right aligned eight wide column"
+                  />
+                </GridColumn>
               </div>
-            </Grid>
-            <Table
-              as="table"
-              compact={true}
-              selectable={true}
-              striped={true}
+            </GridRow>
+          </div>
+        </Grid>
+        <Table
+          as="table"
+          compact={true}
+          selectable={true}
+          striped={true}
+        >
+          <table
+            className="ui selectable striped compact table"
+          >
+            <ResultsTableHeader
+              columns={
+                Array [
+                  "ID",
+                  "Patron",
+                  "Request start date",
+                  "Request end date",
+                ]
+              }
+              withRowAction={false}
             >
-              <table
-                className="ui selectable striped compact table"
+              <TableHeader
+                as="thead"
               >
-                <ResultsTableHeader
-                  columns={
-                    Array [
-                      "ID",
-                      "Patron",
-                      "Request start date",
-                      "Request end date",
-                    ]
-                  }
-                  withRowAction={false}
+                <thead
+                  className=""
                 >
-                  <TableHeader
-                    as="thead"
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="header"
                   >
-                    <thead
+                    <tr
                       className=""
+                      data-test="header"
                     >
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="header"
+                      <TableHeaderCell
+                        as="th"
                       >
-                        <tr
+                        <TableCell
+                          as="th"
                           className=""
-                          data-test="header"
                         >
-                          <TableHeaderCell
-                            as="th"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              />
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="ID"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                ID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Patron"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Patron
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Request start date"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Request start date
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Request end date"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Request end date
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                        </tr>
-                      </TableRow>
-                    </thead>
-                  </TableHeader>
-                </ResultsTableHeader>
-                <ResultsTableBody
-                  columns={
-                    Array [
-                      "ID",
-                      "Patron",
-                      "Request start date",
-                      "Request end date",
-                    ]
-                  }
-                  rowActionClickHandler={[Function]}
-                  rows={
-                    Array [
-                      Object {
-                        "ID": "loan1",
-                        "Patron": undefined,
-                        "Request end date": null,
-                        "Request start date": null,
-                      },
-                    ]
-                  }
-                >
-                  <TableBody
-                    as="tbody"
-                  >
-                    <tbody
-                      className=""
-                    >
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="loan1"
-                        key="loan1"
+                          <th
+                            className=""
+                          />
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="ID"
                       >
-                        <tr
+                        <TableCell
+                          as="th"
                           className=""
-                          data-test="loan1"
                         >
-                          <TableCell
-                            as="td"
-                            textAlign="center"
-                          >
-                            <td
-                              className="center aligned"
-                            >
-                              <Button
-                                as="button"
-                                compact={true}
-                                data-test="btn-view-details-loan1"
-                                icon="info"
-                                onClick={[Function]}
-                              >
-                                <Ref
-                                  innerRef={
-                                    Object {
-                                      "current": <button
-                                        class="ui compact icon button"
-                                        data-test="btn-view-details-loan1"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          class="info icon"
-                                        />
-                                      </button>,
-                                    }
-                                  }
-                                >
-                                  <RefFindNode
-                                    innerRef={
-                                      Object {
-                                        "current": <button
-                                          class="ui compact icon button"
-                                          data-test="btn-view-details-loan1"
-                                        >
-                                          <i
-                                            aria-hidden="true"
-                                            class="info icon"
-                                          />
-                                        </button>,
-                                      }
-                                    }
-                                  >
-                                    <button
-                                      className="ui compact icon button"
-                                      data-test="btn-view-details-loan1"
-                                      onClick={[Function]}
-                                    >
-                                      <Icon
-                                        as="i"
-                                        name="info"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          className="info icon"
-                                          onClick={[Function]}
-                                        />
-                                      </Icon>
-                                    </button>
-                                  </RefFindNode>
-                                </Ref>
-                              </Button>
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="ID-loan1"
-                            key="0-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="ID-loan1"
-                            >
-                              loan1
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Patron-loan1"
-                            key="1-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Patron-loan1"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Request start date-loan1"
-                            key="2-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Request start date-loan1"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Request end date-loan1"
-                            key="3-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Request end date-loan1"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                        </tr>
-                      </TableRow>
-                    </tbody>
-                  </TableBody>
-                </ResultsTableBody>
-                <ResultsTableFooter
-                  allRowsNumber={2}
-                  columnsNumber={4}
-                  currentPage={1}
-                  paginationComponent={null}
-                  seeAllComponent={
-                    <SeeAllButton
-                      clickHandler={[Function]}
-                      disabled={false}
-                      fluid={false}
-                    />
-                  }
-                  showAllResults={false}
-                  showMaxRows={1}
-                >
-                  <TableFooter
-                    as="tfoot"
-                    data-test="footer"
-                    fullWidth={true}
-                  >
-                    <TableHeader
-                      as="tfoot"
-                      data-test="footer"
-                      fullWidth={true}
-                    >
-                      <tfoot
-                        className="full-width"
-                        data-test="footer"
-                      >
-                        <TableRow
-                          as="tr"
-                          cellAs="td"
-                        >
-                          <tr
+                          <th
                             className=""
                           >
-                            <TableHeaderCell
-                              as="th"
-                              colSpan={5}
-                              textAlign="right"
+                            ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Patron"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Patron
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Request start date"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Request start date
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Request end date"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Request end date
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                    </tr>
+                  </TableRow>
+                </thead>
+              </TableHeader>
+            </ResultsTableHeader>
+            <ResultsTableBody
+              columns={
+                Array [
+                  "ID",
+                  "Patron",
+                  "Request start date",
+                  "Request end date",
+                ]
+              }
+              rowActionClickHandler={[Function]}
+              rows={
+                Array [
+                  Object {
+                    "ID": "loan1",
+                    "Patron": undefined,
+                    "Request end date": null,
+                    "Request start date": null,
+                  },
+                ]
+              }
+            >
+              <TableBody
+                as="tbody"
+              >
+                <tbody
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="loan1"
+                    key="loan1"
+                  >
+                    <tr
+                      className=""
+                      data-test="loan1"
+                    >
+                      <TableCell
+                        as="td"
+                        textAlign="center"
+                      >
+                        <td
+                          className="center aligned"
+                        >
+                          <Button
+                            as="button"
+                            compact={true}
+                            data-test="btn-view-details-loan1"
+                            icon="info"
+                            onClick={[Function]}
+                          >
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui compact icon button"
+                                    data-test="btn-view-details-loan1"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="info icon"
+                                    />
+                                  </button>,
+                                }
+                              }
                             >
-                              <TableCell
-                                as="th"
-                                className=""
-                                colSpan={5}
-                                textAlign="right"
-                              >
-                                <th
-                                  className="right aligned"
-                                  colSpan={5}
-                                >
-                                  <span>
-                                    Showing entries 
-                                    1
-                                    -
-                                    1
-                                     of 
-                                    2
-                                     
-                                  </span>
-                                  <span>
-                                    <SeeAllButton
-                                      clickHandler={[Function]}
-                                      disabled={false}
-                                      fluid={false}
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui compact icon button"
+                                      data-test="btn-view-details-loan1"
                                     >
-                                      <Button
-                                        as="button"
-                                        onClick={[Function]}
-                                        size="tiny"
-                                      >
-                                        <Ref
-                                          innerRef={
-                                            Object {
-                                              "current": <button
-                                                class="ui tiny button"
-                                              >
-                                                See all
-                                              </button>,
-                                            }
-                                          }
-                                        >
-                                          <RefFindNode
-                                            innerRef={
-                                              Object {
-                                                "current": <button
-                                                  class="ui tiny button"
-                                                >
-                                                  See all
-                                                </button>,
-                                              }
-                                            }
+                                      <i
+                                        aria-hidden="true"
+                                        class="info icon"
+                                      />
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <button
+                                  className="ui compact icon button"
+                                  data-test="btn-view-details-loan1"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="info"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="info icon"
+                                      onClick={[Function]}
+                                    />
+                                  </Icon>
+                                </button>
+                              </RefFindNode>
+                            </Ref>
+                          </Button>
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="ID-loan1"
+                        key="0-loan1"
+                      >
+                        <td
+                          className=""
+                          data-test="ID-loan1"
+                        >
+                          loan1
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Patron-loan1"
+                        key="1-loan1"
+                      >
+                        <td
+                          className=""
+                          data-test="Patron-loan1"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Request start date-loan1"
+                        key="2-loan1"
+                      >
+                        <td
+                          className=""
+                          data-test="Request start date-loan1"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Request end date-loan1"
+                        key="3-loan1"
+                      >
+                        <td
+                          className=""
+                          data-test="Request end date-loan1"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                </tbody>
+              </TableBody>
+            </ResultsTableBody>
+            <ResultsTableFooter
+              allRowsNumber={2}
+              columnsNumber={4}
+              currentPage={1}
+              paginationComponent={null}
+              seeAllComponent={
+                <SeeAllButton
+                  clickHandler={[Function]}
+                  disabled={false}
+                  fluid={false}
+                />
+              }
+              showAllResults={false}
+              showMaxRows={1}
+            >
+              <TableFooter
+                as="tfoot"
+                data-test="footer"
+                fullWidth={true}
+              >
+                <TableHeader
+                  as="tfoot"
+                  data-test="footer"
+                  fullWidth={true}
+                >
+                  <tfoot
+                    className="full-width"
+                    data-test="footer"
+                  >
+                    <TableRow
+                      as="tr"
+                      cellAs="td"
+                    >
+                      <tr
+                        className=""
+                      >
+                        <TableHeaderCell
+                          as="th"
+                          colSpan={5}
+                          textAlign="right"
+                        >
+                          <TableCell
+                            as="th"
+                            className=""
+                            colSpan={5}
+                            textAlign="right"
+                          >
+                            <th
+                              className="right aligned"
+                              colSpan={5}
+                            >
+                              <span>
+                                Showing entries 
+                                1
+                                -
+                                1
+                                 of 
+                                2
+                                 
+                              </span>
+                              <span>
+                                <SeeAllButton
+                                  clickHandler={[Function]}
+                                  disabled={false}
+                                  fluid={false}
+                                >
+                                  <Button
+                                    as="button"
+                                    onClick={[Function]}
+                                    size="tiny"
+                                  >
+                                    <Ref
+                                      innerRef={
+                                        Object {
+                                          "current": <button
+                                            class="ui tiny button"
                                           >
-                                            <button
-                                              className="ui tiny button"
-                                              onClick={[Function]}
+                                            See all
+                                          </button>,
+                                        }
+                                      }
+                                    >
+                                      <RefFindNode
+                                        innerRef={
+                                          Object {
+                                            "current": <button
+                                              class="ui tiny button"
                                             >
                                               See all
-                                            </button>
-                                          </RefFindNode>
-                                        </Ref>
-                                      </Button>
-                                    </SeeAllButton>
-                                  </span>
-                                  <span />
-                                </th>
-                              </TableCell>
-                            </TableHeaderCell>
-                          </tr>
-                        </TableRow>
-                      </tfoot>
-                    </TableHeader>
-                  </TableFooter>
-                </ResultsTableFooter>
-              </table>
-            </Table>
-          </div>
-        </Segment>
+                                            </button>,
+                                          }
+                                        }
+                                      >
+                                        <button
+                                          className="ui tiny button"
+                                          onClick={[Function]}
+                                        >
+                                          See all
+                                        </button>
+                                      </RefFindNode>
+                                    </Ref>
+                                  </Button>
+                                </SeeAllButton>
+                              </span>
+                              <span />
+                            </th>
+                          </TableCell>
+                        </TableHeaderCell>
+                      </tr>
+                    </TableRow>
+                  </tfoot>
+                </TableHeader>
+              </TableFooter>
+            </ResultsTableFooter>
+          </table>
+        </Table>
       </ResultsTable>
     </Error>
   </Loader>

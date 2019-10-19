@@ -2,17 +2,36 @@
          Site Overrides
 *******************************/
 
-.app {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+#app {
+  height: 100%;
 }
 
-.front-app {
-  .front-app-content {
-    margin-top: @headerMenuHeight;
-  }
+.frontsite {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
+  .fs-content {
+    margin-top: @headerMenuHeight;
+    flex: 1;
+    justify-content: space-between;
+  }
+}
+
+.backoffice {
+  height: 100%;
+  display: flex;
+  width: 100%;
+
+  .bo-sidebar {
+    width: 230px;
+    padding: 1.5em;
+    background-color: @boSidebarBackgroundColor;
+  }
+  .bo-content {
+    flex: 1;
+    padding: 1.5em;
+  }
 }
 
 .no-border {

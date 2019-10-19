@@ -13,3 +13,18 @@
 .footer-upper .ui.header .sub.header{
     color: #9e9ea0;
 }
+
+.backoffice {
+
+  .ui.header.bo-menu-header {
+    margin-top: 1em;
+    margin-bottom: 2em;
+
+    .icon {
+      font-size: 2em;
+    }
+    .sub.header {
+      text-transform: uppercase;
+    }
+  }
+}

@@ -2,7 +2,7 @@
          Site Overrides
 *******************************/
 
-.front-app {
+.frontsite {
 
   .ui.container {
     &.document-details-container {
@@ -13,11 +13,6 @@
       margin-top: 2em;
       margin-bottom: 2em;
     }
-  }
-
-  .ui.container.front-app-content {
-    flex: 1;
-    justify-content: space-between;
   }
 
   .breadcrumbs{

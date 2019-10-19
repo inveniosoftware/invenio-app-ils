@@ -2,6 +2,22 @@
          Site Overrides
 *******************************/
 
-.ui.menu.header-menu{
+.ui.menu.header-menu {
     border-top: @highlightBorder;
+}
+
+.backoffice {
+
+  .ui.menu.vertical.bo-menu {
+    margin-top: 2em;
+
+    .header {
+      font-size: 1.2em;
+    }
+    .menu {
+      .item {
+        font-size: 1em;
+      }
+    }
+  }
 }
