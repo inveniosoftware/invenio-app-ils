@@ -10,7 +10,6 @@ exports[`PatronDocumentRequests tests should load the details component 1`] = `
       headerActionComponent={null}
       name="new book requests"
       paginationComponent={null}
-      renderSegment={true}
       rowActionClickHandler={[Function]}
       rows={Array []}
       seeAllComponent={
@@ -100,7 +99,6 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
         headerActionComponent={null}
         name="new book requests"
         paginationComponent={null}
-        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
           Array [
@@ -131,474 +129,468 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
         subtitle=""
         title="Patron's new book requests"
       >
-        <Segment>
+        <Grid>
           <div
-            className="ui segment"
+            className="ui grid"
           >
-            <Grid>
+            <GridRow>
               <div
-                className="ui grid"
+                className="row"
               >
-                <GridRow>
+                <GridColumn
+                  verticalAlign="middle"
+                  width={16}
+                >
                   <div
-                    className="row"
+                    className="middle aligned sixteen wide column"
                   >
-                    <GridColumn
-                      verticalAlign="middle"
-                      width={16}
+                    <Header
+                      as="h3"
+                      content="Patron's new book requests"
+                      subheader=""
                     >
-                      <div
-                        className="middle aligned sixteen wide column"
+                      <h3
+                        className="ui header"
                       >
-                        <Header
-                          as="h3"
-                          content="Patron's new book requests"
-                          subheader=""
+                        Patron's new book requests
+                        <HeaderSubheader
+                          content=""
                         >
-                          <h3
-                            className="ui header"
-                          >
-                            Patron's new book requests
-                            <HeaderSubheader
-                              content=""
-                            >
-                              <div
-                                className="sub header"
-                              />
-                            </HeaderSubheader>
-                          </h3>
-                        </Header>
-                      </div>
-                    </GridColumn>
-                    <GridColumn
-                      textAlign="right"
-                      width={8}
-                    >
-                      <div
-                        className="right aligned eight wide column"
-                      />
-                    </GridColumn>
+                          <div
+                            className="sub header"
+                          />
+                        </HeaderSubheader>
+                      </h3>
+                    </Header>
                   </div>
-                </GridRow>
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={8}
+                >
+                  <div
+                    className="right aligned eight wide column"
+                  />
+                </GridColumn>
               </div>
-            </Grid>
-            <Table
-              as="table"
-              compact={true}
-              selectable={true}
-              striped={true}
-            >
-              <table
-                className="ui selectable striped compact table"
-              >
-                <ResultsTableHeader
-                  columns={
-                    Array [
-                      "ID",
-                      "Document ID",
-                      "State",
-                      "Created",
-                    ]
-                  }
-                  withRowAction={false}
-                >
-                  <TableHeader
-                    as="thead"
-                  >
-                    <thead
-                      className=""
-                    >
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="header"
-                      >
-                        <tr
-                          className=""
-                          data-test="header"
-                        >
-                          <TableHeaderCell
-                            as="th"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              />
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="ID"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                ID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Document ID"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Document ID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="State"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                State
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Created"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Created
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                        </tr>
-                      </TableRow>
-                    </thead>
-                  </TableHeader>
-                </ResultsTableHeader>
-                <ResultsTableBody
-                  columns={
-                    Array [
-                      "ID",
-                      "Document ID",
-                      "State",
-                      "Created",
-                    ]
-                  }
-                  rowActionClickHandler={[Function]}
-                  rows={
-                    Array [
-                      Object {
-                        "Created": "2018-01-01",
-                        "Document ID": undefined,
-                        "ID": "documentRequest1",
-                        "State": "PENDING",
-                      },
-                      Object {
-                        "Created": "2018-01-01",
-                        "Document ID": undefined,
-                        "ID": "documentRequest2",
-                        "State": "PENDING",
-                      },
-                    ]
-                  }
-                >
-                  <TableBody
-                    as="tbody"
-                  >
-                    <tbody
-                      className=""
-                    >
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="documentRequest1"
-                        key="documentRequest1"
-                      >
-                        <tr
-                          className=""
-                          data-test="documentRequest1"
-                        >
-                          <TableCell
-                            as="td"
-                            textAlign="center"
-                          >
-                            <td
-                              className="center aligned"
-                            >
-                              <Button
-                                as="button"
-                                compact={true}
-                                data-test="btn-view-details-documentRequest1"
-                                icon="info"
-                                onClick={[Function]}
-                              >
-                                <Ref
-                                  innerRef={
-                                    Object {
-                                      "current": <button
-                                        class="ui compact icon button"
-                                        data-test="btn-view-details-documentRequest1"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          class="info icon"
-                                        />
-                                      </button>,
-                                    }
-                                  }
-                                >
-                                  <RefFindNode
-                                    innerRef={
-                                      Object {
-                                        "current": <button
-                                          class="ui compact icon button"
-                                          data-test="btn-view-details-documentRequest1"
-                                        >
-                                          <i
-                                            aria-hidden="true"
-                                            class="info icon"
-                                          />
-                                        </button>,
-                                      }
-                                    }
-                                  >
-                                    <button
-                                      className="ui compact icon button"
-                                      data-test="btn-view-details-documentRequest1"
-                                      onClick={[Function]}
-                                    >
-                                      <Icon
-                                        as="i"
-                                        name="info"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          className="info icon"
-                                          onClick={[Function]}
-                                        />
-                                      </Icon>
-                                    </button>
-                                  </RefFindNode>
-                                </Ref>
-                              </Button>
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="ID-documentRequest1"
-                            key="0-documentRequest1"
-                          >
-                            <td
-                              className=""
-                              data-test="ID-documentRequest1"
-                            >
-                              documentRequest1
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Document ID-documentRequest1"
-                            key="1-documentRequest1"
-                          >
-                            <td
-                              className=""
-                              data-test="Document ID-documentRequest1"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="State-documentRequest1"
-                            key="2-documentRequest1"
-                          >
-                            <td
-                              className=""
-                              data-test="State-documentRequest1"
-                            >
-                              PENDING
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Created-documentRequest1"
-                            key="3-documentRequest1"
-                          >
-                            <td
-                              className=""
-                              data-test="Created-documentRequest1"
-                            >
-                              2018-01-01
-                            </td>
-                          </TableCell>
-                        </tr>
-                      </TableRow>
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="documentRequest2"
-                        key="documentRequest2"
-                      >
-                        <tr
-                          className=""
-                          data-test="documentRequest2"
-                        >
-                          <TableCell
-                            as="td"
-                            textAlign="center"
-                          >
-                            <td
-                              className="center aligned"
-                            >
-                              <Button
-                                as="button"
-                                compact={true}
-                                data-test="btn-view-details-documentRequest2"
-                                icon="info"
-                                onClick={[Function]}
-                              >
-                                <Ref
-                                  innerRef={
-                                    Object {
-                                      "current": <button
-                                        class="ui compact icon button"
-                                        data-test="btn-view-details-documentRequest2"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          class="info icon"
-                                        />
-                                      </button>,
-                                    }
-                                  }
-                                >
-                                  <RefFindNode
-                                    innerRef={
-                                      Object {
-                                        "current": <button
-                                          class="ui compact icon button"
-                                          data-test="btn-view-details-documentRequest2"
-                                        >
-                                          <i
-                                            aria-hidden="true"
-                                            class="info icon"
-                                          />
-                                        </button>,
-                                      }
-                                    }
-                                  >
-                                    <button
-                                      className="ui compact icon button"
-                                      data-test="btn-view-details-documentRequest2"
-                                      onClick={[Function]}
-                                    >
-                                      <Icon
-                                        as="i"
-                                        name="info"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          className="info icon"
-                                          onClick={[Function]}
-                                        />
-                                      </Icon>
-                                    </button>
-                                  </RefFindNode>
-                                </Ref>
-                              </Button>
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="ID-documentRequest2"
-                            key="0-documentRequest2"
-                          >
-                            <td
-                              className=""
-                              data-test="ID-documentRequest2"
-                            >
-                              documentRequest2
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Document ID-documentRequest2"
-                            key="1-documentRequest2"
-                          >
-                            <td
-                              className=""
-                              data-test="Document ID-documentRequest2"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="State-documentRequest2"
-                            key="2-documentRequest2"
-                          >
-                            <td
-                              className=""
-                              data-test="State-documentRequest2"
-                            >
-                              PENDING
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Created-documentRequest2"
-                            key="3-documentRequest2"
-                          >
-                            <td
-                              className=""
-                              data-test="Created-documentRequest2"
-                            >
-                              2018-01-01
-                            </td>
-                          </TableCell>
-                        </tr>
-                      </TableRow>
-                    </tbody>
-                  </TableBody>
-                </ResultsTableBody>
-                <ResultsTableFooter
-                  allRowsNumber={2}
-                  columnsNumber={4}
-                  currentPage={1}
-                  paginationComponent={null}
-                  seeAllComponent={
-                    <SeeAllButton
-                      clickHandler={[Function]}
-                      disabled={false}
-                      fluid={false}
-                    />
-                  }
-                  showAllResults={false}
-                  showMaxRows={5}
-                />
-              </table>
-            </Table>
+            </GridRow>
           </div>
-        </Segment>
+        </Grid>
+        <Table
+          as="table"
+          compact={true}
+          selectable={true}
+          striped={true}
+        >
+          <table
+            className="ui selectable striped compact table"
+          >
+            <ResultsTableHeader
+              columns={
+                Array [
+                  "ID",
+                  "Document ID",
+                  "State",
+                  "Created",
+                ]
+              }
+              withRowAction={false}
+            >
+              <TableHeader
+                as="thead"
+              >
+                <thead
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="header"
+                  >
+                    <tr
+                      className=""
+                      data-test="header"
+                    >
+                      <TableHeaderCell
+                        as="th"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          />
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="ID"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Document ID"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Document ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="State"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            State
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Created"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Created
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                    </tr>
+                  </TableRow>
+                </thead>
+              </TableHeader>
+            </ResultsTableHeader>
+            <ResultsTableBody
+              columns={
+                Array [
+                  "ID",
+                  "Document ID",
+                  "State",
+                  "Created",
+                ]
+              }
+              rowActionClickHandler={[Function]}
+              rows={
+                Array [
+                  Object {
+                    "Created": "2018-01-01",
+                    "Document ID": undefined,
+                    "ID": "documentRequest1",
+                    "State": "PENDING",
+                  },
+                  Object {
+                    "Created": "2018-01-01",
+                    "Document ID": undefined,
+                    "ID": "documentRequest2",
+                    "State": "PENDING",
+                  },
+                ]
+              }
+            >
+              <TableBody
+                as="tbody"
+              >
+                <tbody
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="documentRequest1"
+                    key="documentRequest1"
+                  >
+                    <tr
+                      className=""
+                      data-test="documentRequest1"
+                    >
+                      <TableCell
+                        as="td"
+                        textAlign="center"
+                      >
+                        <td
+                          className="center aligned"
+                        >
+                          <Button
+                            as="button"
+                            compact={true}
+                            data-test="btn-view-details-documentRequest1"
+                            icon="info"
+                            onClick={[Function]}
+                          >
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui compact icon button"
+                                    data-test="btn-view-details-documentRequest1"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="info icon"
+                                    />
+                                  </button>,
+                                }
+                              }
+                            >
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui compact icon button"
+                                      data-test="btn-view-details-documentRequest1"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        class="info icon"
+                                      />
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <button
+                                  className="ui compact icon button"
+                                  data-test="btn-view-details-documentRequest1"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="info"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="info icon"
+                                      onClick={[Function]}
+                                    />
+                                  </Icon>
+                                </button>
+                              </RefFindNode>
+                            </Ref>
+                          </Button>
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="ID-documentRequest1"
+                        key="0-documentRequest1"
+                      >
+                        <td
+                          className=""
+                          data-test="ID-documentRequest1"
+                        >
+                          documentRequest1
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Document ID-documentRequest1"
+                        key="1-documentRequest1"
+                      >
+                        <td
+                          className=""
+                          data-test="Document ID-documentRequest1"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="State-documentRequest1"
+                        key="2-documentRequest1"
+                      >
+                        <td
+                          className=""
+                          data-test="State-documentRequest1"
+                        >
+                          PENDING
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Created-documentRequest1"
+                        key="3-documentRequest1"
+                      >
+                        <td
+                          className=""
+                          data-test="Created-documentRequest1"
+                        >
+                          2018-01-01
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="documentRequest2"
+                    key="documentRequest2"
+                  >
+                    <tr
+                      className=""
+                      data-test="documentRequest2"
+                    >
+                      <TableCell
+                        as="td"
+                        textAlign="center"
+                      >
+                        <td
+                          className="center aligned"
+                        >
+                          <Button
+                            as="button"
+                            compact={true}
+                            data-test="btn-view-details-documentRequest2"
+                            icon="info"
+                            onClick={[Function]}
+                          >
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui compact icon button"
+                                    data-test="btn-view-details-documentRequest2"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="info icon"
+                                    />
+                                  </button>,
+                                }
+                              }
+                            >
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui compact icon button"
+                                      data-test="btn-view-details-documentRequest2"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        class="info icon"
+                                      />
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <button
+                                  className="ui compact icon button"
+                                  data-test="btn-view-details-documentRequest2"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="info"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="info icon"
+                                      onClick={[Function]}
+                                    />
+                                  </Icon>
+                                </button>
+                              </RefFindNode>
+                            </Ref>
+                          </Button>
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="ID-documentRequest2"
+                        key="0-documentRequest2"
+                      >
+                        <td
+                          className=""
+                          data-test="ID-documentRequest2"
+                        >
+                          documentRequest2
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Document ID-documentRequest2"
+                        key="1-documentRequest2"
+                      >
+                        <td
+                          className=""
+                          data-test="Document ID-documentRequest2"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="State-documentRequest2"
+                        key="2-documentRequest2"
+                      >
+                        <td
+                          className=""
+                          data-test="State-documentRequest2"
+                        >
+                          PENDING
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Created-documentRequest2"
+                        key="3-documentRequest2"
+                      >
+                        <td
+                          className=""
+                          data-test="Created-documentRequest2"
+                        >
+                          2018-01-01
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                </tbody>
+              </TableBody>
+            </ResultsTableBody>
+            <ResultsTableFooter
+              allRowsNumber={2}
+              columnsNumber={4}
+              currentPage={1}
+              paginationComponent={null}
+              seeAllComponent={
+                <SeeAllButton
+                  clickHandler={[Function]}
+                  disabled={false}
+                  fluid={false}
+                />
+              }
+              showAllResults={false}
+              showMaxRows={5}
+            />
+          </table>
+        </Table>
       </ResultsTable>
     </Error>
   </Loader>
@@ -640,7 +632,6 @@ exports[`PatronDocumentRequests tests should render show a message with no user 
         headerActionComponent={null}
         name="new book requests"
         paginationComponent={null}
-        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={Array []}
         seeAllComponent={
@@ -656,71 +647,65 @@ exports[`PatronDocumentRequests tests should render show a message with no user 
         subtitle=""
         title="Patron's new book requests"
       >
-        <Segment>
+        <Grid>
           <div
-            className="ui segment"
+            className="ui grid"
           >
-            <Grid>
+            <GridRow>
               <div
-                className="ui grid"
+                className="row"
               >
-                <GridRow>
+                <GridColumn
+                  verticalAlign="middle"
+                  width={16}
+                >
                   <div
-                    className="row"
+                    className="middle aligned sixteen wide column"
                   >
-                    <GridColumn
-                      verticalAlign="middle"
-                      width={16}
+                    <Header
+                      as="h3"
+                      content="Patron's new book requests"
+                      subheader=""
                     >
-                      <div
-                        className="middle aligned sixteen wide column"
+                      <h3
+                        className="ui header"
                       >
-                        <Header
-                          as="h3"
-                          content="Patron's new book requests"
-                          subheader=""
+                        Patron's new book requests
+                        <HeaderSubheader
+                          content=""
                         >
-                          <h3
-                            className="ui header"
-                          >
-                            Patron's new book requests
-                            <HeaderSubheader
-                              content=""
-                            >
-                              <div
-                                className="sub header"
-                              />
-                            </HeaderSubheader>
-                          </h3>
-                        </Header>
-                      </div>
-                    </GridColumn>
-                    <GridColumn
-                      textAlign="right"
-                      width={8}
-                    >
-                      <div
-                        className="right aligned eight wide column"
-                      />
-                    </GridColumn>
+                          <div
+                            className="sub header"
+                          />
+                        </HeaderSubheader>
+                      </h3>
+                    </Header>
                   </div>
-                </GridRow>
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={8}
+                >
+                  <div
+                    className="right aligned eight wide column"
+                  />
+                </GridColumn>
               </div>
-            </Grid>
-            <Message
-              data-test="no-results"
-            >
-              <div
-                className="ui message"
-                data-test="no-results"
-              >
-                There are no 
-                new book requests
-                .
-              </div>
-            </Message>
+            </GridRow>
           </div>
-        </Segment>
+        </Grid>
+        <Message
+          data-test="no-results"
+        >
+          <div
+            className="ui message"
+            data-test="no-results"
+          >
+            There are no 
+            new book requests
+            .
+          </div>
+        </Message>
       </ResultsTable>
     </Error>
   </Loader>
@@ -797,7 +782,6 @@ exports[`PatronDocumentRequests tests should render the see all button when show
         headerActionComponent={null}
         name="new book requests"
         paginationComponent={null}
-        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
           Array [
@@ -828,442 +812,436 @@ exports[`PatronDocumentRequests tests should render the see all button when show
         subtitle=""
         title="Patron's new book requests"
       >
-        <Segment>
+        <Grid>
           <div
-            className="ui segment"
+            className="ui grid"
           >
-            <Grid>
+            <GridRow>
               <div
-                className="ui grid"
+                className="row"
               >
-                <GridRow>
+                <GridColumn
+                  verticalAlign="middle"
+                  width={16}
+                >
                   <div
-                    className="row"
+                    className="middle aligned sixteen wide column"
                   >
-                    <GridColumn
-                      verticalAlign="middle"
-                      width={16}
+                    <Header
+                      as="h3"
+                      content="Patron's new book requests"
+                      subheader=""
                     >
-                      <div
-                        className="middle aligned sixteen wide column"
+                      <h3
+                        className="ui header"
                       >
-                        <Header
-                          as="h3"
-                          content="Patron's new book requests"
-                          subheader=""
+                        Patron's new book requests
+                        <HeaderSubheader
+                          content=""
                         >
-                          <h3
-                            className="ui header"
-                          >
-                            Patron's new book requests
-                            <HeaderSubheader
-                              content=""
-                            >
-                              <div
-                                className="sub header"
-                              />
-                            </HeaderSubheader>
-                          </h3>
-                        </Header>
-                      </div>
-                    </GridColumn>
-                    <GridColumn
-                      textAlign="right"
-                      width={8}
-                    >
-                      <div
-                        className="right aligned eight wide column"
-                      />
-                    </GridColumn>
+                          <div
+                            className="sub header"
+                          />
+                        </HeaderSubheader>
+                      </h3>
+                    </Header>
                   </div>
-                </GridRow>
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={8}
+                >
+                  <div
+                    className="right aligned eight wide column"
+                  />
+                </GridColumn>
               </div>
-            </Grid>
-            <Table
-              as="table"
-              compact={true}
-              selectable={true}
-              striped={true}
+            </GridRow>
+          </div>
+        </Grid>
+        <Table
+          as="table"
+          compact={true}
+          selectable={true}
+          striped={true}
+        >
+          <table
+            className="ui selectable striped compact table"
+          >
+            <ResultsTableHeader
+              columns={
+                Array [
+                  "ID",
+                  "Document ID",
+                  "State",
+                  "Created",
+                ]
+              }
+              withRowAction={false}
             >
-              <table
-                className="ui selectable striped compact table"
+              <TableHeader
+                as="thead"
               >
-                <ResultsTableHeader
-                  columns={
-                    Array [
-                      "ID",
-                      "Document ID",
-                      "State",
-                      "Created",
-                    ]
-                  }
-                  withRowAction={false}
+                <thead
+                  className=""
                 >
-                  <TableHeader
-                    as="thead"
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="header"
                   >
-                    <thead
+                    <tr
                       className=""
+                      data-test="header"
                     >
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="header"
+                      <TableHeaderCell
+                        as="th"
                       >
-                        <tr
+                        <TableCell
+                          as="th"
                           className=""
-                          data-test="header"
                         >
-                          <TableHeaderCell
-                            as="th"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              />
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="ID"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                ID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Document ID"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Document ID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="State"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                State
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Created"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Created
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                        </tr>
-                      </TableRow>
-                    </thead>
-                  </TableHeader>
-                </ResultsTableHeader>
-                <ResultsTableBody
-                  columns={
-                    Array [
-                      "ID",
-                      "Document ID",
-                      "State",
-                      "Created",
-                    ]
-                  }
-                  rowActionClickHandler={[Function]}
-                  rows={
-                    Array [
-                      Object {
-                        "Created": "2018-01-01",
-                        "Document ID": undefined,
-                        "ID": "documentRequest1",
-                        "State": "PENDING",
-                      },
-                    ]
-                  }
-                >
-                  <TableBody
-                    as="tbody"
-                  >
-                    <tbody
-                      className=""
-                    >
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="documentRequest1"
-                        key="documentRequest1"
+                          <th
+                            className=""
+                          />
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="ID"
                       >
-                        <tr
+                        <TableCell
+                          as="th"
                           className=""
-                          data-test="documentRequest1"
                         >
-                          <TableCell
-                            as="td"
-                            textAlign="center"
-                          >
-                            <td
-                              className="center aligned"
-                            >
-                              <Button
-                                as="button"
-                                compact={true}
-                                data-test="btn-view-details-documentRequest1"
-                                icon="info"
-                                onClick={[Function]}
-                              >
-                                <Ref
-                                  innerRef={
-                                    Object {
-                                      "current": <button
-                                        class="ui compact icon button"
-                                        data-test="btn-view-details-documentRequest1"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          class="info icon"
-                                        />
-                                      </button>,
-                                    }
-                                  }
-                                >
-                                  <RefFindNode
-                                    innerRef={
-                                      Object {
-                                        "current": <button
-                                          class="ui compact icon button"
-                                          data-test="btn-view-details-documentRequest1"
-                                        >
-                                          <i
-                                            aria-hidden="true"
-                                            class="info icon"
-                                          />
-                                        </button>,
-                                      }
-                                    }
-                                  >
-                                    <button
-                                      className="ui compact icon button"
-                                      data-test="btn-view-details-documentRequest1"
-                                      onClick={[Function]}
-                                    >
-                                      <Icon
-                                        as="i"
-                                        name="info"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          className="info icon"
-                                          onClick={[Function]}
-                                        />
-                                      </Icon>
-                                    </button>
-                                  </RefFindNode>
-                                </Ref>
-                              </Button>
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="ID-documentRequest1"
-                            key="0-documentRequest1"
-                          >
-                            <td
-                              className=""
-                              data-test="ID-documentRequest1"
-                            >
-                              documentRequest1
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Document ID-documentRequest1"
-                            key="1-documentRequest1"
-                          >
-                            <td
-                              className=""
-                              data-test="Document ID-documentRequest1"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="State-documentRequest1"
-                            key="2-documentRequest1"
-                          >
-                            <td
-                              className=""
-                              data-test="State-documentRequest1"
-                            >
-                              PENDING
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Created-documentRequest1"
-                            key="3-documentRequest1"
-                          >
-                            <td
-                              className=""
-                              data-test="Created-documentRequest1"
-                            >
-                              2018-01-01
-                            </td>
-                          </TableCell>
-                        </tr>
-                      </TableRow>
-                    </tbody>
-                  </TableBody>
-                </ResultsTableBody>
-                <ResultsTableFooter
-                  allRowsNumber={2}
-                  columnsNumber={4}
-                  currentPage={1}
-                  paginationComponent={null}
-                  seeAllComponent={
-                    <SeeAllButton
-                      clickHandler={[Function]}
-                      disabled={false}
-                      fluid={false}
-                    />
-                  }
-                  showAllResults={false}
-                  showMaxRows={1}
-                >
-                  <TableFooter
-                    as="tfoot"
-                    data-test="footer"
-                    fullWidth={true}
-                  >
-                    <TableHeader
-                      as="tfoot"
-                      data-test="footer"
-                      fullWidth={true}
-                    >
-                      <tfoot
-                        className="full-width"
-                        data-test="footer"
-                      >
-                        <TableRow
-                          as="tr"
-                          cellAs="td"
-                        >
-                          <tr
+                          <th
                             className=""
                           >
-                            <TableHeaderCell
-                              as="th"
-                              colSpan={5}
-                              textAlign="right"
+                            ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Document ID"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Document ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="State"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            State
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Created"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Created
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                    </tr>
+                  </TableRow>
+                </thead>
+              </TableHeader>
+            </ResultsTableHeader>
+            <ResultsTableBody
+              columns={
+                Array [
+                  "ID",
+                  "Document ID",
+                  "State",
+                  "Created",
+                ]
+              }
+              rowActionClickHandler={[Function]}
+              rows={
+                Array [
+                  Object {
+                    "Created": "2018-01-01",
+                    "Document ID": undefined,
+                    "ID": "documentRequest1",
+                    "State": "PENDING",
+                  },
+                ]
+              }
+            >
+              <TableBody
+                as="tbody"
+              >
+                <tbody
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="documentRequest1"
+                    key="documentRequest1"
+                  >
+                    <tr
+                      className=""
+                      data-test="documentRequest1"
+                    >
+                      <TableCell
+                        as="td"
+                        textAlign="center"
+                      >
+                        <td
+                          className="center aligned"
+                        >
+                          <Button
+                            as="button"
+                            compact={true}
+                            data-test="btn-view-details-documentRequest1"
+                            icon="info"
+                            onClick={[Function]}
+                          >
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui compact icon button"
+                                    data-test="btn-view-details-documentRequest1"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="info icon"
+                                    />
+                                  </button>,
+                                }
+                              }
                             >
-                              <TableCell
-                                as="th"
-                                className=""
-                                colSpan={5}
-                                textAlign="right"
-                              >
-                                <th
-                                  className="right aligned"
-                                  colSpan={5}
-                                >
-                                  <span>
-                                    Showing entries 
-                                    1
-                                    -
-                                    1
-                                     of 
-                                    2
-                                     
-                                  </span>
-                                  <span>
-                                    <SeeAllButton
-                                      clickHandler={[Function]}
-                                      disabled={false}
-                                      fluid={false}
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui compact icon button"
+                                      data-test="btn-view-details-documentRequest1"
                                     >
-                                      <Button
-                                        as="button"
-                                        onClick={[Function]}
-                                        size="tiny"
-                                      >
-                                        <Ref
-                                          innerRef={
-                                            Object {
-                                              "current": <button
-                                                class="ui tiny button"
-                                              >
-                                                See all
-                                              </button>,
-                                            }
-                                          }
-                                        >
-                                          <RefFindNode
-                                            innerRef={
-                                              Object {
-                                                "current": <button
-                                                  class="ui tiny button"
-                                                >
-                                                  See all
-                                                </button>,
-                                              }
-                                            }
+                                      <i
+                                        aria-hidden="true"
+                                        class="info icon"
+                                      />
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <button
+                                  className="ui compact icon button"
+                                  data-test="btn-view-details-documentRequest1"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="info"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="info icon"
+                                      onClick={[Function]}
+                                    />
+                                  </Icon>
+                                </button>
+                              </RefFindNode>
+                            </Ref>
+                          </Button>
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="ID-documentRequest1"
+                        key="0-documentRequest1"
+                      >
+                        <td
+                          className=""
+                          data-test="ID-documentRequest1"
+                        >
+                          documentRequest1
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Document ID-documentRequest1"
+                        key="1-documentRequest1"
+                      >
+                        <td
+                          className=""
+                          data-test="Document ID-documentRequest1"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="State-documentRequest1"
+                        key="2-documentRequest1"
+                      >
+                        <td
+                          className=""
+                          data-test="State-documentRequest1"
+                        >
+                          PENDING
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Created-documentRequest1"
+                        key="3-documentRequest1"
+                      >
+                        <td
+                          className=""
+                          data-test="Created-documentRequest1"
+                        >
+                          2018-01-01
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                </tbody>
+              </TableBody>
+            </ResultsTableBody>
+            <ResultsTableFooter
+              allRowsNumber={2}
+              columnsNumber={4}
+              currentPage={1}
+              paginationComponent={null}
+              seeAllComponent={
+                <SeeAllButton
+                  clickHandler={[Function]}
+                  disabled={false}
+                  fluid={false}
+                />
+              }
+              showAllResults={false}
+              showMaxRows={1}
+            >
+              <TableFooter
+                as="tfoot"
+                data-test="footer"
+                fullWidth={true}
+              >
+                <TableHeader
+                  as="tfoot"
+                  data-test="footer"
+                  fullWidth={true}
+                >
+                  <tfoot
+                    className="full-width"
+                    data-test="footer"
+                  >
+                    <TableRow
+                      as="tr"
+                      cellAs="td"
+                    >
+                      <tr
+                        className=""
+                      >
+                        <TableHeaderCell
+                          as="th"
+                          colSpan={5}
+                          textAlign="right"
+                        >
+                          <TableCell
+                            as="th"
+                            className=""
+                            colSpan={5}
+                            textAlign="right"
+                          >
+                            <th
+                              className="right aligned"
+                              colSpan={5}
+                            >
+                              <span>
+                                Showing entries 
+                                1
+                                -
+                                1
+                                 of 
+                                2
+                                 
+                              </span>
+                              <span>
+                                <SeeAllButton
+                                  clickHandler={[Function]}
+                                  disabled={false}
+                                  fluid={false}
+                                >
+                                  <Button
+                                    as="button"
+                                    onClick={[Function]}
+                                    size="tiny"
+                                  >
+                                    <Ref
+                                      innerRef={
+                                        Object {
+                                          "current": <button
+                                            class="ui tiny button"
                                           >
-                                            <button
-                                              className="ui tiny button"
-                                              onClick={[Function]}
+                                            See all
+                                          </button>,
+                                        }
+                                      }
+                                    >
+                                      <RefFindNode
+                                        innerRef={
+                                          Object {
+                                            "current": <button
+                                              class="ui tiny button"
                                             >
                                               See all
-                                            </button>
-                                          </RefFindNode>
-                                        </Ref>
-                                      </Button>
-                                    </SeeAllButton>
-                                  </span>
-                                  <span />
-                                </th>
-                              </TableCell>
-                            </TableHeaderCell>
-                          </tr>
-                        </TableRow>
-                      </tfoot>
-                    </TableHeader>
-                  </TableFooter>
-                </ResultsTableFooter>
-              </table>
-            </Table>
-          </div>
-        </Segment>
+                                            </button>,
+                                          }
+                                        }
+                                      >
+                                        <button
+                                          className="ui tiny button"
+                                          onClick={[Function]}
+                                        >
+                                          See all
+                                        </button>
+                                      </RefFindNode>
+                                    </Ref>
+                                  </Button>
+                                </SeeAllButton>
+                              </span>
+                              <span />
+                            </th>
+                          </TableCell>
+                        </TableHeaderCell>
+                      </tr>
+                    </TableRow>
+                  </tfoot>
+                </TableHeader>
+              </TableFooter>
+            </ResultsTableFooter>
+          </table>
+        </Table>
       </ResultsTable>
     </Error>
   </Loader>

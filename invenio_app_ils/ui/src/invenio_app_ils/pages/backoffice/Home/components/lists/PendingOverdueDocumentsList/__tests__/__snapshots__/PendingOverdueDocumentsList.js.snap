@@ -10,7 +10,6 @@ exports[`PendingOverdueDocumentsList tests should load the details component 1`]
       headerActionComponent={null}
       name="pending overdue documents"
       paginationComponent={null}
-      renderSegment={true}
       rowActionClickHandler={[Function]}
       rows={Array []}
       seeAllComponent={
@@ -98,7 +97,6 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
         headerActionComponent={null}
         name="pending overdue documents"
         paginationComponent={null}
-        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={
           Array [
@@ -125,390 +123,384 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
         subtitle="Documents with pending loan requests, no available items and an active loan that's overdue."
         title="Pending overdue documents"
       >
-        <Segment>
+        <Grid>
           <div
-            className="ui segment"
+            className="ui grid"
           >
-            <Grid>
+            <GridRow>
               <div
-                className="ui grid"
+                className="row"
               >
-                <GridRow>
+                <GridColumn
+                  verticalAlign="middle"
+                  width={16}
+                >
                   <div
-                    className="row"
+                    className="middle aligned sixteen wide column"
                   >
-                    <GridColumn
-                      verticalAlign="middle"
-                      width={16}
+                    <Header
+                      as="h3"
+                      content="Pending overdue documents"
+                      subheader="Documents with pending loan requests, no available items and an active loan that's overdue."
                     >
-                      <div
-                        className="middle aligned sixteen wide column"
+                      <h3
+                        className="ui header"
                       >
-                        <Header
-                          as="h3"
-                          content="Pending overdue documents"
-                          subheader="Documents with pending loan requests, no available items and an active loan that's overdue."
+                        Pending overdue documents
+                        <HeaderSubheader
+                          content="Documents with pending loan requests, no available items and an active loan that's overdue."
                         >
-                          <h3
-                            className="ui header"
+                          <div
+                            className="sub header"
                           >
-                            Pending overdue documents
-                            <HeaderSubheader
-                              content="Documents with pending loan requests, no available items and an active loan that's overdue."
-                            >
-                              <div
-                                className="sub header"
-                              >
-                                Documents with pending loan requests, no available items and an active loan that's overdue.
-                              </div>
-                            </HeaderSubheader>
-                          </h3>
-                        </Header>
-                      </div>
-                    </GridColumn>
-                    <GridColumn
-                      textAlign="right"
-                      width={8}
-                    >
-                      <div
-                        className="right aligned eight wide column"
-                      />
-                    </GridColumn>
+                            Documents with pending loan requests, no available items and an active loan that's overdue.
+                          </div>
+                        </HeaderSubheader>
+                      </h3>
+                    </Header>
                   </div>
-                </GridRow>
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={8}
+                >
+                  <div
+                    className="right aligned eight wide column"
+                  />
+                </GridColumn>
               </div>
-            </Grid>
-            <Table
-              as="table"
-              compact={true}
-              selectable={true}
-              striped={true}
-            >
-              <table
-                className="ui selectable striped compact table"
-              >
-                <ResultsTableHeader
-                  columns={
-                    Array [
-                      "ID",
-                      "Title",
-                    ]
-                  }
-                  withRowAction={false}
-                >
-                  <TableHeader
-                    as="thead"
-                  >
-                    <thead
-                      className=""
-                    >
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="header"
-                      >
-                        <tr
-                          className=""
-                          data-test="header"
-                        >
-                          <TableHeaderCell
-                            as="th"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              />
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="ID"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                ID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Title"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Title
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                        </tr>
-                      </TableRow>
-                    </thead>
-                  </TableHeader>
-                </ResultsTableHeader>
-                <ResultsTableBody
-                  columns={
-                    Array [
-                      "ID",
-                      "Title",
-                    ]
-                  }
-                  rowActionClickHandler={[Function]}
-                  rows={
-                    Array [
-                      Object {
-                        "ID": "document1",
-                        "Title": "The Gulf: The Making of An American Sea",
-                      },
-                      Object {
-                        "ID": "document2",
-                        "Title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
-                      },
-                    ]
-                  }
-                >
-                  <TableBody
-                    as="tbody"
-                  >
-                    <tbody
-                      className=""
-                    >
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="document1"
-                        key="document1"
-                      >
-                        <tr
-                          className=""
-                          data-test="document1"
-                        >
-                          <TableCell
-                            as="td"
-                            textAlign="center"
-                          >
-                            <td
-                              className="center aligned"
-                            >
-                              <Button
-                                as="button"
-                                compact={true}
-                                data-test="btn-view-details-document1"
-                                icon="info"
-                                onClick={[Function]}
-                              >
-                                <Ref
-                                  innerRef={
-                                    Object {
-                                      "current": <button
-                                        class="ui compact icon button"
-                                        data-test="btn-view-details-document1"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          class="info icon"
-                                        />
-                                      </button>,
-                                    }
-                                  }
-                                >
-                                  <RefFindNode
-                                    innerRef={
-                                      Object {
-                                        "current": <button
-                                          class="ui compact icon button"
-                                          data-test="btn-view-details-document1"
-                                        >
-                                          <i
-                                            aria-hidden="true"
-                                            class="info icon"
-                                          />
-                                        </button>,
-                                      }
-                                    }
-                                  >
-                                    <button
-                                      className="ui compact icon button"
-                                      data-test="btn-view-details-document1"
-                                      onClick={[Function]}
-                                    >
-                                      <Icon
-                                        as="i"
-                                        name="info"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          className="info icon"
-                                          onClick={[Function]}
-                                        />
-                                      </Icon>
-                                    </button>
-                                  </RefFindNode>
-                                </Ref>
-                              </Button>
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="ID-document1"
-                            key="0-document1"
-                          >
-                            <td
-                              className=""
-                              data-test="ID-document1"
-                            >
-                              document1
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Title-document1"
-                            key="1-document1"
-                          >
-                            <td
-                              className=""
-                              data-test="Title-document1"
-                            >
-                              The Gulf: The Making of An American Sea
-                            </td>
-                          </TableCell>
-                        </tr>
-                      </TableRow>
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="document2"
-                        key="document2"
-                      >
-                        <tr
-                          className=""
-                          data-test="document2"
-                        >
-                          <TableCell
-                            as="td"
-                            textAlign="center"
-                          >
-                            <td
-                              className="center aligned"
-                            >
-                              <Button
-                                as="button"
-                                compact={true}
-                                data-test="btn-view-details-document2"
-                                icon="info"
-                                onClick={[Function]}
-                              >
-                                <Ref
-                                  innerRef={
-                                    Object {
-                                      "current": <button
-                                        class="ui compact icon button"
-                                        data-test="btn-view-details-document2"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          class="info icon"
-                                        />
-                                      </button>,
-                                    }
-                                  }
-                                >
-                                  <RefFindNode
-                                    innerRef={
-                                      Object {
-                                        "current": <button
-                                          class="ui compact icon button"
-                                          data-test="btn-view-details-document2"
-                                        >
-                                          <i
-                                            aria-hidden="true"
-                                            class="info icon"
-                                          />
-                                        </button>,
-                                      }
-                                    }
-                                  >
-                                    <button
-                                      className="ui compact icon button"
-                                      data-test="btn-view-details-document2"
-                                      onClick={[Function]}
-                                    >
-                                      <Icon
-                                        as="i"
-                                        name="info"
-                                      >
-                                        <i
-                                          aria-hidden="true"
-                                          className="info icon"
-                                          onClick={[Function]}
-                                        />
-                                      </Icon>
-                                    </button>
-                                  </RefFindNode>
-                                </Ref>
-                              </Button>
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="ID-document2"
-                            key="0-document2"
-                          >
-                            <td
-                              className=""
-                              data-test="ID-document2"
-                            >
-                              document2
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Title-document2"
-                            key="1-document2"
-                          >
-                            <td
-                              className=""
-                              data-test="Title-document2"
-                            >
-                              Prairie Fires: The American Dreams of Laura Ingalls Wilder
-                            </td>
-                          </TableCell>
-                        </tr>
-                      </TableRow>
-                    </tbody>
-                  </TableBody>
-                </ResultsTableBody>
-                <ResultsTableFooter
-                  allRowsNumber={2}
-                  columnsNumber={2}
-                  currentPage={1}
-                  paginationComponent={null}
-                  seeAllComponent={
-                    <SeeAllButton
-                      clickHandler={[Function]}
-                      disabled={false}
-                      fluid={false}
-                    />
-                  }
-                  showAllResults={false}
-                  showMaxRows={5}
-                />
-              </table>
-            </Table>
+            </GridRow>
           </div>
-        </Segment>
+        </Grid>
+        <Table
+          as="table"
+          compact={true}
+          selectable={true}
+          striped={true}
+        >
+          <table
+            className="ui selectable striped compact table"
+          >
+            <ResultsTableHeader
+              columns={
+                Array [
+                  "ID",
+                  "Title",
+                ]
+              }
+              withRowAction={false}
+            >
+              <TableHeader
+                as="thead"
+              >
+                <thead
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="header"
+                  >
+                    <tr
+                      className=""
+                      data-test="header"
+                    >
+                      <TableHeaderCell
+                        as="th"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          />
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="ID"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Title"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Title
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                    </tr>
+                  </TableRow>
+                </thead>
+              </TableHeader>
+            </ResultsTableHeader>
+            <ResultsTableBody
+              columns={
+                Array [
+                  "ID",
+                  "Title",
+                ]
+              }
+              rowActionClickHandler={[Function]}
+              rows={
+                Array [
+                  Object {
+                    "ID": "document1",
+                    "Title": "The Gulf: The Making of An American Sea",
+                  },
+                  Object {
+                    "ID": "document2",
+                    "Title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
+                  },
+                ]
+              }
+            >
+              <TableBody
+                as="tbody"
+              >
+                <tbody
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="document1"
+                    key="document1"
+                  >
+                    <tr
+                      className=""
+                      data-test="document1"
+                    >
+                      <TableCell
+                        as="td"
+                        textAlign="center"
+                      >
+                        <td
+                          className="center aligned"
+                        >
+                          <Button
+                            as="button"
+                            compact={true}
+                            data-test="btn-view-details-document1"
+                            icon="info"
+                            onClick={[Function]}
+                          >
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui compact icon button"
+                                    data-test="btn-view-details-document1"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="info icon"
+                                    />
+                                  </button>,
+                                }
+                              }
+                            >
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui compact icon button"
+                                      data-test="btn-view-details-document1"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        class="info icon"
+                                      />
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <button
+                                  className="ui compact icon button"
+                                  data-test="btn-view-details-document1"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="info"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="info icon"
+                                      onClick={[Function]}
+                                    />
+                                  </Icon>
+                                </button>
+                              </RefFindNode>
+                            </Ref>
+                          </Button>
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="ID-document1"
+                        key="0-document1"
+                      >
+                        <td
+                          className=""
+                          data-test="ID-document1"
+                        >
+                          document1
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Title-document1"
+                        key="1-document1"
+                      >
+                        <td
+                          className=""
+                          data-test="Title-document1"
+                        >
+                          The Gulf: The Making of An American Sea
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="document2"
+                    key="document2"
+                  >
+                    <tr
+                      className=""
+                      data-test="document2"
+                    >
+                      <TableCell
+                        as="td"
+                        textAlign="center"
+                      >
+                        <td
+                          className="center aligned"
+                        >
+                          <Button
+                            as="button"
+                            compact={true}
+                            data-test="btn-view-details-document2"
+                            icon="info"
+                            onClick={[Function]}
+                          >
+                            <Ref
+                              innerRef={
+                                Object {
+                                  "current": <button
+                                    class="ui compact icon button"
+                                    data-test="btn-view-details-document2"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      class="info icon"
+                                    />
+                                  </button>,
+                                }
+                              }
+                            >
+                              <RefFindNode
+                                innerRef={
+                                  Object {
+                                    "current": <button
+                                      class="ui compact icon button"
+                                      data-test="btn-view-details-document2"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        class="info icon"
+                                      />
+                                    </button>,
+                                  }
+                                }
+                              >
+                                <button
+                                  className="ui compact icon button"
+                                  data-test="btn-view-details-document2"
+                                  onClick={[Function]}
+                                >
+                                  <Icon
+                                    as="i"
+                                    name="info"
+                                  >
+                                    <i
+                                      aria-hidden="true"
+                                      className="info icon"
+                                      onClick={[Function]}
+                                    />
+                                  </Icon>
+                                </button>
+                              </RefFindNode>
+                            </Ref>
+                          </Button>
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="ID-document2"
+                        key="0-document2"
+                      >
+                        <td
+                          className=""
+                          data-test="ID-document2"
+                        >
+                          document2
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Title-document2"
+                        key="1-document2"
+                      >
+                        <td
+                          className=""
+                          data-test="Title-document2"
+                        >
+                          Prairie Fires: The American Dreams of Laura Ingalls Wilder
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                </tbody>
+              </TableBody>
+            </ResultsTableBody>
+            <ResultsTableFooter
+              allRowsNumber={2}
+              columnsNumber={2}
+              currentPage={1}
+              paginationComponent={null}
+              seeAllComponent={
+                <SeeAllButton
+                  clickHandler={[Function]}
+                  disabled={false}
+                  fluid={false}
+                />
+              }
+              showAllResults={false}
+              showMaxRows={5}
+            />
+          </table>
+        </Table>
       </ResultsTable>
     </Error>
   </Loader>
@@ -535,7 +527,6 @@ exports[`PendingOverdueDocumentsList tests should render show a message with no 
         headerActionComponent={null}
         name="pending overdue documents"
         paginationComponent={null}
-        renderSegment={true}
         rowActionClickHandler={[Function]}
         rows={Array []}
         seeAllComponent={
@@ -551,73 +542,67 @@ exports[`PendingOverdueDocumentsList tests should render show a message with no 
         subtitle="Documents with pending loan requests, no available items and an active loan that's overdue."
         title="Pending overdue documents"
       >
-        <Segment>
+        <Grid>
           <div
-            className="ui segment"
+            className="ui grid"
           >
-            <Grid>
+            <GridRow>
               <div
-                className="ui grid"
+                className="row"
               >
-                <GridRow>
+                <GridColumn
+                  verticalAlign="middle"
+                  width={16}
+                >
                   <div
-                    className="row"
+                    className="middle aligned sixteen wide column"
                   >
-                    <GridColumn
-                      verticalAlign="middle"
-                      width={16}
+                    <Header
+                      as="h3"
+                      content="Pending overdue documents"
+                      subheader="Documents with pending loan requests, no available items and an active loan that's overdue."
                     >
-                      <div
-                        className="middle aligned sixteen wide column"
+                      <h3
+                        className="ui header"
                       >
-                        <Header
-                          as="h3"
-                          content="Pending overdue documents"
-                          subheader="Documents with pending loan requests, no available items and an active loan that's overdue."
+                        Pending overdue documents
+                        <HeaderSubheader
+                          content="Documents with pending loan requests, no available items and an active loan that's overdue."
                         >
-                          <h3
-                            className="ui header"
+                          <div
+                            className="sub header"
                           >
-                            Pending overdue documents
-                            <HeaderSubheader
-                              content="Documents with pending loan requests, no available items and an active loan that's overdue."
-                            >
-                              <div
-                                className="sub header"
-                              >
-                                Documents with pending loan requests, no available items and an active loan that's overdue.
-                              </div>
-                            </HeaderSubheader>
-                          </h3>
-                        </Header>
-                      </div>
-                    </GridColumn>
-                    <GridColumn
-                      textAlign="right"
-                      width={8}
-                    >
-                      <div
-                        className="right aligned eight wide column"
-                      />
-                    </GridColumn>
+                            Documents with pending loan requests, no available items and an active loan that's overdue.
+                          </div>
+                        </HeaderSubheader>
+                      </h3>
+                    </Header>
                   </div>
-                </GridRow>
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={8}
+                >
+                  <div
+                    className="right aligned eight wide column"
+                  />
+                </GridColumn>
               </div>
-            </Grid>
-            <Message
-              data-test="no-results"
-            >
-              <div
-                className="ui message"
-                data-test="no-results"
-              >
-                There are no 
-                pending overdue documents
-                .
-              </div>
-            </Message>
+            </GridRow>
           </div>
-        </Segment>
+        </Grid>
+        <Message
+          data-test="no-results"
+        >
+          <div
+            className="ui message"
+            data-test="no-results"
+          >
+            There are no 
+            pending overdue documents
+            .
+          </div>
+        </Message>
       </ResultsTable>
     </Error>
   </Loader>

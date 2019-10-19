@@ -245,7 +245,6 @@ class SeriesRelationsTabPanel extends Component {
         <ResultsTable
           rows={activeRows}
           name={name}
-          renderSegment={false}
           showMaxRows={size}
           paginationComponent={this.getPaginator(rows.length, activePage)}
           rowActionClickHandler={this.onRelatedClick}

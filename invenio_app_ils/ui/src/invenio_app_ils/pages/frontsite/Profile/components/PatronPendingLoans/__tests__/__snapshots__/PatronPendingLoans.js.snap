@@ -18,7 +18,6 @@ exports[`PatronLoans tests should load the details component 1`] = `
           totalResults={0}
         />
       }
-      renderSegment={true}
       rowActionClickHandler={null}
       rows={Array []}
       seeAllComponent={null}
@@ -116,7 +115,6 @@ exports[`PatronLoans tests should render patron loans 1`] = `
             totalResults={2}
           />
         }
-        renderSegment={true}
         rowActionClickHandler={null}
         rows={
           Array [
@@ -141,362 +139,356 @@ exports[`PatronLoans tests should render patron loans 1`] = `
         subtitle=""
         title="Your loan requests"
       >
-        <Segment>
+        <Grid>
           <div
-            className="ui segment"
+            className="ui grid"
           >
-            <Grid>
+            <GridRow>
               <div
-                className="ui grid"
+                className="row"
               >
-                <GridRow>
+                <GridColumn
+                  verticalAlign="middle"
+                  width={16}
+                >
                   <div
-                    className="row"
+                    className="middle aligned sixteen wide column"
                   >
-                    <GridColumn
-                      verticalAlign="middle"
-                      width={16}
+                    <Header
+                      as="h3"
+                      content="Your loan requests"
+                      subheader=""
                     >
-                      <div
-                        className="middle aligned sixteen wide column"
+                      <h3
+                        className="ui header"
                       >
-                        <Header
-                          as="h3"
-                          content="Your loan requests"
-                          subheader=""
+                        Your loan requests
+                        <HeaderSubheader
+                          content=""
                         >
-                          <h3
-                            className="ui header"
-                          >
-                            Your loan requests
-                            <HeaderSubheader
-                              content=""
-                            >
-                              <div
-                                className="sub header"
-                              />
-                            </HeaderSubheader>
-                          </h3>
-                        </Header>
-                      </div>
-                    </GridColumn>
-                    <GridColumn
-                      textAlign="right"
-                      width={8}
-                    >
-                      <div
-                        className="right aligned eight wide column"
-                      />
-                    </GridColumn>
+                          <div
+                            className="sub header"
+                          />
+                        </HeaderSubheader>
+                      </h3>
+                    </Header>
                   </div>
-                </GridRow>
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={8}
+                >
+                  <div
+                    className="right aligned eight wide column"
+                  />
+                </GridColumn>
               </div>
-            </Grid>
-            <Table
-              as="table"
-              compact={true}
-              selectable={true}
-              striped={true}
-            >
-              <table
-                className="ui selectable striped compact table"
-              >
-                <ResultsTableHeader
-                  columns={
-                    Array [
-                      "ID",
-                      "Document ID",
-                      "Request start date",
-                      "Request end date",
-                    ]
-                  }
-                  withRowAction={false}
-                >
-                  <TableHeader
-                    as="thead"
-                  >
-                    <thead
-                      className=""
-                    >
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="header"
-                      >
-                        <tr
-                          className=""
-                          data-test="header"
-                        >
-                          <TableHeaderCell
-                            as="th"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              />
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="ID"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                ID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Document ID"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Document ID
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Request start date"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Request start date
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                          <TableHeaderCell
-                            as="th"
-                            key="Request end date"
-                          >
-                            <TableCell
-                              as="th"
-                              className=""
-                            >
-                              <th
-                                className=""
-                              >
-                                Request end date
-                              </th>
-                            </TableCell>
-                          </TableHeaderCell>
-                        </tr>
-                      </TableRow>
-                    </thead>
-                  </TableHeader>
-                </ResultsTableHeader>
-                <ResultsTableBody
-                  columns={
-                    Array [
-                      "ID",
-                      "Document ID",
-                      "Request start date",
-                      "Request end date",
-                    ]
-                  }
-                  rowActionClickHandler={null}
-                  rows={
-                    Array [
-                      Object {
-                        "Document ID": "docid-1",
-                        "ID": "loan1",
-                        "Request end date": null,
-                        "Request start date": null,
-                      },
-                      Object {
-                        "Document ID": "docid-1",
-                        "ID": "loan2",
-                        "Request end date": null,
-                        "Request start date": null,
-                      },
-                    ]
-                  }
-                >
-                  <TableBody
-                    as="tbody"
-                  >
-                    <tbody
-                      className=""
-                    >
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="loan1"
-                        key="loan1"
-                      >
-                        <tr
-                          className=""
-                          data-test="loan1"
-                        >
-                          <TableCell
-                            as="td"
-                            textAlign="center"
-                          >
-                            <td
-                              className="center aligned"
-                            />
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="ID-loan1"
-                            key="0-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="ID-loan1"
-                            >
-                              loan1
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Document ID-loan1"
-                            key="1-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Document ID-loan1"
-                            >
-                              docid-1
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Request start date-loan1"
-                            key="2-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Request start date-loan1"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Request end date-loan1"
-                            key="3-loan1"
-                          >
-                            <td
-                              className=""
-                              data-test="Request end date-loan1"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                        </tr>
-                      </TableRow>
-                      <TableRow
-                        as="tr"
-                        cellAs="td"
-                        data-test="loan2"
-                        key="loan2"
-                      >
-                        <tr
-                          className=""
-                          data-test="loan2"
-                        >
-                          <TableCell
-                            as="td"
-                            textAlign="center"
-                          >
-                            <td
-                              className="center aligned"
-                            />
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="ID-loan2"
-                            key="0-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="ID-loan2"
-                            >
-                              loan2
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Document ID-loan2"
-                            key="1-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="Document ID-loan2"
-                            >
-                              docid-1
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Request start date-loan2"
-                            key="2-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="Request start date-loan2"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                          <TableCell
-                            as="td"
-                            data-test="Request end date-loan2"
-                            key="3-loan2"
-                          >
-                            <td
-                              className=""
-                              data-test="Request end date-loan2"
-                            >
-                              -
-                            </td>
-                          </TableCell>
-                        </tr>
-                      </TableRow>
-                    </tbody>
-                  </TableBody>
-                </ResultsTableBody>
-                <ResultsTableFooter
-                  allRowsNumber={2}
-                  columnsNumber={4}
-                  currentPage={1}
-                  paginationComponent={
-                    <Pagination
-                      currentPage={1}
-                      currentSize={10}
-                      onPageChange={[Function]}
-                      renderElement={null}
-                      totalResults={2}
-                    />
-                  }
-                  seeAllComponent={null}
-                  showAllResults={false}
-                  showMaxRows={10}
-                />
-              </table>
-            </Table>
+            </GridRow>
           </div>
-        </Segment>
+        </Grid>
+        <Table
+          as="table"
+          compact={true}
+          selectable={true}
+          striped={true}
+        >
+          <table
+            className="ui selectable striped compact table"
+          >
+            <ResultsTableHeader
+              columns={
+                Array [
+                  "ID",
+                  "Document ID",
+                  "Request start date",
+                  "Request end date",
+                ]
+              }
+              withRowAction={false}
+            >
+              <TableHeader
+                as="thead"
+              >
+                <thead
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="header"
+                  >
+                    <tr
+                      className=""
+                      data-test="header"
+                    >
+                      <TableHeaderCell
+                        as="th"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          />
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="ID"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Document ID"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Document ID
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Request start date"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Request start date
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Request end date"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Request end date
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
+                    </tr>
+                  </TableRow>
+                </thead>
+              </TableHeader>
+            </ResultsTableHeader>
+            <ResultsTableBody
+              columns={
+                Array [
+                  "ID",
+                  "Document ID",
+                  "Request start date",
+                  "Request end date",
+                ]
+              }
+              rowActionClickHandler={null}
+              rows={
+                Array [
+                  Object {
+                    "Document ID": "docid-1",
+                    "ID": "loan1",
+                    "Request end date": null,
+                    "Request start date": null,
+                  },
+                  Object {
+                    "Document ID": "docid-1",
+                    "ID": "loan2",
+                    "Request end date": null,
+                    "Request start date": null,
+                  },
+                ]
+              }
+            >
+              <TableBody
+                as="tbody"
+              >
+                <tbody
+                  className=""
+                >
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="loan1"
+                    key="loan1"
+                  >
+                    <tr
+                      className=""
+                      data-test="loan1"
+                    >
+                      <TableCell
+                        as="td"
+                        textAlign="center"
+                      >
+                        <td
+                          className="center aligned"
+                        />
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="ID-loan1"
+                        key="0-loan1"
+                      >
+                        <td
+                          className=""
+                          data-test="ID-loan1"
+                        >
+                          loan1
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Document ID-loan1"
+                        key="1-loan1"
+                      >
+                        <td
+                          className=""
+                          data-test="Document ID-loan1"
+                        >
+                          docid-1
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Request start date-loan1"
+                        key="2-loan1"
+                      >
+                        <td
+                          className=""
+                          data-test="Request start date-loan1"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Request end date-loan1"
+                        key="3-loan1"
+                      >
+                        <td
+                          className=""
+                          data-test="Request end date-loan1"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                  <TableRow
+                    as="tr"
+                    cellAs="td"
+                    data-test="loan2"
+                    key="loan2"
+                  >
+                    <tr
+                      className=""
+                      data-test="loan2"
+                    >
+                      <TableCell
+                        as="td"
+                        textAlign="center"
+                      >
+                        <td
+                          className="center aligned"
+                        />
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="ID-loan2"
+                        key="0-loan2"
+                      >
+                        <td
+                          className=""
+                          data-test="ID-loan2"
+                        >
+                          loan2
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Document ID-loan2"
+                        key="1-loan2"
+                      >
+                        <td
+                          className=""
+                          data-test="Document ID-loan2"
+                        >
+                          docid-1
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Request start date-loan2"
+                        key="2-loan2"
+                      >
+                        <td
+                          className=""
+                          data-test="Request start date-loan2"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="Request end date-loan2"
+                        key="3-loan2"
+                      >
+                        <td
+                          className=""
+                          data-test="Request end date-loan2"
+                        >
+                          -
+                        </td>
+                      </TableCell>
+                    </tr>
+                  </TableRow>
+                </tbody>
+              </TableBody>
+            </ResultsTableBody>
+            <ResultsTableFooter
+              allRowsNumber={2}
+              columnsNumber={4}
+              currentPage={1}
+              paginationComponent={
+                <Pagination
+                  currentPage={1}
+                  currentSize={10}
+                  onPageChange={[Function]}
+                  renderElement={null}
+                  totalResults={2}
+                />
+              }
+              seeAllComponent={null}
+              showAllResults={false}
+              showMaxRows={10}
+            />
+          </table>
+        </Table>
       </ResultsTable>
     </Error>
   </Loader>
@@ -546,7 +538,6 @@ exports[`PatronLoans tests should render show a message with no user loans 1`] =
             totalResults={0}
           />
         }
-        renderSegment={true}
         rowActionClickHandler={null}
         rows={Array []}
         seeAllComponent={null}
@@ -556,71 +547,65 @@ exports[`PatronLoans tests should render show a message with no user loans 1`] =
         subtitle=""
         title="Your loan requests"
       >
-        <Segment>
+        <Grid>
           <div
-            className="ui segment"
+            className="ui grid"
           >
-            <Grid>
+            <GridRow>
               <div
-                className="ui grid"
+                className="row"
               >
-                <GridRow>
+                <GridColumn
+                  verticalAlign="middle"
+                  width={16}
+                >
                   <div
-                    className="row"
+                    className="middle aligned sixteen wide column"
                   >
-                    <GridColumn
-                      verticalAlign="middle"
-                      width={16}
+                    <Header
+                      as="h3"
+                      content="Your loan requests"
+                      subheader=""
                     >
-                      <div
-                        className="middle aligned sixteen wide column"
+                      <h3
+                        className="ui header"
                       >
-                        <Header
-                          as="h3"
-                          content="Your loan requests"
-                          subheader=""
+                        Your loan requests
+                        <HeaderSubheader
+                          content=""
                         >
-                          <h3
-                            className="ui header"
-                          >
-                            Your loan requests
-                            <HeaderSubheader
-                              content=""
-                            >
-                              <div
-                                className="sub header"
-                              />
-                            </HeaderSubheader>
-                          </h3>
-                        </Header>
-                      </div>
-                    </GridColumn>
-                    <GridColumn
-                      textAlign="right"
-                      width={8}
-                    >
-                      <div
-                        className="right aligned eight wide column"
-                      />
-                    </GridColumn>
+                          <div
+                            className="sub header"
+                          />
+                        </HeaderSubheader>
+                      </h3>
+                    </Header>
                   </div>
-                </GridRow>
+                </GridColumn>
+                <GridColumn
+                  textAlign="right"
+                  width={8}
+                >
+                  <div
+                    className="right aligned eight wide column"
+                  />
+                </GridColumn>
               </div>
-            </Grid>
-            <Message
-              data-test="no-results"
-            >
-              <div
-                className="ui message"
-                data-test="no-results"
-              >
-                There are no 
-                loan requests
-                .
-              </div>
-            </Message>
+            </GridRow>
           </div>
-        </Segment>
+        </Grid>
+        <Message
+          data-test="no-results"
+        >
+          <div
+            className="ui message"
+            data-test="no-results"
+          >
+            There are no 
+            loan requests
+            .
+          </div>
+        </Message>
       </ResultsTable>
     </Error>
   </Loader>

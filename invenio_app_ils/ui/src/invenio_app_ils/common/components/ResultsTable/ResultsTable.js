@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Segment, Message, Header, Table, Grid } from 'semantic-ui-react';
+import { Message, Header, Table, Grid } from 'semantic-ui-react';
 import ResultsTableHeader from './ResultsTableHeader';
 import ResultsTableBody from './ResultsTableBody';
 import ResultsTableFooter from './ResultsTableFooter';
@@ -80,21 +80,12 @@ export class ResultsTable extends Component {
   }
 
   render() {
-    if (this.props.renderSegment) {
-      return (
-        <Segment>
-          {this.renderTitle()}
-          {this.renderResultsOrEmpty()}
-        </Segment>
-      );
-    } else {
-      return (
-        <>
-          {this.renderTitle()}
-          {this.renderResultsOrEmpty()}
-        </>
-      );
-    }
+    return (
+      <>
+        {this.renderTitle()}
+        {this.renderResultsOrEmpty()}
+      </>
+    );
   }
 }
 
@@ -106,7 +97,6 @@ ResultsTable.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   name: PropTypes.string,
-  renderSegment: PropTypes.bool,
   headerActionComponent: PropTypes.node,
   rowActionClickHandler: PropTypes.func,
   seeAllComponent: PropTypes.node,
@@ -121,7 +111,6 @@ ResultsTable.defaultProps = {
   currentPage: 1,
   title: '',
   subtitle: '',
-  renderSegment: true,
   headerActionComponent: null,
   headerActionClickHandler: null,
   rowActionClickHandler: null,

@@ -2,7 +2,7 @@
          Site Overrides
 *******************************/
 
-.front-app{
+.frontsite{
   .ui.table{
     border: 0;
     tr{

@@ -7,7 +7,6 @@ exports[`LoansSearch ResultsTable tests should not render when empty results 1`]
   headerActionClickHandler={null}
   headerActionComponent={null}
   paginationComponent={null}
-  renderSegment={true}
   rowActionClickHandler={[Function]}
   rows={Array []}
   seeAllComponent={null}
@@ -17,51 +16,45 @@ exports[`LoansSearch ResultsTable tests should not render when empty results 1`]
   subtitle=""
   title=""
 >
-  <Segment>
+  <Grid>
     <div
-      className="ui segment"
+      className="ui grid"
     >
-      <Grid>
+      <GridRow>
         <div
-          className="ui grid"
+          className="row"
         >
-          <GridRow>
+          <GridColumn
+            verticalAlign="middle"
+            width={16}
+          >
             <div
-              className="row"
-            >
-              <GridColumn
-                verticalAlign="middle"
-                width={16}
-              >
-                <div
-                  className="middle aligned sixteen wide column"
-                />
-              </GridColumn>
-              <GridColumn
-                textAlign="right"
-                width={8}
-              >
-                <div
-                  className="right aligned eight wide column"
-                />
-              </GridColumn>
-            </div>
-          </GridRow>
+              className="middle aligned sixteen wide column"
+            />
+          </GridColumn>
+          <GridColumn
+            textAlign="right"
+            width={8}
+          >
+            <div
+              className="right aligned eight wide column"
+            />
+          </GridColumn>
         </div>
-      </Grid>
-      <Message
-        data-test="no-results"
-      >
-        <div
-          className="ui message"
-          data-test="no-results"
-        >
-          There are no 
-          .
-        </div>
-      </Message>
+      </GridRow>
     </div>
-  </Segment>
+  </Grid>
+  <Message
+    data-test="no-results"
+  >
+    <div
+      className="ui message"
+      data-test="no-results"
+    >
+      There are no 
+      .
+    </div>
+  </Message>
 </ResultsTable>
 `;
 
@@ -72,7 +65,6 @@ exports[`LoansSearch ResultsTable tests should render a list of results 1`] = `
   headerActionClickHandler={null}
   headerActionComponent={null}
   paginationComponent={null}
-  renderSegment={true}
   rowActionClickHandler={[Function]}
   rows={
     Array [
@@ -99,557 +91,551 @@ exports[`LoansSearch ResultsTable tests should render a list of results 1`] = `
   subtitle=""
   title=""
 >
-  <Segment>
+  <Grid>
     <div
-      className="ui segment"
+      className="ui grid"
     >
-      <Grid>
+      <GridRow>
         <div
-          className="ui grid"
+          className="row"
         >
-          <GridRow>
+          <GridColumn
+            verticalAlign="middle"
+            width={16}
+          >
             <div
-              className="row"
-            >
-              <GridColumn
-                verticalAlign="middle"
-                width={16}
-              >
-                <div
-                  className="middle aligned sixteen wide column"
-                />
-              </GridColumn>
-              <GridColumn
-                textAlign="right"
-                width={8}
-              >
-                <div
-                  className="right aligned eight wide column"
-                />
-              </GridColumn>
-            </div>
-          </GridRow>
+              className="middle aligned sixteen wide column"
+            />
+          </GridColumn>
+          <GridColumn
+            textAlign="right"
+            width={8}
+          >
+            <div
+              className="right aligned eight wide column"
+            />
+          </GridColumn>
         </div>
-      </Grid>
-      <Table
-        as="table"
-        compact={true}
-        selectable={true}
-        striped={true}
-      >
-        <table
-          className="ui selectable striped compact table"
-        >
-          <ResultsTableHeader
-            columns={
-              Array [
-                "ID",
-                "Patron ID",
-                "Document ID",
-                "Patron",
-                "State",
-                "Item barcode",
-                "Request start date",
-                "Request end date",
-                "Start date",
-                "End date",
-                "Renewals",
-                "Actions",
-              ]
-            }
-            withRowAction={false}
-          >
-            <TableHeader
-              as="thead"
-            >
-              <thead
-                className=""
-              >
-                <TableRow
-                  as="tr"
-                  cellAs="td"
-                  data-test="header"
-                >
-                  <tr
-                    className=""
-                    data-test="header"
-                  >
-                    <TableHeaderCell
-                      as="th"
-                    >
-                      <TableCell
-                        as="th"
-                        className=""
-                      >
-                        <th
-                          className=""
-                        />
-                      </TableCell>
-                    </TableHeaderCell>
-                    <TableHeaderCell
-                      as="th"
-                      key="ID"
-                    >
-                      <TableCell
-                        as="th"
-                        className=""
-                      >
-                        <th
-                          className=""
-                        >
-                          ID
-                        </th>
-                      </TableCell>
-                    </TableHeaderCell>
-                    <TableHeaderCell
-                      as="th"
-                      key="Patron ID"
-                    >
-                      <TableCell
-                        as="th"
-                        className=""
-                      >
-                        <th
-                          className=""
-                        >
-                          Patron ID
-                        </th>
-                      </TableCell>
-                    </TableHeaderCell>
-                    <TableHeaderCell
-                      as="th"
-                      key="Document ID"
-                    >
-                      <TableCell
-                        as="th"
-                        className=""
-                      >
-                        <th
-                          className=""
-                        >
-                          Document ID
-                        </th>
-                      </TableCell>
-                    </TableHeaderCell>
-                    <TableHeaderCell
-                      as="th"
-                      key="Patron"
-                    >
-                      <TableCell
-                        as="th"
-                        className=""
-                      >
-                        <th
-                          className=""
-                        >
-                          Patron
-                        </th>
-                      </TableCell>
-                    </TableHeaderCell>
-                    <TableHeaderCell
-                      as="th"
-                      key="State"
-                    >
-                      <TableCell
-                        as="th"
-                        className=""
-                      >
-                        <th
-                          className=""
-                        >
-                          State
-                        </th>
-                      </TableCell>
-                    </TableHeaderCell>
-                    <TableHeaderCell
-                      as="th"
-                      key="Item barcode"
-                    >
-                      <TableCell
-                        as="th"
-                        className=""
-                      >
-                        <th
-                          className=""
-                        >
-                          Item barcode
-                        </th>
-                      </TableCell>
-                    </TableHeaderCell>
-                    <TableHeaderCell
-                      as="th"
-                      key="Request start date"
-                    >
-                      <TableCell
-                        as="th"
-                        className=""
-                      >
-                        <th
-                          className=""
-                        >
-                          Request start date
-                        </th>
-                      </TableCell>
-                    </TableHeaderCell>
-                    <TableHeaderCell
-                      as="th"
-                      key="Request end date"
-                    >
-                      <TableCell
-                        as="th"
-                        className=""
-                      >
-                        <th
-                          className=""
-                        >
-                          Request end date
-                        </th>
-                      </TableCell>
-                    </TableHeaderCell>
-                    <TableHeaderCell
-                      as="th"
-                      key="Start date"
-                    >
-                      <TableCell
-                        as="th"
-                        className=""
-                      >
-                        <th
-                          className=""
-                        >
-                          Start date
-                        </th>
-                      </TableCell>
-                    </TableHeaderCell>
-                    <TableHeaderCell
-                      as="th"
-                      key="End date"
-                    >
-                      <TableCell
-                        as="th"
-                        className=""
-                      >
-                        <th
-                          className=""
-                        >
-                          End date
-                        </th>
-                      </TableCell>
-                    </TableHeaderCell>
-                    <TableHeaderCell
-                      as="th"
-                      key="Renewals"
-                    >
-                      <TableCell
-                        as="th"
-                        className=""
-                      >
-                        <th
-                          className=""
-                        >
-                          Renewals
-                        </th>
-                      </TableCell>
-                    </TableHeaderCell>
-                    <TableHeaderCell
-                      as="th"
-                      key="Actions"
-                    >
-                      <TableCell
-                        as="th"
-                        className=""
-                      >
-                        <th
-                          className=""
-                        >
-                          Actions
-                        </th>
-                      </TableCell>
-                    </TableHeaderCell>
-                  </tr>
-                </TableRow>
-              </thead>
-            </TableHeader>
-          </ResultsTableHeader>
-          <ResultsTableBody
-            columns={
-              Array [
-                "ID",
-                "Patron ID",
-                "Document ID",
-                "Patron",
-                "State",
-                "Item barcode",
-                "Request start date",
-                "Request end date",
-                "Start date",
-                "End date",
-                "Renewals",
-                "Actions",
-              ]
-            }
-            rowActionClickHandler={[Function]}
-            rows={
-              Array [
-                Object {
-                  "Actions": null,
-                  "Document ID": undefined,
-                  "End date": "2018-02-01",
-                  "ID": 3,
-                  "Item barcode": null,
-                  "Patron": undefined,
-                  "Patron ID": 1,
-                  "Renewals": undefined,
-                  "Request end date": null,
-                  "Request start date": null,
-                  "Start date": "2018-01-02",
-                  "State": "ITEM_ON_LOAN",
-                },
-              ]
-            }
-          >
-            <TableBody
-              as="tbody"
-            >
-              <tbody
-                className=""
-              >
-                <TableRow
-                  as="tr"
-                  cellAs="td"
-                  data-test={3}
-                  key="3"
-                >
-                  <tr
-                    className=""
-                    data-test={3}
-                  >
-                    <TableCell
-                      as="td"
-                      textAlign="center"
-                    >
-                      <td
-                        className="center aligned"
-                      >
-                        <Button
-                          as="button"
-                          compact={true}
-                          data-test="btn-view-details-3"
-                          icon="info"
-                          onClick={[Function]}
-                        >
-                          <Ref
-                            innerRef={
-                              Object {
-                                "current": <button
-                                  class="ui compact icon button"
-                                  data-test="btn-view-details-3"
-                                >
-                                  <i
-                                    aria-hidden="true"
-                                    class="info icon"
-                                  />
-                                </button>,
-                              }
-                            }
-                          >
-                            <RefFindNode
-                              innerRef={
-                                Object {
-                                  "current": <button
-                                    class="ui compact icon button"
-                                    data-test="btn-view-details-3"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      class="info icon"
-                                    />
-                                  </button>,
-                                }
-                              }
-                            >
-                              <button
-                                className="ui compact icon button"
-                                data-test="btn-view-details-3"
-                                onClick={[Function]}
-                              >
-                                <Icon
-                                  as="i"
-                                  name="info"
-                                >
-                                  <i
-                                    aria-hidden="true"
-                                    className="info icon"
-                                    onClick={[Function]}
-                                  />
-                                </Icon>
-                              </button>
-                            </RefFindNode>
-                          </Ref>
-                        </Button>
-                      </td>
-                    </TableCell>
-                    <TableCell
-                      as="td"
-                      data-test="ID-3"
-                      key="0-3"
-                    >
-                      <td
-                        className=""
-                        data-test="ID-3"
-                      >
-                        3
-                      </td>
-                    </TableCell>
-                    <TableCell
-                      as="td"
-                      data-test="Patron ID-3"
-                      key="1-3"
-                    >
-                      <td
-                        className=""
-                        data-test="Patron ID-3"
-                      >
-                        1
-                      </td>
-                    </TableCell>
-                    <TableCell
-                      as="td"
-                      data-test="Document ID-3"
-                      key="2-3"
-                    >
-                      <td
-                        className=""
-                        data-test="Document ID-3"
-                      >
-                        -
-                      </td>
-                    </TableCell>
-                    <TableCell
-                      as="td"
-                      data-test="Patron-3"
-                      key="3-3"
-                    >
-                      <td
-                        className=""
-                        data-test="Patron-3"
-                      >
-                        -
-                      </td>
-                    </TableCell>
-                    <TableCell
-                      as="td"
-                      data-test="State-3"
-                      key="4-3"
-                    >
-                      <td
-                        className=""
-                        data-test="State-3"
-                      >
-                        ITEM_ON_LOAN
-                      </td>
-                    </TableCell>
-                    <TableCell
-                      as="td"
-                      data-test="Item barcode-3"
-                      key="5-3"
-                    >
-                      <td
-                        className=""
-                        data-test="Item barcode-3"
-                      >
-                        -
-                      </td>
-                    </TableCell>
-                    <TableCell
-                      as="td"
-                      data-test="Request start date-3"
-                      key="6-3"
-                    >
-                      <td
-                        className=""
-                        data-test="Request start date-3"
-                      >
-                        -
-                      </td>
-                    </TableCell>
-                    <TableCell
-                      as="td"
-                      data-test="Request end date-3"
-                      key="7-3"
-                    >
-                      <td
-                        className=""
-                        data-test="Request end date-3"
-                      >
-                        -
-                      </td>
-                    </TableCell>
-                    <TableCell
-                      as="td"
-                      data-test="Start date-3"
-                      key="8-3"
-                    >
-                      <td
-                        className=""
-                        data-test="Start date-3"
-                      >
-                        2018-01-02
-                      </td>
-                    </TableCell>
-                    <TableCell
-                      as="td"
-                      data-test="End date-3"
-                      key="9-3"
-                    >
-                      <td
-                        className=""
-                        data-test="End date-3"
-                      >
-                        2018-02-01
-                      </td>
-                    </TableCell>
-                    <TableCell
-                      as="td"
-                      data-test="Renewals-3"
-                      key="10-3"
-                    >
-                      <td
-                        className=""
-                        data-test="Renewals-3"
-                      >
-                        -
-                      </td>
-                    </TableCell>
-                    <TableCell
-                      as="td"
-                      data-test="Actions-3"
-                      key="11-3"
-                    >
-                      <td
-                        className=""
-                        data-test="Actions-3"
-                      >
-                        -
-                      </td>
-                    </TableCell>
-                  </tr>
-                </TableRow>
-              </tbody>
-            </TableBody>
-          </ResultsTableBody>
-          <ResultsTableFooter
-            allRowsNumber={1}
-            columnsNumber={12}
-            currentPage={1}
-            paginationComponent={null}
-            seeAllComponent={null}
-            showAllResults={false}
-            showMaxRows={10}
-          />
-        </table>
-      </Table>
+      </GridRow>
     </div>
-  </Segment>
+  </Grid>
+  <Table
+    as="table"
+    compact={true}
+    selectable={true}
+    striped={true}
+  >
+    <table
+      className="ui selectable striped compact table"
+    >
+      <ResultsTableHeader
+        columns={
+          Array [
+            "ID",
+            "Patron ID",
+            "Document ID",
+            "Patron",
+            "State",
+            "Item barcode",
+            "Request start date",
+            "Request end date",
+            "Start date",
+            "End date",
+            "Renewals",
+            "Actions",
+          ]
+        }
+        withRowAction={false}
+      >
+        <TableHeader
+          as="thead"
+        >
+          <thead
+            className=""
+          >
+            <TableRow
+              as="tr"
+              cellAs="td"
+              data-test="header"
+            >
+              <tr
+                className=""
+                data-test="header"
+              >
+                <TableHeaderCell
+                  as="th"
+                >
+                  <TableCell
+                    as="th"
+                    className=""
+                  >
+                    <th
+                      className=""
+                    />
+                  </TableCell>
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                  key="ID"
+                >
+                  <TableCell
+                    as="th"
+                    className=""
+                  >
+                    <th
+                      className=""
+                    >
+                      ID
+                    </th>
+                  </TableCell>
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                  key="Patron ID"
+                >
+                  <TableCell
+                    as="th"
+                    className=""
+                  >
+                    <th
+                      className=""
+                    >
+                      Patron ID
+                    </th>
+                  </TableCell>
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                  key="Document ID"
+                >
+                  <TableCell
+                    as="th"
+                    className=""
+                  >
+                    <th
+                      className=""
+                    >
+                      Document ID
+                    </th>
+                  </TableCell>
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                  key="Patron"
+                >
+                  <TableCell
+                    as="th"
+                    className=""
+                  >
+                    <th
+                      className=""
+                    >
+                      Patron
+                    </th>
+                  </TableCell>
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                  key="State"
+                >
+                  <TableCell
+                    as="th"
+                    className=""
+                  >
+                    <th
+                      className=""
+                    >
+                      State
+                    </th>
+                  </TableCell>
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                  key="Item barcode"
+                >
+                  <TableCell
+                    as="th"
+                    className=""
+                  >
+                    <th
+                      className=""
+                    >
+                      Item barcode
+                    </th>
+                  </TableCell>
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                  key="Request start date"
+                >
+                  <TableCell
+                    as="th"
+                    className=""
+                  >
+                    <th
+                      className=""
+                    >
+                      Request start date
+                    </th>
+                  </TableCell>
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                  key="Request end date"
+                >
+                  <TableCell
+                    as="th"
+                    className=""
+                  >
+                    <th
+                      className=""
+                    >
+                      Request end date
+                    </th>
+                  </TableCell>
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                  key="Start date"
+                >
+                  <TableCell
+                    as="th"
+                    className=""
+                  >
+                    <th
+                      className=""
+                    >
+                      Start date
+                    </th>
+                  </TableCell>
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                  key="End date"
+                >
+                  <TableCell
+                    as="th"
+                    className=""
+                  >
+                    <th
+                      className=""
+                    >
+                      End date
+                    </th>
+                  </TableCell>
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                  key="Renewals"
+                >
+                  <TableCell
+                    as="th"
+                    className=""
+                  >
+                    <th
+                      className=""
+                    >
+                      Renewals
+                    </th>
+                  </TableCell>
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                  key="Actions"
+                >
+                  <TableCell
+                    as="th"
+                    className=""
+                  >
+                    <th
+                      className=""
+                    >
+                      Actions
+                    </th>
+                  </TableCell>
+                </TableHeaderCell>
+              </tr>
+            </TableRow>
+          </thead>
+        </TableHeader>
+      </ResultsTableHeader>
+      <ResultsTableBody
+        columns={
+          Array [
+            "ID",
+            "Patron ID",
+            "Document ID",
+            "Patron",
+            "State",
+            "Item barcode",
+            "Request start date",
+            "Request end date",
+            "Start date",
+            "End date",
+            "Renewals",
+            "Actions",
+          ]
+        }
+        rowActionClickHandler={[Function]}
+        rows={
+          Array [
+            Object {
+              "Actions": null,
+              "Document ID": undefined,
+              "End date": "2018-02-01",
+              "ID": 3,
+              "Item barcode": null,
+              "Patron": undefined,
+              "Patron ID": 1,
+              "Renewals": undefined,
+              "Request end date": null,
+              "Request start date": null,
+              "Start date": "2018-01-02",
+              "State": "ITEM_ON_LOAN",
+            },
+          ]
+        }
+      >
+        <TableBody
+          as="tbody"
+        >
+          <tbody
+            className=""
+          >
+            <TableRow
+              as="tr"
+              cellAs="td"
+              data-test={3}
+              key="3"
+            >
+              <tr
+                className=""
+                data-test={3}
+              >
+                <TableCell
+                  as="td"
+                  textAlign="center"
+                >
+                  <td
+                    className="center aligned"
+                  >
+                    <Button
+                      as="button"
+                      compact={true}
+                      data-test="btn-view-details-3"
+                      icon="info"
+                      onClick={[Function]}
+                    >
+                      <Ref
+                        innerRef={
+                          Object {
+                            "current": <button
+                              class="ui compact icon button"
+                              data-test="btn-view-details-3"
+                            >
+                              <i
+                                aria-hidden="true"
+                                class="info icon"
+                              />
+                            </button>,
+                          }
+                        }
+                      >
+                        <RefFindNode
+                          innerRef={
+                            Object {
+                              "current": <button
+                                class="ui compact icon button"
+                                data-test="btn-view-details-3"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  class="info icon"
+                                />
+                              </button>,
+                            }
+                          }
+                        >
+                          <button
+                            className="ui compact icon button"
+                            data-test="btn-view-details-3"
+                            onClick={[Function]}
+                          >
+                            <Icon
+                              as="i"
+                              name="info"
+                            >
+                              <i
+                                aria-hidden="true"
+                                className="info icon"
+                                onClick={[Function]}
+                              />
+                            </Icon>
+                          </button>
+                        </RefFindNode>
+                      </Ref>
+                    </Button>
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                  data-test="ID-3"
+                  key="0-3"
+                >
+                  <td
+                    className=""
+                    data-test="ID-3"
+                  >
+                    3
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                  data-test="Patron ID-3"
+                  key="1-3"
+                >
+                  <td
+                    className=""
+                    data-test="Patron ID-3"
+                  >
+                    1
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                  data-test="Document ID-3"
+                  key="2-3"
+                >
+                  <td
+                    className=""
+                    data-test="Document ID-3"
+                  >
+                    -
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                  data-test="Patron-3"
+                  key="3-3"
+                >
+                  <td
+                    className=""
+                    data-test="Patron-3"
+                  >
+                    -
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                  data-test="State-3"
+                  key="4-3"
+                >
+                  <td
+                    className=""
+                    data-test="State-3"
+                  >
+                    ITEM_ON_LOAN
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                  data-test="Item barcode-3"
+                  key="5-3"
+                >
+                  <td
+                    className=""
+                    data-test="Item barcode-3"
+                  >
+                    -
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                  data-test="Request start date-3"
+                  key="6-3"
+                >
+                  <td
+                    className=""
+                    data-test="Request start date-3"
+                  >
+                    -
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                  data-test="Request end date-3"
+                  key="7-3"
+                >
+                  <td
+                    className=""
+                    data-test="Request end date-3"
+                  >
+                    -
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                  data-test="Start date-3"
+                  key="8-3"
+                >
+                  <td
+                    className=""
+                    data-test="Start date-3"
+                  >
+                    2018-01-02
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                  data-test="End date-3"
+                  key="9-3"
+                >
+                  <td
+                    className=""
+                    data-test="End date-3"
+                  >
+                    2018-02-01
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                  data-test="Renewals-3"
+                  key="10-3"
+                >
+                  <td
+                    className=""
+                    data-test="Renewals-3"
+                  >
+                    -
+                  </td>
+                </TableCell>
+                <TableCell
+                  as="td"
+                  data-test="Actions-3"
+                  key="11-3"
+                >
+                  <td
+                    className=""
+                    data-test="Actions-3"
+                  >
+                    -
+                  </td>
+                </TableCell>
+              </tr>
+            </TableRow>
+          </tbody>
+        </TableBody>
+      </ResultsTableBody>
+      <ResultsTableFooter
+        allRowsNumber={1}
+        columnsNumber={12}
+        currentPage={1}
+        paginationComponent={null}
+        seeAllComponent={null}
+        showAllResults={false}
+        showMaxRows={10}
+      />
+    </table>
+  </Table>
 </ResultsTable>
 `;

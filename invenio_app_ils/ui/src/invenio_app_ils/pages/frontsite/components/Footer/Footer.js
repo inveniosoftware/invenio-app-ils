@@ -4,7 +4,7 @@ import { Container, Grid, Header } from 'semantic-ui-react';
 export default class Footer extends Component {
   render() {
     return (
-      <footer className="frontsite-footer">
+      <footer>
         <Container fluid className="footer-upper">
           <Container>
             <Grid columns={3}>
