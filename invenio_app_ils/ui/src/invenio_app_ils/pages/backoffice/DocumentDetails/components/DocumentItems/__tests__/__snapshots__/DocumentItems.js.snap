@@ -4,14 +4,45 @@ exports[`DocumentItems tests should load the DocumentItems component 1`] = `
 <Loader>
   <Error>
     <ResultsTable
+      columns={
+        Array [
+          Object {
+            "field": "",
+            "formatter": [Function],
+            "title": "",
+          },
+          Object {
+            "field": "metadata.pid",
+            "title": "ID",
+          },
+          Object {
+            "field": "metadata.barcode",
+            "title": "Barcode",
+          },
+          Object {
+            "field": "metadata.status",
+            "title": "Status",
+          },
+          Object {
+            "field": "metadata.medium",
+            "title": "Medium",
+          },
+          Object {
+            "field": "metadata.internal_location.name",
+            "title": "Location",
+          },
+          Object {
+            "field": "metadata.shelf",
+            "title": "Shelf",
+          },
+        ]
+      }
       currentPage={1}
-      fixed={false}
+      data={Array []}
       headerActionClickHandler={null}
       headerActionComponent={null}
       name="attached items"
       paginationComponent={null}
-      rowActionClickHandler={[Function]}
-      rows={Array []}
       seeAllComponent={
         <SeeAllButton
           clickHandler={[Function]}
@@ -24,6 +55,7 @@ exports[`DocumentItems tests should load the DocumentItems component 1`] = `
       singleLine={false}
       subtitle=""
       title="Attached items"
+      totalHitsCount={0}
     />
   </Error>
 </Loader>
@@ -96,33 +128,92 @@ exports[`DocumentItems tests should render item 1`] = `
   <Loader>
     <Error>
       <ResultsTable
+        columns={
+          Array [
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "",
+            },
+            Object {
+              "field": "metadata.pid",
+              "title": "ID",
+            },
+            Object {
+              "field": "metadata.barcode",
+              "title": "Barcode",
+            },
+            Object {
+              "field": "metadata.status",
+              "title": "Status",
+            },
+            Object {
+              "field": "metadata.medium",
+              "title": "Medium",
+            },
+            Object {
+              "field": "metadata.internal_location.name",
+              "title": "Location",
+            },
+            Object {
+              "field": "metadata.shelf",
+              "title": "Shelf",
+            },
+          ]
+        }
         currentPage={1}
-        fixed={false}
+        data={
+          Array [
+            Object {
+              "ID": "1",
+              "metadata": Object {
+                "barcode": "123456789-1",
+                "circulation_restriction": "NO_RESTRICTION",
+                "document": Object {
+                  "title": "Document 1 title",
+                },
+                "document_pid": "docid-1",
+                "internal_location": Object {
+                  "location": Object {
+                    "name": "Somewhere",
+                  },
+                },
+                "internal_location_pid": "ilocid-1",
+                "medium": "NOT_SPECIFIED",
+                "pid": "itemid-1",
+                "shelf": "Shelf 1",
+                "status": "MISSING",
+              },
+              "pid": "item1",
+            },
+            Object {
+              "id": "2",
+              "metadata": Object {
+                "barcode": "123456789-2",
+                "circulation_restriction": "NO_RESTRICTION",
+                "document": Object {
+                  "title": "Document 2 title",
+                },
+                "document_pid": "docid-1",
+                "internal_location": Object {
+                  "location": Object {
+                    "name": "Somewhere Else",
+                  },
+                },
+                "internal_location_pid": "ilocid-2",
+                "medium": "NOT_SPECIFIED",
+                "pid": "itemid-2",
+                "shelf": "Shelf 2",
+                "status": "CAN_CIRCULATE",
+              },
+              "pid": "item2",
+            },
+          ]
+        }
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="attached items"
         paginationComponent={null}
-        rowActionClickHandler={[Function]}
-        rows={
-          Array [
-            Object {
-              "Barcode": "123456789-1",
-              "ID": "item1",
-              "Location": "Somewhere",
-              "Medium": "NOT_SPECIFIED",
-              "Shelf": "Shelf 1",
-              "Status": "MISSING",
-            },
-            Object {
-              "Barcode": "123456789-2",
-              "ID": "item2",
-              "Location": "Somewhere Else",
-              "Medium": "NOT_SPECIFIED",
-              "Shelf": "Shelf 2",
-              "Status": "CAN_CIRCULATE",
-            },
-          ]
-        }
         seeAllComponent={
           <SeeAllButton
             clickHandler={[Function]}
@@ -135,6 +226,7 @@ exports[`DocumentItems tests should render item 1`] = `
         singleLine={false}
         subtitle=""
         title="Attached items"
+        totalHitsCount={2}
       >
         <Grid>
           <div
@@ -195,15 +287,37 @@ exports[`DocumentItems tests should render item 1`] = `
             <ResultsTableHeader
               columns={
                 Array [
-                  "ID",
-                  "Barcode",
-                  "Status",
-                  "Medium",
-                  "Location",
-                  "Shelf",
+                  Object {
+                    "field": "",
+                    "formatter": [Function],
+                    "title": "",
+                  },
+                  Object {
+                    "field": "metadata.pid",
+                    "title": "ID",
+                  },
+                  Object {
+                    "field": "metadata.barcode",
+                    "title": "Barcode",
+                  },
+                  Object {
+                    "field": "metadata.status",
+                    "title": "Status",
+                  },
+                  Object {
+                    "field": "metadata.medium",
+                    "title": "Medium",
+                  },
+                  Object {
+                    "field": "metadata.internal_location.name",
+                    "title": "Location",
+                  },
+                  Object {
+                    "field": "metadata.shelf",
+                    "title": "Shelf",
+                  },
                 ]
               }
-              withRowAction={false}
             >
               <TableHeader
                 as="thead"
@@ -222,6 +336,7 @@ exports[`DocumentItems tests should render item 1`] = `
                     >
                       <TableHeaderCell
                         as="th"
+                        key=""
                       >
                         <TableCell
                           as="th"
@@ -330,32 +445,82 @@ exports[`DocumentItems tests should render item 1`] = `
             <ResultsTableBody
               columns={
                 Array [
-                  "ID",
-                  "Barcode",
-                  "Status",
-                  "Medium",
-                  "Location",
-                  "Shelf",
+                  Object {
+                    "field": "",
+                    "formatter": [Function],
+                    "title": "",
+                  },
+                  Object {
+                    "field": "metadata.pid",
+                    "title": "ID",
+                  },
+                  Object {
+                    "field": "metadata.barcode",
+                    "title": "Barcode",
+                  },
+                  Object {
+                    "field": "metadata.status",
+                    "title": "Status",
+                  },
+                  Object {
+                    "field": "metadata.medium",
+                    "title": "Medium",
+                  },
+                  Object {
+                    "field": "metadata.internal_location.name",
+                    "title": "Location",
+                  },
+                  Object {
+                    "field": "metadata.shelf",
+                    "title": "Shelf",
+                  },
                 ]
               }
-              rowActionClickHandler={[Function]}
               rows={
                 Array [
                   Object {
-                    "Barcode": "123456789-1",
-                    "ID": "item1",
-                    "Location": "Somewhere",
-                    "Medium": "NOT_SPECIFIED",
-                    "Shelf": "Shelf 1",
-                    "Status": "MISSING",
+                    "ID": "1",
+                    "metadata": Object {
+                      "barcode": "123456789-1",
+                      "circulation_restriction": "NO_RESTRICTION",
+                      "document": Object {
+                        "title": "Document 1 title",
+                      },
+                      "document_pid": "docid-1",
+                      "internal_location": Object {
+                        "location": Object {
+                          "name": "Somewhere",
+                        },
+                      },
+                      "internal_location_pid": "ilocid-1",
+                      "medium": "NOT_SPECIFIED",
+                      "pid": "itemid-1",
+                      "shelf": "Shelf 1",
+                      "status": "MISSING",
+                    },
+                    "pid": "item1",
                   },
                   Object {
-                    "Barcode": "123456789-2",
-                    "ID": "item2",
-                    "Location": "Somewhere Else",
-                    "Medium": "NOT_SPECIFIED",
-                    "Shelf": "Shelf 2",
-                    "Status": "CAN_CIRCULATE",
+                    "id": "2",
+                    "metadata": Object {
+                      "barcode": "123456789-2",
+                      "circulation_restriction": "NO_RESTRICTION",
+                      "document": Object {
+                        "title": "Document 2 title",
+                      },
+                      "document_pid": "docid-1",
+                      "internal_location": Object {
+                        "location": Object {
+                          "name": "Somewhere Else",
+                        },
+                      },
+                      "internal_location_pid": "ilocid-2",
+                      "medium": "NOT_SPECIFIED",
+                      "pid": "itemid-2",
+                      "shelf": "Shelf 2",
+                      "status": "CAN_CIRCULATE",
+                    },
+                    "pid": "item2",
                   },
                 ]
               }
@@ -378,65 +543,715 @@ exports[`DocumentItems tests should render item 1`] = `
                     >
                       <TableCell
                         as="td"
-                        textAlign="center"
+                        data-test="-item1"
+                        key="-item1"
                       >
                         <td
-                          className="center aligned"
+                          className=""
+                          data-test="-item1"
                         >
                           <Button
-                            as="button"
+                            as={
+                              Object {
+                                "$$typeof": Symbol(react.forward_ref),
+                                "displayName": "Link",
+                                "propTypes": Object {
+                                  "innerRef": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "onClick": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "replace": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "target": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "to": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                },
+                                "render": [MockFunction] {
+                                  "calls": Array [
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "itemid-1",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/itemid-1",
+                                      },
+                                      [Function],
+                                    ],
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "itemid-2",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/itemid-2",
+                                      },
+                                      [Function],
+                                    ],
+                                  ],
+                                  "results": Array [
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                  ],
+                                },
+                              }
+                            }
                             compact={true}
-                            data-test="btn-view-details-item1"
+                            data-test="itemid-1"
                             icon="info"
-                            onClick={[Function]}
+                            to="url/itemid-1"
                           >
                             <Ref
                               innerRef={
                                 Object {
-                                  "current": <button
-                                    class="ui compact icon button"
-                                    data-test="btn-view-details-item1"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      class="info icon"
-                                    />
-                                  </button>,
+                                  "current": null,
                                 }
                               }
                             >
-                              <RefFindNode
+                              <RefForward
                                 innerRef={
                                   Object {
-                                    "current": <button
-                                      class="ui compact icon button"
-                                      data-test="btn-view-details-item1"
-                                    >
-                                      <i
-                                        aria-hidden="true"
-                                        class="info icon"
-                                      />
-                                    </button>,
+                                    "current": null,
                                   }
                                 }
                               >
-                                <button
+                                <Link
                                   className="ui compact icon button"
-                                  data-test="btn-view-details-item1"
+                                  data-test="itemid-1"
                                   onClick={[Function]}
-                                >
-                                  <Icon
-                                    as="i"
-                                    name="info"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      className="info icon"
-                                      onClick={[Function]}
-                                    />
-                                  </Icon>
-                                </button>
-                              </RefFindNode>
+                                  role="button"
+                                  to="url/itemid-1"
+                                />
+                              </RefForward>
                             </Ref>
                           </Button>
                         </td>
@@ -444,19 +1259,19 @@ exports[`DocumentItems tests should render item 1`] = `
                       <TableCell
                         as="td"
                         data-test="ID-item1"
-                        key="0-item1"
+                        key="ID-item1"
                       >
                         <td
                           className=""
                           data-test="ID-item1"
                         >
-                          item1
+                          itemid-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
                         data-test="Barcode-item1"
-                        key="1-item1"
+                        key="Barcode-item1"
                       >
                         <td
                           className=""
@@ -468,7 +1283,7 @@ exports[`DocumentItems tests should render item 1`] = `
                       <TableCell
                         as="td"
                         data-test="Status-item1"
-                        key="2-item1"
+                        key="Status-item1"
                       >
                         <td
                           className=""
@@ -480,7 +1295,7 @@ exports[`DocumentItems tests should render item 1`] = `
                       <TableCell
                         as="td"
                         data-test="Medium-item1"
-                        key="3-item1"
+                        key="Medium-item1"
                       >
                         <td
                           className=""
@@ -492,19 +1307,19 @@ exports[`DocumentItems tests should render item 1`] = `
                       <TableCell
                         as="td"
                         data-test="Location-item1"
-                        key="4-item1"
+                        key="Location-item1"
                       >
                         <td
                           className=""
                           data-test="Location-item1"
                         >
-                          Somewhere
+                          -
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
                         data-test="Shelf-item1"
-                        key="5-item1"
+                        key="Shelf-item1"
                       >
                         <td
                           className=""
@@ -527,65 +1342,715 @@ exports[`DocumentItems tests should render item 1`] = `
                     >
                       <TableCell
                         as="td"
-                        textAlign="center"
+                        data-test="-item2"
+                        key="-item2"
                       >
                         <td
-                          className="center aligned"
+                          className=""
+                          data-test="-item2"
                         >
                           <Button
-                            as="button"
+                            as={
+                              Object {
+                                "$$typeof": Symbol(react.forward_ref),
+                                "displayName": "Link",
+                                "propTypes": Object {
+                                  "innerRef": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "onClick": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "replace": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "target": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "to": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                },
+                                "render": [MockFunction] {
+                                  "calls": Array [
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "itemid-1",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/itemid-1",
+                                      },
+                                      [Function],
+                                    ],
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "itemid-2",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/itemid-2",
+                                      },
+                                      [Function],
+                                    ],
+                                  ],
+                                  "results": Array [
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                  ],
+                                },
+                              }
+                            }
                             compact={true}
-                            data-test="btn-view-details-item2"
+                            data-test="itemid-2"
                             icon="info"
-                            onClick={[Function]}
+                            to="url/itemid-2"
                           >
                             <Ref
                               innerRef={
                                 Object {
-                                  "current": <button
-                                    class="ui compact icon button"
-                                    data-test="btn-view-details-item2"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      class="info icon"
-                                    />
-                                  </button>,
+                                  "current": null,
                                 }
                               }
                             >
-                              <RefFindNode
+                              <RefForward
                                 innerRef={
                                   Object {
-                                    "current": <button
-                                      class="ui compact icon button"
-                                      data-test="btn-view-details-item2"
-                                    >
-                                      <i
-                                        aria-hidden="true"
-                                        class="info icon"
-                                      />
-                                    </button>,
+                                    "current": null,
                                   }
                                 }
                               >
-                                <button
+                                <Link
                                   className="ui compact icon button"
-                                  data-test="btn-view-details-item2"
+                                  data-test="itemid-2"
                                   onClick={[Function]}
-                                >
-                                  <Icon
-                                    as="i"
-                                    name="info"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      className="info icon"
-                                      onClick={[Function]}
-                                    />
-                                  </Icon>
-                                </button>
-                              </RefFindNode>
+                                  role="button"
+                                  to="url/itemid-2"
+                                />
+                              </RefForward>
                             </Ref>
                           </Button>
                         </td>
@@ -593,19 +2058,19 @@ exports[`DocumentItems tests should render item 1`] = `
                       <TableCell
                         as="td"
                         data-test="ID-item2"
-                        key="0-item2"
+                        key="ID-item2"
                       >
                         <td
                           className=""
                           data-test="ID-item2"
                         >
-                          item2
+                          itemid-2
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
                         data-test="Barcode-item2"
-                        key="1-item2"
+                        key="Barcode-item2"
                       >
                         <td
                           className=""
@@ -617,7 +2082,7 @@ exports[`DocumentItems tests should render item 1`] = `
                       <TableCell
                         as="td"
                         data-test="Status-item2"
-                        key="2-item2"
+                        key="Status-item2"
                       >
                         <td
                           className=""
@@ -629,7 +2094,7 @@ exports[`DocumentItems tests should render item 1`] = `
                       <TableCell
                         as="td"
                         data-test="Medium-item2"
-                        key="3-item2"
+                        key="Medium-item2"
                       >
                         <td
                           className=""
@@ -641,19 +2106,19 @@ exports[`DocumentItems tests should render item 1`] = `
                       <TableCell
                         as="td"
                         data-test="Location-item2"
-                        key="4-item2"
+                        key="Location-item2"
                       >
                         <td
                           className=""
                           data-test="Location-item2"
                         >
-                          Somewhere Else
+                          -
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
                         data-test="Shelf-item2"
-                        key="5-item2"
+                        key="Shelf-item2"
                       >
                         <td
                           className=""
@@ -669,7 +2134,7 @@ exports[`DocumentItems tests should render item 1`] = `
             </ResultsTableBody>
             <ResultsTableFooter
               allRowsNumber={2}
-              columnsNumber={6}
+              columnsNumber={7}
               currentPage={1}
               paginationComponent={null}
               seeAllComponent={
@@ -712,14 +2177,45 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
   <Loader>
     <Error>
       <ResultsTable
+        columns={
+          Array [
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "",
+            },
+            Object {
+              "field": "metadata.pid",
+              "title": "ID",
+            },
+            Object {
+              "field": "metadata.barcode",
+              "title": "Barcode",
+            },
+            Object {
+              "field": "metadata.status",
+              "title": "Status",
+            },
+            Object {
+              "field": "metadata.medium",
+              "title": "Medium",
+            },
+            Object {
+              "field": "metadata.internal_location.name",
+              "title": "Location",
+            },
+            Object {
+              "field": "metadata.shelf",
+              "title": "Shelf",
+            },
+          ]
+        }
         currentPage={1}
-        fixed={false}
+        data={Array []}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="attached items"
         paginationComponent={null}
-        rowActionClickHandler={[Function]}
-        rows={Array []}
         seeAllComponent={
           <SeeAllButton
             clickHandler={[Function]}
@@ -732,6 +2228,7 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
         singleLine={false}
         subtitle=""
         title="Attached items"
+        totalHitsCount={0}
       >
         <Grid>
           <div
@@ -865,33 +2362,92 @@ exports[`DocumentItems tests should render the see all button when showing only 
   <Loader>
     <Error>
       <ResultsTable
+        columns={
+          Array [
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "",
+            },
+            Object {
+              "field": "metadata.pid",
+              "title": "ID",
+            },
+            Object {
+              "field": "metadata.barcode",
+              "title": "Barcode",
+            },
+            Object {
+              "field": "metadata.status",
+              "title": "Status",
+            },
+            Object {
+              "field": "metadata.medium",
+              "title": "Medium",
+            },
+            Object {
+              "field": "metadata.internal_location.name",
+              "title": "Location",
+            },
+            Object {
+              "field": "metadata.shelf",
+              "title": "Shelf",
+            },
+          ]
+        }
         currentPage={1}
-        fixed={false}
+        data={
+          Array [
+            Object {
+              "ID": "1",
+              "metadata": Object {
+                "barcode": "123456789-1",
+                "circulation_restriction": "NO_RESTRICTION",
+                "document": Object {
+                  "title": "Document 1 title",
+                },
+                "document_pid": "docid-1",
+                "internal_location": Object {
+                  "location": Object {
+                    "name": "Somewhere",
+                  },
+                },
+                "internal_location_pid": "ilocid-1",
+                "medium": "NOT_SPECIFIED",
+                "pid": "itemid-1",
+                "shelf": "Shelf 1",
+                "status": "MISSING",
+              },
+              "pid": "item1",
+            },
+            Object {
+              "id": "2",
+              "metadata": Object {
+                "barcode": "123456789-2",
+                "circulation_restriction": "NO_RESTRICTION",
+                "document": Object {
+                  "title": "Document 2 title",
+                },
+                "document_pid": "docid-1",
+                "internal_location": Object {
+                  "location": Object {
+                    "name": "Somewhere Else",
+                  },
+                },
+                "internal_location_pid": "ilocid-2",
+                "medium": "NOT_SPECIFIED",
+                "pid": "itemid-2",
+                "shelf": "Shelf 2",
+                "status": "CAN_CIRCULATE",
+              },
+              "pid": "item2",
+            },
+          ]
+        }
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="attached items"
         paginationComponent={null}
-        rowActionClickHandler={[Function]}
-        rows={
-          Array [
-            Object {
-              "Barcode": "123456789-1",
-              "ID": "item1",
-              "Location": "Somewhere",
-              "Medium": "NOT_SPECIFIED",
-              "Shelf": "Shelf 1",
-              "Status": "MISSING",
-            },
-            Object {
-              "Barcode": "123456789-2",
-              "ID": "item2",
-              "Location": "Somewhere Else",
-              "Medium": "NOT_SPECIFIED",
-              "Shelf": "Shelf 2",
-              "Status": "CAN_CIRCULATE",
-            },
-          ]
-        }
         seeAllComponent={
           <SeeAllButton
             clickHandler={[Function]}
@@ -904,6 +2460,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
         singleLine={false}
         subtitle=""
         title="Attached items"
+        totalHitsCount={2}
       >
         <Grid>
           <div
@@ -964,15 +2521,37 @@ exports[`DocumentItems tests should render the see all button when showing only 
             <ResultsTableHeader
               columns={
                 Array [
-                  "ID",
-                  "Barcode",
-                  "Status",
-                  "Medium",
-                  "Location",
-                  "Shelf",
+                  Object {
+                    "field": "",
+                    "formatter": [Function],
+                    "title": "",
+                  },
+                  Object {
+                    "field": "metadata.pid",
+                    "title": "ID",
+                  },
+                  Object {
+                    "field": "metadata.barcode",
+                    "title": "Barcode",
+                  },
+                  Object {
+                    "field": "metadata.status",
+                    "title": "Status",
+                  },
+                  Object {
+                    "field": "metadata.medium",
+                    "title": "Medium",
+                  },
+                  Object {
+                    "field": "metadata.internal_location.name",
+                    "title": "Location",
+                  },
+                  Object {
+                    "field": "metadata.shelf",
+                    "title": "Shelf",
+                  },
                 ]
               }
-              withRowAction={false}
             >
               <TableHeader
                 as="thead"
@@ -991,6 +2570,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
                     >
                       <TableHeaderCell
                         as="th"
+                        key=""
                       >
                         <TableCell
                           as="th"
@@ -1099,24 +2679,60 @@ exports[`DocumentItems tests should render the see all button when showing only 
             <ResultsTableBody
               columns={
                 Array [
-                  "ID",
-                  "Barcode",
-                  "Status",
-                  "Medium",
-                  "Location",
-                  "Shelf",
+                  Object {
+                    "field": "",
+                    "formatter": [Function],
+                    "title": "",
+                  },
+                  Object {
+                    "field": "metadata.pid",
+                    "title": "ID",
+                  },
+                  Object {
+                    "field": "metadata.barcode",
+                    "title": "Barcode",
+                  },
+                  Object {
+                    "field": "metadata.status",
+                    "title": "Status",
+                  },
+                  Object {
+                    "field": "metadata.medium",
+                    "title": "Medium",
+                  },
+                  Object {
+                    "field": "metadata.internal_location.name",
+                    "title": "Location",
+                  },
+                  Object {
+                    "field": "metadata.shelf",
+                    "title": "Shelf",
+                  },
                 ]
               }
-              rowActionClickHandler={[Function]}
               rows={
                 Array [
                   Object {
-                    "Barcode": "123456789-1",
-                    "ID": "item1",
-                    "Location": "Somewhere",
-                    "Medium": "NOT_SPECIFIED",
-                    "Shelf": "Shelf 1",
-                    "Status": "MISSING",
+                    "ID": "1",
+                    "metadata": Object {
+                      "barcode": "123456789-1",
+                      "circulation_restriction": "NO_RESTRICTION",
+                      "document": Object {
+                        "title": "Document 1 title",
+                      },
+                      "document_pid": "docid-1",
+                      "internal_location": Object {
+                        "location": Object {
+                          "name": "Somewhere",
+                        },
+                      },
+                      "internal_location_pid": "ilocid-1",
+                      "medium": "NOT_SPECIFIED",
+                      "pid": "itemid-1",
+                      "shelf": "Shelf 1",
+                      "status": "MISSING",
+                    },
+                    "pid": "item1",
                   },
                 ]
               }
@@ -1139,65 +2755,1030 @@ exports[`DocumentItems tests should render the see all button when showing only 
                     >
                       <TableCell
                         as="td"
-                        textAlign="center"
+                        data-test="-item1"
+                        key="-item1"
                       >
                         <td
-                          className="center aligned"
+                          className=""
+                          data-test="-item1"
                         >
                           <Button
-                            as="button"
+                            as={
+                              Object {
+                                "$$typeof": Symbol(react.forward_ref),
+                                "displayName": "Link",
+                                "propTypes": Object {
+                                  "innerRef": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "onClick": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "replace": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "target": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "to": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "itemid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/itemid-1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                },
+                                "render": [MockFunction] {
+                                  "calls": Array [
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "itemid-1",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/itemid-1",
+                                      },
+                                      [Function],
+                                    ],
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "itemid-2",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/itemid-2",
+                                      },
+                                      [Function],
+                                    ],
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "itemid-1",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/itemid-1",
+                                      },
+                                      [Function],
+                                    ],
+                                  ],
+                                  "results": Array [
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                  ],
+                                },
+                              }
+                            }
                             compact={true}
-                            data-test="btn-view-details-item1"
+                            data-test="itemid-1"
                             icon="info"
-                            onClick={[Function]}
+                            to="url/itemid-1"
                           >
                             <Ref
                               innerRef={
                                 Object {
-                                  "current": <button
-                                    class="ui compact icon button"
-                                    data-test="btn-view-details-item1"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      class="info icon"
-                                    />
-                                  </button>,
+                                  "current": null,
                                 }
                               }
                             >
-                              <RefFindNode
+                              <RefForward
                                 innerRef={
                                   Object {
-                                    "current": <button
-                                      class="ui compact icon button"
-                                      data-test="btn-view-details-item1"
-                                    >
-                                      <i
-                                        aria-hidden="true"
-                                        class="info icon"
-                                      />
-                                    </button>,
+                                    "current": null,
                                   }
                                 }
                               >
-                                <button
+                                <Link
                                   className="ui compact icon button"
-                                  data-test="btn-view-details-item1"
+                                  data-test="itemid-1"
                                   onClick={[Function]}
-                                >
-                                  <Icon
-                                    as="i"
-                                    name="info"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      className="info icon"
-                                      onClick={[Function]}
-                                    />
-                                  </Icon>
-                                </button>
-                              </RefFindNode>
+                                  role="button"
+                                  to="url/itemid-1"
+                                />
+                              </RefForward>
                             </Ref>
                           </Button>
                         </td>
@@ -1205,19 +3786,19 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       <TableCell
                         as="td"
                         data-test="ID-item1"
-                        key="0-item1"
+                        key="ID-item1"
                       >
                         <td
                           className=""
                           data-test="ID-item1"
                         >
-                          item1
+                          itemid-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
                         data-test="Barcode-item1"
-                        key="1-item1"
+                        key="Barcode-item1"
                       >
                         <td
                           className=""
@@ -1229,7 +3810,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       <TableCell
                         as="td"
                         data-test="Status-item1"
-                        key="2-item1"
+                        key="Status-item1"
                       >
                         <td
                           className=""
@@ -1241,7 +3822,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       <TableCell
                         as="td"
                         data-test="Medium-item1"
-                        key="3-item1"
+                        key="Medium-item1"
                       >
                         <td
                           className=""
@@ -1253,19 +3834,19 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       <TableCell
                         as="td"
                         data-test="Location-item1"
-                        key="4-item1"
+                        key="Location-item1"
                       >
                         <td
                           className=""
                           data-test="Location-item1"
                         >
-                          Somewhere
+                          -
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
                         data-test="Shelf-item1"
-                        key="5-item1"
+                        key="Shelf-item1"
                       >
                         <td
                           className=""
@@ -1281,7 +3862,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
             </ResultsTableBody>
             <ResultsTableFooter
               allRowsNumber={2}
-              columnsNumber={6}
+              columnsNumber={7}
               currentPage={1}
               paginationComponent={null}
               seeAllComponent={
@@ -1317,18 +3898,18 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       >
                         <TableHeaderCell
                           as="th"
-                          colSpan={7}
+                          colSpan={8}
                           textAlign="right"
                         >
                           <TableCell
                             as="th"
                             className=""
-                            colSpan={7}
+                            colSpan={8}
                             textAlign="right"
                           >
                             <th
                               className="right aligned"
-                              colSpan={7}
+                              colSpan={8}
                             >
                               <span>
                                 Showing entries 

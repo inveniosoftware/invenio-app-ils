@@ -2,16 +2,21 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import DocumentRelations from '../DocumentRelations';
 import { Settings } from 'luxon';
-import history from '../../../../../../history';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
+import { Button } from 'semantic-ui-react';
 
-Settings.defaultZoneName = 'utc';
+jest.mock('react-router-dom');
 jest.mock('../../../../../../common/config/invenioConfig');
 jest.mock('../../../../../../common/components/ESSelector');
+let mockViewDetails = jest.fn();
+BackOfficeRoutes.documentDetailsFor = jest.fn(pid => `url/${pid}`);
+
+Settings.defaultZoneName = 'utc';
 
 describe('Document relations tests', () => {
   let component;
   afterEach(() => {
+    mockViewDetails.mockClear();
     if (component) {
       component.unmount();
     }
@@ -73,9 +78,6 @@ describe('Document relations tests', () => {
   });
 
   it('should go to record details when clicking on a row', () => {
-    const mockedHistoryPush = jest.fn();
-    history.push = mockedHistoryPush;
-
     const document = {};
     const id = '2';
     const relations = {
@@ -100,13 +102,16 @@ describe('Document relations tests', () => {
       />
     );
 
-    const button = component
+    component.instance().viewDetails = jest.fn(() => (
+      <Button onClick={mockViewDetails}></Button>
+    ));
+    component.instance().forceUpdate();
+
+    component
       .find('TableRow')
       .filterWhere(element => element.prop('data-test') === id)
-      .find('i');
-    button.simulate('click');
-    const expectedUrl = BackOfficeRoutes.documentDetailsFor(id);
-    const expectedState = { pid: id, type: 'Document' };
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedUrl, expectedState);
+      .find('Button')
+      .simulate('click');
+    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

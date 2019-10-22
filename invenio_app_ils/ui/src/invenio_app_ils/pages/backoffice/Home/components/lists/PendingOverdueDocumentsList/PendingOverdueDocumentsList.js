@@ -1,28 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
 import { Loader, Error } from '../../../../../../common/components';
 import { ResultsTable } from '../../../../../../common/components';
 import { document as documentApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
-import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
-import { goTo, goToHandler } from '../../../../../../history';
-import pick from 'lodash/pick';
+import { goToHandler } from '../../../../../../history';
 
 export default class PendingOverdueDocumentsList extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchPendingOverdueDocuments = props.fetchPendingOverdueDocuments;
-    this.showDetailsUrl = BackOfficeRoutes.documentDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.documentsListWithQuery;
-  }
-
   componentDidMount() {
-    this.fetchPendingOverdueDocuments();
+    this.props.fetchPendingOverdueDocuments();
   }
 
   seeAllButton = () => {
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.documentsListWithQuery(
       documentApi
         .query()
         .pendingOverdue()
@@ -31,27 +24,37 @@ export default class PendingOverdueDocumentsList extends Component {
     return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
-  prepareData(data) {
-    return data.hits.map(row => {
-      return pick(formatter.document.toTable(row), [
-        'ID',
-        'Title',
-        'Overdue Loans',
-        'Pending Requests',
-      ]);
-    });
-  }
+  viewDetails = ({ row }) => {
+    return (
+      <Button
+        as={Link}
+        to={BackOfficeRoutes.documentDetailsFor(row.metadata.pid)}
+        compact
+        icon="info"
+        data-test={row.metadata.pid}
+      />
+    );
+  };
 
   renderTable(data) {
-    const rows = this.prepareData(data);
-    rows.totalHits = data.total;
+    const columns = [
+      { title: '', field: '', formatter: this.viewDetails },
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Title', field: 'metadata.title' },
+      { title: 'Overdue Loans', field: 'metadata.circulation.overdue_loans' },
+      {
+        title: 'Pending Requests',
+        field: 'metadata.circulation.pending_loans',
+      },
+    ];
     return (
       <ResultsTable
-        rows={rows}
+        data={data.hits}
+        columns={columns}
+        totalHitsCount={data.total}
         title={'Pending overdue documents'}
         subtitle={`Documents with pending loan requests, no available items and an active loan that's overdue.`}
         name={'pending overdue documents'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
       />

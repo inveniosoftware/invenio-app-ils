@@ -2,13 +2,12 @@
 
 exports[`ItemsSearch ResultsList tests should not render when empty results 1`] = `
 <ResultsTable
+  columns={Array []}
   currentPage={1}
-  fixed={false}
+  data={Array []}
   headerActionClickHandler={null}
   headerActionComponent={null}
   paginationComponent={null}
-  rowActionClickHandler={[Function]}
-  rows={Array []}
   seeAllComponent={null}
   showAllResults={false}
   showMaxRows={10}
@@ -60,30 +59,45 @@ exports[`ItemsSearch ResultsList tests should not render when empty results 1`] 
 
 exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
 <ResultsTable
-  currentPage={1}
-  fixed={false}
-  headerActionClickHandler={null}
-  headerActionComponent={null}
-  paginationComponent={null}
-  rowActionClickHandler={[Function]}
-  rows={
+  columns={
     Array [
       Object {
-        "Barcode": "9865745223",
-        "Circulation status": null,
-        "Created": "2018-01-01",
-        "Document ID": 1342,
-        "ID": 987,
-        "Internal location": "A library",
-        "Location": null,
-        "Medium": undefined,
-        "Shelf": undefined,
-        "Status": "IN_BINDING",
-        "Title": undefined,
-        "Updated": "Invalid DateTime",
+        "field": "",
+        "formatter": [Function],
+        "title": "view",
+      },
+      Object {
+        "field": "metadata.status",
+        "title": "Status",
       },
     ]
   }
+  currentPage={1}
+  data={
+    Array [
+      Object {
+        "created": "2018-01-01T10:05:00.000Z",
+        "id": 987,
+        "metadata": Object {
+          "barcode": "9865745223",
+          "document": Object {
+            "pid": 1342,
+          },
+          "document_pid": 1342,
+          "internal_location": Object {
+            "name": "A library",
+            "pid": 1,
+          },
+          "internal_location_pid": 1,
+          "pid": 987,
+          "status": "IN_BINDING",
+        },
+      },
+    ]
+  }
+  headerActionClickHandler={null}
+  headerActionComponent={null}
+  paginationComponent={null}
   seeAllComponent={null}
   showAllResults={false}
   showMaxRows={10}
@@ -131,21 +145,17 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
       <ResultsTableHeader
         columns={
           Array [
-            "ID",
-            "Document ID",
-            "Created",
-            "Updated",
-            "Barcode",
-            "Title",
-            "Medium",
-            "Status",
-            "Circulation status",
-            "Internal location",
-            "Location",
-            "Shelf",
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "view",
+            },
+            Object {
+              "field": "metadata.status",
+              "title": "Status",
+            },
           ]
         }
-        withRowAction={false}
       >
         <TableHeader
           as="thead"
@@ -164,19 +174,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
               >
                 <TableHeaderCell
                   as="th"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    />
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="ID"
+                  key="view"
                 >
                   <TableCell
                     as="th"
@@ -185,97 +183,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                     <th
                       className=""
                     >
-                      ID
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Document ID"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Document ID
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Created"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Created
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Updated"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Updated
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Barcode"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Barcode
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Title"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Title
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Medium"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Medium
+                      view
                     </th>
                   </TableCell>
                 </TableHeaderCell>
@@ -294,66 +202,6 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                     </th>
                   </TableCell>
                 </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Circulation status"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Circulation status
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Internal location"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Internal location
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Location"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Location
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Shelf"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Shelf
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
               </tr>
             </TableRow>
           </thead>
@@ -362,36 +210,36 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
       <ResultsTableBody
         columns={
           Array [
-            "ID",
-            "Document ID",
-            "Created",
-            "Updated",
-            "Barcode",
-            "Title",
-            "Medium",
-            "Status",
-            "Circulation status",
-            "Internal location",
-            "Location",
-            "Shelf",
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "view",
+            },
+            Object {
+              "field": "metadata.status",
+              "title": "Status",
+            },
           ]
         }
-        rowActionClickHandler={[Function]}
         rows={
           Array [
             Object {
-              "Barcode": "9865745223",
-              "Circulation status": null,
-              "Created": "2018-01-01",
-              "Document ID": 1342,
-              "ID": 987,
-              "Internal location": "A library",
-              "Location": null,
-              "Medium": undefined,
-              "Shelf": undefined,
-              "Status": "IN_BINDING",
-              "Title": undefined,
-              "Updated": "Invalid DateTime",
+              "created": "2018-01-01T10:05:00.000Z",
+              "id": 987,
+              "metadata": Object {
+                "barcode": "9865745223",
+                "document": Object {
+                  "pid": 1342,
+                },
+                "document_pid": 1342,
+                "internal_location": Object {
+                  "name": "A library",
+                  "pid": 1,
+                },
+                "internal_location_pid": 1,
+                "pid": 987,
+                "status": "IN_BINDING",
+              },
             },
           ]
         }
@@ -414,29 +262,24 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
               >
                 <TableCell
                   as="td"
-                  textAlign="center"
+                  data-test="view-987"
+                  key="view-987"
                 >
                   <td
-                    className="center aligned"
+                    className=""
+                    data-test="view-987"
                   >
                     <Button
                       as="button"
-                      compact={true}
-                      data-test="btn-view-details-987"
-                      icon="info"
-                      onClick={[Function]}
+                      onClick={[MockFunction]}
                     >
                       <Ref
                         innerRef={
                           Object {
                             "current": <button
-                              class="ui compact icon button"
-                              data-test="btn-view-details-987"
+                              class="ui button"
                             >
-                              <i
-                                aria-hidden="true"
-                                class="info icon"
-                              />
+                              View
                             </button>,
                           }
                         }
@@ -445,32 +288,18 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                           innerRef={
                             Object {
                               "current": <button
-                                class="ui compact icon button"
-                                data-test="btn-view-details-987"
+                                class="ui button"
                               >
-                                <i
-                                  aria-hidden="true"
-                                  class="info icon"
-                                />
+                                View
                               </button>,
                             }
                           }
                         >
                           <button
-                            className="ui compact icon button"
-                            data-test="btn-view-details-987"
+                            className="ui button"
                             onClick={[Function]}
                           >
-                            <Icon
-                              as="i"
-                              name="info"
-                            >
-                              <i
-                                aria-hidden="true"
-                                className="info icon"
-                                onClick={[Function]}
-                              />
-                            </Icon>
+                            View
                           </button>
                         </RefFindNode>
                       </Ref>
@@ -479,146 +308,14 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                 </TableCell>
                 <TableCell
                   as="td"
-                  data-test="ID-987"
-                  key="0-987"
-                >
-                  <td
-                    className=""
-                    data-test="ID-987"
-                  >
-                    987
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Document ID-987"
-                  key="1-987"
-                >
-                  <td
-                    className=""
-                    data-test="Document ID-987"
-                  >
-                    1342
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Created-987"
-                  key="2-987"
-                >
-                  <td
-                    className=""
-                    data-test="Created-987"
-                  >
-                    2018-01-01
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Updated-987"
-                  key="3-987"
-                >
-                  <td
-                    className=""
-                    data-test="Updated-987"
-                  >
-                    Invalid DateTime
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Barcode-987"
-                  key="4-987"
-                >
-                  <td
-                    className=""
-                    data-test="Barcode-987"
-                  >
-                    9865745223
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Title-987"
-                  key="5-987"
-                >
-                  <td
-                    className=""
-                    data-test="Title-987"
-                  >
-                    -
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Medium-987"
-                  key="6-987"
-                >
-                  <td
-                    className=""
-                    data-test="Medium-987"
-                  >
-                    -
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
                   data-test="Status-987"
-                  key="7-987"
+                  key="Status-987"
                 >
                   <td
                     className=""
                     data-test="Status-987"
                   >
                     IN_BINDING
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Circulation status-987"
-                  key="8-987"
-                >
-                  <td
-                    className=""
-                    data-test="Circulation status-987"
-                  >
-                    -
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Internal location-987"
-                  key="9-987"
-                >
-                  <td
-                    className=""
-                    data-test="Internal location-987"
-                  >
-                    A library
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Location-987"
-                  key="10-987"
-                >
-                  <td
-                    className=""
-                    data-test="Location-987"
-                  >
-                    -
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Shelf-987"
-                  key="11-987"
-                >
-                  <td
-                    className=""
-                    data-test="Shelf-987"
-                  >
-                    -
                   </td>
                 </TableCell>
               </tr>
@@ -628,7 +325,7 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
       </ResultsTableBody>
       <ResultsTableFooter
         allRowsNumber={1}
-        columnsNumber={12}
+        columnsNumber={2}
         currentPage={1}
         paginationComponent={null}
         seeAllComponent={null}

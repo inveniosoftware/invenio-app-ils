@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
-import pick from 'lodash/pick';
-
+import _startCase from 'lodash/startCase';
 import {
   Loader,
   Error,
   ResultsTable,
   Pagination,
 } from '../../../../../common/components';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import { dateFormatter } from '../../../../../common/api/date';
+import { FrontSiteRoutes } from '../../../../../routes/urls';
 import { invenioConfig } from '../../../../../common/config';
 
 export default class PatronDocumentRequests extends Component {
@@ -41,29 +41,36 @@ export default class PatronDocumentRequests extends Component {
     );
   };
 
-  prepareData(data) {
-    return data.hits.map(row => {
-      return pick(formatter.documentRequest.toTable(row), [
-        'ID',
-        'Title',
-        'Library Book',
-        'Created',
-      ]);
-    });
-  }
+  libraryBookFormatter = ({ row }) => {
+    if (row.metadata.state !== 'ACCEPTED') {
+      return _startCase(row.metadata.state.toLowerCase());
+    }
+    return (
+      <Link to={FrontSiteRoutes.documentDetailsFor(row.metadata.document_pid)}>
+        {row.metadata.document.title}
+      </Link>
+    );
+  };
 
   render() {
-    const { data, isLoading, hasError, error } = this.props;
-    const rows =
-      !hasError && !isLoading && !isEmpty(data)
-        ? this.prepareData(this.props.data)
-        : [];
-    rows.totalHits = data.total;
+    const { data, isLoading, error } = this.props;
+    const columns = [
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Title', field: 'metadata.title' },
+      {
+        title: 'Library Book',
+        field: 'metadata.state',
+        formatter: this.libraryBookFormatter,
+      },
+      { title: 'Created', field: 'created', formatter: dateFormatter },
+    ];
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <ResultsTable
-            rows={rows}
+            data={data.hits}
+            columns={columns}
+            totalHitsCount={data.total}
             title={'Your book requests'}
             name={'book requests'}
             showMaxRows={invenioConfig.default_results_size}

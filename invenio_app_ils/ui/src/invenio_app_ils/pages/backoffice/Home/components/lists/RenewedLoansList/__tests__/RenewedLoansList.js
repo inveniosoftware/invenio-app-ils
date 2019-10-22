@@ -4,6 +4,12 @@ import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import RenewedLoansList from '../RenewedLoansList';
 import history from '../../../../../../../history';
 import testData from '../../../../../../../../../../../tests/data/loans.json';
+import { Button } from 'semantic-ui-react';
+
+jest.mock('react-router-dom');
+let mockViewDetails = jest.fn();
+
+BackOfficeRoutes.loanDetailsFor = jest.fn(pid => `url/${pid}`);
 
 const data = {
   hits: [
@@ -96,15 +102,17 @@ describe('RenewedLoansList tests', () => {
         showMaxEntries={1}
       />
     );
+    component.instance().viewDetails = jest.fn(() => (
+      <Button onClick={mockViewDetails}></Button>
+    ));
+    component.instance().forceUpdate();
 
     const firstId = data.hits[0].pid;
     const button = component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === firstId)
-      .find('i');
+      .find('TableCell')
+      .filterWhere(element => element.prop('data-test') === `-${firstId}`)
+      .find('Button');
     button.simulate('click');
-
-    const expectedParam = BackOfficeRoutes.loanDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
+    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { ResultsTable } from '../../../../../common/components/';
 import testData from '../../../../../../../../../tests/data/eitems.json';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import { Button } from 'semantic-ui-react';
 
 jest.mock('../../../components');
 
@@ -12,25 +12,29 @@ const data = [
   { pid: testData[1].pid, metadata: testData[1] },
 ];
 
+const mockViewDetails = jest.fn();
+const columns = [
+  {
+    title: 'view',
+    field: '',
+    formatter: () => <Button onClick={mockViewDetails}>View</Button>,
+  },
+  { title: 'Description', field: 'metadata.description' },
+];
+
 afterEach(() => {
+  mockViewDetails.mockClear();
   component.unmount();
 });
 
 describe('EItemsSearch ResultsTable tests', () => {
   it('should not render when empty results', () => {
-    component = mount(
-      <ResultsTable rows={[]} rowActionClickHandler={() => {}} />
-    );
+    component = mount(<ResultsTable data={[]} columns={[]} />);
     expect(component).toMatchSnapshot();
   });
 
   it('should render a list of results', () => {
-    component = mount(
-      <ResultsTable
-        rows={data.map(row => formatter.eitem.toTable(row))}
-        rowActionClickHandler={() => {}}
-      />
-    );
+    component = mount(<ResultsTable data={data} columns={columns} />);
     expect(component).toMatchSnapshot();
     const firstResult = data[0];
     const resultRows = component
@@ -55,20 +59,13 @@ describe('EItemsSearch ResultsTable tests', () => {
   });
 
   it('should call click handler on view details click', () => {
-    const mockedClickHandler = jest.fn();
-    component = mount(
-      <ResultsTable
-        rows={data.map(row => formatter.eitem.toTable(row))}
-        rowActionClickHandler={mockedClickHandler}
-      />
-    );
+    component = mount(<ResultsTable data={data} columns={columns} />);
     const firstId = data[0].metadata.pid;
     const button = component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === firstId)
+      .find('TableCell')
+      .filterWhere(element => element.prop('data-test') === `view-${firstId}`)
       .find('button');
     button.simulate('click');
-    const expected = formatter.eitem.toTable(data[0]);
-    expect(mockedClickHandler).toHaveBeenCalledWith(expected);
+    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

@@ -4,14 +4,38 @@ exports[`PatronDocumentRequests tests should load the details component 1`] = `
 <Loader>
   <Error>
     <ResultsTable
+      columns={
+        Array [
+          Object {
+            "field": "",
+            "formatter": [Function],
+            "title": "",
+          },
+          Object {
+            "field": "metadata.pid",
+            "title": "ID",
+          },
+          Object {
+            "field": "metadata.document_pid",
+            "title": "Document ID",
+          },
+          Object {
+            "field": "metadata.state",
+            "title": "State",
+          },
+          Object {
+            "field": "created",
+            "formatter": [Function],
+            "title": "Created",
+          },
+        ]
+      }
       currentPage={1}
-      fixed={false}
+      data={Array []}
       headerActionClickHandler={null}
       headerActionComponent={null}
       name="new book requests"
       paginationComponent={null}
-      rowActionClickHandler={[Function]}
-      rows={Array []}
       seeAllComponent={
         <SeeAllButton
           clickHandler={[Function]}
@@ -24,6 +48,7 @@ exports[`PatronDocumentRequests tests should load the details component 1`] = `
       singleLine={false}
       subtitle=""
       title="Patron's new book requests"
+      totalHitsCount={0}
     />
   </Error>
 </Loader>
@@ -93,29 +118,75 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
   <Loader>
     <Error>
       <ResultsTable
+        columns={
+          Array [
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "",
+            },
+            Object {
+              "field": "metadata.pid",
+              "title": "ID",
+            },
+            Object {
+              "field": "metadata.document_pid",
+              "title": "Document ID",
+            },
+            Object {
+              "field": "metadata.state",
+              "title": "State",
+            },
+            Object {
+              "field": "created",
+              "formatter": [Function],
+              "title": "Created",
+            },
+          ]
+        }
         currentPage={1}
-        fixed={false}
+        data={
+          Array [
+            Object {
+              "created": "2018-01-01T10:05:00.000Z",
+              "id": 1,
+              "metadata": Object {
+                "patron": Object {
+                  "email": "patron_1@test.ch",
+                  "id": "patron_1",
+                  "name": "patron_1",
+                },
+                "patron_pid": "patron_1",
+                "pid": "documentRequest1",
+                "state": "PENDING",
+                "title": "Test",
+              },
+              "pid": "documentRequest1",
+              "updated": "2018-01-01T10:05:00.000Z",
+            },
+            Object {
+              "created": "2018-01-01T10:05:00.000Z",
+              "id": 2,
+              "metadata": Object {
+                "patron": Object {
+                  "email": "patron_2@test.ch",
+                  "id": "patron_2",
+                  "name": "patron_2",
+                },
+                "patron_pid": "patron_2",
+                "pid": "documentRequest2",
+                "state": "PENDING",
+                "title": "Test",
+              },
+              "pid": "documentRequest2",
+              "updated": "2018-01-01T10:05:00.000Z",
+            },
+          ]
+        }
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="new book requests"
         paginationComponent={null}
-        rowActionClickHandler={[Function]}
-        rows={
-          Array [
-            Object {
-              "Created": "2018-01-01",
-              "Document ID": undefined,
-              "ID": "documentRequest1",
-              "State": "PENDING",
-            },
-            Object {
-              "Created": "2018-01-01",
-              "Document ID": undefined,
-              "ID": "documentRequest2",
-              "State": "PENDING",
-            },
-          ]
-        }
         seeAllComponent={
           <SeeAllButton
             clickHandler={[Function]}
@@ -128,6 +199,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
         singleLine={false}
         subtitle=""
         title="Patron's new book requests"
+        totalHitsCount={2}
       >
         <Grid>
           <div
@@ -188,13 +260,30 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
             <ResultsTableHeader
               columns={
                 Array [
-                  "ID",
-                  "Document ID",
-                  "State",
-                  "Created",
+                  Object {
+                    "field": "",
+                    "formatter": [Function],
+                    "title": "",
+                  },
+                  Object {
+                    "field": "metadata.pid",
+                    "title": "ID",
+                  },
+                  Object {
+                    "field": "metadata.document_pid",
+                    "title": "Document ID",
+                  },
+                  Object {
+                    "field": "metadata.state",
+                    "title": "State",
+                  },
+                  Object {
+                    "field": "created",
+                    "formatter": [Function],
+                    "title": "Created",
+                  },
                 ]
               }
-              withRowAction={false}
             >
               <TableHeader
                 as="thead"
@@ -213,6 +302,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                     >
                       <TableHeaderCell
                         as="th"
+                        key=""
                       >
                         <TableCell
                           as="th"
@@ -291,26 +381,65 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
             <ResultsTableBody
               columns={
                 Array [
-                  "ID",
-                  "Document ID",
-                  "State",
-                  "Created",
+                  Object {
+                    "field": "",
+                    "formatter": [Function],
+                    "title": "",
+                  },
+                  Object {
+                    "field": "metadata.pid",
+                    "title": "ID",
+                  },
+                  Object {
+                    "field": "metadata.document_pid",
+                    "title": "Document ID",
+                  },
+                  Object {
+                    "field": "metadata.state",
+                    "title": "State",
+                  },
+                  Object {
+                    "field": "created",
+                    "formatter": [Function],
+                    "title": "Created",
+                  },
                 ]
               }
-              rowActionClickHandler={[Function]}
               rows={
                 Array [
                   Object {
-                    "Created": "2018-01-01",
-                    "Document ID": undefined,
-                    "ID": "documentRequest1",
-                    "State": "PENDING",
+                    "created": "2018-01-01T10:05:00.000Z",
+                    "id": 1,
+                    "metadata": Object {
+                      "patron": Object {
+                        "email": "patron_1@test.ch",
+                        "id": "patron_1",
+                        "name": "patron_1",
+                      },
+                      "patron_pid": "patron_1",
+                      "pid": "documentRequest1",
+                      "state": "PENDING",
+                      "title": "Test",
+                    },
+                    "pid": "documentRequest1",
+                    "updated": "2018-01-01T10:05:00.000Z",
                   },
                   Object {
-                    "Created": "2018-01-01",
-                    "Document ID": undefined,
-                    "ID": "documentRequest2",
-                    "State": "PENDING",
+                    "created": "2018-01-01T10:05:00.000Z",
+                    "id": 2,
+                    "metadata": Object {
+                      "patron": Object {
+                        "email": "patron_2@test.ch",
+                        "id": "patron_2",
+                        "name": "patron_2",
+                      },
+                      "patron_pid": "patron_2",
+                      "pid": "documentRequest2",
+                      "state": "PENDING",
+                      "title": "Test",
+                    },
+                    "pid": "documentRequest2",
+                    "updated": "2018-01-01T10:05:00.000Z",
                   },
                 ]
               }
@@ -333,65 +462,715 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                     >
                       <TableCell
                         as="td"
-                        textAlign="center"
+                        data-test="-documentRequest1"
+                        key="-documentRequest1"
                       >
                         <td
-                          className="center aligned"
+                          className=""
+                          data-test="-documentRequest1"
                         >
                           <Button
-                            as="button"
+                            as={
+                              Object {
+                                "$$typeof": Symbol(react.forward_ref),
+                                "displayName": "Link",
+                                "propTypes": Object {
+                                  "innerRef": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "onClick": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "replace": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "target": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "to": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                },
+                                "render": [MockFunction] {
+                                  "calls": Array [
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "documentRequest1",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/documentRequest1",
+                                      },
+                                      [Function],
+                                    ],
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "documentRequest2",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/documentRequest2",
+                                      },
+                                      [Function],
+                                    ],
+                                  ],
+                                  "results": Array [
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                  ],
+                                },
+                              }
+                            }
                             compact={true}
-                            data-test="btn-view-details-documentRequest1"
+                            data-test="documentRequest1"
                             icon="info"
-                            onClick={[Function]}
+                            to="url/documentRequest1"
                           >
                             <Ref
                               innerRef={
                                 Object {
-                                  "current": <button
-                                    class="ui compact icon button"
-                                    data-test="btn-view-details-documentRequest1"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      class="info icon"
-                                    />
-                                  </button>,
+                                  "current": null,
                                 }
                               }
                             >
-                              <RefFindNode
+                              <RefForward
                                 innerRef={
                                   Object {
-                                    "current": <button
-                                      class="ui compact icon button"
-                                      data-test="btn-view-details-documentRequest1"
-                                    >
-                                      <i
-                                        aria-hidden="true"
-                                        class="info icon"
-                                      />
-                                    </button>,
+                                    "current": null,
                                   }
                                 }
                               >
-                                <button
+                                <Link
                                   className="ui compact icon button"
-                                  data-test="btn-view-details-documentRequest1"
+                                  data-test="documentRequest1"
                                   onClick={[Function]}
-                                >
-                                  <Icon
-                                    as="i"
-                                    name="info"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      className="info icon"
-                                      onClick={[Function]}
-                                    />
-                                  </Icon>
-                                </button>
-                              </RefFindNode>
+                                  role="button"
+                                  to="url/documentRequest1"
+                                />
+                              </RefForward>
                             </Ref>
                           </Button>
                         </td>
@@ -399,7 +1178,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       <TableCell
                         as="td"
                         data-test="ID-documentRequest1"
-                        key="0-documentRequest1"
+                        key="ID-documentRequest1"
                       >
                         <td
                           className=""
@@ -411,7 +1190,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       <TableCell
                         as="td"
                         data-test="Document ID-documentRequest1"
-                        key="1-documentRequest1"
+                        key="Document ID-documentRequest1"
                       >
                         <td
                           className=""
@@ -423,7 +1202,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       <TableCell
                         as="td"
                         data-test="State-documentRequest1"
-                        key="2-documentRequest1"
+                        key="State-documentRequest1"
                       >
                         <td
                           className=""
@@ -435,7 +1214,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       <TableCell
                         as="td"
                         data-test="Created-documentRequest1"
-                        key="3-documentRequest1"
+                        key="Created-documentRequest1"
                       >
                         <td
                           className=""
@@ -458,65 +1237,715 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                     >
                       <TableCell
                         as="td"
-                        textAlign="center"
+                        data-test="-documentRequest2"
+                        key="-documentRequest2"
                       >
                         <td
-                          className="center aligned"
+                          className=""
+                          data-test="-documentRequest2"
                         >
                           <Button
-                            as="button"
+                            as={
+                              Object {
+                                "$$typeof": Symbol(react.forward_ref),
+                                "displayName": "Link",
+                                "propTypes": Object {
+                                  "innerRef": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "onClick": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "replace": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "target": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "to": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                },
+                                "render": [MockFunction] {
+                                  "calls": Array [
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "documentRequest1",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/documentRequest1",
+                                      },
+                                      [Function],
+                                    ],
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "documentRequest2",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/documentRequest2",
+                                      },
+                                      [Function],
+                                    ],
+                                  ],
+                                  "results": Array [
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                  ],
+                                },
+                              }
+                            }
                             compact={true}
-                            data-test="btn-view-details-documentRequest2"
+                            data-test="documentRequest2"
                             icon="info"
-                            onClick={[Function]}
+                            to="url/documentRequest2"
                           >
                             <Ref
                               innerRef={
                                 Object {
-                                  "current": <button
-                                    class="ui compact icon button"
-                                    data-test="btn-view-details-documentRequest2"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      class="info icon"
-                                    />
-                                  </button>,
+                                  "current": null,
                                 }
                               }
                             >
-                              <RefFindNode
+                              <RefForward
                                 innerRef={
                                   Object {
-                                    "current": <button
-                                      class="ui compact icon button"
-                                      data-test="btn-view-details-documentRequest2"
-                                    >
-                                      <i
-                                        aria-hidden="true"
-                                        class="info icon"
-                                      />
-                                    </button>,
+                                    "current": null,
                                   }
                                 }
                               >
-                                <button
+                                <Link
                                   className="ui compact icon button"
-                                  data-test="btn-view-details-documentRequest2"
+                                  data-test="documentRequest2"
                                   onClick={[Function]}
-                                >
-                                  <Icon
-                                    as="i"
-                                    name="info"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      className="info icon"
-                                      onClick={[Function]}
-                                    />
-                                  </Icon>
-                                </button>
-                              </RefFindNode>
+                                  role="button"
+                                  to="url/documentRequest2"
+                                />
+                              </RefForward>
                             </Ref>
                           </Button>
                         </td>
@@ -524,7 +1953,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       <TableCell
                         as="td"
                         data-test="ID-documentRequest2"
-                        key="0-documentRequest2"
+                        key="ID-documentRequest2"
                       >
                         <td
                           className=""
@@ -536,7 +1965,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       <TableCell
                         as="td"
                         data-test="Document ID-documentRequest2"
-                        key="1-documentRequest2"
+                        key="Document ID-documentRequest2"
                       >
                         <td
                           className=""
@@ -548,7 +1977,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       <TableCell
                         as="td"
                         data-test="State-documentRequest2"
-                        key="2-documentRequest2"
+                        key="State-documentRequest2"
                       >
                         <td
                           className=""
@@ -560,7 +1989,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       <TableCell
                         as="td"
                         data-test="Created-documentRequest2"
-                        key="3-documentRequest2"
+                        key="Created-documentRequest2"
                       >
                         <td
                           className=""
@@ -576,7 +2005,7 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
             </ResultsTableBody>
             <ResultsTableFooter
               allRowsNumber={2}
-              columnsNumber={4}
+              columnsNumber={5}
               currentPage={1}
               paginationComponent={null}
               seeAllComponent={
@@ -626,14 +2055,38 @@ exports[`PatronDocumentRequests tests should render show a message with no user 
   <Loader>
     <Error>
       <ResultsTable
+        columns={
+          Array [
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "",
+            },
+            Object {
+              "field": "metadata.pid",
+              "title": "ID",
+            },
+            Object {
+              "field": "metadata.document_pid",
+              "title": "Document ID",
+            },
+            Object {
+              "field": "metadata.state",
+              "title": "State",
+            },
+            Object {
+              "field": "created",
+              "formatter": [Function],
+              "title": "Created",
+            },
+          ]
+        }
         currentPage={1}
-        fixed={false}
+        data={Array []}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="new book requests"
         paginationComponent={null}
-        rowActionClickHandler={[Function]}
-        rows={Array []}
         seeAllComponent={
           <SeeAllButton
             clickHandler={[Function]}
@@ -646,6 +2099,7 @@ exports[`PatronDocumentRequests tests should render show a message with no user 
         singleLine={false}
         subtitle=""
         title="Patron's new book requests"
+        totalHitsCount={0}
       >
         <Grid>
           <div
@@ -776,29 +2230,75 @@ exports[`PatronDocumentRequests tests should render the see all button when show
   <Loader>
     <Error>
       <ResultsTable
+        columns={
+          Array [
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "",
+            },
+            Object {
+              "field": "metadata.pid",
+              "title": "ID",
+            },
+            Object {
+              "field": "metadata.document_pid",
+              "title": "Document ID",
+            },
+            Object {
+              "field": "metadata.state",
+              "title": "State",
+            },
+            Object {
+              "field": "created",
+              "formatter": [Function],
+              "title": "Created",
+            },
+          ]
+        }
         currentPage={1}
-        fixed={false}
+        data={
+          Array [
+            Object {
+              "created": "2018-01-01T10:05:00.000Z",
+              "id": 1,
+              "metadata": Object {
+                "patron": Object {
+                  "email": "patron_1@test.ch",
+                  "id": "patron_1",
+                  "name": "patron_1",
+                },
+                "patron_pid": "patron_1",
+                "pid": "documentRequest1",
+                "state": "PENDING",
+                "title": "Test",
+              },
+              "pid": "documentRequest1",
+              "updated": "2018-01-01T10:05:00.000Z",
+            },
+            Object {
+              "created": "2018-01-01T10:05:00.000Z",
+              "id": 2,
+              "metadata": Object {
+                "patron": Object {
+                  "email": "patron_2@test.ch",
+                  "id": "patron_2",
+                  "name": "patron_2",
+                },
+                "patron_pid": "patron_2",
+                "pid": "documentRequest2",
+                "state": "PENDING",
+                "title": "Test",
+              },
+              "pid": "documentRequest2",
+              "updated": "2018-01-01T10:05:00.000Z",
+            },
+          ]
+        }
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="new book requests"
         paginationComponent={null}
-        rowActionClickHandler={[Function]}
-        rows={
-          Array [
-            Object {
-              "Created": "2018-01-01",
-              "Document ID": undefined,
-              "ID": "documentRequest1",
-              "State": "PENDING",
-            },
-            Object {
-              "Created": "2018-01-01",
-              "Document ID": undefined,
-              "ID": "documentRequest2",
-              "State": "PENDING",
-            },
-          ]
-        }
         seeAllComponent={
           <SeeAllButton
             clickHandler={[Function]}
@@ -811,6 +2311,7 @@ exports[`PatronDocumentRequests tests should render the see all button when show
         singleLine={false}
         subtitle=""
         title="Patron's new book requests"
+        totalHitsCount={2}
       >
         <Grid>
           <div
@@ -871,13 +2372,30 @@ exports[`PatronDocumentRequests tests should render the see all button when show
             <ResultsTableHeader
               columns={
                 Array [
-                  "ID",
-                  "Document ID",
-                  "State",
-                  "Created",
+                  Object {
+                    "field": "",
+                    "formatter": [Function],
+                    "title": "",
+                  },
+                  Object {
+                    "field": "metadata.pid",
+                    "title": "ID",
+                  },
+                  Object {
+                    "field": "metadata.document_pid",
+                    "title": "Document ID",
+                  },
+                  Object {
+                    "field": "metadata.state",
+                    "title": "State",
+                  },
+                  Object {
+                    "field": "created",
+                    "formatter": [Function],
+                    "title": "Created",
+                  },
                 ]
               }
-              withRowAction={false}
             >
               <TableHeader
                 as="thead"
@@ -896,6 +2414,7 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                     >
                       <TableHeaderCell
                         as="th"
+                        key=""
                       >
                         <TableCell
                           as="th"
@@ -974,20 +2493,48 @@ exports[`PatronDocumentRequests tests should render the see all button when show
             <ResultsTableBody
               columns={
                 Array [
-                  "ID",
-                  "Document ID",
-                  "State",
-                  "Created",
+                  Object {
+                    "field": "",
+                    "formatter": [Function],
+                    "title": "",
+                  },
+                  Object {
+                    "field": "metadata.pid",
+                    "title": "ID",
+                  },
+                  Object {
+                    "field": "metadata.document_pid",
+                    "title": "Document ID",
+                  },
+                  Object {
+                    "field": "metadata.state",
+                    "title": "State",
+                  },
+                  Object {
+                    "field": "created",
+                    "formatter": [Function],
+                    "title": "Created",
+                  },
                 ]
               }
-              rowActionClickHandler={[Function]}
               rows={
                 Array [
                   Object {
-                    "Created": "2018-01-01",
-                    "Document ID": undefined,
-                    "ID": "documentRequest1",
-                    "State": "PENDING",
+                    "created": "2018-01-01T10:05:00.000Z",
+                    "id": 1,
+                    "metadata": Object {
+                      "patron": Object {
+                        "email": "patron_1@test.ch",
+                        "id": "patron_1",
+                        "name": "patron_1",
+                      },
+                      "patron_pid": "patron_1",
+                      "pid": "documentRequest1",
+                      "state": "PENDING",
+                      "title": "Test",
+                    },
+                    "pid": "documentRequest1",
+                    "updated": "2018-01-01T10:05:00.000Z",
                   },
                 ]
               }
@@ -1010,65 +2557,1030 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                     >
                       <TableCell
                         as="td"
-                        textAlign="center"
+                        data-test="-documentRequest1"
+                        key="-documentRequest1"
                       >
                         <td
-                          className="center aligned"
+                          className=""
+                          data-test="-documentRequest1"
                         >
                           <Button
-                            as="button"
+                            as={
+                              Object {
+                                "$$typeof": Symbol(react.forward_ref),
+                                "displayName": "Link",
+                                "propTypes": Object {
+                                  "innerRef": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "onClick": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "replace": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "target": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "to": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "documentRequest1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/documentRequest1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                },
+                                "render": [MockFunction] {
+                                  "calls": Array [
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "documentRequest1",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/documentRequest1",
+                                      },
+                                      [Function],
+                                    ],
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "documentRequest2",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/documentRequest2",
+                                      },
+                                      [Function],
+                                    ],
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "documentRequest1",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/documentRequest1",
+                                      },
+                                      [Function],
+                                    ],
+                                  ],
+                                  "results": Array [
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                  ],
+                                },
+                              }
+                            }
                             compact={true}
-                            data-test="btn-view-details-documentRequest1"
+                            data-test="documentRequest1"
                             icon="info"
-                            onClick={[Function]}
+                            to="url/documentRequest1"
                           >
                             <Ref
                               innerRef={
                                 Object {
-                                  "current": <button
-                                    class="ui compact icon button"
-                                    data-test="btn-view-details-documentRequest1"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      class="info icon"
-                                    />
-                                  </button>,
+                                  "current": null,
                                 }
                               }
                             >
-                              <RefFindNode
+                              <RefForward
                                 innerRef={
                                   Object {
-                                    "current": <button
-                                      class="ui compact icon button"
-                                      data-test="btn-view-details-documentRequest1"
-                                    >
-                                      <i
-                                        aria-hidden="true"
-                                        class="info icon"
-                                      />
-                                    </button>,
+                                    "current": null,
                                   }
                                 }
                               >
-                                <button
+                                <Link
                                   className="ui compact icon button"
-                                  data-test="btn-view-details-documentRequest1"
+                                  data-test="documentRequest1"
                                   onClick={[Function]}
-                                >
-                                  <Icon
-                                    as="i"
-                                    name="info"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      className="info icon"
-                                      onClick={[Function]}
-                                    />
-                                  </Icon>
-                                </button>
-                              </RefFindNode>
+                                  role="button"
+                                  to="url/documentRequest1"
+                                />
+                              </RefForward>
                             </Ref>
                           </Button>
                         </td>
@@ -1076,7 +3588,7 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                       <TableCell
                         as="td"
                         data-test="ID-documentRequest1"
-                        key="0-documentRequest1"
+                        key="ID-documentRequest1"
                       >
                         <td
                           className=""
@@ -1088,7 +3600,7 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                       <TableCell
                         as="td"
                         data-test="Document ID-documentRequest1"
-                        key="1-documentRequest1"
+                        key="Document ID-documentRequest1"
                       >
                         <td
                           className=""
@@ -1100,7 +3612,7 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                       <TableCell
                         as="td"
                         data-test="State-documentRequest1"
-                        key="2-documentRequest1"
+                        key="State-documentRequest1"
                       >
                         <td
                           className=""
@@ -1112,7 +3624,7 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                       <TableCell
                         as="td"
                         data-test="Created-documentRequest1"
-                        key="3-documentRequest1"
+                        key="Created-documentRequest1"
                       >
                         <td
                           className=""
@@ -1128,7 +3640,7 @@ exports[`PatronDocumentRequests tests should render the see all button when show
             </ResultsTableBody>
             <ResultsTableFooter
               allRowsNumber={2}
-              columnsNumber={4}
+              columnsNumber={5}
               currentPage={1}
               paginationComponent={null}
               seeAllComponent={
@@ -1164,18 +3676,18 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                       >
                         <TableHeaderCell
                           as="th"
-                          colSpan={5}
+                          colSpan={6}
                           textAlign="right"
                         >
                           <TableCell
                             as="th"
                             className=""
-                            colSpan={5}
+                            colSpan={6}
                             textAlign="right"
                           >
                             <th
                               className="right aligned"
-                              colSpan={5}
+                              colSpan={6}
                             >
                               <span>
                                 Showing entries 

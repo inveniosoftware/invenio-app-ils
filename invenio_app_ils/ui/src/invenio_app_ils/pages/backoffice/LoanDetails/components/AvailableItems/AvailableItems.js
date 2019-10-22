@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 import { Loader, Error, ResultsTable } from '../../../../../common/components';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
 import { item as itemApi } from '../../../../../common/api';
 import { invenioConfig } from '../../../../../common/config';
 import { SeeAllButton } from '../../../components/buttons/SeeAllButton';
-import { goTo, goToHandler } from '../../../../../history';
+import { goToHandler } from '../../../../../history';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
-import pick from 'lodash/pick';
 
 export default class AvailableItems extends Component {
   constructor(props) {
@@ -16,7 +15,6 @@ export default class AvailableItems extends Component {
     this.fetchAvailableItems = props.fetchAvailableItems;
     this.assignItemToLoan = props.assignItemToLoan;
     this.performCheckoutAction = props.performCheckoutAction;
-    this.showDetailsUrl = BackOfficeRoutes.itemDetailsFor;
     this.seeAllUrl = BackOfficeRoutes.itemsListWithQuery;
   }
 
@@ -72,38 +70,49 @@ export default class AvailableItems extends Component {
     );
   }
 
-  prepareData(data) {
-    return data.hits.map(row => {
-      const entry = formatter.item.toTable(row);
-      entry['Actions'] = this.rowActionButton(row);
-      return pick(entry, [
-        'ID',
-        'Barcode',
-        'Status',
-        'Medium',
-        'Location',
-        'Shelf',
-        'Actions',
-      ]);
-    });
-  }
+  viewDetails = ({ row }) => {
+    return (
+      <Button
+        as={Link}
+        to={BackOfficeRoutes.itemDetailsFor(row.metadata.pid)}
+        compact
+        icon="info"
+        data-test={row.metadata.pid}
+      />
+    );
+  };
 
-  renderTable(data) {
-    const rows = this.prepareData(data);
-    rows.totalHits = data.total;
+  renderTable() {
+    const { data } = this.props;
+    const columns = [
+      { title: '', field: '', formatter: this.viewDetails },
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Barcode', field: 'metadata.barcode' },
+      { title: 'Status', field: 'metadata.status' },
+      { title: 'Medium', field: 'metadata.medium' },
+      { title: 'Location', field: 'metadata.internal_location.name' },
+      { title: 'Shelf', field: 'metadata.shelf' },
+      {
+        title: 'Actions',
+        field: '',
+        formatter: this.rowActionButton,
+      },
+    ];
+
     return (
       <ResultsTable
-        rows={rows}
+        data={data.hits}
+        columns={columns}
+        totalHitsCount={data.total}
         title={'Available items'}
         name={'available items'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxItems}
       />
     );
   }
 
-  rowActionButton(row) {
+  rowActionButton = ({ row }) => {
     const { loan } = this.props;
     const isRequested = invenioConfig.circulation.loanRequestStates.includes(
       loan.metadata.state
@@ -113,13 +122,13 @@ export default class AvailableItems extends Component {
     } else {
       return this.assignItemButton(row);
     }
-  }
+  };
 
   render() {
-    const { data, isLoading, error } = this.props;
+    const { isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this.renderTable(data)}</Error>
+        <Error error={error}>{this.renderTable()}</Error>
       </Loader>
     );
   }

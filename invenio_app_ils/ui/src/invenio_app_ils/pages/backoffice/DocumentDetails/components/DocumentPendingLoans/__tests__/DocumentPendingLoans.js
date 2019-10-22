@@ -4,8 +4,13 @@ import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import DocumentPendingLoans from '../DocumentPendingLoans';
 import history from '../../../../../../history';
 import testData from '../../../../../../../../../../tests/data/loans.json';
+import { Button } from 'semantic-ui-react';
 
+jest.mock('react-router-dom');
 jest.mock('../../../../../../common/config/invenioConfig');
+let mockViewDetails = jest.fn();
+
+BackOfficeRoutes.loanDetailsFor = jest.fn(pid => `url/${pid}`);
 
 const data = {
   hits: [
@@ -132,15 +137,17 @@ describe('DocumentPendingLoans tests', () => {
         showMaxPendingLoans={1}
       />
     );
+    component.instance().viewDetails = jest.fn(() => (
+      <Button onClick={mockViewDetails}></Button>
+    ));
+    component.instance().forceUpdate();
 
     const firstId = data.hits[0].pid;
-    const button = component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === firstId)
-      .find('i');
-    button.simulate('click');
-
-    const expectedParam = BackOfficeRoutes.loanDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
+    component
+      .find('TableCell')
+      .filterWhere(element => element.prop('data-test') === `-${firstId}`)
+      .find('Button')
+      .simulate('click');
+    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

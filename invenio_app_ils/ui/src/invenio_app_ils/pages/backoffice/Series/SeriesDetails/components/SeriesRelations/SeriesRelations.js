@@ -1,27 +1,22 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 import {
   Error,
   Loader,
   ResultsTable,
   Pagination,
 } from '../../../../../../common/components';
-import { Tab, Label, Input } from 'semantic-ui-react';
+import { Button, Tab, Label, Input } from 'semantic-ui-react';
 import { ManageRelationsButton } from '../../../../components/ManageRelationsButton';
-import {
-  formatPidTypeToName,
-  getRelationTypeByName,
-} from '../../../../components/ManageRelationsButton/utils';
+import { formatPidTypeToName } from '../../../../components/ManageRelationsButton/utils';
 import { ESSelectorModal } from '../../../../../../common/components/ESSelector';
 import {
   document as documentApi,
   series as seriesApi,
 } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
-import { goTo } from '../../../../../../history';
-import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
-import pick from 'lodash/pick';
-import isEmpty from 'lodash/isEmpty';
 import ESRelatedSelector from '../../../../../../common/components/ESSelector/ESRelatedSelector';
 import {
   parentChildRelationPayload,
@@ -69,7 +64,7 @@ export const serializeSeriesSelection = selection => {
   return selection;
 };
 
-class SeriesRelationsTabPanel extends Component {
+export class SeriesRelationsTabPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -98,20 +93,6 @@ class SeriesRelationsTabPanel extends Component {
     const { activeIndex, activePage } = this.state;
     activePage[activeIndex] = page;
     this.setState({ activePage: activePage });
-  };
-
-  onRelatedClick = row => {
-    const pid = row.ID;
-    const type = row.Type;
-    let detailsFor;
-    if (type === 'Document') {
-      detailsFor = BackOfficeRoutes.documentDetailsFor;
-    } else if (type === 'Series') {
-      detailsFor = BackOfficeRoutes.seriesDetailsFor;
-    } else {
-      console.warn(`Unknown pid type: ${type}`);
-    }
-    return goTo(detailsFor(pid), { pid: pid, type: type });
   };
 
   getPaginator(totalResults, activePage) {
@@ -233,21 +214,21 @@ class SeriesRelationsTabPanel extends Component {
     return buttons[key];
   };
 
-  renderTab = (rows, name, editButton) => {
+  renderTab = (rows, columns, name, editButton) => {
     const activePage = this.activePage;
     const size = this.props.showMaxRows;
     const activeRows = rows.slice((activePage - 1) * size, activePage * size);
-    activeRows.totalHits = rows.length;
 
     return (
       <Tab.Pane>
         {editButton}
         <ResultsTable
-          rows={activeRows}
+          data={activeRows}
+          columns={columns}
+          totalHitsCount={rows.length}
           name={name}
           showMaxRows={size}
           paginationComponent={this.getPaginator(rows.length, activePage)}
-          rowActionClickHandler={this.onRelatedClick}
           currentPage={activePage}
         />
       </Tab.Pane>
@@ -287,16 +268,11 @@ class SeriesRelationsTabPanel extends Component {
     return selections;
   }
 
-  getTabRows(relation, pickColumns) {
+  getTabRows(relation) {
     const rows = [];
     if (!this.props.relations[relation]) return [];
-
     for (const obj of this.props.relations[relation]) {
-      const record = formatter.related.toTable(
-        obj,
-        getRelationTypeByName(relation).label
-      );
-      rows.push(pick(record, pickColumns));
+      rows.push(obj);
     }
     return rows;
   }
@@ -357,26 +333,30 @@ class SeriesRelationsTabPanel extends Component {
     this.setState({ removedRelations });
   };
 
-  getMultipartTabPanes() {
-    const editions = this.getTabRows('edition', [
-      'ID',
-      'Title',
-      'Type',
-      'Edition',
-    ]);
-    const serials = this.getTabRows('serial', [
-      'ID',
-      'Title',
-      'Type',
-      'Volume',
-    ]);
+  viewDetails = ({ row }) => {
+    let detailsFor;
+    if (row.pid_type === 'docid') {
+      detailsFor = BackOfficeRoutes.documentDetailsFor;
+    } else if (row.pid_type === 'serid') {
+      detailsFor = BackOfficeRoutes.seriesDetailsFor;
+    } else {
+      console.warn(`Unknown pid type: ${row.pid_type}`);
+    }
+    return (
+      <Button
+        as={Link}
+        to={detailsFor(row.pid)}
+        compact
+        icon="info"
+        data-test={row.pid}
+      />
+    );
+  };
 
-    const languages = this.getTabRows('language', [
-      'ID',
-      'Title',
-      'Type',
-      'Language',
-    ]);
+  getMultipartTabPanes() {
+    const editions = this.getTabRows('edition');
+    const serials = this.getTabRows('serial');
+    const languages = this.getTabRows('language');
 
     return [
       {
@@ -384,14 +364,20 @@ class SeriesRelationsTabPanel extends Component {
           key: 'edition',
           content: (
             <>
-              <Label>{editions.length}</Label>
-              Editions
+              <Label>{editions.length}</Label>&nbsp;Editions
             </>
           ),
         },
         render: () =>
           this.renderTab(
             editions,
+            [
+              { title: '', field: '', formatter: this.viewDetails },
+              { title: 'ID', field: 'pid' },
+              { title: 'Title', field: 'title' },
+              { title: 'Type', field: 'pid_type' },
+              { title: 'Edition', field: 'edition' },
+            ],
             'related editions',
             this.getEditButton('editions')
           ),
@@ -401,14 +387,20 @@ class SeriesRelationsTabPanel extends Component {
           key: 'language',
           content: (
             <>
-              <Label>{languages.length}</Label>
-              Languages
+              <Label>{languages.length}</Label>&nbsp;Languages
             </>
           ),
         },
         render: () =>
           this.renderTab(
             languages,
+            [
+              { title: '', field: '', formatter: this.viewDetails },
+              { title: 'ID', field: 'pid' },
+              { title: 'Title', field: 'title' },
+              { title: 'Type', field: 'pid_type' },
+              { title: 'Language', field: 'language' },
+            ],
             'related languages',
             this.getEditButton('languages')
           ),
@@ -418,14 +410,20 @@ class SeriesRelationsTabPanel extends Component {
           key: 'serial',
           content: (
             <>
-              <Label>{serials.length}</Label>
-              Serials
+              <Label>{serials.length}</Label>&nbsp;Serials
             </>
           ),
         },
         render: () =>
           this.renderTab(
             serials,
+            [
+              { title: '', field: '', formatter: this.viewDetails },
+              { title: 'ID', field: 'pid' },
+              { title: 'Title', field: 'title' },
+              { title: 'Type', field: 'pid_type' },
+              { title: 'Volume', field: 'volume' },
+            ],
             'related serials',
             this.getEditButton('serials')
           ),

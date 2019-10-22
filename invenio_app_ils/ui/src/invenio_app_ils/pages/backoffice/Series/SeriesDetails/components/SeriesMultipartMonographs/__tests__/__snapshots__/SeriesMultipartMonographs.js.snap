@@ -1,26 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SeriesMultipartMonographs tests should load the SeriesMultipartMonographs component 1`] = `
-<Fragment>
-  <SeriesMultipartMonographsData
-    fetchSeriesMultipartMonographs={[Function]}
-    multipartMonographs={
-      Object {
-        "hits": Array [],
-        "total": 0,
+<Loader>
+  <Error>
+    <ResultsTable
+      columns={
+        Array [
+          Object {
+            "field": "",
+            "formatter": [Function],
+            "title": "",
+          },
+          Object {
+            "field": "metadata.pid",
+            "title": "ID",
+          },
+          Object {
+            "field": "volume",
+            "title": "Volume",
+          },
+          Object {
+            "field": "metadata.title",
+            "title": "Title",
+          },
+          Object {
+            "field": "metadata.authors",
+            "title": "Authors",
+          },
+        ]
       }
-    }
-    seriesDetails={
-      Object {
-        "metadata": Object {
-          "mode_of_issuance": "SERIAL",
-          "pid": 111,
-          "relations": Object {},
-        },
-        "pid": 111,
+      currentPage={1}
+      data={Array []}
+      headerActionClickHandler={null}
+      headerActionComponent={null}
+      name="multipart monographs"
+      paginationComponent={null}
+      seeAllComponent={
+        <SeeAllButton
+          clickHandler={[Function]}
+          disabled={false}
+          fluid={false}
+        />
       }
-    }
-    showMaxSeries={5}
-  />
-</Fragment>
+      showAllResults={false}
+      showMaxRows={10}
+      singleLine={false}
+      subtitle=""
+      title="Multipart Monographs"
+      totalHitsCount={0}
+    />
+  </Error>
+</Loader>
 `;

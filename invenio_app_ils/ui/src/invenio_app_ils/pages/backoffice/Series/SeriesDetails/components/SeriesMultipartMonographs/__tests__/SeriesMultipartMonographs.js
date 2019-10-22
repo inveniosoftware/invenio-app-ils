@@ -1,10 +1,14 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
-import SeriesMultipartMonographs from '../SeriesMultipartMonographs';
+import { SeriesMultipartMonographsData as SeriesMultipartMonographs } from '../SeriesMultipartMonographs';
 import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../../common/api/date';
-import history from '../../../../../../../history';
+import { Button } from 'semantic-ui-react';
+
+jest.mock('react-router-dom');
+BackOfficeRoutes.seriesDetailsFor = jest.fn(pid => `url/${pid}`);
+let mockViewDetails = jest.fn();
 
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
@@ -12,6 +16,7 @@ const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 describe('SeriesMultipartMonographs tests', () => {
   let component;
   afterEach(() => {
+    mockViewDetails.mockClear();
     if (component) {
       component.unmount();
     }
@@ -161,8 +166,6 @@ describe('SeriesMultipartMonographs tests', () => {
   });
 
   it('should go to series details when clicking on a series row', () => {
-    const mockedHistoryPush = jest.fn();
-    history.push = mockedHistoryPush;
     const data = {
       hits: [
         {
@@ -189,14 +192,17 @@ describe('SeriesMultipartMonographs tests', () => {
       />
     );
 
-    const firstId = data.hits[0].pid;
-    const button = component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === firstId)
-      .find('i');
-    button.simulate('click');
+    component.instance().viewDetails = jest.fn(() => (
+      <Button onClick={mockViewDetails}></Button>
+    ));
+    component.instance().forceUpdate();
 
-    const expectedParam = BackOfficeRoutes.seriesDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
+    const firstId = data.hits[0].pid;
+    component
+      .find('TableCell')
+      .filterWhere(element => element.prop('data-test') === `-${firstId}`)
+      .find('Button')
+      .simulate('click');
+    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

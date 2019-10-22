@@ -27,7 +27,7 @@ exports[`Document relations tests should load the relations component 1`] = `
                 <Label>
                   0
                 </Label>
-                Editions
+                 Editions
               </React.Fragment>,
               "key": "edition",
             },
@@ -39,7 +39,7 @@ exports[`Document relations tests should load the relations component 1`] = `
                 <Label>
                   0
                 </Label>
-                Languages
+                 Languages
               </React.Fragment>,
               "key": "language",
             },
@@ -51,7 +51,7 @@ exports[`Document relations tests should load the relations component 1`] = `
                 <Label>
                   0
                 </Label>
-                Multipart monographs
+                 Multipart monographs
               </React.Fragment>,
               "key": "multipart_monograph",
             },
@@ -63,7 +63,7 @@ exports[`Document relations tests should load the relations component 1`] = `
                 <Label>
                   0
                 </Label>
-                Serials
+                 Serials
               </React.Fragment>,
               "key": "serial",
             },
@@ -75,7 +75,7 @@ exports[`Document relations tests should load the relations component 1`] = `
                 <Label>
                   0
                 </Label>
-                Others
+                 Others
               </React.Fragment>,
               "key": "other",
             },

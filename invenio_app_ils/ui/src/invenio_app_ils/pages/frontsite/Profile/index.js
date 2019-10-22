@@ -15,8 +15,8 @@ export class ProfileContainer extends Component {
     return (
       <Container>
         <PatronMetadata />
-        <PatronPendingLoans patronPid={currentUser.id} />
         <PatronCurrentLoans patronPid={currentUser.id} />
+        <PatronPendingLoans patronPid={currentUser.id} />
         <PatronPastLoans patronPid={currentUser.id} />
         <PatronDocumentRequests patronPid={currentUser.id} />
       </Container>

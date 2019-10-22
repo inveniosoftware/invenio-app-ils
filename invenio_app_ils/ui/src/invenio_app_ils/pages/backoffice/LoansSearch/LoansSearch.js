@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Grid, Segment, Icon, Header, Button } from 'semantic-ui-react';
 import {
   ReactSearchKit,
@@ -19,15 +20,13 @@ import {
   ResultsSort,
   ResultsTable,
 } from '../../../common/components';
-import { formatter } from '../../../common/components/ResultsTable/formatters';
+import { dateFormatter } from '../../../common/api/date';
 import {
   ExportReactSearchKitResults,
   OverdueLoanSendMailModal,
 } from '../components';
 import { loan as loanApi } from '../../../common/api/loans/loan';
 import { BackOfficeRoutes } from '../../../routes/urls';
-import { goTo } from '../../../history';
-import _pick from 'lodash/pick';
 
 export class LoansSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -47,43 +46,63 @@ export class LoansSearch extends Component {
     );
   };
 
-  prepareData(data) {
-    return data.map(row => {
-      const actions = row.metadata.is_overdue && (
-        <OverdueLoanSendMailModal loan={row} />
-      );
-      return _pick(formatter.loan.toTable(row, actions), [
-        'ID',
-        'Document ID',
-        'Patron',
-        'State',
-        'Request start date',
-        'End date',
-        'Renewals',
-        'Actions',
-      ]);
-    });
-  }
+  viewDetails = ({ row }) => {
+    return (
+      <Button
+        as={Link}
+        to={BackOfficeRoutes.loanDetailsFor(row.metadata.pid)}
+        compact
+        icon="info"
+        data-test={row.metadata.pid}
+      />
+    );
+  };
 
   renderResultsTable = results => {
-    const rows = this.prepareData(results);
     const maxRowsToShow =
-      rows.length > ResultsTable.defaultProps.showMaxRows
-        ? rows.length
+      results.length > ResultsTable.defaultProps.showMaxRows
+        ? results.length
         : ResultsTable.defaultProps.showMaxRows;
 
     const headerActionComponent = (
       <ExportReactSearchKitResults exportBaseUrl={loanApi.searchBaseURL} />
     );
 
+    const columns = [
+      { title: '', field: '', formatter: this.viewDetails },
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Document ID', field: 'metadata.document_pid' },
+      { title: 'Patron', field: 'metadata.patron.name' },
+      { title: 'State', field: 'metadata.state' },
+      {
+        title: 'Start date',
+        field: 'metadata.start_date',
+        formatter: dateFormatter,
+      },
+      {
+        title: 'End date',
+        field: 'metadata.end_date',
+        formatter: dateFormatter,
+      },
+      { title: 'Renewals', field: 'metadata.extension_count' },
+      {
+        title: 'Actions',
+        field: '',
+        formatter: ({ row }) => {
+          if (row.metadata.is_overdue) {
+            return <OverdueLoanSendMailModal loan={row} />;
+          }
+          return null;
+        },
+      },
+    ];
     return (
       <ResultsTable
-        rows={rows}
+        data={results}
+        columns={columns}
         name={'loans'}
+        totalHitsCount={results.length}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={row =>
-          goTo(BackOfficeRoutes.loanDetailsFor(row.ID))
-        }
         showMaxRows={maxRowsToShow}
       />
     );

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
-import pick from 'lodash/pick';
 
 import {
   Loader,
@@ -9,7 +7,7 @@ import {
   ResultsTable,
   Pagination,
 } from '../../../../../common/components';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import { dateFormatter } from '../../../../../common/api/date';
 import { invenioConfig } from '../../../../../common/config';
 
 export default class PatronCurrentLoans extends Component {
@@ -41,30 +39,30 @@ export default class PatronCurrentLoans extends Component {
     );
   };
 
-  prepareData(data) {
-    return data.hits.map(row => {
-      return pick(formatter.loan.toTable(row), [
-        'ID',
-        'Item barcode',
-        'Start date',
-        'End date',
-        'Renewals',
-      ]);
-    });
-  }
-
   render() {
-    const { data, isLoading, hasError, error } = this.props;
-    const rows =
-      !hasError && !isLoading && !isEmpty(data)
-        ? this.prepareData(this.props.data)
-        : [];
-    rows.totalHits = data.total;
+    const { data, isLoading, error } = this.props;
+    const columns = [
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Item barcode', field: 'metadata.item.barcode' },
+      {
+        title: 'Start date',
+        field: 'metadata.start_date',
+        formatter: dateFormatter,
+      },
+      {
+        title: 'End date',
+        field: 'metadata.end_date',
+        formatter: dateFormatter,
+      },
+      { title: 'Renewals', field: 'metadata.extension_count' },
+    ];
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <ResultsTable
-            rows={rows}
+            data={data.hits}
+            columns={columns}
+            totalHitsCount={data.total}
             title={'Your current loans'}
             name={'current loans'}
             showMaxRows={invenioConfig.default_results_size}

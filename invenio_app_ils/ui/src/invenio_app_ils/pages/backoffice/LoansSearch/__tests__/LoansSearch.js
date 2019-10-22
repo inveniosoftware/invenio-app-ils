@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { Settings } from 'luxon';
 import { fromISO, toISO } from '../../../../common/api/date';
 import { ResultsTable } from '../../../../common/components';
-import { formatter } from '../../../../common/components/ResultsTable/formatters';
+import { Button } from 'semantic-ui-react';
 
 jest.mock('../../components');
 Settings.defaultZoneName = 'utc';
@@ -25,26 +25,30 @@ const data = [
   },
 ];
 
+const mockViewDetails = jest.fn();
+const columns = [
+  {
+    title: 'view',
+    field: '',
+    formatter: () => <Button onClick={mockViewDetails}>View</Button>,
+  },
+  { title: 'State', field: 'metadata.state' },
+];
+
 let component;
 afterEach(() => {
+  mockViewDetails.mockClear();
   component.unmount();
 });
 
 describe('LoansSearch ResultsTable tests', () => {
   it('should not render when empty results', () => {
-    component = mount(
-      <ResultsTable rows={[]} rowActionClickHandler={() => {}} />
-    );
+    component = mount(<ResultsTable data={[]} columns={columns} />);
     expect(component).toMatchSnapshot();
   });
 
   it('should render a list of results', () => {
-    component = mount(
-      <ResultsTable
-        rows={data.map(row => formatter.loan.toTable(row))}
-        rowActionClickHandler={() => {}}
-      />
-    );
+    component = mount(<ResultsTable data={data} columns={columns} />);
     expect(component).toMatchSnapshot();
     const firstResult = data[0];
     const resultRows = component
@@ -58,25 +62,17 @@ describe('LoansSearch ResultsTable tests', () => {
         element => element.prop('data-test') === 'State-' + firstResult.id
       );
     expect(mappedStatusElements).toHaveLength(1);
-
     expect(mappedStatusElements.text()).toEqual(firstResult.metadata.state);
   });
 
   it('should call click handler on view details click', () => {
-    const mockedClickHandler = jest.fn();
-    component = mount(
-      <ResultsTable
-        rows={data.map(row => formatter.loan.toTable(row))}
-        rowActionClickHandler={mockedClickHandler}
-      />
-    );
+    component = mount(<ResultsTable data={data} columns={columns} />);
     const firstId = data[0].id;
     const button = component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === firstId)
+      .find('TableCell')
+      .filterWhere(element => element.prop('data-test') === `view-${firstId}`)
       .find('button');
     button.simulate('click');
-    const expected = formatter.loan.toTable(data[0]);
-    expect(mockedClickHandler).toHaveBeenCalledWith(expected);
+    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

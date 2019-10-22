@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Icon, Header } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Button, Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
@@ -18,13 +19,10 @@ import {
   ResultsSort,
   ResultsTable,
 } from '../../../common/components';
-import { formatter } from '../../../common/components/ResultsTable/formatters';
 import { patron as patronApi } from '../../../common/api';
 import { getSearchConfig } from '../../../common/config';
 import { ClearButton } from '../components/buttons';
 import { ExportReactSearchKitResults } from '../components';
-import { goTo } from '../../../history';
-import _pick from 'lodash/pick';
 
 export class PatronsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -44,26 +42,37 @@ export class PatronsSearch extends Component {
     );
   };
 
-  prepareData(data) {
-    return data.map(row => {
-      return _pick(formatter.patron.toTable(row), ['ID', 'Name', 'Email']);
-    });
-  }
+  viewDetails = ({ row }) => {
+    // NOTE: patrons have id in their metadata not pid.
+    return (
+      <Button
+        as={Link}
+        to={BackOfficeRoutes.patronDetailsFor(row.metadata.id)}
+        compact
+        icon="info"
+        data-test={row.metadata.pid}
+      />
+    );
+  };
 
   renderResultsTable = results => {
-    const rows = this.prepareData(results);
     const headerActionComponent = (
       <ExportReactSearchKitResults exportBaseUrl={patronApi.searchBaseURL} />
     );
 
+    const columns = [
+      { title: '', field: '', formatter: this.viewDetails },
+      { title: 'ID', field: 'metadata.id' },
+      { title: 'Name', field: 'metadata.name' },
+      { title: 'Email', field: 'metadata.email' },
+    ];
+
     return (
       <ResultsTable
-        rows={rows}
+        data={results}
+        columns={columns}
         title={''}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={row =>
-          goTo(BackOfficeRoutes.patronDetailsFor(row.ID))
-        }
       />
     );
   };

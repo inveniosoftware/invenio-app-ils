@@ -17,13 +17,11 @@ import {
   SearchBar as DocumentsSearchBar,
   ResultsSort,
 } from '../../../common/components';
-import { formatter } from '../../../common/components/ResultsTable/formatters';
 import { document as documentApi } from '../../../common/api/documents/document';
 import { getSearchConfig } from '../../../common/config';
 import { ClearButton, NewButton } from '../components/buttons';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { DocumentList, ExportReactSearchKitResults } from '../components';
-import _pick from 'lodash/pick';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -54,17 +52,6 @@ export class DocumentsSearch extends Component {
       />
     );
   };
-
-  prepareData(data) {
-    return data.map(row => {
-      return _pick(formatter.document.toTable(row), [
-        'ID',
-        'Title',
-        'Authors',
-        'Available Items',
-      ]);
-    });
-  }
 
   renderEmptyResults = (queryString, resetQuery) => {
     return (

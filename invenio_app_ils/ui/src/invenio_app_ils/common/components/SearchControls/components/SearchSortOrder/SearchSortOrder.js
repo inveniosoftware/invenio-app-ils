@@ -41,6 +41,7 @@ export default class SearchSortOrder extends Component {
           />
         </Button>
       );
+      return this.buttons;
     });
 
     return this.buttons[currentSortOrder];

@@ -8,18 +8,18 @@ import ResultsTableFooter from './ResultsTableFooter';
 export class ResultsTable extends Component {
   renderTable = () => {
     const {
-      rows,
-      showMaxRows,
-      showAllResults,
-      singleLine,
-      fixed,
+      columns,
       currentPage,
+      data,
+      fixed,
       paginationComponent,
       seeAllComponent,
+      showAllResults,
+      showMaxRows,
+      singleLine,
+      totalHitsCount,
     } = this.props;
-    const columns = rows ? Object.keys(rows[0]) : [];
-    const totalRows =
-      rows.totalHits > rows.length ? rows.totalHits : rows.length;
+
     return (
       <Table
         striped
@@ -31,11 +31,10 @@ export class ResultsTable extends Component {
         <ResultsTableHeader columns={columns} />
         <ResultsTableBody
           columns={columns}
-          rows={showAllResults ? rows : rows.slice(0, showMaxRows)}
-          rowActionClickHandler={this.props.rowActionClickHandler}
+          rows={showAllResults ? data : data.slice(0, showMaxRows)}
         />
         <ResultsTableFooter
-          allRowsNumber={totalRows}
+          allRowsNumber={totalHitsCount || data.length}
           showAllResults={showAllResults}
           showMaxRows={showMaxRows}
           seeAllComponent={seeAllComponent}
@@ -48,15 +47,15 @@ export class ResultsTable extends Component {
   };
 
   renderResultsOrEmpty() {
-    const { rows, name } = this.props;
-    return rows.length ? (
-      this.renderTable(rows)
+    const { data, name } = this.props;
+    return data.length ? (
+      this.renderTable()
     ) : (
       <Message data-test="no-results">There are no {name}.</Message>
     );
   }
 
-  renderTitle() {
+  renderHeader() {
     const { title, subtitle, headerActionComponent } = this.props;
     const header = title ? (
       <Header as="h3" content={title} subheader={subtitle} />
@@ -82,7 +81,7 @@ export class ResultsTable extends Component {
   render() {
     return (
       <>
-        {this.renderTitle()}
+        {this.renderHeader()}
         {this.renderResultsOrEmpty()}
       </>
     );
@@ -90,32 +89,30 @@ export class ResultsTable extends Component {
 }
 
 ResultsTable.propTypes = {
-  rows: PropTypes.array.isRequired,
-  showMaxRows: PropTypes.number,
-  showAllResults: PropTypes.bool,
+  columns: PropTypes.array.isRequired,
   currentPage: PropTypes.number,
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
-  name: PropTypes.string,
+  data: PropTypes.array.isRequired,
   headerActionComponent: PropTypes.node,
-  rowActionClickHandler: PropTypes.func,
-  seeAllComponent: PropTypes.node,
+  name: PropTypes.string,
   paginationComponent: PropTypes.node,
+  seeAllComponent: PropTypes.node,
+  showAllResults: PropTypes.bool,
+  showMaxRows: PropTypes.number,
   singleLine: PropTypes.bool,
-  fixed: PropTypes.bool,
+  subtitle: PropTypes.string,
+  title: PropTypes.string,
+  totalHitsCount: PropTypes.number,
 };
 
 ResultsTable.defaultProps = {
-  showMaxRows: 10,
-  showAllResults: false,
   currentPage: 1,
-  title: '',
-  subtitle: '',
-  headerActionComponent: null,
   headerActionClickHandler: null,
-  rowActionClickHandler: null,
-  seeAllComponent: null,
+  headerActionComponent: null,
   paginationComponent: null,
+  seeAllComponent: null,
+  showAllResults: false,
+  showMaxRows: 10,
   singleLine: false,
-  fixed: false,
+  subtitle: '',
+  title: '',
 };

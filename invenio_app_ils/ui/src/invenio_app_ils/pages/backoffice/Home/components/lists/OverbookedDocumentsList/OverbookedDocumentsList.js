@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
 import {
   Loader,
   Error,
@@ -7,25 +9,16 @@ import {
 } from '../../../../../../common/components';
 import { document as documentApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
-import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
-import { goTo, goToHandler } from '../../../../../../history';
-import pick from 'lodash/pick';
+import { goToHandler } from '../../../../../../history';
 
 export default class OverbookedDocumentsList extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchOverbookedDocuments = props.fetchOverbookedDocuments;
-    this.showDetailsUrl = BackOfficeRoutes.documentDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.documentsListWithQuery;
-  }
-
   componentDidMount() {
-    this.fetchOverbookedDocuments();
+    this.props.fetchOverbookedDocuments();
   }
 
   seeAllButton = () => {
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.documentsListWithQuery(
       documentApi
         .query()
         .overbooked()
@@ -35,25 +28,38 @@ export default class OverbookedDocumentsList extends Component {
     return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
-  prepareData(data) {
-    return data.hits.map(row => {
-      let entry = formatter.document.toTable(row);
-      return pick(entry, ['ID', 'Title', 'Pending Requests']);
-    });
-  }
+  viewDetails = ({ row }) => {
+    return (
+      <Button
+        as={Link}
+        to={BackOfficeRoutes.documentDetailsFor(row.metadata.pid)}
+        compact
+        icon="info"
+        data-test={row.metadata.pid}
+      />
+    );
+  };
 
   renderTable(data) {
-    const rows = this.prepareData(data);
-    rows.totalHits = data.total;
+    const columns = [
+      { title: '', field: '', formatter: this.viewDetails },
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Title', field: 'metadata.title' },
+      {
+        title: 'Pending Requests',
+        field: 'metadata.circulation.pending_loans',
+      },
+    ];
     return (
       <ResultsTable
-        rows={rows}
+        data={data.hits}
+        columns={columns}
+        totalHitsCount={data.total}
         title={'Overbooked documents'}
         subtitle={
           'Documents with more requests than the number of available items for loan.'
         }
         name={'overbooked documents'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
         singleLine

@@ -1,29 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../common/components';
-import { ResultsTable } from '../../../../../common/components';
+import { Link } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
+import { Loader, Error, ResultsTable } from '../../../../../common/components';
 import { item as itemApi } from '../../../../../common/api';
-
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { SeeAllButton } from '../../../components/buttons';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
-import { goTo, goToHandler } from '../../../../../history';
-import pick from 'lodash/pick';
+import { goToHandler } from '../../../../../history';
 
 export default class DocumentItems extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchDocumentItems = props.fetchDocumentItems;
-    this.showDetailsUrl = BackOfficeRoutes.itemDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.itemsListWithQuery;
-  }
-
   componentDidMount() {
-    this.fetchDocumentItems(this.props.document.pid);
+    this.props.fetchDocumentItems(this.props.document.pid);
   }
 
   seeAllButton = () => {
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.itemsListWithQuery(
       itemApi
         .query()
         .withDocPid(this.props.document.pid)
@@ -32,29 +23,35 @@ export default class DocumentItems extends Component {
     return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
-  prepareData(data) {
-    return data.hits.map(row => {
-      const entry = formatter.item.toTable(row);
-      return pick(entry, [
-        'ID',
-        'Barcode',
-        'Status',
-        'Medium',
-        'Location',
-        'Shelf',
-      ]);
-    });
-  }
+  viewDetails = ({ row }) => {
+    return (
+      <Button
+        as={Link}
+        to={BackOfficeRoutes.itemDetailsFor(row.metadata.pid)}
+        compact
+        icon="info"
+        data-test={row.metadata.pid}
+      />
+    );
+  };
 
   renderTable(data) {
-    const rows = this.prepareData(data);
-    rows.totalHits = data.total;
+    const columns = [
+      { title: '', field: '', formatter: this.viewDetails },
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Barcode', field: 'metadata.barcode' },
+      { title: 'Status', field: 'metadata.status' },
+      { title: 'Medium', field: 'metadata.medium' },
+      { title: 'Location', field: 'metadata.internal_location.name' },
+      { title: 'Shelf', field: 'metadata.shelf' },
+    ];
     return (
       <ResultsTable
-        rows={rows}
+        data={data.hits}
+        columns={columns}
+        totalHitsCount={data.total}
         title={'Attached items'}
         name={'attached items'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxItems}
       />

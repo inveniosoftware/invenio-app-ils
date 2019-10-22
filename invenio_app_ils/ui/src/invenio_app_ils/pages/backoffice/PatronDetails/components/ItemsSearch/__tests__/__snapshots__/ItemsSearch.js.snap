@@ -277,29 +277,68 @@ exports[`PatronLoans tests should render items in search 1`] = `
                       viewDetailsClickHandler={[Function]}
                     >
                       <ResultsTable
-                        actionClickHandler={[Function]}
+                        columns={
+                          Array [
+                            Object {
+                              "field": "",
+                              "formatter": undefined,
+                              "title": "",
+                            },
+                            Object {
+                              "field": "metadata.pid",
+                              "title": "ID",
+                            },
+                            Object {
+                              "field": "metadata.status",
+                              "title": "Status",
+                            },
+                            Object {
+                              "field": "metadata.medium",
+                              "title": "Medium",
+                            },
+                            Object {
+                              "field": "metadata.circulation.state",
+                              "title": "Circulation status",
+                            },
+                            Object {
+                              "field": "",
+                              "formatter": [Function],
+                              "title": "Actions",
+                            },
+                          ]
+                        }
                         currentPage={1}
-                        fixed={false}
+                        data={
+                          Array [
+                            Object {
+                              "created": "2018-01-01T10:05:00.000Z",
+                              "id": "1",
+                              "metadata": Object {
+                                "barcode": "44444",
+                                "circulation": Object {},
+                                "document": Object {
+                                  "title": "Here is a title",
+                                },
+                                "document_pid": "doc1",
+                                "internal_location": Object {
+                                  "location": Object {
+                                    "name": "Somewhere",
+                                  },
+                                },
+                                "medium": "book",
+                                "pid": "item1",
+                                "shelf": "P",
+                                "status": "CAN_CIRCULATE",
+                              },
+                              "pid": "item1",
+                              "updated": "2018-01-01T10:05:00.000Z",
+                            },
+                          ]
+                        }
                         headerActionClickHandler={null}
                         headerActionComponent={null}
                         name="items"
                         paginationComponent={null}
-                        rowActionClickHandler={null}
-                        rows={
-                          Array [
-                            Object {
-                              "Actions": <Button
-                                as="button"
-                                content="Checkout"
-                                onClick={[Function]}
-                              />,
-                              "Circulation status": undefined,
-                              "ID": "item1",
-                              "Medium": "book",
-                              "Status": "CAN_CIRCULATE",
-                            },
-                          ]
-                        }
                         seeAllComponent={null}
                         showAllResults={false}
                         showMaxRows={10}
@@ -347,14 +386,34 @@ exports[`PatronLoans tests should render items in search 1`] = `
                             <ResultsTableHeader
                               columns={
                                 Array [
-                                  "ID",
-                                  "Status",
-                                  "Medium",
-                                  "Circulation status",
-                                  "Actions",
+                                  Object {
+                                    "field": "",
+                                    "formatter": undefined,
+                                    "title": "",
+                                  },
+                                  Object {
+                                    "field": "metadata.pid",
+                                    "title": "ID",
+                                  },
+                                  Object {
+                                    "field": "metadata.status",
+                                    "title": "Status",
+                                  },
+                                  Object {
+                                    "field": "metadata.medium",
+                                    "title": "Medium",
+                                  },
+                                  Object {
+                                    "field": "metadata.circulation.state",
+                                    "title": "Circulation status",
+                                  },
+                                  Object {
+                                    "field": "",
+                                    "formatter": [Function],
+                                    "title": "Actions",
+                                  },
                                 ]
                               }
-                              withRowAction={false}
                             >
                               <TableHeader
                                 as="thead"
@@ -373,6 +432,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                     >
                                       <TableHeaderCell
                                         as="th"
+                                        key=""
                                       >
                                         <TableCell
                                           as="th"
@@ -466,26 +526,58 @@ exports[`PatronLoans tests should render items in search 1`] = `
                             <ResultsTableBody
                               columns={
                                 Array [
-                                  "ID",
-                                  "Status",
-                                  "Medium",
-                                  "Circulation status",
-                                  "Actions",
+                                  Object {
+                                    "field": "",
+                                    "formatter": undefined,
+                                    "title": "",
+                                  },
+                                  Object {
+                                    "field": "metadata.pid",
+                                    "title": "ID",
+                                  },
+                                  Object {
+                                    "field": "metadata.status",
+                                    "title": "Status",
+                                  },
+                                  Object {
+                                    "field": "metadata.medium",
+                                    "title": "Medium",
+                                  },
+                                  Object {
+                                    "field": "metadata.circulation.state",
+                                    "title": "Circulation status",
+                                  },
+                                  Object {
+                                    "field": "",
+                                    "formatter": [Function],
+                                    "title": "Actions",
+                                  },
                                 ]
                               }
-                              rowActionClickHandler={null}
                               rows={
                                 Array [
                                   Object {
-                                    "Actions": <Button
-                                      as="button"
-                                      content="Checkout"
-                                      onClick={[Function]}
-                                    />,
-                                    "Circulation status": undefined,
-                                    "ID": "item1",
-                                    "Medium": "book",
-                                    "Status": "CAN_CIRCULATE",
+                                    "created": "2018-01-01T10:05:00.000Z",
+                                    "id": "1",
+                                    "metadata": Object {
+                                      "barcode": "44444",
+                                      "circulation": Object {},
+                                      "document": Object {
+                                        "title": "Here is a title",
+                                      },
+                                      "document_pid": "doc1",
+                                      "internal_location": Object {
+                                        "location": Object {
+                                          "name": "Somewhere",
+                                        },
+                                      },
+                                      "medium": "book",
+                                      "pid": "item1",
+                                      "shelf": "P",
+                                      "status": "CAN_CIRCULATE",
+                                    },
+                                    "pid": "item1",
+                                    "updated": "2018-01-01T10:05:00.000Z",
                                   },
                                 ]
                               }
@@ -508,16 +600,20 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                     >
                                       <TableCell
                                         as="td"
-                                        textAlign="center"
+                                        data-test="-item1"
+                                        key="-item1"
                                       >
                                         <td
-                                          className="center aligned"
-                                        />
+                                          className=""
+                                          data-test="-item1"
+                                        >
+                                          -
+                                        </td>
                                       </TableCell>
                                       <TableCell
                                         as="td"
                                         data-test="ID-item1"
-                                        key="0-item1"
+                                        key="ID-item1"
                                       >
                                         <td
                                           className=""
@@ -529,7 +625,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                       <TableCell
                                         as="td"
                                         data-test="Status-item1"
-                                        key="1-item1"
+                                        key="Status-item1"
                                       >
                                         <td
                                           className=""
@@ -541,7 +637,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                       <TableCell
                                         as="td"
                                         data-test="Medium-item1"
-                                        key="2-item1"
+                                        key="Medium-item1"
                                       >
                                         <td
                                           className=""
@@ -553,7 +649,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                       <TableCell
                                         as="td"
                                         data-test="Circulation status-item1"
-                                        key="3-item1"
+                                        key="Circulation status-item1"
                                       >
                                         <td
                                           className=""
@@ -565,7 +661,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                       <TableCell
                                         as="td"
                                         data-test="Actions-item1"
-                                        key="4-item1"
+                                        key="Actions-item1"
                                       >
                                         <td
                                           className=""
@@ -616,7 +712,7 @@ exports[`PatronLoans tests should render items in search 1`] = `
                             </ResultsTableBody>
                             <ResultsTableFooter
                               allRowsNumber={1}
-                              columnsNumber={5}
+                              columnsNumber={6}
                               currentPage={1}
                               paginationComponent={null}
                               seeAllComponent={null}

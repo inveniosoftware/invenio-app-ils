@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import { Button } from 'semantic-ui-react';
 import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
@@ -7,12 +8,18 @@ import PendingOverdueDocumentsList from '../PendingOverdueDocumentsList';
 import history from '../../../../../../../history';
 import * as testData from '../../../../../../../../../../../tests/data/documents.json';
 
+jest.mock('react-router-dom');
+let mockViewDetails = jest.fn();
+
+BackOfficeRoutes.documentDetailsFor = jest.fn(pid => `url/${pid}`);
+
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 
 describe('PendingOverdueDocumentsList tests', () => {
   let component;
   afterEach(() => {
+    mockViewDetails.mockClear();
     if (component) {
       component.unmount();
     }
@@ -126,15 +133,17 @@ describe('PendingOverdueDocumentsList tests', () => {
         showMaxEntries={1}
       />
     );
+    component.instance().viewDetails = jest.fn(() => (
+      <Button onClick={mockViewDetails}></Button>
+    ));
+    component.instance().forceUpdate();
 
     const firstId = data.hits[0].pid;
     const button = component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === firstId)
-      .find('i');
+      .find('TableCell')
+      .filterWhere(element => element.prop('data-test') === `-${firstId}`)
+      .find('Button');
     button.simulate('click');
-
-    const expectedParam = BackOfficeRoutes.documentDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
+    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

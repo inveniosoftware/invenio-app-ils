@@ -4,10 +4,15 @@ import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import PatronDocumentRequests from '../PatronDocumentRequests';
-import history from '../../../../../../history';
+import { Button } from 'semantic-ui-react';
 
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
+
+jest.mock('react-router-dom');
+let mockViewDetails = jest.fn();
+
+BackOfficeRoutes.documentRequestDetailsFor = jest.fn(pid => `url/${pid}`);
 
 describe('PatronDocumentRequests tests', () => {
   let component;
@@ -177,8 +182,6 @@ describe('PatronDocumentRequests tests', () => {
   });
 
   it('should go to document request details when clicking on a patron document request', () => {
-    const mockedHistoryPush = jest.fn();
-    history.push = mockedHistoryPush;
     const data = {
       hits: [
         {
@@ -211,15 +214,18 @@ describe('PatronDocumentRequests tests', () => {
         showMaxDocumentRequests={1}
       />
     );
+    component.instance().viewDetails = jest.fn(() => (
+      <Button onClick={mockViewDetails}></Button>
+    ));
+    component.instance().forceUpdate();
 
     const firstId = data.hits[0].pid;
-    const button = component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === firstId)
-      .find('i');
-    button.simulate('click');
-
-    const expectedParam = BackOfficeRoutes.documentRequestDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
+    debugger;
+    component
+      .find('TableCell')
+      .filterWhere(element => element.prop('data-test') === `-${firstId}`)
+      .find('Button')
+      .simulate('click');
+    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

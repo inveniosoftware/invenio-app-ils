@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ResultsTable } from '../../../../../../../common/components';
 import { Button, Modal, Header, Icon } from 'semantic-ui-react';
-import { ResultsTableFormatter as formatter } from '../../../../../../../common/components';
 import { invenioConfig, ES_DELAY } from '../../../../../../../common/config';
 import isEmpty from 'lodash/isEmpty';
-import pick from 'lodash/pick';
 
 export class ItemsResultsList extends Component {
   constructor(props) {
@@ -33,33 +31,35 @@ export class ItemsResultsList extends Component {
     }, ES_DELAY);
   };
 
-  actions(item, itemState) {
+  actions = ({ row }) => {
+    // NOTE: will remove these after review
+    // itemState = row.metadata.status
+    // row is the item
+    const { patronPid } = this.props;
     const buttonCheckout = (
       <Button
         content={'Checkout'}
         onClick={() => {
-          const documentPid = item.document.pid;
-          const itemPid = item.pid;
           this.onClickCheckoutHandler(
-            documentPid,
-            itemPid,
-            this.props.patronPid,
+            row.metadata.document_pid,
+            row.metadata.pid,
+            patronPid,
             false
           );
         }}
       />
     );
 
-    const circulationStatus = !isEmpty(item.circulation)
-      ? item.circulation
+    const circulationStatus = !isEmpty(row.metadata.circulation)
+      ? row.metadata.circulation.state
       : null;
 
     return !invenioConfig.circulation.loanActiveStates.includes(
       circulationStatus
-    ) && invenioConfig.items.canCirculateStates.includes(itemState)
+    ) && invenioConfig.items.canCirculateStates.includes(row.metadata.status)
       ? buttonCheckout
-      : this.renderForceCheckoutModal(item);
-  }
+      : this.renderForceCheckoutModal(row);
+  };
 
   renderForceCheckoutModal = item => {
     const { isModalOpen } = this.state;
@@ -102,27 +102,27 @@ export class ItemsResultsList extends Component {
     );
   };
 
-  prepareData(data) {
-    return data.hits.map(row => {
-      let serialized = formatter.item.toTable(row);
-      serialized['Actions'] = this.actions(row, row.metadata.status);
-      return pick(serialized, [
-        'ID',
-        'Status',
-        'Medium',
-        'Circulation status',
-        'Actions',
-      ]);
-    });
-  }
-
   render() {
-    const rows = this.prepareData(this.props.results);
-    return rows.length ? (
+    const { results } = this.props;
+    const columns = [
+      { title: '', field: '', formatter: this.viewDetails },
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Status', field: 'metadata.status' },
+      { title: 'Medium', field: 'metadata.medium' },
+      { title: 'Circulation status', field: 'metadata.circulation.state' },
+      {
+        title: 'Actions',
+        field: '',
+        formatter: this.actions,
+      },
+    ];
+
+    return results.hits.length ? (
       <ResultsTable
-        rows={rows}
+        data={results.hits}
+        columns={columns}
+        totalHitsCount={results.length}
         name={'items'}
-        actionClickHandler={this.viewDetailsClickHandler}
       />
     ) : null;
   }

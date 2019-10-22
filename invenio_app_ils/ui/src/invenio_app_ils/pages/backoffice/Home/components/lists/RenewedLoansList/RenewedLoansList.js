@@ -1,55 +1,67 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../../common/components';
-import { ResultsTable } from '../../../../../../common/components';
+import { Link } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
+import {
+  Loader,
+  Error,
+  ResultsTable,
+} from '../../../../../../common/components';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { listQuery } from './state/listQuery';
-import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
+import { dateFormatter } from '../../../../../../common/api/date';
 import { SeeAllButton } from '../../../../components/buttons';
-import { goTo, goToHandler } from '../../../../../../history';
-import pick from 'lodash/pick';
+import { goToHandler } from '../../../../../../history';
 
 export default class RenewedLoansList extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchRenewedLoans = props.fetchRenewedLoans;
-    this.showDetailsUrl = BackOfficeRoutes.loanDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
-  }
-
   componentDidMount() {
-    this.fetchRenewedLoans();
+    this.props.fetchRenewedLoans();
   }
 
   seeAllButton = () => {
     return (
-      <SeeAllButton clickHandler={goToHandler(this.seeAllUrl(listQuery))} />
+      <SeeAllButton
+        clickHandler={goToHandler(
+          BackOfficeRoutes.loansListWithQuery(listQuery)
+        )}
+      />
     );
   };
 
-  prepareData(data) {
-    return data.hits.map(row => {
-      return pick(formatter.loan.toTable(row), [
-        'ID',
-        'Patron ID',
-        'State',
-        'Item barcode',
-        'End date',
-        'Renewals',
-      ]);
-    });
-  }
+  viewDetails = ({ row }) => {
+    return (
+      <Button
+        as={Link}
+        to={BackOfficeRoutes.loanDetailsFor(row.metadata.pid)}
+        compact
+        icon="info"
+        data-test={row.metadata.pid}
+      />
+    );
+  };
 
   renderTable(data) {
-    const rows = this.prepareData(data);
-    rows.totalHits = data.total;
+    const columns = [
+      { title: '', field: '', formatter: this.viewDetails },
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Patron ID', field: 'metadata.patron_pid' },
+      { title: 'State', field: 'metadata.state' },
+      { title: 'Item Barcode', field: 'metadata.item.barcode' },
+      {
+        title: 'End date',
+        field: 'metadata.end_date',
+        formatter: dateFormatter,
+      },
+      { title: 'Renewals', field: 'metadata.extension_count' },
+    ];
     return (
       <ResultsTable
-        rows={rows}
+        data={data.hits}
+        columns={columns}
+        totalHitsCount={data.total}
         title={'Frequently renewed loans'}
         subtitle={'Loans renewed more than 3 times - last 7 days.'}
         name={'frequently renewed loans'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
       />

@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
-import omit from 'lodash/omit';
 import { internalLocation as internalLocationApi } from '../../../../common/api';
 import { InternalLocationList } from './components';
 import { Error, Loader, ResultsTable } from '../../../../common/components';
 import { DeleteRecordModal } from '../../../backoffice/components';
 import { Button } from 'semantic-ui-react';
 import { NewButton } from '../../components/buttons';
-import { formatter } from '../../../../common/components/ResultsTable/formatters';
 import { BackOfficeRoutes } from '../../../../routes/urls';
-import { goToHandler, goTo } from '../../../../history';
+import { goTo } from '../../../../history';
 
 export default class LocationList extends Component {
   constructor(props) {
@@ -36,43 +35,44 @@ export default class LocationList extends Component {
     ];
   }
 
-  rowActions(locationPid) {
+  rowActions = ({ row }) => {
     return (
       <>
         <Button
+          as={Link}
+          to={BackOfficeRoutes.locationsEditFor(row.metadata.pid)}
           icon={'edit'}
-          onClick={goToHandler(BackOfficeRoutes.locationsEditFor(locationPid))}
           size="small"
           title={'Edit Record'}
         />
         <DeleteRecordModal
           deleteHeader={`Are you sure you want to delete the Location
-          record with ID ${locationPid}?`}
-          onDelete={() => this.deleteLocation(locationPid)}
-          refProps={this.createRefProps(locationPid)}
+          record with ID ${row.metadata.pid}?`}
+          onDelete={() => this.deleteLocation(row.metadata.pid)}
+          refProps={this.createRefProps(row.metadata.pid)}
         />
       </>
     );
-  }
-
-  prepareData(data) {
-    const rows = data.hits.map(row => {
-      let serialized = formatter.location.toTable(row);
-      serialized['Actions'] = this.rowActions(row.pid);
-      return omit(serialized, ['Created', 'Updated', 'Link']);
-    });
-    rows.totalHits = data.total;
-    return rows;
-  }
+  };
 
   renderResults(data) {
-    const rows = this.prepareData(data);
     const headerActionComponent = (
       <NewButton text="New location" to={BackOfficeRoutes.locationsCreate} />
     );
+
+    const columns = [
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Name', field: 'metadata.name' },
+      { title: 'Address', field: 'metadata.address' },
+      { title: 'Email', field: 'metadata.email' },
+      { title: 'Actions', field: '', formatter: this.rowActions },
+    ];
+
     return (
       <ResultsTable
-        rows={rows}
+        data={data.hits}
+        columns={columns}
+        totalHitsCount={data.total}
         title={'Locations'}
         name={'locations'}
         headerActionComponent={headerActionComponent}

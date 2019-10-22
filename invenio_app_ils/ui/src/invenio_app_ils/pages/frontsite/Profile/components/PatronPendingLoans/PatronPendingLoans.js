@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import pick from 'lodash/pick';
-
 import {
   Loader,
   Error,
   ResultsTable,
   Pagination,
 } from '../../../../../common/components';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import { dateFormatter } from '../../../../../common/api/date';
 import { invenioConfig } from '../../../../../common/config';
 
 export default class PatronPendingLoans extends Component {
@@ -40,23 +38,27 @@ export default class PatronPendingLoans extends Component {
     );
   };
 
-  prepareData(data) {
-    return data.hits.map(row => {
-      return pick(formatter.loan.toTable(row), [
-        'ID',
-        'Document ID',
-        'Request start date',
-        'Request end date',
-      ]);
-    });
-  }
-
   renderTable(data) {
-    const rows = this.prepareData(data);
-    rows.totalHits = data.total;
+    const columns = [
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Document ID', field: 'metadata.document_pid' },
+      {
+        title: 'Request start date',
+        field: 'metadata.request_start_date',
+        formatter: dateFormatter,
+      },
+      {
+        title: 'Request end date',
+        field: 'metadata.request_expire_date',
+        formatter: dateFormatter,
+      },
+    ];
+
     return (
       <ResultsTable
-        rows={rows}
+        data={data.hits}
+        columns={columns}
+        totalHitsCount={data.total}
         title={'Your loan requests'}
         name={'loan requests'}
         showMaxRows={invenioConfig.default_results_size}
