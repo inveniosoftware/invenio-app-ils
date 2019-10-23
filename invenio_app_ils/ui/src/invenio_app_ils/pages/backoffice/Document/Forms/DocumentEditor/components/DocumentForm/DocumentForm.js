@@ -12,6 +12,7 @@ import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import { goTo } from '../../../../../../../history';
 import {
   AlternativeAbstracts,
+  AuthorsField,
   TagsField,
   TableOfContent,
   UrlsField,
@@ -58,16 +59,17 @@ export class DocumentForm extends Component {
         submitSerializer={documentSubmitSerializer}
       >
         <StringField label="Title" fieldPath="title" required />
-        <TextField label="Abstract" fieldPath="abstract" rows={5} />
-        <AlternativeAbstracts />
         <StringField label="Document type" fieldPath="document_type" />
         <StringField label="Edition" fieldPath="edition" />
+        <AuthorsField fieldPath="authors" />
+        <BooleanField label="Other authors" fieldPath="other_authors" toggle />
+        <TextField label="Abstract" fieldPath="abstract" rows={5} />
+        <AlternativeAbstracts />
         <TextField label="Notes" fieldPath="note" rows={5} />
         <StringField label="Number of pages" fieldPath="number_of_pages" />
         <TagsField label="Tags" fieldPath="tags" />
         <BooleanField label="Document is curated" fieldPath="curated" toggle />
         <StringField label="Source of the metadata" fieldPath="source" />
-        <BooleanField label="Other authors" fieldPath="other_authors" toggle />
         <TableOfContent />
         <UrlsField />
         <AlternativeIdentifiers />

@@ -29,7 +29,7 @@ export class BooleanField extends Component {
     } = props;
     return (
       <Form.Group inline>
-        <label>{this.label}</label>
+        <label htmlFor={this.fieldPath}>{this.label}</label>
         <Form.Checkbox
           id={this.fieldPath}
           name={this.fieldPath}

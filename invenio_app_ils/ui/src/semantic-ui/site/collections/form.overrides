@@ -5,6 +5,7 @@
 fieldset.form-group {
   border: @fieldsetBorder;
   border-radius: @fieldsetBorderRadius;
+  width: 100%;
 
   legend {
     font-weight: bold;
@@ -15,6 +16,18 @@ fieldset.form-group {
 
     legend {
       color: @fieldsetErrorTextColor;
+    }
+  }
+}
+
+.object-array-field {
+  div.ui.list {
+    a.item.active {
+      color: @orange;
+
+      .list.icon {
+        color: @black;
+      }
     }
   }
 }

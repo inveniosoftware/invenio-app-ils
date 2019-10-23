@@ -115,7 +115,7 @@ export class ItemForm extends Component {
           serializer={serializeInternalLocation}
         />
         <TextField label="Internal Notes" fieldPath="internal_notes" rows={5} />
-        <GroupField title="ISBN" widths="equal" fieldPath="isbn">
+        <GroupField error title="ISBN" widths="equal" fieldPath="isbn">
           <StringField required label="Value" fieldPath="isbn.value" />
           <TextField
             label="Description"

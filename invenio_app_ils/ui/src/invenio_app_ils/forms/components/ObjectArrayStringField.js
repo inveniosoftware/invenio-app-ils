@@ -27,6 +27,7 @@ export class ObjectArrayStringField extends Component {
       <>
         {this.objectKeysArray.slice(0, -1).map(keyObj => (
           <StringField
+            key={keyObj.key}
             label={keyObj.text}
             fieldPath={`${objectPath}.${keyObj.key}`}
             inline={true}

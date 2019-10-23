@@ -67,7 +67,7 @@ export class BaseForm extends Component {
         )}
         <Formik
           initialValues={this.initialValues}
-          onSubmit={this.onSubmit}
+          onSubmit={this.props.onSubmit || this.onSubmit}
           validationSchema={this.validationSchema}
           render={({ isSubmitting, handleSubmit }) => (
             <Form onSubmit={handleSubmit} loading={isSubmitting}>
@@ -93,4 +93,5 @@ BaseForm.propTypes = {
   title: PropTypes.string,
   pid: PropTypes.string,
   validationSchema: PropTypes.object,
+  onSubmit: PropTypes.func,
 };

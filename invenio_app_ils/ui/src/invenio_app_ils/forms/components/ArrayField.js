@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getIn, FieldArray } from 'formik';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Icon } from 'semantic-ui-react';
 
 export class ArrayField extends Component {
-  constructor(props) {
-    super(props);
-
+  renderFormField = props => {
+    const {
+      form: { values },
+      ...arrayHelpers
+    } = props;
     const {
       fieldPath,
       addButtonLabel,
@@ -14,40 +16,29 @@ export class ArrayField extends Component {
       label,
       renderArrayItem,
       ...uiProps
-    } = props;
-    this.fieldPath = fieldPath;
-    this.label = label;
-    this.addButtonLabel = addButtonLabel;
-    this.defaultNewValue = defaultNewValue;
-    this.renderArrayItem = renderArrayItem;
-    this.uiProps = uiProps;
-  }
-
-  renderFormField = props => {
-    const {
-      form: { values },
-      ...arrayHelpers
-    } = props;
+    } = this.props;
     return (
-      <Form.Field {...this.uiProps}>
-        <label>{this.label}</label>
-        {getIn(values, this.fieldPath, []).map((value, index) => {
-          const arrayPath = this.fieldPath;
+      <Form.Field {...uiProps}>
+        <label>{label}</label>
+        {getIn(values, fieldPath, []).map((value, index) => {
+          const arrayPath = fieldPath;
           const indexPath = index;
           return (
             <Form.Group widths="equal" key={`${arrayPath}.${indexPath}`}>
-              {this.renderArrayItem({ arrayPath, indexPath, ...props })}
+              {renderArrayItem({ arrayPath, indexPath, ...props })}
             </Form.Group>
           );
         })}
         <Button
+          basic
+          secondary
           type="button"
-          color="teal"
           onClick={() => {
-            arrayHelpers.push(this.defaultNewValue);
+            arrayHelpers.push(defaultNewValue);
           }}
         >
-          {this.addButtonLabel}
+          <Icon name="add" />
+          {addButtonLabel}
         </Button>
       </Form.Field>
     );
@@ -56,9 +47,9 @@ export class ArrayField extends Component {
   render() {
     return (
       <FieldArray
-        name={this.fieldPath}
+        name={this.props.fieldPath}
         component={this.renderFormField}
-      ></FieldArray>
+      />
     );
   }
 }
