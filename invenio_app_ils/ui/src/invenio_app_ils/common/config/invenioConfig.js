@@ -88,9 +88,6 @@ export const invenioConfig = {
       sortOrder: ['asc', 'desc'],
     },
   },
-  editor: {
-    url: '/editor',
-  },
   eitems: {
     search: {
       aggs: [],

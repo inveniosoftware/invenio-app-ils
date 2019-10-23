@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getIn } from 'formik';
-import { Form } from 'semantic-ui-react';
 import pick from 'lodash/pick';
 import {
   BaseForm,
   BooleanField,
-  StringField,
-  AccordionField,
-  ArrayField,
   TextField,
   SelectorField,
 } from '../../../../../../../forms';
@@ -18,6 +14,7 @@ import { goTo } from '../../../../../../../history';
 import eitemSubmitSerializer from './eitemSubmitSerializer';
 import { document as documentApi } from '../../../../../../../common/api';
 import { serializeDocument } from '../../../../../../../common/components/ESSelector/serializer';
+import { UrlsField } from './components';
 
 export class EItemForm extends Component {
   constructor(props) {
@@ -54,33 +51,6 @@ export class EItemForm extends Component {
     );
   };
 
-  renderUrlsObjectField = ({ arrayPath, indexPath, ...arrayHelpers }) => {
-    const objectPath = `${arrayPath}.${indexPath}`;
-    return (
-      <>
-        <StringField
-          label="Url"
-          fieldPath={`${objectPath}.value`}
-          inline={true}
-        />
-        <StringField
-          label="Description"
-          fieldPath={`${objectPath}.description`}
-          inline={true}
-          action={
-            <Form.Button
-              color="red"
-              icon="trash"
-              onClick={() => {
-                arrayHelpers.remove(indexPath);
-              }}
-            ></Form.Button>
-          }
-        />
-      </>
-    );
-  };
-
   render() {
     return (
       <BaseForm
@@ -110,13 +80,7 @@ export class EItemForm extends Component {
         />
         <TextField label="Description" fieldPath="description" rows={5} />
         <BooleanField toggle label="Open access" fieldPath="open_access" />
-        <AccordionField label="Urls" fieldPath="urls">
-          <ArrayField
-            fieldPath="urls"
-            defaultNewValue={{ value: '', url: '' }}
-            renderArrayItem={this.renderUrlsObjectField}
-          ></ArrayField>
-        </AccordionField>
+        <UrlsField />
         <TextField label="Internal notes" fieldPath="internal_notes" rows={5} />
       </BaseForm>
     );
