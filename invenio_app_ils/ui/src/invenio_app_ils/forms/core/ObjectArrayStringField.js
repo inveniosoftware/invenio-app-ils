@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'semantic-ui-react';
-import { AccordionField, ArrayField, StringField } from '../components';
+import { AccordionField, ArrayField, StringField } from '../core';
 import _nth from 'lodash/nth';
 
 export class ObjectArrayStringField extends Component {

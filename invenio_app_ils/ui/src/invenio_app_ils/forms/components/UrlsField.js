@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import { Form } from 'semantic-ui-react';
-import {
-  AccordionField,
-  ArrayField,
-  StringField,
-} from '../../../../../../../../forms';
+import { AccordionField, ArrayField, StringField } from '../core';
 
 export class UrlsField extends Component {
   renderFormField({ arrayPath, indexPath, ...arrayHelpers }) {
     const objectPath = `${arrayPath}.${indexPath}`;
-    console.log(objectPath);
-
     return (
       <>
         <StringField
@@ -43,6 +37,7 @@ export class UrlsField extends Component {
           fieldPath="urls"
           defaultNewValue={{ value: '', description: '' }}
           renderArrayItem={this.renderFormField}
+          addButtonLabel="Add new url"
         ></ArrayField>
       </AccordionField>
     );

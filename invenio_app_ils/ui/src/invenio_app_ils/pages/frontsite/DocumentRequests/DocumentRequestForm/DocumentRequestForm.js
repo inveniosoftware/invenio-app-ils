@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import { FrontSiteRoutes } from '../../../../routes/urls';
 import { documentRequest as documentRequestApi } from '../../../../common/api';
 import { goTo } from '../../../../history';
-import { BaseForm } from '../../../../forms/components';
+import { BaseForm } from '../../../../forms';
 
 const ERROR_MSGS = {
   publication_year: 'Not a valid year',

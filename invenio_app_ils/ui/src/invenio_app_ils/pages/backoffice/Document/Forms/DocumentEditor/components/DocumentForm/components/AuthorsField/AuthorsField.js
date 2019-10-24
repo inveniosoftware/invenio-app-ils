@@ -1,9 +1,12 @@
 import React from 'react';
 import { Field } from 'formik';
-import cloneDeep from 'lodash/cloneDeep'
+import cloneDeep from 'lodash/cloneDeep';
 import { AuthorForm } from './AuthorForm';
-import { SubForm, GroupField } from '../../../../../../../../../forms';
-import { ObjectListField } from '../../../../../../../../../forms/components/ObjectListField';
+import {
+  SubForm,
+  GroupField,
+  ObjectListField,
+} from '../../../../../../../../../forms';
 
 export class AuthorsField extends React.Component {
   onSubmit = (values, index, setFieldValue, setShowForm) => {
@@ -27,8 +30,9 @@ export class AuthorsField extends React.Component {
               <SubForm
                 initialValues={authorValues[index]}
                 submitButtonText="Save author"
-                onSubmit={(values, actions) => this.onSubmit(
-                  values, index, setFieldValue, setShowForm)}
+                onSubmit={(values, actions) =>
+                  this.onSubmit(values, index, setFieldValue, setShowForm)
+                }
               >
                 <AuthorForm />
               </SubForm>

@@ -7,6 +7,7 @@ import {
   BooleanField,
   TextField,
   SelectorField,
+  UrlsField,
 } from '../../../../../../../forms';
 import { eitem as eitemApi } from '../../../../../../../common/api/eitems/eitem';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
@@ -14,7 +15,6 @@ import { goTo } from '../../../../../../../history';
 import eitemSubmitSerializer from './eitemSubmitSerializer';
 import { document as documentApi } from '../../../../../../../common/api';
 import { serializeDocument } from '../../../../../../../common/components/ESSelector/serializer';
-import { UrlsField } from './components';
 
 export class EItemForm extends Component {
   constructor(props) {

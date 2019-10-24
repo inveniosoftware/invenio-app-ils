@@ -10,12 +10,12 @@ import {
 import { document as documentApi } from '../../../../../../../common/api/documents/document';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import { goTo } from '../../../../../../../history';
+import { UrlsField } from '../../../../../../../forms';
 import {
   AlternativeAbstracts,
   AuthorsField,
   TagsField,
   TableOfContent,
-  UrlsField,
   AlternativeIdentifiers,
   AlternativeTitles,
 } from './components';
