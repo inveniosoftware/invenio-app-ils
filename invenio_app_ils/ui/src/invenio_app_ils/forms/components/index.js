@@ -7,3 +7,4 @@ export { AccordionField } from './AccordionField';
 export { ArrayField } from './ArrayField';
 export { GroupField } from './GroupField';
 export { SelectorField } from './SelectorField';
+export { ObjectArrayStringField } from './ObjectArrayStringField';

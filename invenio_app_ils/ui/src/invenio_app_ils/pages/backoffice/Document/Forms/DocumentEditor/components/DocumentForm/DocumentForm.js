@@ -15,6 +15,8 @@ import {
   TagsField,
   TableOfContent,
   UrlsField,
+  AlternativeIdentifiers,
+  AlternativeTitles,
 } from './components';
 import documentSubmitSerializer from './documentSubmitSerializer';
 
@@ -68,6 +70,8 @@ export class DocumentForm extends Component {
         <BooleanField label="Other authors" fieldPath="other_authors" toggle />
         <TableOfContent />
         <UrlsField />
+        <AlternativeIdentifiers />
+        <AlternativeTitles />
       </BaseForm>
     );
   }
