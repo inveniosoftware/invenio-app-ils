@@ -32,9 +32,6 @@ export class ItemsResultsList extends Component {
   };
 
   actions = ({ row }) => {
-    // NOTE: will remove these after review
-    // itemState = row.metadata.status
-    // row is the item
     const { patronPid } = this.props;
     const buttonCheckout = (
       <Button

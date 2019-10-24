@@ -59,7 +59,7 @@ describe('LoansSearch ResultsTable tests', () => {
     const mappedStatusElements = resultRows
       .find('TableCell')
       .filterWhere(
-        element => element.prop('data-test') === 'State-' + firstResult.id
+        element => element.prop('data-test') === `1-${firstResult.id}`
       );
     expect(mappedStatusElements).toHaveLength(1);
     expect(mappedStatusElements.text()).toEqual(firstResult.metadata.state);
@@ -70,7 +70,7 @@ describe('LoansSearch ResultsTable tests', () => {
     const firstId = data[0].id;
     const button = component
       .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === `view-${firstId}`)
+      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
       .find('button');
     button.simulate('click');
     expect(mockViewDetails).toHaveBeenCalled();

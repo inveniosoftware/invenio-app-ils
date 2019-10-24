@@ -11,6 +11,7 @@ import { document as documentApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { SeeAllButton } from '../../../../components/buttons';
 import { goToHandler } from '../../../../../../history';
+import _get from 'lodash/get';
 
 export default class SeriesDocuments extends Component {
   constructor(props) {
@@ -73,7 +74,7 @@ export default class SeriesDocuments extends Component {
         title: 'Authors',
         field: 'metadata.authors',
         formatter: ({ col, row }) => {
-          if (col.field in row && row[col.field].length) {
+          if (_get(col.field, row) && Array.isArray(row[col.field])) {
             return row[col.field].map(author => author.full_name);
           }
           return '';

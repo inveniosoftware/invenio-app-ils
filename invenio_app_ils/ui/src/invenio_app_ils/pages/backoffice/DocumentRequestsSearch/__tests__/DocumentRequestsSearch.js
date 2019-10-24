@@ -57,8 +57,7 @@ describe('DocumentRequestsSearch ResultsTable tests', () => {
     const mappedStatusElements = resultRows
       .find('TableCell')
       .filterWhere(
-        element =>
-          element.prop('data-test') === `Title-${firstResult.metadata.pid}`
+        element => element.prop('data-test') === `1-${firstResult.metadata.pid}`
       );
     expect(mappedStatusElements).toHaveLength(1);
     expect(mappedStatusElements.text()).toEqual(firstResult.metadata.title);
@@ -69,7 +68,7 @@ describe('DocumentRequestsSearch ResultsTable tests', () => {
     const firstId = data[0].pid;
     const button = component
       .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === `view-${firstId}`)
+      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
       .find('button');
     button.simulate('click');
     expect(mockViewDetails).toHaveBeenCalled();

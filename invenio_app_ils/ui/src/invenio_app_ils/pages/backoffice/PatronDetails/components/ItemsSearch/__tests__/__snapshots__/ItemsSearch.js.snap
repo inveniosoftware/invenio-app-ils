@@ -600,72 +600,72 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                     >
                                       <TableCell
                                         as="td"
-                                        data-test="-item1"
-                                        key="-item1"
+                                        data-test="0-item1"
+                                        key="0-item1"
                                       >
                                         <td
                                           className=""
-                                          data-test="-item1"
+                                          data-test="0-item1"
                                         >
                                           -
                                         </td>
                                       </TableCell>
                                       <TableCell
                                         as="td"
-                                        data-test="ID-item1"
-                                        key="ID-item1"
+                                        data-test="1-item1"
+                                        key="1-item1"
                                       >
                                         <td
                                           className=""
-                                          data-test="ID-item1"
+                                          data-test="1-item1"
                                         >
                                           item1
                                         </td>
                                       </TableCell>
                                       <TableCell
                                         as="td"
-                                        data-test="Status-item1"
-                                        key="Status-item1"
+                                        data-test="2-item1"
+                                        key="2-item1"
                                       >
                                         <td
                                           className=""
-                                          data-test="Status-item1"
+                                          data-test="2-item1"
                                         >
                                           CAN_CIRCULATE
                                         </td>
                                       </TableCell>
                                       <TableCell
                                         as="td"
-                                        data-test="Medium-item1"
-                                        key="Medium-item1"
+                                        data-test="3-item1"
+                                        key="3-item1"
                                       >
                                         <td
                                           className=""
-                                          data-test="Medium-item1"
+                                          data-test="3-item1"
                                         >
                                           book
                                         </td>
                                       </TableCell>
                                       <TableCell
                                         as="td"
-                                        data-test="Circulation status-item1"
-                                        key="Circulation status-item1"
+                                        data-test="4-item1"
+                                        key="4-item1"
                                       >
                                         <td
                                           className=""
-                                          data-test="Circulation status-item1"
+                                          data-test="4-item1"
                                         >
                                           -
                                         </td>
                                       </TableCell>
                                       <TableCell
                                         as="td"
-                                        data-test="Actions-item1"
-                                        key="Actions-item1"
+                                        data-test="5-item1"
+                                        key="5-item1"
                                       >
                                         <td
                                           className=""
-                                          data-test="Actions-item1"
+                                          data-test="5-item1"
                                         >
                                           <Button
                                             as="button"

@@ -415,12 +415,12 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                     >
                       <TableCell
                         as="td"
-                        data-test="-loan1"
-                        key="-loan1"
+                        data-test="0-loan1"
+                        key="0-loan1"
                       >
                         <td
                           className=""
-                          data-test="-loan1"
+                          data-test="0-loan1"
                         >
                           <Button
                             as={
@@ -1130,24 +1130,24 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-loan1"
-                        key="ID-loan1"
+                        data-test="1-loan1"
+                        key="1-loan1"
                       >
                         <td
                           className=""
-                          data-test="ID-loan1"
+                          data-test="1-loan1"
                         >
                           loanid-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Document ID-loan1"
-                        key="Document ID-loan1"
+                        data-test="2-loan1"
+                        key="2-loan1"
                       >
                         <td
                           className=""
-                          data-test="Document ID-loan1"
+                          data-test="2-loan1"
                         >
                           docid-1
                         </td>
@@ -1166,12 +1166,12 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                     >
                       <TableCell
                         as="td"
-                        data-test="-loan2"
-                        key="-loan2"
+                        data-test="0-loan2"
+                        key="0-loan2"
                       >
                         <td
                           className=""
-                          data-test="-loan2"
+                          data-test="0-loan2"
                         >
                           <Button
                             as={
@@ -1881,24 +1881,24 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-loan2"
-                        key="ID-loan2"
+                        data-test="1-loan2"
+                        key="1-loan2"
                       >
                         <td
                           className=""
-                          data-test="ID-loan2"
+                          data-test="1-loan2"
                         >
                           loanid-2
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Document ID-loan2"
-                        key="Document ID-loan2"
+                        data-test="2-loan2"
+                        key="2-loan2"
                       >
                         <td
                           className=""
-                          data-test="Document ID-loan2"
+                          data-test="2-loan2"
                         >
                           docid-1
                         </td>
@@ -2412,12 +2412,12 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                     >
                       <TableCell
                         as="td"
-                        data-test="-loan1"
-                        key="-loan1"
+                        data-test="0-loan1"
+                        key="0-loan1"
                       >
                         <td
                           className=""
-                          data-test="-loan1"
+                          data-test="0-loan1"
                         >
                           <Button
                             as={
@@ -3442,24 +3442,24 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-loan1"
-                        key="ID-loan1"
+                        data-test="1-loan1"
+                        key="1-loan1"
                       >
                         <td
                           className=""
-                          data-test="ID-loan1"
+                          data-test="1-loan1"
                         >
                           loanid-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Document ID-loan1"
-                        key="Document ID-loan1"
+                        data-test="2-loan1"
+                        key="2-loan1"
                       >
                         <td
                           className=""
-                          data-test="Document ID-loan1"
+                          data-test="2-loan1"
                         >
                           docid-1
                         </td>

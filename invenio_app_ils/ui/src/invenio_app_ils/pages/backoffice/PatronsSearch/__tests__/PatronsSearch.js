@@ -51,21 +51,21 @@ describe('PatronsSearch ResultsList tests', () => {
       .filterWhere(element => element.prop('data-test') === firstResult.id);
     expect(resultRows).toHaveLength(1);
 
-    let mappedStatusElements = resultRows
+    const nameElement = resultRows
       .find('TableCell')
       .filterWhere(
-        element => element.prop('data-test') === 'Email-' + firstResult.id
+        element => element.prop('data-test') === `2-${firstResult.id}`
       );
-    expect(mappedStatusElements).toHaveLength(1);
-    expect(mappedStatusElements.text()).toEqual(firstResult.metadata.email);
+    expect(nameElement).toHaveLength(1);
+    expect(nameElement.text()).toEqual(firstResult.metadata.name);
 
-    mappedStatusElements = resultRows
+    const emailElement = resultRows
       .find('TableCell')
       .filterWhere(
-        element => element.prop('data-test') === 'Name-' + firstResult.id
+        element => element.prop('data-test') === `3-${firstResult.id}`
       );
-    expect(mappedStatusElements).toHaveLength(1);
-    expect(mappedStatusElements.text()).toEqual(firstResult.metadata.name);
+    expect(emailElement).toHaveLength(1);
+    expect(emailElement.text()).toEqual(firstResult.metadata.email);
   });
 
   it('should call click handler on view details click', () => {
@@ -73,7 +73,7 @@ describe('PatronsSearch ResultsList tests', () => {
     const firstId = data[0].id;
     const button = component
       .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === `view-${firstId}`)
+      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
       .find('button');
     button.simulate('click');
     expect(mockViewDetails).toHaveBeenCalled();

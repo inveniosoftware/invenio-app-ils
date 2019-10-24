@@ -141,7 +141,7 @@ describe('PendingOverdueDocumentsList tests', () => {
     const firstId = data.hits[0].pid;
     const button = component
       .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === `-${firstId}`)
+      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
       .find('Button');
     button.simulate('click');
     expect(mockViewDetails).toHaveBeenCalled();

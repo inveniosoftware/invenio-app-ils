@@ -484,12 +484,12 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                     >
                       <TableCell
                         as="td"
-                        data-test="-document1"
-                        key="-document1"
+                        data-test="0-document1"
+                        key="0-document1"
                       >
                         <td
                           className=""
-                          data-test="-document1"
+                          data-test="0-document1"
                         >
                           <Button
                             as={
@@ -1199,48 +1199,48 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-document1"
-                        key="ID-document1"
+                        data-test="1-document1"
+                        key="1-document1"
                       >
                         <td
                           className=""
-                          data-test="ID-document1"
+                          data-test="1-document1"
                         >
                           docid-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Title-document1"
-                        key="Title-document1"
+                        data-test="2-document1"
+                        key="2-document1"
                       >
                         <td
                           className=""
-                          data-test="Title-document1"
+                          data-test="2-document1"
                         >
                           The Gulf: The Making of An American Sea
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Overdue Loans-document1"
-                        key="Overdue Loans-document1"
+                        data-test="3-document1"
+                        key="3-document1"
                       >
                         <td
                           className=""
-                          data-test="Overdue Loans-document1"
+                          data-test="3-document1"
                         >
                           -
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Pending Requests-document1"
-                        key="Pending Requests-document1"
+                        data-test="4-document1"
+                        key="4-document1"
                       >
                         <td
                           className=""
-                          data-test="Pending Requests-document1"
+                          data-test="4-document1"
                         >
                           -
                         </td>
@@ -1259,12 +1259,12 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                     >
                       <TableCell
                         as="td"
-                        data-test="-document2"
-                        key="-document2"
+                        data-test="0-document2"
+                        key="0-document2"
                       >
                         <td
                           className=""
-                          data-test="-document2"
+                          data-test="0-document2"
                         >
                           <Button
                             as={
@@ -1974,48 +1974,48 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-document2"
-                        key="ID-document2"
+                        data-test="1-document2"
+                        key="1-document2"
                       >
                         <td
                           className=""
-                          data-test="ID-document2"
+                          data-test="1-document2"
                         >
                           docid-2
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Title-document2"
-                        key="Title-document2"
+                        data-test="2-document2"
+                        key="2-document2"
                       >
                         <td
                           className=""
-                          data-test="Title-document2"
+                          data-test="2-document2"
                         >
                           Prairie Fires: The American Dreams of Laura Ingalls Wilder
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Overdue Loans-document2"
-                        key="Overdue Loans-document2"
+                        data-test="3-document2"
+                        key="3-document2"
                       >
                         <td
                           className=""
-                          data-test="Overdue Loans-document2"
+                          data-test="3-document2"
                         >
                           -
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Pending Requests-document2"
-                        key="Pending Requests-document2"
+                        data-test="4-document2"
+                        key="4-document2"
                       >
                         <td
                           className=""
-                          data-test="Pending Requests-document2"
+                          data-test="4-document2"
                         >
                           -
                         </td>

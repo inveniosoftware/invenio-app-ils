@@ -199,7 +199,7 @@ describe('SeriesDocuments tests', () => {
 
     component
       .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === `-${firstId}`)
+      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
       .find('Button')
       .simulate('click');
     expect(mockViewDetails).toHaveBeenCalled();

@@ -48,8 +48,7 @@ describe('EItemsSearch ResultsTable tests', () => {
       .find('TableCell')
       .filterWhere(
         element =>
-          element.prop('data-test') ===
-          'Description-' + firstResult.metadata.pid
+          element.prop('data-test') === `1-${firstResult.metadata.pid}`
       );
     expect(mappedStatusElements).toHaveLength(1);
 
@@ -63,7 +62,7 @@ describe('EItemsSearch ResultsTable tests', () => {
     const firstId = data[0].metadata.pid;
     const button = component
       .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === `view-${firstId}`)
+      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
       .find('button');
     button.simulate('click');
     expect(mockViewDetails).toHaveBeenCalled();

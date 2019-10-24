@@ -17,10 +17,10 @@ export default class ResultsTableBody extends Component {
       const identifier = row.pid ? row.pid : row.id;
       return (
         <Table.Row key={identifier} data-test={identifier}>
-          {columns.map(col => (
+          {columns.map((col, idx) => (
             <Table.Cell
-              key={`${col.title}-${identifier}`}
-              data-test={`${col.title}-${identifier}`}
+              key={`${idx}-${identifier}`}
+              data-test={`${idx}-${identifier}`}
             >
               {this.renderCell(col, row, rowIndex)}
             </Table.Cell>

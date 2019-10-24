@@ -7,6 +7,7 @@ import { item as itemApi } from '../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { SeeAllButton } from '../../../components/buttons';
 import { goToHandler } from '../../../../../history';
+import _get from 'lodash/get';
 
 export default class DocumentItems extends Component {
   componentDidMount() {
@@ -44,6 +45,24 @@ export default class DocumentItems extends Component {
       { title: 'Medium', field: 'metadata.medium' },
       { title: 'Location', field: 'metadata.internal_location.name' },
       { title: 'Shelf', field: 'metadata.shelf' },
+      {
+        title: 'Loan Status',
+        field: 'metadata.circulation.state',
+        formatter: ({ row, col }) => {
+          if (_get(row, col.field) === 'ITEM_ON_LOAN') {
+            return (
+              <Link
+                to={BackOfficeRoutes.loanDetailsFor(
+                  row.metadata.circulation.loan_pid
+                )}
+              >
+                on loan
+              </Link>
+            );
+          }
+          return _get(row, col.field) || '-';
+        },
+      },
     ];
     return (
       <ResultsTable

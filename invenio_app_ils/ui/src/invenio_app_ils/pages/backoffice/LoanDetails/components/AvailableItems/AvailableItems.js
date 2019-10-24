@@ -87,7 +87,15 @@ export default class AvailableItems extends Component {
     const columns = [
       { title: '', field: '', formatter: this.viewDetails },
       { title: 'ID', field: 'metadata.pid' },
-      { title: 'Barcode', field: 'metadata.barcode' },
+      {
+        title: 'Barcode',
+        field: 'metadata.barcode',
+        formatter: ({ row }) => (
+          <Link to={BackOfficeRoutes.itemDetailsFor(row.metadata.pid)}>
+            {row.metadata.barcode}
+          </Link>
+        ),
+      },
       { title: 'Status', field: 'metadata.status' },
       { title: 'Medium', field: 'metadata.medium' },
       { title: 'Location', field: 'metadata.internal_location.name' },

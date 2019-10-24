@@ -455,46 +455,46 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                     >
                       <TableCell
                         as="td"
-                        data-test="ID-loan1"
-                        key="ID-loan1"
+                        data-test="0-loan1"
+                        key="0-loan1"
                       >
                         <td
                           className=""
-                          data-test="ID-loan1"
+                          data-test="0-loan1"
                         >
                           loanid-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Document ID-loan1"
-                        key="Document ID-loan1"
+                        data-test="1-loan1"
+                        key="1-loan1"
                       >
                         <td
                           className=""
-                          data-test="Document ID-loan1"
+                          data-test="1-loan1"
                         >
                           docid-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Request start date-loan1"
-                        key="Request start date-loan1"
+                        data-test="2-loan1"
+                        key="2-loan1"
                       >
                         <td
                           className=""
-                          data-test="Request start date-loan1"
+                          data-test="2-loan1"
                         />
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Request end date-loan1"
-                        key="Request end date-loan1"
+                        data-test="3-loan1"
+                        key="3-loan1"
                       >
                         <td
                           className=""
-                          data-test="Request end date-loan1"
+                          data-test="3-loan1"
                         />
                       </TableCell>
                     </tr>
@@ -511,46 +511,46 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                     >
                       <TableCell
                         as="td"
-                        data-test="ID-loan2"
-                        key="ID-loan2"
+                        data-test="0-loan2"
+                        key="0-loan2"
                       >
                         <td
                           className=""
-                          data-test="ID-loan2"
+                          data-test="0-loan2"
                         >
                           loanid-2
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Document ID-loan2"
-                        key="Document ID-loan2"
+                        data-test="1-loan2"
+                        key="1-loan2"
                       >
                         <td
                           className=""
-                          data-test="Document ID-loan2"
+                          data-test="1-loan2"
                         >
                           docid-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Request start date-loan2"
-                        key="Request start date-loan2"
+                        data-test="2-loan2"
+                        key="2-loan2"
                       >
                         <td
                           className=""
-                          data-test="Request start date-loan2"
+                          data-test="2-loan2"
                         />
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Request end date-loan2"
-                        key="Request end date-loan2"
+                        data-test="3-loan2"
+                        key="3-loan2"
                       >
                         <td
                           className=""
-                          data-test="Request end date-loan2"
+                          data-test="3-loan2"
                         />
                       </TableCell>
                     </tr>

@@ -35,6 +35,11 @@ exports[`DocumentItems tests should load the DocumentItems component 1`] = `
             "field": "metadata.shelf",
             "title": "Shelf",
           },
+          Object {
+            "field": "metadata.circulation.state",
+            "formatter": [Function],
+            "title": "Loan Status",
+          },
         ]
       }
       currentPage={1}
@@ -158,6 +163,11 @@ exports[`DocumentItems tests should render item 1`] = `
             Object {
               "field": "metadata.shelf",
               "title": "Shelf",
+            },
+            Object {
+              "field": "metadata.circulation.state",
+              "formatter": [Function],
+              "title": "Loan Status",
             },
           ]
         }
@@ -316,6 +326,11 @@ exports[`DocumentItems tests should render item 1`] = `
                     "field": "metadata.shelf",
                     "title": "Shelf",
                   },
+                  Object {
+                    "field": "metadata.circulation.state",
+                    "formatter": [Function],
+                    "title": "Loan Status",
+                  },
                 ]
               }
             >
@@ -437,6 +452,21 @@ exports[`DocumentItems tests should render item 1`] = `
                           </th>
                         </TableCell>
                       </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Loan Status"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Loan Status
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
                     </tr>
                   </TableRow>
                 </thead>
@@ -473,6 +503,11 @@ exports[`DocumentItems tests should render item 1`] = `
                   Object {
                     "field": "metadata.shelf",
                     "title": "Shelf",
+                  },
+                  Object {
+                    "field": "metadata.circulation.state",
+                    "formatter": [Function],
+                    "title": "Loan Status",
                   },
                 ]
               }
@@ -543,12 +578,12 @@ exports[`DocumentItems tests should render item 1`] = `
                     >
                       <TableCell
                         as="td"
-                        data-test="-item1"
-                        key="-item1"
+                        data-test="0-item1"
+                        key="0-item1"
                       >
                         <td
                           className=""
-                          data-test="-item1"
+                          data-test="0-item1"
                         >
                           <Button
                             as={
@@ -1258,74 +1293,86 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-item1"
-                        key="ID-item1"
+                        data-test="1-item1"
+                        key="1-item1"
                       >
                         <td
                           className=""
-                          data-test="ID-item1"
+                          data-test="1-item1"
                         >
                           itemid-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Barcode-item1"
-                        key="Barcode-item1"
+                        data-test="2-item1"
+                        key="2-item1"
                       >
                         <td
                           className=""
-                          data-test="Barcode-item1"
+                          data-test="2-item1"
                         >
                           123456789-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Status-item1"
-                        key="Status-item1"
+                        data-test="3-item1"
+                        key="3-item1"
                       >
                         <td
                           className=""
-                          data-test="Status-item1"
+                          data-test="3-item1"
                         >
                           MISSING
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Medium-item1"
-                        key="Medium-item1"
+                        data-test="4-item1"
+                        key="4-item1"
                       >
                         <td
                           className=""
-                          data-test="Medium-item1"
+                          data-test="4-item1"
                         >
                           NOT_SPECIFIED
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Location-item1"
-                        key="Location-item1"
+                        data-test="5-item1"
+                        key="5-item1"
                       >
                         <td
                           className=""
-                          data-test="Location-item1"
+                          data-test="5-item1"
                         >
                           -
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Shelf-item1"
-                        key="Shelf-item1"
+                        data-test="6-item1"
+                        key="6-item1"
                       >
                         <td
                           className=""
-                          data-test="Shelf-item1"
+                          data-test="6-item1"
                         >
                           Shelf 1
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="7-item1"
+                        key="7-item1"
+                      >
+                        <td
+                          className=""
+                          data-test="7-item1"
+                        >
+                          -
                         </td>
                       </TableCell>
                     </tr>
@@ -1342,12 +1389,12 @@ exports[`DocumentItems tests should render item 1`] = `
                     >
                       <TableCell
                         as="td"
-                        data-test="-item2"
-                        key="-item2"
+                        data-test="0-item2"
+                        key="0-item2"
                       >
                         <td
                           className=""
-                          data-test="-item2"
+                          data-test="0-item2"
                         >
                           <Button
                             as={
@@ -2057,74 +2104,86 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-item2"
-                        key="ID-item2"
+                        data-test="1-item2"
+                        key="1-item2"
                       >
                         <td
                           className=""
-                          data-test="ID-item2"
+                          data-test="1-item2"
                         >
                           itemid-2
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Barcode-item2"
-                        key="Barcode-item2"
+                        data-test="2-item2"
+                        key="2-item2"
                       >
                         <td
                           className=""
-                          data-test="Barcode-item2"
+                          data-test="2-item2"
                         >
                           123456789-2
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Status-item2"
-                        key="Status-item2"
+                        data-test="3-item2"
+                        key="3-item2"
                       >
                         <td
                           className=""
-                          data-test="Status-item2"
+                          data-test="3-item2"
                         >
                           CAN_CIRCULATE
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Medium-item2"
-                        key="Medium-item2"
+                        data-test="4-item2"
+                        key="4-item2"
                       >
                         <td
                           className=""
-                          data-test="Medium-item2"
+                          data-test="4-item2"
                         >
                           NOT_SPECIFIED
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Location-item2"
-                        key="Location-item2"
+                        data-test="5-item2"
+                        key="5-item2"
                       >
                         <td
                           className=""
-                          data-test="Location-item2"
+                          data-test="5-item2"
                         >
                           -
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Shelf-item2"
-                        key="Shelf-item2"
+                        data-test="6-item2"
+                        key="6-item2"
                       >
                         <td
                           className=""
-                          data-test="Shelf-item2"
+                          data-test="6-item2"
                         >
                           Shelf 2
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="7-item2"
+                        key="7-item2"
+                      >
+                        <td
+                          className=""
+                          data-test="7-item2"
+                        >
+                          -
                         </td>
                       </TableCell>
                     </tr>
@@ -2134,7 +2193,7 @@ exports[`DocumentItems tests should render item 1`] = `
             </ResultsTableBody>
             <ResultsTableFooter
               allRowsNumber={2}
-              columnsNumber={7}
+              columnsNumber={8}
               currentPage={1}
               paginationComponent={null}
               seeAllComponent={
@@ -2207,6 +2266,11 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
             Object {
               "field": "metadata.shelf",
               "title": "Shelf",
+            },
+            Object {
+              "field": "metadata.circulation.state",
+              "formatter": [Function],
+              "title": "Loan Status",
             },
           ]
         }
@@ -2393,6 +2457,11 @@ exports[`DocumentItems tests should render the see all button when showing only 
               "field": "metadata.shelf",
               "title": "Shelf",
             },
+            Object {
+              "field": "metadata.circulation.state",
+              "formatter": [Function],
+              "title": "Loan Status",
+            },
           ]
         }
         currentPage={1}
@@ -2550,6 +2619,11 @@ exports[`DocumentItems tests should render the see all button when showing only 
                     "field": "metadata.shelf",
                     "title": "Shelf",
                   },
+                  Object {
+                    "field": "metadata.circulation.state",
+                    "formatter": [Function],
+                    "title": "Loan Status",
+                  },
                 ]
               }
             >
@@ -2671,6 +2745,21 @@ exports[`DocumentItems tests should render the see all button when showing only 
                           </th>
                         </TableCell>
                       </TableHeaderCell>
+                      <TableHeaderCell
+                        as="th"
+                        key="Loan Status"
+                      >
+                        <TableCell
+                          as="th"
+                          className=""
+                        >
+                          <th
+                            className=""
+                          >
+                            Loan Status
+                          </th>
+                        </TableCell>
+                      </TableHeaderCell>
                     </tr>
                   </TableRow>
                 </thead>
@@ -2707,6 +2796,11 @@ exports[`DocumentItems tests should render the see all button when showing only 
                   Object {
                     "field": "metadata.shelf",
                     "title": "Shelf",
+                  },
+                  Object {
+                    "field": "metadata.circulation.state",
+                    "formatter": [Function],
+                    "title": "Loan Status",
                   },
                 ]
               }
@@ -2755,12 +2849,12 @@ exports[`DocumentItems tests should render the see all button when showing only 
                     >
                       <TableCell
                         as="td"
-                        data-test="-item1"
-                        key="-item1"
+                        data-test="0-item1"
+                        key="0-item1"
                       >
                         <td
                           className=""
-                          data-test="-item1"
+                          data-test="0-item1"
                         >
                           <Button
                             as={
@@ -3785,74 +3879,86 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-item1"
-                        key="ID-item1"
+                        data-test="1-item1"
+                        key="1-item1"
                       >
                         <td
                           className=""
-                          data-test="ID-item1"
+                          data-test="1-item1"
                         >
                           itemid-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Barcode-item1"
-                        key="Barcode-item1"
+                        data-test="2-item1"
+                        key="2-item1"
                       >
                         <td
                           className=""
-                          data-test="Barcode-item1"
+                          data-test="2-item1"
                         >
                           123456789-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Status-item1"
-                        key="Status-item1"
+                        data-test="3-item1"
+                        key="3-item1"
                       >
                         <td
                           className=""
-                          data-test="Status-item1"
+                          data-test="3-item1"
                         >
                           MISSING
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Medium-item1"
-                        key="Medium-item1"
+                        data-test="4-item1"
+                        key="4-item1"
                       >
                         <td
                           className=""
-                          data-test="Medium-item1"
+                          data-test="4-item1"
                         >
                           NOT_SPECIFIED
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Location-item1"
-                        key="Location-item1"
+                        data-test="5-item1"
+                        key="5-item1"
                       >
                         <td
                           className=""
-                          data-test="Location-item1"
+                          data-test="5-item1"
                         >
                           -
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Shelf-item1"
-                        key="Shelf-item1"
+                        data-test="6-item1"
+                        key="6-item1"
                       >
                         <td
                           className=""
-                          data-test="Shelf-item1"
+                          data-test="6-item1"
                         >
                           Shelf 1
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="7-item1"
+                        key="7-item1"
+                      >
+                        <td
+                          className=""
+                          data-test="7-item1"
+                        >
+                          -
                         </td>
                       </TableCell>
                     </tr>
@@ -3862,7 +3968,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
             </ResultsTableBody>
             <ResultsTableFooter
               allRowsNumber={2}
-              columnsNumber={7}
+              columnsNumber={8}
               currentPage={1}
               paginationComponent={null}
               seeAllComponent={
@@ -3898,18 +4004,18 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       >
                         <TableHeaderCell
                           as="th"
-                          colSpan={8}
+                          colSpan={9}
                           textAlign="right"
                         >
                           <TableCell
                             as="th"
                             className=""
-                            colSpan={8}
+                            colSpan={9}
                             textAlign="right"
                           >
                             <th
                               className="right aligned"
-                              colSpan={8}
+                              colSpan={9}
                             >
                               <span>
                                 Showing entries 

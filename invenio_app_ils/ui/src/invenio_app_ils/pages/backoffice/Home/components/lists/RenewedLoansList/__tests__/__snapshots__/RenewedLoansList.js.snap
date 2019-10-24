@@ -529,12 +529,12 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                     >
                       <TableCell
                         as="td"
-                        data-test="-loan1"
-                        key="-loan1"
+                        data-test="0-loan1"
+                        key="0-loan1"
                       >
                         <td
                           className=""
-                          data-test="-loan1"
+                          data-test="0-loan1"
                         >
                           <Button
                             as={
@@ -1244,72 +1244,72 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-loan1"
-                        key="ID-loan1"
+                        data-test="1-loan1"
+                        key="1-loan1"
                       >
                         <td
                           className=""
-                          data-test="ID-loan1"
+                          data-test="1-loan1"
                         >
                           loanid-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Patron ID-loan1"
-                        key="Patron ID-loan1"
+                        data-test="2-loan1"
+                        key="2-loan1"
                       >
                         <td
                           className=""
-                          data-test="Patron ID-loan1"
+                          data-test="2-loan1"
                         >
                           1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="State-loan1"
-                        key="State-loan1"
+                        data-test="3-loan1"
+                        key="3-loan1"
                       >
                         <td
                           className=""
-                          data-test="State-loan1"
+                          data-test="3-loan1"
                         >
                           PENDING
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Item Barcode-loan1"
-                        key="Item Barcode-loan1"
+                        data-test="4-loan1"
+                        key="4-loan1"
                       >
                         <td
                           className=""
-                          data-test="Item Barcode-loan1"
+                          data-test="4-loan1"
                         >
                           -
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="End date-loan1"
-                        key="End date-loan1"
+                        data-test="5-loan1"
+                        key="5-loan1"
                       >
                         <td
                           className=""
-                          data-test="End date-loan1"
+                          data-test="5-loan1"
                         >
                           2018-07-28
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Renewals-loan1"
-                        key="Renewals-loan1"
+                        data-test="6-loan1"
+                        key="6-loan1"
                       >
                         <td
                           className=""
-                          data-test="Renewals-loan1"
+                          data-test="6-loan1"
                         >
                           -
                         </td>
@@ -1328,12 +1328,12 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                     >
                       <TableCell
                         as="td"
-                        data-test="-loan2"
-                        key="-loan2"
+                        data-test="0-loan2"
+                        key="0-loan2"
                       >
                         <td
                           className=""
-                          data-test="-loan2"
+                          data-test="0-loan2"
                         >
                           <Button
                             as={
@@ -2043,72 +2043,72 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-loan2"
-                        key="ID-loan2"
+                        data-test="1-loan2"
+                        key="1-loan2"
                       >
                         <td
                           className=""
-                          data-test="ID-loan2"
+                          data-test="1-loan2"
                         >
                           loanid-2
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Patron ID-loan2"
-                        key="Patron ID-loan2"
+                        data-test="2-loan2"
+                        key="2-loan2"
                       >
                         <td
                           className=""
-                          data-test="Patron ID-loan2"
+                          data-test="2-loan2"
                         >
                           1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="State-loan2"
-                        key="State-loan2"
+                        data-test="3-loan2"
+                        key="3-loan2"
                       >
                         <td
                           className=""
-                          data-test="State-loan2"
+                          data-test="3-loan2"
                         >
                           PENDING
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Item Barcode-loan2"
-                        key="Item Barcode-loan2"
+                        data-test="4-loan2"
+                        key="4-loan2"
                       >
                         <td
                           className=""
-                          data-test="Item Barcode-loan2"
+                          data-test="4-loan2"
                         >
                           -
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="End date-loan2"
-                        key="End date-loan2"
+                        data-test="5-loan2"
+                        key="5-loan2"
                       >
                         <td
                           className=""
-                          data-test="End date-loan2"
+                          data-test="5-loan2"
                         >
                           2018-07-28
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Renewals-loan2"
-                        key="Renewals-loan2"
+                        data-test="6-loan2"
+                        key="6-loan2"
                       >
                         <td
                           className=""
-                          data-test="Renewals-loan2"
+                          data-test="6-loan2"
                         >
                           -
                         </td>

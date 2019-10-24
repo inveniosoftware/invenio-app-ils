@@ -94,7 +94,7 @@ describe('ResultsTable tests', () => {
     const firstId = data[0].pid;
     const button = component
       .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === `view-${firstId}`)
+      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
       .find('button');
     button.simulate('click');
     expect(mockViewDetails).toHaveBeenCalled();

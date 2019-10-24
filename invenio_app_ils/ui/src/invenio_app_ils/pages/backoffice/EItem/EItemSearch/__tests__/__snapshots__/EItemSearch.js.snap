@@ -278,12 +278,12 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
               >
                 <TableCell
                   as="td"
-                  data-test="view-eitemid-1"
-                  key="view-eitemid-1"
+                  data-test="0-eitemid-1"
+                  key="0-eitemid-1"
                 >
                   <td
                     className=""
-                    data-test="view-eitemid-1"
+                    data-test="0-eitemid-1"
                   >
                     <Button
                       as="button"
@@ -324,12 +324,12 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
                 </TableCell>
                 <TableCell
                   as="td"
-                  data-test="Description-eitemid-1"
-                  key="Description-eitemid-1"
+                  data-test="1-eitemid-1"
+                  key="1-eitemid-1"
                 >
                   <td
                     className=""
-                    data-test="Description-eitemid-1"
+                    data-test="1-eitemid-1"
                   >
                     Description of the electronic item
                   </td>
@@ -348,12 +348,12 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
               >
                 <TableCell
                   as="td"
-                  data-test="view-eitemid-2"
-                  key="view-eitemid-2"
+                  data-test="0-eitemid-2"
+                  key="0-eitemid-2"
                 >
                   <td
                     className=""
-                    data-test="view-eitemid-2"
+                    data-test="0-eitemid-2"
                   >
                     <Button
                       as="button"
@@ -394,12 +394,12 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
                 </TableCell>
                 <TableCell
                   as="td"
-                  data-test="Description-eitemid-2"
-                  key="Description-eitemid-2"
+                  data-test="1-eitemid-2"
+                  key="1-eitemid-2"
                 >
                   <td
                     className=""
-                    data-test="Description-eitemid-2"
+                    data-test="1-eitemid-2"
                   >
                     Description of the electronic item
                   </td>

@@ -462,12 +462,12 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                     >
                       <TableCell
                         as="td"
-                        data-test="-documentRequest1"
-                        key="-documentRequest1"
+                        data-test="0-documentRequest1"
+                        key="0-documentRequest1"
                       >
                         <td
                           className=""
-                          data-test="-documentRequest1"
+                          data-test="0-documentRequest1"
                         >
                           <Button
                             as={
@@ -1177,48 +1177,48 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-documentRequest1"
-                        key="ID-documentRequest1"
+                        data-test="1-documentRequest1"
+                        key="1-documentRequest1"
                       >
                         <td
                           className=""
-                          data-test="ID-documentRequest1"
+                          data-test="1-documentRequest1"
                         >
                           documentRequest1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Document ID-documentRequest1"
-                        key="Document ID-documentRequest1"
+                        data-test="2-documentRequest1"
+                        key="2-documentRequest1"
                       >
                         <td
                           className=""
-                          data-test="Document ID-documentRequest1"
+                          data-test="2-documentRequest1"
                         >
                           -
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="State-documentRequest1"
-                        key="State-documentRequest1"
+                        data-test="3-documentRequest1"
+                        key="3-documentRequest1"
                       >
                         <td
                           className=""
-                          data-test="State-documentRequest1"
+                          data-test="3-documentRequest1"
                         >
                           PENDING
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Created-documentRequest1"
-                        key="Created-documentRequest1"
+                        data-test="4-documentRequest1"
+                        key="4-documentRequest1"
                       >
                         <td
                           className=""
-                          data-test="Created-documentRequest1"
+                          data-test="4-documentRequest1"
                         >
                           2018-01-01
                         </td>
@@ -1237,12 +1237,12 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                     >
                       <TableCell
                         as="td"
-                        data-test="-documentRequest2"
-                        key="-documentRequest2"
+                        data-test="0-documentRequest2"
+                        key="0-documentRequest2"
                       >
                         <td
                           className=""
-                          data-test="-documentRequest2"
+                          data-test="0-documentRequest2"
                         >
                           <Button
                             as={
@@ -1952,48 +1952,48 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-documentRequest2"
-                        key="ID-documentRequest2"
+                        data-test="1-documentRequest2"
+                        key="1-documentRequest2"
                       >
                         <td
                           className=""
-                          data-test="ID-documentRequest2"
+                          data-test="1-documentRequest2"
                         >
                           documentRequest2
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Document ID-documentRequest2"
-                        key="Document ID-documentRequest2"
+                        data-test="2-documentRequest2"
+                        key="2-documentRequest2"
                       >
                         <td
                           className=""
-                          data-test="Document ID-documentRequest2"
+                          data-test="2-documentRequest2"
                         >
                           -
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="State-documentRequest2"
-                        key="State-documentRequest2"
+                        data-test="3-documentRequest2"
+                        key="3-documentRequest2"
                       >
                         <td
                           className=""
-                          data-test="State-documentRequest2"
+                          data-test="3-documentRequest2"
                         >
                           PENDING
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Created-documentRequest2"
-                        key="Created-documentRequest2"
+                        data-test="4-documentRequest2"
+                        key="4-documentRequest2"
                       >
                         <td
                           className=""
-                          data-test="Created-documentRequest2"
+                          data-test="4-documentRequest2"
                         >
                           2018-01-01
                         </td>
@@ -2557,12 +2557,12 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                     >
                       <TableCell
                         as="td"
-                        data-test="-documentRequest1"
-                        key="-documentRequest1"
+                        data-test="0-documentRequest1"
+                        key="0-documentRequest1"
                       >
                         <td
                           className=""
-                          data-test="-documentRequest1"
+                          data-test="0-documentRequest1"
                         >
                           <Button
                             as={
@@ -3587,48 +3587,48 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-documentRequest1"
-                        key="ID-documentRequest1"
+                        data-test="1-documentRequest1"
+                        key="1-documentRequest1"
                       >
                         <td
                           className=""
-                          data-test="ID-documentRequest1"
+                          data-test="1-documentRequest1"
                         >
                           documentRequest1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Document ID-documentRequest1"
-                        key="Document ID-documentRequest1"
+                        data-test="2-documentRequest1"
+                        key="2-documentRequest1"
                       >
                         <td
                           className=""
-                          data-test="Document ID-documentRequest1"
+                          data-test="2-documentRequest1"
                         >
                           -
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="State-documentRequest1"
-                        key="State-documentRequest1"
+                        data-test="3-documentRequest1"
+                        key="3-documentRequest1"
                       >
                         <td
                           className=""
-                          data-test="State-documentRequest1"
+                          data-test="3-documentRequest1"
                         >
                           PENDING
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Created-documentRequest1"
-                        key="Created-documentRequest1"
+                        data-test="4-documentRequest1"
+                        key="4-documentRequest1"
                       >
                         <td
                           className=""
-                          data-test="Created-documentRequest1"
+                          data-test="4-documentRequest1"
                         >
                           2018-01-01
                         </td>

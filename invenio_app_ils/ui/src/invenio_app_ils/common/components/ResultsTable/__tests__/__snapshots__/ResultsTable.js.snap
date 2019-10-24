@@ -224,12 +224,12 @@ exports[`ResultsTable tests should not render the see all button when showing on
               >
                 <TableCell
                   as="td"
-                  data-test="view-loan1"
-                  key="view-loan1"
+                  data-test="0-loan1"
+                  key="0-loan1"
                 >
                   <td
                     className=""
-                    data-test="view-loan1"
+                    data-test="0-loan1"
                   >
                     <Button
                       as="button"
@@ -270,12 +270,12 @@ exports[`ResultsTable tests should not render the see all button when showing on
                 </TableCell>
                 <TableCell
                   as="td"
-                  data-test="ID-loan1"
-                  key="ID-loan1"
+                  data-test="1-loan1"
+                  key="1-loan1"
                 >
                   <td
                     className=""
-                    data-test="ID-loan1"
+                    data-test="1-loan1"
                   >
                     1
                   </td>
@@ -294,12 +294,12 @@ exports[`ResultsTable tests should not render the see all button when showing on
               >
                 <TableCell
                   as="td"
-                  data-test="view-loan2"
-                  key="view-loan2"
+                  data-test="0-loan2"
+                  key="0-loan2"
                 >
                   <td
                     className=""
-                    data-test="view-loan2"
+                    data-test="0-loan2"
                   >
                     <Button
                       as="button"
@@ -340,12 +340,12 @@ exports[`ResultsTable tests should not render the see all button when showing on
                 </TableCell>
                 <TableCell
                   as="td"
-                  data-test="ID-loan2"
-                  key="ID-loan2"
+                  data-test="1-loan2"
+                  key="1-loan2"
                 >
                   <td
                     className=""
-                    data-test="ID-loan2"
+                    data-test="1-loan2"
                   >
                     2
                   </td>
@@ -570,12 +570,12 @@ exports[`ResultsTable tests should render the see all button when showing only a
               >
                 <TableCell
                   as="td"
-                  data-test="view-loan1"
-                  key="view-loan1"
+                  data-test="0-loan1"
+                  key="0-loan1"
                 >
                   <td
                     className=""
-                    data-test="view-loan1"
+                    data-test="0-loan1"
                   >
                     <Button
                       as="button"
@@ -616,12 +616,12 @@ exports[`ResultsTable tests should render the see all button when showing only a
                 </TableCell>
                 <TableCell
                   as="td"
-                  data-test="ID-loan1"
-                  key="ID-loan1"
+                  data-test="1-loan1"
+                  key="1-loan1"
                 >
                   <td
                     className=""
-                    data-test="ID-loan1"
+                    data-test="1-loan1"
                   >
                     1
                   </td>

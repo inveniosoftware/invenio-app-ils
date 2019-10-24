@@ -268,15 +268,6 @@ export class SeriesRelationsTabPanel extends Component {
     return selections;
   }
 
-  getTabRows(relation) {
-    const rows = [];
-    if (!this.props.relations[relation]) return [];
-    for (const obj of this.props.relations[relation]) {
-      rows.push(obj);
-    }
-    return rows;
-  }
-
   generateActions(results, type) {
     const actions = [];
     const moi = this.props.seriesDetails.metadata.mode_of_issuance;
@@ -354,9 +345,9 @@ export class SeriesRelationsTabPanel extends Component {
   };
 
   getMultipartTabPanes() {
-    const editions = this.getTabRows('edition');
-    const serials = this.getTabRows('serial');
-    const languages = this.getTabRows('language');
+    const editions = this.props.relations['edition'] || [];
+    const serials = this.props.relations['serial'] || [];
+    const languages = this.props.relations['language'] || [];
 
     return [
       {

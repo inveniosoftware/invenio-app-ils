@@ -44,7 +44,15 @@ export default class DocumentPendingLoans extends Component {
     const columns = [
       { title: '', field: '', formatter: this.viewDetails },
       { title: 'ID', field: 'metadata.pid' },
-      { title: 'Patron', field: 'metadata.patron.name' },
+      {
+        title: 'Patron',
+        field: 'metadata.patron.name',
+        formatter: ({ row }) => (
+          <Link to={BackOfficeRoutes.patronDetailsFor(row.metadata.patron_pid)}>
+            {row.metadata.patron.name}
+          </Link>
+        ),
+      },
       {
         title: 'Request start date',
         field: 'metadata.request_start_date',

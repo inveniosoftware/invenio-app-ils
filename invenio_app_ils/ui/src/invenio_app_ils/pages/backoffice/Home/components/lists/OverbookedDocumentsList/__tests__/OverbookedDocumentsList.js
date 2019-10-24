@@ -115,7 +115,7 @@ describe('OverbookedDocumentsList tests', () => {
     const firstId = data.hits[0].pid;
     component
       .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === `-${firstId}`)
+      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
       .find('Button')
       .simulate('click');
     expect(mockViewDetails).toHaveBeenCalled();

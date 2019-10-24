@@ -442,12 +442,12 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                     >
                       <TableCell
                         as="td"
-                        data-test="-doc1"
-                        key="-doc1"
+                        data-test="0-doc1"
+                        key="0-doc1"
                       >
                         <td
                           className=""
-                          data-test="-doc1"
+                          data-test="0-doc1"
                         >
                           <Button
                             as={
@@ -1157,36 +1157,36 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-doc1"
-                        key="ID-doc1"
+                        data-test="1-doc1"
+                        key="1-doc1"
                       >
                         <td
                           className=""
-                          data-test="ID-doc1"
+                          data-test="1-doc1"
                         >
                           docid-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Title-doc1"
-                        key="Title-doc1"
+                        data-test="2-doc1"
+                        key="2-doc1"
                       >
                         <td
                           className=""
-                          data-test="Title-doc1"
+                          data-test="2-doc1"
                         >
                           The Gulf: The Making of An American Sea
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Pending Requests-doc1"
-                        key="Pending Requests-doc1"
+                        data-test="3-doc1"
+                        key="3-doc1"
                       >
                         <td
                           className=""
-                          data-test="Pending Requests-doc1"
+                          data-test="3-doc1"
                         >
                           -
                         </td>
@@ -1205,12 +1205,12 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                     >
                       <TableCell
                         as="td"
-                        data-test="-doc2"
-                        key="-doc2"
+                        data-test="0-doc2"
+                        key="0-doc2"
                       >
                         <td
                           className=""
-                          data-test="-doc2"
+                          data-test="0-doc2"
                         >
                           <Button
                             as={
@@ -1920,36 +1920,36 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-doc2"
-                        key="ID-doc2"
+                        data-test="1-doc2"
+                        key="1-doc2"
                       >
                         <td
                           className=""
-                          data-test="ID-doc2"
+                          data-test="1-doc2"
                         >
                           docid-2
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Title-doc2"
-                        key="Title-doc2"
+                        data-test="2-doc2"
+                        key="2-doc2"
                       >
                         <td
                           className=""
-                          data-test="Title-doc2"
+                          data-test="2-doc2"
                         >
                           Prairie Fires: The American Dreams of Laura Ingalls Wilder
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Pending Requests-doc2"
-                        key="Pending Requests-doc2"
+                        data-test="3-doc2"
+                        key="3-doc2"
                       >
                         <td
                           className=""
-                          data-test="Pending Requests-doc2"
+                          data-test="3-doc2"
                         >
                           -
                         </td>

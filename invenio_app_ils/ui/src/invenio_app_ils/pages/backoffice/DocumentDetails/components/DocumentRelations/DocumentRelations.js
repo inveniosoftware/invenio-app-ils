@@ -344,15 +344,6 @@ export default class DocumentRelations extends Component {
     return selections;
   }
 
-  getTabRows(relation) {
-    const rows = [];
-    if (!this.props.relations[relation]) return [];
-    for (const obj of this.props.relations[relation]) {
-      rows.push(obj);
-    }
-    return rows;
-  }
-
   onSave = results => {
     const createRelations = [];
     const deleteRelations = [];
@@ -420,11 +411,12 @@ export default class DocumentRelations extends Component {
   };
 
   getTabPanes() {
-    const editions = this.getTabRows('edition');
-    const languages = this.getTabRows('language');
-    const multipartMonographs = this.getTabRows('multipart_monograph');
-    const serials = this.getTabRows('serial');
-    const others = this.getTabRows('other');
+    const editions = this.props.relations['edition'] || [];
+    const languages = this.props.relations['language'] || [];
+    const serials = this.props.relations['serial'] || [];
+    const others = this.props.relations['other'] || [];
+    const multipartMonographs =
+      this.props.relations['multipart_monograph'] || [];
 
     return [
       {

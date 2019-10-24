@@ -59,7 +59,7 @@ describe('DocumentsSearch ResultsTable tests', () => {
       .find('TableCell')
       .filterWhere(
         element =>
-          element.prop('data-test') === 'Title-' + firstResult.metadata.pid
+          element.prop('data-test') === `1-${firstResult.metadata.pid}`
       );
     expect(mappedStatusElements).toHaveLength(1);
     expect(mappedStatusElements.text()).toEqual(firstResult.metadata.title);

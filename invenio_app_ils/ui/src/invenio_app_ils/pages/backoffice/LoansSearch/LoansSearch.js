@@ -72,7 +72,15 @@ export class LoansSearch extends Component {
       { title: '', field: '', formatter: this.viewDetails },
       { title: 'ID', field: 'metadata.pid' },
       { title: 'Document ID', field: 'metadata.document_pid' },
-      { title: 'Patron', field: 'metadata.patron.name' },
+      {
+        title: 'Patron',
+        field: 'metadata.patron.name',
+        formatter: ({ row }) => (
+          <Link to={BackOfficeRoutes.patronDetailsFor(row.metadata.patron_pid)}>
+            {row.metadata.patron.name}
+          </Link>
+        ),
+      },
       { title: 'State', field: 'metadata.state' },
       {
         title: 'Start date',

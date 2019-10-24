@@ -152,7 +152,7 @@ describe('Series relations tests', () => {
 
     component
       .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === `-${id}`)
+      .filterWhere(element => element.prop('data-test') === `0-${id}`)
       .find('Button')
       .simulate('click');
     expect(mockViewDetails).toHaveBeenCalled();

@@ -10,7 +10,8 @@ jest.mock('react-router-dom');
 jest.mock('../../../../../../common/config/invenioConfig');
 let mockViewDetails = jest.fn();
 
-BackOfficeRoutes.loanDetailsFor = jest.fn(pid => `url/${pid}`);
+BackOfficeRoutes.loanDetailsFor = jest.fn(pid => `loan/${pid}`);
+BackOfficeRoutes.patronDetailsFor = jest.fn(pid => `patron/${pid}`);
 
 const data = {
   hits: [
@@ -145,7 +146,7 @@ describe('DocumentPendingLoans tests', () => {
     const firstId = data.hits[0].pid;
     component
       .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === `-${firstId}`)
+      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
       .find('Button')
       .simulate('click');
     expect(mockViewDetails).toHaveBeenCalled();
