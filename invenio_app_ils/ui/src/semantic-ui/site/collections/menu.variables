@@ -2,8 +2,8 @@
     User Variable Overrides
 *******************************/
 
-@secondaryPointingActiveBorderColor: @orange;
-@secondaryPointingActiveTextColor: @orange;
+@secondaryPointingActiveBorderColor: @fsPrimaryColor;
+@secondaryPointingActiveTextColor: @fsPrimaryColor;
 @secondaryPointingHoverTextColor: @linkHoverColor;
 
 /* Inverted */

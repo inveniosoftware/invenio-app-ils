@@ -21,15 +21,15 @@ exports[`LoansSearch SearchBar tests should render search bar with query helper 
   }
 >
   <Input
-    fluid={true}
-    icon={
-      <Icon
-        as="i"
-        link={true}
-        name="search"
-        onClick={[MockFunction]}
-      />
+    action={
+      Object {
+        "color": undefined,
+        "icon": "search",
+        "onClick": [MockFunction],
+      }
     }
+    className="undefined ils-searchbar"
+    fluid={true}
     onChange={[Function]}
     onKeyPress={[Function]}
     placeholder="Search"
@@ -38,7 +38,7 @@ exports[`LoansSearch SearchBar tests should render search bar with query helper 
     value=""
   >
     <div
-      className="ui big fluid icon input"
+      className="ui big fluid action input undefined ils-searchbar"
     >
       <input
         onChange={[Function]}
@@ -47,18 +47,57 @@ exports[`LoansSearch SearchBar tests should render search bar with query helper 
         type="text"
         value=""
       />
-      <Icon
-        as="i"
-        link={true}
-        name="search"
+      <Button
+        as="button"
+        icon="search"
         onClick={[MockFunction]}
       >
-        <i
-          aria-hidden="true"
-          className="search link icon"
-          onClick={[Function]}
-        />
-      </Icon>
+        <Ref
+          innerRef={
+            Object {
+              "current": <button
+                class="ui icon button"
+              >
+                <i
+                  aria-hidden="true"
+                  class="search icon"
+                />
+              </button>,
+            }
+          }
+        >
+          <RefFindNode
+            innerRef={
+              Object {
+                "current": <button
+                  class="ui icon button"
+                >
+                  <i
+                    aria-hidden="true"
+                    class="search icon"
+                  />
+                </button>,
+              }
+            }
+          >
+            <button
+              className="ui icon button"
+              onClick={[Function]}
+            >
+              <Icon
+                as="i"
+                name="search"
+              >
+                <i
+                  aria-hidden="true"
+                  className="search icon"
+                  onClick={[Function]}
+                />
+              </Icon>
+            </button>
+          </RefFindNode>
+        </Ref>
+      </Button>
     </div>
   </Input>
   <QueryBuildHelper
@@ -149,15 +188,15 @@ exports[`LoansSearch SearchBar tests should render the current query string 1`] 
   placeholder="Search"
 >
   <Input
-    fluid={true}
-    icon={
-      <Icon
-        as="i"
-        link={true}
-        name="search"
-        onClick={[Function]}
-      />
+    action={
+      Object {
+        "color": undefined,
+        "icon": "search",
+        "onClick": [Function],
+      }
     }
+    className="undefined ils-searchbar"
+    fluid={true}
     onChange={[Function]}
     onKeyPress={[Function]}
     placeholder="Search"
@@ -166,7 +205,7 @@ exports[`LoansSearch SearchBar tests should render the current query string 1`] 
     value="The Gulf: The Making of An American Sea"
   >
     <div
-      className="ui big fluid icon input"
+      className="ui big fluid action input undefined ils-searchbar"
     >
       <input
         onChange={[Function]}
@@ -175,18 +214,57 @@ exports[`LoansSearch SearchBar tests should render the current query string 1`] 
         type="text"
         value="The Gulf: The Making of An American Sea"
       />
-      <Icon
-        as="i"
-        link={true}
-        name="search"
+      <Button
+        as="button"
+        icon="search"
         onClick={[Function]}
       >
-        <i
-          aria-hidden="true"
-          className="search link icon"
-          onClick={[Function]}
-        />
-      </Icon>
+        <Ref
+          innerRef={
+            Object {
+              "current": <button
+                class="ui icon button"
+              >
+                <i
+                  aria-hidden="true"
+                  class="search icon"
+                />
+              </button>,
+            }
+          }
+        >
+          <RefFindNode
+            innerRef={
+              Object {
+                "current": <button
+                  class="ui icon button"
+                >
+                  <i
+                    aria-hidden="true"
+                    class="search icon"
+                  />
+                </button>,
+              }
+            }
+          >
+            <button
+              className="ui icon button"
+              onClick={[Function]}
+            >
+              <Icon
+                as="i"
+                name="search"
+              >
+                <i
+                  aria-hidden="true"
+                  className="search icon"
+                  onClick={[Function]}
+                />
+              </Icon>
+            </button>
+          </RefFindNode>
+        </Ref>
+      </Button>
     </div>
   </Input>
 </SearchBar>

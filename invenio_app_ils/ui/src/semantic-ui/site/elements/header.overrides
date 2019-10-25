@@ -2,19 +2,66 @@
          Site Overrides
 *******************************/
 
-.ui.container.footer-upper .ui.header{
-    color: @secondaryColor;
+@{fs-parent-selector} {
+  .ui.container.footer-upper .ui.header {
+    color: @fsSecondaryColor;
+  }
+
+  .ui.header {
+    &.fs-headline-header {
+      color: white;
+      margin: 0;
+      font-size: 2.5em;
+      font-family: 'Raleway', Arial, Helvetica, sans-serif;
+      font-weight: normal;
+
+      span {
+        font-size: 0.7em;
+      }
+
+    }
+
+    &.section-header {
+      padding-top: 1em;
+      padding-bottom: 1em;
+
+    }
+    &.highlight {
+        padding-bottom: 1.2em;
+        &:after {
+          content: '';
+          top: 0.2em;
+          display: block;
+          position: relative;
+          height: 2px;
+          width: 6%;
+          left: 47%;
+          background-color: @fsPrimaryColor;
+        }
+
+      }
+  }
+
+  .header.sub.fs-headline-subheader {
+    color: white;
+  }
+
+  .ui.container.footer-lower {
+    .ui.header {
+      color: #c1bbbb;
+    }
+  }
+
+  .footer-upper {
+    .ui.header {
+      .sub.header {
+        color: #9e9ea0;
+      }
+    }
+  }
 }
 
-.ui.container.footer-lower .ui.header{
-    color: #c1bbbb;
-}
-
-.footer-upper .ui.header .sub.header{
-    color: #9e9ea0;
-}
-
-.backoffice {
+@{bo-parent-selector} {
 
   .ui.header.bo-menu-header {
     margin-top: 1em;
@@ -23,6 +70,7 @@
     .icon {
       font-size: 2em;
     }
+
     .sub.header {
       text-transform: uppercase;
     }

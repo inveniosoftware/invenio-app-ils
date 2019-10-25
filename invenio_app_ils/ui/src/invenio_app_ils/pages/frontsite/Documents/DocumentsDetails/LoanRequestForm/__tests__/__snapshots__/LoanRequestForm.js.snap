@@ -423,31 +423,31 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
         </FormField>
         <FormButton
           as={[Function]}
-          color="orange"
           control={[Function]}
           fluid={true}
           onClick={[Function]}
+          primary={true}
         >
           <FormField
-            color="orange"
             control={[Function]}
             fluid={true}
             onClick={[Function]}
+            primary={true}
           >
             <div
               className="field"
             >
               <Button
                 as="button"
-                color="orange"
                 fluid={true}
                 onClick={[Function]}
+                primary={true}
               >
                 <Ref
                   innerRef={
                     Object {
                       "current": <button
-                        class="ui orange fluid button"
+                        class="ui fluid primary button"
                       >
                         Request
                       </button>,
@@ -458,7 +458,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                     innerRef={
                       Object {
                         "current": <button
-                          class="ui orange fluid button"
+                          class="ui fluid primary button"
                         >
                           Request
                         </button>,
@@ -466,7 +466,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                     }
                   >
                     <button
-                      className="ui orange fluid button"
+                      className="ui fluid primary button"
                       onClick={[Function]}
                     >
                       Request

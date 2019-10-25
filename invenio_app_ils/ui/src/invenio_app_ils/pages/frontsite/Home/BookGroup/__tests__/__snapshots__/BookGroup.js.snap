@@ -3,8 +3,7 @@
 exports[`BookGroup tests should load the BookGroup component 1`] = `
 <div>
   <Header
-    dividing={true}
-    size="medium"
+    as="h2"
   >
     Test
   </Header>
@@ -12,10 +11,12 @@ exports[`BookGroup tests should load the BookGroup component 1`] = `
     <Link
       to=""
     >
-      VIEW ALL
+      VIEW ALL 
+      <Icon
+        as="i"
+        name="caret right"
+      />
     </Link>
-     
-    test
   </HeaderSubheader>
   <Divider
     hidden={true}
@@ -27,6 +28,7 @@ exports[`BookGroup tests should load the BookGroup component 1`] = `
       error={Object {}}
     >
       <CardGroup
+        centered={true}
         doubling={true}
         itemsPerRow={5}
         stackable={true}
@@ -82,14 +84,13 @@ exports[`BookGroup tests should render book cards 1`] = `
     >
       <div>
         <Header
-          dividing={true}
-          size="medium"
+          as="h2"
         >
-          <div
-            className="ui medium dividing header"
+          <h2
+            className="ui header"
           >
             Test
-          </div>
+          </h2>
         </Header>
         <HeaderSubheader>
           <div
@@ -106,12 +107,20 @@ exports[`BookGroup tests should render book cards 1`] = `
                   href="/test"
                   onClick={[Function]}
                 >
-                  VIEW ALL
+                  VIEW ALL 
+                  <Icon
+                    as="i"
+                    name="caret right"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="caret right icon"
+                      onClick={[Function]}
+                    />
+                  </Icon>
                 </a>
               </LinkAnchor>
             </Link>
-             
-            test
           </div>
         </HeaderSubheader>
         <Divider
@@ -128,12 +137,13 @@ exports[`BookGroup tests should render book cards 1`] = `
             error={Object {}}
           >
             <CardGroup
+              centered={true}
               doubling={true}
               itemsPerRow={5}
               stackable={true}
             >
               <div
-                className="ui doubling stackable five cards"
+                className="ui centered doubling stackable five cards"
               />
             </CardGroup>
           </Error>
@@ -190,14 +200,13 @@ exports[`BookGroup tests should render the VIEW ALL link properly 1`] = `
     >
       <div>
         <Header
-          dividing={true}
-          size="medium"
+          as="h2"
         >
-          <div
-            className="ui medium dividing header"
+          <h2
+            className="ui header"
           >
             Test
-          </div>
+          </h2>
         </Header>
         <HeaderSubheader>
           <div
@@ -214,12 +223,20 @@ exports[`BookGroup tests should render the VIEW ALL link properly 1`] = `
                   href="/test"
                   onClick={[Function]}
                 >
-                  VIEW ALL
+                  VIEW ALL 
+                  <Icon
+                    as="i"
+                    name="caret right"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="caret right icon"
+                      onClick={[Function]}
+                    />
+                  </Icon>
                 </a>
               </LinkAnchor>
             </Link>
-             
-            test
           </div>
         </HeaderSubheader>
         <Divider
@@ -236,12 +253,13 @@ exports[`BookGroup tests should render the VIEW ALL link properly 1`] = `
             error={Object {}}
           >
             <CardGroup
+              centered={true}
               doubling={true}
               itemsPerRow={5}
               stackable={true}
             >
               <div
-                className="ui doubling stackable five cards"
+                className="ui centered doubling stackable five cards"
               />
             </CardGroup>
           </Error>

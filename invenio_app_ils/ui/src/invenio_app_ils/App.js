@@ -5,6 +5,7 @@ import { BackOfficeRoutes } from './routes/urls';
 import history from './history';
 import { NotFound } from './common/components';
 import { AuthenticationGuard, UnAuthorized } from './authentication/components';
+import PropTypes from 'prop-types';
 
 export default class App extends Component {
   render() {
@@ -17,10 +18,16 @@ export default class App extends Component {
             unAuthorizedComponent={UnAuthorized}
             roles={['admin', 'librarian']}
           />
-          <FrontSite />
+          <FrontSite {...this.props} />
           <Route component={NotFound} />
         </Switch>
       </Router>
     );
   }
 }
+
+App.propTypes = {
+  headline: PropTypes.func,
+  headlineImage: PropTypes.string,
+  sections: PropTypes.array,
+};

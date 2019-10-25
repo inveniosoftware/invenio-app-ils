@@ -1,19 +1,13 @@
 /*******************************
     User Variable Overrides
 *******************************/
+@{fs-parent-selector} {
+  .ui.card.fs-book-card {
+    text-align: center;
 
-.ui.container.search-body {
-
-  .search-results{
-    .ui.card{
-      text-align: center;
-    }
-  }
-  .ui.card {
     .content {
-
-      &.extra{
-        div{
+      &.extra {
+        div {
           width: 100%;
         }
       }
@@ -26,18 +20,65 @@
     }
   }
 
+  .fs-landing-page-section {
+    .ui.cards {
+      margin-left: 1em;
+      margin-right: 1em;
+    }
+  }
 
-}
 
-.search-aggregations{
-  .ui.card{
-    border-bottom: 1px solid @borderColor;
+  .ui.card.advert-card {
+    background-color: @fsSecondaryColor;
     border-radius: 0;
-    margin-bottom: 2em;
-    .content{
-      padding-top: 0.5em;
-      .header{
-        text-transform: uppercase;
+    padding: 1em;
+
+    @media only screen and (min-width: @largestMobileScreen) {
+      &:nth-child(even) {
+        top: 2em;
+      }
+    }
+
+    .content {
+      padding: 2em 1em 2em 1em;
+
+      .description {
+        color: white;
+      }
+
+      .header {
+        &.advert {
+          font-size: 1.3rem;
+          color: white;
+          font-weight: normal;
+          padding-bottom: 1em;
+        }
+      }
+    }
+
+    .ui.basic.button {
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+      color: white !important;
+
+      &:hover {
+        background-color: rgba(255,255,255,0.1) !important;
+      }
+    }
+  }
+
+
+  .search-aggregations {
+    .ui.card {
+      border-bottom: 1px solid @borderColor;
+      border-radius: 0;
+      margin-bottom: 2em;
+
+      .content {
+        padding-top: 0.5em;
+
+        .header {
+          text-transform: uppercase;
+        }
       }
     }
   }

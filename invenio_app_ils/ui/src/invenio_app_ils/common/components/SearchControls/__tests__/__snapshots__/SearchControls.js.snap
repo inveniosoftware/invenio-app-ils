@@ -11,7 +11,7 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
       columns={3}
     >
       <GridColumn
-        computer={7}
+        computer={6}
         largeScreen={5}
       >
         <Grid>
@@ -117,7 +117,7 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
       </GridColumn>
       <GridColumn
         className="search-pagination-column"
-        computer={2}
+        computer={4}
         largeScreen={6}
         textAlign="center"
       >
@@ -130,7 +130,7 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
       </GridColumn>
       <GridColumn
         className="search-sort-options-column"
-        computer={7}
+        computer={6}
         largeScreen={5}
         textAlign="right"
       >
@@ -138,7 +138,7 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
           className="sort-by-filters"
         >
           <SearchSortBy
-            prefix="Sort by:"
+            prefix="Sort by "
           />
           <SearchSortOrder
             searchConfig={
@@ -432,11 +432,11 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                     className="ui three column grid search-controls"
                   >
                     <GridColumn
-                      computer={7}
+                      computer={6}
                       largeScreen={5}
                     >
                       <div
-                        className="seven wide computer five wide large screen column"
+                        className="six wide computer five wide large screen column"
                       >
                         <Grid>
                           <div
@@ -619,12 +619,12 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                     </GridColumn>
                     <GridColumn
                       className="search-pagination-column"
-                      computer={2}
+                      computer={4}
                       largeScreen={6}
                       textAlign="center"
                     >
                       <div
-                        className="center aligned two wide computer six wide large screen column search-pagination-column"
+                        className="center aligned four wide computer six wide large screen column search-pagination-column"
                       >
                         <Responsive
                           getWidth={[Function]}
@@ -634,18 +634,18 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                     </GridColumn>
                     <GridColumn
                       className="search-sort-options-column"
-                      computer={7}
+                      computer={6}
                       largeScreen={5}
                       textAlign="right"
                     >
                       <div
-                        className="right aligned seven wide computer five wide large screen column search-sort-options-column"
+                        className="right aligned six wide computer five wide large screen column search-sort-options-column"
                       >
                         <div
                           className="sort-by-filters"
                         >
                           <SearchSortBy
-                            prefix="Sort by:"
+                            prefix="Sort by "
                           >
                             <Responsive
                               getWidth={[Function]}
@@ -653,7 +653,7 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                             >
                               <div>
                                 <label>
-                                  Sort by: 
+                                  Sort by  
                                 </label>
                                 <Connect(SortBy)
                                   defaultValue="mostrecent"

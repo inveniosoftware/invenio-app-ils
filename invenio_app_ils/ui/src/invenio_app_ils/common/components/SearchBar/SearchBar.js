@@ -21,11 +21,17 @@ export class SearchBar extends Component {
       executeSearch,
       placeholder,
       queryHelperFields,
+      buttonColor,
+      ...otherProps
     } = this.props;
     return (
       <>
         <Input
-          icon={<Icon onClick={executeSearch} name="search" link />}
+          action={{
+            color: buttonColor,
+            icon: 'search',
+            onClick: executeSearch,
+          }}
           size="big"
           fluid
           placeholder={placeholder}
@@ -37,6 +43,8 @@ export class SearchBar extends Component {
           ref={input => {
             this.searchInput = input;
           }}
+          {...otherProps}
+          className={`${otherProps.className} ils-searchbar`}
         />
         {queryHelperFields ? (
           <QueryBuildHelper
@@ -56,4 +64,5 @@ SearchBar.propTypes = {
   executeSearch: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
   queryHelperFields: PropTypes.array,
+  buttonColor: PropTypes.string,
 };

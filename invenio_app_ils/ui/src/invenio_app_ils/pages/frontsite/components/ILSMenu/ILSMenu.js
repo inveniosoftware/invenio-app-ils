@@ -8,7 +8,7 @@ import {
 import { FrontSiteRoutes, BackOfficeRoutes } from '../../../../routes/urls';
 import { LoginButton } from '../../../../common/components';
 
-export default class Header extends Component {
+export default class ILSMenu extends Component {
   renderRightDropDown = userMenuText => {
     return (
       <Dropdown item text={userMenuText} icon="user">

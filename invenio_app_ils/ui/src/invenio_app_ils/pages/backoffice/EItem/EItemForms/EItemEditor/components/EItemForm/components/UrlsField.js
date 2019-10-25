@@ -9,8 +9,6 @@ import {
 export class UrlsField extends Component {
   renderFormField({ arrayPath, indexPath, ...arrayHelpers }) {
     const objectPath = `${arrayPath}.${indexPath}`;
-    console.log(objectPath);
-
     return (
       <>
         <StringField

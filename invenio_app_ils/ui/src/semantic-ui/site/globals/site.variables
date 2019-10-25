@@ -12,24 +12,41 @@
   SEMANTIC Colors override
 ********************************/
 
-@secondaryColor    : #6899D0;
 @orange            : #F2711C;
 
 /********************************
   ILS variables
+  fs = frontsite
+  bo = backoffice
 ********************************/
 
-@headerMenuHeight         : 66px;
-@highlightBorder          : 2px solid @orange;
-@sectionDefaultPadding    : 2em;
+
+@headerMenuHeight         : 69px;
+@highlightBorder          : 2px solid @fsPrimaryColor;
+@defaultPaddingValue      : 2em;
 @defaultMarginValue       : 1em;
+@headlineBackground: url("@{imagesFolder}/old-books-436498_1920.jpg");
+
+/* Dot background elements */
+@dot-bg-color                : rgba(159, 158, 169, 0.6);
+@dot-bg-size                 : 1px;
+@dot-bg-space                : 10px;
 
 /********************************
   ILS colors
 ********************************/
 
+@fsPrimaryColor            : @orange;
+@fsSecondaryColor          : #6899D0;
 @highlightBackgroundColor  : #ebedf1;
+@highlightSectionBorder    : 1px solid #c6c4d0;
 @contrastColor             : #34373e;
 @boSidebarBackgroundColor  : #eee;
 
 
+/********************************
+  ILS Selectors
+********************************/
+
+@fs-parent-selector: .frontsite;
+@bo-parent-selector: .backoffice;

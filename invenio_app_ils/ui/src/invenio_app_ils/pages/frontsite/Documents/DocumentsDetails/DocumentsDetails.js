@@ -60,7 +60,7 @@ export default class DocumentsDetails extends Component {
             />
           </Container>
         </Container>
-        <Error boundary={true} error={error}>
+        <Error boundary error={error}>
           <Container className="document-details-container default-margin-top">
             <ILSParagraphPlaceholder isLoading={isLoading} lines={1}>
               <Breadcrumbs

@@ -16,8 +16,6 @@ export class AlternativeAbstracts extends Component {
           icon="trash"
           type="button"
           onClick={() => {
-            console.log(arrayHelpers);
-
             arrayHelpers.remove(indexPath);
           }}
         ></Form.Button>
