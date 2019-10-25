@@ -39,7 +39,7 @@ exports[`IdleLoansList tests should load the details component 1`] = `
         <SeeAllButton
           disabled={false}
           fluid={false}
-          to="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-15%7D)"
+          to="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-18%7D)"
         />
       }
       showAllResults={false}
@@ -186,7 +186,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
           <SeeAllButton
             disabled={false}
             fluid={false}
-            to="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-15%7D)"
+            to="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-18%7D)"
           />
         }
         showAllResults={false}
@@ -2011,7 +2011,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                 <SeeAllButton
                   disabled={false}
                   fluid={false}
-                  to="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-15%7D)"
+                  to="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-18%7D)"
                 />
               }
               showAllResults={false}
@@ -2074,7 +2074,7 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
           <SeeAllButton
             disabled={false}
             fluid={false}
-            to="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-15%7D)"
+            to="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-18%7D)"
           />
         }
         showAllResults={false}
