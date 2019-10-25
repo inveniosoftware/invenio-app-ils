@@ -42,7 +42,10 @@
 @highlightSectionBorder    : 1px solid #c6c4d0;
 @contrastColor             : #34373e;
 @boSidebarBackgroundColor  : #eee;
+@fsBorderColor             : #c6c4d0;
 
+@danger                    : @red;
+@success                   : @green;
 
 /********************************
   ILS Selectors

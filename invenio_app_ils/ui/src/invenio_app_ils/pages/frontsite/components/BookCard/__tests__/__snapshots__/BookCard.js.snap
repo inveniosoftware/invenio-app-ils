@@ -44,6 +44,13 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
       data-test="docid-1"
       onClick={[Function]}
     >
+      <CardMeta
+        className="discrete"
+      >
+        <div
+          className="meta discrete"
+        />
+      </CardMeta>
       <Image
         as="img"
         centered={true}
@@ -143,8 +150,20 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
                   </List>
                 </div>
               </DocumentAuthors>
+              <div>
+                Edition 
+                ed. 1
+              </div>
             </div>
           </CardMeta>
+        </div>
+      </CardContent>
+      <CardContent
+        extra={true}
+      >
+        <div
+          className="extra content"
+        >
           <Label>
             <div
               className="ui label"
@@ -212,6 +231,13 @@ exports[`BookCard tests should render the BookCard 1`] = `
       data-test="docid-1"
       onClick={[Function]}
     >
+      <CardMeta
+        className="discrete"
+      >
+        <div
+          className="meta discrete"
+        />
+      </CardMeta>
       <Image
         as="img"
         centered={true}
@@ -311,8 +337,20 @@ exports[`BookCard tests should render the BookCard 1`] = `
                   </List>
                 </div>
               </DocumentAuthors>
+              <div>
+                Edition 
+                ed. 1
+              </div>
             </div>
           </CardMeta>
+        </div>
+      </CardContent>
+      <CardContent
+        extra={true}
+      >
+        <div
+          className="extra content"
+        >
           <Label>
             <div
               className="ui label"

@@ -2,14 +2,22 @@
     User Variable Overrides
 *******************************/
 @{fs-parent-selector} {
+
+  .ui.cards{
+    .ui.card.fs-book-card {
+        .extra {
+          border-top: 0 !important;
+          padding: 0 0.75em 1em;
+        }
+      }
+  }
+
   .ui.card.fs-book-card {
     text-align: center;
 
     .content {
       &.extra {
-        div {
-          width: 100%;
-        }
+        border-top: 0 !important;
       }
     }
 
@@ -17,6 +25,9 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      &.discrete{
+        font-size: 0.9em;
+      }
     }
   }
 

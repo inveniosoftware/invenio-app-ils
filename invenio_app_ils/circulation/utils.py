@@ -39,6 +39,18 @@ def circulation_build_patron_ref(loan_pid):
     }
 
 
+def circulation_build_document_ref(loan_pid):
+    """Build $ref for the Document attached to the Loan."""
+    return {
+        "$ref": "{scheme}://{host}/api/resolver/circulation/loans/{loan_pid}/"
+                "document".format(
+                    scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                    host=current_app.config["JSONSCHEMAS_HOST"],
+                    loan_pid=loan_pid,
+                )
+    }
+
+
 def circulation_default_loan_duration(loan):
     """Return a default loan duration in timedelta."""
     return timedelta(days=30)

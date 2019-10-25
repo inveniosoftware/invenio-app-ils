@@ -26,7 +26,8 @@ from invenio_records_rest.utils import deny_all
 
 from .circulation.search import IlsLoansSearch
 from .facets import keyed_range_filter
-from .records.resolver.loan import item_resolver, loan_patron_resolver
+from .records.resolver.loan import document_resolver, item_resolver, \
+    loan_patron_resolver
 
 from .api import (  # isort:skip
     can_item_circulate,
@@ -60,7 +61,7 @@ from .circulation.utils import (  # isort:skip
     circulation_build_item_ref,
     circulation_build_patron_ref,
     circulation_can_be_requested,
-)
+    circulation_build_document_ref)
 from .indexer import (  # isort:skip
     DocumentIndexer,
     DocumentRequestIndexer,
@@ -692,6 +693,16 @@ CIRCULATION_ITEM_RESOLVING_PATH = (
 )
 
 CIRCULATION_ITEM_RESOLVER_ENDPOINT = item_resolver
+
+
+CIRCULATION_DOCUMENT_REF_BUILDER = circulation_build_document_ref
+
+CIRCULATION_DOCUMENT_RESOLVING_PATH = (
+    "/api/resolver/circulation/loans/<loan_pid>/document"
+)
+
+CIRCULATION_DOCUMENT_RESOLVER_ENDPOINT = document_resolver
+
 
 CIRCULATION_PATRON_REF_BUILDER = circulation_build_patron_ref
 

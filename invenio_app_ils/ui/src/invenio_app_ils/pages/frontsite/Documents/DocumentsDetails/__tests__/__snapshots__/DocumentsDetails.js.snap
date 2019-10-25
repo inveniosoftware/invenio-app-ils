@@ -44,7 +44,7 @@ exports[`DocumentsDetailsContainer tests should load the details component 1`] =
       <DocumentPanel />
     </Container>
     <Container
-      className="document-tags"
+      className="document-tags spaced"
     >
       <Responsive
         getWidth={[Function]}
@@ -56,6 +56,15 @@ exports[`DocumentsDetailsContainer tests should load the details component 1`] =
           <DocumentTags />
         </ILSParagraphPlaceholder>
       </Responsive>
+    </Container>
+    <Container
+      className="items-locations spaced"
+    >
+      <ILSParagraphPlaceholder
+        linesNumber={3}
+      >
+        <DocumentItems />
+      </ILSParagraphPlaceholder>
     </Container>
     <Container
       className="section"

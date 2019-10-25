@@ -29,20 +29,8 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
                 Object {
                   "AGGREGATIONS": Array [
                     Object {
-                      "field": "tags",
-                      "title": "Tags",
-                    },
-                    Object {
-                      "field": "languages",
-                      "title": "Languages",
-                    },
-                    Object {
                       "field": "document_type",
                       "title": "Document types",
-                    },
-                    Object {
-                      "field": "relations",
-                      "title": "Relations",
                     },
                     Object {
                       "field": "has_items",
@@ -55,6 +43,18 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
                     Object {
                       "field": "has_items_for_loan",
                       "title": "Select books with",
+                    },
+                    Object {
+                      "field": "tags",
+                      "title": "Tags",
+                    },
+                    Object {
+                      "field": "languages",
+                      "title": "Languages",
+                    },
+                    Object {
+                      "field": "relations",
+                      "title": "Relations",
                     },
                   ],
                   "RESULTS_PER_PAGE": Array [
@@ -145,20 +145,8 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
               Object {
                 "AGGREGATIONS": Array [
                   Object {
-                    "field": "tags",
-                    "title": "Tags",
-                  },
-                  Object {
-                    "field": "languages",
-                    "title": "Languages",
-                  },
-                  Object {
                     "field": "document_type",
                     "title": "Document types",
-                  },
-                  Object {
-                    "field": "relations",
-                    "title": "Relations",
                   },
                   Object {
                     "field": "has_items",
@@ -171,6 +159,18 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
                   Object {
                     "field": "has_items_for_loan",
                     "title": "Select books with",
+                  },
+                  Object {
+                    "field": "tags",
+                    "title": "Tags",
+                  },
+                  Object {
+                    "field": "languages",
+                    "title": "Languages",
+                  },
+                  Object {
+                    "field": "relations",
+                    "title": "Relations",
                   },
                 ],
                 "RESULTS_PER_PAGE": Array [
@@ -254,20 +254,8 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
         Object {
           "AGGREGATIONS": Array [
             Object {
-              "field": "tags",
-              "title": "Tags",
-            },
-            Object {
-              "field": "languages",
-              "title": "Languages",
-            },
-            Object {
               "field": "document_type",
               "title": "Document types",
-            },
-            Object {
-              "field": "relations",
-              "title": "Relations",
             },
             Object {
               "field": "has_items",
@@ -280,6 +268,18 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
             Object {
               "field": "has_items_for_loan",
               "title": "Select books with",
+            },
+            Object {
+              "field": "tags",
+              "title": "Tags",
+            },
+            Object {
+              "field": "languages",
+              "title": "Languages",
+            },
+            Object {
+              "field": "relations",
+              "title": "Relations",
             },
           ],
           "RESULTS_PER_PAGE": Array [
@@ -474,20 +474,8 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                     Object {
                                       "AGGREGATIONS": Array [
                                         Object {
-                                          "field": "tags",
-                                          "title": "Tags",
-                                        },
-                                        Object {
-                                          "field": "languages",
-                                          "title": "Languages",
-                                        },
-                                        Object {
                                           "field": "document_type",
                                           "title": "Document types",
-                                        },
-                                        Object {
-                                          "field": "relations",
-                                          "title": "Relations",
                                         },
                                         Object {
                                           "field": "has_items",
@@ -500,6 +488,18 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                         Object {
                                           "field": "has_items_for_loan",
                                           "title": "Select books with",
+                                        },
+                                        Object {
+                                          "field": "tags",
+                                          "title": "Tags",
+                                        },
+                                        Object {
+                                          "field": "languages",
+                                          "title": "Languages",
+                                        },
+                                        Object {
+                                          "field": "relations",
+                                          "title": "Relations",
                                         },
                                       ],
                                       "RESULTS_PER_PAGE": Array [
@@ -747,20 +747,8 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                               Object {
                                 "AGGREGATIONS": Array [
                                   Object {
-                                    "field": "tags",
-                                    "title": "Tags",
-                                  },
-                                  Object {
-                                    "field": "languages",
-                                    "title": "Languages",
-                                  },
-                                  Object {
                                     "field": "document_type",
                                     "title": "Document types",
-                                  },
-                                  Object {
-                                    "field": "relations",
-                                    "title": "Relations",
                                   },
                                   Object {
                                     "field": "has_items",
@@ -773,6 +761,18 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                   Object {
                                     "field": "has_items_for_loan",
                                     "title": "Select books with",
+                                  },
+                                  Object {
+                                    "field": "tags",
+                                    "title": "Tags",
+                                  },
+                                  Object {
+                                    "field": "languages",
+                                    "title": "Languages",
+                                  },
+                                  Object {
+                                    "field": "relations",
+                                    "title": "Relations",
                                   },
                                 ],
                                 "RESULTS_PER_PAGE": Array [

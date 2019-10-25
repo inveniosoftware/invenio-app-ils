@@ -10,6 +10,7 @@
 import jsonresolver
 from werkzeug.routing import Rule
 
+from invenio_app_ils.api import can_item_circulate
 from invenio_app_ils.search.api import ItemSearch
 
 
@@ -21,6 +22,7 @@ def jsonresolver_loader(url_map):
     def items_resolver(document_pid):
         """Search and return the total number of items."""
         items = []
+        by_location = {}
         for hit in ItemSearch().search_by_document_pid(document_pid).scan():
             item = hit.to_dict()
             circulation = item.get("circulation", {})
@@ -32,6 +34,14 @@ def jsonresolver_loader(url_map):
                 "medium": item.get("medium"),
                 "status": item.get("status"),
                 "description": item.get("description"),
+                "shelf": item.get("shelf"),
+                "internal_location": {
+                    "location": {
+                        "name": item.get("internal_location", {})
+                                    .get("location", {}).get("name", '')
+                    },
+                    "name": item.get("internal_location", {}).get("name", '')
+                }
             }
             if circulation:
                 include_circulation_keys = ['state']
@@ -39,9 +49,23 @@ def jsonresolver_loader(url_map):
                 for key in include_circulation_keys:
                     obj["circulation"][key] = circulation.get(key)
             items.append(obj)
+
+            # grouping by location (can circulate and not on loan)
+            location_name = item.get("internal_location", {})\
+                .get("location", {}).get("name", "")
+            internal_location_name = item.get("internal_location", {})\
+                .get("name", "")
+            if location_name not in by_location:
+                by_location[location_name] = {internal_location_name: [],
+                                              "total": 0}
+            if internal_location_name not in by_location[location_name]:
+                by_location[location_name][internal_location_name] = []
+            by_location[location_name][internal_location_name].append(obj)
+            by_location[location_name]["total"] += 1
         return {
             "total": len(items),
-            "hits": items
+            "hits": items,
+            "on_shelf": by_location
         }
 
     url_map.add(

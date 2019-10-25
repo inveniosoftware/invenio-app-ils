@@ -10,7 +10,7 @@
 from invenio_circulation.api import Loan
 from invenio_pidstore.errors import PIDDeletedError
 
-from invenio_app_ils.records.api import Item
+from invenio_app_ils.records.api import Document, Item
 from invenio_app_ils.records.resolver.resolver import \
     get_field_value_for_record as get_field_value
 from invenio_app_ils.records.resolver.resolver import get_patron, \
@@ -44,3 +44,24 @@ def loan_patron_resolver(loan_pid):
         return {}
 
     return get_patron(patron_pid)
+
+
+@get_pid_or_default(default_value=dict())
+def document_resolver(loan_pid):
+    """Resolve a Document given a Loan PID."""
+    try:
+        document_pid = get_field_value(Loan, loan_pid, "document_pid")
+    except KeyError:
+        return {}
+    try:
+        document = Document.get_record_by_pid(document_pid)
+        # add only some fields
+        obj = {}
+        include_document_keys = ["title", "pid",
+                                 "circulation", "authors"]
+        for key in include_document_keys:
+            obj[key] = document[key]
+    except PIDDeletedError:
+        obj = {}
+    print(obj)
+    return obj

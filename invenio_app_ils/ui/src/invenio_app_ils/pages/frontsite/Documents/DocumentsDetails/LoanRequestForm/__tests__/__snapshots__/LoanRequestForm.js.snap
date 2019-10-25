@@ -61,9 +61,11 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
         className="ui form"
         onSubmit={[Function]}
       >
-        <FormField>
+        <FormField
+          required={true}
+        >
           <div
-            className="field"
+            className="required field"
           >
             <label>
               I would like to
@@ -75,7 +77,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
             className="field"
           >
             <Checkbox
-              checked={false}
+              checked={true}
               key="DELIVERY"
               label=""
               name="deliveryMethodRadioGroup"
@@ -85,7 +87,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
               value="DELIVERY"
             >
               <div
-                className="ui radio checkbox"
+                className="ui checked radio checkbox"
                 onChange={[Function]}
                 onClick={[Function]}
                 onMouseDown={[Function]}
@@ -95,6 +97,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                   innerRef={
                     Object {
                       "current": <input
+                        checked=""
                         class="hidden"
                         name="deliveryMethodRadioGroup"
                         readonly=""
@@ -109,6 +112,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                     innerRef={
                       Object {
                         "current": <input
+                          checked=""
                           class="hidden"
                           name="deliveryMethodRadioGroup"
                           readonly=""
@@ -120,7 +124,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                     }
                   >
                     <input
-                      checked={false}
+                      checked={true}
                       className="hidden"
                       name="deliveryMethodRadioGroup"
                       readOnly={true}
@@ -150,7 +154,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
               </div>
             </Checkbox>
             <Checkbox
-              checked={true}
+              checked={false}
               key="PICK UP"
               label=""
               name="deliveryMethodRadioGroup"
@@ -160,7 +164,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
               value="PICK UP"
             >
               <div
-                className="ui checked radio checkbox"
+                className="ui radio checkbox"
                 onChange={[Function]}
                 onClick={[Function]}
                 onMouseDown={[Function]}
@@ -170,7 +174,6 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                   innerRef={
                     Object {
                       "current": <input
-                        checked=""
                         class="hidden"
                         name="deliveryMethodRadioGroup"
                         readonly=""
@@ -185,7 +188,6 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                     innerRef={
                       Object {
                         "current": <input
-                          checked=""
                           class="hidden"
                           name="deliveryMethodRadioGroup"
                           readonly=""
@@ -197,7 +199,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                     }
                   >
                     <input
-                      checked={true}
+                      checked={false}
                       className="hidden"
                       name="deliveryMethodRadioGroup"
                       readOnly={true}
@@ -233,7 +235,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
             className="field"
           >
             <label>
-              Do you require it before a certain date?
+              Do you require it before a certain date? (optional)
             </label>
             <DatePicker
               defaultValue=""

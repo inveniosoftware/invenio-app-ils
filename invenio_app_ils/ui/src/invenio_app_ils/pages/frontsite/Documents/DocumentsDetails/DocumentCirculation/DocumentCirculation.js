@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Divider, Header, List, Segment } from 'semantic-ui-react';
+import {Divider, Header, List, Popup, Segment} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { LoginRedirectButton } from '../../../../../authentication/components';
 import { LoanRequestForm } from '../LoanRequestForm';
@@ -37,7 +37,8 @@ class BookAvailability extends Component {
     if (circulationData.has_items_for_loan > 0) {
       return (
         <List.Item>
-          <List.Icon name={'info'} />
+          <Popup content="Calculated based on current library stock"
+                 trigger={<List.Icon name={'info'} />}/>
           <List.Content
             className={
               circulationData.has_items_for_loan > 0
@@ -45,7 +46,7 @@ class BookAvailability extends Component {
                 : 'text-danger'
             }
           >
-            Available for loan: now
+            Available for loan <span className={'success'}>now</span>
           </List.Content>
         </List.Item>
       );
@@ -54,7 +55,7 @@ class BookAvailability extends Component {
         <List.Item>
           <List.Icon name={'info'} />
           <List.Content>
-            Available for loan from:
+            Available for loan from{' '}
             <b>{circulationData.next_available_date}</b>
           </List.Content>
         </List.Item>
