@@ -24,7 +24,11 @@ export class AuthorForm extends React.Component {
           }
         />
         <GroupField title="Identifiers">
-          <IdentifiersField basic fieldPath={`${objectPath}.identifiers`} />
+          <IdentifiersField
+            basic
+            fieldPath={`${objectPath}.identifiers`}
+            label=""
+          />
         </GroupField>
       </>
     );
@@ -91,7 +95,7 @@ export class AuthorForm extends React.Component {
             addButtonLabel="Add alternative name"
           />
         </AccordionField>
-        <IdentifiersField fieldPath="identifiers" />
+        <IdentifiersField />
         <AccordionField label="Roles" fieldPath="roles">
           <ArrayField
             fieldPath="roles"

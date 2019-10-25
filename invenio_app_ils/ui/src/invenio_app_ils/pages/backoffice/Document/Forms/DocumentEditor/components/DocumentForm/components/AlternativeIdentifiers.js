@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
-import { ObjectArrayStringField } from '../../../../../../../../forms';
+import { IdentifiersField } from './IdentifiersField';
 
 export class AlternativeIdentifiers extends Component {
   render() {
     return (
-      <ObjectArrayStringField
+      <IdentifiersField
         fieldPath="alternative_identifiers"
         label="Alternative Identifiers"
-        objectKeysArray={[
-          { key: 'scheme', text: 'Scheme', required: true },
-          { key: 'value', text: 'Identifier value', required: true },
-        ]}
-        defaultNewValue={{ scheme: '', value: '' }}
-        addButtonLabel="Add new identifier"
       />
     );
   }

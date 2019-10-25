@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { ObjectArrayStringField } from '../../../../../../../../forms';
 
 export class IdentifiersField extends Component {
@@ -7,13 +8,28 @@ export class IdentifiersField extends Component {
       <ObjectArrayStringField
         basic={this.props.basic}
         fieldPath={this.props.fieldPath}
+        label={this.props.label}
         objectKeysArray={[
           { key: 'scheme', text: 'Scheme', required: true },
           { key: 'value', text: 'Identifier value', required: true },
         ]}
         defaultNewValue={{ scheme: '', value: '' }}
-        addButtonLabel="Add new identifier"
+        addButtonLabel={this.props.addButtonLabel}
       />
     );
   }
 }
+
+IdentifiersField.propTypes = {
+  addButtonLabel: PropTypes.string,
+  basic: PropTypes.bool,
+  fieldPath: PropTypes.string,
+  label: PropTypes.string,
+};
+
+IdentifiersField.defaultProps = {
+  addButtonLabel: 'Add new identifier',
+  basic: false,
+  fieldPath: 'identifiers',
+  label: 'Identifiers',
+};
