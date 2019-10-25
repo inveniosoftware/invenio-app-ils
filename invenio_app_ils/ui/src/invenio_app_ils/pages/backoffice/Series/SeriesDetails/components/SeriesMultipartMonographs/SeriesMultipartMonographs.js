@@ -1,54 +1,20 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../../common/components';
-import { ResultsTable } from '../../../../../../common/components';
+import { Button } from 'semantic-ui-react';
+import {
+  Loader,
+  Error,
+  ResultsTable,
+} from '../../../../../../common/components';
 import { series as seriesApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { SeeAllButton } from '../../../../components/buttons';
-import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
-import pick from 'lodash/pick';
-import { goTo, goToHandler } from '../../../../../../history';
+import { goToHandler } from '../../../../../../history';
 
-const TableData = ({
-  multipartMonographs,
-  data,
-  showMaxSeries,
-  seeAllButton,
-  showDetailsUrl,
-}) => {
-  const prepareData = multipartMonographs => {
-    const serials = data.metadata.relations.serial || [];
-    const volumes = {};
-    for (const serial of serials) {
-      volumes[[serial.pid, serial.pid_type]] = serial.volume;
-    }
-    return multipartMonographs.hits.map(row => {
-      const key = [row.metadata.pid, 'serid'];
-      const volume = key in volumes ? volumes[key] : '?';
-      const entry = formatter.series.toTable(row);
-      entry.Volume = volume;
-      return pick(entry, ['ID', 'Volume', 'Title', 'Authors']);
-    });
-  };
-  const rows = prepareData(multipartMonographs);
-  rows.totalHits = multipartMonographs.total;
-  return (
-    <ResultsTable
-      rows={rows}
-      title={'Multipart Monographs'}
-      name={'multipart monographs'}
-      rowActionClickHandler={row => goTo(showDetailsUrl(row.ID))}
-      seeAllComponent={seeAllButton()}
-      showMaxRows={showMaxSeries}
-    />
-  );
-};
-
-class SeriesMultipartMonographsData extends Component {
+export class SeriesMultipartMonographsData extends Component {
   constructor(props) {
     super(props);
-    this.showDetailsUrl = BackOfficeRoutes.seriesDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.seriesListWithQuery;
     this.seriesPid = props.seriesDetails.metadata.pid;
     this.seriesType = props.seriesDetails.metadata.mode_of_issuance;
     this.fetchSeriesMultipartMonographs = props.fetchSeriesMultipartMonographs;
@@ -59,7 +25,7 @@ class SeriesMultipartMonographsData extends Component {
   }
 
   seeAllButton = () => {
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.seriesListWithQuery(
       seriesApi
         .query()
         .withSerialPid(this.seriesPid)
@@ -68,24 +34,54 @@ class SeriesMultipartMonographsData extends Component {
     return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
+  prepareData = multipartMonographs => {
+    const { seriesDetails } = this.props;
+    const serials = seriesDetails.metadata.relations.serial || [];
+    const volumes = {};
+    for (const serial of serials) {
+      volumes[[serial.pid, serial.pid_type]] = serial.volume;
+    }
+    return multipartMonographs.hits.map(row => {
+      const key = [row.metadata.pid, 'serid'];
+      const volume = key in volumes ? volumes[key] : '?';
+      row.volume = volume;
+      return row;
+    });
+  };
+
+  viewDetails = ({ row }) => {
+    return (
+      <Button
+        as={Link}
+        to={BackOfficeRoutes.seriesDetailsFor(row.metadata.pid)}
+        compact
+        icon="info"
+        data-test={row.metadata.pid}
+      />
+    );
+  };
+
   render() {
-    const {
-      multipartMonographs,
-      seriesDetails,
-      isLoading,
-      showMaxSeries,
-      error,
-    } = this.props;
+    const { multipartMonographs, isLoading, showMaxSeries, error } = this.props;
+    const columns = [
+      { title: '', field: '', formatter: this.viewDetails },
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Volume', field: 'volume' },
+      { title: 'Title', field: 'metadata.title' },
+      { title: 'Authors', field: 'metadata.authors' },
+    ];
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
-          <TableData
-            multipartMonographs={multipartMonographs}
-            data={seriesDetails}
-            showMaxSeries={showMaxSeries}
-            seeAllButton={this.seeAllButton}
-            showDetailsUrl={this.showDetailsUrl}
-          ></TableData>
+          <ResultsTable
+            data={this.prepareData(multipartMonographs)}
+            columns={columns}
+            totalHitsCount={multipartMonographs.total}
+            title={'Multipart Monographs'}
+            name={'multipart monographs'}
+            seeAllComponent={this.seeAllButton()}
+            showMaxRows={showMaxSeries}
+          />
         </Error>
       </Loader>
     );

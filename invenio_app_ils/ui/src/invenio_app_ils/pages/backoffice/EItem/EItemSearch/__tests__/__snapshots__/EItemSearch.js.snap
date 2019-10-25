@@ -2,13 +2,12 @@
 
 exports[`EItemsSearch ResultsTable tests should not render when empty results 1`] = `
 <ResultsTable
+  columns={Array []}
   currentPage={1}
-  fixed={false}
+  data={Array []}
   headerActionClickHandler={null}
   headerActionComponent={null}
   paginationComponent={null}
-  rowActionClickHandler={[Function]}
-  rows={Array []}
   seeAllComponent={null}
   showAllResults={false}
   showMaxRows={10}
@@ -60,36 +59,53 @@ exports[`EItemsSearch ResultsTable tests should not render when empty results 1`
 
 exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
 <ResultsTable
-  currentPage={1}
-  fixed={false}
-  headerActionClickHandler={null}
-  headerActionComponent={null}
-  paginationComponent={null}
-  rowActionClickHandler={[Function]}
-  rows={
+  columns={
     Array [
       Object {
-        "Created": "Invalid DateTime",
-        "Description": "Description of the electronic item",
-        "Document ID": "docid-1",
-        "ID": "eitemid-1",
-        "Internal Notes": "An internal note",
-        "Open access": "Yes",
-        "Title": "Document 1 title",
-        "Updated": "Invalid DateTime",
+        "field": "",
+        "formatter": [Function],
+        "title": "view",
       },
       Object {
-        "Created": "Invalid DateTime",
-        "Description": "Description of the electronic item",
-        "Document ID": "docid-2",
-        "ID": "eitemid-2",
-        "Internal Notes": "An internal note",
-        "Open access": "No",
-        "Title": "Document 2 title",
-        "Updated": "Invalid DateTime",
+        "field": "metadata.description",
+        "title": "Description",
       },
     ]
   }
+  currentPage={1}
+  data={
+    Array [
+      Object {
+        "metadata": Object {
+          "description": "Description of the electronic item",
+          "document": Object {
+            "title": "Document 1 title",
+          },
+          "document_pid": "docid-1",
+          "internal_notes": "An internal note",
+          "open_access": true,
+          "pid": "eitemid-1",
+        },
+        "pid": "eitemid-1",
+      },
+      Object {
+        "metadata": Object {
+          "description": "Description of the electronic item",
+          "document": Object {
+            "title": "Document 2 title",
+          },
+          "document_pid": "docid-2",
+          "internal_notes": "An internal note",
+          "open_access": false,
+          "pid": "eitemid-2",
+        },
+        "pid": "eitemid-2",
+      },
+    ]
+  }
+  headerActionClickHandler={null}
+  headerActionComponent={null}
+  paginationComponent={null}
   seeAllComponent={null}
   showAllResults={false}
   showMaxRows={10}
@@ -137,17 +153,17 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
       <ResultsTableHeader
         columns={
           Array [
-            "ID",
-            "Document ID",
-            "Open access",
-            "Created",
-            "Updated",
-            "Title",
-            "Description",
-            "Internal Notes",
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "view",
+            },
+            Object {
+              "field": "metadata.description",
+              "title": "Description",
+            },
           ]
         }
-        withRowAction={false}
       >
         <TableHeader
           as="thead"
@@ -166,19 +182,7 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
               >
                 <TableHeaderCell
                   as="th"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    />
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="ID"
+                  key="view"
                 >
                   <TableCell
                     as="th"
@@ -187,82 +191,7 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
                     <th
                       className=""
                     >
-                      ID
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Document ID"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Document ID
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Open access"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Open access
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Created"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Created
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Updated"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Updated
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Title"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Title
+                      view
                     </th>
                   </TableCell>
                 </TableHeaderCell>
@@ -281,21 +210,6 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
                     </th>
                   </TableCell>
                 </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Internal Notes"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Internal Notes
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
               </tr>
             </TableRow>
           </thead>
@@ -304,38 +218,44 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
       <ResultsTableBody
         columns={
           Array [
-            "ID",
-            "Document ID",
-            "Open access",
-            "Created",
-            "Updated",
-            "Title",
-            "Description",
-            "Internal Notes",
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "view",
+            },
+            Object {
+              "field": "metadata.description",
+              "title": "Description",
+            },
           ]
         }
-        rowActionClickHandler={[Function]}
         rows={
           Array [
             Object {
-              "Created": "Invalid DateTime",
-              "Description": "Description of the electronic item",
-              "Document ID": "docid-1",
-              "ID": "eitemid-1",
-              "Internal Notes": "An internal note",
-              "Open access": "Yes",
-              "Title": "Document 1 title",
-              "Updated": "Invalid DateTime",
+              "metadata": Object {
+                "description": "Description of the electronic item",
+                "document": Object {
+                  "title": "Document 1 title",
+                },
+                "document_pid": "docid-1",
+                "internal_notes": "An internal note",
+                "open_access": true,
+                "pid": "eitemid-1",
+              },
+              "pid": "eitemid-1",
             },
             Object {
-              "Created": "Invalid DateTime",
-              "Description": "Description of the electronic item",
-              "Document ID": "docid-2",
-              "ID": "eitemid-2",
-              "Internal Notes": "An internal note",
-              "Open access": "No",
-              "Title": "Document 2 title",
-              "Updated": "Invalid DateTime",
+              "metadata": Object {
+                "description": "Description of the electronic item",
+                "document": Object {
+                  "title": "Document 2 title",
+                },
+                "document_pid": "docid-2",
+                "internal_notes": "An internal note",
+                "open_access": false,
+                "pid": "eitemid-2",
+              },
+              "pid": "eitemid-2",
             },
           ]
         }
@@ -358,29 +278,24 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
               >
                 <TableCell
                   as="td"
-                  textAlign="center"
+                  data-test="0-eitemid-1"
+                  key="0-eitemid-1"
                 >
                   <td
-                    className="center aligned"
+                    className=""
+                    data-test="0-eitemid-1"
                   >
                     <Button
                       as="button"
-                      compact={true}
-                      data-test="btn-view-details-eitemid-1"
-                      icon="info"
-                      onClick={[Function]}
+                      onClick={[MockFunction]}
                     >
                       <Ref
                         innerRef={
                           Object {
                             "current": <button
-                              class="ui compact icon button"
-                              data-test="btn-view-details-eitemid-1"
+                              class="ui button"
                             >
-                              <i
-                                aria-hidden="true"
-                                class="info icon"
-                              />
+                              View
                             </button>,
                           }
                         }
@@ -389,32 +304,18 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
                           innerRef={
                             Object {
                               "current": <button
-                                class="ui compact icon button"
-                                data-test="btn-view-details-eitemid-1"
+                                class="ui button"
                               >
-                                <i
-                                  aria-hidden="true"
-                                  class="info icon"
-                                />
+                                View
                               </button>,
                             }
                           }
                         >
                           <button
-                            className="ui compact icon button"
-                            data-test="btn-view-details-eitemid-1"
+                            className="ui button"
                             onClick={[Function]}
                           >
-                            <Icon
-                              as="i"
-                              name="info"
-                            >
-                              <i
-                                aria-hidden="true"
-                                className="info icon"
-                                onClick={[Function]}
-                              />
-                            </Icon>
+                            View
                           </button>
                         </RefFindNode>
                       </Ref>
@@ -423,98 +324,14 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
                 </TableCell>
                 <TableCell
                   as="td"
-                  data-test="ID-eitemid-1"
-                  key="0-eitemid-1"
-                >
-                  <td
-                    className=""
-                    data-test="ID-eitemid-1"
-                  >
-                    eitemid-1
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Document ID-eitemid-1"
+                  data-test="1-eitemid-1"
                   key="1-eitemid-1"
                 >
                   <td
                     className=""
-                    data-test="Document ID-eitemid-1"
-                  >
-                    docid-1
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Open access-eitemid-1"
-                  key="2-eitemid-1"
-                >
-                  <td
-                    className=""
-                    data-test="Open access-eitemid-1"
-                  >
-                    Yes
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Created-eitemid-1"
-                  key="3-eitemid-1"
-                >
-                  <td
-                    className=""
-                    data-test="Created-eitemid-1"
-                  >
-                    Invalid DateTime
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Updated-eitemid-1"
-                  key="4-eitemid-1"
-                >
-                  <td
-                    className=""
-                    data-test="Updated-eitemid-1"
-                  >
-                    Invalid DateTime
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Title-eitemid-1"
-                  key="5-eitemid-1"
-                >
-                  <td
-                    className=""
-                    data-test="Title-eitemid-1"
-                  >
-                    Document 1 title
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Description-eitemid-1"
-                  key="6-eitemid-1"
-                >
-                  <td
-                    className=""
-                    data-test="Description-eitemid-1"
+                    data-test="1-eitemid-1"
                   >
                     Description of the electronic item
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Internal Notes-eitemid-1"
-                  key="7-eitemid-1"
-                >
-                  <td
-                    className=""
-                    data-test="Internal Notes-eitemid-1"
-                  >
-                    An internal note
                   </td>
                 </TableCell>
               </tr>
@@ -531,29 +348,24 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
               >
                 <TableCell
                   as="td"
-                  textAlign="center"
+                  data-test="0-eitemid-2"
+                  key="0-eitemid-2"
                 >
                   <td
-                    className="center aligned"
+                    className=""
+                    data-test="0-eitemid-2"
                   >
                     <Button
                       as="button"
-                      compact={true}
-                      data-test="btn-view-details-eitemid-2"
-                      icon="info"
-                      onClick={[Function]}
+                      onClick={[MockFunction]}
                     >
                       <Ref
                         innerRef={
                           Object {
                             "current": <button
-                              class="ui compact icon button"
-                              data-test="btn-view-details-eitemid-2"
+                              class="ui button"
                             >
-                              <i
-                                aria-hidden="true"
-                                class="info icon"
-                              />
+                              View
                             </button>,
                           }
                         }
@@ -562,32 +374,18 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
                           innerRef={
                             Object {
                               "current": <button
-                                class="ui compact icon button"
-                                data-test="btn-view-details-eitemid-2"
+                                class="ui button"
                               >
-                                <i
-                                  aria-hidden="true"
-                                  class="info icon"
-                                />
+                                View
                               </button>,
                             }
                           }
                         >
                           <button
-                            className="ui compact icon button"
-                            data-test="btn-view-details-eitemid-2"
+                            className="ui button"
                             onClick={[Function]}
                           >
-                            <Icon
-                              as="i"
-                              name="info"
-                            >
-                              <i
-                                aria-hidden="true"
-                                className="info icon"
-                                onClick={[Function]}
-                              />
-                            </Icon>
+                            View
                           </button>
                         </RefFindNode>
                       </Ref>
@@ -596,98 +394,14 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
                 </TableCell>
                 <TableCell
                   as="td"
-                  data-test="ID-eitemid-2"
-                  key="0-eitemid-2"
-                >
-                  <td
-                    className=""
-                    data-test="ID-eitemid-2"
-                  >
-                    eitemid-2
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Document ID-eitemid-2"
+                  data-test="1-eitemid-2"
                   key="1-eitemid-2"
                 >
                   <td
                     className=""
-                    data-test="Document ID-eitemid-2"
-                  >
-                    docid-2
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Open access-eitemid-2"
-                  key="2-eitemid-2"
-                >
-                  <td
-                    className=""
-                    data-test="Open access-eitemid-2"
-                  >
-                    No
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Created-eitemid-2"
-                  key="3-eitemid-2"
-                >
-                  <td
-                    className=""
-                    data-test="Created-eitemid-2"
-                  >
-                    Invalid DateTime
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Updated-eitemid-2"
-                  key="4-eitemid-2"
-                >
-                  <td
-                    className=""
-                    data-test="Updated-eitemid-2"
-                  >
-                    Invalid DateTime
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Title-eitemid-2"
-                  key="5-eitemid-2"
-                >
-                  <td
-                    className=""
-                    data-test="Title-eitemid-2"
-                  >
-                    Document 2 title
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Description-eitemid-2"
-                  key="6-eitemid-2"
-                >
-                  <td
-                    className=""
-                    data-test="Description-eitemid-2"
+                    data-test="1-eitemid-2"
                   >
                     Description of the electronic item
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Internal Notes-eitemid-2"
-                  key="7-eitemid-2"
-                >
-                  <td
-                    className=""
-                    data-test="Internal Notes-eitemid-2"
-                  >
-                    An internal note
                   </td>
                 </TableCell>
               </tr>
@@ -697,7 +411,7 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
       </ResultsTableBody>
       <ResultsTableFooter
         allRowsNumber={2}
-        columnsNumber={8}
+        columnsNumber={2}
         currentPage={1}
         paginationComponent={null}
         seeAllComponent={null}

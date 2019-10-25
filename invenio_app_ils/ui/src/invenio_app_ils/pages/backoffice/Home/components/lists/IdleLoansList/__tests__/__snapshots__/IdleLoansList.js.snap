@@ -4,14 +4,38 @@ exports[`IdleLoansList tests should load the details component 1`] = `
 <Loader>
   <Error>
     <ResultsTable
+      columns={
+        Array [
+          Object {
+            "field": "",
+            "formatter": [Function],
+            "title": "",
+          },
+          Object {
+            "field": "metadata.pid",
+            "title": "ID",
+          },
+          Object {
+            "field": "metadata.patron_pid",
+            "title": "Patron ID",
+          },
+          Object {
+            "field": "metadata.document_pid",
+            "title": "Document ID",
+          },
+          Object {
+            "field": "metadata.request_start_date",
+            "formatter": [Function],
+            "title": "Request start date",
+          },
+        ]
+      }
       currentPage={1}
-      fixed={false}
+      data={Array []}
       headerActionClickHandler={null}
       headerActionComponent={null}
       name="idle loan requests"
       paginationComponent={null}
-      rowActionClickHandler={[Function]}
-      rows={Array []}
       seeAllComponent={
         <SeeAllButton
           clickHandler={[Function]}
@@ -24,6 +48,7 @@ exports[`IdleLoansList tests should load the details component 1`] = `
       singleLine={false}
       subtitle="Loan requests pending since more than 10 days."
       title="Idle loan requests"
+      totalHitsCounts={0}
     />
   </Error>
 </Loader>
@@ -84,29 +109,81 @@ exports[`IdleLoansList tests should render loans 1`] = `
   <Loader>
     <Error>
       <ResultsTable
+        columns={
+          Array [
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "",
+            },
+            Object {
+              "field": "metadata.pid",
+              "title": "ID",
+            },
+            Object {
+              "field": "metadata.patron_pid",
+              "title": "Patron ID",
+            },
+            Object {
+              "field": "metadata.document_pid",
+              "title": "Document ID",
+            },
+            Object {
+              "field": "metadata.request_start_date",
+              "formatter": [Function],
+              "title": "Request start date",
+            },
+          ]
+        }
         currentPage={1}
-        fixed={false}
+        data={
+          Array [
+            Object {
+              "id": 1,
+              "metadata": Object {
+                "document_pid": "docid-1",
+                "end_date": "2018-07-28",
+                "item_pid": "",
+                "patron": Object {
+                  "email": "patron1@test.ch",
+                },
+                "patron_pid": "1",
+                "pickup_location_pid": "locid-1",
+                "pid": "loanid-1",
+                "start_date": "2018-06-28",
+                "state": "PENDING",
+                "transaction_date": "2018-06-29",
+                "transaction_location_pid": "locid-1",
+                "transaction_user_pid": "user_pid",
+              },
+              "pid": "loan1",
+            },
+            Object {
+              "id": 2,
+              "metadata": Object {
+                "document_pid": "docid-1",
+                "end_date": "2018-07-28",
+                "item_pid": "itemid-2",
+                "patron": Object {
+                  "email": "patron2@test.ch",
+                },
+                "patron_pid": "1",
+                "pickup_location_pid": "locid-1",
+                "pid": "loanid-2",
+                "start_date": "2018-06-28",
+                "state": "PENDING",
+                "transaction_date": "2018-06-29",
+                "transaction_location_pid": "locid-1",
+                "transaction_user_pid": "user_pid",
+              },
+              "pid": "loan2",
+            },
+          ]
+        }
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="idle loan requests"
         paginationComponent={null}
-        rowActionClickHandler={[Function]}
-        rows={
-          Array [
-            Object {
-              "Document ID": "docid-1",
-              "ID": "loan1",
-              "Patron ID": "1",
-              "Request start date": null,
-            },
-            Object {
-              "Document ID": "docid-1",
-              "ID": "loan2",
-              "Patron ID": "1",
-              "Request start date": null,
-            },
-          ]
-        }
         seeAllComponent={
           <SeeAllButton
             clickHandler={[Function]}
@@ -119,6 +196,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
         singleLine={false}
         subtitle="Loan requests pending since more than 10 days."
         title="Idle loan requests"
+        totalHitsCounts={2}
       >
         <Grid>
           <div
@@ -181,13 +259,30 @@ exports[`IdleLoansList tests should render loans 1`] = `
             <ResultsTableHeader
               columns={
                 Array [
-                  "ID",
-                  "Patron ID",
-                  "Document ID",
-                  "Request start date",
+                  Object {
+                    "field": "",
+                    "formatter": [Function],
+                    "title": "",
+                  },
+                  Object {
+                    "field": "metadata.pid",
+                    "title": "ID",
+                  },
+                  Object {
+                    "field": "metadata.patron_pid",
+                    "title": "Patron ID",
+                  },
+                  Object {
+                    "field": "metadata.document_pid",
+                    "title": "Document ID",
+                  },
+                  Object {
+                    "field": "metadata.request_start_date",
+                    "formatter": [Function],
+                    "title": "Request start date",
+                  },
                 ]
               }
-              withRowAction={false}
             >
               <TableHeader
                 as="thead"
@@ -206,6 +301,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
                     >
                       <TableHeaderCell
                         as="th"
+                        key=""
                       >
                         <TableCell
                           as="th"
@@ -284,26 +380,71 @@ exports[`IdleLoansList tests should render loans 1`] = `
             <ResultsTableBody
               columns={
                 Array [
-                  "ID",
-                  "Patron ID",
-                  "Document ID",
-                  "Request start date",
+                  Object {
+                    "field": "",
+                    "formatter": [Function],
+                    "title": "",
+                  },
+                  Object {
+                    "field": "metadata.pid",
+                    "title": "ID",
+                  },
+                  Object {
+                    "field": "metadata.patron_pid",
+                    "title": "Patron ID",
+                  },
+                  Object {
+                    "field": "metadata.document_pid",
+                    "title": "Document ID",
+                  },
+                  Object {
+                    "field": "metadata.request_start_date",
+                    "formatter": [Function],
+                    "title": "Request start date",
+                  },
                 ]
               }
-              rowActionClickHandler={[Function]}
               rows={
                 Array [
                   Object {
-                    "Document ID": "docid-1",
-                    "ID": "loan1",
-                    "Patron ID": "1",
-                    "Request start date": null,
+                    "id": 1,
+                    "metadata": Object {
+                      "document_pid": "docid-1",
+                      "end_date": "2018-07-28",
+                      "item_pid": "",
+                      "patron": Object {
+                        "email": "patron1@test.ch",
+                      },
+                      "patron_pid": "1",
+                      "pickup_location_pid": "locid-1",
+                      "pid": "loanid-1",
+                      "start_date": "2018-06-28",
+                      "state": "PENDING",
+                      "transaction_date": "2018-06-29",
+                      "transaction_location_pid": "locid-1",
+                      "transaction_user_pid": "user_pid",
+                    },
+                    "pid": "loan1",
                   },
                   Object {
-                    "Document ID": "docid-1",
-                    "ID": "loan2",
-                    "Patron ID": "1",
-                    "Request start date": null,
+                    "id": 2,
+                    "metadata": Object {
+                      "document_pid": "docid-1",
+                      "end_date": "2018-07-28",
+                      "item_pid": "itemid-2",
+                      "patron": Object {
+                        "email": "patron2@test.ch",
+                      },
+                      "patron_pid": "1",
+                      "pickup_location_pid": "locid-1",
+                      "pid": "loanid-2",
+                      "start_date": "2018-06-28",
+                      "state": "PENDING",
+                      "transaction_date": "2018-06-29",
+                      "transaction_location_pid": "locid-1",
+                      "transaction_user_pid": "user_pid",
+                    },
+                    "pid": "loan2",
                   },
                 ]
               }
@@ -326,116 +467,764 @@ exports[`IdleLoansList tests should render loans 1`] = `
                     >
                       <TableCell
                         as="td"
-                        textAlign="center"
+                        data-test="0-loan1"
+                        key="0-loan1"
                       >
                         <td
-                          className="center aligned"
+                          className=""
+                          data-test="0-loan1"
                         >
                           <Button
-                            as="button"
+                            as={
+                              Object {
+                                "$$typeof": Symbol(react.forward_ref),
+                                "displayName": "Link",
+                                "propTypes": Object {
+                                  "innerRef": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "onClick": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "replace": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "target": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "to": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                },
+                                "render": [MockFunction] {
+                                  "calls": Array [
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "loanid-1",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/loanid-1",
+                                      },
+                                      [Function],
+                                    ],
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "loanid-2",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/loanid-2",
+                                      },
+                                      [Function],
+                                    ],
+                                  ],
+                                  "results": Array [
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                  ],
+                                },
+                              }
+                            }
                             compact={true}
-                            data-test="btn-view-details-loan1"
+                            data-test="loanid-1"
                             icon="info"
-                            onClick={[Function]}
+                            to="url/loanid-1"
                           >
                             <Ref
                               innerRef={
                                 Object {
-                                  "current": <button
-                                    class="ui compact icon button"
-                                    data-test="btn-view-details-loan1"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      class="info icon"
-                                    />
-                                  </button>,
+                                  "current": null,
                                 }
                               }
                             >
-                              <RefFindNode
+                              <RefForward
                                 innerRef={
                                   Object {
-                                    "current": <button
-                                      class="ui compact icon button"
-                                      data-test="btn-view-details-loan1"
-                                    >
-                                      <i
-                                        aria-hidden="true"
-                                        class="info icon"
-                                      />
-                                    </button>,
+                                    "current": null,
                                   }
                                 }
                               >
-                                <button
+                                <Link
                                   className="ui compact icon button"
-                                  data-test="btn-view-details-loan1"
+                                  data-test="loanid-1"
                                   onClick={[Function]}
-                                >
-                                  <Icon
-                                    as="i"
-                                    name="info"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      className="info icon"
-                                      onClick={[Function]}
-                                    />
-                                  </Icon>
-                                </button>
-                              </RefFindNode>
+                                  role="button"
+                                  to="url/loanid-1"
+                                />
+                              </RefForward>
                             </Ref>
                           </Button>
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-loan1"
-                        key="0-loan1"
-                      >
-                        <td
-                          className=""
-                          data-test="ID-loan1"
-                        >
-                          loan1
-                        </td>
-                      </TableCell>
-                      <TableCell
-                        as="td"
-                        data-test="Patron ID-loan1"
+                        data-test="1-loan1"
                         key="1-loan1"
                       >
                         <td
                           className=""
-                          data-test="Patron ID-loan1"
+                          data-test="1-loan1"
+                        >
+                          loanid-1
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="2-loan1"
+                        key="2-loan1"
+                      >
+                        <td
+                          className=""
+                          data-test="2-loan1"
                         >
                           1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Document ID-loan1"
-                        key="2-loan1"
+                        data-test="3-loan1"
+                        key="3-loan1"
                       >
                         <td
                           className=""
-                          data-test="Document ID-loan1"
+                          data-test="3-loan1"
                         >
                           docid-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Request start date-loan1"
-                        key="3-loan1"
+                        data-test="4-loan1"
+                        key="4-loan1"
                       >
                         <td
                           className=""
-                          data-test="Request start date-loan1"
-                        >
-                          -
-                        </td>
+                          data-test="4-loan1"
+                        />
                       </TableCell>
                     </tr>
                   </TableRow>
@@ -451,116 +1240,764 @@ exports[`IdleLoansList tests should render loans 1`] = `
                     >
                       <TableCell
                         as="td"
-                        textAlign="center"
+                        data-test="0-loan2"
+                        key="0-loan2"
                       >
                         <td
-                          className="center aligned"
+                          className=""
+                          data-test="0-loan2"
                         >
                           <Button
-                            as="button"
+                            as={
+                              Object {
+                                "$$typeof": Symbol(react.forward_ref),
+                                "displayName": "Link",
+                                "propTypes": Object {
+                                  "innerRef": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "onClick": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "replace": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "target": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "to": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-1",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-1",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            false,
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />,
+                                            undefined,
+                                          ],
+                                          "className": "ui compact icon button",
+                                          "data-test": "loanid-2",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": undefined,
+                                          "to": "url/loanid-2",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                },
+                                "render": [MockFunction] {
+                                  "calls": Array [
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "loanid-1",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/loanid-1",
+                                      },
+                                      [Function],
+                                    ],
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          false,
+                                          <Icon
+                                            as="i"
+                                            name="info"
+                                          />,
+                                          undefined,
+                                        ],
+                                        "className": "ui compact icon button",
+                                        "data-test": "loanid-2",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": undefined,
+                                        "to": "url/loanid-2",
+                                      },
+                                      [Function],
+                                    ],
+                                  ],
+                                  "results": Array [
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                  ],
+                                },
+                              }
+                            }
                             compact={true}
-                            data-test="btn-view-details-loan2"
+                            data-test="loanid-2"
                             icon="info"
-                            onClick={[Function]}
+                            to="url/loanid-2"
                           >
                             <Ref
                               innerRef={
                                 Object {
-                                  "current": <button
-                                    class="ui compact icon button"
-                                    data-test="btn-view-details-loan2"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      class="info icon"
-                                    />
-                                  </button>,
+                                  "current": null,
                                 }
                               }
                             >
-                              <RefFindNode
+                              <RefForward
                                 innerRef={
                                   Object {
-                                    "current": <button
-                                      class="ui compact icon button"
-                                      data-test="btn-view-details-loan2"
-                                    >
-                                      <i
-                                        aria-hidden="true"
-                                        class="info icon"
-                                      />
-                                    </button>,
+                                    "current": null,
                                   }
                                 }
                               >
-                                <button
+                                <Link
                                   className="ui compact icon button"
-                                  data-test="btn-view-details-loan2"
+                                  data-test="loanid-2"
                                   onClick={[Function]}
-                                >
-                                  <Icon
-                                    as="i"
-                                    name="info"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      className="info icon"
-                                      onClick={[Function]}
-                                    />
-                                  </Icon>
-                                </button>
-                              </RefFindNode>
+                                  role="button"
+                                  to="url/loanid-2"
+                                />
+                              </RefForward>
                             </Ref>
                           </Button>
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="ID-loan2"
-                        key="0-loan2"
-                      >
-                        <td
-                          className=""
-                          data-test="ID-loan2"
-                        >
-                          loan2
-                        </td>
-                      </TableCell>
-                      <TableCell
-                        as="td"
-                        data-test="Patron ID-loan2"
+                        data-test="1-loan2"
                         key="1-loan2"
                       >
                         <td
                           className=""
-                          data-test="Patron ID-loan2"
+                          data-test="1-loan2"
+                        >
+                          loanid-2
+                        </td>
+                      </TableCell>
+                      <TableCell
+                        as="td"
+                        data-test="2-loan2"
+                        key="2-loan2"
+                      >
+                        <td
+                          className=""
+                          data-test="2-loan2"
                         >
                           1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Document ID-loan2"
-                        key="2-loan2"
+                        data-test="3-loan2"
+                        key="3-loan2"
                       >
                         <td
                           className=""
-                          data-test="Document ID-loan2"
+                          data-test="3-loan2"
                         >
                           docid-1
                         </td>
                       </TableCell>
                       <TableCell
                         as="td"
-                        data-test="Request start date-loan2"
-                        key="3-loan2"
+                        data-test="4-loan2"
+                        key="4-loan2"
                       >
                         <td
                           className=""
-                          data-test="Request start date-loan2"
-                        >
-                          -
-                        </td>
+                          data-test="4-loan2"
+                        />
                       </TableCell>
                     </tr>
                   </TableRow>
@@ -569,7 +2006,7 @@ exports[`IdleLoansList tests should render loans 1`] = `
             </ResultsTableBody>
             <ResultsTableFooter
               allRowsNumber={2}
-              columnsNumber={4}
+              columnsNumber={5}
               currentPage={1}
               paginationComponent={null}
               seeAllComponent={
@@ -604,14 +2041,38 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
   <Loader>
     <Error>
       <ResultsTable
+        columns={
+          Array [
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "",
+            },
+            Object {
+              "field": "metadata.pid",
+              "title": "ID",
+            },
+            Object {
+              "field": "metadata.patron_pid",
+              "title": "Patron ID",
+            },
+            Object {
+              "field": "metadata.document_pid",
+              "title": "Document ID",
+            },
+            Object {
+              "field": "metadata.request_start_date",
+              "formatter": [Function],
+              "title": "Request start date",
+            },
+          ]
+        }
         currentPage={1}
-        fixed={false}
+        data={Array []}
         headerActionClickHandler={null}
         headerActionComponent={null}
         name="idle loan requests"
         paginationComponent={null}
-        rowActionClickHandler={[Function]}
-        rows={Array []}
         seeAllComponent={
           <SeeAllButton
             clickHandler={[Function]}
@@ -624,6 +2085,7 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
         singleLine={false}
         subtitle="Loan requests pending since more than 10 days."
         title="Idle loan requests"
+        totalHitsCounts={0}
       >
         <Grid>
           <div

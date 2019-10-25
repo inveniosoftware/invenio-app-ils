@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
 import {
   Loader,
   Error,
@@ -7,27 +9,19 @@ import {
 } from '../../../../../../common/components';
 import { invenioConfig } from '../../../../../../common/config';
 import { loan as loanApi } from '../../../../../../common/api';
+import { dateFormatter } from '../../../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
-import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
-import { goTo, goToHandler } from '../../../../../../history';
+import { goToHandler } from '../../../../../../history';
 import { OverdueLoanSendMailModal } from '../../../../components';
-import pick from 'lodash/pick';
 
 export default class OverdueLoansList extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchOverdueLoans = props.fetchOverdueLoans;
-    this.showDetailsUrl = BackOfficeRoutes.loanDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
-  }
-
   componentDidMount() {
-    this.fetchOverdueLoans();
+    this.props.fetchOverdueLoans();
   }
 
   seeAllButton = () => {
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.loansListWithQuery(
       loanApi
         .query()
         .overdue()
@@ -37,29 +31,44 @@ export default class OverdueLoansList extends Component {
     return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
-  prepareData(data) {
-    return data.hits.map(row => {
-      const actions = <OverdueLoanSendMailModal loan={row} />;
-      return pick(formatter.loan.toTable(row, actions), [
-        'ID',
-        'Patron ID',
-        'Item barcode',
-        'End date',
-        'Actions',
-      ]);
-    });
-  }
+  viewDetails = ({ row }) => {
+    return (
+      <Button
+        as={Link}
+        to={BackOfficeRoutes.loanDetailsFor(row.metadata.pid)}
+        compact
+        icon="info"
+        data-test={row.metadata.pid}
+      />
+    );
+  };
 
   renderTable(data) {
-    const rows = this.prepareData(data);
-    rows.totalHits = data.total;
+    const columns = [
+      { title: '', field: '', formatter: this.viewDetails },
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Patron ID', field: 'metadata.patron_pid' },
+      { title: 'Item Barcode', field: 'metadata.item.barcode' },
+      {
+        title: 'End date',
+        field: 'metadata.end_date',
+        formatter: dateFormatter,
+      },
+      {
+        title: 'Actions',
+        field: '',
+        formatter: ({ row }) => <OverdueLoanSendMailModal loan={row} />,
+      },
+    ];
+
     return (
       <ResultsTable
-        rows={rows}
+        data={data.hits}
+        columns={columns}
+        totalHitsCount={data.total}
         title={'Overdue loans'}
         subtitle={'Active loans that passed their end date.'}
         name={'overdue loans'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
       />

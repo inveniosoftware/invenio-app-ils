@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { item as itemApi } from '../../../../../../common/api';
 import {
@@ -8,10 +9,7 @@ import {
 } from '../../../../../../common/components';
 import { Button } from 'semantic-ui-react';
 import { NewButton } from '../../../../components/buttons';
-import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { DeleteRecordModal } from '../../../../../backoffice/components';
-import omit from 'lodash/omit';
-import { goToHandler } from '../../../../../../history';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 
 export default class InternalLocationList extends Component {
@@ -39,52 +37,49 @@ export default class InternalLocationList extends Component {
     ];
   }
 
-  rowActions(ilocPid) {
+  rowActions = ({ row }) => {
     return (
       <>
         <Button
+          as={Link}
+          to={BackOfficeRoutes.ilocationsEditFor(row.metadata.pid)}
           icon={'edit'}
           size="small"
           title={'Edit Record'}
-          onClick={goToHandler(BackOfficeRoutes.ilocationsEditFor(ilocPid))}
         />
         <DeleteRecordModal
-          refProps={this.createRefProps(ilocPid)}
-          onDelete={() => this.deleteInternalLocation(ilocPid)}
+          refProps={this.createRefProps(row.metadata.pid)}
+          onDelete={() => this.deleteInternalLocation(row.metadata.pid)}
           deleteHeader={`Are you sure you want to delete the Internal Location
-          record with ID ${ilocPid}?`}
+          record with ID ${row.metadata.pid}?`}
         />
       </>
     );
-  }
-
-  prepareData(data) {
-    const rows = data.hits.map(row => {
-      let serialized = formatter.internalLocation.toTable(row);
-      serialized['Actions'] = this.rowActions(row.pid);
-      return omit(serialized, [
-        'Created',
-        'Updated',
-        'Link',
-        'Location ID',
-        'Location e-mail',
-      ]);
-    });
-    rows.totalHits = data.total;
-    return rows;
-  }
+  };
 
   renderResults(data) {
-    const rows = this.prepareData(data);
     const headerActionComponent = (
       <NewButton
         text="New internal location"
         to={BackOfficeRoutes.ilocationsCreate}
       />
     );
+
+    const columns = [
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Location ID', field: 'metadata.location.pid' },
+      { title: 'Name', field: 'metadata.name' },
+      { title: 'Physical location', field: 'metadata.physical_location' },
+      { title: 'Location', field: 'metadata.location.name' },
+      { title: 'Location e-mail', field: 'metadata.location.email' },
+      { title: 'Actions', field: '', formatter: this.rowActions },
+    ];
+
     return (
       <ResultsTable
-        rows={rows}
+        data={data.hits}
+        columns={columns}
+        totalHitsCount={data.total}
         showAllResults={true}
         title={'Internal Locations'}
         name={'internal locations'}

@@ -1,40 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Table } from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
+import _get from 'lodash/get';
+import _isFunction from 'lodash/isFunction';
 
 export default class ResultsTableBody extends Component {
-  renderCell = (cell, column, id, colIndex) => {
-    return (
-      <Table.Cell key={colIndex + '-' + id} data-test={column + '-' + id}>
-        {cell}
-      </Table.Cell>
-    );
+  renderCell = (col, row, rowIndex) => {
+    if ('formatter' in col && _isFunction(col.formatter)) {
+      return col.formatter({ col: col, row: row, rowIndex: rowIndex });
+    }
+    return _get(row, col.field) || '-';
   };
 
   renderRow = (columns, rows) => {
-    return rows.map(row => {
-      const withRowAction = this.props.rowActionClickHandler ? (
-        <Button
-          compact
-          icon="info"
-          onClick={() => {
-            this.props.rowActionClickHandler(row);
-          }}
-          data-test={'btn-view-details-' + row.ID}
-        />
-      ) : null;
-
+    return rows.map((row, rowIndex) => {
+      const identifier = row.pid ? row.pid : row.id;
       return (
-        <Table.Row key={row.ID} data-test={row.ID}>
-          <Table.Cell textAlign="center">{withRowAction}</Table.Cell>
-          {columns.map((column, idx) =>
-            this.renderCell(
-              row[column] ? row[column] : '-',
-              column,
-              row.ID,
-              idx
-            )
-          )}
+        <Table.Row key={identifier} data-test={identifier}>
+          {columns.map((col, idx) => (
+            <Table.Cell
+              key={`${idx}-${identifier}`}
+              data-test={`${idx}-${identifier}`}
+            >
+              {this.renderCell(col, row, rowIndex)}
+            </Table.Cell>
+          ))}
         </Table.Row>
       );
     });
@@ -48,9 +38,5 @@ export default class ResultsTableBody extends Component {
 
 ResultsTableBody.propTypes = {
   columns: PropTypes.array.isRequired,
-  rowActionClickHandler: PropTypes.func,
-};
-
-ResultsTableBody.defaultProps = {
-  rowActionClickHandler: null,
+  rows: PropTypes.array.isRequired,
 };

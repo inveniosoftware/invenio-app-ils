@@ -2,11 +2,14 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import OverdueLoansList from '../OverdueLoansList';
-import history from '../../../../../../../history';
 import testData from '../../../../../../../../../../../tests/data/loans.json';
+import { Button } from 'semantic-ui-react';
 
+jest.mock('react-router-dom');
 jest.mock('../../../../../components');
 jest.mock('../../../../../../../common/config/invenioConfig');
+BackOfficeRoutes.loanDetailsFor = jest.fn(pid => `url/${pid}`);
+let mockViewDetails = jest.fn();
 
 const data = {
   hits: [
@@ -96,8 +99,6 @@ describe('OverdueLoansList tests', () => {
   });
 
   it('should go to loan details when clicking on a loan', () => {
-    const mockedHistoryPush = jest.fn();
-    history.push = mockedHistoryPush;
     component = mount(
       <OverdueLoansList
         data={data}
@@ -105,16 +106,19 @@ describe('OverdueLoansList tests', () => {
         showMaxEntries={1}
       />
     );
+    component.instance().viewDetails = jest.fn(() => (
+      <Button onClick={mockViewDetails}></Button>
+    ));
+    component.instance().forceUpdate();
 
     const firstId = data.hits[0].pid;
-
-    const button = component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === firstId)
-      .find('i');
-    button.simulate('click');
+    component
+      .find('TableCell')
+      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
+      .find('Button')
+      .simulate('click');
 
     const expectedParam = BackOfficeRoutes.loanDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
+    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

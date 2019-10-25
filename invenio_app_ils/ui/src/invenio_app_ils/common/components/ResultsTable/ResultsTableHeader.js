@@ -8,9 +8,8 @@ export default class ResultsTableHeader extends Component {
     return (
       <Table.Header>
         <Table.Row data-test="header">
-          <Table.HeaderCell />
           {columns.map(col => (
-            <Table.HeaderCell key={col}>{col}</Table.HeaderCell>
+            <Table.HeaderCell key={col.title}>{col.title}</Table.HeaderCell>
           ))}
         </Table.Row>
       </Table.Header>
@@ -20,9 +19,4 @@ export default class ResultsTableHeader extends Component {
 
 ResultsTableHeader.propTypes = {
   columns: PropTypes.array.isRequired,
-  withRowAction: PropTypes.bool,
-};
-
-ResultsTableHeader.defaultProps = {
-  withRowAction: false,
 };

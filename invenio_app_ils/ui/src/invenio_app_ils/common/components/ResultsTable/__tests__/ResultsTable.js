@@ -3,48 +3,54 @@ import React from 'react';
 import { ResultsTable } from '../ResultsTable';
 import { Settings } from 'luxon';
 import { Button } from 'semantic-ui-react';
-import history from '../../../../history';
 
 Settings.defaultZoneName = 'utc';
-
 const stringDate = '2018-01-01';
+const data = [
+  {
+    pid: 'loan1',
+    id: '1',
+    patron_pid: 'patron_1',
+    updated: stringDate,
+    start_date: stringDate,
+    end_date: stringDate,
+  },
+  {
+    pid: 'loan2',
+    id: '2',
+    patron_pid: 'patron_2',
+    updated: stringDate,
+    start_date: stringDate,
+    end_date: stringDate,
+  },
+];
+
+const mockViewDetails = jest.fn();
+const columns = [
+  {
+    title: 'view',
+    field: '',
+    formatter: () => <Button onClick={mockViewDetails}>View</Button>,
+  },
+  { title: 'ID', field: 'id' },
+];
+
+let component;
+
+afterEach(() => {
+  mockViewDetails.mockClear();
+  if (component) {
+    component.unmount();
+  }
+});
 
 describe('ResultsTable tests', () => {
-  let component;
-
-  afterEach(() => {
-    if (component) {
-      component.unmount();
-    }
-  });
-
   it('should load the ResultTable component', () => {
-    const component = shallow(
-      <ResultsTable rows={[]} rowActionClickHandler={() => {}} />
-    );
+    const component = shallow(<ResultsTable data={[]} columns={[]} />);
     expect(component).toMatchSnapshot();
   });
 
   it('should render the see all button when showing only a few rows', () => {
-    const data = [
-      {
-        pid: 'loan1',
-        ID: '1',
-        patron_pid: 'patron_1',
-        updated: stringDate,
-        start_date: stringDate,
-        end_date: stringDate,
-      },
-      {
-        pid: 'loan2',
-        ID: '2',
-        patron_pid: 'patron_2',
-        updated: stringDate,
-        start_date: stringDate,
-        end_date: stringDate,
-      },
-    ];
-
     const button = () => {
       return (
         <Button size="small" onClick={() => {}}>
@@ -55,9 +61,9 @@ describe('ResultsTable tests', () => {
 
     component = mount(
       <ResultsTable
-        rows={data}
+        data={data}
+        columns={columns}
         seeAllComponent={button()}
-        rowActionClickHandler={() => {}}
         showMaxRows={1}
       />
     );
@@ -72,29 +78,8 @@ describe('ResultsTable tests', () => {
   });
 
   it('should not render the see all button when showing only a few rows', () => {
-    const data = [
-      {
-        ID: 'loan1',
-        patron_pid: 'patron_1',
-        updated: stringDate,
-        start_date: stringDate,
-        end_date: stringDate,
-      },
-      {
-        ID: 'loan2',
-        patron_pid: 'patron_2',
-        updated: stringDate,
-        start_date: stringDate,
-        end_date: stringDate,
-      },
-    ];
-
     component = mount(
-      <ResultsTable
-        rows={data}
-        rowActionClickHandler={() => {}}
-        showMaxRows={3}
-      />
+      <ResultsTable data={data} columns={columns} showMaxRows={3} />
     );
 
     expect(component).toMatchSnapshot();
@@ -104,61 +89,22 @@ describe('ResultsTable tests', () => {
     expect(footer).toHaveLength(0);
   });
 
-  it('should call click handler on view details click', () => {
-    const mockedClickHandler = jest.fn();
-
-    const results = [
-      {
-        ID: 'loan1',
-        patron_pid: 'patron_1',
-        updated: stringDate,
-        start_date: stringDate,
-        end_date: stringDate,
-      },
-      {
-        ID: 'loan2',
-        patron_pid: 'patron_2',
-        updated: stringDate,
-        start_date: stringDate,
-        end_date: stringDate,
-      },
-    ];
-
-    component = mount(
-      <ResultsTable rows={results} rowActionClickHandler={mockedClickHandler} />
-    );
-    const firstId = results[0].ID;
+  it('should click on view details', () => {
+    component = mount(<ResultsTable data={data} columns={columns} />);
+    const firstId = data[0].pid;
     const button = component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === firstId)
+      .find('TableCell')
+      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
       .find('button');
     button.simulate('click');
-    expect(mockedClickHandler).toHaveBeenCalledWith(results[0]);
+    expect(mockViewDetails).toHaveBeenCalled();
   });
 
-  it('should call see all click handler on see all click', () => {
-    const mockedHistoryPush = jest.fn();
-    history.push = mockedHistoryPush;
-    const results = [
-      {
-        ID: 'loan1',
-        patron_pid: 'patron_1',
-        updated: stringDate,
-        start_date: stringDate,
-        end_date: stringDate,
-      },
-      {
-        ID: 'loan2',
-        patron_pid: 'patron_2',
-        updated: stringDate,
-        start_date: stringDate,
-        end_date: stringDate,
-      },
-    ];
-
+  it('should call SeeAll click handler', () => {
+    const mockedSeeAll = jest.fn();
     const buttonObj = () => {
       return (
-        <Button size="small" onClick={() => mockedHistoryPush()}>
+        <Button size="small" onClick={() => mockedSeeAll()}>
           See all
         </Button>
       );
@@ -166,63 +112,14 @@ describe('ResultsTable tests', () => {
 
     component = mount(
       <ResultsTable
-        rows={results}
+        data={data}
+        columns={columns}
         showMaxRows={1}
         seeAllComponent={buttonObj()}
-        rowActionClickHandler={() => {}}
       />
     );
-
     const button = component.find('TableFooter').find('button');
     button.simulate('click');
-    expect(mockedHistoryPush).toHaveBeenCalled();
-  });
-
-  it('should show the view details button when the rowActionClickHandler prop is defined', () => {
-    const results = [
-      {
-        ID: 'loan1',
-        patron_pid: 'patron_1',
-        updated: stringDate,
-        start_date: stringDate,
-        end_date: stringDate,
-      },
-    ];
-
-    component = mount(
-      <ResultsTable rows={results} rowActionClickHandler={() => {}} />
-    );
-
-    const firstId = results[0].ID;
-    const button = component
-      .find('TableRow')
-      .find('button')
-      .filterWhere(
-        element => element.prop('data-test') === 'btn-view-details-' + firstId
-      );
-    expect(button).toHaveLength(1);
-  });
-
-  it('should not show the view details button when the rowActionClickHandler prop is not defined', () => {
-    const results = [
-      {
-        ID: 'loan1',
-        patron_pid: 'patron_1',
-        updated: stringDate,
-        start_date: stringDate,
-        end_date: stringDate,
-      },
-    ];
-
-    component = mount(<ResultsTable rows={results} />);
-
-    const firstId = results[0].ID;
-    const button = component
-      .find('TableRow')
-      .find('button')
-      .filterWhere(
-        element => element.prop('data-test') === 'btn-view-details-' + firstId
-      );
-    expect(button).toHaveLength(0);
+    expect(mockedSeeAll).toHaveBeenCalled();
   });
 });

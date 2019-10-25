@@ -1,17 +1,22 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import SeriesRelations from '../SeriesRelations';
+import { SeriesRelationsTabPanel as SeriesRelations } from '../SeriesRelations';
 import { Settings } from 'luxon';
 import history from '../../../../../../../history';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
+import { Button } from 'semantic-ui-react';
 
 Settings.defaultZoneName = 'utc';
+jest.mock('react-router-dom');
 jest.mock('../../../../../../../common/config/invenioConfig');
 jest.mock('../../../../../../../common/components/ESSelector');
+BackOfficeRoutes.documentDetailsFor = jest.fn(pid => `url/${pid}`);
+let mockViewDetails = jest.fn();
 
 describe('Series relations tests', () => {
   let component;
   afterEach(() => {
+    mockViewDetails.mockClear();
     if (component) {
       component.unmount();
     }
@@ -140,13 +145,16 @@ describe('Series relations tests', () => {
       />
     );
 
-    const button = component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === id)
-      .find('i');
-    button.simulate('click');
-    const expectedUrl = BackOfficeRoutes.documentDetailsFor(id);
-    const expectedState = { pid: id, type: 'Document' };
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedUrl, expectedState);
+    component.instance().viewDetails = jest.fn(() => (
+      <Button onClick={mockViewDetails}></Button>
+    ));
+    component.instance().forceUpdate();
+
+    component
+      .find('TableCell')
+      .filterWhere(element => element.prop('data-test') === `0-${id}`)
+      .find('Button')
+      .simulate('click');
+    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

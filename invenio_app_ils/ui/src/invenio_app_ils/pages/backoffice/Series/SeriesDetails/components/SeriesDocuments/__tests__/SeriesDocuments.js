@@ -4,15 +4,19 @@ import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import SeriesDocuments from '../SeriesDocuments';
 import { Settings } from 'luxon';
 import { fromISO } from '../../../../../../../common/api/date';
-import history from '../../../../../../../history';
 import * as testData from '../../../../../../../../../../../tests/data/documents';
+import { Button } from 'semantic-ui-react';
 
+jest.mock('react-router-dom');
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
+BackOfficeRoutes.documentDetailsFor = jest.fn(pid => `url/${pid}`);
+let mockViewDetails = jest.fn();
 
 describe('SeriesDocuments tests', () => {
   let component;
   afterEach(() => {
+    mockViewDetails.mockClear();
     if (component) {
       component.unmount();
     }
@@ -73,12 +77,12 @@ describe('SeriesDocuments tests', () => {
       hits: [
         {
           ID: '1',
-          updated: stringDate,
           created: stringDate,
           pid: 'document1',
           metadata: {
             ...testData[0],
             pid: 'document1',
+            volume: '1',
           },
         },
         {
@@ -89,6 +93,7 @@ describe('SeriesDocuments tests', () => {
           metadata: {
             ...testData[1],
             pid: 'document2',
+            volume: '2',
           },
         },
       ],
@@ -159,8 +164,6 @@ describe('SeriesDocuments tests', () => {
   });
 
   it('should go to documents details when clicking on a document row', () => {
-    const mockedHistoryPush = jest.fn();
-    history.push = mockedHistoryPush;
     const data = {
       hits: [
         {
@@ -187,14 +190,18 @@ describe('SeriesDocuments tests', () => {
       />
     );
 
-    const firstId = data.hits[0].pid;
-    const button = component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === firstId)
-      .find('i');
-    button.simulate('click');
+    component.instance().viewDetails = jest.fn(() => (
+      <Button onClick={mockViewDetails}></Button>
+    ));
+    component.instance().forceUpdate();
 
-    const expectedParam = BackOfficeRoutes.documentDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
+    const firstId = data.hits[0].pid;
+
+    component
+      .find('TableCell')
+      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
+      .find('Button')
+      .simulate('click');
+    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

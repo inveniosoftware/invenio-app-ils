@@ -100,7 +100,7 @@ export default class ESRelatedSelector extends Component {
         icon: config.icon,
         content: (
           <>
-            {type}
+            {type}&nbsp;
             <Label>{records[type] ? records[type].length : '0'}</Label>
           </>
         ),

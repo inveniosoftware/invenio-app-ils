@@ -25,30 +25,43 @@ exports[`ResultsTable tests should load the ResultTable component 1`] = `
 
 exports[`ResultsTable tests should not render the see all button when showing only a few rows 1`] = `
 <ResultsTable
-  currentPage={1}
-  fixed={false}
-  headerActionClickHandler={null}
-  headerActionComponent={null}
-  paginationComponent={null}
-  rowActionClickHandler={[Function]}
-  rows={
+  columns={
     Array [
       Object {
-        "ID": "loan1",
+        "field": "",
+        "formatter": [Function],
+        "title": "view",
+      },
+      Object {
+        "field": "id",
+        "title": "ID",
+      },
+    ]
+  }
+  currentPage={1}
+  data={
+    Array [
+      Object {
         "end_date": "2018-01-01",
+        "id": "1",
         "patron_pid": "patron_1",
+        "pid": "loan1",
         "start_date": "2018-01-01",
         "updated": "2018-01-01",
       },
       Object {
-        "ID": "loan2",
         "end_date": "2018-01-01",
+        "id": "2",
         "patron_pid": "patron_2",
+        "pid": "loan2",
         "start_date": "2018-01-01",
         "updated": "2018-01-01",
       },
     ]
   }
+  headerActionClickHandler={null}
+  headerActionComponent={null}
+  paginationComponent={null}
   seeAllComponent={null}
   showAllResults={false}
   showMaxRows={3}
@@ -96,14 +109,17 @@ exports[`ResultsTable tests should not render the see all button when showing on
       <ResultsTableHeader
         columns={
           Array [
-            "ID",
-            "patron_pid",
-            "updated",
-            "start_date",
-            "end_date",
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "view",
+            },
+            Object {
+              "field": "id",
+              "title": "ID",
+            },
           ]
         }
-        withRowAction={false}
       >
         <TableHeader
           as="thead"
@@ -122,6 +138,7 @@ exports[`ResultsTable tests should not render the see all button when showing on
               >
                 <TableHeaderCell
                   as="th"
+                  key="view"
                 >
                   <TableCell
                     as="th"
@@ -129,7 +146,9 @@ exports[`ResultsTable tests should not render the see all button when showing on
                   >
                     <th
                       className=""
-                    />
+                    >
+                      view
+                    </th>
                   </TableCell>
                 </TableHeaderCell>
                 <TableHeaderCell
@@ -147,66 +166,6 @@ exports[`ResultsTable tests should not render the see all button when showing on
                     </th>
                   </TableCell>
                 </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="patron_pid"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      patron_pid
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="updated"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      updated
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="start_date"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      start_date
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="end_date"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      end_date
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
               </tr>
             </TableRow>
           </thead>
@@ -215,27 +174,32 @@ exports[`ResultsTable tests should not render the see all button when showing on
       <ResultsTableBody
         columns={
           Array [
-            "ID",
-            "patron_pid",
-            "updated",
-            "start_date",
-            "end_date",
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "view",
+            },
+            Object {
+              "field": "id",
+              "title": "ID",
+            },
           ]
         }
-        rowActionClickHandler={[Function]}
         rows={
           Array [
             Object {
-              "ID": "loan1",
               "end_date": "2018-01-01",
+              "id": "1",
               "patron_pid": "patron_1",
+              "pid": "loan1",
               "start_date": "2018-01-01",
               "updated": "2018-01-01",
             },
             Object {
-              "ID": "loan2",
               "end_date": "2018-01-01",
+              "id": "2",
               "patron_pid": "patron_2",
+              "pid": "loan2",
               "start_date": "2018-01-01",
               "updated": "2018-01-01",
             },
@@ -260,29 +224,24 @@ exports[`ResultsTable tests should not render the see all button when showing on
               >
                 <TableCell
                   as="td"
-                  textAlign="center"
+                  data-test="0-loan1"
+                  key="0-loan1"
                 >
                   <td
-                    className="center aligned"
+                    className=""
+                    data-test="0-loan1"
                   >
                     <Button
                       as="button"
-                      compact={true}
-                      data-test="btn-view-details-loan1"
-                      icon="info"
-                      onClick={[Function]}
+                      onClick={[MockFunction]}
                     >
                       <Ref
                         innerRef={
                           Object {
                             "current": <button
-                              class="ui compact icon button"
-                              data-test="btn-view-details-loan1"
+                              class="ui button"
                             >
-                              <i
-                                aria-hidden="true"
-                                class="info icon"
-                              />
+                              View
                             </button>,
                           }
                         }
@@ -291,32 +250,18 @@ exports[`ResultsTable tests should not render the see all button when showing on
                           innerRef={
                             Object {
                               "current": <button
-                                class="ui compact icon button"
-                                data-test="btn-view-details-loan1"
+                                class="ui button"
                               >
-                                <i
-                                  aria-hidden="true"
-                                  class="info icon"
-                                />
+                                View
                               </button>,
                             }
                           }
                         >
                           <button
-                            className="ui compact icon button"
-                            data-test="btn-view-details-loan1"
+                            className="ui button"
                             onClick={[Function]}
                           >
-                            <Icon
-                              as="i"
-                              name="info"
-                            >
-                              <i
-                                aria-hidden="true"
-                                className="info icon"
-                                onClick={[Function]}
-                              />
-                            </Icon>
+                            View
                           </button>
                         </RefFindNode>
                       </Ref>
@@ -325,62 +270,14 @@ exports[`ResultsTable tests should not render the see all button when showing on
                 </TableCell>
                 <TableCell
                   as="td"
-                  data-test="ID-loan1"
-                  key="0-loan1"
-                >
-                  <td
-                    className=""
-                    data-test="ID-loan1"
-                  >
-                    loan1
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="patron_pid-loan1"
+                  data-test="1-loan1"
                   key="1-loan1"
                 >
                   <td
                     className=""
-                    data-test="patron_pid-loan1"
+                    data-test="1-loan1"
                   >
-                    patron_1
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="updated-loan1"
-                  key="2-loan1"
-                >
-                  <td
-                    className=""
-                    data-test="updated-loan1"
-                  >
-                    2018-01-01
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="start_date-loan1"
-                  key="3-loan1"
-                >
-                  <td
-                    className=""
-                    data-test="start_date-loan1"
-                  >
-                    2018-01-01
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="end_date-loan1"
-                  key="4-loan1"
-                >
-                  <td
-                    className=""
-                    data-test="end_date-loan1"
-                  >
-                    2018-01-01
+                    1
                   </td>
                 </TableCell>
               </tr>
@@ -397,29 +294,24 @@ exports[`ResultsTable tests should not render the see all button when showing on
               >
                 <TableCell
                   as="td"
-                  textAlign="center"
+                  data-test="0-loan2"
+                  key="0-loan2"
                 >
                   <td
-                    className="center aligned"
+                    className=""
+                    data-test="0-loan2"
                   >
                     <Button
                       as="button"
-                      compact={true}
-                      data-test="btn-view-details-loan2"
-                      icon="info"
-                      onClick={[Function]}
+                      onClick={[MockFunction]}
                     >
                       <Ref
                         innerRef={
                           Object {
                             "current": <button
-                              class="ui compact icon button"
-                              data-test="btn-view-details-loan2"
+                              class="ui button"
                             >
-                              <i
-                                aria-hidden="true"
-                                class="info icon"
-                              />
+                              View
                             </button>,
                           }
                         }
@@ -428,32 +320,18 @@ exports[`ResultsTable tests should not render the see all button when showing on
                           innerRef={
                             Object {
                               "current": <button
-                                class="ui compact icon button"
-                                data-test="btn-view-details-loan2"
+                                class="ui button"
                               >
-                                <i
-                                  aria-hidden="true"
-                                  class="info icon"
-                                />
+                                View
                               </button>,
                             }
                           }
                         >
                           <button
-                            className="ui compact icon button"
-                            data-test="btn-view-details-loan2"
+                            className="ui button"
                             onClick={[Function]}
                           >
-                            <Icon
-                              as="i"
-                              name="info"
-                            >
-                              <i
-                                aria-hidden="true"
-                                className="info icon"
-                                onClick={[Function]}
-                              />
-                            </Icon>
+                            View
                           </button>
                         </RefFindNode>
                       </Ref>
@@ -462,62 +340,14 @@ exports[`ResultsTable tests should not render the see all button when showing on
                 </TableCell>
                 <TableCell
                   as="td"
-                  data-test="ID-loan2"
-                  key="0-loan2"
-                >
-                  <td
-                    className=""
-                    data-test="ID-loan2"
-                  >
-                    loan2
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="patron_pid-loan2"
+                  data-test="1-loan2"
                   key="1-loan2"
                 >
                   <td
                     className=""
-                    data-test="patron_pid-loan2"
+                    data-test="1-loan2"
                   >
-                    patron_2
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="updated-loan2"
-                  key="2-loan2"
-                >
-                  <td
-                    className=""
-                    data-test="updated-loan2"
-                  >
-                    2018-01-01
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="start_date-loan2"
-                  key="3-loan2"
-                >
-                  <td
-                    className=""
-                    data-test="start_date-loan2"
-                  >
-                    2018-01-01
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="end_date-loan2"
-                  key="4-loan2"
-                >
-                  <td
-                    className=""
-                    data-test="end_date-loan2"
-                  >
-                    2018-01-01
+                    2
                   </td>
                 </TableCell>
               </tr>
@@ -527,7 +357,7 @@ exports[`ResultsTable tests should not render the see all button when showing on
       </ResultsTableBody>
       <ResultsTableFooter
         allRowsNumber={2}
-        columnsNumber={5}
+        columnsNumber={2}
         currentPage={1}
         paginationComponent={null}
         seeAllComponent={null}
@@ -541,25 +371,33 @@ exports[`ResultsTable tests should not render the see all button when showing on
 
 exports[`ResultsTable tests should render the see all button when showing only a few rows 1`] = `
 <ResultsTable
-  currentPage={1}
-  fixed={false}
-  headerActionClickHandler={null}
-  headerActionComponent={null}
-  paginationComponent={null}
-  rowActionClickHandler={[Function]}
-  rows={
+  columns={
     Array [
       Object {
-        "ID": "1",
+        "field": "",
+        "formatter": [Function],
+        "title": "view",
+      },
+      Object {
+        "field": "id",
+        "title": "ID",
+      },
+    ]
+  }
+  currentPage={1}
+  data={
+    Array [
+      Object {
         "end_date": "2018-01-01",
+        "id": "1",
         "patron_pid": "patron_1",
         "pid": "loan1",
         "start_date": "2018-01-01",
         "updated": "2018-01-01",
       },
       Object {
-        "ID": "2",
         "end_date": "2018-01-01",
+        "id": "2",
         "patron_pid": "patron_2",
         "pid": "loan2",
         "start_date": "2018-01-01",
@@ -567,6 +405,9 @@ exports[`ResultsTable tests should render the see all button when showing only a
       },
     ]
   }
+  headerActionClickHandler={null}
+  headerActionComponent={null}
+  paginationComponent={null}
   seeAllComponent={
     <Button
       as="button"
@@ -622,15 +463,17 @@ exports[`ResultsTable tests should render the see all button when showing only a
       <ResultsTableHeader
         columns={
           Array [
-            "pid",
-            "ID",
-            "patron_pid",
-            "updated",
-            "start_date",
-            "end_date",
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "view",
+            },
+            Object {
+              "field": "id",
+              "title": "ID",
+            },
           ]
         }
-        withRowAction={false}
       >
         <TableHeader
           as="thead"
@@ -649,19 +492,7 @@ exports[`ResultsTable tests should render the see all button when showing only a
               >
                 <TableHeaderCell
                   as="th"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    />
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="pid"
+                  key="view"
                 >
                   <TableCell
                     as="th"
@@ -670,7 +501,7 @@ exports[`ResultsTable tests should render the see all button when showing only a
                     <th
                       className=""
                     >
-                      pid
+                      view
                     </th>
                   </TableCell>
                 </TableHeaderCell>
@@ -689,66 +520,6 @@ exports[`ResultsTable tests should render the see all button when showing only a
                     </th>
                   </TableCell>
                 </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="patron_pid"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      patron_pid
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="updated"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      updated
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="start_date"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      start_date
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="end_date"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      end_date
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
               </tr>
             </TableRow>
           </thead>
@@ -757,20 +528,22 @@ exports[`ResultsTable tests should render the see all button when showing only a
       <ResultsTableBody
         columns={
           Array [
-            "pid",
-            "ID",
-            "patron_pid",
-            "updated",
-            "start_date",
-            "end_date",
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "view",
+            },
+            Object {
+              "field": "id",
+              "title": "ID",
+            },
           ]
         }
-        rowActionClickHandler={[Function]}
         rows={
           Array [
             Object {
-              "ID": "1",
               "end_date": "2018-01-01",
+              "id": "1",
               "patron_pid": "patron_1",
               "pid": "loan1",
               "start_date": "2018-01-01",
@@ -788,38 +561,33 @@ exports[`ResultsTable tests should render the see all button when showing only a
             <TableRow
               as="tr"
               cellAs="td"
-              data-test="1"
-              key="1"
+              data-test="loan1"
+              key="loan1"
             >
               <tr
                 className=""
-                data-test="1"
+                data-test="loan1"
               >
                 <TableCell
                   as="td"
-                  textAlign="center"
+                  data-test="0-loan1"
+                  key="0-loan1"
                 >
                   <td
-                    className="center aligned"
+                    className=""
+                    data-test="0-loan1"
                   >
                     <Button
                       as="button"
-                      compact={true}
-                      data-test="btn-view-details-1"
-                      icon="info"
-                      onClick={[Function]}
+                      onClick={[MockFunction]}
                     >
                       <Ref
                         innerRef={
                           Object {
                             "current": <button
-                              class="ui compact icon button"
-                              data-test="btn-view-details-1"
+                              class="ui button"
                             >
-                              <i
-                                aria-hidden="true"
-                                class="info icon"
-                              />
+                              View
                             </button>,
                           }
                         }
@@ -828,32 +596,18 @@ exports[`ResultsTable tests should render the see all button when showing only a
                           innerRef={
                             Object {
                               "current": <button
-                                class="ui compact icon button"
-                                data-test="btn-view-details-1"
+                                class="ui button"
                               >
-                                <i
-                                  aria-hidden="true"
-                                  class="info icon"
-                                />
+                                View
                               </button>,
                             }
                           }
                         >
                           <button
-                            className="ui compact icon button"
-                            data-test="btn-view-details-1"
+                            className="ui button"
                             onClick={[Function]}
                           >
-                            <Icon
-                              as="i"
-                              name="info"
-                            >
-                              <i
-                                aria-hidden="true"
-                                className="info icon"
-                                onClick={[Function]}
-                              />
-                            </Icon>
+                            View
                           </button>
                         </RefFindNode>
                       </Ref>
@@ -862,74 +616,14 @@ exports[`ResultsTable tests should render the see all button when showing only a
                 </TableCell>
                 <TableCell
                   as="td"
-                  data-test="pid-1"
-                  key="0-1"
+                  data-test="1-loan1"
+                  key="1-loan1"
                 >
                   <td
                     className=""
-                    data-test="pid-1"
-                  >
-                    loan1
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="ID-1"
-                  key="1-1"
-                >
-                  <td
-                    className=""
-                    data-test="ID-1"
+                    data-test="1-loan1"
                   >
                     1
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="patron_pid-1"
-                  key="2-1"
-                >
-                  <td
-                    className=""
-                    data-test="patron_pid-1"
-                  >
-                    patron_1
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="updated-1"
-                  key="3-1"
-                >
-                  <td
-                    className=""
-                    data-test="updated-1"
-                  >
-                    2018-01-01
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="start_date-1"
-                  key="4-1"
-                >
-                  <td
-                    className=""
-                    data-test="start_date-1"
-                  >
-                    2018-01-01
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="end_date-1"
-                  key="5-1"
-                >
-                  <td
-                    className=""
-                    data-test="end_date-1"
-                  >
-                    2018-01-01
                   </td>
                 </TableCell>
               </tr>
@@ -939,7 +633,7 @@ exports[`ResultsTable tests should render the see all button when showing only a
       </ResultsTableBody>
       <ResultsTableFooter
         allRowsNumber={2}
-        columnsNumber={6}
+        columnsNumber={2}
         currentPage={1}
         paginationComponent={null}
         seeAllComponent={
@@ -977,18 +671,18 @@ exports[`ResultsTable tests should render the see all button when showing only a
                 >
                   <TableHeaderCell
                     as="th"
-                    colSpan={7}
+                    colSpan={3}
                     textAlign="right"
                   >
                     <TableCell
                       as="th"
                       className=""
-                      colSpan={7}
+                      colSpan={3}
                       textAlign="right"
                     >
                       <th
                         className="right aligned"
-                        colSpan={7}
+                        colSpan={3}
                       >
                         <span>
                           Showing entries 

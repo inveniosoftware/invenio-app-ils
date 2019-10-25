@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../common/components';
-import { PatronMetadata, PatronPendingLoans } from '../';
+import {
+  ItemsCheckout,
+  ItemsSearch,
+  PatronCurrentLoans,
+  PatronDocumentRequests,
+  PatronMetadata,
+  PatronPendingLoans,
+} from '../';
 import { Grid } from 'semantic-ui-react';
-import { PatronCurrentLoans } from '../PatronCurrentLoans';
-import { ItemsCheckout } from '../ItemsCheckout';
-import { ItemsSearch } from '../ItemsSearch';
-import { PatronDocumentRequests } from '../PatronDocumentRequests';
 
 export default class PatronDetails extends Component {
   render() {

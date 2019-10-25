@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Icon, Header } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Button, Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
@@ -18,15 +19,11 @@ import {
   ResultsSort,
   ResultsTable,
 } from '../../../../common/components';
-import { formatter } from '../../../../common/components/ResultsTable/formatters';
 import { series as seriesApi } from '../../../../common/api/series/series';
 import { getSearchConfig } from '../../../../common/config';
 import { ExportReactSearchKitResults } from '../../components';
 import { ClearButton, NewButton } from '../../components/buttons';
 import { BackOfficeRoutes } from '../../../../routes/urls';
-import _pick from 'lodash/pick';
-
-import { goTo } from '../../../../history';
 
 export class SeriesSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -63,18 +60,19 @@ export class SeriesSearch extends Component {
     );
   };
 
-  prepareData(data) {
-    return data.map(row => {
-      return _pick(formatter.series.toTable(row), [
-        'ID',
-        'Mode of Issuance',
-        'Title',
-      ]);
-    });
-  }
+  viewDetails = ({ row }) => {
+    return (
+      <Button
+        as={Link}
+        to={BackOfficeRoutes.seriesDetailsFor(row.metadata.pid)}
+        compact
+        icon="info"
+        data-test={row.metadata.pid}
+      />
+    );
+  };
 
   renderResultsTable = results => {
-    const rows = this.prepareData(results);
     const headerActionComponent = (
       <div>
         <NewButton text={'New series'} to={BackOfficeRoutes.seriesCreate} />
@@ -82,15 +80,21 @@ export class SeriesSearch extends Component {
       </div>
     );
 
+    const columns = [
+      { title: '', field: '', formatter: this.viewDetails },
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Mode Of Issuance', field: 'metadata.mode_of_issuance' },
+      { title: 'Title', field: 'metadata.title' },
+      { title: 'Authors', field: 'metadata.authors' },
+    ];
+
     return (
       <ResultsTable
-        rows={rows}
+        data={results}
+        columns={columns}
         title={''}
         name={'series'}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={row =>
-          goTo(BackOfficeRoutes.seriesDetailsFor(row.ID))
-        }
       />
     );
   };

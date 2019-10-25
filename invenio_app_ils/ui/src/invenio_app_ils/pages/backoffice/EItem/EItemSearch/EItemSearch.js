@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Icon, Header } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Button, Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
@@ -18,13 +19,10 @@ import {
   ResultsSort,
   ResultsTable,
 } from '../../../../common/components';
-import { formatter } from '../../../../common/components/ResultsTable/formatters';
 import { eitem as eitemApi } from '../../../../common/api';
 import { ExportReactSearchKitResults } from '../../components';
 import { ClearButton, NewButton } from '../../components/buttons';
 import { BackOfficeRoutes } from '../../../../routes/urls';
-import { goTo } from '../../../../history';
-import _omit from 'lodash/omit';
 
 export class EItemSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -44,22 +42,22 @@ export class EItemSearch extends Component {
     );
   };
 
-  prepareData(data) {
-    return data.map(row => {
-      return _omit(formatter.eitem.toTable(row), [
-        'Created',
-        'Updated',
-        'Document ID',
-        'Internal Notes',
-      ]);
-    });
-  }
+  viewDetails = ({ row }) => {
+    return (
+      <Button
+        as={Link}
+        to={BackOfficeRoutes.eitemDetailsFor(row.metadata.pid)}
+        compact
+        icon="info"
+        data-test={row.metadata.pid}
+      />
+    );
+  };
 
   renderResultsTable = results => {
-    const rows = this.prepareData(results);
     const maxRowsToShow =
-      rows.length > ResultsTable.defaultProps.showMaxRows
-        ? rows.length
+      results.length > ResultsTable.defaultProps.showMaxRows
+        ? results.length
         : ResultsTable.defaultProps.showMaxRows;
     const headerActionComponent = (
       <div>
@@ -68,15 +66,25 @@ export class EItemSearch extends Component {
       </div>
     );
 
+    const columns = [
+      { title: '', field: '', formatter: this.viewDetails },
+      { title: 'ID', field: 'metadata.pid' },
+      {
+        title: 'Open Access',
+        field: 'metadata.open_access',
+        formatter: ({ row }) => (row.metadata.open_access ? 'Yes' : 'No'),
+      },
+      { title: 'Title', field: 'metadata.document.title' },
+      { title: 'Description', field: 'metadata.description' },
+    ];
+
     return (
       <ResultsTable
-        rows={rows}
+        data={results}
+        columns={columns}
         title={''}
         name={'eitems'}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={row =>
-          goTo(BackOfficeRoutes.eitemDetailsFor(row.ID))
-        }
         showMaxRows={maxRowsToShow}
       />
     );

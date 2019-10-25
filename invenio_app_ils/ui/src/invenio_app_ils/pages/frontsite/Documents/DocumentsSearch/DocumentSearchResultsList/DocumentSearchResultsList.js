@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import { Item } from 'semantic-ui-react';
 import { DocumentListEntry } from '../DocumentListEntry';
-import { goTo } from '../../../../../history';
-import { FrontSiteRoutes } from '../../../../../routes/urls';
 import { ResultsList } from 'react-searchkit';
 
 export default class DocumentSearchResultsList extends Component {
@@ -15,9 +13,6 @@ export default class DocumentSearchResultsList extends Component {
             key={book.metadata.pid}
             data-test={book.metadata.pid}
             metadata={book.metadata}
-            rowActionClickHandler={pid =>
-              goTo(FrontSiteRoutes.documentDetailsFor(pid))
-            }
           />
         ))}
       </Item.Group>

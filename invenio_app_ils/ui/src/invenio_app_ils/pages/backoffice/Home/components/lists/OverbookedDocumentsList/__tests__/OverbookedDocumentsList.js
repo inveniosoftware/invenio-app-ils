@@ -4,6 +4,12 @@ import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import OverbookedDocumentsList from '../OverbookedDocumentsList';
 import history from '../../../../../../../history';
 import testData from '../../../../../../../../../../../tests/data/documents.json';
+import { Button } from 'semantic-ui-react';
+
+jest.mock('react-router-dom');
+let mockViewDetails = jest.fn();
+
+BackOfficeRoutes.documentDetailsFor = jest.fn(pid => `url/${pid}`);
 
 const data = {
   hits: [
@@ -24,6 +30,7 @@ const data = {
 describe('OverbookedDocumentsList tests', () => {
   let component;
   afterEach(() => {
+    mockViewDetails.mockClear();
     if (component) {
       component.unmount();
     }
@@ -100,15 +107,17 @@ describe('OverbookedDocumentsList tests', () => {
         showMaxEntries={1}
       />
     );
+    component.instance().viewDetails = jest.fn(() => (
+      <Button onClick={mockViewDetails}></Button>
+    ));
+    component.instance().forceUpdate();
 
     const firstId = data.hits[0].pid;
-    const button = component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === firstId)
-      .find('i');
-    button.simulate('click');
-
-    const expectedParam = BackOfficeRoutes.documentDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
+    component
+      .find('TableCell')
+      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
+      .find('Button')
+      .simulate('click');
+    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

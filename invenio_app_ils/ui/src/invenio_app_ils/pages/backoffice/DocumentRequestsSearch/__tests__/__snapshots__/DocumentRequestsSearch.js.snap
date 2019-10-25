@@ -2,13 +2,12 @@
 
 exports[`DocumentRequestsSearch ResultsTable tests should not render when empty results 1`] = `
 <ResultsTable
+  columns={Array []}
   currentPage={1}
-  fixed={false}
+  data={Array []}
   headerActionClickHandler={null}
   headerActionComponent={null}
   paginationComponent={null}
-  rowActionClickHandler={[Function]}
-  rows={Array []}
   seeAllComponent={null}
   showAllResults={false}
   showMaxRows={10}
@@ -60,35 +59,41 @@ exports[`DocumentRequestsSearch ResultsTable tests should not render when empty 
 
 exports[`DocumentRequestsSearch ResultsTable tests should render a list of results 1`] = `
 <ResultsTable
-  currentPage={1}
-  fixed={false}
-  headerActionClickHandler={null}
-  headerActionComponent={null}
-  paginationComponent={null}
-  rowActionClickHandler={[Function]}
-  rows={
+  columns={
     Array [
       Object {
-        "Authors": "Author1",
-        "Created": "2018-01-01",
-        "Document ID": undefined,
-        "ID": "3",
-        "ISBN": undefined,
-        "ISSN": undefined,
-        "Issue": undefined,
-        "Library Book": "Pending",
-        "Note": undefined,
-        "Page": undefined,
-        "Patron ID": "1",
-        "Patron Name": "John Doe",
-        "Publication Year": undefined,
-        "State": "PENDING",
-        "Title": "This is a title",
-        "Updated": "2018-01-01",
-        "Volume": undefined,
+        "field": "",
+        "formatter": [Function],
+        "title": "view",
+      },
+      Object {
+        "field": "metadata.title",
+        "title": "Title",
       },
     ]
   }
+  currentPage={1}
+  data={
+    Array [
+      Object {
+        "id": 3,
+        "metadata": Object {
+          "authors": "Author1",
+          "patron": Object {
+            "name": "John Doe",
+          },
+          "patron_pid": "1",
+          "pid": "3",
+          "state": "PENDING",
+          "title": "This is a title",
+        },
+        "pid": "3",
+      },
+    ]
+  }
+  headerActionClickHandler={null}
+  headerActionComponent={null}
+  paginationComponent={null}
   seeAllComponent={null}
   showAllResults={false}
   showMaxRows={10}
@@ -136,26 +141,17 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
       <ResultsTableHeader
         columns={
           Array [
-            "ID",
-            "Created",
-            "Updated",
-            "Document ID",
-            "Patron ID",
-            "Patron Name",
-            "State",
-            "Title",
-            "Authors",
-            "ISSN",
-            "ISBN",
-            "Issue",
-            "Note",
-            "Page",
-            "Publication Year",
-            "Volume",
-            "Library Book",
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "view",
+            },
+            Object {
+              "field": "metadata.title",
+              "title": "Title",
+            },
           ]
         }
-        withRowAction={false}
       >
         <TableHeader
           as="thead"
@@ -174,19 +170,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
               >
                 <TableHeaderCell
                   as="th"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    />
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="ID"
+                  key="view"
                 >
                   <TableCell
                     as="th"
@@ -195,97 +179,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                     <th
                       className=""
                     >
-                      ID
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Created"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Created
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Updated"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Updated
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Document ID"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Document ID
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Patron ID"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Patron ID
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Patron Name"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Patron Name
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="State"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      State
+                      view
                     </th>
                   </TableCell>
                 </TableHeaderCell>
@@ -304,141 +198,6 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                     </th>
                   </TableCell>
                 </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Authors"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Authors
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="ISSN"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      ISSN
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="ISBN"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      ISBN
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Issue"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Issue
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Note"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Note
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Page"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Page
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Publication Year"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Publication Year
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Volume"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Volume
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
-                <TableHeaderCell
-                  as="th"
-                  key="Library Book"
-                >
-                  <TableCell
-                    as="th"
-                    className=""
-                  >
-                    <th
-                      className=""
-                    >
-                      Library Book
-                    </th>
-                  </TableCell>
-                </TableHeaderCell>
               </tr>
             </TableRow>
           </thead>
@@ -447,46 +206,32 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
       <ResultsTableBody
         columns={
           Array [
-            "ID",
-            "Created",
-            "Updated",
-            "Document ID",
-            "Patron ID",
-            "Patron Name",
-            "State",
-            "Title",
-            "Authors",
-            "ISSN",
-            "ISBN",
-            "Issue",
-            "Note",
-            "Page",
-            "Publication Year",
-            "Volume",
-            "Library Book",
+            Object {
+              "field": "",
+              "formatter": [Function],
+              "title": "view",
+            },
+            Object {
+              "field": "metadata.title",
+              "title": "Title",
+            },
           ]
         }
-        rowActionClickHandler={[Function]}
         rows={
           Array [
             Object {
-              "Authors": "Author1",
-              "Created": "2018-01-01",
-              "Document ID": undefined,
-              "ID": "3",
-              "ISBN": undefined,
-              "ISSN": undefined,
-              "Issue": undefined,
-              "Library Book": "Pending",
-              "Note": undefined,
-              "Page": undefined,
-              "Patron ID": "1",
-              "Patron Name": "John Doe",
-              "Publication Year": undefined,
-              "State": "PENDING",
-              "Title": "This is a title",
-              "Updated": "2018-01-01",
-              "Volume": undefined,
+              "id": 3,
+              "metadata": Object {
+                "authors": "Author1",
+                "patron": Object {
+                  "name": "John Doe",
+                },
+                "patron_pid": "1",
+                "pid": "3",
+                "state": "PENDING",
+                "title": "This is a title",
+              },
+              "pid": "3",
             },
           ]
         }
@@ -509,29 +254,24 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
               >
                 <TableCell
                   as="td"
-                  textAlign="center"
+                  data-test="0-3"
+                  key="0-3"
                 >
                   <td
-                    className="center aligned"
+                    className=""
+                    data-test="0-3"
                   >
                     <Button
                       as="button"
-                      compact={true}
-                      data-test="btn-view-details-3"
-                      icon="info"
-                      onClick={[Function]}
+                      onClick={[MockFunction]}
                     >
                       <Ref
                         innerRef={
                           Object {
                             "current": <button
-                              class="ui compact icon button"
-                              data-test="btn-view-details-3"
+                              class="ui button"
                             >
-                              <i
-                                aria-hidden="true"
-                                class="info icon"
-                              />
+                              View
                             </button>,
                           }
                         }
@@ -540,32 +280,18 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                           innerRef={
                             Object {
                               "current": <button
-                                class="ui compact icon button"
-                                data-test="btn-view-details-3"
+                                class="ui button"
                               >
-                                <i
-                                  aria-hidden="true"
-                                  class="info icon"
-                                />
+                                View
                               </button>,
                             }
                           }
                         >
                           <button
-                            className="ui compact icon button"
-                            data-test="btn-view-details-3"
+                            className="ui button"
                             onClick={[Function]}
                           >
-                            <Icon
-                              as="i"
-                              name="info"
-                            >
-                              <i
-                                aria-hidden="true"
-                                className="info icon"
-                                onClick={[Function]}
-                              />
-                            </Icon>
+                            View
                           </button>
                         </RefFindNode>
                       </Ref>
@@ -574,206 +300,14 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
                 </TableCell>
                 <TableCell
                   as="td"
-                  data-test="ID-3"
-                  key="0-3"
-                >
-                  <td
-                    className=""
-                    data-test="ID-3"
-                  >
-                    3
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Created-3"
+                  data-test="1-3"
                   key="1-3"
                 >
                   <td
                     className=""
-                    data-test="Created-3"
-                  >
-                    2018-01-01
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Updated-3"
-                  key="2-3"
-                >
-                  <td
-                    className=""
-                    data-test="Updated-3"
-                  >
-                    2018-01-01
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Document ID-3"
-                  key="3-3"
-                >
-                  <td
-                    className=""
-                    data-test="Document ID-3"
-                  >
-                    -
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Patron ID-3"
-                  key="4-3"
-                >
-                  <td
-                    className=""
-                    data-test="Patron ID-3"
-                  >
-                    1
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Patron Name-3"
-                  key="5-3"
-                >
-                  <td
-                    className=""
-                    data-test="Patron Name-3"
-                  >
-                    John Doe
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="State-3"
-                  key="6-3"
-                >
-                  <td
-                    className=""
-                    data-test="State-3"
-                  >
-                    PENDING
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Title-3"
-                  key="7-3"
-                >
-                  <td
-                    className=""
-                    data-test="Title-3"
+                    data-test="1-3"
                   >
                     This is a title
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Authors-3"
-                  key="8-3"
-                >
-                  <td
-                    className=""
-                    data-test="Authors-3"
-                  >
-                    Author1
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="ISSN-3"
-                  key="9-3"
-                >
-                  <td
-                    className=""
-                    data-test="ISSN-3"
-                  >
-                    -
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="ISBN-3"
-                  key="10-3"
-                >
-                  <td
-                    className=""
-                    data-test="ISBN-3"
-                  >
-                    -
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Issue-3"
-                  key="11-3"
-                >
-                  <td
-                    className=""
-                    data-test="Issue-3"
-                  >
-                    -
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Note-3"
-                  key="12-3"
-                >
-                  <td
-                    className=""
-                    data-test="Note-3"
-                  >
-                    -
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Page-3"
-                  key="13-3"
-                >
-                  <td
-                    className=""
-                    data-test="Page-3"
-                  >
-                    -
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Publication Year-3"
-                  key="14-3"
-                >
-                  <td
-                    className=""
-                    data-test="Publication Year-3"
-                  >
-                    -
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Volume-3"
-                  key="15-3"
-                >
-                  <td
-                    className=""
-                    data-test="Volume-3"
-                  >
-                    -
-                  </td>
-                </TableCell>
-                <TableCell
-                  as="td"
-                  data-test="Library Book-3"
-                  key="16-3"
-                >
-                  <td
-                    className=""
-                    data-test="Library Book-3"
-                  >
-                    Pending
                   </td>
                 </TableCell>
               </tr>
@@ -783,7 +317,7 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
       </ResultsTableBody>
       <ResultsTableFooter
         allRowsNumber={1}
-        columnsNumber={17}
+        columnsNumber={2}
         currentPage={1}
         paginationComponent={null}
         seeAllComponent={null}

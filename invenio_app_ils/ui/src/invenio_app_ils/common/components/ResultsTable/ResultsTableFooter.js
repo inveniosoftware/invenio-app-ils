@@ -3,11 +3,6 @@ import { Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 export default class ResultsTableFooter extends Component {
-  constructor(props) {
-    super(props);
-    this.colspan = this.props.columnsNumber;
-  }
-
   render() {
     const {
       allRowsNumber,
@@ -15,15 +10,17 @@ export default class ResultsTableFooter extends Component {
       showMaxRows,
       showAllResults,
     } = this.props;
-    const itemNumber = allRowsNumber;
     const start = showAllResults ? 0 : (currentPage - 1) * showMaxRows;
     const end = showAllResults
       ? allRowsNumber
       : Math.min(start + showMaxRows, allRowsNumber);
-    return showAllResults || itemNumber > showMaxRows ? (
+    return showAllResults || allRowsNumber > showMaxRows ? (
       <Table.Footer fullWidth data-test="footer">
         <Table.Row>
-          <Table.HeaderCell colSpan={this.colspan + 1} textAlign="right">
+          <Table.HeaderCell
+            colSpan={this.props.columnsNumber + 1}
+            textAlign="right"
+          >
             <span>
               Showing entries {start + 1}-{end} of {allRowsNumber}{' '}
             </span>

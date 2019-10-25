@@ -2,8 +2,12 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import DocumentItems from '../DocumentItems';
-import history from '../../../../../../history';
 import testData from '../../../../../../../../../../tests/data/items.json';
+import { Button } from 'semantic-ui-react';
+
+jest.mock('react-router-dom');
+let mockViewDetails = jest.fn();
+BackOfficeRoutes.itemDetailsFor = jest.fn(pid => `url/${pid}`);
 
 const data = {
   hits: [
@@ -124,8 +128,6 @@ describe('DocumentItems tests', () => {
   });
 
   it('should go to items details when clicking on a item row', () => {
-    const mockedHistoryPush = jest.fn();
-    history.push = mockedHistoryPush;
     component = mount(
       <DocumentItems
         document={doc}
@@ -134,15 +136,17 @@ describe('DocumentItems tests', () => {
         showMaxItems={1}
       />
     );
+    component.instance().viewDetails = jest.fn(() => (
+      <Button onClick={mockViewDetails}></Button>
+    ));
+    component.instance().forceUpdate();
 
     const firstId = data.hits[0].pid;
-    const button = component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === firstId)
-      .find('i');
-    button.simulate('click');
-
-    const expectedParam = BackOfficeRoutes.itemDetailsFor(firstId);
-    expect(mockedHistoryPush).toHaveBeenCalledWith(expectedParam, {});
+    component
+      .find('TableCell')
+      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
+      .find('Button')
+      .simulate('click');
+    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

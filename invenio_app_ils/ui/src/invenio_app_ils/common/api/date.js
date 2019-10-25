@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import _get from 'lodash/get';
 
 export const fromISO = stringDate => {
   return DateTime.fromISO(stringDate);
@@ -46,3 +47,11 @@ export const toUTCShortDate = date => {
   }
   return date.toUTC().toFormat('yyyy-MM-dd');
 };
+
+/**
+ *  Serializes date for display in tables
+ */
+export function dateFormatter({ col, row }) {
+  const dateField = _get(row, col.field);
+  return dateField ? toShortDate(fromISO(dateField)) : null;
+}

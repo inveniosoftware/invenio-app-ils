@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { Button, Tab, Label, Input } from 'semantic-ui-react';
 import {
   Error,
   Loader,
   ResultsTable,
   Pagination,
 } from '../../../../../common/components';
-import { Tab, Label, Input } from 'semantic-ui-react';
 import { ManageRelationsButton } from '../../../components/ManageRelationsButton';
 import { ESSelectorModal } from '../../../../../common/components/ESSelector';
 import {
@@ -14,19 +15,13 @@ import {
   series as seriesApi,
 } from '../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
-import { goTo } from '../../../../../history';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
-import pick from 'lodash/pick';
 import capitalize from 'lodash/capitalize';
 import ESRelatedSelector from '../../../../../common/components/ESSelector/ESRelatedSelector';
 import {
   parentChildRelationPayload,
   siblingRelationPayload,
 } from '../../../../../common/api/utils';
-import {
-  formatPidTypeToName,
-  getRelationTypeByName,
-} from '../../../components/ManageRelationsButton/utils';
+import { formatPidTypeToName } from '../../../components/ManageRelationsButton/utils';
 import {
   serializeDocument,
   serializeSeries,
@@ -105,20 +100,6 @@ export default class DocumentRelations extends Component {
     const { activeIndex, activePage } = this.state;
     activePage[activeIndex] = page;
     this.setState({ activePage: activePage });
-  };
-
-  onRelatedClick = row => {
-    const pid = row.ID;
-    const type = row.Type;
-    let detailsFor;
-    if (type === 'Document') {
-      detailsFor = BackOfficeRoutes.documentDetailsFor;
-    } else if (type === 'Series') {
-      detailsFor = BackOfficeRoutes.seriesDetailsFor;
-    } else {
-      console.warn(`Unknown pid type: ${type}`);
-    }
-    return goTo(detailsFor(pid), { pid: pid, type: type });
   };
 
   getPaginator(rows, activePage) {
@@ -310,21 +291,21 @@ export default class DocumentRelations extends Component {
     return buttons[key];
   };
 
-  renderTab = (rows, name, editButton) => {
+  renderTab = (rows, columns, name, editButton) => {
     const activePage = this.activePage;
     const size = this.props.showMaxRows;
     const activeRows = rows.slice((activePage - 1) * size, activePage * size);
-    activeRows.totalHits = rows.length;
     return (
       <Tab.Pane>
         {editButton}
         <ResultsTable
-          rows={rows}
+          data={activeRows}
+          columns={columns}
+          totalHitsCount={rows.length}
           name={name}
           showMaxRows={size}
           paginationComponent={this.getPaginator(rows, activePage)}
           currentPage={activePage}
-          rowActionClickHandler={this.onRelatedClick}
         />
       </Tab.Pane>
     );
@@ -361,20 +342,6 @@ export default class DocumentRelations extends Component {
       }
     }
     return selections;
-  }
-
-  getTabRows(relation, pickColumns) {
-    const rows = [];
-    if (!this.props.relations[relation]) return [];
-
-    for (const obj of this.props.relations[relation]) {
-      const record = formatter.related.toTable(
-        obj,
-        getRelationTypeByName(relation).label
-      );
-      rows.push(pick(record, pickColumns));
-    }
-    return rows;
   }
 
   onSave = results => {
@@ -423,32 +390,33 @@ export default class DocumentRelations extends Component {
     this.setState({ removedRelations });
   };
 
+  viewDetails = ({ row }) => {
+    let detailsFor;
+    if (row.pid_type === 'docid') {
+      detailsFor = BackOfficeRoutes.documentDetailsFor;
+    } else if (row.pid_type === 'serid') {
+      detailsFor = BackOfficeRoutes.seriesDetailsFor;
+    } else {
+      console.warn(`Unknown pid type: ${row.pid_type}`);
+    }
+    return (
+      <Button
+        as={Link}
+        to={detailsFor(row.pid)}
+        compact
+        icon="info"
+        data-test={row.pid}
+      />
+    );
+  };
+
   getTabPanes() {
-    const editions = this.getTabRows('edition', [
-      'ID',
-      'Title',
-      'Type',
-      'Edition',
-    ]);
-    const languages = this.getTabRows('language', [
-      'ID',
-      'Title',
-      'Type',
-      'Language',
-    ]);
-    const multipartMonographs = this.getTabRows('multipart_monograph', [
-      'ID',
-      'Title',
-      'Type',
-      'Volume',
-    ]);
-    const serials = this.getTabRows('serial', [
-      'ID',
-      'Title',
-      'Type',
-      'Volume',
-    ]);
-    const others = this.getTabRows('other', ['ID', 'Title', 'Type', 'Note']);
+    const editions = this.props.relations['edition'] || [];
+    const languages = this.props.relations['language'] || [];
+    const serials = this.props.relations['serial'] || [];
+    const others = this.props.relations['other'] || [];
+    const multipartMonographs =
+      this.props.relations['multipart_monograph'] || [];
 
     return [
       {
@@ -456,14 +424,20 @@ export default class DocumentRelations extends Component {
           key: 'edition',
           content: (
             <>
-              <Label>{editions.length}</Label>
-              Editions
+              <Label>{editions.length}</Label>&nbsp;Editions
             </>
           ),
         },
         render: () =>
           this.renderTab(
             editions,
+            [
+              { title: '', field: '', formatter: this.viewDetails },
+              { title: 'ID', field: 'pid' },
+              { title: 'Title', field: 'title' },
+              { title: 'Type', field: 'pid_type' },
+              { title: 'Edition', field: 'edition' },
+            ],
             'related editions',
             this.getEditButton('edition')
           ),
@@ -473,14 +447,20 @@ export default class DocumentRelations extends Component {
           key: 'language',
           content: (
             <>
-              <Label>{languages.length}</Label>
-              Languages
+              <Label>{languages.length}</Label>&nbsp;Languages
             </>
           ),
         },
         render: () =>
           this.renderTab(
             languages,
+            [
+              { title: '', field: '', formatter: this.viewDetails },
+              { title: 'ID', field: 'pid' },
+              { title: 'Title', field: 'title' },
+              { title: 'Type', field: 'pid_type' },
+              { title: 'Language', field: 'language' },
+            ],
             'related languages',
             this.getEditButton('language')
           ),
@@ -490,14 +470,21 @@ export default class DocumentRelations extends Component {
           key: 'multipart_monograph',
           content: (
             <>
-              <Label>{multipartMonographs.length}</Label>
-              Multipart monographs
+              <Label>{multipartMonographs.length}</Label>&nbsp;Multipart
+              monographs
             </>
           ),
         },
         render: () =>
           this.renderTab(
             multipartMonographs,
+            [
+              { title: '', field: '', formatter: this.viewDetails },
+              { title: 'ID', field: 'pid' },
+              { title: 'Title', field: 'title' },
+              { title: 'Type', field: 'pid_type' },
+              { title: 'Volume', field: 'volume' },
+            ],
             'related multipart monographs',
             this.getEditButton('multipart')
           ),
@@ -507,14 +494,20 @@ export default class DocumentRelations extends Component {
           key: 'serial',
           content: (
             <>
-              <Label>{serials.length}</Label>
-              Serials
+              <Label>{serials.length}</Label>&nbsp;Serials
             </>
           ),
         },
         render: () =>
           this.renderTab(
             serials,
+            [
+              { title: '', field: '', formatter: this.viewDetails },
+              { title: 'ID', field: 'pid' },
+              { title: 'Title', field: 'title' },
+              { title: 'Type', field: 'pid_type' },
+              { title: 'Volume', field: 'volume' },
+            ],
             'related serials',
             this.getEditButton('serials')
           ),
@@ -524,13 +517,23 @@ export default class DocumentRelations extends Component {
           key: 'other',
           content: (
             <>
-              <Label>{others.length}</Label>
-              Others
+              <Label>{others.length}</Label>&nbsp;Others
             </>
           ),
         },
         render: () =>
-          this.renderTab(others, 'related others', this.getEditButton('other')),
+          this.renderTab(
+            others,
+            [
+              { title: '', field: '', formatter: this.viewDetails },
+              { title: 'ID', field: 'pid' },
+              { title: 'Title', field: 'title' },
+              { title: 'Type', field: 'pid_type' },
+              { title: 'Note', field: 'note' },
+            ],
+            'related others',
+            this.getEditButton('other')
+          ),
       },
     ];
   }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Icon, Header } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Button, Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
@@ -18,14 +19,11 @@ import {
   ResultsSort,
   ResultsTable,
 } from '../../../common/components';
-import { formatter } from '../../../common/components/ResultsTable/formatters';
 import { documentRequest as documentRequestApi } from '../../../common/api/documentRequests/documentRequest';
 import { getSearchConfig } from '../../../common/config';
 import { ClearButton } from '../components/buttons';
 import { ExportReactSearchKitResults } from '../components';
 import { BackOfficeRoutes } from '../../../routes/urls';
-import { goTo } from '../../../history';
-import _pick from 'lodash/pick';
 
 export class DocumentRequestsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -58,19 +56,19 @@ export class DocumentRequestsSearch extends Component {
     );
   };
 
-  prepareData(data) {
-    return data.map(row => {
-      return _pick(formatter.documentRequest.toTable(row), [
-        'ID',
-        'Patron ID',
-        'Title',
-        'State',
-      ]);
-    });
-  }
+  viewDetails = ({ row }) => {
+    return (
+      <Button
+        as={Link}
+        to={BackOfficeRoutes.documentRequestDetailsFor(row.metadata.pid)}
+        compact
+        icon="info"
+        data-test={row.metadata.pid}
+      />
+    );
+  };
 
   renderResultsTable = results => {
-    const rows = this.prepareData(results);
     const headerActionComponent = (
       <div>
         <ExportReactSearchKitResults
@@ -78,16 +76,20 @@ export class DocumentRequestsSearch extends Component {
         />
       </div>
     );
-
+    const columns = [
+      { title: '', field: '', formatter: this.viewDetails },
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Patron', field: 'metadata.patron.name' },
+      { title: 'Title', field: 'metadata.title' },
+      { title: 'State', field: 'metadata.state' },
+    ];
     return (
       <ResultsTable
-        rows={rows}
+        data={results}
+        columns={columns}
         title={''}
         name={'book requests'}
         headerActionComponent={headerActionComponent}
-        rowActionClickHandler={row =>
-          goTo(BackOfficeRoutes.documentRequestDetailsFor(row.ID))
-        }
       />
     );
   };

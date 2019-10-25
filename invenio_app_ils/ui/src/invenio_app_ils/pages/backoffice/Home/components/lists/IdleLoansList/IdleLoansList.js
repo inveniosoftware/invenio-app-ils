@@ -1,31 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../../common/components';
-import { ResultsTable } from '../../../../../../common/components';
+import { Link } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
+import {
+  Loader,
+  Error,
+  ResultsTable,
+} from '../../../../../../common/components';
 import { invenioConfig } from '../../../../../../common/config';
 import { loan as loanApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { DateTime } from 'luxon';
-import { formatter } from '../../../../../../common/components/ResultsTable/formatters';
 import { SeeAllButton } from '../../../../components/buttons';
-import { goTo, goToHandler } from '../../../../../../history';
-import { toShortDate } from '../../../../../../common/api/date';
-import pick from 'lodash/pick';
+import { goToHandler } from '../../../../../../history';
+import { dateFormatter, toShortDate } from '../../../../../../common/api/date';
 
 export default class IdleLoansList extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchIdlePendingLoans = props.fetchIdlePendingLoans;
-    this.showDetailsUrl = BackOfficeRoutes.loanDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
-  }
-
   componentDidMount() {
-    this.fetchIdlePendingLoans();
+    this.props.fetchIdlePendingLoans();
   }
 
   seeAllButton = () => {
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.loansListWithQuery(
       loanApi
         .query()
         .withState(invenioConfig.circulation.loanRequestStates)
@@ -35,29 +31,38 @@ export default class IdleLoansList extends Component {
     return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
-  prepareData(data) {
-    return data.hits.map(row => {
-      let serialized = formatter.loan.toTable(row);
-      return pick(serialized, [
-        'ID',
-        'Updated',
-        'Patron ID',
-        'Document ID',
-        'Request start date',
-      ]);
-    });
-  }
+  viewDetails = ({ row }) => {
+    return (
+      <Button
+        as={Link}
+        to={BackOfficeRoutes.loanDetailsFor(row.metadata.pid)}
+        compact
+        icon="info"
+        data-test={row.metadata.pid}
+      />
+    );
+  };
 
   renderTable(data) {
-    const rows = this.prepareData(data);
-    rows.totalHits = data.total;
+    const columns = [
+      { title: '', field: '', formatter: this.viewDetails },
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Patron ID', field: 'metadata.patron_pid' },
+      { title: 'Document ID', field: 'metadata.document_pid' },
+      {
+        title: 'Request start date',
+        field: 'metadata.request_start_date',
+        formatter: dateFormatter,
+      },
+    ];
     return (
       <ResultsTable
-        rows={rows}
+        data={data.hits}
+        columns={columns}
+        totalHitsCounts={data.total}
         title={'Idle loan requests'}
         subtitle={'Loan requests pending since more than 10 days.'}
         name={'idle loan requests'}
-        rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxEntries}
       />

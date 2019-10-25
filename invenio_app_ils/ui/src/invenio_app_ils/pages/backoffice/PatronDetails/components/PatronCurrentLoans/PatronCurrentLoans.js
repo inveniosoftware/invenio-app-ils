@@ -1,33 +1,24 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../common/components';
+import { Loader, Error, ResultsTable } from '../../../../../common/components';
 import { loan as loanApi } from '../../../../../common/api';
 import { invenioConfig } from '../../../../../common/config';
-import { ResultsTable } from '../../../../../common/components';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
-import { formatter } from '../../../../../common/components/ResultsTable/formatters';
+import { dateFormatter } from '../../../../../common/api/date';
 import { SeeAllButton } from '../../../components/buttons';
-import { goTo, goToHandler } from '../../../../../history';
-
-import isEmpty from 'lodash/isEmpty';
-import pick from 'lodash/pick';
+import { goToHandler } from '../../../../../history';
 
 export default class PatronCurrentLoans extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchPatronCurrentLoans = props.fetchPatronCurrentLoans;
-    this.showDetailsUrl = BackOfficeRoutes.loanDetailsFor;
-    this.seeAllUrl = BackOfficeRoutes.loansListWithQuery;
-  }
-
   componentDidMount() {
     const patronPid = this.props.patronPid ? this.props.patronPid : null;
-    this.fetchPatronCurrentLoans(patronPid);
+    this.props.fetchPatronCurrentLoans(patronPid);
   }
 
   seeAllButton = () => {
     const { patronPid } = this.props;
-    const path = this.seeAllUrl(
+    const path = BackOfficeRoutes.loansListWithQuery(
       loanApi
         .query()
         .withPatronPid(patronPid)
@@ -38,33 +29,45 @@ export default class PatronCurrentLoans extends Component {
     return <SeeAllButton clickHandler={goToHandler(path)} />;
   };
 
-  prepareData(data) {
-    return data.hits.map(row => {
-      return pick(formatter.loan.toTable(row), [
-        'ID',
-        'Item barcode',
-        'Start date',
-        'End date',
-        'Renewals',
-      ]);
-    });
-  }
+  viewDetails = ({ row }) => {
+    return (
+      <Button
+        as={Link}
+        to={BackOfficeRoutes.loanDetailsFor(row.metadata.pid)}
+        compact
+        icon="info"
+        data-test={row.metadata.pid}
+      />
+    );
+  };
 
   render() {
-    const { data, isLoading, hasError, error } = this.props;
-    const rows =
-      !hasError && !isLoading && !isEmpty(data)
-        ? this.prepareData(this.props.data)
-        : [];
-    rows.totalHits = data.total;
+    const { data, isLoading, error } = this.props;
+    const columns = [
+      { title: '', field: '', formatter: this.viewDetails },
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Item barcode', field: 'metadata.item.barcode' },
+      {
+        title: 'Start date',
+        field: 'metadata.start_date',
+        formatter: dateFormatter,
+      },
+      {
+        title: 'End date',
+        field: 'metadata.end_date',
+        formatter: dateFormatter,
+      },
+      { title: 'Renewals', field: 'metadata.extension_count' },
+    ];
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <ResultsTable
-            rows={rows}
+            data={data.hits}
+            columns={columns}
+            totalHitsCount={data.total}
             title={"Patron's current loans"}
             name={'current loans'}
-            rowActionClickHandler={row => goTo(this.showDetailsUrl(row.ID))}
             seeAllComponent={this.seeAllButton()}
             showMaxRows={this.props.showMaxLoans}
           />
