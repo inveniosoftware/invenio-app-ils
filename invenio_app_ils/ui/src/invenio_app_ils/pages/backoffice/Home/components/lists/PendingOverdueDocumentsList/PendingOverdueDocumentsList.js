@@ -7,7 +7,6 @@ import { ResultsTable } from '../../../../../../common/components';
 import { document as documentApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { SeeAllButton } from '../../../../components/buttons';
-import { goToHandler } from '../../../../../../history';
 
 export default class PendingOverdueDocumentsList extends Component {
   componentDidMount() {
@@ -21,7 +20,7 @@ export default class PendingOverdueDocumentsList extends Component {
         .pendingOverdue()
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton to={path} />;
   };
 
   viewDetails = ({ row }) => {

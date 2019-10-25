@@ -6,7 +6,6 @@ import { Loader, Error, ResultsTable } from '../../../../../common/components';
 import { item as itemApi } from '../../../../../common/api';
 import { invenioConfig } from '../../../../../common/config';
 import { SeeAllButton } from '../../../components/buttons/SeeAllButton';
-import { goToHandler } from '../../../../../history';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 
 export default class AvailableItems extends Component {
@@ -30,7 +29,7 @@ export default class AvailableItems extends Component {
         .withDocPid(document_pid)
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton to={path} />;
   };
 
   assignItemButton(item) {

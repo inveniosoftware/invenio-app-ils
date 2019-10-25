@@ -11,7 +11,6 @@ import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { listQuery } from './state/listQuery';
 import { dateFormatter } from '../../../../../../common/api/date';
 import { SeeAllButton } from '../../../../components/buttons';
-import { goToHandler } from '../../../../../../history';
 
 export default class RenewedLoansList extends Component {
   componentDidMount() {
@@ -19,13 +18,7 @@ export default class RenewedLoansList extends Component {
   }
 
   seeAllButton = () => {
-    return (
-      <SeeAllButton
-        clickHandler={goToHandler(
-          BackOfficeRoutes.loansListWithQuery(listQuery)
-        )}
-      />
-    );
+    return <SeeAllButton to={BackOfficeRoutes.loansListWithQuery(listQuery)} />;
   };
 
   viewDetails = ({ row }) => {

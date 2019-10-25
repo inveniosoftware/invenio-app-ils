@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 export default class SeeAllButton extends Component {
   render() {
-    const { fluid, disabled } = this.props;
+    const { fluid, disabled, to } = this.props;
     return (
       <Button
+        as={Link}
+        to={to}
         size="tiny"
         {...(disabled ? { disabled: true } : {})}
         {...(fluid ? { fluid: true } : {})}
-        onClick={this.props.clickHandler}
       >
         See all
       </Button>
@@ -19,7 +21,6 @@ export default class SeeAllButton extends Component {
 }
 
 SeeAllButton.propTypes = {
-  clickHandler: PropTypes.func.isRequired,
   fluid: PropTypes.bool,
   disabled: PropTypes.bool,
 };

@@ -12,7 +12,6 @@ import { loan as loanApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { DateTime } from 'luxon';
 import { SeeAllButton } from '../../../../components/buttons';
-import { goToHandler } from '../../../../../../history';
 import { dateFormatter, toShortDate } from '../../../../../../common/api/date';
 
 export default class IdleLoansList extends Component {
@@ -28,7 +27,7 @@ export default class IdleLoansList extends Component {
         .withUpdated({ to: toShortDate(DateTime.local().minus({ days: 10 })) })
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton to={path} />;
   };
 
   viewDetails = ({ row }) => {

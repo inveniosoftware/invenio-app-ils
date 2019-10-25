@@ -108,11 +108,7 @@ export class SeriesSearch extends Component {
         </Header>
         <div>Current search "{queryString}"</div>
         <Segment.Inline>
-          <ClearButton
-            clickHandler={() => {
-              resetQuery();
-            }}
-          />
+          <ClearButton clickHandler={resetQuery} />
           <NewButton text={'New series'} to={BackOfficeRoutes.seriesCreate} />
         </Segment.Inline>
       </Segment>

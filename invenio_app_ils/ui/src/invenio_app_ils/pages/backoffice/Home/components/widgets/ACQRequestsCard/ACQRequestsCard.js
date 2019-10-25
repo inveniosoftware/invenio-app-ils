@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Loader, Error } from '../../../../../../common/components';
 import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
 import { NewButton, SeeAllButton } from '../../../../components/buttons';
-import { goToHandler } from '../../../../../../history';
 
 export default class ACQRequestsCard extends Component {
   constructor(props) {
@@ -17,9 +16,7 @@ export default class ACQRequestsCard extends Component {
   componentDidMount() {}
 
   seeAllButton = () => {
-    return (
-      <SeeAllButton fluid disabled clickHandler={goToHandler(this.seeAllUrl)} />
-    );
+    return <SeeAllButton fluid disabled to={this.seeAllUrl} />;
   };
 
   newAcqButton = () => {

@@ -6,7 +6,6 @@ import { loan as loanApi } from '../../../../../../common/api';
 import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { NewButton, SeeAllButton } from '../../../../components/buttons';
-import { goToHandler } from '../../../../../../history';
 
 export default class LoansCard extends Component {
   constructor(props) {
@@ -26,7 +25,7 @@ export default class LoansCard extends Component {
         .withState(invenioConfig.circulation.loanRequestStates)
         .qs()
     );
-    return <SeeAllButton fluid disabled clickHandler={goToHandler(path)} />;
+    return <SeeAllButton fluid disabled to={path} />;
   };
 
   newLoanButton = () => {

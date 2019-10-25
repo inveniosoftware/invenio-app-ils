@@ -14,9 +14,9 @@ exports[`LoansCard tests should load the details component 1`] = `
       }
       buttonRight={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={true}
           fluid={true}
+          to="/backoffice/loans?q=(state:(PENDING))"
         />
       }
       stats={0}
@@ -57,9 +57,9 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
         }
         buttonRight={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={true}
             fluid={true}
+            to="/backoffice/loans?q=(state:(PENDING))"
           />
         }
         stats={2}
@@ -175,8 +175,58 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                         null,
                                         "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
                                       ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
                                     ],
                                     "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
                                       Object {
                                         "type": "return",
                                         "value": undefined,
@@ -243,8 +293,58 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                         null,
                                         "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
                                       ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
                                     ],
                                     "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
                                       Object {
                                         "type": "return",
                                         "value": undefined,
@@ -311,8 +411,58 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                         null,
                                         "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
                                       ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
                                     ],
                                     "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
                                       Object {
                                         "type": "return",
                                         "value": undefined,
@@ -379,8 +529,58 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                         null,
                                         "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
                                       ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
                                     ],
                                     "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
                                       Object {
                                         "type": "return",
                                         "value": undefined,
@@ -447,8 +647,58 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                         null,
                                         "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
                                       ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
                                     ],
                                     "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
                                       Object {
                                         "type": "return",
                                         "value": undefined,
@@ -485,8 +735,29 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                       },
                                       [Function],
                                     ],
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          "See all",
+                                          false,
+                                          false,
+                                        ],
+                                        "className": "ui tiny fluid disabled button",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": -1,
+                                        "to": "/backoffice/loans?q=(state:(PENDING))",
+                                      },
+                                      [Function],
+                                    ],
                                   ],
                                   "results": Array [
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
                                     Object {
                                       "type": "return",
                                       "value": undefined,
@@ -537,52 +808,690 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                         className="eight wide column"
                       >
                         <SeeAllButton
-                          clickHandler={[Function]}
                           disabled={true}
                           fluid={true}
+                          to="/backoffice/loans?q=(state:(PENDING))"
                         >
                           <Button
-                            as="button"
+                            as={
+                              Object {
+                                "$$typeof": Symbol(react.forward_ref),
+                                "displayName": "Link",
+                                "propTypes": Object {
+                                  "innerRef": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            Array [
+                                              <Icon
+                                                as="i"
+                                                name="plus"
+                                              />,
+                                              "New",
+                                            ],
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui small fluid icon positive disabled left labeled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            Array [
+                                              <Icon
+                                                as="i"
+                                                name="plus"
+                                              />,
+                                              "New",
+                                            ],
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui small fluid icon positive disabled left labeled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "innerRef",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "onClick": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            Array [
+                                              <Icon
+                                                as="i"
+                                                name="plus"
+                                              />,
+                                              "New",
+                                            ],
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui small fluid icon positive disabled left labeled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            Array [
+                                              <Icon
+                                                as="i"
+                                                name="plus"
+                                              />,
+                                              "New",
+                                            ],
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui small fluid icon positive disabled left labeled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "onClick",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "replace": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            Array [
+                                              <Icon
+                                                as="i"
+                                                name="plus"
+                                              />,
+                                              "New",
+                                            ],
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui small fluid icon positive disabled left labeled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            Array [
+                                              <Icon
+                                                as="i"
+                                                name="plus"
+                                              />,
+                                              "New",
+                                            ],
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui small fluid icon positive disabled left labeled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "replace",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "target": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            Array [
+                                              <Icon
+                                                as="i"
+                                                name="plus"
+                                              />,
+                                              "New",
+                                            ],
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui small fluid icon positive disabled left labeled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            Array [
+                                              <Icon
+                                                as="i"
+                                                name="plus"
+                                              />,
+                                              "New",
+                                            ],
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui small fluid icon positive disabled left labeled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "target",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                  "to": [MockFunction] {
+                                    "calls": Array [
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            Array [
+                                              <Icon
+                                                as="i"
+                                                name="plus"
+                                              />,
+                                              "New",
+                                            ],
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui small fluid icon positive disabled left labeled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            Array [
+                                              <Icon
+                                                as="i"
+                                                name="plus"
+                                              />,
+                                              "New",
+                                            ],
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui small fluid icon positive disabled left labeled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                      Array [
+                                        Object {
+                                          "aria-pressed": undefined,
+                                          "children": Array [
+                                            "See all",
+                                            false,
+                                            false,
+                                          ],
+                                          "className": "ui tiny fluid disabled button",
+                                          "disabled": undefined,
+                                          "onClick": [Function],
+                                          "role": "button",
+                                          "tabIndex": -1,
+                                          "to": "/backoffice/loans?q=(state:(PENDING))",
+                                        },
+                                        "to",
+                                        "Link",
+                                        "prop",
+                                        null,
+                                        "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED",
+                                      ],
+                                    ],
+                                    "results": Array [
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                      Object {
+                                        "type": "return",
+                                        "value": undefined,
+                                      },
+                                    ],
+                                  },
+                                },
+                                "render": [MockFunction] {
+                                  "calls": Array [
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          Array [
+                                            <Icon
+                                              as="i"
+                                              name="plus"
+                                            />,
+                                            "New",
+                                          ],
+                                          false,
+                                          false,
+                                        ],
+                                        "className": "ui small fluid icon positive disabled left labeled button",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": -1,
+                                        "to": "",
+                                      },
+                                      [Function],
+                                    ],
+                                    Array [
+                                      Object {
+                                        "aria-pressed": undefined,
+                                        "children": Array [
+                                          "See all",
+                                          false,
+                                          false,
+                                        ],
+                                        "className": "ui tiny fluid disabled button",
+                                        "disabled": undefined,
+                                        "onClick": [Function],
+                                        "role": "button",
+                                        "tabIndex": -1,
+                                        "to": "/backoffice/loans?q=(state:(PENDING))",
+                                      },
+                                      [Function],
+                                    ],
+                                  ],
+                                  "results": Array [
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                    Object {
+                                      "type": "return",
+                                      "value": undefined,
+                                    },
+                                  ],
+                                },
+                              }
+                            }
                             disabled={true}
                             fluid={true}
-                            onClick={[Function]}
                             size="tiny"
+                            to="/backoffice/loans?q=(state:(PENDING))"
                           >
                             <Ref
                               innerRef={
                                 Object {
-                                  "current": <button
-                                    class="ui tiny fluid disabled button"
-                                    disabled=""
-                                    tabindex="-1"
-                                  >
-                                    See all
-                                  </button>,
+                                  "current": null,
                                 }
                               }
                             >
-                              <RefFindNode
+                              <RefForward
                                 innerRef={
                                   Object {
-                                    "current": <button
-                                      class="ui tiny fluid disabled button"
-                                      disabled=""
-                                      tabindex="-1"
-                                    >
-                                      See all
-                                    </button>,
+                                    "current": null,
                                   }
                                 }
                               >
-                                <button
+                                <Link
                                   className="ui tiny fluid disabled button"
-                                  disabled={true}
                                   onClick={[Function]}
+                                  role="button"
                                   tabIndex={-1}
-                                >
-                                  See all
-                                </button>
-                              </RefFindNode>
+                                  to="/backoffice/loans?q=(state:(PENDING))"
+                                />
+                              </RefForward>
                             </Ref>
                           </Button>
                         </SeeAllButton>

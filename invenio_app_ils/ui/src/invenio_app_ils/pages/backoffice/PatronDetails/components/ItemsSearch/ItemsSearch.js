@@ -9,11 +9,9 @@ import {
   Button,
   Input,
 } from 'semantic-ui-react';
-import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { Error, Loader } from '../../../../../common/components';
 import { ItemsResultsList } from './components';
 import isEmpty from 'lodash/isEmpty';
-import { goTo } from '../../../../../history';
 
 export default class ItemsSearch extends Component {
   constructor(props) {
@@ -115,9 +113,6 @@ export default class ItemsSearch extends Component {
           results={results}
           checkoutItem={this.checkoutItem}
           fetchPatronCurrentLoans={this.fetchUpdatedCurrentLoans}
-          viewDetailsClickHandler={row =>
-            goTo(BackOfficeRoutes.itemDetailsFor(row.ID))
-          }
         />
       </div>
     );

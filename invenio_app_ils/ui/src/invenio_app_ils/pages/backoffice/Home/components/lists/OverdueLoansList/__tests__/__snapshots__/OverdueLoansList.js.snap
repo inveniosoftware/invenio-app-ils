@@ -37,15 +37,14 @@ exports[`OverdueLoansList tests should load the details component 1`] = `
       }
       currentPage={1}
       data={Array []}
-      headerActionClickHandler={null}
       headerActionComponent={null}
       name="overdue loans"
       paginationComponent={null}
       seeAllComponent={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={false}
           fluid={false}
+          to="/backoffice/loans?q=(state:(ITEM_ON_LOAN) AND end_date:%7B*%20TO%202019-10-25%7D)"
         />
       }
       showAllResults={false}
@@ -202,15 +201,14 @@ exports[`OverdueLoansList tests should render loans 1`] = `
             },
           ]
         }
-        headerActionClickHandler={null}
         headerActionComponent={null}
         name="overdue loans"
         paginationComponent={null}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            to="/backoffice/loans?q=(state:(ITEM_ON_LOAN) AND end_date:%7B*%20TO%202019-10-25%7D)"
           />
         }
         showAllResults={false}
@@ -2144,9 +2142,9 @@ exports[`OverdueLoansList tests should render loans 1`] = `
               paginationComponent={null}
               seeAllComponent={
                 <SeeAllButton
-                  clickHandler={[Function]}
                   disabled={false}
                   fluid={false}
+                  to="/backoffice/loans?q=(state:(ITEM_ON_LOAN) AND end_date:%7B*%20TO%202019-10-25%7D)"
                 />
               }
               showAllResults={false}
@@ -2207,15 +2205,14 @@ exports[`OverdueLoansList tests should render show a message with no loans 1`] =
         }
         currentPage={1}
         data={Array []}
-        headerActionClickHandler={null}
         headerActionComponent={null}
         name="overdue loans"
         paginationComponent={null}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            to="/backoffice/loans?q=(state:(ITEM_ON_LOAN) AND end_date:%7B*%20TO%202019-10-25%7D)"
           />
         }
         showAllResults={false}

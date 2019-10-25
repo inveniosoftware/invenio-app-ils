@@ -45,15 +45,14 @@ exports[`ItemPastLoans tests should load the past loans component 1`] = `
       }
       currentPage={1}
       data={Array []}
-      headerActionClickHandler={null}
       headerActionComponent={null}
       name="loans"
       paginationComponent={null}
       seeAllComponent={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={false}
           fluid={false}
+          to="/backoffice/loans?q=(item_pid:222 AND state:(ITEM_RETURNED OR CANCELLED))"
         />
       }
       showAllResults={false}
@@ -215,15 +214,14 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
             },
           ]
         }
-        headerActionClickHandler={null}
         headerActionComponent={null}
         name="loans"
         paginationComponent={null}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            to="/backoffice/loans?q=(item_pid:222 AND state:(ITEM_RETURNED OR CANCELLED))"
           />
         }
         showAllResults={false}
@@ -2191,9 +2189,9 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
               paginationComponent={null}
               seeAllComponent={
                 <SeeAllButton
-                  clickHandler={[Function]}
                   disabled={false}
                   fluid={false}
+                  to="/backoffice/loans?q=(item_pid:222 AND state:(ITEM_RETURNED OR CANCELLED))"
                 />
               }
               showAllResults={false}
@@ -2271,15 +2269,14 @@ exports[`ItemPastLoans tests should render show a message with no past loans 1`]
         }
         currentPage={1}
         data={Array []}
-        headerActionClickHandler={null}
         headerActionComponent={null}
         name="loans"
         paginationComponent={null}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            to="/backoffice/loans?q=(item_pid:222 AND state:(ITEM_RETURNED OR CANCELLED))"
           />
         }
         showAllResults={false}

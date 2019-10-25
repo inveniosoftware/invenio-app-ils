@@ -10,7 +10,6 @@ import {
 import { series as seriesApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { SeeAllButton } from '../../../../components/buttons';
-import { goToHandler } from '../../../../../../history';
 
 export class SeriesMultipartMonographsData extends Component {
   constructor(props) {
@@ -31,7 +30,7 @@ export class SeriesMultipartMonographsData extends Component {
         .withSerialPid(this.seriesPid)
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton to={path} />;
   };
 
   prepareData = multipartMonographs => {

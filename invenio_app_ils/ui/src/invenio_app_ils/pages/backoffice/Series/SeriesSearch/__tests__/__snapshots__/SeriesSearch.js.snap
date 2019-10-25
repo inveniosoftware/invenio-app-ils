@@ -17,7 +17,6 @@ exports[`SeriesSearch ResultsTable tests should not render when empty results 1`
   }
   currentPage={1}
   data={Array []}
-  headerActionClickHandler={null}
   headerActionComponent={null}
   paginationComponent={null}
   seeAllComponent={null}
@@ -108,7 +107,6 @@ exports[`SeriesSearch ResultsTable tests should render a list of results 1`] = `
       },
     ]
   }
-  headerActionClickHandler={null}
   headerActionComponent={null}
   paginationComponent={null}
   seeAllComponent={null}

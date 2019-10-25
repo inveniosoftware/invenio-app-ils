@@ -62,11 +62,7 @@ export class DocumentsSearch extends Component {
         </Header>
         <div>Current search "{queryString}"</div>
         <Segment.Inline>
-          <ClearButton
-            clickHandler={() => {
-              resetQuery();
-            }}
-          />
+          <ClearButton clickHandler={resetQuery} />
           <NewButton
             text={'New document'}
             to={BackOfficeRoutes.documentCreate}

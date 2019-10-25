@@ -32,15 +32,14 @@ exports[`SeriesDocuments tests should load the SeriesDocuments component 1`] = `
       }
       currentPage={1}
       data={Array []}
-      headerActionClickHandler={null}
       headerActionComponent={null}
       name="documents"
       paginationComponent={null}
       seeAllComponent={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={false}
           fluid={false}
+          to="/backoffice/documents?q=relations.serial.pid:111"
         />
       }
       showAllResults={false}

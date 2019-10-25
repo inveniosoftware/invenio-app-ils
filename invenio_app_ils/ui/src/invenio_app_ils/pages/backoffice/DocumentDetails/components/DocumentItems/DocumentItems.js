@@ -6,7 +6,6 @@ import { Loader, Error, ResultsTable } from '../../../../../common/components';
 import { item as itemApi } from '../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { SeeAllButton } from '../../../components/buttons';
-import { goToHandler } from '../../../../../history';
 import _get from 'lodash/get';
 
 export default class DocumentItems extends Component {
@@ -21,7 +20,7 @@ export default class DocumentItems extends Component {
         .withDocPid(this.props.document.pid)
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton to={path} />;
   };
 
   viewDetails = ({ row }) => {

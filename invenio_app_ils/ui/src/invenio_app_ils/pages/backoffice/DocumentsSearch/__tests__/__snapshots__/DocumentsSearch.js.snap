@@ -17,7 +17,6 @@ exports[`DocumentsSearch ResultsTable tests should not render when empty results
   }
   currentPage={1}
   data={Array []}
-  headerActionClickHandler={null}
   headerActionComponent={null}
   paginationComponent={null}
   seeAllComponent={null}
@@ -104,7 +103,6 @@ exports[`DocumentsSearch ResultsTable tests should render a list of results 1`] 
       },
     ]
   }
-  headerActionClickHandler={null}
   headerActionComponent={null}
   paginationComponent={null}
   seeAllComponent={null}

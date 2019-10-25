@@ -8,7 +8,6 @@ import isEmpty from 'lodash/isEmpty';
 export class ItemsResultsList extends Component {
   constructor(props) {
     super(props);
-    this.viewDetailsClickHandler = this.props.viewDetailsClickHandler;
     this.clearResults = this.props.clearResults;
     this.checkoutItem = this.props.checkoutItem;
     this.fetchPatronCurrentLoans = this.props.fetchPatronCurrentLoans;
@@ -127,7 +126,6 @@ export class ItemsResultsList extends Component {
 
 ItemsResultsList.propTypes = {
   results: PropTypes.object.isRequired,
-  viewDetailsClickHandler: PropTypes.func.isRequired,
   clearResults: PropTypes.func.isRequired,
   checkoutItem: PropTypes.func.isRequired,
   patronPid: PropTypes.string.isRequired,

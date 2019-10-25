@@ -8,7 +8,6 @@ import { dateFormatter } from '../../../../../common/api/date';
 import { invenioConfig } from '../../../../../common/config';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { SeeAllButton } from '../../../components/buttons';
-import { goToHandler } from '../../../../../history';
 
 export default class DocumentPendingLoans extends Component {
   componentDidMount() {
@@ -25,7 +24,7 @@ export default class DocumentPendingLoans extends Component {
         .withState(invenioConfig.circulation.loanRequestStates)
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton to={path} />;
   };
 
   viewDetails = ({ row }) => {
