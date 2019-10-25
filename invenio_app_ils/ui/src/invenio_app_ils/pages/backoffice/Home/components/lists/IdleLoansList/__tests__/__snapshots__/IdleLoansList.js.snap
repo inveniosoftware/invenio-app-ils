@@ -32,15 +32,14 @@ exports[`IdleLoansList tests should load the details component 1`] = `
       }
       currentPage={1}
       data={Array []}
-      headerActionClickHandler={null}
       headerActionComponent={null}
       name="idle loan requests"
       paginationComponent={null}
       seeAllComponent={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={false}
           fluid={false}
+          to="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-15%7D)"
         />
       }
       showAllResults={false}
@@ -180,15 +179,14 @@ exports[`IdleLoansList tests should render loans 1`] = `
             },
           ]
         }
-        headerActionClickHandler={null}
         headerActionComponent={null}
         name="idle loan requests"
         paginationComponent={null}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            to="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-15%7D)"
           />
         }
         showAllResults={false}
@@ -2011,9 +2009,9 @@ exports[`IdleLoansList tests should render loans 1`] = `
               paginationComponent={null}
               seeAllComponent={
                 <SeeAllButton
-                  clickHandler={[Function]}
                   disabled={false}
                   fluid={false}
+                  to="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-15%7D)"
                 />
               }
               showAllResults={false}
@@ -2069,15 +2067,14 @@ exports[`IdleLoansList tests should render show a message with no loans 1`] = `
         }
         currentPage={1}
         data={Array []}
-        headerActionClickHandler={null}
         headerActionComponent={null}
         name="idle loan requests"
         paginationComponent={null}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            to="/backoffice/loans?q=(state:(PENDING) AND _updated:%7B*%20TO%202019-10-15%7D)"
           />
         }
         showAllResults={false}

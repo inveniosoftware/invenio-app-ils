@@ -274,7 +274,6 @@ exports[`PatronLoans tests should render items in search 1`] = `
                           "total": 1,
                         }
                       }
-                      viewDetailsClickHandler={[Function]}
                     >
                       <ResultsTable
                         columns={
@@ -335,7 +334,6 @@ exports[`PatronLoans tests should render items in search 1`] = `
                             },
                           ]
                         }
-                        headerActionClickHandler={null}
                         headerActionComponent={null}
                         name="items"
                         paginationComponent={null}

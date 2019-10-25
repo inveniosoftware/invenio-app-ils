@@ -10,7 +10,6 @@ import {
 import { document as documentApi } from '../../../../../../common/api';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { SeeAllButton } from '../../../../components/buttons';
-import { goToHandler } from '../../../../../../history';
 import _get from 'lodash/get';
 
 export default class SeriesDocuments extends Component {
@@ -31,7 +30,7 @@ export default class SeriesDocuments extends Component {
         .withSeriesPid(this.seriesPid, this.seriesType)
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton to={path} />;
   };
 
   prepareData = documents => {

@@ -5,7 +5,6 @@ import { RecordsBriefCard } from '../../../../components/statistics/RecordsBrief
 import { NewButton, SeeAllButton } from '../../../../components/buttons';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { document as documentApi } from '../../../../../../common/api';
-import { goToHandler } from '../../../../../../history';
 
 class DataCard extends Component {
   constructor(props) {
@@ -26,7 +25,7 @@ class DataCard extends Component {
         .withPendingLoans()
         .qs()
     );
-    return <SeeAllButton fluid disabled clickHandler={goToHandler(path)} />;
+    return <SeeAllButton fluid disabled to={path} />;
   };
 
   render() {

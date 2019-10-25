@@ -7,7 +7,6 @@ import { loan as loanApi } from '../../../../../common/api';
 import { invenioConfig } from '../../../../../common/config';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { SeeAllButton } from '../../../components/buttons';
-import { goToHandler } from '../../../../../history';
 
 export default class PatronPendingLoans extends Component {
   componentDidMount() {
@@ -24,7 +23,7 @@ export default class PatronPendingLoans extends Component {
         .withState(invenioConfig.circulation.loanRequestStates)
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton to={path} />;
   };
 
   viewDetails = ({ row }) => {

@@ -106,7 +106,6 @@ ResultsTable.propTypes = {
 
 ResultsTable.defaultProps = {
   currentPage: 1,
-  headerActionClickHandler: null,
   headerActionComponent: null,
   paginationComponent: null,
   seeAllComponent: null,

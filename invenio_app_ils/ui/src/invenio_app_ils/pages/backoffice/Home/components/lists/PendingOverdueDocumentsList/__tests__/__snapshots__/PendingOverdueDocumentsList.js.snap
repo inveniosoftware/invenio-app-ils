@@ -31,15 +31,14 @@ exports[`PendingOverdueDocumentsList tests should load the details component 1`]
       }
       currentPage={1}
       data={Array []}
-      headerActionClickHandler={null}
       headerActionComponent={null}
       name="pending overdue documents"
       paginationComponent={null}
       seeAllComponent={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={false}
           fluid={false}
+          to="/backoffice/documents?q=circulation.has_items_for_loan:0%20AND%20circulation.pending_loans:%3E0%20AND%20circulation.overdue_loans:%3E0%20AND%20items.total:%3E0"
         />
       }
       showAllResults={false}
@@ -192,15 +191,14 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
             },
           ]
         }
-        headerActionClickHandler={null}
         headerActionComponent={null}
         name="pending overdue documents"
         paginationComponent={null}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            to="/backoffice/documents?q=circulation.has_items_for_loan:0%20AND%20circulation.pending_loans:%3E0%20AND%20circulation.overdue_loans:%3E0%20AND%20items.total:%3E0"
           />
         }
         showAllResults={false}
@@ -2032,9 +2030,9 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
               paginationComponent={null}
               seeAllComponent={
                 <SeeAllButton
-                  clickHandler={[Function]}
                   disabled={false}
                   fluid={false}
+                  to="/backoffice/documents?q=circulation.has_items_for_loan:0%20AND%20circulation.pending_loans:%3E0%20AND%20circulation.overdue_loans:%3E0%20AND%20items.total:%3E0"
                 />
               }
               showAllResults={false}
@@ -2089,15 +2087,14 @@ exports[`PendingOverdueDocumentsList tests should render show a message with no 
         }
         currentPage={1}
         data={Array []}
-        headerActionClickHandler={null}
         headerActionComponent={null}
         name="pending overdue documents"
         paginationComponent={null}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            to="/backoffice/documents?q=circulation.has_items_for_loan:0%20AND%20circulation.pending_loans:%3E0%20AND%20circulation.overdue_loans:%3E0%20AND%20items.total:%3E0"
           />
         }
         showAllResults={false}

@@ -12,7 +12,6 @@ import { loan as loanApi } from '../../../../../../common/api';
 import { dateFormatter } from '../../../../../../common/api/date';
 import { BackOfficeRoutes } from '../../../../../../routes/urls';
 import { SeeAllButton } from '../../../../components/buttons';
-import { goToHandler } from '../../../../../../history';
 import { OverdueLoanSendMailModal } from '../../../../components';
 
 export default class OverdueLoansList extends Component {
@@ -28,7 +27,7 @@ export default class OverdueLoansList extends Component {
         .withState(invenioConfig.circulation.loanActiveStates)
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton to={path} />;
   };
 
   viewDetails = ({ row }) => {

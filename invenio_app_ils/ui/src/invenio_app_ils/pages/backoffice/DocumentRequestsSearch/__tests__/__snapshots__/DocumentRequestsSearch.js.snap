@@ -5,7 +5,6 @@ exports[`DocumentRequestsSearch ResultsTable tests should not render when empty 
   columns={Array []}
   currentPage={1}
   data={Array []}
-  headerActionClickHandler={null}
   headerActionComponent={null}
   paginationComponent={null}
   seeAllComponent={null}
@@ -91,7 +90,6 @@ exports[`DocumentRequestsSearch ResultsTable tests should render a list of resul
       },
     ]
   }
-  headerActionClickHandler={null}
   headerActionComponent={null}
   paginationComponent={null}
   seeAllComponent={null}

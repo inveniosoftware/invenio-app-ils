@@ -5,7 +5,6 @@ exports[`ItemsSearch ResultsList tests should not render when empty results 1`] 
   columns={Array []}
   currentPage={1}
   data={Array []}
-  headerActionClickHandler={null}
   headerActionComponent={null}
   paginationComponent={null}
   seeAllComponent={null}
@@ -95,7 +94,6 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
       },
     ]
   }
-  headerActionClickHandler={null}
   headerActionComponent={null}
   paginationComponent={null}
   seeAllComponent={null}

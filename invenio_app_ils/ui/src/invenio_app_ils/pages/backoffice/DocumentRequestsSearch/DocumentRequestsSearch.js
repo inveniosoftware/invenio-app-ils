@@ -103,11 +103,7 @@ export class DocumentRequestsSearch extends Component {
         </Header>
         <div>Current search "{queryString}"</div>
         <Segment.Inline>
-          <ClearButton
-            clickHandler={() => {
-              resetQuery();
-            }}
-          />
+          <ClearButton clickHandler={resetQuery} />
         </Segment.Inline>
       </Segment>
     );

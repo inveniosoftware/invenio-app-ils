@@ -40,15 +40,14 @@ exports[`RenewedLoansList tests should load the details component 1`] = `
       }
       currentPage={1}
       data={Array []}
-      headerActionClickHandler={null}
       headerActionComponent={null}
       name="frequently renewed loans"
       paginationComponent={null}
       seeAllComponent={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={false}
           fluid={false}
+          to="/backoffice/loans?q=(_updated:%7B2019-10-18%20TO%20*%7D AND extension_count:>=3)"
         />
       }
       showAllResults={false}
@@ -196,15 +195,14 @@ exports[`RenewedLoansList tests should render loans 1`] = `
             },
           ]
         }
-        headerActionClickHandler={null}
         headerActionComponent={null}
         name="frequently renewed loans"
         paginationComponent={null}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            to="/backoffice/loans?q=(_updated:%7B2019-10-18%20TO%20*%7D AND extension_count:>=3)"
           />
         }
         showAllResults={false}
@@ -2125,9 +2123,9 @@ exports[`RenewedLoansList tests should render loans 1`] = `
               paginationComponent={null}
               seeAllComponent={
                 <SeeAllButton
-                  clickHandler={[Function]}
                   disabled={false}
                   fluid={false}
+                  to="/backoffice/loans?q=(_updated:%7B2019-10-18%20TO%20*%7D AND extension_count:>=3)"
                 />
               }
               showAllResults={false}
@@ -2191,15 +2189,14 @@ exports[`RenewedLoansList tests should render show a message with no loans 1`] =
         }
         currentPage={1}
         data={Array []}
-        headerActionClickHandler={null}
         headerActionComponent={null}
         name="frequently renewed loans"
         paginationComponent={null}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            to="/backoffice/loans?q=(_updated:%7B2019-10-18%20TO%20*%7D AND extension_count:>=3)"
           />
         }
         showAllResults={false}

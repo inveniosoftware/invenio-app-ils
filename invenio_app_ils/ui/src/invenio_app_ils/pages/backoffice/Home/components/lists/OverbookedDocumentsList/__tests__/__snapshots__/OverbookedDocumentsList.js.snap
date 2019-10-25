@@ -27,15 +27,14 @@ exports[`OverbookedDocumentsList tests should load the details component 1`] = `
       }
       currentPage={1}
       data={Array []}
-      headerActionClickHandler={null}
       headerActionComponent={null}
       name="overbooked documents"
       paginationComponent={null}
       seeAllComponent={
         <SeeAllButton
-          clickHandler={[Function]}
           disabled={false}
           fluid={false}
+          to="/backoffice/documents?q=circulation.overbooked:true"
         />
       }
       showAllResults={false}
@@ -176,15 +175,14 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
             },
           ]
         }
-        headerActionClickHandler={null}
         headerActionComponent={null}
         name="overbooked documents"
         paginationComponent={null}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            to="/backoffice/documents?q=circulation.overbooked:true"
           />
         }
         showAllResults={false}
@@ -1966,9 +1964,9 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
               paginationComponent={null}
               seeAllComponent={
                 <SeeAllButton
-                  clickHandler={[Function]}
                   disabled={false}
                   fluid={false}
+                  to="/backoffice/documents?q=circulation.overbooked:true"
                 />
               }
               showAllResults={false}
@@ -2019,15 +2017,14 @@ exports[`OverbookedDocumentsList tests should render show a message with no docu
         }
         currentPage={1}
         data={Array []}
-        headerActionClickHandler={null}
         headerActionComponent={null}
         name="overbooked documents"
         paginationComponent={null}
         seeAllComponent={
           <SeeAllButton
-            clickHandler={[Function]}
             disabled={false}
             fluid={false}
+            to="/backoffice/documents?q=circulation.overbooked:true"
           />
         }
         showAllResults={false}

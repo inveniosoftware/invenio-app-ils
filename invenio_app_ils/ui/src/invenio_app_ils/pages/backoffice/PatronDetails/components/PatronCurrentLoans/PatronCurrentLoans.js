@@ -8,7 +8,6 @@ import { invenioConfig } from '../../../../../common/config';
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { dateFormatter } from '../../../../../common/api/date';
 import { SeeAllButton } from '../../../components/buttons';
-import { goToHandler } from '../../../../../history';
 
 export default class PatronCurrentLoans extends Component {
   componentDidMount() {
@@ -26,7 +25,7 @@ export default class PatronCurrentLoans extends Component {
         .sortByNewest()
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton to={path} />;
   };
 
   viewDetails = ({ row }) => {

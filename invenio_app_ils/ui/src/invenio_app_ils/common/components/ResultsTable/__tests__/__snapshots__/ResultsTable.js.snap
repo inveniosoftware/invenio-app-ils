@@ -59,7 +59,6 @@ exports[`ResultsTable tests should not render the see all button when showing on
       },
     ]
   }
-  headerActionClickHandler={null}
   headerActionComponent={null}
   paginationComponent={null}
   seeAllComponent={null}
@@ -405,7 +404,6 @@ exports[`ResultsTable tests should render the see all button when showing only a
       },
     ]
   }
-  headerActionClickHandler={null}
   headerActionComponent={null}
   paginationComponent={null}
   seeAllComponent={

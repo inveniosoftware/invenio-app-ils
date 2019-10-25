@@ -7,7 +7,6 @@ import { documentRequest as documentRequestApi } from '../../../../../common/api
 import { BackOfficeRoutes } from '../../../../../routes/urls';
 import { dateFormatter } from '../../../../../common/api/date';
 import { SeeAllButton } from '../../../components/buttons';
-import { goToHandler } from '../../../../../history';
 
 export default class PatronDocumentRequests extends Component {
   componentDidMount() {
@@ -24,7 +23,7 @@ export default class PatronDocumentRequests extends Component {
         .sortByNewest()
         .qs()
     );
-    return <SeeAllButton clickHandler={goToHandler(path)} />;
+    return <SeeAllButton to={path} />;
   };
 
   viewDetails = ({ row }) => {
