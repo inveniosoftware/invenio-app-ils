@@ -22,6 +22,7 @@ export class BookCard extends Component {
       <Card
         link
         centered
+        className={'fs-book-card'}
         onClick={() =>
           goTo(FrontSiteRoutes.documentDetailsFor(data.metadata.pid))
         }

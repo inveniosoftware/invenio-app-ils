@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Card, Divider, Header } from 'semantic-ui-react';
-import { Loader, Error } from '../../../../../common/components';
-import { BookCard } from '../../../components';
+import { Card, Divider, Header, Icon } from 'semantic-ui-react';
+import { Loader, Error } from '../../../../common/components';
+import { BookCard } from '../../components';
 
 export default class BookGroup extends Component {
   constructor(props) {
@@ -42,20 +42,22 @@ export default class BookGroup extends Component {
   }
 
   render() {
-    const { title, viewAllUrl } = this.props;
+    const { title, viewAllUrl, headerClass } = this.props;
     const { isLoading, error } = this.state;
     return (
       <div>
-        <Header size="medium" dividing>
+        <Header as={'h2'} className={headerClass}>
           {title}
         </Header>
         <Header.Subheader>
-          <Link to={viewAllUrl}>VIEW ALL</Link> {title.toLowerCase()}
+          <Link to={viewAllUrl}>
+            VIEW ALL <Icon name={'caret right'} />
+          </Link>
         </Header.Subheader>
         <Divider hidden />
         <Loader isLoading={isLoading}>
           <Error error={error}>
-            <Card.Group stackable doubling itemsPerRow={5}>
+            <Card.Group stackable doubling centered itemsPerRow={5}>
               {this.renderCards()}
             </Card.Group>
           </Error>
@@ -70,4 +72,5 @@ BookGroup.propTypes = {
   fetchDataQuery: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   viewAllUrl: PropTypes.string.isRequired,
+  headerClass: PropTypes.string,
 };

@@ -86,7 +86,7 @@ export default class DocumentCirculation extends Component {
   render() {
     const { isLoading, documentDetails } = this.props;
     return (
-      <Segment color="orange" className={'highlighted'}>
+      <Segment className={'highlighted'}>
         <ILSImagePlaceholder style={{ height: 400 }} isLoading={isLoading}>
           <DocumentEItems document={documentDetails} />
           <Header as="h3" content="Request loan" />

@@ -2,7 +2,7 @@
          Site Overrides
 *******************************/
 
-.frontsite{
+@{fs-parent-selector}{
   .ui.table{
     border: 0;
     tr{

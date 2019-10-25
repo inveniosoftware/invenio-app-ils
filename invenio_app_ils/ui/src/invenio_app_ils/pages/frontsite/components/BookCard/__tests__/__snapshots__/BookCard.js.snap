@@ -34,12 +34,13 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
 >
   <Card
     centered={true}
+    className="fs-book-card"
     data-test="docid-1"
     link={true}
     onClick={[Function]}
   >
     <a
-      className="ui centered link card"
+      className="ui centered link card fs-book-card"
       data-test="docid-1"
       onClick={[Function]}
     >
@@ -201,12 +202,13 @@ exports[`BookCard tests should render the BookCard 1`] = `
 >
   <Card
     centered={true}
+    className="fs-book-card"
     data-test="docid-1"
     link={true}
     onClick={[Function]}
   >
     <a
-      className="ui centered link card"
+      className="ui centered link card fs-book-card"
       data-test="docid-1"
       onClick={[Function]}
     >

@@ -2,13 +2,29 @@
          Site Overrides
 *******************************/
 
-.button-show-more{
-  color: @orange;
-  font-weight: bold;
+
+@{fs-parent-selector} {
+  .button-show-more {
+    color: @fsPrimaryColor;
+    font-weight: bold;
+  }
+
+  .ui.button {
+    &.primary{
+    background-color: @fsPrimaryColor;
+    }
+
+    &.basic.fs-button-sort-mobile {
+      box-shadow: none;
+      border: 0;
+
+    }
+
+    &.headline-quick-access {
+      margin: 0.5em;
+    }
+  }
+
 }
 
-.ui.button.basic.fs-button-sort-mobile{
-  box-shadow: none;
-  border: 0;
 
-}

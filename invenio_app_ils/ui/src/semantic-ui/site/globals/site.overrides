@@ -2,12 +2,36 @@
          Site Overrides
 *******************************/
 
+/* GLOBAL */
 #app {
   height: 100%;
 }
 
 
-.frontsite {
+.no-border {
+  border: 0 !important;
+}
+
+.default-margin-top {
+  margin-top: @defaultMarginValue !important;
+}
+
+.default-margin-bottom {
+  margin-bottom: @defaultMarginValue !important;
+}
+
+.default-margin {
+  margin: @defaultMarginValue !important;
+}
+
+.background-highlight {
+  background-color: @highlightBackgroundColor;
+}
+
+
+/* FRONTSITE */
+
+@{fs-parent-selector} {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -27,9 +51,19 @@
       padding-right: 2.5em;
     }
   }
+
+  .breadcrumbs {
+    padding-bottom: 2em;
+  }
+
+  span.secondary{
+    color: @fsSecondaryColor;
+  }
 }
 
-.backoffice {
+/* BACKOFFICE */
+
+@{bo-parent-selector} {
   height: 100%;
   display: flex;
   width: 100%;
@@ -55,24 +89,4 @@
     flex: 1;
     padding: 1.5em;
   }
-}
-
-.no-border {
-  border: 0 !important;
-}
-
-.default-margin-top {
-  margin-top: @defaultMarginValue !important;
-}
-
-.default-margin-bottom {
-  margin-bottom: @defaultMarginValue !important;
-}
-
-.default-margin {
-  margin: @defaultMarginValue !important;
-}
-
-.background-highlight {
-  background-color: @highlightBackgroundColor;
 }

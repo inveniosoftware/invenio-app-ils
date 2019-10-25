@@ -115,7 +115,7 @@ export default class LoanRequestForm extends Component {
         <Form>
           {this.renderDeliveryMethodSelector()}
           {this.renderOptionalRequestExpirationDate()}
-          <Form.Button fluid color="orange" onClick={this.handleSubmit}>
+          <Form.Button primary fluid onClick={this.handleSubmit}>
             Request
           </Form.Button>
         </Form>

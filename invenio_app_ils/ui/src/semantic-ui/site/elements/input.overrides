@@ -1,3 +1,11 @@
 /*******************************
          Site Overrides
 *******************************/
+
+
+.ui.input.action.ils-searchbar {
+  button.ui.icon{
+    background-color: @fsPrimaryColor;
+    color: white;
+  }
+}

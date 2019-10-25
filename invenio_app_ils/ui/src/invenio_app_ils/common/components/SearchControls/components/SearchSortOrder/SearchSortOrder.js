@@ -35,8 +35,8 @@ export default class SearchSortOrder extends Component {
           <Icon
             name={
               element.value === 'asc'
-                ? 'sort numeric ascending'
-                : 'sort numeric descending'
+                ? 'sort alphabet ascending'
+                : 'sort alphabet descending'
             }
           />
         </Button>

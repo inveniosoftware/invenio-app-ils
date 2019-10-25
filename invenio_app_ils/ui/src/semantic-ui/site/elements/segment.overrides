@@ -2,27 +2,39 @@
          Site Overrides
 *******************************/
 
-.ui.segment.highlighted{
-  background-color: @highlightBackgroundColor;
-  padding: 1.6em;
-}
+/* frontsite */
+@{fs-parent-selector} {
+  .ui.segment {
+    box-shadow: none;
+    border: 0;
 
-.document-panel{
-  .ui.segment{
-    margin: 0 0 1rem 0;
-  }
-}
+    &.highlighted {
+      background-color: @highlightBackgroundColor;
+      padding: 1.6em;
+      border-top: 2px solid #F2711C !important;
+    }
 
-.ui.segment.tab{
-  background-color: inherit;
-  padding: 0;
-}
-
-.section {
-  .ui.segment{
-    .table{
+    &.tab {
       background-color: inherit;
+      padding: 0;
     }
   }
 
+  .document-panel {
+    .ui.segment {
+      margin: 0 0 1rem 0;
+    }
+  }
+
+  .section {
+    .ui.segment {
+      .table {
+        background-color: inherit;
+      }
+    }
+
+  }
+
 }
+
+

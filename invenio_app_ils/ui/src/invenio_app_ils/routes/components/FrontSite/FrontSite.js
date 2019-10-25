@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { FrontSiteRoutes } from '../../urls';
 import {
   Footer,
-  Header,
+  ILSMenu,
   Home,
   ProfileContainer,
 } from '../../../pages/frontsite';
@@ -21,11 +22,15 @@ export class FrontSite extends Component {
   render() {
     return (
       <div className="frontsite">
-        <Header />
+        <ILSMenu />
         <Notifications className="compact" />
         <Container fluid className="fs-content">
           {/* home */}
-          <Route exact path={FrontSiteRoutes.home} component={Home} />
+          <Route
+            exact
+            path={FrontSiteRoutes.home}
+            render={props => <Home {...props} {...this.props} />}
+          />
           {/* documents */}
           <Route
             exact
@@ -54,3 +59,9 @@ export class FrontSite extends Component {
     );
   }
 }
+
+FrontSite.propTypes = {
+  headline: PropTypes.func,
+  headlineImage: PropTypes.string,
+  sections: PropTypes.array,
+};

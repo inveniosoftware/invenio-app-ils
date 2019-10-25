@@ -2,6 +2,3 @@
     User Variable Overrides
 *******************************/
 
-@border: none;
-@boxShadow: none;
-

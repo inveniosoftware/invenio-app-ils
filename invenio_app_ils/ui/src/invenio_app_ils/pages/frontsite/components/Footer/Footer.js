@@ -7,7 +7,7 @@ export default class Footer extends Component {
       <footer>
         <Container fluid className="footer-upper">
           <Container>
-            <Grid columns={3}>
+            <Grid columns={3} stackable>
               <Grid.Column>
                 <Header as="h4" content={'Address'} />
                 <p>
@@ -31,7 +31,7 @@ export default class Footer extends Component {
         <Container fluid className="footer-lower">
           <Container>
             <Header as="h4" textAlign={'center'}>
-              <Header.Content>Internal Library System</Header.Content>
+              <Header.Content>Integrated Library System</Header.Content>
               <Header.Subheader>Powered by INVENIO</Header.Subheader>
             </Header>
           </Container>

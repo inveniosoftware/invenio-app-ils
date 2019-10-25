@@ -8,6 +8,8 @@
 
 .ui.menu.mobile-header-menu {
   display: block;
+  border-top: @highlightBorder;
+
 }
 
 .fs-search-controls-mobile {
@@ -19,11 +21,11 @@
   }
 
   margin-bottom: @defaultMarginValue*2;
-  padding-bottom: @sectionDefaultPadding/2;
+  padding-bottom: @defaultPaddingValue/2;
 }
 
 
-.backoffice {
+@{bo-parent-selector} {
 
   .ui.menu.vertical.bo-menu {
     margin-top: 2em;
