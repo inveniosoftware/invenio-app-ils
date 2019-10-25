@@ -28,7 +28,7 @@ export default class LoanRequestForm extends Component {
         }))
       : [];
     this.state['deliveryMethod'] = this.withDeliveryMethod
-      ? this.deliveryMethods[1].value
+      ? this.deliveryMethods[0].value
       : null;
   }
 
@@ -80,7 +80,7 @@ export default class LoanRequestForm extends Component {
   renderDeliveryMethodSelector = () => {
     return this.withDeliveryMethod ? (
       <>
-        <Form.Field>
+        <Form.Field required>
           <label>I would like to</label>
         </Form.Field>
         <Form.Field>{this.renderDeliveryRadioButtons()}</Form.Field>
@@ -96,7 +96,7 @@ export default class LoanRequestForm extends Component {
     );
     return (
       <Form.Field>
-        <label>Do you require it before a certain date?</label>
+        <label>Do you require it before a certain date? (optional)</label>
         <DatePicker
           initialDate={toShortDate(initialDate)}
           minDate={toShortDate(today)}

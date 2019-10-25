@@ -11,3 +11,11 @@
     min-width: 10em;
   }
 }
+
+.ui.menu.header-menu{
+  .ui.dropdown{
+    i{
+      margin-left: 0.5em;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Button, Container, Divider, Grid, Header } from 'semantic-ui-react';
 import { HomeSearchBar } from '../HomeSearchBar';
 import { FrontSiteRoutes } from '../../../../routes/urls';
@@ -77,4 +78,8 @@ export default class Headline extends Component {
       </Container>
     );
   }
+}
+
+Headline.propTypes = {
+  renderElement: PropTypes.func
 }

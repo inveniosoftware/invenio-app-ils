@@ -2,18 +2,22 @@
     User Variable Overrides
 *******************************/
 
-.document-authors-list-wrapper{
+.document-authors-list-wrapper {
   width: 100%;
 }
 
 .ui.list {
-  &.horizontal{
-  &.document-authors-list, &.document-languages-list {
-    .item {
-      margin-left: 0.5rem;
+  &.document-items-location-filters {
+    padding: 0.5em;
+  }
+
+  &.horizontal {
+    &.document-authors-list, &.document-languages-list {
+      .item {
+        margin-left: 0.5rem;
+      }
     }
   }
-}
 }
 
 .ui.container.search-body {

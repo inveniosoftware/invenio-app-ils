@@ -1,8 +1,10 @@
+import _get from 'lodash/get';
+
 export const invenioConfig = {
   circulation: {
     deliveryMethods: {
-      DELIVERY: 'Have it delivered to my office',
       PICKUP: 'Pick it up at the library desk',
+      DELIVERY: 'Have it delivered to my office',
     },
     loanActiveStates: [
       'ITEM_AT_DESK',
@@ -42,13 +44,13 @@ export const invenioConfig = {
   documents: {
     search: {
       aggs: [
-        'tags',
-        'languages',
         'document_type',
-        'relations',
         'has_items',
         'has_eitems',
         'has_items_for_loan',
+        'tags',
+        'languages',
+        'relations',
       ],
       sortBy: {
         onEmptyQuery: 'mostrecent',
@@ -251,3 +253,9 @@ export const invenioConfig = {
   },
   support_email: 'info@inveniosoftware.org',
 };
+
+export function getDisplayVal(configField, value) {
+  return _get(invenioConfig, configField).find(entry=>
+    entry.value === value
+  )
+}

@@ -45,7 +45,7 @@ export default class DocumentListEntry extends Component {
           <List>
             <List.Item>
               <List.Content>
-                <span>Published by: </span>
+                <span>Published by </span>
                 {this.metadata.imprints[0].publisher}
               </List.Content>
             </List.Item>

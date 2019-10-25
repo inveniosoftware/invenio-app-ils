@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Responsive } from 'semantic-ui-react';
+import {Container, Divider, Responsive} from 'semantic-ui-react';
 import { DocumentMetadata } from './components';
 import { goTo } from '../../../../history';
 import { FrontSiteRoutes } from '../../../../routes/urls';
@@ -9,7 +9,10 @@ import { DocumentPanel } from './DocumentPanel';
 import { Error } from '../../../../common/components/Error';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { DocumentTags } from './DocumentMetadata/components';
-import { ILSParagraphPlaceholder } from '../../../../common/components/ILSPlaceholder';
+import {
+  ILSParagraphPlaceholder
+} from '../../../../common/components/ILSPlaceholder';
+import {DocumentItems} from "./DocumentItems";
 
 export default class DocumentsDetails extends Component {
   constructor(props) {
@@ -75,12 +78,17 @@ export default class DocumentsDetails extends Component {
             </ILSParagraphPlaceholder>
             <DocumentPanel />
           </Container>
-          <Container className="document-tags">
+          <Container className="document-tags spaced">
             <Responsive minWidth={Responsive.onlyTablet.minWidth}>
               <ILSParagraphPlaceholder linesNumber={1} isLoading={isLoading}>
                 <DocumentTags />
               </ILSParagraphPlaceholder>
             </Responsive>
+          </Container>
+          <Container className="items-locations spaced">
+            <ILSParagraphPlaceholder linesNumber={3} isLoading={isLoading}>
+              <DocumentItems/>
+            </ILSParagraphPlaceholder>
           </Container>
           <Container className="section" fluid>
             <Container>

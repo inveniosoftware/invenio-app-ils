@@ -25,6 +25,7 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
     RecordIdentifier
 from invenio_search import current_search
 from invenio_userprofiles.models import UserProfile
+from lorem.text import TextLorem
 
 from .indexer import PatronsIndexer
 from .pidstore.pids import DOCUMENT_PID_TYPE, DOCUMENT_REQUEST_PID_TYPE, \
@@ -186,6 +187,8 @@ class ItemGenerator(Generator):
         size = self.holder.items["total"]
         iloc_pids = self.holder.pids("internal_locations", "pid")
         doc_pids = self.holder.pids("documents", "pid")
+        shelf_lorem = TextLorem(wsep='-', srange=(2, 3),
+                                words='Ax Bs Cw 8080'.split())
         objs = [
             {
                 "pid": str(pid),
@@ -194,11 +197,15 @@ class ItemGenerator(Generator):
                 "legacy_id": "{}".format(randint(100000, 999999)),
                 "legacy_library_id": "{}".format(randint(5, 50)),
                 "barcode": "{}".format(randint(10000000, 99999999)),
-                "shelf": "{}".format(lorem.sentence()),
+                "shelf": "{}".format(shelf_lorem.sentence()),
                 "description": "{}".format(lorem.text()),
                 "internal_notes": "{}".format(lorem.text()),
                 "medium": random.choice(Item.MEDIUMS),
-                "status": random.choice(Item.STATUSES),
+                "status": random.choice(
+                    random.choices(population=Item.STATUSES,
+                                   weights=[0.7, 0.1, 0.1, 0.1, 0.05],
+                                   k=10
+                                   )),
                 "circulation_restriction": random.choice(
                     Item.CIRCULATION_RESTRICTIONS
                 ),

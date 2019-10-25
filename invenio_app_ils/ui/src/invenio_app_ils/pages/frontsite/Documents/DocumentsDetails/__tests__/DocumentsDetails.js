@@ -27,6 +27,12 @@ jest.mock('../DocumentMetadata/components', () => {
   };
 });
 
+jest.mock('../DocumentItems', () => {
+  return {
+    DocumentItems: () => null,
+  };
+});
+
 describe('DocumentsDetailsContainer tests', () => {
   let component;
   afterEach(() => {

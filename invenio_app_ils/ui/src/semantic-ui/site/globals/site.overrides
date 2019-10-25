@@ -28,6 +28,13 @@
   background-color: @highlightBackgroundColor;
 }
 
+.danger{
+  color: @danger;
+}
+
+.success{
+  color: @success
+}
 
 /* FRONTSITE */
 
@@ -58,6 +65,15 @@
 
   span.secondary{
     color: @fsSecondaryColor;
+  }
+
+  label{
+    font-weight: bold;
+  }
+  form{
+    label{
+    font-weight: normal;
+    }
   }
 }
 

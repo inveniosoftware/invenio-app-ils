@@ -44,7 +44,7 @@ export default class DocumentPanel extends Component {
                     isLoading={isLoading}
                   >
                     <DocumentAuthors
-                      prefix={'by: '}
+                      prefix={'by '}
                       listItemAs={'h4'}
                       metadata={this.props.documentDetails.metadata}
                     />

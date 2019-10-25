@@ -20,12 +20,12 @@ const resultsPerPageValues = [
 const aggsMappings = {
   documents: {
     document_type: 'Document types',
+    available_items: 'Available items',
     has_eitems: 'Select books with',
     has_items_for_loan: 'Select books with',
     has_items: 'Select books with',
     tags: 'Tags',
     languages: 'Languages',
-    available_items: 'Available items',
     relations: 'Relations',
   },
   documentRequests: {

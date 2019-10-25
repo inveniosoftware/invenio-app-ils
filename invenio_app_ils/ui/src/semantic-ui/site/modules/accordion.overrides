@@ -1,3 +1,26 @@
 /*******************************
         User Overrides
 *******************************/
+
+
+.frontsite{
+  .ui.accordion{
+    &.document-items-location-menu{
+      &.menu{
+        .item{
+          .title{
+            padding: 0.5em;
+            border: 1px solid @fsBorderColor;
+            .ui.label{
+              margin-right: 1em;
+            }
+          }
+          .content{
+            border: 1px solid @fsBorderColor;
+            border-top: 0;
+          }
+        }
+      }
+    }
+  }
+}
