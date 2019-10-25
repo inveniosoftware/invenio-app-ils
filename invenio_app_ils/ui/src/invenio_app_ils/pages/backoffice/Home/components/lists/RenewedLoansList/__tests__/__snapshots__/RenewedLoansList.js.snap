@@ -47,7 +47,7 @@ exports[`RenewedLoansList tests should load the details component 1`] = `
         <SeeAllButton
           disabled={false}
           fluid={false}
-          to="/backoffice/loans?q=(_updated:%7B2019-10-18%20TO%20*%7D AND extension_count:>=3)"
+          to="/backoffice/loans?q=(_updated:%7B2019-10-21%20TO%20*%7D AND extension_count:>=3)"
         />
       }
       showAllResults={false}
@@ -202,7 +202,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
           <SeeAllButton
             disabled={false}
             fluid={false}
-            to="/backoffice/loans?q=(_updated:%7B2019-10-18%20TO%20*%7D AND extension_count:>=3)"
+            to="/backoffice/loans?q=(_updated:%7B2019-10-21%20TO%20*%7D AND extension_count:>=3)"
           />
         }
         showAllResults={false}
@@ -2125,7 +2125,7 @@ exports[`RenewedLoansList tests should render loans 1`] = `
                 <SeeAllButton
                   disabled={false}
                   fluid={false}
-                  to="/backoffice/loans?q=(_updated:%7B2019-10-18%20TO%20*%7D AND extension_count:>=3)"
+                  to="/backoffice/loans?q=(_updated:%7B2019-10-21%20TO%20*%7D AND extension_count:>=3)"
                 />
               }
               showAllResults={false}
@@ -2196,7 +2196,7 @@ exports[`RenewedLoansList tests should render show a message with no loans 1`] =
           <SeeAllButton
             disabled={false}
             fluid={false}
-            to="/backoffice/loans?q=(_updated:%7B2019-10-18%20TO%20*%7D AND extension_count:>=3)"
+            to="/backoffice/loans?q=(_updated:%7B2019-10-21%20TO%20*%7D AND extension_count:>=3)"
           />
         }
         showAllResults={false}

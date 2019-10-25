@@ -19,9 +19,10 @@ import {
   ResultsSort,
 } from '../../../common/components';
 import { item as itemApi } from '../../../common/api';
-import { ExportReactSearchKitResults, ItemListEntry } from '../components';
+import { ExportReactSearchKitResults } from '../components';
 import { ClearButton, NewButton } from '../components/buttons';
 import { BackOfficeRoutes } from '../../../routes/urls';
+import { ItemListEntry } from './components';
 
 export class ItemsSearch extends Component {
   searchApi = new InvenioSearchApi({
