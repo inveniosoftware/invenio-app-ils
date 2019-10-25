@@ -4,16 +4,11 @@ import {
   AccordionField,
   ArrayField,
   StringField,
-  SelectField,
+  LanguagesField,
 } from '../../../../../../../../forms';
-import IsoLanguages from 'iso-639-1';
 
 export class AlternativeTitles extends Component {
   renderFormField({ arrayPath, indexPath, ...arrayHelpers }) {
-    this.languageCodes = IsoLanguages.getAllCodes().map((code, index) => ({
-      text: code,
-      value: code,
-    }));
     return (
       <>
         <StringField
@@ -21,14 +16,7 @@ export class AlternativeTitles extends Component {
           fieldPath={`${arrayPath}.${indexPath}.value`}
           required
         />
-        <SelectField
-          clearable
-          search
-          label="Languages"
-          fieldPath={`${arrayPath}.${indexPath}.language`}
-          options={this.languageCodes}
-          upward={false}
-        />
+        <LanguagesField fieldPath={`${arrayPath}.${indexPath}.language`} />
         <StringField
           label="Source of the title"
           fieldPath={`${arrayPath}.${indexPath}.source`}

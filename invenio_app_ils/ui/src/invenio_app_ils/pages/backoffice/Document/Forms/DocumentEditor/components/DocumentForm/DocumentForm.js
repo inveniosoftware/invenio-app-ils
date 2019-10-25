@@ -18,8 +18,10 @@ import {
   TableOfContent,
   AlternativeIdentifiers,
   AlternativeTitles,
+  Subjects,
 } from './components';
 import documentSubmitSerializer from './documentSubmitSerializer';
+import { InternalNotes } from './components/InternalNotes';
 
 export class DocumentForm extends Component {
   constructor(props) {
@@ -72,6 +74,8 @@ export class DocumentForm extends Component {
         <StringField label="Source of the metadata" fieldPath="source" />
         <TableOfContent />
         <UrlsField />
+        <Subjects />
+        <InternalNotes />
         <AlternativeIdentifiers />
         <AlternativeTitles />
       </BaseForm>

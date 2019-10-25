@@ -4,3 +4,4 @@ export { AlternativeAbstracts } from './AlternativeAbstracts';
 export { TableOfContent } from './TableOfContent';
 export { AlternativeIdentifiers } from './AlternativeIdentifiers';
 export { AlternativeTitles } from './AlternativeTitles';
+export { Subjects } from './Subjects';
