@@ -1,35 +1,33 @@
 import React from 'react';
-import { ArrayField, StringField, GroupField, AccordionField, IdentifiersField } from '../../../../../../../../../forms';
+import { ArrayField, StringField, GroupField, AccordionField, IdentifiersField, DeleteActionButton } from '../../../../../../../../../forms';
 import { Form } from 'semantic-ui-react';
 
 export class AuthorForm extends React.Component {
   renderAffiliation = ({ arrayPath, indexPath, ...arrayHelpers }) => {
     const objectPath = `${arrayPath}.${indexPath}`;
     return (
-      <>
+      <GroupField
+        border
+        widths="equal"
+        title="Affiliation"
+        action={
+          <DeleteActionButton onClick={() => arrayHelpers.remove(indexPath)} />
+        }
+      >
         <StringField
           required
+          fluid
           label="Name"
           fieldPath={`${objectPath}.name`}
-          actionPosition="left"
-          action={
-            <Form.Button
-              negative
-              icon="trash"
-              onClick={() => {
-                arrayHelpers.remove(indexPath);
-              }}
-            />
-          }
         />
-        <GroupField title="Identifiers">
+        <GroupField grouped widths="equal">
           <IdentifiersField
             basic
             fieldPath={`${objectPath}.identifiers`}
             label=""
           />
         </GroupField>
-      </>
+      </GroupField>
     );
   };
 
@@ -37,7 +35,6 @@ export class AuthorForm extends React.Component {
     const objectPath = `${arrayPath}.${indexPath}`;
     return (
       <StringField
-        inline
         label="Alternative name"
         fieldPath={objectPath}
         action={
@@ -59,7 +56,6 @@ export class AuthorForm extends React.Component {
       <StringField
         label="Role"
         fieldPath={objectPath}
-        inline={true}
         action={
           <Form.Button
             negative
@@ -75,9 +71,11 @@ export class AuthorForm extends React.Component {
 
   render() {
     return (
-      <>
-        <StringField required fieldPath="full_name" label="Full name" />
-        <StringField fieldPath="type" label="Type" />
+      <GroupField grouped>
+        <GroupField widths="equal">
+          <StringField required fieldPath="full_name" label="Full name" />
+          <StringField fieldPath="type" label="Type" />
+        </GroupField>
         <AccordionField label="Affiliations" fieldPath="affiliations">
           <ArrayField
             fieldPath="affiliations"
@@ -103,7 +101,7 @@ export class AuthorForm extends React.Component {
             addButtonLabel="Add role"
           />
         </AccordionField>
-      </>
+      </GroupField>
     );
   }
 }

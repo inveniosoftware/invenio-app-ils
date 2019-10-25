@@ -2,13 +2,37 @@
          Site Overrides
 *******************************/
 
+.fields {
+  margin: 0 !important;
+}
+
 fieldset.form-group {
-  border: @fieldsetBorder;
-  border-radius: @fieldsetBorderRadius;
+  border: none;
+  margin-bottom: 0.6rem;
+  margin-left: 0;
+  padding: 0.6rem;
+  position: relative;
   width: 100%;
 
   legend {
     font-weight: bold;
+  }
+
+  div.group-action {
+    position: absolute;
+    right: 0.0rem;
+    top: 0.7rem;
+
+    .button {
+      box-shadow: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  &.border {
+    border: @fieldsetBorder;
+    border-radius: @fieldsetBorderRadius;
   }
 
   &.error {

@@ -26,7 +26,7 @@ export class AuthorsField extends React.Component {
         keyField="full_name"
         renderItem={(index, setShowForm) => {
           return (
-            <GroupField>
+            <GroupField grouped>
               <SubForm
                 initialValues={authorValues[index]}
                 submitButtonText="Save author"

@@ -6,6 +6,8 @@ import {
   StringField,
   TextField,
   BooleanField,
+  GroupField,
+  DeleteActionButton,
 } from '../../../../../../../forms';
 import { document as documentApi } from '../../../../../../../common/api/documents/document';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
@@ -22,6 +24,8 @@ import {
 } from './components';
 import documentSubmitSerializer from './documentSubmitSerializer';
 import { InternalNotes } from './components/InternalNotes';
+import { ConferenceInfoField } from './components/ConferenceInfoField';
+import { Form, Button, Icon } from 'semantic-ui-react';
 
 export class DocumentForm extends Component {
   constructor(props) {
@@ -64,6 +68,7 @@ export class DocumentForm extends Component {
         <StringField label="Document type" fieldPath="document_type" />
         <StringField label="Edition" fieldPath="edition" />
         <AuthorsField fieldPath="authors" />
+        <ConferenceInfoField />
         <BooleanField label="Other authors" fieldPath="other_authors" toggle />
         <TextField label="Abstract" fieldPath="abstract" rows={5} />
         <AlternativeAbstracts />
