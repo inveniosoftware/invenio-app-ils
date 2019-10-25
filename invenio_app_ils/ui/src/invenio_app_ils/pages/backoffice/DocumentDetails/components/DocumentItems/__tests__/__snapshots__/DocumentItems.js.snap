@@ -286,11 +286,18 @@ exports[`DocumentItems tests should render item 1`] = `
         <Table
           as="table"
           compact={true}
+          name="attached items"
           selectable={true}
           striped={true}
+          subtitle=""
+          title="Attached items"
+          unstackable={true}
         >
           <table
-            className="ui selectable striped compact table"
+            className="ui selectable striped unstackable compact table"
+            name="attached items"
+            subtitle=""
+            title="Attached items"
           >
             <ResultsTableHeader
               columns={
@@ -576,11 +583,13 @@ exports[`DocumentItems tests should render item 1`] = `
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-item1"
                         key="0-item1"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-item1"
                         >
                           <Button
@@ -1291,11 +1300,13 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-item1"
                         key="1-item1"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-item1"
                         >
                           itemid-1
@@ -1303,11 +1314,13 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Barcode"
                         data-test="2-item1"
                         key="2-item1"
                       >
                         <td
                           className=""
+                          data-label="Barcode"
                           data-test="2-item1"
                         >
                           123456789-1
@@ -1315,11 +1328,13 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Status"
                         data-test="3-item1"
                         key="3-item1"
                       >
                         <td
                           className=""
+                          data-label="Status"
                           data-test="3-item1"
                         >
                           MISSING
@@ -1327,11 +1342,13 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Medium"
                         data-test="4-item1"
                         key="4-item1"
                       >
                         <td
                           className=""
+                          data-label="Medium"
                           data-test="4-item1"
                         >
                           NOT_SPECIFIED
@@ -1339,11 +1356,13 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Location"
                         data-test="5-item1"
                         key="5-item1"
                       >
                         <td
                           className=""
+                          data-label="Location"
                           data-test="5-item1"
                         >
                           -
@@ -1351,11 +1370,13 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Shelf"
                         data-test="6-item1"
                         key="6-item1"
                       >
                         <td
                           className=""
+                          data-label="Shelf"
                           data-test="6-item1"
                         >
                           Shelf 1
@@ -1363,11 +1384,13 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Loan Status"
                         data-test="7-item1"
                         key="7-item1"
                       >
                         <td
                           className=""
+                          data-label="Loan Status"
                           data-test="7-item1"
                         >
                           -
@@ -1387,11 +1410,13 @@ exports[`DocumentItems tests should render item 1`] = `
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-item2"
                         key="0-item2"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-item2"
                         >
                           <Button
@@ -2102,11 +2127,13 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-item2"
                         key="1-item2"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-item2"
                         >
                           itemid-2
@@ -2114,11 +2141,13 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Barcode"
                         data-test="2-item2"
                         key="2-item2"
                       >
                         <td
                           className=""
+                          data-label="Barcode"
                           data-test="2-item2"
                         >
                           123456789-2
@@ -2126,11 +2155,13 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Status"
                         data-test="3-item2"
                         key="3-item2"
                       >
                         <td
                           className=""
+                          data-label="Status"
                           data-test="3-item2"
                         >
                           CAN_CIRCULATE
@@ -2138,11 +2169,13 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Medium"
                         data-test="4-item2"
                         key="4-item2"
                       >
                         <td
                           className=""
+                          data-label="Medium"
                           data-test="4-item2"
                         >
                           NOT_SPECIFIED
@@ -2150,11 +2183,13 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Location"
                         data-test="5-item2"
                         key="5-item2"
                       >
                         <td
                           className=""
+                          data-label="Location"
                           data-test="5-item2"
                         >
                           -
@@ -2162,11 +2197,13 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Shelf"
                         data-test="6-item2"
                         key="6-item2"
                       >
                         <td
                           className=""
+                          data-label="Shelf"
                           data-test="6-item2"
                         >
                           Shelf 2
@@ -2174,11 +2211,13 @@ exports[`DocumentItems tests should render item 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Loan Status"
                         data-test="7-item2"
                         key="7-item2"
                       >
                         <td
                           className=""
+                          data-label="Loan Status"
                           data-test="7-item2"
                         >
                           -
@@ -2577,11 +2616,18 @@ exports[`DocumentItems tests should render the see all button when showing only 
         <Table
           as="table"
           compact={true}
+          name="attached items"
           selectable={true}
           striped={true}
+          subtitle=""
+          title="Attached items"
+          unstackable={true}
         >
           <table
-            className="ui selectable striped compact table"
+            className="ui selectable striped unstackable compact table"
+            name="attached items"
+            subtitle=""
+            title="Attached items"
           >
             <ResultsTableHeader
               columns={
@@ -2845,11 +2891,13 @@ exports[`DocumentItems tests should render the see all button when showing only 
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-item1"
                         key="0-item1"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-item1"
                         >
                           <Button
@@ -4146,11 +4194,13 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-item1"
                         key="1-item1"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-item1"
                         >
                           itemid-1
@@ -4158,11 +4208,13 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Barcode"
                         data-test="2-item1"
                         key="2-item1"
                       >
                         <td
                           className=""
+                          data-label="Barcode"
                           data-test="2-item1"
                         >
                           123456789-1
@@ -4170,11 +4222,13 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Status"
                         data-test="3-item1"
                         key="3-item1"
                       >
                         <td
                           className=""
+                          data-label="Status"
                           data-test="3-item1"
                         >
                           MISSING
@@ -4182,11 +4236,13 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Medium"
                         data-test="4-item1"
                         key="4-item1"
                       >
                         <td
                           className=""
+                          data-label="Medium"
                           data-test="4-item1"
                         >
                           NOT_SPECIFIED
@@ -4194,11 +4250,13 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Location"
                         data-test="5-item1"
                         key="5-item1"
                       >
                         <td
                           className=""
+                          data-label="Location"
                           data-test="5-item1"
                         >
                           -
@@ -4206,11 +4264,13 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Shelf"
                         data-test="6-item1"
                         key="6-item1"
                       >
                         <td
                           className=""
+                          data-label="Shelf"
                           data-test="6-item1"
                         >
                           Shelf 1
@@ -4218,11 +4278,13 @@ exports[`DocumentItems tests should render the see all button when showing only 
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Loan Status"
                         data-test="7-item1"
                         key="7-item1"
                       >
                         <td
                           className=""
+                          data-label="Loan Status"
                           data-test="7-item1"
                         >
                           -

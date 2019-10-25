@@ -144,9 +144,14 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
     compact={true}
     selectable={true}
     striped={true}
+    subtitle=""
+    title=""
+    unstackable={true}
   >
     <table
-      className="ui selectable striped compact table"
+      className="ui selectable striped unstackable compact table"
+      subtitle=""
+      title=""
     >
       <ResultsTableHeader
         columns={
@@ -276,11 +281,13 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
               >
                 <TableCell
                   as="td"
+                  data-label="view"
                   data-test="0-eitemid-1"
                   key="0-eitemid-1"
                 >
                   <td
                     className=""
+                    data-label="view"
                     data-test="0-eitemid-1"
                   >
                     <Button
@@ -322,11 +329,13 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
                 </TableCell>
                 <TableCell
                   as="td"
+                  data-label="Description"
                   data-test="1-eitemid-1"
                   key="1-eitemid-1"
                 >
                   <td
                     className=""
+                    data-label="Description"
                     data-test="1-eitemid-1"
                   >
                     Description of the electronic item
@@ -346,11 +355,13 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
               >
                 <TableCell
                   as="td"
+                  data-label="view"
                   data-test="0-eitemid-2"
                   key="0-eitemid-2"
                 >
                   <td
                     className=""
+                    data-label="view"
                     data-test="0-eitemid-2"
                   >
                     <Button
@@ -392,11 +403,13 @@ exports[`EItemsSearch ResultsTable tests should render a list of results 1`] = `
                 </TableCell>
                 <TableCell
                   as="td"
+                  data-label="Description"
                   data-test="1-eitemid-2"
                   key="1-eitemid-2"
                 >
                   <td
                     className=""
+                    data-label="Description"
                     data-test="1-eitemid-2"
                   >
                     Description of the electronic item

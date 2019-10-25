@@ -83,6 +83,8 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
             "patron_pid": "1",
             "pickup_location_pid": "locid-1",
             "pid": "loanid-1",
+            "request_expire_date": "2019-06-28",
+            "request_start_date": "2018-06-28",
             "start_date": "2018-06-28",
             "state": "PENDING",
             "transaction_date": "2018-06-29",
@@ -103,6 +105,8 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
             "patron_pid": "1",
             "pickup_location_pid": "locid-1",
             "pid": "loanid-2",
+            "request_expire_date": "2019-06-28",
+            "request_start_date": "2018-06-28",
             "start_date": "2018-06-28",
             "state": "PENDING",
             "transaction_date": "2018-06-29",
@@ -184,6 +188,8 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                 "patron_pid": "1",
                 "pickup_location_pid": "locid-1",
                 "pid": "loanid-1",
+                "request_expire_date": "2019-06-28",
+                "request_start_date": "2018-06-28",
                 "start_date": "2018-06-28",
                 "state": "PENDING",
                 "transaction_date": "2018-06-29",
@@ -204,6 +210,8 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                 "patron_pid": "1",
                 "pickup_location_pid": "locid-1",
                 "pid": "loanid-2",
+                "request_expire_date": "2019-06-28",
+                "request_start_date": "2018-06-28",
                 "start_date": "2018-06-28",
                 "state": "PENDING",
                 "transaction_date": "2018-06-29",
@@ -281,11 +289,18 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
         <Table
           as="table"
           compact={true}
+          name="loans"
           selectable={true}
           striped={true}
+          subtitle=""
+          title="Loans history"
+          unstackable={true}
         >
           <table
-            className="ui selectable striped compact table"
+            className="ui selectable striped unstackable compact table"
+            name="loans"
+            subtitle=""
+            title="Loans history"
           >
             <ResultsTableHeader
               columns={
@@ -520,6 +535,8 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       "patron_pid": "1",
                       "pickup_location_pid": "locid-1",
                       "pid": "loanid-1",
+                      "request_expire_date": "2019-06-28",
+                      "request_start_date": "2018-06-28",
                       "start_date": "2018-06-28",
                       "state": "PENDING",
                       "transaction_date": "2018-06-29",
@@ -540,6 +557,8 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       "patron_pid": "1",
                       "pickup_location_pid": "locid-1",
                       "pid": "loanid-2",
+                      "request_expire_date": "2019-06-28",
+                      "request_start_date": "2018-06-28",
                       "start_date": "2018-06-28",
                       "state": "PENDING",
                       "transaction_date": "2018-06-29",
@@ -569,11 +588,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-loan1"
                         key="0-loan1"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-loan1"
                         >
                           <Button
@@ -1284,11 +1305,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-loan1"
                         key="1-loan1"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-loan1"
                         >
                           loanid-1
@@ -1296,11 +1319,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Patron ID"
                         data-test="2-loan1"
                         key="2-loan1"
                       >
                         <td
                           className=""
+                          data-label="Patron ID"
                           data-test="2-loan1"
                         >
                           1
@@ -1308,11 +1333,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Document ID"
                         data-test="3-loan1"
                         key="3-loan1"
                       >
                         <td
                           className=""
+                          data-label="Document ID"
                           data-test="3-loan1"
                         >
                           docid-1
@@ -1320,11 +1347,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="State"
                         data-test="4-loan1"
                         key="4-loan1"
                       >
                         <td
                           className=""
+                          data-label="State"
                           data-test="4-loan1"
                         >
                           PENDING
@@ -1332,11 +1361,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Start date"
                         data-test="5-loan1"
                         key="5-loan1"
                       >
                         <td
                           className=""
+                          data-label="Start date"
                           data-test="5-loan1"
                         >
                           2018-06-28
@@ -1344,11 +1375,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="End date"
                         data-test="6-loan1"
                         key="6-loan1"
                       >
                         <td
                           className=""
+                          data-label="End date"
                           data-test="6-loan1"
                         >
                           2018-07-28
@@ -1356,11 +1389,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Renewals"
                         data-test="7-loan1"
                         key="7-loan1"
                       >
                         <td
                           className=""
+                          data-label="Renewals"
                           data-test="7-loan1"
                         >
                           -
@@ -1380,11 +1415,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-loan2"
                         key="0-loan2"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-loan2"
                         >
                           <Button
@@ -2095,11 +2132,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-loan2"
                         key="1-loan2"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-loan2"
                         >
                           loanid-2
@@ -2107,11 +2146,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Patron ID"
                         data-test="2-loan2"
                         key="2-loan2"
                       >
                         <td
                           className=""
+                          data-label="Patron ID"
                           data-test="2-loan2"
                         >
                           1
@@ -2119,11 +2160,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Document ID"
                         data-test="3-loan2"
                         key="3-loan2"
                       >
                         <td
                           className=""
+                          data-label="Document ID"
                           data-test="3-loan2"
                         >
                           docid-1
@@ -2131,11 +2174,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="State"
                         data-test="4-loan2"
                         key="4-loan2"
                       >
                         <td
                           className=""
+                          data-label="State"
                           data-test="4-loan2"
                         >
                           PENDING
@@ -2143,11 +2188,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Start date"
                         data-test="5-loan2"
                         key="5-loan2"
                       >
                         <td
                           className=""
+                          data-label="Start date"
                           data-test="5-loan2"
                         >
                           2018-06-28
@@ -2155,11 +2202,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="End date"
                         data-test="6-loan2"
                         key="6-loan2"
                       >
                         <td
                           className=""
+                          data-label="End date"
                           data-test="6-loan2"
                         >
                           2018-07-28
@@ -2167,11 +2216,13 @@ exports[`ItemPastLoans tests should render pending loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Renewals"
                         data-test="7-loan2"
                         key="7-loan2"
                       >
                         <td
                           className=""
+                          data-label="Renewals"
                           data-test="7-loan2"
                         >
                           -

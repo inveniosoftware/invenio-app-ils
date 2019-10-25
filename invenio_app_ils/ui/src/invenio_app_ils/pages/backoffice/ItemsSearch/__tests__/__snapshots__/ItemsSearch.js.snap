@@ -136,9 +136,14 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
     compact={true}
     selectable={true}
     striped={true}
+    subtitle=""
+    title=""
+    unstackable={true}
   >
     <table
-      className="ui selectable striped compact table"
+      className="ui selectable striped unstackable compact table"
+      subtitle=""
+      title=""
     >
       <ResultsTableHeader
         columns={
@@ -260,11 +265,13 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
               >
                 <TableCell
                   as="td"
+                  data-label="view"
                   data-test="0-987"
                   key="0-987"
                 >
                   <td
                     className=""
+                    data-label="view"
                     data-test="0-987"
                   >
                     <Button
@@ -306,11 +313,13 @@ exports[`ItemsSearch ResultsList tests should render a list of results 1`] = `
                 </TableCell>
                 <TableCell
                   as="td"
+                  data-label="Status"
                   data-test="1-987"
                   key="1-987"
                 >
                   <td
                     className=""
+                    data-label="Status"
                     data-test="1-987"
                   >
                     IN_BINDING

@@ -16,10 +16,6 @@ import {
 
 class DocumentItem extends Component {
 
-  constructor(props){
-    super(props);
-  }
-
   render() {
     const {item} = this.props;
     return <List.Item key={item.pid}>
@@ -190,8 +186,8 @@ export default class DocumentItems extends Component {
           }
         );
       } else {
-        items = items.concat(onShelf[this.state.activeLibrary]
-          [this.state.activeInternalLocation]);
+        items = items.concat(
+          onShelf[this.state.activeLibrary][this.state.activeInternalLocation]);
       }
       return (
           <>

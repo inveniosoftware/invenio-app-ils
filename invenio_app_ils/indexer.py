@@ -27,7 +27,7 @@ from invenio_app_ils.search.api import DocumentRequestSearch, DocumentSearch, \
 lt_es7 = ES_VERSION[0] < 7
 
 indexer = RecordIndexer()
-MSG_ORIGIN = "ils-indexer: {origin_rec_type} #{origin_recid} indexed, trigger"\
+MSG_ORIGIN = "ils-indexer: {origin_rec_type} #{origin_recid} indexed, trigger" \
              " indexing of referenced records"
 MSG_BEFORE = "ils-indexer: indexing {dest_rec_type} #{dest_recid}" \
              " referenced from {origin_rec_type} #{origin_recid}"
@@ -138,7 +138,7 @@ def index_item_after_document_indexed(document_pid):
 
     log_func(msg=MSG_ORIGIN)
     for item in ItemSearch().search_by_document_pid(
-            document_pid=document_pid).scan():
+        document_pid=document_pid).scan():
         item_pid = item["pid"]
         _index_record_by_pid(Item, item_pid, log_func)
 
@@ -154,7 +154,7 @@ def index_eitem_after_document_indexed(document_pid):
 
     log_func(msg=MSG_ORIGIN)
     for eitem in EItemSearch().search_by_document_pid(
-            document_pid=document_pid).scan():
+        document_pid=document_pid).scan():
         eitem_pid = eitem["pid"]
         _index_record_by_pid(EItem, eitem_pid, log_func)
 
@@ -189,9 +189,24 @@ def index_request_after_document_indexed(document_pid):
 
     log_func(msg=MSG_ORIGIN)
     for request in DocumentRequestSearch().search_by_document_pid(
-            document_pid=document_pid).scan():
+        document_pid=document_pid).scan():
         request_pid = request["pid"]
         _index_record_by_pid(DocumentRequest, request_pid, log_func)
+
+
+@shared_task(ignore_result=True)
+def index_loans_after_document_indexed(document_pid):
+    """Index loan to refresh item reference."""
+    log_func = partial(
+        _log,
+        origin_rec_type='Document',
+        origin_recid=document_pid,
+        dest_rec_type='Loan')
+
+    log_func(msg=MSG_ORIGIN)
+    for loan in search_loans_by_pid(document_pid=document_pid).scan():
+        loan_pid = loan["pid"]
+        _index_record_by_pid(Loan, loan_pid, log_func)
 
 
 class DocumentIndexer(RecordIndexer):
@@ -214,6 +229,10 @@ class DocumentIndexer(RecordIndexer):
             eta=eta
         )
         index_request_after_document_indexed.apply_async(
+            (document["pid"],),
+            eta=eta,
+        )
+        index_loans_after_document_indexed.appy_async(
             (document["pid"],),
             eta=eta,
         )
@@ -287,7 +306,7 @@ def index_internal_location_after_location_indexed(loc_pid):
 
     log_func(msg=MSG_ORIGIN)
     for iloc in InternalLocationSearch().search_by_location_pid(
-            location_pid=loc_pid).scan():
+        location_pid=loc_pid).scan():
         iloc_pid = iloc["pid"]
         _index_record_by_pid(InternalLocation, iloc_pid, log_func)
 
@@ -303,7 +322,7 @@ def index_items_after_location_indexed(loc_pid):
 
     log_func(msg=MSG_ORIGIN)
     for item in ItemSearch().search_by_location_pid(
-            location_pid=loc_pid).scan():
+        location_pid=loc_pid).scan():
         _index_record_by_pid(Item, item["pid"], log_func)
 
 
@@ -335,7 +354,7 @@ def index_items_after_internal_location_indexed(iloc_pid):
 
     log_func(msg=MSG_ORIGIN)
     for item in ItemSearch().search_by_internal_location_pid(
-            internal_location_pid=iloc_pid).scan():
+        internal_location_pid=iloc_pid).scan():
         _index_record_by_pid(Item, item["pid"], log_func)
 
 

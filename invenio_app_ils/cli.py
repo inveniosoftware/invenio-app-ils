@@ -796,6 +796,10 @@ def data(
         "Sent to the indexing queue {0} documents".format(len(rec_docs))
     )
 
+    # index loans again
+    indexer.bulk_index([str(r.id) for r in rec_loans])
+    click.echo("Sent to the indexing queue {0} loans".format(len(rec_loans)))
+
     click.secho("Now indexing...", fg="green")
     indexer.process_bulk_queue()
 

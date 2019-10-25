@@ -149,9 +149,14 @@ exports[`SeriesSearch ResultsTable tests should render a list of results 1`] = `
     compact={true}
     selectable={true}
     striped={true}
+    subtitle=""
+    title=""
+    unstackable={true}
   >
     <table
-      className="ui selectable striped compact table"
+      className="ui selectable striped unstackable compact table"
+      subtitle=""
+      title=""
     >
       <ResultsTableHeader
         columns={
@@ -274,11 +279,13 @@ exports[`SeriesSearch ResultsTable tests should render a list of results 1`] = `
               >
                 <TableCell
                   as="td"
+                  data-label="view"
                   data-test="0-3"
                   key="0-3"
                 >
                   <td
                     className=""
+                    data-label="view"
                     data-test="0-3"
                   >
                     <Button
@@ -320,11 +327,13 @@ exports[`SeriesSearch ResultsTable tests should render a list of results 1`] = `
                 </TableCell>
                 <TableCell
                   as="td"
+                  data-label="Title"
                   data-test="1-3"
                   key="1-3"
                 >
                   <td
                     className=""
+                    data-label="Title"
                     data-test="1-3"
                   >
                     This is a title

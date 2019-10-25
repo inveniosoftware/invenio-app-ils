@@ -16,10 +16,11 @@ export default class SearchMessage extends Component {
 
   render() {
     const requestFormLink = (
-      <Link to={this.onClickBookRequestLink()}>request form</Link>
+      <Link className={'primary'}
+            to={this.onClickBookRequestLink()}>request form</Link>
     );
     return (
-      <Message icon color="yellow">
+      <Message icon info >
         <Icon name="info circle" />
         <Message.Content>
           <Message.Header>

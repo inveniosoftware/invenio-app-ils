@@ -1,0 +1,1050 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PatronLoans tests should load the details component 1`] = `
+<Container
+  className="spaced"
+>
+  <Header
+    as="h2"
+    className="highlight"
+    content="Your loan requests"
+    textAlign="center"
+  />
+  <Loader
+    renderElement={[Function]}
+  >
+    <Error>
+      <Message
+        className="info"
+        data-test="no-results"
+      >
+        <MessageHeader>
+          No loan requests
+        </MessageHeader>
+        <p>
+          Currently you do not have any loan requests
+        </p>
+      </Message>
+    </Error>
+  </Loader>
+</Container>
+`;
+
+exports[`PatronLoans tests should render patron loans 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <PatronPendingLoans
+      data={
+        Object {
+          "hits": Array [
+            Object {
+              "id": 1,
+              "metadata": Object {
+                "document": Object {
+                  "circulation": Object {
+                    "has_items_on_site": 0,
+                  },
+                  "pid": "5",
+                  "title": "Test",
+                },
+                "document_pid": "docid-1",
+                "end_date": "2018-07-28",
+                "item_pid": "",
+                "patron": Object {
+                  "email": "patron1@test.ch",
+                },
+                "patron_pid": "1",
+                "pickup_location_pid": "locid-1",
+                "pid": "loanid-1",
+                "request_expire_date": "2019-06-28T00:00:00.000Z",
+                "request_start_date": "2018-06-28T00:00:00.000Z",
+                "start_date": "2018-06-28",
+                "state": "PENDING",
+                "transaction_date": "2018-06-29",
+                "transaction_location_pid": "locid-1",
+                "transaction_user_pid": "user_pid",
+              },
+              "pid": "loan1",
+            },
+            Object {
+              "id": 2,
+              "metadata": Object {
+                "document": Object {
+                  "circulation": Object {
+                    "has_items_on_site": 0,
+                  },
+                  "pid": "6",
+                  "title": "Test 2",
+                },
+                "document_pid": "docid-1",
+                "end_date": "2018-07-28",
+                "item_pid": "itemid-2",
+                "patron": Object {
+                  "email": "patron2@test.ch",
+                },
+                "patron_pid": "1",
+                "pickup_location_pid": "locid-1",
+                "pid": "loanid-2",
+                "request_expire_date": "2019-06-28T00:00:00.000Z",
+                "request_start_date": "2018-06-28T00:00:00.000Z",
+                "start_date": "2018-06-28",
+                "state": "PENDING",
+                "transaction_date": "2018-06-29",
+                "transaction_location_pid": "locid-1",
+                "transaction_user_pid": "user_pid",
+              },
+              "pid": "loan2",
+            },
+          ],
+          "total": 2,
+        }
+      }
+      fetchPatronPendingLoans={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "2",
+              1,
+              5,
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+          ],
+        }
+      }
+      loanState=""
+      patronPid="2"
+    >
+      <Container
+        className="spaced"
+      >
+        <div
+          className="ui container spaced"
+        >
+          <Header
+            as="h2"
+            className="highlight"
+            content="Your loan requests"
+            textAlign="center"
+          >
+            <h2
+              className="ui center aligned header highlight"
+            >
+              Your loan requests
+            </h2>
+          </Header>
+          <Loader
+            renderElement={[Function]}
+          >
+            <Error>
+              <ItemGroup
+                divided={true}
+              >
+                <div
+                  className="ui divided items"
+                >
+                  <LoanRequestListEntry
+                    key="loanid-1"
+                    loan={
+                      Object {
+                        "id": 1,
+                        "metadata": Object {
+                          "document": Object {
+                            "circulation": Object {
+                              "has_items_on_site": 0,
+                            },
+                            "pid": "5",
+                            "title": "Test",
+                          },
+                          "document_pid": "docid-1",
+                          "end_date": "2018-07-28",
+                          "item_pid": "",
+                          "patron": Object {
+                            "email": "patron1@test.ch",
+                          },
+                          "patron_pid": "1",
+                          "pickup_location_pid": "locid-1",
+                          "pid": "loanid-1",
+                          "request_expire_date": "2019-06-28T00:00:00.000Z",
+                          "request_start_date": "2018-06-28T00:00:00.000Z",
+                          "start_date": "2018-06-28",
+                          "state": "PENDING",
+                          "transaction_date": "2018-06-29",
+                          "transaction_location_pid": "locid-1",
+                          "transaction_user_pid": "user_pid",
+                        },
+                        "pid": "loan1",
+                      }
+                    }
+                  >
+                    <Item
+                      data-test="loanid-1"
+                      key="loanid-1"
+                    >
+                      <div
+                        className="item"
+                        data-test="loanid-1"
+                      >
+                        <ItemImage
+                          as={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "displayName": "Link",
+                              "propTypes": Object {
+                                "innerRef": [Function],
+                                "onClick": [Function],
+                                "replace": [Function],
+                                "target": [Function],
+                                "to": [Function],
+                              },
+                              "render": [Function],
+                            }
+                          }
+                          disabled={true}
+                          size="mini"
+                          src="https://assets.thalia.media/img/462768NaN-00-00.jpg"
+                          to="/records/docid-1"
+                        >
+                          <Image
+                            as={
+                              Object {
+                                "$$typeof": Symbol(react.forward_ref),
+                                "displayName": "Link",
+                                "propTypes": Object {
+                                  "innerRef": [Function],
+                                  "onClick": [Function],
+                                  "replace": [Function],
+                                  "target": [Function],
+                                  "to": [Function],
+                                },
+                                "render": [Function],
+                              }
+                            }
+                            disabled={true}
+                            size="mini"
+                            src="https://assets.thalia.media/img/462768NaN-00-00.jpg"
+                            to="/records/docid-1"
+                            ui={true}
+                            wrapped={true}
+                          >
+                            <Link
+                              className="ui mini disabled image"
+                              to="/records/docid-1"
+                            >
+                              <LinkAnchor
+                                className="ui mini disabled image"
+                                href="/records/docid-1"
+                                navigate={[Function]}
+                              >
+                                <a
+                                  className="ui mini disabled image"
+                                  href="/records/docid-1"
+                                  onClick={[Function]}
+                                >
+                                  <img
+                                    src="https://assets.thalia.media/img/462768NaN-00-00.jpg"
+                                  />
+                                </a>
+                              </LinkAnchor>
+                            </Link>
+                          </Image>
+                        </ItemImage>
+                        <ItemContent>
+                          <div
+                            className="content"
+                          >
+                            <ItemHeader
+                              as={
+                                Object {
+                                  "$$typeof": Symbol(react.forward_ref),
+                                  "displayName": "Link",
+                                  "propTypes": Object {
+                                    "innerRef": [Function],
+                                    "onClick": [Function],
+                                    "replace": [Function],
+                                    "target": [Function],
+                                    "to": [Function],
+                                  },
+                                  "render": [Function],
+                                }
+                              }
+                              to="/records/docid-1"
+                            >
+                              <Link
+                                className="header"
+                                to="/records/docid-1"
+                              >
+                                <LinkAnchor
+                                  className="header"
+                                  href="/records/docid-1"
+                                  navigate={[Function]}
+                                >
+                                  <a
+                                    className="header"
+                                    href="/records/docid-1"
+                                    onClick={[Function]}
+                                  >
+                                    Test
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </ItemHeader>
+                            <Grid
+                              columns={2}
+                            >
+                              <div
+                                className="ui two column grid"
+                              >
+                                <GridColumn
+                                  computer={8}
+                                  mobile={16}
+                                  tablet={8}
+                                >
+                                  <div
+                                    className="eight wide computer sixteen wide mobile eight wide tablet column"
+                                  >
+                                    <ItemMeta>
+                                      <div
+                                        className="meta"
+                                      >
+                                        <DocumentAuthors
+                                          delimiter="; "
+                                          metadata={
+                                            Object {
+                                              "circulation": Object {
+                                                "has_items_on_site": 0,
+                                              },
+                                              "pid": "5",
+                                              "title": "Test",
+                                            }
+                                          }
+                                        >
+                                          <div
+                                            className="document-authors-list-wrapper"
+                                          />
+                                        </DocumentAuthors>
+                                        Requested on 
+                                        2018-06-28
+                                      </div>
+                                    </ItemMeta>
+                                    <ItemDescription>
+                                      <div
+                                        className="description"
+                                      />
+                                    </ItemDescription>
+                                  </div>
+                                </GridColumn>
+                                <GridColumn
+                                  computer={8}
+                                  mobile={16}
+                                  tablet={8}
+                                  textAlign="right"
+                                >
+                                  <div
+                                    className="right aligned eight wide computer sixteen wide mobile eight wide tablet column"
+                                  >
+                                    <ItemDescription>
+                                      <div
+                                        className="description"
+                                      >
+                                        This request is valid until
+                                         
+                                        <Label>
+                                          <div
+                                            className="ui label"
+                                            onClick={[Function]}
+                                          >
+                                            2019-06-28
+                                          </div>
+                                        </Label>
+                                        <Popup
+                                          content="If the request was not processed before this date it will be invalidated"
+                                          disabled={false}
+                                          eventsEnabled={true}
+                                          offset={0}
+                                          on={
+                                            Array [
+                                              "click",
+                                              "hover",
+                                            ]
+                                          }
+                                          pinned={false}
+                                          position="top left"
+                                          trigger={
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />
+                                          }
+                                        >
+                                          <Portal
+                                            closeOnDocumentClick={true}
+                                            closeOnEscape={true}
+                                            closeOnTriggerClick={true}
+                                            closeOnTriggerMouseLeave={true}
+                                            eventPool="default"
+                                            mouseEnterDelay={50}
+                                            mouseLeaveDelay={70}
+                                            onClose={[Function]}
+                                            onMount={[Function]}
+                                            onOpen={[Function]}
+                                            onUnmount={[Function]}
+                                            openOnTriggerClick={true}
+                                            openOnTriggerMouseEnter={true}
+                                            trigger={
+                                              <Icon
+                                                as="i"
+                                                name="info"
+                                              />
+                                            }
+                                            triggerRef={
+                                              Object {
+                                                "current": <i
+                                                  aria-hidden="true"
+                                                  class="info icon"
+                                                />,
+                                              }
+                                            }
+                                          >
+                                            <Ref
+                                              innerRef={[Function]}
+                                            >
+                                              <RefFindNode
+                                                innerRef={[Function]}
+                                              >
+                                                <Icon
+                                                  as="i"
+                                                  name="info"
+                                                  onBlur={[Function]}
+                                                  onClick={[Function]}
+                                                  onFocus={[Function]}
+                                                  onMouseEnter={[Function]}
+                                                  onMouseLeave={[Function]}
+                                                >
+                                                  <i
+                                                    aria-hidden="true"
+                                                    className="info icon"
+                                                    onBlur={[Function]}
+                                                    onClick={[Function]}
+                                                    onFocus={[Function]}
+                                                    onMouseEnter={[Function]}
+                                                    onMouseLeave={[Function]}
+                                                  />
+                                                </Icon>
+                                              </RefFindNode>
+                                            </Ref>
+                                          </Portal>
+                                        </Popup>
+                                      </div>
+                                    </ItemDescription>
+                                  </div>
+                                </GridColumn>
+                              </div>
+                            </Grid>
+                          </div>
+                        </ItemContent>
+                      </div>
+                    </Item>
+                  </LoanRequestListEntry>
+                  <LoanRequestListEntry
+                    key="loanid-2"
+                    loan={
+                      Object {
+                        "id": 2,
+                        "metadata": Object {
+                          "document": Object {
+                            "circulation": Object {
+                              "has_items_on_site": 0,
+                            },
+                            "pid": "6",
+                            "title": "Test 2",
+                          },
+                          "document_pid": "docid-1",
+                          "end_date": "2018-07-28",
+                          "item_pid": "itemid-2",
+                          "patron": Object {
+                            "email": "patron2@test.ch",
+                          },
+                          "patron_pid": "1",
+                          "pickup_location_pid": "locid-1",
+                          "pid": "loanid-2",
+                          "request_expire_date": "2019-06-28T00:00:00.000Z",
+                          "request_start_date": "2018-06-28T00:00:00.000Z",
+                          "start_date": "2018-06-28",
+                          "state": "PENDING",
+                          "transaction_date": "2018-06-29",
+                          "transaction_location_pid": "locid-1",
+                          "transaction_user_pid": "user_pid",
+                        },
+                        "pid": "loan2",
+                      }
+                    }
+                  >
+                    <Item
+                      data-test="loanid-2"
+                      key="loanid-2"
+                    >
+                      <div
+                        className="item"
+                        data-test="loanid-2"
+                      >
+                        <ItemImage
+                          as={
+                            Object {
+                              "$$typeof": Symbol(react.forward_ref),
+                              "displayName": "Link",
+                              "propTypes": Object {
+                                "innerRef": [Function],
+                                "onClick": [Function],
+                                "replace": [Function],
+                                "target": [Function],
+                                "to": [Function],
+                              },
+                              "render": [Function],
+                            }
+                          }
+                          disabled={true}
+                          size="mini"
+                          src="https://assets.thalia.media/img/462768NaN-00-00.jpg"
+                          to="/records/docid-1"
+                        >
+                          <Image
+                            as={
+                              Object {
+                                "$$typeof": Symbol(react.forward_ref),
+                                "displayName": "Link",
+                                "propTypes": Object {
+                                  "innerRef": [Function],
+                                  "onClick": [Function],
+                                  "replace": [Function],
+                                  "target": [Function],
+                                  "to": [Function],
+                                },
+                                "render": [Function],
+                              }
+                            }
+                            disabled={true}
+                            size="mini"
+                            src="https://assets.thalia.media/img/462768NaN-00-00.jpg"
+                            to="/records/docid-1"
+                            ui={true}
+                            wrapped={true}
+                          >
+                            <Link
+                              className="ui mini disabled image"
+                              to="/records/docid-1"
+                            >
+                              <LinkAnchor
+                                className="ui mini disabled image"
+                                href="/records/docid-1"
+                                navigate={[Function]}
+                              >
+                                <a
+                                  className="ui mini disabled image"
+                                  href="/records/docid-1"
+                                  onClick={[Function]}
+                                >
+                                  <img
+                                    src="https://assets.thalia.media/img/462768NaN-00-00.jpg"
+                                  />
+                                </a>
+                              </LinkAnchor>
+                            </Link>
+                          </Image>
+                        </ItemImage>
+                        <ItemContent>
+                          <div
+                            className="content"
+                          >
+                            <ItemHeader
+                              as={
+                                Object {
+                                  "$$typeof": Symbol(react.forward_ref),
+                                  "displayName": "Link",
+                                  "propTypes": Object {
+                                    "innerRef": [Function],
+                                    "onClick": [Function],
+                                    "replace": [Function],
+                                    "target": [Function],
+                                    "to": [Function],
+                                  },
+                                  "render": [Function],
+                                }
+                              }
+                              to="/records/docid-1"
+                            >
+                              <Link
+                                className="header"
+                                to="/records/docid-1"
+                              >
+                                <LinkAnchor
+                                  className="header"
+                                  href="/records/docid-1"
+                                  navigate={[Function]}
+                                >
+                                  <a
+                                    className="header"
+                                    href="/records/docid-1"
+                                    onClick={[Function]}
+                                  >
+                                    Test 2
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </ItemHeader>
+                            <Grid
+                              columns={2}
+                            >
+                              <div
+                                className="ui two column grid"
+                              >
+                                <GridColumn
+                                  computer={8}
+                                  mobile={16}
+                                  tablet={8}
+                                >
+                                  <div
+                                    className="eight wide computer sixteen wide mobile eight wide tablet column"
+                                  >
+                                    <ItemMeta>
+                                      <div
+                                        className="meta"
+                                      >
+                                        <DocumentAuthors
+                                          delimiter="; "
+                                          metadata={
+                                            Object {
+                                              "circulation": Object {
+                                                "has_items_on_site": 0,
+                                              },
+                                              "pid": "6",
+                                              "title": "Test 2",
+                                            }
+                                          }
+                                        >
+                                          <div
+                                            className="document-authors-list-wrapper"
+                                          />
+                                        </DocumentAuthors>
+                                        Requested on 
+                                        2018-06-28
+                                      </div>
+                                    </ItemMeta>
+                                    <ItemDescription>
+                                      <div
+                                        className="description"
+                                      />
+                                    </ItemDescription>
+                                  </div>
+                                </GridColumn>
+                                <GridColumn
+                                  computer={8}
+                                  mobile={16}
+                                  tablet={8}
+                                  textAlign="right"
+                                >
+                                  <div
+                                    className="right aligned eight wide computer sixteen wide mobile eight wide tablet column"
+                                  >
+                                    <ItemDescription>
+                                      <div
+                                        className="description"
+                                      >
+                                        This request is valid until
+                                         
+                                        <Label>
+                                          <div
+                                            className="ui label"
+                                            onClick={[Function]}
+                                          >
+                                            2019-06-28
+                                          </div>
+                                        </Label>
+                                        <Popup
+                                          content="If the request was not processed before this date it will be invalidated"
+                                          disabled={false}
+                                          eventsEnabled={true}
+                                          offset={0}
+                                          on={
+                                            Array [
+                                              "click",
+                                              "hover",
+                                            ]
+                                          }
+                                          pinned={false}
+                                          position="top left"
+                                          trigger={
+                                            <Icon
+                                              as="i"
+                                              name="info"
+                                            />
+                                          }
+                                        >
+                                          <Portal
+                                            closeOnDocumentClick={true}
+                                            closeOnEscape={true}
+                                            closeOnTriggerClick={true}
+                                            closeOnTriggerMouseLeave={true}
+                                            eventPool="default"
+                                            mouseEnterDelay={50}
+                                            mouseLeaveDelay={70}
+                                            onClose={[Function]}
+                                            onMount={[Function]}
+                                            onOpen={[Function]}
+                                            onUnmount={[Function]}
+                                            openOnTriggerClick={true}
+                                            openOnTriggerMouseEnter={true}
+                                            trigger={
+                                              <Icon
+                                                as="i"
+                                                name="info"
+                                              />
+                                            }
+                                            triggerRef={
+                                              Object {
+                                                "current": <i
+                                                  aria-hidden="true"
+                                                  class="info icon"
+                                                />,
+                                              }
+                                            }
+                                          >
+                                            <Ref
+                                              innerRef={[Function]}
+                                            >
+                                              <RefFindNode
+                                                innerRef={[Function]}
+                                              >
+                                                <Icon
+                                                  as="i"
+                                                  name="info"
+                                                  onBlur={[Function]}
+                                                  onClick={[Function]}
+                                                  onFocus={[Function]}
+                                                  onMouseEnter={[Function]}
+                                                  onMouseLeave={[Function]}
+                                                >
+                                                  <i
+                                                    aria-hidden="true"
+                                                    className="info icon"
+                                                    onBlur={[Function]}
+                                                    onClick={[Function]}
+                                                    onFocus={[Function]}
+                                                    onMouseEnter={[Function]}
+                                                    onMouseLeave={[Function]}
+                                                  />
+                                                </Icon>
+                                              </RefFindNode>
+                                            </Ref>
+                                          </Portal>
+                                        </Popup>
+                                      </div>
+                                    </ItemDescription>
+                                  </div>
+                                </GridColumn>
+                              </div>
+                            </Grid>
+                          </div>
+                        </ItemContent>
+                      </div>
+                    </Item>
+                  </LoanRequestListEntry>
+                </div>
+              </ItemGroup>
+              <Container
+                textAlign="center"
+              >
+                <div
+                  className="ui center aligned container"
+                >
+                  <Pagination
+                    currentPage={1}
+                    currentSize={15}
+                    onPageChange={[Function]}
+                    renderElement={null}
+                    totalResults={2}
+                  >
+                    <div
+                      id="pagination"
+                    >
+                      <Pagination
+                        activePage={1}
+                        aria-label="Pagination Navigation"
+                        boundaryRange={1}
+                        ellipsisItem="..."
+                        firstItem={false}
+                        lastItem={false}
+                        nextItem={
+                          Object {
+                            "aria-label": "Next item",
+                            "content": "⟩",
+                          }
+                        }
+                        onPageChange={[Function]}
+                        pageItem={Object {}}
+                        prevItem={
+                          Object {
+                            "aria-label": "Previous item",
+                            "content": "⟨",
+                          }
+                        }
+                        siblingRange={1}
+                        totalPages={1}
+                      >
+                        <Menu
+                          aria-label="Pagination Navigation"
+                          pagination={true}
+                          role="navigation"
+                        >
+                          <div
+                            aria-label="Pagination Navigation"
+                            className="ui pagination menu"
+                            role="navigation"
+                          >
+                            <PaginationItem
+                              active={false}
+                              aria-label="Previous item"
+                              content="⟨"
+                              key="prevItem-1"
+                              onClick={[Function]}
+                              type="prevItem"
+                              value={1}
+                            >
+                              <MenuItem
+                                active={false}
+                                aria-current={false}
+                                aria-disabled={false}
+                                aria-label="Previous item"
+                                content="⟨"
+                                onClick={[Function]}
+                                onKeyDown={[Function]}
+                                tabIndex={0}
+                                type="prevItem"
+                                value={1}
+                              >
+                                <a
+                                  aria-current={false}
+                                  aria-disabled={false}
+                                  aria-label="Previous item"
+                                  className="item"
+                                  onClick={[Function]}
+                                  onKeyDown={[Function]}
+                                  tabIndex={0}
+                                  type="prevItem"
+                                  value={1}
+                                >
+                                  ⟨
+                                </a>
+                              </MenuItem>
+                            </PaginationItem>
+                            <PaginationItem
+                              active={true}
+                              content={1}
+                              key="pageItem-1"
+                              onClick={[Function]}
+                              type="pageItem"
+                              value={1}
+                            >
+                              <MenuItem
+                                active={true}
+                                aria-current={true}
+                                aria-disabled={false}
+                                content={1}
+                                onClick={[Function]}
+                                onKeyDown={[Function]}
+                                tabIndex={0}
+                                type="pageItem"
+                                value={1}
+                              >
+                                <a
+                                  aria-current={true}
+                                  aria-disabled={false}
+                                  className="active item"
+                                  onClick={[Function]}
+                                  onKeyDown={[Function]}
+                                  tabIndex={0}
+                                  type="pageItem"
+                                  value={1}
+                                >
+                                  1
+                                </a>
+                              </MenuItem>
+                            </PaginationItem>
+                            <PaginationItem
+                              active={false}
+                              aria-label="Next item"
+                              content="⟩"
+                              key="nextItem-1"
+                              onClick={[Function]}
+                              type="nextItem"
+                              value={1}
+                            >
+                              <MenuItem
+                                active={false}
+                                aria-current={false}
+                                aria-disabled={false}
+                                aria-label="Next item"
+                                content="⟩"
+                                onClick={[Function]}
+                                onKeyDown={[Function]}
+                                tabIndex={0}
+                                type="nextItem"
+                                value={1}
+                              >
+                                <a
+                                  aria-current={false}
+                                  aria-disabled={false}
+                                  aria-label="Next item"
+                                  className="item"
+                                  onClick={[Function]}
+                                  onKeyDown={[Function]}
+                                  tabIndex={0}
+                                  type="nextItem"
+                                  value={1}
+                                >
+                                  ⟩
+                                </a>
+                              </MenuItem>
+                            </PaginationItem>
+                          </div>
+                        </Menu>
+                      </Pagination>
+                    </div>
+                  </Pagination>
+                </div>
+              </Container>
+            </Error>
+          </Loader>
+        </div>
+      </Container>
+    </PatronPendingLoans>
+  </Router>
+</BrowserRouter>
+`;
+
+exports[`PatronLoans tests should render show a message with no user loans 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <PatronPendingLoans
+      data={
+        Object {
+          "hits": Array [],
+          "total": 0,
+        }
+      }
+      fetchPatronPendingLoans={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "2",
+              1,
+              5,
+            ],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": undefined,
+            },
+          ],
+        }
+      }
+      loanState=""
+      patronPid="2"
+    >
+      <Container
+        className="spaced"
+      >
+        <div
+          className="ui container spaced"
+        >
+          <Header
+            as="h2"
+            className="highlight"
+            content="Your loan requests"
+            textAlign="center"
+          >
+            <h2
+              className="ui center aligned header highlight"
+            >
+              Your loan requests
+            </h2>
+          </Header>
+          <Loader
+            renderElement={[Function]}
+          >
+            <Error>
+              <Message
+                className="info"
+                data-test="no-results"
+              >
+                <div
+                  className="ui message info"
+                  data-test="no-results"
+                >
+                  <MessageHeader>
+                    <div
+                      className="header"
+                    >
+                      No loan requests
+                    </div>
+                  </MessageHeader>
+                  <p>
+                    Currently you do not have any loan requests
+                  </p>
+                </div>
+              </Message>
+            </Error>
+          </Loader>
+        </div>
+      </Container>
+    </PatronPendingLoans>
+  </Router>
+</BrowserRouter>
+`;

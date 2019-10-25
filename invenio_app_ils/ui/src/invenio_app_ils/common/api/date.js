@@ -1,12 +1,18 @@
 import { DateTime } from 'luxon';
 import _get from 'lodash/get';
 
+/**
+ * Converts datetime JSON string to luxon Datetime object
+ * @param stringDate
+ * @returns {DateTime}
+ */
 export const fromISO = stringDate => {
   return DateTime.fromISO(stringDate);
 };
 
+
 /**
- * Converts datetime JSON string to luxon Datetime object
+ * Converts luxon Datetime object to ISO date string
  * @param date
  * @returns {DateTime}
  */

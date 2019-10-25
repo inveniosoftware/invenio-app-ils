@@ -5,7 +5,7 @@ import {
   Grid,
   Icon,
   Header,
-  Responsive,
+  Responsive, Loader,
 } from 'semantic-ui-react';
 import {
   ReactSearchKit,
@@ -74,6 +74,11 @@ export class DocumentsSearch extends Component {
     return <div>{totalResults} results</div>;
   };
 
+  renderLoader = () =>{
+    return <Loader active size="huge" inline="centered"
+                   className={"full-height"}/>
+  };
+
   render() {
     return (
       <>
@@ -91,7 +96,7 @@ export class DocumentsSearch extends Component {
                 relaxed
                 className="grid-documents-search"
               >
-                <ResultsLoader>
+                <ResultsLoader renderElement={this.renderLoader}>
                   <Grid.Column width={3} className="search-aggregations">
                     <Header content={'Filter by'} />
                     <SearchAggregationsCards />

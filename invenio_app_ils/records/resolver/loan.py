@@ -63,5 +63,4 @@ def document_resolver(loan_pid):
             obj[key] = document[key]
     except PIDDeletedError:
         obj = {}
-    print(obj)
     return obj

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Container, Divider, Responsive} from 'semantic-ui-react';
+import {Container, Responsive} from 'semantic-ui-react';
 import { DocumentMetadata } from './components';
 import { goTo } from '../../../../history';
 import { FrontSiteRoutes } from '../../../../routes/urls';
@@ -8,7 +8,7 @@ import { SearchBar } from '../../../../common/components/SearchBar';
 import { DocumentPanel } from './DocumentPanel';
 import { Error } from '../../../../common/components/Error';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
-import { DocumentTags } from './DocumentMetadata/components';
+import { DocumentTags } from '../../components/Document';
 import {
   ILSParagraphPlaceholder
 } from '../../../../common/components/ILSPlaceholder';

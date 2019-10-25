@@ -12,7 +12,7 @@ import {
   DocumentAuthors,
   DocumentCover,
   DocumentTitle,
-} from '../DocumentMetadata/components';
+} from '../../../components/Document';
 import { DocumentPanelMobile } from './index';
 
 export default class DocumentPanel extends Component {

@@ -128,7 +128,7 @@ export class DocumentsSearch extends Component {
   };
 
   renderDocumentList = results => {
-    return <DocumentList hits={results}></DocumentList>;
+    return <DocumentList hits={results}/>;
   };
 
   render() {

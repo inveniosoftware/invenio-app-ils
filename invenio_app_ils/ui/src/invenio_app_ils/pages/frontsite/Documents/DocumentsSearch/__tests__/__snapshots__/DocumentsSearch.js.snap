@@ -52,7 +52,9 @@ exports[`DocumentsSearch tests should load the DocumentsSearch component 1`] = `
           relaxed={true}
           stackable={true}
         >
-          <Connect(ResultsLoader)>
+          <Connect(ResultsLoader)
+            renderElement={[Function]}
+          >
             <GridColumn
               className="search-aggregations"
               width={3}

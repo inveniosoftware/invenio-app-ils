@@ -244,12 +244,19 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
         <Table
           as="table"
           compact={true}
+          name="overbooked documents"
           selectable={true}
           singleLine={true}
           striped={true}
+          subtitle="Documents with more requests than the number of available items for loan."
+          title="Overbooked documents"
+          unstackable={true}
         >
           <table
-            className="ui selectable single line striped compact table"
+            className="ui selectable single line striped unstackable compact table"
+            name="overbooked documents"
+            subtitle="Documents with more requests than the number of available items for loan."
+            title="Overbooked documents"
           >
             <ResultsTableHeader
               columns={
@@ -440,11 +447,13 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-doc1"
                         key="0-doc1"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-doc1"
                         >
                           <Button
@@ -1155,11 +1164,13 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-doc1"
                         key="1-doc1"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-doc1"
                         >
                           docid-1
@@ -1167,11 +1178,13 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Title"
                         data-test="2-doc1"
                         key="2-doc1"
                       >
                         <td
                           className=""
+                          data-label="Title"
                           data-test="2-doc1"
                         >
                           The Gulf: The Making of An American Sea
@@ -1179,11 +1192,13 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Pending Requests"
                         data-test="3-doc1"
                         key="3-doc1"
                       >
                         <td
                           className=""
+                          data-label="Pending Requests"
                           data-test="3-doc1"
                         >
                           -
@@ -1203,11 +1218,13 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-doc2"
                         key="0-doc2"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-doc2"
                         >
                           <Button
@@ -1918,11 +1935,13 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-doc2"
                         key="1-doc2"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-doc2"
                         >
                           docid-2
@@ -1930,11 +1949,13 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Title"
                         data-test="2-doc2"
                         key="2-doc2"
                       >
                         <td
                           className=""
+                          data-label="Title"
                           data-test="2-doc2"
                         >
                           Prairie Fires: The American Dreams of Laura Ingalls Wilder
@@ -1942,11 +1963,13 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Pending Requests"
                         data-test="3-doc2"
                         key="3-doc2"
                       >
                         <td
                           className=""
+                          data-label="Pending Requests"
                           data-test="3-doc2"
                         >
                           -

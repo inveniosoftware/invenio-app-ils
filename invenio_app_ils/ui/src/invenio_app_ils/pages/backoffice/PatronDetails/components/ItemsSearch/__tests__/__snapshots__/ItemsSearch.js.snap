@@ -375,11 +375,18 @@ exports[`PatronLoans tests should render items in search 1`] = `
                         <Table
                           as="table"
                           compact={true}
+                          name="items"
                           selectable={true}
                           striped={true}
+                          subtitle=""
+                          title=""
+                          unstackable={true}
                         >
                           <table
-                            className="ui selectable striped compact table"
+                            className="ui selectable striped unstackable compact table"
+                            name="items"
+                            subtitle=""
+                            title=""
                           >
                             <ResultsTableHeader
                               columns={
@@ -598,11 +605,13 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                     >
                                       <TableCell
                                         as="td"
+                                        data-label=""
                                         data-test="0-item1"
                                         key="0-item1"
                                       >
                                         <td
                                           className=""
+                                          data-label=""
                                           data-test="0-item1"
                                         >
                                           -
@@ -610,11 +619,13 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                       </TableCell>
                                       <TableCell
                                         as="td"
+                                        data-label="ID"
                                         data-test="1-item1"
                                         key="1-item1"
                                       >
                                         <td
                                           className=""
+                                          data-label="ID"
                                           data-test="1-item1"
                                         >
                                           item1
@@ -622,11 +633,13 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                       </TableCell>
                                       <TableCell
                                         as="td"
+                                        data-label="Status"
                                         data-test="2-item1"
                                         key="2-item1"
                                       >
                                         <td
                                           className=""
+                                          data-label="Status"
                                           data-test="2-item1"
                                         >
                                           CAN_CIRCULATE
@@ -634,11 +647,13 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                       </TableCell>
                                       <TableCell
                                         as="td"
+                                        data-label="Medium"
                                         data-test="3-item1"
                                         key="3-item1"
                                       >
                                         <td
                                           className=""
+                                          data-label="Medium"
                                           data-test="3-item1"
                                         >
                                           book
@@ -646,11 +661,13 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                       </TableCell>
                                       <TableCell
                                         as="td"
+                                        data-label="Circulation status"
                                         data-test="4-item1"
                                         key="4-item1"
                                       >
                                         <td
                                           className=""
+                                          data-label="Circulation status"
                                           data-test="4-item1"
                                         >
                                           -
@@ -658,11 +675,13 @@ exports[`PatronLoans tests should render items in search 1`] = `
                                       </TableCell>
                                       <TableCell
                                         as="td"
+                                        data-label="Actions"
                                         data-test="5-item1"
                                         key="5-item1"
                                       >
                                         <td
                                           className=""
+                                          data-label="Actions"
                                           data-test="5-item1"
                                         >
                                           <Button

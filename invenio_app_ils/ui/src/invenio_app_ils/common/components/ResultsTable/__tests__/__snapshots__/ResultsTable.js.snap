@@ -101,9 +101,14 @@ exports[`ResultsTable tests should not render the see all button when showing on
     compact={true}
     selectable={true}
     striped={true}
+    subtitle=""
+    title=""
+    unstackable={true}
   >
     <table
-      className="ui selectable striped compact table"
+      className="ui selectable striped unstackable compact table"
+      subtitle=""
+      title=""
     >
       <ResultsTableHeader
         columns={
@@ -223,11 +228,13 @@ exports[`ResultsTable tests should not render the see all button when showing on
               >
                 <TableCell
                   as="td"
+                  data-label="view"
                   data-test="0-loan1"
                   key="0-loan1"
                 >
                   <td
                     className=""
+                    data-label="view"
                     data-test="0-loan1"
                   >
                     <Button
@@ -269,11 +276,13 @@ exports[`ResultsTable tests should not render the see all button when showing on
                 </TableCell>
                 <TableCell
                   as="td"
+                  data-label="ID"
                   data-test="1-loan1"
                   key="1-loan1"
                 >
                   <td
                     className=""
+                    data-label="ID"
                     data-test="1-loan1"
                   >
                     1
@@ -293,11 +302,13 @@ exports[`ResultsTable tests should not render the see all button when showing on
               >
                 <TableCell
                   as="td"
+                  data-label="view"
                   data-test="0-loan2"
                   key="0-loan2"
                 >
                   <td
                     className=""
+                    data-label="view"
                     data-test="0-loan2"
                   >
                     <Button
@@ -339,11 +350,13 @@ exports[`ResultsTable tests should not render the see all button when showing on
                 </TableCell>
                 <TableCell
                   as="td"
+                  data-label="ID"
                   data-test="1-loan2"
                   key="1-loan2"
                 >
                   <td
                     className=""
+                    data-label="ID"
                     data-test="1-loan2"
                   >
                     2
@@ -454,9 +467,14 @@ exports[`ResultsTable tests should render the see all button when showing only a
     compact={true}
     selectable={true}
     striped={true}
+    subtitle=""
+    title=""
+    unstackable={true}
   >
     <table
-      className="ui selectable striped compact table"
+      className="ui selectable striped unstackable compact table"
+      subtitle=""
+      title=""
     >
       <ResultsTableHeader
         columns={
@@ -568,11 +586,13 @@ exports[`ResultsTable tests should render the see all button when showing only a
               >
                 <TableCell
                   as="td"
+                  data-label="view"
                   data-test="0-loan1"
                   key="0-loan1"
                 >
                   <td
                     className=""
+                    data-label="view"
                     data-test="0-loan1"
                   >
                     <Button
@@ -614,11 +634,13 @@ exports[`ResultsTable tests should render the see all button when showing only a
                 </TableCell>
                 <TableCell
                   as="td"
+                  data-label="ID"
                   data-test="1-loan1"
                   key="1-loan1"
                 >
                   <td
                     className=""
+                    data-label="ID"
                     data-test="1-loan1"
                   >
                     1

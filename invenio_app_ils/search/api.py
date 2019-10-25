@@ -162,6 +162,13 @@ class ItemSearch(_ItemSearch):
             exclude_states=["CAN_CIRCULATE"]
         )
 
+    def get_for_reference_only_by_document_pid(self, document_pid):
+        """Retrieve items which are for reference only."""
+        return self.search_by_document_pid(
+            document_pid,
+            filter_states=["FOR_REFERENCE_ONLY"]
+        )
+
 
 class EItemSearch(_ItemSearch):
     """RecordsSearch for EItem."""

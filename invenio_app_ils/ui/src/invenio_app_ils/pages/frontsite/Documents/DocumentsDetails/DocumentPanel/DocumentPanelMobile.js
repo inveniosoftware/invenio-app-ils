@@ -13,7 +13,7 @@ import {
   DocumentCover,
   DocumentTags,
   DocumentTitle,
-} from '../DocumentMetadata/components';
+} from '../../../components/Document';
 
 export default class DocumentPanelMobile extends Component {
   constructor(props) {

@@ -2,7 +2,6 @@ import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { invenioConfig } from '../../config';
 import { loan as loanApi } from '../../api';
 import { sendErrorNotification } from '../../components/Notifications';
-import { ES_DELAY } from '../../config';
 
 const selectQuery = (patronPid, page = 1) => {
   return loanApi
@@ -15,8 +14,11 @@ const selectQuery = (patronPid, page = 1) => {
 };
 
 export const fetchPatronPastLoans = (patronPid, page) => {
-  const fetchLoans = (patronPid, dispatch) => {
-    loanApi
+  return async dispatch => {
+    dispatch({
+      type: IS_LOADING,
+    });
+    await loanApi
       .list(selectQuery(patronPid, page))
       .then(response => {
         dispatch({
@@ -33,18 +35,4 @@ export const fetchPatronPastLoans = (patronPid, page) => {
       });
   };
 
-  function delayedFetch(patronPid, dispatch) {
-    return new Promise(function(resolve, reject) {
-      setTimeout(() => {
-        resolve(fetchLoans(patronPid, dispatch));
-      }, ES_DELAY);
-    });
-  }
-
-  return async dispatch => {
-    dispatch({
-      type: IS_LOADING,
-    });
-    await delayedFetch(patronPid, dispatch);
-  };
 };

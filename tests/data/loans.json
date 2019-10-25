@@ -11,6 +11,8 @@
     "transaction_date": "2018-06-29",
     "transaction_location_pid": "locid-1",
     "transaction_user_pid": "user_pid",
+    "request_start_date": "2018-06-28",
+    "request_expire_date": "2019-06-28",
     "patron": {
       "email": "patron1@test.ch"
     }
@@ -27,6 +29,8 @@
     "transaction_date": "2018-06-29",
     "transaction_location_pid": "locid-1",
     "transaction_user_pid": "user_pid",
+    "request_start_date": "2018-06-28",
+    "request_expire_date": "2019-06-28",
     "patron": {
       "email": "patron2@test.ch"
     }
@@ -42,7 +46,9 @@
     "state": "PENDING",
     "transaction_date": "2018-06-29",
     "transaction_location_pid": "locid-1",
-    "transaction_user_pid": "user_pid"
+    "transaction_user_pid": "user_pid",
+    "request_start_date": "2018-06-28",
+    "request_expire_date": "2019-06-28"
   },
   {
     "document_pid": "docid-5",
@@ -55,7 +61,9 @@
     "state": "PENDING",
     "transaction_date": "2018-06-29",
     "transaction_location_pid": "locid-1",
-    "transaction_user_pid": "user_pid"
+    "transaction_user_pid": "user_pid",
+    "request_start_date": "2018-06-28",
+    "request_expire_date": "2019-06-28"
   },
   {
     "document_pid": "docid-7",
@@ -68,7 +76,9 @@
     "state": "ITEM_ON_LOAN",
     "transaction_date": "2018-06-29",
     "transaction_location_pid": "locid-1",
-    "transaction_user_pid": "user_pid"
+    "transaction_user_pid": "user_pid",
+    "request_start_date": "2018-06-28",
+    "request_expire_date": "2019-06-28"
   },
   {
     "document_pid": "docid-7",
@@ -81,6 +91,8 @@
     "state": "ITEM_ON_LOAN",
     "transaction_date": "2018-06-29",
     "transaction_location_pid": "locid-1",
-    "transaction_user_pid": "user_pid"
+    "transaction_user_pid": "user_pid",
+    "request_start_date": "2018-06-28",
+    "request_expire_date": "2019-06-28"
   }
 ]

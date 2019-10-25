@@ -47,6 +47,8 @@ def jsonresolver_loader(url_map):
             get_unavailable_items_by_document_pid(document_pid).count()
         has_items_for_loan = items_count - \
             active_loans_count - unavailable_items_count
+        has_items_for_reference_only_count = item_search\
+            .get_for_reference_only_by_document_pid(document_pid).count()
 
         circulation = {
             "active_loans": active_loans_count,
@@ -56,6 +58,7 @@ def jsonresolver_loader(url_map):
             "overdue_loans": overdue_loans_count,
             "past_loans_count": past_loans_count,
             "pending_loans": pending_loans_count,
+            "has_items_on_site": has_items_for_reference_only_count
         }
 
         if circulation["overbooked"] or circulation["active_loans"] >= \

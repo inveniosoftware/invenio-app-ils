@@ -60,6 +60,7 @@ def jsonresolver_loader(url_map):
                                               "total": 0}
             if internal_location_name not in by_location[location_name]:
                 by_location[location_name][internal_location_name] = []
+            del obj["description"]
             by_location[location_name][internal_location_name].append(obj)
             by_location[location_name]["total"] += 1
         return {

@@ -70,6 +70,8 @@ exports[`IdleLoansList tests should render loans 1`] = `
             "patron_pid": "1",
             "pickup_location_pid": "locid-1",
             "pid": "loanid-1",
+            "request_expire_date": "2019-06-28",
+            "request_start_date": "2018-06-28",
             "start_date": "2018-06-28",
             "state": "PENDING",
             "transaction_date": "2018-06-29",
@@ -90,6 +92,8 @@ exports[`IdleLoansList tests should render loans 1`] = `
             "patron_pid": "1",
             "pickup_location_pid": "locid-1",
             "pid": "loanid-2",
+            "request_expire_date": "2019-06-28",
+            "request_start_date": "2018-06-28",
             "start_date": "2018-06-28",
             "state": "PENDING",
             "transaction_date": "2018-06-29",
@@ -149,6 +153,8 @@ exports[`IdleLoansList tests should render loans 1`] = `
                 "patron_pid": "1",
                 "pickup_location_pid": "locid-1",
                 "pid": "loanid-1",
+                "request_expire_date": "2019-06-28",
+                "request_start_date": "2018-06-28",
                 "start_date": "2018-06-28",
                 "state": "PENDING",
                 "transaction_date": "2018-06-29",
@@ -169,6 +175,8 @@ exports[`IdleLoansList tests should render loans 1`] = `
                 "patron_pid": "1",
                 "pickup_location_pid": "locid-1",
                 "pid": "loanid-2",
+                "request_expire_date": "2019-06-28",
+                "request_start_date": "2018-06-28",
                 "start_date": "2018-06-28",
                 "state": "PENDING",
                 "transaction_date": "2018-06-29",
@@ -248,11 +256,20 @@ exports[`IdleLoansList tests should render loans 1`] = `
         <Table
           as="table"
           compact={true}
+          name="idle loan requests"
           selectable={true}
           striped={true}
+          subtitle="Loan requests pending since more than 10 days."
+          title="Idle loan requests"
+          totalHitsCounts={2}
+          unstackable={true}
         >
           <table
-            className="ui selectable striped compact table"
+            className="ui selectable striped unstackable compact table"
+            name="idle loan requests"
+            subtitle="Loan requests pending since more than 10 days."
+            title="Idle loan requests"
+            totalHitsCounts={2}
           >
             <ResultsTableHeader
               columns={
@@ -416,6 +433,8 @@ exports[`IdleLoansList tests should render loans 1`] = `
                       "patron_pid": "1",
                       "pickup_location_pid": "locid-1",
                       "pid": "loanid-1",
+                      "request_expire_date": "2019-06-28",
+                      "request_start_date": "2018-06-28",
                       "start_date": "2018-06-28",
                       "state": "PENDING",
                       "transaction_date": "2018-06-29",
@@ -436,6 +455,8 @@ exports[`IdleLoansList tests should render loans 1`] = `
                       "patron_pid": "1",
                       "pickup_location_pid": "locid-1",
                       "pid": "loanid-2",
+                      "request_expire_date": "2019-06-28",
+                      "request_start_date": "2018-06-28",
                       "start_date": "2018-06-28",
                       "state": "PENDING",
                       "transaction_date": "2018-06-29",
@@ -465,11 +486,13 @@ exports[`IdleLoansList tests should render loans 1`] = `
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-loan1"
                         key="0-loan1"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-loan1"
                         >
                           <Button
@@ -1180,11 +1203,13 @@ exports[`IdleLoansList tests should render loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-loan1"
                         key="1-loan1"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-loan1"
                         >
                           loanid-1
@@ -1192,11 +1217,13 @@ exports[`IdleLoansList tests should render loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Patron ID"
                         data-test="2-loan1"
                         key="2-loan1"
                       >
                         <td
                           className=""
+                          data-label="Patron ID"
                           data-test="2-loan1"
                         >
                           1
@@ -1204,11 +1231,13 @@ exports[`IdleLoansList tests should render loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Document ID"
                         data-test="3-loan1"
                         key="3-loan1"
                       >
                         <td
                           className=""
+                          data-label="Document ID"
                           data-test="3-loan1"
                         >
                           docid-1
@@ -1216,13 +1245,17 @@ exports[`IdleLoansList tests should render loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Request start date"
                         data-test="4-loan1"
                         key="4-loan1"
                       >
                         <td
                           className=""
+                          data-label="Request start date"
                           data-test="4-loan1"
-                        />
+                        >
+                          2018-06-28
+                        </td>
                       </TableCell>
                     </tr>
                   </TableRow>
@@ -1238,11 +1271,13 @@ exports[`IdleLoansList tests should render loans 1`] = `
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-loan2"
                         key="0-loan2"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-loan2"
                         >
                           <Button
@@ -1953,11 +1988,13 @@ exports[`IdleLoansList tests should render loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-loan2"
                         key="1-loan2"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-loan2"
                         >
                           loanid-2
@@ -1965,11 +2002,13 @@ exports[`IdleLoansList tests should render loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Patron ID"
                         data-test="2-loan2"
                         key="2-loan2"
                       >
                         <td
                           className=""
+                          data-label="Patron ID"
                           data-test="2-loan2"
                         >
                           1
@@ -1977,11 +2016,13 @@ exports[`IdleLoansList tests should render loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Document ID"
                         data-test="3-loan2"
                         key="3-loan2"
                       >
                         <td
                           className=""
+                          data-label="Document ID"
                           data-test="3-loan2"
                         >
                           docid-1
@@ -1989,13 +2030,17 @@ exports[`IdleLoansList tests should render loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Request start date"
                         data-test="4-loan2"
                         key="4-loan2"
                       >
                         <td
                           className=""
+                          data-label="Request start date"
                           data-test="4-loan2"
-                        />
+                        >
+                          2018-06-28
+                        </td>
                       </TableCell>
                     </tr>
                   </TableRow>

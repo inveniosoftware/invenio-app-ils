@@ -38,10 +38,11 @@ exports[`DocumentRequestForm tests should render the document request form corre
     >
       <DocumentRequestForm>
         <Container
+          className="spaced"
           id="document-request"
         >
           <div
-            className="ui container"
+            className="ui container spaced"
             id="document-request"
           >
             <Header
