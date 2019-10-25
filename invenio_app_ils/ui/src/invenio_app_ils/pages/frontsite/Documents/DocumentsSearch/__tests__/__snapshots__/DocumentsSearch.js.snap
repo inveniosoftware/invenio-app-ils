@@ -62,7 +62,9 @@ exports[`DocumentsSearch tests should load the DocumentsSearch component 1`] = `
               <Header
                 content="Filter by"
               />
-              <SearchAggregationsCards />
+              <SearchAggregationsCards
+                modelName="documents"
+              />
             </GridColumn>
             <GridColumn
               className="search-results"
@@ -74,6 +76,7 @@ exports[`DocumentsSearch tests should load the DocumentsSearch component 1`] = `
               />
               <SearchControls
                 layoutToggle={[Function]}
+                modelName="documents"
               />
               <DocumentSearchResultsGrid />
               <Container

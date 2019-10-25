@@ -9,4 +9,5 @@ export { Pagination } from './Pagination';
 export { DatePicker } from './DatePicker';
 export { DateRangePicker } from './DateRangePicker';
 export { SearchControls } from './SearchControls';
+export { DocumentAuthors } from './Document';
 export { YearPicker } from './YearPicker';

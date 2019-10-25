@@ -125,6 +125,7 @@ export default class DocumentItems extends Component {
                 key={internalLocationName}
               >
                 {<Checkbox
+                  radio
                   checked={activeInternalLocation === internalLocationName}/>}
                 {' '}
                 {internalLocationName}

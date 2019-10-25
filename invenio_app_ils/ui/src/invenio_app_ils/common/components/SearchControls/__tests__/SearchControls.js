@@ -46,7 +46,7 @@ describe('SearchControls tests', () => {
 
   it('should load the SearchControls component', () => {
     const component = shallow(
-      <SearchControls layoutToggle={layoutToggleMock} />
+      <SearchControls modelName={'documents'} layoutToggle={layoutToggleMock} />
     );
     expect(component).toMatchSnapshot();
   });
@@ -55,7 +55,7 @@ describe('SearchControls tests', () => {
     component = mount(
       <Provider store={store}>
         <ReactSearchKit searchApi={searchApi}>
-          <SearchControls layoutToggle={layoutToggleMock} />
+          <SearchControls modelName={'documents'} layoutToggle={layoutToggleMock} />
         </ReactSearchKit>
       </Provider>
     );

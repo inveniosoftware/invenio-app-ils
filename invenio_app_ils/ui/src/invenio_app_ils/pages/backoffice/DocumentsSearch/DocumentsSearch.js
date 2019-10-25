@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Icon, Header } from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
 import {
-  Aggregator,
-  Count,
-  EmptyResults,
   Error,
-  Pagination,
   ResultsList,
   ReactSearchKit,
   ResultsLoader,
@@ -15,13 +11,16 @@ import {
 import {
   Error as IlsError,
   SearchBar as DocumentsSearchBar,
-  ResultsSort,
+  SearchControls,
 } from '../../../common/components';
 import { document as documentApi } from '../../../common/api/documents/document';
 import { getSearchConfig } from '../../../common/config';
-import { ClearButton, NewButton } from '../components/buttons';
+import { NewButton } from '../components/buttons';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { DocumentList, ExportReactSearchKitResults } from '../components';
+import { SearchAggregationsCards } from '../../../common/components/SearchControls/components/SearchAggregations';
+import { SearchFooter } from '../../../common/components/SearchControls/components/SearchFooter';
+import { SearchEmptyResults } from '../../../common/components/SearchControls/components/SearchEmptyResults';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -53,22 +52,9 @@ export class DocumentsSearch extends Component {
     );
   };
 
-  renderEmptyResults = (queryString, resetQuery) => {
+  renderEmptyResultsExtra = () => {
     return (
-      <Segment placeholder textAlign="center">
-        <Header icon>
-          <Icon name="search" />
-          No documents found!
-        </Header>
-        <div>Current search "{queryString}"</div>
-        <Segment.Inline>
-          <ClearButton clickHandler={resetQuery} />
-          <NewButton
-            text={'New document'}
-            to={BackOfficeRoutes.documentCreate}
-          />
-        </Segment.Inline>
-      </Segment>
+      <NewButton text={'Add document'} to={BackOfficeRoutes.documentCreate} />
     );
   };
 
@@ -76,59 +62,8 @@ export class DocumentsSearch extends Component {
     return <IlsError error={error} />;
   };
 
-  renderCount = totalResults => {
-    return <div>{totalResults} results</div>;
-  };
-
-  renderHeader = () => {
-    return (
-      <Grid columns={2}>
-        <Grid.Column>
-          <Count renderElement={this.renderCount} />
-        </Grid.Column>
-        <Grid.Column textAlign={'right'}>
-          <ResultsSort searchConfig={this.searchConfig} />
-        </Grid.Column>
-      </Grid>
-    );
-  };
-
-  renderFooter = () => {
-    return (
-      <Grid columns={3}>
-        <Grid.Column width={5} />
-        <Grid.Column width={6}>
-          <Pagination />
-        </Grid.Column>
-        <Grid.Column width={5} textAlign={'right'}>
-          <ExportReactSearchKitResults
-            exportBaseUrl={documentApi.searchBaseURL}
-          />
-        </Grid.Column>
-      </Grid>
-    );
-  };
-
-  renderAggregations = () => {
-    const components = this.searchConfig.AGGREGATIONS.map(agg => (
-      <div key={agg.field}>
-        <Aggregator title={agg.title} field={agg.field} />
-      </div>
-    ));
-    return (
-      <>
-        <NewButton
-          fluid
-          text={'New document'}
-          to={BackOfficeRoutes.documentCreate}
-        />
-        {components}
-      </>
-    );
-  };
-
   renderDocumentList = results => {
-    return <DocumentList hits={results}/>;
+    return <DocumentList hits={results} />;
   };
 
   render() {
@@ -142,13 +77,29 @@ export class DocumentsSearch extends Component {
           </Grid.Row>
           <Grid.Row columns={2}>
             <ResultsLoader>
-              <Grid.Column width={3}>{this.renderAggregations()}</Grid.Column>
+              <Grid.Column width={3} className={'search-aggregations'}>
+                <Header content={'Filter by'} />
+                <SearchAggregationsCards modelName={'documents'} />
+              </Grid.Column>
               <Grid.Column width={13}>
-                <EmptyResults renderElement={this.renderEmptyResults} />
+                <Grid columns={2}>
+                  <Grid.Column width={8}>
+                    <NewButton
+                      text={'Add document'}
+                      to={BackOfficeRoutes.documentCreate}
+                    />
+                  </Grid.Column>
+                  <Grid.Column width={8} textAlign={'right'}>
+                    <ExportReactSearchKitResults
+                      exportBaseUrl={documentApi.searchBaseURL}
+                    />
+                  </Grid.Column>
+                </Grid>
+                <SearchEmptyResults extras={this.renderEmptyResultsExtra} />
                 <Error renderElement={this.renderError} />
-                {this.renderHeader()}
+                <SearchControls modelName={'documents'} />
                 <ResultsList renderElement={this.renderDocumentList} />
-                {this.renderFooter()}
+                <SearchFooter />
               </Grid.Column>
             </ResultsLoader>
           </Grid.Row>

@@ -2,9 +2,10 @@ import { Dropdown } from 'semantic-ui-react';
 import { Aggregator } from 'react-searchkit';
 import React, { Component } from 'react';
 import { getSearchConfig } from '../../../../config';
+import PropTypes from "prop-types";
 
 export default class SearchAggregationsCards extends Component {
-  searchConfig = getSearchConfig('documents');
+  searchConfig = getSearchConfig(this.props.modelName);
 
   renderAccordionAggregations = (title, resultsAggregations, aggregations) => {
     return resultsAggregations !== undefined ? (
@@ -27,3 +28,7 @@ export default class SearchAggregationsCards extends Component {
     ));
   }
 }
+
+SearchAggregationsCards.propTypes = {
+  modelName: PropTypes.string.isRequired
+};

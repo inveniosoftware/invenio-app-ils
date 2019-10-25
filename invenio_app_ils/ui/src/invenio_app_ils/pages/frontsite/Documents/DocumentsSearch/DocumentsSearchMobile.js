@@ -28,7 +28,8 @@ export class DocumentsSearchMobile extends Component {
           <Ref innerRef={this.stickyRef}>
             <Container fluid>
               <Sticky context={this.stickyRef} offset={66}>
-                <SearchControlsMobile ref={this.stickyRef} />
+                <SearchControlsMobile ref={this.stickyRef}
+                                      modelName={'documents'}/>
               </Sticky>
               <Container textAlign={'center'}>
                 <SearchPagination />

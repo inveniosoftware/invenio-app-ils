@@ -129,7 +129,7 @@ describe('PatronLoans tests', () => {
     );
 
     component.instance().viewDetails = jest.fn(() => (
-      <Button onClick={mockViewDetails}></Button>
+      <Button onClick={mockViewDetails}/>
     ));
     component.instance().forceUpdate();
 

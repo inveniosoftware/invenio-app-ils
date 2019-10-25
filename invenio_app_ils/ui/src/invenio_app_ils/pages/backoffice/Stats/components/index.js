@@ -1,1 +1,0 @@
-export { MostLoanedDocumentsList } from './MostLoanedDocumentsList';

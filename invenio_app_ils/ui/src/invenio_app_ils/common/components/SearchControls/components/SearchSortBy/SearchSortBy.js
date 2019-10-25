@@ -5,7 +5,7 @@ import { Dropdown, Responsive } from 'semantic-ui-react';
 import { getSearchConfig } from '../../../../config';
 
 export default class SearchSortBy extends Component {
-  searchConfig = getSearchConfig('documents');
+  searchConfig = getSearchConfig(this.props.modelName);
 
   renderMobileElement = (currentSortBy, options, onValueChange) => {
     return (
@@ -87,4 +87,5 @@ export default class SearchSortBy extends Component {
 
 SearchSortBy.propTypes = {
   prefix: PropTypes.string,
+  modelName: PropTypes.string.isRequired,
 };

@@ -25,92 +25,7 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
               renderElement={[Function]}
             />
             <SearchResultsPerPage
-              searchConfig={
-                Object {
-                  "AGGREGATIONS": Array [
-                    Object {
-                      "field": "document_type",
-                      "title": "Document types",
-                    },
-                    Object {
-                      "field": "has_items",
-                      "title": "Select books with",
-                    },
-                    Object {
-                      "field": "has_eitems",
-                      "title": "Select books with",
-                    },
-                    Object {
-                      "field": "has_items_for_loan",
-                      "title": "Select books with",
-                    },
-                    Object {
-                      "field": "tags",
-                      "title": "Tags",
-                    },
-                    Object {
-                      "field": "languages",
-                      "title": "Languages",
-                    },
-                    Object {
-                      "field": "relations",
-                      "title": "Relations",
-                    },
-                  ],
-                  "RESULTS_PER_PAGE": Array [
-                    Object {
-                      "text": "15",
-                      "value": 15,
-                    },
-                    Object {
-                      "text": "30",
-                      "value": 30,
-                    },
-                    Object {
-                      "text": "60",
-                      "value": 60,
-                    },
-                  ],
-                  "SORT_BY": Array [
-                    Object {
-                      "defaultValue": "asc",
-                      "text": "Newest",
-                      "value": "mostrecent",
-                    },
-                    Object {
-                      "defaultValue": "asc",
-                      "text": "Best match",
-                      "value": "bestmatch",
-                    },
-                    Object {
-                      "defaultValue": "asc",
-                      "text": "Available copies",
-                      "value": "available_items",
-                    },
-                    Object {
-                      "defaultValue": "desc",
-                      "text": "Most loaned",
-                      "value": "mostloaned",
-                    },
-                    Object {
-                      "defaultValue": "asc",
-                      "text": "Published date",
-                      "value": "published",
-                    },
-                  ],
-                  "SORT_BY_ON_EMPTY_QUERY": "mostrecent",
-                  "SORT_ORDER": Array [
-                    Object {
-                      "text": "Asc",
-                      "value": "asc",
-                    },
-                    Object {
-                      "text": "Desc",
-                      "value": "desc",
-                    },
-                  ],
-                }
-              }
+              modelName="documents"
             />
           </GridColumn>
         </Grid>
@@ -138,95 +53,11 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
           className="sort-by-filters"
         >
           <SearchSortBy
+            modelName="documents"
             prefix="Sort by "
           />
           <SearchSortOrder
-            searchConfig={
-              Object {
-                "AGGREGATIONS": Array [
-                  Object {
-                    "field": "document_type",
-                    "title": "Document types",
-                  },
-                  Object {
-                    "field": "has_items",
-                    "title": "Select books with",
-                  },
-                  Object {
-                    "field": "has_eitems",
-                    "title": "Select books with",
-                  },
-                  Object {
-                    "field": "has_items_for_loan",
-                    "title": "Select books with",
-                  },
-                  Object {
-                    "field": "tags",
-                    "title": "Tags",
-                  },
-                  Object {
-                    "field": "languages",
-                    "title": "Languages",
-                  },
-                  Object {
-                    "field": "relations",
-                    "title": "Relations",
-                  },
-                ],
-                "RESULTS_PER_PAGE": Array [
-                  Object {
-                    "text": "15",
-                    "value": 15,
-                  },
-                  Object {
-                    "text": "30",
-                    "value": 30,
-                  },
-                  Object {
-                    "text": "60",
-                    "value": 60,
-                  },
-                ],
-                "SORT_BY": Array [
-                  Object {
-                    "defaultValue": "asc",
-                    "text": "Newest",
-                    "value": "mostrecent",
-                  },
-                  Object {
-                    "defaultValue": "asc",
-                    "text": "Best match",
-                    "value": "bestmatch",
-                  },
-                  Object {
-                    "defaultValue": "asc",
-                    "text": "Available copies",
-                    "value": "available_items",
-                  },
-                  Object {
-                    "defaultValue": "desc",
-                    "text": "Most loaned",
-                    "value": "mostloaned",
-                  },
-                  Object {
-                    "defaultValue": "asc",
-                    "text": "Published date",
-                    "value": "published",
-                  },
-                ],
-                "SORT_BY_ON_EMPTY_QUERY": "mostrecent",
-                "SORT_ORDER": Array [
-                  Object {
-                    "text": "Asc",
-                    "value": "asc",
-                  },
-                  Object {
-                    "text": "Desc",
-                    "value": "desc",
-                  },
-                ],
-              }
-            }
+            modelName="documents"
           />
         </div>
       </GridColumn>
@@ -250,92 +81,7 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
     maxWidth={991}
   >
     <SearchControlsMobile
-      searchConfig={
-        Object {
-          "AGGREGATIONS": Array [
-            Object {
-              "field": "document_type",
-              "title": "Document types",
-            },
-            Object {
-              "field": "has_items",
-              "title": "Select books with",
-            },
-            Object {
-              "field": "has_eitems",
-              "title": "Select books with",
-            },
-            Object {
-              "field": "has_items_for_loan",
-              "title": "Select books with",
-            },
-            Object {
-              "field": "tags",
-              "title": "Tags",
-            },
-            Object {
-              "field": "languages",
-              "title": "Languages",
-            },
-            Object {
-              "field": "relations",
-              "title": "Relations",
-            },
-          ],
-          "RESULTS_PER_PAGE": Array [
-            Object {
-              "text": "15",
-              "value": 15,
-            },
-            Object {
-              "text": "30",
-              "value": 30,
-            },
-            Object {
-              "text": "60",
-              "value": 60,
-            },
-          ],
-          "SORT_BY": Array [
-            Object {
-              "defaultValue": "asc",
-              "text": "Newest",
-              "value": "mostrecent",
-            },
-            Object {
-              "defaultValue": "asc",
-              "text": "Best match",
-              "value": "bestmatch",
-            },
-            Object {
-              "defaultValue": "asc",
-              "text": "Available copies",
-              "value": "available_items",
-            },
-            Object {
-              "defaultValue": "desc",
-              "text": "Most loaned",
-              "value": "mostloaned",
-            },
-            Object {
-              "defaultValue": "asc",
-              "text": "Published date",
-              "value": "published",
-            },
-          ],
-          "SORT_BY_ON_EMPTY_QUERY": "mostrecent",
-          "SORT_ORDER": Array [
-            Object {
-              "text": "Asc",
-              "value": "asc",
-            },
-            Object {
-              "text": "Desc",
-              "value": "desc",
-            },
-          ],
-        }
-      }
+      modelName="documents"
     />
   </Responsive>
 </Fragment>
@@ -418,6 +164,7 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                 ],
               }
             }
+            modelName="documents"
           >
             <Responsive
               getWidth={[Function]}
@@ -470,92 +217,7 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                   </Count>
                                 </Connect(Count)>
                                 <SearchResultsPerPage
-                                  searchConfig={
-                                    Object {
-                                      "AGGREGATIONS": Array [
-                                        Object {
-                                          "field": "document_type",
-                                          "title": "Document types",
-                                        },
-                                        Object {
-                                          "field": "has_items",
-                                          "title": "Select books with",
-                                        },
-                                        Object {
-                                          "field": "has_eitems",
-                                          "title": "Select books with",
-                                        },
-                                        Object {
-                                          "field": "has_items_for_loan",
-                                          "title": "Select books with",
-                                        },
-                                        Object {
-                                          "field": "tags",
-                                          "title": "Tags",
-                                        },
-                                        Object {
-                                          "field": "languages",
-                                          "title": "Languages",
-                                        },
-                                        Object {
-                                          "field": "relations",
-                                          "title": "Relations",
-                                        },
-                                      ],
-                                      "RESULTS_PER_PAGE": Array [
-                                        Object {
-                                          "text": "15",
-                                          "value": 15,
-                                        },
-                                        Object {
-                                          "text": "30",
-                                          "value": 30,
-                                        },
-                                        Object {
-                                          "text": "60",
-                                          "value": 60,
-                                        },
-                                      ],
-                                      "SORT_BY": Array [
-                                        Object {
-                                          "defaultValue": "asc",
-                                          "text": "Newest",
-                                          "value": "mostrecent",
-                                        },
-                                        Object {
-                                          "defaultValue": "asc",
-                                          "text": "Best match",
-                                          "value": "bestmatch",
-                                        },
-                                        Object {
-                                          "defaultValue": "asc",
-                                          "text": "Available copies",
-                                          "value": "available_items",
-                                        },
-                                        Object {
-                                          "defaultValue": "desc",
-                                          "text": "Most loaned",
-                                          "value": "mostloaned",
-                                        },
-                                        Object {
-                                          "defaultValue": "asc",
-                                          "text": "Published date",
-                                          "value": "published",
-                                        },
-                                      ],
-                                      "SORT_BY_ON_EMPTY_QUERY": "mostrecent",
-                                      "SORT_ORDER": Array [
-                                        Object {
-                                          "text": "Asc",
-                                          "value": "asc",
-                                        },
-                                        Object {
-                                          "text": "Desc",
-                                          "value": "desc",
-                                        },
-                                      ],
-                                    }
-                                  }
+                                  modelName="documents"
                                 >
                                   Show
                                    
@@ -645,6 +307,7 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                           className="sort-by-filters"
                         >
                           <SearchSortBy
+                            modelName="documents"
                             prefix="Sort by "
                           >
                             <Responsive
@@ -743,92 +406,7 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                             />
                           </SearchSortBy>
                           <SearchSortOrder
-                            searchConfig={
-                              Object {
-                                "AGGREGATIONS": Array [
-                                  Object {
-                                    "field": "document_type",
-                                    "title": "Document types",
-                                  },
-                                  Object {
-                                    "field": "has_items",
-                                    "title": "Select books with",
-                                  },
-                                  Object {
-                                    "field": "has_eitems",
-                                    "title": "Select books with",
-                                  },
-                                  Object {
-                                    "field": "has_items_for_loan",
-                                    "title": "Select books with",
-                                  },
-                                  Object {
-                                    "field": "tags",
-                                    "title": "Tags",
-                                  },
-                                  Object {
-                                    "field": "languages",
-                                    "title": "Languages",
-                                  },
-                                  Object {
-                                    "field": "relations",
-                                    "title": "Relations",
-                                  },
-                                ],
-                                "RESULTS_PER_PAGE": Array [
-                                  Object {
-                                    "text": "15",
-                                    "value": 15,
-                                  },
-                                  Object {
-                                    "text": "30",
-                                    "value": 30,
-                                  },
-                                  Object {
-                                    "text": "60",
-                                    "value": 60,
-                                  },
-                                ],
-                                "SORT_BY": Array [
-                                  Object {
-                                    "defaultValue": "asc",
-                                    "text": "Newest",
-                                    "value": "mostrecent",
-                                  },
-                                  Object {
-                                    "defaultValue": "asc",
-                                    "text": "Best match",
-                                    "value": "bestmatch",
-                                  },
-                                  Object {
-                                    "defaultValue": "asc",
-                                    "text": "Available copies",
-                                    "value": "available_items",
-                                  },
-                                  Object {
-                                    "defaultValue": "desc",
-                                    "text": "Most loaned",
-                                    "value": "mostloaned",
-                                  },
-                                  Object {
-                                    "defaultValue": "asc",
-                                    "text": "Published date",
-                                    "value": "published",
-                                  },
-                                ],
-                                "SORT_BY_ON_EMPTY_QUERY": "mostrecent",
-                                "SORT_ORDER": Array [
-                                  Object {
-                                    "text": "Asc",
-                                    "value": "asc",
-                                  },
-                                  Object {
-                                    "text": "Desc",
-                                    "value": "desc",
-                                  },
-                                ],
-                              }
-                            }
+                            modelName="documents"
                           >
                             <Responsive
                               getWidth={[Function]}

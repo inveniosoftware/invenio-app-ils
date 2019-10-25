@@ -72,6 +72,7 @@ exports[`MostLoanedDocumentsList tests should load the component 1`] = `
       <Error>
         <DocumentList
           hits={Array []}
+          renderListEntryElement={[Function]}
         />
       </Error>
     </Loader>
@@ -541,6 +542,7 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
             <Error>
               <DocumentList
                 hits={Array []}
+                renderListEntryElement={[Function]}
               >
                 <Message
                   data-test="no-results"

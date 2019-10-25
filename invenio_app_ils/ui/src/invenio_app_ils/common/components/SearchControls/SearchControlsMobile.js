@@ -5,11 +5,9 @@ import { SearchResultsPerPage } from './components/SearchResultsPerPage';
 import { SearchAggregationsMenu } from './components/SearchAggregations';
 import { SearchSortBy } from './components/SearchSortBy';
 import { SearchSortOrder } from './components/SearchSortOrder';
-import { getSearchConfig } from '../../config';
+import PropTypes from "prop-types";
 
 export class SearchControlsMobile extends Component {
-  searchConfig = getSearchConfig('documents');
-
   renderCount = totalResults => {
     return (
       <div className={'search-results-counter'}>
@@ -35,15 +33,15 @@ export class SearchControlsMobile extends Component {
                   className={'link item'}
                 >
                   <Dropdown.Menu>
-                    <SearchAggregationsMenu />
+                    <SearchAggregationsMenu modelName={this.props.modelName}/>
                   </Dropdown.Menu>
                 </Dropdown>
-                <SearchSortBy />
-                <SearchSortOrder />
+                <SearchSortBy modelName={this.props.modelName}/>
+                <SearchSortOrder modelName={this.props.modelName}/>
               </Menu.Menu>
             </Menu>
             <Container>
-              <SearchResultsPerPage />
+              <SearchResultsPerPage modelName={this.props.modelName}/>
             </Container>
           </Container>
         </Sticky>
@@ -51,3 +49,8 @@ export class SearchControlsMobile extends Component {
     );
   }
 }
+
+
+SearchControlsMobile.propTypes = {
+  modelName: PropTypes.string.isRequired
+};

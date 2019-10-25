@@ -16,7 +16,7 @@ import isEmpty from 'lodash/isEmpty';
 import { getCover } from '../../config';
 import { Link } from 'react-router-dom';
 import { FrontSiteRoutes } from '../../../../routes/urls';
-import { DocumentAuthors } from '../../components/Document';
+import { DocumentAuthors } from '../../../../common/components/Document';
 import { toShortDate } from '../../../../common/api/date';
 import { ILSItemPlaceholder } from '../../../../common/components/ILSPlaceholder/ILSPlaceholder';
 

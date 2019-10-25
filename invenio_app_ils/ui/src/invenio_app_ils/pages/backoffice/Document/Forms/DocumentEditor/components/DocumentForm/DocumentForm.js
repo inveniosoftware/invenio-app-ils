@@ -15,7 +15,6 @@ import { UrlsField } from '../../../../../../../forms';
 import {
   AlternativeAbstracts,
   AuthorsField,
-  TagsField,
   TableOfContent,
   AlternativeIdentifiers,
   AlternativeTitles,

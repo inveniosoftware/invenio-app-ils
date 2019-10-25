@@ -97,7 +97,7 @@ export class DocumentsSearch extends Component {
                 <ResultsLoader renderElement={this.renderLoader}>
                   <Grid.Column width={3} className="search-aggregations">
                     <Header content={'Filter by'} />
-                    <SearchAggregationsCards />
+                    <SearchAggregationsCards modelName={'documents'}/>
                   </Grid.Column>
                   <Grid.Column width={13} className="search-results">
                     <SearchEmptyResults />
@@ -106,6 +106,7 @@ export class DocumentsSearch extends Component {
 
                     <SearchControls
                       layoutToggle={this.renderResultsLayoutOptions}
+                      modelName={'documents'}
                     />
                     {this.state.isLayoutGrid ? (
                       <DocumentSearchResultsGrid />
