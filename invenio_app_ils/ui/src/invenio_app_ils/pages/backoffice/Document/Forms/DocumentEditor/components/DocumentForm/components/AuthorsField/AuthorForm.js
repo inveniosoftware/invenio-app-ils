@@ -1,6 +1,5 @@
 import React from 'react';
-import { ArrayField, StringField, GroupField, AccordionField } from '../../../../../../../../../forms';
-import { IdentifiersField } from '../IdentifiersField';
+import { ArrayField, StringField, GroupField, AccordionField, IdentifiersField } from '../../../../../../../../../forms';
 import { Form } from 'semantic-ui-react';
 
 export class AuthorForm extends React.Component {

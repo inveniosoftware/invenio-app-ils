@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ObjectArrayStringField } from '../../../../../../../../forms';
+import { ObjectArrayStringField } from '../core';
 
 export class IdentifiersField extends Component {
   render() {

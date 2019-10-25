@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IdentifiersField } from './IdentifiersField';
+import { IdentifiersField } from '../../../../../../../../forms';
 
 export class AlternativeIdentifiers extends Component {
   render() {
