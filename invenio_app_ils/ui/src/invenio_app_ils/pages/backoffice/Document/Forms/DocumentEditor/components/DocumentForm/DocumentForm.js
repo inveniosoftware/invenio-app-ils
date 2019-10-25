@@ -21,6 +21,7 @@ import {
   AlternativeIdentifiers,
   AlternativeTitles,
   Subjects,
+  LicensesField,
 } from './components';
 import documentSubmitSerializer from './documentSubmitSerializer';
 import { InternalNotes } from './components/InternalNotes';
@@ -74,6 +75,7 @@ export class DocumentForm extends Component {
         <AlternativeAbstracts />
         <TextField label="Notes" fieldPath="note" rows={5} />
         <StringField label="Number of pages" fieldPath="number_of_pages" />
+        <LicensesField fieldPath="licenses" />
         <TagsField label="Tags" fieldPath="tags" />
         <BooleanField label="Document is curated" fieldPath="curated" toggle />
         <StringField label="Source of the metadata" fieldPath="source" />
