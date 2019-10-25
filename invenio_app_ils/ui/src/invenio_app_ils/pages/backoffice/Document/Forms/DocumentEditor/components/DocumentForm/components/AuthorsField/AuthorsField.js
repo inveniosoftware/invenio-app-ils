@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Field } from 'formik';
 import cloneDeep from 'lodash/cloneDeep';
 import { AuthorForm } from './AuthorForm';
@@ -9,6 +10,11 @@ import {
 } from '../../../../../../../../../forms';
 
 export class AuthorsField extends React.Component {
+  constructor(props) {
+    super(props);
+    this.fieldPath = props.fieldPath;
+  }
+
   onSubmit = (values, index, setFieldValue, setShowForm) => {
     setFieldValue(`authors.${index}`, values);
     setShowForm(false);
@@ -22,7 +28,7 @@ export class AuthorsField extends React.Component {
 
     return (
       <ObjectListField
-        fieldPath={this.props.fieldPath}
+        fieldPath={this.fieldPath}
         keyField="full_name"
         renderItem={(index, setShowForm) => {
           return (
@@ -47,3 +53,7 @@ export class AuthorsField extends React.Component {
     return <Field name={this.fieldPath} component={this.renderFormField} />;
   }
 }
+
+AuthorsField.propTypes = {
+  fieldPath: PropTypes.string,
+};

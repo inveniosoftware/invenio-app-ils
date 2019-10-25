@@ -4,6 +4,14 @@ import { Field, getIn } from 'formik';
 import { Form } from 'semantic-ui-react';
 
 export class StringField extends Component {
+  constructor(props) {
+    super(props);
+    const { fieldPath, inline, ...uiProps } = props;
+    this.fieldPath = fieldPath;
+    this.inline = inline;
+    this.uiProps = uiProps;
+  }
+
   renderError(errors, name, direction = 'above') {
     const error = errors[name];
     return error
@@ -13,24 +21,26 @@ export class StringField extends Component {
         }
       : null;
   }
-
+  handleChange = (event, { value }) => {
+    console.log(event);
+    console.log(value);
+  };
   renderFormField = props => {
-    const { fieldPath, inline, ...uiProps } = this.props;
     const {
       form: { values, handleChange, handleBlur, errors },
     } = props;
 
     return (
-      <Form.Field inline={inline}>
+      <Form.Field inline={this.inline}>
         <Form.Input
           fluid
-          id={fieldPath}
-          name={fieldPath}
-          onChange={handleChange}
+          id={this.fieldPath}
+          name={this.fieldPath}
+          onChange={this.handleChange}
           onBlur={handleBlur}
-          value={getIn(values, fieldPath, '')}
-          error={this.renderError(errors, fieldPath)}
-          {...uiProps}
+          value={getIn(values, this.fieldPath, '')}
+          error={this.renderError(errors, this.fieldPath)}
+          {...this.uiProps}
         ></Form.Input>
       </Form.Field>
     );

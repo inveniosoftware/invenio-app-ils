@@ -22,6 +22,8 @@ import {
   AlternativeTitles,
   Subjects,
   LicensesField,
+  Identifiers,
+  Copyrights,
 } from './components';
 import documentSubmitSerializer from './documentSubmitSerializer';
 import { InternalNotes } from './components/InternalNotes';
@@ -83,8 +85,10 @@ export class DocumentForm extends Component {
         <UrlsField />
         <Subjects />
         <InternalNotes />
+        <Identifiers />
         <AlternativeIdentifiers />
         <AlternativeTitles />
+        <Copyrights />
       </BaseForm>
     );
   }

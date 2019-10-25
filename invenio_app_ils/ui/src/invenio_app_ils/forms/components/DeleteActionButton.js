@@ -5,7 +5,7 @@ import { Button, Icon } from 'semantic-ui-react';
 export class DeleteActionButton extends React.Component {
   render() {
     return (
-      <Button icon basic onClick={this.props.onClick}>
+      <Button icon basic onClick={this.props.onClick} type="button">
         <Icon
           color={this.props.color}
           name={this.props.icon}

@@ -10,3 +10,4 @@ export { GroupField } from './GroupField';
 export { SelectorField } from './SelectorField';
 export { ObjectArrayStringField } from './ObjectArrayStringField';
 export { ObjectListField } from './ObjectListField';
+export { DatePickerField } from './DatePickerField';
