@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Qs from 'qs';
 import { Grid, List, Header } from 'semantic-ui-react';
-import { DatePicker, Loader, Error } from '../../../../../common/components';
-import { BackOfficeRoutes } from '../../../../../routes/urls';
-import { stats as statsApi, loan as loanApi } from '../../../../../common/api';
-import { DocumentList, ExportSearchResults } from '../../../components';
-import { invenioConfig } from '../../../../../common/config/invenioConfig';
+import { DatePicker, Loader, Error } from '../../../../common/components';
+import { BackOfficeRoutes } from '../../../../routes/urls';
+import { stats as statsApi, loan as loanApi } from '../../../../common/api';
+import { DocumentList, ExportSearchResults } from '../../components';
+import { invenioConfig } from '../../../../common/config/invenioConfig';
+import DocumentListEntry from '../../components/DocumentList/DocumentListEntry';
+import DocumentStats from '../../components/DocumentList/DocumentStats';
 
 export default class MostLoanedDocumentsList extends Component {
   constructor(props) {
@@ -111,7 +113,7 @@ export default class MostLoanedDocumentsList extends Component {
               // open in a new tab
               window.open(exportUrl, '_blank');
             }}
-          ></ExportSearchResults>
+          />
         </Grid.Column>
       </Grid>
     );
@@ -131,6 +133,15 @@ export default class MostLoanedDocumentsList extends Component {
     return BackOfficeRoutes.loansListWithQuery(query);
   };
 
+  renderListEntryElement = document => {
+    return (
+      <DocumentListEntry
+        document={document}
+        renderMiddleColumn={doc => <DocumentStats metadata={doc.metadata} />}
+      />
+    );
+  };
+
   render() {
     const { data, isLoading, error } = this.props;
     const hitsWithLinks = data.hits.map(hit => {
@@ -148,7 +159,10 @@ export default class MostLoanedDocumentsList extends Component {
         <Grid.Column>
           <Loader isLoading={isLoading}>
             <Error error={error}>
-              <DocumentList hits={hitsWithLinks} />
+              <DocumentList
+                hits={hitsWithLinks}
+                renderListEntryElement={this.renderListEntryElement}
+              />
             </Error>
           </Loader>
         </Grid.Column>

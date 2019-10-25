@@ -14,7 +14,6 @@ import {
   Error,
   InvenioSearchApi,
 } from 'react-searchkit';
-import { getSearchConfig } from '../../../../common/config';
 import {
   Error as IlsError,
   SearchBar as DocumentsSearchBar,
@@ -36,7 +35,6 @@ export class DocumentsSearch extends Component {
     url: documentApi.searchBaseURL,
     withCredentials: true,
   });
-  searchConfig = getSearchConfig('documents');
   state = { activeIndex: 0, isLayoutGrid: true };
 
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
@@ -99,7 +97,7 @@ export class DocumentsSearch extends Component {
                 <ResultsLoader renderElement={this.renderLoader}>
                   <Grid.Column width={3} className="search-aggregations">
                     <Header content={'Filter by'} />
-                    <SearchAggregationsCards />
+                    <SearchAggregationsCards modelName={'documents'}/>
                   </Grid.Column>
                   <Grid.Column width={13} className="search-results">
                     <SearchEmptyResults />
@@ -108,6 +106,7 @@ export class DocumentsSearch extends Component {
 
                     <SearchControls
                       layoutToggle={this.renderResultsLayoutOptions}
+                      modelName={'documents'}
                     />
                     {this.state.isLayoutGrid ? (
                       <DocumentSearchResultsGrid />

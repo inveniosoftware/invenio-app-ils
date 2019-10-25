@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MostLoanedDocumentsList } from './components';
+import { MostLoanedDocumentsList } from './MostLoanedDocumentsList';
 
 export default class Stats extends Component {
   render() {

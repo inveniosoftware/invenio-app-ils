@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SortOrder } from 'react-searchkit';
 import { Button, Dropdown, Icon, Responsive } from 'semantic-ui-react';
 import { getSearchConfig } from '../../../../config';
+import PropTypes from "prop-types";
 
 export default class SearchSortOrder extends Component {
   constructor(props) {
@@ -9,7 +10,7 @@ export default class SearchSortOrder extends Component {
     this.buttons = {};
   }
 
-  searchConfig = getSearchConfig('documents');
+  searchConfig = getSearchConfig(this.props.modelName);
 
   sortChangeHandler = (onValueChange, currentSortOrder, options) => {
     const value =
@@ -86,3 +87,7 @@ export default class SearchSortOrder extends Component {
     );
   }
 }
+
+SearchSortOrder.propTypes = {
+  modelName: PropTypes.string.isRequired
+};

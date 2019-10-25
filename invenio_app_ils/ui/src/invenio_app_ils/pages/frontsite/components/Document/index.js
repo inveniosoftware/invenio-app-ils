@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { DocumentTags as DocumentTagsComponent } from './DocumentTags';
+import { DocumentTags as DocumentTagsComponent } from '../../../../common/components/Document';
 import { DocumentRelations as DocumentRelationsComponent } from './DocumentRelations';
 import { DocumentInfo as DocumentInfoComponent } from './DocumentInfo';
 import { DocumentCover as DocumentCoverComponent } from './DocumentCover';
@@ -7,8 +7,6 @@ import { DocumentAbstract as DocumentAbstractComponent } from './DocumentAbstrac
 import { DocumentTitle as DocumentTitleComponent } from './DocumentTitle';
 import { DocumentMetadataTabs as DocumentMetadataTabsComponent } from './DocumentMetadataTabs';
 import { DocumentMetadataAccordion as DocumentMetadataAccordionComponent } from './DocumentMetadataAccordion';
-
-export { DocumentAuthors } from './DocumentAuthors';
 
 const mapStateToProps = state => ({
   isLoading: state.documentDetailsFront.isLoading,

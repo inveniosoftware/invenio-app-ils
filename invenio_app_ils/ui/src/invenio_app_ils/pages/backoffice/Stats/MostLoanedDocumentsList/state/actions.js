@@ -1,6 +1,6 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { sendErrorNotification } from '../../../../../../common/components/Notifications';
-import { stats as statsApi } from '../../../../../../common/api';
+import { sendErrorNotification } from '../../../../../common/components/Notifications';
+import { stats as statsApi } from '../../../../../common/api';
 
 export const fetchMostLoanedDocuments = (fromDate, toDate) => {
   return async dispatch => {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Divider, List } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-export class DocumentTags extends Component {
+export class DocumentLinks extends Component {
   constructor(props) {
     super(props);
     this.links = props.links;
@@ -30,6 +30,6 @@ export class DocumentTags extends Component {
   }
 }
 
-DocumentTags.propTypes = {
+DocumentLinks.propTypes = {
   tags: PropTypes.array.isRequired,
 };

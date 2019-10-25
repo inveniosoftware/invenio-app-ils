@@ -9,7 +9,8 @@
       :not(.ui.list) {
       .item {
         padding: 1em;
-        &:first-child{
+
+        &:first-child {
           padding-top: 1em !important;
         }
       }
@@ -21,6 +22,54 @@
   .item {
     &.bkg-danger {
       background-color: lighten(@danger, 40%) !important;
+    }
+  }
+}
+
+
+@{bo-parent-selector} {
+  .ui.items.bo-document-search {
+    margin-top: 0.5em;
+    .item {
+      .extra {
+        margin: 0;
+      }
+    }
+  }
+
+  .item {
+    .item-image-addons-wrapper {
+      text-align: center;
+      margin-right: 1em;
+
+      .document-pid {
+        margin-top: 3px;
+      }
+
+      .document-type {
+        margin-top: 0.2em;
+        margin-bottom: 0.1em;
+      }
+    }
+
+    .content {
+      .meta {
+        &.document-type {
+          margin-top: 0;
+          margin-bottom: 0.1em;
+        }
+
+        &.document-authors {
+          margin-top: 0.1em;
+          margin-bottom: 0.1em;
+        }
+
+        &.document-pid {
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+      }
     }
   }
 }

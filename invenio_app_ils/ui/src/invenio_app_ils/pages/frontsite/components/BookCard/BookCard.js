@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 import { FrontSiteRoutes } from '../../../../routes/urls';
 import { getCover } from '../../config';
 import { goTo } from '../../../../history';
-import { DocumentAuthors } from '../Document';
+import {DocumentAuthors} from "../../../../common/components/Document";
 
 export class BookCard extends Component {
   renderLabels = meta => {

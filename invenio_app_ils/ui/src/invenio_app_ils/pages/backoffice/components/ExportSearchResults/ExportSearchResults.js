@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Qs from 'qs';
-import { Button, Popup, Dropdown, Menu } from 'semantic-ui-react';
+import {Button, Popup, Dropdown, Menu, Icon} from 'semantic-ui-react';
 import {
   InvenioRequestSerializer,
   withState as withSearchState,
@@ -33,7 +33,11 @@ class ExportDialog extends Component {
   render() {
     return (
       <Popup
-        trigger={<Button primary>Export</Button>}
+        trigger={<Button primary icon size="small"
+                         labelPosition="left">
+          <Icon name="download" />
+          Export results to a file
+        </Button>}
         flowing
         on="click"
         position="top right"

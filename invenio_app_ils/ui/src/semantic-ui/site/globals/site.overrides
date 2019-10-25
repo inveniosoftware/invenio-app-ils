@@ -53,6 +53,23 @@
   background-color: @success !important;
 }
 
+label {
+    font-weight: bold;
+  }
+
+  .search-aggregations {
+    label {
+      font-weight: normal;
+    }
+  }
+
+  form {
+    label {
+      font-weight: normal;
+    }
+  }
+
+
 /* FRONTSITE */
 
 @{fs-parent-selector} {
@@ -95,27 +112,11 @@
     color: @fsSecondaryColor;
   }
 
-  label {
-    font-weight: bold;
-  }
-
-  .search-aggregations {
-    label {
-      font-weight: normal;
-    }
-  }
-
-  form {
-    label {
-      font-weight: normal;
-    }
-  }
 }
 
 /* BACKOFFICE */
 
 @{bo-parent-selector} {
-  height: 100%;
   display: flex;
   width: 100%;
 
@@ -134,10 +135,12 @@
     width: 230px;
     padding: 1.5em;
     background-color: @boSidebarBackgroundColor;
+    position: relative;
   }
 
   .bo-content {
     flex: 1;
     padding: 1.5em;
   }
+
 }

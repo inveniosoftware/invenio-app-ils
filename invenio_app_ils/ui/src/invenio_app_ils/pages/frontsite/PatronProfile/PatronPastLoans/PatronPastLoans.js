@@ -11,7 +11,7 @@ import {Container, Grid, Header, Item, Label} from "semantic-ui-react";
 import {getCover} from "../../config";
 import {Link} from "react-router-dom";
 import {FrontSiteRoutes} from "../../../../routes/urls";
-import {DocumentAuthors} from "../../components/Document";
+import {DocumentAuthors} from "../../../../common/components/Document";
 import {ILSItemPlaceholder} from "../../../../common/components/ILSPlaceholder/ILSPlaceholder";
 
 

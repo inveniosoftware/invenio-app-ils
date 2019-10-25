@@ -1,15 +1,36 @@
 /*******************************
     User Variable Overrides
 *******************************/
+
+/* GLOBAL */
+
+.search-aggregations {
+  .ui.card {
+    border-bottom: 1px solid @borderColor;
+    border-radius: 0;
+    margin-bottom: 2em;
+
+    .content {
+      padding-top: 0.5em;
+
+      .header {
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+/* FRONTSITE */
+
 @{fs-parent-selector} {
 
-  .ui.cards{
+  .ui.cards {
     .ui.card.fs-book-card {
-        .extra {
-          border-top: 0 !important;
-          padding: 0 0.75em 1em;
-        }
+      .extra {
+        border-top: 0 !important;
+        padding: 0 0.75em 1em;
       }
+    }
   }
 
   .ui.card.fs-book-card {
@@ -25,7 +46,8 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      &.discrete{
+
+      &.discrete {
         font-size: 0.9em;
       }
     }
@@ -72,24 +94,7 @@
       color: white !important;
 
       &:hover {
-        background-color: rgba(255,255,255,0.1) !important;
-      }
-    }
-  }
-
-
-  .search-aggregations {
-    .ui.card {
-      border-bottom: 1px solid @borderColor;
-      border-radius: 0;
-      margin-bottom: 2em;
-
-      .content {
-        padding-top: 0.5em;
-
-        .header {
-          text-transform: uppercase;
-        }
+        background-color: rgba(255, 255, 255, 0.1) !important;
       }
     }
   }

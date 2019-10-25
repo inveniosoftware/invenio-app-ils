@@ -1,3 +1,3 @@
 export {
   default as mostLoanedDocumentsReducer,
-} from './components/MostLoanedDocumentsList/state/reducer';
+} from './MostLoanedDocumentsList/state/reducer';

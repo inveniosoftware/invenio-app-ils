@@ -9,11 +9,11 @@ import {
 } from '../../../../../common/components/ILSPlaceholder';
 import {
   DocumentAbstract,
-  DocumentAuthors,
   DocumentCover,
   DocumentTags,
   DocumentTitle,
 } from '../../../components/Document';
+import {DocumentAuthors} from "../../../../../common/components/Document";
 
 export default class DocumentPanelMobile extends Component {
   constructor(props) {

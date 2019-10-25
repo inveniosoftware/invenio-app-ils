@@ -7,9 +7,9 @@ import { SearchSortOrder } from './components/SearchSortOrder';
 import { SearchResultsPerPage } from './components/SearchResultsPerPage';
 import { SearchControlsMobile } from './SearchControlsMobile';
 import { SearchPagination } from './components';
-import { getSearchConfig } from '../../config';
 
 export class SearchControls extends Component {
+
   renderCount = totalResults => {
     return (
       <div className={'search-results-counter'}>
@@ -18,8 +18,6 @@ export class SearchControls extends Component {
     );
   };
 
-  searchConfig = getSearchConfig('documents');
-
   render() {
     return (
       <>
@@ -27,10 +25,13 @@ export class SearchControls extends Component {
           <Grid columns={3} className={'search-controls'}>
             <Grid.Column largeScreen={5} computer={6}>
               <Grid>
-                <Grid.Column width={4}>{this.props.layoutToggle()}</Grid.Column>
+                {this.props.layoutToggle ?
+                  <Grid.Column width={4}>
+                    {this.props.layoutToggle()}
+                  </Grid.Column> : null}
                 <Grid.Column width={12}>
                   <Count renderElement={this.renderCount} />
-                  <SearchResultsPerPage searchConfig={this.searchConfig} />
+                  <SearchResultsPerPage modelName={this.props.modelName} />
                 </Grid.Column>
               </Grid>
             </Grid.Column>
@@ -51,8 +52,9 @@ export class SearchControls extends Component {
               className={'search-sort-options-column'}
             >
               <div className={'sort-by-filters'}>
-                <SearchSortBy prefix={'Sort by '} />
-                <SearchSortOrder searchConfig={this.searchConfig} />
+                <SearchSortBy modelName={this.props.modelName}
+                              prefix={'Sort by '} />
+                <SearchSortOrder modelName={this.props.modelName} />
               </div>
             </Grid.Column>
           </Grid>
@@ -65,7 +67,7 @@ export class SearchControls extends Component {
           </Grid>
         </Responsive>
         <Responsive maxWidth={Responsive.onlyTablet.maxWidth}>
-          <SearchControlsMobile searchConfig={this.searchConfig} />
+          <SearchControlsMobile modelName={this.props.modelName} />
         </Responsive>
       </>
     );
@@ -73,5 +75,6 @@ export class SearchControls extends Component {
 }
 
 SearchControls.propTypes = {
-  layoutToggle: PropTypes.func.isRequired,
+  layoutToggle: PropTypes.func,
+  modelName: PropTypes.string.isRequired,
 };
