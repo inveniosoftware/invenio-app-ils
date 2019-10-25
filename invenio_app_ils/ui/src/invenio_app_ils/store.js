@@ -55,6 +55,10 @@ import {
   loanRequestFormReducer,
 } from './pages/frontsite/Documents/DocumentsDetails/reducer';
 import { documentRequestDetailsReducer } from './pages/backoffice/DocumentRequestDetails/reducer';
+import {
+  patronCurrentDocumentRequestsReducer,
+  patronPastDocumentRequestsReducer
+} from "./pages/frontsite/PatronProfile/reducer";
 
 const rootReducer = combineReducers({
   availableItems: availableItemsReducer,
@@ -85,6 +89,8 @@ const rootReducer = combineReducers({
   patronCurrentLoans: patronCurrentLoansReducer,
   patronDetails: patronDetailsReducer,
   patronDocumentRequests: patronDocumentRequestsReducer,
+  patronPastDocumentRequests: patronPastDocumentRequestsReducer,
+  patronCurrentDocumentRequests: patronCurrentDocumentRequestsReducer,
   patronItemsCheckout: patronItemCheckoutReducer,
   patronPastLoans: patronPastLoansReducer,
   patronPendingLoans: patronPendingLoansReducer,

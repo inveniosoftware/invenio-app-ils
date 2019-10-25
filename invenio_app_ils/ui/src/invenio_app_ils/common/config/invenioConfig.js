@@ -20,7 +20,7 @@ export const invenioConfig = {
     loanRequestStates: ['PENDING'],
     requestDuration: 60,
   },
-  default_results_size: 15,
+  defaultResultsSize: 15,
   documentRequests: {
     search: {
       aggs: ['state'],
@@ -163,6 +163,7 @@ export const invenioConfig = {
     ],
   },
   loans: {
+    maxExtensionsCount: 3,
     search: {
       aggs: ['state'],
       sortBy: {

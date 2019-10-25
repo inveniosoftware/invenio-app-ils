@@ -1,10 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import * as testData from '../../../../../../../../../../tests/data/documents.json';
-import { Provider } from 'react-redux';
 import DocumentMetadata from '../DocumentMetadata';
 
-jest.mock('../components', () => {
+jest.mock('../../../../components/Document', () => {
   return {
     DocumentMetadataAccordion: () => null,
     DocumentMetadataTabs: () => null,

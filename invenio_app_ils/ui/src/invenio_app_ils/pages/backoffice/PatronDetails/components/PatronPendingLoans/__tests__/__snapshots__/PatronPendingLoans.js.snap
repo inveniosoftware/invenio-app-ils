@@ -61,6 +61,8 @@ exports[`PatronLoans tests should render patron loans 1`] = `
             "patron_pid": "1",
             "pickup_location_pid": "locid-1",
             "pid": "loanid-1",
+            "request_expire_date": "2019-06-28",
+            "request_start_date": "2018-06-28",
             "start_date": "2018-06-28",
             "state": "PENDING",
             "transaction_date": "2018-06-29",
@@ -81,6 +83,8 @@ exports[`PatronLoans tests should render patron loans 1`] = `
             "patron_pid": "1",
             "pickup_location_pid": "locid-1",
             "pid": "loanid-2",
+            "request_expire_date": "2019-06-28",
+            "request_start_date": "2018-06-28",
             "start_date": "2018-06-28",
             "state": "PENDING",
             "transaction_date": "2018-06-29",
@@ -147,6 +151,8 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                 "patron_pid": "1",
                 "pickup_location_pid": "locid-1",
                 "pid": "loanid-1",
+                "request_expire_date": "2019-06-28",
+                "request_start_date": "2018-06-28",
                 "start_date": "2018-06-28",
                 "state": "PENDING",
                 "transaction_date": "2018-06-29",
@@ -167,6 +173,8 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                 "patron_pid": "1",
                 "pickup_location_pid": "locid-1",
                 "pid": "loanid-2",
+                "request_expire_date": "2019-06-28",
+                "request_start_date": "2018-06-28",
                 "start_date": "2018-06-28",
                 "state": "PENDING",
                 "transaction_date": "2018-06-29",
@@ -244,11 +252,18 @@ exports[`PatronLoans tests should render patron loans 1`] = `
         <Table
           as="table"
           compact={true}
+          name="loan requests"
           selectable={true}
           striped={true}
+          subtitle=""
+          title="Patron's loan requests"
+          unstackable={true}
         >
           <table
-            className="ui selectable striped compact table"
+            className="ui selectable striped unstackable compact table"
+            name="loan requests"
+            subtitle=""
+            title="Patron's loan requests"
           >
             <ResultsTableHeader
               columns={
@@ -364,6 +379,8 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                       "patron_pid": "1",
                       "pickup_location_pid": "locid-1",
                       "pid": "loanid-1",
+                      "request_expire_date": "2019-06-28",
+                      "request_start_date": "2018-06-28",
                       "start_date": "2018-06-28",
                       "state": "PENDING",
                       "transaction_date": "2018-06-29",
@@ -384,6 +401,8 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                       "patron_pid": "1",
                       "pickup_location_pid": "locid-1",
                       "pid": "loanid-2",
+                      "request_expire_date": "2019-06-28",
+                      "request_start_date": "2018-06-28",
                       "start_date": "2018-06-28",
                       "state": "PENDING",
                       "transaction_date": "2018-06-29",
@@ -413,11 +432,13 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-loan1"
                         key="0-loan1"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-loan1"
                         >
                           <Button
@@ -1128,11 +1149,13 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-loan1"
                         key="1-loan1"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-loan1"
                         >
                           loanid-1
@@ -1140,11 +1163,13 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Document ID"
                         data-test="2-loan1"
                         key="2-loan1"
                       >
                         <td
                           className=""
+                          data-label="Document ID"
                           data-test="2-loan1"
                         >
                           docid-1
@@ -1164,11 +1189,13 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-loan2"
                         key="0-loan2"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-loan2"
                         >
                           <Button
@@ -1879,11 +1906,13 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-loan2"
                         key="1-loan2"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-loan2"
                         >
                           loanid-2
@@ -1891,11 +1920,13 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Document ID"
                         data-test="2-loan2"
                         key="2-loan2"
                       >
                         <td
                           className=""
+                          data-label="Document ID"
                           data-test="2-loan2"
                         >
                           docid-1
@@ -2077,6 +2108,8 @@ exports[`PatronLoans tests should render the see all button when showing only a 
             "patron_pid": "1",
             "pickup_location_pid": "locid-1",
             "pid": "loanid-1",
+            "request_expire_date": "2019-06-28",
+            "request_start_date": "2018-06-28",
             "start_date": "2018-06-28",
             "state": "PENDING",
             "transaction_date": "2018-06-29",
@@ -2097,6 +2130,8 @@ exports[`PatronLoans tests should render the see all button when showing only a 
             "patron_pid": "1",
             "pickup_location_pid": "locid-1",
             "pid": "loanid-2",
+            "request_expire_date": "2019-06-28",
+            "request_start_date": "2018-06-28",
             "start_date": "2018-06-28",
             "state": "PENDING",
             "transaction_date": "2018-06-29",
@@ -2162,6 +2197,8 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                 "patron_pid": "1",
                 "pickup_location_pid": "locid-1",
                 "pid": "loanid-1",
+                "request_expire_date": "2019-06-28",
+                "request_start_date": "2018-06-28",
                 "start_date": "2018-06-28",
                 "state": "PENDING",
                 "transaction_date": "2018-06-29",
@@ -2182,6 +2219,8 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                 "patron_pid": "1",
                 "pickup_location_pid": "locid-1",
                 "pid": "loanid-2",
+                "request_expire_date": "2019-06-28",
+                "request_start_date": "2018-06-28",
                 "start_date": "2018-06-28",
                 "state": "PENDING",
                 "transaction_date": "2018-06-29",
@@ -2259,11 +2298,18 @@ exports[`PatronLoans tests should render the see all button when showing only a 
         <Table
           as="table"
           compact={true}
+          name="loan requests"
           selectable={true}
           striped={true}
+          subtitle=""
+          title="Patron's loan requests"
+          unstackable={true}
         >
           <table
-            className="ui selectable striped compact table"
+            className="ui selectable striped unstackable compact table"
+            name="loan requests"
+            subtitle=""
+            title="Patron's loan requests"
           >
             <ResultsTableHeader
               columns={
@@ -2379,6 +2425,8 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                       "patron_pid": "1",
                       "pickup_location_pid": "locid-1",
                       "pid": "loanid-1",
+                      "request_expire_date": "2019-06-28",
+                      "request_start_date": "2018-06-28",
                       "start_date": "2018-06-28",
                       "state": "PENDING",
                       "transaction_date": "2018-06-29",
@@ -2408,11 +2456,13 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-loan1"
                         key="0-loan1"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-loan1"
                         >
                           <Button
@@ -3709,11 +3759,13 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-loan1"
                         key="1-loan1"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-loan1"
                         >
                           loanid-1
@@ -3721,11 +3773,13 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Document ID"
                         data-test="2-loan1"
                         key="2-loan1"
                       >
                         <td
                           className=""
+                          data-label="Document ID"
                           data-test="2-loan1"
                         >
                           docid-1

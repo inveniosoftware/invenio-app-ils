@@ -46,6 +46,8 @@
 
 @danger                    : @red;
 @success                   : @green;
+@warning                   : @orange;
+@info                      : @fsSecondaryColor;
 
 /********************************
   ILS Selectors

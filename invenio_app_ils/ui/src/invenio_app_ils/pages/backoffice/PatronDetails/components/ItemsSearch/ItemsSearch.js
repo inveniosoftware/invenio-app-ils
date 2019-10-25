@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
   Container,
@@ -9,9 +9,10 @@ import {
   Button,
   Input,
 } from 'semantic-ui-react';
-import { Error, Loader } from '../../../../../common/components';
-import { ItemsResultsList } from './components';
+import {Error, Loader} from '../../../../../common/components';
+import {ItemsResultsList} from './components';
 import isEmpty from 'lodash/isEmpty';
+import {ES_DELAY} from "../../../../../common/config";
 
 export default class ItemsSearch extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ export default class ItemsSearch extends Component {
     this.clearResults = this.props.clearResults;
     this.checkoutItem = this.props.checkoutItem;
     this.fetchUpdatedCurrentLoans = this.props.fetchUpdatedCurrentLoans;
-    this.state = { prevSearchQuery: '' };
+    this.state = {prevSearchQuery: ''};
   }
 
   componentDidMount() {
@@ -36,7 +37,7 @@ export default class ItemsSearch extends Component {
 
   executeSearch = queryString => {
     queryString = queryString || this.props.queryString;
-    this.setState({ prevSearchQuery: queryString });
+    this.setState({prevSearchQuery: queryString});
 
     return this.fetchItems(queryString);
   };
@@ -47,7 +48,7 @@ export default class ItemsSearch extends Component {
     if (queryString) {
       await this.executeSearch(queryString);
 
-      const { hits } = this.props.items;
+      const {hits} = this.props.items;
       const hasOneHit =
         !isEmpty(hits) &&
         hits.length === 1 &&
@@ -62,8 +63,10 @@ export default class ItemsSearch extends Component {
           true
         );
         this.clearResults();
-        this.fetchUpdatedCurrentLoans(this.props.patronPid);
-        this.setState({ prevSearchQuery: '' });
+        setTimeout(() => {
+          this.fetchUpdatedCurrentLoans(this.props.patronPid);
+        }, ES_DELAY);
+        this.setState({prevSearchQuery: ''});
       }
     }
   };
@@ -86,7 +89,7 @@ export default class ItemsSearch extends Component {
         fluid
         focus
         placeholder={'Search by barcode...'}
-        onChange={(e, { value }) => {
+        onChange={(e, {value}) => {
           this.onInputChange(value);
         }}
         onPaste={e => {
@@ -122,7 +125,7 @@ export default class ItemsSearch extends Component {
     return (
       <Segment placeholder textAlign="center">
         <Header icon>
-          <Icon name="search" />
+          <Icon name="search"/>
           Found no items matching this barcode.
         </Header>
         <div className="empty-results-current">
@@ -142,13 +145,14 @@ export default class ItemsSearch extends Component {
   };
 
   render() {
-    const { items, isLoading, error } = this.props;
-    const { prevSearchQuery } = this.state;
+    const {items, isLoading, error} = this.props;
+    const {prevSearchQuery} = this.state;
     return (
       <Segment className={'patron-items'}>
         <Header as={'h3'}>Items</Header>
         <Header.Subheader>Search items by barcode.</Header.Subheader>
-        <Container className={'search-bar'}>{this.renderSearchBar()}</Container>
+        <Container
+          className={'search-bar'}>{this.renderSearchBar()}</Container>
         <Grid columns={1} stackable relaxed className="items-search-container">
           <Grid.Column width={16}>
             <Loader isLoading={isLoading}>
@@ -156,9 +160,9 @@ export default class ItemsSearch extends Component {
                 {!isEmpty(items.hits)
                   ? this.renderResultsList(items)
                   : this.renderEmptyResults(
-                      prevSearchQuery,
-                      this.updateQueryString
-                    )}
+                    prevSearchQuery,
+                    this.updateQueryString
+                  )}
               </Error>
             </Loader>
           </Grid.Column>

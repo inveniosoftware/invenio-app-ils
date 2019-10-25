@@ -61,7 +61,7 @@ class QueryBuilder {
     if (!state) {
       throw TypeError('State argument missing');
     }
-    this.stateQuery.push(`state:"${state}"`);
+    this.stateQuery.push(`state:"${prepareSumQuery(state)}"`);
     return this;
   }
 

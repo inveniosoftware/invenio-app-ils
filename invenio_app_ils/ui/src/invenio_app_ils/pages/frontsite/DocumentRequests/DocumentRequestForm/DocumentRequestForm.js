@@ -123,7 +123,7 @@ export default class DocumentRequestForm extends Component {
 
   render() {
     return (
-      <Container id="document-request">
+      <Container id="document-request" className={'spaced'}>
         <Header as="h1">Request new book</Header>
         <p>Fill in the form below to request a new book from the library.</p>
         <p>

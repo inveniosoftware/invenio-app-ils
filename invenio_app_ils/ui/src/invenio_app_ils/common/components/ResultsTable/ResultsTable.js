@@ -18,6 +18,8 @@ export class ResultsTable extends Component {
       showMaxRows,
       singleLine,
       totalHitsCount,
+      headerActionComponent,
+      ...tableProps
     } = this.props;
 
     return (
@@ -25,6 +27,8 @@ export class ResultsTable extends Component {
         striped
         compact
         selectable
+        unstackable
+        {...tableProps}
         {...(singleLine ? { singleLine: true } : {})}
         {...(fixed ? { fixed: true } : {})}
       >

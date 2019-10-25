@@ -2,23 +2,72 @@
          Site Overrides
 *******************************/
 
-@{fs-parent-selector}{
-  .ui.table{
+@{fs-parent-selector} {
+  .ui.table {
     border: 0;
-    tr{
-      td{
+
+    tr {
+      td {
         border: 0;
       }
     }
-    &.definition{
-      td:nth-child(2){
+
+    &.definition {
+      td:nth-child(2) {
         border-left: 0;
 
       }
+
       tr {
-        td:first-child:not(.ignored){
+        td:first-child:not(.ignored) {
           background: inherit;
         }
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: @largestMobileScreen) {
+
+  table {
+    border: 0;
+
+
+    & thead {
+      display: none;
+    }
+
+    & tr {
+      border-bottom: 1px solid @fsBorderColor;
+      display: block;
+      margin-bottom: .625em;
+    }
+
+    & td {
+      border-bottom: 1px solid @fsBorderColor;
+      display: block;
+      font-size: .8em;
+      text-align: right;
+
+      &:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-right: 0.5em;
+      }
+
+      &[data-label="Actions"]:before {
+        content: ' ';
+      }
+
+      &[data-label="Actions"]{
+        text-align: center !important;
+      }
+
+      &:last-child {
+        border-bottom: 0;
       }
     }
   }

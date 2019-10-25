@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Grid, Item, List } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { DocumentAuthors } from '../../DocumentsDetails/DocumentMetadata/components';
+import { DocumentAuthors } from '../../../components/Document';
 import { Link } from 'react-router-dom';
 import { FrontSiteRoutes } from '../../../../../routes/urls';
 import { getCover } from '../../../config';
 import Truncate from 'react-truncate';
-import { DocumentTags } from '../../DocumentsDetails/DocumentMetadata/components/DocumentTags';
+import { DocumentTags } from '../../../components/Document/DocumentTags';
 import isEmpty from 'lodash/isEmpty';
-import { DocumentLanguages } from '../../DocumentsDetails/DocumentMetadata/components/DocumentLanguages';
+import { DocumentLanguages } from '../../../components/Document/DocumentLanguages';
 
 export default class DocumentListEntry extends Component {
   constructor(props) {

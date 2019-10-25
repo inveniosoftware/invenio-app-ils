@@ -1,7 +1,6 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { documentRequest as documentRequestApi } from '../../api';
 import { sendErrorNotification } from '../../components/Notifications';
-import { ES_DELAY } from '../../config';
 
 const selectQuery = (patronPid, page = 1) => {
   return documentRequestApi
@@ -14,7 +13,10 @@ const selectQuery = (patronPid, page = 1) => {
 
 export const fetchPatronDocumentRequests = (patronPid, page) => {
   const query = selectQuery(patronPid, page);
-  const fetchRequests = async (patronPid, dispatch) => {
+  return async dispatch => {
+    dispatch({
+      type: IS_LOADING,
+    });
     try {
       const response = await documentRequestApi.list(query);
       dispatch({
@@ -28,20 +30,5 @@ export const fetchPatronDocumentRequests = (patronPid, page) => {
       });
       dispatch(sendErrorNotification(error));
     }
-  };
-
-  function delayedFetch(patronPid, dispatch) {
-    return new Promise(function(resolve, reject) {
-      setTimeout(() => {
-        resolve(fetchRequests(patronPid, dispatch));
-      }, ES_DELAY);
-    });
-  }
-
-  return async dispatch => {
-    dispatch({
-      type: IS_LOADING,
-    });
-    await delayedFetch(patronPid, dispatch);
   };
 };

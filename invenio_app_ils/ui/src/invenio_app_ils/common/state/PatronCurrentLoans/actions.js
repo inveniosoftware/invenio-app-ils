@@ -2,22 +2,28 @@ import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { invenioConfig } from '../../config';
 import { loan as loanApi } from '../../api';
 import { sendErrorNotification } from '../../components/Notifications';
-import { ES_DELAY } from '../../config';
 
-const selectQuery = (patronPid, page = 1) => {
+const selectQuery = (patronPid, page = 1, size) => {
   return loanApi
     .query()
     .withPatronPid(patronPid)
     .withState(invenioConfig.circulation.loanActiveStates)
     .withPage(page)
+    .withSize(size)
     .sortByNewest()
     .qs();
 };
 
-export const fetchPatronCurrentLoans = (patronPid, page) => {
-  const fetchLoans = (patronPid, dispatch) => {
-    loanApi
-      .list(selectQuery(patronPid, page))
+export const fetchPatronCurrentLoans = (
+  patronPid,
+  page,
+  size=invenioConfig.defaultResultsSize) => {
+  return async dispatch => {
+    dispatch({
+      type: IS_LOADING,
+    });
+    await loanApi
+      .list(selectQuery(patronPid, page, size))
       .then(response => {
         dispatch({
           type: SUCCESS,
@@ -31,20 +37,5 @@ export const fetchPatronCurrentLoans = (patronPid, page) => {
         });
         dispatch(sendErrorNotification(error));
       });
-  };
-
-  function delayedFetch(patronPid, dispatch) {
-    return new Promise(function(resolve, reject) {
-      setTimeout(() => {
-        resolve(fetchLoans(patronPid, dispatch));
-      }, ES_DELAY);
-    });
-  }
-
-  return async dispatch => {
-    dispatch({
-      type: IS_LOADING,
-    });
-    await delayedFetch(patronPid, dispatch);
   };
 };

@@ -260,11 +260,18 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
         <Table
           as="table"
           compact={true}
+          name="pending overdue documents"
           selectable={true}
           striped={true}
+          subtitle="Documents with pending loan requests, no available items and an active loan that's overdue."
+          title="Pending overdue documents"
+          unstackable={true}
         >
           <table
-            className="ui selectable striped compact table"
+            className="ui selectable striped unstackable compact table"
+            name="pending overdue documents"
+            subtitle="Documents with pending loan requests, no available items and an active loan that's overdue."
+            title="Pending overdue documents"
           >
             <ResultsTableHeader
               columns={
@@ -482,11 +489,13 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-document1"
                         key="0-document1"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-document1"
                         >
                           <Button
@@ -1197,11 +1206,13 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-document1"
                         key="1-document1"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-document1"
                         >
                           docid-1
@@ -1209,11 +1220,13 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Title"
                         data-test="2-document1"
                         key="2-document1"
                       >
                         <td
                           className=""
+                          data-label="Title"
                           data-test="2-document1"
                         >
                           The Gulf: The Making of An American Sea
@@ -1221,11 +1234,13 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Overdue Loans"
                         data-test="3-document1"
                         key="3-document1"
                       >
                         <td
                           className=""
+                          data-label="Overdue Loans"
                           data-test="3-document1"
                         >
                           -
@@ -1233,11 +1248,13 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Pending Requests"
                         data-test="4-document1"
                         key="4-document1"
                       >
                         <td
                           className=""
+                          data-label="Pending Requests"
                           data-test="4-document1"
                         >
                           -
@@ -1257,11 +1274,13 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-document2"
                         key="0-document2"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-document2"
                         >
                           <Button
@@ -1972,11 +1991,13 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-document2"
                         key="1-document2"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-document2"
                         >
                           docid-2
@@ -1984,11 +2005,13 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Title"
                         data-test="2-document2"
                         key="2-document2"
                       >
                         <td
                           className=""
+                          data-label="Title"
                           data-test="2-document2"
                         >
                           Prairie Fires: The American Dreams of Laura Ingalls Wilder
@@ -1996,11 +2019,13 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Overdue Loans"
                         data-test="3-document2"
                         key="3-document2"
                       >
                         <td
                           className=""
+                          data-label="Overdue Loans"
                           data-test="3-document2"
                         >
                           -
@@ -2008,11 +2033,13 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Pending Requests"
                         data-test="4-document2"
                         key="4-document2"
                       >
                         <td
                           className=""
+                          data-label="Pending Requests"
                           data-test="4-document2"
                         >
                           -

@@ -21,6 +21,7 @@ export default class ResultsTableBody extends Component {
             <Table.Cell
               key={`${idx}-${identifier}`}
               data-test={`${idx}-${identifier}`}
+              data-label={col.title}
             >
               {this.renderCell(col, row, rowIndex)}
             </Table.Cell>

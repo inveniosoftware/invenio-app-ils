@@ -143,9 +143,14 @@ exports[`LoansSearch ResultsTable tests should render a list of results 1`] = `
     compact={true}
     selectable={true}
     striped={true}
+    subtitle=""
+    title=""
+    unstackable={true}
   >
     <table
-      className="ui selectable striped compact table"
+      className="ui selectable striped unstackable compact table"
+      subtitle=""
+      title=""
     >
       <ResultsTableHeader
         columns={
@@ -262,11 +267,13 @@ exports[`LoansSearch ResultsTable tests should render a list of results 1`] = `
               >
                 <TableCell
                   as="td"
+                  data-label="view"
                   data-test="0-3"
                   key="0-3"
                 >
                   <td
                     className=""
+                    data-label="view"
                     data-test="0-3"
                   >
                     <Button
@@ -308,11 +315,13 @@ exports[`LoansSearch ResultsTable tests should render a list of results 1`] = `
                 </TableCell>
                 <TableCell
                   as="td"
+                  data-label="State"
                   data-test="1-3"
                   key="1-3"
                 >
                   <td
                     className=""
+                    data-label="State"
                     data-test="1-3"
                   >
                     ITEM_ON_LOAN

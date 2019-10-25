@@ -249,11 +249,18 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
         <Table
           as="table"
           compact={true}
+          name="new book requests"
           selectable={true}
           striped={true}
+          subtitle=""
+          title="Patron's new book requests"
+          unstackable={true}
         >
           <table
-            className="ui selectable striped compact table"
+            className="ui selectable striped unstackable compact table"
+            name="new book requests"
+            subtitle=""
+            title="Patron's new book requests"
           >
             <ResultsTableHeader
               columns={
@@ -460,11 +467,13 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-documentRequest1"
                         key="0-documentRequest1"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-documentRequest1"
                         >
                           <Button
@@ -1175,11 +1184,13 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-documentRequest1"
                         key="1-documentRequest1"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-documentRequest1"
                         >
                           documentRequest1
@@ -1187,11 +1198,13 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Document ID"
                         data-test="2-documentRequest1"
                         key="2-documentRequest1"
                       >
                         <td
                           className=""
+                          data-label="Document ID"
                           data-test="2-documentRequest1"
                         >
                           -
@@ -1199,11 +1212,13 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="State"
                         data-test="3-documentRequest1"
                         key="3-documentRequest1"
                       >
                         <td
                           className=""
+                          data-label="State"
                           data-test="3-documentRequest1"
                         >
                           PENDING
@@ -1211,11 +1226,13 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Created"
                         data-test="4-documentRequest1"
                         key="4-documentRequest1"
                       >
                         <td
                           className=""
+                          data-label="Created"
                           data-test="4-documentRequest1"
                         >
                           2018-01-01
@@ -1235,11 +1252,13 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-documentRequest2"
                         key="0-documentRequest2"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-documentRequest2"
                         >
                           <Button
@@ -1950,11 +1969,13 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-documentRequest2"
                         key="1-documentRequest2"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-documentRequest2"
                         >
                           documentRequest2
@@ -1962,11 +1983,13 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Document ID"
                         data-test="2-documentRequest2"
                         key="2-documentRequest2"
                       >
                         <td
                           className=""
+                          data-label="Document ID"
                           data-test="2-documentRequest2"
                         >
                           -
@@ -1974,11 +1997,13 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="State"
                         data-test="3-documentRequest2"
                         key="3-documentRequest2"
                       >
                         <td
                           className=""
+                          data-label="State"
                           data-test="3-documentRequest2"
                         >
                           PENDING
@@ -1986,11 +2011,13 @@ exports[`PatronDocumentRequests tests should render patron document requests 1`]
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Created"
                         data-test="4-documentRequest2"
                         key="4-documentRequest2"
                       >
                         <td
                           className=""
+                          data-label="Created"
                           data-test="4-documentRequest2"
                         >
                           2018-01-01
@@ -2359,11 +2386,18 @@ exports[`PatronDocumentRequests tests should render the see all button when show
         <Table
           as="table"
           compact={true}
+          name="new book requests"
           selectable={true}
           striped={true}
+          subtitle=""
+          title="Patron's new book requests"
+          unstackable={true}
         >
           <table
-            className="ui selectable striped compact table"
+            className="ui selectable striped unstackable compact table"
+            name="new book requests"
+            subtitle=""
+            title="Patron's new book requests"
           >
             <ResultsTableHeader
               columns={
@@ -2553,11 +2587,13 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                     >
                       <TableCell
                         as="td"
+                        data-label=""
                         data-test="0-documentRequest1"
                         key="0-documentRequest1"
                       >
                         <td
                           className=""
+                          data-label=""
                           data-test="0-documentRequest1"
                         >
                           <Button
@@ -3854,11 +3890,13 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="ID"
                         data-test="1-documentRequest1"
                         key="1-documentRequest1"
                       >
                         <td
                           className=""
+                          data-label="ID"
                           data-test="1-documentRequest1"
                         >
                           documentRequest1
@@ -3866,11 +3904,13 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Document ID"
                         data-test="2-documentRequest1"
                         key="2-documentRequest1"
                       >
                         <td
                           className=""
+                          data-label="Document ID"
                           data-test="2-documentRequest1"
                         >
                           -
@@ -3878,11 +3918,13 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="State"
                         data-test="3-documentRequest1"
                         key="3-documentRequest1"
                       >
                         <td
                           className=""
+                          data-label="State"
                           data-test="3-documentRequest1"
                         >
                           PENDING
@@ -3890,11 +3932,13 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                       </TableCell>
                       <TableCell
                         as="td"
+                        data-label="Created"
                         data-test="4-documentRequest1"
                         key="4-documentRequest1"
                       >
                         <td
                           className=""
+                          data-label="Created"
                           data-test="4-documentRequest1"
                         >
                           2018-01-01

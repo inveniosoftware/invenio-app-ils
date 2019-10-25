@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Card, Image, Label, List} from 'semantic-ui-react';
+import {Card, Image, Label} from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 import { FrontSiteRoutes } from '../../../../routes/urls';
 import { getCover } from '../../config';
 import { goTo } from '../../../../history';
-import { DocumentAuthors } from '../../Documents/DocumentsDetails/DocumentMetadata/components';
+import { DocumentAuthors } from '../Document';
 
 export class BookCard extends Component {
   renderLabels = meta => {

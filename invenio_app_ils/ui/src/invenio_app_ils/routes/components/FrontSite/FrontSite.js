@@ -6,7 +6,7 @@ import {
   Footer,
   ILSMenu,
   Home,
-  ProfileContainer,
+  PatronProfile,
 } from '../../../pages/frontsite';
 import { Container } from 'semantic-ui-react';
 import { Notifications } from '../../../common/components/Notifications';
@@ -46,7 +46,7 @@ export class FrontSite extends Component {
           <Route
             exact
             path={FrontSiteRoutes.patronProfile}
-            component={ProfileContainer}
+            component={PatronProfile}
           />
           <Route
             exact

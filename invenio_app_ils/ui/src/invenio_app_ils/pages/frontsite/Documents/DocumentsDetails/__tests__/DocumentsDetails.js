@@ -21,7 +21,7 @@ jest.mock('../DocumentCirculation', () => {
   };
 });
 
-jest.mock('../DocumentMetadata/components', () => {
+jest.mock('../../../components/Document', () => {
   return {
     DocumentTags: () => null,
   };

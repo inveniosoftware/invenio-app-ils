@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Responsive } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { DocumentMetadataAccordion, DocumentMetadataTabs } from './components';
+import { DocumentMetadataAccordion, DocumentMetadataTabs } from '../../../components/Document';
 
 export default class DocumentMetadata extends Component {
   constructor(props) {
