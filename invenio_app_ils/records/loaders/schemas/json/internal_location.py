@@ -8,7 +8,7 @@
 """Internal Location schema for marshmallow loader."""
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from invenio_records_rest.schemas.fields import PersistentIdentifier
-from marshmallow import fields
+from marshmallow import EXCLUDE, fields
 
 
 class InternalLocationSchemaV1(RecordMetadataSchemaJSONV1):
@@ -17,7 +17,6 @@ class InternalLocationSchemaV1(RecordMetadataSchemaJSONV1):
     class Meta:
         """Meta attributes for the schema."""
 
-        from marshmallow import EXCLUDE
         unknown = EXCLUDE
 
     pid = PersistentIdentifier()

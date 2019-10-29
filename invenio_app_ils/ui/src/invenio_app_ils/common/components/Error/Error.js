@@ -60,7 +60,7 @@ export class Error extends Component {
   }
 
   render() {
-    const { boundary, error, FallbackComponent } = this.props;
+    const { boundary, children, error, FallbackComponent } = this.props;
     const Fallback = FallbackComponent
       ? FallbackComponent
       : DefaultFallbackComponent;
@@ -70,7 +70,7 @@ export class Error extends Component {
     } else if (!isEmpty(error) && shouldShowErrorPage(error)) {
       return this.renderErrorMessage(error);
     } else {
-      return this.props.children;
+      return children ? children : null;
     }
   }
 }

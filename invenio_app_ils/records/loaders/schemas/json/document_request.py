@@ -11,7 +11,7 @@ from flask import g
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from invenio_records_rest.schemas.fields import PersistentIdentifier
 from invenio_records_rest.schemas.fields.sanitizedhtml import SanitizedHTML
-from marshmallow import ValidationError, fields
+from marshmallow import EXCLUDE, ValidationError, fields
 
 from invenio_app_ils.permissions import backoffice_permission
 
@@ -32,7 +32,6 @@ class DocumentRequestSchemaV1(RecordMetadataSchemaJSONV1):
     class Meta:
         """Meta attributes for the schema."""
 
-        from marshmallow import EXCLUDE
         unknown = EXCLUDE
 
     authors = SanitizedHTML()

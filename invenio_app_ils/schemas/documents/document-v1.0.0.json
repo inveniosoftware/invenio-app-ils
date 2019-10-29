@@ -611,19 +611,26 @@
       "type": "string"
     },
     "subjects": {
-      "properties": {
-        "scheme": {
-          "title": "Scheme of subject classification.",
-          "type": "string"
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "scheme": {
+            "title": "Scheme of subject classification.",
+            "type": "string"
+          },
+          "value": {
+            "title": "Subject classification",
+            "type": "string"
+          }
         },
-        "value": {
-          "title": "Subject classification",
-          "type": "string"
-        }
+        "title": "List of subjects of the document.",
+        "type": "object",
+        "required": ["value", "scheme"]
       },
-      "title": "List of subjects of the document.",
-      "type": "object",
-      "required": ["value", "scheme"]
+      "minItems": 1,
+      "title": "List of subjects",
+      "type": "array",
+      "uniqueItems": true
     },
     "table_of_content": {
       "description": "List of chapters",

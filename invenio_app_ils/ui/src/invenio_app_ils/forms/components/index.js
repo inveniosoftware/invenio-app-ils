@@ -1,9 +1,4 @@
-export { StringField } from './StringField';
-export { TextField } from './TextField';
-export { SelectField } from './SelectField';
-export { BooleanField } from './BooleanField';
-export { BaseForm } from './BaseForm';
-export { AccordionField } from './AccordionField';
-export { ArrayField } from './ArrayField';
-export { GroupField } from './GroupField';
-export { SelectorField } from './SelectorField';
+export { UrlsField } from './UrlsField';
+export { LanguagesField } from './LanguagesField';
+export { IdentifiersField } from './IdentifiersField';
+export { DeleteActionButton } from './DeleteActionButton';
