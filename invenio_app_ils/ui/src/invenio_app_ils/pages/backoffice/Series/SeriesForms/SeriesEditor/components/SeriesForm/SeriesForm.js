@@ -2,29 +2,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getIn } from 'formik';
-import { Form } from 'semantic-ui-react';
 import pick from 'lodash/pick';
-import IsoLanguages from 'iso-639-1';
 import {
   ArrayField,
   BaseForm,
   SelectField,
   StringField,
   TextField,
+  LanguagesField,
+  GroupField,
+  DeleteActionButton,
 } from '../../../../../../../forms';
 import { series as seriesApi } from '../../../../../../../common/api/series/series';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import { goTo } from '../../../../../../../history';
 
 export class SeriesForm extends Component {
-  constructor(props) {
-    super(props);
-    this.formInitialData = props.data;
-    this.successSubmitMessage = props.successSubmitMessage;
-    this.title = props.title;
-    this.pid = props.pid;
-    this.languageCodes = this.getLanguageCodes();
-  }
   prepareData = data => {
     return pick(data, [
       'title',
@@ -51,48 +44,43 @@ export class SeriesForm extends Component {
     );
   };
 
-  getLanguageCodes = () => {
-    return IsoLanguages.getAllCodes().map((code, index) => ({
-      text: code,
-      value: code,
-    }));
-  };
-
   renderAuthorsField = ({ arrayPath, indexPath, ...arrayHelpers }) => {
     return (
-      <StringField
-        fieldPath={`${arrayPath}.${indexPath}`}
-        action={
-          <Form.Button
-            color="red"
-            icon="trash"
-            type="button"
-            onClick={() => {
-              arrayHelpers.remove(indexPath);
-            }}
-          ></Form.Button>
-        }
-      />
+      <GroupField basic>
+        <StringField
+          fieldPath={`${arrayPath}.${indexPath}`}
+          action={
+            <DeleteActionButton
+              icon="trash"
+              onClick={() => arrayHelpers.remove(indexPath)}
+            />
+          }
+        />
+      </GroupField>
     );
   };
 
   render() {
+    const initialValues = this.props.data
+      ? this.prepareData(this.props.data.metadata)
+      : {};
     return (
       <BaseForm
-        initialValues={
-          this.formInitialData
-            ? this.prepareData(this.formInitialData.metadata)
-            : {}
-        }
+        initialValues={{
+          mode_of_issuance: 'MULTIPART_MONOGRAPH',
+          ...initialValues,
+        }}
         editApiMethod={this.updateSeries}
         createApiMethod={this.createSeries}
         successCallback={this.successCallback}
         successSubmitMessage={this.successSubmitMessage}
-        title={this.title}
-        pid={this.pid ? this.pid : undefined}
+        title={this.props.title}
+        pid={this.props.pid}
       >
         <StringField label="Title" fieldPath="title" required />
         <SelectField
+          required
+          search
           label="Mode of issuance"
           fieldPath="mode_of_issuance"
           options={[
@@ -105,8 +93,6 @@ export class SeriesForm extends Component {
               value: 'SERIAL',
             },
           ]}
-          required
-          search
         />
         <TextField label="Abstract" fieldPath="abstract" rows={10} />
         <ArrayField
@@ -114,15 +100,9 @@ export class SeriesForm extends Component {
           label="Authors"
           defaultNewValue=""
           renderArrayItem={this.renderAuthorsField}
+          addButtonLabel="Add new author"
         />
-        <SelectField
-          multiple
-          search
-          label="Languages"
-          fieldPath="languages"
-          options={this.languageCodes}
-          upward={false}
-        />
+        <LanguagesField multiple fieldPath="languages" />
         <StringField label="Edition" fieldPath="edition" />
         <StringField label="ISSN" fieldPath="issn" />
       </BaseForm>
@@ -131,7 +111,7 @@ export class SeriesForm extends Component {
 }
 
 SeriesForm.propTypes = {
-  formInitialData: PropTypes.object,
+  data: PropTypes.object,
   successSubmitMessage: PropTypes.string,
   title: PropTypes.string,
   pid: PropTypes.string,

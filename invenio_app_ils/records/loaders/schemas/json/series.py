@@ -9,7 +9,7 @@
 
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from invenio_records_rest.schemas.fields import PersistentIdentifier
-from marshmallow import Schema, fields
+from marshmallow import EXCLUDE, Schema, fields
 
 
 class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
@@ -18,7 +18,6 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
     class Meta:
         """Meta attributes for the schema."""
 
-        from marshmallow import EXCLUDE
         unknown = EXCLUDE
 
     title = fields.Str(required=True)

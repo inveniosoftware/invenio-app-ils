@@ -39,6 +39,7 @@ exports[`DocumentStats tests should load the component 1`] = `
               initialDate=""
               maxDate=""
               minDate=""
+              name="selectedDate"
               placeholder="From Date"
             />
           </FormField>
@@ -49,6 +50,7 @@ exports[`DocumentStats tests should load the component 1`] = `
               initialDate=""
               maxDate=""
               minDate=""
+              name="selectedDate"
               placeholder="To Date"
             />
           </FormField>

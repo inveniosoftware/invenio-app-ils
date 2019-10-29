@@ -243,21 +243,15 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
               initialDate="2019-10-11"
               maxDate="2019-11-30"
               minDate="2019-10-01"
+              name="selectedDate"
               placeholder="Pick the date"
             >
               <DateInput
                 autoComplete="off"
-                clearIcon={
-                  <Icon
-                    as="i"
-                    color="red"
-                    name="remove"
-                  />
-                }
                 clearable={true}
                 closable={true}
                 data-test=""
-                dateFormat="YYYY-MM-DD"
+                dateFormat="DD-MM-YYYY"
                 icon="calendar"
                 iconPosition="left"
                 initialDate="2019-10-11"
@@ -275,13 +269,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                 <InputView
                   animation="scale"
                   autoComplete="off"
-                  clearIcon={
-                    <Icon
-                      as="i"
-                      color="red"
-                      name="remove"
-                    />
-                  }
+                  clearIcon="remove"
                   clearable={true}
                   closeOnMouseLeave={true}
                   closePopup={[Function]}
@@ -303,13 +291,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                 >
                   <FormInputWithRef
                     autoComplete="off"
-                    clearIcon={
-                      <Icon
-                        as="i"
-                        color="red"
-                        name="remove"
-                      />
-                    }
+                    clearIcon="remove"
                     clearable={true}
                     data-test=""
                     icon="calendar"

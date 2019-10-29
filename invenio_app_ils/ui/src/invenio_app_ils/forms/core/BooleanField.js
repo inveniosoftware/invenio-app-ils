@@ -1,18 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Field, getIn } from 'formik';
+import { FastField, Field, getIn } from 'formik';
 import { Form } from 'semantic-ui-react';
 
 export class BooleanField extends Component {
-  constructor(props) {
-    super(props);
-
-    const { fieldPath, label, ...uiProps } = props;
-    this.fieldPath = fieldPath;
-    this.label = label;
-    this.uiProps = uiProps;
-  }
-
   renderError(errors, name, direction = 'left') {
     const error = errors[name];
     return error
@@ -24,27 +15,32 @@ export class BooleanField extends Component {
   }
 
   renderFormField = props => {
+    const { fieldPath, label, optimized, ...uiProps } = this.props;
     const {
       form: { values, handleChange, handleBlur, errors },
     } = props;
     return (
       <Form.Group inline>
-        <label>{this.label}</label>
+        <label htmlFor={fieldPath}>{label}</label>
         <Form.Checkbox
-          id={this.fieldPath}
-          name={this.fieldPath}
+          id={fieldPath}
+          name={fieldPath}
           onChange={handleChange}
           onBlur={handleBlur}
-          checked={getIn(values, this.fieldPath, '') || false}
-          error={this.renderError(errors, this.fieldPath)}
-          {...this.uiProps}
+          checked={getIn(values, fieldPath, '') || false}
+          error={this.renderError(errors, fieldPath)}
+          {...uiProps}
         ></Form.Checkbox>
       </Form.Group>
     );
   };
   render() {
+    const FormikField = this.props.optimized ? FastField : Field;
     return (
-      <Field name={this.fieldPath} component={this.renderFormField}></Field>
+      <FormikField
+        name={this.props.fieldPath}
+        component={this.renderFormField}
+      />
     );
   }
 }
@@ -52,8 +48,10 @@ export class BooleanField extends Component {
 BooleanField.propTypes = {
   fieldPath: PropTypes.string.isRequired,
   label: PropTypes.string,
+  optimized: PropTypes.bool,
 };
 
 BooleanField.defaultProps = {
   label: '',
+  optimized: false,
 };

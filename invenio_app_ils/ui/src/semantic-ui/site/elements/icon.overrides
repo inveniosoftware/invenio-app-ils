@@ -2,3 +2,6 @@
          Site Overrides
 *******************************/
 
+.icon.error {
+  color: @errorTextColor;
+}

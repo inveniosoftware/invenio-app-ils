@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
-import { Form } from 'semantic-ui-react';
 import {
   AccordionField,
   ArrayField,
   TextField,
+  GroupField,
+  DeleteActionButton,
 } from '../../../../../../../../forms';
 
 export class AlternativeAbstracts extends Component {
   renderFormField({ arrayPath, indexPath, ...arrayHelpers }) {
     return (
-      <>
-        <TextField fieldPath={`${arrayPath}.${indexPath}`} width={14} />
-        <Form.Button
-          color="red"
-          icon="trash"
-          type="button"
-          onClick={() => {
-            arrayHelpers.remove(indexPath);
-          }}
-        ></Form.Button>
-      </>
+      <GroupField
+        basic
+        action={
+          <DeleteActionButton onClick={() => arrayHelpers.remove(indexPath)} />
+        }
+      >
+        <TextField
+          label="Abstract"
+          fieldPath={`${arrayPath}.${indexPath}`}
+          width={14}
+        />
+      </GroupField>
     );
   }
 
@@ -28,14 +30,15 @@ export class AlternativeAbstracts extends Component {
       <AccordionField
         label="Alternative abstracts"
         fieldPath="alternative_abstracts"
-      >
-        <ArrayField
-          fieldPath="alternative_abstracts"
-          defaultNewValue=""
-          renderArrayItem={this.renderFormField}
-          addButtonLabel="Add new abstract"
-        />
-      </AccordionField>
+        content={
+          <ArrayField
+            fieldPath="alternative_abstracts"
+            defaultNewValue=""
+            renderArrayItem={this.renderFormField}
+            addButtonLabel="Add new abstract"
+          />
+        }
+      />
     );
   }
 }

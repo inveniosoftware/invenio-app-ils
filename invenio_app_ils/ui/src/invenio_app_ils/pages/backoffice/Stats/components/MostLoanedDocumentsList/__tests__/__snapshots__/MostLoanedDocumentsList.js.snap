@@ -24,6 +24,7 @@ exports[`MostLoanedDocumentsList tests should load the component 1`] = `
             initialDate=""
             maxDate=""
             minDate=""
+            name="selectedDate"
             placeholder="From Date"
           />
         </ListContent>
@@ -36,6 +37,7 @@ exports[`MostLoanedDocumentsList tests should load the component 1`] = `
             initialDate=""
             maxDate=""
             minDate=""
+            name="selectedDate"
             placeholder="To Date"
           />
         </ListContent>
@@ -136,21 +138,15 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                         initialDate=""
                         maxDate=""
                         minDate=""
+                        name="selectedDate"
                         placeholder="From Date"
                       >
                         <DateInput
                           autoComplete="off"
-                          clearIcon={
-                            <Icon
-                              as="i"
-                              color="red"
-                              name="remove"
-                            />
-                          }
                           clearable={true}
                           closable={true}
                           data-test=""
-                          dateFormat="YYYY-MM-DD"
+                          dateFormat="DD-MM-YYYY"
                           icon="calendar"
                           iconPosition="left"
                           initialDate=""
@@ -168,13 +164,7 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                           <InputView
                             animation="scale"
                             autoComplete="off"
-                            clearIcon={
-                              <Icon
-                                as="i"
-                                color="red"
-                                name="remove"
-                              />
-                            }
+                            clearIcon="remove"
                             clearable={true}
                             closeOnMouseLeave={true}
                             closePopup={[Function]}
@@ -196,13 +186,7 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                           >
                             <FormInputWithRef
                               autoComplete="off"
-                              clearIcon={
-                                <Icon
-                                  as="i"
-                                  color="red"
-                                  name="remove"
-                                />
-                              }
+                              clearIcon="remove"
                               clearable={true}
                               data-test=""
                               icon="calendar"
@@ -334,21 +318,15 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                         initialDate=""
                         maxDate=""
                         minDate=""
+                        name="selectedDate"
                         placeholder="To Date"
                       >
                         <DateInput
                           autoComplete="off"
-                          clearIcon={
-                            <Icon
-                              as="i"
-                              color="red"
-                              name="remove"
-                            />
-                          }
                           clearable={true}
                           closable={true}
                           data-test=""
-                          dateFormat="YYYY-MM-DD"
+                          dateFormat="DD-MM-YYYY"
                           icon="calendar"
                           iconPosition="left"
                           initialDate=""
@@ -366,13 +344,7 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                           <InputView
                             animation="scale"
                             autoComplete="off"
-                            clearIcon={
-                              <Icon
-                                as="i"
-                                color="red"
-                                name="remove"
-                              />
-                            }
+                            clearIcon="remove"
                             clearable={true}
                             closeOnMouseLeave={true}
                             closePopup={[Function]}
@@ -394,13 +366,7 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                           >
                             <FormInputWithRef
                               autoComplete="off"
-                              clearIcon={
-                                <Icon
-                                  as="i"
-                                  color="red"
-                                  name="remove"
-                                />
-                              }
+                              clearIcon="remove"
                               clearable={true}
                               data-test=""
                               icon="calendar"

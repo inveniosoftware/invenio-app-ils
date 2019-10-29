@@ -1,4 +1,11 @@
-export { TagsField } from './TagsField';
 export { AlternativeAbstracts } from './AlternativeAbstracts';
+export { AlternativeIdentifiers } from './AlternativeIdentifiers';
+export { AlternativeTitles } from './AlternativeTitles';
+export { AuthorsField } from './AuthorsField';
+export { Copyrights } from './Copyrights';
+export { Identifiers } from './Identifiers';
+export { LicensesField } from './LicensesField';
+export { PublicationInfoField } from './PublicationInfoField';
+export { Subjects } from './Subjects';
 export { TableOfContent } from './TableOfContent';
-export { UrlsField } from './UrlsField';
+export { TagsField } from './TagsField';

@@ -1,6 +1,9 @@
 import _get from 'lodash/get';
 
 export const invenioConfig = {
+  authors: {
+    maxDisplay: 5,
+  },
   circulation: {
     deliveryMethods: {
       PICKUP: 'Pick it up at the library desk',

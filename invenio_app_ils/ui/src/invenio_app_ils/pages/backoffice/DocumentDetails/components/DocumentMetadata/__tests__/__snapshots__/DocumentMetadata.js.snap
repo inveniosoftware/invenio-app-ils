@@ -11,7 +11,7 @@ exports[`DocumentMetadata tests should load the details component 1`] = `
     <GridRow>
       <GridColumn
         verticalAlign="middle"
-        width={13}
+        width={9}
       >
         <Header
           as="h1"
@@ -23,8 +23,72 @@ exports[`DocumentMetadata tests should load the details component 1`] = `
       </GridColumn>
       <GridColumn
         textAlign="right"
-        width={3}
+        width={7}
       >
+        <NewButton
+          disabled={false}
+          fluid={false}
+          text="New item"
+          to={
+            Object {
+              "pathname": "/backoffice/items/create",
+              "state": Object {
+                "document": Object {
+                  "metadata": Object {
+                    "abstract": "This is an abstract",
+                    "authors": Array [
+                      Object {
+                        "full_name": "Jack E. Davis",
+                      },
+                    ],
+                    "edition": "ed. 1",
+                    "keywords": Object {
+                      "source": "X",
+                      "value": "Patata",
+                    },
+                    "languages": Array [
+                      "en",
+                    ],
+                    "pid": "docid-1",
+                    "title": "The Gulf: The Making of An American Sea",
+                  },
+                },
+              },
+            }
+          }
+        />
+        <NewButton
+          disabled={false}
+          fluid={false}
+          text="New e-item"
+          to={
+            Object {
+              "pathname": "/backoffice/eitems/create",
+              "state": Object {
+                "document": Object {
+                  "metadata": Object {
+                    "abstract": "This is an abstract",
+                    "authors": Array [
+                      Object {
+                        "full_name": "Jack E. Davis",
+                      },
+                    ],
+                    "edition": "ed. 1",
+                    "keywords": Object {
+                      "source": "X",
+                      "value": "Patata",
+                    },
+                    "languages": Array [
+                      "en",
+                    ],
+                    "pid": "docid-1",
+                    "title": "The Gulf: The Making of An American Sea",
+                  },
+                },
+              },
+            }
+          }
+        />
         <EditButton
           disabled={false}
           fluid={false}

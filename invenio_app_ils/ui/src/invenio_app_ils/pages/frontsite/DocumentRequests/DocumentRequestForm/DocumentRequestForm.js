@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getIn } from 'formik';
-import { Container, Form, Header, Segment } from 'semantic-ui-react';
+import { Container, Header, Segment } from 'semantic-ui-react';
 import { sessionManager } from '../../../../authentication/services';
-import { StringField, TextField } from '../../../../forms';
+import {
+  BaseForm,
+  StringField,
+  TextField,
+  YearInputField,
+  GroupField,
+} from '../../../../forms';
 import * as Yup from 'yup';
 import { FrontSiteRoutes } from '../../../../routes/urls';
 import { documentRequest as documentRequestApi } from '../../../../common/api';
 import { goTo } from '../../../../history';
-import { BaseForm } from '../../../../forms/components';
 
 const ERROR_MSGS = {
   publication_year: 'Not a valid year',
@@ -38,7 +43,7 @@ export default class DocumentRequestForm extends Component {
     };
   };
 
-  onSubmitSuccess = response => {
+  onSubmitSuccess = () => {
     goTo(FrontSiteRoutes.patronProfile);
   };
 
@@ -68,11 +73,11 @@ export default class DocumentRequestForm extends Component {
           label="Authors"
           placeholder="Authors"
         />
-        <Form.Group widths="equal">
+        <GroupField widths="equal">
           <StringField fieldPath="isbn" label="ISBN" placeholder="ISBN" />
           <StringField fieldPath="issn" label="ISSN" placeholder="ISSN" />
-        </Form.Group>
-        <Form.Group widths="equal">
+        </GroupField>
+        <GroupField widths="equal">
           <StringField
             fieldPath="edition"
             label="Edition"
@@ -93,19 +98,19 @@ export default class DocumentRequestForm extends Component {
             label="Standard number"
             placeholder="Standard number"
           />
-        </Form.Group>
-        <Form.Group widths="equal">
+        </GroupField>
+        <GroupField widths="equal">
           <StringField
             fieldPath="page"
             label="Page"
             placeholder="Page number"
           />
-          <StringField
+          <YearInputField
             fieldPath="publication_year"
             label="Publication Year"
             placeholder="Publication Year"
           />
-        </Form.Group>
+        </GroupField>
         <TextField
           fieldPath="note"
           label="Note"

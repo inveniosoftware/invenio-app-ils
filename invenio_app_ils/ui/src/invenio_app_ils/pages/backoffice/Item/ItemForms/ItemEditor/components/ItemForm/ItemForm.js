@@ -9,6 +9,7 @@ import {
   SelectField,
   GroupField,
   SelectorField,
+  AccordionField,
 } from '../../../../../../../forms';
 import { item as itemApi } from '../../../../../../../common/api/items/item';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
@@ -25,14 +26,7 @@ import {
 } from '../../../../../../../common/components/ESSelector/serializer';
 
 export class ItemForm extends Component {
-  constructor(props) {
-    super(props);
-    this.formInitialData = props.data;
-    this.successSubmitMessage = props.successSubmitMessage;
-    this.title = props.title;
-    this.pid = props.pid;
-    this.config = invenioConfig.items;
-  }
+  config = invenioConfig.items;
 
   prepareData = data => {
     return pick(data, [
@@ -68,19 +62,23 @@ export class ItemForm extends Component {
   };
 
   render() {
+    const initialValues = this.props.data
+      ? this.prepareData(this.props.data.metadata)
+      : {};
     return (
       <BaseForm
-        initialValues={
-          this.formInitialData
-            ? this.prepareData(this.formInitialData.metadata)
-            : {}
-        }
+        initialValues={{
+          circulation_restriction: 'NO_RESTRICTION',
+          status: 'CAN_CIRCULATE',
+          medium: 'NOT_SPECIFIED',
+          ...initialValues,
+        }}
         editApiMethod={this.update}
         createApiMethod={this.create}
         successCallback={this.successCallback}
-        successSubmitMessage={this.successSubmitMessage}
-        title={this.title}
-        pid={this.pid ? this.pid : undefined}
+        successSubmitMessage={this.props.successSubmitMessage}
+        title={this.props.title}
+        pid={this.props.pid}
         submitSerializer={itemSubmitSerializer}
       >
         <StringField required label="Barcode" fieldPath="barcode" />
@@ -90,6 +88,13 @@ export class ItemForm extends Component {
           label="Circulation restriction"
           fieldPath="circulation_restriction"
           options={this.config.circulationRestrictions}
+        />
+        <SelectField
+          required
+          search
+          label="Status"
+          fieldPath="status"
+          options={this.config.statuses}
         />
         <TextField label="Description" fieldPath="description" rows={5} />
         <SelectorField
@@ -115,44 +120,50 @@ export class ItemForm extends Component {
           serializer={serializeInternalLocation}
         />
         <TextField label="Internal Notes" fieldPath="internal_notes" rows={5} />
-        <GroupField title="ISBN" widths="equal" fieldPath="isbn">
-          <StringField required label="Value" fieldPath="isbn.value" />
-          <TextField
-            label="Description"
-            fieldPath="isbn.description"
-            rows={2}
+        <AccordionField
+          label="ISBN"
+          fieldPath="isbn"
+          content={
+            <GroupField border widths="equal" fieldPath="isbn">
+              <StringField required label="Value" fieldPath="isbn.value" />
+              <TextField
+                label="Description"
+                fieldPath="isbn.description"
+                rows={2}
+              />
+            </GroupField>
+          }
+        />
+        <GroupField widths="equal">
+          <StringField label="Legacy ID" fieldPath="legacy_id" />
+          <StringField
+            label="Legacy library ID"
+            fieldPath="legacy_library_id"
           />
         </GroupField>
-        <StringField label="Legacy ID" fieldPath="legacy_id" />
-        <StringField label="Legacy library ID" fieldPath="legacy_library_id" />
-        <SelectField
-          required
-          search
-          label="Medium"
-          fieldPath="medium"
-          options={this.config.mediums}
-        />
-        <StringField label="Number of pages" fieldPath="number_of_pages" />
+        <GroupField widths="equal">
+          <SelectField
+            required
+            search
+            label="Medium"
+            fieldPath="medium"
+            options={this.config.mediums}
+          />
+          <StringField label="Number of pages" fieldPath="number_of_pages" />
+        </GroupField>
         <TextField
           label="Physical description"
           fieldPath="physical_description"
           rows={3}
         />
         <StringField label="Shelf" fieldPath="shelf" />
-        <SelectField
-          required
-          search
-          label="Status"
-          fieldPath="status"
-          options={this.config.statuses}
-        />
       </BaseForm>
     );
   }
 }
 
 ItemForm.propTypes = {
-  formInitialData: PropTypes.object,
+  data: PropTypes.object,
   successSubmitMessage: PropTypes.string,
   title: PropTypes.string,
   pid: PropTypes.string,

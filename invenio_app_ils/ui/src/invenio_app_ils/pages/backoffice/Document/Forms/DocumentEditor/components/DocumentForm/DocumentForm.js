@@ -6,17 +6,30 @@ import {
   StringField,
   TextField,
   BooleanField,
+  GroupField,
 } from '../../../../../../../forms';
 import { document as documentApi } from '../../../../../../../common/api/documents/document';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import { goTo } from '../../../../../../../history';
+import { UrlsField } from '../../../../../../../forms';
 import {
   AlternativeAbstracts,
+  AuthorsField,
   TagsField,
   TableOfContent,
-  UrlsField,
+  AlternativeIdentifiers,
+  AlternativeTitles,
+  Subjects,
+  LicensesField,
+  Identifiers,
+  Copyrights,
+  PublicationInfoField,
 } from './components';
 import documentSubmitSerializer from './documentSubmitSerializer';
+import { InternalNotes } from './components/InternalNotes';
+import { ConferenceInfoField } from './components/ConferenceInfoField';
+import { Imprints } from './components/Imprints';
+import { Keywords } from './components/Keywords';
 
 export class DocumentForm extends Component {
   constructor(props) {
@@ -27,6 +40,33 @@ export class DocumentForm extends Component {
     this.pid = props.pid;
   }
 
+  get buttons() {
+    if (this.props.pid) {
+      return null;
+    }
+
+    return [
+      {
+        name: 'create',
+        content: 'Create document',
+        primary: true,
+        type: 'submit',
+      },
+      {
+        name: 'create-with-item',
+        content: 'Create document and item',
+        secondary: true,
+        type: 'button',
+      },
+      {
+        name: 'create-with-eitem',
+        content: 'Create document and eitem',
+        secondary: true,
+        type: 'button',
+      },
+    ];
+  }
+
   updateDocument = (pid, data) => {
     return documentApi.update(pid, data);
   };
@@ -35,10 +75,15 @@ export class DocumentForm extends Component {
     return documentApi.create(data);
   };
 
-  successCallback = response => {
-    goTo(
-      BackOfficeRoutes.documentDetailsFor(getIn(response, 'data.metadata.pid'))
-    );
+  successCallback = (response, submitButton) => {
+    const doc = getIn(response, 'data');
+    if (submitButton === 'create-with-item') {
+      goTo(BackOfficeRoutes.itemCreate, { document: doc });
+    } else if (submitButton === 'create-with-eitem') {
+      goTo(BackOfficeRoutes.eitemCreate, { document: doc });
+    } else {
+      goTo(BackOfficeRoutes.documentDetailsFor(doc.metadata.pid));
+    }
   };
 
   render() {
@@ -52,22 +97,37 @@ export class DocumentForm extends Component {
         successCallback={this.successCallback}
         successSubmitMessage={this.successSubmitMessage}
         title={this.title}
-        pid={this.pid ? this.pid : undefined}
+        pid={this.pid}
         submitSerializer={documentSubmitSerializer}
+        buttons={this.buttons}
       >
         <StringField label="Title" fieldPath="title" required />
-        <TextField label="Abstract" fieldPath="abstract" rows={5} />
-        <AlternativeAbstracts />
-        <StringField label="Document type" fieldPath="document_type" />
-        <StringField label="Edition" fieldPath="edition" />
-        <TextField label="Notes" fieldPath="note" rows={5} />
-        <StringField label="Number of pages" fieldPath="number_of_pages" />
-        <TagsField label="Tags" fieldPath="tags" />
-        <BooleanField label="Document is curated" fieldPath="curated" toggle />
+        <GroupField widths="equal">
+          <StringField label="Document type" fieldPath="document_type" />
+          <StringField label="Edition" fieldPath="edition" />
+          <StringField label="Number of pages" fieldPath="number_of_pages" />
+        </GroupField>
         <StringField label="Source of the metadata" fieldPath="source" />
+        <AuthorsField fieldPath="authors" />
         <BooleanField label="Other authors" fieldPath="other_authors" toggle />
+        <BooleanField label="Document is curated" fieldPath="curated" toggle />
+        <TextField label="Abstract" fieldPath="abstract" rows={5} />
+        <TextField label="Notes" fieldPath="note" rows={5} />
+        <ConferenceInfoField />
+        <AlternativeAbstracts />
+        <LicensesField fieldPath="licenses" />
+        {/* <TagsField label="Tags" fieldPath="tags" /> */}
         <TableOfContent />
         <UrlsField />
+        <Subjects />
+        <InternalNotes />
+        <Identifiers />
+        <AlternativeIdentifiers />
+        <AlternativeTitles />
+        <Copyrights />
+        <PublicationInfoField />
+        <Imprints />
+        <Keywords />
       </BaseForm>
     );
   }

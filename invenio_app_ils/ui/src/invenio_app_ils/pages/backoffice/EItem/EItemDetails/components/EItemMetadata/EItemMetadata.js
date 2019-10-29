@@ -60,7 +60,7 @@ export default class EItemMetadata extends Component {
                   <Table.Row>
                     <Table.Cell>Available urls</Table.Cell>
                     <Table.Cell>
-                      {this.renderUrlLinks(eitemDetails.metadata.urls)}
+                      {this.renderUrlLinks(eitemDetails.metadata.urls || [])}
                     </Table.Cell>
                   </Table.Row>
                   <Table.Row>

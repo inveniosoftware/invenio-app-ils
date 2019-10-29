@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Input, Icon } from 'semantic-ui-react';
+import { Input } from 'semantic-ui-react';
 import { QueryBuildHelper } from './components/QueryBuildHelper/';
 
 export class SearchBar extends Component {

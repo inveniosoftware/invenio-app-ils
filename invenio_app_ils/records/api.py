@@ -86,7 +86,8 @@ class IlsRecord(Record):
         try:
             super(IlsRecord, self).validate(**kwargs)
         except ValidationError as jve:
-            errors = [FieldError(".".join(jve.path), jve.message)]
+            path = ".".join(str(x) for x in jve.path)
+            errors = [FieldError(path, jve.message)]
             raise IlsValidationError(
                 description="Record validation error",
                 errors=errors,

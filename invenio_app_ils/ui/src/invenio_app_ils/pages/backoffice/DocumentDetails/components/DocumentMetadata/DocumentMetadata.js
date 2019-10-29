@@ -15,7 +15,7 @@ import {
 import PropTypes from 'prop-types';
 import { invenioConfig } from '../../../../../common/config';
 import { MetadataTable } from '../../../components/MetadataTable';
-import { EditButton } from '../../../components/buttons';
+import { EditButton, NewButton } from '../../../components/buttons';
 import {
   document as documentApi,
   documentRequest as documentRequestApi,
@@ -185,12 +185,26 @@ export default class DocumentMetadata extends Component {
   renderHeader(document) {
     return (
       <Grid.Row>
-        <Grid.Column width={13} verticalAlign={'middle'}>
+        <Grid.Column width={9} verticalAlign={'middle'}>
           <Header as="h1">
             Document #{document.pid} - {document.metadata.title}
           </Header>
         </Grid.Column>
-        <Grid.Column width={3} textAlign={'right'}>
+        <Grid.Column width={7} textAlign="right">
+          <NewButton
+            text="New item"
+            to={{
+              pathname: BackOfficeRoutes.itemCreate,
+              state: { document },
+            }}
+          />
+          <NewButton
+            text="New e-item"
+            to={{
+              pathname: BackOfficeRoutes.eitemCreate,
+              state: { document },
+            }}
+          />
           <EditButton to={BackOfficeRoutes.documentEditFor(this.documentPid)} />
           <DeleteRecordModal
             deleteHeader={`Are you sure you want to delete the Document

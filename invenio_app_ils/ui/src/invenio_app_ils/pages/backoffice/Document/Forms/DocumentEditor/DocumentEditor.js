@@ -4,15 +4,11 @@ import { document as documentApi } from '../../../../../common/api/documents/doc
 import { DocumentForm } from './components';
 
 export class DocumentEditor extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      data: {},
-      isLoading: true,
-      error: {},
-    };
-  }
+  state = {
+    data: {},
+    isLoading: true,
+    error: {},
+  };
 
   fetchDocument = async documentPid => {
     try {
