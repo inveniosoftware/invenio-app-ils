@@ -7,3 +7,4 @@ export {
 export { OverdueLoanSendMailModal } from './OverdueLoanSendMailModal';
 export { Sidebar } from './Sidebar';
 export { DocumentList } from './DocumentList';
+export { Footer } from './Footer';

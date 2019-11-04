@@ -174,3 +174,25 @@
   }
 
 }
+
+/* BACKOFFICE */
+
+@{bo-parent-selector}{
+  .ui.container{
+    &.footer-lower {
+      background-color: #2A2D34;
+      padding-top: @footerPaddings/2;
+      padding-bottom: @footerPaddings/2;
+      color: white;
+    }
+
+    &.footer-upper {
+      background: rgb(52, 55, 62);
+      background: linear-gradient(155deg, rgba(52, 55, 62, 1) 0%, rgba(71, 75, 85, 1) 100%);
+      padding-top: @footerPaddings;
+      padding-bottom: @footerPaddings;
+      color: #c1bbbb;
+    }
+  }
+
+}

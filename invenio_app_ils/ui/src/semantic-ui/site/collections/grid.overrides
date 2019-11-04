@@ -2,13 +2,37 @@
          Site Overrides
 *******************************/
 
-.ui.grid {
-  &.search-controls {
-    padding-top: 1em;
-    padding-bottom: 2em;
+@{fs-parent-selector} {
+  .ui.grid {
+    &.search-controls {
+      padding-top: 1em;
+      padding-bottom: 2em;
+    }
+
+    &.search-footer-pagination {
+      padding: @defaultPaddingValue;
+    }
   }
-  &.search-footer-pagination{
-    padding: @defaultPaddingValue;
+}
+
+@{bo-parent-selector} {
+  .ui.grid {
+    .stretched.row {
+      .column {
+        &.bo-sidebar {
+          background-color: @boSidebarBackgroundColor;
+          padding: 1em 1em 1em 2em;
+          display: inline-block !important;
+        }
+
+        &.bo-content {
+          padding-top: 2rem;
+          padding-left: 2rem;
+          padding-right: 2rem;
+          padding-bottom: 2rem;
+        }
+      }
+    }
   }
 }
 

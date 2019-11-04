@@ -95,14 +95,4 @@
     }
   }
 
-  .bo-sidebar {
-    width: 230px;
-    padding: 1.5em;
-    background-color: @boSidebarBackgroundColor;
-  }
-
-  .bo-content {
-    flex: 1;
-    padding: 1.5em;
-  }
 }
