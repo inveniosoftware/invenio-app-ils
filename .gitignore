@@ -66,3 +66,5 @@ target/
 **/build
 .eggs
 *.egg-info
+
+*.pid

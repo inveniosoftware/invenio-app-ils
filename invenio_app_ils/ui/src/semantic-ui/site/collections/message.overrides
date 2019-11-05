@@ -1,3 +1,10 @@
 /*******************************
         Site Overrides
 *******************************/
+
+.frontsite {
+  .ui.message.document-stats-message {
+    margin-top: 2em;
+    padding: 0;
+  }
+}

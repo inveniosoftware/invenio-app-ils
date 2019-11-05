@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Container, Responsive} from 'semantic-ui-react';
+import { Container, Responsive } from 'semantic-ui-react';
 import { DocumentMetadata } from './DocumentMetadata';
 import { goTo } from '../../../../history';
-import { FrontSiteRoutes } from '../../../../routes/urls';
+import { FrontSiteRoutes, DocumentApis } from '../../../../routes/urls';
 import { SearchBar, Error } from '../../../../common/components';
 import { DocumentPanel } from './DocumentPanel';
 import { Breadcrumbs, DocumentTags } from '../../components';
-import {
-  ILSParagraphPlaceholder
-} from '../../../../common/components/ILSPlaceholder';
-import {DocumentItems} from "./DocumentItems";
+import { ILSParagraphPlaceholder } from '../../../../common/components/ILSPlaceholder';
+import { DocumentItems } from './DocumentItems';
+import { http } from '../../../../common/api/base';
 
 export default class DocumentsDetails extends Component {
   constructor(props) {
     super(props);
     this.fetchDocumentsDetails = this.props.fetchDocumentsDetails;
     this.state = { searchQuery: '' };
+    this.stats = {};
     this.renderElement = props.renderElement || this._renderElement;
   }
 
@@ -27,7 +27,17 @@ export default class DocumentsDetails extends Component {
       }
     });
     this.fetchDocumentsDetails(this.props.match.params.documentPid);
+    this.submitStats();
   }
+
+  submitStats = async () => {
+    this.stats = await http.post(
+      DocumentApis.documentDetailsRecordViewStatsFor(
+        this.props.match.params.documentPid
+      ),
+      { stat: 'record-view' }
+    );
+  };
 
   componentWillUnmount() {
     this.unlisten();
@@ -85,7 +95,7 @@ export default class DocumentsDetails extends Component {
           </Container>
           <Container className="items-locations spaced">
             <ILSParagraphPlaceholder linesNumber={3} isLoading={isLoading}>
-              <DocumentItems/>
+              <DocumentItems />
             </ILSParagraphPlaceholder>
           </Container>
           <Container className="section" fluid>

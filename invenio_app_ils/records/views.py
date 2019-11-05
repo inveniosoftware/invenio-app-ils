@@ -9,7 +9,7 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, request
+from flask import Blueprint, abort, current_app, request
 from invenio_db import db
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_records_rest.views import pass_record
@@ -18,8 +18,54 @@ from invenio_rest.errors import FieldError
 
 from invenio_app_ils.circulation.views import need_permissions
 from invenio_app_ils.errors import DocumentRequestError
-from invenio_app_ils.pidstore.pids import DOCUMENT_REQUEST_PID_TYPE
+from invenio_app_ils.pidstore.pids import DOCUMENT_PID_TYPE, \
+    DOCUMENT_REQUEST_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils_extension
+from invenio_app_ils.signals import record_viewed
+
+
+def create_record_stats_blueprint(app):
+    """Add record stats endpoint to the blueprint."""
+    blueprint = Blueprint(
+        "invenio_app_ils_record_stats", __name__, url_prefix=""
+    )
+    endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
+    options = endpoints.get(DOCUMENT_PID_TYPE, {})
+    default_media_type = options.get("default_media_type", "")
+    rec_serializers = options.get("record_serializers", {})
+    serializers = {
+        mime: obj_or_import_string(func)
+        for mime, func in rec_serializers.items()
+    }
+    blueprint.add_url_rule(
+        "{0}/record-stats".format(options['item_route']),
+        view_func=RecordStatsResource.as_view(
+            RecordStatsResource.view_name,
+            serializers=serializers,
+            default_media_type=default_media_type,
+        ),
+        methods=["POST"],
+    )
+    return blueprint
+
+
+class RecordStatsResource(ContentNegotiatedMethodView):
+    """Endpoint to trigger record stats signal."""
+
+    view_name = "record_stats"
+
+    @pass_record
+    def post(self, pid, record, **kwargs):
+        """Send a signal to count record view for the record stats."""
+        data = request.get_json()
+        if data.get('stat') == 'record-view':
+            record_viewed.send(
+                current_app._get_current_object(),
+                pid=pid,
+                record=record,
+            )
+            return self.make_response(pid, record, 202)
+        return abort(400)
 
 
 def create_document_request_action_blueprint(app):

@@ -17,7 +17,7 @@ export default class SectionServices extends Component {
             <Card.Group itemsPerRow={4} stackable>
               <Card className={'advert-card'}>
                 <Card.Content>
-                  <Card.Header centered="true" className={'advert'}>
+                  <Card.Header className={'advert'}>
                     <Icon name={'book'} /> Circulation
                   </Card.Header>
                   <Card.Description>

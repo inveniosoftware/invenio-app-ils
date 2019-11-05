@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { Container, Responsive } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { DocumentMetadataAccordion, DocumentMetadataTabs } from '../../../components/Document';
+import {
+  DocumentMetadataAccordion,
+  DocumentMetadataTabs,
+  DocumentStats,
+} from '../../../components/Document';
 
 export default class DocumentMetadata extends Component {
   constructor(props) {
@@ -21,6 +25,9 @@ export default class DocumentMetadata extends Component {
         <Responsive {...Responsive.onlyMobile}>
           <DocumentMetadataAccordion />
         </Responsive>
+        <Container textAlign={'center'}>
+          <DocumentStats document={this.document} />
+        </Container>
       </Container>
     );
   }

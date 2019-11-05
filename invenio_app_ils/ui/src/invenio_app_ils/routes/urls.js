@@ -110,3 +110,13 @@ export const BackOfficeRoutes = {
   ...BackOfficeRoutesList,
   ...BackOfficeRouteGenerators,
 };
+
+const documentDetailsRecordViewStats = `/documents/:documentPid/record-stats`;
+
+export const DocumentApis = {
+  statsUrl: `/record-stats`,
+  documentDetailsRecordViewStatsFor: documentPid =>
+    generatePath(documentDetailsRecordViewStats, {
+      documentPid: documentPid,
+    }),
+};

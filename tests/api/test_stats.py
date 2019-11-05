@@ -25,7 +25,7 @@ def _most_loaned_request(client, json_headers, from_date=None, to_date=None):
         params.append("to_date={}".format(to_date))
     response = client.get(
         "{}?{}".format(
-            url_for("invenio_app_ils_stats.most-loaned"),
+            url_for("invenio_app_ils_circulation_stats.most-loaned"),
             "&".join(params)
         ),
         headers=json_headers

@@ -7,6 +7,7 @@ jest.mock('../../../../components/Document', () => {
   return {
     DocumentMetadataAccordion: () => null,
     DocumentMetadataTabs: () => null,
+    DocumentStats: () => null,
   };
 });
 
