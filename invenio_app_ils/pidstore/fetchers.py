@@ -19,6 +19,7 @@ from .pids import (  # isort:skip
     PATRON_PID_TYPE,
     SERIES_PID_TYPE,
     TAG_PID_TYPE,
+    VOCABULARY_PID_TYPE,
 )
 
 
@@ -100,4 +101,13 @@ def document_request_pid_fetcher(record_uuid, data):
         provider=None,
         pid_type=DOCUMENT_REQUEST_PID_TYPE,
         pid_value=str(data["pid"])
+    )
+
+
+def vocabulary_pid_fetcher(record_uuid, data):
+    """Dummy vocabulary fetcher."""
+    return FetchedPID(
+        provider=None,
+        pid_type=VOCABULARY_PID_TYPE,
+        pid_value=str(data['id']),
     )

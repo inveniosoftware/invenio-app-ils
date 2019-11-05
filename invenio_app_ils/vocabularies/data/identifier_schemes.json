@@ -1,0 +1,12 @@
+[
+  {
+    "type": "identifier_scheme",
+    "key": "DOI",
+    "text": "Digital object identifier (DOI)"
+  },
+  {
+    "type": "identifier_scheme",
+    "key": "URN",
+    "text": "Uniform Resource Name (URN)"
+  }
+]

@@ -49,6 +49,9 @@ extras_require = {
     "sqlite": [
         "invenio-db[versioning]{}".format(invenio_db_version),
     ],
+    "vocabulary": [
+        "pycountry>=19.8.18",
+    ],
 }
 
 extras_require["all"] = []
@@ -59,6 +62,7 @@ for name, reqs in extras_require.items():
         "sqlite",
         "elasticsearch6",
         "elasticsearch7",
+        "vocabulary",
     ):
         continue
     extras_require["all"].extend(reqs)
@@ -126,6 +130,7 @@ setup(
             "patrons = invenio_app_ils.cli:patrons",
             "setup = invenio_app_ils.cli:setup",
             'stats = invenio_stats.cli:stats',
+            "vocabulary = invenio_app_ils.vocabularies.cli:vocabulary",
         ],
         "invenio_base.apps": [
             "ils_ui = invenio_app_ils.ext:InvenioAppIlsUI"
@@ -157,6 +162,7 @@ setup(
             "patrons = invenio_app_ils.mappings",
             "series = invenio_app_ils.mappings",
             "tags = invenio_app_ils.mappings",
+            "vocabularies = invenio_app_ils.mappings",
         ],
         "invenio_pidstore.fetchers": [
             "docid = invenio_app_ils.pidstore.fetchers:document_pid_fetcher",
@@ -168,6 +174,7 @@ setup(
             "pitmid = invenio_app_ils.pidstore.fetchers:item_pid_fetcher",
             "serid = invenio_app_ils.pidstore.fetchers:series_pid_fetcher",
             "tagid = invenio_app_ils.pidstore.fetchers:tag_pid_fetcher",
+            "vocid = invenio_app_ils.pidstore.fetchers:vocabulary_pid_fetcher",
         ],
         "invenio_pidstore.minters": [
             "docid = invenio_app_ils.pidstore.minters:document_pid_minter",
@@ -179,6 +186,7 @@ setup(
             "pitmid = invenio_app_ils.pidstore.minters:item_pid_minter",
             "serid = invenio_app_ils.pidstore.minters:series_pid_minter",
             "tagid = invenio_app_ils.pidstore.minters:tag_pid_minter",
+            "vocid = invenio_app_ils.pidstore.minters:vocabulary_pid_minter",
         ],
         "invenio_access.actions": [
             "backoffice_access_action = "

@@ -17,17 +17,18 @@ export class BooleanField extends Component {
   renderFormField = props => {
     const { fieldPath, label, optimized, ...uiProps } = this.props;
     const {
-      form: { values, handleChange, handleBlur, errors },
+      form: { values, handleBlur, errors, setFieldValue },
     } = props;
+    const value = getIn(values, fieldPath, false);
     return (
       <Form.Group inline>
         <label htmlFor={fieldPath}>{label}</label>
         <Form.Checkbox
           id={fieldPath}
           name={fieldPath}
-          onChange={handleChange}
+          onChange={() => setFieldValue(fieldPath, !value)}
           onBlur={handleBlur}
-          checked={getIn(values, fieldPath, '') || false}
+          checked={value}
           error={this.renderError(errors, fieldPath)}
           {...uiProps}
         ></Form.Checkbox>

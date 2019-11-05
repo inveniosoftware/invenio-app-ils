@@ -7,6 +7,7 @@
 
 """CLI for Invenio App ILS."""
 
+import os
 import random
 from datetime import timedelta
 from random import randint
@@ -269,31 +270,31 @@ class EItemGenerator(Generator):
 class DocumentGenerator(Generator):
     """Document Generator."""
 
-    DOCUMENT_TYPES = ["BOOK", "STANDARD", "PROCEEDINGS"]
+    DOCUMENT_TYPES = ["BOOK", "STANDARD", "PROCEEDING", "JOURNAL"]
     LANGUAGES = [u"en", u"fr", u"it", u"el", u"pl", u"ro", u"sv", u"es"]
     AUTHORS = [{"full_name": "Close, Frank"},
                {"full_name": "Doe, Jane",
                 "affiliations": [{"name": "Imperial Coll., London",
                                   "identifiers":
                                       [
-                                          {"scheme": "INSPIRE",
+                                          {"scheme": "ROR",
                                            "value": "12345"}
                                       ]
                                   }
                                  ],
                 "identifiers": [
-                    {"scheme": "CERN", "value": "2108633"}
+                    {"scheme": "ORCID", "value": "1234AAA"}
                 ],
                 "roles": ["editor"]
                 },
-               {"full_name": "Doe, John", "roles": ["author"],
+               {"full_name": "Doe, John", "roles": ["AUTHOR"],
                 "affiliations": [{"name": "CERN"}]
                 },
-               {"full_name": "CERN", "type": "organisation"}
+               {"full_name": "CERN", "type": "ORGANISATION"}
                ]
     CONFERENCE_INFO = {"acronym": "CHEP", "country": "AU",
                        "dates": "1 - 20 Nov. 2019",
-                       "identifiers": [{"scheme": "CERN",
+                       "identifiers": [{"scheme": "OTHER",
                                         "value": "CHEP2019"}
                                        ],
                        "place": "Adelaide",
@@ -483,7 +484,7 @@ class LoanGenerator(Generator):
 class SeriesGenerator(Generator):
     """Series Generator."""
 
-    DOCUMENT_TYPES = ["BOOK", "STANDARD", "PROCEEDINGS"]
+    DOCUMENT_TYPES = ["BOOK", "STANDARD", "PROCEEDING", "JOURNAL"]
     LANGUAGES = ["en", "fr", "it", "el", "pl", "ro", "sv", "es"]
     MODE_OF_ISSUANCE = ["MULTIPART_MONOGRAPH", "SERIAL"]
 
@@ -845,9 +846,15 @@ def create_userprofile_for(email, username, full_name):
     "--skip-demo-data", is_flag=True, help="Skip creating demo data."
 )
 @click.option("--skip-patrons", is_flag=True, help="Skip creating patrons.")
+@click.option(
+    "--skip-vocabularies",
+    is_flag=True,
+    help="Skip creating vocabularies."
+)
 @click.option("--verbose", is_flag=True, help="Verbose output.")
 @with_appcontext
-def setup(recreate_db, skip_demo_data, skip_patrons, verbose):
+def setup(recreate_db, skip_demo_data, skip_patrons, skip_vocabularies,
+          verbose):
     """ILS setup command."""
     from flask import current_app
     from invenio_base.app import create_cli
@@ -913,6 +920,16 @@ def setup(recreate_db, skip_demo_data, skip_patrons, verbose):
         # Assign roles
         run_command("roles add admin@test.ch admin")
         run_command("roles add librarian@test.ch librarian")
+
+    if not skip_vocabularies:
+        vocabularies_dir = os.path.join(
+            ".", "invenio_app_ils", "vocabularies", "data")
+        json_files = " ".join(
+            os.path.join(vocabularies_dir, name)
+            for name in os.listdir(vocabularies_dir)
+            if name.endswith(".json")
+        )
+        run_command("vocabulary index json --force {}".format(json_files))
 
     # Assign actions
     run_command("access allow superuser-access role admin")

@@ -1,0 +1,17 @@
+[
+  {
+    "type": "author_identifier_scheme",
+    "key": "ORCID",
+    "text": "ORCID"
+  },
+  {
+    "type": "author_identifier_scheme",
+    "key": "ISNI",
+    "text": "International Standard Name Identifier (ISNI)"
+  },
+  {
+    "type": "author_identifier_scheme",
+    "key": "GRID",
+    "text": "Global Research Identifier Database (GRID)"
+  }
+]

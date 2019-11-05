@@ -7,6 +7,7 @@ import {
   TextField,
   BooleanField,
   GroupField,
+  VocabularyField,
 } from '../../../../../../../forms';
 import { document as documentApi } from '../../../../../../../common/api/documents/document';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
@@ -23,22 +24,16 @@ import {
   Identifiers,
   Copyrights,
   PublicationInfoField,
+  TagsField,
 } from './components';
 import documentSubmitSerializer from './documentSubmitSerializer';
 import { InternalNotes } from './components/InternalNotes';
 import { ConferenceInfoField } from './components/ConferenceInfoField';
 import { Imprints } from './components/Imprints';
 import { Keywords } from './components/Keywords';
+import { invenioConfig } from '../../../../../../../common/config';
 
 export class DocumentForm extends Component {
-  constructor(props) {
-    super(props);
-    this.formInitialData = props.data;
-    this.successSubmitMessage = props.successSubmitMessage;
-    this.title = props.title;
-    this.pid = props.pid;
-  }
-
   get buttons() {
     if (this.props.pid) {
       return null;
@@ -88,35 +83,48 @@ export class DocumentForm extends Component {
   render() {
     return (
       <BaseForm
-        initialValues={
-          this.formInitialData ? this.formInitialData.metadata : {}
-        }
+        initialValues={this.props.data ? this.props.data.metadata : {}}
         editApiMethod={this.updateDocument}
         createApiMethod={this.createDocument}
         successCallback={this.successCallback}
-        successSubmitMessage={this.successSubmitMessage}
-        title={this.title}
-        pid={this.pid}
+        successSubmitMessage={this.props.successSubmitMessage}
+        title={this.props.title}
+        pid={this.props.pid}
         submitSerializer={documentSubmitSerializer}
         buttons={this.buttons}
       >
-        <StringField label="Title" fieldPath="title" required />
+        <StringField label="Title" fieldPath="title" required optimized />
         <GroupField widths="equal">
-          <StringField label="Document type" fieldPath="document_type" />
-          <StringField label="Edition" fieldPath="edition" />
-          <StringField label="Number of pages" fieldPath="number_of_pages" />
+          <VocabularyField
+            type={invenioConfig.vocabularies.document.type}
+            fieldPath="document_type"
+            label="Document type"
+          />
+          <StringField label="Edition" fieldPath="edition" optimized />
+          <StringField
+            label="Number of pages"
+            fieldPath="number_of_pages"
+            optimized
+          />
         </GroupField>
-        <StringField label="Source of the metadata" fieldPath="source" />
+        <StringField
+          label="Source of the metadata"
+          fieldPath="source"
+          optimized
+        />
         <AuthorsField fieldPath="authors" />
         <BooleanField label="Other authors" fieldPath="other_authors" toggle />
         <BooleanField label="Document is curated" fieldPath="curated" toggle />
-        <TextField label="Abstract" fieldPath="abstract" rows={5} />
-        <TextField label="Notes" fieldPath="note" rows={5} />
+        <TextField label="Abstract" fieldPath="abstract" rows={5} optimized />
+        <TextField label="Notes" fieldPath="note" rows={5} optimized />
         <ConferenceInfoField />
         <AlternativeAbstracts />
         <LicensesField fieldPath="licenses" />
-        {/* <TagsField label="Tags" fieldPath="tags" /> */}
         <TableOfContent />
+        <TagsField
+          fieldPath="tags"
+          type={invenioConfig.vocabularies.document.tags}
+        />
         <UrlsField />
         <Subjects />
         <InternalNotes />

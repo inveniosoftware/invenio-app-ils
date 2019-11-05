@@ -3,10 +3,12 @@ import {
   AccordionField,
   ArrayField,
   StringField,
-  LanguagesField,
+  LanguageField,
   DeleteActionButton,
   GroupField,
+  VocabularyField,
 } from '../../../../../../../../forms';
+import { invenioConfig } from '../../../../../../../../common/config';
 
 export class AlternativeTitles extends Component {
   renderFormField({ arrayPath, indexPath, ...arrayHelpers }) {
@@ -22,12 +24,23 @@ export class AlternativeTitles extends Component {
           required
           label="Alternative title"
           fieldPath={`${arrayPath}.${indexPath}.value`}
+          optimized
         />
         <StringField
           label="Source of the title"
           fieldPath={`${arrayPath}.${indexPath}.source`}
+          optimized
         />
-        <LanguagesField fieldPath={`${arrayPath}.${indexPath}.language`} />
+        <LanguageField
+          fieldPath={`${arrayPath}.${indexPath}.language`}
+          type={invenioConfig.vocabularies.document.alternativeTitle.language}
+          optimized
+        />
+        <VocabularyField
+          type={invenioConfig.vocabularies.document.alternativeTitle.type}
+          fieldPath={`${arrayPath}.${indexPath}.type`}
+          label="Type"
+        />
       </GroupField>
     );
   }

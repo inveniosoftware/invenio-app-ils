@@ -1,0 +1,27 @@
+[
+  {
+    "type": "tag",
+    "key": "FANTASY",
+    "text": "Fantasy"
+  },
+  {
+    "type": "tag",
+    "key": "DRAMA",
+    "text": "Drama"
+  },
+  {
+    "type": "tag",
+    "key": "MISTERY",
+    "text": "Mistery"
+  },
+  {
+    "type": "tag",
+    "key": "ROMANCE",
+    "text": "Romance"
+  },
+  {
+    "type": "tag",
+    "key": "THRILLER",
+    "text": "Thriller"
+  }
+]

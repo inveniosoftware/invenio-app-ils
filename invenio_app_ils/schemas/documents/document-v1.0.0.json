@@ -60,6 +60,10 @@
             "source": {
               "type": "string",
               "title": "Source of the alternative title."
+            },
+            "type": {
+              "type": "string",
+              "title": "Type of alternative title."
             }
           },
           "required": ["value"],
@@ -148,7 +152,6 @@
           },
           "roles": {
             "items": {
-              "default": "author",
               "minLength": 1,
               "type": "string"
             },
@@ -157,8 +160,8 @@
             "uniqueItems": true
           },
           "type": {
-            "description": "Determines if the contributor is an institution or a person",
-            "title": "Type of the contributor",
+            "description": "Determines if the author is an institution or a person",
+            "title": "Type of the author",
             "type": "string"
           }
         },

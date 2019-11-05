@@ -232,7 +232,7 @@ class DocumentIndexer(RecordIndexer):
             (document["pid"],),
             eta=eta,
         )
-        index_loans_after_document_indexed.appy_async(
+        index_loans_after_document_indexed.apply_async(
             (document["pid"],),
             eta=eta,
         )
@@ -536,3 +536,28 @@ class DocumentRequestIndexer(RecordIndexer):
                 (request["pid"], request["document_pid"]),
                 eta=eta,
             )
+
+
+class VocabularyIndexer(RecordIndexer):
+    """Indexer class for `Vocabulary`."""
+
+    @staticmethod
+    def _prepare_record(record, index, doc_type, arguments=None, **kwargs):
+        """Prepare record data for indexing.
+
+        :param record: The record to prepare.
+        :param index: The Elasticsearch index.
+        :param doc_type: The Elasticsearch document type.
+        :returns: The record metadata.
+        """
+        data = record.dumps()
+        return data
+
+    def record_to_index(self, record):
+        """Get index/doc_type given a record.
+
+        :param record: The record where to look for the information.
+        :returns: A tuple (index, doc_type).
+        """
+        doc_type = record._doc_type if lt_es7 else "_doc"
+        return (record._index, doc_type)

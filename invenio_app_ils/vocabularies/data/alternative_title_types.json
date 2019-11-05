@@ -1,0 +1,22 @@
+[
+  {
+    "type": "alternative_title_type",
+    "key": "ALTERNATIVE_TITLE",
+    "text": "Alternative Title"
+  },
+  {
+    "type": "alternative_title_type",
+    "key": "SUBTITLE",
+    "text": "Subtitle"
+  },
+  {
+    "type": "alternative_title_type",
+    "key": "TRANSLATED_TITLE",
+    "text": "Translated Title"
+  },
+  {
+    "type": "alternative_title_type",
+    "key": "OTHER",
+    "text": "Other"
+  }
+]

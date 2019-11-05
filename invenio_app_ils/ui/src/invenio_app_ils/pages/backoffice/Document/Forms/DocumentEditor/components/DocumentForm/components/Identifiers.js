@@ -1,16 +1,47 @@
 import React, { Component } from 'react';
-import { IdentifiersField } from '../../../../../../../../forms';
+import {
+  ObjectArrayField,
+  StringField,
+  VocabularyField,
+} from '../../../../../../../../forms';
+import { invenioConfig } from '../../../../../../../../common/config';
 
 export class Identifiers extends Component {
   render() {
     return (
-      <IdentifiersField
+      <ObjectArrayField
+        accordion
         fieldPath="identifiers"
         label="Identifiers"
-        objectKeysArray={[
-          { key: 'scheme', text: 'Scheme', required: true },
-          { key: 'value', text: 'Identifier value', required: true },
-          { key: 'material', text: 'Refers to material' },
+        defaultNewValue={{
+          scheme: '',
+          value: '',
+          material: '',
+        }}
+        objects={[
+          {
+            key: 'scheme',
+            element: VocabularyField,
+            props: {
+              type: invenioConfig.vocabularies.document.identifier.scheme,
+              label: 'Scheme',
+            },
+          },
+          {
+            key: 'value',
+            element: StringField,
+            props: {
+              inline: true,
+              label: 'Value',
+              required: true,
+              optimized: true,
+            },
+          },
+          {
+            key: 'material',
+            element: StringField,
+            props: { inline: true, label: 'Material', optimized: true },
+          },
         ]}
       />
     );

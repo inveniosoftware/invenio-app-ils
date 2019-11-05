@@ -13,8 +13,8 @@ export class Keywords extends Component {
         fieldPath="keywords"
         content={
           <GroupField widths="equal">
-            <StringField label="Source" fieldPath="keywords.source" />
-            <StringField label="Value" fieldPath="keywords.value" />
+            <StringField label="Source" fieldPath="keywords.source" optimized />
+            <StringField label="Value" fieldPath="keywords.value" optimized />
           </GroupField>
         }
       />

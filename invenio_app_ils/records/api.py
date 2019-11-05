@@ -647,3 +647,36 @@ class DocumentRequest(IlsRecord):
             )
         }
         return super(DocumentRequest, cls).create(data, id_=id_, **kwargs)
+
+
+class Vocabulary(dict):
+    """Vocabulary record class."""
+
+    _index = "vocabularies-vocabulary-v1.0.0"
+    _doc_type = "vocabulary-v1.0.0"
+    _schema = "vocabularies/vocabulary-v1.0.0.json"
+
+    def __init__(self, type, key, text, data=None):
+        """Create a `Vocabulary` instance.
+
+        Vocabulary instances are not stored in the database
+        but are indexed in ElasticSearch.
+        """
+        self.type = type
+        self.key = key
+        self.text = text
+        self.data = data or {}
+
+        # Needed by the indexer
+        self.id = "{}-{}".format(type, key).lower()
+        self.revision_id = 1
+
+    def dumps(self):
+        """Return python representation of vocabulary metadata."""
+        return {
+            "id": self.id,
+            "type": self.type,
+            "key": self.key,
+            "text": self.text,
+            "data": self.data,
+        }

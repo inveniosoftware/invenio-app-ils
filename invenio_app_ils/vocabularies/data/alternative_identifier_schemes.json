@@ -1,0 +1,27 @@
+[
+  {
+    "type": "alternative_identifier_scheme",
+    "key": "ARXIV",
+    "text": "arXiv"
+  },
+  {
+    "type": "alternative_identifier_scheme",
+    "key": "ASIN",
+    "text": "Amazon Standard Id. Number (ASIN)"
+  },
+  {
+    "type": "alternative_identifier_scheme",
+    "key": "ISBN",
+    "text": "International Standard Book Number (ISBN)"
+  },
+  {
+    "type": "alternative_identifier_scheme",
+    "key": "HDL",
+    "text": "Handle.Net (HDL)"
+  },
+  {
+    "type": "alternative_identifier_scheme",
+    "key": "SAFARI",
+    "text": "Safari Books Online (SAFARI)"
+  }
+]

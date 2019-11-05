@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Schema for Vocabulary",
+  "type": "object",
+  "required": ["id", "key", "text", "type"],
+  "properties": {
+    "data": {
+      "description": "Extra data",
+      "type": "object"
+    },
+    "id": {
+      "type": "string",
+      "title": "Unique vocabulary identifier"
+    },
+    "key": {
+      "type": "string",
+      "title": "Vocabulary key"
+    },
+    "text": {
+      "description": "Human-readable text",
+      "type": "string"
+    },
+    "type": {
+      "description": "Vocabulary type",
+      "type": "string"
+    }
+  }
+}

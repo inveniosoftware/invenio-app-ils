@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ObjectArrayStringField } from '../core';
+import { ObjectArrayField, VocabularyField, StringField } from '../core';
 
 export class IdentifiersField extends Component {
+  getObjects = () => [
+    {
+      key: 'scheme',
+      element: VocabularyField,
+      props: { type: this.props.schemeVocabularyType, label: 'Scheme' },
+    },
+    {
+      key: 'value',
+      element: StringField,
+      props: { inline: true, label: 'Value', required: true },
+    },
+  ];
+
   render() {
     return (
-      <ObjectArrayStringField
-        basic={this.props.basic}
+      <ObjectArrayField
+        accordion={this.props.accordion}
         fieldPath={this.props.fieldPath}
         label={this.props.label}
-        objectKeysArray={this.props.objectKeysArray}
+        objects={this.getObjects()}
         defaultNewValue={this.props.defaultNewValue}
         addButtonLabel={this.props.addButtonLabel}
       />
@@ -18,22 +31,20 @@ export class IdentifiersField extends Component {
 }
 
 IdentifiersField.propTypes = {
+  accordion: PropTypes.bool,
   addButtonLabel: PropTypes.string,
-  basic: PropTypes.bool,
+  defaultNewValue: PropTypes.object,
   fieldPath: PropTypes.string,
   label: PropTypes.string,
-  objectKeysArray: PropTypes.array,
-  defaultNewValue: PropTypes.object,
+  objects: PropTypes.array,
+  schemeVocabularyType: PropTypes.string,
 };
 
 IdentifiersField.defaultProps = {
   addButtonLabel: 'Add new identifier',
-  basic: false,
+  accordion: false,
   fieldPath: 'identifiers',
   label: 'Identifiers',
-  objectKeysArray: [
-    { key: 'scheme', text: 'Scheme', required: true },
-    { key: 'value', text: 'Identifier value', required: true },
-  ],
   defaultNewValue: { scheme: '', value: '' },
+  schemeVocabularyType: 'identifier_scheme',
 };

@@ -22,20 +22,24 @@ export class Imprints extends Component {
           <StringField
             label="Publisher"
             fieldPath={`${arrayPath}.${indexPath}.publisher`}
+            optimized
           />
           <DateInputField
             label="Date of publication"
             fieldPath={`${arrayPath}.${indexPath}.date`}
+            optimized
           />
         </GroupField>
         <GroupField widths="equal">
           <StringField
             label="Place of publication"
             fieldPath={`${arrayPath}.${indexPath}.place`}
+            optimized
           />
           <DateInputField
             label="Date of reprint"
             fieldPath={`${arrayPath}.${indexPath}.reprint_date`}
+            optimized
           />
         </GroupField>
       </GroupField>

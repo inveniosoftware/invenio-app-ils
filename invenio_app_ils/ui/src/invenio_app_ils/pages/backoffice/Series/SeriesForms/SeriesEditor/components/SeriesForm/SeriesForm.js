@@ -9,13 +9,14 @@ import {
   SelectField,
   StringField,
   TextField,
-  LanguagesField,
+  LanguageField,
   GroupField,
   DeleteActionButton,
 } from '../../../../../../../forms';
 import { series as seriesApi } from '../../../../../../../common/api/series/series';
 import { BackOfficeRoutes } from '../../../../../../../routes/urls';
 import { goTo } from '../../../../../../../history';
+import { invenioConfig } from '../../../../../../../common/config';
 
 export class SeriesForm extends Component {
   prepareData = data => {
@@ -102,7 +103,11 @@ export class SeriesForm extends Component {
           renderArrayItem={this.renderAuthorsField}
           addButtonLabel="Add new author"
         />
-        <LanguagesField multiple fieldPath="languages" />
+        <LanguageField
+          multiple
+          fieldPath="languages"
+          type={invenioConfig.vocabularies.series.language}
+        />
         <StringField label="Edition" fieldPath="edition" />
         <StringField label="ISSN" fieldPath="issn" />
       </BaseForm>
