@@ -79,6 +79,45 @@ export const invenioConfig = {
   ],
   rest_mimetype_query_arg_name: 'format',
   support_email: 'info@inveniosoftware.org',
+  vocabularies: {
+    document: {
+      alternativeIdentifier: {
+        scheme: 'alternative_identifier_scheme',
+      },
+      alternativeTitle: {
+        language: 'language',
+        type: 'alternative_title_type',
+      },
+      author: {
+        affiliation: {
+          identifier: {
+            scheme: 'affiliation_identifier_scheme',
+          },
+        },
+        identifier: {
+          scheme: 'author_identifier_scheme',
+        },
+        roles: {
+          type: 'author_role',
+        },
+        type: 'author_type',
+      },
+      conferenceInfo: {
+        country: 'country',
+        identifier: {
+          scheme: 'conference_identifier_scheme',
+        },
+      },
+      identifier: {
+        scheme: 'identifier_scheme',
+      },
+      tags: 'tag',
+      type: 'document_type',
+    },
+    series: {
+      language: 'language',
+    },
+  },
 };
 
 export function getDisplayVal(configField, value) {

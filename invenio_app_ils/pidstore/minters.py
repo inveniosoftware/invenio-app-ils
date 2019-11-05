@@ -103,3 +103,8 @@ def document_request_pid_minter(record_uuid, data):
     )
     data["pid"] = provider.pid.pid_value
     return provider.pid
+
+
+def vocabulary_pid_minter(record_uuid, data):
+    """Mint Vocabulary identifiers."""
+    return None

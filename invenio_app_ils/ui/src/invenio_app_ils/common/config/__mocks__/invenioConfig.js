@@ -1,44 +1,6 @@
 export const invenioConfig = {
-  documents: {
-    search: {
-      sortBy: {
-        values: [],
-        onEmptyQuery: '',
-      },
-      sortOrder: [],
-      aggs: [],
-    },
-  },
-  eitems: {
-    search: {
-      sortBy: {
-        values: [],
-        onEmptyQuery: '',
-      },
-      sortOrder: [],
-      aggs: [],
-    },
-  },
   items: {
-    search: {
-      sortBy: {
-        values: [],
-        onEmptyQuery: '',
-      },
-      sortOrder: [],
-      aggs: [],
-    },
     canCirculateStates: ['CAN_CIRCULATE'],
-  },
-  loans: {
-    search: {
-      sortBy: {
-        values: [],
-        onEmptyQuery: '',
-      },
-      sortOrder: [],
-      aggs: [],
-    },
   },
   circulation: {
     loanRequestStates: ['PENDING'],
@@ -47,26 +9,6 @@ export const invenioConfig = {
     loanCancelledStates: ['CANCELLED'],
     deliveryMethods: { DELIVERY: '', 'PICK UP': '' },
     requestDuration: 60,
-  },
-  series: {
-    search: {
-      sortBy: {
-        values: [],
-        onEmptyQuery: '',
-      },
-      sortOrder: [],
-      aggs: [],
-    },
-  },
-  patrons: {
-    search: {
-      sortBy: {
-        values: [],
-        onEmptyQuery: '',
-      },
-      sortOrder: [],
-      aggs: [],
-    },
   },
   relationTypes: [
     {

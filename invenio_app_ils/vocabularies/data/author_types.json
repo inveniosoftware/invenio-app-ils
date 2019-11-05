@@ -1,0 +1,12 @@
+[
+  {
+    "type": "author_type",
+    "key": "PERSON",
+    "text": "Person"
+  },
+  {
+    "type": "author_type",
+    "key": "ORGANISATION",
+    "text": "Organisation"
+  }
+]

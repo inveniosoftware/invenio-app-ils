@@ -13,7 +13,8 @@ export class SubForm extends Component {
         initialStatus={this.props.initialStatus}
         onSubmit={this.props.onSubmit}
         validationSchema={this.props.validationSchema}
-        render={({ submitForm }) => (
+      >
+        {({ submitForm }) => (
           <>
             {this.props.render(this.props.basePath)}
             <Button
@@ -32,7 +33,7 @@ export class SubForm extends Component {
             )}
           </>
         )}
-      />
+      </Formik>
     );
   }
 }

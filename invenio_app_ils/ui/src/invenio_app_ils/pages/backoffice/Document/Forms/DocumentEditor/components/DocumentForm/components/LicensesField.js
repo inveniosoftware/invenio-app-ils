@@ -20,12 +20,17 @@ export class LicensesField extends React.Component {
         }
       >
         <GroupField widths="equal">
-          <StringField fieldPath={`${objectPath}.funder`} label="Funder" />
+          <StringField
+            fieldPath={`${objectPath}.funder`}
+            label="Funder"
+            optimized
+          />
           <StringField
             fieldPath={`${objectPath}.statement`}
             label="Statement"
+            optimized
           />
-          <StringField fieldPath={`${objectPath}.url`} label="URL" />
+          <StringField fieldPath={`${objectPath}.url`} label="URL" optimized />
         </GroupField>
         <AccordionField
           label="Identifier"
@@ -36,10 +41,12 @@ export class LicensesField extends React.Component {
                 required
                 fieldPath={`${objectPath}.identifier.scheme`}
                 label="Scheme"
+                optimized
               />
               <StringField
                 fieldPath={`${objectPath}.identifier.value`}
                 label="Value"
+                optimized
               />
             </GroupField>
           }

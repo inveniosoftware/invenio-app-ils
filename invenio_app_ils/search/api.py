@@ -358,3 +358,22 @@ def filter_by_patron_search_factory(self, search, query_parser=None):
 
     urlkwargs.add('q', query_string)
     return search, urlkwargs
+
+
+class VocabularySearch(RecordsSearch):
+    """Search for vocabularies."""
+
+    class Meta:
+        """Search only in vocabularies index."""
+
+        index = "vocabularies"
+        doc_types = None
+
+    def search_by_type(self, type):
+        """Search vocabularies by type."""
+        return self.filter("term", type=type)
+
+    def search_by_type_and_key(self, type, key):
+        """Search vocabularies by type and key."""
+        search = self.search_by_type(type)
+        return search.filter("term", key__keyword=key)

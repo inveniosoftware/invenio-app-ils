@@ -23,15 +23,18 @@ export class InternalNotes extends Component {
           label="Note"
           fieldPath={`${arrayPath}.${indexPath}.value`}
           rows={5}
+          optimized
         />
         <GroupField widths="equal">
           <StringField
             label="Refers to field"
             fieldPath={`${arrayPath}.${indexPath}.field`}
+            optimized
           />
           <StringField
             label="Created by"
             fieldPath={`${arrayPath}.${indexPath}.user`}
+            optimized
           />
         </GroupField>
       </GroupField>

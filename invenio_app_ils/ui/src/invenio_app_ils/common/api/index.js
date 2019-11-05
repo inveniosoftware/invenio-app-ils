@@ -10,3 +10,4 @@ export { patron } from './patrons/patron';
 export { series } from './series/series';
 export { stats } from './stats/stats';
 export { tag } from './tags/tag';
+export { vocabulary } from './vocabularies/vocabulary';

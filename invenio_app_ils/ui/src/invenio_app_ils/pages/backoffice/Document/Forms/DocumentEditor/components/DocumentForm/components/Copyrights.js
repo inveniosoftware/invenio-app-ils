@@ -26,14 +26,17 @@ export class Copyrights extends Component {
           <StringField
             label="Copyright holder"
             fieldPath={`${arrayPath}.${indexPath}.holder`}
+            optimized
           />
           <StringField
             label="Copyright notice"
             fieldPath={`${arrayPath}.${indexPath}.statement`}
+            optimized
           />
           <StringField
             label="Copyright notice URL"
             fieldPath={`${arrayPath}.${indexPath}.url`}
+            optimized
           />
         </GroupField>
         <GroupField widths="equal">
@@ -41,10 +44,12 @@ export class Copyrights extends Component {
             label="Year"
             mode="year"
             fieldPath={`${arrayPath}.${indexPath}.year`}
+            optimized
           />
           <StringField
             label="Refers to material"
             fieldPath={`${arrayPath}.${indexPath}.material`}
+            optimized
           />
         </GroupField>
       </GroupField>

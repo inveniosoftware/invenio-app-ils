@@ -13,6 +13,7 @@ export class TableOfContent extends Component {
       <GroupField basic>
         <StringField
           fieldPath={`${arrayPath}.${indexPath}`}
+          optimized
           action={
             <DeleteActionButton
               icon="trash"

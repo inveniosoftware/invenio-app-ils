@@ -20,6 +20,7 @@ export class AlternativeAbstracts extends Component {
           label="Abstract"
           fieldPath={`${arrayPath}.${indexPath}`}
           width={14}
+          optimized
         />
       </GroupField>
     );

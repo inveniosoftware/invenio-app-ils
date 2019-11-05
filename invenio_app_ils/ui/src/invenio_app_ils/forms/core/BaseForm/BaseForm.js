@@ -99,7 +99,8 @@ export class BaseForm extends Component {
           initialValues={initialValues}
           onSubmit={this.props.onSubmit || this.onSubmit}
           validationSchema={this.validationSchema}
-          render={({ isSubmitting, handleSubmit, submitForm, values }) => (
+        >
+          {({ isSubmitting, handleSubmit, submitForm, values }) => (
             <Form
               onSubmit={event =>
                 this.submitForm(event, 'submit', submitForm, values)
@@ -121,7 +122,7 @@ export class BaseForm extends Component {
               )}
             </Form>
           )}
-        />
+        </Formik>
       </Container>
     );
   }

@@ -6,9 +6,16 @@ import {
   GroupField,
   IdentifiersField,
   StringField,
+  VocabularyField,
 } from '../../../../../../../../../forms';
+import { invenioConfig } from '../../../../../../../../../common/config';
 
 export class AuthorForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.authorVocabularies = invenioConfig.vocabularies.document.author;
+  }
+
   renderAffiliation = ({ arrayPath, indexPath, ...arrayHelpers }) => {
     const path = `${arrayPath}.${indexPath}`;
     return (
@@ -26,7 +33,14 @@ export class AuthorForm extends React.Component {
           fieldPath={`${path}.name`}
         />
         <GroupField grouped widths="equal">
-          <IdentifiersField basic fieldPath={`${path}.identifiers`} label="" />
+          <IdentifiersField
+            basic
+            fieldPath={`${path}.identifiers`}
+            label=""
+            schemeVocabularyType={
+              this.authorVocabularies.affiliation.identifier.scheme
+            }
+          />
         </GroupField>
       </GroupField>
     );
@@ -52,15 +66,11 @@ export class AuthorForm extends React.Component {
   renderRole = ({ arrayPath, indexPath, ...arrayHelpers }) => {
     return (
       <GroupField basic>
-        <StringField
-          label="Role"
+        <VocabularyField
+          type={this.authorVocabularies.roles.type}
           fieldPath={`${arrayPath}.${indexPath}`}
-          action={
-            <DeleteActionButton
-              icon="trash"
-              onClick={() => arrayHelpers.remove(indexPath)}
-            />
-          }
+          label="Role"
+          placeholder="Select an author role..."
         />
       </GroupField>
     );
@@ -76,7 +86,12 @@ export class AuthorForm extends React.Component {
             fieldPath={`${basePath}.full_name`}
             label="Full name"
           />
-          <StringField fieldPath={`${basePath}.type`} label="Type" />
+          <VocabularyField
+            type={this.authorVocabularies.type}
+            fieldPath={`${basePath}.type`}
+            label="Type"
+            placeholder="Select an author type..."
+          />
         </GroupField>
         <AccordionField
           label="Affiliations"
@@ -102,7 +117,11 @@ export class AuthorForm extends React.Component {
             />
           }
         />
-        <IdentifiersField fieldPath={`${basePath}.identifiers`} />
+        <IdentifiersField
+          accordion
+          fieldPath={`${basePath}.identifiers`}
+          schemeVocabularyType={this.authorVocabularies.identifier.scheme}
+        />
         <AccordionField
           label="Roles"
           fieldPath={`${basePath}.roles`}

@@ -75,6 +75,7 @@ from .indexer import (  # isort:skip
     LocationIndexer,
     SeriesIndexer,
     TagIndexer,
+    VocabularyIndexer,
 )
 from .permissions import (  # isort:skip
     authenticated_user_permission,
@@ -111,6 +112,9 @@ from .pidstore.pids import (  # isort:skip
     TAG_PID_FETCHER,
     TAG_PID_MINTER,
     TAG_PID_TYPE,
+    VOCABULARY_PID_FETCHER,
+    VOCABULARY_PID_MINTER,
+    VOCABULARY_PID_TYPE,
 )
 from .records.api import (  # isort:skip
     Document,
@@ -122,6 +126,7 @@ from .records.api import (  # isort:skip
     Patron,
     Series,
     Tag,
+    Vocabulary,
 )
 from .records.permissions import (  # isort:skip
     record_read_permission_factory,
@@ -136,6 +141,7 @@ from .search.api import (  # isort:skip
     PatronsSearch,
     SeriesSearch,
     TagSearch,
+    VocabularySearch,
 )
 
 
@@ -663,6 +669,40 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
     ),
+    vocid=dict(
+        pid_type=VOCABULARY_PID_TYPE,
+        pid_minter=VOCABULARY_PID_MINTER,
+        pid_fetcher=VOCABULARY_PID_FETCHER,
+        search_class=VocabularySearch,
+        indexer_class=VocabularyIndexer,
+        record_class=Vocabulary,
+        record_serializers={
+            "application/json": (
+                "invenio_app_ils.records.serializers:json_v1_response"
+            )
+        },
+        search_serializers={
+            "application/json": (
+                "invenio_app_ils.records.serializers:json_v1_search"
+            ),
+            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+        },
+        search_serializers_aliases={
+            "csv": "text/csv",
+            "json": "application/json",
+        },
+        item_route="/vocabularies/<pid({}):pid_value>".format(
+            VOCABULARY_PID_TYPE),
+        list_route="/vocabularies/",
+        default_media_type="application/json",
+        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
+        error_handlers=dict(),
+        list_permission_factory_imp=backoffice_permission,
+        read_permission_factory_imp=deny_all,
+        create_permission_factory_imp=deny_all,
+        update_permission_factory_imp=deny_all,
+        delete_permission_factory_imp=deny_all,
+    ),
 )
 
 # CIRCULATION
@@ -1142,4 +1182,24 @@ STATS_QUERIES = {
             )
         )
     ),
+}
+
+# List of available vocabularies
+ILS_VOCABULARIES = [
+    "affiliation_identifier_scheme",
+    "alternative_identifier_scheme",
+    "alternative_title_type",
+    "author_identifier_scheme",
+    "author_role",
+    "author_type",
+    "conference_identifier_scheme",
+    "country",
+    "document_type",
+    "identifier_scheme",
+    "language",
+    "tag",
+]
+
+ILS_VOCABULARY_SOURCES = {
+    "json": "invenio_app_ils.vocabularies.sources:json_source",
 }

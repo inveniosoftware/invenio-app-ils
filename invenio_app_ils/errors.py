@@ -238,3 +238,7 @@ class IlsValidationError(IlsException):
             **kwargs
         )
         self.original_exception = original_exception
+
+
+class VocabularyError(Exception):
+    """Generic vocabulary exception."""

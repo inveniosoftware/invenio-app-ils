@@ -2,6 +2,12 @@
          Site Overrides
 *******************************/
 
+.field .ui.dropdown {
+  .ui.label.error {
+    background-color: @dropdownErrorColor;
+  }
+}
+
 .fields {
   margin: 0 !important;
 }

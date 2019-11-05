@@ -1,0 +1,107 @@
+[
+  {
+    "type": "author_role",
+    "key": "CONTACT_PERSON",
+    "text": "Contact Person"
+  },
+  {
+    "type": "author_role",
+    "key": "DATA_COLLECTOR",
+    "text": "Data Collector"
+  },
+  {
+    "type": "author_role",
+    "key": "DATA_CURATOR",
+    "text": "Data Curator"
+  },
+  {
+    "type": "author_role",
+    "key": "DATA_MANAGER",
+    "text": "Data Manager"
+  },
+  {
+    "type": "author_role",
+    "key": "DISTRIBUTOR",
+    "text": "Distributor"
+  },
+  {
+    "type": "author_role",
+    "key": "EDITOR",
+    "text": "Editor"
+  },
+  {
+    "type": "author_role",
+    "key": "HOSTING_INSTITUTION",
+    "text": "Hosting Institution"
+  },
+  {
+    "type": "author_role",
+    "key": "OTHER",
+    "text": "Other"
+  },
+  {
+    "type": "author_role",
+    "key": "PRODUCER",
+    "text": "Producer"
+  },
+  {
+    "type": "author_role",
+    "key": "PROJECT_LEADER",
+    "text": "Project Leader"
+  },
+  {
+    "type": "author_role",
+    "key": "PROJECT_MANAGER",
+    "text": "Project Manager"
+  },
+  {
+    "type": "author_role",
+    "key": "PROJECT_MEMBER",
+    "text": "Project Member"
+  },
+  {
+    "type": "author_role",
+    "key": "REGISTRATION_AGENCY",
+    "text": "Registration Agency"
+  },
+  {
+    "type": "author_role",
+    "key": "REGISTRATION_AUTHORITY",
+    "text": "Registration Authority"
+  },
+  {
+    "type": "author_role",
+    "key": "RELATED_PERSON",
+    "text": "Related Person"
+  },
+  {
+    "type": "author_role",
+    "key": "RESEARCH_GROUP",
+    "text": "Research Group"
+  },
+  {
+    "type": "author_role",
+    "key": "RIGHTS_HOLDER",
+    "text": "Rights Holder"
+  },
+  {
+    "type": "author_role",
+    "key": "RESEARCHER",
+    "text": "Researcher"
+  },
+  {
+    "type": "author_role",
+    "key": "SPONSOR",
+    "text": "Sponsor"
+  },
+  {
+    "type": "author_role",
+    "key": "SUPERVISOR",
+    "text": "Supervisor"
+  },
+  {
+    "type": "author_role",
+    "key": "WORK_PACKAGE_LEADER",
+    "text": "Work Package Leader"
+  }
+]

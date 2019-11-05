@@ -20,26 +20,41 @@ export class PublicationInfoField extends React.Component {
           <DeleteActionButton onClick={() => arrayHelpers.remove(indexPath)} />
         }
       >
-        <StringField fieldPath={`${objectPath}.artid`} label="Article ID" />
+        <StringField
+          fieldPath={`${objectPath}.artid`}
+          label="Article ID"
+          optimized
+        />
         <GroupField widths="equal">
           <StringField
             fieldPath={`${objectPath}.journal_title`}
             label="Title"
+            optimized
           />
           <StringField
             fieldPath={`${objectPath}.journal_volume`}
             label="Volume"
+            optimized
           />
           <StringField
             fieldPath={`${objectPath}.journal_issue`}
             label="Issue"
+            optimized
           />
         </GroupField>
         <GroupField widths="equal">
-          <StringField fieldPath={`${objectPath}.pages`} label="Pages" />
-          <YearInputField fieldPath={`${objectPath}.year`} label="Year" />
+          <StringField
+            fieldPath={`${objectPath}.pages`}
+            label="Pages"
+            optimized
+          />
+          <YearInputField
+            fieldPath={`${objectPath}.year`}
+            label="Year"
+            optimized
+          />
         </GroupField>
-        <TextField fieldPath={`${objectPath}.note`} label="Note" />
+        <TextField fieldPath={`${objectPath}.note`} label="Note" optimized />
       </GroupField>
     );
   };

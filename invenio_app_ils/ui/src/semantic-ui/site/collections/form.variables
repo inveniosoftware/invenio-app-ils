@@ -6,3 +6,5 @@
 
 @fieldsetErrorBorderColor: @errorBorderColor;
 @fieldsetErrorTextColor: @errorTextColor;
+
+@dropdownErrorColor: @errorBorderColor;
