@@ -958,7 +958,7 @@ RECORDS_REST_FACETS = dict(
                 )
             ),
         ),
-        filters=dict(
+        post_filters=dict(
             document_type=terms_filter("document_type"),
             languages=terms_filter("languages"),
             tags=terms_filter("tags.name"),
@@ -972,8 +972,8 @@ RECORDS_REST_FACETS = dict(
                 "circulation.has_items_for_loan",
                 {"printed versions available": {"gt": 0}},
             ),
+            relations=terms_filter("relations")
         ),
-        post_filters=dict(relations=terms_filter("relations")),
     ),
     document_requests=dict(  # DocumentRequestSearch.Meta.index
         aggs=dict(state=dict(terms=dict(field="state"))),
@@ -990,7 +990,7 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(field="circulation.state", missing="N/A")
             ),
         ),
-        filters=dict(
+        post_filters=dict(
             status=terms_filter("status"),
             medium=terms_filter("medium"),
             # name=terms_filter('internal_location.name'),
@@ -999,12 +999,14 @@ RECORDS_REST_FACETS = dict(
     ),
     loans=dict(  # IlsLoansSearch.Meta.index
         aggs=dict(state=dict(terms=dict(field="state"))),
-        filters=dict(state=terms_filter("state")),
+        post_filters=dict(state=terms_filter("state")),
     ),
     series=dict(  # SeriesSearch.Meta.index
         aggs=dict(moi=dict(terms=dict(field="mode_of_issuance"))),
-        filters=dict(tags=terms_filter("tags.name")),
-        post_filters=dict(moi=terms_filter("mode_of_issuance")),
+        post_filters=dict(
+            moi=terms_filter("mode_of_issuance"),
+            tags=terms_filter("tags.name"),
+        ),
     ),
 )
 

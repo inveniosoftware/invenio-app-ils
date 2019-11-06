@@ -1,7 +1,6 @@
 import React, { Component, createRef } from 'react';
 import { Container, Ref, Sticky } from 'semantic-ui-react';
 import { ResultsLoader, Error, InvenioSearchApi } from 'react-searchkit';
-import { getSearchConfig } from '../../../../common/config';
 import { document as documentApi } from '../../../../common/api';
 import {
   SearchFooter,
@@ -17,8 +16,6 @@ export class DocumentsSearchMobile extends Component {
     url: documentApi.searchBaseURL,
     withCredentials: true,
   });
-
-  searchConfig = getSearchConfig('documents');
 
   stickyRef = createRef();
 
