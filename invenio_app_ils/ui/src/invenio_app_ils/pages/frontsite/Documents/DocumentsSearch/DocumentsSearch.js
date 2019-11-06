@@ -14,7 +14,6 @@ import {
   Error,
   InvenioSearchApi,
 } from 'react-searchkit';
-import { getSearchConfig } from '../../../../common/config';
 import {
   Error as IlsError,
   SearchBar as DocumentsSearchBar,
@@ -36,7 +35,6 @@ export class DocumentsSearch extends Component {
     url: documentApi.searchBaseURL,
     withCredentials: true,
   });
-  searchConfig = getSearchConfig('documents');
   state = { activeIndex: 0, isLayoutGrid: true };
 
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
