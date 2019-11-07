@@ -72,6 +72,7 @@ describe('MostLoanedDocumentsList tests', () => {
             loan_count: 1,
             extension_count: 1,
             items: { total: 2 },
+            eitems: {total: 2},
             circulation: {
               past_loans_count: 1,
             },
@@ -91,6 +92,7 @@ describe('MostLoanedDocumentsList tests', () => {
             loan_count: 1,
             extension_count: 1,
             items: { total: 2 },
+            eitems: {total: 2},
             circulation: {
               past_loans_count: 1,
             },
@@ -131,6 +133,7 @@ describe('MostLoanedDocumentsList tests', () => {
             loan_count: 1,
             extension_count: 1,
             items: { total: 2 },
+            eitems: {total: 2},
             circulation: {
               past_loans_count: 1,
             },

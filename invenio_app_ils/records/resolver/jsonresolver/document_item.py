@@ -10,7 +10,6 @@
 import jsonresolver
 from werkzeug.routing import Rule
 
-from invenio_app_ils.api import can_item_circulate
 from invenio_app_ils.search.api import ItemSearch
 
 

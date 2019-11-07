@@ -610,6 +610,14 @@
       "title": "Source of the metadata",
       "type": "string"
     },
+    "stock": {
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "subjects": {
       "items": {
         "additionalProperties": false,

@@ -48,12 +48,11 @@ export const invenioConfig = {
     search: {
       aggs: [
         'document_type',
-        'has_items',
-        'has_eitems',
         'has_items_for_loan',
         'tags',
         'languages',
         'relations',
+        'mediums'
       ],
       sortBy: {
         onEmptyQuery: 'mostrecent',

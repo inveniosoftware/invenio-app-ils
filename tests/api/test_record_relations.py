@@ -133,6 +133,7 @@ def _test_pc_mm_document(client, json_headers):
                         {
                             "pid": child_pid,
                             "pid_type": child_pid_type,
+                            "relation_type": "multipart_monograph",
                         }
                     ]
                 },
@@ -148,6 +149,7 @@ def _test_pc_mm_document(client, json_headers):
                             "pid": parent_pid,
                             "pid_type": parent_pid_type,
                             "title": parent["title"],
+                            "relation_type": "multipart_monograph",
                         }
                     ]
                 }
@@ -212,6 +214,7 @@ def _test_pc_mm_document_with_volume(client, json_headers):
                             "pid": child_pid,
                             "pid_type": child_pid_type,
                             "volume": "v.3",
+
                         }
                     ]
                 },
@@ -221,11 +224,13 @@ def _test_pc_mm_document_with_volume(client, json_headers):
                         {
                             "pid": "docid-1",
                             "pid_type": "docid",
+                            "relation_type": "multipart_monograph",
                         },
                         {
                             "pid": child_pid,
                             "pid_type": child_pid_type,
                             "volume": "v.3",
+                            "relation_type": "multipart_monograph",
                         },
                     ]
                 },
@@ -242,6 +247,7 @@ def _test_pc_mm_document_with_volume(client, json_headers):
                             "pid_type": parent_pid_type,
                             "title": parent["title"],
                             "volume": "v.3",
+                            "relation_type": "multipart_monograph",
                         }
                     ]
                 }
@@ -266,6 +272,7 @@ def _test_pc_mm_document_with_volume(client, json_headers):
                         {
                             "pid": "docid-1",
                             "pid_type": "docid",
+                            "relation_type": "multipart_monograph",
                         }
                     ]
                 }
@@ -326,6 +333,7 @@ def _test_pc_serial_to_mm(client, json_headers):
                             "pid": child_pid,
                             "pid_type": child_pid_type,
                             "volume": "vol. 1",
+                            "relation_type": "serial",
                         }
                     ]
                 }
@@ -341,6 +349,7 @@ def _test_pc_serial_to_mm(client, json_headers):
                             "pid": "docid-2",
                             "pid_type": "docid",
                             "volume": "v.3",
+
                         }
                     ]
                 },
@@ -349,11 +358,13 @@ def _test_pc_serial_to_mm(client, json_headers):
                         {
                             "pid": "docid-1",
                             "pid_type": "docid",
+                            "relation_type": "multipart_monograph",
                         },  # from previous
                         {
                             "pid": "docid-2",
                             "pid_type": "docid",
                             "volume": "v.3",
+                            "relation_type": "multipart_monograph",
                         },
                     ],
                     "serial": [
@@ -362,6 +373,7 @@ def _test_pc_serial_to_mm(client, json_headers):
                             "pid_type": parent_pid_type,
                             "title": "Springer tracts in modern physics",
                             "volume": "vol. 1",
+                            "relation_type": "serial",
                         }
                     ],
                 },
@@ -388,6 +400,7 @@ def _test_pc_serial_to_mm(client, json_headers):
                             "pid": "docid-2",
                             "pid_type": "docid",
                             "volume": "v.3",
+
                         },
                     ]
                 },
@@ -396,11 +409,13 @@ def _test_pc_serial_to_mm(client, json_headers):
                         {
                             "pid": "docid-1",
                             "pid_type": "docid",
+                            "relation_type": "multipart_monograph",
                         },  # from previous
                         {
                             "pid": "docid-2",
                             "pid_type": "docid",
                             "volume": "v.3",
+                            "relation_type": "multipart_monograph",
                         },
                     ]
                 },
@@ -465,11 +480,13 @@ def _test_pc_serial_to_document(client, json_headers):
                             "pid": "serid-1",
                             "pid_type": "serid",
                             "volume": "vol. 1",
+                            "relation_type": "serial",
                         },
                         {
                             "pid": child_pid,
                             "pid_type": child_pid_type,
                             "volume": "vol. 1",
+                            "relation_type": "serial",
                         },
                     ]
                 }
@@ -486,6 +503,7 @@ def _test_pc_serial_to_document(client, json_headers):
                             "pid_type": parent_pid_type,
                             "title": "Springer tracts in modern physics",
                             "volume": "vol. 1",
+                            "relation_type": "serial",
                         }
                     ]
                 }
@@ -520,6 +538,7 @@ def _test_pc_serial_to_document(client, json_headers):
                             "pid": "serid-1",
                             "pid_type": "serid",
                             "volume": "vol. 1",
+                            "relation_type": "serial",
                         }
                     ]
                 }
@@ -712,11 +731,13 @@ def _test_sibl_language_relation(client, json_headers):
                             "pid_type": second_pid_type,
                             "title": rec2["title"],
                             "languages": rec2["languages"],
+                            "relation_type": "language",
                         },
                         {
                             "pid": third_pid,
                             "pid_type": third_pid_type,
                             "title": rec3["title"],
+                            "relation_type": "language",
                         },
                     ]
                 }
@@ -733,11 +754,13 @@ def _test_sibl_language_relation(client, json_headers):
                             "title": rec1["title"],
                             "languages": rec1["languages"],
                             "edition": rec1["edition"],
+                            "relation_type": "language",
                         },
                         {
                             "pid": third_pid,
                             "pid_type": third_pid_type,
                             "title": rec3["title"],
+                            "relation_type": "language",
                         },
                     ]
                 }
@@ -754,12 +777,14 @@ def _test_sibl_language_relation(client, json_headers):
                             "title": rec1["title"],
                             "languages": rec1["languages"],
                             "edition": rec1["edition"],
+                            "relation_type": "language",
                         },
                         {
                             "pid": second_pid,
                             "pid_type": second_pid_type,
                             "title": rec2["title"],
                             "languages": rec2["languages"],
+                            "relation_type": "language",
                         },
                     ]
                 }
@@ -817,6 +842,7 @@ def _test_sibl_edition_relation(client, json_headers):
                             "title": rec2["title"],
                             "edition": rec2["edition"],
                             "languages": rec2["languages"],
+                            "relation_type": "edition",
                         }
                     ]
                 }
@@ -832,6 +858,7 @@ def _test_sibl_edition_relation(client, json_headers):
                             "pid_type": first_pid_type,
                             "title": "Half-light: Collected Poems 1965-2016",
                             "edition": "ed. 3",
+                            "relation_type": "edition",
                         }
                     ],
                     "language": [
@@ -841,11 +868,13 @@ def _test_sibl_edition_relation(client, json_headers):
                             "title": "Prairie Fires: The American Dreams of "
                                      "Laura Ingalls Wilder",
                             "languages": ["it"],
+                            "relation_type": "language",
                         },
                         {
                             "pid": "docid-6",
                             "pid_type": "docid",
                             "title": "Less: A Novel",
+                            "relation_type": "language",
                         }
                     ],
                 }
@@ -871,11 +900,13 @@ def _test_sibl_edition_relation(client, json_headers):
                             "title": "Prairie Fires: The American Dreams of "
                                      "Laura Ingalls Wilder",
                             "languages": ["it"],
+                            "relation_type": "language",
                         },
                         {
                             "pid": "docid-6",
                             "pid_type": "docid",
                             "title": "Less: A Novel",
+                            "relation_type": "language",
                         }
                     ]
                 }
@@ -930,11 +961,13 @@ def _test_sibl_other_relation(client, json_headers):
                             "title": "The Gulf: The Making of An American Sea",
                             "languages": ["en"],
                             "edition": "ed. 1",
+                            "relation_type": "language",
                         },
                         {
                             "pid": "docid-6",
                             "pid_type": "docid",
                             "title": "Less: A Novel",
+                            "relation_type": "language",
                         }
                     ],
                     "other": [
@@ -944,6 +977,7 @@ def _test_sibl_other_relation(client, json_headers):
                             "title": "Half-light: Collected Poems 1965-2016",
                             "edition": "ed. 3",
                             "note": "exercise",
+                            "relation_type": "other",
                         }
                     ],
                 },
@@ -960,6 +994,7 @@ def _test_sibl_other_relation(client, json_headers):
                             "title": "The Gulf: The Making of An American Sea",
                             "languages": ["en"],
                             "edition": "ed. 1",
+                            "relation_type": "edition",
                         }
                     ],
                     "other": [
@@ -968,6 +1003,7 @@ def _test_sibl_other_relation(client, json_headers):
                             "pid_type": first_pid_type,
                             "title": rec1["title"],
                             "languages": rec1["languages"],
+                            "relation_type": "other",
                         }
                     ],
                 }
@@ -992,11 +1028,13 @@ def _test_sibl_other_relation(client, json_headers):
                             "title": "The Gulf: The Making of An American Sea",
                             "languages": ["en"],
                             "edition": "ed. 1",
+                            "relation_type": "language",
                         },
                         {
                             "pid": "docid-6",
                             "pid_type": "docid",
                             "title": "Less: A Novel",
+                            "relation_type": "language",
                         }
                     ]
                 }
@@ -1013,6 +1051,7 @@ def _test_sibl_other_relation(client, json_headers):
                             "title": "The Gulf: The Making of An American Sea",
                             "language": ["en"],
                             "edition": "ed. 1",
+                            "relation_type": "edition",
                         }
                     ]
                 }

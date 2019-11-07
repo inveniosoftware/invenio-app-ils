@@ -123,6 +123,7 @@ class RecordRelationsRetriever(object):
         )
         # merge with any `relations_metadata`
         r.update(metadata or {})
+        r["relation_type"] = relation_type
 
         return r
 
@@ -154,6 +155,7 @@ class RecordRelationsRetriever(object):
 
         # add also the title of the parent
         r["title"] = parent.get("title", "")
+        r["relation_type"] = relation_type
 
         return r
 
@@ -184,6 +186,7 @@ class RecordRelationsRetriever(object):
         edition = sibling.get('edition')
         if edition:
             r["edition"] = edition
+        r["relation_type"] = relation_type
 
         return r
 

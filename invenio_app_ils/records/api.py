@@ -158,6 +158,9 @@ class Document(IlsRecordWithRelations):
     _document_request_resolver_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/request"
     )
+    _stock_resolver_path = (
+        "{scheme}://{host}/api/resolver/documents/{document_pid}/stock"
+    )
 
     @classmethod
     def build_resolver_fields(cls, data):
@@ -203,6 +206,13 @@ class Document(IlsRecordWithRelations):
         }
         data["request"] = {
             "$ref": cls._document_request_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                document_pid=data["pid"],
+            )
+        }
+        data["stock"] = {
+            "$ref": cls._stock_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 document_pid=data["pid"],
@@ -319,7 +329,6 @@ class Item(_Item):
     ]
     MEDIUMS = [
         "NOT_SPECIFIED",
-        "ONLINE",
         "PAPER",
         "CDROM",
         "DVD",

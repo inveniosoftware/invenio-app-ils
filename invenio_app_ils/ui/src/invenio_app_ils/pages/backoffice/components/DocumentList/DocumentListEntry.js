@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Grid, Header, Icon, Item } from 'semantic-ui-react';
+import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
 import { getCover } from '../../../frontsite/config';
 import { BackOfficeRoutes } from '../../../../routes/urls';
 import _isEmpty from 'lodash/isEmpty';
@@ -32,38 +32,50 @@ export default class DocumentListEntry extends Component {
     return (
       <>
         <Item.Description>
-          {!_isEmpty(document.metadata.relations.multipart_monograph) && (
-            <>
-              Multipart monograph{' '}
-              <Link
-                to={BackOfficeRoutes.seriesDetailsFor(
-                  document.metadata.relations.multipart_monograph[0].pid
-                )}
-              >
-                <Icon name={'paperclip'} />
-              </Link>
-            </>
-          )}
-        </Item.Description>
-        <Item.Description>
-          {!_isEmpty(document.metadata.relations.serial) && (
-            <>
-              Part of{' '}
-              <Link
-                to={BackOfficeRoutes.seriesListWithQuery(
-                  document.metadata.relations.serial
-                    .map((entry, idx) =>
-                      idx === document.metadata.relations.serial.length - 1
-                        ? `pid: ${entry.pid}`
-                        : `pid: ${entry.pid} OR`
-                    )
-                    .join(' ')
-                )}
-              >
-                serials
-              </Link>
-            </>
-          )}
+          <List verticalAlign={'middle'} className={'document-relations'}>
+            {!_isEmpty(document.metadata.relations.multipart_monograph) && (
+              <List.Item>
+                <List.Content floated="right">
+                  <Link
+                    to={BackOfficeRoutes.seriesDetailsFor(
+                      document.metadata.relations.multipart_monograph[0].pid
+                    )}
+                  >
+                    <Icon name={'paperclip'} />
+                  </Link>
+                </List.Content>
+                <List.Content>Multipart monograph</List.Content>
+              </List.Item>
+            )}
+            {!_isEmpty(document.metadata.relations.serial) && (
+              <List.Item>
+                <List.Content floated={'right'}>
+                  <Link
+                    to={BackOfficeRoutes.seriesListWithQuery(
+                      document.metadata.relations.serial
+                        .map((entry, idx) =>
+                          idx === document.metadata.relations.serial.length - 1
+                            ? `pid: ${entry.pid}`
+                            : `pid: ${entry.pid} OR`
+                        )
+                        .join(' ')
+                    )}
+                  >
+                    <Icon name="search plus" />
+                  </Link>
+                </List.Content>
+                <List.Content>Serials</List.Content>
+              </List.Item>
+            )}
+            {document.metadata.eitems.total > 0 ? (
+              <List.Item>
+                <List.Content floated="right">
+                  <Icon name="desktop" />
+                </List.Content>
+                <List.Content>Electronic version </List.Content>
+              </List.Item>
+            ) : null}
+          </List>
         </Item.Description>
       </>
     );
@@ -127,7 +139,6 @@ export default class DocumentListEntry extends Component {
             <Grid.Column computer={6} largeScreen={5}>
               <Item.Meta className={'document-authors'}>
                 <DocumentAuthors metadata={document.metadata} prefix={'by '} />
-                <Item.Meta className={'document-type'}></Item.Meta>
               </Item.Meta>
               <DocumentLanguages
                 metadata={document.metadata}
@@ -139,7 +150,8 @@ export default class DocumentListEntry extends Component {
             <Grid.Column computer={2} largeScreen={4}>
               {this.renderMiddleColumn(document)}
             </Grid.Column>
-            <Grid.Column computer={6} largeScreen={6}>
+            <Grid.Column width={1}/>
+            <Grid.Column computer={3} largeScreen={4}>
               {this.renderRightColumn(document)}
             </Grid.Column>
           </Grid>
