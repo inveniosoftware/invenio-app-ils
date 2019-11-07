@@ -177,6 +177,10 @@
               "pid_type": {
                 "type": "keyword"
               },
+              "relation_type": {
+                "type": "keyword",
+                "copy_to": "relation_types"
+              },
               "title": {
                 "type": "text"
               }
@@ -194,6 +198,10 @@
               "pid_type": {
                 "type": "keyword"
               },
+              "relation_type": {
+                "type": "keyword",
+                "copy_to": "relation_types"
+              },
               "title": {
                 "type": "text"
               }
@@ -207,6 +215,10 @@
               },
               "pid_type": {
                 "type": "keyword"
+              },
+              "relation_type": {
+                "type": "keyword",
+                "copy_to": "relation_types"
               },
               "title": {
                 "type": "text"
@@ -228,6 +240,10 @@
               "pid_type": {
                 "type": "keyword"
               },
+              "relation_type": {
+                "type": "keyword",
+                "copy_to": "relation_types"
+              },
               "title": {
                 "type": "text"
               }
@@ -242,6 +258,10 @@
               "pid_type": {
                 "type": "keyword"
               },
+              "relation_type": {
+                "type": "keyword",
+                "copy_to": "relation_types"
+              },
               "title": {
                 "type": "text"
               },
@@ -253,6 +273,9 @@
           }
         },
         "type": "object"
+      },
+      "relation_types": {
+        "type": "keyword"
       },
       "relations_metadata": {
         "properties": {
@@ -324,6 +347,14 @@
           }
         }
       },
+      "stock": {
+          "properties": {
+            "mediums": {
+              "type": "keyword"
+            }
+          },
+          "type": "object"
+        },
       "tag_pids": {
         "type": "keyword"
       },

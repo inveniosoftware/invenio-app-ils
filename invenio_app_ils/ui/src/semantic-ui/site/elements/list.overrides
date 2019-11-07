@@ -37,11 +37,11 @@
 @{bo-parent-selector}{
     .ui.list{
       &.document-authors-list, &.document-languages-list,
-      &.document-circulation{
+      &.document-circulation, &.document-relations{
         font-size: 1em;
         margin: 0;
         .item{
-         padding: 0;
+         padding: 0.1em;
         }
       }
       &.document-circulation{

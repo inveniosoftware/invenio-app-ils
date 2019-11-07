@@ -615,7 +615,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class=DocumentRequest,
         indexer_class=DocumentRequestIndexer,
         search_factory_imp="invenio_app_ils.search.api"
-        ":filter_by_patron_search_factory",
+                           ":filter_by_patron_search_factory",
         record_loaders={
             "application/json": (
                 "invenio_app_ils.records.loaders:document_request_loader"
@@ -694,7 +694,6 @@ CIRCULATION_ITEM_RESOLVING_PATH = (
 
 CIRCULATION_ITEM_RESOLVER_ENDPOINT = item_resolver
 
-
 CIRCULATION_DOCUMENT_REF_BUILDER = circulation_build_document_ref
 
 CIRCULATION_DOCUMENT_RESOLVING_PATH = (
@@ -702,7 +701,6 @@ CIRCULATION_DOCUMENT_RESOLVING_PATH = (
 )
 
 CIRCULATION_DOCUMENT_RESOLVER_ENDPOINT = document_resolver
-
 
 CIRCULATION_PATRON_REF_BUILDER = circulation_build_patron_ref
 
@@ -774,7 +772,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         pid_fetcher=CIRCULATION_LOAN_FETCHER,
         search_class=IlsLoansSearch,
         search_factory_imp="invenio_app_ils.search.api"
-        ":filter_by_patron_search_factory",
+                           ":filter_by_patron_search_factory",
         record_class="invenio_circulation.api:Loan",
         indexer_class=LoanIndexer,
         record_loaders={
@@ -938,42 +936,29 @@ RECORDS_REST_FACETS = dict(
             tags=dict(terms=dict(field="tags.name", size=FACET_TAG_LIMIT)),
             languages=dict(terms=dict(field="languages")),
             document_type=dict(terms=dict(field="document_type")),
-            relations=dict(terms=dict(field="relations")),
-            has_items=dict(
-                range=dict(
-                    field="items.total",
-                    ranges=[{"key": "printed versions", "from": 1}],
-                )
-            ),
-            has_eitems=dict(
-                range=dict(
-                    field="eitems.total",
-                    ranges=[{"key": "electronic versions", "from": 1}],
-                )
+            relations=dict(
+                terms=dict(field="relation_types")
             ),
             has_items_for_loan=dict(
                 range=dict(
                     field="circulation.has_items_for_loan",
-                    ranges=[{"key": "printed versions available", "from": 1}],
+                    ranges=[{"key": "available for loan", "from": 1}],
                 )
             ),
+            mediums=dict(terms=dict(field="stock.mediums")),
         ),
         post_filters=dict(
             document_type=terms_filter("document_type"),
             languages=terms_filter("languages"),
             tags=terms_filter("tags.name"),
-            has_items=keyed_range_filter(
-                "items.total", {"printed versions": {"gt": 0}}
-            ),
-            has_eitems=keyed_range_filter(
-                "eitems.total", {"electronic versions": {"gt": 0}}
-            ),
             has_items_for_loan=keyed_range_filter(
                 "circulation.has_items_for_loan",
-                {"printed versions available": {"gt": 0}},
+                {"available for loan": {"gt": 0}},
             ),
-            relations=terms_filter("relations")
+            relations=terms_filter("relation_types"),
         ),
+
+
     ),
     document_requests=dict(  # DocumentRequestSearch.Meta.index
         aggs=dict(state=dict(terms=dict(field="state"))),
@@ -1003,10 +988,8 @@ RECORDS_REST_FACETS = dict(
     ),
     series=dict(  # SeriesSearch.Meta.index
         aggs=dict(moi=dict(terms=dict(field="mode_of_issuance"))),
-        post_filters=dict(
-            moi=terms_filter("mode_of_issuance"),
-            tags=terms_filter("tags.name"),
-        ),
+        post_filters=dict(moi=terms_filter("mode_of_issuance"),
+                          tags=terms_filter("tags.name"),),
     ),
 )
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Header, Icon, Menu, Divider } from 'semantic-ui-react';
-import { BackOfficeRoutes } from '../../../../routes/urls';
+import {BackOfficeRoutes, FrontSiteRoutes} from '../../../../routes/urls';
 import has from 'lodash/has';
 
 class Sidebar extends Component {
@@ -126,6 +126,15 @@ class Sidebar extends Component {
                 Most Loaned
               </Menu.Item>
             </Menu.Menu>
+          </Menu.Item>
+        </Menu>
+        <Divider />
+        <Menu text vertical className="bo-menu">
+          <Menu.Item
+            as={Link}
+            to={FrontSiteRoutes.home}
+          >
+            Go to Home Page
           </Menu.Item>
         </Menu>
       </>
