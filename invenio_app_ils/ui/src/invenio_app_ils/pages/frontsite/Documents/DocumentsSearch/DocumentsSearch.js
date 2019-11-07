@@ -29,6 +29,7 @@ import { DocumentsSearchMobile } from './DocumentsSearchMobile';
 import { SearchMessage } from './SearchMessage';
 import { DocumentSearchResultsGrid } from './DocumentSearchResultsGrid';
 import { DocumentSearchResultsList } from './DocumentSearchResultsList/';
+import history from '../../../../history';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -80,7 +81,7 @@ export class DocumentsSearch extends Component {
   render() {
     return (
       <>
-        <ReactSearchKit searchApi={this.searchApi}>
+        <ReactSearchKit searchApi={this.searchApi} history={history}>
           <Container fluid className="document-details-search-container">
             <Container>
               <SearchBar renderElement={this.renderSearchBar} />

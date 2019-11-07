@@ -9,7 +9,7 @@ import {
   Error,
   Pagination,
   Count,
-  Aggregator,
+  BucketAggregation,
   InvenioSearchApi,
 } from 'react-searchkit';
 import { getSearchConfig } from '../../../common/config';
@@ -23,6 +23,7 @@ import { ExportReactSearchKitResults } from '../components';
 import { ClearButton, NewButton } from '../components/buttons';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { ItemListEntry } from './components';
+import history from '../../../history';
 
 export class ItemsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -67,10 +68,12 @@ export class ItemsSearch extends Component {
   };
 
   renderAggregations = () => {
-    const components = this.searchConfig.AGGREGATIONS.map(agg => (
-      <div key={agg.field}>
-        <Aggregator title={agg.title} field={agg.field} />
-      </div>
+    const components = this.searchConfig.FILTERS.map(filter => (
+      <BucketAggregation
+        key={filter.field}
+        title={filter.title}
+        agg={{ field: filter.field, aggName: filter.aggName }}
+      />
     ));
     return (
       <>
@@ -116,7 +119,7 @@ export class ItemsSearch extends Component {
 
   render() {
     return (
-      <ReactSearchKit searchApi={this.searchApi}>
+      <ReactSearchKit searchApi={this.searchApi} history={history}>
         <Grid>
           <Grid.Row columns={1}>
             <Grid.Column>

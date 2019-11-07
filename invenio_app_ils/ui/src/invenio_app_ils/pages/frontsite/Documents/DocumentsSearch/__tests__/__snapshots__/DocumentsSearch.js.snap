@@ -4,19 +4,32 @@ exports[`DocumentsSearch tests should load the DocumentsSearch component 1`] = `
 <Fragment>
   <ReactSearchKit
     defaultSortByOnEmptyQuery={null}
-    persistentUrl={
+    history={
       Object {
-        "customHandler": null,
-        "enabled": true,
-        "overrideConfig": Object {
-          "withHistory": true,
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
         },
+        "push": [Function],
+        "replace": [Function],
       }
     }
     searchApi={
       InvenioSearchApi {
         "http": [Function],
         "requestSerializer": InvenioRequestSerializer {
+          "_addFilter": [Function],
+          "_addFilters": [Function],
           "serialize": [Function],
         },
         "responseSerializer": InvenioResponseSerializer {
@@ -27,6 +40,13 @@ exports[`DocumentsSearch tests should load the DocumentsSearch component 1`] = `
     }
     searchOnInit={true}
     suggestionApi={null}
+    urlHandlerApi={
+      Object {
+        "customHandler": null,
+        "enabled": true,
+        "overrideConfig": Object {},
+      }
+    }
   >
     <Container
       className="document-details-search-container"

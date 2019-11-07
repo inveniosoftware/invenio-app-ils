@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Segment, Icon, Header } from 'semantic-ui-react';
 import {
-  Aggregator,
+  BucketAggregation,
   Count,
   EmptyResults,
   Error,
@@ -22,6 +22,7 @@ import { getSearchConfig } from '../../../common/config';
 import { ClearButton, NewButton } from '../components/buttons';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { DocumentList, ExportReactSearchKitResults } from '../components';
+import history from '../../../history';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -110,10 +111,12 @@ export class DocumentsSearch extends Component {
   };
 
   renderAggregations = () => {
-    const components = this.searchConfig.AGGREGATIONS.map(agg => (
-      <div key={agg.field}>
-        <Aggregator title={agg.title} field={agg.field} />
-      </div>
+    const components = this.searchConfig.FILTERS.map(filter => (
+      <BucketAggregation
+        key={filter.field}
+        title={filter.title}
+        agg={{ field: filter.field, aggName: filter.aggName }}
+      />
     ));
     return (
       <>
@@ -133,7 +136,7 @@ export class DocumentsSearch extends Component {
 
   render() {
     return (
-      <ReactSearchKit searchApi={this.searchApi}>
+      <ReactSearchKit searchApi={this.searchApi} history={history}>
         <Grid>
           <Grid.Row columns={1}>
             <Grid.Column>

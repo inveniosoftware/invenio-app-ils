@@ -23,6 +23,7 @@ import { patron as patronApi } from '../../../common/api';
 import { getSearchConfig } from '../../../common/config';
 import { ClearButton } from '../components/buttons';
 import { ExportReactSearchKitResults } from '../components';
+import history from '../../../history';
 
 export class PatronsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -130,7 +131,7 @@ export class PatronsSearch extends Component {
 
   render() {
     return (
-      <ReactSearchKit searchApi={this.searchApi}>
+      <ReactSearchKit searchApi={this.searchApi} history={history}>
         <Grid>
           <Grid.Row columns={1}>
             <Grid.Column>

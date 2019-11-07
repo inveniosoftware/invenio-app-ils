@@ -1,5 +1,4 @@
 import capitalize from 'lodash/capitalize';
-import { invenioConfig } from './invenioConfig';
 import merge from 'lodash/merge';
 
 const resultsPerPageValues = [
@@ -17,49 +16,253 @@ const resultsPerPageValues = [
   },
 ];
 
-const aggsMappings = {
+const searchConfig = {
   documents: {
-    document_type: 'Document types',
-    available_items: 'Available items',
-    has_eitems: 'Select books with',
-    has_items_for_loan: 'Select books with',
-    has_items: 'Select books with',
-    tags: 'Tags',
-    languages: 'Languages',
-    relations: 'Relations',
+    filters: [
+      {
+        title: 'Document types',
+        field: 'document_type',
+        aggName: 'document_type',
+      },
+      {
+        title: 'Available items',
+        field: 'available_items',
+        aggName: '',
+      },
+      {
+        title: 'Select books with',
+        field: 'eitems.total',
+        aggName: 'has_eitems',
+      },
+      {
+        title: 'Select books with',
+        field: 'circulation.has_items_for_loan',
+        aggName: 'has_items_for_loan',
+      },
+      {
+        title: 'Select books with',
+        field: 'items.total',
+        aggName: 'has_items',
+      },
+      {
+        title: 'Tags',
+        field: 'tags.name',
+        aggName: 'tags',
+      },
+      {
+        title: 'Languages',
+        field: 'languages',
+        aggName: 'languages',
+      },
+      {
+        title: 'Relations',
+        field: 'relations',
+        aggName: 'relations',
+      },
+    ],
+    sortBy: {
+      onEmptyQuery: 'mostrecent',
+      values: [
+        {
+          default_order: 'asc',
+          field: 'mostrecent',
+          order: 1,
+          title: 'Newest',
+        },
+        {
+          default_order: 'asc',
+          field: 'bestmatch',
+          order: 2,
+          title: 'Best match',
+        },
+        {
+          default_order: 'asc',
+          field: 'available_items',
+          order: 3,
+          title: 'Available copies',
+        },
+        {
+          default_order: 'desc',
+          field: 'mostloaned',
+          order: 4,
+          title: 'Most loaned',
+        },
+        {
+          default_order: 'asc',
+          field: 'published',
+          order: 5,
+          title: 'Published date',
+        },
+      ],
+    },
+    sortOrder: ['asc', 'desc'],
   },
   documentRequests: {
-    state: 'State',
+    filters: [
+      {
+        title: 'State',
+        field: 'state',
+        aggName: 'state',
+      },
+    ],
+    sortBy: {
+      onEmptyQuery: 'mostrecent',
+      values: [
+        {
+          default_order: 'asc',
+          field: 'mostrecent',
+          order: 1,
+          title: 'Newest',
+        },
+        {
+          default_order: 'asc',
+          field: 'bestmatch',
+          order: 2,
+          title: 'Best match',
+        },
+      ],
+    },
+    sortOrder: ['asc', 'desc'],
   },
   items: {
-    status: 'Status',
-    medium: 'Medium',
-    circulation: 'Circulation',
+    filters: [
+      {
+        title: 'Status',
+        field: 'status',
+        aggName: 'status',
+      },
+      { title: 'Medium', field: 'medium', aggName: 'medium' },
+      {
+        title: 'Circulation',
+        field: 'circulation.state',
+        aggName: 'circulation',
+      },
+    ],
+    sortBy: {
+      onEmptyQuery: 'mostrecent',
+      values: [
+        {
+          default_order: 'asc',
+          field: 'mostrecent',
+          order: 1,
+          title: 'Newest',
+        },
+        {
+          default_order: 'asc',
+          field: 'bestmatch',
+          order: 2,
+          title: 'Best match',
+        },
+      ],
+    },
+    sortOrder: ['asc', 'desc'],
+  },
+  eitems: {
+    filters: [],
+    sortBy: {
+      onEmptyQuery: 'mostrecent',
+      values: [
+        {
+          field: 'mostrecent',
+          order: 1,
+          title: 'Newest',
+          default_order: 'asc',
+        },
+        {
+          field: 'bestmatch',
+          order: 2,
+          title: 'Best match',
+          default_order: 'asc',
+        },
+      ],
+    },
+    sortOrder: ['asc', 'desc'],
   },
   loans: {
-    state: 'State',
+    filters: [
+      {
+        title: 'State',
+        field: 'state',
+        aggName: 'state',
+      },
+    ],
+    sortBy: {
+      onEmptyQuery: 'mostrecent',
+      values: [
+        {
+          field: 'mostrecent',
+          order: 1,
+          title: 'Newest',
+          default_order: 'asc',
+        },
+        {
+          field: 'bestmatch',
+          order: 2,
+          title: 'Best match',
+          default_order: 'asc',
+        },
+      ],
+    },
+    sortOrder: ['asc', 'desc'],
   },
   series: {
-    moi: 'Mode of Issuance',
+    filters: [
+      {
+        title: 'Mode of Issuance',
+        field: 'mode_of_issuance',
+        aggName: 'moi',
+      },
+    ],
+    sortBy: {
+      onEmptyQuery: 'mostrecent',
+      values: [
+        {
+          field: 'mostrecent',
+          order: 1,
+          title: 'Newest',
+          default_order: 'asc',
+        },
+        {
+          field: 'bestmatch',
+          order: 2,
+          title: 'Best match',
+          default_order: 'asc',
+        },
+      ],
+    },
+    sortOrder: ['asc', 'desc'],
+  },
+  patrons: {
+    filters: [],
+    sortBy: {
+      onEmptyQuery: 'bestmatch',
+      values: [
+        {
+          default_order: 'asc',
+          field: 'bestmatch',
+          order: 1,
+          title: 'Best match',
+        },
+      ],
+    },
+    sortOrder: ['asc', 'desc'],
   },
 };
 
 export const getSearchConfig = (modelName, extraOptions = {}) => {
-  const searchConfig = invenioConfig[modelName]['search'];
+  const config = searchConfig[modelName];
   const result = {
-    AGGREGATIONS: searchConfig.aggs.map(agg => {
-      return { title: aggsMappings[modelName][agg], field: agg };
-    }),
+    FILTERS: config.filters,
     RESULTS_PER_PAGE: resultsPerPageValues,
-    SORT_BY: searchConfig.sortBy.values.map(sortField => {
+    SORT_BY: config.sortBy.values.map(sortField => {
       return {
         text: sortField.title,
         value: sortField.field,
         defaultValue: sortField.default_order,
       };
     }),
-    SORT_BY_ON_EMPTY_QUERY: searchConfig.sortBy.onEmptyQuery,
-    SORT_ORDER: searchConfig.sortOrder.map(sortField => {
+    SORT_BY_ON_EMPTY_QUERY: config.sortBy.onEmptyQuery,
+    SORT_ORDER: config.sortOrder.map(sortField => {
       return { text: capitalize(sortField), value: sortField };
     }),
   };

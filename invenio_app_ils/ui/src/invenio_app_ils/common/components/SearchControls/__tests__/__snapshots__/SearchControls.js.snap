@@ -27,32 +27,44 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
             <SearchResultsPerPage
               searchConfig={
                 Object {
-                  "AGGREGATIONS": Array [
+                  "FILTERS": Array [
                     Object {
+                      "aggName": "document_type",
                       "field": "document_type",
                       "title": "Document types",
                     },
                     Object {
-                      "field": "has_items",
+                      "aggName": "",
+                      "field": "available_items",
+                      "title": "Available items",
+                    },
+                    Object {
+                      "aggName": "has_eitems",
+                      "field": "eitems.total",
                       "title": "Select books with",
                     },
                     Object {
-                      "field": "has_eitems",
+                      "aggName": "has_items_for_loan",
+                      "field": "circulation.has_items_for_loan",
                       "title": "Select books with",
                     },
                     Object {
-                      "field": "has_items_for_loan",
+                      "aggName": "has_items",
+                      "field": "items.total",
                       "title": "Select books with",
                     },
                     Object {
-                      "field": "tags",
+                      "aggName": "tags",
+                      "field": "tags.name",
                       "title": "Tags",
                     },
                     Object {
+                      "aggName": "languages",
                       "field": "languages",
                       "title": "Languages",
                     },
                     Object {
+                      "aggName": "relations",
                       "field": "relations",
                       "title": "Relations",
                     },
@@ -143,32 +155,44 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
           <SearchSortOrder
             searchConfig={
               Object {
-                "AGGREGATIONS": Array [
+                "FILTERS": Array [
                   Object {
+                    "aggName": "document_type",
                     "field": "document_type",
                     "title": "Document types",
                   },
                   Object {
-                    "field": "has_items",
+                    "aggName": "",
+                    "field": "available_items",
+                    "title": "Available items",
+                  },
+                  Object {
+                    "aggName": "has_eitems",
+                    "field": "eitems.total",
                     "title": "Select books with",
                   },
                   Object {
-                    "field": "has_eitems",
+                    "aggName": "has_items_for_loan",
+                    "field": "circulation.has_items_for_loan",
                     "title": "Select books with",
                   },
                   Object {
-                    "field": "has_items_for_loan",
+                    "aggName": "has_items",
+                    "field": "items.total",
                     "title": "Select books with",
                   },
                   Object {
-                    "field": "tags",
+                    "aggName": "tags",
+                    "field": "tags.name",
                     "title": "Tags",
                   },
                   Object {
+                    "aggName": "languages",
                     "field": "languages",
                     "title": "Languages",
                   },
                   Object {
+                    "aggName": "relations",
                     "field": "relations",
                     "title": "Relations",
                   },
@@ -252,32 +276,44 @@ exports[`SearchControls tests should load the SearchControls component 1`] = `
     <SearchControlsMobile
       searchConfig={
         Object {
-          "AGGREGATIONS": Array [
+          "FILTERS": Array [
             Object {
+              "aggName": "document_type",
               "field": "document_type",
               "title": "Document types",
             },
             Object {
-              "field": "has_items",
+              "aggName": "",
+              "field": "available_items",
+              "title": "Available items",
+            },
+            Object {
+              "aggName": "has_eitems",
+              "field": "eitems.total",
               "title": "Select books with",
             },
             Object {
-              "field": "has_eitems",
+              "aggName": "has_items_for_loan",
+              "field": "circulation.has_items_for_loan",
               "title": "Select books with",
             },
             Object {
-              "field": "has_items_for_loan",
+              "aggName": "has_items",
+              "field": "items.total",
               "title": "Select books with",
             },
             Object {
-              "field": "tags",
+              "aggName": "tags",
+              "field": "tags.name",
               "title": "Tags",
             },
             Object {
+              "aggName": "languages",
               "field": "languages",
               "title": "Languages",
             },
             Object {
+              "aggName": "relations",
               "field": "relations",
               "title": "Relations",
             },
@@ -356,19 +392,13 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
 >
   <ReactSearchKit
     defaultSortByOnEmptyQuery={null}
-    persistentUrl={
-      Object {
-        "customHandler": null,
-        "enabled": true,
-        "overrideConfig": Object {
-          "withHistory": true,
-        },
-      }
-    }
+    history={null}
     searchApi={
       InvenioSearchApi {
         "http": [Function],
         "requestSerializer": InvenioRequestSerializer {
+          "_addFilter": [Function],
+          "_addFilters": [Function],
           "serialize": [Function],
         },
         "responseSerializer": InvenioResponseSerializer {
@@ -379,6 +409,13 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
     }
     searchOnInit={true}
     suggestionApi={null}
+    urlHandlerApi={
+      Object {
+        "customHandler": null,
+        "enabled": true,
+        "overrideConfig": Object {},
+      }
+    }
   >
     <Provider
       store={
@@ -392,10 +429,13 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
       }
     >
       <Connect(Bootstrap)
+        historyListen={null}
         searchOnInit={true}
       >
         <Bootstrap
+          historyListen={null}
           onAppInitialized={[Function]}
+          onBrowserHistoryExternallyChanged={[Function]}
           searchOnInit={true}
           searchOnUrlQueryStringChanged={[Function]}
         >
@@ -472,32 +512,44 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                 <SearchResultsPerPage
                                   searchConfig={
                                     Object {
-                                      "AGGREGATIONS": Array [
+                                      "FILTERS": Array [
                                         Object {
+                                          "aggName": "document_type",
                                           "field": "document_type",
                                           "title": "Document types",
                                         },
                                         Object {
-                                          "field": "has_items",
+                                          "aggName": "",
+                                          "field": "available_items",
+                                          "title": "Available items",
+                                        },
+                                        Object {
+                                          "aggName": "has_eitems",
+                                          "field": "eitems.total",
                                           "title": "Select books with",
                                         },
                                         Object {
-                                          "field": "has_eitems",
+                                          "aggName": "has_items_for_loan",
+                                          "field": "circulation.has_items_for_loan",
                                           "title": "Select books with",
                                         },
                                         Object {
-                                          "field": "has_items_for_loan",
+                                          "aggName": "has_items",
+                                          "field": "items.total",
                                           "title": "Select books with",
                                         },
                                         Object {
-                                          "field": "tags",
+                                          "aggName": "tags",
+                                          "field": "tags.name",
                                           "title": "Tags",
                                         },
                                         Object {
+                                          "aggName": "languages",
                                           "field": "languages",
                                           "title": "Languages",
                                         },
                                         Object {
+                                          "aggName": "relations",
                                           "field": "relations",
                                           "title": "Relations",
                                         },
@@ -579,7 +631,7 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                     }
                                   >
                                     <ResultsPerPage
-                                      currentSize={15}
+                                      currentSize={10}
                                       defaultValue={15}
                                       loading={true}
                                       renderElement={null}
@@ -745,32 +797,44 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                           <SearchSortOrder
                             searchConfig={
                               Object {
-                                "AGGREGATIONS": Array [
+                                "FILTERS": Array [
                                   Object {
+                                    "aggName": "document_type",
                                     "field": "document_type",
                                     "title": "Document types",
                                   },
                                   Object {
-                                    "field": "has_items",
+                                    "aggName": "",
+                                    "field": "available_items",
+                                    "title": "Available items",
+                                  },
+                                  Object {
+                                    "aggName": "has_eitems",
+                                    "field": "eitems.total",
                                     "title": "Select books with",
                                   },
                                   Object {
-                                    "field": "has_eitems",
+                                    "aggName": "has_items_for_loan",
+                                    "field": "circulation.has_items_for_loan",
                                     "title": "Select books with",
                                   },
                                   Object {
-                                    "field": "has_items_for_loan",
+                                    "aggName": "has_items",
+                                    "field": "items.total",
                                     "title": "Select books with",
                                   },
                                   Object {
-                                    "field": "tags",
+                                    "aggName": "tags",
+                                    "field": "tags.name",
                                     "title": "Tags",
                                   },
                                   Object {
+                                    "aggName": "languages",
                                     "field": "languages",
                                     "title": "Languages",
                                   },
                                   Object {
+                                    "aggName": "relations",
                                     "field": "relations",
                                     "title": "Relations",
                                   },
@@ -916,7 +980,8 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                               <Connect(Pagination)>
                                 <Pagination
                                   currentPage={1}
-                                  currentSize={15}
+                                  currentSize={10}
+                                  defaultValue={10}
                                   loading={true}
                                   options={
                                     Object {

@@ -64,8 +64,7 @@ export default class Headline extends Component {
                   className={'headline-quick-access'}
                   as={Link}
                   to={FrontSiteRoutes.documentsListWithQuery(
-                    'document_type:BOOK&sort=mostrecent&order=desc' +
-                      '&aggr[0][has_eitems][value]=has_eitems.electronic versions'
+                    'document_type:BOOK&sort=mostrecent&order=desc&f=has_eitems:electronic versions'
                   )}
                   primary
                 >
@@ -81,5 +80,5 @@ export default class Headline extends Component {
 }
 
 Headline.propTypes = {
-  renderElement: PropTypes.func
-}
+  renderElement: PropTypes.func,
+};

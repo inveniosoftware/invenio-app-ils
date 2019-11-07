@@ -983,9 +983,6 @@ RECORDS_REST_FACETS = dict(
         aggs=dict(
             status=dict(terms=dict(field="status")),
             medium=dict(terms=dict(field="medium")),
-            # name=dict(
-            #     terms=dict(field="internal_location.name"),
-            # ),
             circulation=dict(
                 terms=dict(field="circulation.state", missing="N/A")
             ),

@@ -131,8 +131,7 @@ class DocumentListEntry extends Component {
             size={'small'}
             content={tag.name}
             to={BackOfficeRoutes.documentsListWithQuery(
-              '&sort=mostrecent&order=desc&aggr[0][tags][value]=tags.' +
-                tag.name
+              '&sort=mostrecent&order=desc&f=tags:' + tag.name
             )}
           />
         ))}
