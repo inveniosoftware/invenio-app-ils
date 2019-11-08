@@ -6,7 +6,6 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Invenio App ILS Circulation APIs."""
-"""Invenio App ILS Circulation APIs."""
 
 import uuid
 from copy import deepcopy
