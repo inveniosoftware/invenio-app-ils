@@ -143,11 +143,12 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                         placeholder="From Date"
                       >
                         <DateInput
+                          animation="none"
                           autoComplete="off"
                           clearable={true}
                           closable={true}
                           data-test=""
-                          dateFormat="DD-MM-YYYY"
+                          dateFormat="YYYY-MM-DD"
                           icon="calendar"
                           iconPosition="left"
                           initialDate=""
@@ -163,7 +164,7 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                           value=""
                         >
                           <InputView
-                            animation="scale"
+                            animation="none"
                             autoComplete="off"
                             clearIcon="remove"
                             clearable={true}
@@ -288,7 +289,7 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                               </FormInput>
                             </FormInputWithRef>
                             <Transition
-                              animation="scale"
+                              animation="none"
                               duration={200}
                               mountOnShow={true}
                               onComplete={[Function]}
@@ -323,11 +324,12 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                         placeholder="To Date"
                       >
                         <DateInput
+                          animation="none"
                           autoComplete="off"
                           clearable={true}
                           closable={true}
                           data-test=""
-                          dateFormat="DD-MM-YYYY"
+                          dateFormat="YYYY-MM-DD"
                           icon="calendar"
                           iconPosition="left"
                           initialDate=""
@@ -343,7 +345,7 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                           value=""
                         >
                           <InputView
-                            animation="scale"
+                            animation="none"
                             autoComplete="off"
                             clearIcon="remove"
                             clearable={true}
@@ -468,7 +470,7 @@ exports[`MostLoanedDocumentsList tests should render show a message with no docu
                               </FormInput>
                             </FormInputWithRef>
                             <Transition
-                              animation="scale"
+                              animation="none"
                               duration={200}
                               mountOnShow={true}
                               onComplete={[Function]}

@@ -7,8 +7,7 @@ import { BackOfficeRoutes } from '../../../../routes/urls';
 import { stats as statsApi, loan as loanApi } from '../../../../common/api';
 import { DocumentList, ExportSearchResults } from '../../components';
 import { invenioConfig } from '../../../../common/config/invenioConfig';
-import DocumentListEntry from '../../components/DocumentList/DocumentListEntry';
-import DocumentStats from '../../components/DocumentList/DocumentStats';
+import { DocumentListEntry, DocumentStats} from '../../components/DocumentList';
 
 export default class MostLoanedDocumentsList extends Component {
   constructor(props) {

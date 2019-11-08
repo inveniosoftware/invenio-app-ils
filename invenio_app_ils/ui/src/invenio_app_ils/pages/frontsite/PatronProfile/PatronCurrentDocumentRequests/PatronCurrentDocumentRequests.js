@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import _startCase from 'lodash/startCase';
 import {
@@ -8,18 +8,19 @@ import {
   ResultsTable,
   Pagination,
 } from '../../../../common/components';
-import {dateFormatter} from '../../../../common/api/date';
-import {FrontSiteRoutes} from '../../../../routes/urls';
-import {invenioConfig} from '../../../../common/config';
-import {Button, Header, Item} from "semantic-ui-react";
-import {ILSItemPlaceholder} from "../../../../common/components/ILSPlaceholder/ILSPlaceholder";
+import { dateFormatter } from '../../../../common/api/date';
+import { FrontSiteRoutes } from '../../../../routes/urls';
+import { invenioConfig } from '../../../../common/config';
+import { Button, Header, Item } from 'semantic-ui-react';
+import { ILSItemPlaceholder } from '../../../../common/components/ILSPlaceholder/ILSPlaceholder';
+import { NoResultsMessage } from '../../components/NoResultsMessage';
 
 export default class PatronCurrentDocumentRequests extends Component {
   constructor(props) {
     super(props);
     this.fetchPatronDocumentRequests = this.props.fetchPatronDocumentRequests;
     this.patronPid = this.props.patronPid;
-    this.state = {activePage: 1};
+    this.state = { activePage: 1 };
   }
 
   componentDidMount() {
@@ -28,7 +29,7 @@ export default class PatronCurrentDocumentRequests extends Component {
 
   onPageChange = activePage => {
     this.fetchPatronDocumentRequests(this.patronPid, activePage);
-    this.setState({activePage: activePage});
+    this.setState({ activePage: activePage });
   };
 
   paginationComponent = () => {
@@ -43,7 +44,7 @@ export default class PatronCurrentDocumentRequests extends Component {
     );
   };
 
-  libraryBookFormatter = ({row}) => {
+  libraryBookFormatter = ({ row }) => {
     if (row.metadata.state !== 'ACCEPTED') {
       return _startCase(row.metadata.state.toLowerCase());
     }
@@ -54,41 +55,52 @@ export default class PatronCurrentDocumentRequests extends Component {
     );
   };
 
-  renderLoader = (props) => {
+  renderLoader = props => {
     return (
       <>
         <Item.Group>
-          <ILSItemPlaceholder fluid {...props}/>
+          <ILSItemPlaceholder fluid {...props} />
         </Item.Group>
       </>
-    )
+    );
+  };
+
+  renderNoResults = () => {
+    return (
+      <NoResultsMessage
+        messageHeader={'No loan requests'}
+        messageContent={'Currently you do not have any loan requests'}
+      />
+    );
   };
 
   render() {
-    const {data, isLoading, error} = this.props;
+    const { data, isLoading, error } = this.props;
     const columns = [
-      {title: 'Title', field: 'metadata.title'},
+      { title: 'Title', field: 'metadata.title' },
       {
         title: 'Request state',
         field: 'metadata.state',
         formatter: this.libraryBookFormatter,
       },
-      {title: 'Created', field: 'created', formatter: dateFormatter},
-      {title: 'Authors', field: 'metadata.authors'},
-      {title: 'Publication year', field: 'metadata.publication_year'},
+      { title: 'Created', field: 'created', formatter: dateFormatter },
+      { title: 'Authors', field: 'metadata.authors' },
+      { title: 'Publication year', field: 'metadata.publication_year' },
       {
-        title: 'Actions', field: '',
-        formatter: ({row}) => {
+        title: 'Actions',
+        field: '',
+        formatter: ({ row }) => {
           return <Button>Cancel request</Button>;
         },
-      }
+      },
     ];
     return (
       <>
-        <Header as={'h2'}
-                content={"Your literature requests"}
-                className={'highlight'}
-                textAlign={'center'}
+        <Header
+          as={'h2'}
+          content={'Your literature requests'}
+          className={'highlight'}
+          textAlign={'center'}
         />
         <Loader isLoading={isLoading} renderElement={this.renderLoader}>
           <Error error={error}>
@@ -102,6 +114,7 @@ export default class PatronCurrentDocumentRequests extends Component {
               showMaxRows={invenioConfig.defaultResultsSize}
               paginationComponent={this.paginationComponent()}
               currentPage={this.state.activePage}
+              renderEmptyResultsElement={this.renderNoResults}
             />
           </Error>
         </Loader>

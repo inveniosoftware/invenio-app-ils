@@ -21,9 +21,10 @@ import {
 } from '../../../common/components';
 import { documentRequest as documentRequestApi } from '../../../common/api/documentRequests/documentRequest';
 import { getSearchConfig } from '../../../common/config';
-import { ClearButton } from '../components/buttons';
 import { ExportReactSearchKitResults } from '../components';
 import { BackOfficeRoutes } from '../../../routes/urls';
+import ClearButton
+  from "../../../common/components/SearchControls/components/ClearButton/ClearButton";
 import history from '../../../history';
 
 export class DocumentRequestsSearch extends Component {

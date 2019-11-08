@@ -15,12 +15,14 @@ import {
 } from '../../../common/components';
 import { document as documentApi } from '../../../common/api/documents/document';
 import { getSearchConfig } from '../../../common/config';
-import { NewButton } from '../components/buttons';
+import { NewButton } from '../components';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { DocumentList, ExportReactSearchKitResults } from '../components';
-import { SearchAggregationsCards } from '../../../common/components/SearchControls/components/SearchAggregations';
-import { SearchFooter } from '../../../common/components/SearchControls/components/SearchFooter';
-import { SearchEmptyResults } from '../../../common/components/SearchControls/components/SearchEmptyResults';
+import {
+  SearchAggregationsCards,
+  SearchFooter,
+  SearchEmptyResults,
+} from '../../../common/components/SearchControls/components/';
 import history from '../../../history';
 
 export class DocumentsSearch extends Component {

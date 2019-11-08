@@ -2174,14 +2174,29 @@ exports[`PatronDocumentRequests tests should render show a message with no user 
         </Grid>
         <Message
           data-test="no-results"
+          icon={true}
+          info={true}
         >
           <div
-            className="ui message"
+            className="ui icon info message"
             data-test="no-results"
           >
-            There are no 
-            new book requests
-            .
+            <MessageContent>
+              <div
+                className="content"
+              >
+                <MessageHeader>
+                  <div
+                    className="header"
+                  >
+                    No results found
+                  </div>
+                </MessageHeader>
+                There are no 
+                new book requests
+                .
+              </div>
+            </MessageContent>
           </div>
         </Message>
       </ResultsTable>

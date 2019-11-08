@@ -20,9 +20,12 @@ import {
 } from '../../../common/components';
 import { item as itemApi } from '../../../common/api';
 import { ExportReactSearchKitResults } from '../components';
-import { ClearButton, NewButton } from '../components/buttons';
+import { NewButton } from '../components/buttons';
 import { BackOfficeRoutes } from '../../../routes/urls';
 import { ItemListEntry } from './components';
+import ClearButton
+  from "../../../common/components/SearchControls/components/ClearButton/ClearButton";
+import {SearchControls} from "../../../common/components/SearchControls";
 import history from '../../../history';
 
 export class ItemsSearch extends Component {
@@ -133,7 +136,7 @@ export class ItemsSearch extends Component {
               <Grid.Column width={13}>
                 <EmptyResults renderElement={this.renderEmptyResults} />
                 <Error renderElement={this.renderError} />
-                {this.renderHeader()}
+                <SearchControls modelName={'items'}/>
                 <ResultsList renderElement={this.renderItemList} />
                 {this.renderFooter()}
               </Grid.Column>

@@ -16,9 +16,16 @@ exports[`ResultsTable tests should load the ResultTable component 1`] = `
   </Grid>
   <Message
     data-test="no-results"
+    icon={true}
+    info={true}
   >
-    There are no 
-    .
+    <MessageContent>
+      <MessageHeader>
+        No results found
+      </MessageHeader>
+      There are no 
+      .
+    </MessageContent>
   </Message>
 </Fragment>
 `;

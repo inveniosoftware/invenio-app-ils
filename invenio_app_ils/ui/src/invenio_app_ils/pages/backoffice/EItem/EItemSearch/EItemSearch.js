@@ -21,8 +21,10 @@ import {
 } from '../../../../common/components';
 import { eitem as eitemApi } from '../../../../common/api';
 import { ExportReactSearchKitResults } from '../../components';
-import { ClearButton, NewButton } from '../../components/buttons';
+import { NewButton } from '../../components/buttons';
 import { BackOfficeRoutes } from '../../../../routes/urls';
+import ClearButton
+  from "../../../../common/components/SearchControls/components/ClearButton/ClearButton";
 import history from '../../../../history';
 
 export class EItemSearch extends Component {

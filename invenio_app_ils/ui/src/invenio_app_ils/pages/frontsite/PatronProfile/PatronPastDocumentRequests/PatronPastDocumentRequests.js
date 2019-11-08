@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import _startCase from 'lodash/startCase';
 import {
@@ -8,18 +8,19 @@ import {
   ResultsTable,
   Pagination,
 } from '../../../../common/components';
-import {dateFormatter} from '../../../../common/api/date';
-import {FrontSiteRoutes} from '../../../../routes/urls';
-import {invenioConfig} from '../../../../common/config';
-import {Header, Item} from "semantic-ui-react";
-import {ILSItemPlaceholder} from "../../../../common/components/ILSPlaceholder/ILSPlaceholder";
+import { dateFormatter } from '../../../../common/api/date';
+import { FrontSiteRoutes } from '../../../../routes/urls';
+import { invenioConfig } from '../../../../common/config';
+import { Header, Item } from 'semantic-ui-react';
+import { ILSItemPlaceholder } from '../../../../common/components/ILSPlaceholder/ILSPlaceholder';
+import { NoResultsMessage } from '../../components/NoResultsMessage';
 
 export default class PatronPastDocumentRequests extends Component {
   constructor(props) {
     super(props);
     this.fetchPatronDocumentRequests = this.props.fetchPatronDocumentRequests;
     this.patronPid = this.props.patronPid;
-    this.state = {activePage: 1};
+    this.state = { activePage: 1 };
   }
 
   componentDidMount() {
@@ -28,7 +29,7 @@ export default class PatronPastDocumentRequests extends Component {
 
   onPageChange = activePage => {
     this.fetchPatronDocumentRequests(this.patronPid, activePage);
-    this.setState({activePage: activePage});
+    this.setState({ activePage: activePage });
   };
 
   paginationComponent = () => {
@@ -43,7 +44,7 @@ export default class PatronPastDocumentRequests extends Component {
     );
   };
 
-  libraryBookFormatter = ({row}) => {
+  libraryBookFormatter = ({ row }) => {
     if (row.metadata.state !== 'ACCEPTED') {
       return _startCase(row.metadata.state.toLowerCase());
     }
@@ -54,37 +55,47 @@ export default class PatronPastDocumentRequests extends Component {
     );
   };
 
-  renderLoader = (props) => {
+  renderLoader = props => {
     return (
       <>
         <Item.Group>
-          <ILSItemPlaceholder fluid {...props}/>
+          <ILSItemPlaceholder fluid {...props} />
         </Item.Group>
       </>
-    )
+    );
+  };
+
+  renderEmpty = () => {
+    return (
+      <NoResultsMessage
+        messageHeader={'No past requests'}
+        messageContent={'You have no past literature requests.'}
+      />
+    );
   };
 
   render() {
-    const {data, isLoading, error} = this.props;
+    const { data, isLoading, error } = this.props;
     const columns = [
-      {title: 'ID', field: 'metadata.pid'},
-      {title: 'Title', field: 'metadata.title'},
+      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Title', field: 'metadata.title' },
       {
         title: 'Library Book',
         field: 'metadata.state',
         formatter: this.libraryBookFormatter,
       },
-      {title: 'Created', field: 'created', formatter: dateFormatter},
+      { title: 'Created', field: 'created', formatter: dateFormatter },
     ];
     return (
-      <><Header as={'h2'}
-                content={"Past literature requests"}
-                className={'highlight'}
-                textAlign={'center'}
-      />
+      <>
+        <Header
+          as={'h2'}
+          content={'Past literature requests'}
+          className={'highlight'}
+          textAlign={'center'}
+        />
         <Loader isLoading={isLoading} renderElement={this.renderLoader}>
           <Error error={error}>
-
             <ResultsTable
               data={data.hits}
               columns={columns}
@@ -94,6 +105,7 @@ export default class PatronPastDocumentRequests extends Component {
               showMaxRows={invenioConfig.defaultResultsSize}
               paginationComponent={this.paginationComponent()}
               currentPage={this.state.activePage}
+              renderEmptyResultsElement={this.renderEmpty}
             />
           </Error>
         </Loader>

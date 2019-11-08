@@ -33,6 +33,8 @@ export class DatePicker extends Component {
         placeholder={this.props.placeholder}
         value={this.state.selectedDate}
         data-test={this.state.selectedDate}
+        dateFormat={'YYYY-MM-DD'}
+        animation="none"
       />
     );
   }

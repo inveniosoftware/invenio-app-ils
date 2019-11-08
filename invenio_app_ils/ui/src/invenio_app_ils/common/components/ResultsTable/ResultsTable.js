@@ -19,6 +19,7 @@ export class ResultsTable extends Component {
       singleLine,
       totalHitsCount,
       headerActionComponent,
+      renderEmptyResultsElement,
       ...tableProps
     } = this.props;
 
@@ -54,8 +55,15 @@ export class ResultsTable extends Component {
     const { data, name } = this.props;
     return data.length ? (
       this.renderTable()
+    ) : this.props.renderEmptyResultsElement ? (
+      this.props.renderEmptyResultsElement()
     ) : (
-      <Message data-test="no-results">There are no {name}.</Message>
+      <Message info icon data-test="no-results">
+        <Message.Content>
+          <Message.Header>No results found</Message.Header>
+          There are no {name}.
+        </Message.Content>
+      </Message>
     );
   }
 
@@ -106,6 +114,7 @@ ResultsTable.propTypes = {
   subtitle: PropTypes.string,
   title: PropTypes.string,
   totalHitsCount: PropTypes.number,
+  renderEmptyResultsElement: PropTypes.func,
 };
 
 ResultsTable.defaultProps = {
