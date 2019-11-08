@@ -933,32 +933,31 @@ FACET_TAG_LIMIT = 5
 RECORDS_REST_FACETS = dict(
     documents=dict(  # DocumentSearch.Meta.index
         aggs=dict(
-            tags=dict(terms=dict(field="tags.name", size=FACET_TAG_LIMIT)),
-            languages=dict(terms=dict(field="languages")),
-            document_type=dict(terms=dict(field="document_type")),
-            relations=dict(
+            tag=dict(terms=dict(field="tags.name", size=FACET_TAG_LIMIT)),
+            language=dict(terms=dict(field="languages")),
+            doctype=dict(terms=dict(field="document_type")),
+            relation=dict(
                 terms=dict(field="relation_types")
             ),
-            has_items_for_loan=dict(
+            availability=dict(
                 range=dict(
                     field="circulation.has_items_for_loan",
                     ranges=[{"key": "available for loan", "from": 1}],
                 )
             ),
-            mediums=dict(terms=dict(field="stock.mediums")),
+            medium=dict(terms=dict(field="stock.mediums")),
         ),
         post_filters=dict(
-            document_type=terms_filter("document_type"),
-            languages=terms_filter("languages"),
-            tags=terms_filter("tags.name"),
-            has_items_for_loan=keyed_range_filter(
+            doctype=terms_filter("document_type"),
+            language=terms_filter("languages"),
+            tag=terms_filter("tags.name"),
+            availability=keyed_range_filter(
                 "circulation.has_items_for_loan",
                 {"available for loan": {"gt": 0}},
             ),
-            relations=terms_filter("relation_types"),
+            relation=terms_filter("relation_types"),
+            medium=terms_filter("stock.mediums"),
         ),
-
-
     ),
     document_requests=dict(  # DocumentRequestSearch.Meta.index
         aggs=dict(state=dict(terms=dict(field="state"))),
@@ -968,9 +967,6 @@ RECORDS_REST_FACETS = dict(
         aggs=dict(
             status=dict(terms=dict(field="status")),
             medium=dict(terms=dict(field="medium")),
-            # name=dict(
-            #     terms=dict(field="internal_location.name"),
-            # ),
             circulation=dict(
                 terms=dict(field="circulation.state", missing="N/A")
             ),
@@ -978,7 +974,6 @@ RECORDS_REST_FACETS = dict(
         post_filters=dict(
             status=terms_filter("status"),
             medium=terms_filter("medium"),
-            # name=terms_filter('internal_location.name'),
             circulation=terms_filter("circulation.state"),
         ),
     ),
@@ -988,8 +983,7 @@ RECORDS_REST_FACETS = dict(
     ),
     series=dict(  # SeriesSearch.Meta.index
         aggs=dict(moi=dict(terms=dict(field="mode_of_issuance"))),
-        post_filters=dict(moi=terms_filter("mode_of_issuance"),
-                          tags=terms_filter("tags.name"),),
+        post_filters=dict(moi=terms_filter("mode_of_issuance")),
     ),
 )
 

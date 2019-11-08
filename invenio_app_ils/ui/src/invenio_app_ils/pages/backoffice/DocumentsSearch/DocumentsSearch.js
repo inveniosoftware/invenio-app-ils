@@ -21,6 +21,7 @@ import { DocumentList, ExportReactSearchKitResults } from '../components';
 import { SearchAggregationsCards } from '../../../common/components/SearchControls/components/SearchAggregations';
 import { SearchFooter } from '../../../common/components/SearchControls/components/SearchFooter';
 import { SearchEmptyResults } from '../../../common/components/SearchControls/components/SearchEmptyResults';
+import history from '../../../history';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -68,7 +69,7 @@ export class DocumentsSearch extends Component {
 
   render() {
     return (
-      <ReactSearchKit searchApi={this.searchApi}>
+      <ReactSearchKit searchApi={this.searchApi} history={history}>
         <Grid>
           <Grid.Row columns={1}>
             <Grid.Column>
