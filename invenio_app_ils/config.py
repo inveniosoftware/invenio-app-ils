@@ -27,10 +27,18 @@ from invenio_stats.aggregations import StatAggregator
 from invenio_stats.processors import EventsIndexer
 from invenio_stats.queries import ESTermsQuery
 
+from .acquisition.api import Vendor
+from .acquisition.search.api import VendorSearch
 from .circulation.search import IlsLoansSearch
 from .facets import keyed_range_filter
 from .records.resolver.loan import document_resolver, item_resolver, \
     loan_patron_resolver
+
+from .acquisition.pidstore.pids import (  # isort:skip
+    VENDOR_PID_FETCHER,
+    VENDOR_PID_MINTER,
+    VENDOR_PID_TYPE
+)
 
 from .api import (  # isort:skip
     can_item_circulate,
@@ -43,6 +51,7 @@ from .api import (  # isort:skip
 )
 
 from invenio_circulation.config import _LOANID_CONVERTER  # isort:skip
+
 from invenio_circulation.pidstore.pids import (  # isort:skip
     CIRCULATION_LOAN_FETCHER,
     CIRCULATION_LOAN_MINTER,
@@ -116,6 +125,7 @@ from .pidstore.pids import (  # isort:skip
     VOCABULARY_PID_MINTER,
     VOCABULARY_PID_TYPE,
 )
+
 from .records.api import (  # isort:skip
     Document,
     DocumentRequest,
@@ -325,6 +335,9 @@ _DREQID_CONVERTER = (
 )
 _SERID_CONVERTER = (
     'pid(serid, record_class="invenio_app_ils.records.api:Series")'
+)
+_VENDOR_CONVERTER = (
+    'pid(venid, record_class="invenio_app_ils.acquisition.api:Vendor")'
 )
 
 # RECORDS REST
@@ -702,6 +715,31 @@ RECORDS_REST_ENDPOINTS = dict(
         create_permission_factory_imp=deny_all,
         update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all,
+    ),
+    venid=dict(
+        pid_type=VENDOR_PID_TYPE,
+        pid_minter=VENDOR_PID_MINTER,
+        pid_fetcher=VENDOR_PID_FETCHER,
+        search_class=VendorSearch,
+        record_class=Vendor,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_search'),
+        },
+        list_route='/acquisition/vendors/',
+        item_route='/acquisition/vendors/<{0}:pid_value>'.format(
+            _VENDOR_CONVERTER),
+        default_media_type='application/json',
+        max_result_window=10000,
+        error_handlers=dict(),
+        read_permission_factory_imp=record_read_permission_factory,
+        create_permission_factory_imp=backoffice_permission,
+        update_permission_factory_imp=backoffice_permission,
+        delete_permission_factory_imp=backoffice_permission,
     ),
 )
 

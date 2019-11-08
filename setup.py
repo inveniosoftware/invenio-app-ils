@@ -163,6 +163,7 @@ setup(
             "series = invenio_app_ils.mappings",
             "tags = invenio_app_ils.mappings",
             "vocabularies = invenio_app_ils.mappings",
+            "vendors = invenio_app_ils.acquisition.mappings",
         ],
         "invenio_pidstore.fetchers": [
             "docid = invenio_app_ils.pidstore.fetchers:document_pid_fetcher",
@@ -175,6 +176,7 @@ setup(
             "serid = invenio_app_ils.pidstore.fetchers:series_pid_fetcher",
             "tagid = invenio_app_ils.pidstore.fetchers:tag_pid_fetcher",
             "vocid = invenio_app_ils.pidstore.fetchers:vocabulary_pid_fetcher",
+            "venid = invenio_app_ils.acquisition.pidstore.fetchers:vendor_pid_fetcher",
         ],
         "invenio_pidstore.minters": [
             "docid = invenio_app_ils.pidstore.minters:document_pid_minter",
@@ -187,6 +189,7 @@ setup(
             "serid = invenio_app_ils.pidstore.minters:series_pid_minter",
             "tagid = invenio_app_ils.pidstore.minters:tag_pid_minter",
             "vocid = invenio_app_ils.pidstore.minters:vocabulary_pid_minter",
+            "venid = invenio_app_ils.acquisition.pidstore.minters:vendor_pid_minter",
         ],
         "invenio_access.actions": [
             "backoffice_access_action = "

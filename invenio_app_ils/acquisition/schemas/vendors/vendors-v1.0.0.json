@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Schema for Acquisition Vendor",
+  "type": "object",
+  "required": ["$schema", "pid", "name"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "pid": {
+      "type": "string",
+      "title": "The persistent identifier of vendor"
+    },
+    "name": {
+      "description": "The name of vendor",
+      "type": "string"
+    },
+    "address": {
+      "description": "The address of vendor",
+      "type": "string"
+    },
+    "email": {
+      "description": "The email of vendor",
+      "type": "string"
+    },
+    "phone": {
+      "description": "The phone of Vendor",
+      "type": "string"
+    },
+    "notes": {
+      "description": "The notes of vendor",
+      "type": "string"
+    }
+  }
+}
