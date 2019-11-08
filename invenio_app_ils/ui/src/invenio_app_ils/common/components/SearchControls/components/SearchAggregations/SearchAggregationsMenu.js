@@ -1,34 +1,33 @@
 import { Dropdown } from 'semantic-ui-react';
-import { Aggregator } from 'react-searchkit';
+import { BucketAggregation } from 'react-searchkit';
 import React, { Component } from 'react';
 import { getSearchConfig } from '../../../../config';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 export default class SearchAggregationsCards extends Component {
   searchConfig = getSearchConfig(this.props.modelName);
 
-  renderAccordionAggregations = (title, resultsAggregations, aggregations) => {
-    return resultsAggregations !== undefined ? (
+  renderValues = (title, containerCmp) => {
+    return containerCmp ? (
       <>
         <Dropdown.Header content={title} />
-        <Dropdown.Item>{aggregations}</Dropdown.Item>
+        <Dropdown.Item>{containerCmp}</Dropdown.Item>
       </>
     ) : null;
   };
 
   render() {
-    return this.searchConfig.AGGREGATIONS.map((agg, idx) => (
-      <Aggregator
-        title={agg.title}
-        field={agg.field}
-        key={agg.field}
-        customProps={{ index: idx }}
-        renderElement={this.renderAccordionAggregations}
+    return this.searchConfig.FILTERS.map(filter => (
+      <BucketAggregation
+        key={filter.field}
+        title={filter.title}
+        agg={{ field: filter.field, aggName: filter.aggName }}
+        renderElement={this.renderValues}
       />
     ));
   }
 }
 
 SearchAggregationsCards.propTypes = {
-  modelName: PropTypes.string.isRequired
+  modelName: PropTypes.string.isRequired,
 };

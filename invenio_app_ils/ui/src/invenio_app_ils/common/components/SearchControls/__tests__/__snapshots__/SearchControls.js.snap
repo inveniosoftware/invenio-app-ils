@@ -102,19 +102,13 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
 >
   <ReactSearchKit
     defaultSortByOnEmptyQuery={null}
-    persistentUrl={
-      Object {
-        "customHandler": null,
-        "enabled": true,
-        "overrideConfig": Object {
-          "withHistory": true,
-        },
-      }
-    }
+    history={null}
     searchApi={
       InvenioSearchApi {
         "http": [Function],
         "requestSerializer": InvenioRequestSerializer {
+          "_addFilter": [Function],
+          "_addFilters": [Function],
           "serialize": [Function],
         },
         "responseSerializer": InvenioResponseSerializer {
@@ -125,6 +119,13 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
     }
     searchOnInit={true}
     suggestionApi={null}
+    urlHandlerApi={
+      Object {
+        "customHandler": null,
+        "enabled": true,
+        "overrideConfig": Object {},
+      }
+    }
   >
     <Provider
       store={
@@ -138,10 +139,13 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
       }
     >
       <Connect(Bootstrap)
+        historyListen={null}
         searchOnInit={true}
       >
         <Bootstrap
+          historyListen={null}
           onAppInitialized={[Function]}
+          onBrowserHistoryExternallyChanged={[Function]}
           searchOnInit={true}
           searchOnUrlQueryStringChanged={[Function]}
         >
@@ -241,7 +245,7 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                     }
                                   >
                                     <ResultsPerPage
-                                      currentSize={15}
+                                      currentSize={10}
                                       defaultValue={15}
                                       loading={true}
                                       renderElement={null}
@@ -494,7 +498,8 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                               <Connect(Pagination)>
                                 <Pagination
                                   currentPage={1}
-                                  currentSize={15}
+                                  currentSize={10}
+                                  defaultValue={10}
                                   loading={true}
                                   options={
                                     Object {

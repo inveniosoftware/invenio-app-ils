@@ -11,8 +11,7 @@ export class DocumentTags extends Component {
         <Label className={'highlighted'} key={tag.pid}>
           <Link
             to={FrontSiteRoutes.documentsListWithQuery(
-              '&sort=mostrecent&order=desc&aggr[0][tags][value]=tags.' +
-                tag.name
+              `&sort=mostrecent&order=desc&f=tag%3A${tag.name}`
             )}
           >
             {tag.name}

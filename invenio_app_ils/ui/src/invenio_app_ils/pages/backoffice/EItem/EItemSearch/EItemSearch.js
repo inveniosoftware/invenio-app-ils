@@ -23,6 +23,7 @@ import { eitem as eitemApi } from '../../../../common/api';
 import { ExportReactSearchKitResults } from '../../components';
 import { ClearButton, NewButton } from '../../components/buttons';
 import { BackOfficeRoutes } from '../../../../routes/urls';
+import history from '../../../../history';
 
 export class EItemSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -144,7 +145,7 @@ export class EItemSearch extends Component {
 
   render() {
     return (
-      <ReactSearchKit searchApi={this.searchApi}>
+      <ReactSearchKit searchApi={this.searchApi} history={history}>
         <Grid>
           <Grid.Row columns={1}>
             <Grid.Column>

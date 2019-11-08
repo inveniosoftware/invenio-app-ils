@@ -5,7 +5,8 @@ import {
   Grid,
   Icon,
   Header,
-  Responsive, Loader,
+  Responsive,
+  Loader,
 } from 'semantic-ui-react';
 import {
   ReactSearchKit,
@@ -28,7 +29,8 @@ import {
 import { DocumentsSearchMobile } from './DocumentsSearchMobile';
 import { SearchMessage } from './SearchMessage';
 import { DocumentSearchResultsGrid } from './DocumentSearchResultsGrid';
-import { DocumentSearchResultsList } from './DocumentSearchResultsList/';
+import { DocumentSearchResultsList } from './DocumentSearchResultsList';
+import history from '../../../../history';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -72,15 +74,16 @@ export class DocumentsSearch extends Component {
     return <div>{totalResults} results</div>;
   };
 
-  renderLoader = () =>{
-    return <Loader active size="huge" inline="centered"
-                   className={"full-height"}/>
+  renderLoader = () => {
+    return (
+      <Loader active size="huge" inline="centered" className={'full-height'} />
+    );
   };
 
   render() {
     return (
       <>
-        <ReactSearchKit searchApi={this.searchApi}>
+        <ReactSearchKit searchApi={this.searchApi} history={history}>
           <Container fluid className="document-details-search-container">
             <Container>
               <SearchBar renderElement={this.renderSearchBar} />
@@ -97,7 +100,7 @@ export class DocumentsSearch extends Component {
                 <ResultsLoader renderElement={this.renderLoader}>
                   <Grid.Column width={3} className="search-aggregations">
                     <Header content={'Filter by'} />
-                    <SearchAggregationsCards modelName={'documents'}/>
+                    <SearchAggregationsCards modelName={'documents'} />
                   </Grid.Column>
                   <Grid.Column width={13} className="search-results">
                     <SearchEmptyResults />

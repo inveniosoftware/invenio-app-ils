@@ -10,7 +10,7 @@ import {
   Error,
   Pagination,
   Count,
-  Aggregator,
+  BucketAggregation,
   InvenioSearchApi,
 } from 'react-searchkit';
 import { getSearchConfig } from '../../../common/config';
@@ -27,6 +27,7 @@ import {
 } from '../components';
 import { loan as loanApi } from '../../../common/api/loans/loan';
 import { BackOfficeRoutes } from '../../../routes/urls';
+import history from '../../../history';
 
 export class LoansSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -117,10 +118,12 @@ export class LoansSearch extends Component {
   };
 
   renderAggregations = () => {
-    const components = this.searchConfig.AGGREGATIONS.map(agg => (
-      <div key={agg.field}>
-        <Aggregator title={agg.title} field={agg.field} />
-      </div>
+    const components = this.searchConfig.FILTERS.map(filter => (
+      <BucketAggregation
+        key={filter.field}
+        title={filter.title}
+        agg={{ field: filter.field, aggName: filter.aggName }}
+      />
     ));
     return <div>{components}</div>;
   };
@@ -180,7 +183,7 @@ export class LoansSearch extends Component {
 
   render() {
     return (
-      <ReactSearchKit searchApi={this.searchApi}>
+      <ReactSearchKit searchApi={this.searchApi} history={history}>
         <Grid>
           <Grid.Row columns={1}>
             <Grid.Column>

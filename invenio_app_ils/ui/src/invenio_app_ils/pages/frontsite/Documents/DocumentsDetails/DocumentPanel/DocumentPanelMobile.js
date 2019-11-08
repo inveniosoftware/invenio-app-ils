@@ -13,7 +13,7 @@ import {
   DocumentTags,
   DocumentTitle,
 } from '../../../components/Document';
-import {DocumentAuthors} from "../../../../../common/components/Document";
+import { DocumentAuthors } from '../../../../../common/components/Document';
 
 export default class DocumentPanelMobile extends Component {
   constructor(props) {

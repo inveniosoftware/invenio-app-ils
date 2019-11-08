@@ -9,66 +9,61 @@ import { FrontSiteRoutes } from '../../../../routes/urls';
 import { BookGroup } from '../BookGroup';
 
 export default class SectionsWrapper extends Component {
-
   renderDefaultSections = () => {
     return (
-        <Container fluid className={'fs-landing-page-section-wrapper'}>
-          <SectionServices />
-          <Container fluid>
-            <Container
-              textAlign={'center'}
-              className={'fs-landing-page-section'}
-            >
-              <BookGroup
-                title={'Most Recent Books'}
-                headerClass={'section-header highlight'}
-                fetchDataMethod={documentApi.list}
-                fetchDataQuery={documentApi
-                  .query()
-                  .withDocumentType('BOOK')
-                  .sortBy('mostrecent')
-                  .qs()}
-                viewAllUrl={FrontSiteRoutes.documentsListWithQuery(
-                  '&sort=mostrecent&order=desc'
-                )}
-              />
-            </Container>
-          </Container>
-          <SectionTags />
+      <Container fluid className={'fs-landing-page-section-wrapper'}>
+        <SectionServices />
+        <Container fluid>
           <Container textAlign={'center'} className={'fs-landing-page-section'}>
             <BookGroup
-              title={'Most Loaned Books'}
+              title={'Most Recent Books'}
               headerClass={'section-header highlight'}
               fetchDataMethod={documentApi.list}
               fetchDataQuery={documentApi
                 .query()
                 .withDocumentType('BOOK')
-                .sortBy('-mostloaned')
+                .sortBy('mostrecent')
                 .qs()}
               viewAllUrl={FrontSiteRoutes.documentsListWithQuery(
-                '&sort=mostloaned&order=desc'
-              )}
-            />
-          </Container>
-          <Container textAlign={'center'} className={'fs-landing-page-section'}>
-            <BookGroup
-              title={'Most Recent E-Books'}
-              headerClass={'section-header highlight'}
-              fetchDataMethod={documentApi.list}
-              fetchDataQuery={documentApi
-                .query()
-                .withDocumentType('BOOK')
-                .withEitems()
-                .sortBy('-mostrecent')
-                .qs()}
-              viewAllUrl={FrontSiteRoutes.documentsListWithQuery(
-                'document_type:BOOK&sort=mostrecent&order=desc' +
-                  '&aggr[0][has_eitems][value]=has_eitems.electronic versions'
+                '&sort=mostrecent&order=desc'
               )}
             />
           </Container>
         </Container>
-      );
+        <SectionTags />
+        <Container textAlign={'center'} className={'fs-landing-page-section'}>
+          <BookGroup
+            title={'Most Loaned Books'}
+            headerClass={'section-header highlight'}
+            fetchDataMethod={documentApi.list}
+            fetchDataQuery={documentApi
+              .query()
+              .withDocumentType('BOOK')
+              .sortBy('-mostloaned')
+              .qs()}
+            viewAllUrl={FrontSiteRoutes.documentsListWithQuery(
+              '&sort=mostloaned&order=desc'
+            )}
+          />
+        </Container>
+        <Container textAlign={'center'} className={'fs-landing-page-section'}>
+          <BookGroup
+            title={'Most Recent E-Books'}
+            headerClass={'section-header highlight'}
+            fetchDataMethod={documentApi.list}
+            fetchDataQuery={documentApi
+              .query()
+              .withDocumentType('BOOK')
+              .withEitems()
+              .sortBy('-mostrecent')
+              .qs()}
+            viewAllUrl={FrontSiteRoutes.documentsListWithQuery(
+              '&f=doctype%3ABOOK&f=medium%3AELECTRONIC_VERSION&sort=mostrecent&order=desc'
+            )}
+          />
+        </Container>
+      </Container>
+    );
   };
 
   renderSections = () => {
@@ -76,7 +71,7 @@ export default class SectionsWrapper extends Component {
       return (
         <Container fluid className={'fs-landing-page-section-wrapper'}>
           {this.props.sections.map(Section => {
-            return <Section className={'fs-landing-page-section'}/>;
+            return <Section className={'fs-landing-page-section'} />;
           })}
         </Container>
       );
