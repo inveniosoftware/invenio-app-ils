@@ -1,79 +1,78 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  Loader,
-  Error,
-  Pagination,
-} from '../../../../common/components';
-import {toShortDate} from '../../../../common/api/date';
-import {invenioConfig} from '../../../../common/config';
-import {
-  Container,
-  Grid,
-  Header,
-  Item,
-  Label, Message,
-} from "semantic-ui-react";
-import {getCover} from "../../config";
-import {Link} from "react-router-dom";
-import {FrontSiteRoutes} from "../../../../routes/urls";
-import isEmpty from "lodash/isEmpty";
-import { DateTime } from "luxon";
-import {ILSItemPlaceholder} from
-    "../../../../common/components/ILSPlaceholder/ILSPlaceholder";
-import {DocumentAuthors} from "../../../../common/components/Document";
-
+import { Loader, Error, Pagination } from '../../../../common/components';
+import { toShortDate } from '../../../../common/api/date';
+import { invenioConfig } from '../../../../common/config';
+import { Container, Grid, Header, Item, Label } from 'semantic-ui-react';
+import { getCover } from '../../config';
+import { Link } from 'react-router-dom';
+import { FrontSiteRoutes } from '../../../../routes/urls';
+import isEmpty from 'lodash/isEmpty';
+import { DateTime } from 'luxon';
+import { ILSItemPlaceholder } from '../../../../common/components/ILSPlaceholder/ILSPlaceholder';
+import { DocumentAuthors } from '../../../../common/components/Document';
+import { NoResultsMessage } from '../../components/NoResultsMessage';
 
 class LoanListEntry extends Component {
-
   render() {
-    const {loan} = this.props;
+    const { loan } = this.props;
     const now = DateTime.local();
     const is_loan_overdue = loan.metadata.end_date < now;
     return (
-      <Item className={is_loan_overdue ? 'bkg-danger' : ''}
-            key={loan.metadata.pid}>
-        <Item.Image size='mini'
-                    src={getCover(loan.metadata.document_pid)}
-                    as={Link}
-                    to={FrontSiteRoutes.documentDetailsFor(
-                      loan.metadata.document_pid)}
+      <Item
+        className={is_loan_overdue ? 'bkg-danger' : ''}
+        key={loan.metadata.pid}
+      >
+        <Item.Image
+          size="mini"
+          src={getCover(loan.metadata.document_pid)}
+          as={Link}
+          to={FrontSiteRoutes.documentDetailsFor(loan.metadata.document_pid)}
         />
 
         <Item.Content>
-          <Item.Header as={Link}
-                       to={FrontSiteRoutes.documentDetailsFor(
-                         loan.metadata.document_pid)}>
-            {loan.metadata.document.title}</Item.Header>
+          <Item.Header
+            as={Link}
+            to={FrontSiteRoutes.documentDetailsFor(loan.metadata.document_pid)}
+          >
+            {loan.metadata.document.title}
+          </Item.Header>
           <Grid columns={2}>
             <Grid.Column mobile={16} tablet={8} computer={8}>
               <Item.Meta>
-                <DocumentAuthors metadata={loan.metadata.document}/>
+                <DocumentAuthors metadata={loan.metadata.document} />
                 Loaned on {toShortDate(loan.metadata.start_date)}
               </Item.Meta>
               <Item.Description>
                 {}
-                You have extended this loan {loan.metadata.extension_count}
-                {' '}of {invenioConfig.loans.maxExtensionsCount} times
+                You have extended this loan {
+                  loan.metadata.extension_count
+                } of {invenioConfig.loans.maxExtensionsCount} times
               </Item.Description>
             </Grid.Column>
-            <Grid.Column textAlign={'right'}
-                         mobile={16} tablet={8} computer={8}>
+            <Grid.Column
+              textAlign={'right'}
+              mobile={16}
+              tablet={8}
+              computer={8}
+            >
               <Item.Description>
                 Please return the literature before date{' '}
                 <Label className={'bkg-primary'}>
                   {toShortDate(loan.metadata.end_date)}
-                </Label><br/>
-                {is_loan_overdue ?
-                  'Your loan is overdue. Please return the book ' +
-                  'as soon as possible' : null}
+                </Label>
+                <br />
+                {is_loan_overdue
+                  ? 'Your loan is overdue. Please return the book ' +
+                    'as soon as possible'
+                  : null}
               </Item.Description>
             </Grid.Column>
           </Grid>
         </Item.Content>
       </Item>
-    )
+    );
   }
 }
 
@@ -82,7 +81,7 @@ export default class PatronCurrentLoans extends Component {
     super(props);
     this.fetchPatronCurrentLoans = this.props.fetchPatronCurrentLoans;
     this.patronPid = this.props.patronPid;
-    this.state = {activePage: 1};
+    this.state = { activePage: 1 };
   }
 
   componentDidMount() {
@@ -91,7 +90,7 @@ export default class PatronCurrentLoans extends Component {
 
   onPageChange = activePage => {
     this.fetchPatronCurrentLoans(this.patronPid, activePage, 5);
-    this.setState({activePage: activePage});
+    this.setState({ activePage: activePage });
   };
 
   paginationComponent = () => {
@@ -110,49 +109,50 @@ export default class PatronCurrentLoans extends Component {
     if (!isEmpty(data.hits)) {
       return (
         <>
-          <Item.Group divided>{data.hits.map(entry =>
-            <LoanListEntry key={entry.metadata.pid} loan={entry}/>
-          )}</Item.Group>
+          <Item.Group divided>
+            {data.hits.map(entry => (
+              <LoanListEntry key={entry.metadata.pid} loan={entry} />
+            ))}
+          </Item.Group>
           <Container textAlign={'center'}>
             {this.paginationComponent()}
           </Container>
         </>
-      )
+      );
     }
-    return (<Message className={'info'} data-test={'no-results'}>
-      <Message.Header>No loan requests</Message.Header>
-      <p>Currently you do not have any loan requests</p>
-    </Message>)
+    return (
+      <NoResultsMessage
+        messageHeader={'No loans'}
+        messageContent={'Currently you do not have any literature on loan'}
+      />
+    );
   }
 
-  renderLoader = (props) => {
+  renderLoader = props => {
     return (
       <>
         <Item.Group>
-          <ILSItemPlaceholder fluid {...props}/>
-          <ILSItemPlaceholder fluid {...props}/>
+          <ILSItemPlaceholder fluid {...props} />
+          <ILSItemPlaceholder fluid {...props} />
         </Item.Group>
       </>
-    )
+    );
   };
 
-
   render() {
-    const {data, isLoading, error} = this.props;
+    const { data, isLoading, error } = this.props;
     return (
       <Container className={'spaced'}>
-        <Header as={'h2'}
-                content={"Your current loans"}
-                className={'highlight'}
-                textAlign={'center'}
+        <Header
+          as={'h2'}
+          content={'Your current loans'}
+          className={'highlight'}
+          textAlign={'center'}
         />
         <Loader isLoading={isLoading} renderElement={this.renderLoader}>
-          <Error error={error}>
-            {this.renderList(data)}
-          </Error>
+          <Error error={error}>{this.renderList(data)}</Error>
         </Loader>
       </Container>
-
     );
   }
 }

@@ -2182,14 +2182,29 @@ exports[`PendingOverdueDocumentsList tests should render show a message with no 
         </Grid>
         <Message
           data-test="no-results"
+          icon={true}
+          info={true}
         >
           <div
-            className="ui message"
+            className="ui icon info message"
             data-test="no-results"
           >
-            There are no 
-            pending overdue documents
-            .
+            <MessageContent>
+              <div
+                className="content"
+              >
+                <MessageHeader>
+                  <div
+                    className="header"
+                  >
+                    No results found
+                  </div>
+                </MessageHeader>
+                There are no 
+                pending overdue documents
+                .
+              </div>
+            </MessageContent>
           </div>
         </Message>
       </ResultsTable>

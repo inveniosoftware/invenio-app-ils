@@ -22,8 +22,10 @@ import {
 import { series as seriesApi } from '../../../../common/api/series/series';
 import { getSearchConfig } from '../../../../common/config';
 import { ExportReactSearchKitResults } from '../../components';
-import { ClearButton, NewButton } from '../../components/buttons';
+import { NewButton } from '../../components/buttons';
 import { BackOfficeRoutes } from '../../../../routes/urls';
+import ClearButton
+  from "../../../../common/components/SearchControls/components/ClearButton/ClearButton";
 import history from '../../../../history';
 
 export class SeriesSearch extends Component {

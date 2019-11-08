@@ -247,11 +247,12 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
               placeholder="Pick the date"
             >
               <DateInput
+                animation="none"
                 autoComplete="off"
                 clearable={true}
                 closable={true}
                 data-test=""
-                dateFormat="DD-MM-YYYY"
+                dateFormat="YYYY-MM-DD"
                 icon="calendar"
                 iconPosition="left"
                 initialDate="2019-10-11"
@@ -267,7 +268,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                 value=""
               >
                 <InputView
-                  animation="scale"
+                  animation="none"
                   autoComplete="off"
                   clearIcon="remove"
                   clearable={true}
@@ -392,7 +393,7 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
                     </FormInput>
                   </FormInputWithRef>
                   <Transition
-                    animation="scale"
+                    animation="none"
                     duration={200}
                     mountOnShow={true}
                     onComplete={[Function]}

@@ -56,13 +56,28 @@ exports[`LoansSearch ResultsTable tests should not render when empty results 1`]
   </Grid>
   <Message
     data-test="no-results"
+    icon={true}
+    info={true}
   >
     <div
-      className="ui message"
+      className="ui icon info message"
       data-test="no-results"
     >
-      There are no 
-      .
+      <MessageContent>
+        <div
+          className="content"
+        >
+          <MessageHeader>
+            <div
+              className="header"
+            >
+              No results found
+            </div>
+          </MessageHeader>
+          There are no 
+          .
+        </div>
+      </MessageContent>
     </div>
   </Message>
 </ResultsTable>

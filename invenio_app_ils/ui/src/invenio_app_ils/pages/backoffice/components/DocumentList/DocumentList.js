@@ -6,7 +6,7 @@ import {
 } from 'semantic-ui-react';
 import DocumentListEntry from "./DocumentListEntry";
 
-export class DocumentList extends Component {
+export default class DocumentList extends Component {
 
   renderListEntry = (document) =>{
     if(this.props.renderListEntryElement){

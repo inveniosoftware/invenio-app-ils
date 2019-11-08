@@ -2550,14 +2550,29 @@ exports[`DocumentPendingLoans tests should render show a message with no pending
         </Grid>
         <Message
           data-test="no-results"
+          icon={true}
+          info={true}
         >
           <div
-            className="ui message"
+            className="ui icon info message"
             data-test="no-results"
           >
-            There are no 
-            pending loan requests
-            .
+            <MessageContent>
+              <div
+                className="content"
+              >
+                <MessageHeader>
+                  <div
+                    className="header"
+                  >
+                    No results found
+                  </div>
+                </MessageHeader>
+                There are no 
+                pending loan requests
+                .
+              </div>
+            </MessageContent>
           </div>
         </Message>
       </ResultsTable>

@@ -88,13 +88,12 @@ label {
 
   #notifications {
     z-index: 9999;
-    width: 100%;
     margin-top: 1rem;
 
     &.compact {
       position: fixed;
       right: 1em;
-      top: 1em;
+      top: @headerMenuHeight+1em;
       z-index: 9999;
       margin: 0;
     }

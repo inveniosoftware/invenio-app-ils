@@ -2,6 +2,9 @@
          Site Overrides
 *******************************/
 
-.icon.error {
-  color: @errorTextColor;
+.icon {
+  &.error {
+    color: @errorTextColor;
+  }
 }
+

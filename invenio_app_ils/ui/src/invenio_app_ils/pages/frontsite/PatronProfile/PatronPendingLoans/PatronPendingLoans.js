@@ -9,7 +9,6 @@ import {
   Icon,
   Item,
   Label,
-  Message,
   Popup,
 } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
@@ -19,6 +18,7 @@ import { FrontSiteRoutes } from '../../../../routes/urls';
 import { DocumentAuthors } from '../../../../common/components/Document';
 import { toShortDate } from '../../../../common/api/date';
 import { ILSItemPlaceholder } from '../../../../common/components/ILSPlaceholder/ILSPlaceholder';
+import { NoResultsMessage } from '../../components/NoResultsMessage';
 
 class LoanRequestListEntry extends Component {
   render() {
@@ -132,10 +132,10 @@ export default class PatronPendingLoans extends Component {
       );
     }
     return (
-      <Message className={'info'} data-test={'no-results'}>
-        <Message.Header>No loan requests</Message.Header>
-        <p>Currently you do not have any loan requests</p>
-      </Message>
+      <NoResultsMessage
+        messageHeader={'No loan requests'}
+        messageContent={'Currently you do not have any loan requests'}
+      />
     );
   }
 

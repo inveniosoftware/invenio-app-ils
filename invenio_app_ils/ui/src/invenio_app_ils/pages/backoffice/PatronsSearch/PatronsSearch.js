@@ -21,8 +21,9 @@ import {
 } from '../../../common/components';
 import { patron as patronApi } from '../../../common/api';
 import { getSearchConfig } from '../../../common/config';
-import { ClearButton } from '../components/buttons';
 import { ExportReactSearchKitResults } from '../components';
+import ClearButton
+  from "../../../common/components/SearchControls/components/ClearButton/ClearButton";
 
 export class PatronsSearch extends Component {
   searchApi = new InvenioSearchApi({
