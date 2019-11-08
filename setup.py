@@ -74,12 +74,14 @@ install_requires = [
     "Flask-BabelEx>=0.9.3",
     "Flask-Debugtoolbar>=0.10.1",
     "invenio[base,auth]==3.2.0a9",
-    # metadata bundle without records UI
+    # `metadata` bundle without records UI
     "invenio-indexer>=1.1.0,<1.2.0",
     "invenio-jsonschemas>=1.0.0,<1.1.0",
     "invenio-pidstore>=1.1.0,<1.2.0",
-    "invenio-records-rest>=1.6.1,<1.7.0",
+    "invenio-records-rest>=1.6.4,<1.7.0",
     "invenio-records>=1.3.0,<1.4.0",
+    # `files` bundle with only invenio-files-rest
+    "invenio-files-rest>=1.0.6,<1.1.0",
     # upgraded packages
     "invenio-accounts-rest>=1.0.0a4,<1.1.0",
     "invenio-app>=1.2.3,<1.3.0",
@@ -96,7 +98,6 @@ install_requires = [
     "SQLAlchemy>=1.2.16,<1.3.0",
     # namedtuple are json serialized as dict
     "simplejson>=3",
-    "invenio-files-rest>=1.0.6,<1.1.0",
 ]
 
 packages = find_packages()
@@ -227,13 +228,14 @@ setup(
             "borrowing_request = invenio_app_ils.ill.jsonresolvers.borrowing_request",
         ],
         "invenio_celery.tasks": [
-            "ils_indexer_loans = invenio_app_ils.circulation.indexer",
+            "ils_indexer_acquisitions = invenio_app_ils.acquisition.indexer",
             "ils_indexer_document_requests = invenio_app_ils.document_requests.indexer",
             "ils_indexer_documents = invenio_app_ils.documents.indexer",
             "ils_indexer_eitems = invenio_app_ils.eitems.indexer",
             "ils_indexer_ills = invenio_app_ils.ill.indexer",
             "ils_indexer_intlocs = invenio_app_ils.internal_locations.indexer",
             "ils_indexer_items = invenio_app_ils.items.indexer",
+            "ils_indexer_loans = invenio_app_ils.circulation.indexer",
             "ils_indexer_locations = invenio_app_ils.locations.indexer",
             "ils_indexer_rec_relations = invenio_app_ils.records_relations.indexer",
             "ils_indexer_series = invenio_app_ils.series.indexer",
