@@ -7,10 +7,10 @@
 
 """Invenio App ILS ILL loaders."""
 
-from invenio_records_rest.loaders import marshmallow_loader
+from invenio_app_ils.records.loaders import ils_marshmallow_loader
 
 from .schemas.json.borrowing_request import BorrowingRequestSchemaV1
 from .schemas.json.library import LibrarySchemaV1
 
-borrowing_request_loader = marshmallow_loader(BorrowingRequestSchemaV1)
-library_loader = marshmallow_loader(LibrarySchemaV1)
+borrowing_request_loader = ils_marshmallow_loader(BorrowingRequestSchemaV1)
+library_loader = ils_marshmallow_loader(LibrarySchemaV1)

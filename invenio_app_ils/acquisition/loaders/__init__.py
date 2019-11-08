@@ -7,10 +7,10 @@
 
 """Invenio App ILS acquisition loaders."""
 
-from invenio_records_rest.loaders import marshmallow_loader
+from invenio_app_ils.records.loaders import ils_marshmallow_loader
 
 from .schemas.json.order import OrderSchemaV1
 from .schemas.json.vendor import VendorSchemaV1
 
-order_loader = marshmallow_loader(OrderSchemaV1)
-vendor_loader = marshmallow_loader(VendorSchemaV1)
+order_loader = ils_marshmallow_loader(OrderSchemaV1)
+vendor_loader = ils_marshmallow_loader(VendorSchemaV1)
