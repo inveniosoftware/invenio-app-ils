@@ -54,9 +54,9 @@ def create_most_loaned_documents_view(blueprint, app):
     )
 
 
-def create_stats_blueprint(app):
+def create_circulation_stats_blueprint(app):
     """Add statistics views to the blueprint."""
-    blueprint = Blueprint("invenio_app_ils_stats", __name__, url_prefix="")
+    blueprint = Blueprint("invenio_app_ils_circulation_stats", __name__, url_prefix="")
 
     create_most_loaned_documents_view(blueprint, app)
 

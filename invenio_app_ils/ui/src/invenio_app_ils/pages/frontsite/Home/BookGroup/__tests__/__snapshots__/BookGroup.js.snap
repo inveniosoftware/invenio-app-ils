@@ -22,7 +22,7 @@ exports[`BookGroup tests should load the BookGroup component 1`] = `
     hidden={true}
   />
   <Loader
-    isLoading={false}
+    isLoading={true}
   >
     <Error
       error={Object {}}
@@ -131,22 +131,17 @@ exports[`BookGroup tests should render book cards 1`] = `
           />
         </Divider>
         <Loader
-          isLoading={false}
+          isLoading={true}
         >
-          <Error
-            error={Object {}}
+          <Loader
+            active={true}
+            inline="centered"
+            size="huge"
           >
-            <CardGroup
-              centered={true}
-              doubling={true}
-              itemsPerRow={5}
-              stackable={true}
-            >
-              <div
-                className="ui centered doubling stackable five cards"
-              />
-            </CardGroup>
-          </Error>
+            <div
+              className="ui huge active centered inline loader"
+            />
+          </Loader>
         </Loader>
       </div>
     </BookGroup>
@@ -247,22 +242,17 @@ exports[`BookGroup tests should render the VIEW ALL link properly 1`] = `
           />
         </Divider>
         <Loader
-          isLoading={false}
+          isLoading={true}
         >
-          <Error
-            error={Object {}}
+          <Loader
+            active={true}
+            inline="centered"
+            size="huge"
           >
-            <CardGroup
-              centered={true}
-              doubling={true}
-              itemsPerRow={5}
-              stackable={true}
-            >
-              <div
-                className="ui centered doubling stackable five cards"
-              />
-            </CardGroup>
-          </Error>
+            <div
+              className="ui huge active centered inline loader"
+            />
+          </Loader>
         </Loader>
       </div>
     </BookGroup>

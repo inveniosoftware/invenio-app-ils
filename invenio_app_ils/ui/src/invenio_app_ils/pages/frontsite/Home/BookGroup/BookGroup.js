@@ -20,7 +20,7 @@ export default class BookGroup extends Component {
   }
 
   fetchData = async () => {
-    this.state = { isLoading: true };
+    this.setState({ isLoading: true });
     try {
       const response = await this.props.fetchDataMethod(
         this.props.fetchDataQuery

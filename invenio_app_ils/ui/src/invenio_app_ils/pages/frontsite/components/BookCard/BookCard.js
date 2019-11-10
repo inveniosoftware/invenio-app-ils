@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Card, Image, Label} from 'semantic-ui-react';
+import { Card, Image, Label } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 import { FrontSiteRoutes } from '../../../../routes/urls';
 import { getCover } from '../../config';
@@ -29,29 +29,30 @@ export class BookCard extends Component {
         }
         data-test={data.metadata.pid}
       >
-          <Card.Meta className={'discrete'}>
-            {data.metadata.document_type}
-          </Card.Meta>
+        <Card.Meta className={'discrete'}>
+          {data.metadata.document_type}
+        </Card.Meta>
         <Image
           centered
           src={getCover(data.metadata.pid)}
           size={'small'}
           onError={e => (e.target.style.display = 'none')}
         />
-        <Card.Content centered={'true'}>
+        <Card.Content>
           <Card.Header>{data.metadata.title}</Card.Header>
           <Card.Meta>
             <DocumentAuthors metadata={data.metadata} />
             <div>
-              {!isEmpty(data.metadata.imprints) ?
-                <>{data.metadata.imprints[0].date} <br/> </>: null}
-                Edition {data.metadata.edition}
+              {!isEmpty(data.metadata.imprints) ? (
+                <>
+                  {data.metadata.imprints[0].date} <br />{' '}
+                </>
+              ) : null}
+              Edition {data.metadata.edition}
             </div>
           </Card.Meta>
         </Card.Content>
-        <Card.Content extra>
-          {this.renderLabels(data.metadata)}
-        </Card.Content>
+        <Card.Content extra>{this.renderLabels(data.metadata)}</Card.Content>
       </Card>
     );
   }

@@ -7,6 +7,7 @@ import { DocumentAbstract as DocumentAbstractComponent } from './DocumentAbstrac
 import { DocumentTitle as DocumentTitleComponent } from './DocumentTitle';
 import { DocumentMetadataTabs as DocumentMetadataTabsComponent } from './DocumentMetadataTabs';
 import { DocumentMetadataAccordion as DocumentMetadataAccordionComponent } from './DocumentMetadataAccordion';
+export { DocumentStats } from './DocumentStats';
 
 const mapStateToProps = state => ({
   isLoading: state.documentDetailsFront.isLoading,

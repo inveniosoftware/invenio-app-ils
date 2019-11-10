@@ -23,6 +23,9 @@ from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_pidrelations.config import RelationType
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import deny_all
+from invenio_stats.aggregations import StatAggregator
+from invenio_stats.processors import EventsIndexer
+from invenio_stats.queries import ESTermsQuery
 
 from .circulation.search import IlsLoansSearch
 from .facets import keyed_range_filter
@@ -218,6 +221,7 @@ ACCOUNTS_SESSION_REDIS_URL = "redis://localhost:6379/1"
 
 BROKER_URL = "amqp://guest:guest@localhost:5672/"
 #: URL of message broker for Celery (default is RabbitMQ).
+
 CELERY_BROKER_URL = "amqp://guest:guest@localhost:5672/"
 #: URL of backend for result storage (default is Redis).
 CELERY_RESULT_BACKEND = "redis://localhost:6379/2"
@@ -234,6 +238,16 @@ CELERY_BEAT_SCHEDULE = {
     "overdue_loans": {
         "task": "invenio_app_ils.circulation.mail.tasks.send_overdue_loans_mail_reminder",
         "schedule": timedelta(days=1),
+    },
+    "stats-process-events": {
+        'task': 'invenio_stats.tasks.process_events',
+        'schedule': timedelta(minutes=30),
+        'args': [('record-view',)],
+    },
+    "stats-aggregate-events": {
+        'task': 'invenio_stats.tasks.aggregate_events',
+        'schedule': timedelta(hours=3),
+        'args': [('record-view-agg',)],
     },
 }
 
@@ -1062,3 +1076,70 @@ ILS_PIDRELATIONS_TYPES = PARENT_CHILD_RELATION_TYPES + SIBLINGS_RELATION_TYPES
 
 # The HTML tags allowed with invenio_records_rest.schemas.fields.sanitizedhtml
 ALLOWED_HTML_TAGS = []
+
+# Stats
+# =====
+STATS_EVENTS = {
+    'record-view': {
+        'signal': 'invenio_app_ils.signals.record_viewed',
+        'templates': 'invenio_stats.contrib.record_view',
+        'event_builders': [
+            'invenio_stats.contrib.event_builders.record_view_event_builder',
+        ],
+        'cls': EventsIndexer,
+        'params': {
+            'preprocessors': [
+                'invenio_stats.processors:flag_robots',
+                # Don't index robot events
+                lambda doc: doc if not doc['is_robot'] else None,
+                'invenio_stats.processors:flag_machines',
+                'invenio_stats.processors:anonymize_user',
+                'invenio_stats.contrib.event_builders:build_record_unique_id',
+            ],
+            'double_click_window': 30,
+            'suffix': '%Y-%m',
+        },
+    },
+}
+
+STATS_AGGREGATIONS = {
+    'record-view-agg': dict(
+        templates='invenio_stats.contrib.aggregations.aggr_record_view',
+        cls=StatAggregator,
+        params=dict(
+            event='record-view',
+            field='pid_value',
+            interval='day',
+            index_interval='month',
+            copy_fields=dict(
+                pid_type='pid_type',
+                pid_value='pid_value',
+            ),
+            metric_fields=dict(
+                unique_count=('cardinality', 'unique_session_id',
+                              {'precision_threshold': 1000}),
+            ),
+        )
+    ),
+}
+
+STATS_QUERIES = {
+    'record-view': dict(
+        cls=ESTermsQuery,
+        permission_factory=None,
+        params=dict(
+            index='stats-record-view',
+            copy_fields=dict(
+                pid_type='pid_type',
+                pid_value='pid_value',
+            ),
+            required_filters=dict(
+                pid_value='pid_value',
+            ),
+            metric_fields=dict(
+                count=('sum', 'count', {}),
+                unique_count=('sum', 'unique_count', {}),
+            )
+        )
+    ),
+}

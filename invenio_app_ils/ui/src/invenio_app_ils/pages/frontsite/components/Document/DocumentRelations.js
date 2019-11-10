@@ -14,22 +14,17 @@ export class DocumentRelations extends Component {
     if (this.relations.mutlipart_monograph) {
       return this.relations.multipart_monograph.map(multipart =>
         multipart.volume
-          ? 'This is volume' +
-            multipart.volume +
-            'of' +
-            (
+          ? `This is volume ${multipart.volume} of `(
               <Link
+                key={multipart.pid}
                 to={FrontSiteRoutes.documentsListWithQuery(
-                  'relations.multipart.pid:' + multipart.pid
+                  `relations.multipart.pid:${multipart.pid}`
                 )}
               >
                 {multipart.title}
               </Link>
             )
-          : 'This ' +
-            this.props.documentType +
-            ' is part of the series:' +
-            multipart.title
+          : `This ${this.props.documentType} is part of the series ${multipart.title}`
       );
     }
   };
@@ -43,7 +38,7 @@ export class DocumentRelations extends Component {
             <span key={serial.pid}>
               <Link
                 to={FrontSiteRoutes.documentsListWithQuery(
-                  'relations.serial.pid:' + serial.pid
+                  `relations.serial.pid: ${serial.pid}`
                 )}
               >
                 {serial.title}
@@ -62,7 +57,10 @@ export class DocumentRelations extends Component {
         <p>
           Read also in other languages:{' '}
           {this.relations.language.map(obj => (
-            <Link to={FrontSiteRoutes.documentDetailsFor(obj.pid)}>
+            <Link
+              key={obj.pid}
+              to={FrontSiteRoutes.documentDetailsFor(obj.pid)}
+            >
               {obj.languages.map(lang => lang + ' ')}
               {'; '}
             </Link>
@@ -78,7 +76,10 @@ export class DocumentRelations extends Component {
         <p>
           See other editions:&nbsp;
           {this.relations.edition.map(edition => (
-            <Link to={FrontSiteRoutes.documentDetailsFor(edition.pid)}>
+            <Link
+              key={edition.pid}
+              to={FrontSiteRoutes.documentDetailsFor(edition.pid)}
+            >
               ed. {edition.edition};{' '}
             </Link>
           ))}

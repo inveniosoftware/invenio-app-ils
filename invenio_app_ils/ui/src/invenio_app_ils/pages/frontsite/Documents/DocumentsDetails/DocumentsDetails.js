@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Container, Responsive} from 'semantic-ui-react';
+import { Container, Responsive } from 'semantic-ui-react';
 import { DocumentMetadata } from './DocumentMetadata';
 import { goTo } from '../../../../history';
 import { FrontSiteRoutes } from '../../../../routes/urls';
 import { SearchBar, Error } from '../../../../common/components';
 import { DocumentPanel } from './DocumentPanel';
 import { Breadcrumbs, DocumentTags } from '../../components';
-import {
-  ILSParagraphPlaceholder
-} from '../../../../common/components/ILSPlaceholder';
-import {DocumentItems} from "./DocumentItems";
+import { ILSParagraphPlaceholder } from '../../../../common/components/ILSPlaceholder';
+import { DocumentItems } from './DocumentItems';
+import { document as documentApi } from '../../../../common/api/documents/document';
 
 export default class DocumentsDetails extends Component {
   constructor(props) {
@@ -27,7 +26,16 @@ export default class DocumentsDetails extends Component {
       }
     });
     this.fetchDocumentsDetails(this.props.match.params.documentPid);
+    this.documentViewed();
   }
+
+  documentViewed = async () => {
+    try {
+      await documentApi.viewEvent(this.props.match.params.documentPid);
+    } catch (error) {
+      console.warn('Error sending record-view event', error);
+    }
+  };
 
   componentWillUnmount() {
     this.unlisten();
@@ -85,7 +93,7 @@ export default class DocumentsDetails extends Component {
           </Container>
           <Container className="items-locations spaced">
             <ILSParagraphPlaceholder linesNumber={3} isLoading={isLoading}>
-              <DocumentItems/>
+              <DocumentItems />
             </ILSParagraphPlaceholder>
           </Container>
           <Container className="section" fluid>
