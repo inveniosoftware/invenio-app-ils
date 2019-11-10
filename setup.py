@@ -128,17 +128,17 @@ setup(
             'stats = invenio_stats.cli:stats',
         ],
         "invenio_base.apps": [
-            "invenio_app_ils_ui = invenio_app_ils.ext:InvenioAppIlsUI"
+            "ils_ui = invenio_app_ils.ext:InvenioAppIlsUI"
         ],
         "invenio_base.api_apps": [
-            "invenio_app_ils_rest = invenio_app_ils.ext:InvenioAppIlsREST"
+            "ils_rest = invenio_app_ils.ext:InvenioAppIlsREST"
         ],
         "invenio_base.api_blueprints": [
-            "invenio_app_ils_circulation = invenio_app_ils.circulation.views:create_circulation_blueprint",
-            "invenio_app_ils_circulation_stats = invenio_app_ils.circulation.stats.views:create_circulation_stats_blueprint",
-            "invenio_app_ils_relations = invenio_app_ils.records_relations.views:create_relations_blueprint",
-            "invenio_app_ils_document_request = invenio_app_ils.records.views:create_document_request_action_blueprint",
-            "invenio_app_ils_record_stats = invenio_app_ils.records.views:create_record_stats_blueprint",
+            "ils_circulation = invenio_app_ils.circulation.views:create_circulation_blueprint",
+            "ils_circulation_stats = invenio_app_ils.circulation.stats.views:create_circulation_stats_blueprint",
+            "ils_relations = invenio_app_ils.records_relations.views:create_relations_blueprint",
+            "ils_document_request = invenio_app_ils.records.views:create_document_request_action_blueprint",
+            "ils_document_stats = invenio_app_ils.records.views:create_document_stats_blueprint",
         ],
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config"

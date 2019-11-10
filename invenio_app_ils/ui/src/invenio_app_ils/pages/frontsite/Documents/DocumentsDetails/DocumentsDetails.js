@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 import { Container, Responsive } from 'semantic-ui-react';
 import { DocumentMetadata } from './DocumentMetadata';
 import { goTo } from '../../../../history';
-import { FrontSiteRoutes, DocumentApis } from '../../../../routes/urls';
+import { FrontSiteRoutes } from '../../../../routes/urls';
 import { SearchBar, Error } from '../../../../common/components';
 import { DocumentPanel } from './DocumentPanel';
 import { Breadcrumbs, DocumentTags } from '../../components';
 import { ILSParagraphPlaceholder } from '../../../../common/components/ILSPlaceholder';
 import { DocumentItems } from './DocumentItems';
-import { http } from '../../../../common/api/base';
+import { document as documentApi } from '../../../../common/api/documents/document';
 
 export default class DocumentsDetails extends Component {
   constructor(props) {
     super(props);
     this.fetchDocumentsDetails = this.props.fetchDocumentsDetails;
     this.state = { searchQuery: '' };
-    this.stats = {};
     this.renderElement = props.renderElement || this._renderElement;
   }
 
@@ -27,16 +26,15 @@ export default class DocumentsDetails extends Component {
       }
     });
     this.fetchDocumentsDetails(this.props.match.params.documentPid);
-    this.submitStats();
+    this.documentViewed();
   }
 
-  submitStats = async () => {
-    this.stats = await http.post(
-      DocumentApis.documentDetailsRecordViewStatsFor(
-        this.props.match.params.documentPid
-      ),
-      { stat: 'record-view' }
-    );
+  documentViewed = async () => {
+    try {
+      await documentApi.viewEvent(this.props.match.params.documentPid);
+    } catch (error) {
+      console.warn('Error sending record-view event', error);
+    }
   };
 
   componentWillUnmount() {

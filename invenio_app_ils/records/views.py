@@ -24,10 +24,10 @@ from invenio_app_ils.proxies import current_app_ils_extension
 from invenio_app_ils.signals import record_viewed
 
 
-def create_record_stats_blueprint(app):
-    """Add record stats endpoint to the blueprint."""
+def create_document_stats_blueprint(app):
+    """Create document stats blueprint."""
     blueprint = Blueprint(
-        "invenio_app_ils_record_stats", __name__, url_prefix=""
+        "ils_document_stats", __name__, url_prefix=""
     )
     endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
     options = endpoints.get(DOCUMENT_PID_TYPE, {})
@@ -37,45 +37,47 @@ def create_record_stats_blueprint(app):
         mime: obj_or_import_string(func)
         for mime, func in rec_serializers.items()
     }
+
+    stats_view = DocumentStatsResource.as_view(
+        DocumentStatsResource.view_name.format(DOCUMENT_PID_TYPE),
+        serializers=serializers,
+        default_media_type=default_media_type,
+    )
     blueprint.add_url_rule(
-        "{0}/record-stats".format(options['item_route']),
-        view_func=RecordStatsResource.as_view(
-            RecordStatsResource.view_name,
-            serializers=serializers,
-            default_media_type=default_media_type,
-        ),
+        "{0}/stats".format(options['item_route']),
+        view_func=stats_view,
         methods=["POST"],
     )
     return blueprint
 
 
-class RecordStatsResource(ContentNegotiatedMethodView):
-    """Endpoint to trigger record stats signal."""
+class DocumentStatsResource(ContentNegotiatedMethodView):
+    """Document stats resource."""
 
-    view_name = "record_stats"
+    view_name = "{}_stats"
 
     @pass_record
     def post(self, pid, record, **kwargs):
         """Send a signal to count record view for the record stats."""
         data = request.get_json()
-        if data.get('stat') == 'record-view':
+        if data.get('event') == 'record-view':
             record_viewed.send(
                 current_app._get_current_object(),
                 pid=pid,
                 record=record,
             )
             return self.make_response(pid, record, 202)
-        return abort(400)
+        return DocumentRequestError("Invalid record view request")
 
 
 def create_document_request_action_blueprint(app):
-    """Add document request action views to the blueprint."""
+    """Create document request action blueprint."""
     blueprint = Blueprint(
-        "invenio_app_ils_document_request", __name__, url_prefix=""
+        "ils_document_request", __name__, url_prefix=""
     )
 
     endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
-    options = endpoints.get("dreqid", {})
+    options = endpoints.get(DOCUMENT_REQUEST_PID_TYPE, {})
     default_media_type = options.get("default_media_type", "")
     rec_serializers = options.get("record_serializers", {})
     serializers = {
@@ -87,7 +89,6 @@ def create_document_request_action_blueprint(app):
         AcceptRequestResource.view_name.format(DOCUMENT_REQUEST_PID_TYPE),
         serializers=serializers,
         default_media_type=default_media_type,
-        ctx=dict(),
     )
     blueprint.add_url_rule(
         "{0}/accept".format(options["item_route"]),
@@ -99,7 +100,6 @@ def create_document_request_action_blueprint(app):
         RejectRequestResource.view_name.format(DOCUMENT_REQUEST_PID_TYPE),
         serializers=serializers,
         default_media_type=default_media_type,
-        ctx=dict(),
     )
     blueprint.add_url_rule(
         "{0}/reject".format(options["item_route"]),
@@ -110,17 +110,7 @@ def create_document_request_action_blueprint(app):
     return blueprint
 
 
-class DocumentRequestActionResource(ContentNegotiatedMethodView):
-    """Document request action resource."""
-
-    def __init__(self, serializers, ctx, *args, **kwargs):
-        """Constructor."""
-        super(DocumentRequestActionResource, self).__init__(
-            serializers, *args, **kwargs
-        )
-
-
-class AcceptRequestResource(DocumentRequestActionResource):
+class AcceptRequestResource(ContentNegotiatedMethodView):
     """Accept document request action resource."""
 
     view_name = "{}_accept_request"
@@ -132,7 +122,7 @@ class AcceptRequestResource(DocumentRequestActionResource):
         raise DocumentRequestError("Accept request is not implemented")
 
 
-class RejectRequestResource(DocumentRequestActionResource):
+class RejectRequestResource(ContentNegotiatedMethodView):
     """Reject request resource."""
 
     view_name = "{}_reject_request"

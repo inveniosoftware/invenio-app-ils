@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { Icon, Table, Message } from 'semantic-ui-react';
-import { Error } from '../../../../common/components';
-import { http } from '../../../../common/api/base';
-import { DocumentApis } from '../../../../routes/urls';
+import { stats } from '../../../../common/api/stats/stats';
+import { recordToPidType } from '../../../../common/api/utils';
+import _get from 'lodash/get';
 
 export class DocumentStats extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: { views: { count: '-', unique_count: '-' } },
-      error: {},
-    };
+    this.state = { views: { count: '-', unique_count: '-' } };
   }
 
   componentDidMount() {
@@ -19,59 +16,54 @@ export class DocumentStats extends Component {
 
   fetchStats = async () => {
     const { document } = this.props;
-    const request = {
-      views: {
-        stat: 'record-view',
-        params: {
-          pid_value: document.pid,
-        },
-      },
-    };
+    const pidType = recordToPidType(document);
     try {
-      const response = await http.post(DocumentApis.statsUrl, request);
-      this.setState({ data: response.data });
+      const response = await stats.recordStats(pidType, document.pid);
+      const views = _get(response.data, 'views', {
+        count: '-',
+        unique_count: '-',
+      });
+      this.setState({ views: views });
     } catch (error) {
-      this.setState({ error: error });
+      console.warn(error);
     }
   };
 
   render() {
     const { document } = this.props;
-    const { data, error } = this.state;
+    const { views } = this.state;
     return (
-      <Error error={error}>
-        <Message compact className={'document-stats-message'}>
-          <Table compact basic>
-            <Table.Body>
+      <Message compact className={'document-stats-message'}>
+        <Table compact basic>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>
+                <Icon name="eye" />
+              </Table.Cell>
+              <Table.Cell>
+                Views <strong>{views.count}</strong>
+              </Table.Cell>
+              <Table.Cell>
+                Unique Views <strong>{views.unique_count}</strong>
+              </Table.Cell>
+            </Table.Row>
+
+            {document.metadata.eitems.hits.length > 0 && (
               <Table.Row>
                 <Table.Cell>
-                  <Icon name="eye" />
+                  <Icon name="download" />
                 </Table.Cell>
                 <Table.Cell>
-                  Views <strong>{data.views.count}</strong>
+                  Downloads <strong>{'-'}</strong>
                 </Table.Cell>
                 <Table.Cell>
-                  Unique Views <strong>{data.views.unique_count}</strong>
+                  Unique Downloads <strong>{'-'}</strong>
                 </Table.Cell>
               </Table.Row>
-
-              {document.metadata.eitems.hits.length > 0 && (
-                <Table.Row>
-                  <Table.Cell>
-                    <Icon name="download" />
-                  </Table.Cell>
-                  <Table.Cell>
-                    Downloads <strong>{'-'}</strong>
-                  </Table.Cell>
-                  <Table.Cell>
-                    Unique Downloads <strong>{'-'}</strong>
-                  </Table.Cell>
-                </Table.Row>
-              )}
-            </Table.Body>
-          </Table>
-        </Message>
-      </Error>
+            )}
+          </Table.Body>
+        </Table>
+      </Message>
     );
   }
 }

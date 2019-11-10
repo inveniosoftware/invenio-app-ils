@@ -35,6 +35,12 @@ const patch = async (documentPid, ops) => {
   return response;
 };
 
+const viewEvent = async docPid => {
+  return await http.post(`${documentURL}${docPid}/stats`, {
+    event: 'record-view',
+  });
+};
+
 const createRelation = async (docPid, data) => {
   const resp = await http.post(`${documentURL}${docPid}/relations`, data);
   resp.data = serializer.fromJSON(resp.data);
@@ -180,6 +186,7 @@ export const document = {
   update: update,
   delete: del,
   patch: patch,
+  viewEvent: viewEvent,
   createRelation: createRelation,
   deleteRelation: deleteRelation,
   list: list,

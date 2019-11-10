@@ -66,5 +66,5 @@ target/
 **/build
 .eggs
 *.egg-info
-
 *.pid
+celerybeat-schedule

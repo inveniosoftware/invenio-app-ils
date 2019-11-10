@@ -2,8 +2,8 @@ import { http, apiConfig } from '../base';
 import { invenioConfig } from '../../config/invenioConfig';
 import { document as documentApi } from '../documents/document';
 
-const statsURL = '/circulation/stats/';
-const mostLoanedURL = `${statsURL}most-loaned`;
+const circulationStatsURL = '/circulation/stats/';
+const mostLoanedURL = `${circulationStatsURL}most-loaned`;
 const apiMostLoanedURL = `${apiConfig.baseURL}${mostLoanedURL}`;
 
 const getMostLoanedDocumentsParams = (
@@ -41,8 +41,22 @@ const getMostLoanedDocuments = async (fromDate, toDate) => {
   return response;
 };
 
+const recordStats = async (pidType, pidValue) => {
+  const data = {
+    views: {
+      stat: 'record-view',
+      params: {
+        pid_type: pidType,
+        pid_value: pidValue,
+      },
+    },
+  };
+  return await http.post('/stats', data);
+};
+
 export const stats = {
   getMostLoanedDocumentsParams: getMostLoanedDocumentsParams,
   getMostLoanedDocuments: getMostLoanedDocuments,
   mostLoanedUrl: apiMostLoanedURL,
+  recordStats: recordStats,
 };
