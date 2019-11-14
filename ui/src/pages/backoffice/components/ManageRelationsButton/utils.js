@@ -1,4 +1,4 @@
-import { invenioConfig } from '../../../../common/config';
+import { invenioConfig } from '@config';
 
 export function formatPidTypeToName(pidType) {
   switch (pidType) {

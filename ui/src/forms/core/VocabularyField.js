@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { vocabulary as vocabularyApi } from '../../common/api';
+import { vocabulary as vocabularyApi } from '@api';
 import { SelectField } from './SelectField';
-import { invenioConfig } from '../../common/config';
+import { invenioConfig } from '@config';
 import { AccordionField } from './AccordionField';
 
 export class VocabularyField extends React.Component {

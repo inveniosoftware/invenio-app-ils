@@ -15,7 +15,7 @@ import {
 import {
   getDisplayVal,
   invenioConfig,
-} from '../../../../../common/config/invenioConfig';
+} from '@config/invenioConfig';
 
 class DocumentItem extends Component {
   render() {

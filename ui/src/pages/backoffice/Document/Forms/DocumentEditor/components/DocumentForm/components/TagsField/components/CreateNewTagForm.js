@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button, Icon } from 'semantic-ui-react';
-import { BaseForm, StringField } from '../../../../../../../../../../forms';
-import { tag as tagApi } from '../../../../../../../../../../common/api/tags/tag';
+import { BaseForm, StringField } from '@forms';
+import { tag as tagApi } from '@api/tags/tag';
 
 export class CreateNewTagForm extends Component {
   constructor(props) {

@@ -1,5 +1,5 @@
-import { location as locationApi } from '../../../../../common/api';
-import { ES_DELAY } from '../../../../../common/config';
+import { location as locationApi } from '@api';
+import { ES_DELAY } from '@config';
 import {
   IS_LOADING,
   SUCCESS,
@@ -11,7 +11,7 @@ import {
 import {
   sendErrorNotification,
   sendSuccessNotification,
-} from '../../../../../common/components/Notifications';
+} from '@components/Notifications';
 
 export const fetchAllLocations = () => {
   return async dispatch => {

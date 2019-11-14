@@ -3,8 +3,8 @@ import {
   ObjectArrayField,
   StringField,
   VocabularyField,
-} from '../../../../../../../../forms';
-import { invenioConfig } from '../../../../../../../../common/config';
+} from '@forms';
+import { invenioConfig } from '@config';
 
 export class Identifiers extends Component {
   render() {

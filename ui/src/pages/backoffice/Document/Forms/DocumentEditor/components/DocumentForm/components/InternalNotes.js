@@ -6,7 +6,7 @@ import {
   TextField,
   GroupField,
   DeleteActionButton,
-} from '../../../../../../../../forms';
+} from '@forms';
 
 export class InternalNotes extends Component {
   renderFormField({ arrayPath, indexPath, ...arrayHelpers }) {

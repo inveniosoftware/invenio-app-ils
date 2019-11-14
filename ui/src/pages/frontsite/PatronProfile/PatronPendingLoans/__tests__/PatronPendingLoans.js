@@ -3,11 +3,11 @@ import { shallow, mount } from 'enzyme';
 import PatronPendingLoans from '../PatronPendingLoans';
 import testData from '../../../../../../../tests/data/loans.json';
 import { BrowserRouter } from 'react-router-dom';
-import { fromISO } from '../../../../../common/api/date';
+import { fromISO } from '@api/date';
 import { Settings } from 'luxon';
 Settings.defaultZoneName = 'utc';
 
-jest.mock('../../../../../common/config');
+jest.mock('@config');
 
 testData[0].request_expire_date = fromISO(testData[0].request_expire_date);
 testData[1].request_expire_date = fromISO(testData[1].request_expire_date);

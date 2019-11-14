@@ -2,12 +2,12 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import DocumentRelations from '../DocumentRelations';
 import { Settings } from 'luxon';
-import { BackOfficeRoutes } from '../../../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 import { Button } from 'semantic-ui-react';
 
 jest.mock('react-router-dom');
-jest.mock('../../../../../../common/config/invenioConfig');
-jest.mock('../../../../../../common/components/ESSelector');
+jest.mock('@config/invenioConfig');
+jest.mock('@components/ESSelector');
 let mockViewDetails = jest.fn();
 BackOfficeRoutes.documentDetailsFor = jest.fn(pid => `url/${pid}`);
 

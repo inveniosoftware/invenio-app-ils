@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchPatronDocumentRequests } from '../../../../../common/state/PatronDocumentRequests/actions';
+import { fetchPatronDocumentRequests } from '@state/PatronDocumentRequests/actions';
 import PatronDocumentRequestsComponent from './PatronDocumentRequests';
 
 const mapStateToProps = state => ({

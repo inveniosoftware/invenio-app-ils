@@ -12,18 +12,17 @@ import {
   Count,
   InvenioSearchApi,
 } from 'react-searchkit';
-import { BackOfficeRoutes } from '../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 import {
   Error as IlsError,
   SearchBar as PatronsSearchBar,
   ResultsSort,
   ResultsTable,
-} from '../../../common/components';
-import { patron as patronApi } from '../../../common/api';
-import { getSearchConfig } from '../../../common/config';
+} from '@components';
+import { patron as patronApi } from '@api';
+import { getSearchConfig } from '@config';
 import { ExportReactSearchKitResults } from '../components';
-import ClearButton
-  from "../../../common/components/SearchControls/components/ClearButton/ClearButton";
+import ClearButton from '@components/SearchControls/components/ClearButton/ClearButton';
 
 export class PatronsSearch extends Component {
   searchApi = new InvenioSearchApi({

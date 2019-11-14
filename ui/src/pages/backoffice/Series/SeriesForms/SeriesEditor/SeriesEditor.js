@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Loader, Error } from '../../../../../common/components';
+import { Loader, Error } from '@components';
 import { SeriesForm } from './components';
 
 export class SeriesEditor extends Component {

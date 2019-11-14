@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
 import { getCover } from '../../../frontsite/config';
-import { BackOfficeRoutes } from '../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 import _isEmpty from 'lodash/isEmpty';
 import DocumentCirculation from './DocumentCirculation';
 import {
   DocumentAuthors,
   DocumentLanguages,
   DocumentTags,
-} from '../../../../common/components/Document';
+} from '@components/Document';
 
 export default class DocumentListEntry extends Component {
   renderMiddleColumn = document => {

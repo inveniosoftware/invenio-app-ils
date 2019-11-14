@@ -1,7 +1,7 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { loan as loanApi } from '../../../../../../common/api';
-import { invenioConfig } from '../../../../../../common/config';
-import { sendErrorNotification } from '../../../../../../common/components/Notifications';
+import { loan as loanApi } from '@api';
+import { invenioConfig } from '@config';
+import { sendErrorNotification } from '@components/Notifications';
 
 export const fetchPastLoans = itemPid => {
   return async dispatch => {

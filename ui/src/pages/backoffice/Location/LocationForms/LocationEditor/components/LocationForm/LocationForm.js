@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import pick from 'lodash/pick';
-import { StringField, TextField } from '../../../../../../../forms';
-import { location as locationApi } from '../../../../../../../common/api/locations/location';
-import { BackOfficeRoutes } from '../../../../../../../routes/urls';
-import { goTo } from '../../../../../../../history';
-import { BaseForm } from '../../../../../../../forms';
+import { StringField, TextField } from '@forms';
+import { location as locationApi } from '@api/locations/location';
+import { BackOfficeRoutes } from '@routes/urls';
+import { goTo } from '@history';
+import { BaseForm } from '@forms';
 
 export class LocationForm extends Component {
   constructor(props) {

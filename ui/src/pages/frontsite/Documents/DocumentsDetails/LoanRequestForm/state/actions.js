@@ -1,13 +1,13 @@
 import { HAS_ERROR, IS_LOADING } from './types';
-import { sessionManager } from '../../../../../../authentication/services';
-import { loan as loanApi } from '../../../../../../common/api';
-import { toShortDate } from '../../../../../../common/api/date';
+import { sessionManager } from '@authentication/services';
+import { loan as loanApi } from '@api';
+import { toShortDate } from '@api/date';
 import { DateTime } from 'luxon';
 
 import {
   sendErrorNotification,
   sendSuccessNotification,
-} from '../../../../../../common/components/Notifications';
+} from '@components/Notifications';
 
 export const requestLoanForDocument = (
   documentPid,

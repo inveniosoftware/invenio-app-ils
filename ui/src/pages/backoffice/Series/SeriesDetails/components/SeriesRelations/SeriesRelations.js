@@ -7,26 +7,26 @@ import {
   Loader,
   ResultsTable,
   Pagination,
-} from '../../../../../../common/components';
+} from '@components';
 import { Button, Tab, Label, Input } from 'semantic-ui-react';
 import { ManageRelationsButton } from '../../../../components/ManageRelationsButton';
 import { formatPidTypeToName } from '../../../../components/ManageRelationsButton/utils';
-import { ESSelectorModal } from '../../../../../../common/components/ESSelector';
+import { ESSelectorModal } from '@components/ESSelector';
 import {
   document as documentApi,
   series as seriesApi,
-} from '../../../../../../common/api';
-import { BackOfficeRoutes } from '../../../../../../routes/urls';
-import ESRelatedSelector from '../../../../../../common/components/ESSelector/ESRelatedSelector';
+} from '@api';
+import { BackOfficeRoutes } from '@routes/urls';
+import ESRelatedSelector from '@components/ESSelector/ESRelatedSelector';
 import {
   parentChildRelationPayload,
   siblingRelationPayload,
-} from '../../../../../../common/api/utils';
+} from '@api/utils';
 import {
   serializeDocument,
   serializeSeries,
   serializeSeriesLanguages,
-} from '../../../../../../common/components/ESSelector/serializer';
+} from '@components/ESSelector/serializer';
 
 export const serializeEdition = hit => {
   const pidType = hit.metadata.pidType;

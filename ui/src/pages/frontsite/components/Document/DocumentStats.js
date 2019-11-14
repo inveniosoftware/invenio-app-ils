@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Icon, Table, Message } from 'semantic-ui-react';
-import { stats } from '../../../../common/api/stats/stats';
-import { recordToPidType } from '../../../../common/api/utils';
+import { stats } from '@api/stats/stats';
+import { recordToPidType } from '@api/utils';
 import _get from 'lodash/get';
 
 export class DocumentStats extends Component {

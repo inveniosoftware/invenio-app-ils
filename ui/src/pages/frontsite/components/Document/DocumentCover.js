@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ILSImagePlaceholder } from '../../../../common/components/ILSPlaceholder';
+import { ILSImagePlaceholder } from '@components/ILSPlaceholder';
 import { Image } from 'semantic-ui-react';
 import { getCover } from '../../config';
 import PropTypes from 'prop-types';

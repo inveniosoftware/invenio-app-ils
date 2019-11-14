@@ -2,8 +2,8 @@ import React from 'react';
 import { Button } from 'semantic-ui-react';
 import { mount } from 'enzyme';
 import { Settings } from 'luxon';
-import { fromISO, toISO } from '../../../../common/api/date';
-import { ResultsTable } from '../../../../common/components';
+import { fromISO, toISO } from '@api/date';
+import { ResultsTable } from '@components';
 
 jest.mock('../../components');
 

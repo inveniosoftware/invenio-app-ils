@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import DocumentRequestFormComponent from './DocumentRequestForm';
-import { sendSuccessNotification } from '../../../../common/components/Notifications';
+import { sendSuccessNotification } from '@components/Notifications';
 
 const mapDispatchToProps = dispatch => ({
   sendSuccessNotification: (title, content) =>

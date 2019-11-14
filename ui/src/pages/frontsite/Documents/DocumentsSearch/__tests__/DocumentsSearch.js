@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import * as testData from '../../../../../../../tests/data/documents.json';
+import * as testData from '@testData/documents.json';
 
 import { DocumentsSearch } from '../index';
 import thunk from 'redux-thunk';

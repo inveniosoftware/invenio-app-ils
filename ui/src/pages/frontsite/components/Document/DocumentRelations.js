@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { FrontSiteRoutes } from '../../../../routes/urls';
+import { FrontSiteRoutes } from '@routes/urls';
 
 export class DocumentRelations extends Component {
   constructor(props) {

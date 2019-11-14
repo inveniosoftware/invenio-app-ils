@@ -7,25 +7,25 @@ import {
   Loader,
   ResultsTable,
   Pagination,
-} from '../../../../../common/components';
+} from '@components';
 import { ManageRelationsButton } from '../../../components/ManageRelationsButton';
-import { ESSelectorModal } from '../../../../../common/components/ESSelector';
+import { ESSelectorModal } from '@components/ESSelector';
 import {
   document as documentApi,
   series as seriesApi,
-} from '../../../../../common/api';
-import { BackOfficeRoutes } from '../../../../../routes/urls';
+} from '@api';
+import { BackOfficeRoutes } from '@routes/urls';
 import capitalize from 'lodash/capitalize';
-import ESRelatedSelector from '../../../../../common/components/ESSelector/ESRelatedSelector';
+import ESRelatedSelector from '@components/ESSelector/ESRelatedSelector';
 import {
   parentChildRelationPayload,
   siblingRelationPayload,
-} from '../../../../../common/api/utils';
+} from '@api/utils';
 import { formatPidTypeToName } from '../../../components/ManageRelationsButton/utils';
 import {
   serializeDocument,
   serializeSeries,
-} from '../../../../../common/components/ESSelector/serializer';
+} from '@components/ESSelector/serializer';
 
 export const serializeEdition = hit => {
   const pidType = hit.metadata.pidType;

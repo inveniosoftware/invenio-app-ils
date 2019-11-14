@@ -10,15 +10,15 @@ import {
   List,
 } from 'semantic-ui-react';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
-import { BackOfficeRoutes } from '../../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 import {
   loan as loanApi,
   patron as patronApi,
-} from '../../../../../common/api';
-import { invenioConfig } from '../../../../../common/config';
+} from '@api';
+import { invenioConfig } from '@config';
 import { EditButton } from '../../../components/buttons';
-import { ESSelectorModal } from '../../../../../common/components/ESSelector';
-import { serializePatron } from '../../../../../common/components/ESSelector/serializer';
+import { ESSelectorModal } from '@components/ESSelector';
+import { serializePatron } from '@components/ESSelector/serializer';
 
 export default class ItemMetadata extends Component {
   constructor(props) {

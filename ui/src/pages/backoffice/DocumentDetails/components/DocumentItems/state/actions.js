@@ -1,6 +1,6 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { item as itemApi } from '../../../../../../common/api';
-import { sendErrorNotification } from '../../../../../../common/components/Notifications';
+import { item as itemApi } from '@api';
+import { sendErrorNotification } from '@components/Notifications';
 
 export const fetchDocumentItems = documentPid => {
   return async dispatch => {

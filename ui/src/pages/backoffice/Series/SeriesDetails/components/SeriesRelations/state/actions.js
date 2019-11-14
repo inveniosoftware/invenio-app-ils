@@ -1,9 +1,9 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { series as seriesApi } from '../../../../../../../common/api';
+import { series as seriesApi } from '@api';
 import {
   sendErrorNotification,
   sendSuccessNotification,
-} from '../../../../../../../common/components/Notifications';
+} from '@components/Notifications';
 
 export const createRelations = (pid, relations) => {
   return async dispatch => {

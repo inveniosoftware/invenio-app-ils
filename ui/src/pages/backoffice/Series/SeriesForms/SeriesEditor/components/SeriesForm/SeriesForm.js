@@ -12,11 +12,11 @@ import {
   LanguageField,
   GroupField,
   DeleteActionButton,
-} from '../../../../../../../forms';
-import { series as seriesApi } from '../../../../../../../common/api/series/series';
-import { BackOfficeRoutes } from '../../../../../../../routes/urls';
-import { goTo } from '../../../../../../../history';
-import { invenioConfig } from '../../../../../../../common/config';
+} from '@forms';
+import { series as seriesApi } from '@api/series/series';
+import { BackOfficeRoutes } from '@routes/urls';
+import { goTo } from '@history';
+import { invenioConfig } from '@config';
 
 export class SeriesForm extends Component {
   prepareData = data => {

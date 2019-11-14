@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CalendarInputField } from './CalendarInputField';
-import { YearPicker } from '../../../common/components';
+import { YearPicker } from '@components';
 
 export class YearInputField extends React.Component {
   renderFormField = props => {

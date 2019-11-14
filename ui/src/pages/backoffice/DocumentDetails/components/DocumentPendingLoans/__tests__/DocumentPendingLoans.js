@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { BackOfficeRoutes } from '../../../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 import DocumentPendingLoans from '../DocumentPendingLoans';
-import history from '../../../../../../history';
+import history from '@history';
 import testData from '../../../../../../../../tests/data/loans.json';
 import { Button } from 'semantic-ui-react';
 
 jest.mock('react-router-dom');
-jest.mock('../../../../../../common/config/invenioConfig');
+jest.mock('@config/invenioConfig');
 let mockViewDetails = jest.fn();
 
 BackOfficeRoutes.loanDetailsFor = jest.fn(pid => `loan/${pid}`);

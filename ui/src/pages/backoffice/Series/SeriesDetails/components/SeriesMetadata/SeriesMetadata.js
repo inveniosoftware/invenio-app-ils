@@ -5,7 +5,7 @@ import { MetadataTable } from '../../../../components/MetadataTable';
 import { EditButton } from '../../../../components/buttons';
 import { DeleteRecordModal } from '../../../../components/DeleteRecordModal';
 import { formatPidTypeToName } from '../../../../components/ManageRelationsButton/utils';
-import { BackOfficeRoutes } from '../../../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 
 export default class SeriesMetadata extends Component {
   constructor(props) {

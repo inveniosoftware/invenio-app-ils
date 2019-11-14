@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../common/components';
+import { Loader, Error } from '@components';
 import { DocumentMetadata } from '../';
 import { DocumentPendingLoans } from '../DocumentPendingLoans';
 import { DocumentItems } from '../DocumentItems';

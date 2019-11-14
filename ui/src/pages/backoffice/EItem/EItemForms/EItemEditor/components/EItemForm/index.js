@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { sendSuccessNotification } from '../../../../../../../common/components/Notifications/state/actions';
+import { sendSuccessNotification } from '@components/Notifications/state/actions';
 import { EItemForm as EItemFormComponent } from './EItemForm';
 
 const mapDispatchToProps = dispatch => ({

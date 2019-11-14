@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FastField, Field } from 'formik';
 import { Form, Card, Icon, Label } from 'semantic-ui-react';
-import { ESSelector } from '../../common/components/ESSelector';
+import { ESSelector } from '../../components/ESSelector';
 import isEmpty from 'lodash/isEmpty';
 
 export class SelectorField extends Component {

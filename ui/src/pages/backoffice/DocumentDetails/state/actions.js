@@ -8,19 +8,16 @@ import {
   SUCCESS,
   HAS_ERROR,
 } from './types';
-import { ES_DELAY } from '../../../../common/config';
-import { goTo } from '../../../../history';
-import {
-  document as documentApi,
-  loan as loanApi,
-} from '../../../../common/api';
+import { ES_DELAY } from '@config';
+import { goTo } from '@history';
+import { document as documentApi, loan as loanApi } from '@api';
 import { DateTime } from 'luxon';
-import { toShortDate } from '../../../../common/api/date';
-import { BackOfficeRoutes } from '../../../../routes/urls';
+import { toShortDate } from '@api/date';
+import { BackOfficeRoutes } from '@routes/urls';
 import {
   sendErrorNotification,
   sendSuccessNotification,
-} from '../../../../common/components/Notifications';
+} from '@components/Notifications';
 import isEmpty from 'lodash/isEmpty';
 
 export const setRestrictionsOnDocument = (pid, accessList) => {

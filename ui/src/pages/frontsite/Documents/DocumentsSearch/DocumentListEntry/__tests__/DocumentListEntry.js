@@ -1,6 +1,6 @@
 import React from 'react';
 import DocumentListEntry from '../DocumentListEntry';
-import * as testData from '../../../../../../../../tests/data/documents.json';
+import * as testData from '@testData/documents.json';
 import { shallow } from 'enzyme';
 
 it('should render correctly', () => {

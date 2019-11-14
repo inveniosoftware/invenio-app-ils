@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
-import {
-  Loader,
-  Error,
-  ResultsTable,
-} from '../../../../../../common/components';
-import { BackOfficeRoutes } from '../../../../../../routes/urls';
+import { Loader, Error, ResultsTable } from '@components';
+import { BackOfficeRoutes } from '@routes/urls';
 import { listQuery } from './state/listQuery';
-import { dateFormatter } from '../../../../../../common/api/date';
+import { dateFormatter } from '@api/date';
 import { SeeAllButton } from '../../../../components/buttons';
 
 export default class RenewedLoansList extends Component {

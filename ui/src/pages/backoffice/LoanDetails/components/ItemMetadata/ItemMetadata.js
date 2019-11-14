@@ -8,7 +8,7 @@ import {
   Icon,
   Table,
 } from 'semantic-ui-react';
-import { invenioConfig } from '../../../../../common/config';
+import { invenioConfig } from '@config';
 
 export default class ItemMetadata extends Component {
   getTitle(loanState) {

@@ -3,10 +3,10 @@ import thunk from 'redux-thunk';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as types from '../types';
-import { loan as loanApi } from '../../../../../../../common/api';
+import { loan as loanApi } from '@api';
 import * as testData from '../../../../../../../../../tests/data/loans.json';
-import { sessionManager } from '../../../../../../../authentication/services';
-import { toShortDate } from '../../../../../../../common/api/date';
+import { sessionManager } from '@authentication/services';
+import { toShortDate } from '@api/date';
 import { DateTime } from 'luxon';
 
 const middlewares = [thunk];

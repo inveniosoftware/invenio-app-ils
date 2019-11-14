@@ -1,13 +1,13 @@
 import React, { Component, createRef } from 'react';
 import { Container, Ref, Sticky } from 'semantic-ui-react';
 import { ResultsLoader, Error, InvenioSearchApi } from 'react-searchkit';
-import { document as documentApi } from '../../../../common/api';
+import { document as documentApi } from '@api';
 import {
   SearchFooter,
   SearchEmptyResults,
   SearchPagination,
-} from '../../../../common/components/SearchControls/components';
-import { SearchControlsMobile } from '../../../../common/components/SearchControls/SearchControlsMobile';
+} from '@components/SearchControls/components';
+import { SearchControlsMobile } from '@components/SearchControls/SearchControlsMobile';
 import { SearchMessage } from './SearchMessage';
 import { DocumentSearchResultsGrid } from './DocumentSearchResultsGrid';
 

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../../common/components';
-import { invenioConfig } from '../../../../../../common/config';
-import { loan as loanApi } from '../../../../../../common/api';
+import { Loader, Error } from '@components';
+import { invenioConfig } from '@config';
+import { loan as loanApi } from '@api';
 import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
-import { BackOfficeRoutes } from '../../../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 import { NewButton, SeeAllButton } from '../../../../components/buttons';
 
 export default class LoansCard extends Component {

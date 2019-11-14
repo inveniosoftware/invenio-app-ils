@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import testData from '../../../../../../../tests/data/documents.json';
-import { FrontSiteRoutes } from '../../../../../routes/urls';
-import history from '../../../../../history';
+import testData from '@testData/documents.json';
+import { FrontSiteRoutes } from '@routes/urls';
+import history from '@history';
 import { BookCard } from '../BookCard';
 
 describe('BookCard tests', () => {

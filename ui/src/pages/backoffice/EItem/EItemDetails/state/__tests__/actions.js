@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as types from '../types';
-import { eitem as eitemApi } from '../../../../../../common/api';
+import { eitem as eitemApi } from '@api';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

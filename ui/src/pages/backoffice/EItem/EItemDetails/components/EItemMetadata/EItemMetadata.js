@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Grid, Segment, Container, Header, Table } from 'semantic-ui-react';
 import { EditButton } from '../../../../components/buttons';
 import { DeleteRecordModal } from '../../../../components/DeleteRecordModal';
-import { BackOfficeRoutes } from '../../../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 
 export default class EItemMetadata extends Component {
   constructor(props) {

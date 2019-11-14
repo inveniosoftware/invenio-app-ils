@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon, Message } from 'semantic-ui-react';
 import Qs from 'qs';
-import { FrontSiteRoutes } from '../../../../../routes/urls';
+import { FrontSiteRoutes } from '@routes/urls';
 
 export default class SearchMessage extends Component {
   onClickBookRequestLink = () => {

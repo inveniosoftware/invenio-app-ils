@@ -13,7 +13,7 @@ import {
   Popup,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { invenioConfig } from '../../../../../common/config';
+import { invenioConfig } from '@config';
 import { MetadataTable } from '../../../components/MetadataTable';
 import { EditButton, NewButton } from '../../../components/buttons';
 import {
@@ -22,17 +22,17 @@ import {
   loan as loanApi,
   item as itemApi,
   patron as patronApi,
-} from '../../../../../common/api';
-import { BackOfficeRoutes } from '../../../../../routes/urls';
+} from '@api';
+import { BackOfficeRoutes } from '@routes/urls';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 import {
   ESSelectorLoanRequest,
   ESSelectorModal,
-} from '../../../../../common/components/ESSelector';
+} from '@components/ESSelector';
 import {
   serializeAccessList,
   serializePatron,
-} from '../../../../../common/components/ESSelector/serializer';
+} from '@components/ESSelector/serializer';
 import has from 'lodash/has';
 import { formatPidTypeToName } from '../../../components/ManageRelationsButton/utils';
 import { isEmpty } from 'lodash';

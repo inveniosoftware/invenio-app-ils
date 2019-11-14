@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import * as testData from '../../../../../../../../tests/data/documents.json';
+import * as testData from '@testData/documents.json';
 import DocumentMetadata from '../DocumentMetadata';
 
 jest.mock('../../../../components/Document', () => {

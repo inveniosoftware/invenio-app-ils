@@ -3,9 +3,9 @@ import {
   SUCCESS as FETCH_LOAN_SUCCESS,
   IS_LOADING as FETCH_LOAN_IS_LOADING,
 } from '../../../state/types';
-import { item as itemApi, loan as loanApi } from '../../../../../../common/api';
-import { invenioConfig } from '../../../../../../common/config';
-import { sendErrorNotification } from '../../../../../../common/components/Notifications';
+import { item as itemApi, loan as loanApi } from '@api';
+import { invenioConfig } from '@config';
+import { sendErrorNotification } from '@components/Notifications';
 
 export const fetchAvailableItems = documentPid => {
   return async dispatch => {

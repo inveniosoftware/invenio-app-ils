@@ -6,11 +6,11 @@ import {
   Loader,
   Error,
   ResultsTable,
-} from '../../../../../../common/components';
-import { invenioConfig } from '../../../../../../common/config';
-import { loan as loanApi } from '../../../../../../common/api';
-import { dateFormatter } from '../../../../../../common/api/date';
-import { BackOfficeRoutes } from '../../../../../../routes/urls';
+} from '@components';
+import { invenioConfig } from '@config';
+import { loan as loanApi } from '@api';
+import { dateFormatter } from '@api/date';
+import { BackOfficeRoutes } from '@routes/urls';
 import { SeeAllButton } from '../../../../components/buttons';
 import { OverdueLoanSendMailModal } from '../../../../components';
 

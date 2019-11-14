@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error, Pagination } from '../../../../common/components';
-import { toShortDate } from '../../../../common/api/date';
-import { invenioConfig } from '../../../../common/config';
+import { Loader, Error, Pagination } from '@components';
+import { toShortDate } from '@api/date';
+import { invenioConfig } from '@config';
 import { Container, Grid, Header, Item, Label } from 'semantic-ui-react';
 import { getCover } from '../../config';
 import { Link } from 'react-router-dom';
-import { FrontSiteRoutes } from '../../../../routes/urls';
-import { DocumentAuthors } from '../../../../common/components/Document';
-import { ILSItemPlaceholder } from '../../../../common/components/ILSPlaceholder/ILSPlaceholder';
+import { FrontSiteRoutes } from '@routes/urls';
+import { DocumentAuthors } from '@components/Document';
+import { ILSItemPlaceholder } from '@components/ILSPlaceholder/ILSPlaceholder';
 import isEmpty from 'lodash/isEmpty';
 import { NoResultsMessage } from '../../components/NoResultsMessage';
 

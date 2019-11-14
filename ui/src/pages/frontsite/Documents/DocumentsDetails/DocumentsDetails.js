@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Responsive } from 'semantic-ui-react';
 import { DocumentMetadata } from './DocumentMetadata';
-import { goTo } from '../../../../history';
-import { FrontSiteRoutes } from '../../../../routes/urls';
-import { SearchBar, Error } from '../../../../common/components';
+import { goTo } from '@history';
+import { FrontSiteRoutes } from '@routes/urls';
+import { SearchBar, Error } from '@components';
 import { DocumentPanel } from './DocumentPanel';
 import { Breadcrumbs, DocumentTags } from '../../components';
-import { ILSParagraphPlaceholder } from '../../../../common/components/ILSPlaceholder';
+import { ILSParagraphPlaceholder } from '@components/ILSPlaceholder';
 import { DocumentItems } from './DocumentItems';
-import { document as documentApi } from '../../../../common/api/documents/document';
+import { document as documentApi } from '@api/documents/document';
 
 export default class DocumentsDetails extends Component {
   constructor(props) {

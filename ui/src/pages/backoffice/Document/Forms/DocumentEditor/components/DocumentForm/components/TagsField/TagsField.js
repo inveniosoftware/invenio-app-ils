@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { VocabularyField } from '../../../../../../../../../forms';
+import { VocabularyField } from '@forms';
 
 export class TagsField extends Component {
   render() {

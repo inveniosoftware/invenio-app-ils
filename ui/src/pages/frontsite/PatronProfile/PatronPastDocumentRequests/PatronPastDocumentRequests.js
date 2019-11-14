@@ -7,12 +7,12 @@ import {
   Error,
   ResultsTable,
   Pagination,
-} from '../../../../common/components';
-import { dateFormatter } from '../../../../common/api/date';
-import { FrontSiteRoutes } from '../../../../routes/urls';
-import { invenioConfig } from '../../../../common/config';
+} from '@components';
+import { dateFormatter } from '@api/date';
+import { FrontSiteRoutes } from '@routes/urls';
+import { invenioConfig } from '@config';
 import { Header, Item } from 'semantic-ui-react';
-import { ILSItemPlaceholder } from '../../../../common/components/ILSPlaceholder/ILSPlaceholder';
+import { ILSItemPlaceholder } from '@components/ILSPlaceholder/ILSPlaceholder';
 import { NoResultsMessage } from '../../components/NoResultsMessage';
 
 export default class PatronPastDocumentRequests extends Component {

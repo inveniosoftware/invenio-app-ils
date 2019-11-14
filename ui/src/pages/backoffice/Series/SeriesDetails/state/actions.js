@@ -6,14 +6,14 @@ import {
   SUCCESS,
   HAS_ERROR,
 } from './types';
-import { ES_DELAY } from '../../../../../common/config';
-import { goTo } from '../../../../../history';
-import { series as seriesApi } from '../../../../../common/api';
-import { BackOfficeRoutes } from '../../../../../routes/urls';
+import { ES_DELAY } from '@config';
+import { goTo } from '@history';
+import { series as seriesApi } from '@api';
+import { BackOfficeRoutes } from '@routes/urls';
 import {
   sendErrorNotification,
   sendSuccessNotification,
-} from '../../../../../common/components/Notifications';
+} from '@components/Notifications';
 
 export const deleteSeries = seriesPid => {
   return async dispatch => {

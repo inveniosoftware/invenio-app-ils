@@ -6,14 +6,14 @@ import {
   IS_LOADING,
   SUCCESS,
 } from './types';
-import { documentRequest as documentRequestApi } from '../../../../common/api';
+import { documentRequest as documentRequestApi } from '@api';
 import {
   sendSuccessNotification,
   sendErrorNotification,
-} from '../../../../common/components/Notifications';
-import { goTo } from '../../../../history';
-import { BackOfficeRoutes } from '../../../../routes/urls';
-import { ES_DELAY } from '../../../../common/config';
+} from '@components/Notifications';
+import { goTo } from '@history';
+import { BackOfficeRoutes } from '@routes/urls';
+import { ES_DELAY } from '@config';
 
 export const fetchDocumentRequestDetails = documentRequestPid => {
   return async dispatch => {

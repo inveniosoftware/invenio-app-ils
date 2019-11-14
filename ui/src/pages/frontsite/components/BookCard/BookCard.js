@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Image, Label } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
-import { FrontSiteRoutes } from '../../../../routes/urls';
+import { FrontSiteRoutes } from '@routes/urls';
 import { getCover } from '../../config';
-import { goTo } from '../../../../history';
-import {DocumentAuthors} from "../../../../common/components/Document";
+import { goTo } from '@history';
+import { DocumentAuthors } from '@components/Document';
 
 export class BookCard extends Component {
   renderLabels = meta => {

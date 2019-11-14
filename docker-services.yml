@@ -26,7 +26,7 @@ services:
       - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
   react-ui:
     build:
-      context: ./invenio_app_ils/ui/
+      context: ./ui/
     image: invenio_app_ils-react-ui
   lb:
     build: ./docker/haproxy/

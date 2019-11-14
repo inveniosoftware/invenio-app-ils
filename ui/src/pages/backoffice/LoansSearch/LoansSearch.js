@@ -13,21 +13,21 @@ import {
   BucketAggregation,
   InvenioSearchApi,
 } from 'react-searchkit';
-import { getSearchConfig } from '../../../common/config';
+import { getSearchConfig } from '@config';
 import {
   Error as IlsError,
   SearchBar as LoansSearchBar,
   ResultsSort,
   ResultsTable,
-} from '../../../common/components';
-import { dateFormatter } from '../../../common/api/date';
+} from '@components';
+import { dateFormatter } from '@api/date';
 import {
   ExportReactSearchKitResults,
   OverdueLoanSendMailModal,
 } from '../components';
-import { loan as loanApi } from '../../../common/api/loans/loan';
-import { BackOfficeRoutes } from '../../../routes/urls';
-import history from '../../../history';
+import { loan as loanApi } from '@api/loans/loan';
+import { BackOfficeRoutes } from '@routes/urls';
+import history from '@history';
 
 export class LoansSearch extends Component {
   searchApi = new InvenioSearchApi({

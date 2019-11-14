@@ -12,20 +12,19 @@ import {
   Count,
   InvenioSearchApi,
 } from 'react-searchkit';
-import { getSearchConfig } from '../../../../common/config';
+import { getSearchConfig } from '@config';
 import {
   Error as IlsError,
   SearchBar as EItemsSearchBar,
   ResultsSort,
   ResultsTable,
-} from '../../../../common/components';
-import { eitem as eitemApi } from '../../../../common/api';
+} from '@components';
+import { eitem as eitemApi } from '@api';
 import { ExportReactSearchKitResults } from '../../components';
 import { NewButton } from '../../components/buttons';
-import { BackOfficeRoutes } from '../../../../routes/urls';
-import ClearButton
-  from "../../../../common/components/SearchControls/components/ClearButton/ClearButton";
-import history from '../../../../history';
+import { BackOfficeRoutes } from '@routes/urls';
+import ClearButton from '@components/SearchControls/components/ClearButton/ClearButton';
+import history from '@history';
 
 export class EItemSearch extends Component {
   searchApi = new InvenioSearchApi({

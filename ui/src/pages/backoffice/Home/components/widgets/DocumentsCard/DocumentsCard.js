@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error } from '../../../../../../common/components';
+import { Loader, Error } from '@components';
 import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
 import { NewButton, SeeAllButton } from '../../../../components/buttons';
-import { BackOfficeRoutes } from '../../../../../../routes/urls';
-import { document as documentApi } from '../../../../../../common/api';
+import { BackOfficeRoutes } from '@routes/urls';
+import { document as documentApi } from '@api';
 
 class DataCard extends Component {
   constructor(props) {

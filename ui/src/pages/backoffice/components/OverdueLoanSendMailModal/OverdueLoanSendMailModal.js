@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, Modal, Button, Icon } from 'semantic-ui-react';
-import { BackOfficeRoutes } from '../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 
 export default class OverdueLoanSendMailModal extends Component {
   state = { isModalOpen: false };

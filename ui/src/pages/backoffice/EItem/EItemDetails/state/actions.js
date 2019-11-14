@@ -6,14 +6,14 @@ import {
   SUCCESS,
   HAS_ERROR,
 } from './types';
-import { eitem as eitemApi } from '../../../../../common/api';
+import { eitem as eitemApi } from '@api';
 import {
   sendErrorNotification,
   sendSuccessNotification,
-} from '../../../../../common/components/Notifications';
-import { BackOfficeRoutes } from '../../../../../routes/urls';
-import { ES_DELAY } from '../../../../../common/config';
-import { goTo } from '../../../../../history';
+} from '@components/Notifications';
+import { BackOfficeRoutes } from '@routes/urls';
+import { ES_DELAY } from '@config';
+import { goTo } from '@history';
 
 export const deleteEItem = eitemPid => {
   return async dispatch => {

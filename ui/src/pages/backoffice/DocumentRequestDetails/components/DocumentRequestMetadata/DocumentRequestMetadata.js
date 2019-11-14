@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import { MetadataTable } from '../../../components/MetadataTable';
-import { BackOfficeRoutes } from '../../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 import { RequestActions } from '../RequestActions';
 import { DeleteRecordModal } from '../../../components/DeleteRecordModal';
 

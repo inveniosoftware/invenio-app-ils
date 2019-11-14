@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ResultsTable } from '../../../../../../../common/components';
+import { ResultsTable } from '@components';
 import { Button, Modal, Header, Icon } from 'semantic-ui-react';
-import { invenioConfig, ES_DELAY } from '../../../../../../../common/config';
+import { invenioConfig, ES_DELAY } from '@config';
 import isEmpty from 'lodash/isEmpty';
 
 export class ItemsResultsList extends Component {

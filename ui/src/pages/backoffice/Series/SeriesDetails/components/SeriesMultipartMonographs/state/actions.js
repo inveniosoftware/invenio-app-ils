@@ -1,6 +1,6 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { series as seriesApi } from '../../../../../../../common/api';
-import { sendErrorNotification } from '../../../../../../../common/components/Notifications';
+import { series as seriesApi } from '@api';
+import { sendErrorNotification } from '@components/Notifications';
 
 export const fetchSeriesMultipartMonographs = seriesPid => {
   return async dispatch => {

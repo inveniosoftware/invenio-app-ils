@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import ItemsSearch from '../ItemsSearch';
-import { fromISO } from '../../../../../../common/api/date';
+import { fromISO } from '@api/date';
 import { Settings } from 'luxon';
 
-jest.mock('../../../../../../common/config/invenioConfig');
+jest.mock('@config/invenioConfig');
 
 Settings.defaultZoneName = 'utc';
 
