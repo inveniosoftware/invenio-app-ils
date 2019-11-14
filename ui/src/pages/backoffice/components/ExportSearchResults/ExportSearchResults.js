@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Qs from 'qs';
-import {Button, Popup, Dropdown, Menu, Icon} from 'semantic-ui-react';
+import { Button, Popup, Dropdown, Menu, Icon } from 'semantic-ui-react';
 import {
   InvenioRequestSerializer,
   withState as withSearchState,
 } from 'react-searchkit';
-import { invenioConfig } from '../../../../common/config/invenioConfig';
+import { invenioConfig } from '@config/invenioConfig';
 
 /** Simple component rendering a small dialog to choose format of results to export. */
 class ExportDialog extends Component {
@@ -33,11 +33,12 @@ class ExportDialog extends Component {
   render() {
     return (
       <Popup
-        trigger={<Button primary icon size="small"
-                         labelPosition="left">
-          <Icon name="download" />
-          Export results to a file
-        </Button>}
+        trigger={
+          <Button primary icon size="small" labelPosition="left">
+            <Icon name="download" />
+            Export results to a file
+          </Button>
+        }
         flowing
         on="click"
         position="top right"

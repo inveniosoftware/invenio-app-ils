@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { IdentifiersField } from '../../../../../../../../forms';
-import { invenioConfig } from '../../../../../../../../common/config';
+import { IdentifiersField } from '@forms';
+import { invenioConfig } from '@config';
 
 export class AlternativeIdentifiers extends Component {
   render() {

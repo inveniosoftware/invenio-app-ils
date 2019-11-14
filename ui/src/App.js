@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
-import { FrontSite, BackOffice } from './routes/components';
-import { BackOfficeRoutes } from './routes/urls';
+import { FrontSite, BackOffice } from '@routes/components';
+import { BackOfficeRoutes } from '@routes/urls';
 import history from './history';
-import { NotFound } from './common/components';
+import { NotFound } from '@components';
 import { AuthenticationGuard, UnAuthorized } from './authentication/components';
 import PropTypes from 'prop-types';
 

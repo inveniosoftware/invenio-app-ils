@@ -7,8 +7,8 @@ import {
   DeleteActionButton,
   GroupField,
   VocabularyField,
-} from '../../../../../../../../forms';
-import { invenioConfig } from '../../../../../../../../common/config';
+} from '@forms';
+import { invenioConfig } from '@config';
 
 export class AlternativeTitles extends Component {
   renderFormField({ arrayPath, indexPath, ...arrayHelpers }) {

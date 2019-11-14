@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
-import { Loader, Error, ResultsTable } from '../../../../../common/components';
-import { item as itemApi } from '../../../../../common/api';
-import { invenioConfig } from '../../../../../common/config';
+import { Loader, Error, ResultsTable } from '@components';
+import { item as itemApi } from '@api';
+import { invenioConfig } from '@config';
 import { SeeAllButton } from '../../../components/buttons/SeeAllButton';
-import { BackOfficeRoutes } from '../../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 
 export default class AvailableItems extends Component {
   constructor(props) {

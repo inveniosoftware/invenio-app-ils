@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
-import { Loader, Error } from '../../../../../../common/components';
-import { ResultsTable } from '../../../../../../common/components';
-import { document as documentApi } from '../../../../../../common/api';
-import { BackOfficeRoutes } from '../../../../../../routes/urls';
+import { Loader, Error } from '@components';
+import { ResultsTable } from '@components';
+import { document as documentApi } from '@api';
+import { BackOfficeRoutes } from '@routes/urls';
 import { SeeAllButton } from '../../../../components/buttons';
 
 export default class PendingOverdueDocumentsList extends Component {

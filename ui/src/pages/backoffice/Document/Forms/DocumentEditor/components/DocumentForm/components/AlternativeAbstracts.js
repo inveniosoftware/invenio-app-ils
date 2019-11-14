@@ -5,7 +5,7 @@ import {
   TextField,
   GroupField,
   DeleteActionButton,
-} from '../../../../../../../../forms';
+} from '@forms';
 
 export class AlternativeAbstracts extends Component {
   renderFormField({ arrayPath, indexPath, ...arrayHelpers }) {

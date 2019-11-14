@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import App from '../App';
 import configureMockStore from 'redux-mock-store';
-import { initialState as notificationsInitialState } from '../common/components/Notifications/state/reducer';
+import { initialState as notificationsInitialState } from '../components/Notifications/state/reducer';
 
-jest.mock('../common/config/invenioConfig');
+jest.mock('@config/invenioConfig');
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

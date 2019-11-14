@@ -1,6 +1,6 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { patron } from '../../../../common/api';
-import { sendErrorNotification } from '../../../../common/components/Notifications';
+import { patron } from '@api';
+import { sendErrorNotification } from '@components/Notifications';
 
 export const fetchPatronDetails = patronPid => {
   return async dispatch => {

@@ -2,14 +2,14 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { SeriesRelationsTabPanel as SeriesRelations } from '../SeriesRelations';
 import { Settings } from 'luxon';
-import history from '../../../../../../../history';
-import { BackOfficeRoutes } from '../../../../../../../routes/urls';
+import history from '@history';
+import { BackOfficeRoutes } from '@routes/urls';
 import { Button } from 'semantic-ui-react';
 
 Settings.defaultZoneName = 'utc';
 jest.mock('react-router-dom');
-jest.mock('../../../../../../../common/config/invenioConfig');
-jest.mock('../../../../../../../common/components/ESSelector');
+jest.mock('@config/invenioConfig');
+jest.mock('@components/ESSelector');
 BackOfficeRoutes.documentDetailsFor = jest.fn(pid => `url/${pid}`);
 let mockViewDetails = jest.fn();
 

@@ -18,15 +18,14 @@ import {
   SearchBar as SeriesSearchBar,
   ResultsSort,
   ResultsTable,
-} from '../../../../common/components';
-import { series as seriesApi } from '../../../../common/api/series/series';
-import { getSearchConfig } from '../../../../common/config';
+} from '@components';
+import { series as seriesApi } from '@api/series/series';
+import { getSearchConfig } from '@config';
 import { ExportReactSearchKitResults } from '../../components';
 import { NewButton } from '../../components/buttons';
-import { BackOfficeRoutes } from '../../../../routes/urls';
-import ClearButton
-  from "../../../../common/components/SearchControls/components/ClearButton/ClearButton";
-import history from '../../../../history';
+import { BackOfficeRoutes } from '@routes/urls';
+import ClearButton from '@components/SearchControls/components/ClearButton/ClearButton';
+import history from '@history';
 
 export class SeriesSearch extends Component {
   searchApi = new InvenioSearchApi({

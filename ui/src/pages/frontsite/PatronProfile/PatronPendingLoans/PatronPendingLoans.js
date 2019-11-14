@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Error, Pagination } from '../../../../common/components';
-import { invenioConfig } from '../../../../common/config';
+import { Loader, Error, Pagination } from '@components';
+import { invenioConfig } from '@config';
 import {
   Container,
   Grid,
@@ -14,10 +14,10 @@ import {
 import isEmpty from 'lodash/isEmpty';
 import { getCover } from '../../config';
 import { Link } from 'react-router-dom';
-import { FrontSiteRoutes } from '../../../../routes/urls';
-import { DocumentAuthors } from '../../../../common/components/Document';
-import { toShortDate } from '../../../../common/api/date';
-import { ILSItemPlaceholder } from '../../../../common/components/ILSPlaceholder/ILSPlaceholder';
+import { FrontSiteRoutes } from '@routes/urls';
+import { DocumentAuthors } from '@components/Document';
+import { toShortDate } from '@api/date';
+import { ILSItemPlaceholder } from '@components/ILSPlaceholder/ILSPlaceholder';
 import { NoResultsMessage } from '../../components/NoResultsMessage';
 
 class LoanRequestListEntry extends Component {

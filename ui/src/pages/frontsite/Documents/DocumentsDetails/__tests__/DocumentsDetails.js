@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import * as testData from '../../../../../../../tests/data/documents.json';
+import * as testData from '@testData/documents.json';
 
 import DocumentsDetails from '../DocumentsDetails';
 import { BrowserRouter } from 'react-router-dom';

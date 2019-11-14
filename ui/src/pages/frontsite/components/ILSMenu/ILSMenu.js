@@ -4,9 +4,9 @@ import { Container, Menu, Dropdown, Responsive } from 'semantic-ui-react';
 import {
   authenticationService,
   sessionManager,
-} from '../../../../authentication/services';
-import { FrontSiteRoutes, BackOfficeRoutes } from '../../../../routes/urls';
-import { LoginButton } from '../../../../common/components';
+} from '@authentication/services';
+import { FrontSiteRoutes, BackOfficeRoutes } from '@routes/urls';
+import { LoginButton } from '@components';
 
 export default class ILSMenu extends Component {
   renderRightDropDown = userMenuText => {

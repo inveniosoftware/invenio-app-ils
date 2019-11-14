@@ -1,9 +1,9 @@
 import { HAS_ERROR, IS_LOADING, SUCCESS } from './types';
-import { loan as loanApi } from '../../../../../../common/api';
+import { loan as loanApi } from '@api';
 import {
   sendErrorNotification,
   sendSuccessNotification,
-} from '../../../../../../common/components/Notifications';
+} from '@components/Notifications';
 
 export const checkoutItem = (
   documentPid,

@@ -4,8 +4,8 @@ import isEmpty from 'lodash/isEmpty';
 import SectionServices from './SectionServices';
 import { Container } from 'semantic-ui-react';
 import SectionTags from './SectionTags';
-import { document as documentApi } from '../../../../common/api';
-import { FrontSiteRoutes } from '../../../../routes/urls';
+import { document as documentApi } from '@api';
+import { FrontSiteRoutes } from '@routes/urls';
 import { BookGroup } from '../BookGroup';
 
 export default class SectionsWrapper extends Component {

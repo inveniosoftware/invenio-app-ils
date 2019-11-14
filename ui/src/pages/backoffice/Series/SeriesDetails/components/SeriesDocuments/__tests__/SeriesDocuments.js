@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { BackOfficeRoutes } from '../../../../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 import SeriesDocuments from '../SeriesDocuments';
 import { Settings } from 'luxon';
-import { fromISO } from '../../../../../../../common/api/date';
+import { fromISO } from '@api/date';
 import * as testData from '../../../../../../../../../tests/data/documents';
 import { Button } from 'semantic-ui-react';
 

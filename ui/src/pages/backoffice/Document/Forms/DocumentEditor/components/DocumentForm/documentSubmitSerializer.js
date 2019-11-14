@@ -1,4 +1,4 @@
-import { sessionManager } from '../../../../../../../authentication/services';
+import { sessionManager } from '@authentication/services';
 
 const changedObject = () => ({
   by: {

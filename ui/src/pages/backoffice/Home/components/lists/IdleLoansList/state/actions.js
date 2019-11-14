@@ -1,9 +1,9 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { invenioConfig } from '../../../../../../../common/config';
-import { loan as loanApi } from '../../../../../../../common/api';
+import { invenioConfig } from '@config';
+import { loan as loanApi } from '@api';
 import { DateTime } from 'luxon';
-import { toShortDate } from '../../../../../../../common/api/date';
-import { sendErrorNotification } from '../../../../../../../common/components/Notifications';
+import { toShortDate } from '@api/date';
+import { sendErrorNotification } from '@components/Notifications';
 
 export const fetchIdlePendingLoans = () => {
   return async dispatch => {

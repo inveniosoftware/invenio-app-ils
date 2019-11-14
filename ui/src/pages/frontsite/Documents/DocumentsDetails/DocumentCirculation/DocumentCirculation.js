@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import {Divider, Header, List, Popup, Segment} from 'semantic-ui-react';
+import { Divider, Header, List, Popup, Segment } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { LoginRedirectButton } from '../../../../../authentication/components';
+import { LoginRedirectButton } from '@authentication/components';
 import { LoanRequestForm } from '../LoanRequestForm';
-import { AuthenticationGuard } from '../../../../../authentication/components/AuthenticationGuard';
-import { ILSImagePlaceholder } from '../../../../../common/components/ILSPlaceholder';
+import { AuthenticationGuard } from '@authentication/components/AuthenticationGuard';
+import { ILSImagePlaceholder } from '@components/ILSPlaceholder';
 
 class DocumentEItems extends Component {
   render() {
@@ -37,8 +37,10 @@ class BookAvailability extends Component {
     if (circulationData.has_items_for_loan > 0) {
       return (
         <List.Item>
-          <Popup content="Calculated based on current library stock"
-                 trigger={<List.Icon name={'info'} />}/>
+          <Popup
+            content="Calculated based on current library stock"
+            trigger={<List.Icon name={'info'} />}
+          />
           <List.Content
             className={
               circulationData.has_items_for_loan > 0
@@ -55,8 +57,7 @@ class BookAvailability extends Component {
         <List.Item>
           <List.Icon name={'info'} />
           <List.Content>
-            Available for loan from{' '}
-            <b>{circulationData.next_available_date}</b>
+            Available for loan from <b>{circulationData.next_available_date}</b>
           </List.Content>
         </List.Item>
       );

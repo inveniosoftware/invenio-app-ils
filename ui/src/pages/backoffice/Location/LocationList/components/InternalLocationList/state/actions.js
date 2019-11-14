@@ -1,4 +1,4 @@
-import { ES_DELAY } from '../../../../../../../common/config';
+import { ES_DELAY } from '@config';
 import {
   IS_LOADING,
   SUCCESS,
@@ -7,11 +7,11 @@ import {
   DELETE_SUCCESS,
   DELETE_HAS_ERROR,
 } from './types';
-import { internalLocation as internalLocationApi } from '../../../../../../../common/api';
+import { internalLocation as internalLocationApi } from '@api';
 import {
   sendErrorNotification,
   sendSuccessNotification,
-} from '../../../../../../../common/components/Notifications';
+} from '@components/Notifications';
 
 export const fetchInternalLocations = () => {
   return async dispatch => {

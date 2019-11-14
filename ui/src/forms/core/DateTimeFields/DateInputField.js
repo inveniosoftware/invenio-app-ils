@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CalendarInputField } from './CalendarInputField';
-import { DatePicker } from '../../../common/components/DatePicker/DatePicker';
+import { DatePicker } from '@components/DatePicker/DatePicker';
 
 export class DateInputField extends React.Component {
   renderFormField = props => {

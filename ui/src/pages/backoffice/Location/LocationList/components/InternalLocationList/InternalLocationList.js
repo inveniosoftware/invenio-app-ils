@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { item as itemApi } from '../../../../../../common/api';
+import { item as itemApi } from '@api';
 import {
   Error,
   Loader,
   ResultsTable,
-} from '../../../../../../common/components';
+} from '@components';
 import { Button } from 'semantic-ui-react';
 import { NewButton } from '../../../../components/buttons';
 import { DeleteRecordModal } from '../../../../../backoffice/components';
-import { BackOfficeRoutes } from '../../../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 
 export default class InternalLocationList extends Component {
   constructor(props) {

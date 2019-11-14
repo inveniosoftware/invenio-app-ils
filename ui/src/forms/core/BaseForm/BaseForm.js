@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Formik, getIn } from 'formik';
 import isEmpty from 'lodash/isEmpty';
 import { Form, Button, Grid, Header, Container } from 'semantic-ui-react';
-import { ES_DELAY } from '../../../common/config';
+import { ES_DELAY } from '@config';
 import { ErrorMessage } from '../ErrorMessage';
 
 export class BaseForm extends Component {

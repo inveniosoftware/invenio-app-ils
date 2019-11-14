@@ -2,21 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { FrontSiteRoutes } from '../../urls';
-import {
-  Footer,
-  ILSMenu,
-  Home,
-  PatronProfile,
-} from '../../../pages/frontsite';
+import { Footer, ILSMenu, Home, PatronProfile } from '@pages/frontsite';
 import { Container } from 'semantic-ui-react';
-import { Notifications } from '../../../common/components/Notifications';
+import { Notifications } from '@components/Notifications';
 
 import {
   DocumentsDetailsContainer,
   DocumentsSearch,
-} from '../../../pages/frontsite/Documents';
+} from '@pages/frontsite/Documents';
 
-import { DocumentRequestForm } from '../../../pages/frontsite/DocumentRequests';
+import { DocumentRequestForm } from '@pages/frontsite/DocumentRequests';
 
 export class FrontSite extends Component {
   render() {

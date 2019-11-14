@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Divider, Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import {DocumentAuthors} from "../../../../common/components/Document";
+import { DocumentAuthors } from '@components/Document';
 
 export class DocumentInfo extends Component {
   constructor(props) {

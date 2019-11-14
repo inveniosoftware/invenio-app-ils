@@ -7,8 +7,8 @@ import {
   IdentifiersField,
   StringField,
   VocabularyField,
-} from '../../../../../../../../../forms';
-import { invenioConfig } from '../../../../../../../../../common/config';
+} from '@forms';
+import { invenioConfig } from '@config';
 
 export class AuthorForm extends React.Component {
   constructor(props) {

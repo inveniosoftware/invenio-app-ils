@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Loader, Error } from '../../../../../common/components';
+import { Loader, Error } from '@components';
 import { ItemForm } from './components';
 import get from 'lodash/get';
 

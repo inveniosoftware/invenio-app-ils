@@ -1,6 +1,6 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { document as documentApi } from '../../../../../../../common/api';
-import { sendErrorNotification } from '../../../../../../../common/components/Notifications';
+import { document as documentApi } from '@api';
+import { sendErrorNotification } from '@components/Notifications';
 
 export const fetchSeriesDocuments = (seriesPid, moi) => {
   return async dispatch => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Message } from 'semantic-ui-react';
-import { Error, Loader } from '../../../../../common/components';
+import { Error, Loader } from '@components';
 
 export default class ItemsCheckout extends Component {
   constructor(props) {

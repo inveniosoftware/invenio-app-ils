@@ -6,7 +6,7 @@ import {
   DeleteActionButton,
   GroupField,
   DateInputField,
-} from '../../../../../../../../forms';
+} from '@forms';
 
 export class Imprints extends Component {
   renderFormField({ arrayPath, indexPath, ...arrayHelpers }) {

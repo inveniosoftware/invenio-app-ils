@@ -5,7 +5,7 @@ import {
   StringField,
   DeleteActionButton,
   GroupField,
-} from '../../../../../../../../forms';
+} from '@forms';
 
 export class TableOfContent extends Component {
   renderFormField({ arrayPath, indexPath, ...arrayHelpers }) {

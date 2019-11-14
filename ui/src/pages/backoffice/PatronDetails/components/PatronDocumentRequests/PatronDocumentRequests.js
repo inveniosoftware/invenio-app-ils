@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { Loader, Error, ResultsTable } from '../../../../../common/components';
-import { documentRequest as documentRequestApi } from '../../../../../common/api/';
-import { BackOfficeRoutes } from '../../../../../routes/urls';
-import { dateFormatter } from '../../../../../common/api/date';
+import { Loader, Error, ResultsTable } from '@components';
+import { documentRequest as documentRequestApi } from '@api/';
+import { BackOfficeRoutes } from '@routes/urls';
+import { dateFormatter } from '@api/date';
 import { SeeAllButton } from '../../../components/buttons';
 
 export default class PatronDocumentRequests extends Component {

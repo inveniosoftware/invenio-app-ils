@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { BackOfficeRoutes } from '../../../../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 import OverbookedDocumentsList from '../OverbookedDocumentsList';
-import history from '../../../../../../../history';
-import testData from '../../../../../../../../../tests/data/documents.json';
+import history from '@history';
+import testData from '@testData/documents.json';
 import { Button } from 'semantic-ui-react';
 
 jest.mock('react-router-dom');

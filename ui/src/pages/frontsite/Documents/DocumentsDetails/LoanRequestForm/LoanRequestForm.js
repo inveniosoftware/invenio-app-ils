@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Button, Checkbox, Form } from 'semantic-ui-react';
-import { Error } from '../../../../../common/components/Error';
-import { DatePicker } from '../../../../../common/components';
+import { Error } from '@components/Error';
+import { DatePicker } from '@components';
 import PropTypes from 'prop-types';
-import { invenioConfig } from '../../../../../common/config';
+import { invenioConfig } from '@config';
 import { DateTime } from 'luxon';
-import { toShortDate } from '../../../../../common/api/date';
+import { toShortDate } from '@api/date';
 import isEmpty from 'lodash/isEmpty';
 
 export default class LoanRequestForm extends Component {

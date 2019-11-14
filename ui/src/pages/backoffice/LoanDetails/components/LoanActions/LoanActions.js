@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List, Button } from 'semantic-ui-react';
 import { omit } from 'lodash/object';
-import { CancelModal } from '../../../../../common/components/CancelModal';
+import { CancelModal } from '@components/CancelModal';
 
 export default class LoanActions extends Component {
   constructor(props) {

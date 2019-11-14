@@ -5,13 +5,13 @@ import {
   SelectorField,
   StringField,
   TextField,
-} from '../../../../../../../forms';
-import { internalLocation as internalLocationApi } from '../../../../../../../common/api/locations/internalLocation';
-import { BackOfficeRoutes } from '../../../../../../../routes/urls';
-import { goTo } from '../../../../../../../history';
-import { BaseForm } from '../../../../../../../forms';
-import { location as locationApi } from '../../../../../../../common/api';
-import { serializeLocation } from '../../../../../../../common/components/ESSelector/serializer';
+} from '@forms';
+import { internalLocation as internalLocationApi } from '@api/locations/internalLocation';
+import { BackOfficeRoutes } from '@routes/urls';
+import { goTo } from '@history';
+import { BaseForm } from '@forms';
+import { location as locationApi } from '@api';
+import { serializeLocation } from '@components/ESSelector/serializer';
 
 export class InternalLocationForm extends Component {
   constructor(props) {

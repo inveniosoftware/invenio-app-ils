@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { BackOfficeRoutes } from '../../../../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 import { SeriesMultipartMonographsData as SeriesMultipartMonographs } from '../SeriesMultipartMonographs';
 import { Settings } from 'luxon';
-import { fromISO } from '../../../../../../../common/api/date';
+import { fromISO } from '@api/date';
 import { Button } from 'semantic-ui-react';
 
 jest.mock('react-router-dom');

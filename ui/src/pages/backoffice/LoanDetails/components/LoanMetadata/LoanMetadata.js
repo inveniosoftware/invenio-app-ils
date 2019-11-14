@@ -1,4 +1,4 @@
-import { invenioConfig } from '../../../../../common/config';
+import { invenioConfig } from '@config';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -14,7 +14,7 @@ import { LoanActions } from '../LoanActions';
 import { AvailableItems } from '../AvailableItems';
 import { MetadataTable } from '../../../components/MetadataTable';
 import isEmpty from 'lodash/isEmpty';
-import { toShortDateTime } from '../../../../../common/api/date';
+import { toShortDateTime } from '@api/date';
 import { OverdueLoanSendMailModal } from '../../../components';
 
 export default class LoanMetadata extends Component {

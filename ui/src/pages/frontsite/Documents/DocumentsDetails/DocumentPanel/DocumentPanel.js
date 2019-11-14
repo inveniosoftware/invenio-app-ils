@@ -6,14 +6,14 @@ import { DocumentCirculation } from '../DocumentCirculation';
 import {
   ILSHeaderPlaceholder,
   ILSParagraphPlaceholder,
-} from '../../../../../common/components/ILSPlaceholder';
+} from '@components/ILSPlaceholder';
 import {
   DocumentAbstract,
   DocumentCover,
   DocumentTitle,
 } from '../../../components/Document';
 import { DocumentPanelMobile } from './index';
-import {DocumentAuthors} from "../../../../../common/components/Document";
+import { DocumentAuthors } from '@components/Document';
 
 export default class DocumentPanel extends Component {
   constructor(props) {

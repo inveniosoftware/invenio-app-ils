@@ -7,32 +7,32 @@ import {
   patronDocumentRequestsReducer,
   patronPastLoansReducer,
   patronPendingLoansReducer,
-} from './common/state';
-import { availableItemsReducer } from './pages/backoffice/LoanDetails/reducer';
+} from './state';
+import { availableItemsReducer } from '@pages/backoffice/LoanDetails/reducer';
 import {
   documentDetailsReducer,
   documentStatsReducer,
   documentPendingLoans,
   documentItems,
   documentRelations,
-} from './pages/backoffice/DocumentDetails/reducer';
-import { deleteRecordModalReducer } from './pages/backoffice/components/DeleteRecordModal/reducer';
-import { overdueLoanSendMailModalReducer } from './pages/backoffice/components/OverdueLoanSendMailModal/reducer';
-import { eitemDetailsReducer } from './pages/backoffice/EItem/EItemDetails/reducer';
+} from '@pages/backoffice/DocumentDetails/reducer';
+import { deleteRecordModalReducer } from '@pages/backoffice/components/DeleteRecordModal/reducer';
+import { overdueLoanSendMailModalReducer } from '@pages/backoffice/components/OverdueLoanSendMailModal/reducer';
+import { eitemDetailsReducer } from '@pages/backoffice/EItem/EItemDetails/reducer';
 import {
   itemDetailsReducer,
   itemPastLoansReducer,
-} from './pages/backoffice/ItemDetails/reducer';
-import { loanDetailsReducer } from './pages/backoffice/LoanDetails/reducer';
+} from '@pages/backoffice/ItemDetails/reducer';
+import { loanDetailsReducer } from '@pages/backoffice/LoanDetails/reducer';
 import {
   itemsSearchByBarcodeReducer,
   patronDetailsReducer,
   patronItemCheckoutReducer,
-} from './pages/backoffice/PatronDetails/reducer';
+} from '@pages/backoffice/PatronDetails/reducer';
 import {
   locationListReducer,
   internalLocationListReducer,
-} from './pages/backoffice/Location/LocationList/reducer';
+} from '@pages/backoffice/Location/LocationList/reducer';
 import {
   loansCardReducer,
   documentsCardReducer,
@@ -41,24 +41,24 @@ import {
   pendingOverdueDocumentsReducer,
   idleLoansReducer,
   renewedLoansReducer,
-} from './pages/backoffice/Home/reducer';
-import { mostLoanedDocumentsReducer } from './pages/backoffice/Stats/reducer';
-import { notificationsReducer } from './common/components/Notifications/reducer';
+} from '@pages/backoffice/Home/reducer';
+import { mostLoanedDocumentsReducer } from '@pages/backoffice/Stats/reducer';
+import { notificationsReducer } from './components/Notifications/reducer';
 import {
   seriesDetailsReducer,
   seriesDocumentsReducer,
   seriesMultipartMonographsReducer,
   seriesRelationsReducer,
-} from './pages/backoffice/Series/SeriesDetails/reducer';
+} from '@pages/backoffice/Series/SeriesDetails/reducer';
 import {
   documentDetailsFrontReducer,
   loanRequestFormReducer,
-} from './pages/frontsite/Documents/DocumentsDetails/reducer';
-import { documentRequestDetailsReducer } from './pages/backoffice/DocumentRequestDetails/reducer';
+} from '@pages/frontsite/Documents/DocumentsDetails/reducer';
+import { documentRequestDetailsReducer } from '@pages/backoffice/DocumentRequestDetails/reducer';
 import {
   patronCurrentDocumentRequestsReducer,
-  patronPastDocumentRequestsReducer
-} from "./pages/frontsite/PatronProfile/reducer";
+  patronPastDocumentRequestsReducer,
+} from '@pages/frontsite/PatronProfile/reducer';
 
 const rootReducer = combineReducers({
   availableItems: availableItemsReducer,

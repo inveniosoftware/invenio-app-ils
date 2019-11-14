@@ -3,7 +3,7 @@ import {
   AccordionField,
   StringField,
   GroupField,
-} from '../../../../../../../../forms';
+} from '@forms';
 
 export class Keywords extends Component {
   render() {

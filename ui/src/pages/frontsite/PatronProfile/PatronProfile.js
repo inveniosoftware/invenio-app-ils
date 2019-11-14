@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Icon, Tab, Menu } from 'semantic-ui-react';
-import { sessionManager } from '../../../authentication/services';
+import { sessionManager } from '@authentication/services';
 import { PatronMetadata } from './PatronMetadata';
 import { PatronCurrentLoans } from './PatronCurrentLoans';
 import { PatronPendingLoans } from './PatronPendingLoans';
@@ -8,9 +8,9 @@ import { PatronPastLoans } from './PatronPastLoans';
 import { PatronCurrentDocumentRequests } from './PatronCurrentDocumentRequests';
 import { PatronOverview } from './PatronOverview';
 import { PatronPastDocumentRequests } from './PatronPastDocumentRequests';
-import { BackOfficeRoutes } from '../../../routes/urls';
-import { UnAuthorized } from '../../../authentication/components/UnAuthorized';
-import { AuthenticationGuard } from '../../../authentication/components/AuthenticationGuard';
+import { BackOfficeRoutes } from '@routes/urls';
+import { UnAuthorized } from '@authentication/components/UnAuthorized';
+import { AuthenticationGuard } from '@authentication/components/AuthenticationGuard';
 
 export default class PatronProfile extends Component {
   renderHistory = () => {

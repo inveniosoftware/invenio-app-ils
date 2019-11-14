@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   sessionManager,
   authenticationService,
-} from '../../../authentication/services';
+} from '@authentication/services';
 
 export class AuthenticationGuard extends Component {
   render() {

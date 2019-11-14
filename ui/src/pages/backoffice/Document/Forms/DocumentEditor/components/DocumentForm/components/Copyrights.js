@@ -6,7 +6,7 @@ import {
   DeleteActionButton,
   GroupField,
   YearInputField,
-} from '../../../../../../../../forms';
+} from '@forms';
 
 export class Copyrights extends Component {
   renderFormField({ arrayPath, indexPath, ...arrayHelpers }) {

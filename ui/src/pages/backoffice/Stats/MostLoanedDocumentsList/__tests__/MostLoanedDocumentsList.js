@@ -2,14 +2,14 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Settings } from 'luxon';
 import MostLoanedDocumentsList from '../MostLoanedDocumentsList';
-import { fromISO } from '../../../../../common/api/date';
-import history from '../../../../../history';
-import { BackOfficeRoutes } from '../../../../../routes/urls';
+import { fromISO } from '@api/date';
+import history from '@history';
+import { BackOfficeRoutes } from '@routes/urls';
 import { MemoryRouter } from 'react-router';
-import * as testData from '../../../../../../../tests/data/documents.json';
+import * as testData from '@testData/documents.json';
 
 jest.mock('../../../components/ExportSearchResults');
-jest.mock('../../../../../common/config/invenioConfig');
+jest.mock('@config/invenioConfig');
 
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');

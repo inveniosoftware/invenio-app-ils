@@ -5,9 +5,9 @@ import {
   QUERY_STRING_UPDATE,
   CLEAR_SEARCH,
 } from './types';
-import { item as itemApi } from '../../../../../../common/api';
-import { fetchPatronCurrentLoans } from '../../../../../../common/state/PatronCurrentLoans/actions';
-import { sendErrorNotification } from '../../../../../../common/components/Notifications';
+import { item as itemApi } from '@api';
+import { fetchPatronCurrentLoans } from '@state/PatronCurrentLoans/actions';
+import { sendErrorNotification } from '@components/Notifications';
 
 export const fetchItems = barcode => {
   return async dispatch => {

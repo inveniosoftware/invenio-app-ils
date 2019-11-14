@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Settings } from 'luxon';
-import { fromISO } from '../../../../../../common/api/date';
-import { BackOfficeRoutes } from '../../../../../../routes/urls';
+import { fromISO } from '@api/date';
+import { BackOfficeRoutes } from '@routes/urls';
 import PatronDocumentRequests from '../PatronDocumentRequests';
 import { Button } from 'semantic-ui-react';
 

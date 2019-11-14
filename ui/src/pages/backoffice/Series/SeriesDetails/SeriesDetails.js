@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
-import { Loader, Error } from '../../../../common/components';
+import { Loader, Error } from '@components';
 import {
   SeriesDocuments,
   SeriesMetadata,
   SeriesMultipartMonographs,
   SeriesRelations,
 } from './components';
-import history from '../../../../history';
+import history from '@history';
 
 export default class SeriesDetails extends Component {
   componentDidMount() {

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchPatronCurrentLoans } from '../../../../common/state/PatronCurrentLoans/actions';
+import { fetchPatronCurrentLoans } from '@state/PatronCurrentLoans/actions';
 import PatronCurrentLoansComponent from './PatronCurrentLoans';
 
 const mapStateToProps = state => ({

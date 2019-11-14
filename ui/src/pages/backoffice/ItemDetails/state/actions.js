@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ES_DELAY } from '../../../../common/config';
+import { ES_DELAY } from '@config';
 import {
   IS_LOADING,
   SUCCESS,
@@ -9,13 +9,13 @@ import {
   DELETE_SUCCESS,
   DELETE_HAS_ERROR,
 } from './types';
-import { item as itemApi, loan as loanApi } from '../../../../common/api';
-import { BackOfficeRoutes } from '../../../../routes/urls';
+import { item as itemApi, loan as loanApi } from '@api';
+import { BackOfficeRoutes } from '@routes/urls';
 import {
   sendErrorNotification,
   sendSuccessNotification,
-} from '../../../../common/components/Notifications';
-import { goTo } from '../../../../history';
+} from '@components/Notifications';
+import { goTo } from '@history';
 
 export const fetchItemDetails = itemPid => {
   return async dispatch => {

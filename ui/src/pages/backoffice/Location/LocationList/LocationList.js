@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
-import { internalLocation as internalLocationApi } from '../../../../common/api';
+import { internalLocation as internalLocationApi } from '@api';
 import { InternalLocationList } from './components';
-import { Error, Loader, ResultsTable } from '../../../../common/components';
+import { Error, Loader, ResultsTable } from '@components';
 import { DeleteRecordModal } from '../../../backoffice/components';
 import { Button } from 'semantic-ui-react';
 import { NewButton } from '../../components/buttons';
-import { BackOfficeRoutes } from '../../../../routes/urls';
-import { goTo } from '../../../../history';
+import { BackOfficeRoutes } from '@routes/urls';
+import { goTo } from '@history';
 
 export default class LocationList extends Component {
   constructor(props) {

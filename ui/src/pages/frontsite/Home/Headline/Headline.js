@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Container, Divider, Grid, Header } from 'semantic-ui-react';
 import { HomeSearchBar } from '../HomeSearchBar';
-import { FrontSiteRoutes } from '../../../../routes/urls';
+import { FrontSiteRoutes } from '@routes/urls';
 import { Link } from 'react-router-dom';
 
 export default class Headline extends Component {

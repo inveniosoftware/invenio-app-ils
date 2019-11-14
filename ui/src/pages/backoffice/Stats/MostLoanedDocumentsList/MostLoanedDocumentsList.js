@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Qs from 'qs';
 import { Grid, List, Header } from 'semantic-ui-react';
-import { DatePicker, Loader, Error } from '../../../../common/components';
-import { BackOfficeRoutes } from '../../../../routes/urls';
-import { stats as statsApi, loan as loanApi } from '../../../../common/api';
+import { DatePicker, Loader, Error } from '@components';
+import { BackOfficeRoutes } from '@routes/urls';
+import { stats as statsApi, loan as loanApi } from '@api';
 import { DocumentList, ExportSearchResults } from '../../components';
-import { invenioConfig } from '../../../../common/config/invenioConfig';
+import { invenioConfig } from '@config/invenioConfig';
 import { DocumentListEntry, DocumentStats} from '../../components/DocumentList';
 
 export default class MostLoanedDocumentsList extends Component {

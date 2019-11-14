@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { Settings } from 'luxon';
 import LoansCard from '../LoansCard';
 
-jest.mock('../../../../../../../common/config/invenioConfig');
+jest.mock('@config/invenioConfig');
 jest.mock('react-router-dom');
 
 Settings.defaultZoneName = 'utc';

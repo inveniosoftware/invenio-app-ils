@@ -1,9 +1,9 @@
-import * as testData from '../../../../../../../../tests/data/documents.json';
+import * as testData from '@testData/documents.json';
 import React from 'react';
 import { shallow } from 'enzyme';
 import DocumentMetadata from '../DocumentMetadata';
 
-jest.mock('../../../../../../common/config/invenioConfig');
+jest.mock('@config/invenioConfig');
 
 jest.mock('../../DocumentMetadata', () => {
   return {
@@ -17,7 +17,7 @@ jest.mock('../../../../components/DeleteRecordModal', () => {
   };
 });
 
-jest.mock('../../../../../../common/components/ESSelector', () => {
+jest.mock('@components/ESSelector', () => {
   return {
     ESSelector: () => null,
   };

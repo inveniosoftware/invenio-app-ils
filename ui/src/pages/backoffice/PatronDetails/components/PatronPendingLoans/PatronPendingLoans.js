@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { Loader, Error, ResultsTable } from '../../../../../common/components';
-import { loan as loanApi } from '../../../../../common/api';
-import { invenioConfig } from '../../../../../common/config';
-import { BackOfficeRoutes } from '../../../../../routes/urls';
+import { Loader, Error, ResultsTable } from '@components';
+import { loan as loanApi } from '@api';
+import { invenioConfig } from '@config';
+import { BackOfficeRoutes } from '@routes/urls';
 import { SeeAllButton } from '../../../components/buttons';
 
 export default class PatronPendingLoans extends Component {

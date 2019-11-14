@@ -25,7 +25,7 @@ import {
   SeriesDetails,
   SeriesSearch,
   Stats,
-} from '../../../pages/backoffice';
+} from '@pages/backoffice';
 
 export default class extends Component {
   render() {

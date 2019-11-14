@@ -923,7 +923,7 @@ def setup(recreate_db, skip_demo_data, skip_patrons, skip_vocabularies,
 
     if not skip_vocabularies:
         vocabularies_dir = os.path.join(
-            ".", "invenio_app_ils", "vocabularies", "data")
+            os.path.realpath("."), "invenio_app_ils", "vocabularies", "data")
         json_files = " ".join(
             os.path.join(vocabularies_dir, name)
             for name in os.listdir(vocabularies_dir)

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { DocumentTags as DocumentTagsComponent } from '../../../../common/components/Document';
+import { DocumentTags as DocumentTagsComponent } from '@components/Document';
 import { DocumentRelations as DocumentRelationsComponent } from './DocumentRelations';
 import { DocumentInfo as DocumentInfoComponent } from './DocumentInfo';
 import { DocumentCover as DocumentCoverComponent } from './DocumentCover';

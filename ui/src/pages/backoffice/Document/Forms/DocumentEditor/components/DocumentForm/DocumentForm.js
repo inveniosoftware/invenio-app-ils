@@ -8,11 +8,11 @@ import {
   BooleanField,
   GroupField,
   VocabularyField,
-} from '../../../../../../../forms';
-import { document as documentApi } from '../../../../../../../common/api/documents/document';
-import { BackOfficeRoutes } from '../../../../../../../routes/urls';
-import { goTo } from '../../../../../../../history';
-import { UrlsField } from '../../../../../../../forms';
+} from '@forms';
+import { document as documentApi } from '@api/documents/document';
+import { BackOfficeRoutes } from '@routes/urls';
+import { goTo } from '@history';
+import { UrlsField } from '@forms';
 import {
   AlternativeAbstracts,
   AuthorsField,
@@ -31,7 +31,7 @@ import { InternalNotes } from './components/InternalNotes';
 import { ConferenceInfoField } from './components/ConferenceInfoField';
 import { Imprints } from './components/Imprints';
 import { Keywords } from './components/Keywords';
-import { invenioConfig } from '../../../../../../../common/config';
+import { invenioConfig } from '@config';
 
 export class DocumentForm extends Component {
   get buttons() {

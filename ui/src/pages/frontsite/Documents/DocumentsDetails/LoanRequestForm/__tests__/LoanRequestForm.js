@@ -1,10 +1,10 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import LoanRequestForm from '../LoanRequestForm';
-import * as testData from '../../../../../../../../tests/data/documents.json';
+import * as testData from '@testData/documents.json';
 import { DateTime } from 'luxon';
 
-jest.mock('../../../../../../common/config/invenioConfig');
+jest.mock('@config/invenioConfig');
 
 describe('DocumentMetadata tests', () => {
   let component;

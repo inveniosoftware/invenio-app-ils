@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 import { mount } from 'enzyme';
-import { ResultsTable } from '../../../../common/components';
+import { ResultsTable } from '@components';
 
 jest.mock('../../components');
 

@@ -6,13 +6,13 @@ import {
   Loader,
   Error,
   ResultsTable,
-} from '../../../../../../common/components';
-import { invenioConfig } from '../../../../../../common/config';
-import { loan as loanApi } from '../../../../../../common/api';
-import { BackOfficeRoutes } from '../../../../../../routes/urls';
+} from '@components';
+import { invenioConfig } from '@config';
+import { loan as loanApi } from '@api';
+import { BackOfficeRoutes } from '@routes/urls';
 import { DateTime } from 'luxon';
 import { SeeAllButton } from '../../../../components/buttons';
-import { dateFormatter, toShortDate } from '../../../../../../common/api/date';
+import { dateFormatter, toShortDate } from '@api/date';
 
 export default class IdleLoansList extends Component {
   componentDidMount() {

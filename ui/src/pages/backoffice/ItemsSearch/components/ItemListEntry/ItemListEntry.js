@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Item, List } from 'semantic-ui-react';
-import { BackOfficeRoutes } from '../../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 
 export class ItemListEntry extends Component {
   render() {

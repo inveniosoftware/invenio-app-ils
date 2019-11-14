@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Card, Divider, Header, Icon } from 'semantic-ui-react';
-import { Loader, Error } from '../../../../common/components';
+import { Loader, Error } from '@components';
 import { BookCard } from '../../components';
 
 export default class BookGroup extends Component {

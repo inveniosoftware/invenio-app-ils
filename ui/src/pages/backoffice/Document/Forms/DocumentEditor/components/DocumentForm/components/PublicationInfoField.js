@@ -7,7 +7,7 @@ import {
   StringField,
   TextField,
   YearInputField,
-} from '../../../../../../../../forms';
+} from '@forms';
 
 export class PublicationInfoField extends React.Component {
   renderPublication = ({ arrayPath, indexPath, ...arrayHelpers }) => {

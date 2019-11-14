@@ -18,19 +18,19 @@ import {
 import {
   Error as IlsError,
   SearchBar as DocumentsSearchBar,
-} from '../../../../common/components';
-import { document as documentApi } from '../../../../common/api';
-import { SearchControls } from '../../../../common/components';
+} from '@components';
+import { document as documentApi } from '@api';
+import { SearchControls } from '@components';
 import {
   SearchAggregationsCards,
   SearchFooter,
   SearchEmptyResults,
-} from '../../../../common/components/SearchControls/components';
+} from '@components/SearchControls/components';
 import { DocumentsSearchMobile } from './DocumentsSearchMobile';
 import { SearchMessage } from './SearchMessage';
 import { DocumentSearchResultsGrid } from './DocumentSearchResultsGrid';
 import { DocumentSearchResultsList } from './DocumentSearchResultsList';
-import history from '../../../../history';
+import history from '@history';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({

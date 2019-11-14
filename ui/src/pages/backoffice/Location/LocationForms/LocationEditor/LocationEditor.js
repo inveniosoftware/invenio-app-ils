@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Loader, Error } from '../../../../../common/components';
-import { location as locationApi } from '../../../../../common/api/locations/location';
+import { Loader, Error } from '@components';
+import { location as locationApi } from '@api/locations/location';
 import { LocationForm } from './components';
 
 export class LocationEditor extends Component {

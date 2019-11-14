@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Loader, Error } from '../../../../../common/components';
-import { document as documentApi } from '../../../../../common/api/documents/document';
+import { Loader, Error } from '@components';
+import { document as documentApi } from '@api/documents/document';
 import { DocumentForm } from './components';
 
 export class DocumentEditor extends Component {

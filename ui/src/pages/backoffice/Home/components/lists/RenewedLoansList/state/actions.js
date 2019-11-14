@@ -1,7 +1,7 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
-import { loan as loanApi } from '../../../../../../../common/api';
+import { loan as loanApi } from '@api';
 import { listQuery } from './listQuery';
-import { sendErrorNotification } from '../../../../../../../common/components/Notifications';
+import { sendErrorNotification } from '@components/Notifications';
 
 export const fetchRenewedLoans = () => {
   return async dispatch => {

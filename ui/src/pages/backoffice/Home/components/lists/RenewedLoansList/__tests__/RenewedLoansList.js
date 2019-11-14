@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { BackOfficeRoutes } from '../../../../../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 import RenewedLoansList from '../RenewedLoansList';
-import history from '../../../../../../../history';
+import history from '@history';
 import testData from '../../../../../../../../../tests/data/loans.json';
 import { Button } from 'semantic-ui-react';
 

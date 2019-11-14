@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getIn } from 'formik';
 import { Container, Header, Segment } from 'semantic-ui-react';
-import { sessionManager } from '../../../../authentication/services';
+import { sessionManager } from '@authentication/services';
 import {
   BaseForm,
   StringField,
   TextField,
   YearInputField,
   GroupField,
-} from '../../../../forms';
+} from '@forms';
 import * as Yup from 'yup';
-import { FrontSiteRoutes } from '../../../../routes/urls';
-import { documentRequest as documentRequestApi } from '../../../../common/api';
-import { goTo } from '../../../../history';
+import { FrontSiteRoutes } from '@routes/urls';
+import { documentRequest as documentRequestApi } from '@api';
+import { goTo } from '@history';
 
 const ERROR_MSGS = {
   publication_year: 'Not a valid year',

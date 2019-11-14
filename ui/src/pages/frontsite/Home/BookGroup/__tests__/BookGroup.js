@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 import { Settings } from 'luxon';
 import BookGroup from '../BookGroup';
-import testData from '´../../../../../../../../../tests/data/documents.json';
+import testData from '@testData/documents.json';
 
 Settings.defaultZoneName = 'utc';
 const mockFetchDataMethod = jest.fn();

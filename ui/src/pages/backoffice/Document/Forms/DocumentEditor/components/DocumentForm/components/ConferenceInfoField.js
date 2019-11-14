@@ -6,8 +6,8 @@ import {
   IdentifiersField,
   StringField,
   YearInputField,
-} from '../../../../../../../../forms';
-import { invenioConfig } from '../../../../../../../../common/config';
+} from '@forms';
+import { invenioConfig } from '@config';
 
 export class ConferenceInfoField extends React.Component {
   render() {

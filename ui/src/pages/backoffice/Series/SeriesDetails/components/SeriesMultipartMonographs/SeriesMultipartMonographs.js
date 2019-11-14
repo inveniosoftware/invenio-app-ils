@@ -6,9 +6,9 @@ import {
   Loader,
   Error,
   ResultsTable,
-} from '../../../../../../common/components';
-import { series as seriesApi } from '../../../../../../common/api';
-import { BackOfficeRoutes } from '../../../../../../routes/urls';
+} from '@components';
+import { series as seriesApi } from '@api';
+import { BackOfficeRoutes } from '@routes/urls';
 import { SeeAllButton } from '../../../../components/buttons';
 
 export class SeriesMultipartMonographsData extends Component {

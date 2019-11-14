@@ -3,9 +3,9 @@ import thunk from 'redux-thunk';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as types from '../types';
-import { documentRequest as documentRequestApi } from '../../../../../../common/api';
+import { documentRequest as documentRequestApi } from '@api';
 
-jest.mock('../../../../../../common/config/invenioConfig');
+jest.mock('@config/invenioConfig');
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

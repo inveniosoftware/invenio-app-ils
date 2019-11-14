@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { goTo } from '../../../../history';
-import { FrontSiteRoutes } from '../../../../routes/urls';
-import { SearchBar } from '../../../../common/components/SearchBar';
+import { goTo } from '@history';
+import { FrontSiteRoutes } from '@routes/urls';
+import { SearchBar } from '@components/SearchBar';
 
 export default class HomeSearchBar extends Component {
   constructor(props) {

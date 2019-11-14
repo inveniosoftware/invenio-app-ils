@@ -12,18 +12,18 @@ import {
   Error as IlsError,
   SearchBar as DocumentsSearchBar,
   SearchControls,
-} from '../../../common/components';
-import { document as documentApi } from '../../../common/api/documents/document';
-import { getSearchConfig } from '../../../common/config';
+} from '@components';
+import { document as documentApi } from '@api/documents/document';
+import { getSearchConfig } from '@config';
 import { NewButton } from '../components';
-import { BackOfficeRoutes } from '../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 import { DocumentList, ExportReactSearchKitResults } from '../components';
 import {
   SearchAggregationsCards,
   SearchFooter,
   SearchEmptyResults,
-} from '../../../common/components/SearchControls/components/';
-import history from '../../../history';
+} from '@components/SearchControls/components/';
+import history from '@history';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({

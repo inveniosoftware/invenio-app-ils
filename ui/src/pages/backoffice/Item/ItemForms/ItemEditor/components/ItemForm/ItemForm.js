@@ -10,20 +10,20 @@ import {
   GroupField,
   SelectorField,
   AccordionField,
-} from '../../../../../../../forms';
-import { item as itemApi } from '../../../../../../../common/api/items/item';
-import { BackOfficeRoutes } from '../../../../../../../routes/urls';
-import { goTo } from '../../../../../../../history';
+} from '@forms';
+import { item as itemApi } from '@api/items/item';
+import { BackOfficeRoutes } from '@routes/urls';
+import { goTo } from '@history';
 import itemSubmitSerializer from './itemSubmitSerializer';
-import { invenioConfig } from '../../../../../../../common/config';
+import { invenioConfig } from '@config';
 import {
   document as documentApi,
   internalLocation as internalLocationApi,
-} from '../../../../../../../common/api';
+} from '@api';
 import {
   serializeDocument,
   serializeInternalLocation,
-} from '../../../../../../../common/components/ESSelector/serializer';
+} from '@components/ESSelector/serializer';
 
 export class ItemForm extends Component {
   config = invenioConfig.items;

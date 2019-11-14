@@ -12,21 +12,20 @@ import {
   BucketAggregation,
   InvenioSearchApi,
 } from 'react-searchkit';
-import { getSearchConfig } from '../../../common/config';
+import { getSearchConfig } from '@config';
 import {
   Error as IlsError,
   SearchBar as ItemsSearchBar,
   ResultsSort,
-} from '../../../common/components';
-import { item as itemApi } from '../../../common/api';
+} from '@components';
+import { item as itemApi } from '@api';
 import { ExportReactSearchKitResults } from '../components';
 import { NewButton } from '../components/buttons';
-import { BackOfficeRoutes } from '../../../routes/urls';
+import { BackOfficeRoutes } from '@routes/urls';
 import { ItemListEntry } from './components';
-import ClearButton
-  from "../../../common/components/SearchControls/components/ClearButton/ClearButton";
-import {SearchControls} from "../../../common/components/SearchControls";
-import history from '../../../history';
+import ClearButton from '@components/SearchControls/components/ClearButton/ClearButton';
+import { SearchControls } from '@components/SearchControls';
+import history from '@history';
 
 export class ItemsSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -136,7 +135,7 @@ export class ItemsSearch extends Component {
               <Grid.Column width={13}>
                 <EmptyResults renderElement={this.renderEmptyResults} />
                 <Error renderElement={this.renderError} />
-                <SearchControls modelName={'items'}/>
+                <SearchControls modelName={'items'} />
                 <ResultsList renderElement={this.renderItemList} />
                 {this.renderFooter()}
               </Grid.Column>

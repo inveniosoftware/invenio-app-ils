@@ -18,14 +18,13 @@ import {
   SearchBar as DocumentRequestsSearchBar,
   ResultsSort,
   ResultsTable,
-} from '../../../common/components';
-import { documentRequest as documentRequestApi } from '../../../common/api/documentRequests/documentRequest';
-import { getSearchConfig } from '../../../common/config';
+} from '@components';
+import { documentRequest as documentRequestApi } from '@api/documentRequests/documentRequest';
+import { getSearchConfig } from '@config';
 import { ExportReactSearchKitResults } from '../components';
-import { BackOfficeRoutes } from '../../../routes/urls';
-import ClearButton
-  from "../../../common/components/SearchControls/components/ClearButton/ClearButton";
-import history from '../../../history';
+import { BackOfficeRoutes } from '@routes/urls';
+import ClearButton from '@components/SearchControls/components/ClearButton/ClearButton';
+import history from '@history';
 
 export class DocumentRequestsSearch extends Component {
   searchApi = new InvenioSearchApi({

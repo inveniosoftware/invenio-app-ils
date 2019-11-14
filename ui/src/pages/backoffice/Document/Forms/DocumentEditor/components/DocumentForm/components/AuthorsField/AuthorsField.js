@@ -7,8 +7,8 @@ import {
   SubForm,
   GroupField,
   ObjectListField,
-} from '../../../../../../../../../forms';
-import { invenioConfig } from '../../../../../../../../../common/config';
+} from '@forms';
+import { invenioConfig } from '@config';
 import { AuthorSearchField } from './AuthorSearchField';
 
 export class AuthorsField extends React.Component {

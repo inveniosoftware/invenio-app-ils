@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List, Button } from 'semantic-ui-react';
-import { CancelModal } from '../../../../../common/components/CancelModal';
+import { CancelModal } from '@components/CancelModal';
 
 export default class RequestActions extends Component {
   onReject = reason => {

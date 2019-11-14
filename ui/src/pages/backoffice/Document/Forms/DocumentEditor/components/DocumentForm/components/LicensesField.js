@@ -5,7 +5,7 @@ import {
   DeleteActionButton,
   GroupField,
   StringField,
-} from '../../../../../../../../forms';
+} from '@forms';
 
 export class LicensesField extends React.Component {
   renderLicense = ({ arrayPath, indexPath, ...arrayHelpers }) => {

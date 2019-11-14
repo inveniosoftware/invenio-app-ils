@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Loader, Error } from '../../../../../common/components';
-import { internalLocation as internalLocationApi } from '../../../../../common/api/locations/internalLocation';
+import { Loader, Error } from '@components';
+import { internalLocation as internalLocationApi } from '@api/locations/internalLocation';
 import { InternalLocationForm } from './components';
 
 export class InternalLocationEditor extends Component {
