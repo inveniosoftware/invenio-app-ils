@@ -4,7 +4,7 @@ import Qs from 'qs';
 import { Grid, List, Header } from 'semantic-ui-react';
 import { DatePicker, Loader, Error } from '@components';
 import { BackOfficeRoutes } from '@routes/urls';
-import { stats as statsApi, loan as loanApi } from '@api';
+import { circulationStats as circulationStatsApi, loan as loanApi } from '@api';
 import { DocumentList, ExportSearchResults } from '../../components';
 import { invenioConfig } from '@config/invenioConfig';
 import {
@@ -103,7 +103,7 @@ export default class MostLoanedDocumentsList extends Component {
           <ExportSearchResults
             onExportClick={(format, size) => {
               // build params
-              const params = statsApi.getMostLoanedDocumentsParams(
+              const params = circulationStatsApi.getMostLoanedDocumentsParams(
                 this.state.fromDate,
                 this.state.toDate,
                 size,
@@ -111,7 +111,7 @@ export default class MostLoanedDocumentsList extends Component {
               );
               const args = Qs.stringify(params);
               // build final url
-              const exportUrl = `${statsApi.mostLoanedUrl}?${args}`;
+              const exportUrl = `${circulationStatsApi.mostLoanedUrl}?${args}`;
               // open in a new tab
               window.open(exportUrl, '_blank');
             }}

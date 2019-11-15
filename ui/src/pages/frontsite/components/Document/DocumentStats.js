@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Icon, Table, Message } from 'semantic-ui-react';
-import { stats } from '@api/stats/stats';
+import { stats } from '@api/stats';
 import { recordToPidType } from '@api/utils';
 import _get from 'lodash/get';
 

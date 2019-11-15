@@ -8,6 +8,6 @@ export { loan } from './loans/loan';
 export { location } from './locations/location';
 export { patron } from './patrons/patron';
 export { series } from './series/series';
-export { stats } from './stats/stats';
+export { stats, circulationStats } from './stats';
 export { tag } from './tags/tag';
 export { vocabulary } from './vocabularies/vocabulary';
