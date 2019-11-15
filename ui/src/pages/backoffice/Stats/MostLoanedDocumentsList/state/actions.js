@@ -1,6 +1,6 @@
 import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
 import { sendErrorNotification } from '@components/Notifications';
-import { stats as statsApi } from '@api';
+import { circulationStats as circulationStatsApi } from '@api';
 
 export const fetchMostLoanedDocuments = (fromDate, toDate) => {
   return async dispatch => {
@@ -9,7 +9,10 @@ export const fetchMostLoanedDocuments = (fromDate, toDate) => {
     });
 
     try {
-      const response = await statsApi.getMostLoanedDocuments(fromDate, toDate);
+      const response = await circulationStatsApi.getMostLoanedDocuments(
+        fromDate,
+        toDate
+      );
       await dispatch({
         type: SUCCESS,
         payload: response.data,

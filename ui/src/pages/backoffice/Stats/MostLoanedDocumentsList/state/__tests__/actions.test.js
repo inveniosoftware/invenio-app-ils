@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as types from '../types';
-import { stats as statsApi } from '@api';
+import { circulationStats as circulationStatsApi } from '@api';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -24,7 +24,7 @@ const mockResponse = {
 };
 
 const mockStatsMostLoaned = jest.fn();
-statsApi.getMostLoanedDocuments = mockStatsMostLoaned;
+circulationStatsApi.getMostLoanedDocuments = mockStatsMostLoaned;
 
 let store;
 beforeEach(() => {
