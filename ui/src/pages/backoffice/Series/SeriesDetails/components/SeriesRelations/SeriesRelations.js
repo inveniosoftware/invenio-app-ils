@@ -2,26 +2,15 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
-import {
-  Error,
-  Loader,
-  ResultsTable,
-  Pagination,
-} from '@components';
+import { Error, Loader, ResultsTable, Pagination } from '@components';
 import { Button, Tab, Label, Input } from 'semantic-ui-react';
 import { ManageRelationsButton } from '@pages/backoffice/components/ManageRelationsButton';
 import { formatPidTypeToName } from '@pages/backoffice/components/ManageRelationsButton/utils';
 import { ESSelectorModal } from '@components/ESSelector';
-import {
-  document as documentApi,
-  series as seriesApi,
-} from '@api';
+import { document as documentApi, series as seriesApi } from '@api';
 import { BackOfficeRoutes } from '@routes/urls';
 import ESRelatedSelector from '@components/ESSelector/ESRelatedSelector';
-import {
-  parentChildRelationPayload,
-  siblingRelationPayload,
-} from '@api/utils';
+import { parentChildRelationPayload, siblingRelationPayload } from '@api/utils';
 import {
   serializeDocument,
   serializeSeries,

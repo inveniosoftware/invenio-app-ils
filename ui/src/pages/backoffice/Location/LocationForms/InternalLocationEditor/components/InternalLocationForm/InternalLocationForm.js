@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import pick from 'lodash/pick';
-import {
-  SelectorField,
-  StringField,
-  TextField,
-} from '@forms';
+import { SelectorField, StringField, TextField } from '@forms';
 import { internalLocation as internalLocationApi } from '@api/locations/internalLocation';
 import { BackOfficeRoutes } from '@routes/urls';
 import { goTo } from '@history';

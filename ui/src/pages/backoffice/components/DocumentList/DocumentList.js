@@ -1,26 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Message,
-  Item,
-} from 'semantic-ui-react';
-import DocumentListEntry from "./DocumentListEntry";
+import { Message, Item } from 'semantic-ui-react';
+import DocumentListEntry from './DocumentListEntry';
 
 export default class DocumentList extends Component {
-
-  renderListEntry = (document) =>{
-    if(this.props.renderListEntryElement){
-      return this.props.renderListEntryElement(document)
+  renderListEntry = document => {
+    if (this.props.renderListEntryElement) {
+      return this.props.renderListEntryElement(document);
     }
-    return <DocumentListEntry key={document.metadata.pid} document={document}/>;
+    return (
+      <DocumentListEntry key={document.metadata.pid} document={document} />
+    );
   };
 
   render() {
-    const {hits} = this.props;
+    const { hits } = this.props;
 
     if (!hits.length)
       return <Message data-test="no-results">There are no documents.</Message>;
-
 
     return (
       <Item.Group divided className={'bo-document-search'}>

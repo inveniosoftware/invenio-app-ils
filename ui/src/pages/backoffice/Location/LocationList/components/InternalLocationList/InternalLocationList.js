@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { item as itemApi } from '@api';
-import {
-  Error,
-  Loader,
-  ResultsTable,
-} from '@components';
+import { Error, Loader, ResultsTable } from '@components';
 import { Button } from 'semantic-ui-react';
 import { NewButton } from '@pages/backoffice/components/buttons';
 import { DeleteRecordModal } from '../../../../../backoffice/components';

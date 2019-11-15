@@ -47,7 +47,7 @@ describe('Patron document requests tests', () => {
 
       store.dispatch(actions.fetchPatronDocumentRequests(2)).then(() => {
         expect(mockFetchPatronDocumentRequests).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:\"PENDING\")&sort=-mostrecent&page=1'
+          '(patron_pid:2 AND state:"PENDING")&sort=-mostrecent&page=1'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);
@@ -65,7 +65,7 @@ describe('Patron document requests tests', () => {
 
       store.dispatch(actions.fetchPatronDocumentRequests(2)).then(() => {
         expect(mockFetchPatronDocumentRequests).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:\"PENDING\")&sort=-mostrecent&page=1'
+          '(patron_pid:2 AND state:"PENDING")&sort=-mostrecent&page=1'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -83,7 +83,7 @@ describe('Patron document requests tests', () => {
 
       store.dispatch(actions.fetchPatronDocumentRequests(2)).then(() => {
         expect(mockFetchPatronDocumentRequests).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:\"PENDING\")&sort=-mostrecent&page=1'
+          '(patron_pid:2 AND state:"PENDING")&sort=-mostrecent&page=1'
         );
         const actions = store.getActions();
         expect(actions[1]).toEqual(expectedAction);
@@ -100,7 +100,7 @@ describe('Patron document requests tests', () => {
 
       store.dispatch(actions.fetchPatronDocumentRequests(2)).then(e => {
         expect(mockFetchPatronDocumentRequests).toHaveBeenCalledWith(
-          '(patron_pid:2 AND state:\"PENDING\")&sort=-mostrecent&page=1'
+          '(patron_pid:2 AND state:"PENDING")&sort=-mostrecent&page=1'
         );
         const actions = store.getActions();
         expect(actions[0]).toEqual(expectedAction);

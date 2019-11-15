@@ -150,7 +150,7 @@ export default class DocumentListEntry extends Component {
             <Grid.Column computer={2} largeScreen={4}>
               {this.renderMiddleColumn(document)}
             </Grid.Column>
-            <Grid.Column width={1}/>
+            <Grid.Column width={1} />
             <Grid.Column computer={3} largeScreen={4}>
               {this.renderRightColumn(document)}
             </Grid.Column>

@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-  ObjectArrayField,
-  StringField,
-  VocabularyField,
-} from '@forms';
+import { ObjectArrayField, StringField, VocabularyField } from '@forms';
 import { invenioConfig } from '@config';
 
 export class Identifiers extends Component {

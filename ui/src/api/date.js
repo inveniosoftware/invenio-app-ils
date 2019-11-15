@@ -10,7 +10,6 @@ export const fromISO = stringDate => {
   return DateTime.fromISO(stringDate);
 };
 
-
 /**
  * Converts luxon Datetime object to ISO date string
  * @param date

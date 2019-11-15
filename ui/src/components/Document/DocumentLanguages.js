@@ -3,7 +3,6 @@ import { List } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 export class DocumentLanguages extends Component {
-
   render() {
     const { metadata, delimiter } = this.props;
     return (

@@ -7,4 +7,4 @@ export {
 export { OverdueLoanSendMailModal } from './OverdueLoanSendMailModal';
 export { Sidebar } from './Sidebar';
 export { DocumentList } from './DocumentList';
-export { EditButton, NewButton, SeeAllButton} from './buttons';
+export { EditButton, NewButton, SeeAllButton } from './buttons';

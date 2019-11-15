@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { SortOrder } from 'react-searchkit';
 import { Button, Dropdown, Icon, Responsive } from 'semantic-ui-react';
 import { getSearchConfig } from '../../../../config';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 export default class SearchSortOrder extends Component {
   constructor(props) {
@@ -89,5 +89,5 @@ export default class SearchSortOrder extends Component {
 }
 
 SearchSortOrder.propTypes = {
-  modelName: PropTypes.string.isRequired
+  modelName: PropTypes.string.isRequired,
 };

@@ -1,16 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Header, List} from "semantic-ui-react";
-import {Link} from "react-router-dom";
+import { Header, List } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 export default class DocumentStats extends Component {
   render() {
-    const {metadata} = this.props;
+    const { metadata } = this.props;
     return (
-      <List verticalAlign="middle" style={{color: '#aaa'}}>
+      <List verticalAlign="middle" style={{ color: '#aaa' }}>
         <List.Item>
           <List.Content floated="right">
-            <Header style={{color: '#aaa'}}>
+            <Header style={{ color: '#aaa' }}>
               {metadata.loan_extensions}
             </Header>
           </List.Content>

@@ -64,8 +64,7 @@ describe('SeriesSearch ResultsTable tests', () => {
     const mappedStatusElements = resultRows
       .find('TableCell')
       .filterWhere(
-        element =>
-          element.prop('data-test') === `1-${firstResult.metadata.pid}`
+        element => element.prop('data-test') === `1-${firstResult.metadata.pid}`
       );
     expect(mappedStatusElements).toHaveLength(1);
     expect(mappedStatusElements.text()).toEqual(firstResult.metadata.title);

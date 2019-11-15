@@ -13,7 +13,11 @@ const selectQuery = (patronPid, page = 1) => {
     .qs();
 };
 
-export const fetchPatronPastDocumentRequests = (patronPid, page, delayed=false) => {
+export const fetchPatronPastDocumentRequests = (
+  patronPid,
+  page,
+  delayed = false
+) => {
   const query = selectQuery(patronPid, page);
   const fetchRequests = async (patronPid, dispatch) => {
     try {
@@ -43,9 +47,9 @@ export const fetchPatronPastDocumentRequests = (patronPid, page, delayed=false) 
     dispatch({
       type: IS_LOADING,
     });
-    if(delayed) {
+    if (delayed) {
       await delayedFetch(patronPid, dispatch);
-    }else{
+    } else {
       await fetchRequests(patronPid, dispatch);
     }
   };

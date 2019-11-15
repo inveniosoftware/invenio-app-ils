@@ -57,7 +57,7 @@ export default class DocumentsCard extends Component {
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
-          <DataCard data={data}/>
+          <DataCard data={data} />
         </Error>
       </Loader>
     );

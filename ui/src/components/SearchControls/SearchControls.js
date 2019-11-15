@@ -9,7 +9,6 @@ import { SearchControlsMobile } from './SearchControlsMobile';
 import { SearchPagination } from './components';
 
 export class SearchControls extends Component {
-
   renderCount = totalResults => {
     return (
       <div className={'search-results-counter'}>
@@ -25,10 +24,11 @@ export class SearchControls extends Component {
           <Grid columns={3} className={'search-controls'}>
             <Grid.Column largeScreen={5} computer={6}>
               <Grid>
-                {this.props.layoutToggle ?
+                {this.props.layoutToggle ? (
                   <Grid.Column width={4}>
                     {this.props.layoutToggle()}
-                  </Grid.Column> : null}
+                  </Grid.Column>
+                ) : null}
                 <Grid.Column width={12}>
                   <Count renderElement={this.renderCount} />
                   <SearchResultsPerPage modelName={this.props.modelName} />
@@ -52,8 +52,10 @@ export class SearchControls extends Component {
               className={'search-sort-options-column'}
             >
               <div className={'sort-by-filters'}>
-                <SearchSortBy modelName={this.props.modelName}
-                              prefix={'Sort by '} />
+                <SearchSortBy
+                  modelName={this.props.modelName}
+                  prefix={'Sort by '}
+                />
                 <SearchSortOrder modelName={this.props.modelName} />
               </div>
             </Grid.Column>

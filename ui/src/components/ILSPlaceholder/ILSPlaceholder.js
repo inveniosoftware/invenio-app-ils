@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Item, Placeholder} from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { Item, Placeholder } from 'semantic-ui-react';
 
 export class ILSParagraphPlaceholder extends Component {
   renderLines = () => {
@@ -16,59 +16,61 @@ export class ILSParagraphPlaceholder extends Component {
   };
 
   render() {
-    const {isLoading, linesNumber, renderElement, ...restParams} = this.props;
+    const { isLoading, linesNumber, renderElement, ...restParams } = this.props;
     return isLoading ? (
       <Placeholder {...restParams}>{this.renderLines()}</Placeholder>
-    ) : (
-      this.props.children ? this.props.children : null
-    );
+    ) : this.props.children ? (
+      this.props.children
+    ) : null;
   }
 }
 
 export class ILSImagePlaceholder extends Component {
   render() {
-    const {isLoading, renderElement, ...restParams} = this.props;
+    const { isLoading, renderElement, ...restParams } = this.props;
     return isLoading ? (
       <Placeholder {...restParams}>
-        <Placeholder.Image/>
+        <Placeholder.Image />
       </Placeholder>
-    ) : (
-      this.props.children ? this.props.children : null
-    );
+    ) : this.props.children ? (
+      this.props.children
+    ) : null;
   }
 }
 
 export class ILSHeaderPlaceholder extends Component {
   render() {
-    const {isLoading, image, renderElement, ...restParams} = this.props;
+    const { isLoading, image, renderElement, ...restParams } = this.props;
     return isLoading ? (
       <Placeholder {...restParams}>
         <Placeholder.Header image>
-          <Placeholder.Line/>
-          <Placeholder.Line/>
+          <Placeholder.Line />
+          <Placeholder.Line />
         </Placeholder.Header>
       </Placeholder>
-    ) : (
-      this.props.children ? this.props.children : null
-    );
+    ) : this.props.children ? (
+      this.props.children
+    ) : null;
   }
 }
 
-
 export class ILSItemPlaceholder extends Component {
   render() {
-    const {isLoading, style, ...restParams} = this.props;
+    const { isLoading, style, ...restParams } = this.props;
     return isLoading ? (
       <Item>
         <Item.Content>
-        <Item.Description>
-          <ILSParagraphPlaceholder isLoading={isLoading}
-                                   linesNumber={4} {...restParams}/>
-        </Item.Description>
+          <Item.Description>
+            <ILSParagraphPlaceholder
+              isLoading={isLoading}
+              linesNumber={4}
+              {...restParams}
+            />
+          </Item.Description>
         </Item.Content>
       </Item>
-    ) : (this.props.children ? this.props.children : null)
+    ) : this.props.children ? (
+      this.props.children
+    ) : null;
   }
-
-
 }

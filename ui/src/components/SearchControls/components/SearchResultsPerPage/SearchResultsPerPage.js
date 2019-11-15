@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ResultsPerPage } from 'react-searchkit';
 import { getSearchConfig } from '../../../../config';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 export default class SearchResultsPerPage extends Component {
   searchConfig = getSearchConfig(this.props.modelName);
@@ -20,5 +20,5 @@ export default class SearchResultsPerPage extends Component {
 }
 
 SearchResultsPerPage.propTypes = {
-  modelName: PropTypes.string.isRequired
+  modelName: PropTypes.string.isRequired,
 };

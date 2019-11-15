@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-  AccordionField,
-  StringField,
-  GroupField,
-} from '@forms';
+import { AccordionField, StringField, GroupField } from '@forms';
 
 export class Keywords extends Component {
   render() {

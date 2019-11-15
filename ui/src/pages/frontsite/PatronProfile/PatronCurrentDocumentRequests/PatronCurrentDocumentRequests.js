@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import _startCase from 'lodash/startCase';
-import {
-  Loader,
-  Error,
-  ResultsTable,
-  Pagination,
-} from '@components';
+import { Loader, Error, ResultsTable, Pagination } from '@components';
 import { dateFormatter } from '@api/date';
 import { FrontSiteRoutes } from '@routes/urls';
 import { invenioConfig } from '@config';

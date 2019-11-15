@@ -2,7 +2,7 @@ import { Header, Icon, Segment } from 'semantic-ui-react';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { EmptyResults } from 'react-searchkit';
-import {ClearButton} from "../ClearButton";
+import { ClearButton } from '../ClearButton';
 
 export default class SearchEmptyResults extends Component {
   renderEmptyResults = (queryString, resetQuery) => {
@@ -16,8 +16,8 @@ export default class SearchEmptyResults extends Component {
           Current search "{queryString}"
         </div>
         <Segment.Inline>
-          <ClearButton clickHandler={resetQuery}/>
-          {this.props.extras ? this.props.extras(): null}
+          <ClearButton clickHandler={resetQuery} />
+          {this.props.extras ? this.props.extras() : null}
         </Segment.Inline>
       </Segment>
     );

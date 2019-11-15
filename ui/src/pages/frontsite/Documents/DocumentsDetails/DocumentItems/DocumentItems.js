@@ -12,10 +12,7 @@ import {
   Menu,
   Segment,
 } from 'semantic-ui-react';
-import {
-  getDisplayVal,
-  invenioConfig,
-} from '@config/invenioConfig';
+import { getDisplayVal, invenioConfig } from '@config/invenioConfig';
 
 class DocumentItem extends Component {
   render() {

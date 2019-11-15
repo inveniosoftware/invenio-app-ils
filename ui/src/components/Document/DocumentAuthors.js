@@ -9,23 +9,20 @@ export class DocumentAuthors extends Component {
     return (
       <div className="document-authors-list-wrapper">
         {prefix ? prefix + ' ' : null}
-          {metadata && metadata.authors
-            ?
-            <List horizontal className={'document-authors-list'}>
-              {metadata.authors.map((author, index) => (
-                <List.Item
-                  as={this.props.listItemAs ? this.props.listItemAs : ''}
-                  key={`Key${index}`}
-                >
-                  {author.full_name}
-                  {index !== metadata.authors.length - 1 ? delimiter : null}
-                </List.Item>
-              ))}
+        {metadata && metadata.authors ? (
+          <List horizontal className={'document-authors-list'}>
+            {metadata.authors.map((author, index) => (
+              <List.Item
+                as={this.props.listItemAs ? this.props.listItemAs : ''}
+                key={`Key${index}`}
+              >
+                {author.full_name}
+                {index !== metadata.authors.length - 1 ? delimiter : null}
+              </List.Item>
+            ))}
             {metadata && metadata.other_authors ? otherAuthors : null}
-            </List>
-            : null
-          }
-
+          </List>
+        ) : null}
       </div>
     );
   }

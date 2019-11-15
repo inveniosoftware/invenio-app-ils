@@ -1,18 +1,16 @@
-import React, {Component} from 'react';
-import {Icon, List} from "semantic-ui-react";
+import React, { Component } from 'react';
+import { Icon, List } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 export default class DocumentCirculation extends Component {
   renderOverbookIcon = isOverbooked => {
     const name = isOverbooked ? 'check' : 'minus';
     const color = isOverbooked ? 'red' : 'green';
-    return (
-      <Icon name={name} color={color} size="small"/>
-    );
+    return <Icon name={name} color={color} size="small" />;
   };
 
   render() {
-    const {document} = this.props;
+    const { document } = this.props;
     const circulation = document.metadata.circulation;
     return (
       <List verticalAlign="middle" className={'document-circulation'}>
@@ -52,5 +50,5 @@ export default class DocumentCirculation extends Component {
 }
 
 DocumentCirculation.propTypes = {
-  document: PropTypes.object.isRequired
+  document: PropTypes.object.isRequired,
 };
