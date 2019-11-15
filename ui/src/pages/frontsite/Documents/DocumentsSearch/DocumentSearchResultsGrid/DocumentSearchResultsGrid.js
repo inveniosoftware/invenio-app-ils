@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BookCard } from '../../../components/BookCard';
+import { BookCard } from '@pages/frontsite/components/BookCard';
 
 import { Card, Responsive } from 'semantic-ui-react';
 import { ResultsGrid } from 'react-searchkit';

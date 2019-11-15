@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import * as testData from '@testData/documents.json';
 import DocumentMetadata from '../DocumentMetadata';
 
-jest.mock('../../../../components/Document', () => {
+jest.mock('@pages/frontsite/components/Document', () => {
   return {
     DocumentMetadataAccordion: () => null,
     DocumentMetadataTabs: () => null,

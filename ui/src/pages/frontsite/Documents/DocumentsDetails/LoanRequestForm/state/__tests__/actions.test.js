@@ -4,7 +4,7 @@ import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as types from '../types';
 import { loan as loanApi } from '@api';
-import * as testData from '../../../../../../../../../tests/data/loans.json';
+import * as testData from '@testData/loans.json';
 import { sessionManager } from '@authentication/services';
 import { toShortDate } from '@api/date';
 import { DateTime } from 'luxon';

@@ -8,27 +8,29 @@ import {
   patronPastLoansReducer,
   patronPendingLoansReducer,
 } from './state';
-import { availableItemsReducer } from '@pages/backoffice/LoanDetails/reducer';
+import {
+  availableItemsReducer,
+  loanDetailsReducer,
+} from '@pages/backoffice/Loan/LoanDetails/reducer';
 import {
   documentDetailsReducer,
   documentStatsReducer,
   documentPendingLoans,
   documentItems,
   documentRelations,
-} from '@pages/backoffice/DocumentDetails/reducer';
+} from '@pages/backoffice/Document/DocumentDetails/reducer';
 import { deleteRecordModalReducer } from '@pages/backoffice/components/DeleteRecordModal/reducer';
 import { overdueLoanSendMailModalReducer } from '@pages/backoffice/components/OverdueLoanSendMailModal/reducer';
 import { eitemDetailsReducer } from '@pages/backoffice/EItem/EItemDetails/reducer';
 import {
   itemDetailsReducer,
   itemPastLoansReducer,
-} from '@pages/backoffice/ItemDetails/reducer';
-import { loanDetailsReducer } from '@pages/backoffice/LoanDetails/reducer';
+} from '@pages/backoffice/Item/ItemDetails/reducer';
 import {
   itemsSearchByBarcodeReducer,
   patronDetailsReducer,
   patronItemCheckoutReducer,
-} from '@pages/backoffice/PatronDetails/reducer';
+} from '@pages/backoffice/Patron/PatronDetails/reducer';
 import {
   locationListReducer,
   internalLocationListReducer,
@@ -54,7 +56,7 @@ import {
   documentDetailsFrontReducer,
   loanRequestFormReducer,
 } from '@pages/frontsite/Documents/DocumentsDetails/reducer';
-import { documentRequestDetailsReducer } from '@pages/backoffice/DocumentRequestDetails/reducer';
+import { documentRequestDetailsReducer } from '@pages/backoffice/Document/DocumentRequestDetails/reducer';
 import {
   patronCurrentDocumentRequestsReducer,
   patronPastDocumentRequestsReducer,

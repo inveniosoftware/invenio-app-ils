@@ -1,0 +1,759 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PatronLoans tests should load the ItemsSearch component 1`] = `
+<Segment
+  className="patron-items"
+>
+  <Header
+    as="h3"
+  >
+    Items
+  </Header>
+  <HeaderSubheader>
+    Search items by barcode.
+  </HeaderSubheader>
+  <Container
+    className="search-bar"
+  >
+    <Input
+      action={
+        Object {
+          "content": "Search",
+          "onClick": [Function],
+        }
+      }
+      fluid={true}
+      focus={true}
+      onChange={[Function]}
+      onKeyPress={[Function]}
+      onPaste={[Function]}
+      placeholder="Search by barcode..."
+      type="text"
+      value=""
+    />
+  </Container>
+  <Grid
+    className="items-search-container"
+    columns={1}
+    relaxed={true}
+    stackable={true}
+  >
+    <GridColumn
+      width={16}
+    >
+      <Loader>
+        <Error>
+          <Segment
+            placeholder={true}
+            textAlign="center"
+          >
+            <Header
+              icon={true}
+            >
+              <Icon
+                as="i"
+                name="search"
+              />
+              Found no items matching this barcode.
+            </Header>
+            <div
+              className="empty-results-current"
+            >
+              Current search phrase "
+              "
+            </div>
+            <SegmentInline>
+              <Button
+                as="button"
+                onClick={[Function]}
+                primary={true}
+              >
+                Clear query
+              </Button>
+            </SegmentInline>
+          </Segment>
+        </Error>
+      </Loader>
+    </GridColumn>
+  </Grid>
+</Segment>
+`;
+
+exports[`PatronLoans tests should render items in search 1`] = `
+<ItemsSearch
+  checkoutItem={[MockFunction]}
+  clearResults={[MockFunction]}
+  fetchItems={[MockFunction]}
+  fetchUpdatedCurrentLoans={[MockFunction]}
+  items={
+    Object {
+      "hits": Array [
+        Object {
+          "created": "2018-01-01T10:05:00.000Z",
+          "id": "1",
+          "metadata": Object {
+            "barcode": "44444",
+            "circulation": Object {},
+            "document": Object {
+              "title": "Here is a title",
+            },
+            "document_pid": "doc1",
+            "internal_location": Object {
+              "location": Object {
+                "name": "Somewhere",
+              },
+            },
+            "medium": "book",
+            "pid": "item1",
+            "shelf": "P",
+            "status": "CAN_CIRCULATE",
+          },
+          "pid": "item1",
+          "updated": "2018-01-01T10:05:00.000Z",
+        },
+      ],
+      "total": 1,
+    }
+  }
+  patronDetails={
+    Object {
+      "email": "name@test.ch",
+      "name": "Name",
+      "user_pid": "2",
+    }
+  }
+  queryString=""
+  updateQueryString={[MockFunction]}
+>
+  <Segment
+    className="patron-items"
+  >
+    <div
+      className="ui segment patron-items"
+    >
+      <Header
+        as="h3"
+      >
+        <h3
+          className="ui header"
+        >
+          Items
+        </h3>
+      </Header>
+      <HeaderSubheader>
+        <div
+          className="sub header"
+        >
+          Search items by barcode.
+        </div>
+      </HeaderSubheader>
+      <Container
+        className="search-bar"
+      >
+        <div
+          className="ui container search-bar"
+        >
+          <Input
+            action={
+              Object {
+                "content": "Search",
+                "onClick": [Function],
+              }
+            }
+            fluid={true}
+            focus={true}
+            onChange={[Function]}
+            onKeyPress={[Function]}
+            onPaste={[Function]}
+            placeholder="Search by barcode..."
+            type="text"
+            value=""
+          >
+            <div
+              className="ui fluid focus action input"
+              onPaste={[Function]}
+            >
+              <input
+                onChange={[Function]}
+                onKeyPress={[Function]}
+                placeholder="Search by barcode..."
+                type="text"
+                value=""
+              />
+              <Button
+                as="button"
+                content="Search"
+                onClick={[Function]}
+              >
+                <Ref
+                  innerRef={
+                    Object {
+                      "current": <button
+                        class="ui button"
+                      >
+                        Search
+                      </button>,
+                    }
+                  }
+                >
+                  <RefFindNode
+                    innerRef={
+                      Object {
+                        "current": <button
+                          class="ui button"
+                        >
+                          Search
+                        </button>,
+                      }
+                    }
+                  >
+                    <button
+                      className="ui button"
+                      onClick={[Function]}
+                    >
+                      Search
+                    </button>
+                  </RefFindNode>
+                </Ref>
+              </Button>
+            </div>
+          </Input>
+        </div>
+      </Container>
+      <Grid
+        className="items-search-container"
+        columns={1}
+        relaxed={true}
+        stackable={true}
+      >
+        <div
+          className="ui stackable relaxed one column grid items-search-container"
+        >
+          <GridColumn
+            width={16}
+          >
+            <div
+              className="sixteen wide column"
+            >
+              <Loader>
+                <Error>
+                  <div
+                    className="results-list"
+                  >
+                    <p>
+                      Found 
+                      1
+                       item(s).
+                    </p>
+                    <ItemsResultsList
+                      checkoutItem={[MockFunction]}
+                      clearResults={[MockFunction]}
+                      fetchPatronCurrentLoans={[MockFunction]}
+                      patronPid="2"
+                      results={
+                        Object {
+                          "hits": Array [
+                            Object {
+                              "created": "2018-01-01T10:05:00.000Z",
+                              "id": "1",
+                              "metadata": Object {
+                                "barcode": "44444",
+                                "circulation": Object {},
+                                "document": Object {
+                                  "title": "Here is a title",
+                                },
+                                "document_pid": "doc1",
+                                "internal_location": Object {
+                                  "location": Object {
+                                    "name": "Somewhere",
+                                  },
+                                },
+                                "medium": "book",
+                                "pid": "item1",
+                                "shelf": "P",
+                                "status": "CAN_CIRCULATE",
+                              },
+                              "pid": "item1",
+                              "updated": "2018-01-01T10:05:00.000Z",
+                            },
+                          ],
+                          "total": 1,
+                        }
+                      }
+                    >
+                      <ResultsTable
+                        columns={
+                          Array [
+                            Object {
+                              "field": "",
+                              "formatter": undefined,
+                              "title": "",
+                            },
+                            Object {
+                              "field": "metadata.pid",
+                              "title": "ID",
+                            },
+                            Object {
+                              "field": "metadata.status",
+                              "title": "Status",
+                            },
+                            Object {
+                              "field": "metadata.medium",
+                              "title": "Medium",
+                            },
+                            Object {
+                              "field": "metadata.circulation.state",
+                              "title": "Circulation status",
+                            },
+                            Object {
+                              "field": "",
+                              "formatter": [Function],
+                              "title": "Actions",
+                            },
+                          ]
+                        }
+                        currentPage={1}
+                        data={
+                          Array [
+                            Object {
+                              "created": "2018-01-01T10:05:00.000Z",
+                              "id": "1",
+                              "metadata": Object {
+                                "barcode": "44444",
+                                "circulation": Object {},
+                                "document": Object {
+                                  "title": "Here is a title",
+                                },
+                                "document_pid": "doc1",
+                                "internal_location": Object {
+                                  "location": Object {
+                                    "name": "Somewhere",
+                                  },
+                                },
+                                "medium": "book",
+                                "pid": "item1",
+                                "shelf": "P",
+                                "status": "CAN_CIRCULATE",
+                              },
+                              "pid": "item1",
+                              "updated": "2018-01-01T10:05:00.000Z",
+                            },
+                          ]
+                        }
+                        headerActionComponent={null}
+                        name="items"
+                        paginationComponent={null}
+                        seeAllComponent={null}
+                        showAllResults={false}
+                        showMaxRows={10}
+                        singleLine={false}
+                        subtitle=""
+                        title=""
+                      >
+                        <Grid>
+                          <div
+                            className="ui grid"
+                          >
+                            <GridRow>
+                              <div
+                                className="row"
+                              >
+                                <GridColumn
+                                  verticalAlign="middle"
+                                  width={16}
+                                >
+                                  <div
+                                    className="middle aligned sixteen wide column"
+                                  />
+                                </GridColumn>
+                                <GridColumn
+                                  textAlign="right"
+                                  width={8}
+                                >
+                                  <div
+                                    className="right aligned eight wide column"
+                                  />
+                                </GridColumn>
+                              </div>
+                            </GridRow>
+                          </div>
+                        </Grid>
+                        <Table
+                          as="table"
+                          compact={true}
+                          name="items"
+                          selectable={true}
+                          striped={true}
+                          subtitle=""
+                          title=""
+                          unstackable={true}
+                        >
+                          <table
+                            className="ui selectable striped unstackable compact table"
+                            name="items"
+                            subtitle=""
+                            title=""
+                          >
+                            <ResultsTableHeader
+                              columns={
+                                Array [
+                                  Object {
+                                    "field": "",
+                                    "formatter": undefined,
+                                    "title": "",
+                                  },
+                                  Object {
+                                    "field": "metadata.pid",
+                                    "title": "ID",
+                                  },
+                                  Object {
+                                    "field": "metadata.status",
+                                    "title": "Status",
+                                  },
+                                  Object {
+                                    "field": "metadata.medium",
+                                    "title": "Medium",
+                                  },
+                                  Object {
+                                    "field": "metadata.circulation.state",
+                                    "title": "Circulation status",
+                                  },
+                                  Object {
+                                    "field": "",
+                                    "formatter": [Function],
+                                    "title": "Actions",
+                                  },
+                                ]
+                              }
+                            >
+                              <TableHeader
+                                as="thead"
+                              >
+                                <thead
+                                  className=""
+                                >
+                                  <TableRow
+                                    as="tr"
+                                    cellAs="td"
+                                    data-test="header"
+                                  >
+                                    <tr
+                                      className=""
+                                      data-test="header"
+                                    >
+                                      <TableHeaderCell
+                                        as="th"
+                                        key=""
+                                      >
+                                        <TableCell
+                                          as="th"
+                                          className=""
+                                        >
+                                          <th
+                                            className=""
+                                          />
+                                        </TableCell>
+                                      </TableHeaderCell>
+                                      <TableHeaderCell
+                                        as="th"
+                                        key="ID"
+                                      >
+                                        <TableCell
+                                          as="th"
+                                          className=""
+                                        >
+                                          <th
+                                            className=""
+                                          >
+                                            ID
+                                          </th>
+                                        </TableCell>
+                                      </TableHeaderCell>
+                                      <TableHeaderCell
+                                        as="th"
+                                        key="Status"
+                                      >
+                                        <TableCell
+                                          as="th"
+                                          className=""
+                                        >
+                                          <th
+                                            className=""
+                                          >
+                                            Status
+                                          </th>
+                                        </TableCell>
+                                      </TableHeaderCell>
+                                      <TableHeaderCell
+                                        as="th"
+                                        key="Medium"
+                                      >
+                                        <TableCell
+                                          as="th"
+                                          className=""
+                                        >
+                                          <th
+                                            className=""
+                                          >
+                                            Medium
+                                          </th>
+                                        </TableCell>
+                                      </TableHeaderCell>
+                                      <TableHeaderCell
+                                        as="th"
+                                        key="Circulation status"
+                                      >
+                                        <TableCell
+                                          as="th"
+                                          className=""
+                                        >
+                                          <th
+                                            className=""
+                                          >
+                                            Circulation status
+                                          </th>
+                                        </TableCell>
+                                      </TableHeaderCell>
+                                      <TableHeaderCell
+                                        as="th"
+                                        key="Actions"
+                                      >
+                                        <TableCell
+                                          as="th"
+                                          className=""
+                                        >
+                                          <th
+                                            className=""
+                                          >
+                                            Actions
+                                          </th>
+                                        </TableCell>
+                                      </TableHeaderCell>
+                                    </tr>
+                                  </TableRow>
+                                </thead>
+                              </TableHeader>
+                            </ResultsTableHeader>
+                            <ResultsTableBody
+                              columns={
+                                Array [
+                                  Object {
+                                    "field": "",
+                                    "formatter": undefined,
+                                    "title": "",
+                                  },
+                                  Object {
+                                    "field": "metadata.pid",
+                                    "title": "ID",
+                                  },
+                                  Object {
+                                    "field": "metadata.status",
+                                    "title": "Status",
+                                  },
+                                  Object {
+                                    "field": "metadata.medium",
+                                    "title": "Medium",
+                                  },
+                                  Object {
+                                    "field": "metadata.circulation.state",
+                                    "title": "Circulation status",
+                                  },
+                                  Object {
+                                    "field": "",
+                                    "formatter": [Function],
+                                    "title": "Actions",
+                                  },
+                                ]
+                              }
+                              rows={
+                                Array [
+                                  Object {
+                                    "created": "2018-01-01T10:05:00.000Z",
+                                    "id": "1",
+                                    "metadata": Object {
+                                      "barcode": "44444",
+                                      "circulation": Object {},
+                                      "document": Object {
+                                        "title": "Here is a title",
+                                      },
+                                      "document_pid": "doc1",
+                                      "internal_location": Object {
+                                        "location": Object {
+                                          "name": "Somewhere",
+                                        },
+                                      },
+                                      "medium": "book",
+                                      "pid": "item1",
+                                      "shelf": "P",
+                                      "status": "CAN_CIRCULATE",
+                                    },
+                                    "pid": "item1",
+                                    "updated": "2018-01-01T10:05:00.000Z",
+                                  },
+                                ]
+                              }
+                            >
+                              <TableBody
+                                as="tbody"
+                              >
+                                <tbody
+                                  className=""
+                                >
+                                  <TableRow
+                                    as="tr"
+                                    cellAs="td"
+                                    data-test="item1"
+                                    key="item1"
+                                  >
+                                    <tr
+                                      className=""
+                                      data-test="item1"
+                                    >
+                                      <TableCell
+                                        as="td"
+                                        data-label=""
+                                        data-test="0-item1"
+                                        key="0-item1"
+                                      >
+                                        <td
+                                          className=""
+                                          data-label=""
+                                          data-test="0-item1"
+                                        >
+                                          -
+                                        </td>
+                                      </TableCell>
+                                      <TableCell
+                                        as="td"
+                                        data-label="ID"
+                                        data-test="1-item1"
+                                        key="1-item1"
+                                      >
+                                        <td
+                                          className=""
+                                          data-label="ID"
+                                          data-test="1-item1"
+                                        >
+                                          item1
+                                        </td>
+                                      </TableCell>
+                                      <TableCell
+                                        as="td"
+                                        data-label="Status"
+                                        data-test="2-item1"
+                                        key="2-item1"
+                                      >
+                                        <td
+                                          className=""
+                                          data-label="Status"
+                                          data-test="2-item1"
+                                        >
+                                          CAN_CIRCULATE
+                                        </td>
+                                      </TableCell>
+                                      <TableCell
+                                        as="td"
+                                        data-label="Medium"
+                                        data-test="3-item1"
+                                        key="3-item1"
+                                      >
+                                        <td
+                                          className=""
+                                          data-label="Medium"
+                                          data-test="3-item1"
+                                        >
+                                          book
+                                        </td>
+                                      </TableCell>
+                                      <TableCell
+                                        as="td"
+                                        data-label="Circulation status"
+                                        data-test="4-item1"
+                                        key="4-item1"
+                                      >
+                                        <td
+                                          className=""
+                                          data-label="Circulation status"
+                                          data-test="4-item1"
+                                        >
+                                          -
+                                        </td>
+                                      </TableCell>
+                                      <TableCell
+                                        as="td"
+                                        data-label="Actions"
+                                        data-test="5-item1"
+                                        key="5-item1"
+                                      >
+                                        <td
+                                          className=""
+                                          data-label="Actions"
+                                          data-test="5-item1"
+                                        >
+                                          <Button
+                                            as="button"
+                                            content="Checkout"
+                                            onClick={[Function]}
+                                          >
+                                            <Ref
+                                              innerRef={
+                                                Object {
+                                                  "current": <button
+                                                    class="ui button"
+                                                  >
+                                                    Checkout
+                                                  </button>,
+                                                }
+                                              }
+                                            >
+                                              <RefFindNode
+                                                innerRef={
+                                                  Object {
+                                                    "current": <button
+                                                      class="ui button"
+                                                    >
+                                                      Checkout
+                                                    </button>,
+                                                  }
+                                                }
+                                              >
+                                                <button
+                                                  className="ui button"
+                                                  onClick={[Function]}
+                                                >
+                                                  Checkout
+                                                </button>
+                                              </RefFindNode>
+                                            </Ref>
+                                          </Button>
+                                        </td>
+                                      </TableCell>
+                                    </tr>
+                                  </TableRow>
+                                </tbody>
+                              </TableBody>
+                            </ResultsTableBody>
+                            <ResultsTableFooter
+                              allRowsNumber={1}
+                              columnsNumber={6}
+                              currentPage={1}
+                              paginationComponent={null}
+                              seeAllComponent={null}
+                              showAllResults={false}
+                              showMaxRows={10}
+                            />
+                          </table>
+                        </Table>
+                      </ResultsTable>
+                    </ItemsResultsList>
+                  </div>
+                </Error>
+              </Loader>
+            </div>
+          </GridColumn>
+        </div>
+      </Grid>
+    </div>
+  </Segment>
+</ItemsSearch>
+`;

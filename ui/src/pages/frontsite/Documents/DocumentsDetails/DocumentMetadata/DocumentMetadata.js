@@ -5,7 +5,7 @@ import {
   DocumentMetadataAccordion,
   DocumentMetadataTabs,
   DocumentStats,
-} from '../../../components/Document';
+} from '@pages/frontsite/components/Document';
 
 export default class DocumentMetadata extends Component {
   constructor(props) {

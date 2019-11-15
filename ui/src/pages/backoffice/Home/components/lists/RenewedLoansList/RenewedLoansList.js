@@ -6,7 +6,7 @@ import { Loader, Error, ResultsTable } from '@components';
 import { BackOfficeRoutes } from '@routes/urls';
 import { listQuery } from './state/listQuery';
 import { dateFormatter } from '@api/date';
-import { SeeAllButton } from '../../../../components/buttons';
+import { SeeAllButton } from '@pages/backoffice/components/buttons';
 
 export default class RenewedLoansList extends Component {
   componentDidMount() {

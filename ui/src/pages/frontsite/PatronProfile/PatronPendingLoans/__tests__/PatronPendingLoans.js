@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import PatronPendingLoans from '../PatronPendingLoans';
-import testData from '../../../../../../../tests/data/loans.json';
+import testData from '@testData/loans.json';
 import { BrowserRouter } from 'react-router-dom';
 import { fromISO } from '@api/date';
 import { Settings } from 'luxon';

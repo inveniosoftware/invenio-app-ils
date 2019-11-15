@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Loader, Error } from '@components';
 import { invenioConfig } from '@config';
 import { loan as loanApi } from '@api';
-import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
+import { RecordsBriefCard } from '@pages/backoffice/components/statistics/RecordsBriefCard';
 import { BackOfficeRoutes } from '@routes/urls';
-import { NewButton, SeeAllButton } from '../../../../components/buttons';
+import { NewButton, SeeAllButton } from '@pages/backoffice/components/buttons';
 
 export default class LoansCard extends Component {
   constructor(props) {

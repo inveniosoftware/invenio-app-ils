@@ -12,7 +12,7 @@ import {
   DocumentCover,
   DocumentTags,
   DocumentTitle,
-} from '../../../components/Document';
+} from '@pages/frontsite/components/Document';
 import { DocumentAuthors } from '@components/Document';
 
 export default class DocumentPanelMobile extends Component {

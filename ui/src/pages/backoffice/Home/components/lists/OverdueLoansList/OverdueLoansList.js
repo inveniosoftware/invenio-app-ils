@@ -11,8 +11,8 @@ import { invenioConfig } from '@config';
 import { loan as loanApi } from '@api';
 import { dateFormatter } from '@api/date';
 import { BackOfficeRoutes } from '@routes/urls';
-import { SeeAllButton } from '../../../../components/buttons';
-import { OverdueLoanSendMailModal } from '../../../../components';
+import { SeeAllButton } from '@pages/backoffice/components/buttons';
+import { OverdueLoanSendMailModal } from '@pages/backoffice/components';
 
 export default class OverdueLoansList extends Component {
   componentDidMount() {

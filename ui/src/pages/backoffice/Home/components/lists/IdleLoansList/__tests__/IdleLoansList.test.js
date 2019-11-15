@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { BackOfficeRoutes } from '@routes/urls';
 import IdleLoansList from '../IdleLoansList';
-import testData from '../../../../../../../../../tests/data/loans.json';
+import testData from '@testData/loans.json';
 import { Button } from 'semantic-ui-react';
 
 jest.mock('react-router-dom');

@@ -11,7 +11,7 @@ import {
   DocumentAbstract,
   DocumentCover,
   DocumentTitle,
-} from '../../../components/Document';
+} from '@pages/frontsite/components/Document';
 import { DocumentPanelMobile } from './index';
 import { DocumentAuthors } from '@components/Document';
 

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Grid, Segment, Container, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { MetadataTable } from '../../../../components/MetadataTable';
-import { EditButton } from '../../../../components/buttons';
-import { DeleteRecordModal } from '../../../../components/DeleteRecordModal';
-import { formatPidTypeToName } from '../../../../components/ManageRelationsButton/utils';
+import { MetadataTable } from '@pages/backoffice/components/MetadataTable';
+import { EditButton } from '@pages/backoffice/components/buttons';
+import { DeleteRecordModal } from '@pages/backoffice/components/DeleteRecordModal';
+import { formatPidTypeToName } from '@pages/backoffice/components/ManageRelationsButton/utils';
 import { BackOfficeRoutes } from '@routes/urls';
 
 export default class SeriesMetadata extends Component {

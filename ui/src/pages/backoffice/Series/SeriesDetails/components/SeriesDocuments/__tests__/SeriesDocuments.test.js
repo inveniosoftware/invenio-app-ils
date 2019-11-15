@@ -4,7 +4,7 @@ import { BackOfficeRoutes } from '@routes/urls';
 import SeriesDocuments from '../SeriesDocuments';
 import { Settings } from 'luxon';
 import { fromISO } from '@api/date';
-import * as testData from '../../../../../../../../../tests/data/documents';
+import * as testData from '@testData/documents';
 import { Button } from 'semantic-ui-react';
 
 jest.mock('react-router-dom');

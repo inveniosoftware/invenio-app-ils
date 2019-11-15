@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error } from '@components';
-import { RecordsBriefCard } from '../../../../components/statistics/RecordsBriefCard';
-import { NewButton, SeeAllButton } from '../../../../components/buttons';
+import { RecordsBriefCard } from '@pages/backoffice/components/statistics/RecordsBriefCard';
+import { NewButton, SeeAllButton } from '@pages/backoffice/components/buttons';
 
 export default class ILLCard extends Component {
   constructor(props) {

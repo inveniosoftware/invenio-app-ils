@@ -9,7 +9,7 @@ import {
 } from '@components';
 import { document as documentApi } from '@api';
 import { BackOfficeRoutes } from '@routes/urls';
-import { SeeAllButton } from '../../../../components/buttons';
+import { SeeAllButton } from '@pages/backoffice/components/buttons';
 import _get from 'lodash/get';
 
 export default class SeriesDocuments extends Component {

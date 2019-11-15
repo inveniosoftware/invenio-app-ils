@@ -8,7 +8,7 @@ import {
   ResultsTable,
 } from '@components';
 import { Button } from 'semantic-ui-react';
-import { NewButton } from '../../../../components/buttons';
+import { NewButton } from '@pages/backoffice/components/buttons';
 import { DeleteRecordModal } from '../../../../../backoffice/components';
 import { BackOfficeRoutes } from '@routes/urls';
 

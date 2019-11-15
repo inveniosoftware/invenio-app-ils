@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { BackOfficeRoutes } from '@routes/urls';
 import RenewedLoansList from '../RenewedLoansList';
 import history from '@history';
-import testData from '../../../../../../../../../tests/data/loans.json';
+import testData from '@testData/loans.json';
 import { Button } from 'semantic-ui-react';
 
 jest.mock('react-router-dom');

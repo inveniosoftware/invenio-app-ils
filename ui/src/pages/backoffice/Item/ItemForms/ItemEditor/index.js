@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { fetchItemDetails } from '../../../ItemDetails/state/actions';
+import { fetchItemDetails } from '../../ItemDetails/state/actions';
 import { ItemEditor as ItemEditorComponent } from './ItemEditor';
 
 const mapStateToProps = state => ({

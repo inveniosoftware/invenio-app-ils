@@ -1,1 +1,0 @@
-export { ItemsSearch } from './ItemsSearch';

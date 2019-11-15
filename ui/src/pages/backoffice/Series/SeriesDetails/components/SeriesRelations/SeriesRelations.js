@@ -9,8 +9,8 @@ import {
   Pagination,
 } from '@components';
 import { Button, Tab, Label, Input } from 'semantic-ui-react';
-import { ManageRelationsButton } from '../../../../components/ManageRelationsButton';
-import { formatPidTypeToName } from '../../../../components/ManageRelationsButton/utils';
+import { ManageRelationsButton } from '@pages/backoffice/components/ManageRelationsButton';
+import { formatPidTypeToName } from '@pages/backoffice/components/ManageRelationsButton/utils';
 import { ESSelectorModal } from '@components/ESSelector';
 import {
   document as documentApi,

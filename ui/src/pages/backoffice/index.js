@@ -1,22 +1,20 @@
 export * from './components';
 export { Home } from './Home';
-export { DocumentEditor } from './Document';
-export { DocumentDetailsContainer } from './DocumentDetails';
-export { DocumentsSearch } from './DocumentsSearch';
-export { DocumentRequestDetailsContainer } from './DocumentRequestDetails';
-export { DocumentRequestsSearch } from './DocumentRequestsSearch';
+export {
+  DocumentDetails,
+  DocumentSearch,
+  DocumentRequestDetails,
+  DocumentRequestSearch,
+  DocumentEditor,
+} from './Document';
 export { EItemEditor, EItemDetails, EItemSearch } from './EItem';
-export { ItemEditor } from './Item/ItemForms';
-export { ItemDetailsContainer } from './ItemDetails';
-export { ItemsSearch } from './ItemsSearch';
-export { LoanDetailsContainer } from './LoanDetails';
-export { LoansSearch } from './LoansSearch';
+export { ItemDetails, ItemEditor, ItemSearch } from './Item';
+export { LoanDetails, LoanSearch } from './Loan';
 export {
   InternalLocationEditor,
   LocationEditor,
   LocationList,
 } from './Location';
-export { PatronDetailsContainer } from './PatronDetails';
-export { PatronsSearch } from './PatronsSearch';
+export { PatronDetails, PatronSearch } from './Patron';
 export { SeriesEditor, SeriesDetails, SeriesSearch } from './Series';
 export { Stats } from './Stats';

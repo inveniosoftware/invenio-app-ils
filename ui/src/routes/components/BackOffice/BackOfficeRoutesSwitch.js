@@ -4,23 +4,23 @@ import { BackOfficeRoutes } from '../../urls';
 import {
   Home,
   DocumentEditor,
-  DocumentDetailsContainer,
-  DocumentsSearch,
-  DocumentRequestDetailsContainer,
-  DocumentRequestsSearch,
+  DocumentDetails,
+  DocumentSearch,
+  DocumentRequestDetails,
+  DocumentRequestSearch,
   EItemEditor,
   EItemSearch,
   EItemDetails,
   ItemEditor,
-  ItemsSearch,
-  ItemDetailsContainer,
+  ItemSearch,
+  ItemDetails,
   InternalLocationEditor,
-  LoansSearch,
-  LoanDetailsContainer,
+  LoanSearch,
+  LoanDetails,
   LocationEditor,
   LocationList,
-  PatronDetailsContainer,
-  PatronsSearch,
+  PatronDetails,
+  PatronSearch,
   SeriesEditor,
   SeriesDetails,
   SeriesSearch,
@@ -36,7 +36,7 @@ export default class extends Component {
         <Route
           exact
           path={BackOfficeRoutes.documentsList}
-          component={DocumentsSearch}
+          component={DocumentSearch}
         />
         <Route
           exact
@@ -51,7 +51,7 @@ export default class extends Component {
         <Route
           exact
           path={BackOfficeRoutes.documentDetails}
-          component={DocumentDetailsContainer}
+          component={DocumentDetails}
         />
         {/* eitems */}
         <Route
@@ -81,26 +81,18 @@ export default class extends Component {
           component={ItemEditor}
         />
         <Route exact path={BackOfficeRoutes.itemEdit} component={ItemEditor} />
-        <Route
-          exact
-          path={BackOfficeRoutes.itemsList}
-          component={ItemsSearch}
-        />
+        <Route exact path={BackOfficeRoutes.itemsList} component={ItemSearch} />
         <Route
           exact
           path={BackOfficeRoutes.itemDetails}
-          component={ItemDetailsContainer}
+          component={ItemDetails}
         />
         {/* loans */}
-        <Route
-          exact
-          path={BackOfficeRoutes.loansList}
-          component={LoansSearch}
-        />
+        <Route exact path={BackOfficeRoutes.loansList} component={LoanSearch} />
         <Route
           exact
           path={BackOfficeRoutes.loanDetails}
-          component={LoanDetailsContainer}
+          component={LoanDetails}
         />
         {/* internal locations */}
         <Route
@@ -133,12 +125,12 @@ export default class extends Component {
         <Route
           exact
           path={BackOfficeRoutes.patronsList}
-          component={PatronsSearch}
+          component={PatronSearch}
         />
         <Route
           exact
           path={BackOfficeRoutes.patronDetails}
-          component={PatronDetailsContainer}
+          component={PatronDetails}
         />
         {/* series */}
         <Route
@@ -165,12 +157,12 @@ export default class extends Component {
         <Route
           exact
           path={BackOfficeRoutes.documentRequestDetails}
-          component={DocumentRequestDetailsContainer}
+          component={DocumentRequestDetails}
         />
         <Route
           exact
           path={BackOfficeRoutes.documentRequestsList}
-          component={DocumentRequestsSearch}
+          component={DocumentRequestSearch}
         />
         <Route exact path={BackOfficeRoutes.stats.home} component={Stats} />
       </Switch>

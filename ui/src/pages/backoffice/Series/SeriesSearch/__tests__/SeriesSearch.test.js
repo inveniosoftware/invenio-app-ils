@@ -5,7 +5,7 @@ import { fromISO } from '@api/date';
 import { ResultsTable } from '@components';
 import { Button } from 'semantic-ui-react';
 
-jest.mock('../../../components');
+jest.mock('@pages/backoffice/components');
 
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');

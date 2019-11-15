@@ -9,7 +9,7 @@ import {
 } from '@components';
 import { series as seriesApi } from '@api';
 import { BackOfficeRoutes } from '@routes/urls';
-import { SeeAllButton } from '../../../../components/buttons';
+import { SeeAllButton } from '@pages/backoffice/components/buttons';
 
 export class SeriesMultipartMonographsData extends Component {
   constructor(props) {

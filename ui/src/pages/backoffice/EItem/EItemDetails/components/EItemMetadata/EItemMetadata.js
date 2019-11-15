@@ -2,8 +2,8 @@ import React from 'react';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Segment, Container, Header, Table } from 'semantic-ui-react';
-import { EditButton } from '../../../../components/buttons';
-import { DeleteRecordModal } from '../../../../components/DeleteRecordModal';
+import { EditButton } from '@pages/backoffice/components/buttons';
+import { DeleteRecordModal } from '@pages/backoffice/components/DeleteRecordModal';
 import { BackOfficeRoutes } from '@routes/urls';
 
 export default class EItemMetadata extends Component {
