@@ -8,11 +8,20 @@
 """Invenio Acquisition PIDs."""
 
 
-VENDOR_PID_TYPE = "venid"
+VENDOR_PID_TYPE = "acqvid"
 """Persistent Identifier for Vendor."""
 
-VENDOR_PID_MINTER = "venid"
+VENDOR_PID_MINTER = "acqvid"
 """Minter PID for Vendor."""
 
-VENDOR_PID_FETCHER = "venid"
+VENDOR_PID_FETCHER = "acqvid"
 """Fetcher PID for Vendor."""
+
+ORDER_PID_TYPE = "acqoid"
+"""Persistent Identifier for Acquisition order."""
+
+ORDER_PID_MINTER = "acqoid"
+"""Minter PID for Acquisition order."""
+
+ORDER_PID_FETCHER = "acqoid"
+"""Fetcher PID for Acquisition order."""

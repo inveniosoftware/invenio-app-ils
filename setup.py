@@ -88,14 +88,11 @@ install_requires = [
     "invenio-userprofiles>=1.0.1,<1.1.0",
     # extra
     "invenio-circulation>=1.0.0a19,<1.1.0",
-    "invenio-stats>=1.0.0a13",
-    # until flask-sqlalchemy is fixed
-    "SQLAlchemy>=1.2.16,<1.3.0",
+    "invenio-stats>=1.0.0a15",
     "invenio-pidrelations>=1.0.0a6,<1.1.0",
     "sentry-sdk>=0.10.2",
-    # Avoid version 4.3 it breaks the emails with datetime
-    # https://github.com/celery/celery/pull/5606
-    "celery>=4.2.1<4.3.0",
+    # until flask-sqlalchemy is fixed
+    "SQLAlchemy>=1.2.16,<1.3.0",
     # namedtuple are json serialized as dict
     "simplejson>=3"
 ]
@@ -150,7 +147,8 @@ setup(
         ],
         "invenio_i18n.translations": ["messages = invenio_app_ils"],
         "invenio_jsonschemas.schemas": [
-            "ils_schemas = invenio_app_ils.schemas"
+            "ils_schemas = invenio_app_ils.schemas",
+            "acquisition_schemas = invenio_app_ils.acquisition.schemas"
         ],
         "invenio_search.mappings": [
             "document_requests = invenio_app_ils.mappings",
@@ -164,6 +162,7 @@ setup(
             "tags = invenio_app_ils.mappings",
             "vocabularies = invenio_app_ils.mappings",
             "vendors = invenio_app_ils.acquisition.mappings",
+            "orders = invenio_app_ils.acquisition.mappings"
         ],
         "invenio_pidstore.fetchers": [
             "docid = invenio_app_ils.pidstore.fetchers:document_pid_fetcher",
@@ -176,7 +175,8 @@ setup(
             "serid = invenio_app_ils.pidstore.fetchers:series_pid_fetcher",
             "tagid = invenio_app_ils.pidstore.fetchers:tag_pid_fetcher",
             "vocid = invenio_app_ils.pidstore.fetchers:vocabulary_pid_fetcher",
-            "venid = invenio_app_ils.acquisition.pidstore.fetchers:vendor_pid_fetcher",
+            "acqvid = invenio_app_ils.acquisition.pidstore.fetchers:vendor_pid_fetcher",
+            "acqoid = invenio_app_ils.acquisition.pidstore.fetchers:order_pid_fetcher",
         ],
         "invenio_pidstore.minters": [
             "docid = invenio_app_ils.pidstore.minters:document_pid_minter",
@@ -189,7 +189,9 @@ setup(
             "serid = invenio_app_ils.pidstore.minters:series_pid_minter",
             "tagid = invenio_app_ils.pidstore.minters:tag_pid_minter",
             "vocid = invenio_app_ils.pidstore.minters:vocabulary_pid_minter",
-            "venid = invenio_app_ils.acquisition.pidstore.minters:vendor_pid_minter",
+            "acqvid = invenio_app_ils.acquisition.pidstore.minters:vendor_pid_minter",
+            "acqoid = invenio_app_ils.acquisition.pidstore.minters:order_pid_minter",
+
         ],
         "invenio_access.actions": [
             "backoffice_access_action = "
