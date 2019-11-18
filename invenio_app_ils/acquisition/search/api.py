@@ -18,3 +18,13 @@ class VendorSearch(RecordsSearch):
 
         index = "vendors"
         doc_types = None
+
+
+class OrderSearch(RecordsSearch):
+    """Search for acquisition Acquisition orders."""
+
+    class Meta:
+        """Search only on orders index."""
+
+        index = "orders"
+        doc_types = None

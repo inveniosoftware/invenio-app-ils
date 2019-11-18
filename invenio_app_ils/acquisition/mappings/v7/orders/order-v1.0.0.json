@@ -1,0 +1,59 @@
+{
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "document_pid": {
+        "type": "keyword"
+      },
+      "vendor_pid": {
+        "type": "keyword"
+      },
+      "patron_pid": {
+        "type": "keyword"
+      },
+      "status": {
+        "type": "keyword"
+      },
+      "cancel_reason": {
+        "type": "text"
+      },
+      "order_date": {
+        "type": "date"
+      },
+      "expected_delivery_date": {
+        "type": "date"
+      },
+      "number_of_copies_ordered": {
+        "type": "keyword"
+      },
+      "number_of_copies_received": {
+        "type": "keyword"
+      },
+      "estimated_cost_details": {
+        "type": "text"
+      },
+      "final_cost_details": {
+        "type": "keyword"
+      },
+      "funds": {
+        "type": "text"
+      },
+      "notes": {
+        "type": "text"
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      }
+    }
+  }
+}

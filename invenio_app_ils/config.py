@@ -27,14 +27,17 @@ from invenio_stats.aggregations import StatAggregator
 from invenio_stats.processors import EventsIndexer
 from invenio_stats.queries import ESTermsQuery
 
-from .acquisition.api import Vendor
-from .acquisition.search.api import VendorSearch
+from .acquisition.api import Order, Vendor
+from .acquisition.search.api import OrderSearch, VendorSearch
 from .circulation.search import IlsLoansSearch
 from .facets import keyed_range_filter
 from .records.resolver.loan import document_resolver, item_resolver, \
     loan_patron_resolver
 
 from .acquisition.pidstore.pids import (  # isort:skip
+    ORDER_PID_FETCHER,
+    ORDER_PID_MINTER,
+    ORDER_PID_TYPE,
     VENDOR_PID_FETCHER,
     VENDOR_PID_MINTER,
     VENDOR_PID_TYPE
@@ -338,6 +341,9 @@ _SERID_CONVERTER = (
 )
 _VENDOR_CONVERTER = (
     'pid(venid, record_class="invenio_app_ils.acquisition.api:Vendor")'
+)
+_order_CONVERTER = (
+    'pid(venid, record_class="invenio_app_ils.acquisition.api:Order")'
 )
 
 # RECORDS REST
@@ -716,7 +722,7 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all,
     ),
-    venid=dict(
+    acqvid=dict(
         pid_type=VENDOR_PID_TYPE,
         pid_minter=VENDOR_PID_MINTER,
         pid_fetcher=VENDOR_PID_FETCHER,
@@ -732,6 +738,31 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         list_route='/acquisition/vendors/',
         item_route='/acquisition/vendors/<{0}:pid_value>'.format(
+            _VENDOR_CONVERTER),
+        default_media_type='application/json',
+        max_result_window=10000,
+        error_handlers=dict(),
+        read_permission_factory_imp=record_read_permission_factory,
+        create_permission_factory_imp=backoffice_permission,
+        update_permission_factory_imp=backoffice_permission,
+        delete_permission_factory_imp=backoffice_permission,
+    ),
+    acqoid=dict(
+        pid_type=ORDER_PID_TYPE,
+        pid_minter=ORDER_PID_MINTER,
+        pid_fetcher=ORDER_PID_FETCHER,
+        search_class=OrderSearch,
+        record_class=Order,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_search'),
+        },
+        list_route='/acquisition/orders/',
+        item_route='/acquisition/orders/<{0}:pid_value>'.format(
             _VENDOR_CONVERTER),
         default_media_type='application/json',
         max_result_window=10000,
