@@ -91,7 +91,6 @@ DocumentPendingLoans.propTypes = {
   documentPendingLoans: PropTypes.object.isRequired,
   documentDetails: PropTypes.object.isRequired,
   fetchPendingLoans: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
   showMaxPendingLoans: PropTypes.number,
 };
 
