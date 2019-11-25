@@ -90,7 +90,6 @@ DocumentItems.propTypes = {
   documentItems: PropTypes.object.isRequired,
   documentDetails: PropTypes.object.isRequired,
   fetchDocumentItems: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
   showMaxItems: PropTypes.number,
 };
 

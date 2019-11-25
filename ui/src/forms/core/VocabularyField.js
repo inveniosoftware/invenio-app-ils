@@ -38,7 +38,6 @@ export class VocabularyField extends React.Component {
 
       this.setState({ isLoading: false, options: options, error: null });
     } catch (error) {
-      console.error(error);
       this.setState({
         isloading: false,
         options: [{ key: '', value: '', text: 'Failed to load vocabularies.' }],
