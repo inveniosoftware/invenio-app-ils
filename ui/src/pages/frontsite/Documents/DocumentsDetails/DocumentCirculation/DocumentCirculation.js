@@ -1,33 +1,66 @@
 import React, { Component } from 'react';
-import { Divider, Header, List, Popup, Segment } from 'semantic-ui-react';
+import { Divider, Header, List, Segment, Popup } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { LoginRedirectButton } from '@authentication/components';
 import { LoanRequestForm } from '../LoanRequestForm';
 import { AuthenticationGuard } from '@authentication/components/AuthenticationGuard';
 import { ILSImagePlaceholder } from '@components/ILSPlaceholder';
+import { eitem as eitemApi, file as fileApi } from '@api';
+import { invenioConfig } from '@config';
+import { DocumentLinks } from '@pages/frontsite/components/Document/DocumentLinks';
 
 class DocumentEItems extends Component {
-  render() {
-    const eitems = this.props.document.metadata.eitems.hits.map(eitem => {
-      return (
+  prepareLinks(eitems) {
+    const links = [];
+    for (const eitem of eitems) {
+      links.push(
         <List.Item key={eitem.pid}>
-          <List.Icon name={'linkify'} />
+          <List.Icon name="linkify" />
           <List.Content>
             Read <a href="#TODO">online</a>
           </List.Content>
         </List.Item>
       );
-    });
-    if (eitems.length > 0) {
-      return (
-        <>
-          <Header as="h3">Access online</Header>
-          <List>{eitems}</List>
-          <Divider horizontal>Or</Divider>
-        </>
-      );
+      for (const file of eitem.files) {
+        links.push(
+          <List.Item key={file.file_id}>
+            <List.Icon name="download" />
+            <List.Content>
+              Download{' '}
+              <a
+                href={fileApi.downloadURL(eitem.bucket_id, file.key)}
+                onClick={() => eitemApi.fileDownloaded(eitem.pid, file.key)}
+              >
+                {file.key}
+              </a>
+            </List.Content>
+          </List.Item>
+        );
+      }
     }
-    return null;
+    return links;
+  }
+
+  showAll = () => {
+    this.props.showTab(5);
+    const element = document.getElementById('document-metadata-tabs');
+    element.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  render() {
+    const eitems = this.props.document.metadata.eitems;
+
+    return eitems.total > 0 ? (
+      <>
+        <Header as="h3">Access online</Header>
+        <DocumentLinks
+          eitems={eitems}
+          showMaxLinks={invenioConfig.documents.frontsiteMaxLinks}
+          onShowAll={this.showAll}
+        />
+        <Divider horizontal>Or</Divider>
+      </>
+    ) : null;
   }
 }
 
@@ -90,7 +123,10 @@ export default class DocumentCirculation extends Component {
     return (
       <Segment className={'highlighted'}>
         <ILSImagePlaceholder style={{ height: 400 }} isLoading={isLoading}>
-          <DocumentEItems document={documentDetails} />
+          <DocumentEItems
+            document={documentDetails}
+            showTab={this.props.showTab}
+          />
           <Header as="h3" content="Request loan" />
           <List>
             <BookAvailability document={documentDetails} />

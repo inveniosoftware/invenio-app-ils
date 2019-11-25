@@ -7,6 +7,10 @@
     "$schema": {
       "type": "string"
     },
+    "bucket_id": {
+      "type": "string",
+      "title": "The bucket identifier for this EItem"
+    },
     "description": {
       "type": "string",
       "title": "Any extra description for this EItem"
@@ -24,36 +28,12 @@
       }
     },
     "files": {
-      "items": {
-        "type": "object",
-        "properties": {
-          "bucket": {
-            "type": "string"
-          },
-          "checksum": {
-            "type": "string"
-          },
-          "key": {
-            "type": "string"
-          },
-          "size": {
-            "type": "integer"
-          },
-          "type": {
-            "description": "File type extension.",
-            "type": "string"
-          },
-          "category": {
-            "type": "string"
-          },
-          "version_id": {
-            "type": "string"
-          }
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
         }
-      },
-      "minItems": 1,
-      "title": "List of files",
-      "type": "array"
+      }
     },
     "internal_notes": {
       "type": "string",

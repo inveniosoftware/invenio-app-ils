@@ -21,6 +21,12 @@ export const invenioConfig = {
     requestDuration: 60,
   },
   defaultResultsSize: 15,
+  documents: {
+    frontsiteMaxLinks: 5, // maximum number of links to show on details page
+  },
+  eitems: {
+    maxFiles: 5,
+  },
   items: {
     canCirculateStates: ['CAN_CIRCULATE'],
     circulationRestrictions: [

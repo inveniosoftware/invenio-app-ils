@@ -5,8 +5,11 @@ import {
   IS_LOADING,
   SUCCESS,
   HAS_ERROR,
+  UPLOAD_IS_LOADING,
+  ADD_FILE,
+  DELETE_FILE,
 } from './types';
-import { eitem as eitemApi } from '@api';
+import { eitem as eitemApi, file as fileApi } from '@api';
 import {
   sendErrorNotification,
   sendSuccessNotification,
@@ -57,6 +60,54 @@ export const fetchEItemDetails = eitemPid => {
       dispatch({
         type: SUCCESS,
         payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
+  };
+};
+
+export const uploadFile = (eitemPid, bucket, file) => {
+  return async dispatch => {
+    dispatch({
+      type: UPLOAD_IS_LOADING,
+    });
+
+    try {
+      if (!bucket) {
+        const bucketResponse = await eitemApi.bucket(eitemPid);
+        bucket = bucketResponse.data.metadata.bucket_id;
+      }
+      const response = await fileApi.upload(bucket, file);
+      dispatch({
+        type: ADD_FILE,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: HAS_ERROR,
+        payload: error,
+      });
+      dispatch(sendErrorNotification(error));
+    }
+  };
+};
+
+export const deleteFile = (bucket, filename) => {
+  return async dispatch => {
+    dispatch({
+      type: UPLOAD_IS_LOADING,
+    });
+
+    try {
+      await fileApi.delete(bucket, filename);
+      dispatch({
+        type: DELETE_FILE,
+        payload: filename,
       });
     } catch (error) {
       dispatch({

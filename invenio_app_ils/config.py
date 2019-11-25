@@ -22,7 +22,7 @@ from flask import request
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_pidrelations.config import RelationType
 from invenio_records_rest.facets import terms_filter
-from invenio_records_rest.utils import deny_all
+from invenio_records_rest.utils import allow_all, deny_all
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.processors import EventsIndexer
 from invenio_stats.queries import ESTermsQuery
@@ -261,12 +261,12 @@ CELERY_BEAT_SCHEDULE = {
     "stats-process-events": {
         'task': 'invenio_stats.tasks.process_events',
         'schedule': timedelta(minutes=30),
-        'args': [('record-view',)],
+        'args': [('record-view', 'file-download')],
     },
     "stats-aggregate-events": {
         'task': 'invenio_stats.tasks.aggregate_events',
         'schedule': timedelta(hours=3),
-        'args': [('record-view-agg',)],
+        'args': [('record-view-agg', 'file-download-agg')],
     },
 }
 
@@ -1199,6 +1199,26 @@ ALLOWED_HTML_TAGS = []
 # Stats
 # =====
 STATS_EVENTS = {
+    'file-download': {
+        'signal': 'invenio_files_rest.signals.file_downloaded',
+        'templates': 'invenio_app_ils.stats.file_download',
+        'event_builders': [
+            'invenio_app_ils.event_builders:eitem_event_builder',
+            'invenio_stats.contrib.event_builders.file_download_event_builder',
+        ],
+        'cls': EventsIndexer,
+        'params': {
+            'preprocessors': [
+                'invenio_stats.processors:flag_robots',
+                lambda doc: doc if not doc['is_robot'] else None,
+                'invenio_stats.processors:flag_machines',
+                'invenio_stats.processors:anonymize_user',
+                'invenio_stats.contrib.event_builders:build_file_unique_id',
+            ],
+            'double_click_window': 30,
+            'suffix': '%Y-%m',
+        },
+    },
     'record-view': {
         'signal': 'invenio_app_ils.signals.record_viewed',
         'templates': 'invenio_stats.contrib.record_view',
@@ -1209,7 +1229,6 @@ STATS_EVENTS = {
         'params': {
             'preprocessors': [
                 'invenio_stats.processors:flag_robots',
-                # Don't index robot events
                 lambda doc: doc if not doc['is_robot'] else None,
                 'invenio_stats.processors:flag_machines',
                 'invenio_stats.processors:anonymize_user',
@@ -1222,6 +1241,28 @@ STATS_EVENTS = {
 }
 
 STATS_AGGREGATIONS = {
+    'file-download-agg': dict(
+        templates='invenio_app_ils.stats.aggregations.aggr_file_download',
+        cls=StatAggregator,
+        params=dict(
+            event='file-download',
+            field='file_id',
+            interval='day',
+            index_interval='month',
+            copy_fields=dict(
+                bucket_id='bucket_id',
+                file_id='file_id',
+                file_key='file_key',
+                size='size',
+                eitem_pid='eitem_pid',
+                document_pid='document_pid',
+            ),
+            metric_fields=dict(
+                unique_count=('cardinality', 'unique_session_id',
+                              {'precision_threshold': 1000}),
+            )
+        )
+    ),
     'record-view-agg': dict(
         templates='invenio_stats.contrib.aggregations.aggr_record_view',
         cls=StatAggregator,
@@ -1243,6 +1284,28 @@ STATS_AGGREGATIONS = {
 }
 
 STATS_QUERIES = {
+    'file-download-by-document': dict(
+        cls=ESTermsQuery,
+        permission_factory=None,
+        params=dict(
+            index='stats-file-download',
+            copy_fields=dict(
+                bucket_id='bucket_id',
+                file_id='file_id',
+                file_key='file_key',
+                size='size',
+                eitem_pid='eitem_pid',
+                document_pid='document_pid',
+            ),
+            required_filters=dict(
+                document_pid='document_pid',
+            ),
+            metric_fields=dict(
+                count=('sum', 'count', {}),
+                unique_count=('sum', 'unique_count', {}),
+            )
+        ),
+    ),
     'record-view': dict(
         cls=ESTermsQuery,
         permission_factory=None,
@@ -1286,3 +1349,5 @@ ILS_VOCABULARY_SOURCES = {
 }
 
 OPENDEFINITION_JSONRESOLVER_HOST = "inveniosoftware.org"
+
+FILES_REST_PERMISSION_FACTORY = "invenio_app_ils.permissions:files_permission"

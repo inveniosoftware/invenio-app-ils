@@ -23,7 +23,7 @@ tests_require = [
     "mock>=2.0.0",
     "pydocstyle>=2.0.0",
     "pytest-cov>=2.5.1",
-    "pytest-invenio>=1.1.0,<1.2.0",
+    "pytest-invenio>=1.2.1,<1.3.0",
     "pytest-mock>=1.6.0",
     "pytest-pep8>=1.0.6",
     "pytest-random-order>=0.5.4",
@@ -96,6 +96,7 @@ install_requires = [
     "SQLAlchemy>=1.2.16,<1.3.0",
     # namedtuple are json serialized as dict
     "simplejson>=3",
+    "invenio-files-rest>=1.0.6,<1.1.0",
 ]
 
 packages = find_packages()
@@ -142,6 +143,7 @@ setup(
             "ils_relations = invenio_app_ils.records_relations.views:create_relations_blueprint",
             "ils_document_request = invenio_app_ils.records.views:create_document_request_action_blueprint",
             "ils_document_stats = invenio_app_ils.records.views:create_document_stats_blueprint",
+            "ils_files = invenio_app_ils.files.views:create_files_blueprint",
         ],
         "invenio_config.module": [
             "00_invenio_app_ils = invenio_app_ils.config"
@@ -208,6 +210,7 @@ setup(
             "document_stock = invenio_app_ils.records.resolver.jsonresolver.document_stock",
             "document_tag = invenio_app_ils.records.resolver.jsonresolver.document_tag",
             "eitem = invenio_app_ils.records.resolver.jsonresolver.eitem",
+            "eitem_files = invenio_app_ils.records.resolver.jsonresolver.eitem_files",
             "internal_location = invenio_app_ils.records.resolver.jsonresolver.internal_location",
             "item_document = invenio_app_ils.records.resolver.jsonresolver.item_document",
             "item_internal_location = invenio_app_ils.records.resolver.jsonresolver.item_internal_location",

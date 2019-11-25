@@ -14,7 +14,7 @@ from flask_login import current_user
 from flask_principal import UserNeed
 from invenio_access import action_factory
 from invenio_access.permissions import Permission, authenticated_user
-from invenio_records_rest.utils import deny_all
+from invenio_records_rest.utils import allow_all, deny_all
 
 backoffice_access_action = action_factory("ils-backoffice-access")
 
@@ -33,6 +33,11 @@ def check_permission(permission):
 def backoffice_permission(*args, **kwargs):
     """Return permission to allow only librarians and admins."""
     return Permission(backoffice_access_action)
+
+
+def files_permission(obj, action=None):
+    """Return permission for Files REST."""
+    return allow_all(obj, action)
 
 
 class LoanOwnerPermission(Permission):
@@ -81,6 +86,8 @@ def views_permissions_factory(action):
     elif action == "document-request-accept":
         return backoffice_permission()
     elif action == "document-request-reject":
+        return backoffice_permission()
+    elif action == "bucket-create":
         return backoffice_permission()
     else:
         return deny_all()

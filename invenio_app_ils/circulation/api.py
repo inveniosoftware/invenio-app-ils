@@ -20,7 +20,7 @@ from invenio_db import db
 
 from invenio_app_ils.errors import MissingRequiredParameterError, \
     PatronHasLoanOnItemError, PatronHasRequestOnDocumentError
-from invenio_app_ils.proxies import current_app_ils_extension
+from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.api import Item
 
 lt_es7 = ES_VERSION[0] < 7
@@ -47,7 +47,7 @@ def _set_item_to_can_circulate(item_pid):
         )
         item.commit()
         db.session.commit()
-        current_app_ils_extension.item_indexer.index(item)
+        current_app_ils.item_indexer.index(item)
 
 
 def patron_has_request_on_document(patron_pid, document_pid):

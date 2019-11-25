@@ -7,6 +7,7 @@ exports[`EItemDetails tests should load the details component 1`] = `
   >
     <Error>
       <Connect(EItemMetadata) />
+      <Connect(EItemFiles) />
     </Error>
   </Loader>
 </Container>

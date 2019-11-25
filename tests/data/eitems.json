@@ -18,5 +18,37 @@
     "document": {
       "title": "Document 2 title"
     }
+  },
+  {
+    "$schema": "https://127.0.0.1:5000/schemas/eitems/eitem-v1.0.0.json",
+    "bucket_id": "5d877356-59b2-4886-9e7f-0ba2cb6a5fd3",
+    "document_pid": "docid-3",
+    "files": [
+      {
+        "bucket": "5d877356-59b2-4886-9e7f-0ba2cb6a5fd3",
+        "checksum": "md5: 623bd0cc7ab348d72543c0a4d901daa4",
+        "file_id": "5007ba23-ebf5-4664-ad8d-98d839d5acb0",
+        "key": "file1.pdf",
+        "size": 196879,
+        "version_id": "284412f1-ef0c-4b4a-8c63-f85b40d02dc1"
+      },
+      {
+        "bucket": "5d877356-59b2-4886-9e7f-0ba2cb6a5fd3",
+        "checksum": "md5: 1b7ea8126d278ecbfa9fcb9b0d7dc5af",
+        "file_id": "cd878cfd-e756-4355-98d3-21784f1633c2",
+        "key": "file2.txt",
+        "size": 16,
+        "version_id": "f86b4dd2-88e6-4af7-bdd5-42aa6c5a7fbc"
+      }
+    ],
+    "open_access": true,
+    "pid": "eitemid-3"
+  },
+  {
+    "$schema": "https://127.0.0.1:5000/schemas/eitems/eitem-v1.0.0.json",
+    "document_pid": "docid-1",
+    "files": [],
+    "open_access": true,
+    "pid": "eitemid-4"
   }
 ]

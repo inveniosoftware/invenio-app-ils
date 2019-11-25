@@ -10,6 +10,12 @@ const recordStats = async (pidType, pidValue) => {
         pid_value: pidValue,
       },
     },
+    downloads: {
+      stat: 'file-download-by-document',
+      params: {
+        document_pid: pidValue,
+      },
+    },
   };
   return await http.post(statsURL, data);
 };

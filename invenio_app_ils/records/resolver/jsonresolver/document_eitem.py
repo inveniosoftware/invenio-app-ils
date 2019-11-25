@@ -31,6 +31,8 @@ def jsonresolver_loader(url_map):
                 "description": eitem.get("description"),
                 "internal_notes": eitem.get("internal_notes"),
                 "open_access": eitem.get("open_access"),
+                "bucket_id": eitem.get("bucket_id", None),
+                "files": eitem.get("files", []),
             })
         return {
             "total": len(eitems),

@@ -12,6 +12,7 @@ from __future__ import absolute_import, print_function
 from elasticsearch import VERSION as ES_VERSION
 from flask import current_app
 from invenio_circulation.search.api import search_by_pid
+from invenio_files_rest.models import ObjectVersion
 from invenio_jsonschemas import current_jsonschemas
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_pidstore.resolver import Resolver
@@ -19,6 +20,7 @@ from invenio_records.api import Record
 from invenio_rest.errors import FieldError
 from invenio_userprofiles.api import UserProfile
 from jsonschema.exceptions import ValidationError
+from marshmallow import missing
 from werkzeug.utils import cached_property
 
 from invenio_app_ils.errors import DocumentTagNotFoundError, \
@@ -395,12 +397,22 @@ class EItem(_Item):
     _document_resolver_path = (
         "{scheme}://{host}/api/resolver/eitems/{eitem_pid}/document"
     )
+    _files_resolver_path = (
+        "{scheme}://{host}/api/resolver/eitems/{eitem_pid}/files"
+    )
 
     @classmethod
     def build_resolver_fields(cls, data):
         """Build all resolver fields."""
         data["document"] = {
             "$ref": cls._document_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                eitem_pid=data["pid"],
+            )
+        }
+        data["files"] = {
+            "$ref": cls._files_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 eitem_pid=data["pid"],
@@ -417,6 +429,13 @@ class EItem(_Item):
         """Update EItem record."""
         super(EItem, self).update(data)
         self.build_resolver_fields(self)
+
+    @property
+    def files(self):
+        """Get EItem files."""
+        if "bucket_id" not in self:
+            return []
+        return ObjectVersion.get_by_bucket(self["bucket_id"]).limit(1000).all()
 
 
 class Location(IlsRecord):

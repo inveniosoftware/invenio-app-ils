@@ -7,12 +7,19 @@ import { DocumentAbstract as DocumentAbstractComponent } from './DocumentAbstrac
 import { DocumentTitle as DocumentTitleComponent } from './DocumentTitle';
 import { DocumentMetadataTabs as DocumentMetadataTabsComponent } from './DocumentMetadataTabs';
 import { DocumentMetadataAccordion as DocumentMetadataAccordionComponent } from './DocumentMetadataAccordion';
+import { showTab } from '@pages/frontsite/Documents/DocumentsDetails/state/actions';
 export { DocumentStats } from './DocumentStats';
+export { DownloadLink } from './DownloadLink';
 
 const mapStateToProps = state => ({
   isLoading: state.documentDetailsFront.isLoading,
   metadata: state.documentDetailsFront.data.metadata,
   hasError: state.documentDetailsFront.hasError,
+  activeTab: state.documentDetailsFront.activeTab,
+});
+
+const mapDispatchToProps = dispatch => ({
+  showTab: activeIndex => dispatch(showTab(activeIndex)),
 });
 
 export const DocumentTags = connect(
@@ -47,7 +54,7 @@ export const DocumentTitle = connect(
 
 export const DocumentMetadataTabs = connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(DocumentMetadataTabsComponent);
 
 export const DocumentMetadataAccordion = connect(

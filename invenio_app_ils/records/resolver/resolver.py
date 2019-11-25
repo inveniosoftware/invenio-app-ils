@@ -10,7 +10,7 @@
 from invenio_pidstore.errors import PersistentIdentifierError
 
 from invenio_app_ils.errors import PatronNotFoundError
-from invenio_app_ils.proxies import current_app_ils_extension
+from invenio_app_ils.proxies import current_app_ils
 
 
 def get_field_value_for_record(record_cls, record_pid, field_name):
@@ -29,7 +29,7 @@ def get_patron(patron_pid):
     if not patron_pid:
         return {}
     try:
-        return current_app_ils_extension.patron_cls.get_patron(
+        return current_app_ils.patron_cls.get_patron(
             patron_pid
         ).dumps_loader()
     except PatronNotFoundError:

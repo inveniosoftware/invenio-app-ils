@@ -33,7 +33,7 @@ class DocumentSearch(RecordsSearch):
         return self.filter("terms", pid=pids)
 
     def search_by_tag_pid(self, tag_pid=None, filter_states=None,
-                              exclude_states=None):
+                          exclude_states=None):
         """Retrieve documents based on the given tag pid."""
         search = self
         return TagSearch.filter_by_tag_pid(
@@ -118,7 +118,6 @@ class _ItemSearch(RecordsSearch):
 
         return search
 
-
     def search_by_location_pid(
         self,
         location_pid=None,
@@ -178,6 +177,18 @@ class EItemSearch(_ItemSearch):
 
         index = "eitems"
         doc_types = None
+
+    def search_by_bucket_id(self, bucket_id=None):
+        """Search EItems by bucket id."""
+        search = self
+
+        if bucket_id:
+            search = search.filter("term", bucket_id=bucket_id)
+        else:
+            raise MissingRequiredParameterError(
+                description="bucket_id is required"
+            )
+        return search
 
 
 class LocationSearch(RecordsSearch):
