@@ -680,3 +680,13 @@ class Vocabulary(dict):
             "text": self.text,
             "data": self.data,
         }
+
+    def __repr__(self):
+        """Representation of a vocabulary."""
+        return "Vocabulary(id={}, key={}, type={}, text={!r}, data={})".format(
+            self.id,
+            self.key,
+            self.type,
+            self.text,
+            self.data
+        )

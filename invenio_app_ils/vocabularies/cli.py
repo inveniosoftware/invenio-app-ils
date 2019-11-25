@@ -55,6 +55,42 @@ def index_json(filenames, force):
     click.echo('indexed {} vocabularies'.format(index_count))
 
 
+@index.command(name="opendefinition")
+@click.argument("loader")
+@click.option("--path", default=None)
+@click.option(
+    "--whitelist-status",
+    default=None,
+    help="Comma-separated list of whitelisted statuses."
+)
+@click.option("--force", is_flag=True)
+@with_appcontext
+def index_opendefinition(loader, path, whitelist_status, force):
+    """Index JSON-based vocabularies in Elasticsearch."""
+    if not force:
+        click.confirm(
+            "Are you sure you want to index the vocabularies?",
+            abort=True
+        )
+    index_count = 0
+    click.echo('indexing licenses from loader {} and path {}...'.format(
+        loader,
+        path
+    ))
+    if whitelist_status:
+        whitelist_status = whitelist_status.split(",")
+    vocabularies = load_vocabularies(
+        "opendefinition", loader, path, whitelist_status
+    )
+    cfg = current_app.config["RECORDS_REST_ENDPOINTS"][VOCABULARY_PID_TYPE]
+    indexer = cfg["indexer_class"]()
+    with click.progressbar(vocabularies) as bar:
+        for vocabulary in bar:
+            indexer.index(vocabulary)
+    index_count += len(vocabularies)
+    click.echo('indexed {} licenses'.format(index_count))
+
+
 @vocabulary.group()
 def generate():
     """Generate vocabulary files."""

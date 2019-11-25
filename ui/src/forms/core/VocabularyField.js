@@ -34,13 +34,11 @@ export class VocabularyField extends React.Component {
   fetchVocabularies = async serializer => {
     try {
       const response = await this.query();
-      const options = [];
-      for (let hit of response.data.hits) {
-        options.push(serializer(hit));
-      }
+      const options = response.data.hits.map(hit => serializer(hit));
 
       this.setState({ isLoading: false, options: options, error: null });
     } catch (error) {
+      console.error(error);
       this.setState({
         isloading: false,
         options: [{ key: '', value: '', text: 'Failed to load vocabularies.' }],
