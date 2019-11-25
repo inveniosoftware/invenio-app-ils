@@ -111,6 +111,7 @@ export const invenioConfig = {
       identifier: {
         scheme: 'identifier_scheme',
       },
+      license: 'license',
       tags: 'tag',
       type: 'document_type',
     },

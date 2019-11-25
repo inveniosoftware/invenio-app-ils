@@ -930,6 +930,8 @@ def setup(recreate_db, skip_demo_data, skip_patrons, skip_vocabularies,
             if name.endswith(".json")
         )
         run_command("vocabulary index json --force {}".format(json_files))
+        run_command("vocabulary index opendefinition spdx --force")
+        run_command("vocabulary index opendefinition opendefinition --force")
 
     # Assign actions
     run_command("access allow superuser-access role admin")

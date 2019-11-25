@@ -90,11 +90,12 @@ install_requires = [
     "invenio-circulation>=1.0.0a19,<1.1.0",
     "invenio-stats>=1.0.0a15",
     "invenio-pidrelations>=1.0.0a6,<1.1.0",
+    "invenio-opendefinition>=1.0.0a9,<1.1.0",
     "sentry-sdk>=0.10.2",
     # until flask-sqlalchemy is fixed
     "SQLAlchemy>=1.2.16,<1.3.0",
     # namedtuple are json serialized as dict
-    "simplejson>=3"
+    "simplejson>=3",
 ]
 
 packages = find_packages()

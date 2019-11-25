@@ -1266,9 +1266,13 @@ ILS_VOCABULARIES = [
     "document_type",
     "identifier_scheme",
     "language",
+    "license",
     "tag",
 ]
 
 ILS_VOCABULARY_SOURCES = {
     "json": "invenio_app_ils.vocabularies.sources:json_source",
+    "opendefinition": "invenio_app_ils.vocabularies.sources:opendefinition_source",
 }
+
+OPENDEFINITION_JSONRESOLVER_HOST = "inveniosoftware.org"

@@ -178,20 +178,6 @@ class PublicationInfoSchema(Schema):
     year = fields.Int()
 
 
-class LicenseSchema(Schema):
-    """License schema."""
-
-    class Meta:
-        """Meta attributes for the schema."""
-
-        unknown = EXCLUDE
-
-    funder = fields.Str()
-    identifier = fields.Nested(IdentifierSchema)
-    statement = fields.Str()
-    url = fields.Url()
-
-
 class ChangeBySchema(Schema):
     """Change by schema."""
 
@@ -240,7 +226,7 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     internal_notes = fields.List(fields.Nested(InternalNoteSchema))
     keywords = fields.Nested(KeywordSchema)
     languages = fields.List(fields.Str())
-    licenses = fields.List(fields.Nested(LicenseSchema))
+    licenses = fields.List(fields.Str())
     note = fields.Str()
     number_of_pages = fields.Str()
     other_authors = fields.Bool()

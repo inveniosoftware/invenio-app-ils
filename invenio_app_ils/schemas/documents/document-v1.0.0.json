@@ -426,45 +426,12 @@
     },
     "licenses": {
       "items": {
-        "additionalProperties": false,
-        "properties": {
-          "funder": {
-            "description": "#TODO",
-            "minLength": 1,
-            "title": "Open Access funder",
-            "type": "string"
-          },
-          "identifier": {
-            "title": "Licence identifier",
-            "properties": {
-              "scheme": {
-                "title": "Scheme of the identifier",
-                "type": "string"
-              },
-              "value": {
-                "title": "Identifier value",
-                "type": "string"
-              }
-            },
-            "required": ["scheme", "value"],
-            "type": "object"
-          },
-          "statement": {
-            "minLength": 1,
-            "title": "License statement",
-            "type": "string"
-          },
-          "url": {
-            "format": "uri",
-            "minLength": 1,
-            "title": "URL of the license",
-            "type": "string"
-          }
-        },
-        "type": "object"
+        "minLength": 1,
+        "title": "License name",
+        "type": "string"
       },
       "minItems": 1,
-      "title": "List of licenses",
+      "title": "List of licenses of the document",
       "type": "array",
       "uniqueItems": true
     },
