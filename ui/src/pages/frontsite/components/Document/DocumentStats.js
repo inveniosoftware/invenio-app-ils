@@ -7,7 +7,10 @@ import _get from 'lodash/get';
 export class DocumentStats extends Component {
   constructor(props) {
     super(props);
-    this.state = { views: { count: '-', unique_count: '-' } };
+    this.state = {
+      views: { count: '-', unique_count: '-' },
+      downloads: { count: '-', unique_count: '-' },
+    };
   }
 
   componentDidMount() {
@@ -23,7 +26,11 @@ export class DocumentStats extends Component {
         count: '-',
         unique_count: '-',
       });
-      this.setState({ views: views });
+      const downloads = _get(response.data, 'downloads', {
+        count: '-',
+        unique_count: '-',
+      });
+      this.setState({ downloads: downloads, views: views });
     } catch (error) {
       console.warn(error);
     }
@@ -31,7 +38,7 @@ export class DocumentStats extends Component {
 
   render() {
     const { document } = this.props;
-    const { views } = this.state;
+    const { downloads, views } = this.state;
     return (
       <Message compact className={'document-stats-message'}>
         <Table compact basic>
@@ -54,10 +61,10 @@ export class DocumentStats extends Component {
                   <Icon name="download" />
                 </Table.Cell>
                 <Table.Cell>
-                  Downloads <strong>{'-'}</strong>
+                  Downloads <strong>{downloads.count}</strong>
                 </Table.Cell>
                 <Table.Cell>
-                  Unique Downloads <strong>{'-'}</strong>
+                  Unique Downloads <strong>{downloads.unique_count}</strong>
                 </Table.Cell>
               </Table.Row>
             )}

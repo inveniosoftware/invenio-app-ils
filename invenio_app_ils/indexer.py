@@ -19,6 +19,7 @@ from invenio_circulation.api import Loan
 from invenio_circulation.search.api import search_by_pid as search_loans_by_pid
 from invenio_indexer.api import RecordIndexer
 
+from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.api import Document, DocumentRequest, EItem, \
     IlsRecord, InternalLocation, Item, Series
 from invenio_app_ils.search.api import DocumentRequestSearch, DocumentSearch, \
@@ -114,6 +115,15 @@ def index_document_after_eitem_indexed(item_pid):
     _index_record_by_pid(Document, document_pid, log_func)
 
 
+@shared_task(ignore_result=True)
+def index_eitem_after_files_changed(bucket_id):
+    """Index EItem on file changes."""
+    search = current_app_ils.eitem_search
+    for hit in search.search_by_bucket_id(bucket_id).scan():
+        record = current_app_ils.eitem_cls.get_record_by_pid(hit.pid)
+        current_app_ils.eitem_indexer.index(record)
+
+
 class EItemIndexer(RecordIndexer):
     """Indexer class for EItem record."""
 
@@ -138,7 +148,7 @@ def index_item_after_document_indexed(document_pid):
 
     log_func(msg=MSG_ORIGIN)
     for item in ItemSearch().search_by_document_pid(
-        document_pid=document_pid).scan():
+            document_pid=document_pid).scan():
         item_pid = item["pid"]
         _index_record_by_pid(Item, item_pid, log_func)
 

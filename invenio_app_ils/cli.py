@@ -845,6 +845,7 @@ def create_userprofile_for(email, username, full_name):
 @click.option(
     "--skip-demo-data", is_flag=True, help="Skip creating demo data."
 )
+@click.option("--skip-location", is_flag=True, help="Skip creating location.")
 @click.option("--skip-patrons", is_flag=True, help="Skip creating patrons.")
 @click.option(
     "--skip-vocabularies",
@@ -853,8 +854,8 @@ def create_userprofile_for(email, username, full_name):
 )
 @click.option("--verbose", is_flag=True, help="Verbose output.")
 @with_appcontext
-def setup(recreate_db, skip_demo_data, skip_patrons, skip_vocabularies,
-          verbose):
+def setup(recreate_db, skip_demo_data, skip_location, skip_patrons,
+          skip_vocabularies, verbose):
     """ILS setup command."""
     from flask import current_app
     from invenio_base.app import create_cli
@@ -939,6 +940,10 @@ def setup(recreate_db, skip_demo_data, skip_patrons, skip_vocabularies,
 
     # Index patrons
     run_command("patrons index")
+
+    # Create files location
+    if not skip_location:
+        run_command("files location --default ils /tmp/ils-files")
 
     # Generate demo data
     if not skip_demo_data:

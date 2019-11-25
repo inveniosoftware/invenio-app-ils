@@ -9,6 +9,9 @@
       "pid": {
         "type": "keyword"
       },
+      "bucket_id": {
+        "type": "keyword"
+      },
       "document_pid": {
         "type": "keyword"
       },
@@ -22,6 +25,29 @@
       },
       "description": {
         "type": "text"
+      },
+      "files": {
+        "type": "object",
+        "properties": {
+          "bucket": {
+            "type": "keyword"
+          },
+          "checksum": {
+            "type": "keyword"
+          },
+          "id": {
+            "type": "keyword"
+          },
+          "key": {
+            "type": "keyword"
+          },
+          "size": {
+            "type": "keyword"
+          },
+          "version_id": {
+            "type": "keyword"
+          }
+        }
       },
       "internal_notes": {
         "type": "text"

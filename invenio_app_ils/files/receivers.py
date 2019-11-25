@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2019 CERN.
+#
+# invenio-app-ils is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
+"""ILS files receivers."""
+
+from __future__ import absolute_import, print_function
+
+from invenio_files_rest.signals import file_deleted, file_uploaded
+
+from invenio_app_ils.indexer import index_eitem_after_files_changed
+
+
+def file_changed(obj):
+    """Index eitems after files changed."""
+    index_eitem_after_files_changed.apply_async([str(obj.bucket_id)])
+
+
+def register_files_signals():
+    """Register files signal."""
+    file_deleted.connect(file_changed, weak=False)
+    file_uploaded.connect(file_changed, weak=False)

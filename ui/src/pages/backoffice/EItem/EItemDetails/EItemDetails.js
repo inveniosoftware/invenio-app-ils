@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
 import { Loader, Error } from '@components';
-import { EItemMetadata } from './components';
+import { EItemFiles, EItemMetadata } from './components';
 
 export default class EItemDetails extends Component {
   componentDidMount() {
@@ -16,6 +16,7 @@ export default class EItemDetails extends Component {
         <Loader isLoading={isLoading}>
           <Error error={error}>
             <EItemMetadata />
+            <EItemFiles />
           </Error>
         </Loader>
       </Container>

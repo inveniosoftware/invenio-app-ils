@@ -1,6 +1,7 @@
 export { document } from './documents/document';
 export { documentRequest } from './documentRequests/documentRequest';
 export { eitem } from './eitems/eitem';
+export { file } from './files/file';
 export { http } from './base';
 export { internalLocation } from './locations/internalLocation';
 export { item } from './items/item';

@@ -11,6 +11,8 @@ from __future__ import absolute_import, print_function
 
 from flask import Blueprint, abort, current_app, request
 from invenio_db import db
+from invenio_files_rest.models import Bucket, ObjectVersion
+from invenio_files_rest.signals import file_downloaded
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_records_rest.views import pass_record
 from invenio_rest import ContentNegotiatedMethodView
@@ -19,8 +21,8 @@ from invenio_rest.errors import FieldError
 from invenio_app_ils.circulation.views import need_permissions
 from invenio_app_ils.errors import DocumentRequestError
 from invenio_app_ils.pidstore.pids import DOCUMENT_PID_TYPE, \
-    DOCUMENT_REQUEST_PID_TYPE
-from invenio_app_ils.proxies import current_app_ils_extension
+    DOCUMENT_REQUEST_PID_TYPE, EITEM_PID_TYPE
+from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.signals import record_viewed
 
 
@@ -30,24 +32,28 @@ def create_document_stats_blueprint(app):
         "ils_document_stats", __name__, url_prefix=""
     )
     endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
-    options = endpoints.get(DOCUMENT_PID_TYPE, {})
-    default_media_type = options.get("default_media_type", "")
-    rec_serializers = options.get("record_serializers", {})
-    serializers = {
-        mime: obj_or_import_string(func)
-        for mime, func in rec_serializers.items()
-    }
 
-    stats_view = DocumentStatsResource.as_view(
-        DocumentStatsResource.view_name.format(DOCUMENT_PID_TYPE),
-        serializers=serializers,
-        default_media_type=default_media_type,
-    )
-    blueprint.add_url_rule(
-        "{0}/stats".format(options['item_route']),
-        view_func=stats_view,
-        methods=["POST"],
-    )
+    def register_view(pid_type):
+        options = endpoints.get(pid_type, {})
+        default_media_type = options.get("default_media_type", "")
+        rec_serializers = options.get("record_serializers", {})
+        serializers = {
+            mime: obj_or_import_string(func)
+            for mime, func in rec_serializers.items()
+        }
+
+        stats_view = DocumentStatsResource.as_view(
+            DocumentStatsResource.view_name.format(pid_type),
+            serializers=serializers,
+            default_media_type=default_media_type,
+        )
+        blueprint.add_url_rule(
+            "{0}/stats".format(options["item_route"]),
+            view_func=stats_view,
+            methods=["POST"],
+        )
+    register_view(DOCUMENT_PID_TYPE)
+    register_view(EITEM_PID_TYPE)
     return blueprint
 
 
@@ -60,12 +66,22 @@ class DocumentStatsResource(ContentNegotiatedMethodView):
     def post(self, pid, record, **kwargs):
         """Send a signal to count record view for the record stats."""
         data = request.get_json()
-        if data.get('event') == 'record-view':
+        if data.get("event") == "record-view":
             record_viewed.send(
                 current_app._get_current_object(),
                 pid=pid,
                 record=record,
             )
+            return self.make_response(pid, record, 202)
+        elif data.get("event") == "file-download":
+            if "key" not in data:
+                abort(406, "File key is required")
+            if "bucket_id" not in record:
+                abort(406, "Record has no bucket")
+            obj = ObjectVersion.get(record["bucket_id"], data["key"])
+            file_downloaded.send(
+                current_app._get_current_object(),
+                obj=obj, record=record)
             return self.make_response(pid, record, 202)
         return DocumentRequestError("Invalid record view request")
 
@@ -144,7 +160,7 @@ class RejectRequestResource(ContentNegotiatedMethodView):
         record["reject_reason"] = reason
         record.commit()
         db.session.commit()
-        current_app_ils_extension.document_request_indexer.index(record)
+        current_app_ils.document_request_indexer.index(record)
         return self.make_response(
             pid, record, 202
         )

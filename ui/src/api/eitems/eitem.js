@@ -36,6 +36,19 @@ const list = async query => {
   return response;
 };
 
+const bucket = async eitemPid => {
+  const resp = await http.post(`${eitemURL}${eitemPid}/bucket`);
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
+};
+
+const fileDownloaded = async (eitemPid, filename) => {
+  return await http.post(`${eitemURL}${eitemPid}/stats`, {
+    event: 'file-download',
+    key: filename,
+  });
+};
+
 class QueryBuilder {
   constructor() {
     this.documentQuery = [];
@@ -59,11 +72,13 @@ const queryBuilder = () => {
 };
 
 export const eitem = {
-  searchBaseURL: `${apiConfig.baseURL}${eitemURL}`,
-  query: queryBuilder,
-  list: list,
-  get: get,
-  delete: del,
+  bucket: bucket,
   create: create,
+  delete: del,
+  fileDownloaded: fileDownloaded,
+  get: get,
+  list: list,
+  query: queryBuilder,
+  searchBaseURL: `${apiConfig.baseURL}${eitemURL}`,
   update: update,
 };

@@ -1,4 +1,4 @@
-import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
+import { IS_LOADING, SUCCESS, HAS_ERROR, SHOW_TAB } from './types';
 import { document as documentApi } from '@api';
 
 export const fetchDocumentsDetails = documentPid => {
@@ -21,5 +21,14 @@ export const fetchDocumentsDetails = documentPid => {
           payload: error,
         });
       });
+  };
+};
+
+export const showTab = activeIndex => {
+  return async dispatch => {
+    dispatch({
+      type: SHOW_TAB,
+      payload: activeIndex,
+    });
   };
 };

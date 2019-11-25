@@ -1,4 +1,4 @@
-import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
+import { IS_LOADING, SUCCESS, HAS_ERROR, SHOW_TAB } from './types';
 
 export const initialState = {
   isLoading: true,
@@ -25,6 +25,11 @@ export default (state = initialState, action) => {
         isLoading: false,
         error: action.payload,
         hasError: true,
+      };
+    case SHOW_TAB:
+      return {
+        ...state,
+        activeTab: action.payload,
       };
     default:
       return state;

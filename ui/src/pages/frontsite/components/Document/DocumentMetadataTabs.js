@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { DocumentRelations, DocumentInfo } from './index';
 import { DocumentTableOfContent } from './DocumentTableOfContent';
 import { DocumentConference } from './DocumentConference';
+import { DocumentLinks } from './DocumentLinks';
 
 export class DocumentMetadataTabs extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export class DocumentMetadataTabs extends Component {
   }
 
   renderTabPanes = () => {
-    return [
+    const panes = [
       {
         menuItem: 'Details',
         render: () => (
@@ -63,18 +64,39 @@ export class DocumentMetadataTabs extends Component {
         ),
       },
     ];
+
+    const eitems = this.document.eitems;
+    if (eitems.total > 0) {
+      panes.push({
+        menuItem: 'Files',
+        render: () => (
+          <Tab.Pane attached={false}>
+            <DocumentLinks dividers eitems={eitems} />
+          </Tab.Pane>
+        ),
+      });
+    }
+    return panes;
+  };
+
+  onTabChange = (event, { activeIndex }) => {
+    this.props.showTab(activeIndex);
   };
 
   render() {
     return (
       <Tab
+        activeIndex={this.props.activeTab}
         menu={{ secondary: true, pointing: true }}
         panes={this.renderTabPanes()}
+        onTabChange={this.onTabChange}
+        id="document-metadata-tabs"
       />
     );
   }
 }
 
 DocumentMetadataTabs.propTypes = {
+  activeTab: PropTypes.number,
   metadata: PropTypes.object.isRequired,
 };
