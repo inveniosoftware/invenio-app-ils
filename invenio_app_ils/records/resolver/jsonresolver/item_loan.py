@@ -29,6 +29,7 @@ def jsonresolver_loader(url_map):
             return {
                 "loan_pid": loan.get("pid"),
                 "patron_pid": loan.get("patron_pid"),
+                "patron": loan.get("patron"),
                 "document_pid": loan.get("document_pid"),
                 "item_pid": loan.get("item_pid"),
                 "state": loan.get("state"),

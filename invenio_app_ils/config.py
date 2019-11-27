@@ -1093,11 +1093,19 @@ RECORDS_REST_FACETS = dict(
             circulation=dict(
                 terms=dict(field="circulation.state", missing="N/A")
             ),
+            location=dict(
+                terms=dict(field="internal_location.location.name"),
+            ),
+            internal_location=dict(
+                terms=dict(field="internal_location.name")
+            ),
         ),
         post_filters=dict(
             status=terms_filter("status"),
             medium=terms_filter("medium"),
             circulation=terms_filter("circulation.state"),
+            location=terms_filter("internal_location.location.name"),
+            internal_location=terms_filter("internal_location.name"),
         ),
     ),
     loans=dict(  # IlsLoansSearch.Meta.index

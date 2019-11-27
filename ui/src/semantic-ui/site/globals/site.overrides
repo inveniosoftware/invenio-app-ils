@@ -135,6 +135,7 @@ label {
     padding: 1.5em;
     background-color: @boSidebarBackgroundColor;
     position: relative;
+    min-height: 100vh;
   }
 
   .bo-content {

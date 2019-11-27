@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Header } from 'semantic-ui-react';
+import {Container, Grid, Header} from 'semantic-ui-react';
 import {
   Error,
   ResultsList,
@@ -46,6 +46,10 @@ export class DocumentSearch extends Component {
         name: 'created',
         field: '_created',
       },
+      {
+        name: 'published',
+        field: 'imprints.date',
+      },
     ];
     return (
       <DocumentsSearchBar
@@ -75,12 +79,11 @@ export class DocumentSearch extends Component {
   render() {
     return (
       <ReactSearchKit searchApi={this.searchApi} history={history}>
-        <Grid>
-          <Grid.Row columns={1}>
-            <Grid.Column>
+        <Container fluid className="spaced">
               <SearchBar renderElement={this.renderSearchBar} />
-            </Grid.Column>
-          </Grid.Row>
+        </Container>
+        <Container fluid className="bo-search-body">
+          <Grid>
           <Grid.Row columns={2}>
             <ResultsLoader>
               <Grid.Column width={3} className={'search-aggregations'}>
@@ -110,6 +113,7 @@ export class DocumentSearch extends Component {
             </ResultsLoader>
           </Grid.Row>
         </Grid>
+        </Container>
       </ReactSearchKit>
     );
   }

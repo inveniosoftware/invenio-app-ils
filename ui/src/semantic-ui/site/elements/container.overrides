@@ -163,7 +163,7 @@
 
     /* search pages */
 
-    &.search-body {
+    &.fs-search-body {
       padding: @defaultPaddingValue;
     }
 
@@ -173,4 +173,13 @@
 
   }
 
+}
+
+@{bo-parent-selector} {
+  @{ui-container}{
+    &.spaced{
+      margin-top: 2em;
+      margin-bottom: 2em;
+    }
+  }
 }

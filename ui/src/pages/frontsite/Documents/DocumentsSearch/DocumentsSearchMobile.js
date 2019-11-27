@@ -36,7 +36,7 @@ export class DocumentsSearchMobile extends Component {
               <Container textAlign={'center'}>
                 <SearchPagination />
               </Container>
-              <Container className={'search-body'} textAlign={'center'}>
+              <Container className={'fs-search-body'} textAlign={'center'}>
                 <DocumentSearchResultsGrid />
                 <Container fluid className={'search-results-footer'}>
                   <SearchFooter />
