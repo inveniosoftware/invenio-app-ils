@@ -1,30 +1,26 @@
-import React, { Component } from 'react';
-import { Grid, Item, Segment, Icon, Header } from 'semantic-ui-react';
+import React, {Component} from 'react';
+import {Grid, Item, Header, Container} from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
   ResultsList,
   ResultsLoader,
-  EmptyResults,
   Error,
-  Pagination,
-  Count,
-  BucketAggregation,
   InvenioSearchApi,
 } from 'react-searchkit';
-import { getSearchConfig } from '@config';
+import {getSearchConfig} from '@config';
 import {
   Error as IlsError,
   SearchBar as ItemsSearchBar,
-  ResultsSort,
 } from '@components';
-import { item as itemApi } from '@api';
-import { ExportReactSearchKitResults, NewButton } from '../../components';
-import { BackOfficeRoutes } from '@routes/urls';
-import { ItemListEntry } from './components';
-import ClearButton from '@components/SearchControls/components/ClearButton/ClearButton';
-import { SearchControls } from '@components/SearchControls';
+import {item as itemApi} from '@api';
+import {ExportReactSearchKitResults, NewButton} from '../../components';
+import {BackOfficeRoutes} from '@routes/urls';
+import {ItemListEntry} from './components';
+import {SearchControls} from '@components/SearchControls';
 import history from '@history';
+import {SearchEmptyResults, SearchAggregationsCards, SearchFooter}
+  from "../../../../components/SearchControls/components/";
 
 export class ItemSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -44,103 +40,64 @@ export class ItemSearch extends Component {
     );
   };
 
-  renderEmptyResults = (queryString, resetQuery) => {
-    return (
-      <Segment placeholder textAlign="center">
-        <Header icon>
-          <Icon name="search" />
-          No items found!
-        </Header>
-        <div>Current search "{queryString}"</div>
-        <Segment.Inline>
-          <ClearButton clickHandler={resetQuery} />
-          <NewButton text={'New item'} to={BackOfficeRoutes.itemCreate} />
-        </Segment.Inline>
-      </Segment>
-    );
-  };
-
   renderError = error => {
-    return <IlsError error={error} />;
-  };
-
-  renderCount = totalResults => {
-    return <div>{totalResults} results</div>;
-  };
-
-  renderAggregations = () => {
-    const components = this.searchConfig.FILTERS.map(filter => (
-      <BucketAggregation
-        key={filter.field}
-        title={filter.title}
-        agg={{ field: filter.field, aggName: filter.aggName }}
-      />
-    ));
-    return (
-      <>
-        <NewButton fluid text={'New item'} to={BackOfficeRoutes.itemCreate} />
-        {components}
-      </>
-    );
-  };
-
-  renderHeader = () => {
-    return (
-      <Grid columns={2}>
-        <Grid.Column>
-          <Count renderElement={this.renderCount} />
-        </Grid.Column>
-        <Grid.Column textAlign="right">
-          <ResultsSort searchConfig={this.searchConfig} />
-        </Grid.Column>
-      </Grid>
-    );
-  };
-
-  renderFooter = () => {
-    return (
-      <Grid columns={3}>
-        <Grid.Column width={5} />
-        <Grid.Column width={6}>
-          <Pagination />
-        </Grid.Column>
-        <Grid.Column width={5} textAlign="right">
-          <ExportReactSearchKitResults exportBaseUrl={itemApi.searchBaseURL} />
-        </Grid.Column>
-      </Grid>
-    );
+    return <IlsError error={error}/>;
   };
 
   renderItemList = results => {
     const entries = results.map(res => (
-      <ItemListEntry item={res} key={res.id} />
+      <ItemListEntry item={res} key={res.id}/>
     ));
-    return <Item.Group>{entries}</Item.Group>;
+    return <Item.Group divided
+                       className={'bo-item-search'}>{entries}</Item.Group>;
+  };
+
+  renderEmptyResultsExtra = () => {
+    return (
+      <NewButton text={'Add item'} to={BackOfficeRoutes.itemCreate}/>
+    );
   };
 
   render() {
     return (
       <ReactSearchKit searchApi={this.searchApi} history={history}>
-        <Grid>
-          <Grid.Row columns={1}>
-            <Grid.Column>
-              <SearchBar renderElement={this.renderSearchBar} />
-            </Grid.Column>
-          </Grid.Row>
 
+          <Container fluid className="spaced">
+              <SearchBar renderElement={this.renderSearchBar}/>
+          </Container>
+
+          <Container fluid className="bo-search-body">
+          <Grid>
           <Grid.Row columns={2}>
             <ResultsLoader>
-              <Grid.Column width={3}>{this.renderAggregations()}</Grid.Column>
+              <Grid.Column width={3} className={'search-aggregations'}>
+                <Header content={'Filter by'}/>
+                <SearchAggregationsCards modelName={'items'}/>
+              </Grid.Column>
               <Grid.Column width={13}>
-                <EmptyResults renderElement={this.renderEmptyResults} />
-                <Error renderElement={this.renderError} />
-                <SearchControls modelName={'items'} />
-                <ResultsList renderElement={this.renderItemList} />
-                {this.renderFooter()}
+                <Grid columns={2}>
+                  <Grid.Column width={8}>
+                    <NewButton
+                      text={'Add item'}
+                      to={BackOfficeRoutes.itemCreate}
+                    />
+                  </Grid.Column>
+                  <Grid.Column width={8} textAlign={'right'}>
+                    <ExportReactSearchKitResults
+                      exportBaseUrl={itemApi.searchBaseURL}
+                    />
+                  </Grid.Column>
+                </Grid>
+                <SearchEmptyResults extras={this.renderEmptyResultsExtra}/>
+                <Error renderElement={this.renderError}/>
+                <SearchControls modelName={'items'}/>
+                <ResultsList renderElement={this.renderItemList}/>
+                <SearchFooter/>
               </Grid.Column>
             </ResultsLoader>
           </Grid.Row>
-        </Grid>
+          </Grid>
+          </Container>
       </ReactSearchKit>
     );
   }

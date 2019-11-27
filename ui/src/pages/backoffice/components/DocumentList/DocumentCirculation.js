@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export default class DocumentCirculation extends Component {
   renderOverbookIcon = isOverbooked => {
-    const name = isOverbooked ? 'check' : 'minus';
+    const name = isOverbooked ? 'warning sign' : 'minus';
     const color = isOverbooked ? 'red' : 'green';
     return <Icon name={name} color={color} size="small" />;
   };

@@ -70,10 +70,6 @@ export class DocumentsSearch extends Component {
     return <IlsError error={error} />;
   };
 
-  renderCount = totalResults => {
-    return <div>{totalResults} results</div>;
-  };
-
   renderLoader = () => {
     return (
       <Loader active size="huge" inline="centered" className={'full-height'} />
@@ -90,7 +86,7 @@ export class DocumentsSearch extends Component {
             </Container>
           </Container>
           <Responsive minWidth={Responsive.onlyComputer.minWidth}>
-            <Container fluid className="search-body">
+            <Container fluid className="fs-search-body">
               <Grid
                 columns={2}
                 stackable

@@ -28,7 +28,7 @@
 
 
 @{bo-parent-selector} {
-  .ui.items.bo-document-search {
+  .ui.items.bo-document-search, .ui.items.bo-items-search {
     margin-top: 0.5em;
     .item {
       .extra {
@@ -37,37 +37,37 @@
     }
   }
 
-  .item {
-    .item-image-addons-wrapper {
-      text-align: center;
-      margin-right: 1em;
+  .ui.items {
+    .item {
+      .item-image-addons-wrapper {
+        text-align: center;
+        margin-right: 1em;
 
-      .document-pid {
-        margin-top: 3px;
-      }
-
-      .document-type {
-        margin-top: 0.2em;
-        margin-bottom: 0.1em;
-      }
-    }
-
-    .content {
-      .meta {
-        &.document-type {
-          margin-top: 0;
-          margin-bottom: 0.1em;
+        .pid-field {
+          margin-top: 3px;
         }
 
-        &.document-authors {
-          margin-top: 0.1em;
+        .document-type {
+          margin-top: 0.2em;
           margin-bottom: 0.1em;
         }
+      }
+      .meta{
+        &.pid-field {
+            margin-top: .1em;
+          }
+      }
+      .content {
+        .meta {
+          &.document-type {
+            margin-top: 0;
+            margin-bottom: 0.1em;
+          }
 
-        &.document-pid {
-          position: absolute;
-          top: 0;
-          right: 0;
+          &.document-authors, &.metadata-fields {
+            margin-top: 0.1em;
+            margin-bottom: 0.1em;
+          }
         }
       }
     }

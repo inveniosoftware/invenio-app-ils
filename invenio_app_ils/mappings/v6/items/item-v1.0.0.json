@@ -17,6 +17,22 @@
           "type": "keyword"
         },
         "internal_location": {
+          "properties": {
+            "location": {
+              "properties": {
+                "address": {
+                  "type": "text"
+                },
+                "name": {
+                  "type": "keyword"
+                }
+              },
+              "type": "object"
+            },
+            "name": {
+              "type": "keyword"
+            }
+          },
           "type": "object"
         },
         "legacy_id": {

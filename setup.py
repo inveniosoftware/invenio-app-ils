@@ -73,7 +73,7 @@ install_requires = [
     "arrow>=0.15.0",
     "Flask-BabelEx>=0.9.3",
     "Flask-Debugtoolbar>=0.10.1",
-    "invenio[base,auth]==3.2.0a4",
+    "invenio[base,auth]==3.2.0a9",
     # metadata bundle without records UI
     "invenio-indexer>=1.1.0,<1.2.0",
     "invenio-jsonschemas>=1.0.0,<1.1.0",

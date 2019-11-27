@@ -159,8 +159,8 @@ export default class DocumentListEntry extends Component {
             <DocumentTags metadata={document.metadata} />
           </Item.Extra>
         </Item.Content>
-        <Item.Meta className={'document-pid'}>
-          <Header disabled as="h5" className={'document-pid'}>
+        <Item.Meta className={'pid-field'}>
+          <Header disabled as="h5" className={'pid-field'}>
             #{document.metadata.pid}
           </Header>
         </Item.Meta>

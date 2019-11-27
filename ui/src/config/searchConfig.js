@@ -127,6 +127,16 @@ const searchConfig = {
         field: 'circulation.state',
         aggName: 'circulation',
       },
+      {
+        title: 'Location',
+        field: 'internal_location.location.name',
+        aggName: 'location',
+      },
+      {
+        title: 'Internal location',
+        field: 'internal_location.name',
+        aggName: 'internal_location',
+      },
     ],
     sortBy: {
       onEmptyQuery: 'mostrecent',

@@ -31,6 +31,7 @@ def jsonresolver_loader(url_map):
             "pid": document.get("pid"),
             "title": document.get("title"),
             "authors": document.get("authors"),
+            "document_type": document.get("document_type")
         }
 
     def document_resolver(item_pid):
