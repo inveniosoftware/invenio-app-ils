@@ -1116,8 +1116,19 @@ RECORDS_REST_FACETS = dict(
         ),
     ),
     series=dict(  # SeriesSearch.Meta.index
-        aggs=dict(moi=dict(terms=dict(field="mode_of_issuance"))),
-        post_filters=dict(moi=terms_filter("mode_of_issuance")),
+        aggs=dict(
+            moi=dict(terms=dict(field="mode_of_issuance")),
+            language=dict(terms=dict(field="languages")),
+            relation=dict(
+                terms=dict(field="relation_types")
+            ),
+        ),
+        post_filters=dict(
+            moi=terms_filter("mode_of_issuance"),
+            language=terms_filter("languages"),
+            relation=terms_filter("relation_types"),
+        ),
+
     ),
 )
 

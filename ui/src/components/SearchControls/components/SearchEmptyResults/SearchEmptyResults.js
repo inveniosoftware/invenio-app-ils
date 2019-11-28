@@ -10,7 +10,7 @@ export default class SearchEmptyResults extends Component {
       <Segment placeholder textAlign="center">
         <Header icon>
           <Icon name="search" />
-          No records found!
+          No results found!
         </Header>
         <div className="empty-results-current">
           Current search "{queryString}"

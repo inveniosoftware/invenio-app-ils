@@ -14,21 +14,12 @@ import { getSearchConfig } from '../../../../config';
 export default class SearchAggregationsCards extends Component {
   searchConfig = getSearchConfig(this.props.modelName);
 
-  renderElementWrapper = filter => {
-    const _renderValueElement = (
+   _renderValueElement = (
       bucket,
       isSelected,
       onFilterClicked,
       getChildAggCmps
     ) => {
-      let label;
-      if (filter.hasOwnProperty('labels')) {
-        label = `${
-          filter.labels.find(element => element.value === bucket.key).text
-        }`;
-      } else {
-        label = `${bucket.key}`;
-      }
       const childAggCmps = getChildAggCmps(bucket);
       return (
         <List.Item key={bucket.key}>
@@ -37,7 +28,7 @@ export default class SearchAggregationsCards extends Component {
           </List.Content>
           <List.Content>
             <Checkbox
-              label={label}
+              label={`${bucket.key}`}
               value={bucket.key}
               onClick={() => onFilterClicked(bucket.key)}
               checked={isSelected}
@@ -48,8 +39,6 @@ export default class SearchAggregationsCards extends Component {
       );
     };
 
-    return _renderValueElement;
-  };
 
   render() {
     return this.searchConfig.FILTERS.map(filter => {
@@ -58,7 +47,7 @@ export default class SearchAggregationsCards extends Component {
           key={filter.field}
           title={filter.title}
           agg={{ field: filter.field, aggName: filter.aggName }}
-          renderValueElement={this.renderElementWrapper(filter)}
+          renderValueElement={this._renderValueElement}
         />
       );
     });

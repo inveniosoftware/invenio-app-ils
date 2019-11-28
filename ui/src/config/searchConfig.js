@@ -121,25 +121,21 @@ const searchConfig = {
         title: 'Status',
         field: 'status',
         aggName: 'status',
-        labels: invenioConfig.items.statuses,
       },
       {
         title: 'Medium',
         field: 'medium',
         aggName: 'medium',
-        labels: invenioConfig.items.mediums,
       },
       {
         title: 'Circulation',
         field: 'circulation.state',
         aggName: 'circulation',
-        labels: invenioConfig.items.circulationStates,
       },
       {
         title: 'Circulation restriction',
         field: 'circulation_restriction',
         aggName: 'circulation_restriction',
-        labels: invenioConfig.items.circulationRestrictions
       },
       {
         title: 'Internal location',
@@ -257,6 +253,16 @@ const searchConfig = {
         title: 'Mode of Issuance',
         field: 'mode_of_issuance',
         aggName: 'moi',
+      },
+      {
+        title: 'Languages',
+        field: 'languages',
+        aggName: 'language',
+      },
+      {
+        title: 'Relations',
+        field: 'relations',
+        aggName: 'relation',
       },
     ],
     sortBy: {

@@ -43,7 +43,11 @@
               },
               "pid_type": {
                 "type": "keyword"
-              }
+              },
+              "relation_type": {
+                  "type": "keyword",
+                  "copy_to": "relation_types"
+                }
             }
           },
           "multipart_monograph": {
@@ -55,6 +59,10 @@
               "pid_type": {
                 "type": "keyword"
               },
+              "relation_type": {
+                  "type": "keyword",
+                  "copy_to": "relation_types"
+                },
               "volume": {
                 "type": "keyword"
               }
@@ -68,11 +76,18 @@
               },
               "pid_type": {
                 "type": "keyword"
-              }
+              },
+              "relation_type": {
+                  "type": "keyword",
+                  "copy_to": "relation_types"
+                }
             }
           }
         }
       },
+      "relation_types": {
+          "type": "keyword"
+        },
       "title": {
         "type": "text"
       },
