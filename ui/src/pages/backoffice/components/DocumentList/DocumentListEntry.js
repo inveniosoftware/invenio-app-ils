@@ -135,7 +135,7 @@ export default class DocumentListEntry extends Component {
           >
             {document.metadata.title}
           </Item.Header>
-          <Grid highlight={3}>
+          <Grid columns={3}>
             <Grid.Column computer={6} largeScreen={5}>
               <Item.Meta className={'document-authors'}>
                 <DocumentAuthors metadata={document.metadata} prefix={'by '} />
@@ -147,10 +147,9 @@ export default class DocumentListEntry extends Component {
               {this.renderEdition(document.metadata.edition)}
               {this.renderPubYear()}
             </Grid.Column>
-            <Grid.Column computer={2} largeScreen={4}>
+            <Grid.Column computer={3} largeScreen={4}>
               {this.renderMiddleColumn(document)}
             </Grid.Column>
-            <Grid.Column width={1} />
             <Grid.Column computer={3} largeScreen={4}>
               {this.renderRightColumn(document)}
             </Grid.Column>

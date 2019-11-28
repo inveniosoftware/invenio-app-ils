@@ -19,3 +19,8 @@
     }
   }
 }
+
+.ui.dropdown{
+  position: relative;
+  z-index: 9999;
+}

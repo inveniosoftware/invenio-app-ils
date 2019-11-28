@@ -144,5 +144,6 @@ export const invenioConfig = {
 };
 
 export function getDisplayVal(configField, value) {
-  return _get(invenioConfig, configField).find(entry => entry.value === value);
+  return _get(invenioConfig, configField).find(entry => entry.value === value)
+    .text;
 }

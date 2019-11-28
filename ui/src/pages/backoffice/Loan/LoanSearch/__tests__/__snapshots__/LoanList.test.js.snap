@@ -1,0 +1,510 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoanList tests should load the LoanList component 1`] = `
+<ItemGroup
+  className="bo-loan-search"
+  divided={true}
+>
+  <LoanListEntry
+    key="loanid-1"
+    loan={
+      Object {
+        "metadata": Object {
+          "document": Object {
+            "title": "TEST",
+          },
+          "document_pid": "docid-1",
+          "end_date": "2018-07-28",
+          "item_pid": "",
+          "patron": Object {
+            "email": "patron1@test.ch",
+          },
+          "patron_pid": "1",
+          "pickup_location_pid": "locid-1",
+          "pid": "loanid-1",
+          "request_expire_date": "2019-06-28",
+          "request_start_date": "2018-06-28",
+          "start_date": "2018-06-28",
+          "state": "PENDING",
+          "transaction_date": "2018-06-29",
+          "transaction_location_pid": "locid-1",
+          "transaction_user_pid": "user_pid",
+        },
+      }
+    }
+  />
+</ItemGroup>
+`;
+
+exports[`LoanList tests should load the LoanList component 2`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <LoanList
+      hits={
+        Array [
+          Object {
+            "metadata": Object {
+              "document": Object {
+                "title": "TEST",
+              },
+              "document_pid": "docid-1",
+              "end_date": "2018-07-28",
+              "item_pid": "",
+              "patron": Object {
+                "email": "patron1@test.ch",
+              },
+              "patron_pid": "1",
+              "pickup_location_pid": "locid-1",
+              "pid": "loanid-1",
+              "request_expire_date": "2019-06-28",
+              "request_start_date": "2018-06-28",
+              "start_date": "2018-06-28",
+              "state": "PENDING",
+              "transaction_date": "2018-06-29",
+              "transaction_location_pid": "locid-1",
+              "transaction_user_pid": "user_pid",
+            },
+          },
+        ]
+      }
+    >
+      <ItemGroup
+        className="bo-loan-search"
+        divided={true}
+      >
+        <div
+          className="ui divided items bo-loan-search"
+        >
+          <LoanListEntry
+            key="loanid-1"
+            loan={
+              Object {
+                "metadata": Object {
+                  "document": Object {
+                    "title": "TEST",
+                  },
+                  "document_pid": "docid-1",
+                  "end_date": "2018-07-28",
+                  "item_pid": "",
+                  "patron": Object {
+                    "email": "patron1@test.ch",
+                  },
+                  "patron_pid": "1",
+                  "pickup_location_pid": "locid-1",
+                  "pid": "loanid-1",
+                  "request_expire_date": "2019-06-28",
+                  "request_start_date": "2018-06-28",
+                  "start_date": "2018-06-28",
+                  "state": "PENDING",
+                  "transaction_date": "2018-06-29",
+                  "transaction_location_pid": "locid-1",
+                  "transaction_user_pid": "user_pid",
+                },
+              }
+            }
+          >
+            <Item>
+              <div
+                className="item"
+              >
+                <ItemContent>
+                  <div
+                    className="content"
+                  >
+                    <ItemHeader
+                      as={
+                        Object {
+                          "$$typeof": Symbol(react.forward_ref),
+                          "displayName": "Link",
+                          "propTypes": Object {
+                            "innerRef": [Function],
+                            "onClick": [Function],
+                            "replace": [Function],
+                            "target": [Function],
+                            "to": [Function],
+                          },
+                          "render": [Function],
+                        }
+                      }
+                      data-test="navigate-loanid-1"
+                      to="/backoffice/loans/loanid-1"
+                    >
+                      <Link
+                        className="header"
+                        data-test="navigate-loanid-1"
+                        to="/backoffice/loans/loanid-1"
+                      >
+                        <LinkAnchor
+                          className="header"
+                          data-test="navigate-loanid-1"
+                          href="/backoffice/loans/loanid-1"
+                          navigate={[Function]}
+                        >
+                          <a
+                            className="header"
+                            data-test="navigate-loanid-1"
+                            href="/backoffice/loans/loanid-1"
+                            onClick={[Function]}
+                          >
+                            <LoanIcon>
+                              <Icon
+                                as="i"
+                                name="bookmark outline"
+                              >
+                                <i
+                                  aria-hidden="true"
+                                  className="bookmark outline icon"
+                                  onClick={[Function]}
+                                />
+                              </Icon>
+                            </LoanIcon>
+                             Loan #
+                            loanid-1
+                          </a>
+                        </LinkAnchor>
+                      </Link>
+                    </ItemHeader>
+                    <Grid
+                      columns={5}
+                    >
+                      <div
+                        className="ui five column grid"
+                      >
+                        <GridColumn
+                          computer={6}
+                          largeScreen={5}
+                        >
+                          <div
+                            className="six wide computer five wide large screen column"
+                          >
+                            <label>
+                              Patron
+                            </label>
+                             
+                            <Link
+                              to="/backoffice/patrons/1"
+                            >
+                              <LinkAnchor
+                                href="/backoffice/patrons/1"
+                                navigate={[Function]}
+                              >
+                                <a
+                                  href="/backoffice/patrons/1"
+                                  onClick={[Function]}
+                                />
+                              </LinkAnchor>
+                            </Link>
+                             
+                            requested:
+                            <ItemMeta
+                              className="document-authors"
+                            >
+                              <div
+                                className="meta document-authors"
+                              >
+                                <Header
+                                  as="h5"
+                                  className="loan-document-title"
+                                >
+                                  <h5
+                                    className="ui header loan-document-title"
+                                  >
+                                    TEST
+                                  </h5>
+                                </Header>
+                                <DocumentAuthors
+                                  delimiter="; "
+                                  metadata={
+                                    Object {
+                                      "title": "TEST",
+                                    }
+                                  }
+                                  prefix="by "
+                                >
+                                  <div
+                                    className="document-authors-list-wrapper"
+                                  >
+                                    by  
+                                  </div>
+                                </DocumentAuthors>
+                              </div>
+                            </ItemMeta>
+                          </div>
+                        </GridColumn>
+                        <GridColumn
+                          computer={3}
+                          largeScreen={3}
+                        >
+                          <div
+                            className="three wide computer three wide large screen column"
+                          >
+                            <List>
+                              <div
+                                className="ui list"
+                                role="list"
+                              >
+                                <ListItem>
+                                  <div
+                                    className="item"
+                                    onClick={[Function]}
+                                    role="listitem"
+                                  >
+                                    <ListContent
+                                      floated="right"
+                                    >
+                                      <div
+                                        className="right floated content"
+                                      >
+                                        PENDING
+                                      </div>
+                                    </ListContent>
+                                    <ListContent>
+                                      <div
+                                        className="content"
+                                      >
+                                        <label>
+                                          State
+                                        </label>
+                                      </div>
+                                    </ListContent>
+                                  </div>
+                                </ListItem>
+                                <ListItem>
+                                  <div
+                                    className="item"
+                                    onClick={[Function]}
+                                    role="listitem"
+                                  >
+                                    <LoanDates
+                                      loan={
+                                        Object {
+                                          "metadata": Object {
+                                            "document": Object {
+                                              "title": "TEST",
+                                            },
+                                            "document_pid": "docid-1",
+                                            "end_date": "2018-07-28",
+                                            "item_pid": "",
+                                            "patron": Object {
+                                              "email": "patron1@test.ch",
+                                            },
+                                            "patron_pid": "1",
+                                            "pickup_location_pid": "locid-1",
+                                            "pid": "loanid-1",
+                                            "request_expire_date": "2019-06-28",
+                                            "request_start_date": "2018-06-28",
+                                            "start_date": "2018-06-28",
+                                            "state": "PENDING",
+                                            "transaction_date": "2018-06-29",
+                                            "transaction_location_pid": "locid-1",
+                                            "transaction_user_pid": "user_pid",
+                                          },
+                                        }
+                                      }
+                                    >
+                                      <ListContent
+                                        floated="right"
+                                      >
+                                        <div
+                                          className="right floated content"
+                                        >
+                                          2018-06-28
+                                        </div>
+                                      </ListContent>
+                                      <ListContent>
+                                        <div
+                                          className="content"
+                                        >
+                                          <label>
+                                             Requested on 
+                                          </label>
+                                        </div>
+                                      </ListContent>
+                                      <ListContent
+                                        floated="right"
+                                      >
+                                        <div
+                                          className="right floated content"
+                                        >
+                                          2019-06-28
+                                        </div>
+                                      </ListContent>
+                                      <ListContent>
+                                        <div
+                                          className="content"
+                                        >
+                                          <label>
+                                             Expires on 
+                                          </label>
+                                        </div>
+                                      </ListContent>
+                                    </LoanDates>
+                                  </div>
+                                </ListItem>
+                                <ListItem>
+                                  <div
+                                    className="item"
+                                    onClick={[Function]}
+                                    role="listitem"
+                                  >
+                                    <ListContent
+                                      floated="right"
+                                    >
+                                      <div
+                                        className="right floated content"
+                                      >
+                                        0
+                                      </div>
+                                    </ListContent>
+                                    <ListContent>
+                                      <div
+                                        className="content"
+                                      >
+                                        <label>
+                                           Extensions
+                                        </label>
+                                      </div>
+                                    </ListContent>
+                                  </div>
+                                </ListItem>
+                              </div>
+                            </List>
+                          </div>
+                        </GridColumn>
+                        <GridColumn
+                          width={2}
+                        >
+                          <div
+                            className="two wide column"
+                          >
+                            <OverdueLoanSendMailModal
+                              loan={
+                                Object {
+                                  "metadata": Object {
+                                    "document": Object {
+                                      "title": "TEST",
+                                    },
+                                    "document_pid": "docid-1",
+                                    "end_date": "2018-07-28",
+                                    "item_pid": "",
+                                    "patron": Object {
+                                      "email": "patron1@test.ch",
+                                    },
+                                    "patron_pid": "1",
+                                    "pickup_location_pid": "locid-1",
+                                    "pid": "loanid-1",
+                                    "request_expire_date": "2019-06-28",
+                                    "request_start_date": "2018-06-28",
+                                    "start_date": "2018-06-28",
+                                    "state": "PENDING",
+                                    "transaction_date": "2018-06-29",
+                                    "transaction_location_pid": "locid-1",
+                                    "transaction_user_pid": "user_pid",
+                                  },
+                                }
+                              }
+                            />
+                          </div>
+                        </GridColumn>
+                        <GridColumn
+                          computer={3}
+                          largeScreen={3}
+                        >
+                          <div
+                            className="three wide computer three wide large screen column"
+                          />
+                        </GridColumn>
+                        <GridColumn
+                          computer={2}
+                          largeScreen={2}
+                          textAlign="right"
+                        >
+                          <div
+                            className="right aligned two wide computer two wide large screen column"
+                          >
+                            <ItemMeta
+                              className="pid-field"
+                            >
+                              <div
+                                className="meta pid-field"
+                              >
+                                <Header
+                                  as="h5"
+                                  className="pid-field"
+                                  disabled={true}
+                                >
+                                  <h5
+                                    className="ui disabled header pid-field"
+                                  >
+                                    #
+                                    loanid-1
+                                  </h5>
+                                </Header>
+                              </div>
+                            </ItemMeta>
+                            <Link
+                              to="/backoffice/documents/docid-1"
+                            >
+                              <LinkAnchor
+                                href="/backoffice/documents/docid-1"
+                                navigate={[Function]}
+                              >
+                                <a
+                                  href="/backoffice/documents/docid-1"
+                                  onClick={[Function]}
+                                >
+                                  Document 
+                                  <DocumentIcon>
+                                    <Icon
+                                      as="i"
+                                      name="book"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        className="book icon"
+                                        onClick={[Function]}
+                                      />
+                                    </Icon>
+                                  </DocumentIcon>
+                                </a>
+                              </LinkAnchor>
+                            </Link>
+                            <br />
+                          </div>
+                        </GridColumn>
+                      </div>
+                    </Grid>
+                  </div>
+                </ItemContent>
+              </div>
+            </Item>
+          </LoanListEntry>
+        </div>
+      </ItemGroup>
+    </LoanList>
+  </Router>
+</BrowserRouter>
+`;
+
+exports[`LoanList tests should show empty message 1`] = `<SearchEmptyResults />`;

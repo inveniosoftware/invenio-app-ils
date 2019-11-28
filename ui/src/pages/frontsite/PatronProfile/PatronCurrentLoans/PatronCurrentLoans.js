@@ -18,7 +18,7 @@ class LoanListEntry extends Component {
   render() {
     const { loan } = this.props;
     const now = DateTime.local();
-    const isLoanOverdue = loan.metadata.end_date < now;
+    const isLoanOverdue = loan.metadata.is_overdue;
     return (
       <Item
         className={isLoanOverdue ? 'bkg-danger' : ''}

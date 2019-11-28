@@ -58,7 +58,7 @@ def document_resolver(loan_pid):
         # add only some fields
         obj = {}
         include_document_keys = ["title", "pid",
-                                 "circulation", "authors"]
+                                 "circulation", "authors", "document_type"]
         for key in include_document_keys:
             obj[key] = document[key]
     except PIDDeletedError:

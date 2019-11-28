@@ -1,3 +1,5 @@
+import { getDisplayVal } from '@config/invenioConfig';
+import {DocumentIcon, ItemIcon} from "@pages/backoffice";
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
@@ -41,7 +43,7 @@ export class ItemListEntry extends Component {
             as={Link}
             to={BackOfficeRoutes.itemDetailsFor(item.metadata.pid)}
           >
-            <Icon name={'barcode'} /> {item.metadata.barcode}
+            <ItemIcon/> {item.metadata.barcode}
           </Item.Header>{' '}
           <Header as="h5"> - {item.metadata.document.title}</Header>
           <Grid columns={2}>
@@ -74,7 +76,9 @@ export class ItemListEntry extends Component {
                     <List.Content>
                       medium{' '}
                       <span className="ml-10">
-                        <strong>{item.metadata.medium}</strong>
+                        <strong>
+                          {getDisplayVal('items.mediums', item.metadata.medium)}
+                        </strong>
                       </span>
                     </List.Content>
                   </List.Item>
@@ -113,7 +117,7 @@ export class ItemListEntry extends Component {
                   item.metadata.document_pid
                 )}
               >
-                Document #{item.metadata.document_pid}
+                <DocumentIcon/>{' '}Document
               </Link>
             </Grid.Column>
           </Grid>

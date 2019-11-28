@@ -63,16 +63,23 @@
 
 @{bo-parent-selector} {
 
-  .ui.header.bo-menu-header {
-    margin-top: 1em;
-    margin-bottom: 2em;
 
-    .icon {
-      font-size: 2em;
+  .ui.header{
+    &.loan-document-title{
+      margin-bottom: 0;
+      margin-top: 0.2em;
+      color: @metadataFieldsColor;
     }
+    &.bo-menu-header {
+      margin-top: 1em;
+      margin-bottom: 2em;
 
-    .sub.header {
-      text-transform: uppercase;
-    }
-  }
+      .icon {
+        font-size: 2em;
+      }
+
+      .sub.header {
+        text-transform: uppercase;
+      }
+    }}
 }

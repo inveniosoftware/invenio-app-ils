@@ -23,7 +23,9 @@ exports[`should render correctly 1`] = `
     to="/records/13"
   />
   <ItemContent>
-    <ItemMeta />
+    <ItemMeta>
+      BOOK
+    </ItemMeta>
     <ItemHeader
       as={
         Object {
@@ -57,6 +59,7 @@ exports[`should render correctly 1`] = `
             "circulation": Object {
               "has_items_for_loan": 0,
             },
+            "document_type": "BOOK",
             "edition": "1",
             "eitems": Object {
               "hits": Array [],
@@ -121,6 +124,7 @@ exports[`should render correctly 1`] = `
                       "circulation": Object {
                         "has_items_for_loan": 0,
                       },
+                      "document_type": "BOOK",
                       "edition": "1",
                       "eitems": Object {
                         "hits": Array [],
@@ -157,6 +161,7 @@ exports[`should render correctly 1`] = `
             "circulation": Object {
               "has_items_for_loan": 0,
             },
+            "document_type": "BOOK",
             "edition": "1",
             "eitems": Object {
               "hits": Array [],

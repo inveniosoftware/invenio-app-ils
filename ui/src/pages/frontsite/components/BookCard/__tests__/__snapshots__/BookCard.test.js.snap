@@ -13,6 +13,7 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
         "circulation": Object {
           "has_items_for_loan": 2,
         },
+        "document_type": "BOOK",
         "edition": "12",
         "eitems": Object {
           "total": 2,
@@ -49,7 +50,9 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
       >
         <div
           className="meta discrete"
-        />
+        >
+          BOOK
+        </div>
       </CardMeta>
       <Image
         as="img"
@@ -92,6 +95,7 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
                     "circulation": Object {
                       "has_items_for_loan": 2,
                     },
+                    "document_type": "BOOK",
                     "edition": "12",
                     "eitems": Object {
                       "total": 2,
@@ -197,6 +201,7 @@ exports[`BookCard tests should render the BookCard 1`] = `
         "circulation": Object {
           "has_items_for_loan": 2,
         },
+        "document_type": "BOOK",
         "edition": "12",
         "eitems": Object {
           "total": 2,
@@ -233,7 +238,9 @@ exports[`BookCard tests should render the BookCard 1`] = `
       >
         <div
           className="meta discrete"
-        />
+        >
+          BOOK
+        </div>
       </CardMeta>
       <Image
         as="img"
@@ -276,6 +283,7 @@ exports[`BookCard tests should render the BookCard 1`] = `
                     "circulation": Object {
                       "has_items_for_loan": 2,
                     },
+                    "document_type": "BOOK",
                     "edition": "12",
                     "eitems": Object {
                       "total": 2,

@@ -6,7 +6,8 @@
     "abstract": "This is an abstract",
     "languages": ["en"],
     "edition": "1",
-    "keywords": { "source": "X", "value": "Patata" }
+    "keywords": { "source": "X", "value": "Patata" },
+    "document_type": "BOOK"
   },
   {
     "pid": "docid-2",
@@ -14,7 +15,8 @@
     "authors": [{ "full_name": "Caroline Fraser" }],
     "abstract": "This is an abstract",
     "languages": ["it"],
-    "keywords": { "source": "X", "value": "Patata" }
+    "keywords": { "source": "X", "value": "Patata" },
+    "document_type": "BOOK"
   },
   {
     "pid": "docid-3",
@@ -22,38 +24,44 @@
     "authors": [{ "full_name": "Frank Bidart" }],
     "abstract": "This is an abstract",
     "edition": "3",
-    "keywords": { "source": "X", "value": "Patata" }
+    "keywords": { "source": "X", "value": "Patata" },
+    "document_type": "BOOK"
   },
   {
     "pid": "docid-4",
     "title": "Locking Up Our Own: Crime and Punishment in Black America",
     "authors": [{ "full_name": "James Forman Jr." }],
     "abstract": "This is an abstract",
-    "keywords": { "source": "X", "value": "Patata" }
+    "keywords": { "source": "X", "value": "Patata" },
+    "document_type": "BOOK"
   },
   {
     "pid": "docid-5",
     "title": "Less: A Novel",
     "authors": [{ "full_name": "Andrew Sean Greer" }],
-    "abstract": "This is an abstract"
+    "abstract": "This is an abstract",
+    "document_type": "STANDARD"
   },
   {
     "pid": "docid-6",
     "title": "Less: A Novel",
     "authors": [{ "full_name": "Andrew Sean Greer" }],
-    "abstract": "This is an abstract"
+    "abstract": "This is an abstract",
+    "document_type": "BOOK"
   },
   {
     "pid": "docid-7",
     "title": "Less: A Novel",
     "authors": [{ "full_name": "Andrew Sean Greer" }],
-    "abstract": "This is an abstract"
+    "abstract": "This is an abstract",
+    "document_type": "JOURNAL"
   },
   {
     "pid": "docid-8",
     "title": "Less: A Novel",
     "authors": [{ "full_name": "Andrew Sean Greer" }],
-    "abstract": "This is an abstract"
+    "abstract": "This is an abstract",
+    "document_type": "THESIS"
   },
   {
     "pid": "docid-9",
@@ -62,7 +70,8 @@
       { "full_name": "Einstein, Albert" },
       { "full_name": "Stachel, John J et al." }
     ],
-    "abstract": "This is a document volume v.1 part of a MULTIPART MONOGRAPH"
+    "abstract": "This is a document volume v.1 part of a MULTIPART MONOGRAPH",
+    "document_type": "BOOK"
   },
   {
     "pid": "docid-10",
@@ -71,7 +80,8 @@
       { "full_name": "Einstein, Albert" },
       { "full_name": "Stachel, John J et al." }
     ],
-    "abstract": "This is a document volume v.2 part of a MULTIPART MONOGRAPH"
+    "abstract": "This is a document volume v.2 part of a MULTIPART MONOGRAPH",
+    "document_type": "BOOK"
   },
   {
     "pid": "docid-11",
@@ -80,7 +90,8 @@
       { "full_name": "Einstein, Albert" },
       { "full_name": "Stachel, John J et al." }
     ],
-    "abstract": "This is a document volume v.3 part of a MULTIPART MONOGRAPH"
+    "abstract": "This is a document volume v.3 part of a MULTIPART MONOGRAPH",
+    "document_type": "BOOK"
   },
   {
     "pid": "docid-12",
@@ -89,7 +100,8 @@
       { "full_name": "Einstein, Albert" },
       { "full_name": "Stachel, John J et al." }
     ],
-    "abstract": "This is a document volume v.1 part of a MULTIPART MONOGRAPH"
+    "abstract": "This is a document volume v.1 part of a MULTIPART MONOGRAPH",
+    "document_type": "THESIS"
   },
   {
     "pid": "docid-13",
@@ -98,13 +110,15 @@
       { "full_name": "Banek, Cora" },
       { "full_name": "Banek, Georg" }
     ],
-    "abstract": "This is a document volume v.2 part of a MULTIPART MONOGRAPH"
+    "abstract": "This is a document volume v.2 part of a MULTIPART MONOGRAPH",
+    "document_type": "BOOK"
   },
   {
     "pid": "docid-14",
     "title": "Flavor physics and the TeV scale",
     "authors": [{ "full_name": "Hou, George W S" }],
-    "abstract": "This is a document part of a SERIAL"
+    "abstract": "This is a document part of a SERIAL",
+    "document_type": "BOOK"
   },
   {
     "pid": "docid-15",
@@ -113,18 +127,21 @@
       { "full_name": "Hönerlage, Bernd" },
       { "full_name": "Pelant, Ivan" }
     ],
-    "abstract": "This is a document part of a SERIAL"
+    "abstract": "This is a document part of a SERIAL",
+    "document_type": "BOOK"
   },
   {
     "pid": "docid-16",
     "title": "Macroscopic quantum electrodynamics and ground-state Casimir, Casimir–Polder and van der Waals forces",
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
-    "abstract": "This is a document volume v.1 part of a MULTIPART MONOGRAPH part of a SERIAL"
+    "abstract": "This is a document volume v.1 part of a MULTIPART MONOGRAPH part of a SERIAL",
+    "document_type": "BOOK"
   },
   {
     "pid": "docid-17",
     "title": "Many-body effects, excited atoms, finite temperature and quantum friction",
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
-    "abstract": "This is a document volume v.1 part of a MULTIPART MONOGRAPH part of a SERIAL"
+    "abstract": "This is a document volume v.1 part of a MULTIPART MONOGRAPH part of a SERIAL",
+    "document_type": "BOOK"
   }
 ]

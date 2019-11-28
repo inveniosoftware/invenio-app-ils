@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, Modal, Button, Icon } from 'semantic-ui-react';
 import { BackOfficeRoutes } from '@routes/urls';
+import { isEmpty } from 'lodash';
 
 export default class OverdueLoanSendMailModal extends Component {
   state = { isModalOpen: false };
@@ -20,16 +21,19 @@ export default class OverdueLoanSendMailModal extends Component {
     <Button
       size="small"
       icon
-      color="purple"
+      labelPosition="left"
       title="Send a reminder email to the user of the loan"
       onClick={this.toggle}
+      className="send-overdue-reminder-button"
     >
       <Icon name="mail" />
+      Reminder
     </Button>
   );
 
   render() {
     const { loan } = this.props;
+    if (!loan.metadata.is_overdue || isEmpty(loan.metadata.item)) return null;
     return (
       <Modal trigger={this.renderTrigger()} open={this.state.isModalOpen}>
         <Modal.Header>Email notification</Modal.Header>

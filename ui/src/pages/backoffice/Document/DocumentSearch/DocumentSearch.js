@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, Grid, Header} from 'semantic-ui-react';
+import { Container, Grid, Header } from 'semantic-ui-react';
 import {
   Error,
   ResultsList,
@@ -56,7 +56,7 @@ export class DocumentSearch extends Component {
         currentQueryString={queryString}
         onInputChange={onInputChange}
         executeSearch={executeSearch}
-        placeholder={'Search for documents'}
+        placeholder={'Search for documents...'}
         queryHelperFields={helperFields}
       />
     );
@@ -78,43 +78,46 @@ export class DocumentSearch extends Component {
 
   render() {
     return (
-      <ReactSearchKit searchApi={this.searchApi} history={history}>
-        <Container fluid className="spaced">
-              <SearchBar renderElement={this.renderSearchBar} />
-        </Container>
-        <Container fluid className="bo-search-body">
-          <Grid>
-          <Grid.Row columns={2}>
-            <ResultsLoader>
-              <Grid.Column width={3} className={'search-aggregations'}>
-                <Header content={'Filter by'} />
-                <SearchAggregationsCards modelName={'documents'} />
-              </Grid.Column>
-              <Grid.Column width={13}>
-                <Grid columns={2}>
-                  <Grid.Column width={8}>
-                    <NewButton
-                      text={'Add document'}
-                      to={BackOfficeRoutes.documentCreate}
-                    />
+      <>
+        <Header as="h2">Documents</Header>
+        <ReactSearchKit searchApi={this.searchApi} history={history}>
+          <Container fluid className="spaced">
+            <SearchBar renderElement={this.renderSearchBar} />
+          </Container>
+          <Container fluid className="bo-search-body">
+            <Grid>
+              <Grid.Row columns={2}>
+                <ResultsLoader>
+                  <Grid.Column width={3} className={'search-aggregations'}>
+                    <Header content={'Filter by'} />
+                    <SearchAggregationsCards modelName={'documents'} />
                   </Grid.Column>
-                  <Grid.Column width={8} textAlign={'right'}>
-                    <ExportReactSearchKitResults
-                      exportBaseUrl={documentApi.searchBaseURL}
-                    />
+                  <Grid.Column width={13}>
+                    <Grid columns={2}>
+                      <Grid.Column width={8}>
+                        <NewButton
+                          text={'Add document'}
+                          to={BackOfficeRoutes.documentCreate}
+                        />
+                      </Grid.Column>
+                      <Grid.Column width={8} textAlign={'right'}>
+                        <ExportReactSearchKitResults
+                          exportBaseUrl={documentApi.searchBaseURL}
+                        />
+                      </Grid.Column>
+                    </Grid>
+                    <SearchEmptyResults extras={this.renderEmptyResultsExtra} />
+                    <Error renderElement={this.renderError} />
+                    <SearchControls modelName={'documents'} />
+                    <ResultsList renderElement={this.renderDocumentList} />
+                    <SearchFooter />
                   </Grid.Column>
-                </Grid>
-                <SearchEmptyResults extras={this.renderEmptyResultsExtra} />
-                <Error renderElement={this.renderError} />
-                <SearchControls modelName={'documents'} />
-                <ResultsList renderElement={this.renderDocumentList} />
-                <SearchFooter />
-              </Grid.Column>
-            </ResultsLoader>
-          </Grid.Row>
-        </Grid>
-        </Container>
-      </ReactSearchKit>
+                </ResultsLoader>
+              </Grid.Row>
+            </Grid>
+          </Container>
+        </ReactSearchKit>
+      </>
     );
   }
 }
