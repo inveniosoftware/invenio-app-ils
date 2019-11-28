@@ -51,10 +51,10 @@ export const invenioConfig = {
       { value: 'IN_BINDING', text: 'In binding' },
       { value: 'SCANNING', text: 'Scanning' },
     ],
-    circulationStates:[
-      {value: 'ITEM_ON_LOAN', text: 'On loan'},
-      {value: 'NOT_ON_LOAN', text: 'Not loaned'},
-    ]
+    circulationStates: [
+      { value: 'ITEM_ON_LOAN', text: 'On loan' },
+      { value: 'NOT_ON_LOAN', text: 'Not loaned' },
+    ],
   },
   loans: {
     maxExtensionsCount: 3,
@@ -132,5 +132,6 @@ export const invenioConfig = {
 };
 
 export function getDisplayVal(configField, value) {
-  return _get(invenioConfig, configField).find(entry => entry.value === value);
+  return _get(invenioConfig, configField).find(entry => entry.value === value)
+    .text;
 }

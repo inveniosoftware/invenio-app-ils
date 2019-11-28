@@ -41,6 +41,7 @@ exports[`DocumentMetadata tests should load the details component 1`] = `
                         "full_name": "Jack E. Davis",
                       },
                     ],
+                    "document_type": "BOOK",
                     "edition": "1",
                     "keywords": Object {
                       "source": "X",
@@ -73,6 +74,7 @@ exports[`DocumentMetadata tests should load the details component 1`] = `
                         "full_name": "Jack E. Davis",
                       },
                     ],
+                    "document_type": "BOOK",
                     "edition": "1",
                     "keywords": Object {
                       "source": "X",

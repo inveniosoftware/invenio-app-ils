@@ -18,6 +18,7 @@ from __future__ import absolute_import, print_function
 from collections import namedtuple
 from datetime import timedelta
 
+import arrow
 from flask import request
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_indexer.api import RecordIndexer
@@ -31,7 +32,8 @@ from invenio_stats.queries import ESTermsQuery
 from .acquisition.api import Order, Vendor
 from .acquisition.search.api import OrderSearch, VendorSearch
 from .circulation.search import IlsLoansSearch
-from .facets import keyed_range_filter
+from .facets import custom_exists_filter, keyed_range_filter, overdue_agg, \
+    overdue_loans_filter
 from .records.resolver.loan import document_resolver, item_resolver, \
     loan_patron_resolver
 
@@ -972,17 +974,41 @@ RECORDS_REST_SORT_OPTIONS = dict(
         ),
     ),
     loans=dict(  # IlsLoansSearch.Meta.index
+        expire_date=dict(
+            fields=["-request_expire_date"],
+            title="Request expire date",
+            default_order="desc",
+            order=1
+        ),
+        end_date=dict(
+            fields=["-end_date"],
+            title="Loan end date",
+            default_order="desc",
+            order=2
+        ),
+        start_date=dict(
+            fields=["-start_date"],
+            title="Loan start date",
+            default_order="desc",
+            order=3
+        ),
+        extensions=dict(
+            fields=["extension_count"],
+            title="Extensions count",
+            default_order="asc",
+            order=4,
+        ),
         mostrecent=dict(
             fields=["_updated"],
             title="Newest",
             default_order="asc",
-            order=1,
+            order=5,
         ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
             default_order="asc",
-            order=2,
+            order=6,
         ),
     ),
     patrons=dict(  # PatronsSearch.Meta.index
@@ -1065,18 +1091,31 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(field="internal_location.name")
             ),
         ),
+        filters=dict(
+            circulation=custom_exists_filter("circulation.state",
+                                             "NOT_ON_LOAN"),
+        ),
         post_filters=dict(
             status=terms_filter("status"),
             medium=terms_filter("medium"),
-            circulation=terms_filter("circulation.state"),
             restrictions=terms_filter("circulation_restriction"),
             location=terms_filter("internal_location.location.name"),
             internal_location=terms_filter("internal_location.name"),
         ),
     ),
     loans=dict(  # IlsLoansSearch.Meta.index
-        aggs=dict(state=dict(terms=dict(field="state"))),
-        post_filters=dict(state=terms_filter("state")),
+        aggs=dict(
+            state=dict(terms=dict(field="state")),
+            delivery=dict(terms=dict(field="delivery.method")),
+            returns=overdue_agg,
+        ),
+        filters={
+            "returns.end_date": overdue_loans_filter("end_date"),
+        },
+        post_filters=dict(
+            state=terms_filter("state"),
+            delivery=terms_filter("delivery.method"),
+        )
     ),
     series=dict(  # SeriesSearch.Meta.index
         aggs=dict(moi=dict(terms=dict(field="mode_of_issuance"))),

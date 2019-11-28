@@ -6,15 +6,13 @@
 @{fs-parent-selector} {
   .ui.items {
     &.divided {
-      :not(.ui.list) {
-      .item {
-        padding: 1em;
+        & > .item {
+          padding: 1em;
 
-        &:first-child {
-          padding-top: 1em !important;
+          &:first-child {
+            padding-top: 1em !important;
+          }
         }
-      }
-    }
 
     }
   }
@@ -22,6 +20,7 @@
   .item {
     &.bkg-danger {
       background-color: lighten(@danger, 40%) !important;
+      padding: 1em !important;
     }
   }
 }
@@ -30,6 +29,7 @@
 @{bo-parent-selector} {
   .ui.items.bo-document-search, .ui.items.bo-items-search {
     margin-top: 0.5em;
+
     .item {
       .extra {
         margin: 0;
@@ -38,17 +38,34 @@
   }
 
   .ui.items {
+    &.divided {
+        & >.item {
+          padding: 1em;
+
+          &:first-child {
+            padding-top: 1em !important;
+          }
+        }
+
+    }
     .item {
-      a.header{
+      &.bkg-danger {
+        background-color: lighten(@danger, 40%) !important;
+        padding: 1em !important;
+      }
+
+      a.header {
         z-index: 1000;
         position: relative;
       }
-      .ui.grid{
+
+      .ui.grid {
         .column {
           z-index: 1;
           position: relative;
         }
       }
+
       .item-image-addons-wrapper {
         text-align: center;
         margin-right: 1em;
@@ -62,11 +79,13 @@
           margin-bottom: 0.1em;
         }
       }
-      .meta{
+
+      .meta {
         &.pid-field {
-            margin-top: .1em;
-          }
+          margin-top: .1em;
+        }
       }
+
       .content {
         .meta {
           &.document-type {

@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentCirculation tests should load the DocumentCirculation component 1`] = `
+<List
+  className="document-circulation"
+  verticalAlign="middle"
+>
+  <ListItem>
+    <ListContent
+      floated="right"
+    >
+      <strong>
+        2
+      </strong>
+    </ListContent>
+    <ListContent>
+      total items
+    </ListContent>
+  </ListItem>
+  <ListItem>
+    <ListContent
+      floated="right"
+    >
+      <strong>
+        2
+      </strong>
+    </ListContent>
+    <ListContent>
+      available items
+    </ListContent>
+  </ListItem>
+  <ListItem>
+    <ListContent
+      floated="right"
+    >
+      <strong />
+    </ListContent>
+    <ListContent>
+      active loans
+    </ListContent>
+  </ListItem>
+  <ListItem>
+    <ListContent
+      floated="right"
+    >
+      <strong />
+    </ListContent>
+    <ListContent>
+      pending loans
+    </ListContent>
+  </ListItem>
+  <ListItem>
+    <ListContent
+      floated="right"
+    >
+      <Icon
+        as="i"
+        color="green"
+        name="minus"
+        size="small"
+      />
+    </ListContent>
+    <ListContent>
+      overbooked
+    </ListContent>
+  </ListItem>
+</List>
+`;

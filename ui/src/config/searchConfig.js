@@ -199,19 +199,51 @@ const searchConfig = {
         field: 'state',
         aggName: 'state',
       },
+      {
+        title: 'Returns',
+        field: 'returns',
+        aggName: 'returns.end_date',
+      },
+      {
+        title: 'Delivery',
+        field: 'delivery.method',
+        aggName: 'delivery',
+      },
     ],
     sortBy: {
-      onEmptyQuery: 'mostrecent',
+      onEmptyQuery: 'end_date',
       values: [
         {
-          field: 'mostrecent',
+          field: 'expire_date',
           order: 1,
+          title: 'Expriration date',
+          default_order: 'desc',
+        },{
+          field: 'end_date',
+          order: 2,
+          title: 'Loan end date',
+          default_order: 'desc',
+        },{
+          field: 'start_date',
+          order: 3,
+          title: 'Loan start date',
+          default_order: 'desc',
+        },
+        {
+          field: 'mostrecent',
+          order: 4,
           title: 'Newest',
           default_order: 'asc',
         },
         {
+          field: 'extensions',
+          order: 5,
+          title: 'Extension count',
+          default_order: 'asc',
+        },
+        {
           field: 'bestmatch',
-          order: 2,
+          order: 6,
           title: 'Best match',
           default_order: 'asc',
         },

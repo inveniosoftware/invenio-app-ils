@@ -38,7 +38,7 @@ class LoanJSONSerializer(JSONSerializer):
         """Calculate if the loan is overdue and add it as a property."""
         metadata["is_overdue"] = False
         if (
-            "state" in current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+            metadata["state"] in current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
             and "end_date" in metadata
         ):
             metadata["is_overdue"] = (

@@ -67,6 +67,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                 "full_name": "Jack E. Davis",
               },
             ],
+            "document_type": "BOOK",
             "edition": "1",
             "keywords": Object {
               "source": "X",
@@ -91,6 +92,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                 "full_name": "Caroline Fraser",
               },
             ],
+            "document_type": "BOOK",
             "keywords": Object {
               "source": "X",
               "value": "Patata",
@@ -152,6 +154,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                     "full_name": "Jack E. Davis",
                   },
                 ],
+                "document_type": "BOOK",
                 "edition": "1",
                 "keywords": Object {
                   "source": "X",
@@ -176,6 +179,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                     "full_name": "Caroline Fraser",
                   },
                 ],
+                "document_type": "BOOK",
                 "keywords": Object {
                   "source": "X",
                   "value": "Patata",
@@ -431,6 +435,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                           "full_name": "Jack E. Davis",
                         },
                       ],
+                      "document_type": "BOOK",
                       "edition": "1",
                       "keywords": Object {
                         "source": "X",
@@ -455,6 +460,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                           "full_name": "Caroline Fraser",
                         },
                       ],
+                      "document_type": "BOOK",
                       "keywords": Object {
                         "source": "X",
                         "value": "Patata",

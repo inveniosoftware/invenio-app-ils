@@ -27,4 +27,12 @@
 
 }
 
+@{bo-parent-selector}{
+  .ui.button{
+    &.send-overdue-reminder-button{
+      background-color: @orange;
+    }
+  }
+}
+
 
