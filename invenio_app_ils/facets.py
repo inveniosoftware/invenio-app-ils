@@ -9,7 +9,7 @@
 from datetime import timedelta
 
 import arrow
-from elasticsearch_dsl.query import Bool, Exists, Q, Range
+from elasticsearch_dsl.query import Bool, Q, Range
 from flask import current_app
 
 
