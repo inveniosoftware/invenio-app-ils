@@ -1,47 +1,51 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2019 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
+
 """Test record permissions."""
+
 from __future__ import unicode_literals
 
 import uuid
 
 import pytest
-from flask_principal import ActionNeed, RoleNeed, identity_loaded
+from flask_principal import RoleNeed, identity_loaded
 from flask_security import login_user
-from invenio_accounts.models import User
+from invenio_access.models import ActionRoles
+from invenio_accounts.models import Role, User
 from invenio_records.api import Record
 
-from invenio_app_ils.records.permissions import RecordPermission
+from invenio_app_ils.records.permissions import RecordPermission, \
+    create_records_action
 
 
-@pytest.mark.parametrize('access,action,is_allowed', [
-    ({'foo': 'bar'}, 'read', True),     # default cases
-    ({'foo': 'bar'}, 'update', False),
-    ({'_access': {'read': [1, 'no-access@invenio',
-                           'no-access-either@invenio']}}, 'read', True),
-    ({'_access': {'read': [2, 'no-access@invenio']}}, 'read', False),
-    ({'_access': {'read': ['test@invenio']}}, 'read', True),
-    # permission for specific user to create
-    ({'_access': {'update': [1]}}, 'update', True),
-    # checks if the access works for different actions
-    ({'_access': {'update': [1]}}, 'create', False),
-    ({'_access': {'delete': [1]}}, 'update', False),
-
-    # delete access for user and librarian
-    ({'_access': {'delete': [1, 'librarian']}}, 'delete', True),
-
-])
+@pytest.mark.parametrize(
+    "access,action,is_allowed",
+    [
+        ({"foo": "bar"}, "read", True),
+        ({"foo": "bar"}, "update", False),
+        ({"_access": {"read": [1]}}, "read", True),
+        ({"_access": {"read": [2]}}, "read", False),
+        ({"_access": {"read": ["records-readers"]}}, "read", True),
+        # permission for specific user to create
+        ({"_access": {"update": [1]}}, "update", True),
+        # checks if the access works for different actions
+        ({"_access": {"update": [1]}}, "create", False),
+        ({"_access": {"delete": [1]}}, "update", False),
+        # delete access for user and librarian
+        ({"_access": {"delete": [1, "librarian"]}}, "delete", True),
+    ],
+)
 def test_record_generic_access(db, users, access, action, is_allowed):
     """Test access control for records."""
 
     @identity_loaded.connect
     def mock_identity_provides(sender, identity):
         """Provide additional role to the user."""
-        roles = [RoleNeed('test@invenio')]
+        roles = [RoleNeed("records-readers")]
         # Gives the user additional roles, f.e. based on his groups
         identity.provides |= set(roles)
 
@@ -52,10 +56,10 @@ def test_record_generic_access(db, users, access, action, is_allowed):
         id = uuid.uuid4()
         record = Record.create(access, id_=id)
         factory = RecordPermission(record, action)
-        if user.has_role('admin'):
+        if user.has_role("admin"):
             # super user can do EVERYTHING
             assert factory.can()
-        elif user.has_role('librarian') and action != 'delete':
+        elif user.has_role("librarian") and action != "delete":
             # librarian should be able to update, create, and read everything
             assert factory.can()
         else:
@@ -69,13 +73,16 @@ def test_record_generic_access(db, users, access, action, is_allowed):
     login_and_test(users["admin"].id)
 
 
-@pytest.mark.parametrize('access,action,is_allowed', [
-    ({'foo': 'bar'}, 'update', True),
-    ({'foo': 'bar'}, 'delete', False),
-    ({'_access': {'delete': ['librarian']}}, 'delete', True),
-    ({'_access': {'delete': ['1']}}, 'delete', False),
-    ({'_access': {'update': ['1']}}, 'update', True),
-])
+@pytest.mark.parametrize(
+    "access,action,is_allowed",
+    [
+        ({"foo": "bar"}, "update", True),
+        ({"foo": "bar"}, "delete", False),
+        ({"_access": {"delete": ["librarian"]}}, "delete", True),
+        ({"_access": {"delete": ["1"]}}, "delete", False),
+        ({"_access": {"update": ["1"]}}, "update", True),
+    ],
+)
 def test_record_librarian_access(db, users, access, action, is_allowed):
     """Test Librarian access."""
     login_user(users["librarian"])
@@ -85,14 +92,17 @@ def test_record_librarian_access(db, users, access, action, is_allowed):
     assert factory.can() if is_allowed else not factory.can()
 
 
-@pytest.mark.parametrize('access,action,is_allowed', [
-    ({'foo': 'bar'}, 'update', False),
-    ({'foo': 'bar'}, 'delete', False),
-    ({'_access': {'delete': [1]}}, 'delete', True),
-    ({'_access': {'update': [1]}}, 'update', True),
-    ({'_access': {'update': ['1']}}, 'update', True),
-    ({'_access': {'update': ['1']}}, 'delete', False),
-])
+@pytest.mark.parametrize(
+    "access,action,is_allowed",
+    [
+        ({"foo": "bar"}, "update", False),
+        ({"foo": "bar"}, "delete", False),
+        ({"_access": {"delete": [1]}}, "delete", True),
+        ({"_access": {"update": [1]}}, "update", True),
+        ({"_access": {"update": ["1"]}}, "update", True),
+        ({"_access": {"update": ["1"]}}, "delete", False),
+    ],
+)
 def test_record_patron_access(db, users, access, action, is_allowed):
     """Test patron access."""
     login_user(users["patron1"])
@@ -102,17 +112,29 @@ def test_record_patron_access(db, users, access, action, is_allowed):
     assert factory.can() if is_allowed else not factory.can()
 
 
-@pytest.mark.parametrize('access,action,is_allowed', [
-    ({'foo': 'bar'}, 'create', True),
-    ({'foo': 'bar'}, 'update', False),
-    ({'foo': 'bar'}, 'delete', False),
-])
+@pytest.mark.parametrize(
+    "access,action,is_allowed",
+    [
+        ({"foo": "bar"}, "create", True),
+        ({"foo": "bar"}, "update", False),
+        ({"foo": "bar"}, "delete", False),
+    ],
+)
 def test_record_patron_create(db, users, access, action, is_allowed):
     """Test patron create."""
+    # create role to be able to create records
+    role = Role(name="records-creators")
+    db.session.add(role)
+    db.session.commit()
+    # assign role to the action "create-records"
+    ar = ActionRoles.allow(create_records_action, role_id=role.id)
+    db.session.add(ar)
+    db.session.commit()
+
     @identity_loaded.connect
     def mock_identity_provides(sender, identity):
         """Provide additional role to the user."""
-        roles = [ActionNeed('create-records')]
+        roles = [RoleNeed(role.name)]
         # Gives the user additional roles, f.e. based on his groups
         identity.provides |= set(roles)
 
