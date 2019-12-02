@@ -43,8 +43,6 @@ export const recordToPidType = record => {
     return 'ilocid';
   } else if (schema.includes('items/item')) {
     return 'pitmid';
-  } else if (schema.includes('tags/tag')) {
-    return 'tagid';
   } else if (schema.includes('loans/loan')) {
     return 'loanid';
   } else if (schema.includes('locations/location')) {

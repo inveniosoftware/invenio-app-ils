@@ -7,6 +7,7 @@
 
 """CLI for Invenio App ILS."""
 
+import json
 import os
 import random
 from datetime import timedelta
@@ -31,9 +32,9 @@ from lorem.text import TextLorem
 from .indexer import PatronsIndexer
 from .pidstore.pids import DOCUMENT_PID_TYPE, DOCUMENT_REQUEST_PID_TYPE, \
     EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, \
-    LOCATION_PID_TYPE, SERIES_PID_TYPE, TAG_PID_TYPE
+    LOCATION_PID_TYPE, SERIES_PID_TYPE
 from .records.api import Document, DocumentRequest, EItem, InternalLocation, \
-    Item, Location, Patron, Series, Tag
+    Item, Location, Patron, Series
 from .records_relations.api import RecordRelationsParentChild, \
     RecordRelationsSiblings
 from .relations.api import Relation
@@ -57,9 +58,10 @@ class Holder(object):
     def __init__(
         self,
         patrons_pids,
+        languages,
         librarian_pid,
+        tags,
         total_intloc,
-        total_tags,
         total_items,
         total_eitems,
         total_documents,
@@ -69,11 +71,11 @@ class Holder(object):
     ):
         """Constructor."""
         self.patrons_pids = patrons_pids
+        self.languages = languages
         self.librarian_pid = librarian_pid
-
+        self.tags = tags
         self.location = {}
         self.internal_locations = {"objs": [], "total": total_intloc}
-        self.tags = {"objs": [], "total": total_tags}
         self.items = {"objs": [], "total": total_items}
         self.eitems = {"objs": [], "total": total_eitems}
         self.documents = {"objs": [], "total": total_documents}
@@ -148,33 +150,6 @@ class InternalLocationGenerator(Generator):
             rec = self._persist(
                 INTERNAL_LOCATION_PID_TYPE, "pid", InternalLocation.create(obj)
             )
-            recs.append(rec)
-        db.session.commit()
-        return recs
-
-
-class TagGenerator(Generator):
-    """Tag Generator."""
-
-    def generate(self):
-        """Generate."""
-        size = self.holder.tags["total"]
-        objs = [
-            {
-                "pid": str(pid),
-                "name": lorem.sentence().split()[0],
-                "provenance": lorem.sentence(),
-            }
-            for pid in range(1, size + 1)
-        ]
-
-        self.holder.tags["objs"] = objs
-
-    def persist(self):
-        """Persist."""
-        recs = []
-        for obj in self.holder.tags["objs"]:
-            rec = self._persist(TAG_PID_TYPE, "pid", Tag.create(obj))
             recs.append(rec)
         db.session.commit()
         return recs
@@ -271,54 +246,41 @@ class DocumentGenerator(Generator):
     """Document Generator."""
 
     DOCUMENT_TYPES = ["BOOK", "STANDARD", "PROCEEDING", "JOURNAL"]
-    LANGUAGES = [u"en", u"fr", u"it", u"el", u"pl", u"ro", u"sv", u"es"]
-    AUTHORS = [{"full_name": "Close, Frank"},
-               {"full_name": "Doe, Jane",
-                "affiliations": [{"name": "Imperial Coll., London",
-                                  "identifiers":
-                                      [
-                                          {"scheme": "ROR",
-                                           "value": "12345"}
-                                      ]
-                                  }
-                                 ],
-                "identifiers": [
-                    {"scheme": "ORCID", "value": "1234AAA"}
-                ],
-                "roles": ["editor"]
-                },
-               {"full_name": "Doe, John", "roles": ["AUTHOR"],
-                "affiliations": [{"name": "CERN"}]
-                },
-               {"full_name": "CERN", "type": "ORGANISATION"}
-               ]
-    CONFERENCE_INFO = {"acronym": "CHEP", "country": "AU",
-                       "dates": "1 - 20 Nov. 2019",
-                       "identifiers": [{"scheme": "OTHER",
-                                        "value": "CHEP2019"}
-                                       ],
-                       "place": "Adelaide",
-                       "series": "CHEP",
-                       "title": "Conference on Computing"
-                                " in High Energy Physics",
-                       "year": 2019,
-                       }
+    AUTHORS = [
+        {"full_name": "Close, Frank"},
+        {"full_name": "CERN", "type": "ORGANISATION"},
+        {
+            "full_name": "Doe, Jane",
+            "affiliations": [{
+                "name": "Imperial Coll., London",
+                "identifiers":[{"scheme": "ROR", "value": "12345"}]
+            }],
+            "identifiers": [{"scheme": "ORCID", "value": "1234AAA"}],
+            "roles": ["editor"]
+        },
+        {
+            "full_name": "Doe, John", "roles": ["AUTHOR"],
+            "affiliations": [{"name": "CERN"}]
+        },
+    ]
+    CONFERENCE_INFO = {
+        "acronym": "CHEP",
+        "country": "AU",
+        "dates": "1 - 20 Nov. 2019",
+        "identifiers": [{"scheme": "OTHER", "value": "CHEP2019"}],
+        "place": "Adelaide",
+        "series": "CHEP",
+        "title": "Conference on Computing in High Energy Physics",
+        "year": 2019,
+    }
     IMPRINTS = [
-        {"date": "2019-08-02",
-         "place": "Geneva",
-         "publisher": "CERN"
-         },
-        {"date": "2017-08-02",
-         "place": "Hamburg",
-         "publisher": "Springer"
-         },
-
+        {"date": "2019-08-02", "place": "Geneva", "publisher": "CERN"},
+        {"date": "2017-08-02", "place": "Hamburg", "publisher": "Springer"},
     ]
 
     def generate(self):
         """Generate."""
         size = self.holder.documents["total"]
-        tag_pids = self.holder.pids("tags", "pid")
 
         objs = [
             {
@@ -328,10 +290,14 @@ class DocumentGenerator(Generator):
                 "abstract": "{}".format(lorem.text()),
                 "document_type": random.choice(self.DOCUMENT_TYPES),
                 "_access": {},
-                "languages": random.sample(self.LANGUAGES, randint(1, 3)),
+                "languages": [lang["key"] for lang in random.sample(
+                    self.holder.languages, randint(1, 3)
+                )],
                 "table_of_content": ["{}".format(lorem.sentence())],
                 "note": "{}".format(lorem.text()),
-                "tag_pids": random.sample(tag_pids, randint(0, 5)),
+                "tags": [tag["key"] for tag in random.sample(self.holder.tags,
+                    randint(1, len(self.holder.tags) - 1))
+                ],
                 "edition": str(pid),
                 "keywords": {"source": lorem.sentence(),
                              "value": lorem.sentence()},
@@ -339,10 +305,7 @@ class DocumentGenerator(Generator):
                 "number_of_pages": str(random.randint(0, 300)),
                 "imprints": [self.IMPRINTS[randint(0, 1)]],
                 "urls": [{"description": "{}".format(lorem.sentence()),
-                          "value": "{}".format(lorem.sentence()),
-                          }],
-
-
+                          "value": "http://random.url"}],
             }
             for pid in range(1, size + 1)
         ]
@@ -485,7 +448,6 @@ class SeriesGenerator(Generator):
     """Series Generator."""
 
     DOCUMENT_TYPES = ["BOOK", "STANDARD", "PROCEEDING", "JOURNAL"]
-    LANGUAGES = ["en", "fr", "it", "el", "pl", "ro", "sv", "es"]
     MODE_OF_ISSUANCE = ["MULTIPART_MONOGRAPH", "SERIAL"]
 
     def random_issn(self):
@@ -506,7 +468,9 @@ class SeriesGenerator(Generator):
                 "title": lorem.sentence(),
                 "authors": [lorem.sentence()],
                 "abstract": lorem.text(),
-                "languages": random.sample(self.LANGUAGES, 1),
+                "languages": [lang["key"] for lang in random.sample(
+                    self.holder.languages, randint(1, 3)
+                )],
             }
             if moi == "MULTIPART_MONOGRAPH":
                 obj["edition"] = str(pid)
@@ -649,7 +613,6 @@ def demo():
 @click.option("--items", "n_items", default=50)
 @click.option("--eitems", "n_eitems", default=30)
 @click.option("--loans", "n_loans", default=100)
-@click.option("--tags", "n_tags", default=10)
 @click.option("--internal-locations", "n_intlocs", default=10)
 @click.option("--series", "n_series", default=10)
 @click.option("--document-requests", "n_document_requests", default=10)
@@ -659,7 +622,6 @@ def data(
     n_items,
     n_eitems,
     n_loans,
-    n_tags,
     n_intlocs,
     n_series,
     n_document_requests,
@@ -669,11 +631,21 @@ def data(
 
     indexer = RecordIndexer()
 
+    vocabulary_dir = os.path.join(
+        os.path.realpath("."), "invenio_app_ils", "vocabularies", "data")
+
+    with open(os.path.join(vocabulary_dir, "tags.json")) as f:
+        tags = json.loads(f.read())
+
+    with open(os.path.join(vocabulary_dir, "languages.json")) as f:
+        languages = json.loads(f.read())
+
     holder = Holder(
         patrons_pids=["1", "2", "5", "6"],
+        languages=languages,
         librarian_pid="4",
+        tags=tags,
         total_intloc=n_intlocs,
-        total_tags=n_tags,
         total_items=n_items,
         total_eitems=n_eitems,
         total_documents=n_docs,
@@ -692,12 +664,6 @@ def data(
     intlocs_generator = InternalLocationGenerator(holder, minter)
     intlocs_generator.generate()
     rec_intlocs = intlocs_generator.persist()
-
-    # Tags
-    click.echo("Creating tags...")
-    tags_generator = TagGenerator(holder, minter)
-    tags_generator.generate()
-    rec_tags = tags_generator.persist()
 
     # Series
     click.echo("Creating series...")
@@ -746,12 +712,6 @@ def data(
     click.echo(
         "Sent to the indexing queue {0} locations".format(len(rec_intlocs))
     )
-
-    # index tags
-    indexer.bulk_index([str(r.id) for r in rec_tags])
-    click.echo("Sent to the indexing queue {0} tags".format(len(rec_tags)))
-    # process queue so series can resolve tags correctly
-    indexer.process_bulk_queue()
 
     # index series
     indexer.bulk_index([str(r.id) for r in rec_series])

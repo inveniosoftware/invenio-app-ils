@@ -10,7 +10,7 @@
 import pytest
 from invenio_accounts.models import User
 
-from invenio_app_ils.records.api import Document, IlsRecord, Series, Tag
+from invenio_app_ils.records.api import Document, IlsRecord, Series
 
 from invenio_app_ils.api import (  # isort:skip
     get_document_pid_by_item_pid,
@@ -64,7 +64,6 @@ def test_patron_exists(users):
     "pid, cls",
     [
         ('docid-1', Document),
-        ('tagid-1', Tag),
         ('serid-1', Series),
     ]
 )
@@ -81,7 +80,6 @@ def test_get_record_by_pid(testdata, pid, cls):
     "pid, pid_type, expected_cls",
     [
         ('docid-1', 'docid', Document),
-        ('tagid-1', 'tagid', Tag),
         ('serid-1', 'serid', Series),
     ]
 )

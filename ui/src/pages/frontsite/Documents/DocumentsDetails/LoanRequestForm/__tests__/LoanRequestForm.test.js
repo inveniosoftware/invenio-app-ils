@@ -29,7 +29,6 @@ describe('DocumentMetadata tests', () => {
       circulation: {},
       pid: '71',
       document_type: ['BOOK'],
-      tag_pids: ['24'],
       tags: [],
       eitems: {
         total: 1,

@@ -32,7 +32,7 @@ const searchConfig = {
       },
       {
         title: 'Tags',
-        field: 'tags.name',
+        field: 'tags',
         aggName: 'tag',
       },
       {

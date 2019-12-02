@@ -44,18 +44,9 @@ const deleteRelation = async (seriesPid, data) => {
 
 class QueryBuilder {
   constructor() {
-    this.withTagQuery = [];
     this.withModeOfIssuanceQuery = [];
     this.withSeriesQuery = [];
     this.withStringQuery = [];
-  }
-
-  withTag(tag) {
-    if (!tag) {
-      throw TypeError('Tag argument missing');
-    }
-    this.withTagQuery.push(`tags.name:"${tag.name}"`);
-    return this;
   }
 
   withModeOfIssuance(moi) {
@@ -90,9 +81,8 @@ class QueryBuilder {
   }
 
   qs() {
-    return this.withTagQuery
+    return this.withModeOfIssuanceQuery
       .concat(
-        this.withModeOfIssuanceQuery,
         this.withSeriesQuery,
         this.withStringQuery
       )

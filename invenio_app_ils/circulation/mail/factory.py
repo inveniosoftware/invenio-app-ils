@@ -18,7 +18,7 @@ def message_factory(loader, *args, **kwargs):
 
     :param loader: Callable object that returns a Message object.
     :param args: Positional arguments passed to the loader.
-    :param kwargs: Tag arguments passed to the loader.
+    :param kwargs: Named arguments passed to the loader.
     """
     loader_obj = obj_or_import_string(loader)
     return loader_obj(*args, **kwargs)

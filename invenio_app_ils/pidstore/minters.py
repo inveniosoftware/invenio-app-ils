@@ -9,7 +9,7 @@
 
 from .providers import DocumentIdProvider, DocumentRequestIdProvider, \
     EItemIdProvider, InternalLocationIdProvider, ItemIdProvider, \
-    LocationIdProvider, SeriesIdProvider, TagIdProvider
+    LocationIdProvider, SeriesIdProvider
 
 
 def document_pid_minter(record_uuid, data):
@@ -60,17 +60,6 @@ def internal_location_pid_minter(record_uuid, data):
     """Mint internal location identifiers."""
     assert "pid" not in data
     provider = InternalLocationIdProvider.create(
-        object_type='rec',
-        object_uuid=record_uuid,
-    )
-    data["pid"] = provider.pid.pid_value
-    return provider.pid
-
-
-def tag_pid_minter(record_uuid, data):
-    """Mint tag identifiers."""
-    assert "pid" not in data
-    provider = TagIdProvider.create(
         object_type='rec',
         object_uuid=record_uuid,
     )

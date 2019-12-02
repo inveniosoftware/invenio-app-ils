@@ -52,16 +52,3 @@ def test_delete_internal_location(client, users, json_headers, testdata):
     )
     res = client.delete(url, headers=json_headers)
     assert res.status_code == 204
-
-
-def test_delete_tag(client, users, json_headers, testdata):
-    """Test DELETE existing tag."""
-    login_user_via_session(
-        client,
-        email=User.query.get(users["admin"].id).email
-    )
-
-    tag_pid = 'tagid-1'
-    url = url_for('invenio_records_rest.tagid_item', pid_value=tag_pid)
-    res = client.delete(url, headers=json_headers)
-    assert res.status_code == 204

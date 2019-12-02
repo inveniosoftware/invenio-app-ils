@@ -23,8 +23,8 @@ from jsonschema.exceptions import ValidationError
 from marshmallow import missing
 from werkzeug.utils import cached_property
 
-from invenio_app_ils.errors import DocumentTagNotFoundError, \
-    IlsValidationError, PatronNotFoundError, RecordHasReferencesError
+from invenio_app_ils.errors import IlsValidationError, PatronNotFoundError, \
+    RecordHasReferencesError
 from invenio_app_ils.records_relations.api import RecordRelationsMetadata, \
     RecordRelationsRetriever
 from invenio_app_ils.search.api import DocumentRequestSearch, DocumentSearch, \
@@ -32,7 +32,7 @@ from invenio_app_ils.search.api import DocumentRequestSearch, DocumentSearch, \
 
 from ..pidstore.pids import DOCUMENT_PID_TYPE, DOCUMENT_REQUEST_PID_TYPE, \
     EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, \
-    LOCATION_PID_TYPE, SERIES_PID_TYPE, TAG_PID_TYPE
+    LOCATION_PID_TYPE, SERIES_PID_TYPE
 from .validator import DocumentRequestValidator, ItemValidator, RecordValidator
 
 lt_es7 = ES_VERSION[0] < 7
@@ -145,9 +145,6 @@ class Document(IlsRecordWithRelations):
     _circulation_resolver_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/circulation"
     )
-    _tag_resolver_path = (
-        "{scheme}://{host}/api/resolver/documents/{document_pid}/tags"
-    )
     _item_resolver_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/items"
     )
@@ -169,14 +166,6 @@ class Document(IlsRecordWithRelations):
         """Build all resolver fields."""
         data["circulation"] = {
             "$ref": cls._circulation_resolver_path.format(
-                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
-                host=current_app.config["JSONSCHEMAS_HOST"],
-                document_pid=data["pid"],
-            )
-        }
-        data.setdefault("tag_pids", [])
-        data["tags"] = {
-            "$ref": cls._tag_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 document_pid=data["pid"],
@@ -272,22 +261,6 @@ class Document(IlsRecordWithRelations):
             )
 
         return super(Document, self).delete(**kwargs)
-
-    def add_tag(self, tag):
-        """Add a new tag to the document."""
-        if tag["pid"] not in self["tag_pids"]:
-            self["tag_pids"].append(tag["pid"])
-
-    def remove_tag(self, tag):
-        """Remove a tag from the document.
-
-        :returns: True if tag was removed
-        """
-        if tag["pid"] not in self["tag_pids"]:
-            raise DocumentTagNotFoundError(self["pid"], tag["pid"])
-
-        self["tag_pids"].remove(tag["pid"])
-        return True
 
 
 class _Item(IlsRecord):
@@ -512,31 +485,6 @@ class InternalLocation(IlsRecord):
                 ref_ids=sorted([res["pid"] for res in item_search_res.scan()]),
             )
         return super(InternalLocation, self).delete(**kwargs)
-
-
-class Tag(IlsRecord):
-    """Tag record class."""
-
-    _pid_type = TAG_PID_TYPE
-    _schema = "tags/tag-v1.0.0.json"
-
-    @classmethod
-    def create(cls, data, id_=None, **kwargs):
-        """Create Tag record."""
-        return super(Tag, cls).create(data, id_=id_, **kwargs)
-
-    def delete(self, **kwargs):
-        """Delete Tag record."""
-        doc_search = DocumentSearch()
-        doc_search_res = doc_search.search_by_tag_pid(tag_pid=self["pid"])
-        if doc_search_res.count():
-            raise RecordHasReferencesError(
-                record_type="Tag",
-                record_id=self["pid"],
-                ref_type="Document",
-                ref_ids=sorted([res["pid"] for res in doc_search_res.scan()]),
-            )
-        return super(Tag, self).delete(**kwargs)
 
 
 class Patron(dict):

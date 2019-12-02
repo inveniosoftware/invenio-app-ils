@@ -25,7 +25,7 @@ class BlockTemplatedMessage(Message):
         :param template: Path to the template file.
         :param ctx: A mapping containing additional information passed to the
             template.
-        :param **kwargs: Tag arguments as defined in
+        :param **kwargs: Named arguments as defined in
             :class:`flask_mail.Message`.
         """
         self.template = template

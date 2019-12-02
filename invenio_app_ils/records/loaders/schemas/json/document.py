@@ -234,7 +234,7 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     source = fields.Str()
     subjects = fields.List(fields.Nested(SubjectSchema))
     table_of_content = fields.List(fields.Str())
-    tag_pids = fields.List(fields.Str())
+    tags = fields.List(fields.Str())
     title = fields.Str(required=True)
     updated = fields.Nested(DocumentChangedBySchema)
     urls = fields.List(fields.Nested(UrlSchema))

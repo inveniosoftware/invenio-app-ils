@@ -1,1 +1,0 @@
-export { CreateNewTagForm } from './CreateNewTagForm';

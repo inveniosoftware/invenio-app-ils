@@ -47,10 +47,10 @@ describe('Document query builder tests', () => {
   it('should build the query string for documents with tags', () => {
     const query = documentApi
       .query()
-      .withTag({ name: 'tag1' })
-      .withTag({ name: 'tag2' })
+      .withTag('tag1')
+      .withTag('tag2')
       .qs();
-    expect(query).toEqual('tags.name:"tag1" AND tags.name:"tag2"');
+    expect(query).toEqual('tags:"tag1" AND tags:"tag2"');
   });
 
   it('should build the query string for documents of a type', () => {

@@ -1,11 +1,11 @@
 import { series as seriesApi } from '../series';
 
 describe('Series query builder tests', () => {
-  it('should build query string with a tag', () => {
+  it('should build query string with a mode of issuance', () => {
     const query = seriesApi
       .query()
-      .withTag({ name: 'Tag 1' })
+      .withModeOfIssuance('MULTIPART_MONOGRAPH')
       .qs();
-    expect(query).toEqual('tags.name:"Tag 1"');
+    expect(query).toEqual('mode_of_issuance:"MULTIPART_MONOGRAPH"');
   });
 });
