@@ -32,17 +32,6 @@ class DocumentSearch(RecordsSearch):
         """Retrieve documents with the given pid(s)."""
         return self.filter("terms", pid=pids)
 
-    def search_by_tag_pid(self, tag_pid=None, filter_states=None,
-                          exclude_states=None):
-        """Retrieve documents based on the given tag pid."""
-        search = self
-        return TagSearch.filter_by_tag_pid(
-            search,
-            tag_pid,
-            filter_states,
-            exclude_states
-        )
-
     def search_by_series_pid(self, series_pid=None):
         """Retrieve documents with the given series_pid."""
         search = self
@@ -239,17 +228,6 @@ class SeriesSearch(RecordsSearch):
         index = "series"
         doc_types = None
 
-    def search_by_tag_pid(self, tag_pid=None, filter_states=None,
-                              exclude_states=None):
-        """Retrieve series with the given tag pid."""
-        search = self
-        return TagSearch.filter_by_tag_pid(
-            search,
-            tag_pid,
-            filter_states,
-            exclude_states
-        )
-
 
 class PatronsSearch(RecordsSearch):
     """Search for patrons."""
@@ -259,34 +237,6 @@ class PatronsSearch(RecordsSearch):
 
         index = "patrons"
         doc_types = None
-
-
-class TagSearch(RecordsSearch):
-    """Search for tags."""
-
-    class Meta:
-        """Search only on tags index."""
-
-        index = "tags"
-        doc_types = None
-
-    @classmethod
-    def filter_by_tag_pid(cls, search, tag_pid, filter_states=None,
-                              exclude_states=None):
-        """Filter a search by tag PID."""
-        if tag_pid:
-            search = search.filter("term", tag_pids=tag_pid)
-        else:
-            raise MissingRequiredParameterError(
-                description="tag_pid is required"
-            )
-
-        if filter_states:
-            search = search.filter("terms", state=filter_states)
-        elif exclude_states:
-            search = search.exclude("terms", state=exclude_states)
-
-        return search
 
 
 class DocumentRequestSearch(RecordsSearch):

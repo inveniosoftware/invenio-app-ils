@@ -619,20 +619,14 @@
       "type": "array",
       "uniqueItems": true
     },
-    "tag_pids": {
+    "tags": {
       "items": {
+        "title": "Tag name",
         "type": "string"
       },
+      "title": "List of tags of the document",
       "type": "array",
       "uniqueItems": true
-    },
-    "tags": {
-      "properties": {
-        "$ref": {
-          "type": "string"
-        }
-      },
-      "type": "object"
     },
     "title": {
       "title": "Title of the document",

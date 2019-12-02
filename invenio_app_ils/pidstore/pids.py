@@ -43,13 +43,6 @@ INTERNAL_LOCATION_PID_MINTER = "ilocid"
 INTERNAL_LOCATION_PID_FETCHER = "ilocid"
 """Fetcher PID for InternalLocation."""
 
-TAG_PID_TYPE = "tagid"
-"""Persistent Identifier for Tag."""
-TAG_PID_MINTER = "tagid"
-"""Minter PID for Tag."""
-TAG_PID_FETCHER = "tagid"
-"""Fetcher PID for Tags."""
-
 SERIES_PID_TYPE = "serid"
 """Persistent Identifier for Series."""
 SERIES_PID_MINTER = "serid"

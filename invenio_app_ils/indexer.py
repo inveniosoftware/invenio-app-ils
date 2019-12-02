@@ -438,39 +438,6 @@ class SeriesIndexer(RecordIndexer):
             eta=eta
         )
 
-
-@shared_task(ignore_result=True)
-def index_documents_and_series_after_tag_indexed(tag_pid):
-    """Index documents and series to re-compute tag information."""
-    def index_record(cls, search):
-        log_func = partial(
-            _log,
-            origin_rec_type='Tag',
-            origin_recid=tag_pid,
-            dest_rec_type=cls.__name__)
-
-        log_func(msg=MSG_ORIGIN)
-        for record in search.search_by_tag_pid(tag_pid).scan():
-            pid = record["pid"]
-            _index_record_by_pid(cls, pid, log_func)
-
-    index_record(Document, DocumentSearch())
-    index_record(Series, SeriesSearch())
-
-
-class TagIndexer(RecordIndexer):
-    """Indexer class for Tag record."""
-
-    def index(self, tag, arguments=None, **kwargs):
-        """Index a tag."""
-        super(TagIndexer, self).index(tag)
-        eta = datetime.utcnow() + current_app.config["ILS_INDEXER_TASK_DELAY"]
-        index_documents_and_series_after_tag_indexed.apply_async(
-            (tag["pid"],),
-            eta=eta,
-        )
-
-
 @shared_task(ignore_result=True)
 def index_related_record(pid, rec_type, related_pid, related_pid_type):
     """Index document to re-compute circulation information."""

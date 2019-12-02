@@ -44,15 +44,6 @@ export const serializeItem = item => ({
   metadata: item.metadata,
 });
 
-export const serializeTag = tag => ({
-  id: tag.metadata.pid,
-  key: tag.metadata.pid,
-  title: tag.metadata.name,
-  description: `Provenance: ${tag.metadata.provenance}`,
-  extra: `Tag #${tag.metadata.pid}`,
-  metadata: tag.metadata,
-});
-
 export const serializeLoan = loan => ({
   id: loan.metadata.pid,
   key: loan.metadata.pid,

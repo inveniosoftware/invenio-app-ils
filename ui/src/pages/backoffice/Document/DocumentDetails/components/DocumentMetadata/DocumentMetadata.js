@@ -49,11 +49,6 @@ export default class DocumentMetadata extends Component {
       : [];
   };
 
-  updateTags = results => {
-    const tagPids = results.map(result => result.metadata.pid);
-    this.props.updateDocument(this.documentPid, '/tag_pids', tagPids);
-  };
-
   requestLoan = (
     patronPid,
     { requestEndDate = null, deliveryMethod = null } = {}
@@ -74,7 +69,7 @@ export default class DocumentMetadata extends Component {
       return (
         <List horizontal>
           {tags.map(tag => (
-            <List.Item key={tag.pid}>
+            <List.Item key={tag}>
               <Link
                 to={BackOfficeRoutes.documentsListWithQuery(
                   documentApi

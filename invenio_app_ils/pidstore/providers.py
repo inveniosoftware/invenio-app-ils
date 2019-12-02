@@ -18,7 +18,6 @@ from .pids import (  # isort:skip
     ITEM_PID_TYPE,
     LOCATION_PID_TYPE,
     SERIES_PID_TYPE,
-    TAG_PID_TYPE,
 )
 
 
@@ -94,23 +93,6 @@ class InternalLocationIdProvider(RecordIdProvider):
     """Internal Location identifier provider."""
 
     pid_type = INTERNAL_LOCATION_PID_TYPE
-    """Type of persistent identifier."""
-
-    pid_provider = None
-    """Provider name.
-
-    The provider name is not recorded in the PID since the provider does not
-    provide any additional features besides creation of record ids.
-    """
-
-    default_status = PIDStatus.REGISTERED
-    """Record IDs are by default registered immediately."""
-
-
-class TagIdProvider(RecordIdProvider):
-    """Tag identifier provider."""
-
-    pid_type = TAG_PID_TYPE
     """Type of persistent identifier."""
 
     pid_provider = None

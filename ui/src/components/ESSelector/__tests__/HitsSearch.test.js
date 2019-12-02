@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { HitsSearch } from '../HitsSearch';
-import { serializeTag } from '../serializer';
+import { serializeLocation } from '../serializer';
 
 jest.mock('../ESSelectorLoanRequest', () => {
   return {
@@ -10,7 +10,7 @@ jest.mock('../ESSelectorLoanRequest', () => {
 });
 
 describe('HitsSearch tests', () => {
-  const serializer = serializeTag;
+  const serializer = serializeLocation;
 
   let component;
   afterEach(() => {
@@ -40,7 +40,7 @@ describe('HitsSearch tests', () => {
     });
   });
 
-  it('should return one result', done => {
+  it('should return no result', done => {
     const api = async query => {
       const response = {
         data: {
@@ -69,7 +69,7 @@ describe('HitsSearch tests', () => {
   });
 
   it('should return one result', done => {
-    const api = async query => {
+    const api = async () => {
       const response = {
         data: {
           hits: [
@@ -77,10 +77,12 @@ describe('HitsSearch tests', () => {
               id: 1,
               pid: '1',
               metadata: {
-                $schema: 'https://127.0.0.1:5000/schemas/tags/tag-v1.0.0.json',
+                $schema:
+                  'https://127.0.0.1:5000/schemas/locations/location-v1.0.0.json',
                 pid: '1',
-                name: 'Dolorem',
-                provenance: 'Quaerat',
+                name: 'Central Library',
+                address: 'Rue de Meyrin',
+                email: 'library@cern.ch',
               },
             },
           ],
@@ -91,7 +93,7 @@ describe('HitsSearch tests', () => {
 
     const onResults = results => {
       expect(results.length).toBe(1);
-      expect(results[0].title).toBe('Dolorem');
+      expect(results[0].title).toBe('Central Library');
       done();
     };
 

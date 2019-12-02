@@ -21,7 +21,6 @@ from .schemas.json.internal_location import InternalLocationSchemaV1
 from .schemas.json.items import EItemSchemaV1, ItemSchemaV1
 from .schemas.json.location import LocationSchemaV1
 from .schemas.json.series import SeriesSchemaV1
-from .schemas.json.tag import TagSchemaV1
 
 
 def _flatten_marshmallow_errors(errors, parent_fields=[]):
@@ -140,4 +139,3 @@ internal_location_loader = marshmallow_loader(InternalLocationSchemaV1)
 item_loader = ils_marshmallow_loader(ItemSchemaV1)
 location_loader = marshmallow_loader(LocationSchemaV1)
 series_loader = marshmallow_loader(SeriesSchemaV1)
-tag_loader = marshmallow_loader(TagSchemaV1)

@@ -86,7 +86,6 @@ from .indexer import (  # isort:skip
     LoanIndexer,
     LocationIndexer,
     SeriesIndexer,
-    TagIndexer,
     VocabularyIndexer,
 )
 from .permissions import (  # isort:skip
@@ -121,9 +120,6 @@ from .pidstore.pids import (  # isort:skip
     SERIES_PID_FETCHER,
     SERIES_PID_MINTER,
     SERIES_PID_TYPE,
-    TAG_PID_FETCHER,
-    TAG_PID_MINTER,
-    TAG_PID_TYPE,
     VOCABULARY_PID_FETCHER,
     VOCABULARY_PID_MINTER,
     VOCABULARY_PID_TYPE,
@@ -138,7 +134,6 @@ from .records.api import (  # isort:skip
     Location,
     Patron,
     Series,
-    Tag,
     Vocabulary,
 )
 from .records.permissions import (  # isort:skip
@@ -153,7 +148,6 @@ from .search.api import (  # isort:skip
     LocationSearch,
     PatronsSearch,
     SeriesSearch,
-    TagSearch,
     VocabularySearch,
 )
 
@@ -332,7 +326,6 @@ _LOCID_CONVERTER = (
 _ILOCID_CONVERTER = (
     'pid(ilocid, record_class="invenio_app_ils.records.api:InternalLocation")'
 )
-_TAGID_CONVERTER = 'pid(tagid, record_class="invenio_app_ils.records.api:Tag")'
 _DREQID_CONVERTER = (
     'pid(dreqid, record_class="invenio_app_ils.records.api:DocumentRequest")'
 )
@@ -613,38 +606,6 @@ RECORDS_REST_ENDPOINTS = dict(
         create_permission_factory_imp=deny_all,
         update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all,
-    ),
-    tagid=dict(
-        pid_type=TAG_PID_TYPE,
-        pid_minter=TAG_PID_MINTER,
-        pid_fetcher=TAG_PID_FETCHER,
-        search_class=TagSearch,
-        record_class=Tag,
-        indexer_class=TagIndexer,
-        record_serializers={
-            "application/json": (
-                "invenio_records_rest.serializers" ":json_v1_response"
-            )
-        },
-        search_serializers={
-            "application/json": (
-                "invenio_records_rest.serializers:json_v1_search"
-            )
-        },
-        search_serializers_aliases={
-            "csv": "text/csv",
-            "json": "application/json",
-        },
-        item_route="/tags/<{0}:pid_value>".format(_TAGID_CONVERTER),
-        list_route="/tags/",
-        default_media_type="application/json",
-        max_result_window=_RECORDS_REST_MAX_RESULT_WINDOW,
-        error_handlers=dict(),
-        list_permission_factory_imp=backoffice_permission,
-        read_permission_factory_imp=record_read_permission_factory,
-        create_permission_factory_imp=backoffice_permission,
-        update_permission_factory_imp=backoffice_permission,
-        delete_permission_factory_imp=backoffice_permission,
     ),
     dreqid=dict(
         pid_type=DOCUMENT_REQUEST_PID_TYPE,
@@ -1056,7 +1017,7 @@ FACET_TAG_LIMIT = 5
 RECORDS_REST_FACETS = dict(
     documents=dict(  # DocumentSearch.Meta.index
         aggs=dict(
-            tag=dict(terms=dict(field="tags.name", size=FACET_TAG_LIMIT)),
+            tag=dict(terms=dict(field="tags", size=FACET_TAG_LIMIT)),
             language=dict(terms=dict(field="languages")),
             doctype=dict(terms=dict(field="document_type")),
             relation=dict(
@@ -1073,7 +1034,7 @@ RECORDS_REST_FACETS = dict(
         post_filters=dict(
             doctype=terms_filter("document_type"),
             language=terms_filter("languages"),
-            tag=terms_filter("tags.name"),
+            tag=terms_filter("tags"),
             availability=keyed_range_filter(
                 "circulation.has_items_for_loan",
                 {"available for loan": {"gt": 0}},

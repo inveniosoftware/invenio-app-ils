@@ -93,7 +93,7 @@ class QueryBuilder {
     if (!tag) {
       throw TypeError('Tag argument missing');
     }
-    this.withTagQuery.push(`tags.name:"${tag.name}"`);
+    this.withTagQuery.push(`tags:"${tag}"`);
     return this;
   }
 

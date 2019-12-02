@@ -42,9 +42,6 @@ exports[`DocumentMetadata tests should render the loan request form correctly 1`
         ],
         "pid": "71",
         "relations": Object {},
-        "tag_pids": Array [
-          "24",
-        ],
         "tags": Array [],
         "title": "The Gulf: The Making of An American Sea",
       },

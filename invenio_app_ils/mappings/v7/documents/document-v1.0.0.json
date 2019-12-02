@@ -355,22 +355,8 @@
           },
           "type": "object"
         },
-      "tag_pids": {
-        "type": "keyword"
-      },
       "tags": {
-        "properties": {
-          "name": {
-            "type": "keyword"
-          },
-          "pid": {
-            "type": "keyword"
-          },
-          "provenance": {
-            "type": "keyword"
-          }
-        },
-        "type": "object"
+        "type": "keyword"
       },
       "title": {
         "type": "text"

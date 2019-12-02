@@ -17,11 +17,6 @@ export default (values, newRecord) => {
     submitValues.updated = changedObject();
   }
 
-  if (submitValues.tags) {
-    submitValues.tag_pids = submitValues.tags.map(tag => tag.pid);
-  }
-
-  delete submitValues.tags;
   delete submitValues.circulation;
   delete submitValues.eitems;
   delete submitValues.items;
