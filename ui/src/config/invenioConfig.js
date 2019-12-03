@@ -45,6 +45,10 @@ export const invenioConfig = {
       { value: 'IN_BINDING', text: 'In binding' },
       { value: 'SCANNING', text: 'Scanning' },
     ],
+    circulationStates:[
+      {value: 'ITEM_ON_LOAN', text: 'On loan'},
+      {value: 'NOT_ON_LOAN', text: 'Not loaned'},
+    ]
   },
   loans: {
     maxExtensionsCount: 3,

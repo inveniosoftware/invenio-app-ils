@@ -10,13 +10,17 @@
     border-radius: 0;
     margin-bottom: 2em;
 
-    .content {
-      padding-top: 0.5em;
+      & > .content {
 
-      .header {
-        text-transform: uppercase;
+        padding: 1.5em 1em 1em 1em;
+
+        .header {
+          text-transform: uppercase;
+        }
       }
-    }
+    .header {
+          text-transform: uppercase;
+        }
   }
 }
 

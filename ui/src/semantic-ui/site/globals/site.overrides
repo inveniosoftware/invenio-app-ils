@@ -54,20 +54,20 @@
 }
 
 label {
-    font-weight: bold;
-  }
+  font-weight: bold;
+}
 
-  .search-aggregations {
-    label {
-      font-weight: normal;
-    }
+.search-aggregations {
+  label {
+    font-weight: normal;
   }
+}
 
-  form {
-    label {
-      font-weight: normal;
-    }
+form {
+  label {
+    font-weight: normal;
   }
+}
 
 
 /* FRONTSITE */
@@ -143,4 +143,13 @@ label {
     padding: 1.5em;
   }
 
+  .generate-margins(@max, @direction, @alias, @i: 5) when (@i =< @max) {
+    .m@{alias}-@{i} {
+      margin-@{direction}: unit(@i, px) !important;
+    }
+    .generate-margins(@max, @direction, @alias, (@i + 5));
+  }
+
+  .generate-margins(20, right, r);
+  .generate-margins(20, left, l);
 }

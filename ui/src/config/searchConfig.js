@@ -1,3 +1,4 @@
+import { invenioConfig } from '@config/invenioConfig';
 import capitalize from 'lodash/capitalize';
 import merge from 'lodash/merge';
 
@@ -120,22 +121,35 @@ const searchConfig = {
         title: 'Status',
         field: 'status',
         aggName: 'status',
+        labels: invenioConfig.items.statuses,
       },
-      { title: 'Medium', field: 'medium', aggName: 'medium' },
+      {
+        title: 'Medium',
+        field: 'medium',
+        aggName: 'medium',
+        labels: invenioConfig.items.mediums,
+      },
       {
         title: 'Circulation',
         field: 'circulation.state',
         aggName: 'circulation',
+        labels: invenioConfig.items.circulationStates,
       },
       {
-        title: 'Location',
-        field: 'internal_location.location.name',
-        aggName: 'location',
+        title: 'Circulation restriction',
+        field: 'circulation_restriction',
+        aggName: 'circulation_restriction',
+        labels: invenioConfig.items.circulationRestrictions
       },
       {
         title: 'Internal location',
         field: 'internal_location.name',
         aggName: 'internal_location',
+      },
+      {
+        title: 'Location',
+        field: 'internal_location.location.name',
+        aggName: 'location',
       },
     ],
     sortBy: {

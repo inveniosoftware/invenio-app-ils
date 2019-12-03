@@ -39,6 +39,16 @@
 
   .ui.items {
     .item {
+      a.header{
+        z-index: 1000;
+        position: relative;
+      }
+      .ui.grid{
+        .column {
+          z-index: 1;
+          position: relative;
+        }
+      }
       .item-image-addons-wrapper {
         text-align: center;
         margin-right: 1em;

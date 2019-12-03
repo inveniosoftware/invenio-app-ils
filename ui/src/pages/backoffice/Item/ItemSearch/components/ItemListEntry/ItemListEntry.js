@@ -4,7 +4,6 @@ import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
 import { BackOfficeRoutes } from '@routes/urls';
 import { DocumentAuthors } from '@components/Document';
 import { isEmpty } from 'lodash';
-import {getCover} from "../../../../../frontsite/config";
 
 class ItemCirculation extends Component {
   render() {
@@ -17,14 +16,15 @@ class ItemCirculation extends Component {
           Currently on{' '}
           <Link to={BackOfficeRoutes.loanDetailsFor(circulation.loan_pid)}>
             loan (#{circulation.loan_pid})
-          </Link> <br/>
+          </Link>{' '}
+          <br />
           by{' '}
           <Link to={BackOfficeRoutes.patronDetailsFor(circulation.patron_pid)}>
             {circulation.patron.name}
-          </Link><br/>
-          <strong>
-            {circulation.start_date} - {circulation.end_date}
-          </strong>
+          </Link>
+          <br />
+          from <strong> {circulation.start_date} </strong>until{' '}
+          <strong>{circulation.end_date}</strong>
         </>
       );
     }
@@ -36,28 +36,16 @@ export class ItemListEntry extends Component {
     const { item } = this.props;
     return (
       <Item>
-        <div className={'item-image-addons-wrapper'}>
-          <Item.Image
-            as={Link}
-            to={BackOfficeRoutes.itemDetailsFor(item.metadata.pid)}
-            size={'mini'}
-            src={getCover(item.metadata.document_pid)}
-            onError={e => (e.target.style.display = 'none')}
-          />
-          <Header disabled as="h6" className={'document-type'}>
-            {item.metadata.document.document_type}
-          </Header>
-        </div>
         <Item.Content>
           <Item.Header
             as={Link}
             to={BackOfficeRoutes.itemDetailsFor(item.metadata.pid)}
           >
-            {item.metadata.document.title}
-          </Item.Header>
-
+            <Icon name={'barcode'} /> {item.metadata.barcode}
+          </Item.Header>{' '}
+          <Header as="h5"> - {item.metadata.document.title}</Header>
           <Grid columns={2}>
-            <Grid.Column width={5}>
+            <Grid.Column computer={6} largeScreen={6}>
               <Item.Meta className={'metadata-fields'}>
                 <DocumentAuthors
                   metadata={item.metadata.document}
@@ -66,51 +54,55 @@ export class ItemListEntry extends Component {
                 <List>
                   <List.Item>
                     <List.Content>
-                      <Icon name={'barcode'} />{' '}
-                      <strong>{item.metadata.barcode}</strong>
+                      {item.metadata.internal_location.location.name} -{' '}
+                      {item.metadata.internal_location.name}
                     </List.Content>
                   </List.Item>
                   <List.Item>
                     <List.Content>
-                      <Icon name={'map signs'} />
-                      {item.metadata.internal_location.location.name} -{' '}
-                      {item.metadata.internal_location.name} (
-                      <strong>{item.metadata.shelf}</strong>)
+                      {' '}
+                      shelf <strong>{item.metadata.shelf}</strong>
                     </List.Content>
                   </List.Item>
                 </List>
               </Item.Meta>
             </Grid.Column>
-            <Grid.Column width={4}>
+            <Grid.Column computer={4} largeScreen={4}>
               <Item.Meta className={'metadata-fields'}>
                 <List>
                   <List.Item>
-                    <List.Content floated="right">
-                      {item.metadata.medium}
+                    <List.Content>
+                      medium{' '}
+                      <span className="ml-10">
+                        <strong>{item.metadata.medium}</strong>
+                      </span>
                     </List.Content>
-                    <List.Content>medium</List.Content>
                   </List.Item>
 
                   <List.Item>
-                    <List.Content floated="right">
-                      {item.metadata.status}
+                    <List.Content>
+                      status
+                      <span className="ml-10">
+                        <strong>{item.metadata.status}</strong>
+                      </span>
                     </List.Content>
-                    <List.Content>status</List.Content>
                   </List.Item>
 
                   <List.Item>
-                    <List.Content floated="right">
-                      {item.metadata.circulation_restriction}
+                    <List.Content>
+                      restrictions
+                      <span className="ml-10">
+                        <strong>{item.metadata.circulation_restriction}</strong>
+                      </span>
                     </List.Content>
-                    <List.Content>restrictions</List.Content>
                   </List.Item>
                 </List>
               </Item.Meta>
             </Grid.Column>
-            <Grid.Column width={5}>
+            <Grid.Column computer={4} largeScreen={4}>
               <ItemCirculation circulation={item.metadata.circulation} />
             </Grid.Column>
-            <Grid.Column width={2} textAlign="right">
+            <Grid.Column computer={2} largeScreen={2} textAlign="right">
               <Item.Meta className={'pid-field'}>
                 <Header disabled as="h5" className={'pid-field'}>
                   #{item.metadata.pid}
