@@ -63,7 +63,7 @@ exports[`DocumentsSearch tests should load the DocumentsSearch component 1`] = `
       minWidth={992}
     >
       <Container
-        className="search-body"
+        className="fs-search-body"
         fluid={true}
       >
         <Grid

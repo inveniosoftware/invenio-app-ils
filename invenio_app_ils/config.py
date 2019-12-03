@@ -1091,8 +1091,9 @@ RECORDS_REST_FACETS = dict(
             status=dict(terms=dict(field="status")),
             medium=dict(terms=dict(field="medium")),
             circulation=dict(
-                terms=dict(field="circulation.state", missing="N/A")
+                terms=dict(field="circulation.state", missing="NOT_ON_LOAN")
             ),
+            restrictions=dict(terms=dict(field="circulation_restriction")),
             location=dict(
                 terms=dict(field="internal_location.location.name"),
             ),
@@ -1104,6 +1105,7 @@ RECORDS_REST_FACETS = dict(
             status=terms_filter("status"),
             medium=terms_filter("medium"),
             circulation=terms_filter("circulation.state"),
+            restrictions=terms_filter("circulation_restriction"),
             location=terms_filter("internal_location.location.name"),
             internal_location=terms_filter("internal_location.name"),
         ),
