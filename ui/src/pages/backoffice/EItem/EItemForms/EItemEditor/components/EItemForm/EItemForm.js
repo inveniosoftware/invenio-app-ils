@@ -27,6 +27,7 @@ export class EItemForm extends Component {
 
   prepareData = data => {
     return pick(data, [
+      'bucket_id',
       'description',
       'document_pid',
       'document',

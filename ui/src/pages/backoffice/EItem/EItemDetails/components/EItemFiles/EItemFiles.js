@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Loader, Error, ResultsTable } from '@components';
 import _get from 'lodash/get';
 import prettyBytes from 'pretty-bytes';
-import { Icon } from 'semantic-ui-react';
+import { Icon, Message } from 'semantic-ui-react';
 import { file as fileApi } from '@api';
 import { DownloadButton } from '@pages/backoffice/components/buttons';
 import UploadButton from './UploadButton';
@@ -22,10 +22,9 @@ export default class EItemFiles extends Component {
 
   onSelectFile = file => {
     if (this.props.files.length >= this.maxFiles) {
-      this.props.addNotification(
+      this.props.sendErrorNotification(
         'Failed to upload file',
         `An e-item cannot have more than ${this.maxFiles} files.`,
-        'error'
       );
     } else {
       const { eitemDetails } = this.props;
@@ -79,6 +78,17 @@ export default class EItemFiles extends Component {
     );
   };
 
+  renderEmptyResults() {
+    return (
+      <Message info icon data-test="no-results">
+        <Message.Content>
+          <Message.Header>No attached files</Message.Header>
+          Upload a file to attach it to the E-Item.
+        </Message.Content>
+      </Message>
+    );
+  }
+
   renderTable(data) {
     const columns = [
       {
@@ -106,8 +116,8 @@ export default class EItemFiles extends Component {
         columns={columns}
         totalHitsCount={data.length}
         title={'Attached files'}
-        name={'attached files'}
         showMaxRows={this.maxFiles}
+        renderEmptyResultsElement={this.renderEmptyResults}
       />
     );
   }
@@ -128,4 +138,6 @@ export default class EItemFiles extends Component {
 EItemFiles.propTypes = {
   eitemDetails: PropTypes.object.isRequired,
   files: PropTypes.array.isRequired,
+  errors: PropTypes.object,
+  isFilesLoading: PropTypes.bool,
 };

@@ -13,8 +13,8 @@ export default class DownloadButton extends Component {
         size="small"
         labelPosition="left"
         href={to}
-        {...(disabled ? { disabled: true } : {})}
-        {...(fluid ? { fluid: true } : {})}
+        disabled={disabled}
+        fluid={fluid}
       >
         <Icon name="download" />
         {children ? children : text}

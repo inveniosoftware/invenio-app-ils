@@ -5309,6 +5309,8 @@ exports[`PatronDocumentRequests tests should render the see all button when show
                                         },
                                       }
                                     }
+                                    disabled={false}
+                                    fluid={false}
                                     size="tiny"
                                     to="/backoffice/document-requests?q=(patron_pid:2)&sort=-mostrecent"
                                   >

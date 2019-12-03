@@ -9,6 +9,7 @@
 
 from __future__ import absolute_import, print_function
 
+import tempfile
 from functools import partial
 
 import pytest
@@ -38,30 +39,15 @@ from invenio_app_ils.pidstore.pids import (  # isort:skip
 )
 
 
-@pytest.fixture()
-def item_record(app):
-    """Fixture to return an Item payload."""
-    return {
-        "pid": "itemid-1",
-        "document_pid": "docid-1",
-        "document": {"$ref": document_ref_builder(app, "itemid-1")},
-        "barcode": "123456789-1",
-        "title": "Test item x",
-        "internal_location_pid": "ilocid-1",
-        "internal_location": {
-            "$ref": internal_location_ref_builder(app, "itemid-1")
-        },
-        "medium": "NOT_SPECIFIED",
-        "status": "CAN_CIRCULATE",
-        "circulation_restriction": "NO_RESTRICTION"
-    }
-
-
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def app_config(app_config):
     """Get app config."""
-    app_config['RATELIMIT_GUEST_USER'] = '1000 per minute'
-    app_config['RATELIMIT_AUTHENTICATED_USER'] = '1000 per minute'
+    tests_config = {
+        "ACCOUNTS_SESSION_REDIS_URL": "",  # in-memory
+        "RATELIMIT_GUEST_USER": "1000 per minute",
+        "RATELIMIT_AUTHENTICATED_USER": "1000 per minute",
+    }
+    app_config.update(tests_config)
     return app_config
 
 
@@ -105,9 +91,7 @@ def testdata(app, db, es_clear):
     internal_locations = load_json_from_datadir("internal_locations.json")
     for internal_location in internal_locations:
         record = InternalLocation.create(internal_location)
-        mint_record_pid(
-            INTERNAL_LOCATION_PID_TYPE, "pid", record
-        )
+        mint_record_pid(INTERNAL_LOCATION_PID_TYPE, "pid", record)
         record.commit()
         db.session.commit()
         indexer.index(record)
@@ -161,7 +145,7 @@ def testdata(app, db, es_clear):
         indexer.index(record)
 
     # flush all indices after indexing, otherwise ES won't be ready for tests
-    current_search.flush_and_refresh(index='*')
+    current_search.flush_and_refresh(index="*")
 
     return {
         "document_requests": document_requests,
@@ -171,6 +155,25 @@ def testdata(app, db, es_clear):
         "loans": loans,
         "locations": locations,
         "series": series_data,
+    }
+
+
+@pytest.fixture()
+def item_record(app):
+    """Fixture to return an Item payload."""
+    return {
+        "pid": "itemid-1",
+        "document_pid": "docid-1",
+        "document": {"$ref": document_ref_builder(app, "itemid-1")},
+        "barcode": "123456789-1",
+        "title": "Test item x",
+        "internal_location_pid": "ilocid-1",
+        "internal_location": {
+            "$ref": internal_location_ref_builder(app, "itemid-1")
+        },
+        "medium": "NOT_SPECIFIED",
+        "status": "CAN_CIRCULATE",
+        "circulation_restriction": "NO_RESTRICTION",
     }
 
 
@@ -191,11 +194,8 @@ def loan_params():
 def example_message_factory():
     """A basic functional test message loader."""
     def loader(subject, body):
-        return Message(
-            sender="test@test.ch",
-            subject=subject,
-            body=body
-        )
+        return Message(sender="test@test.ch", subject=subject, body=body)
+
     return partial(message_factory, loader)
 
 
@@ -215,9 +215,7 @@ def testdata_most_loaned(app, db, es_clear):
     internal_locations = load_json_from_datadir("internal_locations.json")
     for internal_location in internal_locations:
         record = InternalLocation.create(internal_location)
-        mint_record_pid(
-            INTERNAL_LOCATION_PID_TYPE, "pid", record
-        )
+        mint_record_pid(INTERNAL_LOCATION_PID_TYPE, "pid", record)
         record.commit()
         db.session.commit()
         indexer.index(record)
@@ -263,7 +261,7 @@ def testdata_most_loaned(app, db, es_clear):
         indexer.index(record)
 
     # flush all indices after indexing, otherwise ES won't be ready for tests
-    current_search.flush_and_refresh(index='*')
+    current_search.flush_and_refresh(index="*")
 
     return {
         "locations": locations,
@@ -273,3 +271,11 @@ def testdata_most_loaned(app, db, es_clear):
         "loans": loans,
         "series": series_data,
     }
+
+
+@pytest.yield_fixture()
+def bucket(bucket_from_dir):
+    """Create temporary bucket fixture."""
+    with tempfile.TemporaryDirectory(prefix="ils-test-") as temp_dir:
+        bucket = bucket_from_dir(temp_dir)
+        yield bucket

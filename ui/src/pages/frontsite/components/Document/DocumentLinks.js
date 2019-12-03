@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Divider, List } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { DownloadLink } from './DownloadLink';
+import { sessionManager } from '@authentication/services';
 
 export class DocumentLinks extends Component {
   constructor(props) {
@@ -14,32 +15,53 @@ export class DocumentLinks extends Component {
     return (
       this.linkCount > 0 &&
       this.props.showMaxLinks &&
-      this.linkCount >= this.props.showMaxLinks
+      this.linkCount > this.props.showMaxLinks
     );
+  };
+
+  hasPermissions = eitem => {
+    if (!eitem.open_access) {
+      return sessionManager.authenticated;
+    }
+    return eitem.open_access;
   };
 
   renderReadableList = () => {
     return this.props.dividers ? <p>None.</p> : null;
   };
 
+  renderDownloadLink = (eitem, file) => (
+    <List.Item key={file.file_id}>
+      <List.Icon name="download" />
+      <List.Content>
+        Download <DownloadLink eitem={eitem} filename={file.key} />
+      </List.Content>
+    </List.Item>
+  );
+
   renderDownloadableList = () => {
     return (
       <List>
         {this.props.eitems.hits.map(eitem =>
           eitem.files.map(file => {
-            const hideLink = this.hasMaxLinks();
-            this.linkCount++;
-            return hideLink ? null : (
-              <List.Item key={file.file_id}>
-                <List.Icon name="download" />
-                <List.Content>
-                  Download <DownloadLink eitem={eitem} filename={file.key} />
-                </List.Content>
-              </List.Item>
-            );
+            if (this.hasPermissions(eitem)) {
+              this.linkCount++;
+            }
+            const hideLink = !this.hasPermissions(eitem) || this.hasMaxLinks();
+            return hideLink ? null : this.renderDownloadLink(eitem, file);
           })
         )}
       </List>
+    );
+  };
+
+  renderEmptyMessage = () => {
+    return (
+      <p>
+        {sessionManager.authenticated
+          ? 'No files available.'
+          : 'Please login to see restricted files.'}
+      </p>
     );
   };
 
@@ -60,7 +82,7 @@ export class DocumentLinks extends Component {
         {this.renderReadableList()}
         {dividers && <Divider horizontal>Downloadable</Divider>}
         {this.renderDownloadableList()}
-        {this.linkCount === 0 && <p>No files available.</p>}
+        {this.linkCount === 0 && this.renderEmptyMessage()}
         {this.hasMaxLinks() && this.renderShowAll()}
       </>
     );

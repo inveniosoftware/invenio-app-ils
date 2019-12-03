@@ -9,14 +9,36 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import abort
+from functools import wraps
+
+from flask import abort, current_app
 from flask_login import current_user
 from flask_principal import UserNeed
 from invenio_access import action_factory
 from invenio_access.permissions import Permission, authenticated_user
 from invenio_records_rest.utils import allow_all, deny_all
 
+from invenio_app_ils.proxies import current_app_ils
+
 backoffice_access_action = action_factory("ils-backoffice-access")
+
+
+def need_permissions(action):
+    """View decorator to check permissions for the given action or abort.
+
+    :param action: The action needed.
+    """
+    def decorator_builder(f):
+        @wraps(f)
+        def decorate(*args, **kwargs):
+            check_permission(
+                current_app.config["ILS_VIEWS_PERMISSIONS_FACTORY"](action)
+            )
+            return f(*args, **kwargs)
+
+        return decorate
+
+    return decorator_builder
 
 
 def check_permission(permission):
@@ -35,9 +57,33 @@ def backoffice_permission(*args, **kwargs):
     return Permission(backoffice_access_action)
 
 
+def file_download_permission(obj):
+    """File download permissions."""
+    search = current_app_ils.eitem_search
+    bucket_id = str(obj.bucket_id)
+    results = search.search_by_bucket_id(bucket_id).execute()
+    if len(results) != 1:
+        # There should always be one bucket associated with an eitem when
+        # downloading a file.
+        msg = "files: found 0 or multiple records with bucket {0}".format(
+            bucket_id
+        )
+        current_app.logger.warning(msg)
+        return deny_all()
+
+    from invenio_app_ils.records.api import EItem
+
+    record = EItem.get_record_by_pid(results[0].pid)
+    if record.get("open_access", False):
+        return allow_all()
+    return authenticated_user_permission()
+
+
 def files_permission(obj, action=None):
     """Return permission for Files REST."""
-    return allow_all(obj, action)
+    if action == "object-read":
+        return file_download_permission(obj)
+    return backoffice_permission()
 
 
 class LoanOwnerPermission(Permission):
@@ -46,8 +92,7 @@ class LoanOwnerPermission(Permission):
     def __init__(self, record):
         """Constructor."""
         super(LoanOwnerPermission, self).__init__(
-            UserNeed(int(record['patron_pid'])),
-            backoffice_access_action
+            UserNeed(int(record["patron_pid"])), backoffice_access_action
         )
 
 
@@ -57,8 +102,7 @@ class DocumentRequestOwnerPermission(Permission):
     def __init__(self, record):
         """Constructor."""
         super(DocumentRequestOwnerPermission, self).__init__(
-            UserNeed(int(record['patron_pid'])),
-            backoffice_access_action
+            UserNeed(int(record["patron_pid"])), backoffice_access_action
         )
 
 

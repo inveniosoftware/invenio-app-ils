@@ -59,6 +59,22 @@ class EItemUrlsSchema(Schema):
     description = fields.Str()
 
 
+class FileSchema(Schema):
+    """File schema."""
+
+    class Meta:
+        """Meta attributes for the schema."""
+
+        unknown = EXCLUDE
+
+    bucket = fields.Str()
+    checksum = fields.Str()
+    file_id = fields.Str()
+    key = fields.Str()
+    size = fields.Int()
+    version_id = fields.Str()
+
+
 class EItemSchemaV1(RecordMetadataSchemaJSONV1):
     """EItem schema."""
 
@@ -67,8 +83,10 @@ class EItemSchemaV1(RecordMetadataSchemaJSONV1):
 
         unknown = EXCLUDE
 
-    document_pid = fields.Str(required=True)  # TODO: validate
+    bucket_id = fields.Str()
     description = fields.Str()
+    document_pid = fields.Str(required=True)  # TODO: validate
+    files = fields.List(fields.Nested(FileSchema))
     internal_notes = fields.Str()
     open_access = fields.Bool(default=True)
     urls = fields.List(fields.Nested(EItemUrlsSchema))

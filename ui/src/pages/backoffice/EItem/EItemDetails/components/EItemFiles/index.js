@@ -8,14 +8,12 @@ const mapStateToProps = state => ({
   eitemDetails: state.eitemDetails.data,
   files: state.eitemDetails.files,
   error: state.eitemDetails.error,
-  isLoading: state.eitemDetails.isLoading,
   isFilesLoading: state.eitemDetails.isFilesLoading,
-  hasError: state.eitemDetails.hasError,
 });
 
 const mapDispatchToProps = dispatch => ({
-  addNotification: (title, message, type) =>
-    dispatch(addNotification(title, message, type)),
+  sendErrorNotification: (title, message) =>
+    dispatch(addNotification(title, message, 'error')),
   deleteFile: (bucket, filename) => dispatch(deleteFile(bucket, filename)),
   uploadFile: (eitemPid, bucket, file) =>
     dispatch(uploadFile(eitemPid, bucket, file)),

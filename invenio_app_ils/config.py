@@ -23,7 +23,7 @@ from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_indexer.api import RecordIndexer
 from invenio_pidrelations.config import RelationType
 from invenio_records_rest.facets import terms_filter
-from invenio_records_rest.utils import allow_all, deny_all
+from invenio_records_rest.utils import deny_all
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.processors import EventsIndexer
 from invenio_stats.queries import ESTermsQuery
