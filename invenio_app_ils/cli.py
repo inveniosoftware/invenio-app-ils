@@ -808,7 +808,11 @@ def create_userprofile_for(email, username, full_name):
 @click.option(
     "--skip-demo-data", is_flag=True, help="Skip creating demo data."
 )
-@click.option("--skip-location", is_flag=True, help="Skip creating location.")
+@click.option(
+    "--skip-file-location",
+    is_flag=True,
+    help="Skip creating file location."
+)
 @click.option("--skip-patrons", is_flag=True, help="Skip creating patrons.")
 @click.option(
     "--skip-vocabularies",
@@ -817,7 +821,7 @@ def create_userprofile_for(email, username, full_name):
 )
 @click.option("--verbose", is_flag=True, help="Verbose output.")
 @with_appcontext
-def setup(recreate_db, skip_demo_data, skip_location, skip_patrons,
+def setup(recreate_db, skip_demo_data, skip_file_location, skip_patrons,
           skip_vocabularies, verbose):
     """ILS setup command."""
     from flask import current_app
@@ -905,7 +909,7 @@ def setup(recreate_db, skip_demo_data, skip_location, skip_patrons,
     run_command("patrons index")
 
     # Create files location
-    if not skip_location:
+    if not skip_file_location:
         run_command("files location --default ils /tmp/ils-files")
 
     # Generate demo data

@@ -50,8 +50,8 @@ exports[`EItemFiles tests should load the files component 1`] = `
         ]
       }
       headerActionComponent={null}
-      name="attached files"
       paginationComponent={null}
+      renderEmptyResultsElement={[Function]}
       seeAllComponent={null}
       showAllResults={false}
       showMaxRows={5}

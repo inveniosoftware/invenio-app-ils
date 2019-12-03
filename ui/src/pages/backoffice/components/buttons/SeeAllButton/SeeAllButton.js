@@ -7,13 +7,7 @@ export default class SeeAllButton extends Component {
   render() {
     const { fluid, disabled, to } = this.props;
     return (
-      <Button
-        as={Link}
-        to={to}
-        size="tiny"
-        {...(disabled ? { disabled: true } : {})}
-        {...(fluid ? { fluid: true } : {})}
-      >
+      <Button as={Link} to={to} size="tiny" disabled={disabled} fluid={fluid}>
         See all
       </Button>
     );

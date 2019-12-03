@@ -231,3 +231,7 @@ class IlsValidationError(IlsException):
 
 class VocabularyError(Exception):
     """Generic vocabulary exception."""
+
+
+class StatsError(IlsException):
+    """Generic stats exception."""

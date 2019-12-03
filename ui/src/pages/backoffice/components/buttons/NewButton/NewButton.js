@@ -14,8 +14,8 @@ export default class NewButton extends Component {
         size="small"
         labelPosition="left"
         to={to}
-        {...(disabled ? { disabled: true } : {})}
-        {...(fluid ? { fluid: true } : {})}
+        disabled={disabled}
+        fluid={fluid}
       >
         <Icon name="plus" />
         {this.props.text}

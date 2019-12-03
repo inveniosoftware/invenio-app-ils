@@ -20,14 +20,13 @@ from invenio_records.api import Record
 from invenio_rest.errors import FieldError
 from invenio_userprofiles.api import UserProfile
 from jsonschema.exceptions import ValidationError
-from marshmallow import missing
 from werkzeug.utils import cached_property
 
 from invenio_app_ils.errors import IlsValidationError, PatronNotFoundError, \
     RecordHasReferencesError
 from invenio_app_ils.records_relations.api import RecordRelationsMetadata, \
     RecordRelationsRetriever
-from invenio_app_ils.search.api import DocumentRequestSearch, DocumentSearch, \
+from invenio_app_ils.search.api import DocumentRequestSearch, \
     InternalLocationSearch, ItemSearch
 
 from ..pidstore.pids import DOCUMENT_PID_TYPE, DOCUMENT_REQUEST_PID_TYPE, \

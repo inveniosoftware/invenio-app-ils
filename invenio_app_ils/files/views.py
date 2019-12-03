@@ -16,7 +16,7 @@ from invenio_records_rest.utils import obj_or_import_string
 from invenio_records_rest.views import pass_record
 from invenio_rest import ContentNegotiatedMethodView
 
-from invenio_app_ils.circulation.views import need_permissions
+from invenio_app_ils.permissions import need_permissions
 from invenio_app_ils.pidstore.pids import EITEM_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
 

@@ -17,8 +17,8 @@ from invenio_records_rest.utils import obj_or_import_string
 from invenio_rest import ContentNegotiatedMethodView
 
 from invenio_app_ils.circulation.stats.api import fetch_most_loaned_documents
-from invenio_app_ils.circulation.views import need_permissions
 from invenio_app_ils.errors import InvalidParameterError
+from invenio_app_ils.permissions import need_permissions
 
 from invenio_app_ils.pidstore.pids import (  # isort:skip
     DOCUMENT_PID_FETCHER,

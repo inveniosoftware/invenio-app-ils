@@ -15,9 +15,9 @@ from invenio_records_rest.utils import obj_or_import_string
 from invenio_records_rest.views import pass_record
 from invenio_rest import ContentNegotiatedMethodView
 
-from invenio_app_ils.circulation.views import need_permissions
 from invenio_app_ils.errors import RecordRelationsError
 from invenio_app_ils.indexer import RelationIndexer
+from invenio_app_ils.permissions import need_permissions
 from invenio_app_ils.pidstore.pids import DOCUMENT_PID_TYPE, SERIES_PID_TYPE
 from invenio_app_ils.records.api import IlsRecord
 from invenio_app_ils.relations.api import Relation

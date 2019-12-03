@@ -5144,6 +5144,8 @@ exports[`PatronLoans tests should render the see all button when showing only a 
                                         },
                                       }
                                     }
+                                    disabled={false}
+                                    fluid={false}
                                     size="tiny"
                                     to="/backoffice/loans?q=(patron_pid:2 AND state:(PENDING))"
                                   >

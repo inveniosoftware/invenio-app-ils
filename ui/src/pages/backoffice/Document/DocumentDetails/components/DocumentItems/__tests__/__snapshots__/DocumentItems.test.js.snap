@@ -5637,6 +5637,8 @@ exports[`DocumentItems tests should render the see all button when showing only 
                                         },
                                       }
                                     }
+                                    disabled={false}
+                                    fluid={false}
                                     size="tiny"
                                     to="/backoffice/items?q=document_pid:111"
                                   >

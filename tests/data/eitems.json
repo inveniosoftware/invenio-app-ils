@@ -50,5 +50,12 @@
     "files": [],
     "open_access": true,
     "pid": "eitemid-4"
+  },
+  {
+    "$schema": "https://127.0.0.1:5000/schemas/eitems/eitem-v1.0.0.json",
+    "document_pid": "docid-1",
+    "files": [],
+    "open_access": false,
+    "pid": "eitemid-5"
   }
 ]

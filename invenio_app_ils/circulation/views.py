@@ -9,9 +9,7 @@
 
 from __future__ import absolute_import, print_function
 
-from functools import wraps
-
-from flask import Blueprint, current_app
+from flask import Blueprint
 from invenio_circulation.links import loan_links_factory
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_records_rest.utils import obj_or_import_string
@@ -22,28 +20,10 @@ from invenio_app_ils.circulation.loaders import loan_checkout_loader, \
     loan_request_loader
 from invenio_app_ils.circulation.utils import circulation_overdue_loan_days
 from invenio_app_ils.errors import OverdueLoansMailError
-from invenio_app_ils.permissions import check_permission
+from invenio_app_ils.permissions import need_permissions
 
 from .api import checkout_loan, request_loan
 from .mail.tasks import send_loan_overdue_reminder_mail
-
-
-def need_permissions(action):
-    """View decorator to check permissions for the given action or abort.
-
-    :param action: The action needed.
-    """
-    def decorator_builder(f):
-        @wraps(f)
-        def decorate(*args, **kwargs):
-            check_permission(
-                current_app.config["ILS_VIEWS_PERMISSIONS_FACTORY"](action)
-            )
-            return f(*args, **kwargs)
-
-        return decorate
-
-    return decorator_builder
 
 
 def create_circulation_blueprint(app):

@@ -31,12 +31,7 @@
           "type": "keyword"
         },
         "languages": {
-          "type": "text",
-          "fields": {
-            "tag": {
-              "type": "keyword"
-            }
-          }
+          "type": "keyword"
         },
         "relations": {
           "type": "object",

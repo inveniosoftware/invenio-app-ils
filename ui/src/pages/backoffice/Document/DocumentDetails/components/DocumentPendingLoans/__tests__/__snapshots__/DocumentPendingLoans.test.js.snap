@@ -6210,6 +6210,8 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                                         },
                                       }
                                     }
+                                    disabled={false}
+                                    fluid={false}
                                     size="tiny"
                                     to="/backoffice/loans?q=(document_pid:111 AND state:(PENDING))"
                                   >

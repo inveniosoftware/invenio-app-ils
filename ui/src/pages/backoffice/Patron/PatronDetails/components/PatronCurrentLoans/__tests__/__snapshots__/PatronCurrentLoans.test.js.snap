@@ -5472,6 +5472,8 @@ exports[`PatronCurrentLoans tests should render the see all button when showing 
                                         },
                                       }
                                     }
+                                    disabled={false}
+                                    fluid={false}
                                     size="tiny"
                                     to="/backoffice/loans?q=(patron_pid:2 AND state:(ITEM_ON_LOAN))&sort=-mostrecent"
                                   >

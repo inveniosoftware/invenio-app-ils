@@ -1,6 +1,6 @@
 export default values => {
-  const submittingValues = { ...values };
-  submittingValues['document_pid'] = submittingValues['document']['pid'];
-  delete submittingValues['document'];
-  return submittingValues;
+  const submitValues = { ...values };
+  submitValues.document_pid = submitValues.document.pid;
+  delete submitValues['document'];
+  return submitValues;
 };

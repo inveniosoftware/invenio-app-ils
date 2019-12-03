@@ -11,15 +11,15 @@ from __future__ import absolute_import, print_function
 
 from flask import Blueprint, abort, current_app, request
 from invenio_db import db
-from invenio_files_rest.models import Bucket, ObjectVersion
+from invenio_files_rest.models import ObjectVersion
 from invenio_files_rest.signals import file_downloaded
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_records_rest.views import pass_record
 from invenio_rest import ContentNegotiatedMethodView
 from invenio_rest.errors import FieldError
 
-from invenio_app_ils.circulation.views import need_permissions
-from invenio_app_ils.errors import DocumentRequestError
+from invenio_app_ils.errors import DocumentRequestError, StatsError
+from invenio_app_ils.permissions import need_permissions
 from invenio_app_ils.pidstore.pids import DOCUMENT_PID_TYPE, \
     DOCUMENT_REQUEST_PID_TYPE, EITEM_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
@@ -66,14 +66,15 @@ class DocumentStatsResource(ContentNegotiatedMethodView):
     def post(self, pid, record, **kwargs):
         """Send a signal to count record view for the record stats."""
         data = request.get_json()
-        if data.get("event") == "record-view":
+        event_name = data.get("event")
+        if event_name == "record-view":
             record_viewed.send(
                 current_app._get_current_object(),
                 pid=pid,
                 record=record,
             )
             return self.make_response(pid, record, 202)
-        elif data.get("event") == "file-download":
+        elif event_name == "file-download":
             if "key" not in data:
                 abort(406, "File key is required")
             if "bucket_id" not in record:
@@ -83,7 +84,9 @@ class DocumentStatsResource(ContentNegotiatedMethodView):
                 current_app._get_current_object(),
                 obj=obj, record=record)
             return self.make_response(pid, record, 202)
-        return DocumentRequestError("Invalid record view request")
+        return StatsError(
+            description="Invalid stats event request: {}".format(event_name)
+        )
 
 
 def create_document_request_action_blueprint(app):
