@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Icon, Tab, Menu } from 'semantic-ui-react';
-import { sessionManager } from '@authentication/services';
 import { PatronMetadata } from './PatronMetadata';
 import { PatronCurrentLoans } from './PatronCurrentLoans';
 import { PatronPendingLoans } from './PatronPendingLoans';
@@ -8,13 +7,12 @@ import { PatronPastLoans } from './PatronPastLoans';
 import { PatronCurrentDocumentRequests } from './PatronCurrentDocumentRequests';
 import { PatronOverview } from './PatronOverview';
 import { PatronPastDocumentRequests } from './PatronPastDocumentRequests';
-import { BackOfficeRoutes } from '@routes/urls';
 import { UnAuthorized } from '@authentication/components/UnAuthorized';
 import { AuthenticationGuard } from '@authentication/components/AuthenticationGuard';
 
 export default class PatronProfile extends Component {
   renderHistory = () => {
-    const currentUser = sessionManager.user;
+    const currentUser = this.props.user;
 
     return (
       <Tab.Pane>
@@ -25,7 +23,7 @@ export default class PatronProfile extends Component {
   };
 
   renderCurrent = () => {
-    const currentUser = sessionManager.user;
+    const currentUser = this.props.user;
 
     return (
       <Tab.Pane>
@@ -70,7 +68,6 @@ export default class PatronProfile extends Component {
   render() {
     return (
       <AuthenticationGuard
-        path={`${BackOfficeRoutes.home}`}
         authorizedComponent={() => this.renderWhenAuthorised()}
         unAuthorizedComponent={UnAuthorized}
       />

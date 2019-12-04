@@ -1,3 +1,4 @@
 export { AuthenticationGuard } from './AuthenticationGuard/';
 export { UnAuthorized } from './UnAuthorized';
-export { LoginRedirectButton } from './LoginRedirectButton';
+export { RedirectToLoginButton } from './RedirectToLoginButton';
+export { LoginWithOauthButton } from './LoginWithOauthButton';

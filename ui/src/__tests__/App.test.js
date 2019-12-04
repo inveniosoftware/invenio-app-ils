@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import App from '../App';
 import configureMockStore from 'redux-mock-store';
 import { initialState as notificationsInitialState } from '../components/Notifications/state/reducer';
+import { initialState as authenticationManagementInitialState } from '@authentication/state/reducer';
 
 jest.mock('@config/invenioConfig');
 
@@ -17,6 +18,9 @@ beforeEach(() => {
   store = mockStore({
     notifications: {
       ...notificationsInitialState,
+    },
+    authenticationManagement: {
+      ...authenticationManagementInitialState,
     },
   });
   store.clearActions();

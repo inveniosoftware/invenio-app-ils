@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getIn } from 'formik';
 import { Container, Header, Segment } from 'semantic-ui-react';
-import { sessionManager } from '@authentication/services';
 import {
   BaseForm,
   StringField,
@@ -39,7 +38,7 @@ export default class DocumentRequestForm extends Component {
   onSerializeSubmit = values => {
     return {
       ...values,
-      patron_pid: sessionManager.user.id,
+      patron_pid: this.props.user.id,
     };
   };
 

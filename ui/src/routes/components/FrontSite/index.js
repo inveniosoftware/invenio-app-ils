@@ -1,1 +1,1 @@
-export { FrontSite } from './FrontSite';
+export { default as FrontSite } from './FrontSite';

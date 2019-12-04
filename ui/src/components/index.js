@@ -5,7 +5,6 @@ export { DocumentAuthors } from './Document';
 export { EmailLink } from './EmailLink';
 export { Error } from './Error';
 export { Loader } from './Loader';
-export { LoginButton } from './LoginButton';
 export { NotFound } from './NotFound/NotFound';
 export { Pagination } from './Pagination';
 export { ResultsSort } from './ResultsSort/ResultsSort';

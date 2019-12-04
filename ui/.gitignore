@@ -13,8 +13,8 @@
 .DS_Store
 
 # https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#what-other-env-files-can-be-used
+.env
 .env.local
-.env.development
 .env.production
 .env.development.local
 .env.test.local

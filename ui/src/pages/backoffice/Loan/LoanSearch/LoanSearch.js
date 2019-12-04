@@ -8,6 +8,7 @@ import {
   Error,
   InvenioSearchApi,
 } from 'react-searchkit';
+import { responseRejectInterceptor } from '@api/base';
 import { getSearchConfig } from '@config';
 import { Error as IlsError, SearchBar as LoansSearchBar } from '@components';
 import { NewButton } from '../../components';
@@ -26,6 +27,9 @@ export class LoanSearch extends Component {
   searchApi = new InvenioSearchApi({
     url: loanApi.searchBaseURL,
     withCredentials: true,
+    interceptors: {
+      response: { reject: responseRejectInterceptor },
+    },
   });
   searchConfig = getSearchConfig('loans');
 

@@ -1,68 +1,29 @@
-import { authenticationService } from './AuthenticationService';
-
 class SessionManager {
   constructor() {
-    let tokenData;
-    // Initialize to anonymous user
     this.setAnonymous();
+    this.setUserConfirmed(false);
+  }
 
-    if (
-      process.env.NODE_ENV === 'production' &&
-      !process.env.REACT_APP_JWT_TOKEN
-    ) {
-      let encodedToken = authenticationService.getTokenFromDOM();
-      if (encodedToken) {
-        tokenData = authenticationService.decodeProductionToken(encodedToken);
-        this.setUser(encodedToken, tokenData);
-      }
-    } else {
-      if (process.env.REACT_APP_JWT_TOKEN) {
-        tokenData = {
-          sub: process.env.REACT_APP_USER_ID,
-          locationPid: process.env.REACT_APP_LOCATION_ID,
-          roles: [process.env.REACT_APP_USER_ROLE],
-          exp: process.env.REACT_APP_JWT_TOKEN_EXPIRATION,
-          username: process.env.REACT_APP_JWT_USERNAME,
-        };
-        this.setUser(process.env.REACT_APP_JWT_TOKEN, tokenData);
-      }
-    }
+  isAnonymous() {
+    return this.user === null;
   }
 
   setAnonymous() {
     this.user = null;
-    this.token = null;
-    this.authenticated = false;
   }
 
-  setUser(token, tokenData) {
-    if (tokenData['sub']) {
-      this.user = {
-        id: tokenData['sub'],
-        roles: tokenData['roles'] || [],
-        username: tokenData['username'],
-        locationPid: tokenData['locationPid'],
-      };
-      this.token = {
-        value: token,
-        expiration: tokenData['exp'],
-      };
-      this.authenticated = true;
-    } else {
-      this.setAnonymous();
-    }
+  setUserConfirmed(confirmed) {
+    this.userConfirmed = confirmed;
   }
 
-  hasRoles = roles => {
-    if (!roles.length) {
-      return true;
-    }
-    // any of needed roles found in user roles
-    const anyNeededRoleFound = roles.some(
-      role => this.user.roles.indexOf(role) !== -1
-    );
-    return anyNeededRoleFound;
-  };
+  setUser(user) {
+    this.user = {
+      id: user['id'],
+      roles: user['roles'] || [],
+      username: user['username'],
+      locationPid: user['locationPid'],
+    };
+  }
 }
 
 export const sessionManager = new SessionManager();

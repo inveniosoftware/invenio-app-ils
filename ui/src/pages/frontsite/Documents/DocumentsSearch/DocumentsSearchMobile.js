@@ -2,6 +2,7 @@ import React, { Component, createRef } from 'react';
 import { Container, Ref, Sticky } from 'semantic-ui-react';
 import { ResultsLoader, Error, InvenioSearchApi } from 'react-searchkit';
 import { document as documentApi } from '@api';
+import { responseRejectInterceptor } from '@api/base';
 import {
   SearchFooter,
   SearchEmptyResults,
@@ -15,6 +16,9 @@ export class DocumentsSearchMobile extends Component {
   searchApi = new InvenioSearchApi({
     url: documentApi.searchBaseURL,
     withCredentials: true,
+    interceptors: {
+      response: { reject: responseRejectInterceptor },
+    },
   });
 
   stickyRef = createRef();

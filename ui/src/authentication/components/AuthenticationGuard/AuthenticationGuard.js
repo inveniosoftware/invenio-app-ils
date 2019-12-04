@@ -1,36 +1,45 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  sessionManager,
-  authenticationService,
-} from '@authentication/services';
+import { Redirect } from 'react-router-dom';
+import { authenticationService } from '@authentication/services';
+import { AccountsRoutes } from '@routes/urls';
 
-export class AuthenticationGuard extends Component {
+export default class AuthenticationGuard extends Component {
   render() {
     const {
       authorizedComponent: Authorized,
       unAuthorizedComponent: UnAuthorized,
       loginComponent: LoginComponent,
       roles,
+      user,
+      isAnonymous,
+      isLoading,
       ...restParams
     } = this.props;
 
-    if (!sessionManager.authenticated) {
-      if (LoginComponent) {
-        return <LoginComponent />;
-      }
-      authenticationService.login(window.location.pathname);
+    if (isLoading) {
       return null;
     }
 
-    if (sessionManager.authenticated && !sessionManager.hasRoles(roles)) {
-      if (UnAuthorized) {
-        console.error(
-          `User has no permission to access the page ${window.location.pathname}`
-        );
-        return <UnAuthorized />;
-      }
-      return null;
+    if (isAnonymous) {
+      return LoginComponent ? (
+        <LoginComponent />
+      ) : (
+        <Redirect
+          to={AccountsRoutes.redirectAfterLogin(
+            `${window.location.pathname}${window.location.search}`
+          )}
+        />
+      );
+    }
+
+    if (!isAnonymous && !authenticationService.hasRoles(user, roles)) {
+      this.props.sendErrorNotification(
+        'Unauthorized',
+        `You have no permission to access the page ${window.location.pathname}`
+      );
+
+      return UnAuthorized ? <UnAuthorized /> : null;
     }
     return <Authorized {...restParams} />;
   }
@@ -38,8 +47,12 @@ export class AuthenticationGuard extends Component {
 
 //set loginComponent prop to render conditionally depending on auth
 AuthenticationGuard.propTypes = {
-  authorizedComponent: PropTypes.func.isRequired,
-  unAuthorizedComponent: PropTypes.func,
+  authorizedComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
+    .isRequired,
+  unAuthorizedComponent: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.func,
+  ]),
   loginComponent: PropTypes.func,
   roles: PropTypes.array,
 };

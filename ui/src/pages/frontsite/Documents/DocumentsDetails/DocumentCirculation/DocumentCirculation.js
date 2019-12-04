@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Divider, Header, List, Segment, Popup } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { LoginRedirectButton } from '@authentication/components';
+import { RedirectToLoginButton } from '@authentication/components';
 import { LoanRequestForm } from '../LoanRequestForm';
 import { AuthenticationGuard } from '@authentication/components/AuthenticationGuard';
 import { ILSImagePlaceholder } from '@components/ILSPlaceholder';
@@ -109,7 +109,7 @@ class BookAvailability extends Component {
 
 export default class DocumentCirculation extends Component {
   loginToLoan = () => {
-    return <LoginRedirectButton content={'Login to loan'} />;
+    return <RedirectToLoginButton content={'Login to loan'} positive />;
   };
 
   renderLoanRequestForm = () => {

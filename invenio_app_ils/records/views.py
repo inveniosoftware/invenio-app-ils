@@ -9,7 +9,8 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, abort, current_app, request
+from flask import Blueprint, current_app, jsonify
+from invenio_accounts.views.rest import UserInfoView, default_user_payload
 from invenio_db import db
 from invenio_files_rest.models import ObjectVersion
 from invenio_files_rest.signals import file_downloaded
@@ -127,6 +128,21 @@ def create_document_request_action_blueprint(app):
     )
 
     return blueprint
+
+
+class UserInfoResource(UserInfoView):
+    """Retrieve current user's information."""
+
+    def response(self, user):
+        """Return response with current user's information."""
+        user_payload = default_user_payload(user)
+        user_payload["roles"] = [role.name for role in user.roles]
+        user_payload.update(
+            dict(
+                locationPid=current_app.config["ILS_DEFAULT_LOCATION_PID"],
+                username=user.email
+            ))
+        return jsonify(user_payload), 200
 
 
 class AcceptRequestResource(ContentNegotiatedMethodView):

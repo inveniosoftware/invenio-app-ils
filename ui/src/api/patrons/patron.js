@@ -7,11 +7,10 @@ const listUrl = '/patrons/';
 // but not stored in the database. Instead we are using
 // `invenio_accounts_rest` users endpoint to retrieve
 // individual patron's information.
-const detailsUrl = '/users/';
 
 const get = patronPid => {
-  return http.get(`${detailsUrl}${patronPid}`).then(response => {
-    response.data = serializer.fromJSON(response.data);
+  return http.get(`${listUrl}?q=id:${patronPid}`).then(response => {
+    response.data = serializer.fromJSON(response.data.hits.hits[0]);
     return response;
   });
 };

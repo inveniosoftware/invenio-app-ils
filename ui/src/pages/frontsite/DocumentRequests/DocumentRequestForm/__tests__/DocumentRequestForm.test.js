@@ -12,7 +12,11 @@ const mockStore = configureMockStore(middlewares);
 
 let store;
 beforeEach(() => {
-  store = mockStore({});
+  store = mockStore({
+    authenticationManagement: {
+      data: { id: '1' },
+    },
+  });
   store.clearActions();
 });
 
@@ -74,6 +78,7 @@ describe('DocumentRequestForm tests', () => {
       <BrowserRouter>
         <Provider store={store}>
           <DocumentRequestForm
+            user={{ id: '1' }}
             sendSuccessNotification={mockedSuccessNotification}
             location={{
               state: {

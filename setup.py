@@ -83,7 +83,6 @@ install_requires = [
     # `files` bundle with only invenio-files-rest
     "invenio-files-rest>=1.0.6,<1.1.0",
     # upgraded packages
-    "invenio-accounts-rest>=1.0.0a4,<1.1.0",
     "invenio-app>=1.2.3,<1.3.0",
     "invenio-assets>=1.1.3,<1.2.0",
     "invenio-i18n>=1.1.0,<1.2.0",
