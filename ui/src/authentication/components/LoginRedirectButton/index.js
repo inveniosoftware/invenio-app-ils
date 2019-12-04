@@ -1,1 +1,0 @@
-export { LoginRedirectButton } from './LoginRedirectButton';

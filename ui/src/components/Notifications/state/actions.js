@@ -1,4 +1,4 @@
-import { ADD } from './types';
+import { ADD, CLEAR_ALL } from './types';
 import { shouldShowErrorPage } from '../../Error/Error';
 
 export const sendErrorNotification = error => {
@@ -37,5 +37,11 @@ export const addNotification = (title, content, type) => {
       title: title,
       content: content,
     },
+  };
+};
+
+export const clearNotifications = () => {
+  return {
+    type: CLEAR_ALL,
   };
 };

@@ -20,6 +20,7 @@ import {
 import { getSearchConfig } from '@config';
 import { Error as IlsError, SearchBar as EItemsSearchBar } from '@components';
 import { eitem as eitemApi } from '@api';
+import { responseRejectInterceptor } from '@api/base';
 import { ExportReactSearchKitResults } from '../../components';
 import { NewButton } from '../../components/buttons';
 import { BackOfficeRoutes } from '@routes/urls';
@@ -29,6 +30,9 @@ export class EItemSearch extends Component {
   searchApi = new InvenioSearchApi({
     url: eitemApi.searchBaseURL,
     withCredentials: true,
+    interceptors: {
+      response: { reject: responseRejectInterceptor },
+    },
   });
   searchConfig = getSearchConfig('eitems');
 

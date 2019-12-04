@@ -22,6 +22,7 @@ import {
   ResultsTable,
 } from '@components';
 import { series as seriesApi } from '@api/series/series';
+import { responseRejectInterceptor } from '@api/base';
 import { getSearchConfig } from '@config';
 import { ExportReactSearchKitResults } from '../../components';
 import { NewButton } from '../../components/buttons';
@@ -32,6 +33,9 @@ export class SeriesSearch extends Component {
   searchApi = new InvenioSearchApi({
     url: seriesApi.searchBaseURL,
     withCredentials: true,
+    interceptors: {
+      response: { reject: responseRejectInterceptor },
+    },
   });
   searchConfig = getSearchConfig('series');
 

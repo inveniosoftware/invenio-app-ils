@@ -58,6 +58,7 @@ before_install:
   - "requirements-builder -e $EXTRAS --level=dev --req requirements-devel.txt setup.py > .travis-devel-requirements.txt"
 
 install:
+  - "travis_retry pip install -r requirements.txt" # temporary solution until oauth related branches will be merged
   - "travis_retry pip install -e .[$EXTRAS]"
   - "./scripts/build_assets"
 

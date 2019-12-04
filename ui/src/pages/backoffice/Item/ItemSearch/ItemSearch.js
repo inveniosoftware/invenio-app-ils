@@ -16,6 +16,7 @@ import { BackOfficeRoutes } from '@routes/urls';
 import { ItemListEntry } from './components';
 import { SearchControls } from '@components/SearchControls';
 import history from '@history';
+import { responseRejectInterceptor } from '@api/base';
 import {
   SearchEmptyResults,
   SearchAggregationsCards,
@@ -26,6 +27,9 @@ export class ItemSearch extends Component {
   searchApi = new InvenioSearchApi({
     url: itemApi.searchBaseURL,
     withCredentials: true,
+    interceptors: {
+      response: { reject: responseRejectInterceptor },
+    },
   });
   searchConfig = getSearchConfig('items');
 

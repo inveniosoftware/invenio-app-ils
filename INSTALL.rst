@@ -206,3 +206,25 @@ remove a vocabulary:
 Example vocabularies are available in ``invenio_app_ils/vocabularies/data``.
 
 Vocabulary-specific configuration is available in ``config.py`` and ``invenioConfig.js``.
+
+
+CERN OAUTH DEVELOPMENT SETUP (Without docker)
+---------------------------------------------
+After following the instructions described [here](https://digital-repositories.web.cern.ch/digital-repositories/common-recipes/cern-oauth/)
+for setting up the cern oauth locally, you need to follow the next steps in order to
+make the ui application work:
+
+* Create a file `.env.development.local` and add the following line
+
+    .. code-block:: console
+        REACT_APP_BACKEND_DEV_BASE_URL=https://<hostname>.dyndns.cern.ch:5000
+
+  You must put in the <hostname> part your laptop's hostname at CERN.
+
+* Open the `config.py` and replase the following lines
+
+    .. code-block:: console
+        OAUTH_REMOTE_APP["authorized_redirect_url"] = 'http://<hostname>.dyndns.cern.ch:3000/accounts/login'
+        OAUTH_REMOTE_APP["error_redirect_url"] = 'http://<hostname>.dyndns.cern.ch:3000/accounts/login'
+
+* Add your hostname in the `APP_ALLOWED_HOSTS` config variable

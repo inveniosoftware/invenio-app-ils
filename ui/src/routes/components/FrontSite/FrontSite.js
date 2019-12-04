@@ -13,7 +13,7 @@ import {
 
 import { DocumentRequestForm } from '@pages/frontsite/DocumentRequests';
 
-export class FrontSite extends Component {
+export default class FrontSite extends Component {
   render() {
     return (
       <div className="frontsite">

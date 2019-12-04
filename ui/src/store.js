@@ -8,6 +8,7 @@ import {
   patronPastLoansReducer,
   patronPendingLoansReducer,
 } from './state';
+import { authenticationReducer } from '@authentication/reducer';
 import {
   availableItemsReducer,
   loanDetailsReducer,
@@ -68,6 +69,7 @@ import { vendorDetailsReducer } from '@pages/backoffice/Acquisition';
 
 const rootReducer = combineReducers({
   availableItems: availableItemsReducer,
+  authenticationManagement: authenticationReducer,
   borrowingRequestDetails: borrowingRequestDetailsReducer,
   deleteRecordModal: deleteRecordModalReducer,
   documentDetails: documentDetailsReducer,

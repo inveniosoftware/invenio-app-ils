@@ -1,5 +1,26 @@
 import { generatePath } from 'react-router-dom';
 
+const AccountsBase = '/accounts';
+
+const AccountsRoutesList = {
+  home: AccountsBase,
+  login: `${AccountsBase}/login`,
+  redirectUrlAfterLogin: `${AccountsBase}/login?next=:nextUrl`,
+  confirmEmail: `${AccountsBase}/confirm-email`,
+};
+
+const AccountsRoutesGenerators = {
+  redirectAfterLogin: nextUrl =>
+    generatePath(AccountsRoutesList.redirectUrlAfterLogin, {
+      nextUrl: nextUrl,
+    }),
+};
+
+export const AccountsRoutes = {
+  ...AccountsRoutesList,
+  ...AccountsRoutesGenerators,
+};
+
 const FrontSiteBase = '/';
 
 const FrontSiteRoutesList = {
