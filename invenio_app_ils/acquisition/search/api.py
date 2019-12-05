@@ -16,7 +16,7 @@ class VendorSearch(RecordsSearch):
     class Meta:
         """Search only on vendors index."""
 
-        index = "vendors"
+        index = "acq-vendors"
         doc_types = None
 
 
@@ -26,5 +26,5 @@ class OrderSearch(RecordsSearch):
     class Meta:
         """Search only on orders index."""
 
-        index = "orders"
+        index = "acq-orders"
         doc_types = None

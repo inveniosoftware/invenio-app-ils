@@ -38,7 +38,7 @@
         "type": "string"
       },
       "type": "array",
-      "title": "List of languages of the series",
+      "title": "List of languages of the series (Vocabulary)",
       "description": ""
     },
     "mode_of_issuance": {

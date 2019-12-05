@@ -7,15 +7,26 @@
 
 """Acquisition API."""
 
+from invenio_jsonschemas import current_jsonschemas
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.api import Record
 from werkzeug.utils import cached_property
 
 
-class Vendor(Record):
+class AcquisitionRecord(Record):
+    """Acquisition base record."""
+
+    @classmethod
+    def create(cls, data, id_=None, **kwargs):
+        """Create IlsRecord record."""
+        data["$schema"] = current_jsonschemas.path_to_url(cls._schema)
+        return super(AcquisitionRecord, cls).create(data, id_=id_, **kwargs)
+
+
+class Vendor(AcquisitionRecord):
     """Acquisition vendor class."""
 
-    _schema = "vendors/vendor-v1.0.0.json"
+    _schema = "acq-vendors/vendor-v1.0.0.json"
 
     @cached_property
     def pid(self):
@@ -25,10 +36,10 @@ class Vendor(Record):
         )
 
 
-class Order(Record):
+class Order(AcquisitionRecord):
     """Acquisition order class."""
 
-    _schema = "orders/order-v1.0.0.json"
+    _schema = "acq-orders/order-v1.0.0.json"
 
     STATUSES = [
         "PENDING",

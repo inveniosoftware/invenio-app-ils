@@ -1,0 +1,215 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+
+  "type": "object",
+  "title": "Schema for Acquisition order",
+  "required": [
+    "$schema",
+    "delivery_date",
+    "expected_delivery_date",
+    "grand_total",
+    "grand_total_main_currency",
+    "order_date",
+    "order_lines",
+    "payment",
+    "pid",
+    "status",
+    "vendor_pid"
+  ],
+
+  "definitions": {
+    "order-line": {
+      "type": "object",
+      "required": [
+        "document_pid",
+        "recipient",
+        "medium",
+        "copies_ordered",
+        "copies_received"
+      ],
+      "properties": {
+        "copies_ordered": {
+          "title": "Number of copies ordered",
+          "type": "integer"
+        },
+        "copies_received": {
+          "title": "Number of copies received",
+          "type": "integer"
+        },
+        "document_pid": {
+          "title": "The persistent identifier of its Document",
+          "type": "string"
+        },
+        "inter_departmental_transaction_id": {
+          "title": "ID for inter-departmental transaction",
+          "type": "string"
+        },
+        "is_donation": {
+          "title": "Is the order a donation?",
+          "type": "boolean"
+        },
+        "is_patron_suggestion": {
+          "title": "Order suggested by a patron?",
+          "type": "boolean"
+        },
+        "medium": {
+          "title": "Medium of the ordered item (Vocabulary)",
+          "type": "string"
+        },
+        "notes": {
+          "description": "The notes of Acquisition order",
+          "type": "string"
+        },
+        "patron_pid": {
+          "title": "The persistent identifier of the patron who made the request",
+          "type": "string"
+        },
+        "payment_mode": {
+          "title": "Payment mode (Vocabulary)",
+          "type": "string"
+        },
+        "purchase_type": {
+          "title": "Purchase Type (Vocabulary)",
+          "type": "string"
+        },
+        "recipient": {
+          "title": "The recipient of the order (Vocabulary)",
+          "type": "string"
+        },
+        "total_price": {
+          "$ref": "#/definitions/price",
+          "title": "Total price of the order line"
+        },
+        "unit_price": {
+          "$ref": "#/definitions/price",
+          "title": "Price per unit for the order line"
+        }
+      }
+    },
+    "payment": {
+      "type": "object",
+      "required": [
+        "mode"
+      ],
+      "properties": {
+        "debit_cost": {
+          "$ref": "#/definitions/price",
+          "title": "Payment price"
+        },
+        "debit_cost_main_currency": {
+          "$ref": "#/definitions/price",
+          "title": "Payment price in the main currency"
+        },
+        "debit_date": {
+          "format": "date",
+          "title": "Debit date",
+          "type": "string"
+        },
+        "debit_note": {
+          "title": "Debit note",
+          "type": "string"
+        },
+        "internal_purchase_requisition_id": {
+          "title": "The internal purchase requisition ID",
+          "type": "string"
+        },
+        "mode": {
+          "title": "Payment mode (Vocabulary)",
+          "type": "string"
+        }
+      }
+    },
+    "price": {
+      "type": "object",
+      "required": [
+        "value",
+        "currency"
+      ],
+      "properties": {
+        "currency": {
+          "title": "Currency of the price (Vocabulary)",
+          "type": "string"
+        },
+        "value": {
+          "minimum": 0,
+          "title": "Price value",
+          "type": "number"
+        }
+      }
+    }
+  },
+
+  "properties": {
+    "$schema": {
+      "title": "Acquisition order schema",
+      "type": "string"
+    },
+    "cancel_reason": {
+      "title": "Reason for cancelling the request",
+      "type": "string"
+    },
+    "delivery_date": {
+      "format": "date",
+      "minLength": 1,
+      "title": "Date of order",
+      "type": "string"
+    },
+    "expected_delivery_date": {
+      "format": "date",
+      "minLength": 1,
+      "title": "Expected delivery date of order",
+      "type": "string"
+    },
+    "funds": {
+      "items": {
+        "type": "string"
+      },
+      "title": "List of funds",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "grand_total": {
+      "$ref": "#/definitions/price",
+      "title": "Order grand total"
+    },
+    "grand_total_main_currency": {
+      "$ref": "#/definitions/price",
+      "title": "Order grand total in the main currency"
+    },
+    "notes": {
+      "description": "The notes of Acquisition order",
+      "type": "string"
+    },
+    "order_date": {
+      "format": "date",
+      "minLength": 1,
+      "title": "Date of order",
+      "type": "string"
+    },
+    "order_lines": {
+      "items": {
+        "$ref": "#/definitions/order-line"
+      },
+      "minItems": 1,
+      "title": "List of order lines",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "payment": {
+      "$ref": "#/definitions/payment",
+      "title": "Order payment"
+    },
+    "pid": {
+      "title": "The persistent identifier of Acquisition order",
+      "type": "string"
+    },
+    "status": {
+      "title": "Status of Acquisition order",
+      "type": "string"
+    },
+    "vendor_pid": {
+      "title": "The persistent identifier of its Vendor",
+      "type": "string"
+    }
+  }
+}
