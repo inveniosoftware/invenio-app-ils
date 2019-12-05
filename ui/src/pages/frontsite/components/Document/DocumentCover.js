@@ -17,7 +17,9 @@ export class DocumentCover extends Component {
       >
         <Image
           className="document-cover"
-          src={this.props.metadata ? getCover(this.props.metadata.pid) : null}
+          src={
+            this.props.metadata ? getCover(this.props.metadata.edition) : null
+          }
           size={this.props.imageSize ? this.props.imageSize : 'large'}
           centered
         />

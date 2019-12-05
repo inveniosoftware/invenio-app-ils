@@ -8,12 +8,12 @@
 """Acquisition PID providers."""
 
 from invenio_pidstore.models import PIDStatus
-from invenio_pidstore.providers.recordid import RecordIdProvider
+from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
 from .pids import ORDER_PID_TYPE, VENDOR_PID_TYPE
 
 
-class VendorIdProvider(RecordIdProvider):
+class VendorIdProvider(RecordIdProviderV2):
     """Vendor identifier provider."""
 
     pid_type = VENDOR_PID_TYPE
@@ -30,7 +30,7 @@ class VendorIdProvider(RecordIdProvider):
     """Record IDs are by default registered immediately."""
 
 
-class OrderIdProvider(RecordIdProvider):
+class OrderIdProvider(RecordIdProviderV2):
     """Acquisition order identifier provider."""
 
     pid_type = ORDER_PID_TYPE

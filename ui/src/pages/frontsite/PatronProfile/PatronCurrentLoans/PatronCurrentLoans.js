@@ -18,15 +18,15 @@ class LoanListEntry extends Component {
   render() {
     const { loan } = this.props;
     const now = DateTime.local();
-    const is_loan_overdue = loan.metadata.end_date < now;
+    const isLoanOverdue = loan.metadata.end_date < now;
     return (
       <Item
-        className={is_loan_overdue ? 'bkg-danger' : ''}
+        className={isLoanOverdue ? 'bkg-danger' : ''}
         key={loan.metadata.pid}
       >
         <Item.Image
           size="mini"
-          src={getCover(loan.metadata.document_pid)}
+          src={getCover()}
           as={Link}
           to={FrontSiteRoutes.documentDetailsFor(loan.metadata.document_pid)}
         />
@@ -63,7 +63,7 @@ class LoanListEntry extends Component {
                   {toShortDate(loan.metadata.end_date)}
                 </Label>
                 <br />
-                {is_loan_overdue
+                {isLoanOverdue
                   ? 'Your loan is overdue. Please return the book ' +
                     'as soon as possible'
                   : null}

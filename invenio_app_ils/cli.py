@@ -23,8 +23,8 @@ from invenio_circulation.api import Loan
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus, \
-    RecordIdentifier
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 from invenio_search import current_search
 from invenio_userprofiles.models import UserProfile
 from lorem.text import TextLorem
@@ -49,7 +49,6 @@ def minter(pid_type, pid_field, record):
         object_uuid=record.id,
         status=PIDStatus.REGISTERED,
     )
-    RecordIdentifier.next()
 
 
 class Holder(object):
@@ -97,6 +96,10 @@ class Generator(object):
         self.holder = holder
         self.minter = minter
 
+    def create_pid(self):
+        """Create a new persistent identifier."""
+        return RecordIdProviderV2.create().pid.pid_value
+
     def _persist(self, pid_type, pid_field, record):
         """Mint PID and store in the db."""
         minter(pid_type, pid_field, record)
@@ -110,7 +113,7 @@ class LocationGenerator(Generator):
     def generate(self):
         """Generate."""
         self.holder.location = {
-            "pid": "1",
+            "pid": self.create_pid(),
             "name": "Central Library",
             "address": "Rue de Meyrin",
             "email": "library@cern.ch",
@@ -131,7 +134,7 @@ class InternalLocationGenerator(Generator):
         location_pid_value = self.holder.location["pid"]
         objs = [
             {
-                "pid": str(pid),
+                "pid": self.create_pid(),
                 "legacy_id": "{}".format(randint(100000, 999999)),
                 "name": "Building {}".format(randint(1, 10)),
                 "notes": lorem.sentence(),
@@ -167,7 +170,7 @@ class ItemGenerator(Generator):
                                 words='Ax Bs Cw 8080'.split())
         objs = [
             {
-                "pid": str(pid),
+                "pid": self.create_pid(),
                 "document_pid": random.choice(doc_pids),
                 "internal_location_pid": random.choice(iloc_pids),
                 "legacy_id": "{}".format(randint(100000, 999999)),
@@ -211,7 +214,7 @@ class EItemGenerator(Generator):
 
         objs = [
             {
-                "pid": str(pid),
+                "pid": self.create_pid(),
                 "document_pid": random.choice(doc_pids),
                 "description": "{}".format(lorem.text()),
                 "internal_notes": "{}".format(lorem.text()),
@@ -284,7 +287,7 @@ class DocumentGenerator(Generator):
 
         objs = [
             {
-                "pid": str(pid),
+                "pid": self.create_pid(),
                 "title": lorem.sentence(),
                 "authors": random.sample(self.AUTHORS, randint(1, 3)),
                 "abstract": "{}".format(lorem.text()),
@@ -415,7 +418,7 @@ class LoanGenerator(Generator):
             patron_id = random.choice(patrons_pids)
 
             loan = {
-                "pid": str(pid),
+                "pid": self.create_pid(),
                 "document_pid": random.choice(doc_pids),
                 "patron_pid": "{}".format(patron_id),
                 "pickup_location_pid": "{}".format(loc_pid),
@@ -462,7 +465,7 @@ class SeriesGenerator(Generator):
         for pid in range(1, size + 1):
             moi = random.choice(self.MODE_OF_ISSUANCE)
             obj = {
-                "pid": str(pid),
+                "pid": self.create_pid(),
                 "mode_of_issuance": moi,
                 "issn": self.random_issn(),
                 "title": lorem.sentence(),
@@ -581,7 +584,7 @@ class DocumentRequestGenerator(Generator):
         objs = []
         for pid in range(1, size + 1):
             obj = {
-                "pid": str(pid),
+                "pid": self.create_pid(),
                 "patron_pid": random.choice(self.holder.patrons_pids),
                 "title": lorem.sentence(),
                 "authors": lorem.sentence(),

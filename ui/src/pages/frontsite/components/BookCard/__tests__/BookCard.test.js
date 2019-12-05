@@ -17,6 +17,7 @@ describe('BookCard tests', () => {
     metadata: {
       ...testData[0],
       title: 'Lorem',
+      edition: '12',
       authors: ['Author1', 'Author2'],
       imageSize: 'small',
       imageCover: '',

@@ -138,6 +138,7 @@ export default class MostLoanedDocumentsList extends Component {
   renderListEntryElement = document => {
     return (
       <DocumentListEntry
+        key={document.metadata.pid}
         document={document}
         renderMiddleColumn={doc => <DocumentStats metadata={doc.metadata} />}
       />

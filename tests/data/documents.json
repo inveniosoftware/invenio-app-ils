@@ -5,7 +5,7 @@
     "authors": [{ "full_name": "Jack E. Davis" }],
     "abstract": "This is an abstract",
     "languages": ["en"],
-    "edition": "ed. 1",
+    "edition": "1",
     "keywords": { "source": "X", "value": "Patata" }
   },
   {
@@ -21,7 +21,7 @@
     "title": "Half-light: Collected Poems 1965-2016",
     "authors": [{ "full_name": "Frank Bidart" }],
     "abstract": "This is an abstract",
-    "edition": "ed. 3",
+    "edition": "3",
     "keywords": { "source": "X", "value": "Patata" }
   },
   {

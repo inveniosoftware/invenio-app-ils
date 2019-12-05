@@ -89,7 +89,7 @@ def test_post_item_endpoint(
     res = _test_response(
         client, "post", url, json_headers, ITEM, expected_resp_code
     )
-    _test_data("pid", "1", res)
+    _test_data("barcode", ITEM["barcode"], res)
 
 
 @pytest.mark.parametrize(

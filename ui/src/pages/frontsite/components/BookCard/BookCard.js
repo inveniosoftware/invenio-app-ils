@@ -34,7 +34,7 @@ export class BookCard extends Component {
         </Card.Meta>
         <Image
           centered
-          src={getCover(data.metadata.pid)}
+          src={getCover(data.metadata.edition)}
           size={'small'}
           onError={e => (e.target.style.display = 'none')}
         />

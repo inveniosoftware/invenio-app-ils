@@ -64,7 +64,7 @@ export default class DocumentListEntry extends Component {
     return (
       <Item>
         <Item.Image
-          src={getCover(this.metadata.pid)}
+          src={getCover(this.metadata.edition)}
           size="small"
           floated="left"
           as={Link}
