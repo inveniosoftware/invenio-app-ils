@@ -163,8 +163,8 @@ setup(
             "patrons = invenio_app_ils.mappings",
             "series = invenio_app_ils.mappings",
             "vocabularies = invenio_app_ils.mappings",
-            "vendors = invenio_app_ils.acquisition.mappings",
-            "orders = invenio_app_ils.acquisition.mappings"
+            "acq-vendors = invenio_app_ils.acquisition.mappings",
+            "acq-orders = invenio_app_ils.acquisition.mappings"
         ],
         "invenio_pidstore.fetchers": [
             "docid = invenio_app_ils.pidstore.fetchers:document_pid_fetcher",

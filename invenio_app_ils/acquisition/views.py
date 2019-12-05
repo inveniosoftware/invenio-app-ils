@@ -21,7 +21,7 @@ def create_vendor_blueprint(app):
 
 
 class VendorResource(ContentNegotiatedMethodView):
-    """Loan action resource."""
+    """Vendor action resource."""
 
     view_name = "{0}_vendor"
 

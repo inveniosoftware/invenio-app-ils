@@ -62,7 +62,7 @@ export class CountryField extends Component {
         multiple={this.props.multiple}
         type={this.props.type}
         fieldPath={this.props.fieldPath}
-        label="Countries"
+        label={this.props.label}
         placeholder="Search for a country..."
         serializer={this.serializer}
         control={FlagDropdown}
@@ -73,10 +73,12 @@ export class CountryField extends Component {
 
 CountryField.propTypes = {
   fieldPath: PropTypes.string.isRequired,
+  label: PropTypes.string,
   multiple: PropTypes.bool,
   type: PropTypes.string.isRequired,
 };
 
 CountryField.defaultProps = {
+  label: 'Country',
   multiple: false,
 };

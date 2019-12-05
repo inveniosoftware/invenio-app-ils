@@ -1,0 +1,168 @@
+{
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      },
+      "$schema": {
+        "type": "keyword"
+      },
+      "cancel_reason": {
+        "type": "text"
+      },
+      "delivery_date": {
+        "type": "date"
+      },
+      "expected_delivery_date": {
+        "type": "date"
+      },
+      "funds": {
+        "type": "text"
+      },
+      "grand_total": {
+        "properties": {
+          "currency": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "float"
+          }
+        },
+        "type": "object"
+      },
+      "grand_total_main_currency": {
+        "properties": {
+          "currency": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "float"
+          }
+        },
+        "type": "object"
+      },
+      "notes": {
+        "type": "text"
+      },
+      "order_date": {
+        "type": "date"
+      },
+      "order_lines": {
+        "properties": {
+          "copies_ordered": {
+            "type": "integer"
+          },
+          "copies_received": {
+            "type": "integer"
+          },
+          "document_pid": {
+            "type": "keyword"
+          },
+          "inter_departmental_transaction_id": {
+            "type": "keyword"
+          },
+          "is_donation": {
+            "type": "boolean"
+          },
+          "is_patron_suggestion": {
+            "type": "boolean"
+          },
+          "medium": {
+            "type": "keyword"
+          },
+          "notes": {
+            "type": "text"
+          },
+          "patron_pid": {
+            "type": "keyword"
+          },
+          "payment_mode": {
+            "type": "keyword"
+          },
+          "purchase_type": {
+            "type": "keyword"
+          },
+          "recipient": {
+            "type": "keyword"
+          },
+          "total_price": {
+            "properties": {
+              "currency": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "float"
+              }
+            },
+            "type": "object"
+          },
+          "unit_price": {
+            "properties": {
+              "currency": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "float"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "payment": {
+        "properties": {
+          "debit_cost": {
+            "properties": {
+              "currency": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "float"
+              }
+            },
+            "type": "object"
+          },
+          "debit_cost_main_currency": {
+            "properties": {
+              "currency": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "float"
+              }
+            },
+            "type": "object"
+          },
+          "debit_date": {
+            "type": "date"
+          },
+          "debit_note": {
+            "type": "text"
+          },
+          "internal_purchase_requisition_id": {
+            "type": "keyword"
+          },
+          "mode": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "status": {
+        "type": "keyword"
+      },
+      "vendor_pid": {
+        "type": "keyword"
+      }
+    }
+  }
+}

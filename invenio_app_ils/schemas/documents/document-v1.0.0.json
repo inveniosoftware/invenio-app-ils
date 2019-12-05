@@ -28,7 +28,7 @@
       "items": {
         "properties": {
           "scheme": {
-            "title": "Scheme of the identifier",
+            "title": "Scheme of the identifier (Vocabulary)",
             "type": "string"
           },
           "value": {
@@ -50,7 +50,7 @@
             "language": {
               "maxLength": 2,
               "minLength": 2,
-              "title": "ISO 639-1 language code",
+              "title": "ISO 639-1 language code (Vocabulary)",
               "type": "string"
             },
             "value": {
@@ -63,7 +63,7 @@
             },
             "type": {
               "type": "string",
-              "title": "Type of alternative title."
+              "title": "Type of alternative title (Vocabulary)"
             }
           },
           "required": ["value"],
@@ -134,6 +134,7 @@
               "properties": {
                 "scheme": {
                   "minLength": 1,
+                  "title": "Author identifier scheme (Vocabulary)",
                   "type": "string"
                 },
                 "value": {
@@ -156,12 +157,13 @@
               "type": "string"
             },
             "minItems": 1,
+            "title": "List of author roles (Vocabulary)",
             "type": "array",
             "uniqueItems": true
           },
           "type": {
             "description": "Determines if the author is an institution or a person",
-            "title": "Type of the author",
+            "title": "Type of the author (Vocabulary)",
             "type": "string"
           }
         },
@@ -189,7 +191,7 @@
         },
         "country": {
           "minLength": 1,
-          "title": "ISO Country",
+          "title": "ISO Country (Vocabulary)",
           "type": "string"
         },
         "dates": {
@@ -294,7 +296,7 @@
       "type": "boolean"
     },
     "document_type": {
-      "title": "Document type",
+      "title": "Document type (Vocabulary)",
       "type": "string"
     },
     "edition": {
@@ -321,7 +323,7 @@
             "title": "Material to which the identifiers refers to."
           },
           "scheme": {
-            "title": "Scheme of the identifier",
+            "title": "Scheme of the identifier (Vocabulary)",
             "type": "string"
           },
           "value": {
@@ -431,7 +433,7 @@
         "type": "string"
       },
       "minItems": 1,
-      "title": "List of licenses of the document",
+      "title": "List of licenses of the document (Vocabulary)",
       "type": "array",
       "uniqueItems": true
     },
@@ -624,7 +626,7 @@
         "title": "Tag name",
         "type": "string"
       },
-      "title": "List of tags of the document",
+      "title": "List of tags of the document (Vocabulary)",
       "type": "array",
       "uniqueItems": true
     },

@@ -20,6 +20,7 @@ from datetime import timedelta
 
 from flask import request
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
+from invenio_indexer.api import RecordIndexer
 from invenio_pidrelations.config import RelationType
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
@@ -688,6 +689,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_minter=VENDOR_PID_MINTER,
         pid_fetcher=VENDOR_PID_FETCHER,
         search_class=VendorSearch,
+        indexer_class=RecordIndexer,
         record_class=Vendor,
         record_serializers={
             'application/json': ('invenio_records_rest.serializers'
@@ -714,6 +716,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher=ORDER_PID_FETCHER,
         search_class=OrderSearch,
         record_class=Order,
+        indexer_class=RecordIndexer,
         record_serializers={
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_response'),
