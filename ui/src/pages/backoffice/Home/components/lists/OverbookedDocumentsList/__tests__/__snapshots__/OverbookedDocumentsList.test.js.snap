@@ -62,7 +62,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                 "full_name": "Jack E. Davis",
               },
             ],
-            "edition": "ed. 1",
+            "edition": "1",
             "keywords": Object {
               "source": "X",
               "value": "Patata",
@@ -139,7 +139,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                     "full_name": "Jack E. Davis",
                   },
                 ],
-                "edition": "ed. 1",
+                "edition": "1",
                 "keywords": Object {
                   "source": "X",
                   "value": "Patata",
@@ -392,7 +392,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                           "full_name": "Jack E. Davis",
                         },
                       ],
-                      "edition": "ed. 1",
+                      "edition": "1",
                       "keywords": Object {
                         "source": "X",
                         "value": "Patata",

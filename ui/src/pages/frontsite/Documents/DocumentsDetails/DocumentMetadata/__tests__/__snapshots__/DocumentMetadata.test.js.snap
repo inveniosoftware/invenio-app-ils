@@ -22,7 +22,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
         "document_type": Array [
           "BOOK",
         ],
-        "edition": "ed. 1",
+        "edition": "1",
         "eitems": Object {
           "hits": Array [
             Object {
@@ -97,7 +97,7 @@ exports[`DocumentMetadata tests should render the document correctly 1`] = `
                   "document_type": Array [
                     "BOOK",
                   ],
-                  "edition": "ed. 1",
+                  "edition": "1",
                   "eitems": Object {
                     "hits": Array [
                       Object {

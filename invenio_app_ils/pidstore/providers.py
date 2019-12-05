@@ -8,7 +8,7 @@
 """Circulation PID providers."""
 
 from invenio_pidstore.models import PIDStatus
-from invenio_pidstore.providers.recordid import RecordIdProvider
+from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
 from .pids import (  # isort:skip
     DOCUMENT_PID_TYPE,
@@ -21,7 +21,7 @@ from .pids import (  # isort:skip
 )
 
 
-class DocumentIdProvider(RecordIdProvider):
+class DocumentIdProvider(RecordIdProviderV2):
     """Document identifier provider."""
 
     pid_type = DOCUMENT_PID_TYPE
@@ -38,7 +38,7 @@ class DocumentIdProvider(RecordIdProvider):
     """Record IDs are by default registered immediately."""
 
 
-class ItemIdProvider(RecordIdProvider):
+class ItemIdProvider(RecordIdProviderV2):
     """Item identifier provider."""
 
     pid_type = ITEM_PID_TYPE
@@ -55,7 +55,7 @@ class ItemIdProvider(RecordIdProvider):
     """Record IDs are by default registered immediately."""
 
 
-class EItemIdProvider(RecordIdProvider):
+class EItemIdProvider(RecordIdProviderV2):
     """EItem identifier provider."""
 
     pid_type = EITEM_PID_TYPE
@@ -72,7 +72,7 @@ class EItemIdProvider(RecordIdProvider):
     """Record IDs are by default registered immediately."""
 
 
-class LocationIdProvider(RecordIdProvider):
+class LocationIdProvider(RecordIdProviderV2):
     """Location identifier provider."""
 
     pid_type = LOCATION_PID_TYPE
@@ -89,7 +89,7 @@ class LocationIdProvider(RecordIdProvider):
     """Record IDs are by default registered immediately."""
 
 
-class InternalLocationIdProvider(RecordIdProvider):
+class InternalLocationIdProvider(RecordIdProviderV2):
     """Internal Location identifier provider."""
 
     pid_type = INTERNAL_LOCATION_PID_TYPE
@@ -106,7 +106,7 @@ class InternalLocationIdProvider(RecordIdProvider):
     """Record IDs are by default registered immediately."""
 
 
-class SeriesIdProvider(RecordIdProvider):
+class SeriesIdProvider(RecordIdProviderV2):
     """Series identifier provider."""
 
     pid_type = SERIES_PID_TYPE
@@ -123,7 +123,7 @@ class SeriesIdProvider(RecordIdProvider):
     """Record IDs are by default registered immediately."""
 
 
-class DocumentRequestIdProvider(RecordIdProvider):
+class DocumentRequestIdProvider(RecordIdProviderV2):
     """DocumentRequest identifier provider."""
 
     pid_type = DOCUMENT_REQUEST_PID_TYPE

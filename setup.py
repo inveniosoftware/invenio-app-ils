@@ -77,7 +77,7 @@ install_requires = [
     # metadata bundle without records UI
     "invenio-indexer>=1.1.0,<1.2.0",
     "invenio-jsonschemas>=1.0.0,<1.1.0",
-    "invenio-pidstore>=1.0.0,<1.1.0",
+    "invenio-pidstore>=1.1.0,<1.2.0",
     "invenio-records-rest>=1.6.1,<1.7.0",
     "invenio-records>=1.3.0,<1.4.0",
     # upgraded packages

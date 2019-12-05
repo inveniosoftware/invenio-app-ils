@@ -19,7 +19,7 @@ class PastLoanListEntry extends Component {
       <Item key={loan.metadata.pid}>
         <Item.Image
           size="mini"
-          src={getCover(loan.metadata.document_pid)}
+          src={getCover()}
           as={Link}
           disabled
           to={FrontSiteRoutes.documentDetailsFor(loan.metadata.document_pid)}

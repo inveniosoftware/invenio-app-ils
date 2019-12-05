@@ -119,7 +119,7 @@ export default class DocumentListEntry extends Component {
             as={Link}
             to={BackOfficeRoutes.documentDetailsFor(document.metadata.pid)}
             size={'tiny'}
-            src={getCover(document.metadata.pid)}
+            src={getCover(document.metadata.edition)}
             onError={e => (e.target.style.display = 'none')}
             label={this.getRestrictions(document.metadata)}
           />
