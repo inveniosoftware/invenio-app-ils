@@ -10,7 +10,7 @@
 import re
 
 from elasticsearch_dsl import Q
-from flask import g, has_request_context, request
+from flask import current_app, g, has_request_context, request
 from flask_login import current_user
 from invenio_search.api import RecordsSearch
 
@@ -31,32 +31,6 @@ class DocumentSearch(RecordsSearch):
     def search_by_pid(self, *pids):
         """Retrieve documents with the given pid(s)."""
         return self.filter("terms", pid=pids)
-
-    def search_by_series_pid(self, series_pid=None):
-        """Retrieve documents with the given series_pid."""
-        search = self
-
-        if series_pid:
-            search = search.filter("term", series__pid=series_pid)
-        else:
-            raise MissingRequiredParameterError(
-                description="series_pid is required"
-            )
-
-        return search
-
-    def search_by_document_request_pid(self, document_request_pid=None):
-        """Retrieve document requests with the given document_request_pid."""
-        search = self
-
-        if document_request_pid:
-            search = search.filter("term", request__pid=document_request_pid)
-        else:
-            raise MissingRequiredParameterError(
-                description="document_request_pid is required"
-            )
-
-        return search
 
 
 class _ItemSearch(RecordsSearch):
@@ -119,7 +93,7 @@ class _ItemSearch(RecordsSearch):
         if location_pid:
             search = search.filter(
                 "term",
-                internal_location__location_pid=location_pid
+                **{"internal_location.location_pid": location_pid}
             )
         else:
             raise MissingRequiredParameterError(
@@ -177,7 +151,16 @@ class EItemSearch(_ItemSearch):
             raise MissingRequiredParameterError(
                 description="bucket_id is required"
             )
-        return search
+
+        results = search.execute()
+        if len(results) != 1:
+            # There should always be one bucket associated with an eitem when
+            # downloading a file.
+            msg = "found 0 or multiple records with bucket {0}".format(
+                bucket_id
+            )
+            current_app.logger.warning(msg)
+        return results
 
 
 class LocationSearch(RecordsSearch):
@@ -337,4 +320,4 @@ class VocabularySearch(RecordsSearch):
     def search_by_type_and_key(self, type, key):
         """Search vocabularies by type and key."""
         search = self.search_by_type(type)
-        return search.filter("term", key__keyword=key)
+        return search.filter("term", **{"key.keyword": key})

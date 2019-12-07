@@ -20,7 +20,8 @@ from . import config
 from .circulation.receivers import register_circulation_signals
 from .files.receivers import register_files_signals
 from .pidstore.pids import DOCUMENT_PID_TYPE, DOCUMENT_REQUEST_PID_TYPE, \
-    EITEM_PID_TYPE, ITEM_PID_TYPE, PATRON_PID_TYPE
+    EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, \
+    PATRON_PID_TYPE
 
 
 def handle_rest_exceptions(exception):
@@ -37,38 +38,27 @@ class _InvenioAppIlsState(object):
         self.app = app
 
     def record_class_by_pid_type(self, pid_type):
-        endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', [])
+        endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', {})
         return endpoints[pid_type]['record_class']
 
     def indexer_by_pid_type(self, pid_type):
-        endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', [])
+        endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', {})
         _cls = endpoints[pid_type]['indexer_class']
         return _cls()
 
     def search_by_pid_type(self, pid_type):
-        endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', [])
-        _cls = endpoints[pid_type]['search_class']
-        return _cls()
+        endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', {})
+        return endpoints[pid_type]['search_class']
 
     @cached_property
-    def document_request_cls(self):
+    def document_request_record_cls(self):
         """Return the document request record class."""
         return self.record_class_by_pid_type(DOCUMENT_REQUEST_PID_TYPE)
 
     @cached_property
-    def eitem_cls(self):
-        """Return the eitem record class."""
-        return self.record_class_by_pid_type(EITEM_PID_TYPE)
-
-    @cached_property
-    def patron_cls(self):
-        """Return the patron record class."""
-        return self.record_class_by_pid_type(PATRON_PID_TYPE)
-
-    @cached_property
-    def document_indexer(self):
-        """Return a document indexer instance."""
-        return self.indexer_by_pid_type(DOCUMENT_PID_TYPE)
+    def document_request_search_cls(self):
+        """Return the document request search cls."""
+        return self.search_by_pid_type(DOCUMENT_REQUEST_PID_TYPE)
 
     @cached_property
     def document_request_indexer(self):
@@ -76,9 +66,29 @@ class _InvenioAppIlsState(object):
         return self.indexer_by_pid_type(DOCUMENT_REQUEST_PID_TYPE)
 
     @cached_property
-    def item_indexer(self):
-        """Return an item indexer instance."""
-        return self.indexer_by_pid_type(ITEM_PID_TYPE)
+    def document_record_cls(self):
+        """Return the document record class."""
+        return self.record_class_by_pid_type(DOCUMENT_PID_TYPE)
+
+    @cached_property
+    def document_search_cls(self):
+        """Return the document search cls."""
+        return self.search_by_pid_type(DOCUMENT_PID_TYPE)
+
+    @cached_property
+    def document_indexer(self):
+        """Return a document indexer instance."""
+        return self.indexer_by_pid_type(DOCUMENT_PID_TYPE)
+
+    @cached_property
+    def eitem_record_cls(self):
+        """Return the eitem record class."""
+        return self.record_class_by_pid_type(EITEM_PID_TYPE)
+
+    @cached_property
+    def eitem_search_cls(self):
+        """Return the eitem search cls."""
+        return self.search_by_pid_type(EITEM_PID_TYPE)
 
     @cached_property
     def eitem_indexer(self):
@@ -86,14 +96,49 @@ class _InvenioAppIlsState(object):
         return self.indexer_by_pid_type(EITEM_PID_TYPE)
 
     @cached_property
+    def internal_location_record_cls(self):
+        """Return the internal location record class."""
+        return self.record_class_by_pid_type(INTERNAL_LOCATION_PID_TYPE)
+
+    @cached_property
+    def internal_location_search_cls(self):
+        """Return the internal location search cls."""
+        return self.search_by_pid_type(INTERNAL_LOCATION_PID_TYPE)
+
+    @cached_property
+    def internal_location_indexer(self):
+        """Return an internal location indexer instance."""
+        return self.indexer_by_pid_type(INTERNAL_LOCATION_PID_TYPE)
+
+    @cached_property
+    def item_record_cls(self):
+        """Return the item record class."""
+        return self.record_class_by_pid_type(ITEM_PID_TYPE)
+
+    @cached_property
+    def item_search_cls(self):
+        """Return the item search cls."""
+        return self.search_by_pid_type(ITEM_PID_TYPE)
+
+    @cached_property
+    def item_indexer(self):
+        """Return an item indexer instance."""
+        return self.indexer_by_pid_type(ITEM_PID_TYPE)
+
+    @cached_property
+    def loan_record_cls(self):
+        """Return the loan record class."""
+        return self.record_class_by_pid_type(CIRCULATION_LOAN_PID_TYPE)
+
+    @cached_property
     def loan_indexer(self):
         """Return a loan indexer instance."""
         return self.indexer_by_pid_type(CIRCULATION_LOAN_PID_TYPE)
 
     @cached_property
-    def eitem_search(self):
-        """Return an eitem search instance."""
-        return self.search_by_pid_type(EITEM_PID_TYPE)
+    def patron_cls(self):
+        """Return the patron record class."""
+        return self.record_class_by_pid_type(PATRON_PID_TYPE)
 
 
 class InvenioAppIls(object):

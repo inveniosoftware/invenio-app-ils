@@ -29,7 +29,8 @@ from invenio_search import current_search
 from invenio_userprofiles.models import UserProfile
 from lorem.text import TextLorem
 
-from .indexer import PatronsIndexer
+from invenio_app_ils.patrons.indexer import PatronIndexer
+
 from .pidstore.pids import DOCUMENT_PID_TYPE, DOCUMENT_REQUEST_PID_TYPE, \
     EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, \
     LOCATION_PID_TYPE, SERIES_PID_TYPE
@@ -781,7 +782,7 @@ def index():
     from invenio_app_ils.pidstore.pids import PATRON_PID_TYPE
 
     patrons = User.query.all()
-    indexer = PatronsIndexer()
+    indexer = PatronIndexer()
 
     click.secho("Now indexing {0} patrons".format(len(patrons)), fg="green")
 

@@ -132,10 +132,12 @@ setup(
             "vocabulary = invenio_app_ils.vocabularies.cli:vocabulary",
         ],
         "invenio_base.apps": [
-            "ils_ui = invenio_app_ils.ext:InvenioAppIlsUI"
+            "ils_ui = invenio_app_ils.ext:InvenioAppIlsUI",
+            "ils_ill = invenio_app_ils.ill.ext:InvenioIlsIll"
         ],
         "invenio_base.api_apps": [
-            "ils_rest = invenio_app_ils.ext:InvenioAppIlsREST"
+            "ils_rest = invenio_app_ils.ext:InvenioAppIlsREST",
+            "ils_ill = invenio_app_ils.ill.ext:InvenioIlsIll"
         ],
         "invenio_base.api_blueprints": [
             "ils_circulation = invenio_app_ils.circulation.views:create_circulation_blueprint",
@@ -151,7 +153,8 @@ setup(
         "invenio_i18n.translations": ["messages = invenio_app_ils"],
         "invenio_jsonschemas.schemas": [
             "ils_schemas = invenio_app_ils.schemas",
-            "acquisition_schemas = invenio_app_ils.acquisition.schemas"
+            "acquisition_schemas = invenio_app_ils.acquisition.schemas",
+            "ill_schemas = invenio_app_ils.ill.schemas"
         ],
         "invenio_search.mappings": [
             "document_requests = invenio_app_ils.mappings",
@@ -164,7 +167,9 @@ setup(
             "series = invenio_app_ils.mappings",
             "vocabularies = invenio_app_ils.mappings",
             "acq-vendors = invenio_app_ils.acquisition.mappings",
-            "acq-orders = invenio_app_ils.acquisition.mappings"
+            "acq-orders = invenio_app_ils.acquisition.mappings",
+            "ill-libraries = invenio_app_ils.ill.mappings",
+            "ill-borrowing-requests = invenio_app_ils.ill.mappings",
         ],
         "invenio_pidstore.fetchers": [
             "docid = invenio_app_ils.pidstore.fetchers:document_pid_fetcher",
@@ -178,6 +183,8 @@ setup(
             "vocid = invenio_app_ils.pidstore.fetchers:vocabulary_pid_fetcher",
             "acqvid = invenio_app_ils.acquisition.pidstore.fetchers:vendor_pid_fetcher",
             "acqoid = invenio_app_ils.acquisition.pidstore.fetchers:order_pid_fetcher",
+            "illlid = invenio_app_ils.ill.pidstore.fetchers:library_pid_fetcher",
+            "illbid = invenio_app_ils.ill.pidstore.fetchers:borrowing_request_pid_fetcher",
         ],
         "invenio_pidstore.minters": [
             "docid = invenio_app_ils.pidstore.minters:document_pid_minter",
@@ -191,6 +198,8 @@ setup(
             "vocid = invenio_app_ils.pidstore.minters:vocabulary_pid_minter",
             "acqvid = invenio_app_ils.acquisition.pidstore.minters:vendor_pid_minter",
             "acqoid = invenio_app_ils.acquisition.pidstore.minters:order_pid_minter",
+            "illlid = invenio_app_ils.ill.pidstore.minters:library_pid_minter",
+            "illbid = invenio_app_ils.ill.pidstore.minters:borrowing_request_pid_minter",
 
         ],
         "invenio_access.actions": [
@@ -213,9 +222,20 @@ setup(
             "item_loan = invenio_app_ils.records.resolver.jsonresolver.item_loan",
             "request_document = invenio_app_ils.records.resolver.jsonresolver.request_document",
             "series_relations = invenio_app_ils.records.resolver.jsonresolver.series_relations",
+            "borrowing_request = invenio_app_ils.ill.jsonresolvers.borrowing_request",
         ],
         "invenio_celery.tasks": [
-            "indexer = invenio_app_ils.indexer"
+            "ils_indexer_loans = invenio_app_ils.circulation.indexer",
+            "ils_indexer_document_requests = invenio_app_ils.document_requests.indexer",
+            "ils_indexer_documents = invenio_app_ils.documents.indexer",
+            "ils_indexer_eitems = invenio_app_ils.eitems.indexer",
+            "ils_indexer_ills = invenio_app_ils.ill.indexer",
+            "ils_indexer_intlocs = invenio_app_ils.internal_locations.indexer",
+            "ils_indexer_items = invenio_app_ils.items.indexer",
+            "ils_indexer_locations = invenio_app_ils.locations.indexer",
+            "ils_indexer_rec_relations = invenio_app_ils.records_relations.indexer",
+            "ils_indexer_series = invenio_app_ils.series.indexer",
+            "ils_circulation_mails = invenio_app_ils.circulation.mail.tasks",
         ]
     },
     extras_require=extras_require,

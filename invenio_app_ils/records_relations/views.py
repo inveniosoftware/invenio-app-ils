@@ -16,10 +16,10 @@ from invenio_records_rest.views import pass_record
 from invenio_rest import ContentNegotiatedMethodView
 
 from invenio_app_ils.errors import RecordRelationsError
-from invenio_app_ils.indexer import RelationIndexer
 from invenio_app_ils.permissions import need_permissions
 from invenio_app_ils.pidstore.pids import DOCUMENT_PID_TYPE, SERIES_PID_TYPE
 from invenio_app_ils.records.api import IlsRecord
+from invenio_app_ils.records_relations.indexer import RecordRelationIndexer
 from invenio_app_ils.relations.api import Relation
 
 from invenio_app_ils.records_relations.api import (  # isort:skip
@@ -260,7 +260,7 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
             record = create(action)
 
         # Index both parent/child (or first/second)
-        RelationIndexer().index(*records_to_index)
+        RecordRelationIndexer().index(*records_to_index)
 
         return self.make_response(record.pid, record, 201)
 
@@ -311,6 +311,6 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
             record = delete(action)
 
         # Index both parent/child (or first/second)
-        RelationIndexer().index(*records_to_index)
+        RecordRelationIndexer().index(*records_to_index)
 
         return self.make_response(record.pid, record, 200)

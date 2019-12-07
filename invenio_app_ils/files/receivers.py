@@ -11,15 +11,15 @@ from __future__ import absolute_import, print_function
 
 from invenio_files_rest.signals import file_deleted, file_uploaded
 
-from invenio_app_ils.indexer import index_eitem_after_files_changed
+from invenio_app_ils.eitems.indexer import index_eitem_after_files_changed
 
 
-def file_changed(obj):
+def on_file_changed(obj):
     """Index eitems after files changed."""
     index_eitem_after_files_changed.apply_async([str(obj.bucket_id)])
 
 
 def register_files_signals():
     """Register files signal."""
-    file_deleted.connect(file_changed, weak=False)
-    file_uploaded.connect(file_changed, weak=False)
+    file_deleted.connect(on_file_changed, weak=False)
+    file_uploaded.connect(on_file_changed, weak=False)
