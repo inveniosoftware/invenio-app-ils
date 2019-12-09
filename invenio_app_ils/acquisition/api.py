@@ -7,51 +7,71 @@
 
 """Acquisition API."""
 
-from invenio_jsonschemas import current_jsonschemas
-from invenio_pidstore.models import PersistentIdentifier
-from invenio_records.api import Record
-from werkzeug.utils import cached_property
+from flask import current_app
+
+from invenio_app_ils.acquisition.proxies import current_ils_acq
+from invenio_app_ils.errors import RecordHasReferencesError
+from invenio_app_ils.records.api import IlsRecord
 
 from .pidstore.pids import ORDER_PID_TYPE, VENDOR_PID_TYPE
 
 
-class AcquisitionRecord(Record):
-    """Acquisition base record."""
-
-    _pid_type = None
-    _schema = None
-
-    @cached_property
-    def pid(self):
-        """Get the PersistentIdentifier for this record."""
-        return PersistentIdentifier.get(
-            pid_type=self._pid_type, pid_value=self["pid"]
-        )
-
-    @classmethod
-    def create(cls, data, id_=None, **kwargs):
-        """Create IlsRecord record."""
-        data["$schema"] = current_jsonschemas.path_to_url(cls._schema)
-        return super(AcquisitionRecord, cls).create(data, id_=id_, **kwargs)
-
-
-class Vendor(AcquisitionRecord):
+class Vendor(IlsRecord):
     """Acquisition vendor class."""
 
     _pid_type = VENDOR_PID_TYPE
-    _schema = "acq-vendors/vendor-v1.0.0.json"
+    _schema = "acq_vendors/vendor-v1.0.0.json"
+
+    def delete(self, **kwargs):
+        """Delete record."""
+        search_cls = current_ils_acq.order_search_cls
+        order_search_res = search_cls().search_by_vendor_pid(self["pid"])
+        if order_search_res.count():
+            raise RecordHasReferencesError(
+                record_type="Vendor",
+                record_id=self["pid"],
+                ref_type="Order",
+                ref_ids=sorted(
+                    [res["pid"] for res in order_search_res.scan()]
+                ),
+            )
+        return super().delete(**kwargs)
 
 
-class Order(AcquisitionRecord):
+class Order(IlsRecord):
     """Acquisition order class."""
 
     _pid_type = ORDER_PID_TYPE
-    _schema = "acq-orders/order-v1.0.0.json"
+    _schema = "acq_orders/order-v1.0.0.json"
+    _vendor_resolver_path = (
+        "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/vendor"
+    )
 
     STATUSES = [
         "PENDING",
         "ORDERED",
-        "PARTIALLY_RECEIVED",
         "RECEIVED",
         "CANCELLED"
     ]
+
+    @classmethod
+    def create(cls, data, id_=None, **kwargs):
+        """Create record."""
+        cls.build_resolver_fields(data)
+        return super().create(data, id_=id_, **kwargs)
+
+    def update(self, data):
+        """Update record."""
+        super().update(data)
+        self.build_resolver_fields(self)
+
+    @classmethod
+    def build_resolver_fields(cls, data):
+        """Build resolver fields."""
+        data["vendor"] = {
+            "$ref": cls._vendor_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                order_pid=data["pid"],
+            )
+        }

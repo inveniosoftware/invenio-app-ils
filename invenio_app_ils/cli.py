@@ -10,7 +10,7 @@
 import json
 import os
 import random
-from datetime import timedelta
+from datetime import datetime, timedelta
 from random import randint
 
 import arrow
@@ -31,6 +31,8 @@ from lorem.text import TextLorem
 
 from invenio_app_ils.patrons.indexer import PatronIndexer
 
+from .acquisition.api import Order, Vendor
+from .acquisition.pidstore.pids import ORDER_PID_TYPE, VENDOR_PID_TYPE
 from .pidstore.pids import DOCUMENT_PID_TYPE, DOCUMENT_REQUEST_PID_TYPE, \
     EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, \
     LOCATION_PID_TYPE, SERIES_PID_TYPE
@@ -68,6 +70,8 @@ class Holder(object):
         total_loans,
         total_series,
         total_document_requests,
+        total_vendors,
+        total_orders
     ):
         """Constructor."""
         self.patrons_pids = patrons_pids
@@ -83,6 +87,8 @@ class Holder(object):
         self.series = {"objs": [], "total": total_series}
         self.related_records = {"objs": [], "total": 0}
         self.document_requests = {"objs": [], "total": total_document_requests}
+        self.vendors = {"objs": [], "total": total_vendors}
+        self.orders = {"objs": [], "total": total_orders}
 
     def pids(self, collection, pid_field):
         """Get a list of PIDs for a collection."""
@@ -607,6 +613,130 @@ class DocumentRequestGenerator(Generator):
         return recs
 
 
+class VendorGenerator(Generator):
+    """Vendor generator."""
+
+    def random_name(self):
+        """Generate random name."""
+        parts = lorem.sentence().split()
+        return " ".join(parts[:min(randint(1, 2), len(parts))])
+
+    def generate(self):
+        """Generate."""
+        size = self.holder.vendors["total"]
+        objs = []
+        for pid in range(1, size + 1):
+            obj = {
+                "pid": self.create_pid(),
+                "name": self.random_name(),
+                "address": "CERN\n1211 Geneva 23\nSwitzerland",
+                "email": "visits.service@cern.ch",
+                "phone": "+41 (0) 22 76 776 76",
+                "notes": lorem.sentence(),
+            }
+            objs.append(obj)
+
+        self.holder.vendors["objs"] = objs
+
+    def persist(self):
+        """Persist."""
+        recs = []
+        for obj in self.holder.vendors["objs"]:
+            rec = self._persist(
+                VENDOR_PID_TYPE, "pid", Vendor.create(obj)
+            )
+            recs.append(rec)
+        db.session.commit()
+        return recs
+
+
+class OrderGenerator(Generator):
+    """Order generator."""
+
+    CURRENCIES = ["CHF", "EUR"]
+
+    def random_date(self, start, end):
+        """Generate random date between two dates."""
+        delta = end - start
+        int_delta = (delta.days * 24 * 3600) + delta.seconds
+        return start + timedelta(seconds=random.randrange(int_delta))
+
+    def random_price(self, currency=None, min_value=10.0):
+        """Generate random price."""
+        return {
+            "currency": random.choice(self.CURRENCIES) if currency is None else currency,
+            "value": min_value + random.random() * 100,
+        }
+
+    def random_order_lines(self):
+        """Generate random order lines."""
+        count = randint(1, 5)
+        doc_pids = self.holder.pids("documents", "pid")
+        for _ in range(randint(1, count + 1)):
+            ordered = randint(1, 5)
+            yield dict(
+                copies_ordered=ordered,
+                copies_received=randint(1, ordered),
+                document_pid=random.choice(doc_pids),
+                is_donation=random.choice([True, False]),
+                is_patron_suggestion=random.choice([True, False]),
+                medium="PAPER",
+                notes=lorem.sentence(),
+                patron_pid=random.choice(self.holder.patrons_pids),
+                payment_mode="CREDIT_CARD",
+                purchase_type="PERPETUAL",
+                recipient="PATRON",
+                total_price=self.random_price(),
+                unit_price=self.random_price(),
+            )
+
+    def generate(self):
+        """Generate."""
+        size = self.holder.orders["total"]
+        objs = []
+        for pid in range(1, size + 1):
+            order_date = self.random_date(datetime(2010, 1, 1), datetime.now())
+            order_lines = list(self.random_order_lines())
+            grand_total = self.random_price(min_value=50.0)
+            grand_total_main_currency = {
+                "currency": "CHF",
+                "value": grand_total["value"] * 1.10 if grand_total["currency"] == "EUR" else grand_total["value"],
+            }
+            obj = {
+                "pid": self.create_pid(),
+                "vendor_pid": random.choice(self.holder.vendors["objs"])["pid"],
+                "status": random.choice(Order.STATUSES),
+                "order_date": order_date.isoformat(),
+                "notes": lorem.sentence(),
+                "grand_total": grand_total,
+                "grand_total_main_currency": grand_total_main_currency,
+                "funds": list(set(lorem.sentence().split())),
+                "payment": {
+                    "mode": "CREDIT_CARD",
+                },
+                "order_lines": order_lines,
+            }
+            obj["expected_delivery_date"] = self.random_date(order_date, datetime.now()).isoformat()
+            if obj["status"] == "CANCELLED":
+                obj["cancel_reason"] = lorem.sentence()
+            elif obj["status"] == "RECEIVED":
+                obj["delivery_date"] = self.random_date(order_date, datetime.now()).isoformat()
+            objs.append(obj)
+
+        self.holder.orders["objs"] = objs
+
+    def persist(self):
+        """Persist."""
+        recs = []
+        for obj in self.holder.orders["objs"]:
+            rec = self._persist(
+                ORDER_PID_TYPE, "pid", Order.create(obj)
+            )
+            recs.append(rec)
+        db.session.commit()
+        return recs
+
+
 @click.group()
 def demo():
     """Demo data CLI."""
@@ -620,6 +750,8 @@ def demo():
 @click.option("--internal-locations", "n_intlocs", default=10)
 @click.option("--series", "n_series", default=10)
 @click.option("--document-requests", "n_document_requests", default=10)
+@click.option("--vendors", "n_vendors", default=10)
+@click.option("--orders", "n_orders", default=30)
 @with_appcontext
 def data(
     n_docs,
@@ -629,6 +761,8 @@ def data(
     n_intlocs,
     n_series,
     n_document_requests,
+    n_vendors,
+    n_orders
 ):
     """Insert demo data."""
     click.secho("Generating demo data", fg="yellow")
@@ -656,6 +790,8 @@ def data(
         total_loans=n_loans,
         total_series=n_series,
         total_document_requests=n_document_requests,
+        total_vendors=n_vendors,
+        total_orders=n_orders,
     )
 
     click.echo("Creating locations...")
@@ -711,6 +847,18 @@ def data(
     document_requests_generator.generate()
     rec_requests = document_requests_generator.persist()
 
+    # Vendors
+    click.echo("Creating vendors...")
+    vendor_generator = VendorGenerator(holder, minter)
+    vendor_generator.generate()
+    rec_vendors = vendor_generator.persist()
+
+    # Orders
+    click.echo("Creating orders...")
+    order_generator = OrderGenerator(holder, minter)
+    order_generator.generate()
+    rec_orders = order_generator.persist()
+
     # index locations
     indexer.bulk_index([str(r.id) for r in rec_intlocs])
     click.echo(
@@ -764,6 +912,18 @@ def data(
     # index loans again
     indexer.bulk_index([str(r.id) for r in rec_loans])
     click.echo("Sent to the indexing queue {0} loans".format(len(rec_loans)))
+
+    # index vendors
+    indexer.bulk_index([str(r.id) for r in rec_vendors])
+    click.echo(
+        "Sent to the indexing queue {0} vendors".format(len(rec_vendors))
+    )
+
+    # index orders
+    indexer.bulk_index([str(r.id) for r in rec_orders])
+    click.echo(
+        "Sent to the indexing queue {0} orders".format(len(rec_orders))
+    )
 
     click.secho("Now indexing...", fg="green")
     indexer.process_bulk_queue()

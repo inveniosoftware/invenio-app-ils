@@ -133,7 +133,8 @@ setup(
         ],
         "invenio_base.apps": [
             "ils_ui = invenio_app_ils.ext:InvenioAppIlsUI",
-            "ils_ill = invenio_app_ils.ill.ext:InvenioIlsIll"
+            "ils_ill = invenio_app_ils.ill.ext:InvenioIlsIll",
+            "ils_acquisition = invenio_app_ils.acquisition.ext:InvenioIlsAcquisition",
         ],
         "invenio_base.api_apps": [
             "ils_rest = invenio_app_ils.ext:InvenioAppIlsREST",
@@ -166,8 +167,8 @@ setup(
             "patrons = invenio_app_ils.mappings",
             "series = invenio_app_ils.mappings",
             "vocabularies = invenio_app_ils.mappings",
-            "acq-vendors = invenio_app_ils.acquisition.mappings",
-            "acq-orders = invenio_app_ils.acquisition.mappings",
+            "acq_vendors = invenio_app_ils.acquisition.mappings",
+            "acq_orders = invenio_app_ils.acquisition.mappings",
             "ill_libraries = invenio_app_ils.ill.mappings",
             "ill_borrowing_requests = invenio_app_ils.ill.mappings",
         ],
@@ -220,6 +221,7 @@ setup(
             "item_document = invenio_app_ils.records.resolver.jsonresolver.item_document",
             "item_internal_location = invenio_app_ils.records.resolver.jsonresolver.item_internal_location",
             "item_loan = invenio_app_ils.records.resolver.jsonresolver.item_loan",
+            "order_vendor = invenio_app_ils.acquisition.jsonresolvers.order_vendor",
             "request_document = invenio_app_ils.records.resolver.jsonresolver.request_document",
             "series_relations = invenio_app_ils.records.resolver.jsonresolver.series_relations",
             "borrowing_request = invenio_app_ils.ill.jsonresolvers.borrowing_request",

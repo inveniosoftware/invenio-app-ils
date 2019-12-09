@@ -9,6 +9,8 @@
 
 from invenio_search.api import RecordsSearch
 
+from invenio_app_ils.errors import MissingRequiredParameterError
+
 
 class VendorSearch(RecordsSearch):
     """Search for acquisition vendors."""
@@ -16,7 +18,7 @@ class VendorSearch(RecordsSearch):
     class Meta:
         """Search only on vendors index."""
 
-        index = "acq-vendors"
+        index = "acq_vendors"
         doc_types = None
 
 
@@ -26,5 +28,18 @@ class OrderSearch(RecordsSearch):
     class Meta:
         """Search only on orders index."""
 
-        index = "acq-orders"
+        index = "acq_orders"
         doc_types = None
+
+    def search_by_vendor_pid(self, vendor_pid=None):
+        """Search by vendor pid."""
+        search = self
+
+        if vendor_pid:
+            search = search.filter("term", vendor_pid=vendor_pid)
+        else:
+            raise MissingRequiredParameterError(
+                description="vendor_pid is required"
+            )
+
+        return search
