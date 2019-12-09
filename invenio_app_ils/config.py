@@ -964,17 +964,11 @@ RECORDS_REST_SORT_OPTIONS = dict(
             default_order="desc",
             order=4,
         ),
-        # order_line_count=dict(
-        #     fields=[""],
-        #     title="Number of order lines",
-        #     default_order="desc",
-        #     order=5,
-        # ),
         bestmatch=dict(
             fields=["-_score"],
             title="Best match",
             default_order="asc",
-            order=2,
+            order=5,
         ),
     ),
     acq_vendors=dict(  # VendorSearch.Meta.index
@@ -988,7 +982,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
             fields=["-_score"],
             title="Best match",
             default_order="asc",
-            order=6,
+            order=2,
         ),
     ),
 )
@@ -1074,14 +1068,12 @@ RECORDS_REST_FACETS = dict(
             ),
             payment_mode=dict(terms=dict(field="order_lines.payment_mode")),
             medium=dict(terms=dict(field="order_lines.medium")),
-            currency=dict(terms=dict(field="grand_total.currency")),
         ),
         post_filters=dict(
             status=terms_filter("status"),
             vendor=terms_filter("vendor.name.keyword"),
             payment_mode=terms_filter("order_lines.payment_mode"),
             medium=terms_filter("order_lines.medium"),
-            currency=terms_filter("grand_total.currency"),
         ),
     ),
     series=dict(  # SeriesSearch.Meta.index

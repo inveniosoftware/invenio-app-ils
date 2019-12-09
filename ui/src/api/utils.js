@@ -1,3 +1,5 @@
+import { invenioConfig } from "@config";
+
 export const prepareDateQuery = (field, date, dateFrom, dateTo) => {
   if (
     (!date || typeof date !== 'string') &&
@@ -79,4 +81,13 @@ export const siblingRelationPayload = (relationType, extra, second) => {
     relation_type: relationType,
     ...extra,
   };
+};
+
+export const formatPrice = price => {
+  if (!price) return null;
+
+  return new Intl.NumberFormat(invenioConfig.i18n.priceLocale, {
+    style: 'currency',
+    currency: price.currency,
+  }).format(price.value);
 };

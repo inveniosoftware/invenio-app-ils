@@ -10,6 +10,22 @@ export const invenioConfig = {
     deliveryMethods: { DELIVERY: '', 'PICK UP': '' },
     requestDuration: 60,
   },
+  orders: {
+    currencies: [
+      { value: 'EUR', text: 'Euro' },
+      { value: 'CHF', text: 'Swiss Francs' },
+    ],
+    paymentModes: [
+      { value: 'CREDIT_CARD', text: 'Credit Card' },
+      { value: 'CASH', text: 'Cash' },
+    ],
+    statuses: [
+      { value: 'CANCELLED', text: 'Cancelled' },
+      { value: 'RECEIVED', text: 'Received' },
+      { value: 'ORDERED', text: 'Ordered' },
+      { value: 'PENDING', text: 'Pending' },
+    ],
+  },
   relationTypes: [
     {
       id: 0,

@@ -27,33 +27,33 @@ const BackOfficeBase = '/backoffice';
 
 const BackOfficeRoutesList = {
   home: BackOfficeBase,
-  documentEdit: `${BackOfficeBase}/documents/:documentPid/edit`,
   documentCreate: `${BackOfficeBase}/documents/create`,
-  documentsList: `${BackOfficeBase}/documents`,
   documentDetails: `${BackOfficeBase}/documents/:documentPid`,
-  documentRequestsList: `${BackOfficeBase}/document-requests`,
+  documentEdit: `${BackOfficeBase}/documents/:documentPid/edit`,
   documentRequestDetails: `${BackOfficeBase}/document-requests/:documentRequestPid`,
-  eitemsList: `${BackOfficeBase}/eitems`,
-  eitemDetails: `${BackOfficeBase}/eitems/:eitemPid`,
+  documentRequestsList: `${BackOfficeBase}/document-requests`,
+  documentsList: `${BackOfficeBase}/documents`,
   eitemCreate: `${BackOfficeBase}/eitems/create`,
+  eitemDetails: `${BackOfficeBase}/eitems/:eitemPid`,
   eitemEdit: `${BackOfficeBase}/eitems/:eitemPid/edit`,
-  itemsList: `${BackOfficeBase}/items`,
-  itemDetails: `${BackOfficeBase}/items/:itemPid`,
-  itemCreate: `${BackOfficeBase}/items/create`,
-  itemEdit: `${BackOfficeBase}/items/:itemPid/edit`,
-  loansList: `${BackOfficeBase}/loans`,
-  loanDetails: `${BackOfficeBase}/loans/:loanPid`,
-  patronsList: `${BackOfficeBase}/patrons`,
-  patronDetails: `${BackOfficeBase}/patrons/:patronPid`,
+  eitemsList: `${BackOfficeBase}/eitems`,
   ilocationsCreate: `${BackOfficeBase}/internal-locations/create`,
   ilocationsEdit: `${BackOfficeBase}/internal-locations/:ilocationPid/edit`,
+  itemCreate: `${BackOfficeBase}/items/create`,
+  itemDetails: `${BackOfficeBase}/items/:itemPid`,
+  itemEdit: `${BackOfficeBase}/items/:itemPid/edit`,
+  itemsList: `${BackOfficeBase}/items`,
+  loanDetails: `${BackOfficeBase}/loans/:loanPid`,
+  loansList: `${BackOfficeBase}/loans`,
   locationsCreate: `${BackOfficeBase}/locations/create`,
   locationsEdit: `${BackOfficeBase}/locations/:locationPid/edit`,
   locationsList: `${BackOfficeBase}/locations`,
+  patronDetails: `${BackOfficeBase}/patrons/:patronPid`,
+  patronsList: `${BackOfficeBase}/patrons`,
   seriesCreate: `${BackOfficeBase}/series/create`,
+  seriesDetails: `${BackOfficeBase}/series/:seriesPid`,
   seriesEdit: `${BackOfficeBase}/series/:seriesPid/edit`,
   seriesList: `${BackOfficeBase}/series`,
-  seriesDetails: `${BackOfficeBase}/series/:seriesPid`,
   stats: {
     home: `${BackOfficeBase}/stats`,
   },
@@ -114,13 +114,22 @@ export const BackOfficeRoutes = {
 const AcquisitionBase = `${BackOfficeBase}/acquisition`;
 
 const AcquisitionRoutesList = {
+  orderCreate: `${AcquisitionBase}/orders/create`,
+  orderDetails: `${AcquisitionBase}/orders/:orderPid`,
+  orderEdit: `${AcquisitionBase}/orders/:orderPid/edit`,
+  ordersList: `${AcquisitionBase}/orders`,
   vendorCreate: `${AcquisitionBase}/vendors/create`,
   vendorDetails: `${AcquisitionBase}/vendors/:vendorPid`,
   vendorEdit: `${AcquisitionBase}/vendors/:vendorPid/edit`,
-  vendorList: `${AcquisitionBase}/vendors`,
+  vendorsList: `${AcquisitionBase}/vendors`,
 };
 
 const AcquisitionRouteGenerators = {
+  orderDetailsFor: orderPid =>
+    generatePath(AcquisitionRoutesList.orderDetails, { orderPid: orderPid }),
+  orderEditFor: orderPid =>
+    generatePath(AcquisitionRoutesList.orderEdit, { orderPid: orderPid }),
+  ordersListWithQuery: qs => `${AcquisitionRoutesList.ordersList}?q=${qs}`,
   vendorDetailsFor: vendorPid =>
     generatePath(AcquisitionRoutesList.vendorDetails, {
       vendorPid: vendorPid,
@@ -129,6 +138,7 @@ const AcquisitionRouteGenerators = {
     generatePath(AcquisitionRoutesList.vendorEdit, {
       vendorPid: vendorPid,
     }),
+  vendorsListWithQuery: qs => `${AcquisitionRoutesList.vendorsList}?q=${qs}`,
 };
 
 export const AcquisitionRoutes = {

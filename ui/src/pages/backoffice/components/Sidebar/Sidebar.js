@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Header, Icon, Menu, Divider } from 'semantic-ui-react';
-import { BackOfficeRoutes, FrontSiteRoutes } from '@routes/urls';
+import {
+  AcquisitionRoutes,
+  BackOfficeRoutes,
+  FrontSiteRoutes,
+} from '@routes/urls';
 import has from 'lodash/has';
 
 class Sidebar extends Component {
@@ -20,6 +24,8 @@ class Sidebar extends Component {
     const documentsActive = activePath === BackOfficeRoutes.documentsList;
     const documentRequestsActive =
       activePath === BackOfficeRoutes.documentRequestsList;
+    const ordersActive = activePath === AcquisitionRoutes.ordersList;
+    const vendorsActive = activePath === AcquisitionRoutes.vendorsList;
     const patronsActive = activePath === BackOfficeRoutes.patronsList;
     const seriesActive = activePath === BackOfficeRoutes.seriesList;
     const statsActive = activePath === BackOfficeRoutes.stats.home;
@@ -98,6 +104,26 @@ class Sidebar extends Component {
                 to={BackOfficeRoutes.eitemsList}
               >
                 Electronic Items
+              </Menu.Item>
+            </Menu.Menu>
+          </Menu.Item>
+
+          <Menu.Item>
+            <Menu.Header>Acquisition</Menu.Header>
+            <Menu.Menu>
+              <Menu.Item
+                as={Link}
+                active={ordersActive}
+                to={AcquisitionRoutes.ordersList}
+              >
+                Orders
+              </Menu.Item>
+              <Menu.Item
+                as={Link}
+                active={vendorsActive}
+                to={AcquisitionRoutes.vendorsList}
+              >
+                Vendors
               </Menu.Item>
             </Menu.Menu>
           </Menu.Item>

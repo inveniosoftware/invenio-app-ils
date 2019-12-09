@@ -19,6 +19,7 @@ import {
   LoanDetails,
   LocationEditor,
   LocationList,
+  OrderSearch,
   PatronDetails,
   PatronSearch,
   SeriesEditor,
@@ -26,6 +27,7 @@ import {
   SeriesSearch,
   Stats,
   VendorEditor,
+  VendorSearch,
 } from '@pages/backoffice';
 
 export default class extends Component {
@@ -165,6 +167,7 @@ export default class extends Component {
           path={BackOfficeRoutes.documentRequestsList}
           component={DocumentRequestSearch}
         />
+        {/* vendors */}
         <Route
           exact
           path={AcquisitionRoutes.vendorCreate}
@@ -174,6 +177,17 @@ export default class extends Component {
           exact
           path={AcquisitionRoutes.vendorEdit}
           component={VendorEditor}
+        />
+        <Route
+          exact
+          path={AcquisitionRoutes.vendorsList}
+          component={VendorSearch}
+        />
+        {/* orders */}
+        <Route
+          exact
+          path={AcquisitionRoutes.ordersList}
+          component={OrderSearch}
         />
         <Route exact path={BackOfficeRoutes.stats.home} component={Stats} />
       </Switch>

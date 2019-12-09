@@ -1,38 +1,104 @@
-import { http } from '../base';
+import { http, apiConfig } from '../base';
+import { vendorSerializer as serializer } from './serializers';
 
 const vendorURL = '/acquisition/vendors/';
 
-const get = async vendorPid => {
-  const response = await http.get(`${vendorURL}${vendorPid}`);
-  return response;
-};
-
-const del = async vendorPid => {
-  const response = await http.delete(`${vendorURL}${vendorPid}`);
-  return response;
+const get = pid => {
+  return http.get(`${vendorURL}${pid}`).then(response => {
+    response.data = serializer.fromJSON(response.data);
+    return response;
+  });
 };
 
 const create = async data => {
-  const response = await http.post(`${vendorURL}`, data);
+  const resp = await http.post(`${vendorURL}`, data);
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
+};
+
+const update = async (pid, data) => {
+  const response = await http.put(`${vendorURL}${pid}`, data);
+  response.data = serializer.fromJSON(response.data);
   return response;
 };
 
-const update = async (vendorPid, data) => {
-  const response = await http.put(`${vendorURL}${vendorPid}`, data);
-  return response;
+const del = async pid => {
+  return await http.delete(`${vendorURL}${pid}`);
 };
 
-const list = async (query = '', size = 100) => {
-  const response = await http.get(`${vendorURL}?q=${query}&size=${size}`);
+const list = async query => {
+  const response = await http.get(`${vendorURL}?q=${query}`);
   response.data.total = response.data.hits.total;
+  response.data.hits = response.data.hits.hits.map(hit =>
+    serializer.fromJSON(hit)
+  );
   return response;
+};
+
+const count = query => {
+  return http.get(`${vendorURL}?q=${query}`).then(response => {
+    response.data = response.data.hits.total;
+    return response;
+  });
+};
+
+class QueryBuilder {
+  constructor() {
+    this.addressQuery = [];
+    this.nameQuery = [];
+    this.emailQuery = [];
+    this.sortByQuery = '';
+  }
+
+  withAddress(address) {
+    if (!address) {
+      throw TypeError('Address argument missing');
+    }
+    this.addressQuery.push(`address:"${address}"`);
+    return this;
+  }
+
+  withName(name) {
+    if (!name) {
+      throw TypeError('Name argument missing');
+    }
+    this.nameQuery.push(`name:"${name}"`);
+    return this;
+  }
+
+  withEmail(email) {
+    if (!email) {
+      throw TypeError('Email argument missing');
+    }
+    this.addressQuery.push(`email:"${email}"`);
+    return this;
+  }
+
+  sortBy(order = 'bestmatch') {
+    this.sortByQuery = `&sort=${order}`;
+    return this;
+  }
+
+  qs() {
+    const searchCriteria = this.addressQuery
+      .concat(this.nameQuery, this.emailQuery)
+      .join(' AND ');
+    return `${searchCriteria}${this.sortByQuery}`;
+  }
+}
+
+const queryBuilder = () => {
+  return new QueryBuilder();
 };
 
 export const vendor = {
-  create: create,
-  delete: del,
+  searchBaseURL: `${apiConfig.baseURL}${vendorURL}`,
   get: get,
-  list: list,
+  create: create,
   update: update,
-  url: vendorURL,
+  delete: del,
+  list: list,
+  count: count,
+  query: queryBuilder,
+  serializer: serializer,
 };
