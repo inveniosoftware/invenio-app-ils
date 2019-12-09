@@ -334,10 +334,10 @@ _SERID_CONVERTER = (
     'pid(serid, record_class="invenio_app_ils.records.api:Series")'
 )
 _VENDOR_CONVERTER = (
-    'pid(venid, record_class="invenio_app_ils.acquisition.api:Vendor")'
+    'pid(acqvid, record_class="invenio_app_ils.acquisition.api:Vendor")'
 )
-_order_CONVERTER = (
-    'pid(venid, record_class="invenio_app_ils.acquisition.api:Order")'
+_ORDER_CONVERTER = (
+    'pid(acqoid, record_class="invenio_app_ils.acquisition.api:Order")'
 )
 
 # RECORDS REST

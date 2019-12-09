@@ -1,0 +1,1 @@
+export { vendor } from './vendor';
