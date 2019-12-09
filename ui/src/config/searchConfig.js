@@ -261,6 +261,94 @@ const searchConfig = {
     },
     sortOrder: ['asc', 'desc'],
   },
+  orders: {
+    filters: [
+      {
+        title: 'Status',
+        field: 'status',
+        aggName: 'status',
+        labels: invenioConfig.orders.statuses,
+      },
+      {
+        title: 'Vendor',
+        field: 'vendor.name',
+        aggName: 'vendor',
+      },
+      {
+        title: 'Payment mode',
+        field: 'order_lines.payment_mode',
+        aggName: 'payment_mode',
+      },
+      {
+        title: 'Medium',
+        field: 'order_lines.medium',
+        aggName: 'medium',
+        labels: invenioConfig.items.mediums,
+      },
+      {
+        title: 'Currency',
+        field: 'grand_total.currency',
+        aggName: 'currency',
+      },
+    ],
+    sortBy: {
+      onEmptyQuery: 'order_date',
+      values: [
+        {
+          default_order: 'desc',
+          field: 'order_date',
+          order: 1,
+          title: 'Order date',
+        },
+        {
+          default_order: 'desc',
+          field: 'grand_total_main_currency.value',
+          order: 2,
+          title: 'Grand total',
+        },
+        {
+          default_order: 'desc',
+          field: 'delivery_date',
+          order: 3,
+          title: 'Delivery date',
+        },
+        {
+          default_order: 'desc',
+          field: 'expected_delivery_date',
+          order: 4,
+          title: 'Expected delivery date',
+        },
+        {
+          default_order: 'asc',
+          field: 'bestmatch',
+          order: 5,
+          title: 'Best match',
+        },
+      ],
+    },
+    sortOrder: ['desc', 'asc'],
+  },
+  vendors: {
+    filters: [],
+    sortBy: {
+      onEmptyQuery: 'name',
+      values: [
+        {
+          default_order: 'asc',
+          field: 'name',
+          order: 1,
+          title: 'Name',
+        },
+        {
+          default_order: 'asc',
+          field: 'bestmatch',
+          order: 2,
+          title: 'Best match',
+        },
+      ],
+    },
+    sortOrder: ['asc', 'desc'],
+  },
 };
 
 export const getSearchConfig = (modelName, extraOptions = {}) => {

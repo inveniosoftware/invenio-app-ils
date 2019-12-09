@@ -11,4 +11,4 @@ export { patron } from './patrons/patron';
 export { series } from './series/series';
 export { stats, circulationStats } from './stats';
 export { vocabulary } from './vocabularies/vocabulary';
-export { vendor } from './acquisition';
+export { order, vendor } from './acquisition';

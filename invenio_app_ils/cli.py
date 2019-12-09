@@ -670,14 +670,15 @@ class OrderGenerator(Generator):
 
     def random_order_lines(self):
         """Generate random order lines."""
-        count = randint(1, 5)
         doc_pids = self.holder.pids("documents", "pid")
-        for _ in range(randint(1, count + 1)):
+        count = randint(1, 6)
+        doc_pids = random.sample(doc_pids, count)
+        for i in range(count):
             ordered = randint(1, 5)
             yield dict(
                 copies_ordered=ordered,
                 copies_received=randint(1, ordered),
-                document_pid=random.choice(doc_pids),
+                document_pid=doc_pids[i],
                 is_donation=random.choice([True, False]),
                 is_patron_suggestion=random.choice([True, False]),
                 medium="PAPER",

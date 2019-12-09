@@ -27,6 +27,9 @@ export const invenioConfig = {
   eitems: {
     maxFiles: 5,
   },
+  i18n: {
+    priceLocale: 'en-GB',
+  },
   items: {
     canCirculateStates: ['CAN_CIRCULATE'],
     circulationRestrictions: [
@@ -51,15 +54,24 @@ export const invenioConfig = {
       { value: 'IN_BINDING', text: 'In binding' },
       { value: 'SCANNING', text: 'Scanning' },
     ],
-    circulationStates:[
-      {value: 'ITEM_ON_LOAN', text: 'On loan'},
-      {value: 'NOT_ON_LOAN', text: 'Not loaned'},
-    ]
+    circulationStates: [
+      { value: 'ITEM_ON_LOAN', text: 'On loan' },
+      { value: 'NOT_ON_LOAN', text: 'Not loaned' },
+    ],
   },
   loans: {
     maxExtensionsCount: 3,
   },
   max_results_window: 10000,
+  orders: {
+    maxShowOrderLines: 3,
+    statuses: [
+      { value: 'CANCELLED', text: 'Cancelled' },
+      { value: 'RECEIVED', text: 'Received' },
+      { value: 'ORDERED', text: 'Ordered' },
+      { value: 'PENDING', text: 'Pending' },
+    ],
+  },
   relationTypes: [
     {
       id: 3,
