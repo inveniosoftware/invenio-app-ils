@@ -31,3 +31,8 @@ def get_pid_or_default(default_value):
                 return default_value
         return _inner
     return decorator
+
+
+def pick(obj, *keys):
+    """Pick and return only the specified keys."""
+    return {k: obj[k] for k in obj.keys() if k in keys}

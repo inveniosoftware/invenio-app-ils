@@ -20,6 +20,7 @@ def vendor_pid_fetcher(record_uuid, data):
         pid_value=str(data["pid"])
     )
 
+
 def order_pid_fetcher(record_uuid, data):
     """Return Order PID fetcher."""
     return FetchedPID(

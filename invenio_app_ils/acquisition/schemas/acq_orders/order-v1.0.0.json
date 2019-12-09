@@ -5,11 +5,10 @@
   "title": "Schema for Acquisition order",
   "required": [
     "$schema",
-    "delivery_date",
-    "expected_delivery_date",
     "grand_total",
     "grand_total_main_currency",
     "order_date",
+    "expected_delivery_date",
     "order_lines",
     "payment",
     "pid",

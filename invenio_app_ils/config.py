@@ -21,7 +21,6 @@ from datetime import timedelta
 from flask import request
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_circulation.api import Loan
-from invenio_indexer.api import RecordIndexer
 from invenio_pidrelations.config import RelationType
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import deny_all
@@ -40,21 +39,10 @@ from invenio_app_ils.patrons.indexer import PatronIndexer
 from invenio_app_ils.series.indexer import SeriesIndexer
 from invenio_app_ils.vocabularies.indexer import VocabularyIndexer
 
-from .acquisition.api import Order, Vendor
-from .acquisition.search.api import OrderSearch, VendorSearch
 from .circulation.search import IlsLoansSearch
 from .facets import keyed_range_filter
 from .records.resolver.loan import document_resolver, item_resolver, \
     loan_patron_resolver
-
-from .acquisition.pidstore.pids import (  # isort:skip
-    ORDER_PID_FETCHER,
-    ORDER_PID_MINTER,
-    ORDER_PID_TYPE,
-    VENDOR_PID_FETCHER,
-    VENDOR_PID_MINTER,
-    VENDOR_PID_TYPE
-)
 
 from .api import (  # isort:skip
     can_item_circulate,
@@ -333,12 +321,6 @@ _DREQID_CONVERTER = (
 )
 _SERID_CONVERTER = (
     'pid(serid, record_class="invenio_app_ils.records.api:Series")'
-)
-_VENDOR_CONVERTER = (
-    'pid(acqvid, record_class="invenio_app_ils.acquisition.api:Vendor")'
-)
-_ORDER_CONVERTER = (
-    'pid(acqoid, record_class="invenio_app_ils.acquisition.api:Order")'
 )
 
 # RECORDS REST
@@ -686,58 +668,6 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all,
     ),
-    acqvid=dict(
-        pid_type=VENDOR_PID_TYPE,
-        pid_minter=VENDOR_PID_MINTER,
-        pid_fetcher=VENDOR_PID_FETCHER,
-        search_class=VendorSearch,
-        indexer_class=RecordIndexer,
-        record_class=Vendor,
-        record_serializers={
-            'application/json': ('invenio_records_rest.serializers'
-                                 ':json_v1_response'),
-        },
-        search_serializers={
-            'application/json': ('invenio_records_rest.serializers'
-                                 ':json_v1_search'),
-        },
-        list_route='/acquisition/vendors/',
-        item_route='/acquisition/vendors/<{0}:pid_value>'.format(
-            _VENDOR_CONVERTER),
-        default_media_type='application/json',
-        max_result_window=10000,
-        error_handlers=dict(),
-        read_permission_factory_imp=record_read_permission_factory,
-        create_permission_factory_imp=backoffice_permission,
-        update_permission_factory_imp=backoffice_permission,
-        delete_permission_factory_imp=backoffice_permission,
-    ),
-    acqoid=dict(
-        pid_type=ORDER_PID_TYPE,
-        pid_minter=ORDER_PID_MINTER,
-        pid_fetcher=ORDER_PID_FETCHER,
-        search_class=OrderSearch,
-        record_class=Order,
-        indexer_class=RecordIndexer,
-        record_serializers={
-            'application/json': ('invenio_records_rest.serializers'
-                                 ':json_v1_response'),
-        },
-        search_serializers={
-            'application/json': ('invenio_records_rest.serializers'
-                                 ':json_v1_search'),
-        },
-        list_route='/acquisition/orders/',
-        item_route='/acquisition/orders/<{0}:pid_value>'.format(
-            _VENDOR_CONVERTER),
-        default_media_type='application/json',
-        max_result_window=10000,
-        error_handlers=dict(),
-        read_permission_factory_imp=record_read_permission_factory,
-        create_permission_factory_imp=backoffice_permission,
-        update_permission_factory_imp=backoffice_permission,
-        delete_permission_factory_imp=backoffice_permission,
-    ),
 )
 
 # CIRCULATION
@@ -1009,6 +939,58 @@ RECORDS_REST_SORT_OPTIONS = dict(
             order=2,
         ),
     ),
+    acq_orders=dict(  # OrderSearch.Meta.index
+        order_date=dict(
+            fields=["order_date"],
+            title="Order date",
+            default_order="desc",
+            order=1,
+        ),
+        grand_total=dict(
+            fields=["grand_total_main_currency.value"],
+            title="Grand total",
+            default_order="desc",
+            order=2,
+        ),
+        delivery_date=dict(
+            fields=["delivery_date"],
+            title="Delivery date",
+            default_order="desc",
+            order=3,
+        ),
+        expected_delivery_date=dict(
+            fields=["expected_delivery_date"],
+            title="Expected delivery date",
+            default_order="desc",
+            order=4,
+        ),
+        # order_line_count=dict(
+        #     fields=[""],
+        #     title="Number of order lines",
+        #     default_order="desc",
+        #     order=5,
+        # ),
+        bestmatch=dict(
+            fields=["-_score"],
+            title="Best match",
+            default_order="asc",
+            order=2,
+        ),
+    ),
+    acq_vendors=dict(  # VendorSearch.Meta.index
+        name=dict(
+            fields=["name"],
+            title="Name",
+            default_order="asc",
+            order=1,
+        ),
+        bestmatch=dict(
+            fields=["-_score"],
+            title="Best match",
+            default_order="asc",
+            order=6,
+        ),
+    ),
 )
 
 # RECORDS REST facets
@@ -1018,6 +1000,7 @@ RECORDS_REST_DEFAULT_RESULTS_SIZE = 15
 
 #: Number of tags to display in the DocumentsSearch facet
 FACET_TAG_LIMIT = 5
+FACET_VENDOR_LIMIT = 5
 
 RECORDS_REST_FACETS = dict(
     documents=dict(  # DocumentSearch.Meta.index
@@ -1079,6 +1062,27 @@ RECORDS_REST_FACETS = dict(
     loans=dict(  # IlsLoansSearch.Meta.index
         aggs=dict(state=dict(terms=dict(field="state"))),
         post_filters=dict(state=terms_filter("state")),
+    ),
+    acq_orders=dict(  # OrderSearch.Meta.index
+        aggs=dict(
+            status=dict(terms=dict(field="status")),
+            vendor=dict(
+                terms=dict(
+                    field="vendor.name.keyword",
+                    size=FACET_VENDOR_LIMIT
+                )
+            ),
+            payment_mode=dict(terms=dict(field="order_lines.payment_mode")),
+            medium=dict(terms=dict(field="order_lines.medium")),
+            currency=dict(terms=dict(field="grand_total.currency")),
+        ),
+        post_filters=dict(
+            status=terms_filter("status"),
+            vendor=terms_filter("vendor.name.keyword"),
+            payment_mode=terms_filter("order_lines.payment_mode"),
+            medium=terms_filter("order_lines.medium"),
+            currency=terms_filter("grand_total.currency"),
+        ),
     ),
     series=dict(  # SeriesSearch.Meta.index
         aggs=dict(moi=dict(terms=dict(field="mode_of_issuance"))),
