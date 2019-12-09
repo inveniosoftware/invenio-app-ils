@@ -18,3 +18,4 @@ export {
 export { PatronDetails, PatronSearch } from './Patron';
 export { SeriesEditor, SeriesDetails, SeriesSearch } from './Series';
 export { Stats } from './Stats';
+export { VendorEditor } from './Acquisition';

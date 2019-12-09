@@ -110,3 +110,28 @@ export const BackOfficeRoutes = {
   ...BackOfficeRoutesList,
   ...BackOfficeRouteGenerators,
 };
+
+const AcquisitionBase = `${BackOfficeBase}/acquisition`;
+
+const AcquisitionRoutesList = {
+  vendorCreate: `${AcquisitionBase}/vendors/create`,
+  vendorDetails: `${AcquisitionBase}/vendors/:vendorPid`,
+  vendorEdit: `${AcquisitionBase}/vendors/:vendorPid/edit`,
+  vendorList: `${AcquisitionBase}/vendors`,
+};
+
+const AcquisitionRouteGenerators = {
+  vendorDetailsFor: vendorPid =>
+    generatePath(AcquisitionRoutesList.vendorDetails, {
+      vendorPid: vendorPid,
+    }),
+  vendorEditFor: vendorPid =>
+    generatePath(AcquisitionRoutesList.vendorEdit, {
+      vendorPid: vendorPid,
+    }),
+};
+
+export const AcquisitionRoutes = {
+  ...AcquisitionRoutesList,
+  ...AcquisitionRouteGenerators,
+};

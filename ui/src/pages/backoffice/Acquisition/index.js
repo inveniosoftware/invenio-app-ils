@@ -1,0 +1,1 @@
+export { VendorEditor } from './Vendor';

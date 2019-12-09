@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { BackOfficeRoutes } from '../../urls';
+import { BackOfficeRoutes, AcquisitionRoutes } from '../../urls';
 import {
   Home,
   DocumentEditor,
@@ -25,6 +25,7 @@ import {
   SeriesDetails,
   SeriesSearch,
   Stats,
+  VendorEditor,
 } from '@pages/backoffice';
 
 export default class extends Component {
@@ -163,6 +164,16 @@ export default class extends Component {
           exact
           path={BackOfficeRoutes.documentRequestsList}
           component={DocumentRequestSearch}
+        />
+        <Route
+          exact
+          path={AcquisitionRoutes.vendorCreate}
+          component={VendorEditor}
+        />
+        <Route
+          exact
+          path={AcquisitionRoutes.vendorEdit}
+          component={VendorEditor}
         />
         <Route exact path={BackOfficeRoutes.stats.home} component={Stats} />
       </Switch>
