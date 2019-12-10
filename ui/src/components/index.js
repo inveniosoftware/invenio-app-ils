@@ -13,3 +13,4 @@ export { ResultsTable } from './ResultsTable/ResultsTable';
 export { SearchBar } from './SearchBar';
 export { SearchControls } from './SearchControls';
 export { YearPicker } from './YearPicker';
+export { RequestActions } from './RequestActions';

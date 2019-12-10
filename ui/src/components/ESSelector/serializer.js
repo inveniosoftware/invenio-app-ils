@@ -94,3 +94,11 @@ export const serializeAccessList = patron => ({
   key: patron.metadata.email,
   title: patron.metadata.email,
 });
+
+export const serializeLibrary = library => {
+  return {
+    id: library.metadata.pid,
+    key: library.metadata.pid,
+    title: library.metadata.name,
+  };
+};

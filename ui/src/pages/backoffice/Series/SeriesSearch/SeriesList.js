@@ -3,7 +3,7 @@ import { DocumentIcon } from '@pages/backoffice';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Grid, Header, Icon, Item, List, Message } from 'semantic-ui-react';
+import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
 import { BackOfficeRoutes } from '@routes/urls';
 import _isEmpty from 'lodash/isEmpty';
 import { DocumentLanguages, DocumentTags } from '@components/Document';
@@ -78,7 +78,7 @@ class SeriesListEntry extends Component {
                 {!_isEmpty(series.metadata.relations.languages) && (
                   <List.Content>
                     {series.metadata.relations.language.length} languages
-                    <Icon name="languages"/>
+                    <Icon name="languages" />
                   </List.Content>
                 )}
               </List.Item>
@@ -102,11 +102,11 @@ class SeriesListEntry extends Component {
     const { series } = this.props;
     return (
       <Item>
-
         <Item.Content>
-        <Header disabled size={"tiny"} className={'document-type'}>
+          <Header disabled size={'tiny'} className={'document-type'}>
             {series.metadata.mode_of_issuance}
-          </Header><br/>
+          </Header>
+          <br />
           <Item.Header
             as={Link}
             to={BackOfficeRoutes.seriesDetailsFor(series.metadata.pid)}

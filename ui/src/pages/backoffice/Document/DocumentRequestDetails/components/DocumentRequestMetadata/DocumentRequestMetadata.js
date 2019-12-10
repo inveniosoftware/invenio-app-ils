@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import { MetadataTable } from '@pages/backoffice/components/MetadataTable';
 import { BackOfficeRoutes } from '@routes/urls';
-import { RequestActions } from '../RequestActions';
+import { RequestActions } from '@components/RequestActions';
 import { DeleteRecordModal } from '@pages/backoffice/components/DeleteRecordModal';
 
 export default class DocumentRequestMetadata extends Component {
@@ -97,7 +97,14 @@ export default class DocumentRequestMetadata extends Component {
           </Grid.Row>
         </Grid>
         <Divider />
-        <RequestActions />
+        <RequestActions
+          requestPid={request.metadata.pid}
+          requestState={request.metadata.state}
+          renderRequestCancelHeader={pid => `Reject Document Request #${pid}`}
+          renderRequestCancelContent={pid => `You are about to reject document request #${pid}.
+                    Please enter a reason for rejecting this request.`}
+          rejectRequest={this.props.rejectRequest}
+        />
       </Segment>
     );
   }

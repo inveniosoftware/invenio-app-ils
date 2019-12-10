@@ -6,8 +6,7 @@
     "$schema",
     "pid",
     "status",
-    "library_pid",
-    "library"
+    "library_pid"
   ],
   "properties": {
     "$schema": {

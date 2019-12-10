@@ -5,15 +5,15 @@ import { CancelModal } from '@components/CancelModal';
 
 export default class RequestActions extends Component {
   onReject = reason => {
-    this.props.reject(this.props.documentRequestDetails.metadata.pid, {
+    this.props.rejectRequest(this.props.requestData.metadata.requestPid, {
       reason,
     });
   };
 
   getAvailableActions() {
-    const { pid, state } = this.props.documentRequestDetails.metadata;
+    const { requestPid, requestState } = this.props;
 
-    if (state === 'PENDING') {
+    if (requestState === 'PENDING') {
       return [
         {
           name: 'Accept',
@@ -27,9 +27,8 @@ export default class RequestActions extends Component {
           name: 'Reject',
           value: (
             <CancelModal
-              header={`Reject Document Request #${pid}`}
-              content={`You are about to reject document request #${pid}.
-                Please enter a reason for rejecting this request.`}
+              header={this.props.renderRequestCancelHeader(requestPid)}
+              content={this.props.renderRequestCancelContent(requestPid)}
               buttonText="Reject"
               cancelText="Reject Request"
               action={this.onReject}
@@ -59,5 +58,9 @@ export default class RequestActions extends Component {
 }
 
 RequestActions.propTypes = {
-  documentRequestDetails: PropTypes.object.isRequired,
+  requestPid: PropTypes.string.isRequired,
+  requestState: PropTypes.string.isRequired,
+  renderRequestCancelHeader: PropTypes.func.isRequired,
+  renderRequestCancelContent: PropTypes.func.isRequired,
+  rejectRequest: PropTypes.func.isRequired,
 };

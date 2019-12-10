@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  Grid,
-  Segment,
-  Icon,
-  Header,
-  Button,
-  Container,
-} from 'semantic-ui-react';
+import { Grid, Header, Container } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
@@ -18,7 +10,7 @@ import {
 } from 'react-searchkit';
 import { getSearchConfig } from '@config';
 import { Error as IlsError, SearchBar as LoansSearchBar } from '@components';
-import { NewButton, OverdueLoanSendMailModal } from '../../components';
+import { NewButton } from '../../components';
 import { loan as loanApi } from '@api/loans/loan';
 import { BackOfficeRoutes } from '@routes/urls';
 import history from '@history';
@@ -47,8 +39,8 @@ export class LoanSearch extends Component {
       {
         name: 'title',
         field: 'document.title',
-        defaultValue: '"Little Prince"'
-      }
+        defaultValue: '"Little Prince"',
+      },
     ];
 
     return (
@@ -79,31 +71,31 @@ export class LoanSearch extends Component {
   render() {
     return (
       <>
-      <Header as="h2">Loans and requests</Header>
+        <Header as="h2">Loans and requests</Header>
 
-      <ReactSearchKit searchApi={this.searchApi} history={history}>
-        <Container fluid className="spaced">
-          <SearchBar renderElement={this.renderSearchBar} />
-        </Container>
-        <Grid>
-          <Grid.Row columns={2}>
-            <ResultsLoader>
-              <Grid.Column width={3} className={'search-aggregations'}>
-                <Header content={'Filter by'} />
-                <SearchAggregationsCards modelName={'loans'} />
-              </Grid.Column>
-              <Grid.Column width={13}>
-                <SearchEmptyResults extras={this.renderEmptyResultsExtra} />
-                <Error renderElement={this.renderError} />
-                <SearchControls modelName={'loans'} />
-                <ResultsList renderElement={this.renderLoanList} />
-                <SearchFooter />
-              </Grid.Column>
-            </ResultsLoader>
-          </Grid.Row>
-        </Grid>
-      </ReactSearchKit>
-        </>
+        <ReactSearchKit searchApi={this.searchApi} history={history}>
+          <Container fluid className="spaced">
+            <SearchBar renderElement={this.renderSearchBar} />
+          </Container>
+          <Grid>
+            <Grid.Row columns={2}>
+              <ResultsLoader>
+                <Grid.Column width={3} className={'search-aggregations'}>
+                  <Header content={'Filter by'} />
+                  <SearchAggregationsCards modelName={'loans'} />
+                </Grid.Column>
+                <Grid.Column width={13}>
+                  <SearchEmptyResults extras={this.renderEmptyResultsExtra} />
+                  <Error renderElement={this.renderError} />
+                  <SearchControls modelName={'loans'} />
+                  <ResultsList renderElement={this.renderLoanList} />
+                  <SearchFooter />
+                </Grid.Column>
+              </ResultsLoader>
+            </Grid.Row>
+          </Grid>
+        </ReactSearchKit>
+      </>
     );
   }
 }

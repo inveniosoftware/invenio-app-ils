@@ -6,6 +6,7 @@ import {
   AcquisitionRoutes,
   BackOfficeRoutes,
   FrontSiteRoutes,
+  ILLRoutes,
 } from '@routes/urls';
 import has from 'lodash/has';
 
@@ -15,12 +16,14 @@ class Sidebar extends Component {
     const activePath = has(this.props, 'location.pathname')
       ? this.removeTrailingSlashes(this.props.location.pathname)
       : '';
-
     const overviewActive = activePath === BackOfficeRoutes.home;
+    const borrowingRequestsActive =
+      activePath === ILLRoutes.borrowingRequestList;
     const itemsActive = activePath === BackOfficeRoutes.itemsList;
     const eitemsActive = activePath === BackOfficeRoutes.eitemsList;
     const loansActive = activePath === BackOfficeRoutes.loansList;
     const locationsActive = activePath === BackOfficeRoutes.locationsList;
+    const librariesActive = activePath === ILLRoutes.libraryList;
     const documentsActive = activePath === BackOfficeRoutes.documentsList;
     const documentRequestsActive =
       activePath === BackOfficeRoutes.documentRequestsList;
@@ -70,6 +73,26 @@ class Sidebar extends Component {
                 to={BackOfficeRoutes.locationsList}
               >
                 Locations
+              </Menu.Item>
+            </Menu.Menu>
+          </Menu.Item>
+
+          <Menu.Item>
+            <Menu.Header>ILL</Menu.Header>
+            <Menu.Menu>
+              <Menu.Item
+                as={Link}
+                active={librariesActive}
+                to={ILLRoutes.libraryList}
+              >
+                Libraries
+              </Menu.Item>
+              <Menu.Item
+                as={Link}
+                active={borrowingRequestsActive}
+                to={ILLRoutes.borrowingRequestList}
+              >
+                New Borrowing Requests
               </Menu.Item>
             </Menu.Menu>
           </Menu.Item>

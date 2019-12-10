@@ -9,7 +9,6 @@ import { getCover } from '../../config';
 import { Link } from 'react-router-dom';
 import { FrontSiteRoutes } from '@routes/urls';
 import isEmpty from 'lodash/isEmpty';
-import { DateTime } from 'luxon';
 import { ILSItemPlaceholder } from '@components/ILSPlaceholder/ILSPlaceholder';
 import { DocumentAuthors } from '@components/Document';
 import { NoResultsMessage } from '../../components/NoResultsMessage';
@@ -17,7 +16,6 @@ import { NoResultsMessage } from '../../components/NoResultsMessage';
 class LoanListEntry extends Component {
   render() {
     const { loan } = this.props;
-    const now = DateTime.local();
     const isLoanOverdue = loan.metadata.is_overdue;
     return (
       <Item
