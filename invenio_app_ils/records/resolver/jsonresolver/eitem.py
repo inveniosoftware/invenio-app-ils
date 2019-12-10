@@ -10,9 +10,11 @@
 import jsonresolver
 from werkzeug.routing import Rule
 
+from invenio_app_ils.jsonresolver.api import \
+    get_field_value_for_record as get_field_value
+from invenio_app_ils.jsonresolver.api import get_pid_or_default
+
 from ...api import Document, EItem
-from ..resolver import get_field_value_for_record as get_field_value
-from ..resolver import get_pid_or_default
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered

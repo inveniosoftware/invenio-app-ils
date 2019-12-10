@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Schema for the ILL borrowing request",
+  "required": [
+    "$schema",
+    "pid",
+    "status",
+    "library_pid",
+    "library"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Interlibrary borrowing request schema",
+      "type": "string"
+    },
+    "pid": {
+      "title": "The persistent identifier of ILL borrowing request",
+      "type": "string"
+    },
+    "status": {
+      "title": "Status of the ILL borrowing request",
+      "type": "string"
+    },
+    "cancel_reason": {
+      "title": "Reason for cancelling the ILL borrowing request",
+      "type": "string"
+    },
+    "library_pid": {
+      "title": "The persistent identifier of the lending library",
+      "type": "string"
+    },
+    "library": {
+      "title": "The link, as a resolver, to the lending library",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
+    },
+    "notes": {
+      "description": "The notes of the ILL borrowing request",
+      "type": "string"
+    }
+  }
+}

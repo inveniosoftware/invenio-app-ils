@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Schema for ILL library",
+  "type": "object",
+  "required": ["$schema", "pid", "name"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "pid": {
+      "type": "string",
+      "title": "The persistent identifier of the external library"
+    },
+    "name": {
+      "description": "The name of the external library",
+      "type": "string"
+    },
+    "notes": {
+      "description": "The notes for the external library",
+      "type": "string"
+    }
+  }
+}

@@ -59,21 +59,14 @@ def backoffice_permission(*args, **kwargs):
 
 def file_download_permission(obj):
     """File download permissions."""
-    search = current_app_ils.eitem_search
     bucket_id = str(obj.bucket_id)
-    results = search.search_by_bucket_id(bucket_id).execute()
+    search_cls = current_app_ils.eitem_search_cls
+    results = search_cls().search_by_bucket_id(bucket_id)
     if len(results) != 1:
-        # There should always be one bucket associated with an eitem when
-        # downloading a file.
-        msg = "files: found 0 or multiple records with bucket {0}".format(
-            bucket_id
-        )
-        current_app.logger.warning(msg)
         return deny_all()
 
-    from invenio_app_ils.records.api import EItem
-
-    record = EItem.get_record_by_pid(results[0].pid)
+    eitem_cls = current_app_ils.eitem_record_cls
+    record = eitem_cls.get_record_by_pid(results[0].pid)
     if record.get("open_access", False):
         return allow_all()
     return authenticated_user_permission()

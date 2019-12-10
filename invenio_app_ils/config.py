@@ -20,6 +20,7 @@ from datetime import timedelta
 
 from flask import request
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
+from invenio_circulation.api import Loan
 from invenio_indexer.api import RecordIndexer
 from invenio_pidrelations.config import RelationType
 from invenio_records_rest.facets import terms_filter
@@ -27,6 +28,17 @@ from invenio_records_rest.utils import deny_all
 from invenio_stats.aggregations import StatAggregator
 from invenio_stats.processors import EventsIndexer
 from invenio_stats.queries import ESTermsQuery
+
+from invenio_app_ils.circulation.indexer import LoanIndexer
+from invenio_app_ils.document_requests.indexer import DocumentRequestIndexer
+from invenio_app_ils.documents.indexer import DocumentIndexer
+from invenio_app_ils.eitems.indexer import EItemIndexer
+from invenio_app_ils.internal_locations.indexer import InternalLocationIndexer
+from invenio_app_ils.items.indexer import ItemIndexer
+from invenio_app_ils.locations.indexer import LocationIndexer
+from invenio_app_ils.patrons.indexer import PatronIndexer
+from invenio_app_ils.series.indexer import SeriesIndexer
+from invenio_app_ils.vocabularies.indexer import VocabularyIndexer
 
 from .acquisition.api import Order, Vendor
 from .acquisition.search.api import OrderSearch, VendorSearch
@@ -78,17 +90,6 @@ from .circulation.utils import (  # isort:skip
     circulation_build_patron_ref,
     circulation_can_be_requested,
     circulation_build_document_ref)
-from .indexer import (  # isort:skip
-    DocumentIndexer,
-    DocumentRequestIndexer,
-    EItemIndexer,
-    InternalLocationIndexer,
-    ItemIndexer,
-    LoanIndexer,
-    LocationIndexer,
-    SeriesIndexer,
-    VocabularyIndexer,
-)
 from .permissions import (  # isort:skip
     authenticated_user_permission,
     backoffice_permission,
@@ -582,6 +583,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher=PATRON_PID_FETCHER,
         search_class=PatronsSearch,
         record_class=Patron,
+        indexer_class=PatronIndexer,
         record_serializers={
             "application/json": (
                 "invenio_records_rest.serializers" ":json_v1_response"
@@ -860,7 +862,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         search_class=IlsLoansSearch,
         search_factory_imp="invenio_app_ils.search.api"
                            ":filter_by_patron_search_factory",
-        record_class="invenio_circulation.api:Loan",
+        record_class=Loan,
         indexer_class=LoanIndexer,
         record_loaders={
             "application/json": (

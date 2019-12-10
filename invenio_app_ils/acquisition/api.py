@@ -12,9 +12,21 @@ from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.api import Record
 from werkzeug.utils import cached_property
 
+from .pidstore.pids import ORDER_PID_TYPE, VENDOR_PID_TYPE
+
 
 class AcquisitionRecord(Record):
     """Acquisition base record."""
+
+    _pid_type = None
+    _schema = None
+
+    @cached_property
+    def pid(self):
+        """Get the PersistentIdentifier for this record."""
+        return PersistentIdentifier.get(
+            pid_type=self._pid_type, pid_value=self["pid"]
+        )
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):
@@ -26,19 +38,14 @@ class AcquisitionRecord(Record):
 class Vendor(AcquisitionRecord):
     """Acquisition vendor class."""
 
+    _pid_type = VENDOR_PID_TYPE
     _schema = "acq-vendors/vendor-v1.0.0.json"
-
-    @cached_property
-    def pid(self):
-        """Get the PersistentIdentifier for this record."""
-        return PersistentIdentifier.get(
-            pid_type=self._pid_type, pid_value=self["pid"]
-        )
 
 
 class Order(AcquisitionRecord):
     """Acquisition order class."""
 
+    _pid_type = ORDER_PID_TYPE
     _schema = "acq-orders/order-v1.0.0.json"
 
     STATUSES = [
@@ -48,10 +55,3 @@ class Order(AcquisitionRecord):
         "RECEIVED",
         "CANCELLED"
     ]
-
-    @cached_property
-    def pid(self):
-        """Get the PersistentIdentifier for this record."""
-        return PersistentIdentifier.get(
-            pid_type=self._pid_type, pid_value=self["pid"]
-        )

@@ -10,9 +10,9 @@
 import jsonresolver
 from werkzeug.routing import Rule
 
-from invenio_app_ils.records.api import DocumentRequest
-from invenio_app_ils.records.resolver.resolver import \
+from invenio_app_ils.jsonresolver.api import \
     get_field_value_for_record as get_field_value
+from invenio_app_ils.records.api import DocumentRequest
 from invenio_app_ils.records.resolver.resolver import get_patron
 
 # Note: there must be only one resolver per file,

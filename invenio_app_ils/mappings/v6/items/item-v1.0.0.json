@@ -18,6 +18,9 @@
         },
         "internal_location": {
           "properties": {
+            "location_pid": {
+              "type": "keyword"
+            },
             "location": {
               "properties": {
                 "address": {
