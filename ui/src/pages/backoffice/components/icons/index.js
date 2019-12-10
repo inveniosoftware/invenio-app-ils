@@ -1,7 +1,10 @@
 export {
   DocumentIcon,
+  DocumentRequestIcon,
+  EItemIcon,
   ItemIcon,
   LoanIcon,
-  EItemIcon,
-  DocumentRequestIcon,
+  OrderIcon,
+  PatronIcon,
+  VendorIcon,
 } from './Icons';

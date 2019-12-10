@@ -15,6 +15,8 @@ from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_circulation.search.api import search_by_pid as search_loans_by_pid
 from invenio_indexer.api import RecordIndexer
 
+from invenio_app_ils.acquisition.pidstore.pids import ORDER_PID_TYPE
+from invenio_app_ils.acquisition.proxies import current_ils_acq
 from invenio_app_ils.indexer import ReferencedRecordsIndexer
 from invenio_app_ils.pidstore.pids import DOCUMENT_PID_TYPE, \
     DOCUMENT_REQUEST_PID_TYPE, EITEM_PID_TYPE, ITEM_PID_TYPE
@@ -96,6 +98,20 @@ def get_loans(document_pid):
     return referenced
 
 
+def get_acquisition_orders(document_pid):
+    """Get referenced acquisition orders."""
+    referenced = []
+    order_record_cls = current_ils_acq.order_record_cls
+    order_search_cls = current_ils_acq.order_search_cls
+    search = order_search_cls().search_by_document_pid(document_pid)
+    for hit in search.scan():
+        order = order_record_cls.get_record_by_pid(hit["pid"])
+        referenced.append(
+            dict(pid_type=ORDER_PID_TYPE, record=order)
+        )
+    return referenced
+
+
 @shared_task(ignore_result=True)
 def index_referenced_records(document):
     """Index referenced records."""
@@ -113,6 +129,7 @@ def index_referenced_records(document):
     indexer.index(indexed, get_document_requests(document_pid))
     indexer.index(indexed, get_eitems(document_pid))
     indexer.index(indexed, get_related_records(document_pid))
+    indexer.index(indexed, get_acquisition_orders(document_pid))
 
 
 class DocumentIndexer(RecordIndexer):

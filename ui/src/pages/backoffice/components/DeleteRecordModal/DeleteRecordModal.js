@@ -118,9 +118,10 @@ export default class DeleteRecordModal extends Component {
 
   render() {
     const { isLoading, error } = this.props;
+    const TriggerButton = this.props.trigger || DeleteButton;
     return (
       <Modal
-        trigger={<DeleteButton onClick={this.toggleModal} />}
+        trigger={<TriggerButton onClick={this.toggleModal} />}
         open={this.state.isModalOpen}
         onOpen={() => this.handleOpen()}
         onClose={this.toggleModal}
@@ -144,6 +145,7 @@ DeleteRecordModal.propTypes = {
       getRefData: PropTypes.func.isRequired,
     })
   ),
+  trigger: PropTypes.func,
 };
 
 DeleteRecordModal.defaultProps = {

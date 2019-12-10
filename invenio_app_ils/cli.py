@@ -796,7 +796,7 @@ class OrderGenerator(Generator):
             if obj["status"] == "CANCELLED":
                 obj["cancel_reason"] = lorem.sentence()
             elif obj["status"] == "RECEIVED":
-                obj["received_date"] = self.random_date(order_date, datetime.now()).isoformat()
+                obj["received_date"] = self.random_date(order_date, now).isoformat()
             objs.append(obj)
 
         self.holder.orders["objs"] = objs

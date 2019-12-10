@@ -1,31 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Message, Item, Icon, Grid, Popup } from 'semantic-ui-react';
 import { BackOfficeRoutes } from '@routes/urls';
 import { formatPrice } from '@api/utils';
+import { DocumentIcon } from '@pages/backoffice/components';
+import { PatronIcon } from '@pages/backoffice/components/icons';
 
 const OrderLineLeftColumn = ({ line }) => {
   return (
     <>
-      {line.recipient === 'PATRON' && (
+      {line.patron && (
         <Item.Description>
           <label>Patron: </label>
           <Link to={BackOfficeRoutes.patronDetailsFor(line.patron_pid)}>
-            <Icon name="user" /> {line.patron_pid}
+            <PatronIcon /> {line.patron.name}
           </Link>
         </Item.Description>
       )}
-      <Item.Description>
-        <label>Document: </label>
-        <Link to={BackOfficeRoutes.documentDetailsFor(line.document_pid)}>
-          {line.document_pid}
-        </Link>
-      </Item.Description>
       <Item.Description>
         <label>Medium: </label> {line.medium}
       </Item.Description>
       <Item.Description>
         <label>Recipient: </label> {line.recipient}
+      </Item.Description>
+      <Item.Description>
+        <label>Purchase type: </label>
+        {line.purchase_type}
       </Item.Description>
     </>
   );
@@ -43,8 +44,8 @@ const OrderLineMiddleColumn = ({ line }) => {
         {line.copies_received}
       </Item.Description>
       <Item.Description>
-        <label>Purchase type: </label>
-        {line.purchase_type}
+        <label>Payment mode: </label>
+        {line.payment_mode}
       </Item.Description>
       <Item.Description>
         <label>IDT ID: </label>
@@ -61,10 +62,6 @@ const OrderLineMiddleColumn = ({ line }) => {
 const OrderLineRightColumn = ({ line }) => {
   return (
     <>
-      <Item.Description>
-        <label>Payment mode: </label>
-        {line.payment_mode}
-      </Item.Description>
       <Item.Description>
         <label>Budget code: </label>
         {line.budget_code}
@@ -85,6 +82,13 @@ const OrderLine = ({ index, line }) => {
   return (
     <Item>
       <Item.Content>
+        <Item.Header
+          as={Link}
+          to={BackOfficeRoutes.documentDetailsFor(line.document.pid)}
+        >
+          <DocumentIcon />
+          {line.document.title}
+        </Item.Header>
         <Grid columns={3}>
           <Grid.Column>
             <OrderLineLeftColumn line={line} />
@@ -119,3 +123,7 @@ export class OrderLines extends React.Component {
     );
   }
 }
+
+OrderLines.proptTypes = {
+  lines: PropTypes.array.isRequired,
+};

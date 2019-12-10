@@ -21,6 +21,7 @@ export { Stats } from './Stats';
 export {
   OrderDetails,
   OrderSearch,
+  VendorDetails,
   VendorEditor,
   VendorSearch,
 } from './Acquisition';

@@ -21,7 +21,8 @@ import {
   EditButton,
 } from '@pages/backoffice/components';
 import { toShortDate } from '@api/date';
-import { AcquisitionRoutes } from '@routes/urls';
+import { AcquisitionRoutes, BackOfficeRoutes } from '@routes/urls';
+import { PatronIcon, OrderIcon } from '@pages/backoffice/components/icons';
 
 export default class OrderDetails extends React.Component {
   constructor(props) {
@@ -112,7 +113,7 @@ export default class OrderDetails extends React.Component {
     );
   }
 
-  renderDetails = () => {
+  renderDetails() {
     const { data } = this.props;
     const panels = [
       {
@@ -143,7 +144,7 @@ export default class OrderDetails extends React.Component {
         content: (
           <Accordion.Content>
             <div ref={this.orderLinesRef}>
-              <OrderLines lines={data.metadata.order_lines} />
+              <OrderLines lines={data.metadata.resolved_order_lines} />
             </div>
           </Accordion.Content>
         ),
@@ -162,7 +163,13 @@ export default class OrderDetails extends React.Component {
       <>
         <label>Order</label> #{pid} <CopyButton text={pid} />
         <br />
-        <label>Ordered by</label> Someone
+        <label>Ordered by </label>
+        <Link
+          to={BackOfficeRoutes.patronDetailsFor(data.metadata.created_by_pid)}
+        >
+          <PatronIcon />
+          patron {data.metadata.created_by_pid}
+        </Link>
         <br />
         <label>On</label> {toShortDate(data.metadata.order_date)}
       </>
@@ -180,7 +187,7 @@ export default class OrderDetails extends React.Component {
             subTitle={<>From {vendorLink}</>}
             details={details}
             pid={data.metadata.pid}
-            icon="shopping cart"
+            icon={<OrderIcon />}
             recordType="Order"
           />
           <Container>
@@ -200,7 +207,7 @@ export default class OrderDetails extends React.Component {
         </div>
       </Ref>
     );
-  };
+  }
 
   render() {
     const { isLoading, error, hasError } = this.props;

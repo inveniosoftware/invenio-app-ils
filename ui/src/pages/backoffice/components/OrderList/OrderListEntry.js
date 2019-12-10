@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Grid, Header, Item, List, Icon } from 'semantic-ui-react';
+import { Grid, Header, Item, List } from 'semantic-ui-react';
 import { AcquisitionRoutes, BackOfficeRoutes } from '@routes/urls';
 import { toShortDateTime } from '@api/date';
 import { formatPrice } from '@api/utils';
 import { invenioConfig } from '@config';
 import { getDisplayVal } from '@config/invenioConfig';
+import { OrderIcon } from '../icons';
 
 export default class OrderListEntry extends Component {
   renderLeftColumn = order => {
@@ -19,7 +20,7 @@ export default class OrderListEntry extends Component {
         </Item.Description>
         <Item.Description>
           <label>status </label>
-          {order.metadata.status}
+          {getDisplayVal('orders.statuses', order.metadata.status)}
         </Item.Description>
         <Item.Description>
           <label>vendor </label>
@@ -39,7 +40,7 @@ export default class OrderListEntry extends Component {
   renderOrderLine = (orderLine, index) => {
     const documentPid = orderLine.document_pid;
     const patronPid = orderLine.patron_pid;
-    const medium = getDisplayVal('items.mediums', orderLine.medium).text;
+    const medium = getDisplayVal('items.mediums', orderLine.medium);
     const documentLink = (
       <Link to={BackOfficeRoutes.documentDetailsFor(documentPid)}>
         <code>{documentPid}</code>
@@ -55,7 +56,8 @@ export default class OrderListEntry extends Component {
         Document {documentLink} - {medium}
         {patronPid && (
           <>
-            {' '} - Patron{' '}
+            {' '}
+            - Patron{' '}
             <Link to={BackOfficeRoutes.patronDetailsFor(patronPid)}>
               <code>{patronPid}</code>
             </Link>
@@ -129,7 +131,7 @@ export default class OrderListEntry extends Component {
             to={AcquisitionRoutes.orderDetailsFor(order.metadata.pid)}
             data-test={`navigate-${order.metadata.pid}`}
           >
-            <Icon name="shopping cart" />
+            <OrderIcon />
             Order: {order.metadata.pid}
           </Item.Header>
           <Grid highlight={3}>

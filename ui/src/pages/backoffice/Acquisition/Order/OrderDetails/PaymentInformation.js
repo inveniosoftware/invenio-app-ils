@@ -7,17 +7,27 @@ export class PaymentInformation extends React.Component {
   render() {
     const order = this.props.order;
     const payment = order.payment;
-    if (!payment) return null;
     const leftTable = [
       {
-        key: `Total (${order.grand_total_main_currency.currency})`,
+        key: (
+          <>
+            Total (local {order.grand_total_main_currency.currency})
+            <Popup
+              content="The total amount in the local currency."
+              trigger={<Icon name="info circle" />}
+            />
+          </>
+        ),
         value: formatPrice(order.grand_total_main_currency),
       },
       {
         key: `Total (${order.grand_total.currency})`,
         value: formatPrice(order.grand_total),
       },
-      { key: 'Debit cost', value: formatPrice(payment.debit_cost) },
+      {
+        key: 'Debit cost',
+        value: formatPrice(payment.debit_cost),
+      },
     ];
     const rightTable = [
       { key: 'Mode', value: payment.mode },

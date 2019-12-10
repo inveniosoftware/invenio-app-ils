@@ -31,6 +31,21 @@ class OrderSearch(RecordsSearch):
         index = "acq_orders"
         doc_types = None
 
+    def search_by_document_pid(self, document_pid=None):
+        """Search by document pid."""
+        search = self
+
+        if document_pid:
+            search = search.filter(
+                "term",
+                order_lines__document_pid=document_pid
+            )
+        else:
+            raise MissingRequiredParameterError(
+                description="document_pid is required"
+            )
+        return search
+
     def search_by_vendor_pid(self, vendor_pid=None):
         """Search by vendor pid."""
         search = self
@@ -41,5 +56,4 @@ class OrderSearch(RecordsSearch):
             raise MissingRequiredParameterError(
                 description="vendor_pid is required"
             )
-
         return search

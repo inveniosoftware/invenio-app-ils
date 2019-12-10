@@ -28,7 +28,7 @@ export const invenioConfig = {
     maxFiles: 5,
   },
   i18n: {
-    priceLocale: 'en-GB',
+    priceLocale: 'fr-CH',
   },
   items: {
     canCirculateStates: ['CAN_CIRCULATE'],

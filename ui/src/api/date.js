@@ -25,7 +25,7 @@ export const toISO = date => {
  *  @re
  */
 export const toShortDateTime = date => {
-  return date.toFormat('yyyy-MM-dd HH:mm');
+  return date ? date.toFormat('yyyy-MM-dd HH:mm') : date;
 };
 
 /**
@@ -34,7 +34,7 @@ export const toShortDateTime = date => {
  *  @re
  */
 export const toShortDate = date => {
-  return date.toFormat('yyyy-MM-dd');
+  return date ? date.toFormat('yyyy-MM-dd') : date;
 };
 
 /**
