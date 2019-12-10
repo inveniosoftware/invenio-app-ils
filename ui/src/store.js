@@ -64,6 +64,7 @@ import {
   patronPastDocumentRequestsReducer,
 } from '@pages/frontsite/PatronProfile/reducer';
 import { orderDetailsReducer } from '@pages/backoffice/Acquisition';
+import { vendorDetailsReducer } from '@pages/backoffice/Acquisition';
 
 const rootReducer = combineReducers({
   availableItems: availableItemsReducer,
@@ -108,6 +109,7 @@ const rootReducer = combineReducers({
   seriesMultipartMonographs: seriesMultipartMonographsReducer,
   seriesRelations: seriesRelationsReducer,
   statsMostLoanedDocuments: mostLoanedDocumentsReducer,
+  vendorDetails: vendorDetailsReducer,
 });
 
 const composeEnhancers = composeWithDevTools({

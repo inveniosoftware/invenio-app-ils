@@ -10,7 +10,7 @@ export class OrderInformation extends React.Component {
     const leftTable = [
       { key: 'Status', value: order.status },
       { key: 'Ordered at', value: toShortDateTime(order.order_date) },
-      { key: 'Delivered on', value: toShortDateTime(order.delivery_date) },
+      { key: 'Delivered on', value: toShortDateTime(order.received_date) },
       {
         key: 'Expected delivery',
         value: toShortDate(order.expected_delivery_date),
@@ -36,3 +36,7 @@ export class OrderInformation extends React.Component {
     );
   }
 }
+
+OrderInformation.proptTypes = {
+  order: PropTypes.object.isRequired,
+};

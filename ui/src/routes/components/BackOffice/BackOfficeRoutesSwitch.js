@@ -33,6 +33,7 @@ import {
   SeriesDetails,
   SeriesSearch,
   Stats,
+  VendorDetails,
   VendorEditor,
   VendorSearch,
 } from '@pages/backoffice';
@@ -189,6 +190,11 @@ export default class extends Component {
           exact
           path={AcquisitionRoutes.vendorsList}
           component={VendorSearch}
+        />
+        <Route
+          exact
+          path={AcquisitionRoutes.vendorDetails}
+          component={VendorDetails}
         />
         {/* orders */}
         <Route

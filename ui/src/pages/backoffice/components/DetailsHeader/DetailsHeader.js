@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Header, Icon, Segment } from 'semantic-ui-react';
+import { Container, Header, Segment } from 'semantic-ui-react';
 
 export class DetailsHeader extends React.Component {
   renderHeader = () => {
@@ -11,7 +11,7 @@ export class DetailsHeader extends React.Component {
           {this.props.details}
         </Segment>
         <Header as="h1">
-          {icon && <Icon name={icon} />}
+          {icon}
           <Header.Content>
             {title}
             <Header.Subheader>{subTitle}</Header.Subheader>
@@ -32,7 +32,7 @@ export class DetailsHeader extends React.Component {
 
 DetailsHeader.propTypes = {
   details: PropTypes.any,
-  icon: PropTypes.string,
+  icon: PropTypes.node,
   pid: PropTypes.string,
   recordType: PropTypes.string,
   subTitle: PropTypes.any,

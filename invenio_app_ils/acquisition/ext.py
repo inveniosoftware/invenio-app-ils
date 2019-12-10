@@ -30,16 +30,19 @@ class _InvenioIlsAcquisitionState(object):
         self.app = app
 
     def record_class_by_pid_type(self, pid_type):
+        """Return a record class by pid type."""
         endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', [])
         return endpoints[pid_type]['record_class']
 
-    def search_by_pid_type(self, pid_type):
+    def search_class_by_pid_type(self, pid_type):
+        """Return a search class by pid type."""
         endpoints = self.app.config.get("RECORDS_REST_ENDPOINTS", [])
         return endpoints[pid_type]["search_class"]
 
     def indexer_by_pid_type(self, pid_type):
+        """Return an indexer instance by pid type."""
         endpoints = self.app.config.get("RECORDS_REST_ENDPOINTS", [])
-        return endpoints[pid_type]["indexer_class"]
+        return endpoints[pid_type]["indexer_class"]()
 
     @cached_property
     def order_record_cls(self):
@@ -52,14 +55,14 @@ class _InvenioIlsAcquisitionState(object):
         return self.record_class_by_pid_type(VENDOR_PID_TYPE)
 
     @cached_property
-    def order_indexer_cls(self):
-        """Return the Order indexer class."""
-        return self.record_class_by_pid_type(ORDER_PID_TYPE)
+    def order_indexer(self):
+        """Return an Order indexer instance."""
+        return self.indexer_by_pid_type(ORDER_PID_TYPE)
 
     @cached_property
-    def vendor_indexer_cls(self):
-        """Return the Vendor indexer class."""
-        return self.indexer_class_by_pid_type(VENDOR_PID_TYPE)
+    def vendor_indexer(self):
+        """Return a Vendor indexer instance."""
+        return self.indexer_by_pid_type(VENDOR_PID_TYPE)
 
     @cached_property
     def order_search_cls(self):

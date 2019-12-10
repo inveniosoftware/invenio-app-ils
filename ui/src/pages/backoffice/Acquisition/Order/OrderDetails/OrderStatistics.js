@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Statistic } from 'semantic-ui-react';
 import { formatPrice } from '@api/utils';
 import { toShortDate } from '@api/date';
@@ -20,7 +21,7 @@ export class OrderStatistics extends React.Component {
       <Statistic color="green">
         <Statistic.Label>Delivered</Statistic.Label>
         <Statistic.Value>
-          {toShortDate(this.props.order.delivery_date)}
+          {toShortDate(this.props.order.received_date)}
         </Statistic.Value>
       </Statistic>
     );
@@ -40,8 +41,8 @@ export class OrderStatistics extends React.Component {
   renderStatusPending() {
     return (
       <Statistic>
+        <Statistic.Label>Status</Statistic.Label>
         <Statistic.Value>Pending</Statistic.Value>
-        <Statistic.Label>???</Statistic.Label>
       </Statistic>
     );
   }
@@ -106,3 +107,7 @@ export class OrderStatistics extends React.Component {
     );
   }
 }
+
+OrderStatistics.proptTypes = {
+  order: PropTypes.object.isRequired,
+};
