@@ -11,3 +11,6 @@ export { OrderList } from './OrderList';
 export { VendorList } from './VendorList';
 export { EditButton, NewButton, SeeAllButton } from './buttons';
 export { DocumentIcon, ItemIcon, LoanIcon } from './icons';
+export { DetailsHeader } from './DetailsHeader';
+export { DetailsMenu } from './DetailsMenu';
+export { KeyValueTable } from './KeyValueTable';

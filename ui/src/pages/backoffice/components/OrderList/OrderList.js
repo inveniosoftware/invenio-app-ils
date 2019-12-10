@@ -8,9 +8,7 @@ export default class OrderList extends Component {
     if (this.props.renderListEntryElement) {
       return this.props.renderListEntryElement(order);
     }
-    return (
-      <OrderListEntry key={order.metadata.pid} order={order} />
-    );
+    return <OrderListEntry key={order.metadata.pid} order={order} />;
   };
 
   render() {
@@ -20,7 +18,7 @@ export default class OrderList extends Component {
       return <Message data-test="no-results">There are no orders.</Message>;
 
     return (
-      <Item.Group divided className={'bo-document-search'}>
+      <Item.Group divided className="bo-document-search">
         {hits.map(hit => {
           return this.renderListEntry(hit);
         })}

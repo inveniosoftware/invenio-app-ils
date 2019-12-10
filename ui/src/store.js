@@ -61,6 +61,7 @@ import {
   patronCurrentDocumentRequestsReducer,
   patronPastDocumentRequestsReducer,
 } from '@pages/frontsite/PatronProfile/reducer';
+import { orderDetailsReducer } from '@pages/backoffice/Acquisition';
 
 const rootReducer = combineReducers({
   availableItems: availableItemsReducer,
@@ -85,6 +86,7 @@ const rootReducer = combineReducers({
   loansCard: loansCardReducer,
   locations: locationListReducer,
   notifications: notificationsReducer,
+  orderDetails: orderDetailsReducer,
   overbookedDocuments: overbookedDocumentsReducer,
   overdueLoans: overdueLoansReducer,
   overdueLoanSendMailModal: overdueLoanSendMailModalReducer,
