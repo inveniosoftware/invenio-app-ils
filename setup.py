@@ -168,8 +168,8 @@ setup(
             "vocabularies = invenio_app_ils.mappings",
             "acq-vendors = invenio_app_ils.acquisition.mappings",
             "acq-orders = invenio_app_ils.acquisition.mappings",
-            "ill-libraries = invenio_app_ils.ill.mappings",
-            "ill-borrowing-requests = invenio_app_ils.ill.mappings",
+            "ill_libraries = invenio_app_ils.ill.mappings",
+            "ill_borrowing_requests = invenio_app_ils.ill.mappings",
         ],
         "invenio_pidstore.fetchers": [
             "docid = invenio_app_ils.pidstore.fetchers:document_pid_fetcher",

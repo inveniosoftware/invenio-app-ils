@@ -6,7 +6,8 @@
     "$schema",
     "pid",
     "status",
-    "library_pid"
+    "library_pid",
+    "library"
   ],
   "properties": {
     "$schema": {
@@ -28,6 +29,15 @@
     "library_pid": {
       "title": "The persistent identifier of the lending library",
       "type": "string"
+    },
+    "library": {
+      "title": "The link, as a resolver, to the lending library",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      }
     },
     "notes": {
       "description": "The notes of the ILL borrowing request",

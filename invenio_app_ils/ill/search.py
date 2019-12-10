@@ -18,7 +18,7 @@ class LibrarySearch(RecordsSearch):
     class Meta:
         """Search only on libraries index."""
 
-        index = "ill-libraries"
+        index = "ill_libraries"
         doc_types = None
 
 
@@ -28,7 +28,7 @@ class BorrowingRequestsSearch(RecordsSearch):
     class Meta:
         """Search only on borrowing requests index."""
 
-        index = "ill-borrowing-requests"
+        index = "ill_borrowing_requests"
         doc_types = None
 
     def search_by_library_pid(self, library_pid=None):

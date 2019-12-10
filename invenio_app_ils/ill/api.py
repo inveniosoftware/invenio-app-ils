@@ -20,7 +20,7 @@ class Library(IlsRecord):
     """ILL library class."""
 
     _pid_type = LIBRARY_PID_TYPE
-    _schema = "ill-libraries/library-v1.0.0.json"
+    _schema = "ill_libraries/library-v1.0.0.json"
 
     def delete(self, **kwargs):
         """Delete record."""
@@ -42,7 +42,7 @@ class BorrowingRequest(IlsRecord):
     """ILL borrowing request class."""
 
     _pid_type = BORROWING_REQUEST_PID_TYPE
-    _schema = "ill-borrowing-requests/borrowing-request-v1.0.0.json"
+    _schema = "ill_borrowing_requests/borrowing_request-v1.0.0.json"
     _library_resolver_path = "{scheme}://{host}/api/resolver/ill/" \
                              "borrowing-requests/{request_pid}/library"
     STATUSES = ["PENDING", "REQUESTED", "ON_LOAN", "RETURNED", "CANCELLED"]
