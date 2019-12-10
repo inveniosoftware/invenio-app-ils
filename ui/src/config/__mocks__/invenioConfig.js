@@ -11,10 +11,6 @@ export const invenioConfig = {
     requestDuration: 60,
   },
   orders: {
-    currencies: [
-      { value: 'EUR', text: 'Euro' },
-      { value: 'CHF', text: 'Swiss Francs' },
-    ],
     paymentModes: [
       { value: 'CREDIT_CARD', text: 'Credit Card' },
       { value: 'CASH', text: 'Cash' },

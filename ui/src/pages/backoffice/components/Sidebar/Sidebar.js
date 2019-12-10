@@ -116,7 +116,7 @@ class Sidebar extends Component {
                 active={ordersActive}
                 to={AcquisitionRoutes.ordersList}
               >
-                Orders
+                Purchase Orders
               </Menu.Item>
               <Menu.Item
                 as={Link}

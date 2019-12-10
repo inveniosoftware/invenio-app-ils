@@ -56,3 +56,5 @@
 
 @fs-parent-selector: .frontsite;
 @bo-parent-selector: .backoffice;
+
+@detailsBorderRadius: 6px;

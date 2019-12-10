@@ -668,7 +668,7 @@ class OrderGenerator(Generator):
             "value": min_value + random.random() * 100,
         }
 
-    def random_order_lines(self):
+    def random_order_lines(self, status):
         """Generate random order lines."""
         doc_pids = self.holder.pids("documents", "pid")
         count = randint(1, 6)
@@ -677,7 +677,7 @@ class OrderGenerator(Generator):
             ordered = randint(1, 5)
             yield dict(
                 copies_ordered=ordered,
-                copies_received=randint(1, ordered),
+                copies_received=randint(1, ordered) if status == 'RECEIVED' else 0,
                 document_pid=doc_pids[i],
                 is_donation=random.choice([True, False]),
                 is_patron_suggestion=random.choice([True, False]),
@@ -695,9 +695,11 @@ class OrderGenerator(Generator):
         """Generate."""
         size = self.holder.orders["total"]
         objs = []
+        now = datetime.now()
         for pid in range(1, size + 1):
-            order_date = self.random_date(datetime(2010, 1, 1), datetime.now())
-            order_lines = list(self.random_order_lines())
+            order_date = self.random_date(datetime(2010, 1, 1), now)
+            status = random.choice(Order.STATUSES)
+            order_lines = list(self.random_order_lines(status))
             grand_total = self.random_price(min_value=50.0)
             grand_total_main_currency = {
                 "currency": "CHF",
@@ -709,6 +711,7 @@ class OrderGenerator(Generator):
                 "status": random.choice(Order.STATUSES),
                 "order_date": order_date.isoformat(),
                 "notes": lorem.sentence(),
+                "status": status,
                 "grand_total": grand_total,
                 "grand_total_main_currency": grand_total_main_currency,
                 "funds": list(set(lorem.sentence().split())),
@@ -717,11 +720,11 @@ class OrderGenerator(Generator):
                 },
                 "order_lines": order_lines,
             }
-            obj["expected_delivery_date"] = self.random_date(order_date, datetime.now()).isoformat()
+            obj["expected_delivery_date"] = self.random_date(now, now + timedelta(days=400)).isoformat()
             if obj["status"] == "CANCELLED":
                 obj["cancel_reason"] = lorem.sentence()
             elif obj["status"] == "RECEIVED":
-                obj["delivery_date"] = self.random_date(order_date, datetime.now()).isoformat()
+                obj["delivery_date"] = self.random_date(order_date, now).isoformat()
             objs.append(obj)
 
         self.holder.orders["objs"] = objs

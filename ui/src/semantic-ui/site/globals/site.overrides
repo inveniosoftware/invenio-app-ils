@@ -152,4 +152,76 @@ form {
 
   .generate-margins(20, right, r);
   .generate-margins(20, left, l);
+
+  .bo-details {
+    margin-top: -2em;
+
+    .ui.divider {
+      margin-top: 2em;
+    }
+
+    .ui.details-header {
+      .right.floated.segment {
+        color: #9e9e9e;
+        padding-top: 0;
+      }
+
+      .button.copy {
+        margin-right: 0;
+        padding-right: 0;
+      }
+    }
+
+    .bo-details-content {
+      position: relative;
+
+      .ui.accordion.styled {
+        box-shadow: none;
+
+        .title {
+          border-top: none;
+          background-color: #e8e8e8;
+          border: 1px solid #ddd;
+          color: rgba(0, 0, 0, 0.6);
+          margin-top: 1em;
+          border-radius: @detailsBorderRadius;
+          font-size: 1.1em;
+          padding: 0.5em 0.3em;
+
+          &.active {
+            border-radius: @detailsBorderRadius @detailsBorderRadius 0 0;
+          }
+        }
+
+        >.content {
+          margin-left: 0;
+          margin-right: 0;
+          padding-left: 0;
+          padding-right: 0;
+          padding-top: 0;
+          border: 1px solid #e8e8e8;
+          border-top: 0;
+          border-radius: 0 0 @detailsBorderRadius @detailsBorderRadius;
+        }
+      }
+
+      .ui.definition.table {
+        border: none;
+      }
+
+      .bo-order-lines {
+        padding-top: 1em;
+
+        .item {
+          padding-bottom: 0;
+        }
+      }
+
+    }
+
+    .ui.statistics.detail-statistics {
+      margin-top: 3em;
+      margin-bottom: 1.5em;
+    }
+  }
 }

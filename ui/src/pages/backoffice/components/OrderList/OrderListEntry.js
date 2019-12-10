@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Grid, Header, Item, List, Icon } from 'semantic-ui-react';
-import { BackOfficeRoutes, AcquisitionRoutes } from '@routes/urls';
+import { AcquisitionRoutes, BackOfficeRoutes } from '@routes/urls';
 import { toShortDateTime } from '@api/date';
 import { formatPrice } from '@api/utils';
 import { invenioConfig } from '@config';

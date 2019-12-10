@@ -131,13 +131,9 @@ const AcquisitionRouteGenerators = {
     generatePath(AcquisitionRoutesList.orderEdit, { orderPid: orderPid }),
   ordersListWithQuery: qs => `${AcquisitionRoutesList.ordersList}?q=${qs}`,
   vendorDetailsFor: vendorPid =>
-    generatePath(AcquisitionRoutesList.vendorDetails, {
-      vendorPid: vendorPid,
-    }),
+    generatePath(AcquisitionRoutesList.vendorDetails, { vendorPid: vendorPid }),
   vendorEditFor: vendorPid =>
-    generatePath(AcquisitionRoutesList.vendorEdit, {
-      vendorPid: vendorPid,
-    }),
+    generatePath(AcquisitionRoutesList.vendorEdit, { vendorPid: vendorPid }),
   vendorsListWithQuery: qs => `${AcquisitionRoutesList.vendorsList}?q=${qs}`,
 };
 

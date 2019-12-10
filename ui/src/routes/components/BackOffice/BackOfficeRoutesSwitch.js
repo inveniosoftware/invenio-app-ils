@@ -19,6 +19,7 @@ import {
   LoanDetails,
   LocationEditor,
   LocationList,
+  OrderDetails,
   OrderSearch,
   PatronDetails,
   PatronSearch,
@@ -184,6 +185,11 @@ export default class extends Component {
           component={VendorSearch}
         />
         {/* orders */}
+        <Route
+          exact
+          path={AcquisitionRoutes.orderDetails}
+          component={OrderDetails}
+        />
         <Route
           exact
           path={AcquisitionRoutes.ordersList}

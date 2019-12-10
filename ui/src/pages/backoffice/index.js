@@ -15,8 +15,12 @@ export {
   LocationEditor,
   LocationList,
 } from './Location';
-export { OrderSearch } from './Acquisition/Order';
 export { PatronDetails, PatronSearch } from './Patron';
 export { SeriesEditor, SeriesDetails, SeriesSearch } from './Series';
 export { Stats } from './Stats';
-export { VendorEditor, VendorSearch } from './Acquisition';
+export {
+  OrderDetails,
+  OrderSearch,
+  VendorEditor,
+  VendorSearch,
+} from './Acquisition';
