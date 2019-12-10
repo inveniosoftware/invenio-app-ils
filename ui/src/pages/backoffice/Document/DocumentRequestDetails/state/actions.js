@@ -67,7 +67,7 @@ export const deleteRequest = requestPid => {
   };
 };
 
-export const accept = (pid, action, data) => {
+export const acceptRequest = (pid, action, data) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
@@ -92,14 +92,14 @@ export const accept = (pid, action, data) => {
   };
 };
 
-export const reject = (pid, action, data) => {
+export const rejectRequest = (pid, data) => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
 
     try {
-      const resp = await documentRequestApi.reject(pid, action, data);
+      const resp = await documentRequestApi.reject(pid, data);
       dispatch({
         type: SUCCESS,
         payload: resp.data,

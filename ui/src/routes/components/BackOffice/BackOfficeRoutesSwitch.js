@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { BackOfficeRoutes, AcquisitionRoutes } from '../../urls';
+import { BackOfficeRoutes, AcquisitionRoutes, ILLRoutes } from '@routes/urls';
 import {
   Home,
   DocumentEditor,
@@ -15,6 +15,12 @@ import {
   ItemSearch,
   ItemDetails,
   InternalLocationEditor,
+  LibraryDetails,
+  LibrarySearch,
+  LibraryEditor,
+  BorrowingRequestDetails,
+  BorrowingRequestSearch,
+  BorrowingRequestEditor,
   LoanSearch,
   LoanDetails,
   LocationEditor,
@@ -194,6 +200,35 @@ export default class extends Component {
           exact
           path={AcquisitionRoutes.ordersList}
           component={OrderSearch}
+        />
+        {/* ILL */}
+        <Route exact path={ILLRoutes.libraryList} component={LibrarySearch} />
+        <Route exact path={ILLRoutes.libraryCreate} component={LibraryEditor} />
+        <Route exact path={ILLRoutes.libraryEdit} component={LibraryEditor} />
+        <Route
+          exact
+          path={ILLRoutes.libraryDetails}
+          component={LibraryDetails}
+        />
+        <Route
+          exact
+          path={ILLRoutes.borrowingRequestList}
+          component={BorrowingRequestSearch}
+        />
+        <Route
+          exact
+          path={ILLRoutes.borrowingRequestCreate}
+          component={BorrowingRequestEditor}
+        />
+        <Route
+          exact
+          path={ILLRoutes.borrowingRequestEdit}
+          component={BorrowingRequestEditor}
+        />
+        <Route
+          exact
+          path={ILLRoutes.borrowingRequestDetails}
+          component={BorrowingRequestDetails}
         />
         <Route exact path={BackOfficeRoutes.stats.home} component={Stats} />
       </Switch>

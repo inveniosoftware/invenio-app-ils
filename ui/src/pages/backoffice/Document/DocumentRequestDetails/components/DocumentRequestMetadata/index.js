@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import DocumentRequestMetadataComponent from './DocumentRequestMetadata';
-import { deleteRequest } from '../../state/actions';
+import { deleteRequest, rejectRequest } from '../../state/actions';
 
 const mapStateToProps = state => ({
   error: state.documentRequestDetails.error,
@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   deleteRequest: pid => dispatch(deleteRequest(pid)),
+  rejectRequest: (pid, data) => dispatch(rejectRequest(pid, data)),
 });
 
 export const DocumentRequestMetadata = connect(

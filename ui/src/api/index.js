@@ -12,3 +12,4 @@ export { series } from './series/series';
 export { stats, circulationStats } from './stats';
 export { vocabulary } from './vocabularies/vocabulary';
 export { order, vendor } from './acquisition';
+export { borrowingRequest, library } from './ill';

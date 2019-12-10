@@ -33,6 +33,8 @@ from invenio_app_ils.patrons.indexer import PatronIndexer
 
 from .acquisition.api import Order, Vendor
 from .acquisition.pidstore.pids import ORDER_PID_TYPE, VENDOR_PID_TYPE
+from .ill.api import BorrowingRequest, Library
+from .ill.pidstore.pids import BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_TYPE
 from .pidstore.pids import DOCUMENT_PID_TYPE, DOCUMENT_REQUEST_PID_TYPE, \
     EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, \
     LOCATION_PID_TYPE, SERIES_PID_TYPE
@@ -71,7 +73,9 @@ class Holder(object):
         total_series,
         total_document_requests,
         total_vendors,
-        total_orders
+        total_orders,
+        total_borrowing_requests,
+        total_libraries
     ):
         """Constructor."""
         self.patrons_pids = patrons_pids
@@ -89,6 +93,8 @@ class Holder(object):
         self.document_requests = {"objs": [], "total": total_document_requests}
         self.vendors = {"objs": [], "total": total_vendors}
         self.orders = {"objs": [], "total": total_orders}
+        self.borrowing_requests = {"objs": [], "total": total_borrowing_requests}
+        self.libraries = {"objs": [], "total": total_libraries}
 
     def pids(self, collection, pid_field):
         """Get a list of PIDs for a collection."""
@@ -587,7 +593,7 @@ class DocumentRequestGenerator(Generator):
 
     def generate(self):
         """Generate."""
-        size = self.holder.series["total"]
+        size = self.holder.document_requests["total"]
         objs = []
         for pid in range(1, size + 1):
             obj = {
@@ -607,6 +613,71 @@ class DocumentRequestGenerator(Generator):
         for obj in self.holder.document_requests["objs"]:
             rec = self._persist(
                 DOCUMENT_REQUEST_PID_TYPE, "pid", DocumentRequest.create(obj)
+            )
+            recs.append(rec)
+        db.session.commit()
+        return recs
+
+class LibraryGenerator(Generator):
+    """Location Generator."""
+
+    def generate(self):
+        """Generate."""
+        size = self.holder.libraries["total"]
+        location_pid_value = self.holder.location["pid"]
+        objs = [
+            {
+                "pid": self.create_pid(),
+                "name": lorem.sentence(),
+                "notes": "{}".format(lorem.text()),
+            }
+            for pid in range(1, size + 1)
+        ]
+
+        self.holder.libraries["objs"] = objs
+
+    def persist(self):
+        """Persist."""
+        recs = []
+        for obj in self.holder.libraries["objs"]:
+            rec = self._persist(
+                LIBRARY_PID_TYPE, "pid", Library.create(obj)
+            )
+            recs.append(rec)
+        db.session.commit()
+        return recs
+
+
+class BorrowingRequestGenerator(Generator):
+    """Borrowing requests generator."""
+
+    def random_library_pid(self):
+        """Get a random library PID if the state is ACCEPTED."""
+        return random.choice(self.holder.pids("libraries", "pid"))
+
+    def generate(self):
+        """Generate."""
+        size = self.holder.borrowing_requests["total"]
+        objs = []
+        for pid in range(1, size + 1):
+            obj = {
+                "pid": self.create_pid(),
+                "status": random.choice(BorrowingRequest.STATUSES),
+                "library_pid": self.random_library_pid(),
+                "notes": lorem.sentence(),
+            }
+            if obj["status"] == "CANCELLED":
+                obj["cancel_reason"] = lorem.sentence()
+            objs.append(obj)
+
+        self.holder.borrowing_requests["objs"] = objs
+
+    def persist(self):
+        """Persist."""
+        recs = []
+        for obj in self.holder.borrowing_requests["objs"]:
+            rec = self._persist(
+                BORROWING_REQUEST_PID_TYPE, "pid", BorrowingRequest.create(obj)
             )
             recs.append(rec)
         db.session.commit()
@@ -757,6 +828,8 @@ def demo():
 @click.option("--document-requests", "n_document_requests", default=10)
 @click.option("--vendors", "n_vendors", default=10)
 @click.option("--orders", "n_orders", default=30)
+@click.option("--libraries", "n_libraries", default=10)
+@click.option("--borrowing-requests", "n_borrowing_requests", default=10)
 @with_appcontext
 def data(
     n_docs,
@@ -767,7 +840,9 @@ def data(
     n_series,
     n_document_requests,
     n_vendors,
-    n_orders
+    n_orders,
+    n_libraries,
+    n_borrowing_requests
 ):
     """Insert demo data."""
     click.secho("Generating demo data", fg="yellow")
@@ -797,6 +872,8 @@ def data(
         total_document_requests=n_document_requests,
         total_vendors=n_vendors,
         total_orders=n_orders,
+        total_borrowing_requests = n_borrowing_requests,
+        total_libraries=n_libraries,
     )
 
     click.echo("Creating locations...")
@@ -864,6 +941,18 @@ def data(
     order_generator.generate()
     rec_orders = order_generator.persist()
 
+    # Libraries
+    click.echo("Creating libraries...")
+    library_generator = LibraryGenerator(holder, minter)
+    library_generator.generate()
+    rec_libraries = library_generator.persist()
+
+    # Borrowing requests
+    click.echo("Creating borrowing requests...")
+    borrowing_requests_generator = BorrowingRequestGenerator(holder, minter)
+    borrowing_requests_generator.generate()
+    rec_borrowing_requests = borrowing_requests_generator.persist()
+
     # index locations
     indexer.bulk_index([str(r.id) for r in rec_intlocs])
     click.echo(
@@ -899,6 +988,22 @@ def data(
     click.echo(
         "Sent to the indexing queue {0} document requests".format(
             len(rec_requests)
+        )
+    )
+
+    # index libraries
+    indexer.bulk_index([str(r.id) for r in rec_libraries])
+    click.echo(
+        "Sent to the indexing queue {0} libraries".format(
+            len(rec_libraries)
+        )
+    )
+
+    # index borrowing requests
+    indexer.bulk_index([str(r.id) for r in rec_borrowing_requests])
+    click.echo(
+        "Sent to the indexing queue {0} borrowing requests".format(
+            len(rec_borrowing_requests)
         )
     )
 

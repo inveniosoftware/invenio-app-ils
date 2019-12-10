@@ -57,6 +57,8 @@ import {
   loanRequestFormReducer,
 } from '@pages/frontsite/Documents/DocumentsDetails/reducer';
 import { documentRequestDetailsReducer } from '@pages/backoffice/Document/DocumentRequestDetails/reducer';
+import { libraryDetailsReducer } from '@pages/backoffice/ILL/LibraryDetails/reducer';
+import { borrowingRequestDetailsReducer } from '@pages/backoffice/ILL/BorrowingRequestDetails/reducer';
 import {
   patronCurrentDocumentRequestsReducer,
   patronPastDocumentRequestsReducer,
@@ -65,6 +67,7 @@ import { orderDetailsReducer } from '@pages/backoffice/Acquisition';
 
 const rootReducer = combineReducers({
   availableItems: availableItemsReducer,
+  borrowingRequestDetails: borrowingRequestDetailsReducer,
   deleteRecordModal: deleteRecordModalReducer,
   documentDetails: documentDetailsReducer,
   documentItems: documentItems,
@@ -81,6 +84,7 @@ const rootReducer = combineReducers({
   itemPastLoans: itemPastLoansReducer,
   itemsSearchInput: itemsSearchByBarcodeReducer,
   latestRenewedLoans: renewedLoansReducer,
+  libraryDetails: libraryDetailsReducer,
   loanDetails: loanDetailsReducer,
   loanRequestForm: loanRequestFormReducer,
   loansCard: loansCardReducer,

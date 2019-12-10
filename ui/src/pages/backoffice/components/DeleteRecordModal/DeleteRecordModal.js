@@ -91,7 +91,7 @@ export default class DeleteRecordModal extends Component {
     );
   };
 
-  renderAll() {
+  renderAll = () => {
     const { data, refProps } = this.props;
     const canDelete = isEmpty(refProps) || sumBy(data, 'total') === 0;
 
@@ -114,7 +114,7 @@ export default class DeleteRecordModal extends Component {
     );
     modalContent.push(this.renderActions(canDelete));
     return modalContent;
-  }
+  };
 
   render() {
     const { isLoading, error } = this.props;
@@ -127,7 +127,7 @@ export default class DeleteRecordModal extends Component {
         basic
       >
         <Loader isLoading={isLoading}>
-          <Error error={error}>{this.renderAll()}</Error>
+          <Error error={error}>{<this.renderAll />}</Error>
         </Loader>
       </Modal>
     );

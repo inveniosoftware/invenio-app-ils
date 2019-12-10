@@ -24,3 +24,11 @@ export {
   VendorEditor,
   VendorSearch,
 } from './Acquisition';
+export {
+  LibraryEditor,
+  LibraryDetails,
+  LibrarySearch,
+  BorrowingRequestEditor,
+  BorrowingRequestDetails,
+  BorrowingRequestSearch,
+} from './ILL';

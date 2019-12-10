@@ -220,12 +220,14 @@ const searchConfig = {
           order: 1,
           title: 'Expriration date',
           default_order: 'desc',
-        },{
+        },
+        {
           field: 'end_date',
           order: 2,
           title: 'Loan end date',
           default_order: 'desc',
-        },{
+        },
+        {
           field: 'start_date',
           order: 3,
           title: 'Loan start date',
@@ -387,6 +389,36 @@ const searchConfig = {
           default_order: 'asc',
           field: 'bestmatch',
           order: 2,
+          title: 'Best match',
+        },
+      ],
+    },
+    sortOrder: ['asc', 'desc'],
+  },
+  libraries: {
+    filters: [],
+    sortBy: {
+      onEmptyQuery: 'bestmatch',
+      values: [
+        {
+          default_order: 'asc',
+          field: 'bestmatch',
+          order: 1,
+          title: 'Best match',
+        },
+      ],
+    },
+    sortOrder: ['asc', 'desc'],
+  },
+  borrowingRequests: {
+    filters: [],
+    sortBy: {
+      onEmptyQuery: 'bestmatch',
+      values: [
+        {
+          default_order: 'asc',
+          field: 'bestmatch',
+          order: 1,
           title: 'Best match',
         },
       ],
