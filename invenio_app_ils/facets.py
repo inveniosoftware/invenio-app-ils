@@ -33,7 +33,7 @@ def keyed_range_filter(field, range_query, **kwargs):
     return inner
 
 
-def custom_exists_filter(field, missing_val):
+def default_value_when_missing_filter(field, missing_val):
     """Create a custom exists filter.
 
     :param field: Field name.
@@ -56,12 +56,14 @@ def overdue_loans_filter(field):
     :param range_query: Dictionary with available keys and their range options.
     """
     def inner(values):
-        range_query = {"Overdue": {"lt": str(arrow.utcnow().date())},
-                       "Upcoming return": {
-                           "lte": str(
-                               (arrow.utcnow() + timedelta(days=7)).date()),
-                           "gte": str(arrow.utcnow().date())}
-                       }
+        range_query = {
+            "Overdue": {"lt": str(arrow.utcnow().date())},
+            "Upcoming return": {
+                "lte": str(
+                    current_app.config["CIRCULATION_POLICIES"][
+                        "upcoming_return_range"]().date()),
+                "gte": str(arrow.utcnow().date())}
+        }
 
         args = {}
         for range_key, mappings in range_query.items():
@@ -90,8 +92,8 @@ def overdue_agg():
                             {"key": "Upcoming return",
                              "from": str(arrow.utcnow().date()),
                              "to": str(
-                                 (arrow.utcnow() + timedelta(
-                                     days=7)).date())
+                                 current_app.config["CIRCULATION_POLICIES"][
+                                     "upcoming_return_range"]().date())
                              }
                             ],
                 )

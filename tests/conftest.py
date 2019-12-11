@@ -11,27 +11,8 @@ import pytest
 from invenio_access.models import ActionRoles
 from invenio_access.permissions import superuser_access
 from invenio_accounts.models import Role
-from invenio_app.factory import create_api
 
 from invenio_app_ils.permissions import backoffice_access_action
-
-
-@pytest.fixture(scope="module")
-def app_config(app_config):
-    """Get app config."""
-    tests_config = {
-        "ACCOUNTS_SESSION_REDIS_URL": "",  # in-memory
-        "RATELIMIT_GUEST_USER": "1000 per minute",
-        "RATELIMIT_AUTHENTICATED_USER": "1000 per minute",
-    }
-    app_config.update(tests_config)
-    return app_config
-
-
-@pytest.fixture(scope="module")
-def create_app():
-    """Create test app."""
-    return create_api
 
 
 @pytest.fixture()

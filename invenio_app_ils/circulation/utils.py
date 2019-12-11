@@ -82,3 +82,8 @@ def circulation_overdue_loan_days(loan):
     """Return the amount of days a loan is overdue."""
     end_date = arrow.get(loan["end_date"])
     return (arrow.get().utcnow() - end_date).days
+
+
+def circulation_upcoming_return_range():
+    """Return a default upcoming return range."""
+    return arrow.utcnow() + timedelta(days=7)

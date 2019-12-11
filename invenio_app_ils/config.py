@@ -18,7 +18,6 @@ from __future__ import absolute_import, print_function
 from collections import namedtuple
 from datetime import timedelta
 
-import arrow
 from flask import request
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_circulation.api import Loan
@@ -41,8 +40,8 @@ from invenio_app_ils.series.indexer import SeriesIndexer
 from invenio_app_ils.vocabularies.indexer import VocabularyIndexer
 
 from .circulation.search import IlsLoansSearch
-from .facets import custom_exists_filter, keyed_range_filter, overdue_agg, \
-    overdue_loans_filter
+from .facets import default_value_when_missing_filter, keyed_range_filter, \
+    overdue_agg, overdue_loans_filter
 from .records.resolver.loan import document_resolver, item_resolver, \
     loan_patron_resolver
 
@@ -79,7 +78,7 @@ from .circulation.utils import (  # isort:skip
     circulation_build_item_ref,
     circulation_build_patron_ref,
     circulation_can_be_requested,
-    circulation_build_document_ref)
+    circulation_build_document_ref, circulation_upcoming_return_range)
 from .permissions import (  # isort:skip
     authenticated_user_permission,
     backoffice_permission,
@@ -705,6 +704,7 @@ CIRCULATION_POLICIES = dict(
         max_count=circulation_default_extension_max_count,
     ),
     request=dict(can_be_requested=circulation_can_be_requested),
+    upcoming_return_range=circulation_upcoming_return_range
 )
 
 CIRCULATION_ITEM_REF_BUILDER = circulation_build_item_ref
@@ -1071,8 +1071,8 @@ RECORDS_REST_FACETS = dict(
             ),
         ),
         filters=dict(
-            circulation=custom_exists_filter("circulation.state",
-                                             "NOT_ON_LOAN"),
+            circulation=default_value_when_missing_filter("circulation.state",
+                                                          "NOT_ON_LOAN"),
         ),
         post_filters=dict(
             status=terms_filter("status"),
