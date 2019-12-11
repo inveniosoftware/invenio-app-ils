@@ -15,8 +15,8 @@ import arrow
 from elasticsearch_dsl.query import Bool, Q, Range, Terms
 from flask import current_app
 
-from invenio_app_ils.facets import custom_exists_filter, keyed_range_filter, \
-    overdue_loans_filter
+from invenio_app_ils.facets import default_value_when_missing_filter, \
+    keyed_range_filter, overdue_loans_filter
 
 
 def test_keyed_range_filter():
@@ -49,10 +49,10 @@ def test_current_ranged_loans_filter(app):
                     days=7)).date())}) & current_loans_query
 
 
-def test_custom_exists_filter(app):
+def test_default_value_when_missing_filter(app):
     """Test custom exists filter."""
     with app.app_context():
-        rfilter = custom_exists_filter("field", "missing val")
+        rfilter = default_value_when_missing_filter("field", "missing val")
 
         assert rfilter("test") == Terms(field="test")
         assert rfilter("missing val") == Bool(

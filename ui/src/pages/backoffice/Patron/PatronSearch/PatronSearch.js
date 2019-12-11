@@ -1,28 +1,29 @@
+import {
+  SearchAggregationsCards,
+  SearchControls,
+  SearchEmptyResults,
+  SearchFooter,
+} from '@components/SearchControls';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Grid, Segment, Icon, Header } from 'semantic-ui-react';
+import { Grid, Icon, Container, Header } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
   ResultsList,
   ResultsLoader,
-  EmptyResults,
   Error,
-  Pagination,
-  Count,
   InvenioSearchApi,
 } from 'react-searchkit';
 import { BackOfficeRoutes } from '@routes/urls';
 import {
   Error as IlsError,
   SearchBar as PatronsSearchBar,
-  ResultsSort,
   ResultsTable,
 } from '@components';
 import { patron as patronApi } from '@api';
 import { getSearchConfig } from '@config';
 import { ExportReactSearchKitResults } from '../../components';
-import ClearButton from '@components/SearchControls/components/ClearButton/ClearButton';
 
 export class PatronSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -32,12 +33,24 @@ export class PatronSearch extends Component {
   searchConfig = getSearchConfig('patrons');
 
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
+    const helperFields = [
+      {
+        name: 'name',
+        field: 'name',
+        defaultValue: '"Doe, John"',
+      },
+      {
+        name: 'e-mail',
+        field: 'email',
+      },
+    ];
     return (
       <PatronsSearchBar
         currentQueryString={queryString}
         onInputChange={onInputChange}
         executeSearch={executeSearch}
         placeholder={'Search for patrons'}
+        queryHelperFields={helperFields}
       />
     );
   };
@@ -45,107 +58,69 @@ export class PatronSearch extends Component {
   viewDetails = ({ row }) => {
     // NOTE: patrons have id in their metadata not pid.
     return (
-      <Button
+      <Link
         as={Link}
         to={BackOfficeRoutes.patronDetailsFor(row.metadata.id)}
-        compact
         icon="info"
         data-test={row.metadata.pid}
-      />
+      >
+        {row.metadata.name}
+      </Link>
+    );
+  };
+
+  mailTo = ({ row }) => {
+    return (
+      <>
+        <a href={`mailto:${row.metadata.email}`}>
+          <Icon name="envelope" /> {row.metadata.email}
+        </a>
+      </>
     );
   };
 
   renderResultsTable = results => {
-    const headerActionComponent = (
-      <ExportReactSearchKitResults exportBaseUrl={patronApi.searchBaseURL} />
-    );
-
     const columns = [
-      { title: '', field: '', formatter: this.viewDetails },
-      { title: 'ID', field: 'metadata.id' },
-      { title: 'Name', field: 'metadata.name' },
-      { title: 'Email', field: 'metadata.email' },
+      { title: 'Name', field: 'metadata.name', formatter: this.viewDetails },
+      { title: 'E-mail', field: 'metadata.email', formatter: this.mailTo },
+      { title: '#ID', field: 'metadata.id' },
     ];
 
-    return (
-      <ResultsTable
-        data={results}
-        columns={columns}
-        title={''}
-        headerActionComponent={headerActionComponent}
-      />
-    );
-  };
-
-  renderEmptyResults = (queryString, resetQuery) => {
-    return (
-      <Segment placeholder textAlign="center">
-        <Header icon>
-          <Icon name="search" />
-          No items found!
-        </Header>
-        <div>Current search "{queryString}"</div>
-        <Segment.Inline>
-          <ClearButton clickHandler={resetQuery} />
-        </Segment.Inline>
-      </Segment>
-    );
+    return <ResultsTable data={results} columns={columns} title={''} />;
   };
 
   renderError = error => {
     return <IlsError error={error} />;
   };
 
-  renderCount = totalResults => {
-    return <div>{totalResults} results</div>;
-  };
-
-  renderHeader = () => {
-    return (
-      <Grid columns={3}>
-        <Grid.Column width={5}>
-          <Count renderElement={this.renderCount} />
-        </Grid.Column>
-        <Grid.Column width={6}>
-          <Pagination />
-        </Grid.Column>
-        <Grid.Column width={5} textAlign="right">
-          <ResultsSort searchConfig={this.searchConfig} />
-        </Grid.Column>
-      </Grid>
-    );
-  };
-
-  renderFooter = () => {
-    return (
-      <Grid columns={3}>
-        <Grid.Column width={5} />
-        <Grid.Column width={6}>
-          <Pagination />
-        </Grid.Column>
-        <Grid.Column width={5} />
-      </Grid>
-    );
-  };
-
   render() {
     return (
       <ReactSearchKit searchApi={this.searchApi}>
+        <Container fluid className="spaced">
+          <SearchBar renderElement={this.renderSearchBar} />
+        </Container>
         <Grid>
-          <Grid.Row columns={1}>
-            <Grid.Column>
-              <SearchBar renderElement={this.renderSearchBar} />
-            </Grid.Column>
-          </Grid.Row>
-
-          <Grid.Row columns={1}>
+          <Grid.Row columns={2}>
             <ResultsLoader>
-              <Grid.Column>
-                <EmptyResults renderElement={this.renderEmptyResults} />
-                <Error renderElement={this.renderError} />
-                {this.renderHeader()}
-                <ResultsList renderElement={this.renderResultsTable} />
-                {this.renderFooter()}
+              <Grid.Column width={3}>
+                <Header content={'Filter by'} />
+                <SearchAggregationsCards modelName={'patrons'} />
+              </Grid.Column>
+              <Grid.Column width={13}>
+                <Grid columns={1}>
+                  <Grid.Column textAlign="right">
+                    <ExportReactSearchKitResults
+                      exportBaseUrl={patronApi.searchBaseURL}
+                    />
+                  </Grid.Column>
+                  <Grid.Column>
+                    <SearchEmptyResults />
+                    <Error renderElement={this.renderError} />
+                    <SearchControls modelName={'patrons'} />
+                    <ResultsList renderElement={this.renderResultsTable} />
+                    <SearchFooter />
+                  </Grid.Column>
+                </Grid>
               </Grid.Column>
             </ResultsLoader>
           </Grid.Row>
