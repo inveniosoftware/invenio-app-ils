@@ -18,11 +18,7 @@ import {
   InvenioSearchApi,
 } from 'react-searchkit';
 import { getSearchConfig } from '@config';
-import {
-  Error as IlsError,
-  SearchBar as EItemsSearchBar,
-  ResultsTable,
-} from '@components';
+import { Error as IlsError, SearchBar as EItemsSearchBar } from '@components';
 import { eitem as eitemApi } from '@api';
 import { ExportReactSearchKitResults } from '../../components';
 import { NewButton } from '../../components/buttons';
@@ -71,42 +67,6 @@ export class EItemSearch extends Component {
         compact
         icon="info"
         data-test={row.metadata.pid}
-      />
-    );
-  };
-
-  renderResultsTable = results => {
-    const maxRowsToShow =
-      results.length > ResultsTable.defaultProps.showMaxRows
-        ? results.length
-        : ResultsTable.defaultProps.showMaxRows;
-    const headerActionComponent = (
-      <div>
-        <NewButton text={'New eitem'} to={BackOfficeRoutes.eitemCreate} />
-        <ExportReactSearchKitResults exportBaseUrl={eitemApi.searchBaseURL} />
-      </div>
-    );
-
-    const columns = [
-      { title: '', field: '', formatter: this.viewDetails },
-      { title: 'ID', field: 'metadata.pid' },
-      {
-        title: 'Open Access',
-        field: 'metadata.open_access',
-        formatter: ({ row }) => (row.metadata.open_access ? 'Yes' : 'No'),
-      },
-      { title: 'Title', field: 'metadata.document.title' },
-      { title: 'Description', field: 'metadata.description' },
-    ];
-
-    return (
-      <ResultsTable
-        data={results}
-        columns={columns}
-        title={''}
-        name={'eitems'}
-        headerActionComponent={headerActionComponent}
-        showMaxRows={maxRowsToShow}
       />
     );
   };

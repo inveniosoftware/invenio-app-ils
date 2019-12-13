@@ -9,11 +9,7 @@ import {
   InvenioSearchApi,
 } from 'react-searchkit';
 import { getSearchConfig } from '@config';
-import {
-  Error as IlsError,
-  SearchBar as DocumentsSearchBar,
-  SearchBar as ItemsSearchBar
-} from '@components';
+import { Error as IlsError, SearchBar as ItemsSearchBar } from '@components';
 import { item as itemApi } from '@api';
 import { ExportReactSearchKitResults, NewButton } from '../../components';
 import { BackOfficeRoutes } from '@routes/urls';
@@ -48,7 +44,7 @@ export class ItemSearch extends Component {
       {
         name: 'created',
         field: '_created',
-      }
+      },
     ];
     return (
       <ItemsSearchBar

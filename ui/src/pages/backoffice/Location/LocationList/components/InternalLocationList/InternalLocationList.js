@@ -63,10 +63,9 @@ export default class InternalLocationList extends Component {
 
     const columns = [
       { title: 'ID', field: 'metadata.pid' },
-      { title: 'Location ID', field: 'metadata.location.pid' },
+      { title: 'Location', field: 'metadata.location.name' },
       { title: 'Name', field: 'metadata.name' },
       { title: 'Physical location', field: 'metadata.physical_location' },
-      { title: 'Location', field: 'metadata.location.name' },
       { title: 'Location e-mail', field: 'metadata.location.email' },
       { title: 'Actions', field: '', formatter: this.rowActions },
     ];

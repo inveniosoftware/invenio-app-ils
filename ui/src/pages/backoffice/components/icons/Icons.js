@@ -25,3 +25,10 @@ export class LoanIcon extends Component{
     return <Icon name="bookmark outline"/>
   }
 }
+
+export class DocumentRequestIcon extends Component{
+  render() {
+    return <Icon name="comment outline"/>
+  }
+}
+
