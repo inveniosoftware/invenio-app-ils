@@ -41,7 +41,7 @@ from invenio_app_ils.vocabularies.indexer import VocabularyIndexer
 
 from .circulation.search import IlsLoansSearch
 from .facets import default_value_when_missing_filter, keyed_range_filter, \
-    overdue_agg, overdue_loans_filter
+    not_empty_object_or_list_filter, overdue_agg, overdue_loans_filter
 from .records.resolver.loan import document_resolver, item_resolver, \
     loan_patron_resolver
 
@@ -1082,6 +1082,29 @@ RECORDS_REST_FACETS = dict(
             internal_location=terms_filter("internal_location.name"),
         ),
     ),
+    eitems=dict(
+        aggs=dict(
+            access=dict(terms=dict(field="open_access")),
+            has_files=dict(
+                filters=dict(
+                    filters=dict(
+                        has_files=dict(exists=dict(field="files.file_id")),
+                        no_files=dict(
+                            bool=dict(
+                                must_not=dict(
+                                    exists=dict(field="files.file_id")
+                                )
+                            )
+                        ),
+                    )
+                )
+            )
+        ),
+        post_filters=dict(
+            access=terms_filter("open_access"),
+            has_files=not_empty_object_or_list_filter("files.file_id")
+        )
+    ),
     loans=dict(  # IlsLoansSearch.Meta.index
         aggs=dict(
             state=dict(terms=dict(field="state")),
@@ -1094,6 +1117,7 @@ RECORDS_REST_FACETS = dict(
         post_filters=dict(
             state=terms_filter("state"),
             delivery=terms_filter("delivery.method"),
+
         )
     ),
     acq_orders=dict(  # OrderSearch.Meta.index
@@ -1105,7 +1129,8 @@ RECORDS_REST_FACETS = dict(
                     size=FACET_VENDOR_LIMIT
                 )
             ),
-            payment_mode=dict(terms=dict(field="order_lines.payment_mode")),
+            payment_mode=dict(
+                terms=dict(field="order_lines.payment_mode")),
             medium=dict(terms=dict(field="order_lines.medium")),
         ),
         post_filters=dict(

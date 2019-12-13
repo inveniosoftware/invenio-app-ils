@@ -14,30 +14,31 @@ import { getSearchConfig } from '../../../../config';
 export default class SearchAggregationsCards extends Component {
   searchConfig = getSearchConfig(this.props.modelName);
 
-  _renderValueElement = (
-    bucket,
-    isSelected,
-    onFilterClicked,
-    getChildAggCmps
-  ) => {
-    const childAggCmps = getChildAggCmps(bucket);
-    return (
-      <List.Item key={bucket.key}>
-        <List.Content floated="right">
-          <Label>{bucket.doc_count}</Label>
-        </List.Content>
-        <List.Content>
-          <Checkbox
-            label={`${bucket.key}`}
-            value={bucket.key}
-            onClick={() => onFilterClicked(bucket.key)}
-            checked={isSelected}
-          />
-          {childAggCmps}
-        </List.Content>
-      </List.Item>
-    );
-  };
+   _renderValueElement = (
+      bucket,
+      isSelected,
+      onFilterClicked,
+      getChildAggCmps
+    ) => {
+      const childAggCmps = getChildAggCmps(bucket);
+      const key = bucket.key_as_string ? bucket.key_as_string : bucket.key;
+      return (
+        <List.Item key={bucket.key}>
+          <List.Content floated="right">
+            <Label>{bucket.doc_count}</Label>
+          </List.Content>
+          <List.Content>
+            <Checkbox
+              label={key}
+              value={key}
+              onClick={() => onFilterClicked(key)}
+              checked={this._isSelected}
+            />
+            {childAggCmps}
+          </List.Content>
+        </List.Item>
+      );
+    };
 
   render() {
     if (this.searchConfig.FILTERS.length <= 0) {

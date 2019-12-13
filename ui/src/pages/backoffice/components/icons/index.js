@@ -1,1 +1,1 @@
-export { DocumentIcon, ItemIcon, LoanIcon } from './Icons';
+export { DocumentIcon, ItemIcon, LoanIcon, EItemIcon } from './Icons';
