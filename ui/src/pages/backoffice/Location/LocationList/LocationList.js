@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Container } from 'semantic-ui-react';
+import {Container, Divider, Grid, Header} from 'semantic-ui-react';
 import { internalLocation as internalLocationApi } from '@api';
 import { InternalLocationList } from './components';
 import { Error, Loader, ResultsTable } from '@components';
@@ -84,11 +84,23 @@ export default class LocationList extends Component {
     let { data, isLoading, error } = this.props;
 
     return (
-      <Container>
-        <Loader isLoading={isLoading}>
-          <Error error={error}>{this.renderResults(data)}</Error>
-        </Loader>
-        <InternalLocationList />
+      <Container fluid>
+        <Header as="h2">Physical locations </Header>
+        <Grid>
+          <Grid.Column width={16}>
+            <Container fluid className="spaced">
+              <Loader isLoading={isLoading}>
+                <Error error={error}>{this.renderResults(data)}</Error>
+              </Loader>
+            </Container>
+            <br/>
+            <Divider/>
+            <br/>
+            <Container fluid className="spaced">
+              <InternalLocationList />
+            </Container>
+          </Grid.Column>
+        </Grid>
       </Container>
     );
   }
