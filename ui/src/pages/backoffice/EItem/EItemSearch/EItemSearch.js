@@ -1,6 +1,13 @@
+import {
+  SearchAggregationsCards,
+  SearchControls,
+  SearchEmptyResults,
+  SearchFooter,
+} from '@components/SearchControls';
+import EItemList from './EitemList';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Grid, Segment, Icon, Header } from 'semantic-ui-react';
+import { Button, Grid, Header, Container } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
@@ -8,22 +15,18 @@ import {
   ResultsLoader,
   EmptyResults,
   Error,
-  Pagination,
-  Count,
   InvenioSearchApi,
 } from 'react-searchkit';
 import { getSearchConfig } from '@config';
 import {
   Error as IlsError,
   SearchBar as EItemsSearchBar,
-  ResultsSort,
   ResultsTable,
 } from '@components';
 import { eitem as eitemApi } from '@api';
 import { ExportReactSearchKitResults } from '../../components';
 import { NewButton } from '../../components/buttons';
 import { BackOfficeRoutes } from '@routes/urls';
-import ClearButton from '@components/SearchControls/components/ClearButton/ClearButton';
 import history from '@history';
 
 export class EItemSearch extends Component {
@@ -34,12 +37,28 @@ export class EItemSearch extends Component {
   searchConfig = getSearchConfig('eitems');
 
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
+    const helperFields = [
+      {
+        name: 'title',
+        field: 'document.title',
+      },
+      {
+        name: 'author',
+        field: 'authors.full_name',
+        defaultValue: '"Doe, John"',
+      },
+      {
+        name: 'created',
+        field: '_created',
+      },
+    ];
     return (
       <EItemsSearchBar
         currentQueryString={queryString}
         onInputChange={onInputChange}
         executeSearch={executeSearch}
         placeholder={'Search for eitems'}
+        queryHelperFields={helperFields}
       />
     );
   };
@@ -92,22 +111,6 @@ export class EItemSearch extends Component {
     );
   };
 
-  renderEmptyResults = (queryString, resetQuery) => {
-    return (
-      <Segment placeholder textAlign="center">
-        <Header icon>
-          <Icon name="search" />
-          No eitems found!
-        </Header>
-        <div>Current search "{queryString}"</div>
-        <Segment.Inline>
-          <ClearButton clickHandler={resetQuery} />
-          <NewButton text={'New eitem'} to={BackOfficeRoutes.eitemCreate} />
-        </Segment.Inline>
-      </Segment>
-    );
-  };
-
   renderError = error => {
     return <IlsError error={error} />;
   };
@@ -116,57 +119,61 @@ export class EItemSearch extends Component {
     return <div>{totalResults} results</div>;
   };
 
-  renderHeader = () => {
+  renderEmptyResultsExtra = () => {
     return (
-      <Grid columns={3}>
-        <Grid.Column width={5}>
-          <Count renderElement={this.renderCount} />
-        </Grid.Column>
-        <Grid.Column width={6}>
-          <Pagination />
-        </Grid.Column>
-        <Grid.Column width={5} textAlign="right">
-          <ResultsSort searchConfig={this.searchConfig} />
-        </Grid.Column>
-      </Grid>
+      <NewButton
+        text={'Add electronic item'}
+        to={BackOfficeRoutes.eitemCreate}
+      />
     );
   };
 
-  renderFooter = () => {
-    return (
-      <Grid columns={3}>
-        <Grid.Column width={5} />
-        <Grid.Column width={6}>
-          <Pagination />
-        </Grid.Column>
-        <Grid.Column width={5} />
-      </Grid>
-    );
+  renderEitemList = results => {
+    return <EItemList hits={results} />;
   };
 
   render() {
     return (
-      <ReactSearchKit searchApi={this.searchApi} history={history}>
-        <Grid>
-          <Grid.Row columns={1}>
-            <Grid.Column>
-              <SearchBar renderElement={this.renderSearchBar} />
-            </Grid.Column>
-          </Grid.Row>
+      <>
+        <Header as="h2">Electronic items</Header>
 
-          <Grid.Row columns={1}>
-            <ResultsLoader>
-              <Grid.Column>
-                <EmptyResults renderElement={this.renderEmptyResults} />
-                <Error renderElement={this.renderError} />
-                {this.renderHeader()}
-                <ResultsList renderElement={this.renderResultsTable} />
-                {this.renderFooter()}
-              </Grid.Column>
-            </ResultsLoader>
-          </Grid.Row>
-        </Grid>
-      </ReactSearchKit>
+        <ReactSearchKit searchApi={this.searchApi} history={history}>
+          <Container fluid className="spaced">
+            <SearchBar renderElement={this.renderSearchBar} />
+          </Container>
+          <Grid>
+            <Grid.Row columns={2}>
+              <ResultsLoader>
+                <Grid.Column width={3} className={'search-aggregations'}>
+                  <Header content={'Filter by'} />
+                  <SearchAggregationsCards modelName={'eitems'} />
+                </Grid.Column>
+                <Grid.Column width={13}>
+                  <Grid columns={2}>
+                    <Grid.Column width={8}>
+                      <NewButton
+                        text={'Add electronic item'}
+                        to={BackOfficeRoutes.eitemCreate}
+                      />
+                    </Grid.Column>
+                    <Grid.Column width={8} textAlign={'right'}>
+                      <ExportReactSearchKitResults
+                        exportBaseUrl={eitemApi.searchBaseURL}
+                      />
+                    </Grid.Column>
+                  </Grid>
+                  <EmptyResults renderElement={this.renderEmptyResults} />
+                  <Error renderElement={this.renderError} />
+                  <SearchControls modelName={'eitems'} />
+                  <SearchEmptyResults extras={this.renderEmptyResultsExtra} />
+                  <ResultsList renderElement={this.renderEitemList} />
+                  <SearchFooter />
+                </Grid.Column>
+              </ResultsLoader>
+            </Grid.Row>
+          </Grid>
+        </ReactSearchKit>
+      </>
     );
   }
 }

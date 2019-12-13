@@ -49,6 +49,19 @@ def default_value_when_missing_filter(field, missing_val):
     return inner
 
 
+def not_empty_object_or_list_filter(field):
+    """Create a custom exists filter.
+
+    :param field: Field name.
+    :missing_val
+    :returns: Function that returns the Terms query.
+    """
+    def inner(values):
+        return Bool(**{'must': {'exists': {'field': field}}})
+
+    return inner
+
+
 def overdue_loans_filter(field):
     """Create a custom filter for ongoing loans.
 

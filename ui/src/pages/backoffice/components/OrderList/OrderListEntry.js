@@ -19,7 +19,7 @@ export default class OrderListEntry extends Component {
         </Item.Description>
         <Item.Description>
           <label>status </label>
-          {getDisplayVal('orders.statuses', order.metadata.status).text}
+          {order.metadata.status}
         </Item.Description>
         <Item.Description>
           <label>vendor </label>

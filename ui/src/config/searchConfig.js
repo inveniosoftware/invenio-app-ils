@@ -168,7 +168,13 @@ const searchConfig = {
     sortOrder: ['asc', 'desc'],
   },
   eitems: {
-    filters: [],
+    filters: [
+      {
+        title: 'Open access',
+        field: 'open_access',
+        aggName: 'access',
+      },
+    ],
     sortBy: {
       onEmptyQuery: 'mostrecent',
       values: [

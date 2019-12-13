@@ -13,6 +13,13 @@ export class ItemIcon extends Component{
   }
 }
 
+export class EItemIcon extends Component{
+  render() {
+    return <Icon name="desktop"/>
+  }
+}
+
+
 export class LoanIcon extends Component{
   render() {
     return <Icon name="bookmark outline"/>
