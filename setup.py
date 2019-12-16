@@ -210,6 +210,7 @@ setup(
             "invenio_app_ils.permissions:backoffice_access_action"
         ],
         "invenio_records.jsonresolver": [
+            "borrowing_request = invenio_app_ils.ill.jsonresolvers.borrowing_request",
             "document_circulation = invenio_app_ils.records.resolver.jsonresolver.document_circulation",
             "document_eitem = invenio_app_ils.records.resolver.jsonresolver.document_eitem",
             "document_item = invenio_app_ils.records.resolver.jsonresolver.document_item",
@@ -223,10 +224,10 @@ setup(
             "item_document = invenio_app_ils.records.resolver.jsonresolver.item_document",
             "item_internal_location = invenio_app_ils.records.resolver.jsonresolver.item_internal_location",
             "item_loan = invenio_app_ils.records.resolver.jsonresolver.item_loan",
+            "order_order_lines = invenio_app_ils.acquisition.jsonresolvers.order_order_lines",
             "order_vendor = invenio_app_ils.acquisition.jsonresolvers.order_vendor",
             "request_document = invenio_app_ils.records.resolver.jsonresolver.request_document",
             "series_relations = invenio_app_ils.records.resolver.jsonresolver.series_relations",
-            "borrowing_request = invenio_app_ils.ill.jsonresolvers.borrowing_request",
         ],
         "invenio_celery.tasks": [
             "ils_indexer_acquisitions = invenio_app_ils.acquisition.indexer",

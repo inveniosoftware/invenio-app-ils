@@ -46,6 +46,9 @@ class Order(IlsRecord):
     _vendor_resolver_path = (
         "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/vendor"
     )
+    _order_lines_resolver_path = (
+        "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/order-lines"
+    )
 
     STATUSES = [
         "PENDING",
@@ -70,6 +73,13 @@ class Order(IlsRecord):
         """Build resolver fields."""
         data["vendor"] = {
             "$ref": cls._vendor_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                order_pid=data["pid"],
+            )
+        }
+        data["resolved_order_lines"] = {
+            "$ref": cls._order_lines_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 order_pid=data["pid"],

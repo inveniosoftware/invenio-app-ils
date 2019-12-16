@@ -978,8 +978,8 @@ RECORDS_REST_SORT_OPTIONS = dict(
             default_order="desc",
             order=2,
         ),
-        delivery_date=dict(
-            fields=["delivery_date"],
+        received_date=dict(
+            fields=["received_date"],
             title="Delivery date",
             default_order="desc",
             order=3,

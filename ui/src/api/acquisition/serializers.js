@@ -12,14 +12,14 @@ function serializeOrderResponse(hit) {
     }
     if (!isEmpty(hit.metadata)) {
       const {
-        delivery_date,
+        received_date,
         expected_delivery_date,
         order_date,
       } = hit.metadata;
       result.metadata = hit.metadata;
       result.metadata.order_date = order_date ? fromISO(order_date) : null;
-      result.metadata.delivery_date = delivery_date
-        ? fromISO(delivery_date)
+      result.metadata.received_date = received_date
+        ? fromISO(received_date)
         : null;
       result.metadata.expected_delivery_date = expected_delivery_date
         ? fromISO(expected_delivery_date)
