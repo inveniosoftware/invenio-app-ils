@@ -665,7 +665,7 @@ class OrderGenerator(Generator):
         """Generate random price."""
         return {
             "currency": random.choice(self.CURRENCIES) if currency is None else currency,
-            "value": min_value + random.random() * 100,
+            "value": round(min_value + random.random() * 100, 2),
         }
 
     def random_order_lines(self, status):
@@ -707,6 +707,7 @@ class OrderGenerator(Generator):
             }
             obj = {
                 "pid": self.create_pid(),
+                "created_by_pid": self.holder.librarian_pid,
                 "vendor_pid": random.choice(self.holder.vendors["objs"])["pid"],
                 "status": random.choice(Order.STATUSES),
                 "order_date": order_date.isoformat(),
@@ -724,7 +725,7 @@ class OrderGenerator(Generator):
             if obj["status"] == "CANCELLED":
                 obj["cancel_reason"] = lorem.sentence()
             elif obj["status"] == "RECEIVED":
-                obj["delivery_date"] = self.random_date(order_date, now).isoformat()
+                obj["received_date"] = self.random_date(order_date, datetime.now()).isoformat()
             objs.append(obj)
 
         self.holder.orders["objs"] = objs

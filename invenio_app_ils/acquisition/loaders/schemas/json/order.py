@@ -31,6 +31,7 @@ class OrderLineSchema(Schema):
 
         unknown = EXCLUDE
 
+    budget_code = fields.Str()
     copies_ordered = fields.Int(required=True)
     copies_received = fields.Int(required=True)
     document_pid = fields.Str(required=True)  # TODO: validate
@@ -72,7 +73,8 @@ class OrderSchemaV1(RecordMetadataSchemaJSONV1):
         unknown = EXCLUDE
 
     cancel_reason = fields.Str()
-    delivery_date = fields.Str()
+    created_by_pid = fields.Str(required=True)
+    received_date = fields.Str()
     expected_delivery_date = fields.Str(required=True)
     funds = fields.List(fields.Str())
     grand_total = fields.Nested(PriceSchema, required=True)

@@ -5,10 +5,10 @@
   "title": "Schema for Acquisition order",
   "required": [
     "$schema",
-    "grand_total",
+    "created_by_pid",
     "grand_total_main_currency",
+    "grand_total",
     "order_date",
-    "expected_delivery_date",
     "order_lines",
     "payment",
     "pid",
@@ -27,6 +27,10 @@
         "copies_received"
       ],
       "properties": {
+        "budget_code": {
+          "title": "A generic budget code for the order line",
+          "type": "string"
+        },
         "copies_ordered": {
           "title": "Number of copies ordered",
           "type": "integer"
@@ -147,10 +151,14 @@
       "title": "Reason for cancelling the request",
       "type": "string"
     },
-    "delivery_date": {
+    "created_by_pid": {
+      "title": "PID of the user who created the order",
+      "type": "string"
+    },
+    "received_date": {
       "format": "date",
       "minLength": 1,
-      "title": "Date of order",
+      "title": "Date the order was received",
       "type": "string"
     },
     "expected_delivery_date": {

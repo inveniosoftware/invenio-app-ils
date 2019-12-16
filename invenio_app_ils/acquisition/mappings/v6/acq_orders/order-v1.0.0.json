@@ -16,7 +16,10 @@
         "cancel_reason": {
           "type": "text"
         },
-        "delivery_date": {
+        "created_by_pid": {
+          "type": "keyword"
+        },
+        "received_date": {
           "type": "date"
         },
         "expected_delivery_date": {
@@ -55,6 +58,9 @@
         },
         "order_lines": {
           "properties": {
+            "budget_code": {
+              "type": "keyword"
+            },
             "copies_ordered": {
               "type": "integer"
             },

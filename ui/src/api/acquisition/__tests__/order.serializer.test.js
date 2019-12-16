@@ -32,7 +32,7 @@ describe('Order object serialization', () => {
       metadata: {
         pid: '123',
         cancel_reason: 'abc',
-        delivery_date: stringDate,
+        received_date: stringDate,
         expected_delivery_date: stringDate,
         funds: ['abc'],
         grand_total: price,
@@ -55,7 +55,7 @@ describe('Order object serialization', () => {
       metadata: {
         pid: '123',
         cancel_reason: 'abc',
-        delivery_date: fromISO(stringDate),
+        received_date: fromISO(stringDate),
         expected_delivery_date: fromISO(stringDate),
         funds: ['abc'],
         grand_total: price,

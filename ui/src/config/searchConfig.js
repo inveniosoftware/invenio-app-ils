@@ -346,7 +346,7 @@ const searchConfig = {
         },
         {
           default_order: 'desc',
-          field: 'delivery_date',
+          field: 'received_date',
           order: 3,
           title: 'Delivery date',
         },

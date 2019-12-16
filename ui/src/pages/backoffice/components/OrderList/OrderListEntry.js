@@ -90,7 +90,7 @@ export default class OrderListEntry extends Component {
     if (this.props.renderRightColumn) {
       return this.props.renderRightColumn(order);
     }
-    const { delivery_date, expected_delivery_date, payment } = order.metadata;
+    const { received_date, expected_delivery_date, payment } = order.metadata;
     return (
       <List verticalAlign="middle" className={'document-circulation'}>
         <List.Item>
@@ -99,10 +99,10 @@ export default class OrderListEntry extends Component {
           </List.Content>
           <List.Content>payment mode</List.Content>
         </List.Item>
-        {delivery_date && (
+        {received_date && (
           <List.Item>
             <List.Content floated="right">
-              <strong>{toShortDateTime(delivery_date)}</strong>
+              <strong>{toShortDateTime(received_date)}</strong>
             </List.Content>
             <List.Content>delivered</List.Content>
           </List.Item>
