@@ -6,6 +6,7 @@ import { FrontSiteRoutes } from '@routes/urls';
 import { getCover } from '../../config';
 import { goTo } from '@history';
 import { DocumentAuthors } from '@components/Document';
+import { toShortDate } from '@api/date';
 
 export class BookCard extends Component {
   renderLabels = meta => {
@@ -45,7 +46,7 @@ export class BookCard extends Component {
             <div>
               {!isEmpty(data.metadata.imprints) ? (
                 <>
-                  {data.metadata.imprints[0].date} <br />{' '}
+                  {toShortDate(data.metadata.imprints[0].date)} <br />{' '}
                 </>
               ) : null}
               Edition {data.metadata.edition}

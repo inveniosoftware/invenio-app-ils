@@ -32,7 +32,7 @@ export default class SearchAggregationsCards extends Component {
               label={key}
               value={key}
               onClick={() => onFilterClicked(key)}
-              checked={this._isSelected}
+              checked={isSelected}
             />
             {childAggCmps}
           </List.Content>

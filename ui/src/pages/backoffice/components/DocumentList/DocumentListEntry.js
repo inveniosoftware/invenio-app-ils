@@ -11,6 +11,7 @@ import {
   DocumentLanguages,
   DocumentTags,
 } from '@components/Document';
+import { toShortDate } from '@api/date';
 
 export default class DocumentListEntry extends Component {
   renderMiddleColumn = document => {
@@ -105,7 +106,8 @@ export default class DocumentListEntry extends Component {
     if (_isEmpty(document.metadata.imprints)) return null;
     return (
       <Item.Description>
-        <label>Published</label> {document.metadata.imprints[0].date}
+        <label>Published</label>{' '}
+        {toShortDate(document.metadata.imprints[0].date)}
       </Item.Description>
     );
   };
