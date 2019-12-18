@@ -5,9 +5,7 @@ import { CancelModal } from '@components/CancelModal';
 
 export default class RequestActions extends Component {
   onReject = reason => {
-    this.props.rejectRequest(this.props.requestData.metadata.requestPid, {
-      reason,
-    });
+    this.props.rejectRequest(this.props.requestPid, { reason });
   };
 
   getAvailableActions() {

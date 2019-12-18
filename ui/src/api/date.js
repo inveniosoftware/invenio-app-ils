@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon';
 import _get from 'lodash/get';
-import _hasIn from 'lodash/hasIn';
 
 /**
  * Converts datetime JSON string to luxon Datetime object
@@ -13,14 +12,11 @@ export const fromISO = stringDate => {
 
 /**
  * Converts luxon Datetime object to ISO date string
- * @param date
+ * @param {DateTime} date luxon DateTime
  * @returns {String}
  */
 export const toISO = date => {
-  if (_hasIn(date, 'toISO')) {
-    return date.toISO();
-  }
-  return date ? date : '';
+  return date instanceof DateTime ? date.toISO() : date;
 };
 
 /**
