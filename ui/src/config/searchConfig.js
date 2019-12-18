@@ -95,6 +95,11 @@ const searchConfig = {
         field: 'state',
         aggName: 'state',
       },
+      {
+        title: 'Reject reason',
+        field: 'reject_reason',
+        aggName: 'reject_reason',
+      },
     ],
     sortBy: {
       onEmptyQuery: 'mostrecent',

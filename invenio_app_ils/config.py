@@ -199,6 +199,8 @@ ILS_MAIL_ENABLE_TEST_RECIPIENTS = True
 ILS_MAIL_NOTIFY_TEST_RECIPIENTS = ["onlyme@inveniosoftware.org"]
 #: Loan status email templates
 ILS_MAIL_LOAN_TEMPLATES = {}
+#: Document request state email templates
+ILS_MAIL_DOCUMENT_REQUEST_TEMPLATES = {}
 #: Loan message loader
 ILS_MAIL_LOAN_MSG_LOADER = (
     "invenio_app_ils.circulation.mail.loader:loan_message_loader"
@@ -610,7 +612,7 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.records.serializers:json_v1_search"
             ),
-            "text/csv": ("invenio_app_ils.records.serializers:csv_v1_search"),
+            "text/csv": "invenio_app_ils.records.serializers:csv_v1_search",
         },
         search_serializers_aliases={
             "csv": "text/csv",
@@ -1046,8 +1048,14 @@ RECORDS_REST_FACETS = dict(
         ),
     ),
     document_requests=dict(  # DocumentRequestSearch.Meta.index
-        aggs=dict(state=dict(terms=dict(field="state"))),
-        post_filters=dict(state=terms_filter("state")),
+        aggs=dict(
+            state=dict(terms=dict(field="state")),
+            reject_reason=dict(terms=dict(field="reject_reason")),
+        ),
+        post_filters=dict(
+            state=terms_filter("state"),
+            reject_reason=terms_filter("reject_reason"),
+        ),
     ),
     items=dict(  # ItemSearch.Meta.index
         aggs=dict(

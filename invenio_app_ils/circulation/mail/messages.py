@@ -8,57 +8,24 @@
 """Circulation mail message objects."""
 
 from flask import current_app
-from flask_mail import Message
 from invenio_circulation.api import get_available_item_by_doc_pid
-from jinja2.exceptions import TemplateError
 
-
-class BlockTemplatedMessage(Message):
-    """Templated message using Jinja2 blocks."""
-
-    def __init__(self, template, ctx={}, **kwargs):
-        """Build message body and HTML based on the provided template.
-
-        The template needs to provide two blocks: subject and body. An optional
-        html block can also be provided for HTML rendered emails.
-
-        :param template: Path to the template file.
-        :param ctx: A mapping containing additional information passed to the
-            template.
-        :param **kwargs: Named arguments as defined in
-            :class:`flask_mail.Message`.
-        """
-        self.template = template
-        self.ctx = ctx
-        tmpl = current_app.jinja_env.get_template(template)
-        kwargs["subject"] = self.render_block(tmpl, "subject")
-        kwargs["body"] = self.render_block(tmpl, "body")
-        try:
-            kwargs["html"] = self.render_block(tmpl, "html")
-        except TemplateError:
-            kwargs["html"] = kwargs["body"]
-        super(BlockTemplatedMessage, self).__init__(**kwargs)
-
-    def render_block(self, template, block_name):
-        """Return a Jinja2 block as a string."""
-        new_context = template.new_context
-        if block_name not in template.blocks:
-            raise TemplateError("No block with name '{}'".format(block_name))
-        lines = template.blocks[block_name](new_context(vars=self.ctx))
-        return "\n".join(lines).strip()
+from invenio_app_ils.mail.messages import BlockTemplatedMessage
 
 
 class LoanMessage(BlockTemplatedMessage):
-    """Loader for loan messages."""
+    """Loan message."""
+
+    templates_base_dir = "invenio_app_ils_mail/circulation"
 
     default_templates = dict(
-        request="invenio_app_ils_mail/request.html",
-        request_no_items="invenio_app_ils_mail/request_no_items.html",
-        checkout="invenio_app_ils_mail/checkout.html",
-        checkin="invenio_app_ils_mail/checkin.html",
-        extend="invenio_app_ils_mail/extend.html",
-        cancel="invenio_app_ils_mail/cancel.html",
-        overdue_reminder="invenio_app_ils_mail/overdue.html",
+        request="request.html",
+        request_no_items="request_no_items.html",
+        checkout="checkout.html",
+        checkin="checkin.html",
+        extend="extend.html",
+        cancel="cancel.html",
+        overdue_reminder="overdue.html",
     )
 
     def __init__(self, trigger, message_ctx, **kwargs):
@@ -80,7 +47,10 @@ class LoanMessage(BlockTemplatedMessage):
         cc = current_app.config["MAIL_NOTIFY_CC"]
 
         super(LoanMessage, self).__init__(
-            template=templates[self.trigger_template],
+            template="{}/{}".format(
+                self.templates_base_dir,
+                templates[self.trigger_template]
+            ),
             ctx=dict(**message_ctx, **kwargs),
             sender=kwargs.pop("sender", sender),
             cc=kwargs.pop("cc", cc),

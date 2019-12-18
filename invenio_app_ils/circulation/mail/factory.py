@@ -10,18 +10,8 @@
 from functools import partial
 
 from flask import current_app
-from invenio_records_rest.utils import obj_or_import_string
 
-
-def message_factory(loader, *args, **kwargs):
-    """Message factory to create a new message.
-
-    :param loader: Callable object that returns a Message object.
-    :param args: Positional arguments passed to the loader.
-    :param kwargs: Named arguments passed to the loader.
-    """
-    loader_obj = obj_or_import_string(loader)
-    return loader_obj(*args, **kwargs)
+from invenio_app_ils.mail.factory import message_factory
 
 
 def loan_message_factory():

@@ -57,7 +57,7 @@
     },
     "reject_reason": {
       "type": "string",
-      "title": "Reason for rejecting the document request"
+      "title": "The type of request reject"
     },
     "standard_number": {
       "title": "Standard number of the requested document",

@@ -42,12 +42,14 @@ class DocumentRequestValidator(RecordValidator):
                 "Invalid state: {}".format(state)
             )
 
-    def validate_document_pid(self, document_pid, state):
+    def validate_document_pid(self, document_pid, state, reject_reason):
         """Validate data for accepted state."""
         # Accepted requests must have a document
-        if document_pid and (not state or state != "ACCEPTED"):
+        if document_pid and state == "REJECTED" and \
+                reject_reason != "IN_CATALOG":
             raise DocumentRequestError(
-                "document_pid can only be provided when accepting a request"
+                "document_pid cannot be provided with state {} and reject "
+                "type {}".format(state, reject_reason)
             )
         if state == "ACCEPTED":
             if document_pid:
@@ -71,9 +73,9 @@ class DocumentRequestValidator(RecordValidator):
                     "State cannot be ACCEPTED without a document"
                 )
 
-    def validate_rejection(self, state, reason):
+    def validate_rejection(self, state, reject_reason):
         """Validate rejection is correct."""
-        if state == "REJECTED" and not reason:
+        if state == "REJECTED" and not reject_reason:
             raise DocumentRequestError(
                 "Need to provide a reason when rejecting a request"
             )
@@ -86,11 +88,11 @@ class DocumentRequestValidator(RecordValidator):
 
         document_pid = record.get("document_pid", None)
         state = record.get("state", None)
-        reason = record.get("reject_reason", None)
+        reject_reason = record.get("reject_reason", None)
 
         self.validate_state(state, valid_states)
-        self.validate_document_pid(document_pid, state)
-        self.validate_rejection(state, reason)
+        self.validate_document_pid(document_pid, state, reject_reason)
+        self.validate_rejection(state, reject_reason)
 
 
 class ItemValidator(RecordValidator):

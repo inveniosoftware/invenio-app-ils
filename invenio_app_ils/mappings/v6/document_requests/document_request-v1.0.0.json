@@ -64,7 +64,7 @@
           "type": "keyword"
         },
         "reject_reason": {
-          "type": "text"
+          "type": "keyword"
         },
         "standard_number": {
           "type": "keyword"

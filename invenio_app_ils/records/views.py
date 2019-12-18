@@ -19,6 +19,7 @@ from invenio_rest import ContentNegotiatedMethodView
 from invenio_rest.errors import FieldError
 
 from invenio_app_ils.errors import DocumentRequestError, StatsError
+from invenio_app_ils.mail.tasks import send_document_request_status_mail
 from invenio_app_ils.permissions import need_permissions
 from invenio_app_ils.pidstore.pids import DOCUMENT_PID_TYPE, \
     DOCUMENT_REQUEST_PID_TYPE, EITEM_PID_TYPE
@@ -149,17 +150,39 @@ class RejectRequestResource(ContentNegotiatedMethodView):
     def post(self, pid, record, **kwargs):
         """Reject request post method."""
         data = request.get_json()
-        reason = data.get("reason", "")
-        if not reason:
+        reject_reason = data.get("reject_reason")
+        document_pid = data.get("document_pid")
+
+        if not reject_reason:
             raise DocumentRequestError(
                 "Missing required field: reject reason",
                 errors=[
-                    FieldError(field="reason", message="Reason is required.")
+                    FieldError(
+                        field="reject_reason",
+                        message="Reject reason is required."
+                    )
+                ]
+            )
+        if reject_reason == "IN_CATALOG" and not document_pid:
+            raise DocumentRequestError(
+                "Document PID required for reject reason {}".format(
+                    reject_reason
+                ),
+                errors=[
+                    FieldError(
+                        field="document_pid",
+                        message="DocumentPID is required."
+                    )
                 ]
             )
         record["state"] = "REJECTED"
-        record["reject_reason"] = reason
+        record["reject_reason"] = reject_reason
+        if reject_reason == "IN_CATALOG":
+            record["document_pid"] = document_pid
+
         record.commit()
         db.session.commit()
         current_app_ils.document_request_indexer.index(record)
+        send_document_request_status_mail(record)
+
         return self.make_response(pid, record, 202)

@@ -57,6 +57,28 @@ class DocumentRequestListEntry extends Component {
                     <label>State</label> {documentRequest.metadata.state}
                   </List.Content>
                 </List.Item>
+                {documentRequest.metadata.reject_reason && (
+                  <List.Item>
+                    <List.Content>
+                      <label>Reject reason </label>
+                      {documentRequest.metadata.reject_reason}
+                    </List.Content>
+                  </List.Item>
+                )}
+                {documentRequest.metadata.document_pid && (
+                  <List.Item>
+                    <List.Content>
+                      <label>Document </label>
+                      <Link
+                        to={BackOfficeRoutes.documentDetailsFor(
+                          documentRequest.metadata.document_pid
+                        )}
+                      >
+                        {documentRequest.metadata.document.title}
+                      </Link>
+                    </List.Content>
+                  </List.Item>
+                )}
               </List>
             </Grid.Column>
             <Grid.Column computer={4} largeScreen={4}>
