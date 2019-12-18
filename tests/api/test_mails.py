@@ -8,7 +8,6 @@
 """Test email notifications."""
 
 import pytest
-from flask_mail import Message
 from flask_security import login_user
 from invenio_circulation.api import Loan
 from invenio_circulation.proxies import current_circulation
@@ -82,7 +81,7 @@ def test_log_successful_mail_task(app, testdata, mocker, users):
         return_value=Patron(users["patron1"].id),
     )
     succ = mocker.patch(
-        "invenio_app_ils.circulation.mail.tasks.log_successful_mail"
+        "invenio_app_ils.mail.tasks.log_successful_mail"
     )
     loan = testdata["loans"][0]
 
@@ -101,7 +100,7 @@ def test_log_error_mail_task(app, testdata, mocker, users):
         "invenio_app_ils.records.api.Patron.get_patron",
         return_value=Patron(users["patron1"].id),
     )
-    err = mocker.patch("invenio_app_ils.circulation.mail.tasks.log_error_mail")
+    err = mocker.patch("invenio_app_ils.mail.tasks.log_error_mail")
     loan = testdata["loans"][0]
 
     assert not err.s.called
@@ -137,17 +136,18 @@ def test_email_on_overdue_loan(app, users, testdata, mocker):
 def test_send_only_to_test_recipients(app, users, testdata, mocker):
     """Tests that send only to test recipients works."""
 
-    class M(Message):
+    class TestMessage(BlockTemplatedMessage):
         def __init__(self, *args, **kwargs):
+            template = "tests/subject_body_html.html"
             kwargs.pop("trigger", None)
             kwargs.pop("message_ctx", {})
             kwargs.setdefault("sender", app.config["MAIL_NOTIFY_SENDER"])
-            super().__init__(**kwargs)
+            super().__init__(template, **kwargs)
 
     app.config.update(
         dict(
             CELERY_TASK_ALWAYS_EAGER=True,
-            ILS_MAIL_LOAN_MSG_LOADER=M,
+            ILS_MAIL_LOAN_MSG_LOADER=TestMessage,
             ILS_MAIL_ENABLE_TEST_RECIPIENTS=True
         )
     )

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
 import { MetadataTable } from '@pages/backoffice/components/MetadataTable';
 import { BackOfficeRoutes } from '@routes/urls';
-import { RequestActions } from '@components/RequestActions';
 import { DeleteRecordModal } from '@pages/backoffice/components/DeleteRecordModal';
+import { DocumentRequestActions } from '../DocumentRequestActions';
 
 export default class DocumentRequestMetadata extends Component {
   addRow(rows, name, value) {
@@ -40,6 +40,7 @@ export default class DocumentRequestMetadata extends Component {
     const rows = [];
     this.addRow(rows, 'Edition', data.metadata.edition);
     this.addRow(rows, 'Standard Number', data.metadata.standard_number);
+    this.addRow(rows, 'Reject Reason', data.metadata.reject_reason);
     if (docPid) {
       rows.push({
         name: 'Document',
@@ -54,7 +55,6 @@ export default class DocumentRequestMetadata extends Component {
     } else {
       rows.push({ name: 'Document', value: 'None' });
     }
-    this.addRow(rows, 'Reject Reason', data.metadata.reject_reason);
     this.addRow(rows, 'Note', data.metadata.note);
     return rows;
   }
@@ -97,12 +97,8 @@ export default class DocumentRequestMetadata extends Component {
           </Grid.Row>
         </Grid>
         <Divider />
-        <RequestActions
-          requestPid={request.metadata.pid}
-          requestState={request.metadata.state}
-          renderRequestCancelHeader={pid => `Reject Document Request #${pid}`}
-          renderRequestCancelContent={pid => `You are about to reject document request #${pid}.
-                    Please enter a reason for rejecting this request.`}
+        <DocumentRequestActions
+          request={request.metadata}
           rejectRequest={this.props.rejectRequest}
         />
       </Segment>

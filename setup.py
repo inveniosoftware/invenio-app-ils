@@ -215,7 +215,6 @@ setup(
             "document_eitem = invenio_app_ils.records.resolver.jsonresolver.document_eitem",
             "document_item = invenio_app_ils.records.resolver.jsonresolver.document_item",
             "document_relations = invenio_app_ils.records.resolver.jsonresolver.document_relations",
-            "document_request = invenio_app_ils.records.resolver.jsonresolver.document_request",
             "document_request_patron = invenio_app_ils.records.resolver.jsonresolver.document_request_patron",
             "document_stock = invenio_app_ils.records.resolver.jsonresolver.document_stock",
             "eitem = invenio_app_ils.records.resolver.jsonresolver.eitem",

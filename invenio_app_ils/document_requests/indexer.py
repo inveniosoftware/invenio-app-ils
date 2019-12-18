@@ -26,9 +26,12 @@ def index_referenced_records(docreq):
     indexed = dict(pid_type=DOCUMENT_REQUEST_PID_TYPE, record=docreq)
 
     # fetch and index the document
-    document_cls = current_app_ils.document_record_cls
-    document = document_cls.get_record_by_pid(docreq["document_pid"])
-    referenced = [dict(pid_type=DOCUMENT_PID_TYPE, record=document)]
+    document_pid = docreq.get("document_pid")
+    referenced = []
+    if document_pid:
+        document_cls = current_app_ils.document_record_cls
+        document = document_cls.get_record_by_pid(document_pid)
+        referenced.append(dict(pid_type=DOCUMENT_PID_TYPE, record=document))
 
     indexer.index(indexed, referenced)
 

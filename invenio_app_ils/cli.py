@@ -586,24 +586,30 @@ class RecordRelationsGenerator(Generator):
 class DocumentRequestGenerator(Generator):
     """Document requests generator."""
 
-    def random_document_pid(self, state):
-        """Get a random document PID if the state is ACCEPTED."""
-        if state == "ACCEPTED":
-            return random.choice(self.holder.pids("documents", "pid"))
-        return None
+    def random_document_pid(self):
+        """Get a random document PID."""
+        return random.choice(self.holder.pids("documents", "pid"))
 
     def generate(self):
         """Generate."""
         size = self.holder.document_requests["total"]
         objs = []
         for pid in range(1, size + 1):
+            state = random.choice(DocumentRequest.STATES)
             obj = {
                 "pid": self.create_pid(),
+                "state": state,
                 "patron_pid": random.choice(self.holder.patrons_pids),
                 "title": lorem.sentence(),
                 "authors": lorem.sentence(),
                 "publication_year": randint(1700, 2019),
             }
+            if state == "REJECTED":
+                obj["reject_reason"] = random.choice(DocumentRequest.REJECT_TYPES)
+                if obj["reject_reason"] == "IN_CATALOG":
+                    obj["document_pid"] = self.random_document_pid()
+            elif state == "ACCEPTED":
+                obj["document_pid"] = self.random_document_pid()
             objs.append(obj)
 
         self.holder.document_requests["objs"] = objs
@@ -619,13 +625,13 @@ class DocumentRequestGenerator(Generator):
         db.session.commit()
         return recs
 
+
 class LibraryGenerator(Generator):
     """Location Generator."""
 
     def generate(self):
         """Generate."""
         size = self.holder.libraries["total"]
-        location_pid_value = self.holder.location["pid"]
         objs = [
             {
                 "pid": self.create_pid(),

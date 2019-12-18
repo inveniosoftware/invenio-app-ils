@@ -153,9 +153,6 @@ class Document(IlsRecordWithRelations):
     _relations_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/relations"
     )
-    _document_request_resolver_path = (
-        "{scheme}://{host}/api/resolver/documents/{document_pid}/request"
-    )
     _stock_resolver_path = (
         "{scheme}://{host}/api/resolver/documents/{document_pid}/stock"
     )
@@ -189,13 +186,6 @@ class Document(IlsRecordWithRelations):
         data.setdefault("items", {})
         data["items"] = {
             "$ref": cls._item_resolver_path.format(
-                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
-                host=current_app.config["JSONSCHEMAS_HOST"],
-                document_pid=data["pid"],
-            )
-        }
-        data["request"] = {
-            "$ref": cls._document_request_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
                 document_pid=data["pid"],
@@ -579,6 +569,7 @@ class DocumentRequest(IlsRecord):
     """DocumentRequest record class."""
 
     STATES = ["ACCEPTED", "PENDING", "REJECTED"]
+    REJECT_TYPES = ["USER_CANCEL", "IN_CATALOG", "NOT_FOUND"]
 
     _pid_type = DOCUMENT_REQUEST_PID_TYPE
     _schema = "document_requests/document_request-v1.0.0.json"
