@@ -1,0 +1,12 @@
+[
+  {
+    "key": "PAPER",
+    "type": "acq_medium",
+    "text": "Paper"
+  },
+  {
+    "key": "ELECTRONIC",
+    "type": "acq_medium",
+    "text": "Electronic"
+  }
+]

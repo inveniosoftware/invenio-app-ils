@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Grid } from 'semantic-ui-react';
 import { toShortDateTime, toShortDate } from '@api/date';
 import { KeyValueTable } from '@pages/backoffice/components';
+import { PropTypes } from 'prop-types';
 
 export class OrderInformation extends React.Component {
   render() {
@@ -37,6 +37,6 @@ export class OrderInformation extends React.Component {
   }
 }
 
-OrderInformation.proptTypes = {
+OrderInformation.propTypes = {
   order: PropTypes.object.isRequired,
 };

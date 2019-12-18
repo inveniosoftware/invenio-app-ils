@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CalendarInputField } from './CalendarInputField';
 import { DatePicker } from '@components/DatePicker/DatePicker';
+import { toShortDate } from '@api/date';
 
 export class DateInputField extends React.Component {
   renderFormField = props => {
@@ -12,7 +13,7 @@ export class DateInputField extends React.Component {
         error={props.error}
         label={this.props.label}
         placeholder={this.props.placeholder}
-        defaultValue={props.value}
+        defaultValue={toShortDate(props.value)}
         handleBlur={props.form.handleBlur}
         handleDateChange={props.onChange}
       />

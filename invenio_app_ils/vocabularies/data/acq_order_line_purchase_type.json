@@ -1,0 +1,12 @@
+[
+  {
+    "key": "PERPETUAL",
+    "type": "acq_order_line_purchase_type",
+    "text": "Perpetual"
+  },
+  {
+    "key": "SUBSCRIPTION",
+    "type": "acq_order_line_purchase_type",
+    "text": "Subscription"
+  }
+]

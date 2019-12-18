@@ -1365,6 +1365,11 @@ STATS_QUERIES = {
 
 # List of available vocabularies
 ILS_VOCABULARIES = [
+    "acq_medium",
+    "acq_order_line_payment_mode",
+    "acq_order_line_purchase_type",
+    "acq_payment_mode",
+    "acq_recipient",
     "affiliation_identifier_scheme",
     "alternative_identifier_scheme",
     "alternative_title_type",
@@ -1373,6 +1378,7 @@ ILS_VOCABULARIES = [
     "author_type",
     "conference_identifier_scheme",
     "country",
+    "currencies",
     "document_type",
     "identifier_scheme",
     "language",

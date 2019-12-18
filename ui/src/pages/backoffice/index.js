@@ -20,6 +20,7 @@ export { SeriesEditor, SeriesDetails, SeriesSearch } from './Series';
 export { Stats } from './Stats';
 export {
   OrderDetails,
+  OrderEditor,
   OrderSearch,
   VendorDetails,
   VendorEditor,

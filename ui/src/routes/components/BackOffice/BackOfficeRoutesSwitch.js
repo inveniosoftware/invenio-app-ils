@@ -2,35 +2,36 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { BackOfficeRoutes, AcquisitionRoutes, ILLRoutes } from '@routes/urls';
 import {
-  Home,
-  DocumentEditor,
+  BorrowingRequestDetails,
+  BorrowingRequestEditor,
+  BorrowingRequestSearch,
   DocumentDetails,
-  DocumentSearch,
+  DocumentEditor,
   DocumentRequestDetails,
   DocumentRequestSearch,
+  DocumentSearch,
+  EItemDetails,
   EItemEditor,
   EItemSearch,
-  EItemDetails,
+  Home,
+  InternalLocationEditor,
+  ItemDetails,
   ItemEditor,
   ItemSearch,
-  ItemDetails,
-  InternalLocationEditor,
   LibraryDetails,
-  LibrarySearch,
   LibraryEditor,
-  BorrowingRequestDetails,
-  BorrowingRequestSearch,
-  BorrowingRequestEditor,
-  LoanSearch,
+  LibrarySearch,
   LoanDetails,
+  LoanSearch,
   LocationEditor,
   LocationList,
   OrderDetails,
+  OrderEditor,
   OrderSearch,
   PatronDetails,
   PatronSearch,
-  SeriesEditor,
   SeriesDetails,
+  SeriesEditor,
   SeriesSearch,
   Stats,
   VendorDetails,
@@ -178,6 +179,11 @@ export default class extends Component {
         {/* vendors */}
         <Route
           exact
+          path={AcquisitionRoutes.vendorsList}
+          component={VendorSearch}
+        />
+        <Route
+          exact
           path={AcquisitionRoutes.vendorCreate}
           component={VendorEditor}
         />
@@ -185,11 +191,6 @@ export default class extends Component {
           exact
           path={AcquisitionRoutes.vendorEdit}
           component={VendorEditor}
-        />
-        <Route
-          exact
-          path={AcquisitionRoutes.vendorsList}
-          component={VendorSearch}
         />
         <Route
           exact
@@ -206,6 +207,16 @@ export default class extends Component {
           exact
           path={AcquisitionRoutes.ordersList}
           component={OrderSearch}
+        />
+        <Route
+          exact
+          path={AcquisitionRoutes.orderCreate}
+          component={OrderEditor}
+        />
+        <Route
+          exact
+          path={AcquisitionRoutes.orderEdit}
+          component={OrderEditor}
         />
         {/* ILL */}
         <Route exact path={ILLRoutes.libraryList} component={LibrarySearch} />

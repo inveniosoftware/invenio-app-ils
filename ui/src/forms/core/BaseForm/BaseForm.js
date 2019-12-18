@@ -87,7 +87,7 @@ export class BaseForm extends Component {
   render() {
     const { buttons, initialValues, title } = this.props;
     return (
-      <Container>
+      <Container fluid>
         {title && (
           <Grid>
             <Grid.Row centered>

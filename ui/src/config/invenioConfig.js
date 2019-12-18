@@ -101,6 +101,7 @@ export const invenioConfig = {
   ],
   rest_mimetype_query_arg_name: 'format',
   support_email: 'info@inveniosoftware.org',
+  order: { defaultCurrency: 'CHF' },
   vocabularies: {
     document: {
       alternativeIdentifier: {
@@ -139,6 +140,14 @@ export const invenioConfig = {
     },
     series: {
       language: 'language',
+    },
+    order: {
+      currencies: 'currencies',
+      acq_medium: 'acq_medium',
+      acq_order_line_payment_mode: 'acq_order_line_payment_mode',
+      acq_order_line_purchase_type: 'acq_order_line_purchase_type',
+      acq_payment_mode: 'acq_payment_mode',
+      acq_recipient: 'acq_recipient',
     },
   },
 };

@@ -37,8 +37,7 @@ def jsonresolver_loader(url_map):
 
     def document_resolver(eitem_pid):
         """Return the Document record for the given EItem or raise."""
-        document_pid = get_field_value(EItem, eitem_pid,
-                                       "document_pid")
+        document_pid = get_field_value(EItem, eitem_pid, "document_pid")
         return get_document(document_pid)
 
     url_map.add(

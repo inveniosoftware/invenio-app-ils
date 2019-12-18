@@ -1,0 +1,17 @@
+[
+  {
+    "key": "CHF",
+    "type": "currencies",
+    "text": "Swiss Franc"
+  },
+  {
+    "key": "EUR",
+    "type": "currencies",
+    "text": "Euro"
+  },
+  {
+    "key": "USD",
+    "type": "currencies",
+    "text": "US Dollar"
+  }
+]

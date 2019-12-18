@@ -311,7 +311,8 @@ class DocumentGenerator(Generator):
                 )],
                 "table_of_content": ["{}".format(lorem.sentence())],
                 "note": "{}".format(lorem.text()),
-                "tags": [tag["key"] for tag in random.sample(self.holder.tags,
+                "tags": [tag["key"] for tag in random.sample(
+                    self.holder.tags,
                     randint(1, len(self.holder.tags) - 1))
                 ],
                 "edition": str(pid),
