@@ -284,9 +284,11 @@ exports[`DocumentRequestForm tests should render the document request form corre
                       }
                     }
                   >
-                    <Container>
+                    <Container
+                      fluid={true}
+                    >
                       <div
-                        className="ui container"
+                        className="ui fluid container"
                       >
                         <Formik
                           initialValues={

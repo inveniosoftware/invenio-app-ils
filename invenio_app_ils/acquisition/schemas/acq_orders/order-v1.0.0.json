@@ -157,7 +157,6 @@
     },
     "received_date": {
       "format": "date",
-      "minLength": 1,
       "title": "Date the order was received",
       "type": "string"
     },

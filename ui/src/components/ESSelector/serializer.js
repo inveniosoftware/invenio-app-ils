@@ -102,3 +102,12 @@ export const serializeLibrary = library => {
     title: library.metadata.name,
   };
 };
+
+export const serializeVendor = vendor => ({
+  id: vendor.metadata.pid,
+  key: vendor.metadata.pid,
+  title: vendor.metadata.name,
+  description: `Name: ${vendor.metadata.name}`,
+  extra: `Vendor #${vendor.metadata.pid}`,
+  metadata: vendor.metadata,
+});

@@ -1,0 +1,12 @@
+[
+  {
+    "type": "acq_payment_mode",
+    "key": "CREDIT_CARD",
+    "text": "Credit Card"
+  },
+  {
+    "type": "acq_payment_mode",
+    "key": "INTERNAL_PURCHASE_REQUISITION",
+    "text": "Internal Purchase Requisition"
+  }
+]

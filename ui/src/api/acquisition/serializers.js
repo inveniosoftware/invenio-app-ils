@@ -1,4 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
+import _hasIn from 'lodash/hasIn';
 import { fromISO } from '../date';
 
 function serializeOrderResponse(hit) {
@@ -18,12 +19,19 @@ function serializeOrderResponse(hit) {
       } = hit.metadata;
       result.metadata = hit.metadata;
       result.metadata.order_date = order_date ? fromISO(order_date) : null;
-      result.metadata.received_date = received_date
-        ? fromISO(received_date)
-        : null;
-      result.metadata.expected_delivery_date = expected_delivery_date
-        ? fromISO(expected_delivery_date)
-        : null;
+      if (_hasIn(hit, 'metadata.received_date')) {
+        result.metadata.received_date = fromISO(received_date);
+      }
+      if (_hasIn(hit, 'metadata.expected_delivery_date')) {
+        result.metadata.expected_delivery_date = fromISO(
+          expected_delivery_date
+        );
+      }
+      if (_hasIn(hit, 'metadata.payment.debit_date')) {
+        result.metadata.payment.debit_date = fromISO(
+          hit.metadata.payment.debit_date
+        );
+      }
       result.pid = hit.metadata.pid;
     }
   }

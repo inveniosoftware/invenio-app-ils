@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import _get from 'lodash/get';
+import _hasIn from 'lodash/hasIn';
 
 /**
  * Converts datetime JSON string to luxon Datetime object
@@ -13,44 +14,31 @@ export const fromISO = stringDate => {
 /**
  * Converts luxon Datetime object to ISO date string
  * @param date
- * @returns {DateTime}
+ * @returns {String}
  */
 export const toISO = date => {
-  return date.toISO();
+  if (_hasIn(date, 'toISO')) {
+    return date.toISO();
+  }
+  return date ? date : '';
 };
 
 /**
  *  Serializes date for display in short format
  *  @param {DateTime} date luxon DateTime
- *  @re
+ *  @returns {String}
  */
 export const toShortDateTime = date => {
-  return date ? date.toFormat('yyyy-MM-dd HH:mm') : date;
+  return date instanceof DateTime ? date.toFormat('yyyy-MM-dd HH:mm') : date;
 };
 
 /**
  *  Serializes date for display in short format
  *  @param {DateTime} date luxon DateTime
- *  @re
+ *  @returns {String}
  */
 export const toShortDate = date => {
-  return date ? date.toFormat('yyyy-MM-dd') : date;
-};
-
-/**
- *  Serializes date for UTC date in short format used to
- *  normalise dates for REST API
- *  @param {DateTime} date luxon DateTime
- *  @re
- */
-export const toUTCShortDate = date => {
-  if (!(typeof date === 'string' || date instanceof DateTime)) {
-    throw Error('Wrong date type provided');
-  }
-  if (typeof date === 'string') {
-    date = fromISO(date);
-  }
-  return date.toUTC().toFormat('yyyy-MM-dd');
+  return date instanceof DateTime ? date.toFormat('yyyy-MM-dd') : date;
 };
 
 /**

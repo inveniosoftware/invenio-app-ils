@@ -220,7 +220,6 @@ describe('PatronDocumentRequests tests', () => {
     component.instance().forceUpdate();
 
     const firstId = data.hits[0].pid;
-    debugger;
     component
       .find('TableCell')
       .filterWhere(element => element.prop('data-test') === `0-${firstId}`)

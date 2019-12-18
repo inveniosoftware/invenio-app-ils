@@ -1,5 +1,5 @@
+export { OrderDetails, OrderEditor, OrderSearch } from './Order';
 export { VendorDetails, VendorEditor, VendorSearch } from './Vendor';
-export { OrderDetails, OrderSearch } from './Order';
 export {
   default as orderDetailsReducer,
 } from './Order/OrderDetails/state/reducer';

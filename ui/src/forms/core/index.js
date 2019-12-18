@@ -7,6 +7,7 @@ export { GroupField } from './GroupField';
 export { ObjectArrayField } from './ObjectArrayField';
 export { ObjectArrayStringField } from './ObjectArrayStringField';
 export { ObjectListField } from './ObjectListField';
+export { PriceField } from './PriceField';
 export { SelectField } from './SelectField';
 export { SelectorField } from './SelectorField';
 export { StringField } from './StringField';

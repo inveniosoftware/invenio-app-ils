@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FastField, Field } from 'formik';
+import { FastField, Field, getIn } from 'formik';
 import { Form, Card, Icon, Label } from 'semantic-ui-react';
 import { ESSelector } from '../../components/ESSelector';
 import isEmpty from 'lodash/isEmpty';
+import _has from 'lodash/has';
 
 export class SelectorField extends Component {
   state = {
@@ -48,12 +49,14 @@ export class SelectorField extends Component {
 
   onSelectionsUpdate = (selections, setFieldValue) => {
     this.setState({ value: selections });
-    if (this.props.multiple) {
-    } else {
-      setFieldValue(
-        this.props.fieldPath,
-        selections.length > 0 ? selections[0].metadata : {}
-      );
+    if (!this.props.multiple) {
+      let data = {};
+      if (selections.length > 0) {
+        data = _has(selections[0], 'metadata')
+          ? selections[0].metadata
+          : selections[0];
+      }
+      setFieldValue(this.props.fieldPath, data);
     }
   };
 
@@ -79,7 +82,7 @@ export class SelectorField extends Component {
       ...selectorProps
     } = this.props;
     const selections = [];
-    const value = values[fieldPath];
+    const value = getIn(values, fieldPath);
     if (multiple) {
       for (const record of value) {
         if (!isEmpty(record)) {
