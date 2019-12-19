@@ -68,6 +68,11 @@ export default class extends Component {
         {/* eitems */}
         <Route
           exact
+          path={BackOfficeRoutes.eitemsList}
+          component={EItemSearch}
+        />
+        <Route
+          exact
           path={BackOfficeRoutes.eitemCreate}
           component={EItemEditor}
         />
@@ -78,22 +83,17 @@ export default class extends Component {
         />
         <Route
           exact
-          path={BackOfficeRoutes.eitemsList}
-          component={EItemSearch}
-        />
-        <Route
-          exact
           path={BackOfficeRoutes.eitemDetails}
           component={EItemDetails}
         />
         {/* items */}
+        <Route exact path={BackOfficeRoutes.itemsList} component={ItemSearch} />
         <Route
           exact
           path={BackOfficeRoutes.itemCreate}
           component={ItemEditor}
         />
         <Route exact path={BackOfficeRoutes.itemEdit} component={ItemEditor} />
-        <Route exact path={BackOfficeRoutes.itemsList} component={ItemSearch} />
         <Route
           exact
           path={BackOfficeRoutes.itemDetails}
@@ -120,6 +120,11 @@ export default class extends Component {
         {/* locations */}
         <Route
           exact
+          path={BackOfficeRoutes.locationsList}
+          component={LocationList}
+        />
+        <Route
+          exact
           path={BackOfficeRoutes.locationsCreate}
           component={LocationEditor}
         />
@@ -127,11 +132,6 @@ export default class extends Component {
           exact
           path={BackOfficeRoutes.locationsEdit}
           component={LocationEditor}
-        />
-        <Route
-          exact
-          path={BackOfficeRoutes.locationsList}
-          component={LocationList}
         />
         {/* patrons */}
         <Route
@@ -200,11 +200,6 @@ export default class extends Component {
         {/* orders */}
         <Route
           exact
-          path={AcquisitionRoutes.orderDetails}
-          component={OrderDetails}
-        />
-        <Route
-          exact
           path={AcquisitionRoutes.ordersList}
           component={OrderSearch}
         />
@@ -217,6 +212,11 @@ export default class extends Component {
           exact
           path={AcquisitionRoutes.orderEdit}
           component={OrderEditor}
+        />
+        <Route
+          exact
+          path={AcquisitionRoutes.orderDetails}
+          component={OrderDetails}
         />
         {/* ILL */}
         <Route exact path={ILLRoutes.libraryList} component={LibrarySearch} />
