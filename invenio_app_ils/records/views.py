@@ -28,9 +28,7 @@ from invenio_app_ils.signals import record_viewed
 
 def create_document_stats_blueprint(app):
     """Create document stats blueprint."""
-    blueprint = Blueprint(
-        "ils_document_stats", __name__, url_prefix=""
-    )
+    blueprint = Blueprint("ils_document_stats", __name__, url_prefix="")
     endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
 
     def register_view(pid_type):
@@ -164,6 +162,4 @@ class RejectRequestResource(ContentNegotiatedMethodView):
         record.commit()
         db.session.commit()
         current_app_ils.document_request_indexer.index(record)
-        return self.make_response(
-            pid, record, 202
-        )
+        return self.make_response(pid, record, 202)

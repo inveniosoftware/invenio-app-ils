@@ -197,36 +197,6 @@ exports[`DocumentMetadata tests should load the details component 1`] = `
             ]
           }
         />
-        <Label
-          color="green"
-          content="Publicly Accessible"
-          icon="lock open"
-          size="large"
-        />
-        <Divider
-          hidden={true}
-        />
-        <Component
-          content="Search for patrons:"
-          emptySelectionInfoText="Document will be made public"
-          initialSelections={Array []}
-          multiple={true}
-          onSave={[Function]}
-          onSelectResult={[Function]}
-          query={[Function]}
-          saveButtonContent="Set access restrictions"
-          selectionInfoText="The patron(s) listed below will have read access:"
-          serializer={[Function]}
-          title="Modify access restrictions"
-          trigger={
-            <Button
-              as="button"
-              color="yellow"
-              content="Set Access Restrictions"
-              icon="privacy"
-            />
-          }
-        />
       </GridColumn>
       <GridColumn>
         <Container>

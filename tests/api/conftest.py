@@ -67,15 +67,6 @@ def json_headers():
 
 
 @pytest.fixture()
-def json_patch_headers():
-    """JSON headers for Invenio Records REST PATCH api calls."""
-    return [
-        ("Content-Type", "application/json-patch+json"),
-        ("Accept", "application/json"),
-    ]
-
-
-@pytest.fixture()
 def testdata(app, db, es_clear):
     """Create, index and return test data."""
     indexer = RecordIndexer()

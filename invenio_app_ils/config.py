@@ -343,9 +343,6 @@ RECORDS_REST_ENDPOINTS = dict(
             "application/json": (
                 "invenio_app_ils.records.loaders:document_loader"
             ),
-            "application/json-patch+json": (
-                lambda: request.get_json(force=True)
-            ),
         },
         record_serializers={
             "application/json": (
@@ -382,9 +379,6 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             "application/json": (
                 "invenio_app_ils.records.loaders:item_loader"
-            ),
-            "application/json-patch+json": (
-                lambda: request.get_json(force=True)
             ),
         },
         record_serializers={

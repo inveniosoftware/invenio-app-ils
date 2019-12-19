@@ -27,14 +27,6 @@ const del = async docPid => {
   return await http.delete(`${documentURL}${docPid}`);
 };
 
-const patch = async (documentPid, ops) => {
-  const response = await http.patch(`${documentURL}${documentPid}`, ops, {
-    headers: { 'Content-Type': 'application/json-patch+json' },
-  });
-  response.data = serializer.fromJSON(response.data);
-  return response;
-};
-
 const viewEvent = async docPid => {
   return await http.post(`${documentURL}${docPid}/stats`, {
     event: 'record-view',
@@ -185,7 +177,6 @@ export const document = {
   create: create,
   update: update,
   delete: del,
-  patch: patch,
   viewEvent: viewEvent,
   createRelation: createRelation,
   deleteRelation: deleteRelation,

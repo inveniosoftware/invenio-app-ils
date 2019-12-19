@@ -89,12 +89,6 @@ export const serializeSeriesLanguages = series => ({
   metadata: series.metadata,
 });
 
-export const serializeAccessList = patron => ({
-  id: patron.metadata.email,
-  key: patron.metadata.email,
-  title: patron.metadata.email,
-});
-
 export const serializeLibrary = library => {
   return {
     id: library.metadata.pid,

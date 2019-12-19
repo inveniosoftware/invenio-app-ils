@@ -133,47 +133,6 @@ def test_put_item_endpoint(
     "user_id,res_id,expected_resp_code",
     [
         ("patron1", "itemid-55", 403),
-        ("librarian", "itemid-55", 200),
-        ("admin", "itemid-55", 200),
-        ("anonymous", "itemid-55", 401),
-        ("patron1", "itemid-50", 403),
-        ("librarian", "itemid-50", 200),
-        ("admin", "itemid-50", 200),
-        ("anonymous", "itemid-50", 401),
-        ("patron1", "itemid-53", 403),
-        ("librarian", "itemid-53", 200),
-        ("admin", "itemid-53", 200),
-        ("anonymous", "itemid-53", 401),
-    ],
-)
-def test_patch_item_endpoint(
-    client,
-    json_patch_headers,
-    testdata,
-    users,
-    user_id,
-    res_id,
-    expected_resp_code,
-):
-    """Test PATCH permission of an item."""
-    patch = [{"op": "replace", "path": "/status", "value": "CAN_CIRCULATE"}]
-    url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
-    user_login(user_id, client, users)
-    res = _test_response(
-        client,
-        "patch",
-        url,
-        json_patch_headers,
-        data=patch,
-        expected_resp_code=expected_resp_code,
-    )
-    _test_data("status", "CAN_CIRCULATE", res)
-
-
-@pytest.mark.parametrize(
-    "user_id,res_id,expected_resp_code",
-    [
-        ("patron1", "itemid-55", 403),
         ("librarian", "itemid-55", 204),
         ("admin", "itemid-55", 204),
         ("anonymous", "itemid-55", 401),

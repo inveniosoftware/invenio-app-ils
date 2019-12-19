@@ -42,9 +42,7 @@ def _set_item_to_can_circulate(item_pid):
     """Change the item status to CAN_CIRCULATE."""
     item = Item.get_record_by_pid(item_pid)
     if item["status"] != "CAN_CIRCULATE":
-        item = item.patch(
-            [{"op": "replace", "path": "/status", "value": "CAN_CIRCULATE"}]
-        )
+        item["status"] = "CAN_CIRCULATE"
         item.commit()
         db.session.commit()
         current_app_ils.item_indexer.index(item)

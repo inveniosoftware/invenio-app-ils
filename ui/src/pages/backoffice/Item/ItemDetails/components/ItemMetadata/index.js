@@ -5,7 +5,6 @@ import {
   deleteItem,
   fetchItemDetails,
   checkoutItem,
-  updateItem,
 } from '../../state/actions';
 
 const mapStateToProps = state => ({
@@ -18,8 +17,6 @@ const mapDispatchToProps = dispatch => ({
   deleteItem: itemPid => dispatch(deleteItem(itemPid)),
   checkoutItem: (documentPid, itemPid, patronPid, force = false) =>
     dispatch(checkoutItem(documentPid, itemPid, patronPid, force)),
-  updateItem: (itemPid, path, value) =>
-    dispatch(updateItem(itemPid, path, value)),
 });
 
 export const ItemMetadata = connect(
