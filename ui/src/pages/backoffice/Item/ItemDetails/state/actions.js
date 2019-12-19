@@ -109,37 +109,3 @@ export const checkoutItem = (
     }
   };
 };
-
-export const updateItem = (itemPid, path, value) => {
-  return async dispatch => {
-    dispatch({
-      type: IS_LOADING,
-    });
-    try {
-      const response = await itemApi.patch(itemPid, [
-        {
-          op: 'replace',
-          path: path,
-          value: value,
-        },
-      ]);
-
-      dispatch({
-        type: SUCCESS,
-        payload: response.data,
-      });
-      dispatch(
-        sendSuccessNotification(
-          'Success!',
-          `The item ${itemPid} has been updated.`
-        )
-      );
-    } catch (error) {
-      dispatch({
-        type: HAS_ERROR,
-        payload: error,
-      });
-      dispatch(sendErrorNotification(error));
-    }
-  };
-};

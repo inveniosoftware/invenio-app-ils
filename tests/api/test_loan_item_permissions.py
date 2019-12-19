@@ -123,16 +123,14 @@ def _test_delete_existing_loan(client, json_headers, loanid, response_code):
     assert res.status_code == response_code
 
 
-def test_anonymous_cannot_update_loans(client, json_headers,
-                                       json_patch_headers, testdata):
+def test_anonymous_cannot_update_loans(client, json_headers, testdata):
     """Test that anonymous cannot update loans."""
     loanid = 'loanid-1'
     _test_post_new_loan(client, json_headers, 401)
     _test_replace_existing_loan(client, json_headers, loanid, 401)
 
 
-def test_patron_cannot_update_loans(client, json_headers, json_patch_headers,
-                                    users, testdata):
+def test_patron_cannot_update_loans(client, json_headers, users, testdata):
     """Test that patrons cannot update loans."""
     user = users['patron1']
 

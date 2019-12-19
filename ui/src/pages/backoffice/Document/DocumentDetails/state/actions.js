@@ -18,38 +18,6 @@ import {
   sendErrorNotification,
   sendSuccessNotification,
 } from '@components/Notifications';
-import isEmpty from 'lodash/isEmpty';
-
-export const setRestrictionsOnDocument = (pid, accessList) => {
-  const operation = isEmpty(accessList) ? 'remove' : 'add';
-  const ops = [{ op: operation, path: '/_access/read', value: accessList }];
-
-  return async dispatch => {
-    dispatch({
-      type: IS_LOADING,
-    });
-    try {
-      const response = await documentApi.patch(pid, ops);
-      dispatch({
-        type: SUCCESS,
-        payload: response.data,
-      });
-      dispatch(
-        sendSuccessNotification(
-          'Success!',
-          `The access restrictions have been set.`
-        )
-      );
-      dispatch(fetchDocumentDetails(pid));
-    } catch (error) {
-      dispatch({
-        type: HAS_ERROR,
-        payload: error,
-      });
-      dispatch(sendErrorNotification(error));
-    }
-  };
-};
 
 export const fetchDocumentDetails = documentPid => {
   return async dispatch => {

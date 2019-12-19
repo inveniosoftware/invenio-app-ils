@@ -6,10 +6,8 @@ import {
   Container,
   Header,
   List,
-  Label,
   Icon,
   Button,
-  Divider,
   Popup,
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
@@ -25,12 +23,8 @@ import {
 } from '@api';
 import { BackOfficeRoutes } from '@routes/urls';
 import { DeleteRecordModal } from '@pages/backoffice/components/DeleteRecordModal';
-import { ESSelectorLoanRequest, ESSelectorModal } from '@components/ESSelector';
-import {
-  serializeAccessList,
-  serializePatron,
-} from '@components/ESSelector/serializer';
-import has from 'lodash/has';
+import { ESSelectorLoanRequest } from '@components/ESSelector';
+import { serializePatron } from '@components/ESSelector/serializer';
 import { formatPidTypeToName } from '@pages/backoffice/components/ManageRelationsButton/utils';
 import { isEmpty } from 'lodash';
 
@@ -40,14 +34,6 @@ export default class DocumentMetadata extends Component {
     this.deleteDocument = props.deleteDocument;
     this.documentPid = props.documentDetails.metadata.pid;
   }
-
-  getReadAccessList = document => {
-    return has(document, 'metadata._access.read')
-      ? document.metadata._access.read.map(x =>
-          serializeAccessList({ metadata: { email: x } })
-        )
-      : [];
-  };
 
   requestLoan = (
     patronPid,
@@ -246,47 +232,6 @@ export default class DocumentMetadata extends Component {
     return rows;
   }
 
-  renderPublicAccessRights(readAccessSet) {
-    if (!readAccessSet.length) {
-      return (
-        <Label
-          icon="lock open"
-          size="large"
-          color="green"
-          content="Publicly Accessible"
-        />
-      );
-    } else {
-      return null;
-    }
-  }
-
-  renderRestrictedAccessRights(readAccessSet) {
-    if (readAccessSet.length > 0) {
-      const userAccessList = readAccessSet.map(patron => (
-        <Label color="blue" key={patron.title} content={patron.title} />
-      ));
-      return (
-        <Segment color="yellow">
-          <Header>
-            <Icon name="lock" />
-            The document can be read by:
-          </Header>
-          {userAccessList}
-        </Segment>
-      );
-    } else {
-      return null;
-    }
-  }
-
-  setRestrictions = selections => {
-    const selectedIds = selections.map(selection =>
-      selection.title.toLowerCase()
-    );
-    this.props.setRestrictionsOnDocument(this.documentPid, selectedIds);
-  };
-
   requestLoanButton = (
     <div>
       <Button
@@ -313,7 +258,6 @@ export default class DocumentMetadata extends Component {
 
   render() {
     const document = this.props.documentDetails;
-    const readAccessSet = this.getReadAccessList(document);
     const rows = this.prepareData(document);
     return (
       <Segment className="document-metadata">
@@ -337,32 +281,6 @@ export default class DocumentMetadata extends Component {
           <Grid.Row>
             <Grid.Column>
               <MetadataTable rows={rows} />
-              {this.renderRestrictedAccessRights(readAccessSet)}
-              {this.renderPublicAccessRights(readAccessSet)}
-              <Divider hidden />
-              <ESSelectorModal
-                multiple
-                initialSelections={readAccessSet}
-                trigger={
-                  <Button
-                    icon="privacy"
-                    color="yellow"
-                    content="Set Access Restrictions"
-                    onClick={this.toggleModal}
-                  />
-                }
-                query={patronApi.list}
-                serializer={serializeAccessList}
-                title={'Modify access restrictions'}
-                content={'Search for patrons:'}
-                selectionInfoText={
-                  'The patron(s) listed below will have read access:'
-                }
-                emptySelectionInfoText={'Document will be made public'}
-                onSave={this.setRestrictions}
-                saveButtonContent={'Set access restrictions'}
-                onSelectResult={this.onSelectPatronResult}
-              />
             </Grid.Column>
             <Grid.Column>
               <Container>
