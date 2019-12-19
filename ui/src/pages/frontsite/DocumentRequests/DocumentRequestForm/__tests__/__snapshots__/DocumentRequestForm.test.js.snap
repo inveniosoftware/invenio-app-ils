@@ -2036,130 +2036,108 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                   }
                                                 }
                                               >
-                                                <YearPicker
-                                                  defaultValue=""
-                                                  error={null}
-                                                  handleBlur={[Function]}
-                                                  handleYearChange={[Function]}
-                                                  id="publication_year"
-                                                  initialYear=""
-                                                  label="Publication Year"
-                                                  name="publication_year"
-                                                  placeholder="Publication Year"
-                                                >
-                                                  <YearInput
-                                                    autoComplete="off"
-                                                    clearable={true}
-                                                    closable={true}
-                                                    data-test=""
-                                                    dateFormat="YYYY"
-                                                    error={null}
-                                                    icon="calendar"
-                                                    iconPosition="left"
-                                                    id="publication_year"
-                                                    initialDate=""
-                                                    inline={false}
-                                                    label="Publication Year"
-                                                    localization="en"
-                                                    name="publication_year"
-                                                    onChange={[Function]}
-                                                    placeholder="Publication Year"
-                                                    value=""
+                                                <FormField>
+                                                  <div
+                                                    className="field"
                                                   >
-                                                    <InputView
-                                                      animation="scale"
-                                                      autoComplete="off"
-                                                      clearIcon="remove"
-                                                      clearable={true}
-                                                      closeOnMouseLeave={true}
-                                                      closePopup={[Function]}
-                                                      data-test=""
-                                                      duration={200}
+                                                    <label>
+                                                      Publication Year
+                                                    </label>
+                                                    <YearPicker
+                                                      defaultValue=""
                                                       error={null}
-                                                      icon="calendar"
-                                                      iconPosition="left"
+                                                      handleBlur={[Function]}
+                                                      handleYearChange={[Function]}
                                                       id="publication_year"
-                                                      inline={false}
-                                                      label="Publication Year"
+                                                      initialYear=""
                                                       name="publication_year"
-                                                      onChange={[Function]}
-                                                      onMount={[Function]}
-                                                      openPopup={[Function]}
                                                       placeholder="Publication Year"
-                                                      popupIsClosed={true}
-                                                      renderPicker={[Function]}
-                                                      tabIndex="0"
-                                                      value=""
                                                     >
-                                                      <FormInputWithRef
+                                                      <YearInput
                                                         autoComplete="off"
-                                                        clearIcon="remove"
                                                         clearable={true}
+                                                        closable={true}
                                                         data-test=""
+                                                        dateFormat="YYYY"
                                                         error={null}
                                                         icon="calendar"
                                                         iconPosition="left"
                                                         id="publication_year"
-                                                        innerRef={[Function]}
-                                                        label="Publication Year"
+                                                        initialDate=""
+                                                        inline={false}
+                                                        localization="en"
                                                         name="publication_year"
-                                                        onBlur={[Function]}
                                                         onChange={[Function]}
-                                                        onClear={[Function]}
-                                                        onFocus={[Function]}
-                                                        onMouseEnter={[Function]}
                                                         placeholder="Publication Year"
-                                                        tabIndex="0"
                                                         value=""
                                                       >
-                                                        <FormInput
-                                                          as={[Function]}
+                                                        <InputView
+                                                          animation="scale"
                                                           autoComplete="off"
-                                                          control={[Function]}
+                                                          clearIcon="remove"
+                                                          clearable={true}
+                                                          closeOnMouseLeave={true}
+                                                          closePopup={[Function]}
                                                           data-test=""
+                                                          duration={200}
                                                           error={null}
-                                                          icon={true}
+                                                          icon="calendar"
                                                           iconPosition="left"
                                                           id="publication_year"
-                                                          label="Publication Year"
+                                                          inline={false}
                                                           name="publication_year"
-                                                          onBlur={[Function]}
                                                           onChange={[Function]}
-                                                          onClick={[Function]}
-                                                          onFocus={[Function]}
-                                                          onMouseEnter={[Function]}
+                                                          onMount={[Function]}
+                                                          openPopup={[Function]}
                                                           placeholder="Publication Year"
+                                                          popupIsClosed={true}
+                                                          renderPicker={[Function]}
                                                           tabIndex="0"
+                                                          value=""
                                                         >
-                                                          <FormField
+                                                          <FormInputWithRef
                                                             autoComplete="off"
-                                                            control={[Function]}
+                                                            clearIcon="remove"
+                                                            clearable={true}
                                                             data-test=""
                                                             error={null}
-                                                            icon={true}
+                                                            icon="calendar"
                                                             iconPosition="left"
                                                             id="publication_year"
-                                                            label="Publication Year"
+                                                            innerRef={[Function]}
                                                             name="publication_year"
                                                             onBlur={[Function]}
                                                             onChange={[Function]}
-                                                            onClick={[Function]}
+                                                            onClear={[Function]}
                                                             onFocus={[Function]}
                                                             onMouseEnter={[Function]}
                                                             placeholder="Publication Year"
                                                             tabIndex="0"
+                                                            value=""
                                                           >
-                                                            <div
-                                                              className="field"
+                                                            <FormInput
+                                                              as={[Function]}
+                                                              autoComplete="off"
+                                                              control={[Function]}
+                                                              data-test=""
+                                                              error={null}
+                                                              icon={true}
+                                                              iconPosition="left"
+                                                              id="publication_year"
+                                                              name="publication_year"
+                                                              onBlur={[Function]}
+                                                              onChange={[Function]}
+                                                              onClick={[Function]}
+                                                              onFocus={[Function]}
+                                                              onMouseEnter={[Function]}
+                                                              placeholder="Publication Year"
+                                                              tabIndex="0"
                                                             >
-                                                              <label
-                                                                htmlFor="publication_year"
-                                                              >
-                                                                Publication Year
-                                                              </label>
-                                                              <Input
+                                                              <FormField
                                                                 autoComplete="off"
+                                                                control={[Function]}
                                                                 data-test=""
+                                                                error={null}
                                                                 icon={true}
                                                                 iconPosition="left"
                                                                 id="publication_year"
@@ -2171,27 +2149,16 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                                 onMouseEnter={[Function]}
                                                                 placeholder="Publication Year"
                                                                 tabIndex="0"
-                                                                type="text"
                                                               >
                                                                 <div
-                                                                  className="ui left icon input"
-                                                                  data-test=""
+                                                                  className="field"
                                                                 >
-                                                                  <Icon
-                                                                    as="i"
-                                                                    key=".0"
-                                                                    name="calendar"
-                                                                  >
-                                                                    <i
-                                                                      aria-hidden="true"
-                                                                      className="calendar icon"
-                                                                      onClick={[Function]}
-                                                                    />
-                                                                  </Icon>
-                                                                  <input
+                                                                  <Input
                                                                     autoComplete="off"
+                                                                    data-test=""
+                                                                    icon={true}
+                                                                    iconPosition="left"
                                                                     id="publication_year"
-                                                                    key=".1"
                                                                     name="publication_year"
                                                                     onBlur={[Function]}
                                                                     onChange={[Function]}
@@ -2201,26 +2168,57 @@ exports[`DocumentRequestForm tests should render the document request form corre
                                                                     placeholder="Publication Year"
                                                                     tabIndex="0"
                                                                     type="text"
-                                                                    value=""
-                                                                  />
+                                                                  >
+                                                                    <div
+                                                                      className="ui left icon input"
+                                                                      data-test=""
+                                                                    >
+                                                                      <Icon
+                                                                        as="i"
+                                                                        key=".0"
+                                                                        name="calendar"
+                                                                      >
+                                                                        <i
+                                                                          aria-hidden="true"
+                                                                          className="calendar icon"
+                                                                          onClick={[Function]}
+                                                                        />
+                                                                      </Icon>
+                                                                      <input
+                                                                        autoComplete="off"
+                                                                        id="publication_year"
+                                                                        key=".1"
+                                                                        name="publication_year"
+                                                                        onBlur={[Function]}
+                                                                        onChange={[Function]}
+                                                                        onClick={[Function]}
+                                                                        onFocus={[Function]}
+                                                                        onMouseEnter={[Function]}
+                                                                        placeholder="Publication Year"
+                                                                        tabIndex="0"
+                                                                        type="text"
+                                                                        value=""
+                                                                      />
+                                                                    </div>
+                                                                  </Input>
                                                                 </div>
-                                                              </Input>
-                                                            </div>
-                                                          </FormField>
-                                                        </FormInput>
-                                                      </FormInputWithRef>
-                                                      <Transition
-                                                        animation="scale"
-                                                        duration={200}
-                                                        mountOnShow={true}
-                                                        onComplete={[Function]}
-                                                        transitionOnMount={false}
-                                                        unmountOnHide={true}
-                                                        visible={false}
-                                                      />
-                                                    </InputView>
-                                                  </YearInput>
-                                                </YearPicker>
+                                                              </FormField>
+                                                            </FormInput>
+                                                          </FormInputWithRef>
+                                                          <Transition
+                                                            animation="scale"
+                                                            duration={200}
+                                                            mountOnShow={true}
+                                                            onComplete={[Function]}
+                                                            transitionOnMount={false}
+                                                            unmountOnHide={true}
+                                                            visible={false}
+                                                          />
+                                                        </InputView>
+                                                      </YearInput>
+                                                    </YearPicker>
+                                                  </div>
+                                                </FormField>
                                               </Component>
                                             </Field>
                                           </CalendarInputField>

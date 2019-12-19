@@ -2,20 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CalendarInputField } from './CalendarInputField';
 import { YearPicker } from '@components';
+import { Form } from 'semantic-ui-react';
 
 export class YearInputField extends React.Component {
   renderFormField = props => {
     return (
-      <YearPicker
-        id={this.props.fieldPath}
-        name={this.props.fieldPath}
-        error={props.error}
-        label={this.props.label}
-        placeholder={this.props.placeholder}
-        defaultValue={`${props.value}`}
-        handleBlur={props.form.handleBlur}
-        handleYearChange={props.onChange}
-      />
+      <Form.Field required={this.props.required}>
+        <label>{this.props.label}</label>
+        <YearPicker
+          id={this.props.fieldPath}
+          name={this.props.fieldPath}
+          placeholder={this.props.placeholder}
+          error={props.error}
+          defaultValue={`${props.value}`}
+          handleBlur={props.form.handleBlur}
+          handleYearChange={props.onChange}
+        />
+      </Form.Field>
     );
   };
 

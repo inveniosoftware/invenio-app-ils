@@ -3,20 +3,23 @@ import PropTypes from 'prop-types';
 import { CalendarInputField } from './CalendarInputField';
 import { DatePicker } from '@components/DatePicker/DatePicker';
 import { toShortDate } from '@api/date';
+import { Form } from 'semantic-ui-react';
 
 export class DateInputField extends React.Component {
   renderFormField = props => {
     return (
-      <DatePicker
-        id={this.props.fieldPath}
-        name={this.props.fieldPath}
-        error={props.error}
-        label={this.props.label}
-        placeholder={this.props.placeholder}
-        defaultValue={toShortDate(props.value)}
-        handleBlur={props.form.handleBlur}
-        handleDateChange={props.onChange}
-      />
+      <Form.Field required={this.props.required}>
+        <label>{this.props.label}</label>
+        <DatePicker
+          id={this.props.fieldPath}
+          name={this.props.fieldPath}
+          placeholder={this.props.placeholder}
+          error={props.error}
+          defaultValue={toShortDate(props.value)}
+          handleBlur={props.form.handleBlur}
+          handleDateChange={props.onChange}
+        />
+      </Form.Field>
     );
   };
 

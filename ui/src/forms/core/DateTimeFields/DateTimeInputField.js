@@ -2,25 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CalendarInputField } from './CalendarInputField';
 import { DateTimeInput } from 'semantic-ui-calendar-react';
+import { Form } from 'semantic-ui-react';
 
 export class DateTimeInputField extends React.Component {
   renderFormField = props => {
     return (
-      <DateTimeInput
-        clearable
-        closable
-        autoComplete="off"
-        id={this.props.fieldPath}
-        iconPosition="left"
-        name={this.props.fieldPath}
-        error={props.error}
-        label={this.props.label}
-        placeholder={this.props.placeholder}
-        value={`${props.value}`}
-        dateFormat="YYYY-MM-DD"
-        onBlur={props.form.handleBlur}
-        onChange={props.onChange}
-      />
+      <Form.Field required={this.props.required}>
+        <label>{this.props.label}</label>
+        <DateTimeInput
+          id={this.props.fieldPath}
+          name={this.props.fieldPath}
+          clearable
+          closable
+          autoComplete="off"
+          iconPosition="left"
+          error={props.error}
+          placeholder={props.placeholder}
+          value={`${props.value}`}
+          dateFormat="YYYY-MM-DD"
+          onBlur={props.form.handleBlur}
+          onChange={props.onChange}
+        />
+      </Form.Field>
     );
   };
 
