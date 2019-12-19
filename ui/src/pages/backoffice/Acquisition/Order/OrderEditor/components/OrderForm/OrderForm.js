@@ -150,7 +150,12 @@ export class OrderForm extends Component {
         <Funds />
 
         <GroupField widths="equal">
-          <DateInputField label="Order Date" fieldPath="order_date" optimized />
+          <DateInputField
+            label="Order Date"
+            fieldPath="order_date"
+            optimized
+            required
+          />
           <DateInputField
             label="Expected Delivery Date"
             fieldPath="expected_delivery_date"
@@ -172,7 +177,7 @@ export class OrderForm extends Component {
               required
             />
             <PriceField
-              label="Grand Total Main Currency"
+              label="Grand Total in Main Currency"
               fieldPath="grand_total_main_currency"
               currencies={currencies}
               canSelectCurrency={false}

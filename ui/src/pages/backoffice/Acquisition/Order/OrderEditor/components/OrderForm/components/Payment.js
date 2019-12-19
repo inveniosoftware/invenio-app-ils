@@ -19,14 +19,12 @@ export class Payment extends Component {
             label="Debit Cost"
             fieldPath="payment.debit_cost"
             currencies={currencies}
-            required
           />
           <PriceField
-            label="Debit Cost Main Currency"
+            label="Debit Cost in Main Currency"
             fieldPath="payment.debit_cost_main_currency"
             currencies={currencies}
             canSelectCurrency={false}
-            required
           />
           <DateInputField
             label="Debit Date"
