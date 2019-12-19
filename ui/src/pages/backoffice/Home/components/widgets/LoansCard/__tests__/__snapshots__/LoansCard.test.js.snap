@@ -140,6 +140,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "innerRef",
@@ -167,6 +168,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "innerRef",
@@ -258,6 +260,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "onClick",
@@ -285,6 +288,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "onClick",
@@ -376,6 +380,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "replace",
@@ -403,6 +408,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "replace",
@@ -494,6 +500,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "target",
@@ -521,6 +528,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "target",
@@ -612,6 +620,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "to",
@@ -639,6 +648,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "to",
@@ -731,6 +741,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                         "onClick": [Function],
                                         "role": "button",
                                         "tabIndex": -1,
+                                        "text": "New",
                                         "to": "",
                                       },
                                       [Function],
@@ -772,6 +783,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                             labelPosition="left"
                             positive={true}
                             size="small"
+                            text="New"
                             to=""
                           >
                             <Ref
@@ -793,6 +805,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                   onClick={[Function]}
                                   role="button"
                                   tabIndex={-1}
+                                  text="New"
                                   to=""
                                 />
                               </RefForward>
@@ -839,6 +852,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "innerRef",
@@ -866,6 +880,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "innerRef",
@@ -957,6 +972,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "onClick",
@@ -984,6 +1000,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "onClick",
@@ -1075,6 +1092,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "replace",
@@ -1102,6 +1120,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "replace",
@@ -1193,6 +1212,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "target",
@@ -1220,6 +1240,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "target",
@@ -1311,6 +1332,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "to",
@@ -1338,6 +1360,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "",
                                         },
                                         "to",
@@ -1430,6 +1453,7 @@ exports[`LoansCard tests should render stats with 2 records 1`] = `
                                         "onClick": [Function],
                                         "role": "button",
                                         "tabIndex": -1,
+                                        "text": "New",
                                         "to": "",
                                       },
                                       [Function],

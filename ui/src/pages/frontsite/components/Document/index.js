@@ -3,7 +3,7 @@ import { DocumentTags as DocumentTagsComponent } from '@components/Document';
 import { DocumentRelations as DocumentRelationsComponent } from './DocumentRelations';
 import { DocumentInfo as DocumentInfoComponent } from './DocumentInfo';
 import { DocumentCover as DocumentCoverComponent } from './DocumentCover';
-import { DocumentAbstract as DocumentAbstractComponent } from './DocumentAbstract';
+import { DocumentAbstract as DocumentAbstractComponent } from '@components/Document';
 import { DocumentTitle as DocumentTitleComponent } from './DocumentTitle';
 import { DocumentMetadataTabs as DocumentMetadataTabsComponent } from './DocumentMetadataTabs';
 import { DocumentMetadataAccordion as DocumentMetadataAccordionComponent } from './DocumentMetadataAccordion';

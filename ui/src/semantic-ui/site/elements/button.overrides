@@ -28,6 +28,14 @@
 }
 
 @{bo-parent-selector}{
+
+  .bo-action-menu{
+    .ui.button{
+      margin-bottom: 0.5em;
+    }
+  }
+
+
   .ui.button{
     &.send-overdue-reminder-button{
       background-color: @orange;

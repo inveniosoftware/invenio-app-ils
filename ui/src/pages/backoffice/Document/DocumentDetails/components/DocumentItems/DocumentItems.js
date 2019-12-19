@@ -68,7 +68,6 @@ export default class DocumentItems extends Component {
         data={data.hits}
         columns={columns}
         totalHitsCount={data.total}
-        title={'Attached items'}
         name={'attached items'}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxItems}
