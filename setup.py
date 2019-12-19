@@ -139,7 +139,7 @@ setup(
         ],
         "invenio_base.api_apps": [
             "ils_rest = invenio_app_ils.ext:InvenioAppIlsREST",
-            "ils_ill = invenio_app_ils.ill.ext:InvenioIlsIll"
+            "ils_ill = invenio_app_ils.ill.ext:InvenioIlsIll",
             "ils_acquisition = invenio_app_ils.acquisition.ext:InvenioIlsAcquisition",
         ],
         "invenio_base.api_blueprints": [

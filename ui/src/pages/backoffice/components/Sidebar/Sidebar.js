@@ -78,26 +78,6 @@ class Sidebar extends Component {
           </Menu.Item>
 
           <Menu.Item>
-            <Menu.Header>ILL</Menu.Header>
-            <Menu.Menu>
-              <Menu.Item
-                as={Link}
-                active={librariesActive}
-                to={ILLRoutes.libraryList}
-              >
-                Libraries
-              </Menu.Item>
-              <Menu.Item
-                as={Link}
-                active={borrowingRequestsActive}
-                to={ILLRoutes.borrowingRequestList}
-              >
-                New Borrowing Requests
-              </Menu.Item>
-            </Menu.Menu>
-          </Menu.Item>
-
-          <Menu.Item>
             <Menu.Header>Catalogue</Menu.Header>
             <Menu.Menu>
               <Menu.Item
@@ -147,6 +127,26 @@ class Sidebar extends Component {
                 to={AcquisitionRoutes.vendorsList}
               >
                 Vendors
+              </Menu.Item>
+            </Menu.Menu>
+          </Menu.Item>
+
+          <Menu.Item>
+            <Menu.Header>ILL</Menu.Header>
+            <Menu.Menu>
+              <Menu.Item
+                as={Link}
+                active={librariesActive}
+                to={ILLRoutes.libraryList}
+              >
+                Libraries
+              </Menu.Item>
+              <Menu.Item
+                as={Link}
+                active={borrowingRequestsActive}
+                to={ILLRoutes.borrowingRequestList}
+              >
+                New Borrowing Requests
               </Menu.Item>
             </Menu.Menu>
           </Menu.Item>
