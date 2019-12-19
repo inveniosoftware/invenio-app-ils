@@ -34,7 +34,7 @@ class DocumentRequestListEntry extends Component {
               </Link>{' '}
               requested:
               <Item.Meta className="document-authors">
-                <Header className="loan-document-title" as="h5">
+                <Header className="list-entry-title" as="h5">
                   {documentRequest.metadata.title}
                 </Header>
                 by <label>{documentRequest.metadata.authors}</label>

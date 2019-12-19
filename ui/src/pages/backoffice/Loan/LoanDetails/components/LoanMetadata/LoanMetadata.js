@@ -1,3 +1,4 @@
+import { EmailLink } from '@components/EmailLink/EmailLink';
 import { invenioConfig } from '@config';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -62,13 +63,13 @@ export default class LoanMetadata extends Component {
           header={`The Item ${data.metadata.item_pid} assigned to this loan has been deleted!`}
           content={[
             'If you need further assistance contact ',
-            <a
-              href={`mailto:${invenioConfig.support_email}?subject=Deleted Item ${data.metadata.item_pid}`}
+            <EmailLink
+              email={invenioConfig.support_email}
+              subject={`Deleted Item ${data.metadata.item_pid}`}
               key="support-email"
             >
               <Icon name="mail" />
-              {invenioConfig.support_email}
-            </a>,
+            </EmailLink>
           ]}
         />
       )

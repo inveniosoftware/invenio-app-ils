@@ -206,6 +206,9 @@ ILS_MAIL_LOAN_MSG_LOADER = (
 #: Notification email for overdue loan sent automatically every X days
 ILS_MAIL_LOAN_OVERDUE_REMINDER_INTERVAL = 3
 
+# Upcoming return date range in days
+ILS_UPCOMING_RETURN_RANGE = 7
+
 # Assets
 # ======
 #: Static files collection method (defaults to copying files).

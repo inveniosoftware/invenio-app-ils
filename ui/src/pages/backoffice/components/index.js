@@ -12,5 +12,4 @@ export { VendorList } from './VendorList';
 export { EditButton, NewButton, SeeAllButton } from './buttons';
 export * from './icons';
 export { DetailsHeader } from './DetailsHeader';
-export { DetailsMenu } from './DetailsMenu';
 export { KeyValueTable } from './KeyValueTable';

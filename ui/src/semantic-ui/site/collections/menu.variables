@@ -6,6 +6,7 @@
 @secondaryPointingActiveTextColor: @fsPrimaryColor;
 @secondaryPointingHoverTextColor: @linkHoverColor;
 
+
 /* Inverted */
 @invertedBackground: @contrastColor;
 @invertedBoxShadow: @subtleShadow;
@@ -50,3 +51,5 @@
 /* Inverted Colored */
 @invertedColoredDividerBackground: @dividerBackground;
 @invertedColoredActiveBackground: @strongTransparentBlack;
+
+@secondaryVerticalPointingItemMarginLeft: 0 0 0 -2px;

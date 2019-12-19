@@ -86,4 +86,5 @@ def circulation_overdue_loan_days(loan):
 
 def circulation_upcoming_return_range():
     """Return a default upcoming return range."""
-    return arrow.utcnow() + timedelta(days=7)
+    return arrow.utcnow() + timedelta(
+        days=current_app.config["ILS_UPCOMING_RETURN_RANGE"])

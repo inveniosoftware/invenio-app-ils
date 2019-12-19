@@ -1,1 +1,0 @@
-export { DetailsMenu } from './DetailsMenu';

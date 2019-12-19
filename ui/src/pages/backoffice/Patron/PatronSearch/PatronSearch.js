@@ -1,3 +1,4 @@
+import {EmailLink} from "@components/EmailLink/EmailLink";
 import {
   SearchAggregationsCards,
   SearchControls,
@@ -72,9 +73,9 @@ export class PatronSearch extends Component {
   mailTo = ({ row }) => {
     return (
       <>
-        <a href={`mailto:${row.metadata.email}`}>
+        <EmailLink email={row.metadata.email}>
           <Icon name="envelope" /> {row.metadata.email}
-        </a>
+        </EmailLink>
       </>
     );
   };

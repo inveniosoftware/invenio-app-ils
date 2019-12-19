@@ -42,7 +42,7 @@
       justify-content: space-between;
     }
 
-    &.spaced{
+    &.spaced {
       margin-top: 2em;
       margin-bottom: 2em;
     }
@@ -61,18 +61,18 @@
       background-blend-mode: darken;
 
       @{ui-container}.fs-headline {
-      padding: @defaultPaddingValue;
-      color: white;
+        padding: @defaultPaddingValue;
+        color: white;
 
-      .container-header {
-        margin-bottom: 2em;
-        margin-top: 6em;
-      }
+        .container-header {
+          margin-bottom: 2em;
+          margin-top: 6em;
+        }
 
-      .container-extra {
-        margin-top: 7em;
+        .container-extra {
+          margin-top: 7em;
+        }
       }
-    }
     }
 
     /* Wrap the dot background with this container */
@@ -176,10 +176,14 @@
 }
 
 @{bo-parent-selector} {
-  @{ui-container}{
-    &.spaced{
+  @{ui-container} {
+    &.spaced {
       margin-top: 2em;
       margin-bottom: 2em;
+    }
+
+    &.details-header {
+      padding-bottom: 1em;
     }
   }
 }

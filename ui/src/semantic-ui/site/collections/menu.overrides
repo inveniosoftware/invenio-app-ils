@@ -22,16 +22,17 @@
         border: 0;
       }
 
-      .item{
+      .item {
 
-        &:before, &:after{
+        &:before, &:after {
           content: none;
         }
-        .title{
-          &.active{
+
+        .title {
+          &.active {
             background-color: @highlightBackgroundColor;
 
-            .ui.label{
+            .ui.label {
               background-color: @orange;
               color: white;
             }
@@ -59,19 +60,53 @@
 
 @{bo-parent-selector} {
 
-  .ui.menu.vertical.bo-menu {
-    margin-top: 2em;
+  .ui.menu {
+    &.secondary.vertical.pointing {
+      &.left {
 
-    .header {
-      font-size: 1.2em;
+        border-left-width: @secondaryPointingBorderWidth;
+        border-left-style: solid;
+        border-left-color: @secondaryPointingBorderColor;
+
+        border-right-width: 0 !important;
+
+        .item {
+          border-bottom: none;
+          border-left-style: solid;
+          border-left-color: transparent;
+          border-radius: 0em !important;
+          margin: @secondaryVerticalPointingItemMarginLeft;
+          border-left-width: @secondaryPointingBorderWidth;
+
+          border-right-width: 0 !important;
+          &.active{
+             border-color: @secondaryPointingActiveBorderColor;
+            &:hover {
+              border-color: @secondaryPointingActiveHoverBorderColor;
+              color: @secondaryPointingActiveHoverTextColor;
+            }
+          }
+        }
+
+
+      }
     }
 
-    .menu {
-      .item {
-        font-size: 1em;
+    &.vertical.bo-menu {
+      margin-top: 2em;
+
+      .header {
+        font-size: 1.2em;
+      }
+
+      .menu {
+        .item {
+          font-size: 1em;
+        }
       }
     }
   }
+
 }
 
 
