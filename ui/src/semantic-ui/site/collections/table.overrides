@@ -2,7 +2,7 @@
          Site Overrides
 *******************************/
 
-@{fs-parent-selector} {
+@{fs-parent-selector}, @{bo-parent-selector} {
   .ui.table {
     border: 0;
 

@@ -1,3 +1,11 @@
 /*******************************
          Site Overrides
 *******************************/
+
+.ui.stuck-container {
+  &.solid-background {
+    .ui.sticky{
+      background-color: white;
+    }
+  }
+}

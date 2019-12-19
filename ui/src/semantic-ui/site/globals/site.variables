@@ -26,6 +26,7 @@
 @defaultPaddingValue      : 2em;
 @defaultMarginValue       : 1em;
 @headlineBackground: url("@{imagesFolder}/old-books-436498_1920.jpg");
+@boSidebarWidth           : 230px;
 
 /* Dot background elements */
 @dot-bg-color                : rgba(159, 158, 169, 0.6);

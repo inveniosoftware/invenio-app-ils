@@ -65,7 +65,7 @@
 
 
   .ui.header{
-    &.loan-document-title{
+    &.list-entry-title{
       margin-bottom: 0;
       margin-top: 0.2em;
       color: @metadataFieldsColor;

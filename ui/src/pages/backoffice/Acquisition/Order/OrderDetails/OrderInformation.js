@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { toShortDateTime, toShortDate } from '@api/date';
+import {toShortDateTime, toShortDate, fromISO} from '@api/date';
 import { KeyValueTable } from '@pages/backoffice/components';
 import { PropTypes } from 'prop-types';
 
