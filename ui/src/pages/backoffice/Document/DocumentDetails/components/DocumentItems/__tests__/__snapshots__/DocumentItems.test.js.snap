@@ -58,7 +58,7 @@ exports[`DocumentItems tests should load the DocumentItems component 1`] = `
       showMaxRows={5}
       singleLine={false}
       subtitle=""
-      title="Attached items"
+      title=""
       totalHitsCount={0}
     />
   </Error>
@@ -233,7 +233,7 @@ exports[`DocumentItems tests should render item 1`] = `
         showMaxRows={5}
         singleLine={false}
         subtitle=""
-        title="Attached items"
+        title=""
         totalHitsCount={2}
       >
         <Grid>
@@ -250,26 +250,7 @@ exports[`DocumentItems tests should render item 1`] = `
                 >
                   <div
                     className="middle aligned sixteen wide column"
-                  >
-                    <Header
-                      as="h3"
-                      content="Attached items"
-                      subheader=""
-                    >
-                      <h3
-                        className="ui header"
-                      >
-                        Attached items
-                        <HeaderSubheader
-                          content=""
-                        >
-                          <div
-                            className="sub header"
-                          />
-                        </HeaderSubheader>
-                      </h3>
-                    </Header>
-                  </div>
+                  />
                 </GridColumn>
                 <GridColumn
                   textAlign="right"
@@ -290,14 +271,14 @@ exports[`DocumentItems tests should render item 1`] = `
           selectable={true}
           striped={true}
           subtitle=""
-          title="Attached items"
+          title=""
           unstackable={true}
         >
           <table
             className="ui selectable striped unstackable compact table"
             name="attached items"
             subtitle=""
-            title="Attached items"
+            title=""
           >
             <ResultsTableHeader
               columns={
@@ -2327,7 +2308,7 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
         showMaxRows={5}
         singleLine={false}
         subtitle=""
-        title="Attached items"
+        title=""
         totalHitsCount={0}
       >
         <Grid>
@@ -2344,26 +2325,7 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
                 >
                   <div
                     className="middle aligned sixteen wide column"
-                  >
-                    <Header
-                      as="h3"
-                      content="Attached items"
-                      subheader=""
-                    >
-                      <h3
-                        className="ui header"
-                      >
-                        Attached items
-                        <HeaderSubheader
-                          content=""
-                        >
-                          <div
-                            className="sub header"
-                          />
-                        </HeaderSubheader>
-                      </h3>
-                    </Header>
-                  </div>
+                  />
                 </GridColumn>
                 <GridColumn
                   textAlign="right"
@@ -2578,7 +2540,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
         showMaxRows={1}
         singleLine={false}
         subtitle=""
-        title="Attached items"
+        title=""
         totalHitsCount={2}
       >
         <Grid>
@@ -2595,26 +2557,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
                 >
                   <div
                     className="middle aligned sixteen wide column"
-                  >
-                    <Header
-                      as="h3"
-                      content="Attached items"
-                      subheader=""
-                    >
-                      <h3
-                        className="ui header"
-                      >
-                        Attached items
-                        <HeaderSubheader
-                          content=""
-                        >
-                          <div
-                            className="sub header"
-                          />
-                        </HeaderSubheader>
-                      </h3>
-                    </Header>
-                  </div>
+                  />
                 </GridColumn>
                 <GridColumn
                   textAlign="right"
@@ -2635,14 +2578,14 @@ exports[`DocumentItems tests should render the see all button when showing only 
           selectable={true}
           striped={true}
           subtitle=""
-          title="Attached items"
+          title=""
           unstackable={true}
         >
           <table
             className="ui selectable striped unstackable compact table"
             name="attached items"
             subtitle=""
-            title="Attached items"
+            title=""
           >
             <ResultsTableHeader
               columns={

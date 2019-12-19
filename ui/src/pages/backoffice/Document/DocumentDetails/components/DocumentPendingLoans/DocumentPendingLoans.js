@@ -69,7 +69,6 @@ export default class DocumentPendingLoans extends Component {
         data={data.hits}
         columns={columns}
         totalHitsCount={data.total}
-        title={'Pending loans requests'}
         name={'pending loan requests'}
         seeAllComponent={this.seeAllButton()}
         showMaxRows={this.props.showMaxPendingLoans}

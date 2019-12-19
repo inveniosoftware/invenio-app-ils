@@ -9,172 +9,8 @@ exports[`DocumentMetadata tests should load the details component 1`] = `
     padded={true}
   >
     <GridRow>
-      <GridColumn
-        verticalAlign="middle"
-        width={9}
-      >
-        <Header
-          as="h1"
-        >
-          Document #
-           - 
-          The Gulf: The Making of An American Sea
-        </Header>
-      </GridColumn>
-      <GridColumn
-        textAlign="right"
-        width={7}
-      >
-        <NewButton
-          disabled={false}
-          fluid={false}
-          text="New item"
-          to={
-            Object {
-              "pathname": "/backoffice/items/create",
-              "state": Object {
-                "document": Object {
-                  "metadata": Object {
-                    "abstract": "This is an abstract",
-                    "authors": Array [
-                      Object {
-                        "full_name": "Jack E. Davis",
-                      },
-                    ],
-                    "document_type": "BOOK",
-                    "edition": "1",
-                    "keywords": Object {
-                      "source": "X",
-                      "value": "Patata",
-                    },
-                    "languages": Array [
-                      "en",
-                    ],
-                    "pid": "docid-1",
-                    "title": "The Gulf: The Making of An American Sea",
-                  },
-                },
-              },
-            }
-          }
-        />
-        <NewButton
-          disabled={false}
-          fluid={false}
-          text="New e-item"
-          to={
-            Object {
-              "pathname": "/backoffice/eitems/create",
-              "state": Object {
-                "document": Object {
-                  "metadata": Object {
-                    "abstract": "This is an abstract",
-                    "authors": Array [
-                      Object {
-                        "full_name": "Jack E. Davis",
-                      },
-                    ],
-                    "document_type": "BOOK",
-                    "edition": "1",
-                    "keywords": Object {
-                      "source": "X",
-                      "value": "Patata",
-                    },
-                    "languages": Array [
-                      "en",
-                    ],
-                    "pid": "docid-1",
-                    "title": "The Gulf: The Making of An American Sea",
-                  },
-                },
-              },
-            }
-          }
-        />
-        <EditButton
-          disabled={false}
-          fluid={false}
-          text="Edit"
-          to="/backoffice/documents/docid-1/edit"
-        />
-        <DeleteRecordModal
-          deleteHeader="Are you sure you want to delete the Document
-            record with ID undefined?"
-          onDelete={[Function]}
-          refProps={
-            Array [
-              Object {
-                "getRefData": [Function],
-                "onRefClick": [Function],
-                "refType": "Loan",
-              },
-              Object {
-                "getRefData": [Function],
-                "onRefClick": [Function],
-                "refType": "Items",
-              },
-              Object {
-                "getRefData": [Function],
-                "onRefClick": [Function],
-                "refType": "Related",
-              },
-              Object {
-                "getRefData": [Function],
-                "onRefClick": [Function],
-                "refType": "DocumentRequest",
-              },
-            ]
-          }
-        />
-      </GridColumn>
-    </GridRow>
-    <Component
-      content="Search for the patron to whom the loan should be assigned"
-      emptySelectionInfoText="No patrons selected yet"
-      onSave={[Function]}
-      query={[Function]}
-      saveButtonContent="Perform request"
-      selectionInfoText="The loan will be assigned to the following patron"
-      serializer={[Function]}
-      title="Request a loan for document undefined"
-      trigger={
-        <div>
-          <Button
-            as="button"
-            content="New Loan Request"
-            icon="add"
-            labelPosition="left"
-            positive={true}
-            size="small"
-          />
-          <Popup
-            content="Request a loan on this document on behalf of a patron"
-            disabled={false}
-            eventsEnabled={true}
-            offset={0}
-            on={
-              Array [
-                "click",
-                "hover",
-              ]
-            }
-            pinned={false}
-            position="top left"
-            trigger={
-              <Icon
-                as="i"
-                name="info circle"
-                size="large"
-              />
-            }
-          />
-        </div>
-      }
-    />
-    <GridRow>
       <GridColumn>
         <MetadataTable
-          dataColumnWidth={12}
           labelWidth={4}
           rows={
             Array [
@@ -205,9 +41,30 @@ exports[`DocumentMetadata tests should load the details component 1`] = `
           >
             Abstract
           </Header>
-          <p>
-            This is an abstract
-          </p>
+          <DocumentAbstract
+            lines={20}
+            metadata={
+              Object {
+                "abstract": "This is an abstract",
+                "authors": Array [
+                  Object {
+                    "full_name": "Jack E. Davis",
+                  },
+                ],
+                "document_type": "BOOK",
+                "edition": "1",
+                "keywords": Object {
+                  "source": "X",
+                  "value": "Patata",
+                },
+                "languages": Array [
+                  "en",
+                ],
+                "pid": "docid-1",
+                "title": "The Gulf: The Making of An American Sea",
+              }
+            }
+          />
         </Container>
       </GridColumn>
     </GridRow>

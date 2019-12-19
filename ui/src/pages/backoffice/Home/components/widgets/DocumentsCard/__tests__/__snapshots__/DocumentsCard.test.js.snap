@@ -126,6 +126,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "innerRef",
@@ -153,6 +154,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "innerRef",
@@ -244,6 +246,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "onClick",
@@ -271,6 +274,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "onClick",
@@ -362,6 +366,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "replace",
@@ -389,6 +394,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "replace",
@@ -480,6 +486,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "target",
@@ -507,6 +514,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "target",
@@ -598,6 +606,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "to",
@@ -625,6 +634,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "to",
@@ -717,6 +727,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "/backoffice/documents/create",
                                         },
                                         [Function],
@@ -758,6 +769,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                               labelPosition="left"
                               positive={true}
                               size="small"
+                              text="New"
                               to="/backoffice/documents/create"
                             >
                               <Ref
@@ -779,6 +791,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                     onClick={[Function]}
                                     role="button"
                                     tabIndex={-1}
+                                    text="New"
                                     to="/backoffice/documents/create"
                                   />
                                 </RefForward>
@@ -825,6 +838,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "innerRef",
@@ -852,6 +866,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "innerRef",
@@ -943,6 +958,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "onClick",
@@ -970,6 +986,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "onClick",
@@ -1061,6 +1078,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "replace",
@@ -1088,6 +1106,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "replace",
@@ -1179,6 +1198,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "target",
@@ -1206,6 +1226,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "target",
@@ -1297,6 +1318,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "to",
@@ -1324,6 +1346,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                             "onClick": [Function],
                                             "role": "button",
                                             "tabIndex": -1,
+                                            "text": "New",
                                             "to": "/backoffice/documents/create",
                                           },
                                           "to",
@@ -1416,6 +1439,7 @@ exports[`DocumentsCard tests should render stats with 2 records 1`] = `
                                           "onClick": [Function],
                                           "role": "button",
                                           "tabIndex": -1,
+                                          "text": "New",
                                           "to": "/backoffice/documents/create",
                                         },
                                         [Function],

@@ -1,15 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DocumentDetails tests should load the details component 1`] = `
-<Container>
-  <Loader>
-    <Error>
-      <DocumentMetadata />
-      <DocumentPendingLoans />
-      <DocumentItems />
-      <DocumentRelations />
-      <DocumentStats />
-    </Error>
-  </Loader>
-</Container>
+<div>
+  <Container
+    fluid={true}
+  >
+    <Loader>
+      <Error>
+        <Sticky
+          active={true}
+          bottomOffset={0}
+          className="solid-background"
+          context={
+            Object {
+              "current": null,
+            }
+          }
+          offset={0}
+          scrollContext={[Window]}
+        >
+          <Container
+            className="spaced"
+            fluid={true}
+          >
+            <DocumentHeader />
+          </Container>
+          <Divider />
+        </Sticky>
+        <Container
+          fluid={true}
+        >
+          <Ref
+            innerRef={
+              Object {
+                "current": null,
+              }
+            }
+          >
+            <Grid
+              columns={2}
+            >
+              <GridColumn
+                width={13}
+              >
+                <DocumentContent />
+              </GridColumn>
+              <GridColumn
+                width={3}
+              >
+                <Sticky
+                  active={true}
+                  bottomOffset={0}
+                  context={
+                    Object {
+                      "current": null,
+                    }
+                  }
+                  offset={150}
+                  scrollContext={[Window]}
+                >
+                  <DocumentActionMenu />
+                </Sticky>
+              </GridColumn>
+            </Grid>
+          </Ref>
+        </Container>
+      </Error>
+    </Loader>
+  </Container>
+</div>
 `;

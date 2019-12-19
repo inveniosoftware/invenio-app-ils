@@ -47,7 +47,21 @@ class OrderHeader extends React.Component {
       </Link>
     );
     const pid = data.metadata.pid;
-
+    const recordInfo = (
+      <>
+        <label>Order</label> #{pid} <CopyButton text={pid} />
+        <br />
+        <label>Ordered by </label>
+        <Link
+          to={BackOfficeRoutes.patronDetailsFor(data.metadata.created_by_pid)}
+        >
+          <PatronIcon />
+          patron {data.metadata.created_by_pid}
+        </Link>
+        <br />
+        <label>On</label> {toShortDate(data.metadata.order_date)}
+      </>
+    );
     return (
       <DetailsHeader
         title={
@@ -60,19 +74,8 @@ class OrderHeader extends React.Component {
         pid={data.metadata.pid}
         icon={<OrderIcon />}
         recordType="Order"
-      >
-        <label>Order</label> #{pid} <CopyButton text={pid} />
-        <br />
-        <label>Ordered by </label>
-        <Link
-          to={BackOfficeRoutes.patronDetailsFor(data.metadata.created_by_pid)}
-        >
-          <PatronIcon />
-          patron {data.metadata.created_by_pid}
-        </Link>
-        <br />
-        <label>On</label> {toShortDate(data.metadata.order_date)}
-      </DetailsHeader>
+        recordInfo={recordInfo}
+      />
     );
   }
 }
@@ -95,7 +98,7 @@ class ActionMenu extends React.Component {
     const { activeItem } = this.state;
 
     return (
-      <>
+      <div className={'bo-action-menu'}>
         <EditButton fluid to={AcquisitionRoutes.orderEditFor(order.pid)} />
 
         <Divider horizontal>Navigation</Divider>
@@ -123,7 +126,7 @@ class ActionMenu extends React.Component {
             Order details
           </Menu.Item>
         </Menu>
-      </>
+      </div>
     );
   }
 }

@@ -1,14 +1,24 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import DocumentDetails from '../DocumentDetails';
+import testData from '@testData/documents.json';
+
 
 jest.mock('../components/', () => {
   return {
+    DocumentActionMenu: () => null,
     DocumentMetadata: () => null,
     DocumentPendingLoans: () => null,
     DocumentItems: () => null,
     DocumentRelations: () => null,
     DocumentStats: () => null,
+  };
+});
+
+jest.mock('../', () => {
+  return {
+    DocumentHeader: () => null,
+    DocumentContent: () => null,
   };
 });
 
@@ -35,7 +45,6 @@ describe('DocumentDetails tests', () => {
         history={routerHistory}
         match={routerUrlParams}
         fetchDocumentDetails={() => {}}
-        deleteDocument={() => {}}
       />
     );
     expect(component).toMatchSnapshot();
@@ -43,13 +52,12 @@ describe('DocumentDetails tests', () => {
 
   it('should fetch document details on mount', () => {
     const mockedFetchDocumentDetails = jest.fn();
-    const mockDeleteDocument = jest.fn();
     component = mount(
       <DocumentDetails
         history={routerHistory}
         match={routerUrlParams}
         fetchDocumentDetails={mockedFetchDocumentDetails}
-        deleteDocument={mockDeleteDocument}
+        data={{ metadata: testData[0] }}
       />
     );
     expect(mockedFetchDocumentDetails).toHaveBeenCalledWith(

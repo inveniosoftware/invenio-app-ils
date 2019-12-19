@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Popup, Icon } from 'semantic-ui-react';
 import { formatPrice } from '@api/utils';
-import { KeyValueTable } from '@pages/backoffice/components';
+import {KeyValueTable, MetadataTable} from '@pages/backoffice/components';
 
 export class PaymentInformation extends React.Component {
   render() {
@@ -9,7 +9,7 @@ export class PaymentInformation extends React.Component {
     const payment = order.payment;
     const leftTable = [
       {
-        key: (
+        name: (
           <>
             Total (local {order.grand_total_main_currency.currency})
             <Popup
@@ -21,18 +21,18 @@ export class PaymentInformation extends React.Component {
         value: formatPrice(order.grand_total_main_currency),
       },
       {
-        key: `Total (${order.grand_total.currency})`,
+        name: `Total (${order.grand_total.currency})`,
         value: formatPrice(order.grand_total),
       },
       {
-        key: 'Debit cost',
+        name: 'Debit cost',
         value: formatPrice(payment.debit_cost),
       },
     ];
     const rightTable = [
-      { key: 'Mode', value: payment.mode },
+      { name: 'Mode', value: payment.mode },
       {
-        key: (
+        name: (
           <>
             IPR ID{' '}
             <Popup
@@ -43,16 +43,16 @@ export class PaymentInformation extends React.Component {
         ),
         value: payment.internal_purchase_requisition_id,
       },
-      { key: 'Note', value: payment.debit_note },
+      { name: 'Note', value: payment.debit_note },
     ];
     return (
       <Grid columns={2} id="payment-info">
         <Grid.Row>
           <Grid.Column>
-            <KeyValueTable data={leftTable} />
+            <MetadataTable labelWidth={5} rows={leftTable} />
           </Grid.Column>
           <Grid.Column>
-            <KeyValueTable keyWidth={3} data={rightTable} />
+            <MetadataTable labelWidth={5} rows={rightTable} />
           </Grid.Column>
         </Grid.Row>
       </Grid>

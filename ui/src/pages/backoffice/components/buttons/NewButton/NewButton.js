@@ -13,9 +13,7 @@ export default class NewButton extends Component {
         as={Link}
         size="small"
         labelPosition="left"
-        to={to}
-        disabled={disabled}
-        fluid={fluid}
+        {...this.props}
       >
         <Icon name="plus" />
         {this.props.text}

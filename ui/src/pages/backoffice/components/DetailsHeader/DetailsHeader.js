@@ -15,9 +15,10 @@ export class DetailsHeader extends React.Component {
               <Header.Subheader>{subTitle}</Header.Subheader>
             </Header.Content>
           </Header>
+          {this.props.children}
         </Grid.Column>
         <Grid.Column width={3} floated="right" textAlign="right">
-          {this.props.children}
+          {this.props.recordInfo}
         </Grid.Column>
       </Grid>
     );
@@ -29,5 +30,6 @@ DetailsHeader.propTypes = {
   pid: PropTypes.string,
   recordType: PropTypes.string,
   subTitle: PropTypes.any,
+  recordInfo: PropTypes.any,
   title: PropTypes.any,
 };
