@@ -7,6 +7,7 @@ import {
   TextField,
   VocabularyField,
 } from '@forms';
+import { Funds } from './Funds';
 import { invenioConfig } from '@config';
 
 export class Payment extends Component {
@@ -14,25 +15,22 @@ export class Payment extends Component {
     const { currencies } = this.props;
     return (
       <>
-        <GroupField widths="equal">
-          <PriceField
-            label="Debit Cost"
-            fieldPath="payment.debit_cost"
-            currencies={currencies}
-          />
-          <PriceField
-            label="Debit Cost in Main Currency"
-            fieldPath="payment.debit_cost_main_currency"
-            currencies={currencies}
-            canSelectCurrency={false}
-          />
-          <DateInputField
-            label="Debit Date"
-            fieldPath="payment.debit_date"
-            optimized
-          />
-        </GroupField>
-        <TextField label="Debit Note" fieldPath="payment.debit_note" rows={3} />
+        <PriceField
+          label="Debit Cost"
+          fieldPath="payment.debit_cost"
+          currencies={currencies}
+        />
+        <PriceField
+          label="Debit Cost in Main Currency"
+          fieldPath="payment.debit_cost_main_currency"
+          currencies={currencies}
+          canSelectCurrency={false}
+        />
+        <DateInputField
+          label="Debit Date"
+          fieldPath="payment.debit_date"
+          optimized
+        />
         <GroupField widths="equal">
           <VocabularyField
             type={invenioConfig.vocabularies.order.acq_payment_mode}
@@ -45,6 +43,8 @@ export class Payment extends Component {
             fieldPath="payment.internal_purchase_requisition_id"
           />
         </GroupField>
+        <TextField label="Debit Note" fieldPath="payment.debit_note" rows={3} />
+        <Funds />
       </>
     );
   }

@@ -284,12 +284,17 @@ exports[`DocumentRequestForm tests should render the document request form corre
                       }
                     }
                   >
-                    <Container
-                      fluid={true}
-                    >
+                    <Container>
                       <div
-                        className="ui fluid container"
+                        className="ui container"
                       >
+                        <Header
+                          textAlign="center"
+                        >
+                          <div
+                            className="ui center aligned header"
+                          />
+                        </Header>
                         <Formik
                           initialValues={
                             Object {
