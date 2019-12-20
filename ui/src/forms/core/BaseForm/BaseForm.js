@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, getIn } from 'formik';
 import isEmpty from 'lodash/isEmpty';
-import { Form, Button, Grid, Header, Container } from 'semantic-ui-react';
+import { Form, Button, Header, Container } from 'semantic-ui-react';
 import { ES_DELAY } from '@config';
 import { ErrorMessage } from '../ErrorMessage';
 
@@ -87,14 +87,8 @@ export class BaseForm extends Component {
   render() {
     const { buttons, initialValues, title } = this.props;
     return (
-      <Container fluid>
-        {title && (
-          <Grid>
-            <Grid.Row centered>
-              <Header>{title}</Header>
-            </Grid.Row>
-          </Grid>
-        )}
+      <Container>
+        <Header textAlign="center">{title}</Header>
         <Formik
           initialValues={initialValues}
           onSubmit={this.props.onSubmit || this.onSubmit}
@@ -109,6 +103,7 @@ export class BaseForm extends Component {
             >
               <ErrorMessage />
               {this.props.children}
+
               {buttons ? (
                 this.renderButtons(isSubmitting, submitForm, values)
               ) : (

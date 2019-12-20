@@ -40,7 +40,7 @@ export default class OrderListEntry extends Component {
   renderOrderLine = (orderLine, index) => {
     const documentPid = orderLine.document_pid;
     const patronPid = orderLine.patron_pid;
-    const medium = getDisplayVal('items.mediums', orderLine.medium);
+    const medium = orderLine.medium;
     const documentLink = (
       <Link to={BackOfficeRoutes.documentDetailsFor(documentPid)}>
         <code>{documentPid}</code>

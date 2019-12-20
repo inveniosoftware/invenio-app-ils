@@ -1,22 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Header } from 'semantic-ui-react';
+import { Header, Segment, Grid } from 'semantic-ui-react';
 import { getIn } from 'formik';
-import { SelectorField, TextField } from '@forms';
 import { Loader } from '@components';
-import { order as orderApi, vendor as vendorApi } from '@api/acquisition';
+import { order as orderApi } from '@api/acquisition';
 import { AcquisitionRoutes } from '@routes/urls';
 import { goTo } from '@history';
-import {
-  BaseForm,
-  DateInputField,
-  GroupField,
-  PriceField,
-  SelectField,
-  StringField,
-} from '@forms';
-import { serializeVendor } from '@components/ESSelector/serializer';
-import { Funds, OrderLines, Payment } from './components';
+import { BaseForm } from '@forms';
+import { OrderInfo, OrderLines, Payment } from './components';
 import { vocabulary as vocabularyApi } from '@api';
 import { invenioConfig } from '@config';
 import { sessionManager } from '@authentication/services';
@@ -33,6 +24,11 @@ const orderSubmitSerializer = (values, newRecord) => {
       line.document_pid = _has(line.document, 'id')
         ? line.document.id
         : line.document.pid;
+    }
+    if (line.patron) {
+      line.patron_pid = _has(line.patron, 'id')
+        ? line.patron.id
+        : line.patron.pid;
     }
     return line;
   });
@@ -123,73 +119,26 @@ export class OrderForm extends Component {
         pid={this.props.pid ? this.props.pid : undefined}
         submitSerializer={orderSubmitSerializer}
       >
-        <Header dividing>Order information</Header>
-        <SelectorField
-          required
-          emptyHeader="No vendor selected"
-          emptyDescription="Please select a vendor."
-          fieldPath="vendor"
-          errorPath="vendor_pid"
-          label="Vendor"
-          placeholder="Search for a vendor..."
-          query={vendorApi.list}
-          serializer={serializeVendor}
-        />
-        <GroupField widths="equal">
-          <SelectField
-            required
-            search
-            label="Status"
-            fieldPath="status"
-            options={invenioConfig.orders.statuses}
-          />
-          <StringField label="Cancel Reason" fieldPath="cancel_reason" />
-        </GroupField>
-
-        <TextField label="Notes" fieldPath="notes" rows={3} />
-        <Funds />
-
-        <GroupField widths="equal">
-          <DateInputField
-            label="Order Date"
-            fieldPath="order_date"
-            optimized
-            required
-          />
-          <DateInputField
-            label="Expected Delivery Date"
-            fieldPath="expected_delivery_date"
-            optimized
-          />
-          <DateInputField
-            label="Received date"
-            fieldPath="received_date"
-            optimized
-          />
-        </GroupField>
-
-        <Loader isLoading={isLoading}>
-          <GroupField widths="equal">
-            <PriceField
-              label="Grand Total"
-              fieldPath="grand_total"
-              currencies={currencies}
-              required
-            />
-            <PriceField
-              label="Grand Total in Main Currency"
-              fieldPath="grand_total_main_currency"
-              currencies={currencies}
-              canSelectCurrency={false}
-              required
-            />
-          </GroupField>
-        </Loader>
-
-        <Header dividing>Payment information</Header>
-        <Loader isLoading={isLoading}>
-          <Payment currencies={currencies} />
-        </Loader>
+        <Grid columns="equal">
+          <Grid.Row stretched>
+            <Grid.Column>
+              <Segment raised>
+                <Header dividing>Order information</Header>
+                <Loader isLoading={isLoading}>
+                  <OrderInfo currencies={currencies} />
+                </Loader>
+              </Segment>
+            </Grid.Column>
+            <Grid.Column>
+              <Segment raised>
+                <Header dividing>Payment information</Header>
+                <Loader isLoading={isLoading}>
+                  <Payment currencies={currencies} />
+                </Loader>
+              </Segment>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
 
         <Header dividing>Order lines</Header>
         <Loader isLoading={isLoading}>

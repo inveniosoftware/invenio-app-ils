@@ -7,6 +7,7 @@ import { vendor as vendorApi } from '@api/acquisition/vendor';
 import { AcquisitionRoutes } from '@routes/urls';
 import { goTo } from '@history';
 import { BaseForm } from '@forms';
+import { Segment } from 'semantic-ui-react';
 
 export class VendorForm extends Component {
   prepareData = data => {
@@ -40,11 +41,13 @@ export class VendorForm extends Component {
         title={this.props.title}
         pid={this.props.pid ? this.props.pid : undefined}
       >
-        <StringField label="Name" fieldPath="name" required />
-        <StringField label="Address" fieldPath="address" />
-        <StringField label="Email" fieldPath="email" />
-        <StringField label="Phone" fieldPath="phone" />
-        <TextField label="Notes" fieldPath="notes" rows={5} />
+        <Segment raised>
+          <StringField label="Name" fieldPath="name" required />
+          <StringField label="Address" fieldPath="address" />
+          <StringField label="Email" fieldPath="email" />
+          <StringField label="Phone" fieldPath="phone" />
+          <TextField label="Notes" fieldPath="notes" rows={5} />
+        </Segment>
       </BaseForm>
     );
   }
