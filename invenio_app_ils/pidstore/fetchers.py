@@ -5,12 +5,11 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Circulation fetchers."""
+"""ILS fetchers."""
 
 from invenio_pidstore.fetchers import FetchedPID
 
 from .pids import (  # isort:skip
-    DOCUMENT_PID_TYPE,
     DOCUMENT_REQUEST_PID_TYPE,
     EITEM_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
@@ -20,15 +19,6 @@ from .pids import (  # isort:skip
     SERIES_PID_TYPE,
     VOCABULARY_PID_TYPE,
 )
-
-
-def document_pid_fetcher(record_uuid, data):
-    """Return Document PID fetcher."""
-    return FetchedPID(
-        provider=None,
-        pid_type=DOCUMENT_PID_TYPE,
-        pid_value=str(data["pid"])
-    )
 
 
 def item_pid_fetcher(record_uuid, data):

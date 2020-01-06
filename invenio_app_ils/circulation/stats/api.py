@@ -9,7 +9,7 @@
 
 from invenio_circulation.proxies import current_circulation
 
-from invenio_app_ils.search.api import DocumentSearch
+from invenio_app_ils.proxies import current_app_ils
 
 
 def fetch_most_loaned_documents(from_date, to_date, bucket_size):
@@ -37,7 +37,7 @@ def fetch_most_loaned_documents(from_date, to_date, bucket_size):
         )
 
     # Enhance the document serializer
-    doc_search = DocumentSearch()
+    doc_search = current_app_ils.document_search_cls()
     doc_search = doc_search.with_preference_param().params(version=True)
     doc_search = doc_search.search_by_pid(*document_pids)
     result = doc_search.execute()

@@ -12,7 +12,8 @@ from __future__ import absolute_import, print_function
 from invenio_accounts.models import User
 from invenio_pidstore.errors import PersistentIdentifierError
 
-from .records.api import Document, Item
+from .documents.api import Document
+from .records.api import Item
 from .search.api import ItemSearch
 
 

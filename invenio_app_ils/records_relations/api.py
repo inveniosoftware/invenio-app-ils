@@ -263,7 +263,8 @@ class RecordRelationsParentChild(RecordRelations):
 
     def _validate_relation_between_records(self, parent, child, relation_name):
         """Validate relation between type of records."""
-        from invenio_app_ils.records.api import Document, Series
+        from invenio_app_ils.documents.api import Document
+        from invenio_app_ils.records.api import Series
 
         # when child is Document, parent is any type of Series
         is_series_doc = isinstance(child, Document) and isinstance(
@@ -349,7 +350,8 @@ class RecordRelationsSiblings(RecordRelations):
 
     def _validate_relation_between_records(self, first, second, relation_name):
         """Validate relation between type of records."""
-        from invenio_app_ils.records.api import Document, Series
+        from invenio_app_ils.documents.api import Document
+        from invenio_app_ils.records.api import Series
 
         # records must be of the same type
         same_document = isinstance(first, Document) and isinstance(

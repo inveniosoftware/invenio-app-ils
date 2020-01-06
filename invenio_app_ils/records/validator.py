@@ -100,7 +100,7 @@ class ItemValidator(RecordValidator):
 
     def ensure_document_exists(self, document_pid):
         """Ensure document exists or raise."""
-        from invenio_app_ils.records.api import Document
+        from invenio_app_ils.documents.api import Document
         try:
             Document.get_record_by_pid(document_pid)
         except PIDDoesNotExistError:

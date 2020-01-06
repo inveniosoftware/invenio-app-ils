@@ -10,10 +10,11 @@
 from invenio_circulation.api import Loan
 from invenio_pidstore.errors import PIDDeletedError
 
+from invenio_app_ils.documents.api import Document
 from invenio_app_ils.jsonresolver.api import \
     get_field_value_for_record as get_field_value
 from invenio_app_ils.jsonresolver.api import get_pid_or_default
-from invenio_app_ils.records.api import Document, Item
+from invenio_app_ils.records.api import Item
 from invenio_app_ils.records.resolver.resolver import get_patron
 
 

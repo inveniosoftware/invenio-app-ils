@@ -26,12 +26,11 @@ from invenio_app_ils.errors import IlsValidationError, PatronNotFoundError, \
     RecordHasReferencesError
 from invenio_app_ils.records_relations.api import RecordRelationsMetadata, \
     RecordRelationsRetriever
-from invenio_app_ils.search.api import DocumentRequestSearch, \
-    InternalLocationSearch, ItemSearch
+from invenio_app_ils.search.api import InternalLocationSearch, ItemSearch
 
-from ..pidstore.pids import DOCUMENT_PID_TYPE, DOCUMENT_REQUEST_PID_TYPE, \
-    EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, \
-    LOCATION_PID_TYPE, SERIES_PID_TYPE
+from ..pidstore.pids import DOCUMENT_REQUEST_PID_TYPE, EITEM_PID_TYPE, \
+    INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, LOCATION_PID_TYPE, \
+    SERIES_PID_TYPE
 from .validator import DocumentRequestValidator, ItemValidator, RecordValidator
 
 lt_es7 = ES_VERSION[0] < 7
@@ -134,122 +133,6 @@ class IlsRecordWithRelations(IlsRecord):
                 ref_type="related",
                 ref_ids=sorted(ref for ref in related_refs),
             )
-
-
-class Document(IlsRecordWithRelations):
-    """Document record class."""
-
-    _pid_type = DOCUMENT_PID_TYPE
-    _schema = "documents/document-v1.0.0.json"
-    _circulation_resolver_path = (
-        "{scheme}://{host}/api/resolver/documents/{document_pid}/circulation"
-    )
-    _item_resolver_path = (
-        "{scheme}://{host}/api/resolver/documents/{document_pid}/items"
-    )
-    _eitem_resolver_path = (
-        "{scheme}://{host}/api/resolver/documents/{document_pid}/eitems"
-    )
-    _relations_path = (
-        "{scheme}://{host}/api/resolver/documents/{document_pid}/relations"
-    )
-    _stock_resolver_path = (
-        "{scheme}://{host}/api/resolver/documents/{document_pid}/stock"
-    )
-
-    @classmethod
-    def build_resolver_fields(cls, data):
-        """Build all resolver fields."""
-        data["circulation"] = {
-            "$ref": cls._circulation_resolver_path.format(
-                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
-                host=current_app.config["JSONSCHEMAS_HOST"],
-                document_pid=data["pid"],
-            )
-        }
-        data.setdefault("relations", {})
-        data["relations"] = {
-            "$ref": cls._relations_path.format(
-                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
-                host=current_app.config["JSONSCHEMAS_HOST"],
-                document_pid=data["pid"],
-            )
-        }
-        data.setdefault("eitems", {})
-        data["eitems"] = {
-            "$ref": cls._eitem_resolver_path.format(
-                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
-                host=current_app.config["JSONSCHEMAS_HOST"],
-                document_pid=data["pid"],
-            )
-        }
-        data.setdefault("items", {})
-        data["items"] = {
-            "$ref": cls._item_resolver_path.format(
-                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
-                host=current_app.config["JSONSCHEMAS_HOST"],
-                document_pid=data["pid"],
-            )
-        }
-        data["stock"] = {
-            "$ref": cls._stock_resolver_path.format(
-                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
-                host=current_app.config["JSONSCHEMAS_HOST"],
-                document_pid=data["pid"],
-            )
-        }
-
-    @classmethod
-    def create(cls, data, id_=None, **kwargs):
-        """Create Document record."""
-        cls.build_resolver_fields(data)
-        return super(Document, cls).create(data, id_=id_, **kwargs)
-
-    def update(self, data):
-        """Update Document record."""
-        super(Document, self).update(data)
-        self.build_resolver_fields(self)
-
-    def delete(self, **kwargs):
-        """Delete Document record."""
-        loan_search_res = search_by_pid(
-            document_pid=self["pid"],
-            filter_states=["PENDING"]
-            + current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"],
-        )
-        if loan_search_res.count():
-            raise RecordHasReferencesError(
-                record_type="Document",
-                record_id=self["pid"],
-                ref_type="Loan",
-                ref_ids=sorted([res["pid"] for res in loan_search_res.scan()]),
-            )
-
-        item_search = ItemSearch()
-        item_search_res = item_search.search_by_document_pid(
-            document_pid=self["pid"]
-        )
-        if item_search_res.count():
-            raise RecordHasReferencesError(
-                record_type="Document",
-                record_id=self["pid"],
-                ref_type="Item",
-                ref_ids=sorted([res["pid"] for res in item_search_res.scan()]),
-            )
-
-        req_search = DocumentRequestSearch()
-        req_search_res = req_search.search_by_document_pid(
-            document_pid=self["pid"]
-        )
-        if req_search_res.count():
-            raise RecordHasReferencesError(
-                record_type="Document",
-                record_id=self["pid"],
-                ref_type="DocumentRequest",
-                ref_ids=sorted([res["pid"] for res in req_search_res.scan()]),
-            )
-
-        return super(Document, self).delete(**kwargs)
 
 
 class _Item(IlsRecord):
