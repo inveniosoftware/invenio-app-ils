@@ -114,7 +114,6 @@ export default class AvailableItems extends Component {
         title={'Available items'}
         name={'available items'}
         seeAllComponent={this.seeAllButton()}
-        showMaxRows={this.props.showMaxItems}
       />
     );
   }
@@ -146,9 +145,4 @@ AvailableItems.propTypes = {
   data: PropTypes.object.isRequired,
   loan: PropTypes.object.isRequired,
   fetchAvailableItems: PropTypes.func.isRequired,
-  showMaxAvailableItems: PropTypes.number,
-};
-
-AvailableItems.defaultProps = {
-  showMaxAvailableItems: 10,
 };

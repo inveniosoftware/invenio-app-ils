@@ -31,7 +31,12 @@ export default class OrderListEntry extends Component {
           </Link>
         </Item.Description>
         <Item.Description>
-          <label>total</label> {formatPrice(order.metadata.grand_total)}
+          <label>total</label>
+          {formatPrice(order.metadata.grand_total_main_currency)}
+          {order.metadata.grand_total.currency !==
+          order.metadata.grand_total_main_currency.currency
+            ? `(${formatPrice(order.metadata.grand_total)})`
+            : ''}
         </Item.Description>
       </>
     );
@@ -106,7 +111,7 @@ export default class OrderListEntry extends Component {
             <List.Content floated="right">
               <strong>{toShortDateTime(received_date)}</strong>
             </List.Content>
-            <List.Content>delivered</List.Content>
+            <List.Content>received</List.Content>
           </List.Item>
         )}
         {expected_delivery_date && (
@@ -114,7 +119,7 @@ export default class OrderListEntry extends Component {
             <List.Content floated="right">
               <strong>{toShortDateTime(expected_delivery_date)}</strong>
             </List.Content>
-            <List.Content>expected delivery date</List.Content>
+            <List.Content>expected</List.Content>
           </List.Item>
         )}
       </List>

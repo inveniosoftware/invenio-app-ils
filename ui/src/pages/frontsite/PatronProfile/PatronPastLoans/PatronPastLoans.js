@@ -84,7 +84,6 @@ export default class PatronPastLoans extends Component {
     return (
       <Pagination
         currentPage={this.state.activePage}
-        currentSize={invenioConfig.defaultResultsSize}
         loading={this.props.isLoading}
         totalResults={this.props.data.total}
         onPageChange={this.onPageChange}

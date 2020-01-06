@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error, Pagination } from '@components';
-import { invenioConfig } from '@config';
 import {
   Container,
   Grid,
@@ -108,7 +107,6 @@ export default class PatronPendingLoans extends Component {
     return (
       <Pagination
         currentPage={this.state.activePage}
-        currentSize={invenioConfig.defaultResultsSize}
         loading={this.props.isLoading}
         totalResults={this.props.data.total}
         onPageChange={this.onPageChange}

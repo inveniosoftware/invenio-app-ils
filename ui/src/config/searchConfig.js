@@ -353,15 +353,15 @@ const searchConfig = {
         },
         {
           default_order: 'desc',
-          field: 'grand_total_main_currency.value',
+          field: 'grand_total',
           order: 2,
-          title: 'Grand total',
+          title: `Total (${invenioConfig.orders.defaultCurrency})`,
         },
         {
           default_order: 'desc',
           field: 'received_date',
           order: 3,
-          title: 'Delivery date',
+          title: 'Received date',
         },
         {
           default_order: 'desc',

@@ -92,7 +92,7 @@ export class OrderForm extends Component {
   };
 
   getDefaultValues() {
-    const defaultCurrency = invenioConfig.order.defaultCurrency;
+    const defaultCurrency = invenioConfig.orders.defaultCurrency;
     return {
       create_by: sessionManager.user.id,
       grand_total: { currency: defaultCurrency },

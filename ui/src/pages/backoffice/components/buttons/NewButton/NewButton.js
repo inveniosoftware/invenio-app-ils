@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 export default class NewButton extends Component {
   render() {
-    const { fluid, disabled, to } = this.props;
     return (
       <Button
         icon
