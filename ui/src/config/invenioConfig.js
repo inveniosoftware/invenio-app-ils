@@ -64,6 +64,7 @@ export const invenioConfig = {
   },
   max_results_window: 10000,
   orders: {
+    defaultCurrency: 'CHF',
     maxShowOrderLines: 3,
     statuses: [
       { value: 'CANCELLED', text: 'Cancelled' },
@@ -101,7 +102,6 @@ export const invenioConfig = {
   ],
   rest_mimetype_query_arg_name: 'format',
   support_email: 'info@inveniosoftware.org',
-  order: { defaultCurrency: 'CHF' },
   vocabularies: {
     document: {
       alternativeIdentifier: {

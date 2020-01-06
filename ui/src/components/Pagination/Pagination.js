@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination as Paginator } from 'semantic-ui-react';
+import { invenioConfig } from '@config';
 
 export class Pagination extends Component {
   constructor(props) {
@@ -37,5 +38,6 @@ Pagination.propTypes = {
 };
 
 Pagination.defaultProps = {
+  currentSize: invenioConfig.defaultResultsSize,
   renderElement: null,
 };

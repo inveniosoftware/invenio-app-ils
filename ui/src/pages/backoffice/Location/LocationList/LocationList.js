@@ -112,5 +112,4 @@ LocationList.propTypes = {
   deleteLocation: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   hasError: PropTypes.bool.isRequired,
-  showMaxItems: PropTypes.number,
 };

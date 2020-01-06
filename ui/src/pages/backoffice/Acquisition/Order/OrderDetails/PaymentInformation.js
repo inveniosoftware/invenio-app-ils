@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Popup, Icon } from 'semantic-ui-react';
 import { formatPrice } from '@api/utils';
-import {KeyValueTable, MetadataTable} from '@pages/backoffice/components';
+import { MetadataTable } from '@pages/backoffice/components';
 
 export class PaymentInformation extends React.Component {
   render() {

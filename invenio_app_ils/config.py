@@ -970,13 +970,13 @@ RECORDS_REST_SORT_OPTIONS = dict(
         ),
         grand_total=dict(
             fields=["grand_total_main_currency.value"],
-            title="Grand total",
+            title="Total",
             default_order="desc",
             order=2,
         ),
         received_date=dict(
             fields=["received_date"],
-            title="Delivery date",
+            title="Received date",
             default_order="desc",
             order=3,
         ),

@@ -4,6 +4,7 @@ import { Message, Header, Table, Grid } from 'semantic-ui-react';
 import ResultsTableHeader from './ResultsTableHeader';
 import ResultsTableBody from './ResultsTableBody';
 import ResultsTableFooter from './ResultsTableFooter';
+import { invenioConfig } from '@config';
 
 export class ResultsTable extends Component {
   renderTable = () => {
@@ -123,7 +124,7 @@ ResultsTable.defaultProps = {
   paginationComponent: null,
   seeAllComponent: null,
   showAllResults: false,
-  showMaxRows: 10,
+  showMaxRows: invenioConfig.defaultResultsSize,
   singleLine: false,
   subtitle: '',
   title: '',

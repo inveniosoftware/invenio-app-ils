@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Grid, Header, Icon} from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
 
 export class DetailsHeader extends React.Component {
   render() {

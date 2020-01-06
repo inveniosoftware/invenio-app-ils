@@ -5,7 +5,6 @@ import _startCase from 'lodash/startCase';
 import { Loader, Error, ResultsTable, Pagination } from '@components';
 import { dateFormatter } from '@api/date';
 import { FrontSiteRoutes } from '@routes/urls';
-import { invenioConfig } from '@config';
 import { Header, Item } from 'semantic-ui-react';
 import { ILSItemPlaceholder } from '@components/ILSPlaceholder/ILSPlaceholder';
 import { NoResultsMessage } from '../../components/NoResultsMessage';
@@ -31,7 +30,6 @@ export default class PatronPastDocumentRequests extends Component {
     return (
       <Pagination
         currentPage={this.state.activePage}
-        currentSize={invenioConfig.defaultResultsSize}
         loading={this.props.isLoading}
         totalResults={this.props.data.total}
         onPageChange={this.onPageChange}
@@ -97,7 +95,6 @@ export default class PatronPastDocumentRequests extends Component {
               totalHitsCount={data.total}
               title={''}
               name={'past literature requests'}
-              showMaxRows={invenioConfig.defaultResultsSize}
               paginationComponent={this.paginationComponent()}
               currentPage={this.state.activePage}
               renderEmptyResultsElement={this.renderEmpty}

@@ -6,9 +6,7 @@ import {
   Accordion,
   Ref,
   Divider,
-  List,
   Sticky,
-  Menu,
   Icon,
   Grid,
 } from 'semantic-ui-react';
@@ -91,7 +89,7 @@ class ActionMenu extends React.Component {
 
 class VendorHeader extends React.Component {
   render() {
-    const {data} = this.props;
+    const { data } = this.props;
     return (
       <DetailsHeader
         title={data.metadata.name}

@@ -46,7 +46,7 @@ export class PriceField extends Component {
       />
     ) : (
       <Label name={`${fieldPath}.currency`}>
-        {invenioConfig.order.defaultCurrency}
+        {invenioConfig.orders.defaultCurrency}
       </Label>
     );
   };

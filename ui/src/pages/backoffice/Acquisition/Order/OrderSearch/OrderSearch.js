@@ -14,7 +14,6 @@ import {
   SearchControls,
 } from '@components';
 import { order as orderApi } from '@api';
-import { getSearchConfig } from '@config';
 import { AcquisitionRoutes } from '@routes/urls';
 import {
   OrderList,
@@ -49,7 +48,6 @@ export class OrderSearch extends Component {
     url: orderApi.searchBaseURL,
     withCredentials: true,
   });
-  searchConfig = getSearchConfig('orders');
 
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
     const helperFields = [
