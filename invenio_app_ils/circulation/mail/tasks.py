@@ -12,9 +12,9 @@ from celery.utils.log import get_task_logger
 from flask import current_app
 from invenio_circulation.proxies import current_circulation
 
-from invenio_app_ils.api import Document
 from invenio_app_ils.circulation.mail.factory import loan_message_factory
 from invenio_app_ils.circulation.utils import circulation_overdue_loan_days
+from invenio_app_ils.documents.api import Document
 from invenio_app_ils.mail.tasks import get_recipients, send_ils_email
 from invenio_app_ils.records.api import Patron
 

@@ -15,7 +15,7 @@ from flask import url_for
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
 
-from invenio_app_ils.records.api import Document
+from invenio_app_ils.documents.api import Document
 
 TYPES_ENDPOINTS = {
     "relation": {

@@ -21,22 +21,16 @@ from invenio_indexer.api import RecordIndexer
 from invenio_search import current_search
 
 from invenio_app_ils.circulation.mail.factory import message_factory
-from invenio_app_ils.records.api import Document, DocumentRequest, EItem, \
+from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE, Document
+from invenio_app_ils.pidstore.pids import DOCUMENT_REQUEST_PID_TYPE, \
+    EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, \
+    LOCATION_PID_TYPE, SERIES_PID_TYPE
+from invenio_app_ils.records.api import DocumentRequest, EItem, \
     InternalLocation, Item, Location, Series
 
 from ..helpers import load_json_from_datadir
 from .helpers import document_ref_builder, internal_location_ref_builder, \
     mint_record_pid
-
-from invenio_app_ils.pidstore.pids import (  # isort:skip
-    DOCUMENT_PID_TYPE,
-    DOCUMENT_REQUEST_PID_TYPE,
-    EITEM_PID_TYPE,
-    INTERNAL_LOCATION_PID_TYPE,
-    ITEM_PID_TYPE,
-    LOCATION_PID_TYPE,
-    SERIES_PID_TYPE,
-)
 
 
 @pytest.fixture(scope="module")

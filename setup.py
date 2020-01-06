@@ -155,13 +155,14 @@ setup(
         ],
         "invenio_i18n.translations": ["messages = invenio_app_ils"],
         "invenio_jsonschemas.schemas": [
-            "ils_schemas = invenio_app_ils.schemas",
-            "acquisition_schemas = invenio_app_ils.acquisition.schemas",
-            "ill_schemas = invenio_app_ils.ill.schemas"
+            "ils = invenio_app_ils.schemas",
+            "documents = invenio_app_ils.documents.schemas",
+            "acquisition = invenio_app_ils.acquisition.schemas",
+            "ill = invenio_app_ils.ill.schemas"
         ],
         "invenio_search.mappings": [
             "document_requests = invenio_app_ils.mappings",
-            "documents = invenio_app_ils.mappings",
+            "documents = invenio_app_ils.documents.mappings",
             "eitems = invenio_app_ils.mappings",
             "internal_locations = invenio_app_ils.mappings",
             "items = invenio_app_ils.mappings",
@@ -175,7 +176,7 @@ setup(
             "ill_borrowing_requests = invenio_app_ils.ill.mappings",
         ],
         "invenio_pidstore.fetchers": [
-            "docid = invenio_app_ils.pidstore.fetchers:document_pid_fetcher",
+            "docid = invenio_app_ils.documents.api:document_pid_fetcher",
             "dreqid = invenio_app_ils.pidstore.fetchers:document_request_pid_fetcher",
             "eitmid = invenio_app_ils.pidstore.fetchers:eitem_pid_fetcher",
             "ilocid = invenio_app_ils.pidstore.fetchers:internal_location_pid_fetcher",
@@ -190,7 +191,7 @@ setup(
             "illbid = invenio_app_ils.ill.pidstore.fetchers:borrowing_request_pid_fetcher",
         ],
         "invenio_pidstore.minters": [
-            "docid = invenio_app_ils.pidstore.minters:document_pid_minter",
+            "docid = invenio_app_ils.documents.api:document_pid_minter",
             "dreqid = invenio_app_ils.pidstore.minters:document_request_pid_minter",
             "eitmid = invenio_app_ils.pidstore.minters:eitem_pid_minter",
             "ilocid = invenio_app_ils.pidstore.minters:internal_location_pid_minter",
@@ -211,12 +212,12 @@ setup(
         ],
         "invenio_records.jsonresolver": [
             "borrowing_request = invenio_app_ils.ill.jsonresolvers.borrowing_request",
-            "document_circulation = invenio_app_ils.records.resolver.jsonresolver.document_circulation",
-            "document_eitem = invenio_app_ils.records.resolver.jsonresolver.document_eitem",
-            "document_item = invenio_app_ils.records.resolver.jsonresolver.document_item",
-            "document_relations = invenio_app_ils.records.resolver.jsonresolver.document_relations",
+            "document_circulation = invenio_app_ils.documents.jsonresolvers.document_circulation",
+            "document_eitem = invenio_app_ils.documents.jsonresolvers.document_eitem",
+            "document_item = invenio_app_ils.documents.jsonresolvers.document_item",
+            "document_relations = invenio_app_ils.documents.jsonresolvers.document_relations",
             "document_request_patron = invenio_app_ils.records.resolver.jsonresolver.document_request_patron",
-            "document_stock = invenio_app_ils.records.resolver.jsonresolver.document_stock",
+            "document_stock = invenio_app_ils.documents.jsonresolvers.document_stock",
             "eitem = invenio_app_ils.records.resolver.jsonresolver.eitem",
             "eitem_files = invenio_app_ils.records.resolver.jsonresolver.eitem_files",
             "internal_location = invenio_app_ils.records.resolver.jsonresolver.internal_location",

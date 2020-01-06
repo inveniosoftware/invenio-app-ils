@@ -5,22 +5,11 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Circulation minters."""
+"""ILS minters."""
 
-from .providers import DocumentIdProvider, DocumentRequestIdProvider, \
-    EItemIdProvider, InternalLocationIdProvider, ItemIdProvider, \
-    LocationIdProvider, SeriesIdProvider
-
-
-def document_pid_minter(record_uuid, data):
-    """Mint Document identifiers."""
-    assert "pid" not in data
-    provider = DocumentIdProvider.create(
-        object_type='rec',
-        object_uuid=record_uuid,
-    )
-    data["pid"] = provider.pid.pid_value
-    return provider.pid
+from .providers import DocumentRequestIdProvider, EItemIdProvider, \
+    InternalLocationIdProvider, ItemIdProvider, LocationIdProvider, \
+    SeriesIdProvider
 
 
 def item_pid_minter(record_uuid, data):

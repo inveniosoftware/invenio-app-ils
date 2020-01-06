@@ -8,13 +8,6 @@
 """Invenio App ILS PIDs."""
 
 
-DOCUMENT_PID_TYPE = "docid"
-"""Persistent Identifier for Document."""
-DOCUMENT_PID_MINTER = "docid"
-"""Minter PID for Document."""
-DOCUMENT_PID_FETCHER = "docid"
-"""Fetcher PID for Document."""
-
 ITEM_PID_TYPE = "pitmid"
 """Persistent Identifier for Item."""
 ITEM_PID_MINTER = "pitmid"

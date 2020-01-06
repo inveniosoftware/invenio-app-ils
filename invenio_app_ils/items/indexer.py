@@ -15,8 +15,9 @@ from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_circulation.search.api import search_by_pid as search_loans_by_pid
 from invenio_indexer.api import RecordIndexer
 
+from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE
 from invenio_app_ils.indexer import ReferencedRecordsIndexer
-from invenio_app_ils.pidstore.pids import DOCUMENT_PID_TYPE, ITEM_PID_TYPE
+from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
 
 

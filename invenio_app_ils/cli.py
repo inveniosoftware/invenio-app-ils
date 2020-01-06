@@ -33,13 +33,14 @@ from invenio_app_ils.patrons.indexer import PatronIndexer
 
 from .acquisition.api import Order, Vendor
 from .acquisition.pidstore.pids import ORDER_PID_TYPE, VENDOR_PID_TYPE
+from .documents.api import DOCUMENT_PID_TYPE, Document
 from .ill.api import BorrowingRequest, Library
 from .ill.pidstore.pids import BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_TYPE
-from .pidstore.pids import DOCUMENT_PID_TYPE, DOCUMENT_REQUEST_PID_TYPE, \
-    EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, \
-    LOCATION_PID_TYPE, SERIES_PID_TYPE
-from .records.api import Document, DocumentRequest, EItem, InternalLocation, \
-    Item, Location, Patron, Series
+from .pidstore.pids import DOCUMENT_REQUEST_PID_TYPE, EITEM_PID_TYPE, \
+    INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, LOCATION_PID_TYPE, \
+    SERIES_PID_TYPE
+from .records.api import DocumentRequest, EItem, InternalLocation, Item, \
+    Location, Patron, Series
 from .records_relations.api import RecordRelationsParentChild, \
     RecordRelationsSiblings
 from .relations.api import Relation

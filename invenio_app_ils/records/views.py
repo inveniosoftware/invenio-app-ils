@@ -18,11 +18,12 @@ from invenio_records_rest.views import pass_record
 from invenio_rest import ContentNegotiatedMethodView
 from invenio_rest.errors import FieldError
 
+from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE
 from invenio_app_ils.errors import DocumentRequestError, StatsError
 from invenio_app_ils.mail.tasks import send_document_request_status_mail
 from invenio_app_ils.permissions import need_permissions
-from invenio_app_ils.pidstore.pids import DOCUMENT_PID_TYPE, \
-    DOCUMENT_REQUEST_PID_TYPE, EITEM_PID_TYPE
+from invenio_app_ils.pidstore.pids import DOCUMENT_REQUEST_PID_TYPE, \
+    EITEM_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.signals import record_viewed
 

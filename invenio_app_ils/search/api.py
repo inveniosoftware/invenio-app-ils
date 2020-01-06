@@ -19,20 +19,6 @@ from invenio_app_ils.errors import MissingRequiredParameterError, \
 from invenio_app_ils.permissions import backoffice_permission
 
 
-class DocumentSearch(RecordsSearch):
-    """RecordsSearch for documents."""
-
-    class Meta:
-        """Search only on documents index."""
-
-        index = "documents"
-        doc_types = None
-
-    def search_by_pid(self, *pids):
-        """Retrieve documents with the given pid(s)."""
-        return self.filter("terms", pid=pids)
-
-
 class _ItemSearch(RecordsSearch):
     """Base search class for items."""
 

@@ -18,7 +18,6 @@ from __future__ import absolute_import, print_function
 from collections import namedtuple
 from datetime import timedelta
 
-from flask import request
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
 from invenio_circulation.api import Loan
 from invenio_pidrelations.config import RelationType
@@ -40,6 +39,9 @@ from invenio_app_ils.series.indexer import SeriesIndexer
 from invenio_app_ils.vocabularies.indexer import VocabularyIndexer
 
 from .circulation.search import IlsLoansSearch
+from .documents.api import DOCUMENT_PID_FETCHER, DOCUMENT_PID_MINTER, \
+    DOCUMENT_PID_TYPE, Document
+from .documents.search import DocumentSearch
 from .facets import default_value_when_missing_filter, keyed_range_filter, \
     not_empty_object_or_list_filter, overdue_agg, overdue_loans_filter
 from .records.resolver.loan import document_resolver, item_resolver, \
@@ -87,9 +89,6 @@ from .permissions import (  # isort:skip
     views_permissions_factory,
 )
 from .pidstore.pids import (  # isort:skip
-    DOCUMENT_PID_FETCHER,
-    DOCUMENT_PID_MINTER,
-    DOCUMENT_PID_TYPE,
     DOCUMENT_REQUEST_PID_FETCHER,
     DOCUMENT_REQUEST_PID_MINTER,
     DOCUMENT_REQUEST_PID_TYPE,
@@ -117,7 +116,6 @@ from .pidstore.pids import (  # isort:skip
 )
 
 from .records.api import (  # isort:skip
-    Document,
     DocumentRequest,
     EItem,
     InternalLocation,
@@ -132,7 +130,6 @@ from .records.permissions import (  # isort:skip
 )
 from .search.api import (  # isort:skip
     DocumentRequestSearch,
-    DocumentSearch,
     EItemSearch,
     InternalLocationSearch,
     ItemSearch,
@@ -308,7 +305,7 @@ DEBUG_TB_ENABLED = True
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 _DOCID_CONVERTER = (
-    'pid(docid, record_class="invenio_app_ils.records.api:Document")'
+    'pid(docid, record_class="invenio_app_ils.documents.api:Document")'
 )
 _PITMID_CONVERTER = (
     'pid(pitmid, record_class="invenio_app_ils.records.api:Item")'
@@ -346,7 +343,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=DocumentIndexer,
         record_loaders={
             "application/json": (
-                "invenio_app_ils.records.loaders:document_loader"
+                "invenio_app_ils.documents.loaders:document_loader"
             ),
         },
         record_serializers={
