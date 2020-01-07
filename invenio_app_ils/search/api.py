@@ -7,16 +7,10 @@
 
 """Search utilities."""
 
-import re
-
-from elasticsearch_dsl import Q
-from flask import current_app, g, has_request_context, request
-from flask_login import current_user
+from flask import current_app
 from invenio_search.api import RecordsSearch
 
-from invenio_app_ils.errors import MissingRequiredParameterError, \
-    SearchQueryError, UnauthorizedSearchError
-from invenio_app_ils.permissions import backoffice_permission
+from invenio_app_ils.errors import MissingRequiredParameterError
 
 
 class _ItemSearch(RecordsSearch):
@@ -235,59 +229,6 @@ class DocumentRequestSearch(RecordsSearch):
             search = search.exclude("terms", state=exclude_states)
 
         return search
-
-
-def filter_by_patron_search_factory(self, search, query_parser=None):
-    """Filter search queries to only show records for the logged in patron.
-
-    If the logged in  user has backoffice permissions do not filter by patron.
-
-    :param self: REST view.
-    :param search: Elastic search DSL search instance.
-    :returns: Tuple with search instance and URL arguments.
-    """
-    def _default_parser(qstr=None):
-        """Return default parser that uses the Q() from elasticsearch_dsl."""
-        if qstr:
-            return Q('query_string', query=qstr)
-        return Q()
-
-    from invenio_records_rest.facets import default_facets_factory
-    from invenio_records_rest.sorter import default_sorter_factory
-
-    query_string = request.values.get('q', '')
-
-    if not current_user.is_authenticated:
-        raise UnauthorizedSearchError(query_string)
-
-    parser = query_parser or _default_parser
-    query = parser(qstr=query_string)
-
-    # if the logged in user in not librarian or admin, validate the query
-    if has_request_context() and not backoffice_permission().allows(g.identity):
-        # patron can find only his document requests
-        if not query_string:
-            # force query to be patron_pid:<logged in user>
-            patron_pid_filter = 'patron_pid:{}'.format(g.identity.id)
-            query = _default_parser(qstr=patron_pid_filter)
-        else:
-            # check for patron_pid query value
-            match = re.match(r"patron_pid:(?P<pid>\d)", query_string)
-            if match and match.group('pid') != str(g.identity.id):
-                raise UnauthorizedSearchError(query_string, g.identity.id)
-    try:
-        search = search.query(query)
-    except SyntaxError:
-        raise SearchQueryError(query_string)
-
-    search_index = search._index[0]
-    search, urlkwargs = default_facets_factory(search, search_index)
-    search, sortkwargs = default_sorter_factory(search, search_index)
-    for key, value in sortkwargs.items():
-        urlkwargs.add(key, value)
-
-    urlkwargs.add('q', query_string)
-    return search, urlkwargs
 
 
 class VocabularySearch(RecordsSearch):

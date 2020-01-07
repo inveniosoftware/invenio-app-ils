@@ -27,7 +27,7 @@ NEW_INTERNAL_LOCATION = {
 def user_login(user_id, client, users):
     """Util function log user in."""
     login_user_via_session(
-        client, email=User.query.get(users[user_id].id).email
+        client, user=User.query.get(users[user_id].id)
     )
 
 

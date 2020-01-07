@@ -39,7 +39,8 @@ from invenio_app_ils.records.permissions import RecordPermission, \
         ({"_access": {"delete": [1, "librarian"]}}, "delete", True),
     ],
 )
-def test_record_generic_access(db, users, access, action, is_allowed):
+def test_record_generic_access(db, users, with_access, access, action,
+                               is_allowed):
     """Test access control for records."""
 
     @identity_loaded.connect
@@ -71,45 +72,6 @@ def test_record_generic_access(db, users, access, action, is_allowed):
     login_and_test(users["librarian"].id)
     # Test superuser access
     login_and_test(users["admin"].id)
-
-
-@pytest.mark.parametrize(
-    "access,action,is_allowed",
-    [
-        ({"foo": "bar"}, "update", True),
-        ({"foo": "bar"}, "delete", False),
-        ({"_access": {"delete": ["librarian"]}}, "delete", True),
-        ({"_access": {"delete": ["1"]}}, "delete", False),
-        ({"_access": {"update": ["1"]}}, "update", True),
-    ],
-)
-def test_record_librarian_access(db, users, access, action, is_allowed):
-    """Test Librarian access."""
-    login_user(users["librarian"])
-    id = uuid.uuid4()
-    record = Record.create(access, id_=id)
-    factory = RecordPermission(record, action)
-    assert factory.can() if is_allowed else not factory.can()
-
-
-@pytest.mark.parametrize(
-    "access,action,is_allowed",
-    [
-        ({"foo": "bar"}, "update", False),
-        ({"foo": "bar"}, "delete", False),
-        ({"_access": {"delete": [1]}}, "delete", True),
-        ({"_access": {"update": [1]}}, "update", True),
-        ({"_access": {"update": ["1"]}}, "update", True),
-        ({"_access": {"update": ["1"]}}, "delete", False),
-    ],
-)
-def test_record_patron_access(db, users, access, action, is_allowed):
-    """Test patron access."""
-    login_user(users["patron1"])
-    id = uuid.uuid4()
-    record = Record.create(access, id_=id)
-    factory = RecordPermission(record, action)
-    assert factory.can() if is_allowed else not factory.can()
 
 
 @pytest.mark.parametrize(

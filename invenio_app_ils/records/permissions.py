@@ -5,9 +5,9 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Ils records' permissions."""
-from __future__ import unicode_literals
+"""ILS records permissions."""
 
+from flask import current_app
 from flask_principal import ActionNeed, RoleNeed, UserNeed
 from invenio_access import Permission, any_user
 from six import string_types
@@ -69,14 +69,16 @@ class RecordPermission(Permission):
         else:
             return self.record_needs() + [librarian_role]
 
-    def record_allows(self):
-        """Read what record allows per action."""
-        return self.record.get("_access", {}).get(self.current_action, [])
+    def record_explicit_restrictions(self):
+        """Return the list of user ids/roles allowed for the given action."""
+        if current_app.config.get("ILS_RECORDS_EXPLICIT_PERMISSIONS_ENABLED"):
+            return self.record.get("_access", {}).get(self.current_action, [])
+        return []
 
     def record_needs(self):
         """Create needs of the record."""
         needs = []
-        for access_entity in self.record_allows():
+        for access_entity in self.record_explicit_restrictions():
             try:
                 if isinstance(access_entity, string_types):
                     needs.append(UserNeed(int(access_entity)))
@@ -89,9 +91,16 @@ class RecordPermission(Permission):
     def is_public(self):
         """Check if the record is fully public.
 
-        In practice this means that the record doesn't have the ``access``
-        key or the action is not inside access or is empty.
+        Explicit permission = `_access` field
+        Implicit permission = `open_access` field
+        Explicit, when defined, takes precedence over implicit which is
+        ignored.
+        The record is public when `_access` is not defined and `open_access`
+        is True.
         """
-        return "_access" not in self.record or not self.record.get(
-            "_access", {}
-        ).get(self.current_action)
+        has_explicit_perm = current_app.config.get(
+            "ILS_RECORDS_EXPLICIT_PERMISSIONS_ENABLED"
+        ) and self.record.get("_access", {}).get("read", [])
+        if not has_explicit_perm:
+            return self.record.get("open_access", True)
+        return False

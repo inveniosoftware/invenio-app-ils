@@ -143,5 +143,21 @@
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
     "abstract": "This is a document volume v.1 part of a MULTIPART MONOGRAPH part of a SERIAL",
     "document_type": "BOOK"
+  },
+  {
+    "pid": "docid-closed-access",
+    "title": "Closed access document",
+    "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
+    "abstract": "Just an abstract",
+    "document_type": "BOOK",
+    "open_access": false
+  },
+  {
+    "pid": "docid-open-access",
+    "title": "Open access document",
+    "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
+    "abstract": "Just an abstract",
+    "document_type": "BOOK",
+    "open_access": true
   }
 ]

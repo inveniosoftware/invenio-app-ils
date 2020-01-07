@@ -43,7 +43,7 @@ def test_request_list_permissions(client, testdata, json_headers, users):
         requests_by_patron[req['patron_pid']].append(req['pid'])
 
     for user in users.values():
-        login_user_via_session(client, email=User.query.get(user.id).email)
+        login_user_via_session(client, user=User.query.get(user.id))
         url = url_for("invenio_records_rest.dreqid_list")
         res = client.get(url, headers=json_headers)
         assert res.status_code == 200
@@ -99,7 +99,7 @@ def test_create_document_request(client, testdata, json_headers, users):
         ),
     ]
     for user, expected_status, data in tests:
-        login_user_via_session(client, email=users[user].email)
+        login_user_via_session(client, user=users[user])
         url = url_for("invenio_records_rest.dreqid_list")
         res = client.post(url, headers=json_headers, data=json.dumps(data))
         assert res.status_code == expected_status

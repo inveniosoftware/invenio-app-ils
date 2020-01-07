@@ -48,7 +48,7 @@ def test_stats_most_loaned_documents(client, json_headers,
                                      testdata_most_loaned, users):
     """Test most loaned documents API endpoint."""
     user = users['librarian']
-    login_user_via_session(client, email=User.query.get(user.id).email)
+    login_user_via_session(client, user=User.query.get(user.id))
 
     # Dates covering all loans
     assert_most_loaned(

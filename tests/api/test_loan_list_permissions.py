@@ -18,7 +18,7 @@ from invenio_accounts.testutils import login_user_via_session
 
 from invenio_app_ils.circulation.search import IlsLoansSearch
 from invenio_app_ils.errors import UnauthorizedSearchError
-from invenio_app_ils.search.api import filter_by_patron_search_factory
+from invenio_app_ils.search.permissions import search_factory_filter_by_patron
 
 NEW_LOAN = {
     "item_pid": "200",
@@ -32,7 +32,7 @@ NEW_LOAN = {
 def _search_loans(client, json_headers, user=None, **kwargs):
     """Return the loan fetched with a REST call."""
     if user:
-        login_user_via_session(client, email=User.query.get(user.id).email)
+        login_user_via_session(client, user=User.query.get(user.id))
     url = url_for('invenio_records_rest.loanid_list', **kwargs)
     return client.get(url, headers=json_headers)
 
@@ -57,7 +57,7 @@ def test_anonymous_loans_search(app):
     """Test that not logged in users are unable to search."""
     with app.test_request_context("/"):
         with pytest.raises(UnauthorizedSearchError):
-            filter_by_patron_search_factory(None, IlsLoansSearch())
+            search_factory_filter_by_patron(None, IlsLoansSearch())
 
 
 def test_patrons_can_search_their_own_loans(client, json_headers, users,

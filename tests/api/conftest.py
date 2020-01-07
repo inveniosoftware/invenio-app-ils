@@ -264,3 +264,11 @@ def bucket(bucket_from_dir):
     with tempfile.TemporaryDirectory(prefix="ils-test-") as temp_dir:
         bucket = bucket_from_dir(temp_dir)
         yield bucket
+
+
+@pytest.fixture()
+def with_access(app):
+    """Enable explicit permission check (`_access`)."""
+    app.config["ILS_RECORDS_EXPLICIT_PERMISSIONS_ENABLED"] = True
+    yield
+    app.config["ILS_RECORDS_EXPLICIT_PERMISSIONS_ENABLED"] = False

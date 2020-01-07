@@ -605,7 +605,7 @@ def test_parent_child_relations(client, json_headers, testdata, users):
     ], status_code=401)
 
     user = users['librarian']
-    login_user_via_session(client, email=User.query.get(user.id).email)
+    login_user_via_session(client, user=User.query.get(user.id))
 
     # only one test method to speed up tests and avoid testdata recreation at
     # each test. As drawback, testdata is not cleaned between each test, so
@@ -1117,7 +1117,7 @@ def test_siblings_relations(client, json_headers, testdata, users):
     ], status_code=401)
 
     user = users['librarian']
-    login_user_via_session(client, email=User.query.get(user.id).email)
+    login_user_via_session(client, user=User.query.get(user.id))
 
     # docid-1 --language--> docid-2
     _test_sibl_language_relation(client, json_headers)

@@ -596,8 +596,8 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=DocumentRequestSearch,
         record_class=DocumentRequest,
         indexer_class=DocumentRequestIndexer,
-        search_factory_imp="invenio_app_ils.search.api"
-                           ":filter_by_patron_search_factory",
+        search_factory_imp="invenio_app_ils.search.permissions"
+                           ":search_factory_filter_by_patron",
         record_loaders={
             "application/json": (
                 "invenio_app_ils.records.loaders:document_request_loader"
@@ -788,8 +788,8 @@ CIRCULATION_REST_ENDPOINTS = dict(
         pid_minter=CIRCULATION_LOAN_MINTER,
         pid_fetcher=CIRCULATION_LOAN_FETCHER,
         search_class=IlsLoansSearch,
-        search_factory_imp="invenio_app_ils.search.api"
-                           ":filter_by_patron_search_factory",
+        search_factory_imp="invenio_app_ils.search.permissions"
+                           ":search_factory_filter_by_patron",
         record_class=Loan,
         indexer_class=LoanIndexer,
         record_loaders={
@@ -1021,6 +1021,7 @@ FACET_VENDOR_LIMIT = 5
 RECORDS_REST_FACETS = dict(
     documents=dict(  # DocumentSearch.Meta.index
         aggs=dict(
+            access=dict(terms=dict(field="open_access")),
             tag=dict(terms=dict(field="tags", size=FACET_TAG_LIMIT)),
             language=dict(terms=dict(field="languages")),
             doctype=dict(terms=dict(field="document_type")),
@@ -1036,6 +1037,7 @@ RECORDS_REST_FACETS = dict(
             medium=dict(terms=dict(field="stock.mediums")),
         ),
         post_filters=dict(
+            access=terms_filter("open_access"),
             doctype=terms_filter("document_type"),
             language=terms_filter("languages"),
             tag=terms_filter("tags"),
@@ -1396,3 +1398,12 @@ ILS_VOCABULARY_SOURCES = {
 OPENDEFINITION_JSONRESOLVER_HOST = "inveniosoftware.org"
 
 FILES_REST_PERMISSION_FACTORY = "invenio_app_ils.permissions:files_permission"
+
+ILS_RECORDS_EXPLICIT_PERMISSIONS_ENABLED = False
+"""Enable records restrictions by `_access` field.
+
+When enabled, it allows to define explicit permissions for each record to
+provide read access to specific users or roles.
+When disabled, it will avoid checking for user ids and roles on each search
+query and record fetch.
+"""

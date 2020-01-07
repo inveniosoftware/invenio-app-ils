@@ -32,7 +32,7 @@ export class ItemSearch extends Component {
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
     const helperFields = [
       {
-        name: 'barcode',
+        name: 'Barcode',
         field: 'barcode',
         defaultValue: '"1234567"',
       },
@@ -40,6 +40,11 @@ export class ItemSearch extends Component {
         name: 'ISBN',
         field: 'isbn',
         defaultValue: '"1234567"',
+      },
+      {
+        name: 'Shelf',
+        field: 'shelf',
+        defaultValue: '"Cw-Ax-Bs"',
       },
       {
         name: 'created',
