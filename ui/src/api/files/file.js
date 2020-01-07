@@ -1,10 +1,10 @@
 import { http, apiConfig } from '../base';
 import { serializer } from './serializer';
 
-const filesURL = `${apiConfig.baseURL}/files/`;
+const filesURL = `/files/`;
 
 const downloadURL = (bucket, filename) => {
-  return `${filesURL}${bucket}/${filename}?download`;
+  return `${apiConfig.baseURL}${filesURL}${bucket}/${filename}?download`;
 };
 
 const del = async (bucket, filename) => {

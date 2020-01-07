@@ -98,6 +98,7 @@ install_requires = [
     "SQLAlchemy>=1.2.16,<1.3.0",
     # namedtuple are json serialized as dict
     "simplejson>=3",
+    "webargs>=5.5.2,<6.0",
 ]
 
 packages = find_packages()
