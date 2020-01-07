@@ -21,9 +21,7 @@ from invenio_accounts.testutils import login_user_via_session
 def user_login(user_id, client, users):
     """Util function log user in."""
     if user_id != "anonymous":
-        login_user_via_session(
-            client, email=User.query.get(users[user_id].id).email
-        )
+        login_user_via_session(client, user=User.query.get(users[user_id].id))
 
 
 def _test_response(client, req_method, url, headers, data, expected_resp_code):
@@ -59,7 +57,14 @@ def _test_data(key, expected_output, res):
     ],
 )
 def test_get_item_endpoint(
-    client, json_headers, testdata, users, user_id, res_id, expected_resp_code
+    client,
+    json_headers,
+    testdata,
+    users,
+    with_access,
+    user_id,
+    res_id,
+    expected_resp_code,
 ):
     """Test GET permissions."""
     user_login(user_id, client, users)
@@ -174,26 +179,26 @@ def test_delete_item_endpoint(
         ("patron2", "itemid-57", 200, False),
         ("librarian", "itemid-56", 200, False),
         ("admin", "itemid-57", 200, False),
-    ]
+    ],
 )
-def test_item_circulation(client, json_headers, testdata, users, user_id,
-                          res_id, expected_resp_code, filtered):
+def test_item_circulation(
+    client,
+    json_headers,
+    testdata,
+    users,
+    user_id,
+    res_id,
+    expected_resp_code,
+    filtered,
+):
     """Test item circulation filtering."""
     user_login(user_id, client, users)
     url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
     res = _test_response(
-        client,
-        "get",
-        url,
-        json_headers,
-        None,
-        expected_resp_code
+        client, "get", url, json_headers, None, expected_resp_code
     )
     circulation = res.json["metadata"]["circulation"]
-    filter_keys = [
-        "loan_pid",
-        "patron_pid",
-    ]
+    filter_keys = ["loan_pid", "patron_pid"]
     if filtered:
         for key in filter_keys:
             assert key not in circulation

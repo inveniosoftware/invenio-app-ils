@@ -229,6 +229,7 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     licenses = fields.List(fields.Str())
     note = fields.Str()
     number_of_pages = fields.Str()
+    open_access = fields.Bool(default=True)
     other_authors = fields.Bool()
     publication_info = fields.List(fields.Nested(PublicationInfoSchema))
     source = fields.Str()

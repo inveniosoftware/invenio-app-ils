@@ -28,7 +28,7 @@ NEW_LOAN = {
 def _fetch_loan(client, json_headers, loan, user=None):
     """Return the loan fetched with a REST call."""
     if user:
-        login_user_via_session(client, email=User.query.get(user.id).email)
+        login_user_via_session(client, user=User.query.get(user.id))
     url = url_for('invenio_records_rest.loanid_item',
                   pid_value=loan["pid"])
     return client.get(url, headers=json_headers)
@@ -135,7 +135,7 @@ def test_patron_cannot_update_loans(client, json_headers, users, testdata):
     user = users['patron1']
 
     loanid = 'loanid-1'
-    login_user_via_session(client, email=User.query.get(user.id).email)
+    login_user_via_session(client, user=User.query.get(user.id))
     _test_post_new_loan(client, json_headers, 403)
     _test_replace_existing_loan(client, json_headers, loanid, 403)
     _test_delete_existing_loan(client, json_headers, loanid, 403)

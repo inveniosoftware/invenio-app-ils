@@ -4,14 +4,6 @@
     "$schema": {
       "type": "string"
     },
-    "_access": {
-      "properties": {
-        "read": {
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
     "abstract": {
       "title": "Abstract of the document.",
       "type": "string"
@@ -445,6 +437,11 @@
       "minLength": 1,
       "title": "Number of pages of the physical items",
       "type": "string"
+    },
+    "open_access": {
+      "type": "boolean",
+      "title": "Indicate if the access to this Document is open or not",
+      "default": true
     },
     "other_authors": {
       "title": "Indicates that there are other not listed authors.",

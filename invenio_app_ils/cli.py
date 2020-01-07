@@ -324,6 +324,7 @@ class DocumentGenerator(Generator):
                 "imprints": [self.IMPRINTS[randint(0, 1)]],
                 "urls": [{"description": "{}".format(lorem.sentence()),
                           "value": "http://random.url"}],
+                "open_access": True,
             }
             for pid in range(1, size + 1)
         ]

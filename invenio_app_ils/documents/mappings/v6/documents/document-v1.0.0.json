@@ -165,6 +165,9 @@
         "languages": {
           "type": "keyword"
         },
+        "open_access": {
+          "type": "boolean"
+        },
         "pid": {
           "type": "keyword"
         },

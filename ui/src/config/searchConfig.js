@@ -50,6 +50,11 @@ const searchConfig = {
         field: 'stock.mediums',
         aggName: 'medium',
       },
+      {
+        title: 'Open access',
+        field: 'open_access',
+        aggName: 'access',
+      },
     ],
     sortBy: {
       onEmptyQuery: 'mostrecent',

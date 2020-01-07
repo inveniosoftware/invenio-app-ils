@@ -114,6 +114,7 @@ export class DocumentForm extends Component {
         />
         <AuthorsField fieldPath="authors" />
         <BooleanField label="Other authors" fieldPath="other_authors" toggle />
+        <BooleanField label="Open access" fieldPath="open_access" toggle />
         <BooleanField label="Document is curated" fieldPath="curated" toggle />
         <TextField label="Abstract" fieldPath="abstract" rows={5} optimized />
         <TextField label="Notes" fieldPath="note" rows={5} optimized />

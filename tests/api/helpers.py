@@ -9,6 +9,8 @@
 
 from __future__ import absolute_import, print_function
 
+from invenio_accounts.models import User
+from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
@@ -45,3 +47,19 @@ def document_ref_builder(app, item_pid):
         host=app.config["JSONSCHEMAS_HOST"],
         item_pid=item_pid,
     )
+
+
+def user_login(user_id, client, users):
+    """Util function log user in."""
+    user_logout(client)
+    if user_id != "anonymous":
+        user = User.query.get(users[user_id].id)
+        login_user_via_session(client, user)
+        return user
+
+
+def user_logout(client):
+    """Util function to log out user."""
+    with client.session_transaction() as sess:
+        if "user_id" in sess:
+            del sess["user_id"]

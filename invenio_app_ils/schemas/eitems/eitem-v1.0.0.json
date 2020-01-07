@@ -41,7 +41,8 @@
     },
     "open_access": {
       "type": "boolean",
-      "title": "Indicate if the access to this EItem is open or not"
+      "title": "Indicate if the access to this EItem is open or not",
+      "default": true
     },
     "pid": {
       "type": "string",

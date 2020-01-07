@@ -33,7 +33,7 @@ NEW_LOAN = {
 def _login(client, users):
     """Login user and return url."""
     user = users["patron1"]
-    login_user_via_session(client, email=User.query.get(user.id).email)
+    login_user_via_session(client, user=User.query.get(user.id))
     return user
 
 

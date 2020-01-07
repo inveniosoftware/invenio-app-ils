@@ -38,7 +38,7 @@ def test_update_item_status(client, users, json_headers, testdata, db):
                     return t["pid"], active_loan[0]["pid"]
 
     login_user_via_session(
-        client, email=User.query.get(users["admin"].id).email
+        client, user=User.query.get(users["admin"].id)
     )
     item_pid, loan_pid = get_active_loan_pid_and_item_pid()
     item = Item.get_record_by_pid(item_pid)
@@ -49,7 +49,7 @@ def test_update_item_status(client, users, json_headers, testdata, db):
 def test_update_item_document(client, users, json_headers, testdata, db):
     """Test REPLACE document pid on item."""
     login_user_via_session(
-        client, email=User.query.get(users["admin"].id).email
+        client, user=User.query.get(users["admin"].id)
     )
     item = Item.get_record_by_pid("itemid-1")
     item["document_pid"] = "not_found_doc"
