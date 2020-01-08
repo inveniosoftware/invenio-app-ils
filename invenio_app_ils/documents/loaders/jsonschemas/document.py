@@ -190,18 +190,6 @@ class ChangeBySchema(Schema):
     value = fields.Str()
 
 
-class DocumentChangedBySchema(Schema):
-    """Document changed by schema."""
-
-    class Meta:
-        """Meta attributes for the schema."""
-
-        unknown = EXCLUDE
-
-    by = fields.Nested(ChangeBySchema)
-    timestamp = fields.Str()
-
-
 class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     """Document schema."""
 
@@ -217,7 +205,7 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     authors = fields.List(fields.Nested(AuthorSchema), required=True)
     conference_info = fields.Nested(ConferenceInfoSchema)
     copyrights = fields.List(fields.Nested(CopyrightsSchema))
-    created = fields.Nested(DocumentChangedBySchema)
+    created_by = fields.Nested(ChangeBySchema)
     curated = fields.Bool()
     document_type = fields.Str()
     edition = fields.Str()
@@ -237,5 +225,5 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     table_of_content = fields.List(fields.Str())
     tags = fields.List(fields.Str())
     title = fields.Str(required=True)
-    updated = fields.Nested(DocumentChangedBySchema)
+    updated_by = fields.Nested(ChangeBySchema)
     urls = fields.List(fields.Nested(UrlSchema))

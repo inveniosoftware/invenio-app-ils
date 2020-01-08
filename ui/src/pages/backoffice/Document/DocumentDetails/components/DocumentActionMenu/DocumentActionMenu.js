@@ -130,7 +130,7 @@ export default class DocumentActionMenu extends React.Component {
         labelPosition="left"
         size="small"
         fluid
-        content="New Loan Request"
+        content="New loan request"
       />
     </div>
   );
@@ -154,6 +154,7 @@ export default class DocumentActionMenu extends React.Component {
     ref.current.scrollIntoView(false, { behaviour: 'smooth', block: 'end' });
     this.setState({ activeItem: menuItemName });
   }
+
   render() {
     const { document } = this.props;
 
@@ -206,7 +207,6 @@ export default class DocumentActionMenu extends React.Component {
         />
 
         <Divider horizontal>Navigation</Divider>
-
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import {DocumentIcon, ItemIcon, LoanIcon} from "@pages/backoffice";
+import { DocumentIcon, ItemIcon, LoanIcon } from '@pages/backoffice';
 import React, { Component } from 'react';
 import { Grid, Header, Icon, Item, Label, List } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
@@ -40,7 +40,8 @@ class LoanDates extends Component {
             <label> Start date </label>
           </List.Content>
           <List.Content floated="right">
-            {loan.metadata.is_overdue && <Icon name="warning"/>}{loan.metadata.end_date}
+            {loan.metadata.is_overdue && <Icon name="warning" />}
+            {loan.metadata.end_date}
           </List.Content>
           <List.Content>
             <label> End date </label>
@@ -68,7 +69,7 @@ class LoanListEntry extends Component {
             to={BackOfficeRoutes.loanDetailsFor(loan.metadata.pid)}
             data-test={`navigate-${loan.metadata.pid}`}
           >
-            <LoanIcon/> Loan #{loan.metadata.pid}
+            <LoanIcon /> Loan #{loan.metadata.pid}
           </Item.Header>
           <Grid columns={5}>
             <Grid.Column computer={6} largeScreen={5}>
@@ -127,7 +128,7 @@ class LoanListEntry extends Component {
                             loan.metadata.item_pid
                           )}
                         >
-                          <ItemIcon/>
+                          <ItemIcon />
                           {loan.metadata.item.barcode}
                         </Link>
                       </List.Content>
@@ -150,7 +151,7 @@ class LoanListEntry extends Component {
                   loan.metadata.document_pid
                 )}
               >
-                Document <DocumentIcon/>
+                Document <DocumentIcon />
               </Link>
               <br />
             </Grid.Column>

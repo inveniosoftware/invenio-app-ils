@@ -4,7 +4,7 @@ import {
   SearchEmptyResults,
   SearchFooter,
 } from '@components/SearchControls';
-import SeriesList from "./SeriesList";
+import SeriesList from './SeriesList';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Grid, Header, Container } from 'semantic-ui-react';

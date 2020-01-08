@@ -19,5 +19,3 @@ export const DocumentDetails = connect(
   mapStateToProps,
   mapDispatchToProps
 )(DocumentDetailsComponent);
-
-

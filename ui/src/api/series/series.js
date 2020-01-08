@@ -82,10 +82,7 @@ class QueryBuilder {
 
   qs() {
     return this.withModeOfIssuanceQuery
-      .concat(
-        this.withSeriesQuery,
-        this.withStringQuery
-      )
+      .concat(this.withSeriesQuery, this.withStringQuery)
       .join(' AND ');
   }
 }

@@ -43,7 +43,15 @@ exports[`DocumentDetails tests should load the details component 1`] = `
               <GridColumn
                 width={13}
               >
-                <DocumentContent />
+                <Container
+                  className="spaced"
+                  fluid={true}
+                >
+                  <DocumentSummary />
+                </Container>
+                <Container>
+                  <DocumentContent />
+                </Container>
               </GridColumn>
               <GridColumn
                 width={3}
@@ -56,7 +64,7 @@ exports[`DocumentDetails tests should load the details component 1`] = `
                       "current": null,
                     }
                   }
-                  offset={150}
+                  offset={180}
                   scrollContext={[Window]}
                 >
                   <DocumentActionMenu />

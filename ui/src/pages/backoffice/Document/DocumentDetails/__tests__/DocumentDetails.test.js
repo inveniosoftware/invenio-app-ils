@@ -3,7 +3,6 @@ import { shallow, mount } from 'enzyme';
 import DocumentDetails from '../DocumentDetails';
 import testData from '@testData/documents.json';
 
-
 jest.mock('../components/', () => {
   return {
     DocumentActionMenu: () => null,
@@ -12,6 +11,9 @@ jest.mock('../components/', () => {
     DocumentItems: () => null,
     DocumentRelations: () => null,
     DocumentStats: () => null,
+    DocumentCirculation: () => null,
+    DocumentSummary: () => null,
+    DocumentSubjects: () => null,
   };
 });
 

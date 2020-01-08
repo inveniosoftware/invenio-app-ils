@@ -69,7 +69,7 @@ export default class LoanMetadata extends Component {
               key="support-email"
             >
               <Icon name="mail" />
-            </EmailLink>
+            </EmailLink>,
           ]}
         />
       )

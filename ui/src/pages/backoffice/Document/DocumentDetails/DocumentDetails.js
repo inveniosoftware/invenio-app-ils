@@ -8,6 +8,7 @@ import {
   Container,
   Divider,
   Grid,
+  Header,
   Ref,
   Sticky,
 } from 'semantic-ui-react';
@@ -20,6 +21,7 @@ import {
   DocumentStats,
   DocumentItems,
   DocumentActionMenu,
+  DocumentSummary,
 } from './components';
 
 class DocumentHeader extends Component {
@@ -30,15 +32,24 @@ class DocumentHeader extends Component {
       <>
         <label>Document</label> #{data.metadata.pid}{' '}
         <CopyButton text={data.metadata.pid} />
+        {(
+          <>
+            <br />
+            <label>Created by</label>{' '}
+          </>
+        ) && data.metadata.created_by}
         <br />
-        <label>Created by</label> {data.metadata.created_by}
-        <br />
-        <label>On</label> {toShortDate(data.created)}
+        <label>Created on</label> {toShortDate(data.created)}
       </>
     );
     return (
       <DetailsHeader
-        title={data.metadata.title}
+        title={
+          <>
+            <Header.Subheader>{data.metadata.document_type}</Header.Subheader>
+            {data.metadata.title} - ed. {data.metadata.edition}
+          </>
+        }
         subTitle={<DocumentAuthors metadata={data.metadata} prefix={'by '} />}
         pid={data.metadata.pid}
         icon={<DocumentIcon />}
@@ -105,16 +116,14 @@ class DocumentContent extends Component {
       data.metadata.status === 'CANCELLED' ? [0] : [0, 1, 2];
 
     return (
-      <Container>
-        <Accordion
-          fluid
-          styled
-          className="highlighted"
-          panels={panels}
-          exclusive={false}
-          defaultActiveIndex={defaultIndexes}
-        />
-      </Container>
+      <Accordion
+        fluid
+        styled
+        className="highlighted"
+        panels={panels}
+        exclusive={false}
+        defaultActiveIndex={defaultIndexes}
+      />
     );
   }
 }
@@ -158,10 +167,15 @@ export default class DocumentDetails extends Component {
                 <Ref innerRef={this.menuRef}>
                   <Grid columns={2}>
                     <Grid.Column width={13}>
-                      <DocumentContent data={data} />
+                      <Container fluid className="spaced">
+                        <DocumentSummary document={data} />
+                      </Container>
+                      <Container>
+                        <DocumentContent data={data} />
+                      </Container>
                     </Grid.Column>
                     <Grid.Column width={3}>
-                      <Sticky context={this.menuRef} offset={150}>
+                      <Sticky context={this.menuRef} offset={180}>
                         <DocumentActionMenu />
                       </Sticky>
                     </Grid.Column>

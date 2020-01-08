@@ -16,8 +16,8 @@ describe('DocumentCirculation tests', () => {
       ...testData[0],
       items: { total: 2 },
       circulation: { has_items_for_loan: 2 },
-      relations: {multipart_monograph: {}, serials: {}},
-      eitems: {total: 0}
+      relations: { multipart_monograph: {}, serials: {} },
+      eitems: { total: 0 },
     },
   };
 

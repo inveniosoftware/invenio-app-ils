@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import LoanList from '../LoanList';
 import * as testData from '@testData/loans.json';
 
-
 jest.mock('../../../components/OverdueLoanSendMailModal', () => {
   return {
     OverdueLoanSendMailModal: () => null,
@@ -18,7 +17,6 @@ describe('LoanList tests', () => {
       component.unmount();
     }
   });
-
 
   const document = {
     metadata: {

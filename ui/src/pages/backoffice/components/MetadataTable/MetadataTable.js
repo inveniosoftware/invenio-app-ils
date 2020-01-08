@@ -9,14 +9,14 @@ export default class MetadataTable extends Component {
     return this.props.rows.map(row => (
       <Table.Row key={row.name}>
         <Table.Cell width={labelWidth}>{row.name}</Table.Cell>
-        <Table.Cell >{row.value}</Table.Cell>
+        <Table.Cell>{row.value}</Table.Cell>
       </Table.Row>
     ));
   }
 
   render() {
     return (
-      <Table definition >
+      <Table definition>
         <Table.Body>{this.renderRows()}</Table.Body>
       </Table>
     );
