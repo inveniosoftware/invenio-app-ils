@@ -48,7 +48,7 @@ export class DocumentSearch extends Component {
       },
       {
         name: 'published',
-        field: 'imprints.date',
+        field: 'imprint.date',
       },
     ];
     return (

@@ -2,7 +2,7 @@
 
 exports[`DocumentMetadata tests should load the details component 1`] = `
 <Tab
-  className="bo-metadata-tab"
+  className="bo-metadata-tab mb-20"
   grid={
     Object {
       "paneWidth": 12,
@@ -11,14 +11,13 @@ exports[`DocumentMetadata tests should load the details component 1`] = `
   }
   menu={
     Object {
-      "pointing": true,
-      "secondary": true,
+      "attached": "top",
     }
   }
   panes={
     Array [
       Object {
-        "menuItem": "General",
+        "menuItem": "Metadata",
         "render": [Function],
       },
       Object {

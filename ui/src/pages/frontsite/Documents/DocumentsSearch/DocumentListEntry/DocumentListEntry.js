@@ -39,19 +39,19 @@ export default class DocumentListEntry extends Component {
   };
 
   renderImprintInfo = () => {
-    if (!isEmpty(this.metadata.imprints)) {
+    if (!isEmpty(this.metadata.imprint)) {
       return (
         <Grid.Column width={4}>
           <List>
             <List.Item>
               <List.Content>
                 <span>Published by </span>
-                {this.metadata.imprints[0].publisher}
+                {this.metadata.imprint.publisher}
               </List.Content>
             </List.Item>
             <List.Item>
-              {this.metadata.imprints[0].place},{' '}
-              {this.metadata.imprints[0].date}
+              {this.metadata.imprint.place},{' '}
+              {this.metadata.imprint.date}
             </List.Item>
           </List>
         </Grid.Column>

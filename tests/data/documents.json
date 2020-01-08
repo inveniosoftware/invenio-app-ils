@@ -7,7 +7,8 @@
     "languages": ["en"],
     "edition": "1",
     "keywords": { "source": "X", "value": "Patata" },
-    "document_type": "BOOK"
+    "document_type": "BOOK",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-2",
@@ -16,7 +17,8 @@
     "abstract": "This is an abstract",
     "languages": ["it"],
     "keywords": { "source": "X", "value": "Patata" },
-    "document_type": "BOOK"
+    "document_type": "BOOK",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-3",
@@ -25,7 +27,8 @@
     "abstract": "This is an abstract",
     "edition": "3",
     "keywords": { "source": "X", "value": "Patata" },
-    "document_type": "BOOK"
+    "document_type": "BOOK",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-4",
@@ -33,35 +36,40 @@
     "authors": [{ "full_name": "James Forman Jr." }],
     "abstract": "This is an abstract",
     "keywords": { "source": "X", "value": "Patata" },
-    "document_type": "BOOK"
+    "document_type": "BOOK",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-5",
     "title": "Less: A Novel",
     "authors": [{ "full_name": "Andrew Sean Greer" }],
     "abstract": "This is an abstract",
-    "document_type": "STANDARD"
+    "document_type": "STANDARD",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-6",
     "title": "Less: A Novel",
     "authors": [{ "full_name": "Andrew Sean Greer" }],
     "abstract": "This is an abstract",
-    "document_type": "BOOK"
+    "document_type": "BOOK",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-7",
     "title": "Less: A Novel",
     "authors": [{ "full_name": "Andrew Sean Greer" }],
     "abstract": "This is an abstract",
-    "document_type": "JOURNAL"
+    "document_type": "JOURNAL",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-8",
     "title": "Less: A Novel",
     "authors": [{ "full_name": "Andrew Sean Greer" }],
     "abstract": "This is an abstract",
-    "document_type": "THESIS"
+    "document_type": "THESIS",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-9",
@@ -71,7 +79,8 @@
       { "full_name": "Stachel, John J et al." }
     ],
     "abstract": "This is a document volume v.1 part of a MULTIPART MONOGRAPH",
-    "document_type": "BOOK"
+    "document_type": "BOOK",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-10",
@@ -81,7 +90,8 @@
       { "full_name": "Stachel, John J et al." }
     ],
     "abstract": "This is a document volume v.2 part of a MULTIPART MONOGRAPH",
-    "document_type": "BOOK"
+    "document_type": "BOOK",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-11",
@@ -91,7 +101,8 @@
       { "full_name": "Stachel, John J et al." }
     ],
     "abstract": "This is a document volume v.3 part of a MULTIPART MONOGRAPH",
-    "document_type": "BOOK"
+    "document_type": "BOOK",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-12",
@@ -101,7 +112,8 @@
       { "full_name": "Stachel, John J et al." }
     ],
     "abstract": "This is a document volume v.1 part of a MULTIPART MONOGRAPH",
-    "document_type": "THESIS"
+    "document_type": "THESIS",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-13",
@@ -111,14 +123,16 @@
       { "full_name": "Banek, Georg" }
     ],
     "abstract": "This is a document volume v.2 part of a MULTIPART MONOGRAPH",
-    "document_type": "BOOK"
+    "document_type": "BOOK",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-14",
     "title": "Flavor physics and the TeV scale",
     "authors": [{ "full_name": "Hou, George W S" }],
     "abstract": "This is a document part of a SERIAL",
-    "document_type": "BOOK"
+    "document_type": "BOOK",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-15",
@@ -128,21 +142,24 @@
       { "full_name": "Pelant, Ivan" }
     ],
     "abstract": "This is a document part of a SERIAL",
-    "document_type": "BOOK"
+    "document_type": "BOOK",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-16",
     "title": "Macroscopic quantum electrodynamics and ground-state Casimir, Casimir–Polder and van der Waals forces",
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
     "abstract": "This is a document volume v.1 part of a MULTIPART MONOGRAPH part of a SERIAL",
-    "document_type": "BOOK"
+    "document_type": "BOOK",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-17",
     "title": "Many-body effects, excited atoms, finite temperature and quantum friction",
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
     "abstract": "This is a document volume v.1 part of a MULTIPART MONOGRAPH part of a SERIAL",
-    "document_type": "BOOK"
+    "document_type": "BOOK",
+    "publication_year": "1950"
   },
   {
     "pid": "docid-closed-access",
@@ -150,7 +167,8 @@
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
     "abstract": "Just an abstract",
     "document_type": "BOOK",
-    "open_access": false
+    "open_access": false,
+    "publication_year": "1950"
   },
   {
     "pid": "docid-open-access",
@@ -158,6 +176,7 @@
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
     "abstract": "Just an abstract",
     "document_type": "BOOK",
-    "open_access": true
+    "open_access": true,
+    "publication_year": "1950"
   }
 ]

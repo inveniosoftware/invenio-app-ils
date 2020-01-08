@@ -176,6 +176,12 @@
 }
 
 @{bo-parent-selector} {
+
+    .spaced {
+      margin-top: 2em !important;
+      margin-bottom: 2em !important;
+    }
+
   @{ui-container} {
     &.spaced {
       margin-top: 2em;

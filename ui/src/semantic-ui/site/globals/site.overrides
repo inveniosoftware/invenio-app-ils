@@ -153,4 +153,6 @@ form {
 
   .generate-margins(20, right, r);
   .generate-margins(20, left, l);
+  .generate-margins(20, bottom, b);
+  .generate-margins(20, top, t);
 }

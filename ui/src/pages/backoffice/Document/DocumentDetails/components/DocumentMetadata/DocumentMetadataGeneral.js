@@ -1,3 +1,5 @@
+import { toShortDate } from '@api/date';
+import { DocumentAuthors } from '@components';
 import {
   DocumentLanguages,
   DocumentTags,
@@ -9,6 +11,7 @@ import { isEmpty } from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Container, Divider, Header } from 'semantic-ui-react';
 
 export class DocumentMetadataGeneral extends Component {
   prepareGeneral = () => {
@@ -17,10 +20,9 @@ export class DocumentMetadataGeneral extends Component {
       { name: 'Title', value: document.metadata.title },
       {
         name: 'Authors',
-        value: document.metadata.authors
-          ? document.metadata.authors.map(author => author.full_name).join(',')
-          : '',
+        value: <DocumentAuthors metadata={document.metadata} />,
       },
+      { name: 'Publication year', value: document.metadata.publication_year },
       {
         name: 'Keywords',
         value: document.metadata.keywords
@@ -59,11 +61,31 @@ export class DocumentMetadataGeneral extends Component {
     return rows;
   };
 
+  prepareImprintInfo = () => {
+    const { document } = this.props;
+
+    return [
+      { name: 'Publisher', value: document.metadata.imprint.publisher },
+      { name: 'Date', value: toShortDate(document.metadata.imprint.date) },
+      { name: 'Place', value: document.metadata.imprint.place },
+      { name: 'Reprint date', value: document.metadata.imprint.reprint_date },
+    ];
+  };
+
   render() {
+    const { document } = this.props;
     return (
-      <>
+      <Container fluid className="spaced">
         <MetadataTable rows={this.prepareGeneral()} />
-      </>
+
+        {!isEmpty(document.metadata.imprint) && (
+          <>
+            <Divider />
+            <Header as="h3">Imprint</Header>
+            <MetadataTable rows={this.prepareImprintInfo()} />
+          </>
+        )}
+      </Container>
     );
   }
 }

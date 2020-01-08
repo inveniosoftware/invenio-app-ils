@@ -19,11 +19,10 @@ function serializeResponse(hit) {
       }
       result['pid'] = hit.metadata.pid;
     }
-    if (!isEmpty(hit.metadata.imprints)) {
-      result.metadata.imprints = hit.metadata.imprints.map(imprint => {
-        imprint.date = imprint.date ? fromISO(imprint.date) : null;
-        return imprint;
-      });
+    if (!isEmpty(hit.metadata.imprint)) {
+      hit.metadata.imprint.date = hit.metadata.imprint.date
+        ? fromISO(hit.metadata.imprint.date)
+        : null;
     }
   }
   return result;

@@ -37,12 +37,3 @@
 
 }
 
-@{bo-parent-selector} {
-  .bo-metadata-tab {
-    .ui.segment {
-      border: 0;
-    }
-  }
-}
-
-

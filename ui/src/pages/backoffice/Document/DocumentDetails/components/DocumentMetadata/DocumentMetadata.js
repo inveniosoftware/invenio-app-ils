@@ -5,7 +5,7 @@ import { DocumentExtras } from './DocumentExtras';
 import { DocumentIdentifiers } from './DocumentIdentifiers';
 import { DocumentSystemInfo } from './DocumentSystemInfo';
 import React, { Component } from 'react';
-import { Header, Segment, Tab } from 'semantic-ui-react';
+import { Header, Tab } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 
@@ -14,30 +14,46 @@ export default class DocumentMetadata extends Component {
     const document = this.props.documentDetails;
 
     let panes = [
-      {
-        menuItem: 'General',
-        render: () => <DocumentMetadataGeneral document={document} />,
+            {
+        menuItem: 'Metadata',
+        render: () => (
+          <Tab.Pane attached='bottom'>
+            <DocumentMetadataGeneral document={document} />
+          </Tab.Pane>
+        ),
       },
       {
         menuItem: 'Identifiers',
-        render: () => <DocumentIdentifiers document={document} />,
+        render: () => (
+          <Tab.Pane>
+            <DocumentIdentifiers document={document} />
+          </Tab.Pane>
+        ),
       },
       {
         menuItem: 'Contents',
-        render: () => <DocumentContents document={document} />,
+        render: () => (
+          <Tab.Pane>
+            <DocumentContents document={document} />
+          </Tab.Pane>
+        ),
       },
       {
         menuItem: 'Notes',
         render: () => (
-          <Segment>
+          <Tab.Pane>
             <Header as="h3">Public note</Header>
             <p>{document.metadata.note}</p>
-          </Segment>
+          </Tab.Pane>
         ),
       },
       {
         menuItem: 'System info',
-        render: () => <DocumentSystemInfo document={document} />,
+        render: () => (
+          <Tab.Pane>
+            <DocumentSystemInfo document={document} />
+          </Tab.Pane>
+        ),
       },
     ];
     if (
@@ -46,7 +62,11 @@ export default class DocumentMetadata extends Component {
     ) {
       panes.push({
         menuItem: 'Copyrights & licenses',
-        render: () => <DocumentCopyrights document={document} />,
+        render: () => (
+          <Tab.Pane>
+            <DocumentCopyrights document={document} />
+          </Tab.Pane>
+        ),
       });
     }
 
@@ -57,7 +77,11 @@ export default class DocumentMetadata extends Component {
     ) {
       panes.push({
         menuItem: 'Other',
-        render: () => <DocumentExtras document={document} />,
+        render: () => (
+          <Tab.Pane>
+            <DocumentExtras document={document} />
+          </Tab.Pane>
+        ),
       });
     }
     return panes;
@@ -65,9 +89,10 @@ export default class DocumentMetadata extends Component {
 
   render() {
     return (
+
       <Tab
-        className="bo-metadata-tab"
-        menu={{ secondary: true, pointing: true }}
+        className="bo-metadata-tab mb-20"
+        menu={{ attached: 'top' }}
         panes={this.panes()}
       />
     );

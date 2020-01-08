@@ -3,7 +3,6 @@ import { MetadataTable } from '@pages/backoffice';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { Segment } from 'semantic-ui-react';
 
 export class DocumentSystemInfo extends Component {
   renderInternalNotes = () => {
@@ -63,11 +62,7 @@ export class DocumentSystemInfo extends Component {
   };
 
   render() {
-    return (
-      <Segment>
-        <MetadataTable rows={this.prepareData()} />
-      </Segment>
-    );
+    return <MetadataTable rows={this.prepareData()} />;
   }
 }
 

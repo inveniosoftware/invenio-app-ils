@@ -45,11 +45,13 @@ exports[`DocumentDetails tests should load the details component 1`] = `
               >
                 <Container
                   className="spaced"
-                  fluid={true}
                 >
-                  <DocumentSummary />
-                </Container>
-                <Container>
+                  <Container
+                    className="spaced"
+                  >
+                    <DocumentSummary />
+                  </Container>
+                  <DocumentMetadata />
                   <DocumentContent />
                 </Container>
               </GridColumn>
