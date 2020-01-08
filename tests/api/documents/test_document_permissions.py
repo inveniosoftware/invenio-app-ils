@@ -12,6 +12,7 @@ import json
 from flask import url_for
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
+from invenio_search import current_search
 from tests.api.helpers import user_login
 
 from invenio_app_ils.documents.api import Document
@@ -29,6 +30,7 @@ def test_open_access_permissions(client, json_headers, testdata, users):
         doc.commit()
         db.session.commit()
         indexer.index(doc)
+    current_search.flush_and_refresh(index="documents")
 
     test_data = [
         ("anonymous", "docid-open-access", 200, 1),
@@ -72,6 +74,7 @@ def test_access_permissions(client, json_headers, testdata, users,
         doc.commit()
         db.session.commit()
         indexer.index(doc)
+    current_search.flush_and_refresh(index="documents")
 
     test_data = [
         ("anonymous", "docid-open-access", 401, 0),
