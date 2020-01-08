@@ -306,7 +306,6 @@ class DocumentGenerator(Generator):
                 "authors": random.sample(self.AUTHORS, randint(1, 3)),
                 "abstract": "{}".format(lorem.text()),
                 "document_type": random.choice(self.DOCUMENT_TYPES),
-                "_access": {},
                 "languages": [lang["key"] for lang in random.sample(
                     self.holder.languages, randint(1, 3)
                 )],

@@ -99,7 +99,7 @@ def search_factory_filter_by_patron(self, search):
 
     def filter_by_patron(query_string):
         """Filter search results by patron_pid."""
-        # if the logged in user in not librarian or admin, validate the query
+        # if the logged in user is not librarian or admin, validate the query
         if has_request_context() and not backoffice_permission().allows(
             g.identity
         ):
@@ -109,7 +109,7 @@ def search_factory_filter_by_patron(self, search):
                 query_string = "patron_pid:{}".format(g.identity.id)
             else:
                 # check for patron_pid query value
-                match = re.match(r"patron_pid:(?P<pid>\d)", query_string)
+                match = re.match(r"patron_pid:(?P<pid>\d+)", query_string)
                 if match and match.group("pid") != str(g.identity.id):
                     raise UnauthorizedSearchError(query_string, g.identity.id)
         return query_string

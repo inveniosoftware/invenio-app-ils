@@ -95,8 +95,8 @@ class RecordPermission(Permission):
         Implicit permission = `open_access` field
         Explicit, when defined, takes precedence over implicit which is
         ignored.
-        The record is public when `_access` is not defined and `open_access`
-        is True.
+        The record is public when `_access.read` is not defined and
+        `open_access` is True.
         """
         has_explicit_perm = current_app.config.get(
             "ILS_RECORDS_EXPLICIT_PERMISSIONS_ENABLED"
