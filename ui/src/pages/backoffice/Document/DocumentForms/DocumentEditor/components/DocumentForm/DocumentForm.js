@@ -29,7 +29,7 @@ import {
 import documentSubmitSerializer from './documentSubmitSerializer';
 import { InternalNotes } from './components/InternalNotes';
 import { ConferenceInfoField } from './components/ConferenceInfoField';
-import { Imprints } from './components/Imprints';
+import { Imprint } from './components/Imprint';
 import { Keywords } from './components/Keywords';
 import { invenioConfig } from '@config';
 
@@ -112,6 +112,11 @@ export class DocumentForm extends Component {
           fieldPath="source"
           optimized
         />
+        <StringField
+          label="Publication year"
+          fieldPath="publication_year"
+          optimized
+        />
         <AuthorsField fieldPath="authors" />
         <BooleanField label="Other authors" fieldPath="other_authors" toggle />
         <BooleanField label="Open access" fieldPath="open_access" toggle />
@@ -134,7 +139,7 @@ export class DocumentForm extends Component {
         <AlternativeTitles />
         <Copyrights />
         <PublicationInfoField />
-        <Imprints />
+        <Imprint />
         <Keywords />
       </BaseForm>
     );

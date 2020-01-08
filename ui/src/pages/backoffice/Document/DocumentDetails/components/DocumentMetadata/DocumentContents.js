@@ -1,15 +1,18 @@
-import { DocumentAbstract, DocumentToc } from '@components/Document';
-import { DocumentSubjects } from './DocumentSubjects';
+import {
+  DocumentAbstract,
+  DocumentToc,
+} from '@components/Document';
+import {DocumentSubjects} from "./DocumentSubjects";
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Divider, Header, Segment } from 'semantic-ui-react';
+import { Divider, Header } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 
 export class DocumentContents extends Component {
   render() {
     const { document } = this.props;
     return (
-      <Segment>
+      <>
         <Header as="h3">Abstract</Header>
         <DocumentAbstract metadata={document.metadata} lines={10} />
 
@@ -28,7 +31,7 @@ export class DocumentContents extends Component {
             <DocumentSubjects document={document} />
           </>
         )}
-      </Segment>
+      </>
     );
   }
 }

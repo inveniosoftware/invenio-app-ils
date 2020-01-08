@@ -4,14 +4,13 @@ import { Link } from 'react-router-dom';
 import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
 import { getCover } from '../../../frontsite/config';
 import { BackOfficeRoutes } from '@routes/urls';
-import _isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 import DocumentCirculation from './DocumentCirculation';
 import {
   DocumentAuthors,
   DocumentLanguages,
   DocumentTags,
 } from '@components/Document';
-import { toShortDate } from '@api/date';
 
 export default class DocumentListEntry extends Component {
   renderMiddleColumn = document => {
@@ -34,7 +33,7 @@ export default class DocumentListEntry extends Component {
       <>
         <Item.Description>
           <List verticalAlign={'middle'} className={'document-relations'}>
-            {!_isEmpty(document.metadata.relations.multipart_monograph) && (
+            {!isEmpty(document.metadata.relations.multipart_monograph) && (
               <List.Item>
                 <List.Content floated="right">
                   <Link
@@ -48,7 +47,7 @@ export default class DocumentListEntry extends Component {
                 <List.Content>Multipart monograph</List.Content>
               </List.Item>
             )}
-            {!_isEmpty(document.metadata.relations.serial) && (
+            {!isEmpty(document.metadata.relations.serial) && (
               <List.Item>
                 <List.Content floated={'right'}>
                   <Link
@@ -83,7 +82,7 @@ export default class DocumentListEntry extends Component {
   };
 
   getRestrictions = meta => {
-    if (_isEmpty(meta._access)) return null;
+    if (isEmpty(meta._access)) return null;
     return {
       corner: 'left',
       color: 'red',
@@ -97,17 +96,6 @@ export default class DocumentListEntry extends Component {
     return (
       <Item.Description>
         <label>edition</label> {edition}
-      </Item.Description>
-    );
-  };
-
-  renderPubYear = () => {
-    const { document } = this.props;
-    if (_isEmpty(document.metadata.imprints)) return null;
-    return (
-      <Item.Description>
-        <label>Published</label>{' '}
-        {toShortDate(document.metadata.imprints[0].date)}
       </Item.Description>
     );
   };
@@ -147,7 +135,7 @@ export default class DocumentListEntry extends Component {
                 prefix={<label>languages </label>}
               />
               {this.renderEdition(document.metadata.edition)}
-              {this.renderPubYear()}
+              <label>Published</label> {document.metadata.publication_year}
             </Grid.Column>
             <Grid.Column computer={3} largeScreen={4}>
               {this.renderMiddleColumn(document)}

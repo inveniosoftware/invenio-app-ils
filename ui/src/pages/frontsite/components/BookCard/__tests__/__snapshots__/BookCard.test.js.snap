@@ -28,6 +28,7 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
           "en",
         ],
         "pid": "docid-1",
+        "publication_year": "1950",
         "title": "Lorem",
       },
     }
@@ -110,6 +111,7 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
                       "en",
                     ],
                     "pid": "docid-1",
+                    "publication_year": "1950",
                     "title": "Lorem",
                   }
                 }
@@ -216,6 +218,7 @@ exports[`BookCard tests should render the BookCard 1`] = `
           "en",
         ],
         "pid": "docid-1",
+        "publication_year": "1950",
         "title": "Lorem",
       },
     }
@@ -298,6 +301,7 @@ exports[`BookCard tests should render the BookCard 1`] = `
                       "en",
                     ],
                     "pid": "docid-1",
+                    "publication_year": "1950",
                     "title": "Lorem",
                   }
                 }

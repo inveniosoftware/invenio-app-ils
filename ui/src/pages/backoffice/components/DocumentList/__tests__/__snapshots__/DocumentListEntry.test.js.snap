@@ -94,6 +94,7 @@ exports[`DocumentCirculation tests should load the DocumentCirculation component
                   "en",
                 ],
                 "pid": "docid-1",
+                "publication_year": "1950",
                 "relations": Object {
                   "multipart_monograph": Object {},
                   "serials": Object {},
@@ -133,6 +134,7 @@ exports[`DocumentCirculation tests should load the DocumentCirculation component
                 "en",
               ],
               "pid": "docid-1",
+              "publication_year": "1950",
               "relations": Object {
                 "multipart_monograph": Object {},
                 "serials": Object {},
@@ -153,6 +155,11 @@ exports[`DocumentCirculation tests should load the DocumentCirculation component
            
           1
         </ItemDescription>
+        <label>
+          Published
+        </label>
+         
+        1950
       </GridColumn>
       <GridColumn
         computer={3}
@@ -187,6 +194,7 @@ exports[`DocumentCirculation tests should load the DocumentCirculation component
                   "en",
                 ],
                 "pid": "docid-1",
+                "publication_year": "1950",
                 "relations": Object {
                   "multipart_monograph": Object {},
                   "serials": Object {},
@@ -238,6 +246,7 @@ exports[`DocumentCirculation tests should load the DocumentCirculation component
               "en",
             ],
             "pid": "docid-1",
+            "publication_year": "1950",
             "relations": Object {
               "multipart_monograph": Object {},
               "serials": Object {},

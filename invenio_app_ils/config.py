@@ -867,7 +867,7 @@ RECORDS_REST_SORT_OPTIONS = dict(
             order=4,
         ),
         published_date=dict(
-            fields=["imprints.date"],
+            fields=["imprint.date"],
             title="Published date",
             default_order="desc",
             order=4,

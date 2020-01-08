@@ -73,6 +73,7 @@ exports[`should render correctly 1`] = `
               "en",
             ],
             "pid": "13",
+            "publication_year": "1950",
             "title": "The Gulf: The Making of An American Sea",
           }
         }
@@ -138,6 +139,7 @@ exports[`should render correctly 1`] = `
                         "en",
                       ],
                       "pid": "13",
+                      "publication_year": "1950",
                       "title": "The Gulf: The Making of An American Sea",
                     }
                   }
@@ -175,6 +177,7 @@ exports[`should render correctly 1`] = `
               "en",
             ],
             "pid": "13",
+            "publication_year": "1950",
             "title": "The Gulf: The Making of An American Sea",
           }
         }

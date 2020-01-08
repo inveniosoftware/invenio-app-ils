@@ -319,38 +319,33 @@
       "title": "List of Identifiers of the record",
       "type": "array"
     },
-    "imprints": {
-      "items": {
-        "additionalProperties": false,
-        "properties": {
-          "date": {
-            "format": "date",
-            "minLength": 1,
-            "title": "Date of publication",
-            "type": "string"
-          },
-          "place": {
-            "minLength": 1,
-            "title": "Place of publication",
-            "type": "string"
-          },
-          "publisher": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "reprint_date": {
-            "format": "date",
-            "minLength": 1,
-            "title": "Date of reprint",
-            "type": "string"
-          }
+    "imprint": {
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "format": "date",
+          "minLength": 1,
+          "title": "Date of publication",
+          "type": "string"
         },
-        "type": "object"
+        "place": {
+          "minLength": 1,
+          "title": "Place of publication",
+          "type": "string"
+        },
+        "publisher": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "reprint_date": {
+          "format": "date",
+          "minLength": 1,
+          "title": "Date of reprint",
+          "type": "string"
+        }
       },
-      "minItems": 1,
-      "title": "List of imprints",
-      "type": "array",
-      "uniqueItems": true
+      "type": "object",
+      "title": "Imprint"
     },
     "internal_notes": {
       "items": {
@@ -500,6 +495,10 @@
       "title": "List of information on publication",
       "type": "array",
       "uniqueItems": true
+    },
+    "publication_year": {
+      "title": "Year of the publication of the record",
+      "type": "string"
     },
     "relations": {
       "properties": {
@@ -657,7 +656,7 @@
       "uniqueItems": true
     }
   },
-  "required": ["$schema", "pid", "title", "authors"],
+  "required": ["$schema", "pid", "title", "authors", "publication_year"],
   "title": "Document",
   "type": "object"
 }

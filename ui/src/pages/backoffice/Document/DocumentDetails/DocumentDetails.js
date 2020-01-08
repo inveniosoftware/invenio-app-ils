@@ -47,7 +47,8 @@ class DocumentHeader extends Component {
         title={
           <>
             <Header.Subheader>{data.metadata.document_type}</Header.Subheader>
-            {data.metadata.title} - ed. {data.metadata.edition}
+            {data.metadata.title} - ed. {data.metadata.edition} (
+            {data.metadata.publication_year})
           </>
         }
         subTitle={<DocumentAuthors metadata={data.metadata} prefix={'by '} />}
@@ -66,15 +67,6 @@ class DocumentContent extends Component {
   render() {
     const { data } = this.props;
     const panels = [
-      {
-        key: 'metadata',
-        title: 'Metadata',
-        content: (
-          <Accordion.Content>
-            <DocumentMetadata />
-          </Accordion.Content>
-        ),
-      },
       {
         key: 'loan-requests',
         title: 'Loan requests',
@@ -116,14 +108,16 @@ class DocumentContent extends Component {
       data.metadata.status === 'CANCELLED' ? [0] : [0, 1, 2];
 
     return (
-      <Accordion
-        fluid
-        styled
-        className="highlighted"
-        panels={panels}
-        exclusive={false}
-        defaultActiveIndex={defaultIndexes}
-      />
+      <>
+        <Accordion
+          fluid
+          styled
+          className="highlighted"
+          panels={panels}
+          exclusive={false}
+          defaultActiveIndex={defaultIndexes}
+        />
+      </>
     );
   }
 }
@@ -162,15 +156,15 @@ export default class DocumentDetails extends Component {
                 </Container>
                 <Divider />
               </Sticky>
-
               <Container fluid>
                 <Ref innerRef={this.menuRef}>
                   <Grid columns={2}>
                     <Grid.Column width={13}>
-                      <Container fluid className="spaced">
-                        <DocumentSummary document={data} />
-                      </Container>
-                      <Container>
+                      <Container className="spaced">
+                        <Container className="spaced">
+                          <DocumentSummary document={data} />
+                        </Container>
+                          <DocumentMetadata />
                         <DocumentContent data={data} />
                       </Container>
                     </Grid.Column>

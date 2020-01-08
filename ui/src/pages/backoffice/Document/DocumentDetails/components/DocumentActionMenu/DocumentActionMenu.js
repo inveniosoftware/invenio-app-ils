@@ -184,7 +184,7 @@ export default class DocumentActionMenu extends React.Component {
           }}
         />
         <NewButton
-          text="New electronic item"
+          text="New E-item"
           fluid
           to={{
             pathname: BackOfficeRoutes.eitemCreate,

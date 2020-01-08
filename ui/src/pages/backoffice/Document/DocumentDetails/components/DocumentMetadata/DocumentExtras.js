@@ -1,7 +1,7 @@
 import { MetadataTable } from '@pages/backoffice';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Header, List, Segment } from 'semantic-ui-react';
+import { Header, List } from 'semantic-ui-react';
 import capitalize from 'lodash/capitalize';
 import isEmpty from 'lodash/isEmpty';
 
@@ -34,14 +34,14 @@ export class DocumentExtras extends Component {
   render() {
     const { document } = this.props;
     return (
-      <Segment>
+      <>
         {!isEmpty(document.metadata.conference_info) && (
           <>
             <Header>Conference info</Header>
             <MetadataTable rows={this.renderConferenceInfo()} />
           </>
         )}
-      </Segment>
+      </>
     );
   }
 }
