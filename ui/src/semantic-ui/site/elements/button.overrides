@@ -29,6 +29,11 @@
 
 @{bo-parent-selector}{
 
+  .button-show-more {
+    color: @primaryColor;
+    font-weight: bold;
+  }
+
   .bo-action-menu{
     .ui.button{
       margin-bottom: 0.5em;

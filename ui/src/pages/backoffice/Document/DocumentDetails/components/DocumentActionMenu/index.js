@@ -1,9 +1,6 @@
 import { connect } from 'react-redux';
 
-import {
-  deleteDocument,
-  requestLoanForPatron,
-} from '../../state/actions';
+import { deleteDocument, requestLoanForPatron } from '../../state/actions';
 import DocumentActionMenuComponent from './DocumentActionMenu';
 
 const mapStateToProps = state => ({
@@ -24,5 +21,3 @@ export const DocumentActionMenu = connect(
   mapStateToProps,
   mapDispatchToProps
 )(DocumentActionMenuComponent);
-
-

@@ -1,20 +1,17 @@
 import { sessionManager } from '@authentication/services';
 
 const changedObject = () => ({
-  by: {
-    type: 'user_id',
-    value: `${sessionManager.user.id}`,
-  },
-  timestamp: `${new Date().getTime()}`,
+  type: 'user_id',
+  value: `${sessionManager.user.id}`,
 });
 
 export default (values, newRecord) => {
   const submitValues = { ...values };
 
   if (newRecord) {
-    submitValues.created = changedObject();
+    submitValues.created_by = changedObject();
   } else {
-    submitValues.updated = changedObject();
+    submitValues.updated_by = changedObject();
   }
 
   delete submitValues.circulation;

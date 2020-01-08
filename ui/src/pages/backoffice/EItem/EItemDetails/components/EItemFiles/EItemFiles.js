@@ -24,7 +24,7 @@ export default class EItemFiles extends Component {
     if (this.props.files.length >= this.maxFiles) {
       this.props.sendErrorNotification(
         'Failed to upload file',
-        `An e-item cannot have more than ${this.maxFiles} files.`,
+        `An e-item cannot have more than ${this.maxFiles} files.`
       );
     } else {
       const { eitemDetails } = this.props;

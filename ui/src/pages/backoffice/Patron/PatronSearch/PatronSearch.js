@@ -1,4 +1,4 @@
-import {EmailLink} from "@components/EmailLink/EmailLink";
+import { EmailLink } from '@components/EmailLink/EmailLink';
 import {
   SearchAggregationsCards,
   SearchControls,

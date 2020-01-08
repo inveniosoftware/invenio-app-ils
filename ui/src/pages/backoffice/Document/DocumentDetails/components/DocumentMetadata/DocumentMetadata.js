@@ -1,110 +1,75 @@
-import {DocumentAbstract} from "@components/Document";
+import { DocumentCopyrights } from './DocumentCopyrights';
+import { DocumentMetadataGeneral } from './DocumentMetadataGeneral';
+import { DocumentContents } from './DocumentContents';
+import { DocumentExtras } from './DocumentExtras';
+import { DocumentIdentifiers } from './DocumentIdentifiers';
+import { DocumentSystemInfo } from './DocumentSystemInfo';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  Grid,
-  Segment,
-  Container,
-  Header,
-  List,
-} from 'semantic-ui-react';
+import { Header, Segment, Tab } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { MetadataTable } from '@pages/backoffice/components/MetadataTable';
-import {
-  document as documentApi,
-} from '@api';
-import { BackOfficeRoutes } from '@routes/urls';
 import { isEmpty } from 'lodash';
 
 export default class DocumentMetadata extends Component {
-  constructor(props) {
-    super(props);
-    this.deleteDocument = props.deleteDocument;
-    this.documentPid = props.documentDetails.metadata.pid;
-  }
+  panes = () => {
+    const document = this.props.documentDetails;
 
-  renderTags(tags) {
-    if (!isEmpty(tags)) {
-      return (
-        <List horizontal>
-          {tags.map(tag => (
-            <List.Item key={tag}>
-              <Link
-                to={BackOfficeRoutes.documentsListWithQuery(
-                  documentApi
-                    .query()
-                    .withTag(tag)
-                    .qs()
-                )}
-              >
-                {tag.name}
-              </Link>
-            </List.Item>
-          ))}
-        </List>
-      );
-    } else {
-      return null;
-    }
-  }
-
-  prepareData(document) {
-    const rows = [
-      { name: 'Title', value: document.metadata.title },
+    let panes = [
       {
-        name: 'Authors',
-        value: document.metadata.authors
-          ? document.metadata.authors.map(author => author.full_name).join(',')
-          : '',
+        menuItem: 'General',
+        render: () => <DocumentMetadataGeneral document={document} />,
       },
       {
-        name: 'Keywords',
-        value: document.metadata.keywords
-          ? document.metadata.keywords.value +
-            ' (' +
-            document.metadata.keywords.source +
-            ')'
-          : null,
+        menuItem: 'Identifiers',
+        render: () => <DocumentIdentifiers document={document} />,
       },
       {
-        name: 'Tags',
-        value: this.renderTags(document.metadata.tags),
+        menuItem: 'Contents',
+        render: () => <DocumentContents document={document} />,
+      },
+      {
+        menuItem: 'Notes',
+        render: () => (
+          <Segment>
+            <Header as="h3">Public note</Header>
+            <p>{document.metadata.note}</p>
+          </Segment>
+        ),
+      },
+      {
+        menuItem: 'System info',
+        render: () => <DocumentSystemInfo document={document} />,
       },
     ];
-    const request = document.metadata.request;
-    if (!isEmpty(request)) {
-      rows.push({
-        name: 'Document Request',
-        value: (
-          <Link to={BackOfficeRoutes.documentRequestDetailsFor(request.pid)}>
-            {request.state}
-          </Link>
-        ),
+    if (
+      !isEmpty(document.metadata.copyrights) ||
+      !isEmpty(document.metadata.licenses)
+    ) {
+      panes.push({
+        menuItem: 'Copyrights & licenses',
+        render: () => <DocumentCopyrights document={document} />,
       });
     }
-    return rows;
-  }
 
+    if (
+      !isEmpty(document.metadata.publication_info) ||
+      !isEmpty(document.metadata.conference_info) ||
+      !isEmpty(document.metadata.extra_data)
+    ) {
+      panes.push({
+        menuItem: 'Other',
+        render: () => <DocumentExtras document={document} />,
+      });
+    }
+    return panes;
+  };
 
   render() {
-    const document = this.props.documentDetails;
-    const rows = this.prepareData(document);
     return (
-      <Segment className="document-metadata">
-        <Grid padded columns={2}>
-          <Grid.Row>
-            <Grid.Column>
-              <MetadataTable rows={rows} />
-            </Grid.Column>
-            <Grid.Column>
-              <Container>
-                <Header as="h3">Abstract</Header>
-                 <DocumentAbstract metadata={document.metadata} lines={20} />
-              </Container>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
+      <Tab
+        className="bo-metadata-tab"
+        menu={{ secondary: true, pointing: true }}
+        panes={this.panes()}
+      />
     );
   }
 }

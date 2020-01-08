@@ -36,6 +36,12 @@
 /* BACKOFFICE */
 @{bo-parent-selector}{
     .ui.list{
+      .item {
+        >.content{
+          /* fix for semantic-ui list inside of accordion display */
+          padding: 0;
+        }
+      }
       &.document-authors-list, &.document-languages-list,
       &.document-circulation, &.document-relations{
         font-size: 1em;

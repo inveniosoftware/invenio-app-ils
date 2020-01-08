@@ -52,7 +52,8 @@ class EItemListEntry extends Component {
                     <List.Content>
                       {!isEmpty(eitem.metadata.urls) && (
                         <List.Content>
-                          {eitem.metadata.urls.length} linked resources <Icon name="external" />
+                          {eitem.metadata.urls.length} linked resources{' '}
+                          <Icon name="external" />
                         </List.Content>
                       )}
                     </List.Content>

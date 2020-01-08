@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {Container, Divider, Grid, Header} from 'semantic-ui-react';
+import { Container, Divider, Grid, Header } from 'semantic-ui-react';
 import { internalLocation as internalLocationApi } from '@api';
 import { InternalLocationList } from './components';
 import { Error, Loader, ResultsTable } from '@components';
@@ -93,9 +93,9 @@ export default class LocationList extends Component {
                 <Error error={error}>{this.renderResults(data)}</Error>
               </Loader>
             </Container>
-            <br/>
-            <Divider/>
-            <br/>
+            <br />
+            <Divider />
+            <br />
             <Container fluid className="spaced">
               <InternalLocationList />
             </Container>

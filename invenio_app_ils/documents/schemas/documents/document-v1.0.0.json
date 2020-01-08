@@ -263,26 +263,17 @@
       "type": "array",
       "uniqueItems": true
     },
-    "created": {
+    "created_by": {
       "additionalProperties": false,
       "properties": {
-        "by": {
-          "properties": {
-            "type": {
-              "type": "string"
-            },
-            "value": {
-              "type": "string"
-            }
-          },
-          "type": "object"
+        "type": {
+          "type": "string"
         },
-        "timestamp": {
-          "format": "datetime",
-          "title": "Timestamp of the update",
+        "value": {
           "type": "string"
         }
-      }
+      },
+      "type": "object"
     },
     "curated": {
       "type": "boolean"
@@ -631,26 +622,16 @@
       "title": "Title of the document",
       "type": "string"
     },
-    "updated": {
+    "updated_by": {
       "properties": {
-        "by": {
-          "properties": {
-            "type": {
-              "type": "string"
-            },
-            "value": {
-              "type": "string"
-            }
-          },
-          "type": "object"
+        "type": {
+          "type": "string"
         },
-        "timestamp": {
-          "format": "datetime",
-          "title": "Timestamp of the update",
+        "value": {
           "type": "string"
         }
       },
-      "title": "Update information",
+      "title": "Last update user information",
       "type": "object"
     },
     "urls": {

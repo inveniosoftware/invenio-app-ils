@@ -8,7 +8,7 @@ export class DocumentTags extends Component {
   renderTags = () => {
     if (this.props.metadata.tags) {
       return this.props.metadata.tags.map(tag => (
-        <Label className={'highlighted'} key={tag}>
+        <Label className={'highlighted'} key={tag} {...this.props}>
           <Link
             to={FrontSiteRoutes.documentsListWithQuery(
               `&sort=mostrecent&order=desc&f=tag%3A${tag}`

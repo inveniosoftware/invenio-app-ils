@@ -43,9 +43,8 @@ export class VendorIcon extends Component {
   }
 }
 
-export class DocumentRequestIcon extends Component{
+export class DocumentRequestIcon extends Component {
   render() {
-    return <Icon name="comment outline"/>
+    return <Icon name="comment outline" />;
   }
 }
-
