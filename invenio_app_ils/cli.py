@@ -48,13 +48,14 @@ from .relations.api import Relation
 
 def minter(pid_type, pid_field, record):
     """Mint the given PID for the given record."""
-    PersistentIdentifier.create(
-        pid_type=pid_type,
-        pid_value=record[pid_field],
-        object_type="rec",
-        object_uuid=record.id,
-        status=PIDStatus.REGISTERED,
+    pid = PersistentIdentifier.get(
+        pid_type="recid",
+        pid_value=record[pid_field]
     )
+    pid.status = PIDStatus.REGISTERED
+    pid.object_type = "rec"
+    pid.object_uuid = record.id
+    pid.pid_type = pid_type
 
 
 class Holder(object):
