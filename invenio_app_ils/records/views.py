@@ -16,7 +16,7 @@ from invenio_files_rest.signals import file_downloaded
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_records_rest.views import pass_record
 from invenio_rest import ContentNegotiatedMethodView
-from invenio_rest.errors import FieldError
+from invenio_rest.errors import FieldError, RESTException
 
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE
 from invenio_app_ils.errors import DocumentRequestError, StatsError
@@ -52,6 +52,7 @@ def create_document_stats_blueprint(app):
             view_func=stats_view,
             methods=["POST"],
         )
+
     register_view(DOCUMENT_PID_TYPE)
     register_view(EITEM_PID_TYPE)
     return blueprint
@@ -69,9 +70,7 @@ class DocumentStatsResource(ContentNegotiatedMethodView):
         event_name = data.get("event")
         if event_name == "record-view":
             record_viewed.send(
-                current_app._get_current_object(),
-                pid=pid,
-                record=record,
+                current_app._get_current_object(), pid=pid, record=record,
             )
             return self.make_response(pid, record, 202)
         elif event_name == "file-download":
@@ -81,8 +80,8 @@ class DocumentStatsResource(ContentNegotiatedMethodView):
                 abort(406, "Record has no bucket")
             obj = ObjectVersion.get(record["bucket_id"], data["key"])
             file_downloaded.send(
-                current_app._get_current_object(),
-                obj=obj, record=record)
+                current_app._get_current_object(), obj=obj, record=record
+            )
             return self.make_response(pid, record, 202)
         return StatsError(
             description="Invalid stats event request: {}".format(event_name)
@@ -91,9 +90,7 @@ class DocumentStatsResource(ContentNegotiatedMethodView):
 
 def create_document_request_action_blueprint(app):
     """Create document request action blueprint."""
-    blueprint = Blueprint(
-        "ils_document_request", __name__, url_prefix=""
-    )
+    blueprint = Blueprint("ils_document_request", __name__, url_prefix="")
 
     endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
     options = endpoints.get(DOCUMENT_REQUEST_PID_TYPE, {})
@@ -138,7 +135,18 @@ class AcceptRequestResource(ContentNegotiatedMethodView):
     @pass_record
     def post(self, pid, record, **kwargs):
         """Accept request post method."""
-        raise DocumentRequestError("Accept request is not implemented")
+        document_pid = request.get_json().get("document_pid")
+        if document_pid:
+            record["document_pid"] = document_pid
+            try:
+                record.commit()
+                db.session.commit()
+                current_app_ils.document_request_indexer.index(record)
+            except RESTException:
+                raise DocumentRequestError(
+                    "Failed to backlink newly created document to request",
+                )
+        return self.make_response(pid, record, 202)
 
 
 class RejectRequestResource(ContentNegotiatedMethodView):
@@ -160,9 +168,9 @@ class RejectRequestResource(ContentNegotiatedMethodView):
                 errors=[
                     FieldError(
                         field="reject_reason",
-                        message="Reject reason is required."
+                        message="Reject reason is required.",
                     )
-                ]
+                ],
             )
         if reject_reason == "IN_CATALOG" and not document_pid:
             raise DocumentRequestError(
@@ -171,10 +179,9 @@ class RejectRequestResource(ContentNegotiatedMethodView):
                 ),
                 errors=[
                     FieldError(
-                        field="document_pid",
-                        message="DocumentPID is required."
+                        field="document_pid", message="DocumentPID is required."
                     )
-                ]
+                ],
             )
         record["state"] = "REJECTED"
         record["reject_reason"] = reject_reason

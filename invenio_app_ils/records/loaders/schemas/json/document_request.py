@@ -35,6 +35,7 @@ class DocumentRequestSchemaV1(RecordMetadataSchemaJSONV1):
         unknown = EXCLUDE
 
     authors = SanitizedHTML()
+    document_pid = SanitizedHTML()
     edition = SanitizedHTML()
     isbn = SanitizedHTML()
     issn = SanitizedHTML()

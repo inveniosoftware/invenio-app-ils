@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List, Button } from 'semantic-ui-react';
-import { RejectAction } from './';
+import { RejectAction } from '.';
 
 export default class RequestActions extends Component {
   onReject = data => {

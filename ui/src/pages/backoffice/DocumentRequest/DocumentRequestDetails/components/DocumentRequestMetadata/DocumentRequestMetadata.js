@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Divider, Grid, Header, Segment } from 'semantic-ui-react';
+import { Divider, Grid, Header, Segment, Button } from 'semantic-ui-react';
 import { MetadataTable } from '@pages/backoffice/components/MetadataTable';
 import { BackOfficeRoutes } from '@routes/urls';
 import { DeleteRecordModal } from '@pages/backoffice/components/DeleteRecordModal';
 import { DocumentRequestActions } from '../DocumentRequestActions';
+import { goTo } from '@history';
+import _isEmpty from 'lodash/isEmpty';
 
 export default class DocumentRequestMetadata extends Component {
   addRow(rows, name, value) {
@@ -27,27 +29,26 @@ export default class DocumentRequestMetadata extends Component {
     ];
     this.addRow(rows, 'Journal Title', data.metadata.journal_title);
     this.addRow(rows, 'Authors', data.metadata.authors);
+    this.addRow(rows, 'Edition', data.metadata.edition);
+    this.addRow(rows, 'Standard Number', data.metadata.standard_number);
     this.addRow(rows, 'ISBN', data.metadata.isbn);
     this.addRow(rows, 'ISSN', data.metadata.issn);
     this.addRow(rows, 'Volume', data.metadata.volume);
     this.addRow(rows, 'Page', data.metadata.page);
     this.addRow(rows, 'Publication Year', data.metadata.publication_year);
+    this.addRow(rows, 'Note', data.metadata.note);
+    this.addRow(rows, 'Reject Reason', data.metadata.reject_reason);
     return rows;
   }
 
   prepareRightData(data) {
-    const docPid = data.metadata.document_pid;
+    const { document_pid: docPid } = data.metadata;
     const rows = [];
-    this.addRow(rows, 'Edition', data.metadata.edition);
-    this.addRow(rows, 'Standard Number', data.metadata.standard_number);
-    this.addRow(rows, 'Reject Reason', data.metadata.reject_reason);
     if (docPid) {
       rows.push({
         name: 'Document',
         value: (
-          <Link
-            to={BackOfficeRoutes.documentDetailsFor(data.metadata.document_pid)}
-          >
+          <Link to={BackOfficeRoutes.documentDetailsFor(docPid)}>
             {data.metadata.document.title}
           </Link>
         ),
@@ -55,7 +56,6 @@ export default class DocumentRequestMetadata extends Component {
     } else {
       rows.push({ name: 'Document', value: 'None' });
     }
-    this.addRow(rows, 'Note', data.metadata.note);
     return rows;
   }
 
@@ -79,6 +79,25 @@ export default class DocumentRequestMetadata extends Component {
     );
   }
 
+  createDocumentButton = () => {
+    const { documentRequestDetails: request } = this.props;
+    return (
+      <Button
+        size="small"
+        name="create-doc-from-doc-request"
+        onClick={() => goTo(BackOfficeRoutes.documentCreate, request)}
+        disabled={
+          _isEmpty(request.metadata.document) &&
+          request.metadata.state === 'PENDING'
+            ? false
+            : true
+        }
+      >
+        Create document from request
+      </Button>
+    );
+  };
+
   render() {
     const request = this.props.documentRequestDetails;
     const leftRows = this.prepareLeftData(request);
@@ -93,9 +112,11 @@ export default class DocumentRequestMetadata extends Component {
             </Grid.Column>
             <Grid.Column>
               <MetadataTable rows={rightRows} />
+              {this.createDocumentButton()}
             </Grid.Column>
           </Grid.Row>
         </Grid>
+
         <Divider />
         <DocumentRequestActions
           request={request.metadata}

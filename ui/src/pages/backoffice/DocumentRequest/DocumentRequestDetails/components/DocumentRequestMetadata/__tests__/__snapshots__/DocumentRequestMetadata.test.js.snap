@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentRequestMetadata tests should render DocumentRequestMetadata component 1`] = `
+<Segment
+  className="document-request-metadata"
+>
+  <Grid
+    columns={2}
+    padded={true}
+  >
+    <GridRow>
+      <GridColumn
+        verticalAlign="middle"
+        width={13}
+      >
+        <Header
+          as="h1"
+        >
+          Document Request #
+           - 
+        </Header>
+      </GridColumn>
+      <GridColumn
+        textAlign="right"
+        width={3}
+      >
+        <Connect(DeleteRecordModal)
+          deleteHeader="Are you sure you want to delete the Document Request
+            record with ID undefined?"
+          onDelete={[Function]}
+          refProps={Array []}
+        />
+      </GridColumn>
+    </GridRow>
+    <GridRow>
+      <GridColumn>
+        <MetadataTable
+          labelWidth={4}
+          rows={
+            Array [
+              Object {
+                "name": "State",
+                "value": "PENDING",
+              },
+              Object {
+                "name": "Patron",
+                "value": <ForwardRef
+                  to="/backoffice/patrons/1"
+                >
+                  Name
+                </ForwardRef>,
+              },
+              Object {
+                "name": "Title",
+                "value": undefined,
+              },
+            ]
+          }
+        />
+      </GridColumn>
+      <GridColumn>
+        <MetadataTable
+          labelWidth={4}
+          rows={
+            Array [
+              Object {
+                "name": "Document",
+                "value": "None",
+              },
+            ]
+          }
+        />
+        <Button
+          as="button"
+          disabled={false}
+          name="create-doc-from-doc-request"
+          onClick={[Function]}
+          size="small"
+        >
+          Create document from request
+        </Button>
+      </GridColumn>
+    </GridRow>
+  </Grid>
+  <Divider />
+  <RequestActions
+    rejectRequest={[Function]}
+    request={
+      Object {
+        "patron": Object {
+          "name": "Name",
+        },
+        "patron_pid": 1,
+        "state": "PENDING",
+      }
+    }
+  />
+</Segment>
+`;

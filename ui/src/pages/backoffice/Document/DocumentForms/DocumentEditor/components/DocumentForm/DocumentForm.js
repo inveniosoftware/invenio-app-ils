@@ -10,6 +10,7 @@ import {
   VocabularyField,
 } from '@forms';
 import { document as documentApi } from '@api/documents/document';
+import { documentRequest as documentRequestApi } from '@api/documentRequests/documentRequest';
 import { BackOfficeRoutes } from '@routes/urls';
 import { goTo } from '@history';
 import { UrlsField } from '@forms';
@@ -32,6 +33,7 @@ import { ConferenceInfoField } from './components/ConferenceInfoField';
 import { Imprints } from './components/Imprints';
 import { Keywords } from './components/Keywords';
 import { invenioConfig } from '@config';
+import _get from 'lodash/get';
 
 export class DocumentForm extends Component {
   get buttons() {
@@ -69,12 +71,23 @@ export class DocumentForm extends Component {
     return documentApi.create(data);
   };
 
-  successCallback = (response, submitButton) => {
+  successCallback = async (response, submitButton) => {
     const doc = getIn(response, 'data');
+    const documentRequestPid = _get(
+      this.props,
+      'data.documentRequestPid',
+      null
+    );
     if (submitButton === 'create-with-item') {
       goTo(BackOfficeRoutes.itemCreate, { document: doc });
     } else if (submitButton === 'create-with-eitem') {
       goTo(BackOfficeRoutes.eitemCreate, { document: doc });
+    } else if (documentRequestPid) {
+      // TODO: try and show proper msg
+      await documentRequestApi.accept(documentRequestPid, {
+        document_pid: doc.pid,
+      });
+      goTo(BackOfficeRoutes.documentRequestDetailsFor(documentRequestPid));
     } else {
       goTo(BackOfficeRoutes.documentDetailsFor(doc.metadata.pid));
     }
@@ -91,6 +104,7 @@ export class DocumentForm extends Component {
         title={this.props.title}
         pid={this.props.pid}
         submitSerializer={documentSubmitSerializer}
+        documentRequestPid={_get(this.props, 'data.documentRequestPid', null)}
         buttons={this.buttons}
       >
         <StringField label="Title" fieldPath="title" required optimized />
