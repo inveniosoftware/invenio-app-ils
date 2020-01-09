@@ -9,7 +9,11 @@ export class SelectField extends Component {
     let error = null;
     if (!Array.isArray(value)) {
       const options = this.props.options;
-      if (!isEmpty(options) && !options.find(o => o.value === value)) {
+      if (
+        !isEmpty(options) &&
+        !options.find(o => o.value === value) &&
+        !isEmpty(value)
+      ) {
         error = `The current value "${value}" is invalid, please select another value.`;
       }
     }
@@ -29,9 +33,19 @@ export class SelectField extends Component {
     if (!Array.isArray(values)) {
       values = [values];
     }
+    if (!this.props.required) {
+      options = [
+        {
+          key: '',
+          value: '',
+          text: '-',
+        },
+        ...options,
+      ];
+    }
     if (!this.props.loading) {
       for (const value of values) {
-        if (!options.find(o => o.value === value)) {
+        if (!isEmpty(value) && !options.find(o => o.value === value)) {
           options.push({
             key: value,
             value: value,
