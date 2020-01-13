@@ -11,6 +11,23 @@ from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from invenio_records_rest.schemas.fields import PersistentIdentifier
 from marshmallow import EXCLUDE, Schema, fields
 
+from invenio_app_ils.documents.loaders.jsonschemas.document import AlternativeTitleSchema, \
+    IdentifierSchema, InternalNoteSchema, UrlSchema
+
+
+class AccessUrlSchema(Schema):
+    """Access urls schema."""
+
+    class Meta:
+        """Meta attributes for the schema."""
+
+        unknown = EXCLUDE
+
+    access_restriction = fields.Str()
+    open_access = fields.Bool()
+    description = fields.Str()
+    value = fields.URL()
+
 
 class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
     """Series schema."""
@@ -20,12 +37,20 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
 
         unknown = EXCLUDE
 
-    title = fields.Str(required=True)
-    mode_of_issuance = fields.Str(required=True)
-    pid = PersistentIdentifier()
-    issn = fields.Str()
-    isbn = fields.List(fields.Str())
-    authors = fields.List(fields.Str())
+    abbreviated_title = fields.Str()
     abstract = fields.Str()
+    access_urls = fields.Nested(AccessUrlSchema, many=True)
+    alternative_titles = fields.Nested(AlternativeTitleSchema, many=True)
+    authors = fields.List(fields.Str())
     edition = fields.Str()
+    identifiers = fields.Nested(IdentifierSchema, many=True)
+    internal_notes = fields.Nested(InternalNoteSchema, many=True)
+    isbn = fields.List(fields.Str())
+    issn = fields.Str()
     languages = fields.List(fields.Str())
+    mode_of_issuance = fields.Str(required=True)
+    note = fields.Str()
+    pid = PersistentIdentifier()
+    publishers = fields.List(fields.Str())
+    title = fields.Str(required=True)
+    urls = fields.Nested(UrlSchema, many=True)

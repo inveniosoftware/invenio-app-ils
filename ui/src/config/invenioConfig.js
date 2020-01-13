@@ -139,6 +139,9 @@ export const invenioConfig = {
       type: 'document_type',
     },
     series: {
+      identifier: {
+        scheme: 'series_identifier_scheme',
+      },
       language: 'language',
     },
     order: {

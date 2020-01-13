@@ -1,0 +1,12 @@
+[
+  {
+    "type": "series_identifier_scheme",
+    "key": "ISBN",
+    "text": "ISBN"
+  },
+  {
+    "type": "series_identifier_scheme",
+    "key": "ISSN",
+    "text": "ISSN"
+  }
+]

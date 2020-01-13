@@ -1,0 +1,22 @@
+[
+  {
+    "type": "series_url_access_restriction",
+    "key": "NATIONAL_LICENSE",
+    "text": "National License"
+  },
+  {
+    "type": "series_url_access_restriction",
+    "key": "PERPETUAL_ACCESS_SUBSCRIPTION",
+    "text": "Perpetual access subscription"
+  },
+  {
+    "type": "series_url_access_restriction",
+    "key": "PERPETUAL_ACCESS_BACKFILES",
+    "text": "Perpetual access backfiles"
+  },
+  {
+    "type": "series_url_access_restriction",
+    "key": "PACKAGE_DEAL",
+    "text": "Package deal"
+  }
+]

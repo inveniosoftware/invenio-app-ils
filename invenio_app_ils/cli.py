@@ -263,7 +263,8 @@ class EItemGenerator(Generator):
 class DocumentGenerator(Generator):
     """Document Generator."""
 
-    DOCUMENT_TYPES = ["BOOK", "STANDARD", "PROCEEDING", "JOURNAL"]
+    PERIODICAL_ISSUE = "PERIODICAL_ISSUE"
+    DOCUMENT_TYPES = ["BOOK", "STANDARD", "PROCEEDING", PERIODICAL_ISSUE]
     AUTHORS = [
         {"full_name": "Close, Frank"},
         {"full_name": "CERN", "type": "ORGANISATION"},
@@ -296,39 +297,60 @@ class DocumentGenerator(Generator):
         {"date": "2017-08-02", "place": "Hamburg", "publisher": "Springer"},
     ]
 
+    def generate_document(self, index, **kwargs):
+        """Generate document data."""
+        obj = {
+            "pid": self.create_pid(),
+            "title": lorem.sentence(),
+            "authors": random.sample(self.AUTHORS, randint(1, 3)),
+            "abstract": "{}".format(lorem.text()),
+            "document_type": random.choice(self.DOCUMENT_TYPES),
+            "languages": [
+                lang["key"]
+                for lang in random.sample(self.holder.languages, randint(1, 3))
+            ],
+            "table_of_content": ["{}".format(lorem.sentence())],
+            "note": "{}".format(lorem.text()),
+            "tags": [tag["key"] for tag in random.sample(
+                self.holder.tags,
+                randint(1, len(self.holder.tags) - 1))
+            ],
+            "edition": str(index),
+            "keywords": {
+                "source": lorem.sentence(),
+                "value": lorem.sentence()
+            },
+            "conference_info": self.CONFERENCE_INFO,
+            "number_of_pages": str(random.randint(0, 300)),
+            "imprint": random.choice(self.IMPRINTS),
+            "publication_year": str(randint(1900, 2020)),
+            "urls": [
+                {
+                    "description": "{}".format(lorem.sentence()),
+                    "value": "http://random.url"
+                }
+            ],
+            "open_access": True,
+        }
+        obj.update(**kwargs)
+        return obj
+
     def generate(self):
         """Generate."""
         size = self.holder.documents["total"]
 
         objs = [
-            {
-                "pid": self.create_pid(),
-                "title": lorem.sentence(),
-                "authors": random.sample(self.AUTHORS, randint(1, 3)),
-                "abstract": "{}".format(lorem.text()),
-                "document_type": random.choice(self.DOCUMENT_TYPES),
-                "languages": [lang["key"] for lang in random.sample(
-                    self.holder.languages, randint(1, 3)
-                )],
-                "table_of_content": ["{}".format(lorem.sentence())],
-                "note": "{}".format(lorem.text()),
-                "tags": [tag["key"] for tag in random.sample(
-                    self.holder.tags,
-                    randint(1, len(self.holder.tags) - 1))
-                ],
-                "edition": str(pid),
-                "keywords": {"source": lorem.sentence(),
-                             "value": lorem.sentence()},
-                "conference_info": self.CONFERENCE_INFO,
-                "number_of_pages": str(random.randint(0, 300)),
-                "imprint": self.IMPRINTS[randint(0, 1)],
-                "publication_year": str(randint(1900, 2020)),
-                "urls": [{"description": "{}".format(lorem.sentence()),
-                          "value": "http://random.url"}],
-                "open_access": True,
-            }
-            for pid in range(1, size + 1)
+            self.generate_document(index)
+            for index in range(1, size + 1)
         ]
+
+        # Generate periodical issues
+        for index in range(1, 11):
+            objs.append(self.generate_document(
+                index,
+                document_type=self.PERIODICAL_ISSUE,
+                title="Volume 1 Issue {}".format(index)
+            ))
 
         self.holder.documents["objs"] = objs
 
@@ -467,13 +489,61 @@ class LoanGenerator(Generator):
 class SeriesGenerator(Generator):
     """Series Generator."""
 
-    DOCUMENT_TYPES = ["BOOK", "STANDARD", "PROCEEDING", "JOURNAL"]
     MODE_OF_ISSUANCE = ["MULTIPART_MONOGRAPH", "SERIAL"]
 
     def random_issn(self):
         """Generate a random ISSN."""
         random_4digit = [randint(1000, 9999), randint(1000, 9999)]
         return "-".join(str(r) for r in random_4digit)
+
+    def random_multipart(self, obj):
+        """Randomize multipart data."""
+        obj["edition"] = obj["pid"]
+        for _ in range(randint(1, 2)):
+            obj["identifiers"].append(dict(
+                scheme="ISBN",
+                value=self.random_issn()
+            ))
+
+    def random_serial(self, obj):
+        """Randomize serial data."""
+        for _ in range(randint(1, 3)):
+            obj["identifiers"].append(dict(
+                material=random.choice(["ONLINE", "PRINT"]),
+                scheme="ISSN",
+                value=self.random_issn()
+            ))
+        obj["abbreviated_title"] = obj["title"].split()[0]
+        obj["alternative_titles"] = [
+            dict(
+                value=obj["title"],
+                type="TEST"
+            )
+        ]
+        obj["internal_notes"] = [
+            dict(
+                field="title",
+                user="Test",
+                value="Internal test note."
+            )
+        ]
+        obj["notes"] = lorem.text()
+        obj["publishers"] = [lorem.sentence().split()[0]]
+        obj["access_urls"] = [
+            dict(
+                open_access=True,
+                description=lorem.sentence(),
+                value="https://home.cern/"
+            )
+            for _ in range(1, 3)
+        ]
+        obj["urls"] = [
+            dict(
+                description=lorem.sentence(),
+                value="https://home.cern/"
+            )
+            for _ in range(1, 3)
+        ]
 
     def generate(self):
         """Generate."""
@@ -484,16 +554,21 @@ class SeriesGenerator(Generator):
             obj = {
                 "pid": self.create_pid(),
                 "mode_of_issuance": moi,
-                "issn": self.random_issn(),
                 "title": lorem.sentence(),
                 "authors": [lorem.sentence()],
                 "abstract": lorem.text(),
-                "languages": [lang["key"] for lang in random.sample(
-                    self.holder.languages, randint(1, 3)
-                )],
+                "languages": [
+                    lang["key"]
+                    for lang in random.sample(
+                        self.holder.languages, randint(1, 3)
+                    )
+                ],
+                "identifiers": [],
             }
-            if moi == "MULTIPART_MONOGRAPH":
-                obj["edition"] = str(pid)
+            if moi == "SERIAL":
+                self.random_serial(obj)
+            elif moi == "MULTIPART_MONOGRAPH":
+                self.random_multipart(obj)
             objs.append(obj)
 
         self.holder.series["objs"] = objs
@@ -521,13 +596,21 @@ class RecordRelationsGenerator(Generator):
     def generate_parent_child_relations(self, documents, series):
         """Generate parent-child relations."""
         def random_docs():
-            return random.sample(documents, randint(1, min(5, len(documents))))
+            docs = random.sample(documents, randint(1, min(5, len(documents))))
+            return [
+                doc
+                for doc in docs if doc["document_type"] != "PERIODICAL_ISSUE"
+            ]
 
         objs = self.holder.related_records["objs"]
         serial_parent = self.random_series(series, "SERIAL")
         multipart_parent = self.random_series(series, "MULTIPART_MONOGRAPH")
-        serial_children = documents  # random_docs()
         multipart_children = random_docs()
+
+        serial_children = []
+        for document in documents:
+            if document["document_type"] == "PERIODICAL_ISSUE":
+                serial_children.append(document)
 
         objs.append(serial_parent)
         rr = RecordRelationsParentChild()

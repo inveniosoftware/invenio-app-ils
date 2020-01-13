@@ -12,22 +12,37 @@ import {
   LanguageField,
   GroupField,
   DeleteActionButton,
+  UrlsField,
 } from '@forms';
 import { series as seriesApi } from '@api/series/series';
 import { BackOfficeRoutes } from '@routes/urls';
 import { goTo } from '@history';
 import { invenioConfig } from '@config';
+import {
+  Identifiers,
+  AlternativeTitles,
+} from '@pages/backoffice/Document/DocumentForms/DocumentEditor/components/DocumentForm/components';
+import { InternalNotes } from '@pages/backoffice/Document/DocumentForms/DocumentEditor/components/DocumentForm/components/InternalNotes';
+import { AccessUrls } from './AccessUrls';
 
 export class SeriesForm extends Component {
   prepareData = data => {
     return pick(data, [
-      'title',
+      'abbreviated_title',
       'abstract',
+      'access_urls',
+      'alternative_titles',
       'authors',
       'edition',
+      'identifiers',
+      'internal_notes',
       'issn',
       'languages',
       'mode_of_issuance',
+      'note',
+      'publishers',
+      'title',
+      'urls',
     ]);
   };
 
@@ -61,6 +76,22 @@ export class SeriesForm extends Component {
     );
   };
 
+  renderPublisherField = ({ arrayPath, indexPath, ...arrayHelpers }) => {
+    return (
+      <GroupField basic>
+        <StringField
+          fieldPath={`${arrayPath}.${indexPath}`}
+          action={
+            <DeleteActionButton
+              icon="trash"
+              onClick={() => arrayHelpers.remove(indexPath)}
+            />
+          }
+        />
+      </GroupField>
+    );
+  };
+
   render() {
     const initialValues = this.props.data
       ? this.prepareData(this.props.data.metadata)
@@ -79,6 +110,12 @@ export class SeriesForm extends Component {
         pid={this.props.pid}
       >
         <StringField label="Title" fieldPath="title" required />
+        <StringField
+          label="Abbreviated title"
+          fieldPath="abbreviated_title"
+          required
+        />
+        <AlternativeTitles />
         <SelectField
           required
           search
@@ -109,7 +146,22 @@ export class SeriesForm extends Component {
           type={invenioConfig.vocabularies.series.language}
         />
         <StringField label="Edition" fieldPath="edition" />
-        <StringField label="ISSN" fieldPath="issn" />
+        <ArrayField
+          fieldPath="publishers"
+          label="Publishers"
+          defaultNewValue=""
+          renderArrayItem={this.renderPublisherField}
+          addButtonLabel="Add new publisher"
+        />
+        <UrlsField />
+        <AccessUrls />
+        <Identifiers
+          vocabularies={{
+            scheme: invenioConfig.vocabularies.series.identifier.scheme,
+          }}
+        />
+        <TextField label="Notes" fieldPath="note" rows={5} optimized />
+        <InternalNotes />
       </BaseForm>
     );
   }
