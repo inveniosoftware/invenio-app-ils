@@ -27,10 +27,24 @@
         "edition": {
           "type": "keyword"
         },
+        "languages": {
+          "type": "keyword"
+        },
         "mode_of_issuance": {
           "type": "keyword"
         },
-        "languages": {
+        "note": {
+          "type": "text"
+        },
+        "publishers": {
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "relation_types": {
           "type": "keyword"
         },
         "relations": {
@@ -85,9 +99,6 @@
               }
             }
           }
-        },
-        "relation_types": {
-          "type": "keyword"
         },
         "title": {
           "type": "text"

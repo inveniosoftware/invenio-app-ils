@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { ObjectArrayField, StringField, VocabularyField } from '@forms';
 import { invenioConfig } from '@config';
 
@@ -19,7 +20,7 @@ export class Identifiers extends Component {
             key: 'scheme',
             element: VocabularyField,
             props: {
-              type: invenioConfig.vocabularies.document.identifier.scheme,
+              type: this.props.vocabularies.scheme,
               label: 'Scheme',
             },
           },
@@ -43,3 +44,13 @@ export class Identifiers extends Component {
     );
   }
 }
+
+Identifiers.propTypes = {
+  vocabularies: PropTypes.object.isRequired,
+};
+
+Identifiers.defaultProps = {
+  vocabularies: {
+    scheme: invenioConfig.vocabularies.document.identifier.scheme,
+  },
+};

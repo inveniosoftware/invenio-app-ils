@@ -100,6 +100,9 @@ class SeriesListEntry extends Component {
 
   render() {
     const { series } = this.props;
+    const identifier = _isEmpty(series.metadata.identifiers)
+      ? null
+      : series.metadata.identifiers[0];
     return (
       <Item>
         <Item.Content>
@@ -122,18 +125,9 @@ class SeriesListEntry extends Component {
                   {series.metadata.authors.map(author => `${author}`)}
                 </label>
               </Item.Meta>
-
-              {series.metadata.issn && (
+              {identifier && (
                 <>
-                  {' '}
-                  <label>ISSN</label> {series.metadata.issn}
-                </>
-              )}
-              <br />
-              {series.metadata.isbn && (
-                <>
-                  {' '}
-                  <label>ISBN</label> {series.metadata.isbn}
+                  <label>{identifier.scheme}</label> {identifier.value}
                 </>
               )}
             </Grid.Column>

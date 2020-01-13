@@ -7,9 +7,77 @@
     "$schema": {
       "type": "string"
     },
+    "abbreviated_title": {
+      "type": "string",
+      "description": "Abbreviated series title"
+    },
     "abstract": {
       "type": "string",
       "description": ""
+    },
+    "access_urls": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "access_restriction": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "open_access": {
+            "type": "boolean",
+            "title": "Indicate if the access to this URL is open or not",
+            "default": true
+          },
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["value"],
+        "title": "URL of external resource",
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "alternative_titles": {
+      "description": "Alternative titles of the document",
+      "items": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "language": {
+              "maxLength": 2,
+              "minLength": 2,
+              "title": "ISO 639-1 language code (Vocabulary)",
+              "type": "string"
+            },
+            "value": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "source": {
+              "type": "string",
+              "title": "Source of the alternative title."
+            },
+            "type": {
+              "type": "string",
+              "title": "Type of alternative title (Vocabulary)"
+            }
+          },
+          "required": ["value"],
+          "type": "object"
+        }
+      ],
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
     },
     "authors": {
       "items": {
@@ -22,16 +90,51 @@
       "type": "string",
       "description": "Edition"
     },
-    "issn": {
-      "title": "ISSN",
-      "type": "string"
-    },
-    "isbn": {
+    "identifiers": {
       "items": {
-        "type": "string"
+        "properties": {
+          "material": {
+            "type": "string",
+            "title": "Material to which the identifiers refers to."
+          },
+          "scheme": {
+            "title": "Scheme of the identifier (Vocabulary)",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value of the identifier",
+            "type": "string"
+          }
+        },
+        "required": ["value", "scheme"]
       },
+      "title": "List of Identifiers of the record",
+      "type": "array"
+    },
+    "internal_notes": {
+      "items": {
+        "additionalProperties": false,
+        "description": "Visible only for Librarians",
+        "properties": {
+          "field": {
+            "title": "Field to which the note refers to",
+            "type": "string"
+          },
+          "user": {
+            "type": "string",
+            "title": "User who has composed the note."
+          },
+          "value": {
+            "title": "Note",
+            "type": "string"
+          }
+        },
+        "required": ["value"]
+      },
+      "minItems": 1,
+      "title": "List of internal notes",
       "type": "array",
-      "description": ""
+      "uniqueItems": true
     },
     "languages": {
       "items": {
@@ -46,6 +149,17 @@
       "type": "string",
       "enum": ["MULTIPART_MONOGRAPH", "SERIAL"],
       "description": ""
+    },
+    "note": {
+      "title": "Note for the series",
+      "type": "string"
+    },
+    "publishers": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "List of publishers"
     },
     "relations_metadata": {
       "type": "object",
@@ -118,6 +232,28 @@
     },
     "title": {
       "type": "string"
+    },
+    "urls": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "format": "uri",
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["value"],
+        "title": "URL of external resource",
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
     }
   }
 }

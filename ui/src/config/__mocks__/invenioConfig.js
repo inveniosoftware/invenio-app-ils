@@ -50,4 +50,11 @@ export const invenioConfig = {
       label: 'Other',
     },
   ],
+  vocabularies: {
+    document: {
+      identifier: {
+        scheme: 'series_identifier_scheme',
+      },
+    },
+  },
 };

@@ -1410,6 +1410,8 @@ ILS_VOCABULARIES = [
     "identifier_scheme",
     "language",
     "license",
+    "series_identifier_scheme",
+    "series_url_access_restriction",
     "tag",
 ]
 
