@@ -13,3 +13,8 @@ def pid_minter(record_uuid, data, provider_cls):
     provider = provider_cls.create(object_type="rec", object_uuid=record_uuid)
     data["pid"] = provider.pid.pid_value
     return provider.pid
+
+
+def dummy_pid_minter(record_uuid, data):
+    """Dummy minter."""
+    return None

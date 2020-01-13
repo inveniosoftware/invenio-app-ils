@@ -36,7 +36,10 @@ export const recordToPidType = record => {
   if (record.metadata.pidType) {
     return record.metadata.pidType;
   }
-  const schema = record.metadata['$schema'];
+  return schemaToPidType(record.metadata['$schema']);
+};
+
+export const schemaToPidType = schema => {
   if (schema.includes('documents/document')) {
     return 'docid';
   } else if (schema.includes('eitems/eitem')) {

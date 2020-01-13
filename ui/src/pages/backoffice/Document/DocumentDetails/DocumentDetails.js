@@ -23,6 +23,7 @@ import {
   DocumentItems,
   DocumentActionMenu,
   DocumentSummary,
+  DocumentCreatedBy,
 } from './components';
 
 class DocumentHeader extends Component {
@@ -32,12 +33,13 @@ class DocumentHeader extends Component {
       <>
         <Label className="muted">Document</Label> {data.metadata.pid}{' '}
         <CopyButton text={data.metadata.pid} />
-        {(
+        {data.metadata.created_by && (
           <>
             <br />
             <Label className="muted">Created by</Label>{' '}
+            <DocumentCreatedBy metadata={data.metadata} />
           </>
-        ) && data.metadata.created_by}
+        )}
         <br />
         <Label className="muted">Created on</Label> {toShortDate(data.created)}
       </>

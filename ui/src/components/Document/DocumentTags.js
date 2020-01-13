@@ -7,8 +7,16 @@ import { FrontSiteRoutes } from '@routes/urls';
 export class DocumentTags extends Component {
   renderTags = () => {
     if (this.props.metadata.tags) {
-      return this.props.metadata.tags.map(tag => (
-        <Label className={'highlighted'} key={tag} {...this.props}>
+      const {
+        activeTab,
+        dispatch,
+        isLoading,
+        hasError,
+        metadata,
+        ...uiProps
+      } = this.props;
+      return metadata.tags.map(tag => (
+        <Label className={'highlighted'} key={tag} {...uiProps}>
           <Link
             to={FrontSiteRoutes.documentsListWithQuery(
               `&sort=mostrecent&order=desc&f=tag%3A${tag}`

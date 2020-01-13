@@ -264,7 +264,6 @@ class DocumentGenerator(Generator):
     """Document Generator."""
 
     PERIODICAL_ISSUE = "PERIODICAL_ISSUE"
-    DOCUMENT_TYPES = ["BOOK", "STANDARD", "PROCEEDING", PERIODICAL_ISSUE]
     AUTHORS = [
         {"full_name": "Close, Frank"},
         {"full_name": "CERN", "type": "ORGANISATION"},
@@ -304,7 +303,7 @@ class DocumentGenerator(Generator):
             "title": lorem.sentence(),
             "authors": random.sample(self.AUTHORS, randint(1, 3)),
             "abstract": "{}".format(lorem.text()),
-            "document_type": random.choice(self.DOCUMENT_TYPES),
+            "document_type": random.choice(Document.DOCUMENT_TYPES),
             "languages": [
                 lang["key"]
                 for lang in random.sample(self.holder.languages, randint(1, 3))
@@ -528,7 +527,7 @@ class SeriesGenerator(Generator):
             )
         ]
         obj["notes"] = lorem.text()
-        obj["publishers"] = [lorem.sentence().split()[0]]
+        obj["publisher"] = lorem.sentence().split()[0]
         obj["access_urls"] = [
             dict(
                 open_access=True,
@@ -596,11 +595,12 @@ class RecordRelationsGenerator(Generator):
     def generate_parent_child_relations(self, documents, series):
         """Generate parent-child relations."""
         def random_docs():
-            docs = random.sample(documents, randint(1, min(5, len(documents))))
-            return [
+            docs = [
                 doc
-                for doc in docs if doc["document_type"] != "PERIODICAL_ISSUE"
+                for doc in documents
+                if doc["document_type"] != "PERIODICAL_ISSUE"
             ]
+            return random.sample(docs, randint(1, min(5, len(docs))))
 
         objs = self.holder.related_records["objs"]
         serial_parent = self.random_series(series, "SERIAL")

@@ -198,13 +198,6 @@ class RecordRelationsRetriever(object):
             pcr = ParentChildRelation(relation_type)
             name = relation_type.name
 
-            # self.record is a parent
-            for child_pid in pcr.children_of(self.record.pid):
-                r = self._build_parent(child_pid, name)
-
-                relations.setdefault(name, [])
-                relations[name].append(r)
-
             # self.record is a child
             for parent_pid in pcr.parents_of(self.record.pid):
                 child_pid = self.record.pid

@@ -6,6 +6,7 @@ import { Loader, Error, ResultsTable } from '@components';
 import { series as seriesApi } from '@api';
 import { BackOfficeRoutes } from '@routes/urls';
 import { SeeAllButton } from '@pages/backoffice/components/buttons';
+import _get from 'lodash/get';
 
 export class SeriesMultipartMonographsData extends Component {
   constructor(props) {
@@ -29,21 +30,6 @@ export class SeriesMultipartMonographsData extends Component {
     return <SeeAllButton to={path} />;
   };
 
-  prepareData = multipartMonographs => {
-    const { seriesDetails } = this.props;
-    const serials = seriesDetails.metadata.relations.serial || [];
-    const volumes = {};
-    for (const serial of serials) {
-      volumes[[serial.pid, serial.pid_type]] = serial.volume;
-    }
-    return multipartMonographs.hits.map(row => {
-      const key = [row.metadata.pid, 'serid'];
-      const volume = key in volumes ? volumes[key] : '?';
-      row.volume = volume;
-      return row;
-    });
-  };
-
   viewDetails = ({ row }) => {
     return (
       <Button
@@ -56,12 +42,25 @@ export class SeriesMultipartMonographsData extends Component {
     );
   };
 
+  volumeFormatter = ({ row }) => {
+    // Find the series volume for the parent series
+    const relation = _get(
+      row,
+      `metadata.relations.${this.seriesType.toLowerCase()}`,
+      []
+    ).find(
+      relation =>
+        relation.pid === this.seriesPid && relation.pid_type === 'serid'
+    );
+    return relation ? relation.volume : '?';
+  };
+
   render() {
     const { multipartMonographs, isLoading, showMaxSeries, error } = this.props;
     const columns = [
       { title: '', field: '', formatter: this.viewDetails },
       { title: 'ID', field: 'metadata.pid' },
-      { title: 'Volume', field: 'volume' },
+      { title: 'Volume', formatter: this.volumeFormatter },
       { title: 'Title', field: 'metadata.title' },
       { title: 'Authors', field: 'metadata.authors' },
     ];
@@ -69,7 +68,7 @@ export class SeriesMultipartMonographsData extends Component {
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <ResultsTable
-            data={this.prepareData(multipartMonographs)}
+            data={multipartMonographs.hits}
             columns={columns}
             totalHitsCount={multipartMonographs.total}
             title={'Multipart Monographs'}

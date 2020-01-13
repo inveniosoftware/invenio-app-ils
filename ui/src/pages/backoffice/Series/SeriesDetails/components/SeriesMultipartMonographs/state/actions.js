@@ -12,6 +12,7 @@ export const fetchSeriesMultipartMonographs = seriesPid => {
       .list(
         seriesApi
           .query()
+          .withModeOfIssuance('MULTIPART_MONOGRAPH')
           .withSerialPid(seriesPid)
           .qs()
       )

@@ -7,7 +7,7 @@ import {
   TextField,
   BooleanField,
   GroupField,
-  VocabularyField,
+  SelectField,
 } from '@forms';
 import { document as documentApi } from '@api/documents/document';
 import { documentRequest as documentRequestApi } from '@api/documentRequests/documentRequest';
@@ -108,8 +108,8 @@ export class DocumentForm extends Component {
       >
         <StringField label="Title" fieldPath="title" required optimized />
         <GroupField widths="equal">
-          <VocabularyField
-            type={invenioConfig.vocabularies.document.type}
+          <SelectField
+            options={invenioConfig.documents.types}
             fieldPath="document_type"
             label="Document type"
           />

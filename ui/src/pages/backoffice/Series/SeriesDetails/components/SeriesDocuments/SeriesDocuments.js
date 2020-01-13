@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
-import { Loader, Error, ResultsTable } from '@components';
+import { Loader, Error, ResultsTable, DocumentAuthors } from '@components';
 import { document as documentApi } from '@api';
 import { BackOfficeRoutes } from '@routes/urls';
 import { SeeAllButton } from '@pages/backoffice/components/buttons';
@@ -29,22 +29,6 @@ export default class SeriesDocuments extends Component {
     return <SeeAllButton to={path} />;
   };
 
-  prepareData = documents => {
-    const { seriesDetails } = this.props;
-    const serials = seriesDetails.metadata.relations.serial || [];
-    const volumes = {};
-    for (const serial of serials) {
-      volumes[[serial.pid, serial.pid_type]] = serial.volume;
-    }
-    const curratedDocs = documents.hits.map(row => {
-      const key = [row.metadata.pid, 'docid'];
-      // NOTE: Not good, adding property volume to document
-      row.volume = key in volumes ? volumes[key] : '?';
-      return row;
-    });
-    return curratedDocs;
-  };
-
   viewDetails = ({ row }) => {
     return (
       <Button
@@ -57,30 +41,36 @@ export default class SeriesDocuments extends Component {
     );
   };
 
+  volumeFormatter = ({ row }) => {
+    // Find the document volume for the parent series
+    const relation = _get(
+      row,
+      `metadata.relations.${this.seriesType.toLowerCase()}`,
+      []
+    ).find(
+      relation =>
+        relation.pid === this.seriesPid && relation.pid_type === 'serid'
+    );
+    return relation ? relation.volume : '?';
+  };
+
   render() {
     const { showMaxDocuments, seriesDocuments, isLoading, error } = this.props;
-    const curratedData = this.prepareData(seriesDocuments);
     const columns = [
       { title: '', field: '', formatter: this.viewDetails },
       { title: 'ID', field: 'metadata.pid' },
-      { title: 'Volume', field: 'volume' },
+      { title: 'Volume', formatter: this.volumeFormatter },
       { title: 'Title', field: 'metadata.title' },
       {
         title: 'Authors',
-        field: 'metadata.authors',
-        formatter: ({ col, row }) => {
-          if (_get(col.field, row) && Array.isArray(row[col.field])) {
-            return row[col.field].map(author => author.full_name);
-          }
-          return '';
-        },
+        formatter: ({ row }) => <DocumentAuthors metadata={row.metadata} />,
       },
     ];
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <ResultsTable
-            data={curratedData}
+            data={seriesDocuments.hits}
             columns={columns}
             totalHitsCount={seriesDocuments.total}
             title={'Documents'}

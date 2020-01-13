@@ -61,6 +61,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
           "created": "2018-01-01T10:05:00.000Z",
           "id": 1,
           "metadata": Object {
+            "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
             "abstract": "This is an abstract",
             "authors": Array [
               Object {
@@ -87,6 +88,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
           "created": "2018-01-01T10:05:00.000Z",
           "id": 2,
           "metadata": Object {
+            "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
             "abstract": "This is an abstract",
             "authors": Array [
               Object {
@@ -150,6 +152,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
               "created": "2018-01-01T10:05:00.000Z",
               "id": 1,
               "metadata": Object {
+                "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                 "abstract": "This is an abstract",
                 "authors": Array [
                   Object {
@@ -176,6 +179,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
               "created": "2018-01-01T10:05:00.000Z",
               "id": 2,
               "metadata": Object {
+                "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                 "abstract": "This is an abstract",
                 "authors": Array [
                   Object {
@@ -433,6 +437,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                     "created": "2018-01-01T10:05:00.000Z",
                     "id": 1,
                     "metadata": Object {
+                      "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                       "abstract": "This is an abstract",
                       "authors": Array [
                         Object {
@@ -459,6 +464,7 @@ exports[`PendingOverdueDocumentsList tests should render documents 1`] = `
                     "created": "2018-01-01T10:05:00.000Z",
                     "id": 2,
                     "metadata": Object {
+                      "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                       "abstract": "This is an abstract",
                       "authors": Array [
                         Object {

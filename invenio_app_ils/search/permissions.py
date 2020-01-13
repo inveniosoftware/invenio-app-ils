@@ -74,9 +74,6 @@ def _ils_search_factory(self, search, qs_validator):
 
     query_string = request.values.get("q")
 
-    if not current_user.is_authenticated:
-        raise UnauthorizedSearchError(query_string)
-
     query = query_parser(qs_validator(query_string))
 
     try:
@@ -98,6 +95,9 @@ def search_factory_filter_by_patron(self, search):
     """Prepare query string to filter records by current logged in user."""
     def filter_by_patron(query_string):
         """Filter search results by patron_pid."""
+        if not current_user.is_authenticated:
+            raise UnauthorizedSearchError(query_string)
+
         # if the logged in user is not librarian or admin, validate the query
         if has_request_context() and not backoffice_permission().allows(
             g.identity

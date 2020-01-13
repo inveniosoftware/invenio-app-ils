@@ -4,28 +4,93 @@
       "date_detection": false,
       "numeric_detection": false,
       "properties": {
+        "_created": {
+          "type": "date"
+        },
+        "_updated": {
+          "type": "date"
+        },
         "$schema": {
           "type": "keyword"
         },
-        "authors": {
-          "type": "text",
-          "fields": {
-            "tag": {
-              "type": "keyword"
-            }
-          }
+        "abbreviated_title": {
+          "type": "text"
         },
         "abstract": {
           "type": "text"
         },
-        "isbn": {
-          "type": "keyword"
+        "access_urls": {
+          "type": "object",
+          "properties": {
+            "access_restriction": {
+              "type": "keyword"
+            },
+            "open_access": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "text"
+            },
+            "value": {
+              "type": "keyword"
+            }
+          }
         },
-        "issn": {
-          "type": "keyword"
+        "alternative_titles": {
+          "type": "object",
+          "properties": {
+            "language": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "text"
+            },
+            "source": {
+              "type": "keyword"
+            },
+            "type": {
+              "type": "keyword"
+            }
+          }
+        },
+        "authors": {
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          },
+          "type": "text"
         },
         "edition": {
           "type": "keyword"
+        },
+        "identifiers": {
+          "properties": {
+            "material": {
+              "type": "keyword"
+            },
+            "scheme": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "keyword"
+            }
+          },
+          "type": "object"
+        },
+        "internal_notes": {
+          "properties": {
+            "field": {
+              "type": "keyword"
+            },
+            "user": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "keyword"
+            }
+          },
+          "type": "object"
         },
         "languages": {
           "type": "keyword"
@@ -36,7 +101,7 @@
         "note": {
           "type": "text"
         },
-        "publishers": {
+        "publisher": {
           "fields": {
             "keyword": {
               "type": "keyword"
@@ -48,10 +113,8 @@
           "type": "keyword"
         },
         "relations": {
-          "type": "object",
           "properties": {
             "edition": {
-              "type": "object",
               "properties": {
                 "pid": {
                   "type": "keyword"
@@ -60,13 +123,13 @@
                   "type": "keyword"
                 },
                 "relation_type": {
-                  "type": "keyword",
-                  "copy_to": "relation_types"
+                  "copy_to": "relation_types",
+                  "type": "keyword"
                 }
-              }
+              },
+              "type": "object"
             },
             "multipart_monograph": {
-              "type": "object",
               "properties": {
                 "pid": {
                   "type": "keyword"
@@ -75,16 +138,16 @@
                   "type": "keyword"
                 },
                 "relation_type": {
-                  "type": "keyword",
-                  "copy_to": "relation_types"
+                  "copy_to": "relation_types",
+                  "type": "keyword"
                 },
                 "volume": {
                   "type": "keyword"
                 }
-              }
+              },
+              "type": "object"
             },
             "serial": {
-              "type": "object",
               "properties": {
                 "pid": {
                   "type": "keyword"
@@ -93,21 +156,27 @@
                   "type": "keyword"
                 },
                 "relation_type": {
-                  "type": "keyword",
-                  "copy_to": "relation_types"
+                  "copy_to": "relation_types",
+                  "type": "keyword"
                 }
-              }
+              },
+              "type": "object"
             }
           }
         },
         "title": {
           "type": "text"
         },
-        "_created": {
-          "type": "date"
-        },
-        "_updated": {
-          "type": "date"
+        "urls": {
+          "properties": {
+            "description": {
+              "type": "text"
+            },
+            "value": {
+              "type": "keyword"
+            }
+          },
+          "type": "object"
         }
       }
     }

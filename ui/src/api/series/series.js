@@ -53,7 +53,7 @@ class QueryBuilder {
     if (!moi) {
       throw TypeError('Mode of issuance argument missing');
     }
-    this.withModeOfIssuanceQuery.push(`mode_of_issuance:"${moi}"`);
+    this.withModeOfIssuanceQuery.push(`mode_of_issuance:${moi}`);
     return this;
   }
 

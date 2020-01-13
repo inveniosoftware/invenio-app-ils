@@ -154,12 +154,9 @@
       "title": "Note for the series",
       "type": "string"
     },
-    "publishers": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array",
-      "title": "List of publishers"
+    "publisher": {
+      "type": "string",
+      "title": "Publisher name"
     },
     "relations_metadata": {
       "type": "object",

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { List } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 
 export class DocumentLanguages extends Component {
   render() {
@@ -9,7 +10,7 @@ export class DocumentLanguages extends Component {
       <>
         {this.props.prefix}
         <List horizontal className={'document-languages-list'}>
-          {metadata
+          {metadata && !isEmpty(metadata.languages)
             ? metadata.languages.map((language, index) => (
                 <List.Item
                   as={this.props.listItemAs ? this.props.listItemAs : ''}

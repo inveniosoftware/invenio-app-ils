@@ -261,7 +261,7 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
             record = create(action)
 
         # Index both parent/child (or first/second)
-        RecordRelationIndexer().index(*records_to_index)
+        RecordRelationIndexer().index(record, *records_to_index)
 
         return self.make_response(record.pid, record, 201)
 
@@ -312,6 +312,6 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
             record = delete(action)
 
         # Index both parent/child (or first/second)
-        RecordRelationIndexer().index(*records_to_index)
+        RecordRelationIndexer().index(record, *records_to_index)
 
         return self.make_response(record.pid, record, 200)

@@ -19,7 +19,7 @@ import {
   Error as IlsError,
   SearchBar as DocumentsSearchBar,
 } from '@components';
-import { document as documentApi } from '@api';
+import { literature as literatureApi } from '@api';
 import { responseRejectInterceptor } from '@api/base';
 import { SearchControls } from '@components';
 import {
@@ -35,7 +35,7 @@ import history from '@history';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: documentApi.searchBaseURL,
+    url: literatureApi.searchBaseURL,
     withCredentials: true,
     interceptors: {
       response: { reject: responseRejectInterceptor },

@@ -36,6 +36,13 @@ document_pid_fetcher = partial(pid_fetcher, provider_cls=DocumentIdProvider)
 class Document(IlsRecordWithRelations):
     """Document record class."""
 
+    DOCUMENT_TYPES = [
+        "BOOK",
+        "PROCEEDING",
+        "STANDARD",
+        "PERIODICAL_ISSUE",
+    ]
+
     _pid_type = DOCUMENT_PID_TYPE
     _schema = "documents/document-v1.0.0.json"
     _circulation_resolver_path = (

@@ -51,6 +51,6 @@ class SeriesSchemaV1(RecordMetadataSchemaJSONV1):
     mode_of_issuance = fields.Str(required=True)
     note = fields.Str()
     pid = PersistentIdentifier()
-    publishers = fields.List(fields.Str())
+    publisher = fields.Str()
     title = fields.Str(required=True)
     urls = fields.Nested(UrlSchema, many=True)

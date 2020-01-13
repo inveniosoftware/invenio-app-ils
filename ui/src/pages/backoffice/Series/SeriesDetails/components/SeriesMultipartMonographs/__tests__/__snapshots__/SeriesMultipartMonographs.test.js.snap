@@ -16,7 +16,7 @@ exports[`SeriesMultipartMonographs tests should load the SeriesMultipartMonograp
             "title": "ID",
           },
           Object {
-            "field": "volume",
+            "formatter": [Function],
             "title": "Volume",
           },
           Object {

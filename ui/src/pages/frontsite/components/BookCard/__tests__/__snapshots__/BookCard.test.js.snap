@@ -5,6 +5,7 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
   data={
     Object {
       "metadata": Object {
+        "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
         "abstract": "This is an abstract",
         "authors": Array [
           "Author1",
@@ -88,6 +89,7 @@ exports[`BookCard tests should go to book details when clicking on a book 1`] = 
                 delimiter="; "
                 metadata={
                   Object {
+                    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                     "abstract": "This is an abstract",
                     "authors": Array [
                       "Author1",
@@ -195,6 +197,7 @@ exports[`BookCard tests should render the BookCard 1`] = `
   data={
     Object {
       "metadata": Object {
+        "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
         "abstract": "This is an abstract",
         "authors": Array [
           "Author1",
@@ -278,6 +281,7 @@ exports[`BookCard tests should render the BookCard 1`] = `
                 delimiter="; "
                 metadata={
                   Object {
+                    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                     "abstract": "This is an abstract",
                     "authors": Array [
                       "Author1",

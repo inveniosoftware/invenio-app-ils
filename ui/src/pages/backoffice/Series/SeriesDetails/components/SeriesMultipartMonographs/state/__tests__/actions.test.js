@@ -47,7 +47,7 @@ describe('Series Series tests', () => {
 
       store.dispatch(actions.fetchSeriesMultipartMonographs('123'));
       expect(mockFetchSeriesMultipartMonographs).toHaveBeenCalledWith(
-        'relations.serial.pid_type:serid AND NOT (pid:123) AND relations.serial.pid:123'
+        'mode_of_issuance:MULTIPART_MONOGRAPH AND relations.serial.pid_type:serid AND NOT (pid:123) AND relations.serial.pid:123'
       );
       expect(store.getActions()[0]).toEqual(expectedAction);
     });
@@ -62,7 +62,7 @@ describe('Series Series tests', () => {
 
       await store.dispatch(actions.fetchSeriesMultipartMonographs('123'));
       expect(mockFetchSeriesMultipartMonographs).toHaveBeenCalledWith(
-        'relations.serial.pid_type:serid AND NOT (pid:123) AND relations.serial.pid:123'
+        'mode_of_issuance:MULTIPART_MONOGRAPH AND relations.serial.pid_type:serid AND NOT (pid:123) AND relations.serial.pid:123'
       );
       expect(store.getActions()[1]).toEqual(expectedAction);
     });
@@ -77,7 +77,7 @@ describe('Series Series tests', () => {
 
       await store.dispatch(actions.fetchSeriesMultipartMonographs('123'));
       expect(mockFetchSeriesMultipartMonographs).toHaveBeenCalledWith(
-        'relations.serial.pid_type:serid AND NOT (pid:123) AND relations.serial.pid:123'
+        'mode_of_issuance:MULTIPART_MONOGRAPH AND relations.serial.pid_type:serid AND NOT (pid:123) AND relations.serial.pid:123'
       );
       expect(store.getActions()[1]).toEqual(expectedAction);
     });
