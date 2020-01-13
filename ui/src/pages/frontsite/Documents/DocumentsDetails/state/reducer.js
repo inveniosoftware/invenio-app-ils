@@ -3,7 +3,7 @@ import { IS_LOADING, SUCCESS, HAS_ERROR, SHOW_TAB } from './types';
 export const initialState = {
   isLoading: true,
   hasError: false,
-  data: { hits: [], total: 0 },
+  data: { metadata: {} },
   error: {},
 };
 

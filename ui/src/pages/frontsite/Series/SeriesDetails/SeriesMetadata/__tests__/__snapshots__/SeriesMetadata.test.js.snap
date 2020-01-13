@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SeriesMetadata tests should render the series correctly 1`] = `
+<SeriesMetadata
+  series={
+    Object {
+      "created": "2019-07-08T10:44:02.366+02:00",
+      "id": 71,
+      "links": Object {
+        "self": "https://127.0.0.1:5000/api/series/71",
+      },
+      "metadata": Object {
+        "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
+        "abstract": "This is a multipart monograph",
+        "authors": Array [
+          "Einstein, Albert",
+          "Stachel, John J et al.",
+        ],
+        "mode_of_issuance": "MULTIPART_MONOGRAPH",
+        "pid": "71",
+        "title": "The Gulf: The Making of An American Sea",
+      },
+      "updated": "2019-07-08T10:44:18.354+02:00",
+    }
+  }
+>
+  <Container
+    className="document-metadata"
+    data-test="71"
+  >
+    <div
+      className="ui container document-metadata"
+      data-test="71"
+    >
+      <Responsive
+        getWidth={[Function]}
+        minWidth={768}
+      >
+        <div>
+          <SeriesMetadataTabs />
+        </div>
+      </Responsive>
+      <Responsive
+        getWidth={[Function]}
+        maxWidth={767}
+        minWidth={320}
+      />
+    </div>
+  </Container>
+</SeriesMetadata>
+`;

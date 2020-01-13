@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Divider, Tab } from 'semantic-ui-react';
+import { Tab } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { DocumentRelations, DocumentInfo } from './index';
 import { DocumentTableOfContent } from './DocumentTableOfContent';
 import { DocumentConference } from './DocumentConference';
 import { DocumentLinks } from './DocumentLinks';
+import { Notes } from '../Notes';
 
 export class DocumentMetadataTabs extends Component {
   constructor(props) {
@@ -58,8 +59,7 @@ export class DocumentMetadataTabs extends Component {
         menuItem: 'Notes',
         render: () => (
           <Tab.Pane attached={false}>
-            <Divider horizontal>Librarian's note</Divider>
-            {this.document.note}
+            <Notes content={this.document.note} />
           </Tab.Pane>
         ),
       },

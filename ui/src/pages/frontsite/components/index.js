@@ -1,5 +1,7 @@
 export { BookCard } from './BookCard';
-export { Footer } from './Footer';
-export { ILSMenu } from './ILSMenu';
 export { Breadcrumbs } from './Breadcrumbs';
 export { DocumentTags } from './Document';
+export { Footer } from './Footer';
+export { Identifiers, IdentifierRows } from './Identifiers';
+export { ILSMenu } from './ILSMenu';
+export { Notes } from './Notes';

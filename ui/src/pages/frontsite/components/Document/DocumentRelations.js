@@ -17,9 +17,7 @@ export class DocumentRelations extends Component {
           ? `This is volume ${multipart.volume} of `(
               <Link
                 key={multipart.pid}
-                to={FrontSiteRoutes.documentsListWithQuery(
-                  `relations.multipart.pid:${multipart.pid}`
-                )}
+                to={FrontSiteRoutes.seriesDetailsFor(multipart.pid)}
               >
                 {multipart.title}
               </Link>
@@ -36,11 +34,7 @@ export class DocumentRelations extends Component {
           This {this.props.documentType.toLowerCase()} is part of the series:{' '}
           {this.relations.serial.map(serial => (
             <span key={serial.pid}>
-              <Link
-                to={FrontSiteRoutes.documentsListWithQuery(
-                  `relations.serial.pid: ${serial.pid}`
-                )}
-              >
+              <Link to={FrontSiteRoutes.seriesDetailsFor(serial.pid)}>
                 {serial.title}
               </Link>{' '}
               (vol: {serial.volume});
