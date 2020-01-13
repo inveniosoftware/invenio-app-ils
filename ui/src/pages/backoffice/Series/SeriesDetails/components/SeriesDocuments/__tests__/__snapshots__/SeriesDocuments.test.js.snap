@@ -16,7 +16,7 @@ exports[`SeriesDocuments tests should load the SeriesDocuments component 1`] = `
             "title": "ID",
           },
           Object {
-            "field": "volume",
+            "formatter": [Function],
             "title": "Volume",
           },
           Object {
@@ -24,7 +24,6 @@ exports[`SeriesDocuments tests should load the SeriesDocuments component 1`] = `
             "title": "Title",
           },
           Object {
-            "field": "metadata.authors",
             "formatter": [Function],
             "title": "Authors",
           },

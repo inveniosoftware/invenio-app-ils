@@ -1,5 +1,6 @@
 [
   {
+    "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
     "pid": "serid-1",
     "title": "The Gulf: The Making of An American Sea",
     "authors": ["Einstein, Albert", "Stachel, John J et al."],
@@ -7,6 +8,7 @@
     "mode_of_issuance": "MULTIPART_MONOGRAPH"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
     "pid": "serid-2",
     "title": "The Gulf: The Making of An American Sea",
     "authors": ["Banek, Cora", "Banek, Georg"],
@@ -14,12 +16,14 @@
     "mode_of_issuance": "MULTIPART_MONOGRAPH"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
     "pid": "serid-3",
     "title": "Springer tracts in modern physics",
     "abstract": "This is serial",
     "mode_of_issuance": "SERIAL"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
     "pid": "serid-4",
     "title": "Dispersion Forces",
     "authors": ["Buhmann, Stefan Yoshi"],

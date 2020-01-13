@@ -6,6 +6,6 @@ describe('Series query builder tests', () => {
       .query()
       .withModeOfIssuance('MULTIPART_MONOGRAPH')
       .qs();
-    expect(query).toEqual('mode_of_issuance:"MULTIPART_MONOGRAPH"');
+    expect(query).toEqual('mode_of_issuance:MULTIPART_MONOGRAPH');
   });
 });

@@ -5,6 +5,7 @@ export { file } from './files/file';
 export { http } from './base';
 export { internalLocation } from './locations/internalLocation';
 export { item } from './items/item';
+export { literature } from './literature/literature';
 export { loan } from './loans/loan';
 export { location } from './locations/location';
 export { patron } from './patrons/patron';

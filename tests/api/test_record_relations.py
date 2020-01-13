@@ -128,15 +128,7 @@ def _test_pc_mm_document(client, json_headers):
         _assert_record_relations(
             parent,
             expected={
-                "relations": {
-                    "multipart_monograph": [
-                        {
-                            "pid": child_pid,
-                            "pid_type": child_pid_type,
-                            "relation_type": "multipart_monograph",
-                        }
-                    ]
-                },
+                "relations": {},
             },
         )
 
@@ -218,22 +210,7 @@ def _test_pc_mm_document_with_volume(client, json_headers):
                         }
                     ]
                 },
-                "relations": {
-                    "multipart_monograph": [
-                        # from previous
-                        {
-                            "pid": "docid-1",
-                            "pid_type": "docid",
-                            "relation_type": "multipart_monograph",
-                        },
-                        {
-                            "pid": child_pid,
-                            "pid_type": child_pid_type,
-                            "volume": "v.3",
-                            "relation_type": "multipart_monograph",
-                        },
-                    ]
-                },
+                "relations": {},
             },
         )
 
@@ -267,15 +244,7 @@ def _test_pc_mm_document_with_volume(client, json_headers):
         _assert_record_relations(
             parent,
             expected={
-                "relations": {
-                    "multipart_monograph": [
-                        {
-                            "pid": "docid-1",
-                            "pid_type": "docid",
-                            "relation_type": "multipart_monograph",
-                        }
-                    ]
-                }
+                "relations": {}
             },
         )
         _assert_record_relations(child, expected={"relations": {}})
@@ -327,16 +296,7 @@ def _test_pc_serial_to_mm(client, json_headers):
                         }
                     ]
                 },
-                "relations": {
-                    "serial": [
-                        {
-                            "pid": child_pid,
-                            "pid_type": child_pid_type,
-                            "volume": "vol. 1",
-                            "relation_type": "serial",
-                        }
-                    ]
-                }
+                "relations": {}
             },
         )
 
@@ -354,19 +314,6 @@ def _test_pc_serial_to_mm(client, json_headers):
                     ]
                 },
                 "relations": {
-                    "multipart_monograph": [
-                        {
-                            "pid": "docid-1",
-                            "pid_type": "docid",
-                            "relation_type": "multipart_monograph",
-                        },  # from previous
-                        {
-                            "pid": "docid-2",
-                            "pid_type": "docid",
-                            "volume": "v.3",
-                            "relation_type": "multipart_monograph",
-                        },
-                    ],
                     "serial": [
                         {
                             "pid": parent_pid,
@@ -404,21 +351,7 @@ def _test_pc_serial_to_mm(client, json_headers):
                         },
                     ]
                 },
-                "relations": {
-                    "multipart_monograph": [
-                        {
-                            "pid": "docid-1",
-                            "pid_type": "docid",
-                            "relation_type": "multipart_monograph",
-                        },  # from previous
-                        {
-                            "pid": "docid-2",
-                            "pid_type": "docid",
-                            "volume": "v.3",
-                            "relation_type": "multipart_monograph",
-                        },
-                    ]
-                },
+                "relations": {},
             },
         )
 
@@ -474,22 +407,7 @@ def _test_pc_serial_to_document(client, json_headers):
                         },
                     ]
                 },
-                "relations": {
-                    "serial": [
-                        {
-                            "pid": "serid-1",
-                            "pid_type": "serid",
-                            "volume": "vol. 1",
-                            "relation_type": "serial",
-                        },
-                        {
-                            "pid": child_pid,
-                            "pid_type": child_pid_type,
-                            "volume": "vol. 1",
-                            "relation_type": "serial",
-                        },
-                    ]
-                }
+                "relations": {}
             },
         )
 
@@ -532,16 +450,7 @@ def _test_pc_serial_to_document(client, json_headers):
                         }
                     ]
                 },
-                "relations": {
-                    "serial": [
-                        {
-                            "pid": "serid-1",
-                            "pid_type": "serid",
-                            "volume": "vol. 1",
-                            "relation_type": "serial",
-                        }
-                    ]
-                }
+                "relations": {}
             },
         )
         _assert_record_relations(child, expected={"relations": {}})

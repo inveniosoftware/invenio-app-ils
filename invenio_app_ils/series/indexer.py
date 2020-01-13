@@ -22,8 +22,8 @@ from invenio_app_ils.records.api import IlsRecord
 def get_related_records(series_pid):
     """Get referenced records via relations."""
     referenced = []
-    doc_record_cls = current_app_ils.document_record_cls
-    record = doc_record_cls.get_record_by_pid(series_pid)
+    series_record_cls = current_app_ils.series_record_cls
+    record = series_record_cls.get_record_by_pid(series_pid)
     relations = record.relations.get()
     for relation_type, related_records in relations.items():
         for obj in related_records:

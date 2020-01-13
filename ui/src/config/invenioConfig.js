@@ -23,6 +23,12 @@ export const invenioConfig = {
   defaultResultsSize: 15,
   documents: {
     frontsiteMaxLinks: 5, // maximum number of links to show on details page
+    types: [
+      { value: 'BOOK', text: 'Book' },
+      { value: 'PROCEEDING', text: 'Proceeding' },
+      { value: 'STANDARD', text: 'Standard' },
+      { value: 'PERIODICAL_ISSUE', text: 'Periodical issue' },
+    ],
   },
   eitems: {
     maxFiles: 5,

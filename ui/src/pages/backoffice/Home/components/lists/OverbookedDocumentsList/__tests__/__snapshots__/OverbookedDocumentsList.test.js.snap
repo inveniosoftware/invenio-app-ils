@@ -56,6 +56,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
         Object {
           "id": 1,
           "metadata": Object {
+            "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
             "abstract": "This is an abstract",
             "authors": Array [
               Object {
@@ -80,6 +81,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
         Object {
           "id": 2,
           "metadata": Object {
+            "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
             "abstract": "This is an abstract",
             "authors": Array [
               Object {
@@ -137,6 +139,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
             Object {
               "id": 1,
               "metadata": Object {
+                "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                 "abstract": "This is an abstract",
                 "authors": Array [
                   Object {
@@ -161,6 +164,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
             Object {
               "id": 2,
               "metadata": Object {
+                "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                 "abstract": "This is an abstract",
                 "authors": Array [
                   Object {
@@ -394,6 +398,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                   Object {
                     "id": 1,
                     "metadata": Object {
+                      "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                       "abstract": "This is an abstract",
                       "authors": Array [
                         Object {
@@ -418,6 +423,7 @@ exports[`OverbookedDocumentsList tests should render documents 1`] = `
                   Object {
                     "id": 2,
                     "metadata": Object {
+                      "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                       "abstract": "This is an abstract",
                       "authors": Array [
                         Object {

@@ -40,7 +40,7 @@ export class SeriesForm extends Component {
       'languages',
       'mode_of_issuance',
       'note',
-      'publishers',
+      'publisher',
       'title',
       'urls',
     ]);
@@ -61,22 +61,6 @@ export class SeriesForm extends Component {
   };
 
   renderAuthorsField = ({ arrayPath, indexPath, ...arrayHelpers }) => {
-    return (
-      <GroupField basic>
-        <StringField
-          fieldPath={`${arrayPath}.${indexPath}`}
-          action={
-            <DeleteActionButton
-              icon="trash"
-              onClick={() => arrayHelpers.remove(indexPath)}
-            />
-          }
-        />
-      </GroupField>
-    );
-  };
-
-  renderPublisherField = ({ arrayPath, indexPath, ...arrayHelpers }) => {
     return (
       <GroupField basic>
         <StringField
@@ -146,13 +130,7 @@ export class SeriesForm extends Component {
           type={invenioConfig.vocabularies.series.language}
         />
         <StringField label="Edition" fieldPath="edition" />
-        <ArrayField
-          fieldPath="publishers"
-          label="Publishers"
-          defaultNewValue=""
-          renderArrayItem={this.renderPublisherField}
-          addButtonLabel="Add new publisher"
-        />
+        <StringField fieldPath="publisher" label="Publisher" />
         <UrlsField />
         <AccessUrls />
         <Identifiers

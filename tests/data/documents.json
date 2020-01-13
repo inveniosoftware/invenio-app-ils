@@ -1,5 +1,6 @@
 [
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-1",
     "title": "The Gulf: The Making of An American Sea",
     "authors": [{ "full_name": "Jack E. Davis" }],
@@ -11,6 +12,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-2",
     "title": "Prairie Fires: The American Dreams of Laura Ingalls Wilder",
     "authors": [{ "full_name": "Caroline Fraser" }],
@@ -21,6 +23,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-3",
     "title": "Half-light: Collected Poems 1965-2016",
     "authors": [{ "full_name": "Frank Bidart" }],
@@ -31,6 +34,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-4",
     "title": "Locking Up Our Own: Crime and Punishment in Black America",
     "authors": [{ "full_name": "James Forman Jr." }],
@@ -40,6 +44,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-5",
     "title": "Less: A Novel",
     "authors": [{ "full_name": "Andrew Sean Greer" }],
@@ -48,6 +53,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-6",
     "title": "Less: A Novel",
     "authors": [{ "full_name": "Andrew Sean Greer" }],
@@ -56,6 +62,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-7",
     "title": "Less: A Novel",
     "authors": [{ "full_name": "Andrew Sean Greer" }],
@@ -64,6 +71,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-8",
     "title": "Less: A Novel",
     "authors": [{ "full_name": "Andrew Sean Greer" }],
@@ -72,6 +80,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-9",
     "title": "The early years, 1879-1902",
     "authors": [
@@ -83,6 +92,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-10",
     "title": "The Swiss years : writings, 1900-1909",
     "authors": [
@@ -94,6 +104,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-11",
     "title": "The Swiss years : writings, 1909-1911",
     "authors": [
@@ -105,6 +116,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-12",
     "title": "Camera, equipment, and basic photographic techniques",
     "authors": [
@@ -116,6 +128,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-13",
     "title": "Visual concepts and composition",
     "authors": [
@@ -127,6 +140,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-14",
     "title": "Flavor physics and the TeV scale",
     "authors": [{ "full_name": "Hou, George W S" }],
@@ -135,6 +149,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-15",
     "title": "Symmetry and symmetry-breaking in semiconductors : fine structure of exciton states",
     "authors": [
@@ -146,6 +161,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-16",
     "title": "Macroscopic quantum electrodynamics and ground-state Casimir, Casimir–Polder and van der Waals forces",
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
@@ -154,6 +170,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-17",
     "title": "Many-body effects, excited atoms, finite temperature and quantum friction",
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
@@ -162,6 +179,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-closed-access",
     "title": "Closed access document",
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
@@ -171,6 +189,7 @@
     "publication_year": "1950"
   },
   {
+    "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
     "pid": "docid-open-access",
     "title": "Open access document",
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],

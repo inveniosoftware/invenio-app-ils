@@ -17,7 +17,10 @@ export default class DocumentListEntry extends Component {
   }
 
   renderCirculationInfo = meta => {
-    if (meta.circulation.has_items_for_loan > 0 || meta.eitems.total > 0) {
+    if (
+      meta.circulation &&
+      (meta.circulation.has_items_for_loan > 0 || meta.eitems.total > 0)
+    ) {
       return (
         <List className={'document-availability-wrapper'}>
           {meta.circulation.has_items_for_loan > 0 ? (

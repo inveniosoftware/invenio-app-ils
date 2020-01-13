@@ -50,6 +50,7 @@ exports[`should render correctly 1`] = `
         delimiter="; "
         metadata={
           Object {
+            "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
             "abstract": "This is an abstract",
             "authors": Array [
               Object {
@@ -116,6 +117,7 @@ exports[`should render correctly 1`] = `
                   delimiter=", "
                   metadata={
                     Object {
+                      "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                       "abstract": "This is an abstract",
                       "authors": Array [
                         Object {
@@ -154,6 +156,7 @@ exports[`should render correctly 1`] = `
       <DocumentTags
         metadata={
           Object {
+            "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
             "abstract": "This is an abstract",
             "authors": Array [
               Object {

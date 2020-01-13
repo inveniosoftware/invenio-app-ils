@@ -69,6 +69,7 @@ exports[`DocumentCirculation tests should load the DocumentCirculation component
             delimiter="; "
             metadata={
               Object {
+                "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                 "abstract": "This is an abstract",
                 "authors": Array [
                   Object {
@@ -109,6 +110,7 @@ exports[`DocumentCirculation tests should load the DocumentCirculation component
           delimiter=", "
           metadata={
             Object {
+              "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
               "abstract": "This is an abstract",
               "authors": Array [
                 Object {
@@ -169,6 +171,7 @@ exports[`DocumentCirculation tests should load the DocumentCirculation component
           document={
             Object {
               "metadata": Object {
+                "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
                 "abstract": "This is an abstract",
                 "authors": Array [
                   Object {
@@ -221,6 +224,7 @@ exports[`DocumentCirculation tests should load the DocumentCirculation component
       <DocumentTags
         metadata={
           Object {
+            "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
             "abstract": "This is an abstract",
             "authors": Array [
               Object {
