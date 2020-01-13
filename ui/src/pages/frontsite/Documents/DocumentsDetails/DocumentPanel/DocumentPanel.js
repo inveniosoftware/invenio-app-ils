@@ -2,33 +2,27 @@ import React, { Component } from 'react';
 import { Grid, Responsive } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { DocumentCirculation } from '../DocumentCirculation';
-
 import {
   ILSHeaderPlaceholder,
   ILSParagraphPlaceholder,
 } from '@components/ILSPlaceholder';
 import {
-  DocumentAbstract,
   DocumentCover,
   DocumentTitle,
 } from '@pages/frontsite/components/Document';
 import { DocumentPanelMobile } from './index';
 import { DocumentAuthors } from '@components/Document';
+import { Abstract } from '@components';
 
 export default class DocumentPanel extends Component {
-  constructor(props) {
-    super(props);
-    this.document = props.documentDetails;
-  }
-
   render() {
-    const { isLoading } = this.props;
+    const { documentDetails: doc, isLoading } = this.props;
     return (
       <>
         <Responsive minWidth={Responsive.onlyTablet.minWidth}>
           <div
             className="document-panel"
-            data-test={this.document.metadata ? this.document.metadata.pid : 0}
+            data-test={doc.metadata ? doc.metadata.pid : 0}
           >
             <Grid columns={3}>
               <Grid.Row>
@@ -46,14 +40,14 @@ export default class DocumentPanel extends Component {
                     <DocumentAuthors
                       prefix={'by '}
                       listItemAs={'h4'}
-                      metadata={this.props.documentDetails.metadata}
+                      metadata={doc.metadata}
                     />
                   </ILSParagraphPlaceholder>
                   <ILSParagraphPlaceholder
                     linesNumber={20}
                     isLoading={isLoading}
                   >
-                    <DocumentAbstract lines={20} />
+                    <Abstract lines={20}>{doc.metadata.abstract}</Abstract>
                   </ILSParagraphPlaceholder>
                 </Grid.Column>
                 <Grid.Column>

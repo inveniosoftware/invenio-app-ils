@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly 1`] = `
+<Item>
+  <ItemImage
+    as={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "displayName": "Link",
+        "propTypes": Object {
+          "innerRef": [Function],
+          "onClick": [Function],
+          "replace": [Function],
+          "target": [Function],
+          "to": [Function],
+        },
+        "render": [Function],
+      }
+    }
+    floated="left"
+    to="/series/serid-1"
+  >
+    <SeriesImage
+      fluid={false}
+      metadata={
+        Object {
+          "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
+          "abstract": "This is a multipart monograph",
+          "authors": Array [
+            "Einstein, Albert",
+            "Stachel, John J et al.",
+          ],
+          "mode_of_issuance": "MULTIPART_MONOGRAPH",
+          "pid": "serid-1",
+          "title": "The Gulf: The Making of An American Sea",
+        }
+      }
+      size="small"
+    />
+  </ItemImage>
+  <ItemContent>
+    <ItemMeta>
+      SERIES
+    </ItemMeta>
+    <ItemHeader
+      as={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "displayName": "Link",
+          "propTypes": Object {
+            "innerRef": [Function],
+            "onClick": [Function],
+            "replace": [Function],
+            "target": [Function],
+            "to": [Function],
+          },
+          "render": [Function],
+        }
+      }
+      to="/series/serid-1"
+    >
+      The Gulf: The Making of An American Sea
+    </ItemHeader>
+    <ItemMeta>
+      <SeriesAuthors
+        metadata={
+          Object {
+            "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
+            "abstract": "This is a multipart monograph",
+            "authors": Array [
+              "Einstein, Albert",
+              "Stachel, John J et al.",
+            ],
+            "mode_of_issuance": "MULTIPART_MONOGRAPH",
+            "pid": "serid-1",
+            "title": "The Gulf: The Making of An American Sea",
+          }
+        }
+        prefix="by "
+      />
+    </ItemMeta>
+    <ItemDescription>
+      <Truncate
+        ellipsis="…"
+        lines={3}
+        trimWhitespace={false}
+        width={0}
+      >
+        This is a multipart monograph
+      </Truncate>
+    </ItemDescription>
+    <ItemMeta>
+      <Grid>
+        <GridColumn
+          width={4}
+        >
+          <List>
+            <ListItem>
+              <ListContent>
+                <span>
+                  Languages: 
+                </span>
+                <SeriesLanguages
+                  metadata={
+                    Object {
+                      "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
+                      "abstract": "This is a multipart monograph",
+                      "authors": Array [
+                        "Einstein, Albert",
+                        "Stachel, John J et al.",
+                      ],
+                      "mode_of_issuance": "MULTIPART_MONOGRAPH",
+                      "pid": "serid-1",
+                      "title": "The Gulf: The Making of An American Sea",
+                    }
+                  }
+                />
+              </ListContent>
+            </ListItem>
+          </List>
+        </GridColumn>
+      </Grid>
+    </ItemMeta>
+  </ItemContent>
+</Item>
+`;

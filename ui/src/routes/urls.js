@@ -26,8 +26,9 @@ const FrontSiteRoutesList = {
   home: FrontSiteBase,
   patronProfile: `${FrontSiteBase}profile`,
   documentsList: `${FrontSiteBase}search`,
-  documentDetails: `${FrontSiteBase}records/:documentPid`,
+  documentDetails: `${FrontSiteBase}literature/:documentPid`,
   documentRequestForm: `${FrontSiteBase}request`,
+  seriesDetails: `${FrontSiteBase}series/:seriesPid`,
 };
 
 const FrontSiteRoutesGenerators = {
@@ -35,6 +36,10 @@ const FrontSiteRoutesGenerators = {
   documentDetailsFor: documentPid =>
     generatePath(FrontSiteRoutesList.documentDetails, {
       documentPid: documentPid,
+    }),
+  seriesDetailsFor: seriesPid =>
+    generatePath(FrontSiteRoutesList.seriesDetails, {
+      seriesPid: seriesPid,
     }),
 };
 

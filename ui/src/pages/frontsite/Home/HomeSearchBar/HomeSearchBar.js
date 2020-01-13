@@ -24,7 +24,7 @@ export default class HomeSearchBar extends Component {
         currentQueryString={this.state.searchQuery}
         onInputChange={this.updateSearchQuery}
         executeSearch={this.onSearchExecute}
-        placeholder={'Search for books, articles, publications...'}
+        placeholder={'Search for books, series, articles, publications...'}
         className={'fs-headline'}
       />
     );

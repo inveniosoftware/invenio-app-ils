@@ -82,6 +82,7 @@ describe('SeriesMultipartMonographs tests', () => {
           metadata: {
             pid: 'series1',
             title: 'Test',
+            mode_of_issuance: 'MULTIPART_MONOGRAPH',
             relations: {},
           },
         },
@@ -93,6 +94,7 @@ describe('SeriesMultipartMonographs tests', () => {
           metadata: {
             pid: 'series2',
             title: 'Test',
+            mode_of_issuance: 'MULTIPART_MONOGRAPH',
             relations: {},
           },
         },
@@ -134,6 +136,7 @@ describe('SeriesMultipartMonographs tests', () => {
             pid: '1',
             relations: {},
             title: 'Test',
+            mode_of_issuance: 'MULTIPART_MONOGRAPH',
           },
         },
         {
@@ -144,6 +147,7 @@ describe('SeriesMultipartMonographs tests', () => {
             pid: '2',
             relations: {},
             title: 'Test 2',
+            mode_of_issuance: 'MULTIPART_MONOGRAPH',
           },
         },
       ],
@@ -176,7 +180,7 @@ describe('SeriesMultipartMonographs tests', () => {
           metadata: {
             pid: 'series1',
             title: 'Title',
-            series_objs: [],
+            mode_of_issuance: 'MULTIPART_MONOGRAPH',
           },
         },
       ],

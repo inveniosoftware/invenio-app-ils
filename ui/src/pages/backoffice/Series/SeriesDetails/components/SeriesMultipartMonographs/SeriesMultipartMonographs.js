@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
-import { Loader, Error, ResultsTable } from '@components';
+import { Loader, Error, ResultsTable, SeriesAuthors } from '@components';
 import { series as seriesApi } from '@api';
 import { BackOfficeRoutes } from '@routes/urls';
 import { SeeAllButton } from '@pages/backoffice/components/buttons';
@@ -62,7 +62,10 @@ export class SeriesMultipartMonographsData extends Component {
       { title: 'ID', field: 'metadata.pid' },
       { title: 'Volume', formatter: this.volumeFormatter },
       { title: 'Title', field: 'metadata.title' },
-      { title: 'Authors', field: 'metadata.authors' },
+      {
+        title: 'Authors',
+        formatter: ({ row }) => <SeriesAuthors metadata={row.metadata} />,
+      },
     ];
     return (
       <Loader isLoading={isLoading}>

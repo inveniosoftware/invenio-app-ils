@@ -1,0 +1,343 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SeriesCard tests should go to book details when clicking on a book 1`] = `
+<SeriesCard
+  data={
+    Object {
+      "metadata": Object {
+        "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
+        "abstract": "This is a multipart monograph",
+        "authors": Array [
+          "Author1",
+          "Author2",
+        ],
+        "edition": "12",
+        "mode_of_issuance": "SERIAL",
+        "pid": "serid-1",
+        "title": "Lorem",
+      },
+    }
+  }
+>
+  <Card
+    centered={true}
+    className="fs-book-card"
+    data-test="serid-1"
+    link={true}
+    onClick={[Function]}
+  >
+    <a
+      className="ui centered link card fs-book-card"
+      data-test="serid-1"
+      onClick={[Function]}
+    >
+      <CardMeta
+        className="discrete"
+      >
+        <div
+          className="meta discrete"
+        >
+          Series
+        </div>
+      </CardMeta>
+      <SeriesImage
+        fluid={false}
+        metadata={
+          Object {
+            "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
+            "abstract": "This is a multipart monograph",
+            "authors": Array [
+              "Author1",
+              "Author2",
+            ],
+            "edition": "12",
+            "mode_of_issuance": "SERIAL",
+            "pid": "serid-1",
+            "title": "Lorem",
+          }
+        }
+        size="small"
+      >
+        <Image
+          as="img"
+          centered={true}
+          fluid={false}
+          size="small"
+          src="/images/placeholder.png"
+          ui={true}
+          wrapped={true}
+        >
+          <div
+            className="ui small centered image"
+          >
+            <img
+              src="/images/placeholder.png"
+            />
+          </div>
+        </Image>
+      </SeriesImage>
+      <CardContent>
+        <div
+          className="content"
+        >
+          <CardHeader>
+            <div
+              className="header"
+            >
+              Lorem
+            </div>
+          </CardHeader>
+          <CardMeta>
+            <div
+              className="meta"
+            >
+              <div>
+                <SeriesAuthors
+                  metadata={
+                    Object {
+                      "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
+                      "abstract": "This is a multipart monograph",
+                      "authors": Array [
+                        "Author1",
+                        "Author2",
+                      ],
+                      "edition": "12",
+                      "mode_of_issuance": "SERIAL",
+                      "pid": "serid-1",
+                      "title": "Lorem",
+                    }
+                  }
+                >
+                  <div
+                    className="document-authors-list-wrapper"
+                  >
+                    <SeparatedList
+                      className="document-authors-list"
+                      items={
+                        Array [
+                          "Author1",
+                          "Author2",
+                        ]
+                      }
+                      separator="; "
+                    >
+                      <List
+                        className="document-authors-list"
+                        horizontal={true}
+                      >
+                        <div
+                          className="ui horizontal list document-authors-list"
+                          role="list"
+                        >
+                          <ListItem
+                            key="0"
+                          >
+                            <div
+                              className="item"
+                              onClick={[Function]}
+                              role="listitem"
+                            >
+                              Author1
+                              ; 
+                            </div>
+                          </ListItem>
+                          <ListItem
+                            key="1"
+                          >
+                            <div
+                              className="item"
+                              onClick={[Function]}
+                              role="listitem"
+                            >
+                              Author2
+                            </div>
+                          </ListItem>
+                        </div>
+                      </List>
+                    </SeparatedList>
+                  </div>
+                </SeriesAuthors>
+              </div>
+              <div>
+                Edition 
+                12
+              </div>
+            </div>
+          </CardMeta>
+        </div>
+      </CardContent>
+    </a>
+  </Card>
+</SeriesCard>
+`;
+
+exports[`SeriesCard tests should render the SeriesCard 1`] = `
+<SeriesCard
+  data={
+    Object {
+      "metadata": Object {
+        "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
+        "abstract": "This is a multipart monograph",
+        "authors": Array [
+          "Author1",
+          "Author2",
+        ],
+        "edition": "12",
+        "mode_of_issuance": "SERIAL",
+        "pid": "serid-1",
+        "title": "Lorem",
+      },
+    }
+  }
+>
+  <Card
+    centered={true}
+    className="fs-book-card"
+    data-test="serid-1"
+    link={true}
+    onClick={[Function]}
+  >
+    <a
+      className="ui centered link card fs-book-card"
+      data-test="serid-1"
+      onClick={[Function]}
+    >
+      <CardMeta
+        className="discrete"
+      >
+        <div
+          className="meta discrete"
+        >
+          Series
+        </div>
+      </CardMeta>
+      <SeriesImage
+        fluid={false}
+        metadata={
+          Object {
+            "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
+            "abstract": "This is a multipart monograph",
+            "authors": Array [
+              "Author1",
+              "Author2",
+            ],
+            "edition": "12",
+            "mode_of_issuance": "SERIAL",
+            "pid": "serid-1",
+            "title": "Lorem",
+          }
+        }
+        size="small"
+      >
+        <Image
+          as="img"
+          centered={true}
+          fluid={false}
+          size="small"
+          src="/images/placeholder.png"
+          ui={true}
+          wrapped={true}
+        >
+          <div
+            className="ui small centered image"
+          >
+            <img
+              src="/images/placeholder.png"
+            />
+          </div>
+        </Image>
+      </SeriesImage>
+      <CardContent>
+        <div
+          className="content"
+        >
+          <CardHeader>
+            <div
+              className="header"
+            >
+              Lorem
+            </div>
+          </CardHeader>
+          <CardMeta>
+            <div
+              className="meta"
+            >
+              <div>
+                <SeriesAuthors
+                  metadata={
+                    Object {
+                      "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
+                      "abstract": "This is a multipart monograph",
+                      "authors": Array [
+                        "Author1",
+                        "Author2",
+                      ],
+                      "edition": "12",
+                      "mode_of_issuance": "SERIAL",
+                      "pid": "serid-1",
+                      "title": "Lorem",
+                    }
+                  }
+                >
+                  <div
+                    className="document-authors-list-wrapper"
+                  >
+                    <SeparatedList
+                      className="document-authors-list"
+                      items={
+                        Array [
+                          "Author1",
+                          "Author2",
+                        ]
+                      }
+                      separator="; "
+                    >
+                      <List
+                        className="document-authors-list"
+                        horizontal={true}
+                      >
+                        <div
+                          className="ui horizontal list document-authors-list"
+                          role="list"
+                        >
+                          <ListItem
+                            key="0"
+                          >
+                            <div
+                              className="item"
+                              onClick={[Function]}
+                              role="listitem"
+                            >
+                              Author1
+                              ; 
+                            </div>
+                          </ListItem>
+                          <ListItem
+                            key="1"
+                          >
+                            <div
+                              className="item"
+                              onClick={[Function]}
+                              role="listitem"
+                            >
+                              Author2
+                            </div>
+                          </ListItem>
+                        </div>
+                      </List>
+                    </SeparatedList>
+                  </div>
+                </SeriesAuthors>
+              </div>
+              <div>
+                Edition 
+                12
+              </div>
+            </div>
+          </CardMeta>
+        </div>
+      </CardContent>
+    </a>
+  </Card>
+</SeriesCard>
+`;

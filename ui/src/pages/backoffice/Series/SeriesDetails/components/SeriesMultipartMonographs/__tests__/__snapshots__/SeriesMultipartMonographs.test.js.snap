@@ -24,7 +24,7 @@ exports[`SeriesMultipartMonographs tests should load the SeriesMultipartMonograp
             "title": "Title",
           },
           Object {
-            "field": "metadata.authors",
+            "formatter": [Function],
             "title": "Authors",
           },
         ]

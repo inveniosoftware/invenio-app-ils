@@ -495,9 +495,9 @@ class SeriesGenerator(Generator):
         random_4digit = [randint(1000, 9999), randint(1000, 9999)]
         return "-".join(str(r) for r in random_4digit)
 
-    def random_multipart(self, obj):
+    def random_multipart(self, obj, index):
         """Randomize multipart data."""
-        obj["edition"] = obj["pid"]
+        obj["edition"] = str(index)
         for _ in range(randint(1, 2)):
             obj["identifiers"].append(dict(
                 scheme="ISBN",
@@ -516,7 +516,13 @@ class SeriesGenerator(Generator):
         obj["alternative_titles"] = [
             dict(
                 value=obj["title"],
-                type="TEST"
+                type="SUBTITLE"
+            ),
+            dict(
+                value=obj["title"],
+                type="TRANSLATED_TITLE",
+                language="FR",
+                source="CERN"
             )
         ]
         obj["internal_notes"] = [
@@ -548,13 +554,14 @@ class SeriesGenerator(Generator):
         """Generate."""
         size = self.holder.series["total"]
         objs = []
-        for pid in range(1, size + 1):
+        for index in range(1, size + 1):
             moi = random.choice(self.MODE_OF_ISSUANCE)
+            authors = random.sample(DocumentGenerator.AUTHORS, len(DocumentGenerator.AUTHORS))
             obj = {
                 "pid": self.create_pid(),
                 "mode_of_issuance": moi,
                 "title": lorem.sentence(),
-                "authors": [lorem.sentence()],
+                "authors": [author["full_name"] for author in authors],
                 "abstract": lorem.text(),
                 "languages": [
                     lang["key"]
@@ -567,7 +574,7 @@ class SeriesGenerator(Generator):
             if moi == "SERIAL":
                 self.random_serial(obj)
             elif moi == "MULTIPART_MONOGRAPH":
-                self.random_multipart(obj)
+                self.random_multipart(obj, index)
             objs.append(obj)
 
         self.holder.series["objs"] = objs

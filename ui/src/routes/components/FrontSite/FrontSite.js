@@ -13,6 +13,8 @@ import {
 
 import { DocumentRequestForm } from '@pages/frontsite/DocumentRequests';
 
+import { SeriesDetailsContainer } from '@pages/frontsite/Series';
+
 export default class FrontSite extends Component {
   render() {
     return (
@@ -20,19 +22,11 @@ export default class FrontSite extends Component {
         <ILSMenu />
         <Notifications className="compact" />
         <Container fluid className="fs-content">
-          {/* home */}
           <Route
             exact
             path={FrontSiteRoutes.home}
             render={props => <Home {...props} {...this.props} />}
           />
-          {/* documents */}
-          <Route
-            exact
-            path={FrontSiteRoutes.documentDetails}
-            component={DocumentsDetailsContainer}
-          />
-          {/* documents */}
           <Route
             exact
             path={FrontSiteRoutes.documentsList}
@@ -47,6 +41,16 @@ export default class FrontSite extends Component {
             exact
             path={FrontSiteRoutes.documentRequestForm}
             component={DocumentRequestForm}
+          />
+          <Route
+            exact
+            path={FrontSiteRoutes.seriesDetails}
+            component={SeriesDetailsContainer}
+          />
+          <Route
+            exact
+            path={FrontSiteRoutes.documentDetails}
+            component={DocumentsDetailsContainer}
           />
         </Container>
         <Footer />

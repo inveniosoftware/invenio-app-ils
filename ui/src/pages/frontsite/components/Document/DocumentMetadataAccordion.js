@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Accordion, Divider, Icon } from 'semantic-ui-react';
+import { Accordion, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { DocumentRelations, DocumentInfo } from './index';
 import { DocumentTableOfContent } from './DocumentTableOfContent';
 import { DocumentConference } from './DocumentConference';
+import { Notes } from '../Notes';
 
 export class DocumentMetadataAccordion extends Component {
   constructor(props) {
@@ -93,8 +94,7 @@ export class DocumentMetadataAccordion extends Component {
           Notes
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 'notes'}>
-          <Divider horizontal>Librarian's note</Divider>
-          {this.metadata.note}
+          <Notes content={this.metadata.note} />
         </Accordion.Content>
       </Accordion>
     );

@@ -2,9 +2,9 @@ import ShowMore from 'react-show-more';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export class DocumentAbstract extends Component {
+export class Abstract extends Component {
   render() {
-    const { metadata, lines } = this.props;
+    const { children, content, lines } = this.props;
     return (
       <ShowMore
         lines={lines}
@@ -12,12 +12,12 @@ export class DocumentAbstract extends Component {
         less="Show less"
         anchorClass="button-show-more"
       >
-        {metadata.abstract}
+        {children || content}
       </ShowMore>
     );
   }
 }
 
-DocumentAbstract.propTypes = {
+Abstract.propTypes = {
   lines: PropTypes.number.isRequired,
 };

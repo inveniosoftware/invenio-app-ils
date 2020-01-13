@@ -8,3 +8,8 @@
   }
 }
 
+.info-popup {
+  .icon {
+    padding-left: 0.3rem;
+  }
+}
