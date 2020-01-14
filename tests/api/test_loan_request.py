@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2019-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -21,8 +21,7 @@ from invenio_accounts.testutils import login_user_via_session
 NEW_LOAN = {
     "document_pid": "CHANGE ME IN EACH TEST",
     "patron_pid": "3",
-    "transaction_location_pid": "locid-1",
-    "transaction_user_pid": "4",
+    "transaction_location_pid": "1",
     "pickup_location_pid": "locid-1",
     "delivery": {"method": "PICKUP"},
     "request_start_date": "2019-09-10",
@@ -30,9 +29,8 @@ NEW_LOAN = {
 }
 
 
-def _login(client, users):
+def _login(client, user):
     """Login user and return url."""
-    user = users["patron1"]
     login_user_via_session(client, user=User.query.get(user.id))
     return user
 
@@ -47,32 +45,15 @@ def test_anonymous_cannot_request_loan(client, json_headers, testdata):
 def test_patron_can_request_loan(client, json_headers, users, testdata):
     """Test that a patron can request a loan."""
     url = url_for("invenio_app_ils_circulation.loan_request")
-    _login(client, users)
+    user = _login(client, users["patron1"])
     params = deepcopy(NEW_LOAN)
     params["document_pid"] = "docid-3"
+    params["transaction_user_pid"] = str(user.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
     loan = res.get_json()["metadata"]
     assert loan["state"] == "PENDING"
     assert loan["document_pid"] == params["document_pid"]
-    assert loan["transaction_date"]
-
-
-def test_patron_can_request_loan_on_item(
-    client, json_headers, users, testdata
-):
-    """Test that a patron can request a loan on a item."""
-    url = url_for("invenio_app_ils_circulation.loan_request")
-    _login(client, users)
-    params = deepcopy(NEW_LOAN)
-    params["document_pid"] = "docid-13"
-    params["item_pid"] = "itemid-10"
-    res = client.post(url, headers=json_headers, data=json.dumps(params))
-    assert res.status_code == 202
-    loan = res.get_json()["metadata"]
-    assert loan["state"] == "PENDING"
-    assert loan["document_pid"] == params["document_pid"]
-    assert loan["item_pid"] == params["item_pid"]
     assert loan["transaction_date"]
 
 
@@ -81,7 +62,7 @@ def test_patron_can_request_loan_with_or_without_end_date(
 ):
     """Test that a patron can request a loan [with/withou] end date."""
     url = url_for("invenio_app_ils_circulation.loan_request")
-    _login(client, users)
+    user = _login(client, users["patron1"])
 
     now = arrow.utcnow()
     start_date = (now + timedelta(days=3)).date().isoformat()
@@ -92,6 +73,7 @@ def test_patron_can_request_loan_with_or_without_end_date(
     params["document_pid"] = "docid-2"
     params["request_start_date"] = start_date
     params["request_expire_date"] = end_date
+    params["transaction_user_pid"] = str(user.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
     loan = res.get_json()["metadata"]
@@ -105,6 +87,7 @@ def test_patron_can_request_loan_with_or_without_end_date(
     params = deepcopy(NEW_LOAN)
     past_end_date = now - timedelta(days=30)
     params["request_expire_date"] = past_end_date.date().isoformat()
+    params["transaction_user_pid"] = str(user.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 400
 
@@ -113,12 +96,14 @@ def test_patron_can_request_loan_with_or_without_end_date(
     days = app.config["CIRCULATION_LOAN_REQUEST_DURATION_DAYS"]
     past_end_date = now + timedelta(days=days + 1)
     params["request_expire_date"] = past_end_date.date().isoformat()
+    params["transaction_user_pid"] = str(user.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 400
 
     # it should fail when request start/end date not provided
     params = deepcopy(NEW_LOAN)
     params["document_pid"] = "docid-4"
+    params["transaction_user_pid"] = str(user.id)
     del params["request_start_date"]
     del params["request_expire_date"]
     res = client.post(url, headers=json_headers, data=json.dumps(params))
@@ -137,12 +122,13 @@ def test_request_loan_with_or_without_delivery(
 ):
     """Test that loan request with or without delivery."""
     url = url_for("invenio_app_ils_circulation.loan_request")
-    _login(client, users)
+    user = _login(client, users["patron1"])
 
     previous_dev_methods = app.config["CIRCULATION_DELIVERY_METHODS"]
     app.config["CIRCULATION_DELIVERY_METHODS"] = {}
     params = deepcopy(NEW_LOAN)
     params["document_pid"] = "docid-12"
+    params["transaction_user_pid"] = str(user.id)
     del params["delivery"]
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
@@ -154,11 +140,13 @@ def test_request_loan_with_or_without_delivery(
     params = deepcopy(NEW_LOAN)
     params["document_pid"] = "docid-6"
     params["delivery"] = {"method": "TEST_METHOD1"}
+    params["transaction_user_pid"] = str(user.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
 
     app.config["CIRCULATION_DELIVERY_METHODS"] = {"TEST_METHOD": ""}
     params = deepcopy(NEW_LOAN)
+    params["transaction_user_pid"] = str(user.id)
     del params["delivery"]
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 400
@@ -167,6 +155,7 @@ def test_request_loan_with_or_without_delivery(
     app.config["CIRCULATION_DELIVERY_METHODS"] = {"TEST_METHOD": ""}
     params = deepcopy(NEW_LOAN)
     params["delivery"] = {"method": "NON_EXISTING_METHOD"}
+    params["transaction_user_pid"] = str(user.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 400
     assert res.get_json()["message"] == "Validation error."

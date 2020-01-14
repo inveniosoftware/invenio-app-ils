@@ -7,6 +7,7 @@ import { item as itemApi } from '@api';
 import { invenioConfig } from '@config';
 import { SeeAllButton } from '@pages/backoffice/components/buttons/SeeAllButton';
 import { BackOfficeRoutes } from '@routes/urls';
+import { recordToPidType } from '@api/utils';
 
 export default class AvailableItems extends Component {
   constructor(props) {
@@ -38,7 +39,11 @@ export default class AvailableItems extends Component {
         size="mini"
         color="teal"
         onClick={() => {
-          this.assignItemToLoan(item.metadata.pid, this.props.loan.pid);
+          const itemPid = {
+            type: recordToPidType(item),
+            value: item.metadata.pid,
+          };
+          this.assignItemToLoan(itemPid, this.props.loan.pid);
         }}
       >
         assign
@@ -55,7 +60,10 @@ export default class AvailableItems extends Component {
           const checkoutUrl = loan.availableActions.checkout;
           const patronPid = loan.metadata.patron_pid;
           const documentPid = item.metadata.document.pid;
-          const itemPid = item.metadata.pid;
+          const itemPid = {
+            type: recordToPidType(item),
+            value: item.metadata.pid,
+          };
           this.performCheckoutAction(
             checkoutUrl,
             documentPid,

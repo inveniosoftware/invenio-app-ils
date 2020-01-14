@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-19 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -26,8 +26,7 @@ NEW_LOAN = {
     "item_pid": "CHANGE ME IN EACH TEST",
     "document_pid": "docid-1",
     "patron_pid": "3",
-    "transaction_location_pid": "locid-1",
-    "transaction_user_pid": "4",
+    "transaction_location_pid": "1",
     "pickup_location_pid": "locid-1",
     "delivery": {"method": "PICK_UP"},
 }
@@ -53,7 +52,8 @@ def test_librarian_can_checkout_item_for_user(
     _login(client, users["librarian"], users)
     url = url_for("invenio_app_ils_circulation.loan_checkout")
     params = deepcopy(NEW_LOAN)
-    params["item_pid"] = "itemid-60"
+    params["transaction_user_pid"] = str(users["librarian"].id)
+    params["item_pid"] = dict(type="pitmid", value="itemid-60")
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
     loan = res.get_json()["metadata"]
@@ -87,7 +87,8 @@ def test_force_checkout_specific_permissions(
     url = url_for("invenio_app_ils_circulation.loan_checkout")
     params = deepcopy(NEW_LOAN)
     params["force"] = True
-    params["item_pid"] = "itemid-MISSING"
+    params["item_pid"] = dict(type="pitmid", value="itemid-MISSING")
+    params["transaction_user_pid"] = str(librarian2.id)
 
     # force-checkout as librarian should fail
     _login(client, users["librarian"], users)
@@ -110,27 +111,31 @@ def test_force_checkout_specific_permissions(
 
 def test_checkout_conditions_librarian(client, json_headers, users, testdata):
     """Test checkout conditions user."""
-    _login(client, users["librarian"], users)
+    librarian = users["librarian"]
+    _login(client, librarian, users)
     url = url_for("invenio_app_ils_circulation.loan_checkout")
 
     params = deepcopy(NEW_LOAN)
-    params["item_pid"] = "itemid-61"
+    params["item_pid"] = dict(type="pitmid", value="itemid-61")
+    params["transaction_user_pid"] = str(librarian.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
 
     params = deepcopy(NEW_LOAN)
-    params["item_pid"] = "itemid-MISSING"
+    params["item_pid"] = dict(type="pitmid", value="itemid-MISSING")
+    params["transaction_user_pid"] = str(librarian.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     # missing
     assert res.status_code == 400
 
     params = deepcopy(NEW_LOAN)
     params["force"] = True
-    params["item_pid"] = "itemid-MISSING"
+    params["item_pid"] = dict(type="pitmid", value="itemid-MISSING")
+    params["transaction_user_pid"] = str(librarian.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     # missing but force
     assert res.status_code == 202
-    item = Item.get_record_by_pid(params["item_pid"])
+    item = Item.get_record_by_pid(params["item_pid"]["value"])
     assert item["status"] == "CAN_CIRCULATE"
 
 
@@ -138,7 +143,8 @@ def test_checkout_loader_start_end_dates(
     app, client, json_headers, users, testdata
 ):
     """Test that start and end dates request parameters."""
-    _login(client, users["librarian"], users)
+    librarian = users["librarian"]
+    _login(client, librarian, users)
     url = url_for("invenio_app_ils_circulation.loan_checkout")
     loan_duration_timedelta = app.config["CIRCULATION_POLICIES"]["checkout"][
         "duration_default"
@@ -150,7 +156,8 @@ def test_checkout_loader_start_end_dates(
     end_date = (now + loan_duration_timedelta).date().isoformat()
 
     params = deepcopy(NEW_LOAN)
-    params["item_pid"] = "itemid-61"
+    params["item_pid"] = dict(type="pitmid", value="itemid-61")
+    params["transaction_user_pid"] = str(librarian.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
     loan = res.get_json()["metadata"]
@@ -166,8 +173,9 @@ def test_checkout_loader_start_end_dates(
     end_date = (_start_date + loan_duration_timedelta).date().isoformat()
 
     params = deepcopy(NEW_LOAN)
-    params["item_pid"] = "itemid-62"
+    params["item_pid"] = dict(type="pitmid", value="itemid-62")
     params["start_date"] = start_date
+    params["transaction_user_pid"] = str(librarian.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
     loan = res.get_json()["metadata"]
@@ -182,9 +190,10 @@ def test_checkout_loader_start_end_dates(
 
     # it should succeed when start/end dates provided
     params = deepcopy(NEW_LOAN)
-    params["item_pid"] = "itemid-63"
+    params["item_pid"] = dict(type="pitmid", value="itemid-63")
     params["start_date"] = start_date
     params["end_date"] = end_date
+    params["transaction_user_pid"] = str(librarian.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
     loan = res.get_json()["metadata"]
@@ -196,8 +205,9 @@ def test_checkout_loader_start_end_dates(
 
     # it should fail when only end date provided
     params = deepcopy(NEW_LOAN)
-    params["item_pid"] = "itemid-63"
+    params["item_pid"] = dict(type="pitmid", value="itemid-63")
     params["end_date"] = end_date
+    params["transaction_user_pid"] = str(librarian.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 400
 
@@ -205,8 +215,9 @@ def test_checkout_loader_start_end_dates(
     start_date = (now + timedelta(days=3)).date().isoformat()
     past_end_date = now - timedelta(days=30)
     params = deepcopy(NEW_LOAN)
-    params["item_pid"] = "itemid-63"
+    params["item_pid"] = dict(type="pitmid", value="itemid-63")
     params["start_date"] = start_date
     params["end_date"] = past_end_date.date().isoformat()
+    params["transaction_user_pid"] = str(librarian.id)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 400

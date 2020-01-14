@@ -139,7 +139,7 @@ export default class DocumentActionMenu extends React.Component {
     patronPid,
     { requestEndDate = null, deliveryMethod = null } = {}
   ) => {
-    const documentPid = this.document.metadata.pid;
+    const documentPid = this.props.document.metadata.pid;
     const optionalParams = {};
     if (!isEmpty(requestEndDate)) {
       optionalParams.requestEndDate = requestEndDate;

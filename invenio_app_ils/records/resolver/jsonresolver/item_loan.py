@@ -11,6 +11,8 @@ import jsonresolver
 from invenio_circulation.api import get_loan_for_item
 from werkzeug.routing import Rule
 
+from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
+
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
 
@@ -22,7 +24,7 @@ def jsonresolver_loader(url_map):
 
     def loan_for_item_resolver(item_pid):
         """Return the loan for the given item."""
-        loan = get_loan_for_item(item_pid)
+        loan = get_loan_for_item(dict(value=item_pid, type=ITEM_PID_TYPE))
         if not loan:
             return {}
         else:

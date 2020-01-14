@@ -16,6 +16,9 @@
         "pid": {
           "type": "keyword"
         },
+        "document_pid": {
+          "type": "keyword"
+        },
         "status": {
           "type": "keyword"
         },

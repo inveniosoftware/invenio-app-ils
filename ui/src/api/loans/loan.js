@@ -33,8 +33,8 @@ const doAction = async (
   const payload = {
     document_pid: documentPid,
     patron_pid: patronPid,
-    transaction_location_pid: currentUser.locationPid,
-    transaction_user_pid: currentUser.id,
+    transaction_location_pid: `${currentUser.locationPid}`,
+    transaction_user_pid: `${currentUser.id}`,
   };
   if (itemPid) {
     payload.item_pid = itemPid;
@@ -61,8 +61,8 @@ const doRequest = async (
   const payload = {
     document_pid: documentPid,
     patron_pid: patronPid,
-    transaction_location_pid: currentUser.locationPid,
-    transaction_user_pid: currentUser.id,
+    transaction_location_pid: `${currentUser.locationPid}`,
+    transaction_user_pid: `${currentUser.id}`,
   };
 
   if (requestStartDate) {
@@ -93,8 +93,8 @@ const doCheckout = async (
     document_pid: documentPid,
     item_pid: itemPid,
     patron_pid: patronPid,
-    transaction_location_pid: currentUser.locationPid,
-    transaction_user_pid: currentUser.id,
+    transaction_location_pid: `${currentUser.locationPid}`,
+    transaction_user_pid: `${currentUser.id}`,
   };
 
   if (startDate) {

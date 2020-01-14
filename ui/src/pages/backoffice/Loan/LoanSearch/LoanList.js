@@ -4,7 +4,7 @@ import { Grid, Header, Icon, Item, Label, List } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { DocumentAuthors } from '@components/Document';
 import { SearchEmptyResults } from '@components/SearchControls';
-import { BackOfficeRoutes } from '@routes/urls';
+import { BackOfficeRoutes, DetailsRouteByPidTypeFor } from '@routes/urls';
 import { OverdueLoanSendMailModal } from '../../components/OverdueLoanSendMailModal';
 import { invenioConfig } from '@config';
 
@@ -53,6 +53,14 @@ class LoanDates extends Component {
 }
 
 class LoanListEntry extends Component {
+  getLinkToItem = itemPid => {
+    return (
+      <Link to={DetailsRouteByPidTypeFor(itemPid.type)(itemPid.value)}>
+        ${itemPid.value}
+      </Link>
+    );
+  };
+
   render() {
     const { loan } = this.props;
 
@@ -122,19 +130,25 @@ class LoanListEntry extends Component {
                   <List>
                     <List.Item>
                       <List.Content>
-                        Physical item{' '}
+                        Item{' '}
                         <Link
-                          to={BackOfficeRoutes.itemDetailsFor(
-                            loan.metadata.item_pid
-                          )}
+                          to={DetailsRouteByPidTypeFor(
+                            loan.metadata.item_pid.type
+                          )(loan.metadata.item_pid.value)}
                         >
-                          <ItemIcon />
-                          {loan.metadata.item.barcode}
+                          {loan.metadata.item.barcode && (
+                            <>
+                              <ItemIcon />
+                              {loan.metadata.item.barcode}
+                            </>
+                          )}
                         </Link>
                       </List.Content>
-                      <List.Content>
-                        <label>medium</label> {loan.metadata.item.medium}
-                      </List.Content>
+                      {loan.metadata.item.medium && (
+                        <List.Content>
+                          <label>medium</label> {loan.metadata.item.medium}
+                        </List.Content>
+                      )}
                     </List.Item>
                   </List>
                 </>

@@ -4,6 +4,7 @@ import { ResultsTable } from '@components';
 import { Button, Modal, Header, Icon } from 'semantic-ui-react';
 import { invenioConfig, ES_DELAY } from '@config';
 import isEmpty from 'lodash/isEmpty';
+import { recordToPidType } from '@api/utils';
 
 export class ItemsResultsList extends Component {
   constructor(props) {
@@ -36,9 +37,13 @@ export class ItemsResultsList extends Component {
       <Button
         content={'Checkout'}
         onClick={() => {
+          const itemPid = {
+            type: recordToPidType(row),
+            value: row.metadata.pid,
+          };
           this.onClickCheckoutHandler(
             row.metadata.document_pid,
-            row.metadata.pid,
+            itemPid,
             patronPid,
             false
           );

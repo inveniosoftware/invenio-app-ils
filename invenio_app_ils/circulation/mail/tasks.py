@@ -61,8 +61,8 @@ def send_loan_overdue_reminder_mail(loan):
 def send_overdue_loans_mail_reminder():
     """Send email message for loans that are overdue every X days."""
     days = current_app.config["ILS_MAIL_LOAN_OVERDUE_REMINDER_INTERVAL"]
-    loan_search = current_circulation.loan_search
-    overdue_loans = loan_search.get_all_overdue_loans().execute()
+    search_cls = current_circulation.loan_search_cls
+    overdue_loans = search_cls().get_all_overdue_loans().execute()
     for hit in overdue_loans.hits:
         loan = hit.to_dict()
         overdue_days = circulation_overdue_loan_days(loan)

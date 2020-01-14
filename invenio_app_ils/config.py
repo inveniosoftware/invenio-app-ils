@@ -44,6 +44,8 @@ from invenio_app_ils.patrons.indexer import PatronIndexer
 from invenio_app_ils.series.indexer import SeriesIndexer
 from invenio_app_ils.vocabularies.indexer import VocabularyIndexer
 
+from .circulation.jsonresolvers.loan import document_resolver, item_resolver, \
+    loan_patron_resolver
 from .circulation.search import IlsLoansSearch
 from .document_requests.api import DOCUMENT_REQUEST_PID_FETCHER, \
     DOCUMENT_REQUEST_PID_MINTER, DOCUMENT_REQUEST_PID_TYPE, DocumentRequest
@@ -53,8 +55,6 @@ from .documents.api import DOCUMENT_PID_FETCHER, DOCUMENT_PID_MINTER, \
 from .documents.search import DocumentSearch
 from .facets import default_value_when_missing_filter, keyed_range_filter, \
     not_empty_object_or_list_filter, overdue_agg, overdue_loans_filter
-from .records.resolver.loan import document_resolver, item_resolver, \
-    loan_patron_resolver
 from .records.views import UserInfoResource
 
 from .api import (  # isort:skip
@@ -90,7 +90,9 @@ from .circulation.utils import (  # isort:skip
     circulation_build_item_ref,
     circulation_build_patron_ref,
     circulation_can_be_requested,
-    circulation_build_document_ref, circulation_upcoming_return_range)
+    circulation_build_document_ref, circulation_upcoming_return_range,
+    circulation_transaction_location_validator,
+    circulation_transaction_user_validator)
 from .permissions import (  # isort:skip
     authenticated_user_permission,
     backoffice_permission,
@@ -743,6 +745,10 @@ CIRCULATION_DOCUMENT_EXISTS = document_exists
 CIRCULATION_ITEM_LOCATION_RETRIEVER = get_location_pid_by_item_pid
 
 CIRCULATION_LOAN_REQUEST_DURATION_DAYS = 60
+
+CIRCULATION_TRANSACTION_LOCATION_VALIDATOR = circulation_transaction_location_validator
+
+CIRCULATION_TRANSACTION_USER_VALIDATOR = circulation_transaction_user_validator
 
 CIRCULATION_DELIVERY_METHODS = {
     "PICKUP": "Pick it up at the library desk",
@@ -1470,5 +1476,5 @@ When disabled, it will avoid checking for user ids and roles on each search
 query and record fetch.
 """
 
-ILS_DEFAULT_LOCATION_PID = '1'
+ILS_DEFAULT_LOCATION_PID = "1"
 """Default ils library location pid."""

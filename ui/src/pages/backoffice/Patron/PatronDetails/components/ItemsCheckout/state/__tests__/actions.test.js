@@ -16,7 +16,7 @@ const expectedPayload = {};
 
 const patronPid = '2';
 const documentPid = '123';
-const itemPid = '22';
+const itemPid = { type: 'itemid', value: '22' };
 const noForceCheckout = false;
 const doForceCheckout = true;
 

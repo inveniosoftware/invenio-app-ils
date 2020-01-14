@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -19,14 +19,6 @@ from invenio_accounts.testutils import login_user_via_session
 from invenio_app_ils.circulation.search import IlsLoansSearch
 from invenio_app_ils.errors import UnauthorizedSearchError
 from invenio_app_ils.search.permissions import search_factory_filter_by_patron
-
-NEW_LOAN = {
-    "item_pid": "200",
-    "patron_pid": "1",
-    "transaction_location_pid": "locid-1",
-    "transaction_user_pid": "4",
-    "pickup_location_pid": "locid-1",
-}
 
 
 def _search_loans(client, json_headers, user=None, **kwargs):

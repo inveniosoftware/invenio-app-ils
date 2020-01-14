@@ -15,6 +15,7 @@ import { loan as loanApi, patron as patronApi } from '@api';
 import { invenioConfig } from '@config';
 import { ESSelectorModal } from '@components/ESSelector';
 import { serializePatron } from '@components/ESSelector/serializer';
+import { recordToPidType } from '@api/utils';
 
 export default class ItemMetadata extends Component {
   constructor(props) {
@@ -66,7 +67,10 @@ export default class ItemMetadata extends Component {
 
   checkoutItem = results => {
     const documentPid = this.props.itemDetails.metadata.document_pid;
-    const itemPid = this.props.itemDetails.metadata.pid;
+    const itemPid = {
+      type: recordToPidType(this.props.itemDetails),
+      value: this.props.itemDetails.metadata.pid,
+    };
     const patronPid = results[0].metadata.id.toString();
     this.props.checkoutItem(documentPid, itemPid, patronPid);
   };

@@ -21,7 +21,7 @@ describe('PatronLoans tests', () => {
 
   it('should render show a message with added loan', () => {
     const mockedCheckoutItem = jest.fn();
-    const loan = { loan_pid: 2, item_pid: '4' };
+    const loan = { loan_pid: 2, item_pid: { type: 'itemid', value: '4' } };
     component = mount(
       <ItemsCheckout data={loan} checkoutItem={mockedCheckoutItem} />
     );

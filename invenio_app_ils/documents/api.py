@@ -107,7 +107,7 @@ class Document(IlsRecordWithRelations):
     def create(cls, data, id_=None, **kwargs):
         """Create Document record."""
         cls.build_resolver_fields(data)
-        return super(Document, cls).create(data, id_=id_, **kwargs)
+        return super().create(data, id_=id_, **kwargs)
 
     def update(self, *args, **kwargs):
         """Update Document record."""

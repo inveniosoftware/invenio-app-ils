@@ -52,16 +52,8 @@ export default class ItemMetadata extends Component {
           <Table basic="very" definition className="metadata-table">
             <Table.Body>
               <Table.Row>
-                <Table.Cell>Document ID</Table.Cell>
-                <Table.Cell>{item.document_pid}</Table.Cell>
-              </Table.Row>
-              <Table.Row>
                 <Table.Cell width={4}>Item ID</Table.Cell>
                 <Table.Cell width={12}>{item.pid}</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell width={4}>Item Status</Table.Cell>
-                <Table.Cell width={12}>{item.status}</Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell>Barcode</Table.Cell>
@@ -70,18 +62,6 @@ export default class ItemMetadata extends Component {
               <Table.Row>
                 <Table.Cell>Medium</Table.Cell>
                 <Table.Cell>{item.medium}</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>Circulation Restriction</Table.Cell>
-                <Table.Cell>{item.circulation_restriction}</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>Shelf</Table.Cell>
-                <Table.Cell>{item.shelf}</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>Legacy ID</Table.Cell>
-                <Table.Cell>{item.legacy_id}</Table.Cell>
               </Table.Row>
             </Table.Body>
           </Table>

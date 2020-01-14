@@ -1,6 +1,7 @@
 import { http, apiConfig } from '../base';
 import { serializer } from './serializer';
 import { prepareSumQuery } from '../utils';
+import { invenioConfig } from '@config';
 
 const itemURL = '/items/';
 
@@ -61,7 +62,10 @@ class QueryBuilder {
   }
 
   availableForCheckout() {
-    this.availableForCheckoutQuery.push('NOT circulation:*');
+    const states = invenioConfig.circulation.loanActiveStates;
+    this.availableForCheckoutQuery.push(
+      `NOT circulation.state:${prepareSumQuery(states)}`
+    );
     return this;
   }
 

@@ -13,6 +13,7 @@ import { Error, Loader } from '@components';
 import { ItemsResultsList } from './components';
 import isEmpty from 'lodash/isEmpty';
 import { ES_DELAY } from '@config';
+import { recordToPidType } from '@api/utils';
 
 export default class ItemsSearch extends Component {
   constructor(props) {
@@ -55,7 +56,10 @@ export default class ItemsSearch extends Component {
         hits[0].metadata.status === 'CAN_CIRCULATE';
       if (hasOneHit) {
         const documentPid = hits[0].metadata.document.pid;
-        const itemPid = hits[0].metadata.pid;
+        const itemPid = {
+          type: recordToPidType(hits[0]),
+          value: hits[0].metadata.pid,
+        };
         await this.checkoutItem(
           documentPid,
           itemPid,

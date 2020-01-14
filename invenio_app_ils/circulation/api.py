@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -40,7 +40,7 @@ def _validate_delivery(delivery):
 
 def _set_item_to_can_circulate(item_pid):
     """Change the item status to CAN_CIRCULATE."""
-    item = Item.get_record_by_pid(item_pid)
+    item = Item.get_record_by_pid(item_pid["value"])
     if item["status"] != "CAN_CIRCULATE":
         item["status"] = "CAN_CIRCULATE"
         item.commit()
@@ -121,7 +121,19 @@ def checkout_loan(
     force=False,
     **kwargs
 ):
-    """Create a new loan and trigger the first transition to ITEM_ON_LOAN."""
+    """Create a new loan and trigger the first transition to ITEM_ON_LOAN.
+
+    :param item_pid: a dict containing `value` and `type` fields to
+        uniquely identify the item.
+    :param patron_pid: the PID value of the patron
+    :param transaction_location_pid: the PID value of the location where the
+        checkout is performed
+    :param transaction_user_pid: the PID value of the user that performed the
+        checkout
+    :param force: if True, ignore the current status of the item and do perform
+        the checkout. If False, the checkout will fail when the item cannot
+        circulate.
+    """
     if patron_has_active_loan_on_item(
         patron_pid=patron_pid, item_pid=item_pid
     ):

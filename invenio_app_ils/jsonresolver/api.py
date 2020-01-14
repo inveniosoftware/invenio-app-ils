@@ -27,7 +27,7 @@ def get_pid_or_default(default_value):
         def _inner(*args, **kwargs):
             try:
                 return f(*args, **kwargs)
-            except PersistentIdentifierError as ex:
+            except PersistentIdentifierError:
                 return default_value
         return _inner
     return decorator
@@ -35,4 +35,4 @@ def get_pid_or_default(default_value):
 
 def pick(obj, *keys):
     """Pick and return only the specified keys."""
-    return {k: obj[k] for k in obj.keys() if k in keys}
+    return {k: obj.get(k) for k in obj.keys() if k in keys}

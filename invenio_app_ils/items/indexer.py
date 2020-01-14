@@ -30,7 +30,8 @@ def index_referenced_records(item):
 
     # fetch and index loans
     loan_record_cls = current_app_ils.loan_record_cls
-    for loan in search_loans_by_pid(item_pid=item["pid"]).scan():
+    item_pid = dict(type=CIRCULATION_LOAN_PID_TYPE, value=item["pid"])
+    for loan in search_loans_by_pid(item_pid=item_pid).scan():
         loan = loan_record_cls.get_record_by_pid(loan["pid"])
         referenced.append(
             dict(pid_type=CIRCULATION_LOAN_PID_TYPE, record=loan)

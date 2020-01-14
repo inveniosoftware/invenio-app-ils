@@ -14,9 +14,9 @@ from flask import current_app
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_indexer.api import RecordIndexer
 
+from invenio_app_ils.circulation.utils import resolve_item_from_loan
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE
 from invenio_app_ils.indexer import ReferencedRecordsIndexer
-from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
 
 
@@ -34,9 +34,8 @@ def index_referenced_records(loan):
 
     # fetch and index the item
     if loan.get("item_pid"):
-        item_cls = current_app_ils.item_record_cls
-        item = item_cls.get_record_by_pid(loan["item_pid"])
-        referenced.append(dict(pid_type=ITEM_PID_TYPE, record=item))
+        item = resolve_item_from_loan(loan["item_pid"])
+        referenced.append(dict(pid_type=loan["item_pid"]["type"], record=item))
 
     # index the document
     indexer.index(indexed, referenced)
