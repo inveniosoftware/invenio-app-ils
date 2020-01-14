@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import DocumentRelationsComponent from './DocumentRelations';
+import DocumentSeriesComponent from './DocumentSeries';
 import { createRelations, deleteRelations } from './state/actions';
 
 const mapStateToProps = state => ({
@@ -21,3 +22,8 @@ export const DocumentRelations = connect(
   mapStateToProps,
   mapDispatchToProps
 )(DocumentRelationsComponent);
+
+export const DocumentSeries = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DocumentSeriesComponent);
