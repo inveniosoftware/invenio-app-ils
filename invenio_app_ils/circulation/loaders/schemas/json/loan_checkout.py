@@ -10,7 +10,8 @@
 import arrow
 from flask import current_app
 from flask_babelex import lazy_gettext as _
-from invenio_circulation.records.loaders.schemas.json import DateString
+from invenio_circulation.records.loaders.schemas.json import DateString, \
+    LoanItemPIDSchemaV1
 from marshmallow import ValidationError, fields, post_load, validates
 
 from invenio_app_ils.permissions import check_permission
@@ -21,7 +22,7 @@ from .base import LoanBaseSchemaV1
 class LoanCheckoutSchemaV1(LoanBaseSchemaV1):
     """Loan checkout schema."""
 
-    item_pid = fields.Str(required=True)
+    item_pid = fields.Nested(LoanItemPIDSchemaV1, required=True)
     start_date = DateString()
     end_date = DateString()
     force = fields.Bool(missing=False)

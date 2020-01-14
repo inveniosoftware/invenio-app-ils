@@ -1,6 +1,7 @@
 import { EmailLink } from '@components/EmailLink/EmailLink';
 import { invenioConfig } from '@config';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Divider,
@@ -19,6 +20,7 @@ import {
 } from '@pages/backoffice/components';
 import isEmpty from 'lodash/isEmpty';
 import { toShortDateTime } from '@api/date';
+import { DetailsRouteByPidTypeFor } from '@routes/urls';
 
 export default class LoanMetadata extends Component {
   constructor(props) {
@@ -60,12 +62,12 @@ export default class LoanMetadata extends Component {
         <Message
           warning
           icon="trash alternate"
-          header={`The Item ${data.metadata.item_pid} assigned to this loan has been deleted!`}
+          header={`The Item ${data.metadata.item_pid.value} assigned to this loan has been deleted!`}
           content={[
             'If you need further assistance contact ',
             <EmailLink
               email={invenioConfig.support_email}
-              subject={`Deleted Item ${data.metadata.item_pid}`}
+              subject={`Deleted Item ${data.metadata.item_pid.value}`}
               key="support-email"
             >
               <Icon name="mail" />
@@ -76,16 +78,22 @@ export default class LoanMetadata extends Component {
     );
   }
 
+  getLinkToItem = itemPid => {
+    return (
+      itemPid && (
+        <Link to={DetailsRouteByPidTypeFor(itemPid.type)(itemPid.value)}>
+          ${itemPid.value}
+        </Link>
+      )
+    );
+  };
+
   prepareLeftData(data) {
     const rows = [
       { name: 'Document pid', value: data.metadata.document_pid },
-      { name: 'Item pid', value: data.metadata.item_pid },
+      { name: 'Item pid', value: this.getLinkToItem(data.metadata.item_pid) },
       { name: 'Patron pid', value: data.metadata.patron_pid },
       { name: 'Pickup Location pid', value: data.metadata.pickup_location_pid },
-      {
-        name: 'Transaction Location pid',
-        value: data.metadata.transaction_location_pid,
-      },
       { name: 'State', value: data.metadata.state },
     ];
     return rows;

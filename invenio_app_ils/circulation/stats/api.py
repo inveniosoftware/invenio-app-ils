@@ -15,8 +15,8 @@ from invenio_app_ils.proxies import current_app_ils
 def fetch_most_loaned_documents(from_date, to_date, bucket_size):
     """Fetch the documents with the most loans within the date interval."""
     # Create loans aggregation
-    loan_search = current_circulation.loan_search
-    most_loaned = loan_search.get_most_loaned_documents(
+    search_cls = current_circulation.loan_search_cls
+    most_loaned = search_cls().get_most_loaned_documents(
         from_date,
         to_date,
         bucket_size

@@ -1,5 +1,5 @@
-import { loan as loanApi } from '../loan';
-import { toShortDate } from '../../date';
+import { loan as loanApi } from './loan';
+import { toShortDate } from '../date';
 import { DateTime } from 'luxon';
 
 describe('Loan query builder tests', () => {

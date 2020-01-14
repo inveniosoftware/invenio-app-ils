@@ -17,6 +17,10 @@
       "title": "The persistent identifier of ILL borrowing request",
       "type": "string"
     },
+    "document_pid": {
+      "title": "The persistent identifier of the Document",
+      "type": "string"
+    },
     "status": {
       "title": "Status of the ILL borrowing request",
       "type": "string"

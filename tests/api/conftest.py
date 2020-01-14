@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -171,8 +171,8 @@ def loan_params():
         transaction_user_pid="user_pid",
         patron_pid="1",
         document_pid="docid-1",
-        item_pid="itemid-2",
-        transaction_location_pid="locid-2",
+        item_pid=dict(type="pitmid", value="itemid-2"),
+        transaction_location_pid="1",
         transaction_date="2018-02-01T09:30:00+02:00",
     )
 

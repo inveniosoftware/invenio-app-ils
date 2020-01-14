@@ -484,7 +484,10 @@ class LoanGenerator(Generator):
             loan = self._fill_loan(loan)
 
             if item_state != "PENDING":
-                loan["item_pid"] = "{}".format(item["pid"])
+                loan["item_pid"] = {
+                    "type": ITEM_PID_TYPE,
+                    "value": item["pid"]
+                }
                 items_on_loan.append(item["pid"])
 
             self.holder.loans["objs"].append(loan)
@@ -1151,6 +1154,10 @@ def data(
     # index loans again
     indexer.bulk_index([str(r.id) for r in rec_loans])
     click.echo("Sent to the indexing queue {0} loans".format(len(rec_loans)))
+
+    # index items again
+    indexer.bulk_index([str(r.id) for r in rec_items])
+    click.echo("Sent to the indexing queue {0} items".format(len(rec_items)))
 
     # index vendors
     indexer.bulk_index([str(r.id) for r in rec_vendors])

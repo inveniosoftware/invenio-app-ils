@@ -73,7 +73,7 @@ class IlsLoansSearch(LoansSearch):
 
     def get_most_loaned_documents(self, from_date, to_date, bucket_size):
         """Return aggregation of document_pids with most loans."""
-        search = current_circulation.loan_search
+        search_cls = current_circulation.loan_search_cls
 
         # Query
         states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"] + \
@@ -82,7 +82,7 @@ class IlsLoansSearch(LoansSearch):
         from_date = from_date or None
         to_date = to_date or None
 
-        search = search.query("bool", must=[
+        search = search_cls().query("bool", must=[
             Q("terms", state=states),
             Q("range", start_date=dict(gte=from_date, lte=to_date)),
         ])
@@ -103,9 +103,9 @@ class IlsLoansSearch(LoansSearch):
 
     def get_all_overdue_loans(self):
         """Return all loans that are overdue."""
-        search = current_circulation.loan_search
         states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
-        search = search.query("bool", must=[
+        search_cls = current_circulation.loan_search_cls
+        search = search_cls().query("bool", must=[
             Q("terms", state=states),
             Q("range", end_date=dict(lt=datetime.utcnow())),
         ])

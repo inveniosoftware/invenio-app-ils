@@ -1,5 +1,5 @@
 import { fromISO } from '@api/date';
-import { serializer } from '../serializer';
+import { serializer } from './serializer';
 
 const stringDate = '2018-01-01T11:05:00+01:00';
 

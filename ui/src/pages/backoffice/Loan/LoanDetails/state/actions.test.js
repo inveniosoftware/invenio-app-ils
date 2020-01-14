@@ -1,8 +1,8 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import * as actions from '../actions';
-import { initialState } from '../reducer';
-import * as types from '../types';
+import * as actions from './actions';
+import { initialState } from './reducer';
+import * as types from './types';
 import { loan as loanApi } from '@api';
 import { sessionManager } from '@authentication/services';
 
@@ -123,7 +123,7 @@ describe('Loan details tests', () => {
       return store
         .dispatch(
           actions.performLoanAction('urlForAction', '123', '1', {
-            itemPid: '333',
+            itemPid: { type: 'itemid', value: '333' },
           })
         )
         .then(() => {
@@ -131,7 +131,7 @@ describe('Loan details tests', () => {
             'urlForAction',
             '123',
             '1',
-            { itemPid: '333', cancelReason: null }
+            { itemPid: { type: 'itemid', value: '333' }, cancelReason: null }
           );
           done();
         });
@@ -150,7 +150,10 @@ describe('Loan details tests', () => {
             'urlForAction',
             '123',
             '1',
-            { itemPid: null, cancelReason: 'Not valid anymore' }
+            {
+              itemPid: null,
+              cancelReason: 'Not valid anymore',
+            }
           );
           done();
         });

@@ -20,6 +20,7 @@ class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
         unknown = EXCLUDE
 
     cancel_reason = fields.Str()
+    document_pid = fields.Str(required=True)
     name = fields.Str(required=True)
     notes = fields.Str()
     library_pid = fields.Str(required=True)  # TODO: validate

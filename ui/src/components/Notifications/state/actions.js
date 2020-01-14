@@ -5,16 +5,9 @@ export const sendErrorNotification = error => {
   return dispatch => {
     if (!shouldShowErrorPage(error)) {
       const errorData = error.response.data;
-      const {
-        error_class: errorClass,
-        error_module: errorModule,
-        message,
-      } = errorData;
+      const { error_module: errorModule, message } = errorData;
 
-      const title =
-        errorClass && errorModule
-          ? `${errorModule}: ${errorClass}`
-          : 'Something went wrong';
+      const title = errorModule ? `${errorModule}` : 'Something went wrong';
 
       dispatch(addNotification(title, message, 'error'));
     }

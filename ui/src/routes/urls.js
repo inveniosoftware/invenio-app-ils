@@ -205,3 +205,16 @@ export const ILLRoutes = {
   ...ILLRoutesList,
   ...ILLRoutesGenerators,
 };
+
+export const DetailsRouteByPidTypeFor = pidType => {
+  switch (pidType) {
+    case 'pitmid':
+      return BackOfficeRouteGenerators.itemDetailsFor;
+    case 'illbid':
+      return ILLRoutesGenerators.borrowingRequestDetailsFor;
+    default:
+      throw new Error(
+        `Cannot generate url to the detail page for unknown pidType: ${pidType}`
+      );
+  }
+};

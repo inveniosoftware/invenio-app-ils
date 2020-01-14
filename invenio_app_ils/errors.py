@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2019-2020 CERN.
 #
 # Invenio-App-Ils is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
@@ -20,7 +20,7 @@ class IlsException(RESTException):
 
     def __init__(self, **kwargs):
         """Initialize exception."""
-        super(IlsException, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @property
     def name(self):
@@ -33,15 +33,15 @@ class IlsException(RESTException):
             status=self.code,
             message=self.get_description(environ),
             error_module="ILS",
-            error_class=self.name
+            error_class=self.name,
         )
 
         errors = self.get_errors()
         if self.errors:
-            body['errors'] = errors
+            body["errors"] = errors
 
-        if self.code and (self.code >= 500) and hasattr(g, 'sentry_event_id'):
-            body['error_id'] = str(g.sentry_event_id)
+        if self.code and (self.code >= 500) and hasattr(g, "sentry_event_id"):
+            body["error_id"] = str(g.sentry_event_id)
 
         return json.dumps(body)
 
@@ -58,7 +58,7 @@ class UnauthorizedSearchError(IlsException):
         :param query: Unauthorized search query.
         :param patron_pid: Patron that performed the unauthorized search.
         """
-        super(UnauthorizedSearchError, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         if not patron_pid:
             self.code = 401
         self.description = self.description.format(query=query, pid=patron_pid)
@@ -74,7 +74,7 @@ class SearchQueryError(IlsException):
 
         :param query: Invalid search query.
         """
-        super(SearchQueryError, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.description = self.description.format(query=query)
 
 
@@ -88,12 +88,12 @@ class RecordHasReferencesError(IlsException):
 
     def __init__(self, record_type, record_id, ref_type, ref_ids, **kwargs):
         """Initialize RecordHasReferencesError exception."""
-        super(RecordHasReferencesError, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.description = self.description.format(
             record_type=record_type,
             record_id=record_id,
             ref_type=ref_type,
-            ref_ids=ref_ids
+            ref_ids=ref_ids,
         )
 
 
@@ -107,7 +107,7 @@ class ItemHasActiveLoanError(IlsException):
 
     def __init__(self, loan_pid, **kwargs):
         """Initialize ItemHasActiveLoanError exception."""
-        super(ItemHasActiveLoanError, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.description = self.description.format(loan_pid=loan_pid)
 
 
@@ -119,15 +119,16 @@ class PatronNotFoundError(IlsException):
 
     def __init__(self, patron_pid, **kwargs):
         """Initialize PatronNotFoundError exception."""
-        super(PatronNotFoundError, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.description = self.description.format(patron_pid=patron_pid)
 
 
 class PatronHasLoanOnItemError(IlsException):
     """A patron already has an active loan or a loan request on an item."""
 
-    description = ("Patron '{patron_pid}' has already an active "
-                   "loan on item '{item_pid}'")
+    description = (
+        "Patron '{0}' has already an active loan on item '{1}:{2}'"
+    )
 
     def __init__(self, patron_pid, item_pid, **kwargs):
         """Initialize PatronHasActiveLoanOnItem exception.
@@ -135,16 +136,19 @@ class PatronHasLoanOnItemError(IlsException):
         :param loan_params: Loan request parameters.
         :param prop: Missing property from loan request.
         """
-        super(PatronHasLoanOnItemError, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.description = self.description.format(
-            patron_pid=patron_pid, item_pid=item_pid)
+            patron_pid, item_pid["type"], item_pid["value"]
+        )
 
 
 class PatronHasRequestOnDocumentError(IlsException):
     """A patron already has a loan request on a document."""
 
-    description = ("Patron '{patron_pid}' has already a loan "
-                   "request on document '{document_pid}'")
+    description = (
+        "Patron '{patron_pid}' has already a loan "
+        "request on document '{document_pid}'"
+    )
 
     def __init__(self, patron_pid, document_pid, **kwargs):
         """Initialize PatronHasActiveLoanOnDocument exception.
@@ -152,9 +156,10 @@ class PatronHasRequestOnDocumentError(IlsException):
         :param loan_params: Loan request parameters.
         :param prop: Missing property from loan request.
         """
-        super(PatronHasRequestOnDocumentError, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.description = self.description.format(
-            patron_pid=patron_pid, document_pid=document_pid)
+            patron_pid=patron_pid, document_pid=document_pid
+        )
 
 
 class NotImplementedConfigurationError(IlsException):
@@ -167,7 +172,7 @@ class NotImplementedConfigurationError(IlsException):
 
     def __init__(self, config_variable=None, **kwargs):
         """Initialize exception."""
-        super(NotImplementedConfigurationError, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.description = "{} '{}'".format(self.description, config_variable)
 
 
@@ -186,8 +191,19 @@ class ItemDocumentNotFoundError(IlsException):
 
     def __init__(self, document_pid, **kwargs):
         """Initialize exception."""
-        super(ItemDocumentNotFoundError, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.description = self.description.format(document_pid)
+
+
+class UnknownItemPidTypeError(IlsException):
+    """Raised when the given item PID type is unknown."""
+
+    description = "Unknown Item PID type '{}'"
+
+    def __init__(self, pid_type, **kwargs):
+        """Initialize exception."""
+        super().__init__(**kwargs)
+        self.description = self.description.format(pid_type)
 
 
 class RecordRelationsError(IlsException):
@@ -195,7 +211,7 @@ class RecordRelationsError(IlsException):
 
     def __init__(self, description):
         """Initialize exception."""
-        super(RecordRelationsError, self).__init__(description=description)
+        super().__init__(description=description)
 
 
 class OverdueLoansMailError(IlsException):
@@ -203,18 +219,7 @@ class OverdueLoansMailError(IlsException):
 
     def __init__(self, description):
         """Initialize exception."""
-        super(OverdueLoansMailError, self).__init__(description=description)
-
-
-class DocumentRequestError(IlsException):
-    """Raised when there is an error with a document request."""
-
-    def __init__(self, description, **kwargs):
-        """Initialize exception."""
-        super(DocumentRequestError, self).__init__(
-            description=description,
-            **kwargs
-        )
+        super().__init__(description=description)
 
 
 class IlsValidationError(IlsException):
@@ -222,16 +227,29 @@ class IlsValidationError(IlsException):
 
     def __init__(self, errors, original_exception=None, **kwargs):
         """Initialize exception."""
-        super(IlsValidationError, self).__init__(
-            errors=errors,
-            **kwargs
-        )
+        super().__init__(errors=errors, **kwargs)
         self.original_exception = original_exception
 
 
-class VocabularyError(Exception):
+class DocumentRequestError(IlsException):
+    """Raised when there is an error with a document request."""
+
+    def __init__(self, description):
+        """Initialize exception."""
+        super().__init__(description=description)
+
+
+class VocabularyError(IlsException):
     """Generic vocabulary exception."""
+
+    def __init__(self, description):
+        """Initialize exception."""
+        super().__init__(description=description)
 
 
 class StatsError(IlsException):
     """Generic stats exception."""
+
+    def __init__(self, description):
+        """Initialize exception."""
+        super().__init__(description=description)

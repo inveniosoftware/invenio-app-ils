@@ -9,10 +9,9 @@
 
 import jsonresolver
 from invenio_circulation.proxies import current_circulation
-from invenio_records_rest.utils import obj_or_import_string
 from werkzeug.routing import Rule
 
-from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
+from invenio_app_ils.proxies import current_app_ils
 
 # Note: there must be only one resolver per file,
 # otherwise only the last one is registered
@@ -26,7 +25,7 @@ def jsonresolver_loader(url_map):
     def circulation_resolver(document_pid):
         """Return circulation info for the given Document."""
         # loans
-        loan_search = current_circulation.loan_search
+        loan_search = current_circulation.loan_search_cls()
         past_loans_count = loan_search.get_past_loans_by_doc_pid(
             document_pid).count()
         active_loans_count = loan_search.get_active_loans_by_doc_pid(
@@ -36,18 +35,15 @@ def jsonresolver_loader(url_map):
         overdue_loans_count = loan_search.get_overdue_loans_by_doc_pid(
             document_pid).count()
 
-        record_cfg = current_app.config["RECORDS_REST_ENDPOINTS"]
         # items
-        ItemSearch = obj_or_import_string(
-            record_cfg[ITEM_PID_TYPE]["search_class"])
-        item_search = ItemSearch()
-        items_count = item_search.search_by_document_pid(
+        ItemSearch = current_app_ils.item_search_cls()
+        items_count = ItemSearch.search_by_document_pid(
             document_pid).count()
-        unavailable_items_count = item_search. \
+        unavailable_items_count = ItemSearch. \
             get_unavailable_items_by_document_pid(document_pid).count()
         has_items_for_loan = items_count - \
             active_loans_count - unavailable_items_count
-        has_items_for_reference_only_count = item_search\
+        has_items_for_reference_only_count = ItemSearch \
             .get_for_reference_only_by_document_pid(document_pid).count()
 
         circulation = {

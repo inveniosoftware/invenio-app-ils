@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-2019 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -10,16 +10,12 @@
 import pytest
 from invenio_accounts.models import User
 
+from invenio_app_ils.api import get_document_pid_by_item_pid, \
+    get_item_pids_by_document_pid, get_location_pid_by_item_pid, item_exists, \
+    patron_exists
 from invenio_app_ils.documents.api import Document
+from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
 from invenio_app_ils.records.api import IlsRecord, Series
-
-from invenio_app_ils.api import (  # isort:skip
-    get_document_pid_by_item_pid,
-    get_item_pids_by_document_pid,
-    get_location_pid_by_item_pid,
-    item_exists,
-    patron_exists,
-)
 
 
 def test_get_item_pids_by_document_pid(testdata):
@@ -32,26 +28,30 @@ def test_get_item_pids_by_document_pid(testdata):
 def test_get_document_pid_by_item_pid(testdata):
     """Test retrieve Document PID for the given Item."""
     first_item_pid = testdata["items"][0]["pid"]
-    doc_pid = get_document_pid_by_item_pid(first_item_pid)
+    item_pid = dict(type=ITEM_PID_TYPE, value=first_item_pid)
+    doc_pid = get_document_pid_by_item_pid(item_pid)
     assert doc_pid == "docid-1"
 
 
 def test_get_location_pid_by_item_pid(testdata):
     """Test retrieve Location PID for the given Item."""
     first_item_pid = testdata["items"][0]["pid"]
-    loc_pid = get_location_pid_by_item_pid(first_item_pid)
+    item_pid = dict(type=ITEM_PID_TYPE, value=first_item_pid)
+    loc_pid = get_location_pid_by_item_pid(item_pid)
     assert loc_pid == "locid-1"
 
 
 def test_item_exists(testdata):
     """Test return True if item exists."""
     first_item_pid = testdata["items"][0]["pid"]
-    assert item_exists(first_item_pid)
+    item_pid = dict(type=ITEM_PID_TYPE, value=first_item_pid)
+    assert item_exists(item_pid)
 
 
 def test_circulation_item_not_exist(testdata):
     """Test return False if item does not exist."""
-    assert not item_exists("not-existing-item-pid")
+    item_pid = dict(type=ITEM_PID_TYPE, value="not-existing-item-pid")
+    assert not item_exists(item_pid)
 
 
 def test_patron_exists(users):

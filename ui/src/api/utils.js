@@ -56,6 +56,8 @@ export const schemaToPidType = schema => {
     return 'patid';
   } else if (schema.includes('series/series')) {
     return 'serid';
+  } else if (schema.includes('borrowing_requests/borrowing_request')) {
+    return 'illbid';
   } else {
     throw new Error(`Failed to get pid type for schema: ${schema}`);
   }

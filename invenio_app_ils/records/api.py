@@ -219,8 +219,9 @@ class Item(_Item):
 
     def delete(self, **kwargs):
         """Delete Item record."""
+        item_pid = dict(type=ITEM_PID_TYPE, value=self["pid"])
         loan_search_res = search_by_pid(
-            item_pid=self["pid"],
+            item_pid=item_pid,
             filter_states=current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"],
         )
         if loan_search_res.count():

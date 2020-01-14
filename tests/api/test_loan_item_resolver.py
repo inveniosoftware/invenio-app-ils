@@ -15,7 +15,7 @@ def test_loan_item_resolver(app, testdata):
     loan_pid = testdata["loans"][1]["pid"]
     loan = Loan.get_record_by_pid(loan_pid)
     loan = loan.replace_refs()
-    assert loan["item"]["pid"] == loan["item_pid"]
+    assert loan["item"]["pid"] == loan["item_pid"]["value"]
 
 
 def test_loan_item_resolver_for_empty_item_pid(app, testdata):

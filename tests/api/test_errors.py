@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -72,15 +72,15 @@ def test_patron_not_found(app):
 def test_patron_has_loan_on_item(app):
     """Test PatronHasLoanOnItemError."""
     patron_pid = "1"
-    item_pid = "2"
+    item_pid = dict(type="pitmid", value="2")
     msg = (
-        "Patron '{patron_pid}' has already an active loan on item '{item_pid}'"
+        "Patron '{0}' has already an active loan on item '{1}:{2}'"
     )
     with pytest.raises(PatronHasLoanOnItemError) as ex:
         raise PatronHasLoanOnItemError(patron_pid, item_pid)
     assert ex.value.code == PatronHasLoanOnItemError.code
     assert ex.value.description == msg.format(
-        patron_pid=patron_pid, item_pid=item_pid
+        patron_pid, item_pid["type"], item_pid["value"]
     )
 
 

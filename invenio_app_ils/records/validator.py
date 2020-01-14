@@ -15,6 +15,7 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 
 from invenio_app_ils.errors import ItemDocumentNotFoundError, \
     ItemHasActiveLoanError
+from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
 
 lt_es7 = ES_VERSION[0] < 7
 
@@ -51,9 +52,10 @@ class ItemValidator(RecordValidator):
             status = None
         pid = record["pid"]
         if status == "CAN_CIRCULATE":
-            search = current_circulation.loan_search
+            item_pid = dict(value=pid, type=ITEM_PID_TYPE)
+            search = current_circulation.loan_search_cls()
             active_loan = (
-                search.get_active_loan_by_item_pid(pid).execute().hits
+                search.get_active_loan_by_item_pid(item_pid).execute().hits
             )
             total = active_loan.total if lt_es7 else active_loan.total.value
             if total > 0:

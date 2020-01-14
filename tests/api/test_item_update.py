@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-19 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -15,6 +15,7 @@ from invenio_circulation.proxies import current_circulation
 
 from invenio_app_ils.errors import ItemDocumentNotFoundError, \
     ItemHasActiveLoanError
+from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
 from invenio_app_ils.records.api import Item
 
 lt_es7 = ES_VERSION[0] < 7
@@ -23,11 +24,12 @@ lt_es7 = ES_VERSION[0] < 7
 def test_update_item_status(client, users, json_headers, testdata, db):
     """Test update item status."""
     def get_active_loan_pid_and_item_pid():
-        loan_search = current_circulation.loan_search
+        LoanSearch = current_circulation.loan_search_cls
         for t in testdata["items"]:
             if t["status"] == "CAN_CIRCULATE":
+                item_pid = dict(type=ITEM_PID_TYPE, value=t["pid"])
                 active_loan = (
-                    loan_search.get_active_loan_by_item_pid(t["pid"])
+                    LoanSearch().get_active_loan_by_item_pid(item_pid)
                     .execute()
                     .hits
                 )
