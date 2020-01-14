@@ -1,12 +1,14 @@
+import {
+  DocumentViewDetailsLink,
+  SeriesViewDetailsLink,
+} from '@pages/backoffice';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Button, Tab, Label, Input } from 'semantic-ui-react';
+import { Tab, Label, Input } from 'semantic-ui-react';
 import { Error, Loader, ResultsTable, Pagination } from '@components';
 import { ManageRelationsButton } from '@pages/backoffice/components/ManageRelationsButton';
 import { ESSelectorModal } from '@components/ESSelector';
 import { document as documentApi, series as seriesApi } from '@api';
-import { BackOfficeRoutes } from '@routes/urls';
 import capitalize from 'lodash/capitalize';
 import ESRelatedSelector from '@components/ESSelector/ESRelatedSelector';
 import { parentChildRelationPayload, siblingRelationPayload } from '@api/utils';
@@ -67,11 +69,14 @@ export const serializeSeriesSelection = selection => {
 };
 
 export default class DocumentRelations extends Component {
-  state = {
-    activeIndex: 0,
-    activePage: {},
-    removedRelations: [],
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeIndex: 0,
+      activePage: {},
+      removedRelations: [],
+    };
+  }
 
   get activePage() {
     const { activeIndex, activePage } = this.state;
@@ -380,23 +385,19 @@ export default class DocumentRelations extends Component {
   };
 
   viewDetails = ({ row }) => {
-    let detailsFor;
     if (row.pid_type === 'docid') {
-      detailsFor = BackOfficeRoutes.documentDetailsFor;
+      return (
+        <DocumentViewDetailsLink documentPid={row.pid} data-test={row.pid} />
+      );
     } else if (row.pid_type === 'serid') {
-      detailsFor = BackOfficeRoutes.seriesDetailsFor;
+      return (
+        <SeriesViewDetailsLink seriesPid={row.pid} data-test={row.pid}>
+          {row.title}
+        </SeriesViewDetailsLink>
+      );
     } else {
       console.warn(`Unknown pid type: ${row.pid_type}`);
     }
-    return (
-      <Button
-        as={Link}
-        to={detailsFor(row.pid)}
-        compact
-        icon="info"
-        data-test={row.pid}
-      />
-    );
   };
 
   getTabPanes() {
@@ -468,9 +469,7 @@ export default class DocumentRelations extends Component {
           this.renderTab(
             multipartMonographs,
             [
-              { title: '', field: '', formatter: this.viewDetails },
-              { title: 'ID', field: 'pid' },
-              { title: 'Title', field: 'title' },
+              { title: 'Title', field: 'title', formatter: this.viewDetails },
               { title: 'Type', field: 'pid_type' },
               { title: 'Volume', field: 'volume' },
             ],
@@ -527,26 +526,22 @@ export default class DocumentRelations extends Component {
     ];
   }
 
-  renderTabs() {
-    return (
-      <Tab
-        id="document-relations"
-        menu={{
-          secondary: true,
-          pointing: true,
-        }}
-        panes={this.getTabPanes()}
-        activeIndex={this.state.activeIndex}
-        onTabChange={(_, { activeIndex }) => this.onTabChange(activeIndex)}
-      />
-    );
-  }
-
   render() {
     const { isLoading, error } = this.props;
     return (
       <Loader isLoading={isLoading}>
-        <Error error={error}>{this.renderTabs()}</Error>
+        <Error error={error}>
+          <Tab
+            id="document-relations"
+            menu={{
+              secondary: true,
+              pointing: true,
+            }}
+            panes={this.getTabPanes()}
+            activeIndex={this.state.activeIndex}
+            onTabChange={(_, { activeIndex }) => this.onTabChange(activeIndex)}
+          />
+        </Error>
       </Loader>
     );
   }

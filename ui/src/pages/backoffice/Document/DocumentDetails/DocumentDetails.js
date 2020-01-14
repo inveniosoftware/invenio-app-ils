@@ -1,6 +1,7 @@
 import { toShortDate } from '@api/date';
 import { DocumentTags } from '@components/Document';
 import { DetailsHeader, DocumentIcon } from '@pages/backoffice';
+import { DocumentSeries } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -85,6 +86,13 @@ class DocumentContent extends Component {
           <Accordion.Content>
             <DocumentItems />
           </Accordion.Content>
+        ),
+      },
+      {
+        key: 'document-series',
+        title: 'Series',
+        content: (
+          <Accordion.Content>{/*<DocumentSeries />*/}</Accordion.Content>
         ),
       },
       {
