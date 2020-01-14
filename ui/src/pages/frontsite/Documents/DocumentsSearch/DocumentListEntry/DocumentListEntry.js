@@ -50,8 +50,7 @@ export default class DocumentListEntry extends Component {
               </List.Content>
             </List.Item>
             <List.Item>
-              {this.metadata.imprint.place},{' '}
-              {this.metadata.imprint.date}
+              {this.metadata.imprint.place}, {this.metadata.imprint.date}
             </List.Item>
           </List>
         </Grid.Column>

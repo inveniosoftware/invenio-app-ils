@@ -2,13 +2,10 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { BackOfficeRoutes } from '@routes/urls';
 import DocumentPendingLoans from '../DocumentPendingLoans';
-import history from '@history';
 import testData from '@testData/loans.json';
-import { Button } from 'semantic-ui-react';
 
 jest.mock('react-router-dom');
 jest.mock('@config/invenioConfig');
-let mockViewDetails = jest.fn();
 
 BackOfficeRoutes.loanDetailsFor = jest.fn(pid => `loan/${pid}`);
 BackOfficeRoutes.patronDetailsFor = jest.fn(pid => `patron/${pid}`);
@@ -124,31 +121,5 @@ describe('DocumentPendingLoans tests', () => {
       .find('TableFooter')
       .filterWhere(element => element.prop('data-test') === 'footer');
     expect(footer).toHaveLength(1);
-  });
-
-  it('should go to loan details when clicking on a pending loan', () => {
-    const mockedHistoryPush = jest.fn();
-    history.push = mockedHistoryPush;
-
-    component = mount(
-      <DocumentPendingLoans
-        documentDetails={doc}
-        documentPendingLoans={data}
-        fetchPendingLoans={() => {}}
-        showMaxPendingLoans={1}
-      />
-    );
-    component.instance().viewDetails = jest.fn(() => (
-      <Button onClick={mockViewDetails}></Button>
-    ));
-    component.instance().forceUpdate();
-
-    const firstId = data.hits[0].pid;
-    component
-      .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
-      .find('Button')
-      .simulate('click');
-    expect(mockViewDetails).toHaveBeenCalled();
   });
 });
