@@ -33,8 +33,7 @@ import { DocumentSearchResultsGrid } from './DocumentSearchResultsGrid';
 import { DocumentSearchResultsList } from './DocumentSearchResultsList';
 import history from '@history';
 
-export class
-DocumentsSearch extends Component {
+export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({
     url: documentApi.searchBaseURL,
     withCredentials: true,

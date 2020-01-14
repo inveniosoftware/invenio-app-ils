@@ -1,8 +1,5 @@
-import {
-  DocumentAbstract,
-  DocumentToc,
-} from '@components/Document';
-import {DocumentSubjects} from "./DocumentSubjects";
+import { DocumentAbstract, DocumentToc } from '@components/Document';
+import { DocumentSubjects } from './DocumentSubjects';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Divider, Header } from 'semantic-ui-react';

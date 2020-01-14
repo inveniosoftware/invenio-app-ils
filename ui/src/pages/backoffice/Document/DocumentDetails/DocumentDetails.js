@@ -164,7 +164,7 @@ export default class DocumentDetails extends Component {
                         <Container className="spaced">
                           <DocumentSummary document={data} />
                         </Container>
-                          <DocumentMetadata />
+                        <DocumentMetadata />
                         <DocumentContent data={data} />
                       </Container>
                     </Grid.Column>

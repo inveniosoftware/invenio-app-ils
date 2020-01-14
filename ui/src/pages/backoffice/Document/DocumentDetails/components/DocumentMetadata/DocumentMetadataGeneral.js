@@ -75,7 +75,7 @@ export class DocumentMetadataGeneral extends Component {
   render() {
     const { document } = this.props;
     return (
-      <Container fluid className="spaced">
+      <Container fluid>
         <MetadataTable rows={this.prepareGeneral()} />
 
         {!isEmpty(document.metadata.imprint) && (

@@ -3,10 +3,8 @@ import { shallow, mount } from 'enzyme';
 import { BackOfficeRoutes } from '@routes/urls';
 import DocumentItems from '../DocumentItems';
 import testData from '@testData/items.json';
-import { Button } from 'semantic-ui-react';
 
 jest.mock('react-router-dom');
-let mockViewDetails = jest.fn();
 BackOfficeRoutes.itemDetailsFor = jest.fn(pid => `url/${pid}`);
 
 const data = {
@@ -129,28 +127,5 @@ describe('DocumentItems tests', () => {
       .find('TableFooter')
       .filterWhere(element => element.prop('data-test') === 'footer');
     expect(footer).toHaveLength(1);
-  });
-
-  it('should go to items details when clicking on a item row', () => {
-    component = mount(
-      <DocumentItems
-        documentDetails={doc}
-        documentItems={data}
-        fetchDocumentItems={() => {}}
-        showMaxItems={1}
-      />
-    );
-    component.instance().viewDetails = jest.fn(() => (
-      <Button onClick={mockViewDetails}></Button>
-    ));
-    component.instance().forceUpdate();
-
-    const firstId = data.hits[0].pid;
-    component
-      .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
-      .find('Button')
-      .simulate('click');
-    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

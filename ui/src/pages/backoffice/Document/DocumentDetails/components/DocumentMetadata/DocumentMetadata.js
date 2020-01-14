@@ -14,10 +14,10 @@ export default class DocumentMetadata extends Component {
     const document = this.props.documentDetails;
 
     let panes = [
-            {
+      {
         menuItem: 'Metadata',
         render: () => (
-          <Tab.Pane attached='bottom'>
+          <Tab.Pane attached="bottom">
             <DocumentMetadataGeneral document={document} />
           </Tab.Pane>
         ),
@@ -89,7 +89,6 @@ export default class DocumentMetadata extends Component {
 
   render() {
     return (
-
       <Tab
         className="bo-metadata-tab mb-20"
         menu={{ attached: 'top' }}

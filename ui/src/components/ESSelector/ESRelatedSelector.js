@@ -264,7 +264,9 @@ ESRelatedSelector.propTypes = {
   query: PropTypes.func,
   onSelectResult: PropTypes.func,
   onRemoveSelection: PropTypes.func,
-  renderSelections: PropTypes.func,
+  /* element to render one selected entry */
   renderSelection: PropTypes.func,
+  /* element to render list of selected entries */
+  renderSelections: PropTypes.func,
   extraFields: PropTypes.object,
 };

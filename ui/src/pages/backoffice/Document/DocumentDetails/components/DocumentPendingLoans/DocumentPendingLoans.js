@@ -29,20 +29,18 @@ export default class DocumentPendingLoans extends Component {
 
   viewDetails = ({ row }) => {
     return (
-      <Button
-        as={Link}
+      <Link
         to={BackOfficeRoutes.loanDetailsFor(row.metadata.pid)}
-        compact
-        icon="info"
         data-test={row.metadata.pid}
-      />
+      >
+        {row.metadata.pid}
+      </Link>
     );
   };
 
   renderTable(data) {
     const columns = [
-      { title: '', field: '', formatter: this.viewDetails },
-      { title: 'ID', field: 'metadata.pid' },
+      { title: 'Loan ID', field: 'metadata.pid', formatter: this.viewDetails },
       {
         title: 'Patron',
         field: 'metadata.patron.name',

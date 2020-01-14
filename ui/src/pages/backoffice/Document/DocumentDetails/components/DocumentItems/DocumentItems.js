@@ -25,25 +25,27 @@ export default class DocumentItems extends Component {
 
   viewDetails = ({ row }) => {
     return (
-      <Button
-        as={Link}
+      <Link
         to={BackOfficeRoutes.itemDetailsFor(row.metadata.pid)}
-        compact
-        icon="info"
         data-test={row.metadata.pid}
-      />
+      >
+        {row.metadata.barcode}
+      </Link>
     );
   };
 
   renderTable(data) {
     const columns = [
-      { title: '', field: '', formatter: this.viewDetails },
-      { title: 'ID', field: 'metadata.pid' },
-      { title: 'Barcode', field: 'metadata.barcode' },
+      {
+        title: 'Barcode',
+        field: 'metadata.barcode',
+        formatter: this.viewDetails,
+      },
       { title: 'Status', field: 'metadata.status' },
       { title: 'Medium', field: 'metadata.medium' },
       { title: 'Location', field: 'metadata.internal_location.name' },
       { title: 'Shelf', field: 'metadata.shelf' },
+      { title: 'Restrictions', field: 'metadata.circulation_restriction' },
       {
         title: 'Loan Status',
         field: 'metadata.circulation.state',
