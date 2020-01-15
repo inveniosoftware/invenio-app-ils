@@ -9,6 +9,8 @@ import {
   authenticationService,
   sessionManager,
 } from '@authentication/services';
+import { FrontSiteRoutes } from '@routes/urls';
+import { goTo } from '@history';
 
 export const fetchUserProfile = () => {
   return async dispatch => {
@@ -31,9 +33,15 @@ export const fetchUserProfile = () => {
   };
 };
 
-export const setAnonymous = () => ({
-  type: IS_ANONYMOUS,
-});
+export const setAnonymous = () => {
+  return async dispatch => {
+    sessionManager.setAnonymous();
+    dispatch({
+      type: IS_ANONYMOUS,
+    });
+    goTo(FrontSiteRoutes.home);
+  };
+};
 
 export const confirmUser = token => {
   return async dispatch => {

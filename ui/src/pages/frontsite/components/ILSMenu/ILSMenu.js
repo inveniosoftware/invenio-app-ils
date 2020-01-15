@@ -4,14 +4,12 @@ import { Container, Menu, Dropdown, Responsive } from 'semantic-ui-react';
 import { authenticationService } from '@authentication/services';
 import { FrontSiteRoutes, BackOfficeRoutes } from '@routes/urls';
 import { RedirectToLoginButton } from '@authentication/components';
-import { goTo } from '@history';
 
 export default class ILSMenu extends Component {
   logout = async () => {
     try {
       await authenticationService.logout();
       this.props.setAnonymous();
-      goTo(FrontSiteRoutes.home);
     } catch (e) {
       this.props.sendErrorNotification(
         'Logout',

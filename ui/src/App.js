@@ -11,13 +11,7 @@ import PropTypes from 'prop-types';
 
 class SetUserInfoComponent extends Component {
   componentDidMount() {
-    if (this.userWasPreviouslyLoggedIn) {
-      this.props.fetchUserProfile();
-    }
-  }
-
-  get userWasPreviouslyLoggedIn() {
-    return localStorage.getItem('ILS_USER_WAS_LOGGEDIN') || false;
+    this.props.fetchUserProfile();
   }
 
   render() {

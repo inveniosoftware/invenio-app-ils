@@ -3,7 +3,6 @@ import { sessionManager } from './SessionManager';
 
 class AuthenticationService {
   loginWithOauthProvider = (nextUrl, providerUrl) => {
-    localStorage.setItem('ILS_USER_WAS_LOGGEDIN', true);
     sessionManager.setAnonymous();
     let redirectOauthUrl = `${
       process.env.REACT_APP_BACKEND_DEV_BASE_URL
