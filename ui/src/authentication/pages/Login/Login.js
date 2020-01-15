@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Grid, Header, Divider, Segment } from 'semantic-ui-react';
-
-import { LoginWithLocalAccount } from './components';
-import { parseParams } from '../utils';
+import { Notifications } from '@components/Notifications';
+import { ENABLE_LOCAL_ACCOUNT_LOGIN, ENABLE_OAUTH_LOGIN } from '@config';
 import { FrontSiteRoutes } from '@routes/urls';
 import { goTo } from '@history';
-import { ENABLE_LOCAL_ACCOUNT_LOGIN, ENABLE_OAUTH_LOGIN } from '@config';
+import { LoginWithLocalAccount } from './components';
+import { parseParams } from '../../utils';
 import { LoginWithOauthProviders } from './components/LoginWithOauthProviders';
 
-export default class Login extends Component {
+class LoginPage extends Component {
   componentDidMount() {
     this.redirectIfAlreadyLoggedIn();
     this.showNotificationIfSessionExpired();
@@ -58,6 +58,17 @@ export default class Login extends Component {
           </Segment>
         </Grid.Column>
       </Grid>
+    );
+  }
+}
+
+export default class Login extends Component {
+  render() {
+    return (
+      <>
+        <Notifications />
+        <LoginPage {...this.props} />
+      </>
     );
   }
 }

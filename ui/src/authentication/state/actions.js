@@ -33,8 +33,9 @@ export const fetchUserProfile = () => {
   };
 };
 
-export const setAnonymous = () => {
+export const logout = () => {
   return async dispatch => {
+    await authenticationService.logout();
     sessionManager.setAnonymous();
     dispatch({
       type: IS_ANONYMOUS,

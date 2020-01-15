@@ -152,8 +152,8 @@ def _(x):
 # OAuth
 ###############################################################################
 OAUTH_REMOTE_APP = cern.REMOTE_REST_APP
-OAUTH_REMOTE_APP["authorized_redirect_url"] = '/accounts/login'
-OAUTH_REMOTE_APP["error_redirect_url"] = '/accounts/login'
+OAUTH_REMOTE_APP["authorized_redirect_url"] = '/login'
+OAUTH_REMOTE_APP["error_redirect_url"] = '/login'
 OAUTHCLIENT_REST_REMOTE_APPS = dict(
     cern=OAUTH_REMOTE_APP,
 )

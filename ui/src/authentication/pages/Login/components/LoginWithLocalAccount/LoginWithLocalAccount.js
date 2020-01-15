@@ -6,7 +6,7 @@ import { BaseForm, StringField } from '@forms';
 import { authenticationService } from '@authentication/services';
 import { goTo } from '@history';
 import { FrontSiteRoutes } from '@routes/urls';
-import { parseParams } from '../../../utils';
+import { parseParams } from '../../../../utils';
 
 export default class LoginWithLocalAccount extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ export default class LoginWithLocalAccount extends Component {
         name: 'login',
         content: 'Log In',
         primary: true,
-        type: 'button',
+        type: 'submit',
         fluid: true,
       },
     ];

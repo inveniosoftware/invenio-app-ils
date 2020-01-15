@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
-import { AccountsRoutes } from '@routes/urls';
+import { AuthenticationRoutes } from '@routes/urls';
 import { goTo } from '@history';
 
 export class RedirectToLoginButton extends Component {
@@ -14,7 +14,7 @@ export class RedirectToLoginButton extends Component {
         {...restProps}
         onClick={() => {
           goTo(
-            AccountsRoutes.redirectAfterLogin(
+            AuthenticationRoutes.redirectAfterLogin(
               nextUrl || window.location.pathname
             )
           );

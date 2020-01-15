@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { authenticationService } from '@authentication/services';
-import { AccountsRoutes } from '@routes/urls';
+import { AuthenticationRoutes } from '@routes/urls';
 
 export default class AuthenticationGuard extends Component {
   render() {
@@ -26,7 +26,7 @@ export default class AuthenticationGuard extends Component {
         <LoginComponent />
       ) : (
         <Redirect
-          to={AccountsRoutes.redirectAfterLogin(
+          to={AuthenticationRoutes.redirectAfterLogin(
             `${window.location.pathname}${window.location.search}`
           )}
         />

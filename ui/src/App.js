@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchUserProfile } from '@authentication/state/actions';
-import { FrontSite, BackOffice, Accounts } from '@routes/components';
-import { AccountsRoutes, BackOfficeRoutes } from '@routes/urls';
+import { Login, ConfirmEmail } from '@authentication/pages';
+import { FrontSite, BackOffice } from '@routes/components';
+import { AuthenticationRoutes, BackOfficeRoutes } from '@routes/urls';
 import history from './history';
 import { NotFound } from '@components';
 import { AuthenticationGuard, UnAuthorized } from '@authentication/components';
@@ -34,7 +35,14 @@ export default class App extends Component {
       <SetUserInfo>
         <Router history={history}>
           <Switch>
-            <Route path={AccountsRoutes.home} component={Accounts} />
+            <Route exact path={AuthenticationRoutes.login}>
+              <Login />
+            </Route>
+            <AuthenticationGuard
+              path={AuthenticationRoutes.confirmEmail}
+              authorizedComponent={ConfirmEmail}
+              unAuthorizedComponent={UnAuthorized}
+            />
             <AuthenticationGuard
               path={BackOfficeRoutes.home}
               authorizedComponent={BackOffice}
