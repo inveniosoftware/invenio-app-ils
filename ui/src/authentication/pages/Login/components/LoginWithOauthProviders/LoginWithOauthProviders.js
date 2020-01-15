@@ -3,7 +3,7 @@ import { LoginWithOauthButton } from '@authentication/components';
 import { OAUTH_PROVIDERS } from '@config';
 import { FrontSiteRoutes } from '@routes/urls';
 import { goTo } from '@history';
-import { parseParams } from '../../../utils';
+import { parseParams } from '../../../../utils';
 
 export default class LoginWithOauthProviders extends Component {
   checkIfOauthLoginResponse = params => {

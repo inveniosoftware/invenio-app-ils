@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { goTo } from '@history';
-import { AccountsRoutes } from '@routes/urls';
+import { AuthenticationRoutes } from '@routes/urls';
 
 const apiConfig = {
   baseURL:
@@ -24,7 +24,7 @@ const responseRejectInterceptor = error => {
     error.response.status === 401 &&
     !urlShouldNotRedirect(error.response.request.responseURL)
   ) {
-    goTo(`${AccountsRoutes.login}?sessionExpired`);
+    goTo(`${AuthenticationRoutes.login}?sessionExpired`);
   }
 
   return Promise.reject(error);

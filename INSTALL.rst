@@ -116,31 +116,25 @@ create-react-app webserver.
 
 First of all, you have to create your own personal access token, to be able to GET or POST data to the API:
 
-* start the server:
+* start the backend server:
 
     .. code-block:: console
 
         $ ./scripts/server
 
-* visit ``https://127.0.0.1:5000/account/settings/applications/``, login as admin
-
-* create a personal access token
-
-* create a file ``.env.development`` in ``invenio_app_ils/ui/`` and add the token:
+* start the ui server:
 
     .. code-block:: console
 
-        $ echo 'REACT_APP_JWT_TOKEN=<paste token here>' > ./invenio_app_ils/ui/.env.development
+        $ cd ./ui && npm start
 
-* In ``.env.development`` also add the following variables regarding the user authentication:
+* If you run invenio in an port other than `5000` you need to run the below commands:
 
     .. code-block:: console
 
-        REACT_APP_USER_ID=1
-        REACT_APP_LOCATION_ID=1
-        REACT_APP_USER_ROLE=admin
-        REACT_APP_JWT_TOKEN_EXPIRATION=11111111111111111111111
-        REACT_APP_JWT_USERNAME=admin
+        $ echo 'REACT_APP_BACKEND_DEV_BASE_URL=https://localhost:<your-new-port>' > ./invenio_app_ils/ui/.env.development
+        $ echo 'REACT_APP_BACKEND_DEV_BASE_URL=https://localhost:<your-new-port>' > ./invenio_app_ils/ui/.env.test
+
 
 * | since the React app is server under a different port (normally, :3000), you
   | need to configure Invenio to allow requests from different domains. In your
@@ -224,7 +218,7 @@ make the ui application work:
 * Open the `config.py` and replase the following lines
 
     .. code-block:: console
-        OAUTH_REMOTE_APP["authorized_redirect_url"] = 'http://<hostname>.dyndns.cern.ch:3000/accounts/login'
-        OAUTH_REMOTE_APP["error_redirect_url"] = 'http://<hostname>.dyndns.cern.ch:3000/accounts/login'
+        OAUTH_REMOTE_APP["authorized_redirect_url"] = 'http://<hostname>.dyndns.cern.ch:3000/login'
+        OAUTH_REMOTE_APP["error_redirect_url"] = 'http://<hostname>.dyndns.cern.ch:3000/login'
 
 * Add your hostname in the `APP_ALLOWED_HOSTS` config variable

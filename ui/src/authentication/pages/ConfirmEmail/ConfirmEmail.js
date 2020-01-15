@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Segment, Label } from 'semantic-ui-react';
 import { Loader } from '@components';
-import { parseParams } from '../utils';
+import { parseParams } from '../../utils';
 
 const Confirmed = ({ isConfirmed }) => {
   return isConfirmed ? (

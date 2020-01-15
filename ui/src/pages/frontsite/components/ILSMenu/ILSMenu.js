@@ -8,8 +8,7 @@ import { RedirectToLoginButton } from '@authentication/components';
 export default class ILSMenu extends Component {
   logout = async () => {
     try {
-      await authenticationService.logout();
-      this.props.setAnonymous();
+      await this.props.logout();
     } catch (e) {
       this.props.sendErrorNotification(
         'Logout',
