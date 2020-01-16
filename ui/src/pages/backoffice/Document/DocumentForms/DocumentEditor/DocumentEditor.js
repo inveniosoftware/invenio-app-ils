@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Loader, Error } from '@components';
 import { document as documentApi } from '@api/documents/document';
 import { DocumentForm } from './components';
+import _get from 'lodash/get';
 
 export class DocumentEditor extends Component {
   state = {
@@ -9,6 +10,22 @@ export class DocumentEditor extends Component {
     isLoading: true,
     error: {},
   };
+
+  get documentRequest() {
+    const request = _get(this.props, 'location.state', null);
+    if (!request) return null;
+    return {
+      documentRequestPid: request.pid,
+      metadata: {
+        title: _get(request, 'metadata.title'),
+        // NOTE: serializing authors for the document form
+        authors: [{ full_name: _get(request, 'metadata.authors') }],
+        journalTitle: _get(request, 'metadata.journal_title'),
+        edition: _get(request, 'metadata.edition'),
+        publication_year: String(_get(request, 'metadata.publication_year')),
+      },
+    };
+  }
 
   fetchDocument = async documentPid => {
     try {
@@ -56,6 +73,7 @@ export class DocumentEditor extends Component {
           <DocumentForm
             title="Create new document"
             successSubmitMessage="The document was successfully created."
+            data={this.documentRequest}
           />
         )}
       </>

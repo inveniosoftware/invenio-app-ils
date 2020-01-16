@@ -122,6 +122,8 @@ def views_permissions_factory(action):
         return backoffice_permission()
     elif action == "document-request-accept":
         return backoffice_permission()
+    elif action == "document-request-pending":
+        return backoffice_permission()
     elif action == "document-request-reject":
         return backoffice_permission()
     elif action == "bucket-create":

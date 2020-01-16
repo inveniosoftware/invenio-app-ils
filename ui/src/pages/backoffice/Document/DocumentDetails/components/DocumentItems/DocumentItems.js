@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
 import { Loader, Error, ResultsTable } from '@components';
 import { item as itemApi } from '@api';
 import { BackOfficeRoutes } from '@routes/urls';

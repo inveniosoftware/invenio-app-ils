@@ -9,6 +9,7 @@ const apiPaths = {
   accept: `${documentRequestURL}:docReqPid/accept`,
   item: `${documentRequestURL}:docReqPid`,
   list: documentRequestURL,
+  pending: `${documentRequestURL}:docReqPid/pending`,
   reject: `${documentRequestURL}:docReqPid/reject`,
 };
 
@@ -39,6 +40,11 @@ const performAction = async (urlPath, data) => {
 
 const accept = async (docRequestPid, data) => {
   const urlPath = generatePath(apiPaths.accept, { docReqPid: docRequestPid });
+  return performAction(urlPath, data);
+};
+
+const pending = async (docRequestPid, data) => {
+  const urlPath = generatePath(apiPaths.pending, { docReqPid: docRequestPid });
   return performAction(urlPath, data);
 };
 
@@ -126,14 +132,15 @@ const count = query => {
 };
 
 export const documentRequest = {
-  searchBaseURL: `${apiConfig.baseURL}${documentRequestURL}`,
-  create: create,
-  get: get,
-  delete: del,
-  list: list,
   accept: accept,
-  reject: reject,
   count: count,
+  create: create,
+  delete: del,
+  get: get,
+  list: list,
+  pending: pending,
   query: queryBuilder,
+  reject: reject,
+  searchBaseURL: `${apiConfig.baseURL}${documentRequestURL}`,
   serializer: serializer,
 };

@@ -9,6 +9,7 @@ import {
   Divider,
   Grid,
   Header,
+  Label,
   Ref,
   Sticky,
 } from 'semantic-ui-react';
@@ -27,19 +28,18 @@ import {
 class DocumentHeader extends Component {
   render() {
     const { data } = this.props;
-
     const recordInfo = (
       <>
-        <label>Document</label> #{data.metadata.pid}{' '}
+        <Label className="muted">Document</Label> {data.metadata.pid}{' '}
         <CopyButton text={data.metadata.pid} />
         {(
           <>
             <br />
-            <label>Created by</label>{' '}
+            <Label className="muted">Created by</Label>{' '}
           </>
         ) && data.metadata.created_by}
         <br />
-        <label>Created on</label> {toShortDate(data.created)}
+        <Label className="muted">Created on</Label> {toShortDate(data.created)}
       </>
     );
     return (

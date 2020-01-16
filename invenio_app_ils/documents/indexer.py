@@ -17,10 +17,10 @@ from invenio_indexer.api import RecordIndexer
 
 from invenio_app_ils.acquisition.pidstore.pids import ORDER_PID_TYPE
 from invenio_app_ils.acquisition.proxies import current_ils_acq
+from invenio_app_ils.document_requests.api import DOCUMENT_REQUEST_PID_TYPE
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE
 from invenio_app_ils.indexer import ReferencedRecordsIndexer
-from invenio_app_ils.pidstore.pids import DOCUMENT_REQUEST_PID_TYPE, \
-    EITEM_PID_TYPE, ITEM_PID_TYPE
+from invenio_app_ils.pidstore.pids import EITEM_PID_TYPE, ITEM_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.records.api import IlsRecord
 

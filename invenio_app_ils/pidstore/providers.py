@@ -11,7 +11,6 @@ from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
 from .pids import (  # isort:skip
-    DOCUMENT_REQUEST_PID_TYPE,
     EITEM_PID_TYPE,
     INTERNAL_LOCATION_PID_TYPE,
     ITEM_PID_TYPE,
@@ -92,23 +91,6 @@ class SeriesIdProvider(RecordIdProviderV2):
     """Series identifier provider."""
 
     pid_type = SERIES_PID_TYPE
-    """Type of persistent identifier."""
-
-    pid_provider = None
-    """Provider name.
-
-    The provider name is not recorded in the PID since the provider does not
-    provide any additional features besides creation of record ids.
-    """
-
-    default_status = PIDStatus.REGISTERED
-    """Record IDs are by default registered immediately."""
-
-
-class DocumentRequestIdProvider(RecordIdProviderV2):
-    """DocumentRequest identifier provider."""
-
-    pid_type = DOCUMENT_REQUEST_PID_TYPE
     """Type of persistent identifier."""
 
     pid_provider = None

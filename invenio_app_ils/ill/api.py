@@ -64,7 +64,7 @@ class BorrowingRequest(IlsRecord):
         cls.build_resolver_fields(data)
         return super().create(data, id_=id_, **kwargs)
 
-    def update(self, data):
+    def update(self, *args, **kwargs):
         """Update record."""
-        super().update(data)
+        super().update(*args, **kwargs)
         self.build_resolver_fields(self)

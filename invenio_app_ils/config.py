@@ -42,6 +42,9 @@ from invenio_app_ils.series.indexer import SeriesIndexer
 from invenio_app_ils.vocabularies.indexer import VocabularyIndexer
 
 from .circulation.search import IlsLoansSearch
+from .document_requests.api import DOCUMENT_REQUEST_PID_FETCHER, \
+    DOCUMENT_REQUEST_PID_MINTER, DOCUMENT_REQUEST_PID_TYPE, DocumentRequest
+from .document_requests.search import DocumentRequestSearch
 from .documents.api import DOCUMENT_PID_FETCHER, DOCUMENT_PID_MINTER, \
     DOCUMENT_PID_TYPE, Document
 from .documents.search import DocumentSearch
@@ -93,9 +96,6 @@ from .permissions import (  # isort:skip
     views_permissions_factory,
 )
 from .pidstore.pids import (  # isort:skip
-    DOCUMENT_REQUEST_PID_FETCHER,
-    DOCUMENT_REQUEST_PID_MINTER,
-    DOCUMENT_REQUEST_PID_TYPE,
     EITEM_PID_FETCHER,
     EITEM_PID_MINTER,
     EITEM_PID_TYPE,
@@ -120,7 +120,6 @@ from .pidstore.pids import (  # isort:skip
 )
 
 from .records.api import (  # isort:skip
-    DocumentRequest,
     EItem,
     InternalLocation,
     Item,
@@ -133,7 +132,6 @@ from .records.permissions import (  # isort:skip
     record_read_permission_factory,
 )
 from .search.api import (  # isort:skip
-    DocumentRequestSearch,
     EItemSearch,
     InternalLocationSearch,
     ItemSearch,
@@ -343,7 +341,7 @@ _ILOCID_CONVERTER = (
     'pid(ilocid, record_class="invenio_app_ils.records.api:InternalLocation")'
 )
 _DREQID_CONVERTER = (
-    'pid(dreqid, record_class="invenio_app_ils.records.api:DocumentRequest")'
+    'pid(dreqid, record_class="invenio_app_ils.document_requests.api:DocumentRequest")'
 )
 _SERID_CONVERTER = (
     'pid(serid, record_class="invenio_app_ils.records.api:Series")'
@@ -623,7 +621,7 @@ RECORDS_REST_ENDPOINTS = dict(
                            ":search_factory_filter_by_patron",
         record_loaders={
             "application/json": (
-                "invenio_app_ils.records.loaders:document_request_loader"
+                "invenio_app_ils.document_requests.loaders:document_request_loader"
             ),
         },
         record_serializers={

@@ -10,7 +10,6 @@
 from invenio_records_rest.loaders import marshmallow_loader
 from invenio_records_rest.loaders.marshmallow import MarshmallowErrors
 
-from .schemas.json.document_request import DocumentRequestSchemaV1
 from .schemas.json.internal_location import InternalLocationSchemaV1
 from .schemas.json.items import EItemSchemaV1, ItemSchemaV1
 from .schemas.json.location import LocationSchemaV1
@@ -31,7 +30,6 @@ def ils_marshmallow_loader(schema_class):
     return json_loader
 
 
-document_request_loader = ils_marshmallow_loader(DocumentRequestSchemaV1)
 eitem_loader = ils_marshmallow_loader(EItemSchemaV1)
 internal_location_loader = ils_marshmallow_loader(InternalLocationSchemaV1)
 item_loader = ils_marshmallow_loader(ItemSchemaV1)

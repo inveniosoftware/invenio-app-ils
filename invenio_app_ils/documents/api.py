@@ -102,9 +102,9 @@ class Document(IlsRecordWithRelations):
         cls.build_resolver_fields(data)
         return super(Document, cls).create(data, id_=id_, **kwargs)
 
-    def update(self, data):
+    def update(self, *args, **kwargs):
         """Update Document record."""
-        super(Document, self).update(data)
+        super().update(*args, **kwargs)
         self.build_resolver_fields(self)
 
     def delete(self, **kwargs):

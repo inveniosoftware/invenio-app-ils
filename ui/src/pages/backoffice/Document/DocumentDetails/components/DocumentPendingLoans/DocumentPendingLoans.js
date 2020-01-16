@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Loader, Error, ResultsTable } from '@components';
 import { loan as loanApi } from '@api';
