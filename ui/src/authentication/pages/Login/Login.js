@@ -10,7 +10,6 @@ import { LoginWithOauthProviders } from './components/LoginWithOauthProviders';
 
 class LoginPage extends Component {
   componentDidMount() {
-    this.redirectIfAlreadyLoggedIn();
     this.showNotificationIfSessionExpired();
   }
 
@@ -26,7 +25,6 @@ class LoginPage extends Component {
 
   redirectIfAlreadyLoggedIn = () => {
     const params = parseParams(window.location.search);
-
     if (!this.props.isLoading && !this.props.isAnonymous) {
       if (!('sessionExpired' in params)) {
         this.props.clearNotifications();
@@ -36,6 +34,7 @@ class LoginPage extends Component {
   };
 
   render() {
+    this.redirectIfAlreadyLoggedIn();
     return (
       <Grid
         textAlign="center"
