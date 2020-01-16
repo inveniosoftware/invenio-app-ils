@@ -65,7 +65,7 @@ class Sidebar extends Component {
                 active={documentRequestsActive}
                 to={BackOfficeRoutes.documentRequestsList}
               >
-                New Book Requests
+                Literature Requests
               </Menu.Item>
               <Menu.Item
                 as={Link}

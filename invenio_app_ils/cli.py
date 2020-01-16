@@ -33,14 +33,14 @@ from invenio_app_ils.patrons.indexer import PatronIndexer
 
 from .acquisition.api import Order, Vendor
 from .acquisition.pidstore.pids import ORDER_PID_TYPE, VENDOR_PID_TYPE
+from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE, DocumentRequest
 from .documents.api import DOCUMENT_PID_TYPE, Document
 from .ill.api import BorrowingRequest, Library
 from .ill.pidstore.pids import BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_TYPE
-from .pidstore.pids import DOCUMENT_REQUEST_PID_TYPE, EITEM_PID_TYPE, \
-    INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, LOCATION_PID_TYPE, \
-    SERIES_PID_TYPE
-from .records.api import DocumentRequest, EItem, InternalLocation, Item, \
-    Location, Patron, Series
+from .pidstore.pids import EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, \
+    ITEM_PID_TYPE, LOCATION_PID_TYPE, SERIES_PID_TYPE
+from .records.api import EItem, InternalLocation, Item, Location, Patron, \
+    Series
 from .records_relations.api import RecordRelationsParentChild, \
     RecordRelationsSiblings
 from .relations.api import Relation
@@ -272,7 +272,7 @@ class DocumentGenerator(Generator):
             "full_name": "Doe, Jane",
             "affiliations": [{
                 "name": "Imperial Coll., London",
-                "identifiers":[{"scheme": "ROR", "value": "12345"}]
+                "identifiers": [{"scheme": "ROR", "value": "12345"}]
             }],
             "identifiers": [{"scheme": "ORCID", "value": "1234AAA"}],
             "roles": ["editor"]
@@ -873,10 +873,9 @@ class OrderGenerator(Generator):
                 "pid": self.create_pid(),
                 "created_by_pid": self.holder.librarian_pid,
                 "vendor_pid": random.choice(self.holder.vendors["objs"])["pid"],
-                "status": random.choice(Order.STATUSES),
+                "status": status,
                 "order_date": order_date.isoformat(),
                 "notes": lorem.sentence(),
-                "status": status,
                 "grand_total": grand_total,
                 "grand_total_main_currency": grand_total_main_currency,
                 "funds": list(set(lorem.sentence().split())),
@@ -965,7 +964,7 @@ def data(
         total_document_requests=n_document_requests,
         total_vendors=n_vendors,
         total_orders=n_orders,
-        total_borrowing_requests = n_borrowing_requests,
+        total_borrowing_requests=n_borrowing_requests,
         total_libraries=n_libraries,
     )
 
@@ -1076,14 +1075,6 @@ def data(
     # process queue so documents can resolve circulation correctly
     indexer.process_bulk_queue()
 
-    # index document requests
-    indexer.bulk_index([str(r.id) for r in rec_requests])
-    click.echo(
-        "Sent to the indexing queue {0} document requests".format(
-            len(rec_requests)
-        )
-    )
-
     # index libraries
     indexer.bulk_index([str(r.id) for r in rec_libraries])
     click.echo(
@@ -1110,6 +1101,14 @@ def data(
     indexer.bulk_index([str(r.id) for r in rec_docs])
     click.echo(
         "Sent to the indexing queue {0} documents".format(len(rec_docs))
+    )
+
+    # index document requests
+    indexer.bulk_index([str(r.id) for r in rec_requests])
+    click.echo(
+        "Sent to the indexing queue {0} document requests".format(
+            len(rec_requests)
+        )
     )
 
     # index loans again

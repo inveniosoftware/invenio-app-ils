@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentRequestDetails tests should load the details component 1`] = `
+<Loader>
+  <Error>
+    <Container
+      className="spaced"
+      fluid={true}
+    >
+      <DocumentRequestHeader />
+      <Divider />
+      <DocumentRequestActions />
+      <Divider />
+    </Container>
+    <Container>
+      <DocumentRequestMetadata />
+      <Divider />
+      <DocumentInfo />
+      <DocumentRequestSteps />
+    </Container>
+  </Error>
+</Loader>
+`;

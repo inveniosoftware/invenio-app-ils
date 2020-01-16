@@ -105,3 +105,19 @@ export const serializeVendor = vendor => ({
   extra: `Vendor #${vendor.metadata.pid}`,
   metadata: vendor.metadata,
 });
+
+export const serializeAcqOrder = order => ({
+  id: order.metadata.pid,
+  key: order.metadata.pid,
+  pid: order.metadata.pid,
+  title: order.metadata.pid,
+  metadata: order.metadata,
+  extra: `${order.metadata.grand_total.currency} ${order.metadata.grand_total.value}`,
+});
+
+export const serializeBorrowingRequest = request => ({
+  id: request.metadata.pid,
+  key: request.metadata.pid,
+  pid: request.metadata.pid,
+  title: request.metadata.pid,
+});

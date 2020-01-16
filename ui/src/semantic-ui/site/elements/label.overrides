@@ -2,15 +2,22 @@
          Site Overrides
 *******************************/
 
-.ui.label.highlighted{
+.ui.label.highlighted {
   border: 1px solid @fsPrimaryColor;
   background-color: white;
   color: @fsPrimaryColor;
-  a{
+  a {
     color: @fsPrimaryColor;
     opacity: 1;
-    &:hover{
+    &:hover {
       color: @linkHoverColor;
     }
   }
+}
+
+.ui.label.muted {
+  border: 0;
+  padding: 0;
+  color: @mutedTextColor;
+  background-color: transparent;
 }

@@ -9,7 +9,7 @@
 
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from invenio_records_rest.schemas.fields import PersistentIdentifier
-from marshmallow import Schema, fields
+from marshmallow import fields
 
 
 class LocationSchemaV1(RecordMetadataSchemaJSONV1):

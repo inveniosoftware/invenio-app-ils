@@ -202,35 +202,6 @@ class PatronsSearch(RecordsSearch):
         doc_types = None
 
 
-class DocumentRequestSearch(RecordsSearch):
-    """RecordsSearch for requests."""
-
-    class Meta:
-        """Search only on requests index."""
-
-        index = "document_requests"
-        doc_types = None
-
-    def search_by_document_pid(self, document_pid=None, filter_states=None,
-                               exclude_states=None):
-        """Retrieve requests based on the given document pid."""
-        search = self
-
-        if document_pid:
-            search = search.filter("term", document_pid=document_pid)
-        else:
-            raise MissingRequiredParameterError(
-                description="document_pid is required"
-            )
-
-        if filter_states:
-            search = search.filter("terms", state=filter_states)
-        elif exclude_states:
-            search = search.exclude("terms", state=exclude_states)
-
-        return search
-
-
 class VocabularySearch(RecordsSearch):
     """Search for vocabularies."""
 

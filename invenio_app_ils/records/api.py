@@ -28,10 +28,9 @@ from invenio_app_ils.records_relations.api import RecordRelationsMetadata, \
     RecordRelationsRetriever
 from invenio_app_ils.search.api import InternalLocationSearch, ItemSearch
 
-from ..pidstore.pids import DOCUMENT_REQUEST_PID_TYPE, EITEM_PID_TYPE, \
-    INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, LOCATION_PID_TYPE, \
-    SERIES_PID_TYPE
-from .validator import DocumentRequestValidator, ItemValidator, RecordValidator
+from ..pidstore.pids import EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, \
+    ITEM_PID_TYPE, LOCATION_PID_TYPE, SERIES_PID_TYPE
+from .validator import ItemValidator, RecordValidator
 
 lt_es7 = ES_VERSION[0] < 7
 
@@ -73,18 +72,18 @@ class IlsRecord(Record):
     def create(cls, data, id_=None, **kwargs):
         """Create IlsRecord record."""
         data["$schema"] = current_jsonschemas.path_to_url(cls._schema)
-        return super(IlsRecord, cls).create(data, id_=id_, **kwargs)
+        return super().create(data, id_=id_, **kwargs)
 
     def clear(self):
         """Clear IlsRecord data."""
-        super(IlsRecord, self).clear()
+        super().clear()
         self["$schema"] = current_jsonschemas.path_to_url(self._schema)
 
     def validate(self, **kwargs):
         """Validate ILS record."""
         # JSON schema validation
         try:
-            super(IlsRecord, self).validate(**kwargs)
+            super().validate(**kwargs)
         except ValidationError as jve:
             path = ".".join(str(x) for x in jve.path)
             errors = [FieldError(path, jve.message)]
@@ -104,7 +103,7 @@ class IlsRecordWithRelations(IlsRecord):
 
     def __init__(self, data, model=None):
         """Record with relations."""
-        super(IlsRecordWithRelations, self).__init__(data, model)
+        super().__init__(data, model)
         self._relations = RecordRelationsRetriever(self)
 
     @property
@@ -116,7 +115,7 @@ class IlsRecordWithRelations(IlsRecord):
         """Clear IlsRecordWithRelations record."""
         relations_metadata_field_name = RecordRelationsMetadata.field_name()
         relations_metadata = self.get(relations_metadata_field_name, {})
-        super(IlsRecordWithRelations, self).clear()
+        super().clear()
         self[relations_metadata_field_name] = relations_metadata
 
     def delete(self, **kwargs):
@@ -211,11 +210,11 @@ class Item(_Item):
     def create(cls, data, id_=None, **kwargs):
         """Create Item record."""
         cls.build_resolver_fields(data)
-        return super(Item, cls).create(data, id_=id_, **kwargs)
+        return super().create(data, id_=id_, **kwargs)
 
-    def update(self, data):
+    def update(self, *args, **kwargs):
         """Update Item record."""
-        super(Item, self).update(data)
+        super().update(*args, **kwargs)
         self.build_resolver_fields(self)
 
     def delete(self, **kwargs):
@@ -231,7 +230,7 @@ class Item(_Item):
                 ref_type="Loan",
                 ref_ids=sorted([res["pid"] for res in loan_search_res.scan()]),
             )
-        return super(Item, self).delete(**kwargs)
+        return super().delete(**kwargs)
 
 
 class EItem(_Item):
@@ -268,11 +267,11 @@ class EItem(_Item):
     def create(cls, data, id_=None, **kwargs):
         """Create EItem record."""
         cls.build_resolver_fields(data)
-        return super(EItem, cls).create(data, id_=id_, **kwargs)
+        return super().create(data, id_=id_, **kwargs)
 
-    def update(self, data):
+    def update(self, *args, **kwargs):
         """Update EItem record."""
-        super(EItem, self).update(data)
+        super().update(*args, **kwargs)
         self.build_resolver_fields(self)
 
     @property
@@ -292,7 +291,7 @@ class Location(IlsRecord):
     @classmethod
     def create(cls, data, id_=None, **kwargs):
         """Create Location record."""
-        return super(Location, cls).create(data, id_=id_, **kwargs)
+        return super().create(data, id_=id_, **kwargs)
 
     def delete(self, **kwargs):
         """Delete Location record."""
@@ -307,7 +306,7 @@ class Location(IlsRecord):
                 ref_type="Internal Location",
                 ref_ids=sorted([res["pid"] for res in iloc_search_res.scan()]),
             )
-        return super(Location, self).delete(**kwargs)
+        return super().delete(**kwargs)
 
 
 class InternalLocation(IlsRecord):
@@ -335,11 +334,11 @@ class InternalLocation(IlsRecord):
     def create(cls, data, id_=None, **kwargs):
         """Create Internal Location record."""
         cls.build_resolver_fields(data)
-        return super(InternalLocation, cls).create(data, id_=id_, **kwargs)
+        return super().create(data, id_=id_, **kwargs)
 
-    def update(self, data):
+    def update(self, *args, **kwargs):
         """Update InternalLocation data."""
-        super(InternalLocation, self).update(data)
+        super().update(*args, **kwargs)
         self.build_resolver_fields(self)
 
     def delete(self, **kwargs):
@@ -356,7 +355,7 @@ class InternalLocation(IlsRecord):
                 ref_type="Item",
                 ref_ids=sorted([res["pid"] for res in item_search_res.scan()]),
             )
-        return super(InternalLocation, self).delete(**kwargs)
+        return super().delete(**kwargs)
 
 
 class Patron(dict):
@@ -440,53 +439,12 @@ class Series(IlsRecordWithRelations):
     def create(cls, data, id_=None, **kwargs):
         """Create Series record."""
         cls.build_resolver_fields(data)
-        return super(Series, cls).create(data, id_=id_, **kwargs)
+        return super().create(data, id_=id_, **kwargs)
 
-    def update(self, data):
+    def update(self, *args, **kwargs):
         """Update Series record."""
-        super(Series, self).update(data)
+        super().update(*args, **kwargs)
         self.build_resolver_fields(self)
-
-
-class DocumentRequest(IlsRecord):
-    """DocumentRequest record class."""
-
-    STATES = ["ACCEPTED", "PENDING", "REJECTED"]
-    REJECT_TYPES = ["USER_CANCEL", "IN_CATALOG", "NOT_FOUND"]
-
-    _pid_type = DOCUMENT_REQUEST_PID_TYPE
-    _schema = "document_requests/document_request-v1.0.0.json"
-    _validator = DocumentRequestValidator()
-
-    _document_resolver_path = (
-        "{scheme}://{host}/api/resolver/document-requests/"
-        "{document_request_pid}/document"
-    )
-    _patron_resolver_path = (
-        "{scheme}://{host}/api/resolver/document-requests/"
-        "{document_request_pid}/patron"
-    )
-
-    @classmethod
-    def create(cls, data, id_=None, **kwargs):
-        """Create DocumentRequest record."""
-        if "state" not in data:
-            data["state"] = "PENDING"
-        data["document"] = {
-            "$ref": cls._document_resolver_path.format(
-                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
-                host=current_app.config["JSONSCHEMAS_HOST"],
-                document_request_pid=data["pid"],
-            )
-        }
-        data["patron"] = {
-            "$ref": cls._patron_resolver_path.format(
-                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
-                host=current_app.config["JSONSCHEMAS_HOST"],
-                document_request_pid=data["pid"],
-            )
-        }
-        return super(DocumentRequest, cls).create(data, id_=id_, **kwargs)
 
 
 class Vocabulary(dict):

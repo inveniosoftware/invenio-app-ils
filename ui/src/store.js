@@ -57,7 +57,7 @@ import {
   documentDetailsFrontReducer,
   loanRequestFormReducer,
 } from '@pages/frontsite/Documents/DocumentsDetails/reducer';
-import { documentRequestDetailsReducer } from '@pages/backoffice/Document/DocumentRequestDetails/reducer';
+import { documentRequestDetailsReducer } from '@pages/backoffice/DocumentRequest/DocumentRequestDetails/reducer';
 import { libraryDetailsReducer } from '@pages/backoffice/ILL/LibraryDetails/reducer';
 import { borrowingRequestDetailsReducer } from '@pages/backoffice/ILL/BorrowingRequestDetails/reducer';
 import {

@@ -1,12 +1,10 @@
 export * from './components';
 export { Home } from './Home';
+export { DocumentDetails, DocumentSearch, DocumentEditor } from './Document';
 export {
-  DocumentDetails,
-  DocumentSearch,
   DocumentRequestDetails,
   DocumentRequestSearch,
-  DocumentEditor,
-} from './Document';
+} from './DocumentRequest';
 export { EItemEditor, EItemDetails, EItemSearch } from './EItem';
 export { ItemDetails, ItemEditor, ItemSearch } from './Item';
 export { LoanDetails, LoanSearch } from './Loan';

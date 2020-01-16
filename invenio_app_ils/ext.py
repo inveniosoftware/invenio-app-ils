@@ -18,10 +18,11 @@ from werkzeug.utils import cached_property
 
 from . import config
 from .circulation.receivers import register_circulation_signals
+from .document_requests.api import DOCUMENT_REQUEST_PID_TYPE
 from .documents.api import DOCUMENT_PID_TYPE
 from .files.receivers import register_files_signals
-from .pidstore.pids import DOCUMENT_REQUEST_PID_TYPE, EITEM_PID_TYPE, \
-    INTERNAL_LOCATION_PID_TYPE, ITEM_PID_TYPE, PATRON_PID_TYPE
+from .pidstore.pids import EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, \
+    ITEM_PID_TYPE, PATRON_PID_TYPE
 
 
 def handle_rest_exceptions(exception):

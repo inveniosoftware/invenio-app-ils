@@ -50,13 +50,6 @@ PATRON_PID_MINTER = "patid"
 PATRON_PID_FETCHER = "patid"
 """Fetcher PID for patrons."""
 
-DOCUMENT_REQUEST_PID_TYPE = "dreqid"
-"""Persistent Identifier for Request."""
-DOCUMENT_REQUEST_PID_MINTER = "dreqid"
-"""Minter PID for Request."""
-DOCUMENT_REQUEST_PID_FETCHER = "dreqid"
-"""Fetcher PID for Request."""
-
 VOCABULARY_PID_TYPE = "vocid"
 """Persistent Identifier for Vocabulary."""
 VOCABULARY_PID_MINTER = "vocid"
