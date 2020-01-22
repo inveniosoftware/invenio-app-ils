@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Header, Icon, Message, Step } from 'semantic-ui-react';
-import { DocumentIcon } from '@pages/backoffice/components';
-import { DocumentStepContent, ProviderStepContent } from './components';
+import { Container, Message, Step, Divider } from 'semantic-ui-react';
+import {
+  DocumentStep,
+  DocumentStepContent,
+  ProviderStep,
+  ProviderStepContent,
+  ReviewStep,
+  ReviewStepContent,
+  StepsActions,
+} from './components';
+import _get from 'lodash/get';
 
 export const STEPS = {
   document: 'document',
@@ -10,46 +18,9 @@ export const STEPS = {
   review: 'review',
 };
 
-const DocumentStep = ({ step }) => (
-  <Step active={step === STEPS.document}>
-    <DocumentIcon />
-    <Step.Content>
-      <Step.Title>Select Document</Step.Title>
-      <Step.Description>Attach a document to your request</Step.Description>
-    </Step.Content>
-  </Step>
-);
-
-const ProviderStep = ({ step }) => (
-  <Step active={step === STEPS.provider} disabled={step === STEPS.document}>
-    <Icon name="truck" />
-    <Step.Content>
-      <Step.Title>Select Provider</Step.Title>
-      <Step.Description>
-        Acquire or borrow from another Library
-      </Step.Description>
-    </Step.Content>
-  </Step>
-);
-
-const ReviewStep = ({ step }) => (
-  <Step active={step === STEPS.review} disabled={step !== STEPS.review}>
-    <Icon name="check" />
-    <Step.Content>
-      <Step.Title>Confirm Request</Step.Title>
-    </Step.Content>
-  </Step>
-);
-
-const ReviewStepContent = ({ step }) =>
-  step === STEPS.review ? (
-    <Header>Review before finalize the document request</Header>
-  ) : null;
-
 export default class DocumentRequestSteps extends Component {
-  calculateStep = (docPid = null, providerPid = null) => {
+  calculateStep = (docPid = undefined, providerPid = undefined) => {
     const hasDocument = docPid ? true : false;
-    // TODO: when we integrated ill_pid or acq_pid
     const hasProvider = providerPid ? true : false;
 
     let step = STEPS.document;
@@ -58,39 +29,24 @@ export default class DocumentRequestSteps extends Component {
     return step;
   };
 
-  renderStepContent(step) {
-    switch (step) {
-      case STEPS.provider:
-        return;
-      case STEPS.review:
-        return;
-      default:
-        return (
-          <Message warning>
-            <Message.Header>Inconsistent state :/ !</Message.Header>
-            <p>Try refreshing the page, or contact CDS team.</p>
-          </Message>
-        );
-    }
-  }
-
   render() {
     const { document_pid: docPid, state } = this.props.data.metadata;
-    const { data } = this.props;
-    const step = this.calculateStep(docPid);
+    const providerPid = _get(
+      this.props,
+      'data.metadata.physical_item_provider.pid'
+    );
+    const step = this.calculateStep(docPid, providerPid);
     return state !== 'REJECTED' ? (
       <Container>
+        <StepsActions step={step} />
+        <Divider />
         <Step.Group attached="top" fluid>
           <DocumentStep step={step} />
           <ProviderStep step={step} />
           <ReviewStep step={step} />
         </Step.Group>
 
-        <DocumentStepContent
-          step={step}
-          data={data}
-          fetchDocumentRequestDetails={this.props.fetchDocumentRequestDetails}
-        />
+        <DocumentStepContent step={step} />
         <ProviderStepContent step={step} />
         <ReviewStepContent step={step} />
       </Container>

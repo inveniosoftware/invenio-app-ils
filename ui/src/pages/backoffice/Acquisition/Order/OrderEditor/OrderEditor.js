@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Loader, Error } from '@components';
 import { order as orderApi } from '@api/acquisition/order';
 import { OrderForm } from './components';
+import _get from 'lodash/get';
 
 export class OrderEditor extends Component {
   constructor(props) {
@@ -45,6 +46,21 @@ export class OrderEditor extends Component {
     );
   };
 
+  get documentRequest() {
+    const request = _get(this.props, 'location.state', null);
+    if (!request) return null;
+    return {
+      documentRequestPid: request.pid,
+      metadata: {
+        order_lines: [
+          {
+            document_pid: _get(request, 'metadata.document_pid'),
+          },
+        ],
+      },
+    };
+  }
+
   render() {
     const {
       match: {
@@ -60,6 +76,7 @@ export class OrderEditor extends Component {
           <OrderForm
             title="Create new acquisition order"
             successSubmitMessage="The order was successfully created."
+            data={this.documentRequest}
           />
         )}
       </>

@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import {
   Button,
   Divider,
-  Icon,
   Grid,
   Header,
+  Icon,
   Segment,
+  Step,
 } from 'semantic-ui-react';
 import { ESSelector } from '@components/ESSelector';
 import { serializeDocument } from '@components/ESSelector/serializer';
@@ -14,12 +15,23 @@ import {
   document as documentApi,
   documentRequest as documentRequestApi,
 } from '@api';
+import { DocumentIcon } from '@pages/backoffice/components';
 import { BackOfficeRoutes } from '@routes/urls';
 import { goTo } from '@history';
 import _isEmpty from 'lodash/isEmpty';
-import { STEPS } from '../DocumentRequestSteps';
+import { STEPS } from '../../DocumentRequestSteps';
 
-export class DocumentStepContent extends Component {
+export const DocumentStep = ({ step }) => (
+  <Step active={step === STEPS.document}>
+    <DocumentIcon />
+    <Step.Content>
+      <Step.Title>Select Document</Step.Title>
+      <Step.Description>Select a document for your request</Step.Description>
+    </Step.Content>
+  </Step>
+);
+
+export default class DocumentStepContent extends Component {
   onSelectResult = async data => {
     const { pid } = this.props.data;
     const resp = await documentRequestApi.accept(pid, {

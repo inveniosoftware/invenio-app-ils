@@ -47,7 +47,7 @@ export class RejectAction extends React.Component {
     }
   };
 
-  renderDropdown() {
+  renderOptions() {
     const options = [
       {
         key: 'USER_CANCEL',
@@ -68,57 +68,54 @@ export class RejectAction extends React.Component {
         icon: 'minus',
       },
     ];
-
-    return (
-      <Dropdown
-        disabled={this.props.disabled}
-        text="Reject request"
-        icon="cancel"
-        floating
-        labeled
-        button
-        className="icon negative"
-      >
-        <Dropdown.Menu>
-          <Confirm
-            confirmButton="Reject request"
-            content="Are you sure you want to reject this request?"
-            header={`Reject: ${this.state.header}`}
-            open={this.state.open}
-            onCancel={this.onCancel}
-            onConfirm={() => this.onConfirm(this.state.type)}
+    return options.map(option => {
+      const dropdown = <Dropdown.Item {...option} onClick={this.onClick} />;
+      if (option.value === 'IN_CATALOG') {
+        return (
+          <ESSelectorModal
+            key={option.value}
+            trigger={dropdown}
+            query={documentApi.list}
+            serializer={serializeDocument}
+            title="Reject request: Already in the catalog"
+            content="Select document to attach to the reject."
+            emptySelectionInfoText="No document selected"
+            onSave={this.onRejectWithDocument}
+            saveButtonContent="Reject request"
           />
-          <Dropdown.Header content="Specify a reject reason" />
-          {options.map(option => {
-            const dropdown = (
-              <Dropdown.Item {...option} onClick={this.onClick} />
-            );
-            if (option.value === 'IN_CATALOG') {
-              return (
-                <ESSelectorModal
-                  key={option.value}
-                  trigger={dropdown}
-                  query={documentApi.list}
-                  serializer={serializeDocument}
-                  title="Reject request: Already in the catalog"
-                  content="Select document to attach to the reject."
-                  emptySelectionInfoText="No document selected"
-                  onSave={this.onRejectWithDocument}
-                  saveButtonContent="Reject request"
-                />
-              );
-            }
-            return dropdown;
-          })}
-        </Dropdown.Menu>
-      </Dropdown>
-    );
+        );
+      }
+      return dropdown;
+    });
   }
 
   render() {
     return (
       <Menu secondary compact size="small">
-        <Menu.Menu position="right">{this.renderDropdown()}</Menu.Menu>
+        <Menu.Menu position="right">
+          <Dropdown
+            disabled={this.props.disabled}
+            text="Reject request"
+            icon="cancel"
+            floating
+            labeled
+            button
+            className="icon negative"
+          >
+            <Dropdown.Menu>
+              <Confirm
+                confirmButton="Reject request"
+                content="Are you sure you want to reject this request?"
+                header={`Reject: ${this.state.header}`}
+                open={this.state.open}
+                onCancel={this.onCancel}
+                onConfirm={() => this.onConfirm(this.state.type)}
+              />
+              <Dropdown.Header content="Specify a reject reason" />
+              {this.renderOptions()}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Menu.Menu>
       </Menu>
     );
   }

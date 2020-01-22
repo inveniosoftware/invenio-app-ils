@@ -1,8 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Schema for Document Request",
-  "required": ["$schema", "pid", "state", "patron_pid", "title"],
-  "type": "object",
   "properties": {
     "$schema": {
       "type": "string"
@@ -47,6 +44,19 @@
       "title": "The persistent identifier of the patron who made the request",
       "type": "string"
     },
+    "physical_item_provider": {
+      "properties": {
+        "pid": {
+          "title": "The pid of the Acquisition purchase order, or ILL borrow request",
+          "type": "string"
+        },
+        "pid_type": {
+          "title": "The pid type of the aforementioned pid, Acquisition or Interlibrary",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "pid": {
       "title": "The persistent identifier of this Request",
       "type": "string"
@@ -56,8 +66,8 @@
       "type": "integer"
     },
     "reject_reason": {
-      "type": "string",
-      "title": "The type of request reject"
+      "title": "The type of request reject",
+      "type": "string"
     },
     "standard_number": {
       "title": "Standard number of the requested document",
@@ -75,5 +85,14 @@
       "title": "Volume of the requested document",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "$schema",
+    "pid",
+    "state",
+    "patron_pid",
+    "title"
+  ],
+  "title": "Schema for Document Request",
+  "type": "object"
 }

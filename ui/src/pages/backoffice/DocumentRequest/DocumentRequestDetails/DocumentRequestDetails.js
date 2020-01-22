@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Container, Divider } from 'semantic-ui-react';
 import { Loader, Error } from '@components';
 import {
-  DocumentInfo,
   DocumentRequestActions,
   DocumentRequestHeader,
   DocumentRequestMetadata,
@@ -42,7 +41,6 @@ export default class DocumentRequestDetails extends Component {
           <Container>
             <DocumentRequestMetadata />
             <Divider />
-            <DocumentInfo />
             <DocumentRequestSteps />
           </Container>
         </Error>

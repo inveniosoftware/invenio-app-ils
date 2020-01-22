@@ -15,7 +15,6 @@ exports[`DocumentRequestDetails tests should load the details component 1`] = `
     <Container>
       <DocumentRequestMetadata />
       <Divider />
-      <DocumentInfo />
       <DocumentRequestSteps />
     </Container>
   </Error>

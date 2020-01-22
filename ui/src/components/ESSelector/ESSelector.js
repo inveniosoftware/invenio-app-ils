@@ -115,6 +115,7 @@ export default class ESSelector extends Component {
     return (
       <div id="es-selector">
         <HitsSearch
+          disabled={this.props.disabled}
           id={this.props.id}
           name={this.props.name}
           query={this.props.query}

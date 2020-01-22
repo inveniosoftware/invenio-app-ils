@@ -23,7 +23,7 @@ from invenio_app_ils.proxies import current_app_ils
 
 from .api import DOCUMENT_REQUEST_PID_TYPE
 from .loaders import document_request_accept_loader, \
-    document_request_reject_loader
+    document_request_pending_loader, document_request_reject_loader
 
 
 def create_document_request_action_blueprint(app):
@@ -39,17 +39,6 @@ def create_document_request_action_blueprint(app):
         for mime, func in rec_serializers.items()
     }
 
-    pending_view = PendingRequestResource.as_view(
-        PendingRequestResource.view_name.format(DOCUMENT_REQUEST_PID_TYPE),
-        serializers=serializers,
-        default_media_type=default_media_type,
-    )
-    blueprint.add_url_rule(
-        "{0}/pending".format(options["item_route"]),
-        view_func=pending_view,
-        methods=["POST"],
-    )
-
     accept_view = AcceptRequestResource.as_view(
         AcceptRequestResource.view_name.format(DOCUMENT_REQUEST_PID_TYPE),
         serializers=serializers,
@@ -59,6 +48,18 @@ def create_document_request_action_blueprint(app):
     blueprint.add_url_rule(
         "{0}/accept".format(options["item_route"]),
         view_func=accept_view,
+        methods=["POST"],
+    )
+
+    pending_view = PendingRequestResource.as_view(
+        PendingRequestResource.view_name.format(DOCUMENT_REQUEST_PID_TYPE),
+        serializers=serializers,
+        default_media_type=default_media_type,
+        ctx=dict(loader=document_request_pending_loader),
+    )
+    blueprint.add_url_rule(
+        "{0}/pending".format(options["item_route"]),
+        view_func=pending_view,
         methods=["POST"],
     )
 
@@ -77,23 +78,6 @@ def create_document_request_action_blueprint(app):
     return blueprint
 
 
-class PendingRequestResource(ContentNegotiatedMethodView):
-    """Pending document request action resource."""
-
-    view_name = "{}_pending_request"
-
-    @pass_record
-    @need_permissions("document-request-pending")
-    def post(self, pid, record, **kwargs):
-        """Pending request post method."""
-        record["state"] = "PENDING"
-        del record["document_pid"]
-        record.commit()
-        db.session.commit()
-        current_app_ils.document_request_indexer.index(record)
-        return self.make_response(pid, record, 202)
-
-
 class DocumentRequestActionResource(ContentNegotiatedMethodView):
     """Document Request resource."""
 
@@ -102,6 +86,28 @@ class DocumentRequestActionResource(ContentNegotiatedMethodView):
         super().__init__(serializers, *args, **kwargs)
         for key, value in ctx.items():
             setattr(self, key, value)
+
+
+class PendingRequestResource(DocumentRequestActionResource):
+    """Pending document request action resource."""
+
+    view_name = "{}_pending_request"
+
+    @pass_record
+    @need_permissions("document-request-pending")
+    def post(self, pid, record, **kwargs):
+        """Pending request post method."""
+        # expecting remove_fields list of fields to remove
+        data = self.loader()
+        remove_fields = data.get("remove_fields", [])
+
+        for field in remove_fields:
+            del record[field]
+
+        record.commit()
+        db.session.commit()
+        current_app_ils.document_request_indexer.index(record)
+        return self.make_response(pid, record, 202)
 
 
 class AcceptRequestResource(DocumentRequestActionResource):
@@ -113,16 +119,23 @@ class AcceptRequestResource(DocumentRequestActionResource):
     @need_permissions("document-request-accept")
     def post(self, pid, record, **kwargs):
         """Accept request post method."""
-        # NOTE: When we submit ILL or ACQ order we should also set the
-        # record.state = 'ACCEPTED'
         data = self.loader()
-        document_pid = data.get("document_pid")
 
+        document_pid = data.get("document_pid")
         if document_pid:
             record["document_pid"] = document_pid
-            record.commit()
-            db.session.commit()
-            current_app_ils.document_request_indexer.index(record)
+
+        physical_item_provider = data.get("physical_item_provider")
+        if physical_item_provider:
+            record["physical_item_provider"] = physical_item_provider
+
+        state = data.get("state")
+        if state:
+            record["state"] = state
+
+        record.commit()
+        db.session.commit()
+        current_app_ils.document_request_indexer.index(record)
         return self.make_response(pid, record, 202)
 
 
