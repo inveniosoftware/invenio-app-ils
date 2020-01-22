@@ -4,7 +4,6 @@ import DocumentRequestDetails from '../DocumentRequestDetails';
 
 jest.mock('../components/', () => {
   return {
-    DocumentInfo: () => null,
     DocumentRequestActions: () => null,
     DocumentRequestHeader: () => null,
     DocumentRequestMetadata: () => null,

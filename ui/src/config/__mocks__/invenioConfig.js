@@ -10,6 +10,12 @@ export const invenioConfig = {
     deliveryMethods: { DELIVERY: '', 'PICK UP': '' },
     requestDuration: 60,
   },
+  documentRequests: {
+    physicalItemProviders: {
+      acq: { name: 'Acquisition', pid_type: 'acqoid' },
+      ill: { name: 'InterLibrary', pid_type: 'illbid' },
+    },
+  },
   orders: {
     defaultCurrency: 'CHF',
     paymentModes: [

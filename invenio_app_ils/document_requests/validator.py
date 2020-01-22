@@ -24,28 +24,22 @@ class DocumentRequestValidator(RecordValidator):
 
     def validate_document_pid(self, document_pid, state, reject_reason):
         """Validate data for accepted state."""
-        # Accepted requests must have a document and a provider (ILL, ACQ)
-        if state == "ACCEPTED":
-            if document_pid:
-                try:
-                    search = DocumentRequestSearch()
-                    count = search.search_by_document_pid(document_pid).count()
-                    if count > 0:
-                        raise DocumentRequestError(
-                            "Document PID {} already has a request".format(
-                                document_pid
-                            )
-                        )
-                except PIDDoesNotExistError:
-                    # Invalid document_pid
-                    raise DocumentRequestError(
-                        "State cannot be ACCEPTED because a document with "
-                        "PID {} doesn't exist".format(document_pid)
-                    )
-            else:
+        # Requests must have a document and a provider (ILL, ACQ)
+        if document_pid:
+            try:
+                search = DocumentRequestSearch()
+                search.search_by_document_pid(document_pid)
+            except PIDDoesNotExistError:
+                # Missing document_pid
                 raise DocumentRequestError(
-                    "State cannot be ACCEPTED without a document"
+                    "State cannot be ACCEPTED because a document with "
+                    "PID {} doesn't exist".format(document_pid)
                 )
+
+        if state == "ACCEPTED" and not document_pid:
+            raise DocumentRequestError(
+                "State cannot be ACCEPTED without a document"
+            )
 
     def validate_rejection(self, document_pid, state, reject_reason):
         """Validate rejection is correct."""

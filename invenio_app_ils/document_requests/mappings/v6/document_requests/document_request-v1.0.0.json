@@ -17,18 +17,18 @@
           "type": "text"
         },
         "document": {
-          "type": "object",
           "properties": {
+            "authors": {
+              "type": "text"
+            },
             "pid": {
               "type": "keyword"
             },
             "title": {
               "type": "text"
-            },
-            "authors": {
-              "type": "text"
             }
-          }
+          },
+          "type": "object"
         },
         "document_pid": {
           "type": "keyword"
@@ -56,6 +56,17 @@
         },
         "patron_pid": {
           "type": "keyword"
+        },
+        "physical_item_provider": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            },
+            "pid_type": {
+              "type": "keyword"
+            }
+          },
+          "type": "object"
         },
         "pid": {
           "type": "keyword"

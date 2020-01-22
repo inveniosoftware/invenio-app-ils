@@ -11,7 +11,7 @@ from flask import g
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from invenio_records_rest.schemas.fields import PersistentIdentifier
 from invenio_records_rest.schemas.fields.sanitizedhtml import SanitizedHTML
-from marshmallow import EXCLUDE, ValidationError, fields
+from marshmallow import EXCLUDE, Schema, ValidationError, fields
 
 from invenio_app_ils.permissions import backoffice_permission
 
@@ -24,6 +24,18 @@ def validate_patron(patron_pid):
                 "The authenticated user is not authorized to create or update "
                 "a document request for another patron."
             )
+
+
+class PhysicalItemProviderSchema(Schema):
+    """Physical Item Provider schema."""
+
+    class Meta:
+        """Meta attributes for the schema."""
+
+        unknown = EXCLUDE
+
+    pid = fields.Str(required=True)
+    pid_type = fields.Str(required=True)
 
 
 class DocumentRequestSchemaV1(RecordMetadataSchemaJSONV1):
@@ -44,6 +56,7 @@ class DocumentRequestSchemaV1(RecordMetadataSchemaJSONV1):
     note = SanitizedHTML()
     page = SanitizedHTML()
     patron_pid = fields.Str(required=True, validate=validate_patron)
+    physical_item_provider = fields.Nested(PhysicalItemProviderSchema)
     pid = PersistentIdentifier()
     publication_year = fields.Int()
     standard_number = SanitizedHTML()

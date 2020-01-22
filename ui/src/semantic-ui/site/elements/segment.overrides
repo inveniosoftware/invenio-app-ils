@@ -11,7 +11,7 @@
     &.highlighted {
       background-color: @highlightBackgroundColor;
       padding: 1.6em;
-      border-top: 2px solid #F2711C !important;
+      border-top: 2px solid #f2711c !important;
     }
 
     &.tab {
@@ -32,8 +32,12 @@
         background-color: inherit;
       }
     }
-
   }
-
 }
 
+@{bo-parent-selector} {
+  .ui.segment[disabled] {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+}

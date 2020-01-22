@@ -99,6 +99,7 @@ export class HitsSearch extends Component {
     return (
       <Search
         fluid
+        disabled={this.props.disabled}
         id={this.props.id}
         name={this.props.name}
         className={

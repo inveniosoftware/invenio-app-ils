@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
-import { Button, Divider, Grid, Label, Segment } from 'semantic-ui-react';
+import {
+  Button,
+  Divider,
+  Grid,
+  Icon,
+  Label,
+  Segment,
+  Step,
+} from 'semantic-ui-react';
 import { AcquisitionRoutes, ILLRoutes } from '@routes/urls';
+import { documentRequest as documentRequestApi } from '@api';
 import { order as acqOrderApi } from '@api/acquisition';
 import { borrowingRequest as borrowingRequestApi } from '@api/ill';
 import { ESSelector } from '@components/ESSelector';
@@ -9,30 +18,60 @@ import {
   serializeBorrowingRequest,
 } from '@components/ESSelector/serializer';
 import { goTo } from '@history';
-import { STEPS } from '../DocumentRequestSteps';
+import { invenioConfig } from '@config';
+import { STEPS } from '../../DocumentRequestSteps';
+
+export const ProviderStep = ({ step }) => (
+  <Step active={step === STEPS.provider} disabled={step === STEPS.document}>
+    <Icon name="truck" />
+    <Step.Content>
+      <Step.Title>Select Provider</Step.Title>
+      <Step.Description>
+        Purchase or borrow from another Library
+      </Step.Description>
+    </Step.Content>
+  </Step>
+);
+
+export default class ProviderStepContent extends Component {
+  render() {
+    const { step, data, fetchDocumentRequestDetails } = this.props;
+    return step === STEPS.provider ? (
+      <>
+        <AcqProvider
+          data={data}
+          fetchDocumentRequestDetails={fetchDocumentRequestDetails}
+        ></AcqProvider>
+        <IllProvider></IllProvider>
+      </>
+    ) : null;
+  }
+}
 
 class AcqProvider extends Component {
   onCreateClick() {
     return goTo(AcquisitionRoutes.orderCreate);
   }
 
-  onSelectResult = async data => {
-    // TODO: Fire a request to update document request with provider info
-    // const resp = await documentRequestApi.accept(pid, {
-    //   provider: {type: "ILL or ACQ", value: data.pid},
-    // });
-
-    // NOTE: Redirect back here to continue with the next step
-    // if (resp.status === 202) {
-    //   this.props.fetchDocumentRequestDetails(pid);
-    // }
-    console.log('Selected ACQ data', data);
+  onSelectResult = async orderData => {
+    const { pid } = this.props.data;
+    const { acq } = invenioConfig.documentRequests.physicalItemProviders;
+    const resp = await documentRequestApi.accept(pid, {
+      physical_item_provider: {
+        pid: orderData.pid,
+        pid_type: acq.pid_type,
+      },
+    });
+    if (resp.status === 202) {
+      this.props.fetchDocumentRequestDetails(pid);
+    }
   };
 
   render() {
+    const { data } = this.props;
     return (
       <Segment raised>
-        <Label ribbon color="brown">
+        <Label color="brown" ribbon>
           Acquisition
         </Label>
         <span>Search and select an existing Acquisition order</span>
@@ -47,9 +86,8 @@ class AcqProvider extends Component {
           <Grid.Column textAlign="center" verticalAlign="middle">
             <Button
               positive
-              style={{ width: '300px' }}
               name="create-acq"
-              onClick={this.onCreateClick}
+              onClick={() => goTo(AcquisitionRoutes.orderCreate, data)}
               icon={'plus'}
               content={'Create new Acquisition Order'}
             />
@@ -73,7 +111,7 @@ class IllProvider extends Component {
 
   render() {
     return (
-      <Segment raised>
+      <Segment raised disabled>
         <Label color="purple" ribbon>
           Interlibrary
         </Label>
@@ -81,6 +119,7 @@ class IllProvider extends Component {
         <Grid columns={2} padded>
           <Grid.Column>
             <ESSelector
+              disabled
               onSelectResult={this.onSelectResult}
               query={borrowingRequestApi.list}
               serializer={serializeBorrowingRequest}
@@ -89,7 +128,7 @@ class IllProvider extends Component {
           <Grid.Column textAlign="center" verticalAlign="middle">
             <Button
               positive
-              style={{ width: '300px' }}
+              disabled
               name="create-ill"
               onClick={this.onCreateClick}
               icon={'plus'}
@@ -100,17 +139,5 @@ class IllProvider extends Component {
         <Divider vertical>Or</Divider>
       </Segment>
     );
-  }
-}
-
-export class ProviderStepContent extends Component {
-  render() {
-    const { step } = this.props;
-    return step === STEPS.provider ? (
-      <>
-        <AcqProvider></AcqProvider>
-        <IllProvider></IllProvider>
-      </>
-    ) : null;
   }
 }
