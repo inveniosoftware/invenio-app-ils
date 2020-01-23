@@ -108,7 +108,7 @@ export default class DocumentListEntry extends Component {
           </Item.Description>
           <Item.Meta>
             <Grid>
-              <Grid.Column width={4}>
+              <Grid.Column width={4} >
                 {this.renderCirculationInfo(this.metadata)}
               </Grid.Column>
               {this.renderImprintInfo()}

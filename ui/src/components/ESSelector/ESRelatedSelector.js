@@ -222,8 +222,7 @@ export default class ESRelatedSelector extends Component {
   serializer(customSerializer) {
     const custom = customSerializer ? customSerializer : hit => hit;
     return hit => {
-      const pidType = recordToPidType(hit);
-      hit.metadata.pidType = pidType;
+      hit.metadata.pidType = recordToPidType(hit);
       hit.metadata.recordType = this.state.recordType;
       hit.metadata.relationType = this.state.relationType;
       return custom(hit);

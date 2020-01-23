@@ -5,6 +5,13 @@
 
 @ui-container: .ui.container;
 
+.ui.container {
+  &.spaced {
+    margin-top: 2em !important;
+    margin-bottom: 2em !important;
+  }
+}
+
 /* Mobile */
 @media only screen and (max-width: @largestMobileScreen) {
   @{ui-container}.fluid {
@@ -43,8 +50,8 @@
     }
 
     &.spaced {
-      margin-top: 2em;
-      margin-bottom: 2em;
+      margin-top: 2em !important;
+      margin-bottom: 2em !important;
     }
 
     &.document-tags {
@@ -179,17 +186,13 @@
 
 }
 
+
 @{bo-parent-selector} {
 
-    .spaced {
+  .ui.container {
+    &.spaced {
       margin-top: 2em !important;
       margin-bottom: 2em !important;
-    }
-
-  @{ui-container} {
-    &.spaced {
-      margin-top: 2em;
-      margin-bottom: 2em;
     }
 
     &.details-header {

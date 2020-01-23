@@ -13,4 +13,5 @@ export { EditButton, NewButton, SeeAllButton } from './buttons';
 export * from './icons';
 export { DetailsHeader } from './DetailsHeader';
 export { KeyValueTable } from './KeyValueTable';
-export { SeriesViewDetailsLink, DocumentViewDetailsLink } from './buttons';
+export { SeriesDetailsLink, DocumentDetailsLink } from './buttons';
+export { InfoMessage } from './InfoMessage';

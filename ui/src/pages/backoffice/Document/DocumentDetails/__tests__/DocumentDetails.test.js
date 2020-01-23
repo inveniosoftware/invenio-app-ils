@@ -1,7 +1,14 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import DocumentDetails from '../DocumentDetails';
 import testData from '@testData/documents.json';
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 jest.mock('../components/', () => {
   return {
@@ -14,6 +21,10 @@ jest.mock('../components/', () => {
     DocumentCirculation: () => null,
     DocumentSummary: () => null,
     DocumentSubjects: () => null,
+    DocumentSeries: () => null,
+    RelationMultipartModal: () => null,
+    RelationMultipart: () => null,
+    RelationRemover: () => null,
   };
 });
 
@@ -22,6 +33,25 @@ jest.mock('../', () => {
     DocumentHeader: () => null,
     DocumentContent: () => null,
   };
+});
+
+const data = {
+  hits: {
+    total: 2,
+    hits: [{ metadata: testData[0] }, { metadata: testData[1] }],
+  },
+};
+
+let store;
+beforeEach(() => {
+  store = mockStore({
+    isLoading: false,
+    data: data,
+    hasError: false,
+    documentDetails: data,
+    documentRelations: { error: false, data: {} },
+  });
+  store.clearActions();
 });
 
 describe('DocumentDetails tests', () => {
@@ -55,12 +85,14 @@ describe('DocumentDetails tests', () => {
   it('should fetch document details on mount', () => {
     const mockedFetchDocumentDetails = jest.fn();
     component = mount(
-      <DocumentDetails
-        history={routerHistory}
-        match={routerUrlParams}
-        fetchDocumentDetails={mockedFetchDocumentDetails}
-        data={{ metadata: testData[0] }}
-      />
+      <Provider store={store}>
+        <DocumentDetails
+          history={routerHistory}
+          match={routerUrlParams}
+          fetchDocumentDetails={mockedFetchDocumentDetails}
+          data={{ metadata: testData[0] }}
+        />
+      </Provider>
     );
     expect(mockedFetchDocumentDetails).toHaveBeenCalledWith(
       routerUrlParams.params.documentPid

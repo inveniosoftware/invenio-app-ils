@@ -58,5 +58,8 @@
         }
       }
     }
+    .document-series{
+      margin-top: 1em;
+    }
   }
 }

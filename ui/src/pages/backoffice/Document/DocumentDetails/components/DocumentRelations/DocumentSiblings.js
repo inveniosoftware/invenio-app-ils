@@ -8,40 +8,39 @@ export default class DocumentSeries extends Component {
   render() {
     const { isLoading, error } = this.props;
 
-    const multipart = this.props.relations['multipart_monograph'] || [];
-    const serial = this.props.relations['serial'] || [];
+    const languages = this.props.relations['language'] || [];
 
     const panes = [
       {
         menuItem: {
-          key: 'multipart',
+          key: 'languages',
           content: (
             <>
-              Multipart monograph <Label>{multipart.length}</Label>{' '}
+              Languages <Label>{languages.length}</Label>{' '}
             </>
           ),
         },
         render: () => <RelationMultipart />,
       },
-      {
-        menuItem: {
-          key: 'multipart',
-          content: (
-            <>
-              Serials <Label>{serial.length}</Label>{' '}
-            </>
-          ),
-        },
-        render: () => <RelationSerial />,
-      },
+      // {
+      //   menuItem: {
+      //     key: 'multipart',
+      //     content: (
+      //       <>
+      //         Serials <Label>{serial.length}</Label>{' '}
+      //       </>
+      //     ),
+      //   },
+      //   render: () => <RelationSerial />,
+      // },
     ];
 
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <Tab
-            id="document-series"
-            className="document-series"
+            id="document-siblings"
+            className="document-siblings"
             menu={{
               fluid: true,
               vertical: true,

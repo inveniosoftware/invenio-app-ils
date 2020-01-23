@@ -1,6 +1,8 @@
 import { http, apiConfig } from '../base';
 import { serializer } from './serializer';
 import { prepareSumQuery } from '../utils';
+import curry from 'lodash/curry';
+import isEmpty from 'lodash/isEmpty';
 
 const seriesURL = '/series/';
 
@@ -47,6 +49,7 @@ class QueryBuilder {
     this.withModeOfIssuanceQuery = [];
     this.withSeriesQuery = [];
     this.withStringQuery = [];
+    this.withExcludeQuery = [];
   }
 
   withModeOfIssuance(moi) {
@@ -80,9 +83,28 @@ class QueryBuilder {
     return this;
   }
 
+  exclude(series) {
+    if (!series) {
+      throw TypeError('series argument missing');
+    }
+    const pids = prepareSumQuery(
+      series.map(o => {
+        if (o.hasOwnProperty('metadata')) {
+          return o.metadata.pid;
+        } else if (o.hasOwnProperty('pid')) {
+          return o.pid;
+        } else {
+          throw TypeError('series objects invalid: no "pid" attribute found');
+        }
+      })
+    );
+    this.withExcludeQuery.push(`NOT (pid:${pids})`);
+    return this;
+  }
+
   qs() {
     return this.withModeOfIssuanceQuery
-      .concat(this.withSeriesQuery, this.withStringQuery)
+      .concat(this.withSeriesQuery, this.withStringQuery, this.withExcludeQuery)
       .join(' AND ');
   }
 }
@@ -101,15 +123,17 @@ const list = query => {
   });
 };
 
-const serials = searchText => {
+const serials = (exclude, searchText) => {
   const builder = queryBuilder();
-  return list(
-    builder
-      .withModeOfIssuance('SERIAL')
-      .withSearchText(searchText)
-      .qs()
-  );
+  let query = builder.withModeOfIssuance('SERIAL').withSearchText(searchText);
+
+  if (!isEmpty(exclude)) {
+    query = query.exclude(exclude);
+  }
+  return list(query.qs());
 };
+
+const partialSerials = curry(serials);
 
 const multipartMonographs = query => {
   return list(
@@ -137,6 +161,7 @@ export const series = {
   deleteRelation: deleteRelation,
   list: list,
   serials: serials,
+  partialSerials: partialSerials,
   multipartMonographs: multipartMonographs,
   count: count,
   query: queryBuilder,
