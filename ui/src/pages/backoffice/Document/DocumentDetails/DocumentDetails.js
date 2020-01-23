@@ -1,7 +1,7 @@
 import { toShortDate } from '@api/date';
-import { DocumentTags } from '@components/Document';
+import {DocumentTags, DocumentTitle} from '@components/Document';
 import { DetailsHeader, DocumentIcon } from '@pages/backoffice';
-import { DocumentSeries } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations';
+import { DocumentSeries } from './components/DocumentRelations';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -50,8 +50,7 @@ class DocumentHeader extends Component {
         title={
           <>
             <Header.Subheader>{data.metadata.document_type}</Header.Subheader>
-            {data.metadata.title} - ed. {data.metadata.edition} (
-            {data.metadata.publication_year})
+            <DocumentTitle document={data}/>
           </>
         }
         subTitle={<DocumentAuthors metadata={data.metadata} prefix={'by '} />}
@@ -92,7 +91,9 @@ class DocumentContent extends Component {
         key: 'document-series',
         title: 'Series',
         content: (
-          <Accordion.Content>{/*<DocumentSeries />*/}</Accordion.Content>
+          <Accordion.Content>
+            <DocumentSeries />
+          </Accordion.Content>
         ),
       },
       {

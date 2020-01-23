@@ -13,16 +13,11 @@ stages:
 notifications:
   email: false
 
-sudo: false
-
 services:
   - redis
   - rabbitmq
 
 language: python
-
-matrix:
-  fast_finish: true
 
 cache:
   - pip
@@ -33,7 +28,7 @@ env:
     - ES7_DOWNLOAD_URL="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.3.0-linux-x86_64.tar.gz"
     - ES_HOST=127.0.0.1
     - NODE_PATH=src
-  matrix:
+  jobs:
     - REQUIREMENTS=lowest EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
     - REQUIREMENTS=release EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
     - REQUIREMENTS=devel EXTRAS=all,postgresql,elasticsearch6 ES_URL=$ES6_DOWNLOAD_URL
@@ -69,6 +64,7 @@ after_success:
   - coveralls
 
 jobs:
+  fast_finish: true
   include:
     - stage: ui-test
       language: node_js

@@ -24,10 +24,7 @@ const mapDispatchToProps = dispatch => ({
   fetchUserProfile: () => dispatch(fetchUserProfile()),
 });
 
-const SetUserInfo = connect(
-  null,
-  mapDispatchToProps
-)(SetUserInfoComponent);
+const SetUserInfo = connect(null, mapDispatchToProps)(SetUserInfoComponent);
 
 export default class App extends Component {
   render() {

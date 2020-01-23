@@ -13,15 +13,18 @@ export const ManageRelationsButton = ({ config, SelectorModal, ...props }) => (
     extraFields={config.modal.extraFields}
     config={config}
     trigger={
-      <Button
-        disabled={!props.enabled}
-        className="edit-related"
-        icon
-        labelPosition="left"
-      >
-        <Icon name="edit" />
-        {props.editButtonLabel ? props.editButtonLabel : 'Edit relation'}
-      </Button>
+      props.triggerButton || (
+        <Button
+          disabled={!props.enabled}
+          className="edit-related"
+          icon
+          labelPosition="left"
+          positive={props.positive}
+        >
+          {props.icon || <Icon name="edit" />}
+          {props.editButtonLabel ? props.editButtonLabel : 'Edit relation'}
+        </Button>
+      )
     }
     {...props}
   />
@@ -30,10 +33,12 @@ export const ManageRelationsButton = ({ config, SelectorModal, ...props }) => (
 ManageRelationsButton.propTypes = {
   config: PropTypes.object.isRequired,
   enabled: PropTypes.bool.isRequired,
-  onRemoveSelection: PropTypes.func.isRequired,
   Selector: PropTypes.func.isRequired,
   SelectorModal: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
+  onRemoveSelection: PropTypes.func,
+  icon: PropTypes.node,
+  triggerButton: PropTypes.node,
 };
 
 ManageRelationsButton.defaultProps = {

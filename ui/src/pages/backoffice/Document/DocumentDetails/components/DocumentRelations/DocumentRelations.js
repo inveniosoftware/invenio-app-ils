@@ -1,7 +1,4 @@
-import {
-  DocumentViewDetailsLink,
-  SeriesViewDetailsLink,
-} from '@pages/backoffice';
+import { DocumentDetailsLink, SeriesDetailsLink } from '@pages/backoffice';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tab, Label, Input } from 'semantic-ui-react';
@@ -386,14 +383,10 @@ export default class DocumentRelations extends Component {
 
   viewDetails = ({ row }) => {
     if (row.pid_type === 'docid') {
-      return (
-        <DocumentViewDetailsLink documentPid={row.pid} data-test={row.pid} />
-      );
+      return <DocumentDetailsLink documentPid={row.pid} />;
     } else if (row.pid_type === 'serid') {
       return (
-        <SeriesViewDetailsLink seriesPid={row.pid} data-test={row.pid}>
-          {row.title}
-        </SeriesViewDetailsLink>
+        <SeriesDetailsLink seriesPid={row.pid}>{row.title}</SeriesDetailsLink>
       );
     } else {
       console.warn(`Unknown pid type: ${row.pid_type}`);

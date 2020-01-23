@@ -13,6 +13,19 @@ BackOfficeRoutes.documentDetailsFor = jest.fn(pid => `url/${pid}`);
 
 Settings.defaultZoneName = 'utc';
 
+jest.mock('../', () => {
+  return {
+    DocumentSeries: () => null,
+    RelationRemover: () => null,
+  };
+});
+
+jest.mock('../RelationCard', () => {
+  return {
+    RelationCard: () => null,
+  };
+});
+
 describe('Document relations tests', () => {
   let component;
   afterEach(() => {
@@ -75,43 +88,5 @@ describe('Document relations tests', () => {
     const pagination = editionTable.find('Pagination').first();
     expect(pagination.prop('currentSize')).toEqual(1);
     expect(pagination.prop('totalResults')).toEqual(2);
-  });
-
-  it('should go to record details when clicking on a row', () => {
-    const document = {};
-    const id = '2';
-    const relations = {
-      edition: [
-        {
-          pid: id,
-          pid_type: 'docid',
-        },
-        {
-          pid: '3',
-          pid_type: 'docid',
-        },
-      ],
-    };
-
-    component = mount(
-      <DocumentRelations
-        document={document}
-        relations={relations}
-        isLoading={false}
-        showMaxRows={1}
-      />
-    );
-
-    component.instance().viewDetails = jest.fn(() => (
-      <Button onClick={mockViewDetails}></Button>
-    ));
-    component.instance().forceUpdate();
-
-    component
-      .find('TableRow')
-      .filterWhere(element => element.prop('data-test') === id)
-      .find('Button')
-      .simulate('click');
-    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

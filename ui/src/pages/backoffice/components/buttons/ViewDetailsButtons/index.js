@@ -1,2 +1,2 @@
-export { SeriesViewDetailsLink } from './SeriesViewDetailsLink';
-export { DocumentViewDetailsLink } from './DocumentViewDetailsLink';
+export { SeriesDetailsLink } from './SeriesDetailsLink';
+export { DocumentDetailsLink } from './DocumentDetailsLink';

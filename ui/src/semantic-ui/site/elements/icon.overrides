@@ -8,6 +8,16 @@
   }
 }
 
+/* Backoffice */
+
+.bo-relation-card {
+  i.icon {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 0.2em;
+  }
+}
+
 .info-popup {
   .icon {
     padding-left: 0.3rem;

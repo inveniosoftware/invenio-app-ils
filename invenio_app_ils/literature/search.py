@@ -15,7 +15,6 @@ from invenio_app_ils.search.permissions import _ils_search_factory, \
 
 def search_factory_literature(self, search):
     """Search factory for literature (series and documents)."""
-
     def filter_periodical_issues(query_string):
         """Filter periodical issues unless include_all is specified."""
         from distutils.util import strtobool
