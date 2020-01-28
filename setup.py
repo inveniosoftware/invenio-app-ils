@@ -88,7 +88,7 @@ install_requires = [
     "invenio-i18n>=1.1.0,<1.2.0",
     "invenio-userprofiles>=1.0.1,<1.1.0",
     # extra
-    "invenio-circulation>=1.0.0a19,<1.1.0",
+    "invenio-circulation>=1.0.0a19,<1.0.0a21",
     "invenio-stats>=1.0.0a15",
     "invenio-pidrelations>=1.0.0a6,<1.1.0",
     "invenio-opendefinition>=1.0.0a9,<1.1.0",
