@@ -13,7 +13,7 @@ import { Abstract } from '@components';
 
 export default class SeriesPanel extends Component {
   render() {
-    const { anchors, isLoading, series } = this.props;
+    const { isLoading, series } = this.props;
     return (
       <>
         <Responsive minWidth={Responsive.onlyTablet.minWidth}>
@@ -48,14 +48,14 @@ export default class SeriesPanel extends Component {
                   </ILSParagraphPlaceholder>
                 </Grid.Column>
                 <Grid.Column width={5}>
-                  <SeriesAccess anchors={anchors} />
+                  <SeriesAccess />
                 </Grid.Column>
               </Grid.Row>
             </Grid>
           </div>
         </Responsive>
         <Responsive {...Responsive.onlyMobile}>
-          <SeriesPanelMobile anchors={anchors} />
+          <SeriesPanelMobile />
         </Responsive>
       </>
     );

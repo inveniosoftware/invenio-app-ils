@@ -6,8 +6,12 @@ import { SearchAggregationsMenu } from './components/SearchAggregations';
 import { SearchSortBy } from './components/SearchSortBy';
 import { SearchSortOrder } from './components/SearchSortOrder';
 import PropTypes from 'prop-types';
+import { getSearchConfig } from '@config';
+import isEmpty from 'lodash/isEmpty';
 
 export class SearchControlsMobile extends Component {
+  searchConfig = getSearchConfig(this.props.modelName);
+
   renderCount = totalResults => {
     return (
       <div className={'search-results-counter'}>
@@ -31,6 +35,7 @@ export class SearchControlsMobile extends Component {
                   size={'small'}
                   pointing
                   className={'link item'}
+                  disabled={isEmpty(this.searchConfig.FILTERS)}
                 >
                   <Dropdown.Menu>
                     <SearchAggregationsMenu modelName={this.props.modelName} />

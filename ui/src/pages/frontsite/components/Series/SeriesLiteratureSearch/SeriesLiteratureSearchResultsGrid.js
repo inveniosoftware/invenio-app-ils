@@ -7,7 +7,7 @@ import { SeriesCard, findVolume } from '@pages/frontsite/components/Series';
 import { recordToPidType } from '@api/utils';
 import get from 'lodash/get';
 
-export default class DocumentSearchResultsGrid extends Component {
+export default class SeriesLiteratureSearchResultsGrid extends Component {
   renderResultsGrid = results => {
     // TODO: Change to use the pid object's pid_type when it's been implemented
     const cards = results.map(result => {
@@ -39,6 +39,6 @@ export default class DocumentSearchResultsGrid extends Component {
   }
 }
 
-DocumentSearchResultsGrid.propTypes = {
-  metadata: PropTypes.object,
+SeriesLiteratureSearchResultsGrid.propTypes = {
+  metadata: PropTypes.object.isRequired,
 };

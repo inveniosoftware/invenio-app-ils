@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container } from 'semantic-ui-react';
+import { Container, Responsive } from 'semantic-ui-react';
 import { Error, SearchBar } from '@components';
 import { goTo } from '@history';
 import { FrontSiteRoutes } from '@routes/urls';
 import { ILSParagraphPlaceholder } from '@components/ILSPlaceholder';
 import { Breadcrumbs } from '@pages/frontsite/components';
 import { SeriesPanel } from './SeriesPanel';
-import { SeriesLiterature } from '@pages/frontsite/components/Series';
+import { SeriesLiteratureSearch } from '@pages/frontsite/components/Series';
 import { SeriesMetadata } from './SeriesMetadata';
 
 export default class SeriesDetails extends React.Component {
@@ -15,9 +15,6 @@ export default class SeriesDetails extends React.Component {
     super(props);
     this.state = {
       searchQuery: '',
-    };
-    this.anchors = {
-      literature: React.createRef(),
     };
   }
 
@@ -72,15 +69,20 @@ export default class SeriesDetails extends React.Component {
                 currentElement={series.metadata ? series.metadata.title : null}
               />
             </ILSParagraphPlaceholder>
-            <SeriesPanel anchors={this.anchors} />
+            <SeriesPanel />
           </Container>
-          <Container className="items-locations spaced">
+          <Responsive minWidth={Responsive.onlyComputer.minWidth}>
+            <Container className="items-locations spaced">
+              <ILSParagraphPlaceholder linesNumber={3} isLoading={isLoading}>
+                <SeriesLiteratureSearch metadata={series.metadata} />
+              </ILSParagraphPlaceholder>
+            </Container>
+          </Responsive>
+          <Responsive maxWidth={Responsive.onlyTablet.maxWidth}>
             <ILSParagraphPlaceholder linesNumber={3} isLoading={isLoading}>
-              <div ref={this.anchors.literature}>
-                <SeriesLiterature />
-              </div>
+              <SeriesLiteratureSearch metadata={series.metadata} />
             </ILSParagraphPlaceholder>
-          </Container>
+          </Responsive>
           <Container className="section" fluid>
             <Container>
               <ILSParagraphPlaceholder linesNumber={20} isLoading={isLoading}>

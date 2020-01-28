@@ -18,6 +18,31 @@ export class BookCard extends Component {
     );
   };
 
+  renderImage = () => {
+    const { data, volume } = this.props;
+    const image = (
+      <Image
+        centered
+        src={getCover(data.metadata.edition)}
+        size={'small'}
+        onError={e => (e.target.style.display = 'none')}
+      />
+    );
+
+    if (volume) {
+      return (
+        <div className="search-result-image">
+          <Label floating color="black">
+            Volume {volume}
+          </Label>
+          {image}
+        </div>
+      );
+    }
+
+    return image;
+  };
+
   render() {
     const { data } = this.props;
     return (
@@ -33,12 +58,7 @@ export class BookCard extends Component {
         <Card.Meta className={'discrete'}>
           {data.metadata.document_type}
         </Card.Meta>
-        <Image
-          centered
-          src={getCover(data.metadata.edition)}
-          size={'small'}
-          onError={e => (e.target.style.display = 'none')}
-        />
+        {this.renderImage()}
         <Card.Content>
           <Card.Header>{data.metadata.title}</Card.Header>
           <Card.Meta>
@@ -61,4 +81,5 @@ export class BookCard extends Component {
 
 BookCard.propTypes = {
   data: PropTypes.object.isRequired,
+  volume: PropTypes.string,
 };

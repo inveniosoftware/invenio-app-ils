@@ -133,6 +133,10 @@
       }
     }
 
+    &.series-details-search-container {
+      margin-bottom: @defaultPaddingValue;
+    }
+
     /* frontsite footer */
 
     &.footer-lower {

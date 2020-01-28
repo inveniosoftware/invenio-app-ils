@@ -10,6 +10,7 @@
 import json
 import os
 import random
+import re
 from datetime import datetime, timedelta
 from random import randint
 
@@ -298,6 +299,8 @@ class DocumentGenerator(Generator):
 
     def generate_document(self, index, **kwargs):
         """Generate document data."""
+        publication_year = kwargs.get("publication_year", str(randint(1700, 2020)))
+        imprint = random.choice(self.IMPRINTS)
         obj = {
             "pid": self.create_pid(),
             "title": lorem.sentence(),
@@ -321,8 +324,11 @@ class DocumentGenerator(Generator):
             },
             "conference_info": self.CONFERENCE_INFO,
             "number_of_pages": str(random.randint(0, 300)),
-            "imprint": random.choice(self.IMPRINTS),
-            "publication_year": str(randint(1900, 2020)),
+            "imprint": {
+                **imprint,
+                "date": "{}-08-02".format(publication_year)
+            },
+            "publication_year": publication_year,
             "urls": [
                 {
                     "description": "{}".format(lorem.sentence()),
@@ -344,12 +350,22 @@ class DocumentGenerator(Generator):
         ]
 
         # Generate periodical issues
+        volume = 1
+        issue = 1
+        publication_year = randint(1700, 2000)
         for index in range(1, 11):
             objs.append(self.generate_document(
                 index,
                 document_type=self.PERIODICAL_ISSUE,
-                title="Volume 1 Issue {}".format(index)
+                title="Volume {} Issue {}".format(volume, issue),
+                publication_year=str(publication_year),
             ))
+            if issue == 3:
+                issue = 1
+                volume += 1
+                publication_year += 1
+            else:
+                issue += 1
 
         self.holder.documents["objs"] = objs
 
@@ -550,10 +566,19 @@ class SeriesGenerator(Generator):
             for _ in range(1, 3)
         ]
 
+    def generate_minimal(self, objs):
+        """Generate a series with only the required fields."""
+        objs.append({
+            "pid": self.create_pid(),
+            "mode_of_issuance": "SERIAL",
+            "title": "Minimal Series",
+        })
+
     def generate(self):
         """Generate."""
         size = self.holder.series["total"]
         objs = []
+        self.generate_minimal(objs)
         for index in range(1, size + 1):
             moi = random.choice(self.MODE_OF_ISSUANCE)
             authors = random.sample(DocumentGenerator.AUTHORS, len(DocumentGenerator.AUTHORS))
@@ -625,12 +650,17 @@ class RecordRelationsGenerator(Generator):
         multipart_relation = Relation.get_relation_by_name(
             "multipart_monograph"
         )
+        re_volume = re.compile(r'Volume (?P<volume>\d+)', re.IGNORECASE)
         for index, child in enumerate(serial_children):
+            m = re_volume.match(child["title"])
+            volume = str(index + 1)
+            if m:
+                volume = m["volume"]
             rr.add(
                 serial_parent,
                 child,
                 relation_type=serial_relation,
-                volume="{}".format(index + 1),
+                volume=volume,
             )
             objs.append(child)
         for index, child in enumerate(multipart_children):

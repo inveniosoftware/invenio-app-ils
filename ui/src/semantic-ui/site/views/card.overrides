@@ -56,6 +56,16 @@
         text-transform: uppercase;
       }
     }
+
+    .search-result-image {
+      position: relative;
+
+      .ui.floating.label {
+        left: 4em;
+        top: 0.5em;
+        white-space: nowrap;
+      }
+    }
   }
 
   .fs-landing-page-section {

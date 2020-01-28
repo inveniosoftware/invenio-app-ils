@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SeriesLiteratureSearch tests should load the SeriesLiteratureSearch component 1`] = `
+<Fragment>
+  <Divider
+    horizontal={true}
+  >
+    Literature in this series
+  </Divider>
+  <ReactSearchKit
+    defaultSortByOnEmptyQuery={null}
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+    searchApi={
+      InvenioSearchApi {
+        "http": [Function],
+        "requestSerializer": LiteratureRequestSerializer {
+          "_addFilter": [Function],
+          "_addFilters": [Function],
+          "serialize": [Function],
+        },
+        "responseSerializer": InvenioResponseSerializer {
+          "serialize": [Function],
+        },
+        "search": [Function],
+      }
+    }
+    searchOnInit={true}
+    suggestionApi={null}
+    urlHandlerApi={
+      Object {
+        "customHandler": null,
+        "enabled": true,
+        "overrideConfig": Object {},
+      }
+    }
+  >
+    <Container
+      className="series-details-search-container"
+    >
+      <Connect(SearchBarUncontrolled)
+        renderElement={[Function]}
+      />
+    </Container>
+    <Responsive
+      getWidth={[Function]}
+      minWidth={768}
+    >
+      <Connect(ResultsLoader)
+        renderElement={[Function]}
+      >
+        <SearchEmptyResults />
+        <Connect(Error)
+          renderElement={[Function]}
+        />
+        <Responsive
+          getWidth={[Function]}
+          minWidth={992}
+        >
+          <SearchControls
+            modelName="literature"
+          />
+        </Responsive>
+        <Responsive
+          getWidth={[Function]}
+          maxWidth={991}
+        >
+          <SearchControlsMobile
+            modelName="literature"
+          />
+        </Responsive>
+        <Connect(ResultsList)
+          renderElement={[Function]}
+        />
+        <SearchFooter />
+      </Connect(ResultsLoader)>
+    </Responsive>
+    <Responsive
+      getWidth={[Function]}
+      maxWidth={767}
+    >
+      <SeriesLiteratureSearchMobile
+        metadata={
+          Object {
+            "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
+            "abstract": "This is a multipart monograph",
+            "authors": Array [
+              "Einstein, Albert",
+              "Stachel, John J et al.",
+            ],
+            "mode_of_issuance": "MULTIPART_MONOGRAPH",
+            "pid": "serid-1",
+            "title": "The Gulf: The Making of An American Sea",
+          }
+        }
+      />
+    </Responsive>
+  </ReactSearchKit>
+</Fragment>
+`;

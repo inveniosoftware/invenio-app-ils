@@ -349,9 +349,9 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                         "value": "mostloaned",
                                       },
                                       Object {
-                                        "defaultValue": "asc",
-                                        "text": "Published date",
-                                        "value": "published",
+                                        "defaultValue": "desc",
+                                        "text": "Publication year",
+                                        "value": "publication_year",
                                       },
                                     ]
                                   }
@@ -389,9 +389,9 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
                                           "value": "mostloaned",
                                         },
                                         Object {
-                                          "defaultValue": "asc",
-                                          "text": "Published date",
-                                          "value": "published",
+                                          "defaultValue": "desc",
+                                          "text": "Publication year",
+                                          "value": "publication_year",
                                         },
                                       ]
                                     }

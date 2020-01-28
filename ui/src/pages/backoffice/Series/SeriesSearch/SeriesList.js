@@ -7,6 +7,7 @@ import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
 import { BackOfficeRoutes } from '@routes/urls';
 import _isEmpty from 'lodash/isEmpty';
 import { DocumentLanguages, DocumentTags } from '@components/Document';
+import { SeriesAuthors } from '@components';
 
 class SeriesListEntry extends Component {
   renderMiddleColumn = series => {
@@ -120,10 +121,7 @@ class SeriesListEntry extends Component {
           <Grid columns={3}>
             <Grid.Column computer={6} largeScreen={5}>
               <Item.Meta className={'series-authors'}>
-                by{' '}
-                <label>
-                  {series.metadata.authors.map(author => `${author}`)}
-                </label>
+                <SeriesAuthors prefix="by " metadata={series.metadata} />
               </Item.Meta>
               {identifier && (
                 <>

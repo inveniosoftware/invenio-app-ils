@@ -110,7 +110,6 @@ form {
   span.secondary {
     color: @fsSecondaryColor;
   }
-
 }
 
 /* BACKOFFICE */

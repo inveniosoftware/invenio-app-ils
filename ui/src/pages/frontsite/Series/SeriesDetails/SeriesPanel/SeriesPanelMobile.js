@@ -12,7 +12,7 @@ import { Abstract } from '@components';
 
 export default class SeriesPanelMobile extends Component {
   render() {
-    const { anchors, isLoading, series } = this.props;
+    const { isLoading, series } = this.props;
     return (
       <div
         className="series-panel"
@@ -36,7 +36,7 @@ export default class SeriesPanelMobile extends Component {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column mobile={16}>
-              <SeriesAccess anchors={anchors} />
+              <SeriesAccess />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
