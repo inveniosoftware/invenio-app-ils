@@ -11,21 +11,19 @@ export const SeparatedList = ({
   suffix,
   ...listProps
 }) => {
-  return (
-    !isEmpty(items) && (
-      <>
-        {prefix}
-        <List horizontal {...listProps}>
-          {items.map((item, index) => (
-            <List.Item key={index} {...itemProps}>
-              {item}
-              {index !== items.length - 1 && separator}
-            </List.Item>
-          ))}
-        </List>
-        {suffix}
-      </>
-    )
+  return isEmpty(items) ? null : (
+    <>
+      {prefix}
+      <List horizontal {...listProps}>
+        {items.map((item, index) => (
+          <List.Item key={index} {...itemProps}>
+            {item}
+            {index !== items.length - 1 && separator}
+          </List.Item>
+        ))}
+      </List>
+      {suffix}
+    </>
   );
 };
 

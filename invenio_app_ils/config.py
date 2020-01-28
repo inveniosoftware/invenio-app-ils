@@ -927,11 +927,11 @@ RECORDS_REST_SORT_OPTIONS = dict(
             default_order="desc",
             order=4,
         ),
-        published_date=dict(
-            fields=["imprint.date"],
-            title="Published date",
+        publication_year=dict(
+            fields=["publication_year"],
+            title="Publication year",
             default_order="desc",
-            order=4,
+            order=5,
         ),
     ),
     eitems=dict(  # ItemSearch.Meta.index

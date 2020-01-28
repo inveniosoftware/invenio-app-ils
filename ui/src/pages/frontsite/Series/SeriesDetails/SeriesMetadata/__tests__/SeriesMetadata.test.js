@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import * as testData from '@testData/series.json';
+import testData from '@testData/series.json';
 import SeriesMetadata from '../SeriesMetadata';
 
 jest.mock('@pages/frontsite/components/Series', () => {

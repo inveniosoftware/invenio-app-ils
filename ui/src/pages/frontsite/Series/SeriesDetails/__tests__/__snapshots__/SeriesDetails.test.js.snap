@@ -43,15 +43,58 @@ exports[`SeriesDetailsContainer tests should load the details component 1`] = `
       </ILSParagraphPlaceholder>
       <SeriesPanel />
     </Container>
-    <Container
-      className="items-locations spaced"
+    <Responsive
+      getWidth={[Function]}
+      minWidth={992}
+    >
+      <Container
+        className="items-locations spaced"
+      >
+        <ILSParagraphPlaceholder
+          linesNumber={3}
+        >
+          <Component
+            metadata={
+              Object {
+                "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
+                "abstract": "This is a multipart monograph",
+                "authors": Array [
+                  "Einstein, Albert",
+                  "Stachel, John J et al.",
+                ],
+                "mode_of_issuance": "MULTIPART_MONOGRAPH",
+                "pid": "serid-1",
+                "title": "The Gulf: The Making of An American Sea",
+              }
+            }
+          />
+        </ILSParagraphPlaceholder>
+      </Container>
+    </Responsive>
+    <Responsive
+      getWidth={[Function]}
+      maxWidth={991}
     >
       <ILSParagraphPlaceholder
         linesNumber={3}
       >
-        <Component />
+        <Component
+          metadata={
+            Object {
+              "$schema": "https://127.0.0.1:5000/schemas/series/series-v1.0.0.json",
+              "abstract": "This is a multipart monograph",
+              "authors": Array [
+                "Einstein, Albert",
+                "Stachel, John J et al.",
+              ],
+              "mode_of_issuance": "MULTIPART_MONOGRAPH",
+              "pid": "serid-1",
+              "title": "The Gulf: The Making of An American Sea",
+            }
+          }
+        />
       </ILSParagraphPlaceholder>
-    </Container>
+    </Responsive>
     <Container
       className="section"
       fluid={true}

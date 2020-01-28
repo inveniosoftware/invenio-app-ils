@@ -1,11 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card } from 'semantic-ui-react';
+import { Card, Label } from 'semantic-ui-react';
 import { goTo } from '@history';
 import { FrontSiteRoutes } from '@routes/urls';
 import { SeriesImage, SeriesAuthors } from '@components/Series';
 
 export class SeriesCard extends Component {
+  renderImage = () => {
+    const { data, volume } = this.props;
+    const image = <SeriesImage metadata={data.metadata} />;
+
+    if (volume) {
+      return (
+        <div className="search-result-image">
+          <Label floating color="black">
+            Volume {volume}
+          </Label>
+          {image}
+        </div>
+      );
+    }
+
+    return image;
+  };
+
   render() {
     const { data } = this.props;
     return (
@@ -19,7 +37,7 @@ export class SeriesCard extends Component {
         data-test={data.metadata.pid}
       >
         <Card.Meta className="discrete">Series</Card.Meta>
-        <SeriesImage metadata={data.metadata} />
+        {this.renderImage()}
         <Card.Content>
           <Card.Header>{data.metadata.title}</Card.Header>
           <Card.Meta>

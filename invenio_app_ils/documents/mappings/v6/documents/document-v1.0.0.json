@@ -171,6 +171,9 @@
         "pid": {
           "type": "keyword"
         },
+        "publication_year": {
+          "type": "integer"
+        },
         "relations": {
           "properties": {
             "edition": {

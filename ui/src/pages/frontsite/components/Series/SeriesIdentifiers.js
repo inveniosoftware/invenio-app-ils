@@ -1,45 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import capitalize from 'lodash/capitalize';
+import get from 'lodash/get';
 import { Table, Divider } from 'semantic-ui-react';
-import { SeparatedList, InfoPopup, EmptyMessage } from '@components';
-import isEmpty from 'lodash/isEmpty';
+import { SeparatedList, InfoPopup } from '@components';
 
-export const Identifiers = ({ identifiers }) => {
+export const SeriesIdentifiers = ({ metadata }) => {
   return (
-    <EmptyMessage
-      show={!isEmpty(identifiers)}
-      message="There are no identifiers."
-    >
+    <>
       <Divider horizontal>Identifiers</Divider>
       <Table definition>
         <Table.Body>
-          <IdentifierRows identifiers={identifiers} />
+          <SeriesIdentifierRows metadata={metadata} />
         </Table.Body>
       </Table>
-    </EmptyMessage>
+    </>
   );
 };
 
-Identifiers.propTypes = {
-  identifiers: PropTypes.array,
+SeriesIdentifiers.propTypes = {
+  metadata: PropTypes.object.isRequired,
 };
 
-export const IdentifierRows = ({ includeSchemes, identifiers }) => {
-  const idsByScheme = {};
-  for (const id of identifiers) {
+export const SeriesIdentifierRows = ({ includeSchemes, metadata }) => {
+  const identifiers = {};
+  for (const id of get(metadata, 'identifiers', [])) {
     // Only include whitelisted schemes if includeSchemes is set
     if (!includeSchemes || includeSchemes.includes(id.scheme)) {
       const value = { value: id.value, material: id.material };
       if (id.scheme in identifiers) {
-        idsByScheme[id.scheme].push(value);
+        identifiers[id.scheme].push(value);
       } else {
-        idsByScheme[id.scheme] = [value];
+        identifiers[id.scheme] = [value];
       }
     }
   }
 
-  return Object.entries(idsByScheme).map(([scheme, ids]) => {
+  return Object.entries(identifiers).map(([scheme, ids]) => {
     const values = ids.map(id => (
       <>
         {id.value}
@@ -64,7 +61,7 @@ export const IdentifierRows = ({ includeSchemes, identifiers }) => {
   });
 };
 
-IdentifierRows.propTypes = {
+SeriesIdentifierRows.propTypes = {
   includeSchemes: PropTypes.array,
-  identifiers: PropTypes.array,
+  metadata: PropTypes.object.isRequired,
 };

@@ -21,7 +21,7 @@ def search_factory_literature(self, search):
         from distutils.util import strtobool
         from flask import request
 
-        include_all = request.values.get("include_all", "yes")
+        include_all = request.values.get("include_all", "no")
         if include_all == "":
             include_all = "yes"
 
