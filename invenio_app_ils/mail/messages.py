@@ -49,7 +49,7 @@ class BlockTemplatedMessage(Message):
         if block_name not in template.blocks:
             raise TemplateError("No block with name '{}'".format(block_name))
         lines = template.blocks[block_name](new_context(vars=self.ctx))
-        return "\n".join(lines).strip()
+        return "".join(lines).strip()
 
     def dump(self):
         """Dump email data."""
