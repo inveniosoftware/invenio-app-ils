@@ -438,26 +438,6 @@ exports[`LoanList tests should load the LoanList component 2`] = `
                           <div
                             className="right aligned two wide computer two wide large screen column"
                           >
-                            <ItemMeta
-                              className="pid-field"
-                            >
-                              <div
-                                className="meta pid-field"
-                              >
-                                <Header
-                                  as="h5"
-                                  className="pid-field"
-                                  disabled={true}
-                                >
-                                  <h5
-                                    className="ui disabled header pid-field"
-                                  >
-                                    #
-                                    loanid-1
-                                  </h5>
-                                </Header>
-                              </div>
-                            </ItemMeta>
                             <Link
                               to="/backoffice/documents/docid-1"
                             >
@@ -492,6 +472,12 @@ exports[`LoanList tests should load the LoanList component 2`] = `
                     </Grid>
                   </div>
                 </ItemContent>
+                <div
+                  className="pid-field"
+                >
+                  #
+                  loanid-1
+                </div>
               </div>
             </Item>
           </LoanListEntry>

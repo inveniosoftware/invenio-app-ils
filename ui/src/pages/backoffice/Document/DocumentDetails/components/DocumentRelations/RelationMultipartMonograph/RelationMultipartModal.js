@@ -1,10 +1,21 @@
 import { parentChildRelationPayload } from '@api/utils';
 import { HitsSearch } from '@components/ESSelector/HitsSearch';
-import { SelectedSeries } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/SelectedSeries';
+import SeriesSelectListEntry from '@pages/backoffice/components/Series/SeriesSelectListEntry/SeriesSelectListEntry';
+import { RelationSummary } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/components/RelationSummary';
+import { RelationCard, RelationModal } from '../components';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Container, Form, Icon, Input, Modal } from 'semantic-ui-react';
+import {
+  Button,
+  Container,
+  Form,
+  Icon,
+  Input,
+  Label,
+  Modal,
+} from 'semantic-ui-react';
 import { series as seriesApi } from '@api';
+import isEmpty from 'lodash/isEmpty';
 
 export default class RelationMultipartModal extends Component {
   constructor(props) {
@@ -17,68 +28,51 @@ export default class RelationMultipartModal extends Component {
     };
   }
 
-  toggle = () => this.setState({ visible: !this.state.visible });
-
-  onSave = () => {
-    this.setState({ isLoading: true });
-    const { selection, volume } = this.state;
-
-    const newRelation = parentChildRelationPayload(
-      this.props.relationType,
-      { volume: volume },
-      selection,
-      this.props.documentDetails
+  selectResultRender = option => {
+    const { relations } = this.props;
+    let disabled = false;
+    if (
+      !isEmpty(!relations.multipart_monograph) &&
+      relations.multipart_monograph.find(o => o.pid === option.metadata.pid)
+    ) {
+      disabled = true;
+    }
+    return (
+      <SeriesSelectListEntry
+        series={option}
+        description={option.metadata.publisher}
+        disabled={disabled}
+      />
     );
-
-    const pid = this.props.documentDetails.pid;
-    this.props.createRelations(pid, [newRelation]);
-    this.setState({ isLoading: false });
-    this.toggle();
   };
-
-  /* see HitsSearch.js -> ResultRenderer */
-  serializeSeries = series => ({
-    id: series.metadata.pid,
-    key: series.metadata.pid,
-    title: series.metadata.title,
-    description: series.metadata.mode_of_issuance,
-    extra: `Series #${series.metadata.pid}`,
-    metadata: series.metadata,
-  });
 
   onSelectResult = result => {
     const { id } = result;
-    const { recordType, relationType } = this.props;
-    const relatedId = `${id}-${recordType}-${relationType}`;
+    const { relations } = this.props;
 
-    result.id = relatedId;
-    result.key = relatedId;
-    this.setState({ selection: result });
+    if (
+      isEmpty(relations.multipart_monograph) ||
+      !relations.multipart_monograph.find(o => o.pid === result.metadata.pid)
+    ) {
+      result.id = id;
+      result.key = id;
+      this.setState({ selection: result });
+    }
   };
 
   render() {
     const { disabled, documentDetails } = this.props;
     return (
-      <Modal
-        id="es-selector-modal"
-        trigger={
-          <Button
-            disabled={disabled}
-            className="edit-related"
-            icon
-            labelPosition="left"
-            positive
-            onClick={this.toggle}
-          >
-            <Icon name="add" />
-            Add to a multipart
-          </Button>
-        }
-        open={this.state.visible}
-        centered={true}
-        onClose={this.toggle}
+      <RelationModal
+        disabled={disabled}
+        triggerButtonContent={'Add to a multipart'}
+        modalHeader={'Attach document to a multipart monograph'}
+        isLoading={this.state.isLoading}
+        relationType={this.props.relationType}
+        selections={[this.state.selection]}
+        refererRecord={documentDetails}
+        extraRelationField={{ volume: this.state.volume }}
       >
-        <Modal.Header>Attach document to a multipart monograph</Modal.Header>
         <Modal.Content>
           <Container textAlign="center">
             <Form>
@@ -89,7 +83,7 @@ export default class RelationMultipartModal extends Component {
                     delay={250}
                     minCharacters={3}
                     placeholder={'Type to find multipart monograph'}
-                    serializer={this.serializeSeries}
+                    resultRenderer={this.selectResultRender}
                     onSelect={this.onSelectResult}
                     ref={element => (this.searchRef = element)}
                   />
@@ -107,26 +101,30 @@ export default class RelationMultipartModal extends Component {
                 />
               </Form.Field>
             </Form>
-            <SelectedSeries
-              selection={this.state.selection}
-              currentDocument={documentDetails}
-              volume={this.state.volume}
+            <RelationSummary
+              selections={this.state.selection}
+              currentReferer={documentDetails}
+              renderSelections={() => (
+                <RelationCard
+                  data={this.state.selection}
+                  icon={<Icon name="clone outline" size="huge" color="grey" />}
+                />
+              )}
+              relationDescription={
+                <>
+                  <Icon name="arrow right" />
+                  <br />
+                  is{' '}
+                  <Label color="blue">
+                    volume <Label.Detail>{this.state.volume}</Label.Detail>{' '}
+                  </Label>{' '}
+                  of
+                </>
+              }
             />
           </Container>
         </Modal.Content>
-        <Modal.Actions>
-          <Button onClick={() => this.toggle()}>Cancel action</Button>
-          <Button
-            positive
-            loading={this.state.isLoading}
-            disabled={this.state.isLoading}
-            icon="checkmark"
-            labelPosition="right"
-            content="Confirm and save"
-            onClick={this.onSave}
-          />
-        </Modal.Actions>
-      </Modal>
+      </RelationModal>
     );
   }
 }

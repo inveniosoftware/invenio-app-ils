@@ -107,11 +107,6 @@ export class ItemListEntry extends Component {
               <ItemCirculation circulation={item.metadata.circulation} />
             </Grid.Column>
             <Grid.Column computer={2} largeScreen={2} textAlign="right">
-              <Item.Meta className={'pid-field'}>
-                <Header disabled as="h5" className={'pid-field'}>
-                  #{item.metadata.pid}
-                </Header>
-              </Item.Meta>
               <Link
                 to={BackOfficeRoutes.documentDetailsFor(
                   item.metadata.document_pid
@@ -122,6 +117,7 @@ export class ItemListEntry extends Component {
             </Grid.Column>
           </Grid>
         </Item.Content>
+        <div className={'pid-field'}>#{item.metadata.pid}</div>
       </Item>
     );
   }

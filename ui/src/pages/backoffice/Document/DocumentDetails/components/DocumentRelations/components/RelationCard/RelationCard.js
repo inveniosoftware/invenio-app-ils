@@ -5,12 +5,13 @@ import { Card, Image, Label } from 'semantic-ui-react';
 import { DocumentAuthors, DocumentEdition } from '@components/Document';
 import isEmpty from 'lodash/isEmpty';
 
-export class RelationCard extends Component {
+export default class RelationCard extends Component {
   render() {
-    const { data } = this.props;
+    const { data, extra, actions } = this.props;
     return (
       <Card centered className="bo-relation-card" data-test={data.metadata.pid}>
         <Card.Meta className={'discrete'}>
+          {actions}
           {data.metadata.document_type || data.metadata.mode_of_issuance}
         </Card.Meta>
         {this.props.icon ? (
@@ -34,15 +35,7 @@ export class RelationCard extends Component {
             </div>
           </Card.Meta>
         </Card.Content>
-        {!isEmpty(data.metadata.relations_metadata) &&
-          !isEmpty(data.metadata.relations_metadata.multipart_monograph) && (
-            <Card.Content extra>
-              <Label>
-                {data.metadata.relations_metadata.multipart_monograph.length}{' '}
-                volumes
-              </Label>
-            </Card.Content>
-          )}
+        {!isEmpty(extra) && <Card.Content extra>{extra}</Card.Content>}
       </Card>
     );
   }
@@ -51,4 +44,5 @@ export class RelationCard extends Component {
 RelationCard.propTypes = {
   data: PropTypes.object.isRequired,
   icon: PropTypes.node,
+  extra: PropTypes.node,
 };

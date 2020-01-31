@@ -2,17 +2,63 @@
     User Variable Overrides
 *******************************/
 
+.ui.items {
+  > .item.relation-list-entry {
+    > .content {
+      text-align: left;
+
+      > .header:not(.ui) {
+        font-size: 1.2em;
+
+      }
+    }
+  }
+
+
+  > .item {
+    position: relative;
+
+    .item-image-wrapper {
+      text-align: center;
+      margin-right: 1em;
+    }
+
+    .pid-field{
+      position: absolute;
+      color: @mutedTextColor;
+      top: 0.2em;
+      right: 1rem;
+    }
+
+    &:first-child{
+      .pid-field {
+        top: -0.8em;
+      }
+    }
+
+    .document-type {
+      font-size: 0.8rem;
+      margin-top: 0.2em;
+      margin-bottom: 0.1em;
+      opacity: 0.45;
+
+      &.tiny {
+        max-width: 80px;
+      }
+    }
+  }
+}
 
 @{fs-parent-selector} {
   .ui.items {
     &.divided {
-        & > .item {
-          padding: 1em;
+      & > .item {
+        padding: 1em;
 
-          &:first-child {
-            padding-top: 1em !important;
-          }
+        &:first-child {
+          padding-top: 1em !important;
         }
+      }
 
     }
   }
@@ -47,16 +93,25 @@
   }
 
   .ui.items {
-    &.divided {
-        & >.item {
-          padding: 1em;
 
-          &:first-child {
-            padding-top: 1em !important;
-          }
+    > .item.relation-list-entry {
+      > .content {
+        text-align: left;
+      }
+    }
+
+    &.divided {
+      & > .item {
+        padding: 1em;
+
+        &:first-child {
+          padding-top: 1em !important;
         }
 
+      }
+
     }
+
     .item {
       &.bkg-danger {
         background-color: lighten(@danger, 40%) !important;
@@ -75,7 +130,7 @@
         }
       }
 
-      .item-image-addons-wrapper {
+      .item-image-wrapper {
         text-align: center;
         margin-right: 1em;
 
@@ -108,6 +163,11 @@
           }
         }
       }
+
+
     }
+
   }
 }
+
+

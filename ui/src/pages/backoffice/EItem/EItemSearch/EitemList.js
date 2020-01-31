@@ -77,11 +77,6 @@ class EItemListEntry extends Component {
               </List>
             </Grid.Column>
             <Grid.Column computer={2} largeScreen={2} textAlign="right">
-              <Item.Meta className={'pid-field'}>
-                <Header disabled as="h5" className={'pid-field'}>
-                  #{eitem.metadata.pid}
-                </Header>
-              </Item.Meta>
               <Link
                 to={BackOfficeRoutes.documentDetailsFor(
                   eitem.metadata.document_pid
@@ -92,6 +87,7 @@ class EItemListEntry extends Component {
             </Grid.Column>
           </Grid>
         </Item.Content>
+        <div className={'pid-field'}>#{eitem.metadata.pid}</div>
       </Item>
     );
   }

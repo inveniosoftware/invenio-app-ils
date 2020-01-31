@@ -152,11 +152,7 @@ export default class OrderListEntry extends Component {
             </Grid.Column>
           </Grid>
         </Item.Content>
-        <Item.Meta className={'pid-field'}>
-          <Header disabled as="h5" className={'pid-field'}>
-            #{order.metadata.pid}
-          </Header>
-        </Item.Meta>
+        <div className={'pid-field'}>#{order.metadata.pid}</div>
       </Item>
     );
   }

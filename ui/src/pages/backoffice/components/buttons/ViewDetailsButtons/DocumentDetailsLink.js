@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom';
 
 export class DocumentDetailsLink extends Component {
   render() {
+    const {documentPid, ...props} = this.props;
     return (
       <Link
-        to={BackOfficeRoutes.documentDetailsFor(this.props.documentPid)}
+        to={BackOfficeRoutes.documentDetailsFor(documentPid)}
         data-test={this.props.documentPid}
-        {...this.props}
+        {...props}
       >
         {this.props.children}
       </Link>

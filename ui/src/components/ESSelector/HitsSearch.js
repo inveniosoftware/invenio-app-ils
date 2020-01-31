@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
-import { Search } from 'semantic-ui-react';
+import { Icon, Search } from 'semantic-ui-react';
 import { serializeError } from './serializer';
 
 const initialState = {
@@ -10,6 +10,7 @@ const initialState = {
   results: [],
   query: null,
   value: '',
+  open: false,
 };
 
 const ResultRenderer = ({ id, title, description, extra }) => (
@@ -21,22 +22,27 @@ const ResultRenderer = ({ id, title, description, extra }) => (
 );
 
 export class HitsSearch extends Component {
-  state = initialState;
-
   constructor(props) {
     super(props);
     this.searchInputRef = null;
+    this.state = initialState;
   }
 
   clear = () => this.setState(initialState);
 
   onSelectResult = (event, { result }) => {
     if (this.state.hasError) return;
-
     if (this.props.onSelect) {
       this.props.onSelect(result);
     }
-    this.setState(initialState);
+
+    /* controls closing of the results list in custom cases */
+    if (result.disabled) {
+      this.setState({ open: true });
+    } else {
+      this.setState(initialState);
+    }
+
     this.searchInputRef.focus();
   };
 
@@ -47,12 +53,17 @@ export class HitsSearch extends Component {
         ? searchQuery + '*'
         : searchQuery;
       const response = await this.props.query(queryString);
-      const results = [];
-      for (let hit of response.data.hits) {
-        results.push(serialize(hit));
-      }
-      if (this.props.onResults) {
-        this.props.onResults(results);
+      let results = [];
+
+      if (serialize) {
+        for (let hit of response.data.hits) {
+          results.push(serialize(hit));
+        }
+        if (this.props.onResults) {
+          this.props.onResults(results);
+        }
+      } else {
+        results = response.data.hits;
       }
 
       const { value, query } = this.state;
@@ -84,7 +95,7 @@ export class HitsSearch extends Component {
       return;
     }
 
-    this.setState({ isLoading: true, value: value, query: value });
+    this.setState({ isLoading: true, value: value, query: value, open: true });
     this.search(value);
   };
 
@@ -92,7 +103,34 @@ export class HitsSearch extends Component {
     if (this.searchInputRef) {
       this.searchInputRef.focus();
     }
+    if (this.props.open !== undefined) {
+      this.setState({ open: this.props.open });
+    }
   }
+
+  renderResults = ({ id, title, description, extra, ...props }) => {
+    if (this.props.resultRenderer) {
+      return this.props.resultRenderer({
+        id,
+        title,
+        description,
+        extra,
+        ...props,
+      });
+    }
+    return ResultRenderer({ id, title, description, extra });
+  };
+
+  renderNoResults = () => {
+    const { isLoading } = this.state;
+    return isLoading ? (
+      <>
+        <Icon loading name="circle notch" /> Loading ...
+      </>
+    ) : (
+      'No results found.'
+    );
+  };
 
   render() {
     const { hasError, isLoading, results, value } = this.state;
@@ -107,13 +145,15 @@ export class HitsSearch extends Component {
             ? 'error'
             : null
         }
+        open={this.state.open}
         loading={isLoading}
         minCharacters={this.props.minCharacters}
         onResultSelect={this.onSelectResult}
         onSearchChange={this.onSearchChange}
+        noResultsMessage={this.renderNoResults()}
         results={results}
-        value={value}
-        resultRenderer={ResultRenderer}
+        value={this.props.value || value}
+        resultRenderer={this.renderResults}
         placeholder={this.props.placeholder}
         input={{ ref: element => (this.searchInputRef = element) }}
       />
@@ -124,7 +164,12 @@ export class HitsSearch extends Component {
 HitsSearch.propTypes = {
   delay: PropTypes.number.isRequired,
   placeholder: PropTypes.string,
-  serializer: PropTypes.func.isRequired,
+  serializer: PropTypes.func,
+  resultRenderer: PropTypes.func,
   id: PropTypes.string,
   name: PropTypes.string,
+  value: PropTypes.string,
+  minCharacters: PropTypes.number,
+  onSelect: PropTypes.func,
+  open: PropTypes.bool,
 };

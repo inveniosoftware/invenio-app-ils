@@ -8,3 +8,12 @@
     width: 100%;
   }
 }
+
+.ui.search{
+  .select-disabled{
+    cursor: not-allowed;
+    .price, .title, .description{
+      color: @mutedTextColor !important;
+    }
+  }
+}

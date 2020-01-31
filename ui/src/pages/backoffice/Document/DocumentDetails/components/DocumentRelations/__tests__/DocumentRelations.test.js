@@ -20,12 +20,6 @@ jest.mock('../', () => {
   };
 });
 
-jest.mock('../RelationCard', () => {
-  return {
-    RelationCard: () => null,
-  };
-});
-
 describe('Document relations tests', () => {
   let component;
   afterEach(() => {
