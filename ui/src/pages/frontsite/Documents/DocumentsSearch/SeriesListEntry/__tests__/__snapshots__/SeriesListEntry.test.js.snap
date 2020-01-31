@@ -81,7 +81,7 @@ exports[`should render correctly 1`] = `
     </ItemMeta>
     <ItemDescription>
       <Truncate
-        ellipsis="…"
+        ellipsis="... "
         lines={3}
         trimWhitespace={false}
         width={0}

@@ -2,6 +2,17 @@
          Site Overrides
 *******************************/
 
+.ui.button {
+  &.attached.left {
+    &.bo-remove-item {
+      display: inline-table;
+      z-index: 1;
+      position: absolute;
+      left: -1em;
+    }
+  }
+}
+
 
 @{fs-parent-selector} {
   .button-show-more {
@@ -10,8 +21,8 @@
   }
 
   .ui.button {
-    &.primary{
-    background-color: @fsPrimaryColor;
+    &.primary {
+      background-color: @fsPrimaryColor;
     }
 
     &.basic.fs-button-sort-mobile {
@@ -27,22 +38,22 @@
 
 }
 
-@{bo-parent-selector}{
+@{bo-parent-selector} {
 
   .button-show-more {
     color: @primaryColor;
     font-weight: bold;
   }
 
-  .bo-action-menu{
-    .ui.button{
+  .bo-action-menu {
+    .ui.button {
       margin-bottom: 0.5em;
     }
   }
 
 
-  .ui.button{
-    &.send-overdue-reminder-button{
+  .ui.button {
+    &.send-overdue-reminder-button {
       background-color: @orange;
     }
   }

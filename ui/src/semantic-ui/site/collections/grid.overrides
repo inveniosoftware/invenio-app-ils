@@ -10,5 +10,11 @@
   &.search-footer-pagination{
     padding: @defaultPaddingValue;
   }
+  .column {
+    &.scrolling{
+      overflow: auto;
+      max-height: 60vh;
+    }
+  }
 }
 

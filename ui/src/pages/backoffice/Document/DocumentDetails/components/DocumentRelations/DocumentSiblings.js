@@ -1,14 +1,18 @@
 import { Error, Loader } from '@components';
-import { RelationMultipart, RelationSerial } from '.';
+import { RelationOther } from './RelationOther';
+import { RelationEdition } from './RelationEdition';
+import { RelationLanguages } from './RelationLanguages';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Label, Tab } from 'semantic-ui-react';
+import { Label, Tab } from 'semantic-ui-react';
 
 export default class DocumentSeries extends Component {
   render() {
     const { isLoading, error } = this.props;
 
     const languages = this.props.relations['language'] || [];
+    const editions = this.props.relations['edition'] || [];
+    const other = this.props.relations['other'] || [];
 
     const panes = [
       {
@@ -20,33 +24,48 @@ export default class DocumentSeries extends Component {
             </>
           ),
         },
-        render: () => <RelationMultipart />,
+        render: () => (
+          <Tab.Pane className="relations-tab">
+            <RelationLanguages />
+          </Tab.Pane>
+        ),
       },
-      // {
-      //   menuItem: {
-      //     key: 'multipart',
-      //     content: (
-      //       <>
-      //         Serials <Label>{serial.length}</Label>{' '}
-      //       </>
-      //     ),
-      //   },
-      //   render: () => <RelationSerial />,
-      // },
+      {
+        menuItem: {
+          key: 'editions',
+          content: (
+            <>
+              Editions <Label>{editions.length}</Label>{' '}
+            </>
+          ),
+        },
+        render: () => (
+          <Tab.Pane className="relations-tab">
+            <RelationEdition />
+          </Tab.Pane>
+        ),
+      },
+      {
+        menuItem: {
+          key: 'Other',
+          content: (
+            <>
+              Other <Label>{other.length}</Label>{' '}
+            </>
+          ),
+        },
+        render: () => (
+          <Tab.Pane className="relations-tab">
+            <RelationOther />
+          </Tab.Pane>
+        ),
+      },
     ];
 
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
-          <Tab
-            id="document-siblings"
-            className="document-siblings"
-            menu={{
-              fluid: true,
-              vertical: true,
-            }}
-            panes={panes}
-          />
+          <Tab id="document-siblings" panes={panes} />
         </Error>
       </Loader>
     );

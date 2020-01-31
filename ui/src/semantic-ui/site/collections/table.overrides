@@ -2,6 +2,33 @@
          Site Overrides
 *******************************/
 
+.relations-tab {
+
+  .ui.table {
+    width: calc(~'100% + 2em');
+    margin-left: -1em;
+    margin-right: -1em;
+
+    thead {
+      th {
+        border-top: 1px solid @internalBorderColor;
+      }
+    }
+
+    tfoot {
+      th {
+        border-bottom: 1px solid @internalBorderColor;
+
+        .pagination {
+          margin-top: .5em;
+          margin-bottom: .5em;
+        }
+      }
+    }
+  }
+}
+
+
 @{fs-parent-selector}, @{bo-parent-selector} {
   .ui.table {
     border: 0;
@@ -62,7 +89,7 @@
         content: ' ';
       }
 
-      &[data-label="Actions"]{
+      &[data-label="Actions"] {
         text-align: center !important;
       }
 

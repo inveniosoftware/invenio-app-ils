@@ -98,11 +98,7 @@ export default class VendorListEntry extends Component {
             </Grid.Column>
           </Grid>
         </Item.Content>
-        <Item.Meta className={'pid-field'}>
-          <Header disabled as="h5" className={'pid-field'}>
-            #{vendor.metadata.pid}
-          </Header>
-        </Item.Meta>
+        <div className={'pid-field'}>#{vendor.metadata.pid}</div>
       </Item>
     );
   }

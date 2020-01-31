@@ -123,17 +123,12 @@ const list = query => {
   });
 };
 
-const serials = (exclude, searchText) => {
+const serials = searchText => {
   const builder = queryBuilder();
   let query = builder.withModeOfIssuance('SERIAL').withSearchText(searchText);
 
-  if (!isEmpty(exclude)) {
-    query = query.exclude(exclude);
-  }
   return list(query.qs());
 };
-
-const partialSerials = curry(serials);
 
 const multipartMonographs = query => {
   return list(
@@ -161,7 +156,6 @@ export const series = {
   deleteRelation: deleteRelation,
   list: list,
   serials: serials,
-  partialSerials: partialSerials,
   multipartMonographs: multipartMonographs,
   count: count,
   query: queryBuilder,

@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
-import { getCover } from '../../../frontsite/config';
+import { getCover } from '@pages/frontsite/config';
 import { BackOfficeRoutes } from '@routes/urls';
 import isEmpty from 'lodash/isEmpty';
 import DocumentCirculation from './DocumentCirculation';
 import {
   DocumentAuthors,
+  DocumentEdition,
   DocumentLanguages,
   DocumentTags,
 } from '@components/Document';
@@ -104,7 +105,7 @@ export default class DocumentListEntry extends Component {
     const { document } = this.props;
     return (
       <Item>
-        <div className={'item-image-addons-wrapper'}>
+        <div className={'item-image-wrapper'}>
           <Item.Image
             as={Link}
             to={BackOfficeRoutes.documentDetailsFor(document.metadata.pid)}
@@ -113,7 +114,7 @@ export default class DocumentListEntry extends Component {
             onError={e => (e.target.style.display = 'none')}
             label={this.getRestrictions(document.metadata)}
           />
-          <Header disabled as="h6" className={'document-type'}>
+          <Header disabled as="h6" className={'document-type tiny ellipsis'}>
             {document.metadata.document_type}
           </Header>
         </div>
@@ -134,7 +135,7 @@ export default class DocumentListEntry extends Component {
                 metadata={document.metadata}
                 prefix={<label>languages </label>}
               />
-              {this.renderEdition(document.metadata.edition)}
+              <DocumentEdition document={document} explicit={true} />
               <label>Published</label> {document.metadata.publication_year}
             </Grid.Column>
             <Grid.Column computer={3} largeScreen={4}>
@@ -148,11 +149,7 @@ export default class DocumentListEntry extends Component {
             <DocumentTags metadata={document.metadata} />
           </Item.Extra>
         </Item.Content>
-        <Item.Meta className={'pid-field'}>
-          <Header disabled as="h5" className={'pid-field'}>
-            #{document.metadata.pid}
-          </Header>
-        </Item.Meta>
+        <div className={'pid-field discrete'}>#{document.metadata.pid}</div>
       </Item>
     );
   }

@@ -55,7 +55,9 @@ export default class SeriesListEntry extends Component {
             <SeriesAuthors metadata={this.metadata} prefix="by " />
           </Item.Meta>
           <Item.Description>
-            <Truncate lines={3}>{this.metadata.abstract}</Truncate>
+            <Truncate lines={3} ellipsis={'... '}>
+              {this.metadata.abstract}
+            </Truncate>
           </Item.Description>
           <Item.Meta>
             <Grid>

@@ -10,7 +10,7 @@ import { invenioConfig } from '@config/invenioConfig';
 import {
   DocumentListEntry,
   DocumentStats,
-} from '../../components/DocumentList';
+} from '../../components/Document/DocumentList';
 
 export default class MostLoanedDocumentsList extends Component {
   constructor(props) {

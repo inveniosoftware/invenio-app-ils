@@ -1,8 +1,9 @@
 import { Error, Loader } from '@components';
-import { RelationMultipart, RelationSerial } from '.';
+import { RelationSerial } from './RelationSerial';
+import { RelationMultipart } from './RelationMultipartMonograph';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Label, Tab } from 'semantic-ui-react';
+import { Label, Tab } from 'semantic-ui-react';
 
 export default class DocumentSeries extends Component {
   render() {
@@ -21,33 +22,33 @@ export default class DocumentSeries extends Component {
             </>
           ),
         },
-        render: () => <RelationMultipart />,
+        render: () => (
+          <Tab.Pane className="relations-tab">
+            <RelationMultipart />
+          </Tab.Pane>
+        ),
       },
       {
         menuItem: {
-          key: 'multipart',
+          key: 'series',
           content: (
             <>
               Serials <Label>{serial.length}</Label>{' '}
             </>
           ),
         },
-        render: () => <RelationSerial />,
+        render: () => (
+          <Tab.Pane className="relations-tab">
+            <RelationSerial />
+          </Tab.Pane>
+        ),
       },
     ];
 
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
-          <Tab
-            id="document-series"
-            className="document-series"
-            menu={{
-              fluid: true,
-              vertical: true,
-            }}
-            panes={panes}
-          />
+          <Tab id="document-series" panes={panes} />
         </Error>
       </Loader>
     );

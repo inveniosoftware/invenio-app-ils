@@ -1,6 +1,7 @@
+import { recordToPidType } from '@api/utils';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Modal } from 'semantic-ui-react';
+import { Button, Icon, Modal } from 'semantic-ui-react';
 
 export default class RelationRemover extends Component {
   constructor(props) {
@@ -12,9 +13,26 @@ export default class RelationRemover extends Component {
   handleOpen = () => this.setState({ modalOpen: true });
 
   handleDelete = () => {
-    const { deletePayload, refererPid } = this.props;
+    const { related, referer, relationPayloadType } = this.props;
+
     this.setState({ modalOpen: false });
-    this.props.deleteRelations(refererPid, [deletePayload]);
+    let deletePayload = {};
+    if (relationPayloadType === 'siblings') {
+      deletePayload = {
+        pid: related.pid,
+        pid_type: related.pid_type,
+        relation_type: related.relation_type,
+      };
+    } else {
+      deletePayload = {
+        parent_pid: related.pid,
+        parent_pid_type: related.pid_type,
+        child_pid: referer.metadata.pid,
+        child_pid_type: recordToPidType(referer),
+        relation_type: related.relation_type,
+      };
+    }
+    this.props.deleteRelations(referer.metadata.pid, [deletePayload]);
   };
 
   render() {
@@ -22,7 +40,14 @@ export default class RelationRemover extends Component {
 
     return (
       <Modal
-        trigger={trigger || <Button>{buttonContent}</Button>}
+        trigger={
+          trigger || (
+            <Button icon labelPosition="left">
+              <Icon name="trash" />
+              {buttonContent}
+            </Button>
+          )
+        }
         onClose={this.handleClose}
         onOpen={this.handleOpen}
         open={this.state.modalOpen}
@@ -45,11 +70,14 @@ export default class RelationRemover extends Component {
 }
 
 RelationRemover.propTypes = {
-  /* Description of the relation to be deleted */
-  deletePayload: PropTypes.object.isRequired,
-  /* pid of the record using this remover */
+  /* pid of the record calling this remover */
   /* TODO PID AS OBJECT */
-  refererPid: PropTypes.string.isRequired,
+  referer: PropTypes.object.isRequired,
+  /* destination to be removed */
+  related: PropTypes.object.isRequired,
+
+  relationPayloadType: PropTypes.string.isRequired,
+
   /* supplied by reducer */
   deleteRelations: PropTypes.func.isRequired,
   buttonContent: PropTypes.string.isRequired,
@@ -57,4 +85,8 @@ RelationRemover.propTypes = {
   modalTrigger: PropTypes.node,
   modalHeader: PropTypes.string,
   modalContent: PropTypes.string,
+};
+
+RelationRemover.defaultProps = {
+  relationPayloadType: 'parent',
 };

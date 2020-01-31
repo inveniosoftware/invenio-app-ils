@@ -145,11 +145,6 @@ class LoanListEntry extends Component {
               )}
             </Grid.Column>
             <Grid.Column computer={2} largeScreen={2} textAlign="right">
-              <Item.Meta className={'pid-field'}>
-                <Header disabled as="h5" className={'pid-field'}>
-                  #{loan.metadata.pid}
-                </Header>
-              </Item.Meta>
               <Link
                 to={BackOfficeRoutes.documentDetailsFor(
                   loan.metadata.document_pid
@@ -161,6 +156,7 @@ class LoanListEntry extends Component {
             </Grid.Column>
           </Grid>
         </Item.Content>
+        <div className={'pid-field'}>#{loan.metadata.pid}</div>
       </Item>
     );
   }

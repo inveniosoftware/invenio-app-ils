@@ -15,6 +15,7 @@ exports[`HitsSearch tests should load the selector component 1`] = `
   noResultsMessage="No results found."
   onResultSelect={[Function]}
   onSearchChange={[Function]}
+  open={false}
   resultRenderer={[Function]}
   results={Array []}
   showNoResults={true}

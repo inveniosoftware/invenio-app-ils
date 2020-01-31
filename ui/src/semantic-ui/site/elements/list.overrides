@@ -7,6 +7,8 @@
     width: 100%;
   }
 
+
+
   .ui.list {
     &.document-items-location-filters {
       padding: 0.5em;
@@ -20,6 +22,14 @@
       }
     }
   }
+
+  .ui.label {
+      .ui.list.horizontal.document-languages-list {
+        .item{
+          font-size: 0.9rem;
+        }
+      }
+    }
 
   .ui.container.fs-search-body {
     .ui.card {

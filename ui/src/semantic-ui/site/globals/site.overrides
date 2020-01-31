@@ -8,6 +8,16 @@
 }
 
 
+.ellipsis {
+ white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.default-padding{
+  padding: 1rem;
+}
+
 .no-border {
   border: 0 !important;
 }
@@ -69,6 +79,11 @@ form {
   }
 }
 
+.spaced {
+    margin-top: 2em !important;
+    margin-bottom: 2em !important;
+  }
+
 
 /* FRONTSITE */
 
@@ -129,11 +144,6 @@ form {
     }
   }
 
-  .spaced{
-    margin-top: 2em !important;
-    margin-bottom: 2em !important;
-  }
-
   .bo-sidebar {
     width: @boSidebarWidth;
     padding: 1.5em;
@@ -147,8 +157,9 @@ form {
     flex: 1;
     padding: 1.5em;
   }
+}
 
-  .generate-margins(@max, @direction, @alias, @i: 5) when (@i =< @max) {
+.generate-margins(@max, @direction, @alias, @i: 5) when (@i =< @max) {
     .m@{alias}-@{i} {
       margin-@{direction}: unit(@i, px) !important;
     }
@@ -159,4 +170,3 @@ form {
   .generate-margins(20, left, l);
   .generate-margins(20, bottom, b);
   .generate-margins(20, top, t);
-}
