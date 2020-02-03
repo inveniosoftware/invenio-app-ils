@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import DocumentCirculation from '../DocumentCirculation';
+import { shallow } from 'enzyme';
+import DocumentCirculation from './DocumentCirculation';
 import * as testData from '@testData/documents.json';
 
 describe('DocumentCirculation tests', () => {

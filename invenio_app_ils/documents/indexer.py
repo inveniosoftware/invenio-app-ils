@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2019-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -15,7 +15,7 @@ from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_PID_TYPE
 from invenio_circulation.search.api import search_by_pid as search_loans_by_pid
 from invenio_indexer.api import RecordIndexer
 
-from invenio_app_ils.acquisition.pidstore.pids import ORDER_PID_TYPE
+from invenio_app_ils.acquisition.api import ORDER_PID_TYPE
 from invenio_app_ils.acquisition.proxies import current_ils_acq
 from invenio_app_ils.document_requests.api import DOCUMENT_REQUEST_PID_TYPE
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE

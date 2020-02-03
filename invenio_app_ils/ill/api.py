@@ -1,19 +1,35 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2019-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """ILL APIs."""
 
+from functools import partial
+
 from flask import current_app
+from invenio_pidstore.models import PIDStatus
+from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
 from invenio_app_ils.errors import RecordHasReferencesError
+from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.ill.proxies import current_ils_ill
+from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.records.api import IlsRecord
 
-from .pidstore.pids import BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_TYPE
+LIBRARY_PID_TYPE = "illlid"
+LIBRARY_PID_MINTER = "illlid"
+LIBRARY_PID_FETCHER = "illlid"
+
+LibraryIdProvider = type(
+    "LibraryIdProvider",
+    (RecordIdProviderV2,),
+    dict(pid_type=LIBRARY_PID_TYPE, default_status=PIDStatus.REGISTERED),
+)
+library_pid_minter = partial(pid_minter, provider_cls=LibraryIdProvider)
+library_pid_fetcher = partial(pid_fetcher, provider_cls=LibraryIdProvider)
 
 
 class Library(IlsRecord):
@@ -38,13 +54,35 @@ class Library(IlsRecord):
         return super().delete(**kwargs)
 
 
+BORROWING_REQUEST_PID_TYPE = "illbid"
+BORROWING_REQUEST_PID_MINTER = "illbid"
+BORROWING_REQUEST_PID_FETCHER = "illbid"
+
+BorrowingRequestIdProvider = type(
+    "BorrowingRequestIdProvider",
+    (RecordIdProviderV2,),
+    dict(
+        pid_type=BORROWING_REQUEST_PID_TYPE,
+        default_status=PIDStatus.REGISTERED,
+    ),
+)
+borrowing_request_pid_minter = partial(
+    pid_minter, provider_cls=BorrowingRequestIdProvider
+)
+borrowing_request_pid_fetcher = partial(
+    pid_fetcher, provider_cls=BorrowingRequestIdProvider
+)
+
+
 class BorrowingRequest(IlsRecord):
     """ILL borrowing request class."""
 
     _pid_type = BORROWING_REQUEST_PID_TYPE
     _schema = "ill_borrowing_requests/borrowing_request-v1.0.0.json"
-    _library_resolver_path = "{scheme}://{host}/api/resolver/ill/" \
-                             "borrowing-requests/{request_pid}/library"
+    _library_resolver_path = (
+        "{scheme}://{host}/api/resolver/ill/"
+        "borrowing-requests/{request_pid}/library"
+    )
     STATUSES = ["PENDING", "REQUESTED", "ON_LOAN", "RETURNED", "CANCELLED"]
 
     @classmethod

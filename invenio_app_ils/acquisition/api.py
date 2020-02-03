@@ -1,19 +1,35 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2019-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Acquisition API."""
 
+from functools import partial
+
 from flask import current_app
+from invenio_pidstore.models import PIDStatus
+from invenio_pidstore.providers.recordid_v2 import RecordIdProviderV2
 
 from invenio_app_ils.acquisition.proxies import current_ils_acq
 from invenio_app_ils.errors import RecordHasReferencesError
+from invenio_app_ils.fetchers import pid_fetcher
+from invenio_app_ils.minters import pid_minter
 from invenio_app_ils.records.api import IlsRecord
 
-from .pidstore.pids import ORDER_PID_TYPE, VENDOR_PID_TYPE
+VENDOR_PID_TYPE = "acqvid"
+VENDOR_PID_MINTER = "acqvid"
+VENDOR_PID_FETCHER = "acqvid"
+
+VendorIdProvider = type(
+    "VendorIdProvider",
+    (RecordIdProviderV2,),
+    dict(pid_type=VENDOR_PID_TYPE, default_status=PIDStatus.REGISTERED),
+)
+vendor_pid_minter = partial(pid_minter, provider_cls=VendorIdProvider)
+vendor_pid_fetcher = partial(pid_fetcher, provider_cls=VendorIdProvider)
 
 
 class Vendor(IlsRecord):
@@ -38,6 +54,19 @@ class Vendor(IlsRecord):
         return super().delete(**kwargs)
 
 
+ORDER_PID_TYPE = "acqoid"
+ORDER_PID_MINTER = "acqoid"
+ORDER_PID_FETCHER = "acqoid"
+
+OrderIdProvider = type(
+    "OrderIdProvider",
+    (RecordIdProviderV2,),
+    dict(pid_type=ORDER_PID_TYPE, default_status=PIDStatus.REGISTERED),
+)
+order_pid_minter = partial(pid_minter, provider_cls=OrderIdProvider)
+order_pid_fetcher = partial(pid_fetcher, provider_cls=OrderIdProvider)
+
+
 class Order(IlsRecord):
     """Acquisition order class."""
 
@@ -46,16 +75,9 @@ class Order(IlsRecord):
     _vendor_resolver_path = (
         "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/vendor"
     )
-    _order_lines_resolver_path = (
-        "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/order-lines"
-    )
+    _order_lines_resolver_path = "{scheme}://{host}/api/resolver/acquisition/orders/{order_pid}/order-lines"
 
-    STATUSES = [
-        "PENDING",
-        "ORDERED",
-        "RECEIVED",
-        "CANCELLED"
-    ]
+    STATUSES = ["PENDING", "ORDERED", "RECEIVED", "CANCELLED"]
 
     @classmethod
     def create(cls, data, id_=None, **kwargs):

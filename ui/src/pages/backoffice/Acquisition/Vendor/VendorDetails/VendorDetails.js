@@ -59,30 +59,32 @@ class ActionMenu extends React.Component {
     const vendor = this.props.data.metadata;
 
     return (
-      <Sticky context={this.contextRef}>
-        <EditButton fluid to={AcquisitionRoutes.vendorEditFor(vendor.pid)} />
-        <DeleteRecordModal
-          deleteHeader={`Are you sure you want to delete the Vendor record
+      <div className={'bo-action-menu'}>
+        <Sticky context={this.contextRef}>
+          <EditButton fluid to={AcquisitionRoutes.vendorEditFor(vendor.pid)} />
+          <DeleteRecordModal
+            deleteHeader={`Are you sure you want to delete the Vendor record
               with ID ${vendor.pid}?`}
-          refProps={this.createRefProps(vendor.pid)}
-          onDelete={() => this.deleteVendor(vendor.pid)}
-          trigger={DeleteVendorButton}
-        />
+            refProps={this.createRefProps(vendor.pid)}
+            onDelete={() => this.deleteVendor(vendor.pid)}
+            trigger={DeleteVendorButton}
+          />
 
-        <Divider horizontal>Navigation</Divider>
+          <Divider horizontal>Navigation</Divider>
 
-        <Link
-          to={AcquisitionRoutes.ordersListWithQuery(
-            orderApi
-              .query()
-              .withVendorPid(vendor.pid)
-              .qs()
-          )}
-        >
-          <Icon name={'search'} />
-          See orders from {vendor.name}
-        </Link>
-      </Sticky>
+          <Link
+            to={AcquisitionRoutes.ordersListWithQuery(
+              orderApi
+                .query()
+                .withVendorPid(vendor.pid)
+                .qs()
+            )}
+          >
+            <Icon name={'search'} />
+            See orders from {vendor.name}
+          </Link>
+        </Sticky>
+      </div>
     );
   }
 }
@@ -142,6 +144,11 @@ class VendorDetailsInner extends React.Component {
 }
 
 export default class VendorDetails extends React.Component {
+  constructor(props) {
+    super(props);
+    this.menuRef = React.createRef();
+  }
+
   componentDidMount() {
     this.unlisten = history.listen(loc => {
       if (loc.state && loc.state.pid && loc.state.type === 'Vendor') {

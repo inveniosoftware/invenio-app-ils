@@ -1,7 +1,6 @@
 import { EmailLink } from '@components/EmailLink/EmailLink';
 import { invenioConfig } from '@config';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Divider,
@@ -20,7 +19,7 @@ import {
 } from '@pages/backoffice/components';
 import isEmpty from 'lodash/isEmpty';
 import { toShortDateTime } from '@api/date';
-import { DetailsRouteByPidTypeFor } from '@routes/urls';
+import { LoanLinkToItem } from '../../../../components/Loan';
 
 export default class LoanMetadata extends Component {
   constructor(props) {
@@ -78,20 +77,17 @@ export default class LoanMetadata extends Component {
     );
   }
 
-  getLinkToItem = itemPid => {
-    return (
-      itemPid && (
-        <Link to={DetailsRouteByPidTypeFor(itemPid.type)(itemPid.value)}>
-          ${itemPid.value}
-        </Link>
-      )
-    );
-  };
-
   prepareLeftData(data) {
     const rows = [
       { name: 'Document pid', value: data.metadata.document_pid },
-      { name: 'Item pid', value: this.getLinkToItem(data.metadata.item_pid) },
+      {
+        name: 'Item pid',
+        value: (
+          <LoanLinkToItem itemPid={data.metadata.item_pid}>
+            {data.metadata.item_pid.value}
+          </LoanLinkToItem>
+        ),
+      },
       { name: 'Patron pid', value: data.metadata.patron_pid },
       { name: 'Pickup Location pid', value: data.metadata.pickup_location_pid },
       { name: 'State', value: data.metadata.state },

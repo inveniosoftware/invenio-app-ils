@@ -17,7 +17,10 @@ exports[`PatronLoans tests should render show a message with added loan 1`] = `
   checkoutItem={[MockFunction]}
   data={
     Object {
-      "item_pid": "4",
+      "item_pid": Object {
+        "type": "itemid",
+        "value": "4",
+      },
       "loan_pid": 2,
     }
   }

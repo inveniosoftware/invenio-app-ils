@@ -14,7 +14,7 @@ from invenio_pidstore.errors import PersistentIdentifierError
 
 from invenio_app_ils.circulation.utils import resolve_item_from_loan
 from invenio_app_ils.errors import UnknownItemPidTypeError
-from invenio_app_ils.ill.pidstore.pids import BORROWING_REQUEST_PID_TYPE
+from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
 from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
 from invenio_app_ils.search.api import ItemSearch
