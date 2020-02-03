@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2019-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -8,7 +8,9 @@
 """Order schema for marshmallow loader."""
 
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
-from marshmallow import EXCLUDE, Schema, fields
+from marshmallow import EXCLUDE, Schema, fields, validate
+
+from invenio_app_ils.acquisition.api import Order
 
 
 class PriceSchema(Schema):
@@ -83,5 +85,5 @@ class OrderSchemaV1(RecordMetadataSchemaJSONV1):
     order_date = fields.Str(requried=True)
     order_lines = fields.List(fields.Nested(OrderLineSchema), required=True)
     payment = fields.Nested(PaymentSchema, required=True)
-    status = fields.Str(required=True)  # TODO: this should be an enum
+    status = fields.Str(required=True, validate=validate.OneOf(Order.STATUSES))
     vendor_pid = fields.Str(required=True)  # TODO: validate

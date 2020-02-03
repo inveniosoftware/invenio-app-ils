@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2019-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Vendor schema for marshmallow loader."""
+"""Library schema for marshmallow loader."""
 
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import EXCLUDE, fields
 
 
-class VendorSchemaV1(RecordMetadataSchemaJSONV1):
-    """Vendor schema."""
+class LibrarySchemaV1(RecordMetadataSchemaJSONV1):
+    """Library schema."""
 
     class Meta:
         """Meta attributes for the schema."""
@@ -20,7 +20,4 @@ class VendorSchemaV1(RecordMetadataSchemaJSONV1):
         unknown = EXCLUDE
 
     name = fields.Str(required=True)
-    address = fields.Str()  # TODO: validate?
-    email = fields.Str()  # TODO: validate
-    phone = fields.Str()
     notes = fields.Str()

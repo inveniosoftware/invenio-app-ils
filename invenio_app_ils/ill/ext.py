@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2019-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
@@ -13,7 +13,7 @@ from flask import current_app
 from werkzeug.utils import cached_property
 
 from . import config
-from .pidstore.pids import BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_TYPE
+from .api import BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_TYPE
 
 
 def handle_rest_exceptions(exception):

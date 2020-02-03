@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2019-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
@@ -13,7 +13,7 @@ from flask import current_app
 from werkzeug.utils import cached_property
 
 from . import config
-from .pidstore.pids import ORDER_PID_TYPE, VENDOR_PID_TYPE
+from .api import ORDER_PID_TYPE, VENDOR_PID_TYPE
 
 
 def handle_rest_exceptions(exception):
@@ -31,8 +31,8 @@ class _InvenioIlsAcquisitionState(object):
 
     def record_class_by_pid_type(self, pid_type):
         """Return a record class by pid type."""
-        endpoints = self.app.config.get('RECORDS_REST_ENDPOINTS', [])
-        return endpoints[pid_type]['record_class']
+        endpoints = self.app.config.get("RECORDS_REST_ENDPOINTS", [])
+        return endpoints[pid_type]["record_class"]
 
     def search_class_by_pid_type(self, pid_type):
         """Return a search class by pid type."""

@@ -33,10 +33,6 @@ describe('LoanList tests', () => {
   it('should show empty message', () => {
     const component = shallow(<LoanList hits={[]} />);
     expect(component).toMatchSnapshot();
-    // const resultRows = component
-    //   .find('TableRow')
-    //   .filterWhere(element => element.prop('data-test') === firstResult.id);
-    // expect(resultRows).toHaveLength(1);
   });
 
   it('should load the LoanList component', () => {

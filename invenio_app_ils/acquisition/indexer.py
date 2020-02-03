@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2019-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Acquisition indexer APIs."""
+
 from datetime import datetime
 
 from celery import shared_task
@@ -14,7 +15,7 @@ from invenio_indexer.api import RecordIndexer
 
 from invenio_app_ils.indexer import ReferencedRecordsIndexer
 
-from .pidstore.pids import ORDER_PID_TYPE, VENDOR_PID_TYPE
+from .api import ORDER_PID_TYPE, VENDOR_PID_TYPE
 from .proxies import current_ils_acq
 
 

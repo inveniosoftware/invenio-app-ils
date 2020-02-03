@@ -1,27 +1,26 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2019-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""BorrowingRequest schema for marshmallow loader."""
+"""Vendor schema for marshmallow loader."""
 
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import EXCLUDE, fields
 
 
-class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
-    """BorrowingRequest schema."""
+class VendorSchemaV1(RecordMetadataSchemaJSONV1):
+    """Vendor schema."""
 
     class Meta:
         """Meta attributes for the schema."""
 
         unknown = EXCLUDE
 
-    cancel_reason = fields.Str()
-    document_pid = fields.Str(required=True)
     name = fields.Str(required=True)
+    address = fields.Str()
+    email = fields.Email()
+    phone = fields.Str()
     notes = fields.Str()
-    library_pid = fields.Str(required=True)  # TODO: validate
-    status = fields.Str(required=True)  # TODO: this should be an enum
