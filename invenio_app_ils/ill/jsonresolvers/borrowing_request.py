@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2019-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -12,7 +12,7 @@ from werkzeug.routing import Rule
 
 from invenio_app_ils.jsonresolver.api import \
     get_field_value_for_record as get_field_value
-from invenio_app_ils.jsonresolver.api import get_pid_or_default
+from invenio_app_ils.jsonresolver.api import get_pid_or_default, pick
 
 from ..proxies import current_ils_ill
 
@@ -35,9 +35,8 @@ def jsonresolver_loader(url_map):
 
         library_record_cls = current_ils_ill.library_record_cls
         library = library_record_cls.get_record_by_pid(library_pid)
-        del library["$schema"]
 
-        return library
+        return pick(library, "pid", "name")
 
     url_map.add(
         Rule(

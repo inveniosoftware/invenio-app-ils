@@ -18,9 +18,6 @@
       "created_by_pid": {
         "type": "keyword"
       },
-      "received_date": {
-        "type": "date"
-      },
       "expected_delivery_date": {
         "type": "date"
       },
@@ -163,39 +160,42 @@
       "pid": {
         "type": "keyword"
       },
+      "received_date": {
+        "type": "date"
+      },
       "status": {
         "type": "keyword"
       },
-      "vendor_pid": {
-        "type": "keyword"
-      },
       "vendor": {
-        "type": "object",
         "properties": {
-          "pid": {
-            "type": "keyword"
-          },
-          "name": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword"
-              }
-            }
-          },
           "address": {
             "type": "text"
           },
           "email": {
             "type": "text"
           },
-          "phone": {
-            "type": "keyword"
+          "name": {
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            },
+            "type": "text"
           },
           "notes": {
             "type": "text"
+          },
+          "phone": {
+            "type": "keyword"
+          },
+          "pid": {
+            "type": "keyword"
           }
-        }
+        },
+        "type": "object"
+      },
+      "vendor_pid": {
+        "type": "keyword"
       }
     }
   }
