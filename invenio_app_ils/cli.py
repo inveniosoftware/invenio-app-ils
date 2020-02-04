@@ -1061,25 +1061,25 @@ def data(
     rec_requests = document_requests_generator.persist()
 
     # Vendors
-    click.echo("Creating vendors...")
+    click.echo("Creating acquisition vendors...")
     vendor_generator = VendorGenerator(holder, minter)
     vendor_generator.generate()
     rec_vendors = vendor_generator.persist()
 
     # Orders
-    click.echo("Creating orders...")
+    click.echo("Creating acquisition orders...")
     order_generator = OrderGenerator(holder, minter)
     order_generator.generate()
     rec_orders = order_generator.persist()
 
     # Libraries
-    click.echo("Creating libraries...")
+    click.echo("Creating ILL external libraries...")
     library_generator = LibraryGenerator(holder, minter)
     library_generator.generate()
     rec_libraries = library_generator.persist()
 
     # Borrowing requests
-    click.echo("Creating borrowing requests...")
+    click.echo("Creating ILL borrowing requests...")
     borrowing_requests_generator = BorrowingRequestGenerator(holder, minter)
     borrowing_requests_generator.generate()
     rec_borrowing_requests = borrowing_requests_generator.persist()

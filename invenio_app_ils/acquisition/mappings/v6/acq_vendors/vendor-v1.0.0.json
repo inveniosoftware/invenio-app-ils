@@ -4,13 +4,13 @@
       "date_detection": false,
       "numeric_detection": false,
       "properties": {
+        "_created": {
+          "type": "date"
+        },
+        "_updated": {
+          "type": "date"
+        },
         "$schema": {
-          "type": "keyword"
-        },
-        "pid": {
-          "type": "keyword"
-        },
-        "name": {
           "type": "keyword"
         },
         "address": {
@@ -19,17 +19,17 @@
         "email": {
           "type": "keyword"
         },
-        "phone": {
+        "name": {
           "type": "keyword"
         },
         "notes": {
           "type": "text"
         },
-        "_created": {
-          "type": "date"
+        "phone": {
+          "type": "keyword"
         },
-        "_updated": {
-          "type": "date"
+        "pid": {
+          "type": "keyword"
         }
       }
     }

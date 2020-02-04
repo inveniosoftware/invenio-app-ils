@@ -1,50 +1,159 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "type": "object",
-  "title": "Schema for the ILL borrowing request",
-  "required": [
-    "$schema",
-    "pid",
-    "status",
-    "library_pid"
-  ],
+  "definitions": {
+    "payment": {
+      "properties": {
+        "budget_code": {
+          "title": "A generic budget code used for the ILL borrowing request",
+          "type": "string"
+        },
+        "debit_cost": {
+          "$ref": "#/definitions/price",
+          "title": "Payment price"
+        },
+        "debit_cost_main_currency": {
+          "$ref": "#/definitions/price",
+          "title": "Payment price in the main currency"
+        },
+        "debit_date": {
+          "format": "date",
+          "title": "Debit date",
+          "type": "string"
+        },
+        "debit_note": {
+          "title": "Debit note",
+          "type": "string"
+        },
+        "internal_purchase_requisition_id": {
+          "title": "The internal purchase requisition ID",
+          "type": "string"
+        },
+        "mode": {
+          "title": "Payment mode (Vocabulary)",
+          "type": "string"
+        }
+      },
+      "required": ["mode"],
+      "type": "object"
+    },
+    "price": {
+      "properties": {
+        "currency": {
+          "title": "Currency of the price (Vocabulary)",
+          "type": "string"
+        },
+        "value": {
+          "minimum": 0,
+          "title": "Price value",
+          "type": "number"
+        }
+      },
+      "required": ["value", "currency"],
+      "type": "object"
+    }
+  },
   "properties": {
     "$schema": {
       "title": "Interlibrary borrowing request schema",
-      "type": "string"
-    },
-    "pid": {
-      "title": "The persistent identifier of ILL borrowing request",
-      "type": "string"
-    },
-    "document_pid": {
-      "title": "The persistent identifier of the Document",
-      "type": "string"
-    },
-    "status": {
-      "title": "Status of the ILL borrowing request",
       "type": "string"
     },
     "cancel_reason": {
       "title": "Reason for cancelling the ILL borrowing request",
       "type": "string"
     },
-    "library_pid": {
-      "title": "The persistent identifier of the lending library",
+    "document_pid": {
+      "title": "The persistent identifier of the Document",
       "type": "string"
     },
+    "expected_delivery_date": {
+      "format": "date",
+      "minLength": 1,
+      "title": "Expected delivery date of the item requested",
+      "type": "string"
+    },
+    "extension": {
+      "properties": {
+        "notes": {
+          "title": "The notes of the extension",
+          "type": "string"
+        },
+        "request_date": {
+          "format": "date",
+          "minLength": 1,
+          "title": "Date of the extension request",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status of the extension",
+          "type": "string"
+        }
+      },
+      "title": "Patron loan extensions",
+      "type": "object"
+    },
     "library": {
-      "title": "The link, as a resolver, to the lending library",
-      "type": "object",
       "properties": {
         "$ref": {
           "type": "string"
         }
-      }
+      },
+      "title": "The link, as a resolver, to the lending library",
+      "type": "object"
+    },
+    "library_pid": {
+      "title": "The persistent identifier of the lending library",
+      "type": "string"
+    },
+    "loan_end_date": {
+      "format": "date",
+      "title": "Ending date of the ILL borrowing request",
+      "type": "string"
     },
     "notes": {
-      "description": "The notes of the ILL borrowing request",
+      "title": "The notes of the ILL borrowing request",
+      "type": "string"
+    },
+    "patron_pid": {
+      "title": "The persistent identifier of the patron who made the request",
+      "type": "string"
+    },
+    "payment": {
+      "$ref": "#/definitions/payment",
+      "title": "ILL borrowing request payment"
+    },
+    "pid": {
+      "title": "The persistent identifier of ILL borrowing request",
+      "type": "string"
+    },
+    "received_date": {
+      "format": "date",
+      "title": "Date of when the item requested was received",
+      "type": "string"
+    },
+    "request_date": {
+      "format": "date",
+      "minLength": 1,
+      "title": "Date of the request",
+      "type": "string"
+    },
+    "status": {
+      "title": "Status of the ILL borrowing request",
+      "type": "string"
+    },
+    "total": {
+      "$ref": "#/definitions/price",
+      "title": "Order total"
+    },
+    "total_main_currency": {
+      "$ref": "#/definitions/price",
+      "title": "Order total in the main currency"
+    },
+    "type": {
+      "title": "The type of the item requested, normally physical or electronic",
       "type": "string"
     }
-  }
+  },
+  "required": ["$schema", "pid", "status", "library_pid"],
+  "title": "Schema for the ILL borrowing request",
+  "type": "object"
 }

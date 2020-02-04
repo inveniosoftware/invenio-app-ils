@@ -13,23 +13,130 @@
         "$schema": {
           "type": "keyword"
         },
-        "pid": {
-          "type": "keyword"
+        "cancel_reason": {
+          "type": "text"
         },
         "document_pid": {
           "type": "keyword"
         },
-        "status": {
-          "type": "keyword"
+        "expected_delivery_date": {
+          "type": "date"
         },
-        "cancel_reason": {
-          "type": "text"
+        "extension": {
+          "properties": {
+            "notes": {
+              "type": "text"
+            },
+            "request_date": {
+              "type": "date"
+            },
+            "status": {
+              "type": "keyword"
+            }
+          },
+          "type": "object"
+        },
+        "library": {
+          "properties": {
+            "name": {
+              "type": "keyword"
+            },
+            "pid": {
+              "type": "keyword"
+            }
+          },
+          "type": "object"
         },
         "library_pid": {
           "type": "keyword"
         },
+        "loan_end_date": {
+          "type": "date"
+        },
         "notes": {
           "type": "text"
+        },
+        "patron_pid": {
+          "type": "keyword"
+        },
+        "payment": {
+          "properties": {
+            "budget_code": {
+              "type": "keyword"
+            },
+            "debit_cost": {
+              "properties": {
+                "currency": {
+                  "type": "keyword"
+                },
+                "value": {
+                  "type": "float"
+                }
+              },
+              "type": "object"
+            },
+            "debit_cost_main_currency": {
+              "properties": {
+                "currency": {
+                  "type": "keyword"
+                },
+                "value": {
+                  "type": "float"
+                }
+              },
+              "type": "object"
+            },
+            "debit_date": {
+              "type": "date"
+            },
+            "debit_note": {
+              "type": "text"
+            },
+            "internal_purchase_requisition_id": {
+              "type": "keyword"
+            },
+            "mode": {
+              "type": "keyword"
+            }
+          },
+          "type": "object"
+        },
+        "pid": {
+          "type": "keyword"
+        },
+        "received_date": {
+          "type": "date"
+        },
+        "request_date": {
+          "type": "date"
+        },
+        "status": {
+          "type": "keyword"
+        },
+        "total": {
+          "properties": {
+            "currency": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "float"
+            }
+          },
+          "type": "object"
+        },
+        "total_main_currency": {
+          "properties": {
+            "currency": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "float"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "type": "keyword"
         }
       }
     }

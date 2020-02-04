@@ -1,31 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-
-  "type": "object",
-  "title": "Schema for Acquisition order",
-  "required": [
-    "$schema",
-    "created_by_pid",
-    "grand_total_main_currency",
-    "grand_total",
-    "order_date",
-    "order_lines",
-    "payment",
-    "pid",
-    "status",
-    "vendor_pid"
-  ],
-
   "definitions": {
     "order-line": {
-      "type": "object",
-      "required": [
-        "document_pid",
-        "recipient",
-        "medium",
-        "copies_ordered",
-        "copies_received"
-      ],
       "properties": {
         "budget_code": {
           "title": "A generic budget code for the order line",
@@ -60,7 +36,7 @@
           "type": "string"
         },
         "notes": {
-          "description": "The notes of Acquisition order",
+          "title": "The notes of Acquisition order",
           "type": "string"
         },
         "patron_pid": {
@@ -87,13 +63,11 @@
           "$ref": "#/definitions/price",
           "title": "Price per unit for the order line"
         }
-      }
+      },
+      "required": ["document_pid", "recipient", "medium", "copies_ordered"],
+      "type": "object"
     },
     "payment": {
-      "type": "object",
-      "required": [
-        "mode"
-      ],
       "properties": {
         "debit_cost": {
           "$ref": "#/definitions/price",
@@ -120,14 +94,11 @@
           "title": "Payment mode (Vocabulary)",
           "type": "string"
         }
-      }
+      },
+      "required": ["mode"],
+      "type": "object"
     },
     "price": {
-      "type": "object",
-      "required": [
-        "value",
-        "currency"
-      ],
       "properties": {
         "currency": {
           "title": "Currency of the price (Vocabulary)",
@@ -138,10 +109,11 @@
           "title": "Price value",
           "type": "number"
         }
-      }
+      },
+      "required": ["value", "currency"],
+      "type": "object"
     }
   },
-
   "properties": {
     "$schema": {
       "title": "Acquisition order schema",
@@ -153,11 +125,6 @@
     },
     "created_by_pid": {
       "title": "PID of the user who created the order",
-      "type": "string"
-    },
-    "received_date": {
-      "format": "date",
-      "title": "Date the order was received",
       "type": "string"
     },
     "expected_delivery_date": {
@@ -183,7 +150,7 @@
       "title": "Order grand total in the main currency"
     },
     "notes": {
-      "description": "The notes of Acquisition order",
+      "title": "The notes of Acquisition order",
       "type": "string"
     },
     "order_date": {
@@ -209,6 +176,11 @@
       "title": "The persistent identifier of Acquisition order",
       "type": "string"
     },
+    "received_date": {
+      "format": "date",
+      "title": "Date of when the order was received",
+      "type": "string"
+    },
     "status": {
       "title": "Status of Acquisition order",
       "type": "string"
@@ -217,5 +189,19 @@
       "title": "The persistent identifier of its Vendor",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "$schema",
+    "created_by_pid",
+    "grand_total_main_currency",
+    "grand_total",
+    "order_date",
+    "order_lines",
+    "payment",
+    "pid",
+    "status",
+    "vendor_pid"
+  ],
+  "title": "Schema for Acquisition order",
+  "type": "object"
 }
