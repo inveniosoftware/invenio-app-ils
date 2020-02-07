@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export class DocumentDetailsLink extends Component {
   render() {
-    const {documentPid, ...props} = this.props;
+    const { documentPid, ...props } = this.props;
     return (
       <Link
         to={BackOfficeRoutes.documentDetailsFor(documentPid)}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Grid, Header, Item, List } from 'semantic-ui-react';
+import { Grid, Item, List } from 'semantic-ui-react';
 import { AcquisitionRoutes, BackOfficeRoutes } from '@routes/urls';
 import { toShortDateTime } from '@api/date';
 import { formatPrice } from '@api/utils';

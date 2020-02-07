@@ -2,6 +2,7 @@ import { parentChildRelationPayload, siblingRelationPayload } from '@api/utils';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon, Modal } from 'semantic-ui-react';
+import isEmpty from 'lodash/isEmpty';
 
 export default class RelationModal extends Component {
   constructor(props) {
@@ -11,7 +12,16 @@ export default class RelationModal extends Component {
     };
   }
 
-  toggle = () => this.setState({ visible: !this.state.visible });
+  onClose = () => {
+    this.props.resetSelections();
+  };
+
+  toggle = () => {
+    if (this.state.visible) {
+      this.onClose();
+    }
+    this.setState({ visible: !this.state.visible });
+  };
 
   onSave = () => {
     const {
@@ -21,9 +31,10 @@ export default class RelationModal extends Component {
       refererRecord,
     } = this.props;
 
+    delete extraRelationField.required;
+
     this.setState({ isLoading: true });
     let newRelations = [];
-
     if (relationType === 'serial' || relationType === 'multipart_monograph') {
       const payload = parentChildRelationPayload(
         this.props.relationType,
@@ -33,11 +44,21 @@ export default class RelationModal extends Component {
       );
       newRelations.push(payload);
     } else {
-      selections.map(selection =>
+      if (relationType === 'other') {
         newRelations.push(
-          siblingRelationPayload(relationType, extraRelationField, selection)
-        )
-      );
+          siblingRelationPayload(
+            relationType,
+            extraRelationField,
+            selections[0]
+          )
+        );
+      } else {
+        selections.map(selection =>
+          newRelations.push(
+            siblingRelationPayload(relationType, extraRelationField, selection)
+          )
+        );
+      }
     }
 
     const pid = refererRecord.pid;
@@ -52,6 +73,8 @@ export default class RelationModal extends Component {
       triggerButtonContent,
       modalHeader,
       isLoading,
+      selections,
+      extraRelationField,
     } = this.props;
 
     return (
@@ -81,11 +104,15 @@ export default class RelationModal extends Component {
         {this.props.children}
 
         <Modal.Actions>
-          <Button onClick={() => this.toggle()}>Cancel action</Button>
+          <Button onClick={() => this.toggle()}>Cancel</Button>
           <Button
             positive
             loading={isLoading}
-            disabled={isLoading}
+            disabled={
+              isEmpty(selections) ||
+              (isEmpty(extraRelationField) && extraRelationField.required) ||
+              isLoading
+            }
             icon="checkmark"
             labelPosition="right"
             content="Confirm and save"
@@ -100,14 +127,16 @@ export default class RelationModal extends Component {
 RelationModal.propTypes = {
   disabled: PropTypes.bool.isRequired,
   triggerButtonContent: PropTypes.string.isRequired,
-  modalHeader: PropTypes.string.isRequired,
+  modalHeader: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+    .isRequired,
   isLoading: PropTypes.bool.isRequired,
   refererRecord: PropTypes.object.isRequired,
   extraRelationField: PropTypes.object.isRequired,
 
-  selections: PropTypes.array,
+  selections: PropTypes.array.isRequired,
 };
 
 RelationModal.defaultProps = {
   extraRelationField: {},
+  disabled: false,
 };

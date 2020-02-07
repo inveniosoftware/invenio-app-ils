@@ -15,5 +15,8 @@
     .price, .title, .description{
       color: @mutedTextColor !important;
     }
+    .document-title{
+      display: inline-block;
+    }
   }
 }

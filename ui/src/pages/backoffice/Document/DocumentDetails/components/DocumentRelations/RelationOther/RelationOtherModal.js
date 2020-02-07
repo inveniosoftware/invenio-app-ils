@@ -1,10 +1,12 @@
 import { document as documentApi } from '@api';
-import { siblingRelationPayload } from '@api/utils';
 import { DocumentLanguages } from '@components/Document';
-import { HitsSearch } from '@components/ESSelector/HitsSearch';
 import { DocumentSelectListEntry } from '@pages/backoffice/components/Document';
-import { RelationSummary } from '../components/RelationSummary';
-import { RelationCard, RelationModal } from '../components';
+import {
+  RelationModal,
+  RelationSummary,
+  SingleSelection,
+  RelationSelector,
+} from '../components';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -16,34 +18,23 @@ import {
   Label,
   Modal,
 } from 'semantic-ui-react';
-import isEmpty from 'lodash/isEmpty';
 
 export default class RelationOtherModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: {},
       note: undefined,
       isLoading: false,
     };
   }
 
-  selectResultRender = option => {
-    const existingRelations = this.props.relations;
-
+  selectResultRender = (option, disabled) => {
     const description = (
       <>
         <label>languages:</label>{' '}
         <DocumentLanguages metadata={option.metadata} />
       </>
     );
-    let disabled = false;
-    if (
-      !isEmpty(existingRelations.other) &&
-      existingRelations.other.find(o => o.pid === option.metadata.pid)
-    ) {
-      disabled = true;
-    }
     return (
       <DocumentSelectListEntry
         document={option}
@@ -54,23 +45,8 @@ export default class RelationOtherModal extends Component {
     );
   };
 
-  onSelectResult = result => {
-    const { id } = result;
-    const { relations } = this.props;
-
-    if (
-      isEmpty(relations.other) ||
-      !relations.other.find(o => o.pid === result.metadata.pid)
-    ) {
-      result.id = id;
-      result.key = id;
-      this.setState({ selection: result });
-    }
-  };
-
   render() {
     const { disabled, documentDetails } = this.props;
-
     return (
       <RelationModal
         disabled={disabled}
@@ -78,27 +54,25 @@ export default class RelationOtherModal extends Component {
         modalHeader={'Create new relation'}
         isLoading={this.state.isLoading}
         relationType={this.props.relationType}
-        selections={[this.state.selection]}
         refererRecord={documentDetails}
-        extraRelationField={{ note: this.state.note }}
+        extraRelationField={{ note: this.state.note, required: true }}
       >
         <Modal.Content>
-          <Container textAlign="center">
+          <Container textAlign="left">
+            Fill the fields to create the relation.
             <Form>
               <Form.Group>
                 <Container className="spaced">
-                  <HitsSearch
-                    query={documentApi.list}
-                    delay={250}
-                    minCharacters={3}
-                    placeholder={'Type to find literature....'}
-                    onSelect={this.onSelectResult}
+                  <RelationSelector
+                    relations={this.props.relations.other}
+                    mode={'single'}
+                    optionsQuery={documentApi.list}
                     resultRenderer={this.selectResultRender}
-                    ref={element => (this.searchRef = element)}
+                    refererRecordPid={documentDetails.metadata.pid}
                   />
                 </Container>
               </Form.Group>
-              You must provide a note for this relation
+              Note describing the relation
               <br /> <br />
               <Form.Field required inline key="note">
                 <label>Note</label>
@@ -108,18 +82,20 @@ export default class RelationOtherModal extends Component {
                 />
               </Form.Field>
             </Form>
-            <Divider />
+          </Container>
+          <Container textAlign="center">
+            <Divider horizontal> Summary </Divider>
             <RelationSummary
-              selections={this.state.selection}
               currentReferer={documentDetails}
-              renderSelections={() => (
-                <RelationCard data={this.state.selection} />
-              )}
+              renderSelections={() => <SingleSelection />}
               relationDescription={
                 <>
                   <Icon name="arrows alternate horizontal" />
                   <br />
-                  is (a) <Label color="blue">{this.state.note} </Label> of
+                  is (a) <Label color="blue">
+                    {this.state.note || '...'}{' '}
+                  </Label>{' '}
+                  of
                 </>
               }
             />

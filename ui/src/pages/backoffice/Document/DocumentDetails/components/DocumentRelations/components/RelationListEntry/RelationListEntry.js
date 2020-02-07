@@ -1,44 +1,61 @@
-import { DocumentAuthors } from '@components';
+import { recordToPidType } from '@api/utils';
+import { DocumentAuthors, SeriesAuthors } from '@components';
 import { DocumentEdition, DocumentTitle } from '@components/Document';
 import { getCover } from '@pages/frontsite/config';
 import { BackOfficeRoutes } from '@routes/urls';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Grid, Icon, Item, Label } from 'semantic-ui-react';
+import { Grid, Icon, Item } from 'semantic-ui-react';
 
 export class RelationListEntry extends Component {
   render() {
-    const { document, extra, actions } = this.props;
+    const { record, extra, actions } = this.props;
+    const recordType = recordToPidType(record);
+    const linkTo =
+      recordType === 'docid'
+        ? BackOfficeRoutes.documentDetailsFor(record.metadata.pid)
+        : BackOfficeRoutes.seriesDetailsFor(record.metadata.pid);
+    const cover =
+      recordType === 'docid' ? (
+        <Item.Image
+          as={Link}
+          to={linkTo}
+          size={'tiny'}
+          src={getCover(record.metadata.edition)}
+          onError={e => (e.target.style.display = 'none')}
+        />
+      ) : (
+        <Icon name="clone outline" size="huge" color="grey" />
+      );
     return (
       <Item className="relation-list-entry">
         {actions}
         <div className="item-image-wrapper">
-          <Item.Image
-            as={Link}
-            to={BackOfficeRoutes.documentDetailsFor(document.metadata.pid)}
-            size={'tiny'}
-            src={getCover(document.metadata.edition)}
-            onError={e => (e.target.style.display = 'none')}
-          />
+          {cover}
           <div className={'document-type discrete tiny ellipsis'}>
-            {document.metadata.document_type}
+            {record.metadata.document_type || record.metadata.mode_of_issuance}
           </div>
         </div>
         <Item.Content>
           <Item.Header
             as={Link}
-            to={BackOfficeRoutes.documentDetailsFor(document.metadata.pid)}
-            data-test={`navigate-${document.metadata.pid}`}
+            target="_blank"
+            to={BackOfficeRoutes.documentDetailsFor(record.metadata.pid)}
+            data-test={`navigate-${record.metadata.pid}`}
           >
-            <DocumentTitle document={document} truncate={true} short={true} />
+            <DocumentTitle document={record} truncate={true} short={true} />
           </Item.Header>
           <Grid columns={2}>
             <Grid.Column width={10}>
               <Item.Meta className="document-authors">
-                <DocumentAuthors metadata={document.metadata} prefix={'by '} />
-                <DocumentEdition document={document} explicit={true} />
-                <label>Published</label> {document.metadata.publication_year}
+                {recordType === 'docid' ? (
+                  <DocumentAuthors metadata={record.metadata} prefix={'by '} />
+                ) : (
+                  <SeriesAuthors metadata={record.metadata} />
+                )}
+                <DocumentEdition document={record} explicit={true} />
+                <label>Published</label> {record.metadata.publication_year}
               </Item.Meta>
             </Grid.Column>
             <Grid.Column width={6}>
@@ -46,14 +63,14 @@ export class RelationListEntry extends Component {
             </Grid.Column>
           </Grid>
         </Item.Content>
-        <div className="pid-field">#{document.metadata.pid}</div>
+        <div className="pid-field">#{record.metadata.pid}</div>
       </Item>
     );
   }
 }
 
 RelationListEntry.propTypes = {
-  document: PropTypes.object.isRequired,
+  record: PropTypes.object.isRequired,
   extra: PropTypes.node,
   actions: PropTypes.node,
 };

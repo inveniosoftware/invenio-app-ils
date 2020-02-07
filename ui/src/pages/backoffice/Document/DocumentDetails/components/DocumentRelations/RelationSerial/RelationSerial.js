@@ -1,4 +1,4 @@
-import { Error, Loader, Pagination, ResultsTable } from '@components';
+import { Error, Loader } from '@components';
 import { InfoMessage, SeriesDetailsLink } from '@pages/backoffice';
 import { ExistingRelations } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/components/ExistingRelations';
 
@@ -6,14 +6,9 @@ import { RelationRemover } from '../components';
 import { RelationSerialModal } from '../RelationSerial';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Tab } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 
 export default class RelationSerial extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   viewDetails = ({ row }) => {
     return (
       <SeriesDetailsLink seriesPid={row.pid}>{row.title}</SeriesDetailsLink>

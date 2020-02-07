@@ -1,6 +1,7 @@
 import { toShortDate } from '@api/date';
 import { DocumentTags, DocumentTitle } from '@components/Document';
 import { DetailsHeader, DocumentIcon } from '@pages/backoffice';
+import { DocumentEItems } from './components';
 import {
   DocumentSeries,
   DocumentSiblings,
@@ -22,7 +23,6 @@ import { Loader, Error, CopyButton, DocumentAuthors } from '@components';
 import {
   DocumentMetadata,
   DocumentPendingLoans,
-  DocumentRelations,
   DocumentStats,
   DocumentItems,
   DocumentActionMenu,
@@ -70,23 +70,38 @@ class DocumentHeader extends Component {
 
 class DocumentContent extends Component {
   render() {
-    const { data } = this.props;
+    const { anchors } = this.props;
     const panels = [
       {
         key: 'loan-requests',
         title: 'Loan requests',
         content: (
           <Accordion.Content>
-            <DocumentPendingLoans />
+            <div ref={anchors.loanRequestsRef} id="loan-requests">
+              <DocumentPendingLoans />
+            </div>
           </Accordion.Content>
         ),
       },
       {
         key: 'document-items',
-        title: 'Attached items',
+        title: 'Physical items',
         content: (
           <Accordion.Content>
-            <DocumentItems />
+            <div ref={anchors.attachedItemsRef} id="document-items">
+              <DocumentItems />
+            </div>
+          </Accordion.Content>
+        ),
+      },
+      {
+        key: 'document-eitems',
+        title: 'Electronic items',
+        content: (
+          <Accordion.Content>
+            <div ref={anchors.attachedEItemsRef} id="document-eitems">
+              <DocumentEItems />
+            </div>
           </Accordion.Content>
         ),
       },
@@ -118,8 +133,7 @@ class DocumentContent extends Component {
         ),
       },
     ];
-    const defaultIndexes =
-      data.metadata.status === 'CANCELLED' ? [0] : [0, 1, 2];
+    const defaultIndexes = [0, 1, 3];
 
     return (
       <>
@@ -140,8 +154,24 @@ export default class DocumentDetails extends Component {
   constructor(props) {
     super(props);
     this.fetchDocumentDetails = this.props.fetchDocumentDetails;
+
     this.menuRef = React.createRef();
     this.headerRef = React.createRef();
+    this.loanRequestsRef = React.createRef();
+    this.attachedItemsRef = React.createRef();
+    this.attachedEItemsRef = React.createRef();
+    this.seriesRef = React.createRef();
+    this.relatedRef = React.createRef();
+    this.statisticsRef = React.createRef();
+
+    this.anchors = {
+      loanRequestsRef: this.loanRequestsRef,
+      attachedItemsRef: this.attachedItemsRef,
+      attachedEItemsRef: this.attachedEItemsRef,
+      seriesRef: this.seriesRef,
+      relatedRef: this.relatedRef,
+      statisticsRef: this.statisticsRef,
+    };
   }
 
   componentDidMount() {
@@ -176,15 +206,18 @@ export default class DocumentDetails extends Component {
                     <Grid.Column width={13}>
                       <Container className="spaced">
                         <Container className="spaced">
-                          <DocumentSummary document={data} />
+                          <DocumentSummary
+                            anchors={this.anchors}
+                            document={data}
+                          />
                         </Container>
                         <DocumentMetadata />
-                        <DocumentContent data={data} />
+                        <DocumentContent anchors={this.anchors} data={data} />
                       </Container>
                     </Grid.Column>
                     <Grid.Column width={3}>
                       <Sticky context={this.menuRef} offset={180}>
-                        <DocumentActionMenu />
+                        <DocumentActionMenu anchors={this.anchors} />
                       </Sticky>
                     </Grid.Column>
                   </Grid>

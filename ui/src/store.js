@@ -1,3 +1,4 @@
+import { relationSelectorReducer } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/components/RelationSelector/reducer';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
@@ -18,6 +19,7 @@ import {
   documentStatsReducer,
   documentPendingLoans,
   documentItems,
+  documentEItems,
   documentRelations,
 } from '@pages/backoffice/Document/DocumentDetails/reducer';
 import { deleteRecordModalReducer } from '@pages/backoffice/components/DeleteRecordModal/reducer';
@@ -73,8 +75,10 @@ const rootReducer = combineReducers({
   authenticationManagement: authenticationReducer,
   borrowingRequestDetails: borrowingRequestDetailsReducer,
   deleteRecordModal: deleteRecordModalReducer,
+  recordRelations: relationSelectorReducer,
   documentDetails: documentDetailsReducer,
   documentItems: documentItems,
+  documentEItems: documentEItems,
   documentPendingLoans: documentPendingLoans,
   documentRelations: documentRelations,
   documentRequestDetails: documentRequestDetailsReducer,

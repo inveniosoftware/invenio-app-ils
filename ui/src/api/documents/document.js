@@ -1,6 +1,6 @@
 import { http, apiConfig } from '../base';
 import { serializer } from './serializer';
-import { prepareSumQuery } from '../utils';
+import { prepareSumQuery, recordToPidType } from '../utils';
 
 const documentURL = '/documents/';
 
@@ -39,10 +39,33 @@ const createRelation = async (docPid, data) => {
   return resp;
 };
 
-const deleteRelation = async (docPid, data) => {
-  const resp = await http.delete(`${documentURL}${docPid}/relations`, {
-    data: data,
-  });
+const deleteRelation = async (referer, related) => {
+  let deleteRequestPayload = {};
+  if (
+    related.relation_type === 'language' ||
+    related.relation_type === 'other' ||
+    related.relation_type === 'edition'
+  ) {
+    deleteRequestPayload = {
+      pid: related.pid,
+      pid_type: related.pid_type,
+      relation_type: related.relation_type,
+    };
+  } else {
+    deleteRequestPayload = {
+      parent_pid: related.pid,
+      parent_pid_type: related.pid_type,
+      child_pid: referer.metadata.pid,
+      child_pid_type: recordToPidType(referer),
+      relation_type: related.relation_type,
+    };
+  }
+  const resp = await http.delete(
+    `${documentURL}${referer.metadata.pid}/relations`,
+    {
+      data: [deleteRequestPayload],
+    }
+  );
   resp.data = serializer.fromJSON(resp.data);
   return resp;
 };

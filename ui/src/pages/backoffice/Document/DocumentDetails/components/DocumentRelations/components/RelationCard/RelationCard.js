@@ -1,13 +1,20 @@
+import { recordToPidType } from '@api/utils';
 import { getCover } from '@pages/frontsite/config';
+import { BackOfficeRoutes } from '@routes/urls';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Image, Label } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Card, Image } from 'semantic-ui-react';
 import { DocumentAuthors, DocumentEdition } from '@components/Document';
 import isEmpty from 'lodash/isEmpty';
 
 export default class RelationCard extends Component {
   render() {
     const { data, extra, actions } = this.props;
+    const linkTo =
+      recordToPidType(data) === 'docid'
+        ? BackOfficeRoutes.documentDetailsFor(data.metadata.pid)
+        : BackOfficeRoutes.seriesDetailsFor(data.metadata.pid);
     return (
       <Card centered className="bo-relation-card" data-test={data.metadata.pid}>
         <Card.Meta className={'discrete'}>
@@ -25,7 +32,9 @@ export default class RelationCard extends Component {
           />
         )}
         <Card.Content>
-          <Card.Header>{data.metadata.title}</Card.Header>
+          <Card.Header as={Link} to={linkTo} target="_blank">
+            {data.metadata.title}
+          </Card.Header>
           <Card.Meta>
             <DocumentAuthors metadata={data.metadata} />
             <div>

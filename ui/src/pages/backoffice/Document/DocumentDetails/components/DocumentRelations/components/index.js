@@ -3,3 +3,7 @@ export { RelationListEntry } from './RelationListEntry';
 export { RelationCard } from './RelationCard';
 export { ExistingRelations } from './ExistingRelations';
 export { RelationModal } from './RelationModal';
+export { RelationSummary } from './RelationSummary';
+export { RelationSelector } from './RelationSelector';
+export { SingleSelection } from './SingleSelection';
+export { MultipleSelections } from './MultipleSelections';

@@ -180,6 +180,8 @@ class RecordRelationsRetriever(object):
 
         # add also title, language and edition of the sibling
         r["title"] = sibling.get("title", "")
+        r["document_type"] = sibling.get("document_type", "")
+        r["mode_of_issuance"] = sibling.get("mode_of_issuance", "")
         language = sibling.get('languages')
         if language:
             r["languages"] = language

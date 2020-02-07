@@ -1,18 +1,13 @@
-import { Error, Loader, Pagination, ResultsTable } from '@components';
+import { Error, Loader } from '@components';
 import { DocumentDetailsLink, InfoMessage } from '@pages/backoffice';
 import { ExistingRelations } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/components/ExistingRelations';
 import { RelationOtherModal } from '../RelationOther';
 import { RelationRemover } from '../components';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Tab } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 
 export default class RelationOther extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   viewDetails = ({ row }) => {
     return (
       <DocumentDetailsLink documentPid={row.pid}>
@@ -29,7 +24,6 @@ export default class RelationOther extends Component {
         <RelationRemover
           referer={documentDetails}
           related={row}
-          relationPayloadType="siblings"
           buttonContent={'Remove relation'}
         />
       );
@@ -42,7 +36,6 @@ export default class RelationOther extends Component {
 
     const columns = [
       { title: 'Title', field: 'title', formatter: this.viewDetails },
-      { title: 'Type', field: 'pid_type' },
       {
         title: 'Note',
         field: 'note',

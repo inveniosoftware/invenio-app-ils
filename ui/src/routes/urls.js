@@ -104,6 +104,7 @@ const BackOfficeRouteGenerators = {
     generatePath(BackOfficeRoutesList.eitemDetails, { eitemPid: eitemPid }),
   eitemEditFor: eitemPid =>
     generatePath(BackOfficeRoutesList.eitemEdit, { eitemPid: eitemPid }),
+  eItemsListWithQuery: qs => `${BackOfficeRoutesList.eitemsList}?q=${qs}`,
   itemsListWithQuery: qs => `${BackOfficeRoutesList.itemsList}?q=${qs}`,
   itemDetailsFor: itemPid =>
     generatePath(BackOfficeRoutesList.itemDetails, { itemPid: itemPid }),

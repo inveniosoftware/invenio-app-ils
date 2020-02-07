@@ -13,13 +13,13 @@ export default class DocumentSelectListEntry extends Component {
       >
         <div className="price">PID #{document.metadata.pid}</div>
         <div className="title">
-          <DocumentTitle document={document} />
           {disabled && (
             <Popup
               content="This document was already selected."
               trigger={<Icon name="info circle" />}
             />
           )}
+          <DocumentTitle document={document} />
         </div>
         <div className="description">
           {description ? (

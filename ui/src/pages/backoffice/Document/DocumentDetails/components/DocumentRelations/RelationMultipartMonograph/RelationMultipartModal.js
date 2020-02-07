@@ -1,13 +1,15 @@
-import { parentChildRelationPayload } from '@api/utils';
-import { HitsSearch } from '@components/ESSelector/HitsSearch';
 import SeriesSelectListEntry from '@pages/backoffice/components/Series/SeriesSelectListEntry/SeriesSelectListEntry';
-import { RelationSummary } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/components/RelationSummary';
-import { RelationCard, RelationModal } from '../components';
+import {
+  RelationSelector,
+  RelationModal,
+  RelationSummary,
+  SingleSelection,
+} from '../components';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button,
   Container,
+  Divider,
   Form,
   Icon,
   Input,
@@ -15,28 +17,18 @@ import {
   Modal,
 } from 'semantic-ui-react';
 import { series as seriesApi } from '@api';
-import isEmpty from 'lodash/isEmpty';
 
 export default class RelationMultipartModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: {},
       visible: false,
       volume: undefined,
       isLoading: false,
     };
   }
 
-  selectResultRender = option => {
-    const { relations } = this.props;
-    let disabled = false;
-    if (
-      !isEmpty(!relations.multipart_monograph) &&
-      relations.multipart_monograph.find(o => o.pid === option.metadata.pid)
-    ) {
-      disabled = true;
-    }
+  selectResultRender = (option, disabled) => {
     return (
       <SeriesSelectListEntry
         series={option}
@@ -46,52 +38,36 @@ export default class RelationMultipartModal extends Component {
     );
   };
 
-  onSelectResult = result => {
-    const { id } = result;
-    const { relations } = this.props;
-
-    if (
-      isEmpty(relations.multipart_monograph) ||
-      !relations.multipart_monograph.find(o => o.pid === result.metadata.pid)
-    ) {
-      result.id = id;
-      result.key = id;
-      this.setState({ selection: result });
-    }
-  };
-
   render() {
     const { disabled, documentDetails } = this.props;
     return (
       <RelationModal
         disabled={disabled}
-        triggerButtonContent={'Add to a multipart'}
         modalHeader={'Attach document to a multipart monograph'}
+        triggerButtonContent={'Attach multipart'}
         isLoading={this.state.isLoading}
         relationType={this.props.relationType}
-        selections={[this.state.selection]}
         refererRecord={documentDetails}
         extraRelationField={{ volume: this.state.volume }}
       >
         <Modal.Content>
-          <Container textAlign="center">
+          <Container textAlign="left">
+            Fill the fields to attach this document to a multipart.
             <Form>
               <Form.Group>
                 <Container className="spaced">
-                  <HitsSearch
-                    query={seriesApi.multipartMonographs}
-                    delay={250}
-                    minCharacters={3}
-                    placeholder={'Type to find multipart monograph'}
+                  <RelationSelector
+                    mode={'single'}
+                    relations={this.props.relations.multipart_monograph}
+                    optionsQuery={seriesApi.multipartMonographs}
                     resultRenderer={this.selectResultRender}
-                    onSelect={this.onSelectResult}
-                    ref={element => (this.searchRef = element)}
+                    refererRecordPid={documentDetails.metadata.pid}
                   />
                 </Container>
               </Form.Group>
-              You can provide volume index for the document in selected
-              multipart (optional)
-              <br /> <br />
+              Provide volume index (optional)
+              <br />
+              <br />
               <Form.Field inline key="volume">
                 <label>Volume index</label>
                 <Input
@@ -101,22 +77,22 @@ export default class RelationMultipartModal extends Component {
                 />
               </Form.Field>
             </Form>
+          </Container>
+          <Container textAlign="center">
+            <Divider horizontal> Summary </Divider>
             <RelationSummary
-              selections={this.state.selection}
               currentReferer={documentDetails}
-              renderSelections={() => (
-                <RelationCard
-                  data={this.state.selection}
-                  icon={<Icon name="clone outline" size="huge" color="grey" />}
-                />
-              )}
+              renderSelections={() => <SingleSelection />}
               relationDescription={
                 <>
-                  <Icon name="arrow right" />
+                  <Icon size="large" name="arrow right" />
                   <br />
                   is{' '}
                   <Label color="blue">
-                    volume <Label.Detail>{this.state.volume}</Label.Detail>{' '}
+                    volume{' '}
+                    {this.state.volume && (
+                      <Label.Detail>{this.state.volume}</Label.Detail>
+                    )}{' '}
                   </Label>{' '}
                   of
                 </>

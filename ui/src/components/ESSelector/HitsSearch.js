@@ -36,7 +36,7 @@ export class HitsSearch extends Component {
       this.props.onSelect(result);
     }
 
-    /* controls closing of the results list in custom cases */
+    /* controls closing of the results list when result object marked as disabled */
     if (result.disabled) {
       this.setState({ open: true });
     } else {

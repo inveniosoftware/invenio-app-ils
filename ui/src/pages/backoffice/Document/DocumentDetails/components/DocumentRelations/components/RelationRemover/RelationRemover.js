@@ -1,4 +1,3 @@
-import { recordToPidType } from '@api/utils';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon, Modal } from 'semantic-ui-react';
@@ -13,26 +12,10 @@ export default class RelationRemover extends Component {
   handleOpen = () => this.setState({ modalOpen: true });
 
   handleDelete = () => {
-    const { related, referer, relationPayloadType } = this.props;
+    const { related, referer } = this.props;
 
     this.setState({ modalOpen: false });
-    let deletePayload = {};
-    if (relationPayloadType === 'siblings') {
-      deletePayload = {
-        pid: related.pid,
-        pid_type: related.pid_type,
-        relation_type: related.relation_type,
-      };
-    } else {
-      deletePayload = {
-        parent_pid: related.pid,
-        parent_pid_type: related.pid_type,
-        child_pid: referer.metadata.pid,
-        child_pid_type: recordToPidType(referer),
-        relation_type: related.relation_type,
-      };
-    }
-    this.props.deleteRelations(referer.metadata.pid, [deletePayload]);
+    this.props.deleteRelations(referer, related);
   };
 
   render() {
@@ -57,9 +40,7 @@ export default class RelationRemover extends Component {
           Are you sure you want to delete this relation?
         </Modal.Content>
         <Modal.Actions>
-          <Button positive onClick={() => this.handleClose()}>
-            No, take me back
-          </Button>
+          <Button onClick={() => this.handleClose()}>No, take me back</Button>
           <Button negative onClick={() => this.handleDelete()}>
             Yes, I am sure
           </Button>
@@ -75,8 +56,6 @@ RelationRemover.propTypes = {
   referer: PropTypes.object.isRequired,
   /* destination to be removed */
   related: PropTypes.object.isRequired,
-
-  relationPayloadType: PropTypes.string.isRequired,
 
   /* supplied by reducer */
   deleteRelations: PropTypes.func.isRequired,
