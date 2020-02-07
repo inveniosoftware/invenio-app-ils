@@ -18,6 +18,18 @@
   > .item {
     position: relative;
 
+    a.header {
+        z-index: 2;
+        position: relative;
+      }
+
+      .ui.grid {
+        .column {
+          z-index: 1;
+          position: relative;
+        }
+      }
+
     .item-image-wrapper {
       text-align: center;
       margin-right: 1em;
@@ -26,13 +38,13 @@
     .pid-field{
       position: absolute;
       color: @mutedTextColor;
-      top: 0.2em;
+      top: 1em;
       right: 1rem;
     }
 
     &:first-child{
       .pid-field {
-        top: -0.8em;
+        top: -0.2em;
       }
     }
 
@@ -116,18 +128,6 @@
       &.bkg-danger {
         background-color: lighten(@danger, 40%) !important;
         padding: 1em !important;
-      }
-
-      a.header {
-        z-index: 1000;
-        position: relative;
-      }
-
-      .ui.grid {
-        .column {
-          z-index: 1;
-          position: relative;
-        }
       }
 
       .item-image-wrapper {

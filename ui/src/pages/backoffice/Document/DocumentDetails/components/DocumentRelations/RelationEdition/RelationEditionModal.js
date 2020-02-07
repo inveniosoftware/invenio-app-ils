@@ -1,22 +1,26 @@
 import { DocumentEdition } from '@components/Document';
-import { HitsSearch } from '@components/ESSelector/HitsSearch';
 import { DocumentSelectListEntry } from '@pages/backoffice/components/Document';
 import SeriesSelectListEntry from '@pages/backoffice/components/Series/SeriesSelectListEntry/SeriesSelectListEntry';
 import { MultipleSelections } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/components/MultipleSelections';
+import { RelationSelector } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/components/RelationSelector';
 import { RelationModal } from '../components';
-import { RelationSummary } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/components/RelationSummary';
+import { RelationSummary } from '../components';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Form, Icon, Label, Modal } from 'semantic-ui-react';
+import {
+  Container,
+  Divider,
+  Form,
+  Icon,
+  Label,
+  Modal,
+} from 'semantic-ui-react';
 import { document as documentApi, series as seriesApi } from '@api';
-import isEmpty from 'lodash/isEmpty';
-import remove from 'lodash/remove';
 
 export default class RelationEditionModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selections: [],
       isLoading: false,
       currentRecordType: 'document',
       query: documentApi.list,
@@ -24,48 +28,7 @@ export default class RelationEditionModal extends Component {
     };
   }
 
-  removeFromSelection = (e, { dataPid }) => {
-    const { selections } = this.state;
-    remove(selections, o => o.metadata.pid === dataPid);
-
-    this.setState({ selections: selections });
-  };
-
-  onSelectResult = result => {
-    const { id } = result;
-    const { relations } = this.props;
-    const { selections } = this.state;
-
-    /* if relation already exists, nothing happens on select */
-    if (
-      isEmpty(relations.edition) ||
-      !relations.edition.find(o => o.pid === result.metadata.pid)
-    ) {
-      result.id = id;
-      result.key = id;
-      result.disabled = false;
-
-      selections.push(result);
-      this.setState({ selections: selections });
-    } else {
-      result.id = id;
-      result.key = id;
-      result.disabled = true;
-    }
-  };
-
-  selectResultRender = option => {
-    const existingRelations = this.props.relations;
-    const currentSelections = this.state.selections;
-
-    let disabled = false;
-    if (
-      (!isEmpty(existingRelations.edition) &&
-        existingRelations.edition.find(o => o.pid === option.metadata.pid)) ||
-      currentSelections.find(o => o.pid === option.metadata.pid)
-    ) {
-      disabled = true;
-    }
+  selectResultRender = (option, disabled) => {
     return this.state.currentRecordType === 'document' ? (
       <DocumentSelectListEntry
         document={option}
@@ -76,6 +39,7 @@ export default class RelationEditionModal extends Component {
     ) : (
       <SeriesSelectListEntry
         series={option}
+        key={option.metadata.pid}
         description={
           <>
             {option.metadata.publisher} <DocumentEdition document={option} />
@@ -95,25 +59,24 @@ export default class RelationEditionModal extends Component {
     } else if (value === 'series') {
       this.setState({
         currentRecordType: 'series',
-        query: seriesApi.list,
+        query: seriesApi.multipartMonographs,
       });
     }
   };
 
   render() {
-    const { disabled, documentDetails } = this.props;
+    const { documentDetails } = this.props;
     return (
       <RelationModal
-        disabled={disabled}
-        triggerButtonContent={'Add editions'}
-        modalHeader={'Find related editions'}
+        triggerButtonContent={'Attach editions'}
+        modalHeader={'Attach editions'}
         isLoading={this.state.isLoading}
         relationType={this.props.relationType}
-        selections={this.state.selections}
         refererRecord={documentDetails}
       >
         <Modal.Content>
-          <Container textAlign="center">
+          <Container textAlign="left">
+            Select other editions of this document to create the relation.
             <Form>
               <Container className="spaced">
                 <Form.Group inline>
@@ -133,32 +96,26 @@ export default class RelationEditionModal extends Component {
                 </Form.Group>
 
                 <Container className="spaced">
-                  <HitsSearch
-                    key={this.state.currentRecordType}
-                    query={this.state.query}
-                    delay={250}
-                    minCharacters={3}
-                    placeholder={'Type to find a literature...'}
-                    onSelect={this.onSelectResult}
-                    value={''}
+                  <RelationSelector
+                    relations={this.props.relations.edition}
+                    optionsQuery={this.state.query}
+                    currentRecordType={this.state.currentRecordType}
                     resultRenderer={this.selectResultRender}
-                    ref={element => (this.searchRef = element)}
+                    refererRecordPid={documentDetails.metadata.pid}
                   />
                 </Container>
               </Container>
             </Form>
+          </Container>
+          <Container textAlign="center">
+            <Divider horizontal> Summary </Divider>
             <RelationSummary
-              selections={this.state.selections}
               currentReferer={documentDetails}
-              renderSelections={() => (
-                <MultipleSelections
-                  selections={this.state.selections}
-                  removeFromSelection={this.removeFromSelection}
-                />
-              )}
+              renderSelections={() => <MultipleSelections />}
+              columnsWidths={{ left: 4, middle: 3, right: 9 }}
               relationDescription={
                 <>
-                  <Icon name="arrows alternate horizontal" />
+                  <Icon size="large" name="arrows alternate horizontal" />
                   <br />
                   is an <Label color="blue">edition </Label> of
                 </>

@@ -1,4 +1,4 @@
-import { MetadataTable } from '@pages/backoffice';
+import { InfoMessage, MetadataTable } from '@pages/backoffice';
 import { groupBy } from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -29,7 +29,15 @@ export class DocumentIdentifiers extends Component {
   };
 
   render() {
-    return <MetadataTable rows={this.prepareIdentifiers()} />;
+    const { document } = this.props;
+    return document.metadata.identifiers ? (
+      <MetadataTable rows={this.prepareIdentifiers()} />
+    ) : (
+      <InfoMessage
+        header={'No stored identifiers.'}
+        content={'Edit document to add identifiers'}
+      />
+    );
   }
 }
 

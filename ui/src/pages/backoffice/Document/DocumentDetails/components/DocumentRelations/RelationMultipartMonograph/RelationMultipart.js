@@ -1,12 +1,10 @@
-import { recordToPidType } from '@api/utils';
 import { Error, Loader, ResultsTable } from '@components';
 import { InfoMessage, SeriesDetailsLink } from '@pages/backoffice';
-import RelationEdition from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/RelationEdition/RelationEdition';
 import { RelationMultipartModal } from '../RelationMultipartMonograph';
 import { RelationRemover } from '../components';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Icon, Popup, Tab } from 'semantic-ui-react';
+import { Icon, Popup } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 
 export default class RelationMultipart extends Component {

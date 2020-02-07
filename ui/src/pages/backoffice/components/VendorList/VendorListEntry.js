@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
+import { Grid, Icon, Item, List } from 'semantic-ui-react';
 import { AcquisitionRoutes } from '@routes/urls';
 import { order as orderApi } from '@api';
 

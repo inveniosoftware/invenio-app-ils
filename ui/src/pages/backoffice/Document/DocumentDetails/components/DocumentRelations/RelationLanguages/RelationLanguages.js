@@ -1,21 +1,14 @@
-import { recordToPidType } from '@api/utils';
-import { Error, Loader, Pagination, ResultsTable } from '@components';
+import { Error, Loader } from '@components';
 import { DocumentLanguages } from '@components/Document';
 import { DocumentDetailsLink, InfoMessage } from '@pages/backoffice';
 import { ExistingRelations } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/components/ExistingRelations';
-import RelationEdition from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/RelationEdition/RelationEdition';
 import { RelationLanguagesModal } from '../RelationLanguages';
 import { RelationRemover } from '../components';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Tab } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 
 export default class RelationLanguage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   viewDetails = ({ row }) => {
     return (
       <DocumentDetailsLink documentPid={row.pid}>
@@ -32,7 +25,6 @@ export default class RelationLanguage extends Component {
         <RelationRemover
           referer={documentDetails}
           related={row}
-          relationPayloadType="siblings"
           buttonContent={'Remove relation'}
         />
       );
@@ -49,7 +41,6 @@ export default class RelationLanguage extends Component {
 
     const columns = [
       { title: 'Title', field: 'title', formatter: this.viewDetails },
-      { title: 'Type', field: 'pid_type' },
       {
         title: 'Language(s)',
         field: 'languages',

@@ -1,13 +1,11 @@
 import { DocumentLanguages } from '@components/Document';
-import { RemoveItemButton } from '@pages/backoffice/components/buttons';
-import { RelationListEntry } from '../RelationListEntry';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { RelationCard } from '../RelationCard';
 import isEmpty from 'lodash/isEmpty';
-import { Container, Grid, Icon, Label, Message, Item } from 'semantic-ui-react';
+import { Container, Grid, Icon, Label, Message } from 'semantic-ui-react';
 
-export class RelationSummary extends Component {
+export default class RelationSummary extends Component {
   render() {
     const {
       selections,
@@ -21,7 +19,7 @@ export class RelationSummary extends Component {
     return (
       <Container className="spaced">
         <Grid columns={3} verticalAlign="middle">
-          <Grid.Column width={4}>
+          <Grid.Column width={this.props.columnsWidths.left}>
             {currentRefererComponent || (
               <RelationCard
                 data={currentReferer}
@@ -37,23 +35,26 @@ export class RelationSummary extends Component {
             )}
           </Grid.Column>
 
-          <Grid.Column width={3}>
+          <Grid.Column width={this.props.columnsWidths.middle}>
             {relationDescription || (
               <>
-                <Icon name="arrows alternate horizontal" />
+                <Icon size="large" name="arrows alternate horizontal" />
                 <br />
                 is a <Label color="blue">related</Label> to
               </>
             )}
           </Grid.Column>
 
-          <Grid.Column width={9} className="scrolling">
+          <Grid.Column
+            width={this.props.columnsWidths.right}
+            className="scrolling"
+          >
             {isEmpty(selections) ? (
               <Message
                 info
                 icon="info circle"
                 header={emptySelectionMessageHeader || 'No relations selected'}
-                content="Select a document to proceed."
+                content="Select literature to proceed."
               />
             ) : (
               renderSelections()
@@ -66,12 +67,16 @@ export class RelationSummary extends Component {
 }
 
 RelationSummary.propTypes = {
-  selections: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
-    .isRequired,
+  selections: PropTypes.array.isRequired,
   currentReferer: PropTypes.object.isRequired,
   // removeFromSelection: PropTypes.func.isRequired,
   renderSelections: PropTypes.func.isRequired,
   emptySelectionMessageHeader: PropTypes.string,
   currentRefererComponent: PropTypes.node,
   relationDescription: PropTypes.node,
+  columnsWidths: PropTypes.object,
+};
+
+RelationSummary.defaultProps = {
+  columnsWidths: { left: 6, middle: 4, right: 6 },
 };

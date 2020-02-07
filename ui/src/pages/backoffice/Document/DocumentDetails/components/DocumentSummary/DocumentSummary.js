@@ -12,7 +12,7 @@ export default class DocumentSummary extends Component {
           <Statistic.Value>{document.metadata.items.total}</Statistic.Value>
           <Statistic.Label>
             <ItemIcon />
-            Physical items
+            Physical copies
           </Statistic.Label>
         </Statistic>
         <Statistic>

@@ -10,9 +10,8 @@ export default class RemoveItemButton extends Component {
         size="mini"
         attached="left"
         negative
-        onClick={this.props.onClick}
+        onClick={() => this.props.onClick(this.props.dataPid)}
         className="bo-remove-item"
-        dataPid={this.props.dataPid}
       />
     );
 
@@ -25,5 +24,6 @@ export default class RemoveItemButton extends Component {
 
 RemoveItemButton.propTypes = {
   onClick: PropTypes.func.isRequired,
+  dataPid: PropTypes.string.isRequired,
   popup: PropTypes.string,
 };

@@ -9,14 +9,9 @@ import { RelationEditionModal } from '../RelationEdition';
 import { RelationRemover } from '../components';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Tab } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 
 export default class RelationEdition extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   viewDetails = ({ row }) => {
     if (row.pid_type === 'docid')
       return (
@@ -39,10 +34,17 @@ export default class RelationEdition extends Component {
         <RelationRemover
           referer={documentDetails}
           related={row}
-          relationPayloadType="siblings"
           buttonContent={'Remove relation'}
         />
       );
+    }
+  };
+
+  recTypeFormatter = ({ row }) => {
+    if (row.pid_type === 'docid') {
+      return row.document_type;
+    } else if (row.pid_type === 'serid') {
+      return row.mode_of_issuance;
     }
   };
 
@@ -52,7 +54,7 @@ export default class RelationEdition extends Component {
 
     const columns = [
       { title: 'Title', field: 'title', formatter: this.viewDetails },
-      { title: 'Type', field: 'pid_type' },
+      { title: 'Type', field: 'pid_type', formatter: this.recTypeFormatter },
       {
         title: 'Edition',
         field: 'edition',

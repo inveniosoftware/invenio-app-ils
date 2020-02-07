@@ -33,6 +33,10 @@ export default class DocumentItems extends Component {
     );
   };
 
+  locationFormatter = ({ row }) => {
+    return `${row.metadata.internal_location.name} (${row.metadata.internal_location.location.name})`;
+  };
+
   renderTable(data) {
     const columns = [
       {
@@ -42,7 +46,11 @@ export default class DocumentItems extends Component {
       },
       { title: 'Status', field: 'metadata.status' },
       { title: 'Medium', field: 'metadata.medium' },
-      { title: 'Location', field: 'metadata.internal_location.name' },
+      {
+        title: 'Location',
+        field: 'metadata.internal_location.name',
+        formatter: this.locationFormatter,
+      },
       { title: 'Shelf', field: 'metadata.shelf' },
       { title: 'Restrictions', field: 'metadata.circulation_restriction' },
       {

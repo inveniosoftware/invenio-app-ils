@@ -1,8 +1,6 @@
 import { http, apiConfig } from '../base';
 import { serializer } from './serializer';
 import { prepareSumQuery } from '../utils';
-import curry from 'lodash/curry';
-import isEmpty from 'lodash/isEmpty';
 
 const seriesURL = '/series/';
 

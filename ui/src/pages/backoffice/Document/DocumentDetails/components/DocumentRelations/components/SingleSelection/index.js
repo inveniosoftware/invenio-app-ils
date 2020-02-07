@@ -1,6 +1,6 @@
 import { removeSelection } from '../RelationSelector/state/actions';
 import { connect } from 'react-redux';
-import MultipleSelectionsComponent from './MultipleSelections';
+import SingleSelectionComponent from './SingleSelection';
 
 const mapDispatchToProps = dispatch => ({
   removeSelection: removePid => dispatch(removeSelection(removePid)),
@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
   selections: state.recordRelations.selections,
 });
 
-export const MultipleSelections = connect(
+export const SingleSelection = connect(
   mapStateToProps,
   mapDispatchToProps
-)(MultipleSelectionsComponent);
+)(SingleSelectionComponent);
