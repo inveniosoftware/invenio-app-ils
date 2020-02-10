@@ -6,15 +6,25 @@ import {
 } from '@components/Notifications';
 import isEmpty from 'lodash/isEmpty';
 
-export const createRelations = (pid, relations) => {
+export const createRelations = (
+  refererRecord,
+  selections,
+  relationType,
+  extraRelationField
+) => {
   return async dispatch => {
-    if (relations.length) {
+    if (selections.length) {
       dispatch({
         type: IS_LOADING,
       });
 
       await documentApi
-        .createRelation(pid, relations)
+        .createRelation(
+          refererRecord,
+          selections,
+          relationType,
+          extraRelationField
+        )
         .then(response => {
           dispatch({
             type: SUCCESS,

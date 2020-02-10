@@ -23,7 +23,7 @@ export default class DocumentSeries extends Component {
           ),
         },
         render: () => (
-          <Tab.Pane className="relations-tab">
+          <Tab.Pane className="bo-relations-tab">
             <RelationMultipart />
           </Tab.Pane>
         ),
@@ -38,7 +38,7 @@ export default class DocumentSeries extends Component {
           ),
         },
         render: () => (
-          <Tab.Pane className="relations-tab">
+          <Tab.Pane className="bo-relations-tab">
             <RelationSerial />
           </Tab.Pane>
         ),

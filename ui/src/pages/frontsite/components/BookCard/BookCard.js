@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Image, Label } from 'semantic-ui-react';
+import { Card, Label } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 import { FrontSiteRoutes } from '@routes/urls';
-import { getCover } from '../../config';
 import { goTo } from '@history';
-import { DocumentAuthors } from '@components/Document';
+import { DocumentAuthors, DocumentCover } from '@components/Document';
 import { toShortDate } from '@api/date';
 
 export class BookCard extends Component {
@@ -20,14 +19,7 @@ export class BookCard extends Component {
 
   renderImage = () => {
     const { data, volume } = this.props;
-    const image = (
-      <Image
-        centered
-        src={getCover(data.metadata.edition)}
-        size={'small'}
-        onError={e => (e.target.style.display = 'none')}
-      />
-    );
+    const image = <DocumentCover document={data} imageSize={'small'} />;
 
     if (volume) {
       return (

@@ -4,10 +4,9 @@ import { Loader, Error, Pagination } from '@components';
 import { toShortDate } from '@api/date';
 import { invenioConfig } from '@config';
 import { Container, Grid, Header, Item, Label } from 'semantic-ui-react';
-import { getCover } from '../../config';
 import { Link } from 'react-router-dom';
 import { FrontSiteRoutes } from '@routes/urls';
-import { DocumentAuthors } from '@components/Document';
+import { DocumentAuthors, DocumentItemCover } from '@components/Document';
 import { ILSItemPlaceholder } from '@components/ILSPlaceholder/ILSPlaceholder';
 import isEmpty from 'lodash/isEmpty';
 import { NoResultsMessage } from '../../components/NoResultsMessage';
@@ -17,12 +16,14 @@ class PastLoanListEntry extends Component {
     const { loan } = this.props;
     return (
       <Item key={loan.metadata.pid}>
-        <Item.Image
+        <DocumentItemCover
           size="mini"
-          src={getCover()}
-          as={Link}
+          src={loan.metadata.document.edition}
+          document={loan.metadata.document}
           disabled
-          to={FrontSiteRoutes.documentDetailsFor(loan.metadata.document_pid)}
+          linkTo={FrontSiteRoutes.documentDetailsFor(
+            loan.metadata.document_pid
+          )}
         />
 
         <Item.Content>

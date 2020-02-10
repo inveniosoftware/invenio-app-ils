@@ -5,3 +5,5 @@ export { DocumentToc } from './DocumentToc';
 export { DocumentUrls } from './DocumentUrls';
 export { DocumentTitle } from './DocumentTitle';
 export { DocumentEdition } from './DocumentEdition';
+export { DocumentCover } from './DocumentCover';
+export { default as DocumentItemCover } from './DocumentItemCover';

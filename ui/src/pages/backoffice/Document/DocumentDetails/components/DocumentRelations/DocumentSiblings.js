@@ -25,7 +25,7 @@ export default class DocumentSeries extends Component {
           ),
         },
         render: () => (
-          <Tab.Pane className="relations-tab">
+          <Tab.Pane className="bo-relations-tab">
             <RelationLanguages />
           </Tab.Pane>
         ),
@@ -40,7 +40,7 @@ export default class DocumentSeries extends Component {
           ),
         },
         render: () => (
-          <Tab.Pane className="relations-tab">
+          <Tab.Pane className="bo-relations-tab">
             <RelationEdition />
           </Tab.Pane>
         ),
@@ -55,7 +55,7 @@ export default class DocumentSeries extends Component {
           ),
         },
         render: () => (
-          <Tab.Pane className="relations-tab">
+          <Tab.Pane className="bo-relations-tab">
             <RelationOther />
           </Tab.Pane>
         ),

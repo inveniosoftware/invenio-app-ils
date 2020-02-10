@@ -1,4 +1,3 @@
-import { parentChildRelationPayload, siblingRelationPayload } from '@api/utils';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon, Modal } from 'semantic-ui-react';
@@ -34,35 +33,12 @@ export default class RelationModal extends Component {
     delete extraRelationField.required;
 
     this.setState({ isLoading: true });
-    let newRelations = [];
-    if (relationType === 'serial' || relationType === 'multipart_monograph') {
-      const payload = parentChildRelationPayload(
-        this.props.relationType,
-        extraRelationField,
-        selections[0],
-        refererRecord
-      );
-      newRelations.push(payload);
-    } else {
-      if (relationType === 'other') {
-        newRelations.push(
-          siblingRelationPayload(
-            relationType,
-            extraRelationField,
-            selections[0]
-          )
-        );
-      } else {
-        selections.map(selection =>
-          newRelations.push(
-            siblingRelationPayload(relationType, extraRelationField, selection)
-          )
-        );
-      }
-    }
-
-    const pid = refererRecord.pid;
-    this.props.createRelations(pid, newRelations);
+    this.props.createRelations(
+      refererRecord,
+      selections,
+      relationType,
+      extraRelationField
+    );
     this.setState({ isLoading: false });
     this.toggle();
   };

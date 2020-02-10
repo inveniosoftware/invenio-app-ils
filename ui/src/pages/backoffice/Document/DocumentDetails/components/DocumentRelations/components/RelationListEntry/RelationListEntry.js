@@ -1,7 +1,10 @@
 import { recordToPidType } from '@api/utils';
 import { DocumentAuthors, SeriesAuthors } from '@components';
-import { DocumentEdition, DocumentTitle } from '@components/Document';
-import { getCover } from '@pages/frontsite/config';
+import {
+  DocumentEdition,
+  DocumentItemCover,
+  DocumentTitle,
+} from '@components/Document';
 import { BackOfficeRoutes } from '@routes/urls';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -18,13 +21,7 @@ export class RelationListEntry extends Component {
         : BackOfficeRoutes.seriesDetailsFor(record.metadata.pid);
     const cover =
       recordType === 'docid' ? (
-        <Item.Image
-          as={Link}
-          to={linkTo}
-          size={'tiny'}
-          src={getCover(record.metadata.edition)}
-          onError={e => (e.target.style.display = 'none')}
-        />
+        <DocumentItemCover document={record} linkTo={linkTo} />
       ) : (
         <Icon name="clone outline" size="huge" color="grey" />
       );
@@ -54,7 +51,7 @@ export class RelationListEntry extends Component {
                 ) : (
                   <SeriesAuthors metadata={record.metadata} />
                 )}
-                <DocumentEdition document={record} explicit={true} />
+                <DocumentEdition document={record} label={true} />
                 <label>Published</label> {record.metadata.publication_year}
               </Item.Meta>
             </Grid.Column>

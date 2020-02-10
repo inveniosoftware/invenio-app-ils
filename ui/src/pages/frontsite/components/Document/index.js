@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { DocumentTags as DocumentTagsComponent } from '@components/Document';
 import { DocumentRelations as DocumentRelationsComponent } from './DocumentRelations';
 import { DocumentInfo as DocumentInfoComponent } from './DocumentInfo';
-import { DocumentCover as DocumentCoverComponent } from './DocumentCover';
 import { DocumentTitle as DocumentTitleComponent } from './DocumentTitle';
 import { DocumentMetadataTabs as DocumentMetadataTabsComponent } from './DocumentMetadataTabs';
 import { DocumentMetadataAccordion as DocumentMetadataAccordionComponent } from './DocumentMetadataAccordion';
@@ -35,11 +34,6 @@ export const DocumentInfo = connect(
   mapStateToProps,
   null
 )(DocumentInfoComponent);
-
-export const DocumentCover = connect(
-  mapStateToProps,
-  null
-)(DocumentCoverComponent);
 
 export const DocumentTitle = connect(
   mapStateToProps,

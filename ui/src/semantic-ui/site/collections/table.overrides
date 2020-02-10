@@ -2,7 +2,7 @@
          Site Overrides
 *******************************/
 
-.relations-tab {
+.bo-relations-tab {
 
   .ui.table {
     width: calc(~'100% + 2em');
