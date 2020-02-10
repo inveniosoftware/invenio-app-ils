@@ -1,6 +1,10 @@
 import { toShortDate } from '@api/date';
-import { DocumentTags, DocumentTitle } from '@components/Document';
-import { DetailsHeader, DocumentIcon } from '@pages/backoffice';
+import {
+  DocumentCover,
+  DocumentTags,
+  DocumentTitle,
+} from '@components/Document';
+import { DetailsHeader } from '@pages/backoffice';
 import { DocumentEItems } from './components';
 import {
   DocumentSeries,
@@ -14,6 +18,7 @@ import {
   Divider,
   Grid,
   Header,
+  Icon,
   Label,
   Ref,
   Sticky,
@@ -35,17 +40,24 @@ class DocumentHeader extends Component {
     const { data } = this.props;
     const recordInfo = (
       <>
-        <Label className="muted">Document</Label> {data.metadata.pid}{' '}
+        <label className="muted">Document</label> {data.metadata.pid}{' '}
         <CopyButton text={data.metadata.pid} />
         {data.metadata.created_by && (
           <>
             <br />
-            <Label className="muted">Created by</Label>{' '}
+            <label className="muted">Created by</label>{' '}
             <DocumentCreatedBy metadata={data.metadata} />
           </>
         )}
         <br />
-        <Label className="muted">Created on</Label> {toShortDate(data.created)}
+        <label className="muted">Created on</label> {toShortDate(data.created)}
+        <br />
+        {!data.metadata.open_access && (
+          <Label size="large" icon color="red">
+            <Icon name="lock" />
+            Restricted access
+          </Label>
+        )}
       </>
     );
     return (
@@ -58,7 +70,7 @@ class DocumentHeader extends Component {
         }
         subTitle={<DocumentAuthors metadata={data.metadata} prefix={'by '} />}
         pid={data.metadata.pid}
-        icon={<DocumentIcon />}
+        icon={<DocumentCover document={data} imageSize="huge" />}
         recordType="Document"
         recordInfo={recordInfo}
       >
@@ -110,7 +122,9 @@ class DocumentContent extends Component {
         title: 'Series',
         content: (
           <Accordion.Content>
-            <DocumentSeries />
+            <div ref={anchors.seriesRef} id="document-series">
+              <DocumentSeries />
+            </div>
           </Accordion.Content>
         ),
       },
@@ -119,7 +133,9 @@ class DocumentContent extends Component {
         title: 'Related',
         content: (
           <Accordion.Content>
-            <DocumentSiblings />
+            <div ref={anchors.relatedRef} id="document-siblings">
+              <DocumentSiblings />
+            </div>
           </Accordion.Content>
         ),
       },
@@ -128,7 +144,9 @@ class DocumentContent extends Component {
         title: 'Statistics',
         content: (
           <Accordion.Content>
-            <DocumentStats />
+            <div ref={anchors.statisticsRef} id="document-statistics">
+              <DocumentStats />
+            </div>
           </Accordion.Content>
         ),
       },
@@ -157,20 +175,15 @@ export default class DocumentDetails extends Component {
 
     this.menuRef = React.createRef();
     this.headerRef = React.createRef();
-    this.loanRequestsRef = React.createRef();
-    this.attachedItemsRef = React.createRef();
-    this.attachedEItemsRef = React.createRef();
-    this.seriesRef = React.createRef();
-    this.relatedRef = React.createRef();
-    this.statisticsRef = React.createRef();
 
     this.anchors = {
-      loanRequestsRef: this.loanRequestsRef,
-      attachedItemsRef: this.attachedItemsRef,
-      attachedEItemsRef: this.attachedEItemsRef,
-      seriesRef: this.seriesRef,
-      relatedRef: this.relatedRef,
-      statisticsRef: this.statisticsRef,
+      summaryRef: React.createRef(),
+      loanRequestsRef: React.createRef(),
+      attachedItemsRef: React.createRef(),
+      attachedEItemsRef: React.createRef(),
+      seriesRef: React.createRef(),
+      relatedRef: React.createRef(),
+      statisticsRef: React.createRef(),
     };
   }
 
@@ -206,12 +219,17 @@ export default class DocumentDetails extends Component {
                     <Grid.Column width={13}>
                       <Container className="spaced">
                         <Container className="spaced">
-                          <DocumentSummary
-                            anchors={this.anchors}
-                            document={data}
-                          />
+                          <div
+                            ref={this.anchors.summaryRef}
+                            id="document-summary"
+                          >
+                            <DocumentSummary
+                              anchors={this.anchors}
+                              document={data}
+                            />
+                          </div>
                         </Container>
-                        <DocumentMetadata />
+                        <DocumentMetadata anchors={this.anchors} />
                         <DocumentContent anchors={this.anchors} data={data} />
                       </Container>
                     </Grid.Column>

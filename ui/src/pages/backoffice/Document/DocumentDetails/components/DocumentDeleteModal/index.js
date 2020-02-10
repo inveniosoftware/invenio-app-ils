@@ -1,0 +1,1 @@
+export { DocumentDeleteModal } from './DocumentDeleteModal';

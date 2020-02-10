@@ -59,9 +59,6 @@ export class HitsSearch extends Component {
         for (let hit of response.data.hits) {
           results.push(serialize(hit));
         }
-        if (this.props.onResults) {
-          this.props.onResults(results);
-        }
       } else {
         results = response.data.hits;
       }

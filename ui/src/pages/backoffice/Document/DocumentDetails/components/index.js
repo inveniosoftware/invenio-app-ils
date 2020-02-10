@@ -6,3 +6,4 @@ export { DocumentEItems } from './DocumentEItems';
 export { DocumentActionMenu } from './DocumentActionMenu';
 export { DocumentSummary } from './DocumentSummary';
 export { DocumentCreatedBy } from './DocumentCreatedBy';
+export { DocumentDeleteModal } from './DocumentDeleteModal';

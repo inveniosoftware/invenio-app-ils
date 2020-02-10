@@ -4,8 +4,20 @@ import { connect } from 'react-redux';
 import RelationModalComponent from './RelationModal';
 
 const mapDispatchToProps = dispatch => ({
-  createRelations: (documentPid, relations) =>
-    dispatch(createRelations(documentPid, relations)),
+  createRelations: (
+    relationType,
+    selections,
+    extraRelationField,
+    refererRecord
+  ) =>
+    dispatch(
+      createRelations(
+        relationType,
+        selections,
+        extraRelationField,
+        refererRecord
+      )
+    ),
   resetSelections: () => dispatch(resetSelections()),
 });
 

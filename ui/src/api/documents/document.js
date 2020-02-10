@@ -1,6 +1,11 @@
 import { http, apiConfig } from '../base';
 import { serializer } from './serializer';
-import { prepareSumQuery, recordToPidType } from '../utils';
+import {
+  parentChildRelationPayload,
+  prepareSumQuery,
+  recordToPidType,
+  siblingRelationPayload,
+} from '../utils';
 
 const documentURL = '/documents/';
 
@@ -33,9 +38,45 @@ const viewEvent = async docPid => {
   });
 };
 
-const createRelation = async (docPid, data) => {
-  const resp = await http.post(`${documentURL}${docPid}/relations`, data);
+const createRelation = async (
+  referer,
+  selectedRelatedList,
+  relationType,
+  extraRelationField = {}
+) => {
+  let newRelationsPayload = [];
+  if (relationType === 'serial' || relationType === 'multipart_monograph') {
+    const payload = parentChildRelationPayload(
+      relationType,
+      extraRelationField,
+      selectedRelatedList[0],
+      referer
+    );
+    newRelationsPayload.push(payload);
+  } else {
+    if (relationType === 'other') {
+      newRelationsPayload.push(
+        siblingRelationPayload(
+          relationType,
+          extraRelationField,
+          selectedRelatedList[0]
+        )
+      );
+    } else {
+      selectedRelatedList.map(selection =>
+        newRelationsPayload.push(
+          siblingRelationPayload(relationType, extraRelationField, selection)
+        )
+      );
+    }
+  }
+
+  const resp = await http.post(
+    `${documentURL}${referer.pid}/relations`,
+    newRelationsPayload
+  );
   resp.data = serializer.fromJSON(resp.data);
+
   return resp;
 };
 

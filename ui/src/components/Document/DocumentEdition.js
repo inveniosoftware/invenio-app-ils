@@ -1,12 +1,11 @@
 import React from 'react';
-import { Item } from 'semantic-ui-react';
 
-export const DocumentEdition = ({ document, explicit }) => {
-  if (explicit) {
+export const DocumentEdition = ({ document, label }) => {
+  if (label) {
     return (
-      <Item.Description>
+      <>
         <label>edition</label> {document.metadata.edition}
-      </Item.Description>
+      </>
     );
   } else {
     return document.metadata.edition

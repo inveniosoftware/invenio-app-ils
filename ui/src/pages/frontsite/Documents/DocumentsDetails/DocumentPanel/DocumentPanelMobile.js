@@ -8,11 +8,10 @@ import {
   ILSParagraphPlaceholder,
 } from '@components/ILSPlaceholder';
 import {
-  DocumentCover,
   DocumentTags,
   DocumentTitle,
 } from '@pages/frontsite/components/Document';
-import { DocumentAuthors } from '@components/Document';
+import { DocumentAuthors, DocumentCover } from '@components/Document';
 import { Abstract } from '@components';
 
 export default class DocumentPanelMobile extends Component {
@@ -29,6 +28,7 @@ export default class DocumentPanelMobile extends Component {
               <DocumentCover
                 imageSize={'medium'}
                 placeholderStyle={{ width: 350, height: 400 }}
+                document={doc}
               />
               <ILSHeaderPlaceholder isLoading={isLoading} center="true">
                 <DocumentTitle />

@@ -5,12 +5,11 @@ import { Loader, Error, Pagination } from '@components';
 import { toShortDate } from '@api/date';
 import { invenioConfig } from '@config';
 import { Container, Grid, Header, Item, Label } from 'semantic-ui-react';
-import { getCover } from '../../config';
 import { Link } from 'react-router-dom';
 import { FrontSiteRoutes } from '@routes/urls';
 import isEmpty from 'lodash/isEmpty';
 import { ILSItemPlaceholder } from '@components/ILSPlaceholder/ILSPlaceholder';
-import { DocumentAuthors } from '@components/Document';
+import { DocumentAuthors, DocumentItemCover } from '@components/Document';
 import { NoResultsMessage } from '../../components/NoResultsMessage';
 
 class LoanListEntry extends Component {
@@ -22,11 +21,14 @@ class LoanListEntry extends Component {
         className={isLoanOverdue ? 'bkg-danger' : ''}
         key={loan.metadata.pid}
       >
-        <Item.Image
+        <DocumentItemCover
           size="mini"
-          src={getCover()}
-          as={Link}
-          to={FrontSiteRoutes.documentDetailsFor(loan.metadata.document_pid)}
+          src={loan.metadata.document.edition}
+          document={loan.metadata.document}
+          disabled
+          linkTo={FrontSiteRoutes.documentDetailsFor(
+            loan.metadata.document_pid
+          )}
         />
 
         <Item.Content>

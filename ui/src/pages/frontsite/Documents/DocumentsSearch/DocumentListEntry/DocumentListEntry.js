@@ -3,11 +3,10 @@ import { Grid, Item, List, Label } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FrontSiteRoutes } from '@routes/urls';
-import { getCover } from '../../../config';
 import Truncate from 'react-truncate';
 import { DocumentTags } from '@components/Document/DocumentTags';
 import isEmpty from 'lodash/isEmpty';
-import { DocumentLanguages } from '@components/Document';
+import { DocumentItemCover, DocumentLanguages } from '@components/Document';
 import { DocumentAuthors } from '@components/Document';
 
 export default class DocumentListEntry extends Component {
@@ -65,12 +64,12 @@ export default class DocumentListEntry extends Component {
   renderImage = () => {
     const { volume } = this.props;
     const image = (
-      <Item.Image
-        src={getCover(this.metadata.edition)}
-        size="small"
-        floated="left"
-        as={Link}
-        to={FrontSiteRoutes.documentDetailsFor(this.metadata.pid)}
+      <DocumentItemCover
+        size="mini"
+        src={this.metadata.edition}
+        document={this.metadata}
+        disabled
+        linkTo={FrontSiteRoutes.documentDetailsFor(this.metadata.pid)}
       />
     );
 
@@ -108,7 +107,7 @@ export default class DocumentListEntry extends Component {
           </Item.Description>
           <Item.Meta>
             <Grid>
-              <Grid.Column width={4} >
+              <Grid.Column width={4}>
                 {this.renderCirculationInfo(this.metadata)}
               </Grid.Column>
               {this.renderImprintInfo()}

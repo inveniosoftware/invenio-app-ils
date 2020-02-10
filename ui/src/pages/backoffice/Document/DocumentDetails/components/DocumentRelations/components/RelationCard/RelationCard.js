@@ -1,11 +1,14 @@
 import { recordToPidType } from '@api/utils';
-import { getCover } from '@pages/frontsite/config';
 import { BackOfficeRoutes } from '@routes/urls';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Card, Image } from 'semantic-ui-react';
-import { DocumentAuthors, DocumentEdition } from '@components/Document';
+import { Card } from 'semantic-ui-react';
+import {
+  DocumentAuthors,
+  DocumentCover,
+  DocumentEdition,
+} from '@components/Document';
 import isEmpty from 'lodash/isEmpty';
 
 export default class RelationCard extends Component {
@@ -24,12 +27,7 @@ export default class RelationCard extends Component {
         {this.props.icon ? (
           this.props.icon
         ) : (
-          <Image
-            centered
-            src={getCover(data.metadata.edition)}
-            size="tiny"
-            onError={e => (e.target.style.display = 'none')}
-          />
+          <DocumentCover imageSize="tiny" document={data} />
         )}
         <Card.Content>
           <Card.Header as={Link} to={linkTo} target="_blank">

@@ -6,12 +6,9 @@ import {
   ILSHeaderPlaceholder,
   ILSParagraphPlaceholder,
 } from '@components/ILSPlaceholder';
-import {
-  DocumentCover,
-  DocumentTitle,
-} from '@pages/frontsite/components/Document';
+import { DocumentTitle } from '@pages/frontsite/components/Document';
 import { DocumentPanelMobile } from './index';
-import { DocumentAuthors } from '@components/Document';
+import { DocumentAuthors, DocumentCover } from '@components/Document';
 import { Abstract } from '@components';
 
 export default class DocumentPanel extends Component {
@@ -27,7 +24,7 @@ export default class DocumentPanel extends Component {
             <Grid columns={3}>
               <Grid.Row>
                 <Grid.Column>
-                  <DocumentCover />
+                  <DocumentCover document={doc} />
                 </Grid.Column>
                 <Grid.Column>
                   <ILSHeaderPlaceholder isLoading={isLoading}>
