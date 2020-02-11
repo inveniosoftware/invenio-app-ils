@@ -99,6 +99,7 @@ export default class DocumentListEntry extends Component {
           <DocumentItemCover
             linkTo={BackOfficeRoutes.documentDetailsFor(document.metadata.pid)}
             document={document}
+            coverUrl={document.metadata.edition}
           />
           <Header disabled as="h6" className={'document-type tiny ellipsis'}>
             {document.metadata.document_type}
@@ -121,9 +122,9 @@ export default class DocumentListEntry extends Component {
                 metadata={document.metadata}
                 prefix={<label>languages </label>}
               />
-              <Item.Descripton>
+              <Item.Description>
                 <DocumentEdition document={document} label={true} />
-              </Item.Descripton>
+              </Item.Description>
               <label>Published</label> {document.metadata.publication_year}
             </Grid.Column>
             <Grid.Column computer={3} largeScreen={4}>

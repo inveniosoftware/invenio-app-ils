@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as types from '../types';
+import * as testData from '@testData/documents.json';
 import { document as documentApi } from '@api';
 
 const middlewares = [thunk];
@@ -38,15 +39,6 @@ const mockDeleteRelations = jest.fn();
 documentApi.createRelation = mockCreateRelations;
 documentApi.deleteRelation = mockDeleteRelations;
 
-const getPayload = () => ({
-  parent_pid: '1',
-  parent_pid_type: 'serid',
-  child_pid: '1',
-  child_pid_type: 'docid',
-  relation_type: 'serial',
-  volume: '1',
-});
-
 let store;
 beforeEach(() => {
   mockCreateRelations.mockClear();
@@ -55,23 +47,32 @@ beforeEach(() => {
   store.clearActions();
 });
 
+const refererRecord = testData[0];
+
 describe('Document relations tests', () => {
   describe('Create relations tests', () => {
-    it('should dispatch a loading action when deleting relations', async () => {
+    it('should dispatch a loading action when creating relations', async () => {
       mockCreateRelations.mockResolvedValue(mockCreateResponse);
 
       const expectedAction = {
         type: types.IS_LOADING,
       };
 
-      const payload = getPayload();
-
-      store.dispatch(actions.createRelations('123', [payload]));
-      expect(mockCreateRelations).toHaveBeenCalledWith('123', [payload]);
+      store.dispatch(
+        actions.createRelations(testData[0], [{ ...testData[1] }], 'serial', {
+          volume: '5',
+        })
+      );
+      expect(mockCreateRelations).toHaveBeenCalledWith(
+        testData[0],
+        [{ ...testData[1] }],
+        'serial',
+        { volume: '5' }
+      );
       expect(store.getActions()[0]).toEqual(expectedAction);
     });
 
-    it('should dispatch a success action when deleting relations succeeds', async () => {
+    it('should dispatch a success action when creating relations succeeds', async () => {
       mockCreateRelations.mockResolvedValue(mockCreateResponse);
 
       const expectedAction = {
@@ -79,9 +80,17 @@ describe('Document relations tests', () => {
         payload: mockCreateResponse.data.metadata.relations,
       };
 
-      const payload = getPayload();
-      await store.dispatch(actions.createRelations('123', [payload]));
-      expect(mockCreateRelations).toHaveBeenCalledWith('123', [payload]);
+      await store.dispatch(
+        actions.createRelations(testData[0], [{ ...testData[1] }], 'serial', {
+          volume: '5',
+        })
+      );
+      expect(mockCreateRelations).toHaveBeenCalledWith(
+        testData[0],
+        [{ ...testData[1] }],
+        'serial',
+        { volume: '5' }
+      );
       expect(store.getActions()[1]).toEqual(expectedAction);
     });
 
@@ -93,9 +102,17 @@ describe('Document relations tests', () => {
         payload: [500, 'Error'],
       };
 
-      const payload = getPayload();
-      await store.dispatch(actions.createRelations('123', [payload]));
-      expect(mockCreateRelations).toHaveBeenCalledWith('123', [payload]);
+      await store.dispatch(
+        actions.createRelations(testData[0], [{ ...testData[1] }], 'serial', {
+          volume: '5',
+        })
+      );
+      expect(mockCreateRelations).toHaveBeenCalledWith(
+        testData[0],
+        [{ ...testData[1] }],
+        'serial',
+        { volume: '5' }
+      );
       expect(store.getActions()[1]).toEqual(expectedAction);
     });
   });
@@ -107,10 +124,11 @@ describe('Document relations tests', () => {
         type: types.IS_LOADING,
       };
 
-      const payload = getPayload();
-
-      store.dispatch(actions.deleteRelations('123', [payload]));
-      expect(mockDeleteRelations).toHaveBeenCalledWith('123', [payload]);
+      store.dispatch(actions.deleteRelations(refererRecord, testData[1]));
+      expect(mockDeleteRelations).toHaveBeenCalledWith(
+        refererRecord,
+        testData[1]
+      );
       expect(store.getActions()[0]).toEqual(expectedAction);
     });
 
@@ -122,9 +140,11 @@ describe('Document relations tests', () => {
         payload: mockDeleteResponse.data.metadata.relations,
       };
 
-      const payload = getPayload();
-      await store.dispatch(actions.deleteRelations('123', [payload]));
-      expect(mockDeleteRelations).toHaveBeenCalledWith('123', [payload]);
+      await store.dispatch(actions.deleteRelations(refererRecord, testData[1]));
+      expect(mockDeleteRelations).toHaveBeenCalledWith(
+        refererRecord,
+        testData[1]
+      );
       expect(store.getActions()[1]).toEqual(expectedAction);
     });
 
@@ -136,9 +156,11 @@ describe('Document relations tests', () => {
         payload: [500, 'Error'],
       };
 
-      const payload = getPayload();
-      await store.dispatch(actions.deleteRelations('123', [payload]));
-      expect(mockDeleteRelations).toHaveBeenCalledWith('123', [payload]);
+      await store.dispatch(actions.deleteRelations(refererRecord, testData[1]));
+      expect(mockDeleteRelations).toHaveBeenCalledWith(
+        refererRecord,
+        testData[1]
+      );
       expect(store.getActions()[1]).toEqual(expectedAction);
     });
   });

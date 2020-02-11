@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import * as types from '../types';
-import { item as itemApi } from '@api';
+import { eitem as eitemApi } from '@api';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -17,7 +17,7 @@ const mockResponse = {
 };
 
 const mockFetchDocumentEItems = jest.fn();
-itemApi.list = mockFetchDocumentEItems;
+eitemApi.list = mockFetchDocumentEItems;
 
 let store;
 beforeEach(() => {

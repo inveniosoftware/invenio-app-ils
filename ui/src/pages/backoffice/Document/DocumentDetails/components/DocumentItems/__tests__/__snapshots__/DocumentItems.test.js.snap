@@ -21,6 +21,7 @@ exports[`DocumentItems tests should load the DocumentItems component 1`] = `
           },
           Object {
             "field": "metadata.internal_location.name",
+            "formatter": [Function],
             "title": "Location",
           },
           Object {
@@ -145,6 +146,7 @@ exports[`DocumentItems tests should render item 1`] = `
             },
             Object {
               "field": "metadata.internal_location.name",
+              "formatter": [Function],
               "title": "Location",
             },
             Object {
@@ -262,6 +264,7 @@ exports[`DocumentItems tests should render item 1`] = `
                   },
                   Object {
                     "field": "metadata.internal_location.name",
+                    "formatter": [Function],
                     "title": "Location",
                   },
                   Object {
@@ -423,6 +426,7 @@ exports[`DocumentItems tests should render item 1`] = `
                   },
                   Object {
                     "field": "metadata.internal_location.name",
+                    "formatter": [Function],
                     "title": "Location",
                   },
                   Object {
@@ -561,7 +565,7 @@ exports[`DocumentItems tests should render item 1`] = `
                           data-label="Location"
                           data-test="3-item1"
                         >
-                          -
+                          undefined (Somewhere)
                         </td>
                       </TableCell>
                       <TableCell
@@ -674,7 +678,7 @@ exports[`DocumentItems tests should render item 1`] = `
                           data-label="Location"
                           data-test="3-item2"
                         >
-                          -
+                          undefined (Somewhere Else)
                         </td>
                       </TableCell>
                       <TableCell
@@ -786,6 +790,7 @@ exports[`DocumentItems tests should render show a message with no items 1`] = `
             },
             Object {
               "field": "metadata.internal_location.name",
+              "formatter": [Function],
               "title": "Location",
             },
             Object {
@@ -939,6 +944,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
             },
             Object {
               "field": "metadata.internal_location.name",
+              "formatter": [Function],
               "title": "Location",
             },
             Object {
@@ -1056,6 +1062,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
                   },
                   Object {
                     "field": "metadata.internal_location.name",
+                    "formatter": [Function],
                     "title": "Location",
                   },
                   Object {
@@ -1217,6 +1224,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
                   },
                   Object {
                     "field": "metadata.internal_location.name",
+                    "formatter": [Function],
                     "title": "Location",
                   },
                   Object {
@@ -1333,7 +1341,7 @@ exports[`DocumentItems tests should render the see all button when showing only 
                           data-label="Location"
                           data-test="3-item1"
                         >
-                          -
+                          undefined (Somewhere)
                         </td>
                       </TableCell>
                       <TableCell

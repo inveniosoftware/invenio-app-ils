@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import DocumentDetails from '../DocumentDetails';
@@ -16,15 +15,12 @@ jest.mock('../components/', () => {
     DocumentMetadata: () => null,
     DocumentPendingLoans: () => null,
     DocumentItems: () => null,
+    DocumentEItems: () => null,
     DocumentRelations: () => null,
     DocumentStats: () => null,
     DocumentCirculation: () => null,
     DocumentSummary: () => null,
     DocumentSubjects: () => null,
-    DocumentSeries: () => null,
-    RelationMultipartModal: () => null,
-    RelationMultipart: () => null,
-    RelationRemover: () => null,
   };
 });
 
@@ -32,6 +28,20 @@ jest.mock('../', () => {
   return {
     DocumentHeader: () => null,
     DocumentContent: () => null,
+  };
+});
+
+jest.mock('../components/DocumentRelations', () => {
+  return {
+    DocumentSeries: () => null,
+    DocumentSiblings: () => null,
+    RelationMultipartModal: () => null,
+    RelationMultipart: () => null,
+    RelationRemover: () => null,
+    RelationLanguagesModal: () => null,
+    RelationEditionModal: () => null,
+    RelationOtherModal: () => null,
+    RelationSerialModal: () => null,
   };
 });
 

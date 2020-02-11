@@ -641,12 +641,16 @@ def _test_sibl_language_relation(client, json_headers):
                             "title": rec2["title"],
                             "languages": rec2["languages"],
                             "relation_type": "language",
+                            "document_type": "BOOK",
+                            "mode_of_issuance": "",
                         },
                         {
                             "pid": third_pid,
                             "pid_type": third_pid_type,
                             "title": rec3["title"],
                             "relation_type": "language",
+                            "document_type": "BOOK",
+                            "mode_of_issuance": "",
                         },
                     ]
                 }
@@ -664,12 +668,16 @@ def _test_sibl_language_relation(client, json_headers):
                             "languages": rec1["languages"],
                             "edition": rec1["edition"],
                             "relation_type": "language",
+                            "document_type": "BOOK",
+                            "mode_of_issuance": "",
                         },
                         {
                             "pid": third_pid,
                             "pid_type": third_pid_type,
                             "title": rec3["title"],
                             "relation_type": "language",
+                            "document_type": "BOOK",
+                            "mode_of_issuance": "",
                         },
                     ]
                 }
@@ -687,6 +695,8 @@ def _test_sibl_language_relation(client, json_headers):
                             "languages": rec1["languages"],
                             "edition": rec1["edition"],
                             "relation_type": "language",
+                            "document_type": "BOOK",
+                            "mode_of_issuance": "",
                         },
                         {
                             "pid": second_pid,
@@ -694,6 +704,8 @@ def _test_sibl_language_relation(client, json_headers):
                             "title": rec2["title"],
                             "languages": rec2["languages"],
                             "relation_type": "language",
+                            "document_type": "BOOK",
+                            "mode_of_issuance": "",
                         },
                     ]
                 }

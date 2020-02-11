@@ -3,25 +3,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Item } from 'semantic-ui-react';
+import isEmpty from 'lodash/isEmpty';
 
 export default class DocumentItemCover extends Component {
   getRestrictions = meta => {
-    if (meta.open_access) return null;
+    if (!isEmpty(meta) && meta.open_access) return null;
     return {
       corner: 'left',
       color: 'red',
       icon: 'lock',
-      title: `This ${meta.document_type.toLowerCase()} is restricted`,
+      title: `This record is restricted`,
     };
   };
   render() {
-    const { linkTo, document, size, src, ...uiProps } = this.props;
+    const { linkTo, document, size, coverUrl, ...uiProps } = this.props;
     return (
       <Item.Image
         as={Link}
         to={linkTo}
         size={size}
-        src={src ? src : getCover(document.metadata.edition)}
+        src={getCover(coverUrl)}
         onError={e => (e.target.style.display = 'none')}
         label={this.getRestrictions(document.metadata)}
         {...uiProps}
@@ -33,8 +34,10 @@ export default class DocumentItemCover extends Component {
 DocumentItemCover.propTypes = {
   linkTo: PropTypes.string.isRequired,
   document: PropTypes.object.isRequired,
+  coverUrl: PropTypes.string.isRequired,
 };
 
 DocumentItemCover.defaultProps = {
   size: 'tiny',
+  coverUrl: '42',
 };

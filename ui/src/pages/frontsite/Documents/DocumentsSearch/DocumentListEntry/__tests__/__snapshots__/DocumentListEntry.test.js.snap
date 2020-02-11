@@ -2,25 +2,41 @@
 
 exports[`should render correctly 1`] = `
 <Item>
-  <ItemImage
-    as={
+  <DocumentItemCover
+    coverUrl="1"
+    disabled={true}
+    document={
       Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "displayName": "Link",
-        "propTypes": Object {
-          "innerRef": [Function],
-          "onClick": [Function],
-          "replace": [Function],
-          "target": [Function],
-          "to": [Function],
+        "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
+        "abstract": "This is an abstract",
+        "authors": Array [
+          Object {
+            "full_name": "Jack E. Davis",
+          },
+        ],
+        "circulation": Object {
+          "has_items_for_loan": 0,
         },
-        "render": [Function],
+        "document_type": "BOOK",
+        "edition": "1",
+        "eitems": Object {
+          "hits": Array [],
+          "total": 0,
+        },
+        "keywords": Object {
+          "source": "X",
+          "value": "Patata",
+        },
+        "languages": Array [
+          "en",
+        ],
+        "pid": "13",
+        "publication_year": "1950",
+        "title": "The Gulf: The Making of An American Sea",
       }
     }
-    floated="left"
-    size="small"
-    src="https://assets.thalia.media/img/46276848-00-00.jpg"
-    to="/literature/13"
+    linkTo="/literature/13"
+    size="mini"
   />
   <ItemContent>
     <ItemMeta>
