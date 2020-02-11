@@ -24,6 +24,7 @@ const data = {
         document: {
           title: 'Test',
           pid: '5',
+          document_type: 'book',
           circulation: {
             has_items_on_site: 0,
           },
@@ -38,6 +39,7 @@ const data = {
         document: {
           title: 'Test 2',
           pid: '6',
+          document_type: 'book',
           circulation: {
             has_items_on_site: 0,
           },

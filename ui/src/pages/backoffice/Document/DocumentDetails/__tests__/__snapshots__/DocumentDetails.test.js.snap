@@ -49,10 +49,92 @@ exports[`DocumentDetails tests should load the details component 1`] = `
                   <Container
                     className="spaced"
                   >
-                    <DocumentSummary />
+                    <div
+                      id="document-summary"
+                    >
+                      <DocumentSummary
+                        anchors={
+                          Object {
+                            "attachedEItemsRef": Object {
+                              "current": null,
+                            },
+                            "attachedItemsRef": Object {
+                              "current": null,
+                            },
+                            "loanRequestsRef": Object {
+                              "current": null,
+                            },
+                            "relatedRef": Object {
+                              "current": null,
+                            },
+                            "seriesRef": Object {
+                              "current": null,
+                            },
+                            "statisticsRef": Object {
+                              "current": null,
+                            },
+                            "summaryRef": Object {
+                              "current": null,
+                            },
+                          }
+                        }
+                      />
+                    </div>
                   </Container>
-                  <DocumentMetadata />
-                  <DocumentContent />
+                  <DocumentMetadata
+                    anchors={
+                      Object {
+                        "attachedEItemsRef": Object {
+                          "current": null,
+                        },
+                        "attachedItemsRef": Object {
+                          "current": null,
+                        },
+                        "loanRequestsRef": Object {
+                          "current": null,
+                        },
+                        "relatedRef": Object {
+                          "current": null,
+                        },
+                        "seriesRef": Object {
+                          "current": null,
+                        },
+                        "statisticsRef": Object {
+                          "current": null,
+                        },
+                        "summaryRef": Object {
+                          "current": null,
+                        },
+                      }
+                    }
+                  />
+                  <DocumentContent
+                    anchors={
+                      Object {
+                        "attachedEItemsRef": Object {
+                          "current": null,
+                        },
+                        "attachedItemsRef": Object {
+                          "current": null,
+                        },
+                        "loanRequestsRef": Object {
+                          "current": null,
+                        },
+                        "relatedRef": Object {
+                          "current": null,
+                        },
+                        "seriesRef": Object {
+                          "current": null,
+                        },
+                        "statisticsRef": Object {
+                          "current": null,
+                        },
+                        "summaryRef": Object {
+                          "current": null,
+                        },
+                      }
+                    }
+                  />
                 </Container>
               </GridColumn>
               <GridColumn
@@ -69,7 +151,33 @@ exports[`DocumentDetails tests should load the details component 1`] = `
                   offset={180}
                   scrollContext={[Window]}
                 >
-                  <DocumentActionMenu />
+                  <DocumentActionMenu
+                    anchors={
+                      Object {
+                        "attachedEItemsRef": Object {
+                          "current": null,
+                        },
+                        "attachedItemsRef": Object {
+                          "current": null,
+                        },
+                        "loanRequestsRef": Object {
+                          "current": null,
+                        },
+                        "relatedRef": Object {
+                          "current": null,
+                        },
+                        "seriesRef": Object {
+                          "current": null,
+                        },
+                        "statisticsRef": Object {
+                          "current": null,
+                        },
+                        "summaryRef": Object {
+                          "current": null,
+                        },
+                      }
+                    }
+                  />
                 </Sticky>
               </GridColumn>
             </Grid>

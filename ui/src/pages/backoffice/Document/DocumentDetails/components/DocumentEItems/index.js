@@ -6,9 +6,9 @@ import DocumentEItemsComponent from './DocumentEItems';
 const mapStateToProps = state => ({
   documentDetails: state.documentDetails.data,
   documentEItems: state.documentEItems.data,
-  error: state.documentItems.error,
-  isLoading: state.documentItems.isLoading,
-  hasError: state.documentItems.hasError,
+  error: state.documentEItems.error,
+  isLoading: state.documentEItems.isLoading,
+  hasError: state.documentEItems.hasError,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -25,7 +25,6 @@ class LoanRequestListEntry extends Component {
       <Item key={loan.metadata.pid} data-test={loan.metadata.pid}>
         <DocumentItemCover
           size="mini"
-          src={loan.metadata.document.edition}
           document={loan.metadata.document}
           disabled
           linkTo={FrontSiteRoutes.documentDetailsFor(

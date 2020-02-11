@@ -58,6 +58,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                   "circulation": Object {
                     "has_items_on_site": 0,
                   },
+                  "document_type": "book",
                   "pid": "5",
                   "title": "Test",
                 },
@@ -86,6 +87,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                   "circulation": Object {
                     "has_items_on_site": 0,
                   },
+                  "document_type": "book",
                   "pid": "6",
                   "title": "Test 2",
                 },
@@ -172,6 +174,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                             "circulation": Object {
                               "has_items_on_site": 0,
                             },
+                            "document_type": "book",
                             "pid": "5",
                             "title": "Test",
                           },
@@ -203,27 +206,23 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                         className="item"
                         data-test="loanid-1"
                       >
-                        <ItemImage
-                          as={
+                        <DocumentItemCover
+                          coverUrl="42"
+                          disabled={true}
+                          document={
                             Object {
-                              "$$typeof": Symbol(react.forward_ref),
-                              "displayName": "Link",
-                              "propTypes": Object {
-                                "innerRef": [Function],
-                                "onClick": [Function],
-                                "replace": [Function],
-                                "target": [Function],
-                                "to": [Function],
+                              "circulation": Object {
+                                "has_items_on_site": 0,
                               },
-                              "render": [Function],
+                              "document_type": "book",
+                              "pid": "5",
+                              "title": "Test",
                             }
                           }
-                          disabled={true}
+                          linkTo="/literature/docid-1"
                           size="mini"
-                          src="https://assets.thalia.media/img/46276889-00-00.jpg"
-                          to="/literature/docid-1"
                         >
-                          <Image
+                          <ItemImage
                             as={
                               Object {
                                 "$$typeof": Symbol(react.forward_ref),
@@ -239,34 +238,99 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               }
                             }
                             disabled={true}
+                            label={
+                              Object {
+                                "color": "red",
+                                "corner": "left",
+                                "icon": "lock",
+                                "title": "This record is restricted",
+                              }
+                            }
+                            onError={[Function]}
                             size="mini"
                             src="https://assets.thalia.media/img/46276889-00-00.jpg"
                             to="/literature/docid-1"
-                            ui={true}
-                            wrapped={true}
                           >
-                            <Link
-                              className="ui mini disabled image"
+                            <Image
+                              as={
+                                Object {
+                                  "$$typeof": Symbol(react.forward_ref),
+                                  "displayName": "Link",
+                                  "propTypes": Object {
+                                    "innerRef": [Function],
+                                    "onClick": [Function],
+                                    "replace": [Function],
+                                    "target": [Function],
+                                    "to": [Function],
+                                  },
+                                  "render": [Function],
+                                }
+                              }
+                              disabled={true}
+                              label={
+                                Object {
+                                  "color": "red",
+                                  "corner": "left",
+                                  "icon": "lock",
+                                  "title": "This record is restricted",
+                                }
+                              }
+                              onError={[Function]}
+                              size="mini"
+                              src="https://assets.thalia.media/img/46276889-00-00.jpg"
                               to="/literature/docid-1"
+                              ui={true}
+                              wrapped={true}
                             >
-                              <LinkAnchor
+                              <Link
                                 className="ui mini disabled image"
-                                href="/literature/docid-1"
-                                navigate={[Function]}
+                                onError={[Function]}
+                                to="/literature/docid-1"
                               >
-                                <a
+                                <LinkAnchor
                                   className="ui mini disabled image"
                                   href="/literature/docid-1"
-                                  onClick={[Function]}
+                                  navigate={[Function]}
+                                  onError={[Function]}
                                 >
-                                  <img
-                                    src="https://assets.thalia.media/img/46276889-00-00.jpg"
-                                  />
-                                </a>
-                              </LinkAnchor>
-                            </Link>
-                          </Image>
-                        </ItemImage>
+                                  <a
+                                    className="ui mini disabled image"
+                                    href="/literature/docid-1"
+                                    onClick={[Function]}
+                                    onError={[Function]}
+                                  >
+                                    <Label
+                                      color="red"
+                                      corner="left"
+                                      icon="lock"
+                                      title="This record is restricted"
+                                    >
+                                      <div
+                                        className="ui red left corner label"
+                                        onClick={[Function]}
+                                        title="This record is restricted"
+                                      >
+                                        <Icon
+                                          as="i"
+                                          name="lock"
+                                        >
+                                          <i
+                                            aria-hidden="true"
+                                            className="lock icon"
+                                            onClick={[Function]}
+                                          />
+                                        </Icon>
+                                      </div>
+                                    </Label>
+                                    <img
+                                      src="https://assets.thalia.media/img/46276889-00-00.jpg"
+                                    />
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </Image>
+                          </ItemImage>
+                        </DocumentItemCover>
                         <ItemContent>
                           <div
                             className="content"
@@ -332,6 +396,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                               "circulation": Object {
                                                 "has_items_on_site": 0,
                                               },
+                                              "document_type": "book",
                                               "pid": "5",
                                               "title": "Test",
                                             }
@@ -474,6 +539,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                             "circulation": Object {
                               "has_items_on_site": 0,
                             },
+                            "document_type": "book",
                             "pid": "6",
                             "title": "Test 2",
                           },
@@ -508,27 +574,23 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                         className="item"
                         data-test="loanid-2"
                       >
-                        <ItemImage
-                          as={
+                        <DocumentItemCover
+                          coverUrl="42"
+                          disabled={true}
+                          document={
                             Object {
-                              "$$typeof": Symbol(react.forward_ref),
-                              "displayName": "Link",
-                              "propTypes": Object {
-                                "innerRef": [Function],
-                                "onClick": [Function],
-                                "replace": [Function],
-                                "target": [Function],
-                                "to": [Function],
+                              "circulation": Object {
+                                "has_items_on_site": 0,
                               },
-                              "render": [Function],
+                              "document_type": "book",
+                              "pid": "6",
+                              "title": "Test 2",
                             }
                           }
-                          disabled={true}
+                          linkTo="/literature/docid-1"
                           size="mini"
-                          src="https://assets.thalia.media/img/46276889-00-00.jpg"
-                          to="/literature/docid-1"
                         >
-                          <Image
+                          <ItemImage
                             as={
                               Object {
                                 "$$typeof": Symbol(react.forward_ref),
@@ -544,34 +606,99 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                               }
                             }
                             disabled={true}
+                            label={
+                              Object {
+                                "color": "red",
+                                "corner": "left",
+                                "icon": "lock",
+                                "title": "This record is restricted",
+                              }
+                            }
+                            onError={[Function]}
                             size="mini"
                             src="https://assets.thalia.media/img/46276889-00-00.jpg"
                             to="/literature/docid-1"
-                            ui={true}
-                            wrapped={true}
                           >
-                            <Link
-                              className="ui mini disabled image"
+                            <Image
+                              as={
+                                Object {
+                                  "$$typeof": Symbol(react.forward_ref),
+                                  "displayName": "Link",
+                                  "propTypes": Object {
+                                    "innerRef": [Function],
+                                    "onClick": [Function],
+                                    "replace": [Function],
+                                    "target": [Function],
+                                    "to": [Function],
+                                  },
+                                  "render": [Function],
+                                }
+                              }
+                              disabled={true}
+                              label={
+                                Object {
+                                  "color": "red",
+                                  "corner": "left",
+                                  "icon": "lock",
+                                  "title": "This record is restricted",
+                                }
+                              }
+                              onError={[Function]}
+                              size="mini"
+                              src="https://assets.thalia.media/img/46276889-00-00.jpg"
                               to="/literature/docid-1"
+                              ui={true}
+                              wrapped={true}
                             >
-                              <LinkAnchor
+                              <Link
                                 className="ui mini disabled image"
-                                href="/literature/docid-1"
-                                navigate={[Function]}
+                                onError={[Function]}
+                                to="/literature/docid-1"
                               >
-                                <a
+                                <LinkAnchor
                                   className="ui mini disabled image"
                                   href="/literature/docid-1"
-                                  onClick={[Function]}
+                                  navigate={[Function]}
+                                  onError={[Function]}
                                 >
-                                  <img
-                                    src="https://assets.thalia.media/img/46276889-00-00.jpg"
-                                  />
-                                </a>
-                              </LinkAnchor>
-                            </Link>
-                          </Image>
-                        </ItemImage>
+                                  <a
+                                    className="ui mini disabled image"
+                                    href="/literature/docid-1"
+                                    onClick={[Function]}
+                                    onError={[Function]}
+                                  >
+                                    <Label
+                                      color="red"
+                                      corner="left"
+                                      icon="lock"
+                                      title="This record is restricted"
+                                    >
+                                      <div
+                                        className="ui red left corner label"
+                                        onClick={[Function]}
+                                        title="This record is restricted"
+                                      >
+                                        <Icon
+                                          as="i"
+                                          name="lock"
+                                        >
+                                          <i
+                                            aria-hidden="true"
+                                            className="lock icon"
+                                            onClick={[Function]}
+                                          />
+                                        </Icon>
+                                      </div>
+                                    </Label>
+                                    <img
+                                      src="https://assets.thalia.media/img/46276889-00-00.jpg"
+                                    />
+                                  </a>
+                                </LinkAnchor>
+                              </Link>
+                            </Image>
+                          </ItemImage>
+                        </DocumentItemCover>
                         <ItemContent>
                           <div
                             className="content"
@@ -637,6 +764,7 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                               "circulation": Object {
                                                 "has_items_on_site": 0,
                                               },
+                                              "document_type": "book",
                                               "pid": "6",
                                               "title": "Test 2",
                                             }
