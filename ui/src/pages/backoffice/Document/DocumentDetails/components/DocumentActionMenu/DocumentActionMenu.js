@@ -109,7 +109,7 @@ export default class DocumentActionMenu extends Component {
             Loan requests
           </Menu.Item>
           <Menu.Item
-            name="document-items'"
+            name="document-items"
             active={activeItem === 'document-items'}
             onClick={(e, { name }) =>
               this.scrollTo(anchors.attachedItemsRef, name)

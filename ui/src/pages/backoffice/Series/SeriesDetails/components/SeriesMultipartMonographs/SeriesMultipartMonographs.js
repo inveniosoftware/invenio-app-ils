@@ -1,3 +1,5 @@
+import { InfoMessage } from '@pages/backoffice';
+import isEmpty from 'lodash/isEmpty';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -8,7 +10,7 @@ import { BackOfficeRoutes } from '@routes/urls';
 import { SeeAllButton } from '@pages/backoffice/components/buttons';
 import _get from 'lodash/get';
 
-export class SeriesMultipartMonographsData extends Component {
+export default class SeriesMultipartMonographs extends Component {
   constructor(props) {
     super(props);
     this.seriesPid = props.seriesDetails.metadata.pid;
@@ -67,30 +69,30 @@ export class SeriesMultipartMonographsData extends Component {
         formatter: ({ row }) => <SeriesAuthors metadata={row.metadata} />,
       },
     ];
+    const hasMultiparts = !isEmpty(multipartMonographs);
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
-          <ResultsTable
-            data={multipartMonographs.hits}
-            columns={columns}
-            totalHitsCount={multipartMonographs.total}
-            title={'Multipart Monographs'}
-            name={'multipart monographs'}
-            seeAllComponent={this.seeAllButton()}
-            showMaxRows={showMaxSeries}
-          />
+          {hasMultiparts ? (
+            <ResultsTable
+              data={multipartMonographs.hits}
+              columns={columns}
+              totalHitsCount={multipartMonographs.total}
+              name={'multipart monographs'}
+              seeAllComponent={this.seeAllButton()}
+              showMaxRows={showMaxSeries}
+            />
+          ) : (
+            <InfoMessage
+              header="No multiparts found."
+              content={'Start with a multipart to attach it to this series.'}
+            />
+          )}
         </Error>
       </Loader>
     );
   }
 }
-
-const SeriesMultipartMonographs = props => {
-  const isSerial = props.seriesDetails.metadata.mode_of_issuance === 'SERIAL';
-  return <>{isSerial && <SeriesMultipartMonographsData {...props} />}</>;
-};
-
-export default SeriesMultipartMonographs;
 
 SeriesMultipartMonographs.propTypes = {
   showMaxSeries: PropTypes.number,

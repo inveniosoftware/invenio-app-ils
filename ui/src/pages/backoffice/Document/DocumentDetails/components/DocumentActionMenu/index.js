@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
   error: state.documentDetails.error,
   document: state.documentDetails.data,
   hasError: state.documentDetails.hasError,
-  relations: state.documentRelations.data,
+  relations: state.recordRelations.data,
 });
 
 const mapDispatchToProps = dispatch => ({

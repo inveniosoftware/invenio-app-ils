@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { BackOfficeRoutes } from '@routes/urls';
-import { SeriesMultipartMonographsData as SeriesMultipartMonographs } from '../SeriesMultipartMonographs';
+import SeriesMultipartMonographs from '../SeriesMultipartMonographs';
 import { Settings } from 'luxon';
 import { fromISO } from '@api/date';
 import { Button } from 'semantic-ui-react';
@@ -12,6 +12,12 @@ let mockViewDetails = jest.fn();
 
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
+
+jest.mock('@pages/backoffice', () => {
+  return {
+    InfoMessage: () => null,
+  };
+});
 
 describe('SeriesMultipartMonographs tests', () => {
   let component;

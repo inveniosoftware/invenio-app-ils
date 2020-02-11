@@ -72,7 +72,7 @@ const createRelation = async (
   }
 
   const resp = await http.post(
-    `${documentURL}${referer.pid}/relations`,
+    `${documentURL}${referer.metadata.pid}/relations`,
     newRelationsPayload
   );
   resp.data = serializer.fromJSON(resp.data);

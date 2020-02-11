@@ -1,98 +1,74 @@
+import { ResultsTable, SeriesAuthors } from '@components';
+import { SeriesLanguages } from '@components/Series';
+import { UrlList } from '@pages/backoffice/components/UrlList';
+import get from 'lodash/get';
 import React, { Component } from 'react';
-import { Grid, Segment, Container, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import { Segment, Divider, Container } from 'semantic-ui-react';
 import { MetadataTable } from '@pages/backoffice/components/MetadataTable';
-import { EditButton } from '@pages/backoffice/components/buttons';
-import { DeleteRecordModal } from '@pages/backoffice/components/DeleteRecordModal';
-import { formatPidTypeToName } from '@pages/backoffice/components/ManageRelationsButton/utils';
-import { BackOfficeRoutes } from '@routes/urls';
+import isEmpty from 'lodash/isEmpty';
 
 export default class SeriesMetadata extends Component {
-  constructor(props) {
-    super(props);
-    this.deleteSeries = props.deleteSeries;
-    this.seriesPid = this.props.seriesDetails.metadata.pid;
-  }
+  prepareData = () => {
+    const { seriesDetails } = this.props;
 
-  async getRelationRefs() {
-    const hits = [];
-    for (const [relation, records] of Object.entries(this.props.relations)) {
-      for (const record of records) {
-        const type = formatPidTypeToName(record.pid_type);
-        hits.push({
-          id: `${type} ${record.pid} (${relation})`,
-        });
-      }
-    }
-    const obj = {
-      data: {
-        hits: hits,
-        total: hits.length,
-      },
-    };
-    return obj;
-  }
+    const urls = get(this.props, 'seriesDetails.metadata.urls', []);
 
-  createRefProps() {
     return [
+      { name: 'Title', value: seriesDetails.metadata.title },
       {
-        refType: 'Related',
-        onRefClick: () => {},
-        getRefData: () => this.getRelationRefs(),
+        name: 'Title abbreviation',
+        value: seriesDetails.metadata.abbreviated_title,
       },
+      {
+        name: 'Authors',
+        value: <SeriesAuthors metadata={seriesDetails.metadata} />,
+      },
+      {
+        name: 'Mode of Issuance',
+        value: seriesDetails.metadata.mode_of_issuance,
+      },
+      {
+        name: 'Languages',
+        value: <SeriesLanguages metadata={seriesDetails.metadata} />,
+      },
+      { name: 'Publisher', value: seriesDetails.metadata.publisher },
+      { name: 'Urls', value: <UrlList urls={urls} /> },
     ];
-  }
-
-  renderHeader(series) {
-    return (
-      <Grid.Row>
-        <Grid.Column width={13} verticalAlign={'middle'}>
-          <Header as="h1">
-            Series #{series.pid} - {series.metadata.title}
-          </Header>
-        </Grid.Column>
-        <Grid.Column width={3} textAlign={'right'}>
-          <EditButton to={BackOfficeRoutes.seriesEditFor(this.seriesPid)} />
-          <DeleteRecordModal
-            deleteHeader={`Are you sure you want to delete the Series record
-            with ID ${series.pid}?`}
-            refProps={this.createRefProps()}
-            onDelete={() => this.deleteSeries(series.pid)}
-          />
-        </Grid.Column>
-      </Grid.Row>
-    );
-  }
-
-  prepareData(series) {
-    const rows = [
-      { name: 'Title', value: series.metadata.title },
-      { name: 'Mode of Issuance', value: series.metadata.mode_of_issuance },
-      { name: 'Authors', value: series.metadata.authors },
-    ];
-    return rows;
-  }
+  };
 
   render() {
     const series = this.props.seriesDetails;
-    const rows = this.prepareData(series);
+    const rows = this.prepareData();
+    const columns = [
+      {
+        title: 'URL',
+        field: 'url',
+      },
+      {
+        title: 'Description',
+        field: 'description',
+      },
+      { title: 'Open access', field: 'open_access' },
+      { title: 'Restrictions', field: 'access_restriction' },
+    ];
+
+    const hasAccessUrls = !isEmpty(series.metadata.access_urls);
+
     return (
-      <Segment className="series-metadata">
-        <Grid padded columns={2}>
-          {this.renderHeader(series)}
-          <Grid.Row>
-            <Grid.Column>
-              <MetadataTable rows={rows} />
-            </Grid.Column>
-            <Grid.Column>
-              <Container>
-                <Header as="h3">Abstract</Header>
-                <p>{series.metadata.abstract}</p>
-              </Container>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
+      <Container fluid className="series-metadata">
+        <MetadataTable rows={rows} />
+
+        {hasAccessUrls && (
+          <>
+            <Divider horizontal>Access URLS</Divider>
+            <ResultsTable
+              columns={columns}
+              data={series.metadata.access_urls}
+            />
+          </>
+        )}
+      </Container>
     );
   }
 }

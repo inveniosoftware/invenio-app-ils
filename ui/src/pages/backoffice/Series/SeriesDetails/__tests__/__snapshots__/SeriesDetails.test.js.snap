@@ -1,16 +1,147 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SeriesDetails tests should load the details component 1`] = `
-<Container>
-  <Loader
-    isLoading={false}
+<div>
+  <Container
+    fluid={true}
   >
-    <Error>
-      <SeriesMetadata />
-      <SeriesDocuments />
-      <SeriesMultipartMonographs />
-      <SeriesRelations />
-    </Error>
-  </Loader>
-</Container>
+    <Loader
+      isLoading={false}
+    >
+      <Error>
+        <Sticky
+          active={true}
+          bottomOffset={0}
+          className="solid-background"
+          context={
+            Object {
+              "current": null,
+            }
+          }
+          offset={0}
+          scrollContext={[Window]}
+        >
+          <Container
+            className="spaced"
+            fluid={true}
+          >
+            <SeriesHeader />
+          </Container>
+          <Divider />
+        </Sticky>
+        <Container
+          fluid={true}
+        >
+          <Ref
+            innerRef={
+              Object {
+                "current": null,
+              }
+            }
+          >
+            <Grid
+              columns={2}
+            >
+              <GridColumn
+                width={13}
+              >
+                <div
+                  id="series-documents"
+                >
+                  <SeriesMetadataTabs />
+                </div>
+                <Accordion
+                  className="highlighted"
+                  defaultActiveIndex={
+                    Array [
+                      0,
+                      1,
+                      2,
+                    ]
+                  }
+                  exclusive={false}
+                  fluid={true}
+                  panels={
+                    Array [
+                      Object {
+                        "content": <AccordionContent>
+                          <div
+                            id="series-documents"
+                          >
+                            <SeriesDocuments />
+                          </div>
+                        </AccordionContent>,
+                        "key": "series-documents",
+                        "title": "Literature in this series",
+                      },
+                      Object {
+                        "content": <AccordionContent>
+                          <div
+                            id="series-serials"
+                          >
+                            <Segment>
+                              <RelationSerial />
+                            </Segment>
+                          </div>
+                        </AccordionContent>,
+                        "key": "series-serials",
+                        "title": "Serials",
+                      },
+                      Object {
+                        "content": <AccordionContent>
+                          <div
+                            id="series-relations"
+                          >
+                            <Memo(Connect(SeriesSiblings)) />
+                          </div>
+                        </AccordionContent>,
+                        "key": "series-relations",
+                        "title": "Related",
+                      },
+                    ]
+                  }
+                  styled={true}
+                />
+              </GridColumn>
+              <GridColumn
+                width={3}
+              >
+                <Sticky
+                  active={true}
+                  bottomOffset={0}
+                  context={
+                    Object {
+                      "current": null,
+                    }
+                  }
+                  offset={150}
+                  scrollContext={[Window]}
+                >
+                  <SeriesActionMenu
+                    anchors={
+                      Object {
+                        "documents": Object {
+                          "current": null,
+                        },
+                        "monographs": Object {
+                          "current": null,
+                        },
+                        "relations": Object {
+                          "current": null,
+                        },
+                        "top": Object {
+                          "current": null,
+                        },
+                      }
+                    }
+                  />
+                </Sticky>
+              </GridColumn>
+            </Grid>
+          </Ref>
+        </Container>
+      </Error>
+    </Loader>
+  </Container>
+</div>
 `;

@@ -42,10 +42,10 @@ exports[`SeriesMultipartMonographs tests should load the SeriesMultipartMonograp
         />
       }
       showAllResults={false}
-      showMaxRows={15}
+      showMaxRows={5}
       singleLine={false}
       subtitle=""
-      title="Multipart Monographs"
+      title=""
       totalHitsCount={0}
     />
   </Error>

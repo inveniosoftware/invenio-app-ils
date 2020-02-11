@@ -1,13 +1,11 @@
 import { toShortDate } from '@api/date';
 import { DocumentAuthors } from '@components';
-import {
-  DocumentLanguages,
-  DocumentTags,
-  DocumentUrls,
-} from '@components/Document';
+import { DocumentLanguages, DocumentTags } from '@components/Document';
 import { MetadataTable } from '@pages/backoffice';
+import { UrlList } from '@pages/backoffice/components/UrlList';
 import { BackOfficeRoutes } from '@routes/urls';
 import { isEmpty } from 'lodash';
+import get from 'lodash/get';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -16,6 +14,8 @@ import { Container, Divider, Header } from 'semantic-ui-react';
 export class DocumentMetadataGeneral extends Component {
   prepareGeneral = () => {
     const { document } = this.props;
+    const urls = get(this.props, 'document.metadata.urls', []);
+
     const rows = [
       { name: 'Title', value: document.metadata.title },
       {
@@ -43,7 +43,7 @@ export class DocumentMetadataGeneral extends Component {
       },
       {
         name: 'Urls',
-        value: <DocumentUrls document={document} />,
+        value: <UrlList urls={urls} />,
       },
     ];
 

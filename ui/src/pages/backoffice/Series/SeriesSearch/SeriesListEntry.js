@@ -1,3 +1,4 @@
+import { SeriesAuthors } from '@components';
 import { DocumentLanguages, DocumentTags } from '@components/Document';
 import { DocumentIcon } from '@pages/backoffice';
 import { BackOfficeRoutes } from '@routes/urls';
@@ -119,10 +120,7 @@ export class SeriesListEntry extends Component {
           <Grid columns={3}>
             <Grid.Column computer={6} largeScreen={5}>
               <Item.Meta className={'series-authors'}>
-                by{' '}
-                <label>
-                  {series.metadata.authors.map(author => `${author}`)}
-                </label>
+                <SeriesAuthors prefix="by " metadata={series.metadata} />
               </Item.Meta>
               {identifier && (
                 <>

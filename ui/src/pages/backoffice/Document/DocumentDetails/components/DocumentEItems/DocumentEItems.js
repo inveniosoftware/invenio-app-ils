@@ -5,6 +5,7 @@ import { Loader, Error, ResultsTable } from '@components';
 import { eitem as eItemApi } from '@api';
 import { BackOfficeRoutes } from '@routes/urls';
 import { SeeAllButton } from '@pages/backoffice/components/buttons';
+import { Label } from 'semantic-ui-react';
 
 export default class DocumentEItems extends Component {
   componentDidMount() {
@@ -36,6 +37,14 @@ export default class DocumentEItems extends Component {
     return row.metadata.files.length;
   };
 
+  accessFormatter = ({ row }) => {
+    return (
+      row.metadata.open_access === true && (
+        <Label color="green">Open access</Label>
+      )
+    );
+  };
+
   renderTable(data) {
     const columns = [
       {
@@ -48,7 +57,11 @@ export default class DocumentEItems extends Component {
         field: 'metadata.files',
         formatter: this.filesFieldFormatter,
       },
-      { title: 'Open access', field: 'metadata.open_access' },
+      {
+        title: 'Open access',
+        field: 'metadata.open_access',
+        formatter: this.accessFormatter,
+      },
     ];
     return (
       <ResultsTable

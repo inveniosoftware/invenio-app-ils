@@ -5,6 +5,7 @@ import SeriesDocuments from '../SeriesDocuments';
 import { Settings } from 'luxon';
 import { fromISO } from '@api/date';
 import * as testData from '@testData/documents';
+import * as testSeries from '@testData/series';
 import { Button } from 'semantic-ui-react';
 
 jest.mock('react-router-dom');
@@ -12,6 +13,12 @@ Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
 BackOfficeRoutes.documentDetailsFor = jest.fn(pid => `url/${pid}`);
 let mockViewDetails = jest.fn();
+
+jest.mock('@pages/backoffice', () => {
+  return {
+    InfoMessage: () => null,
+  };
+});
 
 describe('SeriesDocuments tests', () => {
   let component;
@@ -34,7 +41,7 @@ describe('SeriesDocuments tests', () => {
   it('should load the SeriesDocuments component', () => {
     const component = shallow(
       <SeriesDocuments
-        seriesDetails={series}
+        seriesDetails={{ metadata: testSeries[0] }}
         seriesDocuments={{ hits: [], total: 0 }}
         fetchSeriesDocuments={() => {}}
       />
@@ -46,21 +53,21 @@ describe('SeriesDocuments tests', () => {
     const mockedFetchSeriesDocuments = jest.fn();
     component = mount(
       <SeriesDocuments
-        seriesDetails={series}
+        seriesDetails={{ metadata: testSeries[0] }}
         seriesDocuments={{ hits: [], total: 0 }}
         fetchSeriesDocuments={mockedFetchSeriesDocuments}
       />
     );
     expect(mockedFetchSeriesDocuments).toHaveBeenCalledWith(
-      series.pid,
-      'SERIAL'
+      testSeries[0].pid,
+      testSeries[0].mode_of_issuance
     );
   });
 
   it('should render show a message with no documents', () => {
     component = mount(
       <SeriesDocuments
-        seriesDetails={series}
+        seriesDetails={{ metadata: testSeries[0] }}
         seriesDocuments={{ hits: [], total: 0 }}
         fetchSeriesDocuments={() => {}}
       />
@@ -102,7 +109,7 @@ describe('SeriesDocuments tests', () => {
 
     component = mount(
       <SeriesDocuments
-        seriesDetails={series}
+        seriesDetails={{ metadata: testSeries[0] }}
         seriesDocuments={data}
         fetchSeriesDocuments={() => {}}
       />
@@ -150,7 +157,7 @@ describe('SeriesDocuments tests', () => {
 
     component = mount(
       <SeriesDocuments
-        seriesDetails={series}
+        seriesDetails={{ metadata: testSeries[0] }}
         seriesDocuments={data}
         fetchSeriesDocuments={() => {}}
         showMaxDocuments={1}
@@ -161,47 +168,5 @@ describe('SeriesDocuments tests', () => {
       .find('TableFooter')
       .filterWhere(element => element.prop('data-test') === 'footer');
     expect(footer).toHaveLength(1);
-  });
-
-  it('should go to documents details when clicking on a document row', () => {
-    const data = {
-      hits: [
-        {
-          ID: '1',
-          updated: stringDate,
-          created: stringDate,
-          pid: 'document1',
-          metadata: {
-            ...testData[0],
-            pid: 'document1',
-            series_objs: [],
-          },
-        },
-      ],
-      total: 2,
-    };
-
-    component = mount(
-      <SeriesDocuments
-        seriesDetails={series}
-        seriesDocuments={data}
-        fetchSeriesDocuments={() => {}}
-        showMaxItems={1}
-      />
-    );
-
-    component.instance().viewDetails = jest.fn(() => (
-      <Button onClick={mockViewDetails}></Button>
-    ));
-    component.instance().forceUpdate();
-
-    const firstId = data.hits[0].pid;
-
-    component
-      .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
-      .find('Button')
-      .simulate('click');
-    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

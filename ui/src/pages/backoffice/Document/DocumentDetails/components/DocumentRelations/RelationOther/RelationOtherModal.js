@@ -6,7 +6,7 @@ import {
   RelationSummary,
   SingleSelection,
   RelationSelector,
-} from '../components';
+} from '@pages/backoffice/components/Relations';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {

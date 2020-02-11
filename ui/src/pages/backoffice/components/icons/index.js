@@ -1,5 +1,6 @@
 export {
   DocumentIcon,
+  SeriesIcon,
   DocumentRequestIcon,
   EItemIcon,
   ItemIcon,

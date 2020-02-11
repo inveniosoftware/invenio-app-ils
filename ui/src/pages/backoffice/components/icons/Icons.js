@@ -7,6 +7,12 @@ export class DocumentIcon extends Component {
   }
 }
 
+export class SeriesIcon extends Component {
+  render() {
+    return <Icon name="clone outline" />;
+  }
+}
+
 export class ItemIcon extends Component {
   render() {
     return <Icon name="barcode" />;
