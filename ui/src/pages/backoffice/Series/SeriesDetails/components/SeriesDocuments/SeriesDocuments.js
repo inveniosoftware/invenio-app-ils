@@ -1,12 +1,15 @@
+import { InfoMessage } from '@pages/backoffice';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
 import { Loader, Error, ResultsTable, DocumentAuthors } from '@components';
 import { document as documentApi } from '@api';
 import { BackOfficeRoutes } from '@routes/urls';
-import { SeeAllButton } from '@pages/backoffice/components/buttons';
+import {
+  DocumentDetailsLink,
+  SeeAllButton,
+} from '@pages/backoffice/components/buttons';
 import _get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
 
 export default class SeriesDocuments extends Component {
   constructor(props) {
@@ -31,13 +34,9 @@ export default class SeriesDocuments extends Component {
 
   viewDetails = ({ row }) => {
     return (
-      <Button
-        as={Link}
-        to={BackOfficeRoutes.documentDetailsFor(row.metadata.pid)}
-        compact
-        icon="info"
-        data-test={row.metadata.pid}
-      />
+      <DocumentDetailsLink documentPid={row.pid}>
+        {row.metadata.title}
+      </DocumentDetailsLink>
     );
   };
 
@@ -57,27 +56,33 @@ export default class SeriesDocuments extends Component {
   render() {
     const { showMaxDocuments, seriesDocuments, isLoading, error } = this.props;
     const columns = [
-      { title: '', field: '', formatter: this.viewDetails },
-      { title: 'ID', field: 'metadata.pid' },
-      { title: 'Volume', formatter: this.volumeFormatter },
-      { title: 'Title', field: 'metadata.title' },
+      { title: 'Title', field: 'metadata.title', formatter: this.viewDetails },
       {
         title: 'Authors',
         formatter: ({ row }) => <DocumentAuthors metadata={row.metadata} />,
       },
+      { title: 'Volume', formatter: this.volumeFormatter },
+      { title: 'ID', field: 'metadata.pid' },
     ];
+    const hasDocuments = !isEmpty(seriesDocuments);
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
-          <ResultsTable
-            data={seriesDocuments.hits}
-            columns={columns}
-            totalHitsCount={seriesDocuments.total}
-            title={'Documents'}
-            name={'documents'}
-            seeAllComponent={this.seeAllButton()}
-            showMaxRows={showMaxDocuments}
-          />
+          {hasDocuments ? (
+            <ResultsTable
+              data={seriesDocuments.hits}
+              columns={columns}
+              totalHitsCount={seriesDocuments.total}
+              name={'documents'}
+              seeAllComponent={this.seeAllButton()}
+              showMaxRows={showMaxDocuments}
+            />
+          ) : (
+            <InfoMessage
+              header="No multiparts found."
+              content={'Start with a multipart to attach it to this series.'}
+            />
+          )}
         </Error>
       </Loader>
     );

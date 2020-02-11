@@ -1,5 +1,6 @@
 import { Error, Loader } from '@components';
-import { RelationSerial } from './RelationSerial';
+import { RelationSerial } from '@pages/backoffice/components/Relations/RelationSerial';
+// import { RelationSerial } from './RelationSerial';
 import { RelationMultipart } from './RelationMultipartMonograph';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -7,7 +8,7 @@ import { Label, Tab } from 'semantic-ui-react';
 
 export default class DocumentSeries extends Component {
   render() {
-    const { isLoading, error } = this.props;
+    const { isLoading, error, documentDetails } = this.props;
 
     const multipart = this.props.relations['multipart_monograph'] || [];
     const serial = this.props.relations['serial'] || [];
@@ -39,7 +40,7 @@ export default class DocumentSeries extends Component {
         },
         render: () => (
           <Tab.Pane className="bo-relations-tab">
-            <RelationSerial />
+            <RelationSerial recordDetails={documentDetails} />
           </Tab.Pane>
         ),
       },
@@ -57,4 +58,7 @@ export default class DocumentSeries extends Component {
 
 DocumentSeries.propTypes = {
   relations: PropTypes.object.isRequired,
+  documentDetails: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool,
+  error: PropTypes.object,
 };

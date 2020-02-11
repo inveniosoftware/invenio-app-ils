@@ -1,23 +1,12 @@
-import {
-  createRelations,
-  deleteRelations,
-} from '../../DocumentRelations/state/actions';
 import { connect } from 'react-redux';
 import RelationLanguagesComponent from './RelationLanguages';
 import RelationLanguagesModalComponent from './RelationLanguagesModal';
 
 const mapStateToProps = state => ({
   documentDetails: state.documentDetails.data,
-  error: state.documentRelations.error,
-  isLoading: state.documentRelations.isLoading,
-  relations: state.documentRelations.data,
-});
-
-const mapDispatchToProps = dispatch => ({
-  createRelations: (documentPid, relations) =>
-    dispatch(createRelations(documentPid, relations)),
-  deleteRelations: (documentPid, relations) =>
-    dispatch(deleteRelations(documentPid, relations)),
+  error: state.recordRelations.error,
+  isLoading: state.recordRelations.isLoading,
+  relations: state.recordRelations.data,
 });
 
 export const RelationLanguages = connect(
@@ -27,5 +16,5 @@ export const RelationLanguages = connect(
 
 export const RelationLanguagesModal = connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(RelationLanguagesModalComponent);

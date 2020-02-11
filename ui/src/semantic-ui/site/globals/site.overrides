@@ -65,6 +65,12 @@
 
 label {
   font-weight: bold;
+  &.muted {
+    border: 0;
+    padding: 2px;
+    color: @mutedTextColor;
+    background-color: transparent;
+  }
 }
 
 .search-aggregations {

@@ -1,8 +1,10 @@
 import { Error, Loader } from '@components';
 import { DocumentDetailsLink, InfoMessage } from '@pages/backoffice';
-import { ExistingRelations } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/components/ExistingRelations';
 import { RelationOtherModal } from '../RelationOther';
-import { RelationRemover } from '../components';
+import {
+  RelationRemover,
+  ExistingRelations,
+} from '@pages/backoffice/components/Relations';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';

@@ -148,7 +148,7 @@ exports[`DocumentDetails tests should load the details component 1`] = `
                       "current": null,
                     }
                   }
-                  offset={180}
+                  offset={200}
                   scrollContext={[Window]}
                 >
                   <DocumentActionMenu

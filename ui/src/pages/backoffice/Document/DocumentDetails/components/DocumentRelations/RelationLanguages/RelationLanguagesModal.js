@@ -1,9 +1,11 @@
 import { DocumentLanguages } from '@components/Document';
 import { DocumentSelectListEntry } from '@pages/backoffice/components/Document';
-import { MultipleSelections } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/components/MultipleSelections';
-import { RelationSelector } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/components/RelationSelector';
-import { RelationSummary } from '@pages/backoffice/Document/DocumentDetails/components/DocumentRelations/components/RelationSummary';
-import { RelationModal } from '../components';
+import {
+  RelationModal,
+  RelationSummary,
+  RelationSelector,
+  MultipleSelections,
+} from '@pages/backoffice/components/Relations';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {

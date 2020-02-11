@@ -5,9 +5,9 @@ import DocumentSeriesComponent from './DocumentSeries';
 
 const mapStateToProps = state => ({
   documentDetails: state.documentDetails.data,
-  error: state.documentRelations.error,
-  isLoading: state.documentRelations.isLoading,
-  relations: state.documentRelations.data,
+  error: state.recordRelations.error,
+  isLoading: state.recordRelations.isLoading,
+  relations: state.recordRelations.data,
 });
 
 export const DocumentSeries = connect(

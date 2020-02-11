@@ -1,23 +1,15 @@
 import { connect } from 'react-redux';
 
-import SeriesRelationsComponent from './SeriesRelations';
-import { createRelations, deleteRelations } from './state/actions';
+import SeriesSiblingsComponent from './SeriesSiblings';
 
 const mapStateToProps = state => ({
   seriesDetails: state.seriesDetails.data,
-  error: state.seriesRelations.error,
-  isLoading: state.seriesRelations.isLoading,
-  relations: state.seriesRelations.data,
+  error: state.recordRelations.error,
+  isLoading: state.recordRelations.isLoading,
+  relations: state.recordRelations.data,
 });
 
-const mapDispatchToProps = dispatch => ({
-  createRelations: (seriesPid, relations) =>
-    dispatch(createRelations(seriesPid, relations)),
-  deleteRelations: (seriesPid, relations) =>
-    dispatch(deleteRelations(seriesPid, relations)),
-});
-
-export const SeriesRelations = connect(
+export const SeriesSiblings = connect(
   mapStateToProps,
-  mapDispatchToProps
-)(SeriesRelationsComponent);
+  null
+)(SeriesSiblingsComponent);

@@ -1,14 +1,14 @@
 import { Error, Loader } from '@components';
+import { RelationEdition } from '@pages/backoffice/components/Relations/RelationEdition';
 import { RelationOther } from './RelationOther';
-import { RelationEdition } from './RelationEdition';
 import { RelationLanguages } from './RelationLanguages';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Label, Tab } from 'semantic-ui-react';
 
-export default class DocumentSeries extends Component {
+export default class DocumentSiblings extends Component {
   render() {
-    const { isLoading, error } = this.props;
+    const { isLoading, error, documentDetails } = this.props;
 
     const languages = this.props.relations['language'] || [];
     const editions = this.props.relations['edition'] || [];
@@ -41,7 +41,7 @@ export default class DocumentSeries extends Component {
         },
         render: () => (
           <Tab.Pane className="bo-relations-tab">
-            <RelationEdition />
+            <RelationEdition recordDetails={documentDetails} />
           </Tab.Pane>
         ),
       },
@@ -72,6 +72,7 @@ export default class DocumentSeries extends Component {
   }
 }
 
-DocumentSeries.propTypes = {
+DocumentSiblings.propTypes = {
   relations: PropTypes.object.isRequired,
+  documentDetails: PropTypes.object.isRequired,
 };

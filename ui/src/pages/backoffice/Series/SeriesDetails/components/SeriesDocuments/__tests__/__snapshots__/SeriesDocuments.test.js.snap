@@ -7,25 +7,21 @@ exports[`SeriesDocuments tests should load the SeriesDocuments component 1`] = `
       columns={
         Array [
           Object {
-            "field": "",
+            "field": "metadata.title",
             "formatter": [Function],
-            "title": "",
+            "title": "Title",
           },
           Object {
-            "field": "metadata.pid",
-            "title": "ID",
+            "formatter": [Function],
+            "title": "Authors",
           },
           Object {
             "formatter": [Function],
             "title": "Volume",
           },
           Object {
-            "field": "metadata.title",
-            "title": "Title",
-          },
-          Object {
-            "formatter": [Function],
-            "title": "Authors",
+            "field": "metadata.pid",
+            "title": "ID",
           },
         ]
       }
@@ -38,14 +34,14 @@ exports[`SeriesDocuments tests should load the SeriesDocuments component 1`] = `
         <SeeAllButton
           disabled={false}
           fluid={false}
-          to="/backoffice/documents?q=relations.serial.pid:111"
+          to="/backoffice/documents?q=relations.multipart_monograph.pid:serid-1"
         />
       }
       showAllResults={false}
       showMaxRows={5}
       singleLine={false}
       subtitle=""
-      title="Documents"
+      title=""
       totalHitsCount={0}
     />
   </Error>
