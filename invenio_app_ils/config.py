@@ -1294,12 +1294,24 @@ SERIAL_RELATION = ILS_RELATION_TYPE(
     "invenio_pidrelations.serializers.schemas.RelationSchema",
     "invenio_app_ils.records.relations.api.ParentChildRelation",
 )
+SEQUENCE_RELATION = ILS_RELATION_TYPE(
+    5,
+    "sequence",
+    "Sequence",
+    "invenio_app_ils.records.relations.nodes:PIDNodeRelated",
+    "invenio_pidrelations.serializers.schemas.RelationSchema",
+    "invenio_app_ils.records.relations.api.SequenceRelation",
+)
+
 
 PARENT_CHILD_RELATION_TYPES = [MULTIPART_MONOGRAPH_RELATION, SERIAL_RELATION]
 
 SIBLINGS_RELATION_TYPES = [LANGUAGE_RELATION, EDITION_RELATION, OTHER_RELATION]
 
-ILS_PIDRELATIONS_TYPES = PARENT_CHILD_RELATION_TYPES + SIBLINGS_RELATION_TYPES
+SEQUENCE_RELATION_TYPES = [SEQUENCE_RELATION]
+
+ILS_PIDRELATIONS_TYPES = PARENT_CHILD_RELATION_TYPES \
+    + SIBLINGS_RELATION_TYPES + SEQUENCE_RELATION_TYPES
 
 # The HTML tags allowed with invenio_records_rest.schemas.fields.sanitizedhtml
 ALLOWED_HTML_TAGS = []

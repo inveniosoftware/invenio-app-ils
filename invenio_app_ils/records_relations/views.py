@@ -24,6 +24,7 @@ from invenio_app_ils.records_relations.indexer import RecordRelationIndexer
 from invenio_app_ils.relations.api import Relation
 
 from invenio_app_ils.records_relations.api import (  # isort:skip
+    RecordRelationsSequence,
     RecordRelationsParentChild,
     RecordRelationsSiblings,
 )
@@ -101,9 +102,8 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                 [volume: "<vol name>"]
             }
         """
-        parent_pid, parent_pid_type, child_pid, child_pid_type, metadata = self._validate_parent_child_creation_payload(
-            payload
-        )
+        parent_pid, parent_pid_type, child_pid, child_pid_type, metadata = \
+            self._validate_parent_child_creation_payload(payload)
 
         # fetch parent and child. The passed record should be one of the two
         parent = self._get_record(record, parent_pid, parent_pid_type)
@@ -128,9 +128,8 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                 relation_type: "<Relation name>"
             }
         """
-        parent_pid, parent_pid_type, child_pid, child_pid_type, _ = self._validate_parent_child_creation_payload(
-            payload
-        )
+        parent_pid, parent_pid_type, child_pid, child_pid_type, _ = \
+            self._validate_parent_child_creation_payload(payload)
 
         # fetch parent and child. The passed record should be one of the two
         parent = self._get_record(record, parent_pid, parent_pid_type)
@@ -214,6 +213,94 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
         )
         return modified_record, record, second
 
+    def _validate_sequence_creation_payload(self, record, payload):
+        """Validate the payload when creating a new sequence relation."""
+        try:
+            next_pid = payload.pop("next_pid")
+            next_pid_type = payload.pop("next_pid_type")
+            previous_pid = payload.pop("previous_pid")
+            previous_pid_type = payload.pop("previous_pid_type")
+        except KeyError as key:
+            raise RecordRelationsError(
+                "The `{}` is a required field".format(key)
+            )
+
+        if record["pid"] != next_pid and record["pid"] != previous_pid:
+            raise RecordRelationsError(
+                "Cannot create a relation for other record than one with PID "
+                "`{}`".format(record["pid"])
+            )
+
+        if next_pid == previous_pid:
+            raise RecordRelationsError(
+                "Cannot create a sequence with the same next PID `{}`"
+                "and previous PID `{}`".format(next_pid, previous_pid)
+            )
+
+        return next_pid, next_pid_type, previous_pid, previous_pid_type, \
+            payload
+
+    def _create_sequence_relation(self, record, relation_type, payload):
+        """Create a Sequence relation.
+
+        Expected payload:
+
+            {
+                next_pid: <pid_value>,
+                next_pid_type: <pid_type>,
+                previous_pid: <pid_value>,
+                previous_pid_type: <pid_type>,
+                relation_type: "<Relation name>",
+            }
+        """
+        next_pid, next_pid_type, previous_pid, previous_pid_type, metadata = \
+            self._validate_sequence_creation_payload(record, payload)
+
+        next_rec = IlsRecord.get_record_by_pid(
+            next_pid, pid_type=next_pid_type)
+
+        previous_rec = IlsRecord.get_record_by_pid(
+            previous_pid, pid_type=previous_pid_type)
+
+        relation_sequence = RecordRelationsSequence()
+        mod_prev, mod_next = relation_sequence.add(
+            previous_rec=previous_rec,
+            next_rec=next_rec,
+            relation_type=relation_type,
+            **metadata
+        )
+        return [mod_prev, mod_next], previous_rec, next_rec
+
+    def _delete_sequence_relation(self, record, relation_type, payload):
+        """Delete sequence relation.
+
+        Expected payload:
+
+            {
+                next_pid: <pid_value>,
+                next_pid_type: <pid_type>,
+                previous_pid: <pid_value>,
+                previous_pid_type: <pid_type>,
+                relation_type: "<Relation name>",
+            }
+        """
+        next_pid, next_pid_type, prev_pid, prev_pid_type, metadata = \
+            self._validate_sequence_creation_payload(record, payload)
+
+        next_rec = IlsRecord.get_record_by_pid(
+            next_pid, pid_type=next_pid_type)
+
+        previous_rec = IlsRecord.get_record_by_pid(
+            prev_pid, pid_type=prev_pid_type)
+
+        relation_sequence = RecordRelationsSequence()
+        mod_prev, mod_next = relation_sequence.remove(
+            previous_rec=previous_rec,
+            next_rec=next_rec,
+            relation_type=relation_type
+        )
+        return mod_prev, mod_prev, mod_next
+
     @pass_record
     @need_permissions("relations-create")
     def post(self, record, **kwargs):
@@ -225,13 +312,16 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                 return abort(400, "The `{}` is a required field".format(key))
 
             rt = Relation.get_relation_by_name(relation_type)
-
             if rt in current_app.config["PARENT_CHILD_RELATION_TYPES"]:
                 modified, first, second = self._create_parent_child_relation(
                     record, rt, payload
                 )
             elif rt in current_app.config["SIBLINGS_RELATION_TYPES"]:
                 modified, first, second = self._create_sibling_relation(
+                    record, rt, payload
+                )
+            elif rt in current_app.config["SEQUENCE_RELATION_TYPES"]:
+                modified, first, second = self._create_sequence_relation(
                     record, rt, payload
                 )
             else:
@@ -244,12 +334,17 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
             records_to_index.append(first)
             records_to_index.append(second)
 
-            # if the record is the modified, return the modified version
-            if (
-                modified.pid == record.pid
-                and modified._pid_type == record._pid_type
-            ):
-                return modified
+            def is_modified(x, r):
+                return (x.pid == r.pid and x._pid_type == r._pid_type)
+
+            # NOTE: modified can be a record or a list of records, if one
+            # matches our record return the modified one.
+
+            _modified = modified if isinstance(modified, list) else [modified]
+
+            for mod_record in _modified:
+                if is_modified(mod_record, record):
+                    return mod_record
             return record
 
         records_to_index = []
@@ -283,6 +378,10 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                 )
             elif rt in current_app.config["SIBLINGS_RELATION_TYPES"]:
                 modified, first, second = self._delete_sibling_relation(
+                    record, rt, payload
+                )
+            elif rt in current_app.config["SEQUENCE_RELATION_TYPES"]:
+                modified, first, second = self._delete_sequence_relation(
                     record, rt, payload
                 )
             else:

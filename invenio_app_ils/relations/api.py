@@ -90,8 +90,7 @@ class Relation(object):
                     ),
                 )
             )
-            .count()
-            > 0
+            .count() > 0
         )
 
 
@@ -294,3 +293,53 @@ class SiblingsRelation(Relation):
             self._recreate_relations_with_random_parent(
                 all_relations, pids_to_relate
             )
+
+
+class SequenceRelation(Relation):
+    """Relation class for sequence type."""
+
+    def next_relations(self, pid):
+        """Get all children PID for relations where the given PID is parent."""
+        return [r.child for r in self.get_relations_by_parent(pid)]
+
+    def previous_relations(self, pid):
+        """Get all parents PID for relations where the given PID is child."""
+        return [r.parent for r in self.get_relations_by_child(pid)]
+
+    def add(self, previous_pid, next_pid):
+        """Add a new relation between previous and next pid."""
+        if self.relation_exists(previous_pid, next_pid):
+            raise RecordRelationsError(
+                "The relation `{}` between parent PID `{}` and child PID `{}` "
+                "already exists".format(
+                    self.relation_type.name,
+                    previous_pid.pid_value,
+                    next_pid.pid_value,
+                )
+            )
+
+        with db.session.begin_nested():
+            return PIDRelation.create(
+                previous_pid, next_pid, self.relation_type.id
+            )
+
+    def remove(self, previous_pid, next_pid):
+        """Delete the relation for the given PIDs."""
+        relation = PIDRelation.query.filter_by(
+            parent_id=previous_pid.id,
+            child_id=next_pid.id,
+            relation_type=self.relation_type.id,
+        ).one_or_none()
+
+        if not relation:
+            raise RecordRelationsError(
+                "The relation `{}` between PID `{}` and PID `{}` does not "
+                "exists".format(
+                    self.relation_type.name,
+                    previous_pid.pid_value,
+                    next_pid.pid_value,
+                )
+            )
+
+        with db.session.begin_nested():
+            db.session.delete(relation)

@@ -29,9 +29,12 @@
           }
         }
       },
+      "required": [
+        "value",
+        "scheme"
+      ],
       "title": "List of internal identifiers of the record",
-      "type": "array",
-      "required": ["value", "scheme"]
+      "type": "array"
     },
     "alternative_titles": {
       "description": "Alternative titles of the document",
@@ -45,20 +48,22 @@
               "title": "ISO 639-1 language code (Vocabulary)",
               "type": "string"
             },
+            "source": {
+              "title": "Source of the alternative title.",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type of alternative title (Vocabulary)",
+              "type": "string"
+            },
             "value": {
               "minLength": 1,
               "type": "string"
-            },
-            "source": {
-              "type": "string",
-              "title": "Source of the alternative title."
-            },
-            "type": {
-              "type": "string",
-              "title": "Type of alternative title (Vocabulary)"
             }
           },
-          "required": ["value"],
+          "required": [
+            "value"
+          ],
           "type": "object"
         }
       ],
@@ -86,19 +91,24 @@
                         "type": "string"
                       }
                     },
-                    "type": "object",
+                    "required": [
+                      "value",
+                      "scheme"
+                    ],
                     "title": "Identifiers affiliation",
-                    "required": ["value", "scheme"]
+                    "type": "object"
                   },
-                  "type": "array",
-                  "title": "Affiliations identifiers list"
+                  "title": "Affiliations identifiers list",
+                  "type": "array"
                 },
                 "name": {
                   "title": "Affiliation name",
                   "type": "string"
                 }
               },
-              "required": ["name"],
+              "required": [
+                "name"
+              ],
               "type": "object"
             },
             "minItems": 1,
@@ -134,7 +144,10 @@
                   "type": "string"
                 }
               },
-              "required": ["scheme", "value"],
+              "required": [
+                "scheme",
+                "value"
+              ],
               "title": "Author identifier",
               "type": "object"
             },
@@ -159,7 +172,9 @@
             "type": "string"
           }
         },
-        "required": ["full_name"],
+        "required": [
+          "full_name"
+        ],
         "type": "object"
       },
       "minItems": 1,
@@ -202,8 +217,11 @@
             }
           },
           "minLength": 1,
-          "type": "array",
-          "required": ["scheme", "value"]
+          "required": [
+            "scheme",
+            "value"
+          ],
+          "type": "array"
         },
         "place": {
           "minLength": 1,
@@ -223,7 +241,10 @@
           "type": "integer"
         }
       },
-      "required": ["place", "title"],
+      "required": [
+        "place",
+        "title"
+      ],
       "type": "object"
     },
     "copyrights": {
@@ -302,8 +323,8 @@
       "items": {
         "properties": {
           "material": {
-            "type": "string",
-            "title": "Material to which the identifiers refers to."
+            "title": "Material to which the identifiers refers to.",
+            "type": "string"
           },
           "scheme": {
             "title": "Scheme of the identifier (Vocabulary)",
@@ -314,7 +335,10 @@
             "type": "string"
           }
         },
-        "required": ["value", "scheme"]
+        "required": [
+          "value",
+          "scheme"
+        ]
       },
       "title": "List of Identifiers of the record",
       "type": "array"
@@ -344,8 +368,8 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "title": "Imprint"
+      "title": "Imprint",
+      "type": "object"
     },
     "internal_notes": {
       "items": {
@@ -357,15 +381,17 @@
             "type": "string"
           },
           "user": {
-            "type": "string",
-            "title": "User who has composed the note."
+            "title": "User who has composed the note.",
+            "type": "string"
           },
           "value": {
             "title": "Note",
             "type": "string"
           }
         },
-        "required": ["value"]
+        "required": [
+          "value"
+        ]
       },
       "minItems": 1,
       "title": "List of internal notes",
@@ -389,8 +415,8 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "title": "Keywords of the document"
+      "title": "Keywords of the document",
+      "type": "object"
     },
     "languages": {
       "items": {
@@ -425,9 +451,9 @@
       "type": "string"
     },
     "open_access": {
-      "type": "boolean",
+      "default": true,
       "title": "Indicate if the access to this Document is open or not",
-      "default": true
+      "type": "boolean"
     },
     "other_authors": {
       "title": "Indicates that there are other not listed authors.",
@@ -462,7 +488,9 @@
                 "type": "string"
               }
             },
-            "required": ["$ref"],
+            "required": [
+              "$ref"
+            ],
             "title": "Reference to another record",
             "type": "object"
           },
@@ -527,6 +555,23 @@
           },
           "type": "array"
         },
+        "next": {
+          "items": {
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
         "other": {
           "items": {
             "properties": {
@@ -537,6 +582,23 @@
                 "type": "string"
               },
               "pid_type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "previous": {
+          "items": {
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "pid_type": {
+                "type": "string"
+              },
+              "title": {
                 "type": "string"
               }
             },
@@ -590,9 +652,12 @@
             "type": "string"
           }
         },
+        "required": [
+          "value",
+          "scheme"
+        ],
         "title": "List of subjects of the document.",
-        "type": "object",
-        "required": ["value", "scheme"]
+        "type": "object"
       },
       "minItems": 1,
       "title": "List of subjects",
@@ -647,7 +712,9 @@
             "type": "string"
           }
         },
-        "required": ["value"],
+        "required": [
+          "value"
+        ],
         "title": "URL of external resource",
         "type": "object"
       },
@@ -656,7 +723,13 @@
       "uniqueItems": true
     }
   },
-  "required": ["$schema", "pid", "title", "authors", "publication_year"],
+  "required": [
+    "$schema",
+    "pid",
+    "title",
+    "authors",
+    "publication_year"
+  ],
   "title": "Document",
   "type": "object"
 }
