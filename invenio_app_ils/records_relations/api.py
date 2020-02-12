@@ -11,7 +11,8 @@ from copy import deepcopy
 from flask import current_app
 
 from invenio_app_ils.errors import RecordRelationsError
-from invenio_app_ils.relations.api import ParentChildRelation, SiblingsRelation
+from invenio_app_ils.relations.api import ParentChildRelation, \
+    SequenceRelation, SiblingsRelation
 
 
 class RecordRelationsMetadata(object):
@@ -109,24 +110,6 @@ class RecordRelationsRetriever(object):
         r.update(kwargs)
         return r
 
-    def _build_parent(self, child_pid, relation_type):
-        """Return the relation object with metadata."""
-        # this is a parent, relations_metadata are stored here
-        pid = child_pid.pid_value
-        pid_type = child_pid.pid_type
-
-        r = RecordRelationsMetadata.build_metadata_object(pid, pid_type)
-
-        # get `relations_metadata` field data
-        metadata = RecordRelationsMetadata.get_metadata_for(
-            self.record, relation_type, pid, pid_type
-        )
-        # merge with any `relations_metadata`
-        r.update(metadata or {})
-        r["relation_type"] = relation_type
-
-        return r
-
     def _build_child(self, parent_pid, child_pid, relation_type):
         """Return the relation object with metadata of the parent."""
         # this is a child, relations_metadata are stored in the parent
@@ -153,10 +136,16 @@ class RecordRelationsRetriever(object):
         # merge with any `relations_metadata`
         r.update(metadata or {})
 
-        # add also the title of the parent
         r["title"] = parent.get("title", "")
-        r["relation_type"] = relation_type
+        languages = parent.get("languages")
+        if languages:
+            r["languages"] = languages
 
+        edition = parent.get("edition", "")
+        if edition:
+            r["edition"] = edition
+
+        r["relation_type"] = relation_type
         return r
 
     def _build_sibling(self, related_pid, relation_type):
@@ -182,14 +171,44 @@ class RecordRelationsRetriever(object):
         r["title"] = sibling.get("title", "")
         r["document_type"] = sibling.get("document_type", "")
         r["mode_of_issuance"] = sibling.get("mode_of_issuance", "")
-        language = sibling.get('languages')
-        if language:
-            r["languages"] = language
-        edition = sibling.get('edition')
+        languages = sibling.get("languages")
+        if languages:
+            r["languages"] = languages
+
+        edition = sibling.get("edition", "")
         if edition:
             r["edition"] = edition
+
         r["relation_type"] = relation_type
 
+        return r
+
+    def _build_sequence(self, rec_pid, relation_type):
+        """Return the relation object with metadata."""
+        pid = rec_pid.pid_value
+        pid_type = rec_pid.pid_type
+
+        r = self._build_relations_object(pid, pid_type)
+
+        # retrieve any extra `relations_metadata`
+        from invenio_app_ils.records.api import IlsRecord
+        seq_record = IlsRecord.get_record_by_pid(pid, pid_type=pid_type)
+
+        metadata = RecordRelationsMetadata.get_metadata_for(
+            self.record, relation_type, pid, pid_type
+        )
+        r.update(metadata or {})
+        r["title"] = seq_record.get("title", "")
+
+        edition = seq_record.get("edition")
+        if edition:
+            r["edition"] = edition
+
+        languages = seq_record.get("languages")
+        if languages:
+            r["languages"] = languages
+
+        r["relation_type"] = relation_type
         return r
 
     def get(self):
@@ -204,7 +223,6 @@ class RecordRelationsRetriever(object):
             for parent_pid in pcr.parents_of(self.record.pid):
                 child_pid = self.record.pid
                 r = self._build_child(parent_pid, child_pid, name)
-
                 relations.setdefault(name, [])
                 relations[name].append(r)
 
@@ -214,9 +232,22 @@ class RecordRelationsRetriever(object):
 
             for related_pid in sr.all(self.record.pid):
                 r = self._build_sibling(related_pid, name)
-
                 relations.setdefault(name, [])
                 relations[name].append(r)
+
+        for relation_type in current_app.config["SEQUENCE_RELATION_TYPES"]:
+            sqr = SequenceRelation(relation_type)
+            name = relation_type.name
+
+            for next_pid in sqr.next_relations(self.record.pid):
+                relations.setdefault("next", [])
+                r = self._build_sequence(next_pid, name)
+                relations["next"].append(r)
+
+            for previous_pid in sqr.previous_relations(self.record.pid):
+                relations.setdefault("previous", [])
+                r = self._build_sequence(previous_pid, name)
+                relations["previous"].append(r)
 
         return relations
 
@@ -227,7 +258,7 @@ class RecordRelations(object):
     relation_types = []
 
     def _validate_relation_type(self, relation_type):
-        """Validate the given relation type to be one of Parent-Child."""
+        """Validate the given relation type."""
         if relation_type not in self.relation_types:
             rel_names = ",".join([rt.name for rt in self.relation_types])
             raise RecordRelationsError(
@@ -406,8 +437,6 @@ class RecordRelationsSiblings(RecordRelations):
                 second._pid_type,
                 **allowed
             )
-
-        # return the allegedly modified record
         return first
 
     def remove(self, first, second, relation_type):
@@ -424,6 +453,94 @@ class RecordRelationsSiblings(RecordRelations):
         RecordRelationsMetadata.remove_metadata_from(
             second, relation_type.name, first.pid.pid_value, first._pid_type
         )
-
-        # return the allegedly modified record
         return first, second
+
+
+class RecordRelationsSequence(RecordRelations):
+    """Add/Remove operations for Sequence relations."""
+
+    def __init__(self):
+        """Constructor."""
+        self.relation_types = current_app.config["SEQUENCE_RELATION_TYPES"]
+
+    def _validate_relation_between_records(
+        self, previous_rec, next_rec, relation_name
+    ):
+        """Validate relation between type of records."""
+        from invenio_app_ils.records.api import Series
+
+        # records must be of the same type, Sequences support only Series
+        allowed_types = [Series]
+
+        for record_type in allowed_types:
+            if isinstance(previous_rec, record_type) and \
+               isinstance(next_rec, record_type):
+                return True
+
+        raise RecordRelationsError(
+            "Cannot create a relation `{}` between PID `{}` with type {} "
+            " and PID `{}` with type {}.".format(
+                relation_name,
+                previous_rec.pid.pid_value,
+                previous_rec.pid.pid_type,
+                next_rec.pid.pid_value,
+                next_rec.pid.pid_type,
+            )
+        )
+
+    def add(self, previous_rec, next_rec, relation_type, **kwargs):
+        """Add a new sequence relation between previous and next records."""
+        self._validate_relation_type(relation_type)
+        self._validate_relation_between_records(
+            previous_rec,
+            next_rec,
+            relation_type.name,
+        )
+
+        sequence_relation = SequenceRelation(relation_type)
+        sequence_relation.add(
+            previous_pid=previous_rec.pid,
+            next_pid=next_rec.pid,
+        )
+
+        # store relation metadata
+        RecordRelationsMetadata.add_metadata_to(
+            previous_rec,
+            "next",
+            next_rec.pid.pid_value,
+            next_rec.pid.pid_type,
+            **kwargs,
+        )
+        RecordRelationsMetadata.add_metadata_to(
+            next_rec,
+            "previous",
+            previous_rec.pid.pid_value,
+            previous_rec.pid.pid_type,
+            **kwargs,
+        )
+        return previous_rec, next_rec
+
+    def remove(self, previous_rec, next_rec, relation_type):
+        """Remove sequence relation between previous and next records."""
+        self._validate_relation_type(relation_type)
+
+        sequence_relation = SequenceRelation(relation_type)
+        sequence_relation.remove(
+            previous_pid=previous_rec.pid,
+            next_pid=next_rec.pid
+        )
+
+        RecordRelationsMetadata.remove_metadata_from(
+            previous_rec,
+            "next",
+            next_rec.pid.pid_value,
+            next_rec._pid_type,
+        )
+
+        RecordRelationsMetadata.remove_metadata_from(
+            next_rec,
+            "previous",
+            previous_rec.pid.pid_value,
+            previous_rec._pid_type,
+        )
+        return previous_rec, next_rec

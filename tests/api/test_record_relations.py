@@ -94,7 +94,6 @@ def _choose_endpoints_and_do_request(
             client, json_headers, payload, url_create_rel, method=method
         )
         record1 = _fetch_record(client, json_headers, url_other)
-
     return record1, record2
 
 
@@ -1085,3 +1084,245 @@ def test_siblings_relations(client, json_headers, testdata, users):
         }
     ]
     _test_sibl_invalid_relations_should_fail(client, json_headers, invalids)
+
+
+# Sequence Relations
+def _test_sequence_invalid_relations_should_fail(
+    client, json_headers, invalids, status_code=400
+):
+    """Test relation creation with invalid link relation should fail."""
+    api_endpoint_documents = "invenio_app_ils_relations.docid_relations"
+
+    for invalid in invalids:
+        next_pid = invalid["next_pid"]
+        next_pid_type = invalid["next_pid_type"]
+        previous_pid = invalid["previous_pid"]
+        previous_pid_type = invalid["previous_pid_type"]
+        relation_type = invalid["relation_type"]
+
+        url = url_for(api_endpoint_documents, pid_value=next_pid)
+        payload = {
+            "next_pid": next_pid,
+            "next_pid_type": next_pid_type,
+            "previous_pid": previous_pid,
+            "previous_pid_type": previous_pid_type,
+            "relation_type": relation_type,
+        }
+
+        res = client.post(url, headers=json_headers, data=json.dumps(payload))
+        assert res.status_code == status_code
+        if status_code == 400:
+            error = json.loads(res.data.decode("utf-8"))
+            assert "message" in error
+            assert next_pid in error["message"]
+            assert previous_pid in error["message"]
+
+
+def _test_sequence(client, json_headers):
+    """Test create and delete next and previous relations."""
+
+    next_pid = "serid-2"
+    next_pid_type = "serid"
+    previous_pid = "serid-1"
+    previous_pid_type = "serid"
+    relation_type = "sequence"
+
+    payload = {
+        "next_pid": next_pid,
+        "next_pid_type": next_pid_type,
+        "previous_pid": previous_pid,
+        "previous_pid_type": previous_pid_type,
+        "relation_type": relation_type,
+    }
+
+    def _test_create_sequence(create_using_pid1=True):
+        """Test relation creation of sequence Document."""
+
+        next_rec, previous_rec = _choose_endpoints_and_do_request(
+            (client, json_headers, "POST"),
+            (next_pid, next_pid_type, previous_pid, previous_pid_type),
+            payload,
+            create_using_pid1=create_using_pid1,
+        )
+
+        _assert_record_relations(
+            next_rec,
+            expected={
+                "relations": {
+                    "previous": [
+                        {
+                            "pid": previous_pid,
+                            "pid_type": previous_pid_type,
+                            "title": previous_rec["title"],
+                            "relation_type": "sequence",
+                        }
+                    ]
+                },
+                "relations_metadata": {
+                    "previous": [{
+                        "pid": previous_pid,
+                        "pid_type": previous_pid_type,
+                    }]
+                }
+            },
+        )
+
+        _assert_record_relations(
+            previous_rec,
+            expected={
+                "relations": {
+                    "next": [
+                        {
+                            "pid": next_pid,
+                            "pid_type": next_pid_type,
+                            "title": next_rec["title"],
+                            "relation_type": "sequence",
+                        }
+                    ]
+                },
+                "relations_metadata": {
+                    "next": [{
+                        "pid": next_pid,
+                        "pid_type": next_pid_type,
+                    }]
+                }
+            },
+        )
+
+    def _test_delete_sequence(create_using_pid1=True):
+        """Test deletion of sequence relation."""
+
+        next_rec, previous_rec = _choose_endpoints_and_do_request(
+            (client, json_headers, "DELETE"),
+            (next_pid, next_pid_type, previous_pid, previous_pid_type),
+            payload,
+            create_using_pid1=create_using_pid1,
+        )
+
+        _assert_record_relations(next_rec, expected={"relations": {}})
+        _assert_record_relations(previous_rec, expected={"relations": {}})
+
+    _test_create_sequence()
+    _test_delete_sequence()
+    _test_create_sequence(create_using_pid1=False)
+    _test_delete_sequence(create_using_pid1=False)
+
+
+def _test_split_sequence(client, json_headers):
+    """Test create split next relations."""
+
+    next_pid_type = "serid"
+    previous_pid = "serid-1"
+    previous_pid_type = "serid"
+    relation_type = "sequence"
+
+    payload = {
+        "next_pid_type": next_pid_type,
+        "previous_pid": previous_pid,
+        "previous_pid_type": previous_pid_type,
+        "relation_type": relation_type,
+    }
+
+    def _test_create_split_sequence(create_using_pid1=True):
+        """Test relation creation for split sequence."""
+        next_pids = ["serid-2", "serid-3"]
+        next_records = []
+
+        for npid in next_pids:
+            next_pid = npid
+            payload["next_pid"] = npid
+            next_rec, previous_rec = _choose_endpoints_and_do_request(
+                (client, json_headers, "POST"),
+                (next_pid, next_pid_type, previous_pid, previous_pid_type),
+                payload,
+                create_using_pid1=create_using_pid1,
+            )
+            next_records.append({
+                "pid": next_pid,
+                "pid_type": next_pid_type,
+                "title": next_rec["title"],
+                "relation_type": "sequence",
+            })
+
+        _assert_record_relations(
+            next_rec,
+            expected={
+                "relations": {
+                    "previous": [
+                        {
+                            "pid": previous_pid,
+                            "pid_type": previous_pid_type,
+                            "title": previous_rec["title"],
+                            "relation_type": "sequence",
+                        }
+                    ]
+                },
+                "relations_metadata": {
+                    "previous": [{
+                        "pid": previous_pid,
+                        "pid_type": previous_pid_type,
+                    }]
+                }
+            },
+        )
+
+        _assert_record_relations(
+            previous_rec,
+            expected={
+                "relations": {
+                    "next": next_records
+                },
+                "relations_metadata": {
+                    "next": [{
+                        "pid": rec["pid"],
+                        "pid_type": rec["pid_type"],
+                    } for rec in next_records]
+                }
+            },
+        )
+
+    _test_create_split_sequence()
+
+
+def test_sequence_relations(client, json_headers, testdata, users):
+    """Test sequence relations."""
+
+    _test_sequence_invalid_relations_should_fail(client, json_headers, [
+        {
+            "next_pid": "docid-1",
+            "next_pid_type": "docid",
+            "previous_pid": "docid-1",
+            "previous_pid_type": "docid",
+            "relation_type": "sequence",
+        }
+    ], status_code=401)
+
+    user = users['librarian']
+    login_user_via_session(client, user=User.query.get(user.id))
+
+    # serid-1 -> serid-2
+    _test_sequence(client, json_headers)
+
+    #                    serid-2
+    # serid-1 -> (split)
+    #                    serid-3
+    _test_split_sequence(client, json_headers)
+
+    invalids = [
+        {
+            "next_pid": "docid-1",
+            "next_pid_type": "docid",
+            "previous_pid": "docid-1",
+            "previous_pid_type": "docid",
+            "relation_type": "sequence",
+        },
+        {
+            "next_pid": "docid-1",
+            "next_pid_type": "docid",
+            "previous_pid": "serid-1",
+            "previous_pid_type": "serid",
+            "relation_type": "sequence",
+        }
+    ]
+    _test_sequence_invalid_relations_should_fail(
+        client, json_headers, invalids, status_code=400)
