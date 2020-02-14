@@ -97,7 +97,7 @@ class PendingRequestResource(DocumentRequestActionResource):
     @need_permissions("document-request-pending")
     def post(self, pid, record, **kwargs):
         """Pending request post method."""
-        # expecting remove_fields list of fields to remove
+        # NOTE: remove_fields is a list of props to remove from the record
         data = self.loader()
         remove_fields = data.get("remove_fields", [])
 

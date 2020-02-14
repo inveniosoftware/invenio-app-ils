@@ -100,6 +100,9 @@ install_requires = [
     "simplejson>=3",
     "webargs>=5.5.2,<6.0",
     "Werkzeug==0.16.1",
+    # NOTE: Hold back Kombu & Celery till fixed
+    "invenio-celery==1.1.1",
+    "Flask-CeleryExt==0.3.3",
 ]
 
 packages = find_packages()

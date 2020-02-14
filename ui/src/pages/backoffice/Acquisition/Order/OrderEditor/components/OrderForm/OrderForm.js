@@ -18,20 +18,24 @@ const orderSubmitSerializer = (values, newRecord) => {
   if (newRecord) {
     submitValues.created_by_pid = sessionManager.user.id;
   }
-  submitValues.vendor_pid = values.vendor.pid;
-  submitValues.order_lines = values.resolved_order_lines.map(line => {
-    if (line.document) {
-      line.document_pid = _has(line.document, 'id')
-        ? line.document.id
-        : line.document.pid;
-    }
-    if (line.patron) {
-      line.patron_pid = _has(line.patron, 'id')
-        ? line.patron.id
-        : line.patron.pid;
-    }
-    return line;
-  });
+  if (_has(values, 'vendor.pid')) {
+    submitValues.vendor_pid = values.vendor.pid;
+  }
+  if (_has(values, 'resolved_order_lines')) {
+    submitValues.order_lines = values.resolved_order_lines.map(line => {
+      if (line.document) {
+        line.document_pid = _has(line.document, 'id')
+          ? line.document.id
+          : line.document.pid;
+      }
+      if (line.patron) {
+        line.patron_pid = _has(line.patron, 'id')
+          ? line.patron.id
+          : line.patron.pid;
+      }
+      return line;
+    });
+  }
   return submitValues;
 };
 
