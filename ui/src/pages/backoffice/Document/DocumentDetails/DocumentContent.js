@@ -82,7 +82,7 @@ export class DocumentContent extends Component {
         ),
       },
     ];
-    const defaultIndexes = [0, 1, 3];
+    const defaultIndexes = [0, 1, 2, 3, 4, 5];
 
     return (
       <Accordion
