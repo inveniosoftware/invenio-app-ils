@@ -93,6 +93,8 @@ export default class DocumentMetadata extends Component {
         className="bo-metadata-tab mb-20"
         menu={{ attached: 'top' }}
         panes={this.panes()}
+        /* needed for DocumentActionMenu scroll */
+        id={'metadata'}
       />
     );
   }

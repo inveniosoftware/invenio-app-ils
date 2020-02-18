@@ -24,13 +24,6 @@ export default class SeriesDetails extends Component {
     super(props);
     this.menuRef = React.createRef();
     this.headerRef = React.createRef();
-
-    this.anchors = {
-      top: React.createRef(),
-      documents: React.createRef(),
-      monographs: React.createRef(),
-      relations: React.createRef(),
-    };
   }
 
   componentDidMount() {
@@ -54,7 +47,7 @@ export default class SeriesDetails extends Component {
         title: 'Literature in this series',
         content: (
           <Accordion.Content>
-            <div ref={this.anchors.documents} id="series-documents">
+            <div id="series-documents">
               <SeriesDocuments />
             </div>
           </Accordion.Content>
@@ -65,7 +58,7 @@ export default class SeriesDetails extends Component {
         title: 'Multipart monographs',
         content: (
           <Accordion.Content>
-            <div ref={this.anchors.documents} id="series-monographs">
+            <div id="series-monographs">
               <SeriesMultipartMonographs />
             </div>
           </Accordion.Content>
@@ -76,7 +69,7 @@ export default class SeriesDetails extends Component {
         title: 'Serials',
         content: (
           <Accordion.Content>
-            <div ref={this.anchors.monographs} id="series-serials">
+            <div id="series-serials">
               <Segment>
                 <RelationSerial recordDetails={data} />
               </Segment>
@@ -89,7 +82,7 @@ export default class SeriesDetails extends Component {
         title: 'Related',
         content: (
           <Accordion.Content>
-            <div ref={this.anchors.relations} id="series-relations">
+            <div id="series-relations">
               <SeriesSiblings />
             </div>
           </Accordion.Content>
@@ -121,7 +114,7 @@ export default class SeriesDetails extends Component {
                 <Ref innerRef={this.menuRef}>
                   <Grid columns={2}>
                     <Grid.Column width={13}>
-                      <div ref={this.anchors.top} id="series-documents">
+                      <div id="metadata">
                         <SeriesMetadataTabs series={data} />
                       </div>
                       <Accordion

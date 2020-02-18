@@ -1,15 +1,18 @@
+import { AuthenticationGuard } from '@authentication/components';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Responsive } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Container, Grid, Icon, Responsive } from 'semantic-ui-react';
 import { DocumentMetadata } from './DocumentMetadata';
 import { goTo } from '@history';
-import { FrontSiteRoutes } from '@routes/urls';
+import { FrontSiteRoutes, BackOfficeRoutes } from '@routes/urls';
 import { SearchBar, Error } from '@components';
 import { DocumentPanel } from './DocumentPanel';
 import { Breadcrumbs, DocumentTags } from '../../components';
 import { ILSParagraphPlaceholder } from '@components/ILSPlaceholder';
 import { DocumentItems } from './DocumentItems';
 import { document as documentApi } from '@api/documents/document';
+import isEmpty from 'lodash/isEmpty';
 
 export default class DocumentsDetails extends Component {
   constructor(props) {
@@ -55,7 +58,8 @@ export default class DocumentsDetails extends Component {
     { to: FrontSiteRoutes.documentsList, label: 'Search' },
   ];
 
-  _renderElement(isLoading, error) {
+  render() {
+    const { isLoading, error, documentDetails } = this.props;
     return (
       <>
         <Container fluid className="document-details-search-container">
@@ -71,17 +75,39 @@ export default class DocumentsDetails extends Component {
         </Container>
         <Error boundary error={error}>
           <Container className="document-details-container default-margin-top">
-            <ILSParagraphPlaceholder isLoading={isLoading} lines={1}>
-              <Breadcrumbs
-                isLoading={isLoading}
-                elements={this.breadcrumbs()}
-                currentElement={
-                  this.props.documentDetails.metadata
-                    ? this.props.documentDetails.metadata.title
-                    : null
-                }
-              />
-            </ILSParagraphPlaceholder>
+            <Grid columns={2}>
+              <Grid.Column width={13}>
+                <ILSParagraphPlaceholder isLoading={isLoading} lines={1}>
+                  <Breadcrumbs
+                    isLoading={isLoading}
+                    elements={this.breadcrumbs()}
+                    currentElement={
+                      documentDetails.metadata
+                        ? documentDetails.metadata.title
+                        : null
+                    }
+                  />
+                </ILSParagraphPlaceholder>
+              </Grid.Column>
+              <Grid.Column width={3} textAlign="right">
+                {!isEmpty(this.props.documentDetails.metadata) && (
+                  <AuthenticationGuard
+                    authorizedComponent={() => (
+                      <Link
+                        to={BackOfficeRoutes.documentDetailsFor(
+                          this.props.documentDetails.metadata.pid
+                        )}
+                      >
+                        open in backoffice&nbsp;
+                        <Icon name="cogs" />
+                      </Link>
+                    )}
+                    roles={['admin', 'librarian']}
+                    loginComponent={() => <></>}
+                  />
+                )}
+              </Grid.Column>
+            </Grid>
             <DocumentPanel />
           </Container>
           <Container className="document-tags spaced">
@@ -106,11 +132,6 @@ export default class DocumentsDetails extends Component {
         </Error>
       </>
     );
-  }
-
-  render() {
-    const { isLoading, error, data } = this.props;
-    return this.renderElement(isLoading, error, data);
   }
 }
 

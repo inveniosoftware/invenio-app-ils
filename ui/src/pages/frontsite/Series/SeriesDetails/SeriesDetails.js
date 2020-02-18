@@ -1,9 +1,12 @@
+import { AuthenticationGuard } from '@authentication/components';
+import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Responsive } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Container, Grid, Icon, Responsive } from 'semantic-ui-react';
 import { Error, SearchBar } from '@components';
 import { goTo } from '@history';
-import { FrontSiteRoutes } from '@routes/urls';
+import { BackOfficeRoutes, FrontSiteRoutes } from '@routes/urls';
 import { ILSParagraphPlaceholder } from '@components/ILSPlaceholder';
 import { Breadcrumbs } from '@pages/frontsite/components';
 import { SeriesPanel } from './SeriesPanel';
@@ -63,12 +66,37 @@ export default class SeriesDetails extends React.Component {
         <Error boundary error={error}>
           <Container className="document-details-container default-margin-top">
             <ILSParagraphPlaceholder isLoading={isLoading} lines={1}>
-              <Breadcrumbs
-                isLoading={isLoading}
-                elements={this.breadcrumbs()}
-                currentElement={series.metadata ? series.metadata.title : null}
-              />
+              <Grid columns={2}>
+                <Grid.Column width={13}>
+                  <Breadcrumbs
+                    isLoading={isLoading}
+                    elements={this.breadcrumbs()}
+                    currentElement={
+                      series.metadata ? series.metadata.title : null
+                    }
+                  />
+                </Grid.Column>
+                <Grid.Column width={3} textAlign="right">
+                  {!isEmpty(series.metadata) && (
+                    <AuthenticationGuard
+                      authorizedComponent={() => (
+                        <Link
+                          to={BackOfficeRoutes.seriesDetailsFor(
+                            series.metadata.pid
+                          )}
+                        >
+                          open in backoffice&nbsp;
+                          <Icon name="cogs" />
+                        </Link>
+                      )}
+                      roles={['admin', 'librarian']}
+                      loginComponent={() => <></>}
+                    />
+                  )}
+                </Grid.Column>
+              </Grid>
             </ILSParagraphPlaceholder>
+
             <SeriesPanel />
           </Container>
           <Responsive minWidth={Responsive.onlyComputer.minWidth}>

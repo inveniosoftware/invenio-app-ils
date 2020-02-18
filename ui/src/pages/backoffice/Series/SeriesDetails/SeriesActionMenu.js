@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { EditButton } from '@pages/backoffice';
 import { BackOfficeRoutes } from '@routes/urls';
 import React, { Component } from 'react';
+import { Link as ScrollLink } from 'react-scroll';
 import { Divider, Menu } from 'semantic-ui-react';
 
 export default class SeriesActionMenu extends Component {
@@ -12,14 +13,10 @@ export default class SeriesActionMenu extends Component {
     this.state = { activeItem: '' };
   }
 
-  scrollTo(ref, menuItemName) {
-    ref.current.scrollIntoView(false, { behaviour: 'smooth', block: 'end' });
-    this.setState({ activeItem: menuItemName });
-  }
-
   render() {
-    const { series, relations, anchors } = this.props;
+    const { series, relations } = this.props;
     const { activeItem } = this.state;
+    const offset = -180;
     return (
       <div className={'bo-action-menu'}>
         <EditButton
@@ -35,21 +32,72 @@ export default class SeriesActionMenu extends Component {
           <Menu.Item
             name="header"
             active={activeItem === 'header'}
-            onClick={(e, { name }) => this.scrollTo(anchors.top, name)}
+            activeClass="active"
+            as={ScrollLink}
+            to={'metadata'}
+            spy={true}
+            onSetActive={() => this.setState({ activeItem: 'metadata' })}
+            offset={offset}
           >
             Metadata
           </Menu.Item>
           <Menu.Item
             name="series-documents"
             active={activeItem === 'series-documents'}
-            onClick={(e, { name }) => this.scrollTo(anchors.documents, name)}
+            activeClass="active"
+            as={ScrollLink}
+            to={'series-documents'}
+            spy={true}
+            onSetActive={() =>
+              this.setState({ activeItem: 'series-documents' })
+            }
+            offset={offset}
           >
             Literature of this series
           </Menu.Item>
+          {series.metadata.mode_of_issuance === 'MULTIPART_MONOGRAPH' && (
+            <Menu.Item
+              name="series-serials"
+              active={activeItem === 'series-serials'}
+              activeClass="active"
+              as={ScrollLink}
+              to={'series-serials'}
+              spy={true}
+              onSetActive={() =>
+                this.setState({ activeItem: 'series-serials' })
+              }
+              offset={offset}
+            >
+              Serials
+            </Menu.Item>
+          )}
+          {series.metadata.mode_of_issuance === 'SERIAL' && (
+            <Menu.Item
+              name="series-monographs"
+              active={activeItem === 'series-monographs'}
+              activeClass="active"
+              as={ScrollLink}
+              to={'series-monographs'}
+              spy={true}
+              onSetActive={() =>
+                this.setState({ activeItem: 'series-monographs' })
+              }
+              offset={offset}
+            >
+              Multipart monograph
+            </Menu.Item>
+          )}
           <Menu.Item
             name="series-relations"
             active={activeItem === 'series-relations'}
-            onClick={(e, { name }) => this.scrollTo(anchors.relations, name)}
+            activeClass="active"
+            as={ScrollLink}
+            to={'series-relations'}
+            spy={true}
+            onSetActive={() =>
+              this.setState({ activeItem: 'series-relations' })
+            }
+            offset={offset}
           >
             Relations
           </Menu.Item>

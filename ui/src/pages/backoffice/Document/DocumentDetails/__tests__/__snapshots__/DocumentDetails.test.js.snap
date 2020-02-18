@@ -151,33 +151,7 @@ exports[`DocumentDetails tests should load the details component 1`] = `
                   offset={200}
                   scrollContext={[Window]}
                 >
-                  <DocumentActionMenu
-                    anchors={
-                      Object {
-                        "attachedEItemsRef": Object {
-                          "current": null,
-                        },
-                        "attachedItemsRef": Object {
-                          "current": null,
-                        },
-                        "loanRequestsRef": Object {
-                          "current": null,
-                        },
-                        "relatedRef": Object {
-                          "current": null,
-                        },
-                        "seriesRef": Object {
-                          "current": null,
-                        },
-                        "statisticsRef": Object {
-                          "current": null,
-                        },
-                        "summaryRef": Object {
-                          "current": null,
-                        },
-                      }
-                    }
-                  />
+                  <DocumentActionMenu />
                 </Sticky>
               </GridColumn>
             </Grid>

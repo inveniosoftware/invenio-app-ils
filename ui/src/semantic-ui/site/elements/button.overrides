@@ -11,6 +11,11 @@
       left: -1em;
     }
   }
+
+  &.copy {
+    box-shadow: none;
+    padding: 0.1rem;
+  }
 }
 
 
@@ -59,8 +64,3 @@
   }
 }
 
-
-.ui.button.copy {
-  box-shadow: none;
-  padding: 0.2rem;
-}
