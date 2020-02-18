@@ -123,7 +123,6 @@ exports[`DocumentMetadata tests should render Date Range Picker 1`] = `
                   className="field"
                 >
                   <Input
-                    aria-describedby={null}
                     autoComplete="off"
                     data-test="2019-09-03"
                     icon={true}
@@ -157,7 +156,6 @@ exports[`DocumentMetadata tests should render Date Range Picker 1`] = `
                         />
                       </Icon>
                       <input
-                        aria-describedby={null}
                         autoComplete="off"
                         key=".1"
                         name="fromDate"
@@ -307,7 +305,6 @@ exports[`DocumentMetadata tests should render Date Range Picker 1`] = `
                   className="field"
                 >
                   <Input
-                    aria-describedby={null}
                     autoComplete="off"
                     data-test="2019-10-03"
                     icon={true}
@@ -341,7 +338,6 @@ exports[`DocumentMetadata tests should render Date Range Picker 1`] = `
                         />
                       </Icon>
                       <input
-                        aria-describedby={null}
                         autoComplete="off"
                         key=".1"
                         name="toDate"

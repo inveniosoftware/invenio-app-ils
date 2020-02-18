@@ -72,6 +72,7 @@ setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
 install_requires = [
     "arrow>=0.15.0",
     "Flask-BabelEx>=0.9.3",
+    "Flask-CeleryExt==0.3.3",
     "Flask-Debugtoolbar>=0.10.1",
     "Flask-Login==0.4.1",
     "invenio[base,auth]==3.2.0a9",
@@ -86,6 +87,7 @@ install_requires = [
     # upgraded packages
     "invenio-app>=1.2.3,<1.3.0",
     "invenio-assets>=1.1.3,<1.2.0",
+    "invenio-celery==1.1.1",
     "invenio-i18n>=1.1.0,<1.2.0",
     "invenio-userprofiles>=1.0.1,<1.1.0",
     # extra
