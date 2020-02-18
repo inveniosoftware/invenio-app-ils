@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import DocumentDetails from '../DocumentDetails';
@@ -95,14 +96,16 @@ describe('DocumentDetails tests', () => {
   it('should fetch document details on mount', () => {
     const mockedFetchDocumentDetails = jest.fn();
     component = mount(
-      <Provider store={store}>
-        <DocumentDetails
-          history={routerHistory}
-          match={routerUrlParams}
-          fetchDocumentDetails={mockedFetchDocumentDetails}
-          data={{ metadata: testData[0] }}
-        />
-      </Provider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <DocumentDetails
+            history={routerHistory}
+            match={routerUrlParams}
+            fetchDocumentDetails={mockedFetchDocumentDetails}
+            data={{ metadata: testData[0] }}
+          />
+        </Provider>
+      </BrowserRouter>
     );
     expect(mockedFetchDocumentDetails).toHaveBeenCalledWith(
       routerUrlParams.params.documentPid

@@ -8,6 +8,7 @@ import { BackOfficeRoutes } from '@routes/urls';
 import { isEmpty } from 'lodash';
 import React, { Component } from 'react';
 import { Button, Divider, Menu } from 'semantic-ui-react';
+import { Link as ScrollLink } from 'react-scroll';
 
 export default class DocumentActionMenu extends Component {
   constructor(props) {
@@ -43,14 +44,10 @@ export default class DocumentActionMenu extends Component {
     this.props.requestLoanForPatron(documentPid, patronPid, optionalParams);
   };
 
-  scrollTo(ref, menuItemName) {
-    ref.current.scrollIntoView(false, { behaviour: 'smooth', block: 'end' });
-    this.setState({ activeItem: menuItemName });
-  }
-
   render() {
-    const { document, relations, anchors } = this.props;
+    const { document, relations } = this.props;
     const { activeItem } = this.state;
+    const offset = -250;
     return (
       <div className={'bo-action-menu'}>
         <EditButton
@@ -93,59 +90,91 @@ export default class DocumentActionMenu extends Component {
 
         <Menu pointing secondary vertical fluid className="left">
           <Menu.Item
-            name="header"
-            active={activeItem === 'header'}
-            onClick={(e, { name }) => this.scrollTo(anchors.summaryRef, name)}
+            name="metadata"
+            active={activeItem === 'metadata'}
+            activeClass="active"
+            as={ScrollLink}
+            to={'metadata'}
+            spy={true}
+            onSetActive={() => this.setState({ activeItem: 'metadata' })}
+            offset={offset}
           >
             Metadata
           </Menu.Item>
+
           <Menu.Item
             name="loan-requests"
             active={activeItem === 'loan-requests'}
-            onClick={(e, { name }) =>
-              this.scrollTo(anchors.loanRequestsRef, name)
-            }
+            activeClass="active"
+            as={ScrollLink}
+            to={'loan-requests'}
+            spy={true}
+            onSetActive={() => this.setState({ activeItem: 'loan-requests' })}
+            offset={offset}
           >
             Loan requests
           </Menu.Item>
           <Menu.Item
             name="document-items"
             active={activeItem === 'document-items'}
-            onClick={(e, { name }) =>
-              this.scrollTo(anchors.attachedItemsRef, name)
-            }
+            activeClass="active"
+            as={ScrollLink}
+            to={'document-items'}
+            spy={true}
+            onSetActive={() => this.setState({ activeItem: 'document-items' })}
+            offset={offset}
           >
             Physical items
           </Menu.Item>
           <Menu.Item
             name="document-eitems"
             active={activeItem === 'document-eitems'}
-            onClick={(e, { name }) =>
-              this.scrollTo(anchors.attachedEItemsRef, name)
-            }
+            activeClass="active"
+            as={ScrollLink}
+            to={'document-eitems'}
+            spy={true}
+            onSetActive={() => this.setState({ activeItem: 'document-eitems' })}
+            offset={offset}
           >
             Electronic items
           </Menu.Item>
           <Menu.Item
             name="document-series"
             active={activeItem === 'document-series'}
-            onClick={(e, { name }) => this.scrollTo(anchors.seriesRef, name)}
+            activeClass="active"
+            as={ScrollLink}
+            to={'document-series'}
+            spy={true}
+            onSetActive={() => this.setState({ activeItem: 'document-series' })}
+            offset={offset}
           >
             Series
           </Menu.Item>
           <Menu.Item
             name="document-siblings"
             active={activeItem === 'document-siblings'}
-            onClick={(e, { name }) => this.scrollTo(anchors.relatedRef, name)}
+            activeClass="active"
+            as={ScrollLink}
+            to={'document-siblings'}
+            spy={true}
+            onSetActive={() =>
+              this.setState({ activeItem: 'document-siblings' })
+            }
+            offset={offset}
           >
             Related
           </Menu.Item>
           <Menu.Item
             name="document-statistics"
             active={activeItem === 'document-statistics'}
-            onClick={(e, { name }) =>
-              this.scrollTo(anchors.statisticsRef, name)
+            activeClass="active"
+            as={ScrollLink}
+            to={'document-statistics'}
+            spy={true}
+            onSetActive={() =>
+              this.setState({ activeItem: 'document-statistics' })
             }
+            offset={offset}
           >
             Statistics
           </Menu.Item>

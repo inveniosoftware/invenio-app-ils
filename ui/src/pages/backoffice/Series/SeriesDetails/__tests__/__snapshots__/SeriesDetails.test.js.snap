@@ -46,7 +46,7 @@ exports[`SeriesDetails tests should load the details component 1`] = `
                 width={13}
               >
                 <div
-                  id="series-documents"
+                  id="metadata"
                 >
                   <SeriesMetadataTabs />
                 </div>
@@ -117,24 +117,7 @@ exports[`SeriesDetails tests should load the details component 1`] = `
                   offset={150}
                   scrollContext={[Window]}
                 >
-                  <SeriesActionMenu
-                    anchors={
-                      Object {
-                        "documents": Object {
-                          "current": null,
-                        },
-                        "monographs": Object {
-                          "current": null,
-                        },
-                        "relations": Object {
-                          "current": null,
-                        },
-                        "top": Object {
-                          "current": null,
-                        },
-                      }
-                    }
-                  />
+                  <SeriesActionMenu />
                 </Sticky>
               </GridColumn>
             </Grid>

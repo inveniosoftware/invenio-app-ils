@@ -10,12 +10,8 @@ export class CopyButton extends React.Component {
 
   render() {
     return (
-      <CopyToClipboard
-        text={this.props.text}
-        onCopy={this.onCopy}
-        className="copy"
-      >
-        <Button basic icon="copy" />
+      <CopyToClipboard text={this.props.text} onCopy={this.onCopy}>
+        <Button className="copy" basic icon="copy" />
       </CopyToClipboard>
     );
   }

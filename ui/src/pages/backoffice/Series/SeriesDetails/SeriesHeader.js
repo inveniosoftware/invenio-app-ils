@@ -3,8 +3,10 @@ import { CopyButton, SeriesAuthors } from '@components';
 import { DocumentCover, DocumentTags } from '@components/Document';
 import { DetailsHeader, SeriesIcon } from '@pages/backoffice';
 import { DocumentCreatedBy } from '@pages/backoffice/Document/DocumentDetails/components';
+import { FrontSiteRoutes } from '@routes/urls';
 import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Header, Icon } from 'semantic-ui-react';
 
 export class SeriesHeader extends Component {
   render() {
@@ -22,6 +24,10 @@ export class SeriesHeader extends Component {
         )}
         <br />
         <label className="muted">Created on</label> {toShortDate(data.created)}
+        <br />
+        <Link to={FrontSiteRoutes.seriesDetailsFor(data.metadata.pid)}>
+          public view <Icon name="linkify" />
+        </Link>
       </>
     );
     return (

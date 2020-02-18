@@ -7,7 +7,9 @@ import {
 } from '@components/Document';
 import { DetailsHeader } from '@pages/backoffice';
 import { DocumentCreatedBy } from '@pages/backoffice/Document/DocumentDetails/components';
+import { FrontSiteRoutes } from '@routes/urls';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Header, Icon, Label } from 'semantic-ui-react';
 
 export class DocumentHeader extends Component {
@@ -28,11 +30,17 @@ export class DocumentHeader extends Component {
         <label className="muted">Created on</label> {toShortDate(data.created)}
         <br />
         {!data.metadata.open_access && (
-          <Label size="large" color="red">
-            <Icon name="lock" />
-            Restricted access
-          </Label>
+          <>
+            <Label size="large" color="red">
+              <Icon name="lock" />
+              Restricted access
+            </Label>
+            <br />
+          </>
         )}
+        <Link to={FrontSiteRoutes.documentDetailsFor(data.metadata.pid)}>
+          public view <Icon name="linkify" />
+        </Link>
       </>
     );
     return (

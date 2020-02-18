@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import SeriesDetails from '../SeriesDetails';
@@ -94,15 +95,17 @@ describe('SeriesDetails tests', () => {
     const mockedFetchSeriesDetails = jest.fn();
     const mockisLoading = false;
     component = mount(
-      <Provider store={store}>
-        <SeriesDetails
-          history={routerHistory}
-          match={routerUrlParams}
-          fetchSeriesDetails={mockedFetchSeriesDetails}
-          isLoading={mockisLoading}
-          data={{ metadata: testSeries[0] }}
-        />
-      </Provider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <SeriesDetails
+            history={routerHistory}
+            match={routerUrlParams}
+            fetchSeriesDetails={mockedFetchSeriesDetails}
+            isLoading={mockisLoading}
+            data={{ metadata: testSeries[0] }}
+          />
+        </Provider>
+      </BrowserRouter>
     );
     expect(mockedFetchSeriesDetails).toHaveBeenCalledWith(
       routerUrlParams.params.seriesPid

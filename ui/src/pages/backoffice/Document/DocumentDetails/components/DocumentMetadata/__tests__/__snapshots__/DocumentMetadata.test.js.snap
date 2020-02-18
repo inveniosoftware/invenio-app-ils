@@ -9,6 +9,7 @@ exports[`DocumentMetadata tests should load the details component 1`] = `
       "tabWidth": 4,
     }
   }
+  id="metadata"
   menu={
     Object {
       "attached": "top",
