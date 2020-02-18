@@ -4,8 +4,10 @@ import {
   parentChildRelationPayload,
   prepareSumQuery,
   recordToPidType,
+  sequenceRelationPayload,
   siblingRelationPayload,
 } from '../utils';
+import last from 'lodash/last';
 
 const seriesURL = '/series/';
 
@@ -34,7 +36,7 @@ const update = async (seriesPid, data) => {
 };
 
 const createRelation = async (
-  referer,
+  referrer,
   selectedRelatedList,
   relationType,
   extraRelationField = {}
@@ -44,36 +46,43 @@ const createRelation = async (
     const payload = parentChildRelationPayload(
       relationType,
       extraRelationField,
-      selectedRelatedList[0],
-      referer
+      last(selectedRelatedList),
+      referrer
     );
     newRelationsPayload.push(payload);
+  } else if (relationType === 'other') {
+    newRelationsPayload.push(
+      siblingRelationPayload(
+        relationType,
+        extraRelationField,
+        last(selectedRelatedList)
+      )
+    );
+  } else if (relationType === 'sequence') {
+    newRelationsPayload.push(
+      sequenceRelationPayload(
+        referrer,
+        last(selectedRelatedList),
+        extraRelationField
+      )
+    );
   } else {
-    if (relationType === 'other') {
+    selectedRelatedList.map(selection =>
       newRelationsPayload.push(
-        siblingRelationPayload(
-          relationType,
-          extraRelationField,
-          selectedRelatedList[0]
-        )
-      );
-    } else {
-      selectedRelatedList.map(selection =>
-        newRelationsPayload.push(
-          siblingRelationPayload(relationType, extraRelationField, selection)
-        )
-      );
-    }
+        siblingRelationPayload(relationType, extraRelationField, selection)
+      )
+    );
   }
+
   const resp = await http.post(
-    `${seriesURL}${referer.metadata.pid}/relations`,
+    `${seriesURL}${referrer.metadata.pid}/relations`,
     newRelationsPayload
   );
   resp.data = serializer.fromJSON(resp.data);
   return resp;
 };
 
-const deleteRelation = async (referer, related) => {
+const deleteRelation = async (referrer, related) => {
   let deleteRequestPayload = {};
   if (
     related.relation_type === 'language' ||
@@ -89,13 +98,13 @@ const deleteRelation = async (referer, related) => {
     deleteRequestPayload = {
       parent_pid: related.pid,
       parent_pid_type: related.pid_type,
-      child_pid: referer.metadata.pid,
-      child_pid_type: recordToPidType(referer),
+      child_pid: referrer.metadata.pid,
+      child_pid_type: recordToPidType(referrer),
       relation_type: related.relation_type,
     };
   }
   const resp = await http.delete(
-    `${seriesURL}${referer.metadata.pid}/relations`,
+    `${seriesURL}${referrer.metadata.pid}/relations`,
     {
       data: deleteRequestPayload,
     }

@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   selectOption: option => dispatch(selectOption(option)),
   removeSelection: removePid => dispatch(removeSelection(removePid)),
-  resetSelections: () => dispatch(resetSelections),
+  resetSelections: () => dispatch(resetSelections()),
 });
 
 export const RelationSelector = connect(

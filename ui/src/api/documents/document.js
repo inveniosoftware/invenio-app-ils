@@ -39,7 +39,7 @@ const viewEvent = async docPid => {
 };
 
 const createRelation = async (
-  referer,
+  referrer,
   selectedRelatedList,
   relationType,
   extraRelationField = {}
@@ -50,7 +50,7 @@ const createRelation = async (
       relationType,
       extraRelationField,
       selectedRelatedList[0],
-      referer
+      referrer
     );
     newRelationsPayload.push(payload);
   } else {
@@ -72,7 +72,7 @@ const createRelation = async (
   }
 
   const resp = await http.post(
-    `${documentURL}${referer.metadata.pid}/relations`,
+    `${documentURL}${referrer.metadata.pid}/relations`,
     newRelationsPayload
   );
   resp.data = serializer.fromJSON(resp.data);
@@ -80,7 +80,7 @@ const createRelation = async (
   return resp;
 };
 
-const deleteRelation = async (referer, related) => {
+const deleteRelation = async (referrer, related) => {
   let deleteRequestPayload = {};
   if (
     related.relation_type === 'language' ||
@@ -96,13 +96,13 @@ const deleteRelation = async (referer, related) => {
     deleteRequestPayload = {
       parent_pid: related.pid,
       parent_pid_type: related.pid_type,
-      child_pid: referer.metadata.pid,
-      child_pid_type: recordToPidType(referer),
+      child_pid: referrer.metadata.pid,
+      child_pid_type: recordToPidType(referrer),
       relation_type: related.relation_type,
     };
   }
   const resp = await http.delete(
-    `${documentURL}${referer.metadata.pid}/relations`,
+    `${documentURL}${referrer.metadata.pid}/relations`,
     {
       data: [deleteRequestPayload],
     }

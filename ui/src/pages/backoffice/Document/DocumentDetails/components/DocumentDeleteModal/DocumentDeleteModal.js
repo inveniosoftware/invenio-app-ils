@@ -30,6 +30,8 @@ export class DocumentDeleteModal extends Component {
         const type = formatPidTypeToName(record.pid_type);
         hits.push({
           id: `${type} ${record.pid} (${relation})`,
+          record: record,
+          type: type,
         });
       }
     }

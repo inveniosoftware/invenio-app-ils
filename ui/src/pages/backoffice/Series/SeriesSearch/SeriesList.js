@@ -1,14 +1,8 @@
 import { SearchEmptyResults } from '@components/SearchControls';
-import { DocumentIcon } from '@pages/backoffice';
 import { SeriesListEntry } from './SeriesListEntry';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
-import { BackOfficeRoutes } from '@routes/urls';
-import _isEmpty from 'lodash/isEmpty';
-import { DocumentLanguages, DocumentTags } from '@components/Document';
-import { SeriesAuthors } from '@components';
+import { Item } from 'semantic-ui-react';
 
 SeriesListEntry.propTypes = {
   series: PropTypes.object.isRequired,

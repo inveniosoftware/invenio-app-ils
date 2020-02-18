@@ -9,7 +9,6 @@ import {
   SeeAllButton,
 } from '@pages/backoffice/components/buttons';
 import _get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
 
 export default class SeriesDocuments extends Component {
   constructor(props) {
@@ -64,25 +63,24 @@ export default class SeriesDocuments extends Component {
       { title: 'Volume', formatter: this.volumeFormatter },
       { title: 'ID', field: 'metadata.pid' },
     ];
-    const hasDocuments = !isEmpty(seriesDocuments);
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
-          {hasDocuments ? (
-            <ResultsTable
-              data={seriesDocuments.hits}
-              columns={columns}
-              totalHitsCount={seriesDocuments.total}
-              name={'documents'}
-              seeAllComponent={this.seeAllButton()}
-              showMaxRows={showMaxDocuments}
-            />
-          ) : (
-            <InfoMessage
-              header="No multiparts found."
-              content={'Start with a multipart to attach it to this series.'}
-            />
-          )}
+          <ResultsTable
+            data={seriesDocuments.hits}
+            columns={columns}
+            totalHitsCount={seriesDocuments.total}
+            name={'documents'}
+            seeAllComponent={this.seeAllButton()}
+            showMaxRows={showMaxDocuments}
+            renderEmptyResultsElement={() => (
+              <InfoMessage
+                header="No volumes in this series."
+                content="Start from a book/article to attach it to this series."
+                data-test="no-results"
+              />
+            )}
+          />
         </Error>
       </Loader>
     );

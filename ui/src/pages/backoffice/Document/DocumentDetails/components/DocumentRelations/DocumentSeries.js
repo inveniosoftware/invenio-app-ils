@@ -1,6 +1,5 @@
 import { Error, Loader } from '@components';
 import { RelationSerial } from '@pages/backoffice/components/Relations/RelationSerial';
-// import { RelationSerial } from './RelationSerial';
 import { RelationMultipart } from './RelationMultipartMonograph';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';

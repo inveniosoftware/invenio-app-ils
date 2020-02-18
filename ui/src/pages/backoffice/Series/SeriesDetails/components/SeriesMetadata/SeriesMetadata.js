@@ -4,7 +4,7 @@ import { UrlList } from '@pages/backoffice/components/UrlList';
 import get from 'lodash/get';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Segment, Divider, Container } from 'semantic-ui-react';
+import { Divider, Container } from 'semantic-ui-react';
 import { MetadataTable } from '@pages/backoffice/components/MetadataTable';
 import isEmpty from 'lodash/isEmpty';
 

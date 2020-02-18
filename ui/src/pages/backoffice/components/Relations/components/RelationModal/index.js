@@ -8,14 +8,14 @@ const mapDispatchToProps = dispatch => ({
     relationType,
     selections,
     extraRelationField,
-    refererRecord
+    referrerRecord
   ) =>
     dispatch(
       createRelations(
         relationType,
         selections,
         extraRelationField,
-        refererRecord
+        referrerRecord
       )
     ),
   resetSelections: () => dispatch(resetSelections()),

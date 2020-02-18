@@ -29,7 +29,7 @@ export default class RelationMultipart extends Component {
     if (!isEmpty(documentDetails)) {
       return (
         <RelationRemover
-          referer={documentDetails}
+          referrer={documentDetails}
           related={row}
           buttonContent={'Remove from this multipart'}
         />

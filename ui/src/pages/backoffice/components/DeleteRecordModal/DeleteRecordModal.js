@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import sumBy from 'lodash/sumBy';
 import sortBy from 'lodash/sortBy';
-import { Button, Header, Icon, Modal, Table, Segment } from 'semantic-ui-react';
+import { Button, Header, Icon, Modal, Segment, List } from 'semantic-ui-react';
 import { Loader, Error } from '@components';
 import { DeleteButton } from './components/DeleteButton';
 
@@ -54,21 +54,25 @@ export default class DeleteRecordModal extends Component {
   renderContent = (refEntry, refData) => {
     const { refType, onRefClick } = refEntry;
     const references = sortBy(refData.hits, 'id').map((hit, i) => (
-      <Table.Row key={i}>
-        <Table.Cell onClick={() => onRefClick(hit.id)}>
-          <Header as="h4">
-            {i + 1}. {refType} - {hit.id} <Icon name="edit" />
-          </Header>
-        </Table.Cell>
-      </Table.Row>
+      <List.Item
+        key={i}
+        as={'a'}
+        onClick={() => onRefClick(hit.id)}
+        target="blank"
+      >
+        <List.Content>
+          {hit.record && <List.Header>{hit.record.title}</List.Header>}
+          {refType} - #{hit.id} <Icon name="edit" />
+        </List.Content>
+      </List.Item>
     ));
     if (references.length > 0) {
       return (
         <Modal.Content key={`${refType}_content`}>
           <Segment>
-            <Table selectable basic="very" className="references-table">
-              <Table.Body>{references}</Table.Body>
-            </Table>
+            <List ordered celled>
+              {references}
+            </List>
           </Segment>
         </Modal.Content>
       );
@@ -78,7 +82,7 @@ export default class DeleteRecordModal extends Component {
   renderActions = canDelete => {
     return (
       <Modal.Actions key={'modalActions'}>
-        <Button onClick={this.toggleModal} basic inverted>
+        <Button onClick={this.toggleModal}>
           <Icon name="remove" /> Cancel
         </Button>
         {canDelete ? (
@@ -125,7 +129,6 @@ export default class DeleteRecordModal extends Component {
         open={this.state.isModalOpen}
         onOpen={() => this.handleOpen()}
         onClose={this.toggleModal}
-        basic
       >
         <Loader isLoading={isLoading}>
           <Error error={error}>{<this.renderAll />}</Error>

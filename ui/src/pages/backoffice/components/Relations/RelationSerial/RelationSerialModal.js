@@ -52,12 +52,12 @@ export default class RelationSerialModal extends Component {
         triggerButtonContent={'Add to a serial'}
         isLoading={this.state.isLoading}
         relationType={this.props.relationType}
-        refererRecord={recordDetails}
+        referrerRecord={recordDetails}
         extraRelationField={{ volume: this.state.volume }}
       >
         <Modal.Content>
           <Container textAlign="left">
-            Fill the fields to attach this document to a serial.
+            Select the serial to attach this document to it.
             <Form>
               <Form.Group>
                 <Container className="spaced">
@@ -66,7 +66,7 @@ export default class RelationSerialModal extends Component {
                     relations={this.props.relations.serial || {}}
                     optionsQuery={seriesApi.serials}
                     resultRenderer={this.selectResultRender}
-                    refererRecordPid={recordDetails.metadata.pid}
+                    referrerRecordPid={recordDetails.metadata.pid}
                     relationType={this.props.relationType}
                   />
                 </Container>
@@ -86,7 +86,7 @@ export default class RelationSerialModal extends Component {
           <Container textAlign="center">
             <Divider horizontal> Summary </Divider>
             <RelationSummary
-              currentReferer={recordDetails}
+              currentReferrer={recordDetails}
               renderSelections={() => <SingleSelection />}
               relationDescription={
                 <>

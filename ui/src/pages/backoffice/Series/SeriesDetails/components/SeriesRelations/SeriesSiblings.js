@@ -1,10 +1,12 @@
 import { Error, Loader } from '@components';
 import { RelationEdition } from '@pages/backoffice/components/Relations/RelationEdition';
+import { RelationSequence } from '@pages/backoffice/Series/SeriesDetails/components/SeriesRelations/RelationSequence';
 import { RelationLanguages } from './RelationLanguages';
 import { RelationOther } from './RelationOther';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Label, Tab } from 'semantic-ui-react';
+import concat from 'lodash/concat';
 
 export default class SeriesSiblings extends Component {
   render() {
@@ -13,6 +15,9 @@ export default class SeriesSiblings extends Component {
     const languages = this.props.relations['language'] || [];
     const editions = this.props.relations['edition'] || [];
     const other = this.props.relations['other'] || [];
+    const sequence_next = this.props.relations['next'] || [];
+    const sequence_previous = this.props.relations['previous'] || [];
+    const sequence = concat(sequence_next, sequence_previous);
 
     const panes = [
       {
@@ -42,6 +47,21 @@ export default class SeriesSiblings extends Component {
         render: () => (
           <Tab.Pane className="bo-relations-tab">
             <RelationEdition recordDetails={seriesDetails} />
+          </Tab.Pane>
+        ),
+      },
+      {
+        menuItem: {
+          key: 'sequences',
+          content: (
+            <>
+              Sequences <Label>{sequence.length}</Label>{' '}
+            </>
+          ),
+        },
+        render: () => (
+          <Tab.Pane className="bo-relations-tab">
+            <RelationSequence recordDetails={seriesDetails} />
           </Tab.Pane>
         ),
       },

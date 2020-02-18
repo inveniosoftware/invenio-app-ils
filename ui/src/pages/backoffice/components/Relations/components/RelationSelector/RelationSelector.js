@@ -13,16 +13,16 @@ export default class RelationSelector extends Component {
 
   disabledSelectionOption = result => {
     /* if relation already exists the option gets blocked */
-    const { relations, refererRecordPid } = this.props;
+    const { relations, referrerRecordPid } = this.props;
     const hasRelations = !isEmpty(relations);
     if (!hasRelations) {
       return false;
     }
 
     const relationExists = relations.find(o => o.pid === result.metadata.pid);
-    const isReferer = refererRecordPid === result.metadata.pid;
+    const isReferrer = referrerRecordPid === result.metadata.pid;
 
-    return relationExists || isReferer;
+    return relationExists || isReferrer;
   };
 
   isSelected = option => {
@@ -71,6 +71,6 @@ RelationSelector.propTypes = {
   optionsQuery: PropTypes.func.isRequired,
   relationType: PropTypes.string.isRequired,
   resultRenderer: PropTypes.func.isRequired,
-  refererRecordPid: PropTypes.string.isRequired,
+  referrerRecordPid: PropTypes.string.isRequired,
   mode: PropTypes.oneOf(['single', 'multi']),
 };

@@ -2,9 +2,13 @@
          Site Overrides
 *******************************/
 
-.icon {
+i.icon {
   &.error {
     color: @errorTextColor;
+  }
+
+  &.bo-form-inline-icon {
+    height: 1.2em;
   }
 }
 

@@ -12,14 +12,14 @@ export default class RelationRemover extends Component {
   handleOpen = () => this.setState({ modalOpen: true });
 
   handleDelete = () => {
-    const { related, referer } = this.props;
+    const { related, referrer } = this.props;
 
     this.setState({ modalOpen: false });
-    this.props.deleteRelations(referer, related);
+    this.props.deleteRelations(referrer, related);
   };
 
   render() {
-    const { trigger, buttonContent, header } = this.props;
+    const { trigger, buttonContent } = this.props;
 
     return (
       <Modal
@@ -34,8 +34,9 @@ export default class RelationRemover extends Component {
         onClose={this.handleClose}
         onOpen={this.handleOpen}
         open={this.state.modalOpen}
+        closeIcon
       >
-        <Modal.Header>{header && 'Confirm removal'}</Modal.Header>
+        <Modal.Header>Confirm removal</Modal.Header>
         <Modal.Content>
           Are you sure you want to delete this relation?
         </Modal.Content>
@@ -53,7 +54,7 @@ export default class RelationRemover extends Component {
 RelationRemover.propTypes = {
   /* pid of the record calling this remover */
   /* TODO PID AS OBJECT */
-  referer: PropTypes.object.isRequired,
+  referrer: PropTypes.object.isRequired,
   /* destination to be removed */
   related: PropTypes.object.isRequired,
 

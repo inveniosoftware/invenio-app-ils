@@ -72,7 +72,7 @@ describe('SeriesMultipartMonographs tests', () => {
     );
 
     const message = component
-      .find('Message')
+      .find('InfoMessage')
       .filterWhere(element => element.prop('data-test') === 'no-results');
     expect(message).toHaveLength(1);
   });

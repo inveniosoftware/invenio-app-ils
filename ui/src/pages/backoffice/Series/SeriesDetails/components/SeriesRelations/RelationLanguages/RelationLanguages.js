@@ -23,7 +23,7 @@ export default class RelationLanguage extends Component {
     if (!isEmpty(seriesDetails)) {
       return (
         <RelationRemover
-          referer={seriesDetails}
+          referrer={seriesDetails}
           related={row}
           buttonContent={'Remove relation'}
         />

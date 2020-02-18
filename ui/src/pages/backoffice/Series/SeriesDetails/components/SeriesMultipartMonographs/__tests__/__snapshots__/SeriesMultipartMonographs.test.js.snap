@@ -34,6 +34,7 @@ exports[`SeriesMultipartMonographs tests should load the SeriesMultipartMonograp
       headerActionComponent={null}
       name="multipart monographs"
       paginationComponent={null}
+      renderEmptyResultsElement={[Function]}
       seeAllComponent={
         <SeeAllButton
           disabled={false}

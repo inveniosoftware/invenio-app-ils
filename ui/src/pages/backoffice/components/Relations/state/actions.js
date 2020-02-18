@@ -7,10 +7,10 @@ import {
 } from '@components/Notifications';
 import isEmpty from 'lodash/isEmpty';
 
-const getRecordApi = refererRecord => {
-  if (recordToPidType(refererRecord) === 'docid') {
+const getRecordApi = referrerRecord => {
+  if (recordToPidType(referrerRecord) === 'docid') {
     return documentApi;
-  } else if (recordToPidType(refererRecord) === 'serid') {
+  } else if (recordToPidType(referrerRecord) === 'serid') {
     return seriesApi;
   } else {
     throw TypeError('Invalid record type to create a relation.');
@@ -18,7 +18,7 @@ const getRecordApi = refererRecord => {
 };
 
 export const createRelations = (
-  refererRecord,
+  referrerRecord,
   selections,
   relationType,
   extraRelationField
@@ -28,9 +28,9 @@ export const createRelations = (
       dispatch({
         type: IS_LOADING,
       });
-      await getRecordApi(refererRecord)
+      await getRecordApi(referrerRecord)
         .createRelation(
-          refererRecord,
+          referrerRecord,
           selections,
           relationType,
           extraRelationField
@@ -58,15 +58,15 @@ export const createRelations = (
   };
 };
 
-export const deleteRelations = (referer, related) => {
+export const deleteRelations = (referrer, related) => {
   return async dispatch => {
     if (!isEmpty(related)) {
       dispatch({
         type: IS_LOADING,
       });
 
-      await getRecordApi(referer)
-        .deleteRelation(referer, related)
+      await getRecordApi(referrer)
+        .deleteRelation(referrer, related)
         .then(response => {
           dispatch({
             type: SUCCESS,

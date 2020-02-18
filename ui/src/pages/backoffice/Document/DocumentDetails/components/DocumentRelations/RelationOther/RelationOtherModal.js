@@ -54,12 +54,12 @@ export default class RelationOtherModal extends Component {
         modalHeader={'Create new relation'}
         isLoading={this.state.isLoading}
         relationType={this.props.relationType}
-        refererRecord={documentDetails}
+        referrerRecord={documentDetails}
         extraRelationField={{ note: this.state.note, required: true }}
       >
         <Modal.Content>
           <Container textAlign="left">
-            Fill the fields to create the relation.
+            Select a document to create a new relation.
             <Form>
               <Form.Group>
                 <Container className="spaced">
@@ -68,7 +68,7 @@ export default class RelationOtherModal extends Component {
                     mode={'single'}
                     optionsQuery={documentApi.list}
                     resultRenderer={this.selectResultRender}
-                    refererRecordPid={documentDetails.metadata.pid}
+                    referrerRecordPid={documentDetails.metadata.pid}
                   />
                 </Container>
               </Form.Group>
@@ -86,7 +86,7 @@ export default class RelationOtherModal extends Component {
           <Container textAlign="center">
             <Divider horizontal> Summary </Divider>
             <RelationSummary
-              currentReferer={documentDetails}
+              currentReferrer={documentDetails}
               renderSelections={() => <SingleSelection />}
               relationDescription={
                 <>

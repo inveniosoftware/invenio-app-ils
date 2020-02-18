@@ -47,7 +47,7 @@ beforeEach(() => {
   store.clearActions();
 });
 
-const refererRecord = { metadata: testData[0] };
+const referrerRecord = { metadata: testData[0] };
 
 describe('Document relations tests', () => {
   describe('Create relations tests', () => {
@@ -60,7 +60,7 @@ describe('Document relations tests', () => {
 
       store.dispatch(
         actions.createRelations(
-          refererRecord,
+          referrerRecord,
           [{ metadata: testData[1] }],
           'serial',
           {
@@ -69,7 +69,7 @@ describe('Document relations tests', () => {
         )
       );
       expect(mockCreateRelations).toHaveBeenCalledWith(
-        refererRecord,
+        referrerRecord,
         [{ metadata: testData[1] }],
         'serial',
         { volume: '5' }
@@ -87,7 +87,7 @@ describe('Document relations tests', () => {
 
       await store.dispatch(
         actions.createRelations(
-          refererRecord,
+          referrerRecord,
           [{ metadata: testData[1] }],
           'serial',
           {
@@ -96,7 +96,7 @@ describe('Document relations tests', () => {
         )
       );
       expect(mockCreateRelations).toHaveBeenCalledWith(
-        refererRecord,
+        referrerRecord,
         [{ metadata: testData[1] }],
         'serial',
         { volume: '5' }
@@ -114,7 +114,7 @@ describe('Document relations tests', () => {
 
       await store.dispatch(
         actions.createRelations(
-          refererRecord,
+          referrerRecord,
           [{ metadata: testData[1] }],
           'serial',
           {
@@ -123,7 +123,7 @@ describe('Document relations tests', () => {
         )
       );
       expect(mockCreateRelations).toHaveBeenCalledWith(
-        refererRecord,
+        referrerRecord,
         [{ metadata: testData[1] }],
         'serial',
         { volume: '5' }
@@ -140,9 +140,9 @@ describe('Document relations tests', () => {
       };
 
       store.dispatch(
-        actions.deleteRelations(refererRecord, { metadata: testData[1] })
+        actions.deleteRelations(referrerRecord, { metadata: testData[1] })
       );
-      expect(mockDeleteRelations).toHaveBeenCalledWith(refererRecord, {
+      expect(mockDeleteRelations).toHaveBeenCalledWith(referrerRecord, {
         metadata: testData[1],
       });
       expect(store.getActions()[0]).toEqual(expectedAction);
@@ -157,9 +157,9 @@ describe('Document relations tests', () => {
       };
 
       await store.dispatch(
-        actions.deleteRelations(refererRecord, { metadata: testData[1] })
+        actions.deleteRelations(referrerRecord, { metadata: testData[1] })
       );
-      expect(mockDeleteRelations).toHaveBeenCalledWith(refererRecord, {
+      expect(mockDeleteRelations).toHaveBeenCalledWith(referrerRecord, {
         metadata: testData[1],
       });
       expect(store.getActions()[1]).toEqual(expectedAction);
@@ -174,9 +174,9 @@ describe('Document relations tests', () => {
       };
 
       await store.dispatch(
-        actions.deleteRelations(refererRecord, { metadata: testData[1] })
+        actions.deleteRelations(referrerRecord, { metadata: testData[1] })
       );
-      expect(mockDeleteRelations).toHaveBeenCalledWith(refererRecord, {
+      expect(mockDeleteRelations).toHaveBeenCalledWith(referrerRecord, {
         metadata: testData[1],
       });
       expect(store.getActions()[1]).toEqual(expectedAction);
