@@ -24,7 +24,7 @@ export default class RelationOther extends Component {
     if (!isEmpty(documentDetails)) {
       return (
         <RelationRemover
-          referer={documentDetails}
+          referrer={documentDetails}
           related={row}
           buttonContent={'Remove relation'}
         />

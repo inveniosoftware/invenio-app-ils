@@ -30,6 +30,7 @@ exports[`SeriesDocuments tests should load the SeriesDocuments component 1`] = `
       headerActionComponent={null}
       name="documents"
       paginationComponent={null}
+      renderEmptyResultsElement={[Function]}
       seeAllComponent={
         <SeeAllButton
           disabled={false}

@@ -27,14 +27,14 @@ export default class RelationModal extends Component {
       relationType,
       selections,
       extraRelationField,
-      refererRecord,
+      referrerRecord,
     } = this.props;
 
     delete extraRelationField.required;
 
     this.setState({ isLoading: true });
     this.props.createRelations(
-      refererRecord,
+      referrerRecord,
       selections,
       relationType,
       extraRelationField
@@ -106,7 +106,7 @@ RelationModal.propTypes = {
   modalHeader: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
     .isRequired,
   isLoading: PropTypes.bool.isRequired,
-  refererRecord: PropTypes.object.isRequired,
+  referrerRecord: PropTypes.object.isRequired,
   extraRelationField: PropTypes.object.isRequired,
 
   selections: PropTypes.array.isRequired,

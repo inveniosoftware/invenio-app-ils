@@ -4,7 +4,7 @@ import { DocumentCover, DocumentTags } from '@components/Document';
 import { DetailsHeader, SeriesIcon } from '@pages/backoffice';
 import { DocumentCreatedBy } from '@pages/backoffice/Document/DocumentDetails/components';
 import React, { Component } from 'react';
-import { Header, Icon, Label } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 
 export class SeriesHeader extends Component {
   render() {

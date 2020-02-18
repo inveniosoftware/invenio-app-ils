@@ -47,12 +47,12 @@ export default class RelationMultipartModal extends Component {
         triggerButtonContent={'Attach multipart'}
         isLoading={this.state.isLoading}
         relationType={this.props.relationType}
-        refererRecord={documentDetails}
+        referrerRecord={documentDetails}
         extraRelationField={{ volume: this.state.volume }}
       >
         <Modal.Content>
           <Container textAlign="left">
-            Fill the fields to attach this document to a multipart.
+            Select a multipart monograph to attach this document to it.
             <Form>
               <Form.Group>
                 <Container className="spaced">
@@ -61,7 +61,7 @@ export default class RelationMultipartModal extends Component {
                     relations={this.props.relations.multipart_monograph}
                     optionsQuery={seriesApi.multipartMonographs}
                     resultRenderer={this.selectResultRender}
-                    refererRecordPid={documentDetails.metadata.pid}
+                    referrerRecordPid={documentDetails.metadata.pid}
                   />
                 </Container>
               </Form.Group>
@@ -81,7 +81,7 @@ export default class RelationMultipartModal extends Component {
           <Container textAlign="center">
             <Divider horizontal> Summary </Divider>
             <RelationSummary
-              currentReferer={documentDetails}
+              currentReferrer={documentDetails}
               renderSelections={() => <SingleSelection />}
               relationDescription={
                 <>

@@ -74,7 +74,7 @@ export default class RelationEditionModal extends Component {
         modalHeader={'Attach editions'}
         isLoading={this.state.isLoading}
         relationType={this.props.relationType}
-        refererRecord={recordDetails}
+        referrerRecord={recordDetails}
       >
         <Modal.Content>
           <Container textAlign="left">
@@ -103,7 +103,7 @@ export default class RelationEditionModal extends Component {
                     optionsQuery={this.state.query}
                     currentRecordType={this.state.currentRecordType}
                     resultRenderer={this.selectResultRender}
-                    refererRecordPid={recordDetails.metadata.pid}
+                    referrerRecordPid={recordDetails.metadata.pid}
                   />
                 </Container>
               </Container>
@@ -112,7 +112,7 @@ export default class RelationEditionModal extends Component {
           <Container textAlign="center">
             <Divider horizontal> Summary </Divider>
             <RelationSummary
-              currentReferer={recordDetails}
+              currentReferrer={recordDetails}
               renderSelections={() => <MultipleSelections />}
               columnsWidths={{ left: 4, middle: 3, right: 9 }}
               relationDescription={

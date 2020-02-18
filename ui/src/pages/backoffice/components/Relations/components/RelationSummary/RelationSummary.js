@@ -9,10 +9,10 @@ export default class RelationSummary extends Component {
   render() {
     const {
       selections,
-      currentReferer,
+      currentReferrer,
       renderSelections,
       emptySelectionMessageHeader,
-      currentRefererComponent,
+      currentReferrerComponent,
       relationDescription,
     } = this.props;
 
@@ -20,14 +20,14 @@ export default class RelationSummary extends Component {
       <Container className="spaced">
         <Grid columns={3} verticalAlign="middle">
           <Grid.Column width={this.props.columnsWidths.left}>
-            {currentRefererComponent || (
+            {currentReferrerComponent || (
               <RelationCard
-                data={currentReferer}
+                data={currentReferrer}
                 extra={
                   <>
                     <Icon size="big" name="language" />
                     <Label size="tiny" className="ml-10">
-                      <DocumentLanguages metadata={currentReferer.metadata} />
+                      <DocumentLanguages metadata={currentReferrer.metadata} />
                     </Label>
                   </>
                 }
@@ -68,11 +68,11 @@ export default class RelationSummary extends Component {
 
 RelationSummary.propTypes = {
   selections: PropTypes.array.isRequired,
-  currentReferer: PropTypes.object.isRequired,
+  currentReferrer: PropTypes.object.isRequired,
   // removeFromSelection: PropTypes.func.isRequired,
   renderSelections: PropTypes.func.isRequired,
   emptySelectionMessageHeader: PropTypes.string,
-  currentRefererComponent: PropTypes.node,
+  currentReferrerComponent: PropTypes.node,
   relationDescription: PropTypes.node,
   columnsWidths: PropTypes.object,
 };

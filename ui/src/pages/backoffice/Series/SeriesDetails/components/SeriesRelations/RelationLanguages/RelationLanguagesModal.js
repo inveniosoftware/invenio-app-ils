@@ -59,7 +59,7 @@ export default class RelationLanguagesModal extends Component {
         }
         isLoading={this.state.isLoading}
         relationType={this.props.relationType}
-        refererRecord={seriesDetails}
+        referrerRecord={seriesDetails}
       >
         <Modal.Content>
           <Container textAlign="left">
@@ -71,7 +71,7 @@ export default class RelationLanguagesModal extends Component {
                     relations={this.props.relations.language}
                     optionsQuery={fetchOptionsQuery}
                     resultRenderer={this.selectResultRender}
-                    refererRecordPid={seriesDetails.metadata.pid}
+                    referrerRecordPid={seriesDetails.metadata.pid}
                   />
                 </Container>
               </Form.Group>
@@ -81,7 +81,7 @@ export default class RelationLanguagesModal extends Component {
             <Divider horizontal> Summary </Divider>
             <RelationSummary
               columnsWidths={{ left: 4, middle: 3, right: 9 }}
-              currentReferer={seriesDetails}
+              currentReferrer={seriesDetails}
               renderSelections={() => <MultipleSelections />}
               relationDescription={
                 <>

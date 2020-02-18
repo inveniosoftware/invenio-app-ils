@@ -1,5 +1,4 @@
 import { InfoMessage } from '@pages/backoffice';
-import isEmpty from 'lodash/isEmpty';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -69,25 +68,24 @@ export default class SeriesMultipartMonographs extends Component {
         formatter: ({ row }) => <SeriesAuthors metadata={row.metadata} />,
       },
     ];
-    const hasMultiparts = !isEmpty(multipartMonographs);
     return (
       <Loader isLoading={isLoading}>
         <Error error={error}>
-          {hasMultiparts ? (
-            <ResultsTable
-              data={multipartMonographs.hits}
-              columns={columns}
-              totalHitsCount={multipartMonographs.total}
-              name={'multipart monographs'}
-              seeAllComponent={this.seeAllButton()}
-              showMaxRows={showMaxSeries}
-            />
-          ) : (
-            <InfoMessage
-              header="No multiparts found."
-              content={'Start with a multipart to attach it to this series.'}
-            />
-          )}
+          <ResultsTable
+            data={multipartMonographs.hits}
+            columns={columns}
+            totalHitsCount={multipartMonographs.total}
+            name={'multipart monographs'}
+            seeAllComponent={this.seeAllButton()}
+            showMaxRows={showMaxSeries}
+            renderEmptyResultsElement={() => (
+              <InfoMessage
+                header="No multipart monographs in this series."
+                content="Start with a multipart monograph to attach it to this series."
+                data-test="no-results"
+              />
+            )}
+          />
         </Error>
       </Loader>
     );

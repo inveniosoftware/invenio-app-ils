@@ -22,7 +22,7 @@ export default class RelationSerial extends Component {
     if (!isEmpty(recordDetails)) {
       return (
         <RelationRemover
-          referer={recordDetails}
+          referrer={recordDetails}
           related={row}
           buttonContent={'Remove from this serial'}
         />
