@@ -9,6 +9,8 @@
 
 from __future__ import absolute_import, print_function
 
+import json
+
 from invenio_accounts.models import User
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
@@ -63,3 +65,23 @@ def user_logout(client):
     with client.session_transaction() as sess:
         if "user_id" in sess:
             del sess["user_id"]
+
+
+def validate_data(key, expected_output, res):
+    """Util function for testing output data."""
+    if res.status_code != 403 and res.status_code != 401:
+        data = json.loads(res.data.decode("utf-8"))["metadata"]
+        assert data[key] == expected_output
+
+
+def validate_response(client, req_method, url, headers, data,
+                      expected_resp_code):
+    """Util function testing response code."""
+    if data:
+        res = getattr(client, req_method)(
+            url, headers=headers, data=json.dumps(data)
+        )
+    else:
+        res = getattr(client, req_method)(url, headers=headers)
+    assert expected_resp_code == res.status_code
+    return res

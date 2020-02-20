@@ -34,7 +34,7 @@ export const DocumentStep = ({ step }) => (
 export default class DocumentStepContent extends Component {
   onSelectResult = async data => {
     const { pid } = this.props.data;
-    const resp = await documentRequestApi.accept(pid, {
+    const resp = await documentRequestApi.addDocument(pid, {
       document_pid: data.key,
     });
     if (resp.status === 202) {

@@ -3,7 +3,12 @@
     "pid": "dreq-1",
     "state": "PENDING",
     "patron_pid": "1",
-    "title": "Test title 1"
+    "title": "Test title 1",
+    "document_pid": "docid-1",
+    "physical_item_provider": {
+      "pid": "acq-order-pid",
+      "pid_type": "acuisition"
+    }
   },
   {
     "pid": "dreq-2",

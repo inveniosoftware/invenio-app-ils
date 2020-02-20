@@ -1,5 +1,6 @@
 import { http } from '@api';
 import { sessionManager } from './SessionManager';
+import _has from 'lodash/has';
 
 class AuthenticationService {
   loginWithOauthProvider = (nextUrl, providerUrl) => {
@@ -32,7 +33,12 @@ class AuthenticationService {
   };
 
   fetchProfile = () => {
-    return http.get('/me');
+    return http.get('/me').then(res => {
+      if (_has(res, 'data.id')) {
+        res.data.id = res.data.id.toString();
+      }
+      return res;
+    });
   };
 
   confirmUser = token => {

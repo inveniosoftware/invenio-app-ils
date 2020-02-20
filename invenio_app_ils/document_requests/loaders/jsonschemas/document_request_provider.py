@@ -5,18 +5,20 @@
 # invenio-app-ils is free software; you can redistribute it and/or modify
 # it under the terms of the MIT License; see LICENSE file for more details.
 
-"""Invenio App ILS Document Request Acccept loader JSON schema."""
+"""Invenio App ILS Document Request Provider loader JSON schema."""
 
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import EXCLUDE, fields
 
+from .document_request import PhysicalItemProviderSchema
 
-class DocumentRequestAcceptSchemaV1(RecordMetadataSchemaJSONV1):
-    """Document Request Accept schema."""
+
+class DocumentRequestProviderSchemaV1(RecordMetadataSchemaJSONV1):
+    """Document Request Provider schema."""
 
     class Meta:
         """Meta attributes for the schema."""
 
         unknown = EXCLUDE
 
-    state = fields.Str(required=True)
+    physical_item_provider = fields.Nested(PhysicalItemProviderSchema)

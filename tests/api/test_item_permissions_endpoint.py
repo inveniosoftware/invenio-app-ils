@@ -10,37 +10,10 @@
 from __future__ import unicode_literals
 
 import copy
-import json
 
 import pytest
 from flask import url_for
-from invenio_accounts.models import User
-from invenio_accounts.testutils import login_user_via_session
-
-
-def user_login(user_id, client, users):
-    """Util function log user in."""
-    if user_id != "anonymous":
-        login_user_via_session(client, user=User.query.get(users[user_id].id))
-
-
-def _test_response(client, req_method, url, headers, data, expected_resp_code):
-    """Util function testing response code."""
-    if data:
-        res = getattr(client, req_method)(
-            url, headers=headers, data=json.dumps(data)
-        )
-    else:
-        res = getattr(client, req_method)(url, headers=headers)
-    assert expected_resp_code == res.status_code
-    return res
-
-
-def _test_data(key, expected_output, res):
-    """Util function for testing output data."""
-    if res.status_code != 403 and res.status_code != 401:
-        data = json.loads(res.data.decode("utf-8"))["metadata"]
-        assert data[key] == expected_output
+from tests.api.helpers import user_login, validate_data, validate_response
 
 
 @pytest.mark.parametrize(
@@ -69,7 +42,8 @@ def test_get_item_endpoint(
     """Test GET permissions."""
     user_login(user_id, client, users)
     url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
-    _test_response(client, "get", url, json_headers, None, expected_resp_code)
+    validate_response(
+        client, "get", url, json_headers, None, expected_resp_code)
 
 
 @pytest.mark.parametrize(
@@ -91,10 +65,10 @@ def test_post_item_endpoint(
     ITEM = copy.deepcopy(item_record)
     if "pid" in ITEM:
         del ITEM["pid"]
-    res = _test_response(
+    res = validate_response(
         client, "post", url, json_headers, ITEM, expected_resp_code
     )
-    _test_data("barcode", ITEM["barcode"], res)
+    validate_data("barcode", ITEM["barcode"], res)
 
 
 @pytest.mark.parametrize(
@@ -128,10 +102,10 @@ def test_put_item_endpoint(
     url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
     user_login(user_id, client, users)
     ITEM = copy.deepcopy(item_record)
-    res = _test_response(
+    res = validate_response(
         client, "put", url, json_headers, ITEM, expected_resp_code
     )
-    _test_data("pid", res_id, res)
+    validate_data("pid", res_id, res)
 
 
 @pytest.mark.parametrize(
@@ -160,7 +134,7 @@ def test_delete_item_endpoint(
     """Test DELETE permissions of an item."""
     user_login(user_id, client, users)
     url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
-    _test_response(
+    validate_response(
         client,
         "delete",
         url,
@@ -194,7 +168,7 @@ def test_item_circulation(
     """Test item circulation filtering."""
     user_login(user_id, client, users)
     url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
-    res = _test_response(
+    res = validate_response(
         client, "get", url, json_headers, None, expected_resp_code
     )
     circulation = res.json["metadata"]["circulation"]

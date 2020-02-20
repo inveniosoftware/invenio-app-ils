@@ -83,7 +83,7 @@ export class DocumentForm extends Component {
     } else if (submitButton === 'create-with-eitem') {
       goTo(BackOfficeRoutes.eitemCreate, { document: doc });
     } else if (documentRequestPid) {
-      await documentRequestApi.accept(documentRequestPid, {
+      await documentRequestApi.addDocument(documentRequestPid, {
         document_pid: doc.pid,
       });
       goTo(BackOfficeRoutes.documentRequestDetailsFor(documentRequestPid));
