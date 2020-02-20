@@ -15,6 +15,11 @@ export const invenioConfig = {
       acq: { name: 'Acquisition', pid_type: 'acqoid' },
       ill: { name: 'InterLibrary', pid_type: 'illbid' },
     },
+    rejectTypes: {
+      userCancel: 'USER_CANCEL',
+      inCatalog: 'IN_CATALOG',
+      notFound: 'NOT_FOUND',
+    },
   },
   orders: {
     defaultCurrency: 'CHF',

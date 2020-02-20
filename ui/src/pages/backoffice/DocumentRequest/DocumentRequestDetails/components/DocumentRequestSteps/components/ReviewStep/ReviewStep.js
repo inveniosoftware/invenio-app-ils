@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Header, Icon, Message, Step } from 'semantic-ui-react';
-import { documentRequest as documentRequestApi } from '@api';
 import { STEPS } from '../../DocumentRequestSteps';
 
 export const ReviewStep = ({ step }) => (
@@ -14,14 +13,9 @@ export const ReviewStep = ({ step }) => (
 );
 
 export default class ReviewStepContent extends Component {
-  onAcceptClick = async () => {
+  onAcceptClick = () => {
     const { pid } = this.props.data;
-    const resp = await documentRequestApi.accept(pid, {
-      state: 'ACCEPTED',
-    });
-    if (resp.status === 202) {
-      this.props.fetchDocumentRequestDetails(pid);
-    }
+    this.props.acceptRequest(pid, { state: 'ACCEPTED' });
   };
 
   render() {

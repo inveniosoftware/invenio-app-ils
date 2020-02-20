@@ -7,8 +7,8 @@ import {
   Header,
   Icon,
   Item,
-  Label,
   Popup,
+  Button,
 } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 import { Link } from 'react-router-dom';
@@ -44,6 +44,15 @@ class LoanRequestListEntry extends Component {
               <Item.Meta>
                 <DocumentAuthors metadata={loan.metadata.document} />
                 Requested on {toShortDate(loan.metadata.request_start_date)}
+                <br />
+                Valid until {toShortDate(loan.metadata.request_expire_date)}
+                <Popup
+                  content={
+                    'If the request was not processed ' +
+                    'before this date it will be invalidated'
+                  }
+                  trigger={<Icon name={'info'} />}
+                />
               </Item.Meta>
               <Item.Description>
                 {loan.metadata.document.circulation.has_items_on_site > 0 ? (
@@ -64,15 +73,7 @@ class LoanRequestListEntry extends Component {
               computer={8}
             >
               <Item.Description>
-                This request is valid until{' '}
-                <Label>{toShortDate(loan.metadata.request_expire_date)}</Label>
-                <Popup
-                  content={
-                    'If the request was not processed ' +
-                    'before this date it will be invalidated'
-                  }
-                  trigger={<Icon name={'info'} />}
-                />
+                <Button size="small">Cancel</Button>
               </Item.Description>
             </Grid.Column>
           </Grid>

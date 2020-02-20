@@ -122,9 +122,9 @@ def views_permissions_factory(action):
         return backoffice_permission()
     elif action == "document-request-accept":
         return backoffice_permission()
-    elif action == "document-request-pending":
+    elif action == "document-request-remove-document":
         return backoffice_permission()
-    elif action == "document-request-reject":
+    elif action == "document-request-remove-provider":
         return backoffice_permission()
     elif action == "bucket-create":
         return backoffice_permission()
