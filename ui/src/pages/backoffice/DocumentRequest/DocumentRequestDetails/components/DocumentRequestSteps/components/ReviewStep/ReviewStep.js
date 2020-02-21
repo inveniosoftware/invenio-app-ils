@@ -14,8 +14,7 @@ export const ReviewStep = ({ step }) => (
 
 export default class ReviewStepContent extends Component {
   onAcceptClick = () => {
-    const { pid } = this.props.data;
-    this.props.acceptRequest(pid, { state: 'ACCEPTED' });
+    this.props.acceptRequest(this.props.data.pid);
   };
 
   render() {

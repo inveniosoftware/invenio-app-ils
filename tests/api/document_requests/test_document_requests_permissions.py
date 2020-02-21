@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -92,8 +92,9 @@ def test_document_request_remove_document(
     """Test remove document from Document Request permissions."""
     user_login(user_id, client, users)
     url = url_for("ils_document_request.dreqid_document", pid_value=res_id)
+    data = {"document_pid": "docid-1"}
     validate_response(
-        client, "delete", url, json_headers, None, expected_resp_code)
+        client, "delete", url, json_headers, data, expected_resp_code)
 
 
 @pytest.mark.parametrize(

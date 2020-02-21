@@ -13,8 +13,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchDocumentRequestDetails: documentRequestPid =>
     dispatch(fetchDocumentRequestDetails(documentRequestPid)),
-  acceptRequest: (documentRequestPid, data) =>
-    dispatch(acceptRequest(documentRequestPid, data)),
+  acceptRequest: documentRequestPid =>
+    dispatch(acceptRequest(documentRequestPid)),
 });
 
 export const ReviewStepContent = connect(

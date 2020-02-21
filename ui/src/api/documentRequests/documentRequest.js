@@ -39,9 +39,9 @@ const performAction = async (urlPath, data) => {
   return response;
 };
 
-const accept = async (docRequestPid, data) => {
+const accept = async docRequestPid => {
   const urlPath = generatePath(apiPaths.accept, { docReqPid: docRequestPid });
-  return performAction(urlPath, data);
+  return performAction(urlPath);
 };
 
 const addDocument = async (docReqPid, data) => {
@@ -50,9 +50,10 @@ const addDocument = async (docReqPid, data) => {
   return response;
 };
 
-const removeDocument = async docReqPid => {
+const removeDocument = async (docReqPid, data) => {
   const url = generatePath(apiPaths.document, { docReqPid: docReqPid });
-  const response = await http.delete(url);
+  // https://github.com/axios/axios/issues/897#issuecomment-343715381
+  const response = await http.delete(url, { data: data });
   return response;
 };
 

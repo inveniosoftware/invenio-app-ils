@@ -82,10 +82,12 @@ export default class LoanMetadata extends Component {
       { name: 'Document pid', value: data.metadata.document_pid },
       {
         name: 'Item pid',
-        value: (
+        value: data.metadata.item_pid ? (
           <LoanLinkToItem itemPid={data.metadata.item_pid}>
             {data.metadata.item_pid.value}
           </LoanLinkToItem>
+        ) : (
+          '-'
         ),
       },
       { name: 'Patron pid', value: data.metadata.patron_pid },

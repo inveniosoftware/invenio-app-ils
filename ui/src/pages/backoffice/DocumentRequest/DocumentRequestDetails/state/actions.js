@@ -67,14 +67,14 @@ export const deleteRequest = requestPid => {
   };
 };
 
-export const acceptRequest = (pid, data) => {
+export const acceptRequest = pid => {
   return async dispatch => {
     dispatch({
       type: IS_LOADING,
     });
 
     try {
-      const resp = await documentRequestApi.accept(pid, data);
+      const resp = await documentRequestApi.accept(pid);
       dispatch({
         type: SUCCESS,
         payload: resp.data,

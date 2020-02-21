@@ -23,7 +23,6 @@ from invenio_app_ils.permissions import DocumentRequestOwnerPermission, \
 from invenio_app_ils.proxies import current_app_ils
 
 from .api import DOCUMENT_REQUEST_PID_TYPE
-from .loaders import document_request_accept_loader as dr_accept_loader
 from .loaders import document_request_document_loader as dr_document_loader
 from .loaders import document_request_provider_loader as dr_provider_loader
 from .loaders import document_request_reject_loader as dr_reject_loader
@@ -60,7 +59,7 @@ def create_document_request_action_blueprint(app):
         blueprint,
         DocumentRequestAcceptResource,
         'accept',
-        dr_accept_loader
+        None,
     )
     _add_view(
         blueprint,
@@ -101,31 +100,28 @@ class DocumentRequestDocumentResource(DocumentRequestActionResource):
     view_name = "{}_document"
 
     @pass_record
-    @need_permissions("document-request-accept")
+    @need_permissions("document-request-actions")
     def post(self, pid, record, **kwargs):
         """Add or replace a Document in Document Request."""
-        data = self.loader()
-
         if record["state"] != "PENDING":
             raise DocumentRequestError(
                 "You cannot add Document when the Document Request "
                 "is in state: {}".format(record["state"])
             )
 
-        document_pid = data.get("document_pid")
-        if not document_pid:
-            raise DocumentRequestError("document_pid is required")
-
-        record["document_pid"] = document_pid
+        data = self.loader()
+        record["document_pid"] = data.get("document_pid")
         record.commit()
         db.session.commit()
         current_app_ils.document_request_indexer.index(record)
         return self.make_response(pid, record, 202)
 
     @pass_record
-    @need_permissions("document-request-remove-document")
+    @need_permissions("document-request-actions")
     def delete(self, pid, record, *kwargs):
         """Remove Document from Document Request."""
+        self.loader()
+
         if record["state"] != "PENDING":
             raise DocumentRequestError(
                 "You cannot remove the Document when the Document Request "
@@ -147,7 +143,7 @@ class DocumentRequestProviderResource(DocumentRequestActionResource):
     view_name = "{}_provider"
 
     @pass_record
-    @need_permissions("document-request-accept")
+    @need_permissions("document-request-actions")
     def post(self, pid, record, **kwargs):
         """Add or replace Provider in Document Request."""
         data = self.loader()
@@ -169,7 +165,7 @@ class DocumentRequestProviderResource(DocumentRequestActionResource):
         return self.make_response(pid, record, 202)
 
     @pass_record
-    @need_permissions("document-request-remove-provider")
+    @need_permissions("document-request-actions")
     def delete(self, pid, record, **kwargs):
         """Remove Provider from Document Request."""
         if record["state"] != "PENDING":
@@ -193,11 +189,9 @@ class DocumentRequestAcceptResource(DocumentRequestActionResource):
     view_name = "{}_accept"
 
     @pass_record
-    @need_permissions("document-request-accept")
+    @need_permissions("document-request-actions")
     def post(self, pid, record, **kwargs):
         """Accept request post method."""
-        data = self.loader()
-
         if record["state"] != "PENDING":
             raise DocumentRequestError(
                 "You cannot change state to 'ACCEPTED' when the Document "
@@ -216,13 +210,7 @@ class DocumentRequestAcceptResource(DocumentRequestActionResource):
                 "to be accepted."
             )
 
-        state = data.get("state")
-        if state != 'ACCEPTED':
-            raise DocumentRequestError(
-                "{} is not a valid state".format(record["state"])
-            )
-
-        record["state"] = state
+        record["state"] = 'ACCEPTED'
         record.commit()
         db.session.commit()
         current_app_ils.document_request_indexer.index(record)
@@ -248,7 +236,7 @@ class DocumentRequestRejectResource(DocumentRequestActionResource):
 
         if record["state"] != "PENDING":
             raise DocumentRequestError(
-                "You cannot reject a Document Request that "
+                "You cannot cancel a Document Request that "
                 "is in state: {}".format(record["state"])
             )
 

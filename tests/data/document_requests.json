@@ -7,7 +7,7 @@
     "document_pid": "docid-1",
     "physical_item_provider": {
       "pid": "acq-order-pid",
-      "pid_type": "acuisition"
+      "pid_type": "acquisition"
     }
   },
   {
