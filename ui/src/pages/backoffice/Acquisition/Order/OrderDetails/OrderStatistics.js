@@ -67,8 +67,8 @@ export class OrderStatistics extends React.Component {
     let received = 0;
     let ordered = 0;
     for (const orderLine of order.order_lines) {
-      received += orderLine.copies_received;
-      ordered += orderLine.copies_ordered;
+      received += orderLine.copies_received || 0;
+      ordered += orderLine.copies_ordered || 0;
     }
     return (
       <Statistic>

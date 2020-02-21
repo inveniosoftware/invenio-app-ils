@@ -54,11 +54,15 @@
   },
   "properties": {
     "$schema": {
-      "title": "Interlibrary borrowing request schema",
+      "title": "InterLibrary borrowing request schema",
       "type": "string"
     },
     "cancel_reason": {
       "title": "Reason for cancelling the ILL borrowing request",
+      "type": "string"
+    },
+    "created_by_pid": {
+      "title": "PID of the user who created the borrowing request",
       "type": "string"
     },
     "document_pid": {
@@ -109,6 +113,10 @@
       "title": "Ending date of the ILL borrowing request",
       "type": "string"
     },
+    "loan_pid": {
+      "title": "The persistent identifier of the loan created from this borrowing request",
+      "type": "string"
+    },
     "notes": {
       "title": "The notes of the ILL borrowing request",
       "type": "string"
@@ -153,7 +161,7 @@
       "type": "string"
     }
   },
-  "required": ["$schema", "pid", "status", "library_pid"],
+  "required": ["$schema", "pid", "status", "document_pid", "patron_pid", "library_pid", "type"],
   "title": "Schema for the ILL borrowing request",
   "type": "object"
 }

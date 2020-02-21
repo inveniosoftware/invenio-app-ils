@@ -1,0 +1,72 @@
+[
+  {
+    "order_date": "2020-01-27",
+    "order_lines": [
+      {
+        "copies_ordered": 5,
+        "document_pid": "docid-1",
+        "medium": "hardcover",
+        "recipient": "library"
+      }
+    ],
+    "pid": "acqoid-1",
+    "status": "PENDING",
+    "vendor_pid": "acqvid-1"
+  },
+  {
+    "order_date": "2020-01-25",
+    "order_lines": [
+      {
+        "copies_ordered": 2,
+        "document_pid": "docid-2",
+        "medium": "hardcover",
+        "recipient": "library"
+      }
+    ],
+    "pid": "acqoid-2",
+    "status": "ORDERED",
+    "vendor_pid": "acqvid-1"
+  },
+  {
+    "order_date": "2020-01-15",
+    "order_lines": [
+      {
+        "copies_ordered": 1,
+        "document_pid": "docid-3",
+        "medium": "hardcover",
+        "recipient": "library"
+      }
+    ],
+    "pid": "acqoid-3",
+    "status": "ORDERED",
+    "vendor_pid": "acqvid-2"
+  },
+  {
+    "order_date": "2020-01-29",
+    "order_lines": [
+      {
+        "copies_ordered": 10,
+        "document_pid": "docid-4",
+        "medium": "hardcover",
+        "recipient": "library"
+      }
+    ],
+    "pid": "acqoid-4",
+    "status": "RECEIVED",
+    "vendor_pid": "acqvid-2"
+  },
+  {
+    "order_date": "2020-01-28",
+    "order_lines": [
+      {
+        "copies_ordered": 7,
+        "document_pid": "docid-4",
+        "medium": "hardcover",
+        "recipient": "library"
+      }
+    ],
+    "pid": "acqoid-5",
+    "status": "CANCELLED",
+    "vendor_pid": "acqvid-2"
+  }
+]

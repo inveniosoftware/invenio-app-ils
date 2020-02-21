@@ -44,13 +44,11 @@ export class OrderLines extends Component {
               label="Order Line Unit Price"
               fieldPath={`${arrayPath}.${indexPath}.unit_price`}
               currencies={currencies}
-              required
             />
             <PriceField
               label="Order Line Total Price"
               fieldPath={`${arrayPath}.${indexPath}.total_price`}
               currencies={currencies}
-              required
             />
           </GroupField>
 
@@ -91,7 +89,6 @@ export class OrderLines extends Component {
               label="Copies Received"
               type="number"
               fieldPath={`${arrayPath}.${indexPath}.copies_received`}
-              required
             />
             <VocabularyField
               type={invenioConfig.vocabularies.order.acq_medium}

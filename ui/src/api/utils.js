@@ -1,4 +1,8 @@
+import isEmpty from 'lodash/isEmpty';
+import _get from 'lodash/get';
+import _set from 'lodash/set';
 import { invenioConfig } from '@config';
+import { fromISO } from './date';
 
 export const prepareDateQuery = (field, date, dateFrom, dateTo) => {
   if (
@@ -130,4 +134,32 @@ export const formatPrice = (price, includeCurrency = true) => {
   return new Intl.NumberFormat(invenioConfig.i18n.priceLocale, options).format(
     price.value
   );
+};
+
+export const recordResponseSerializer = (hit, customSerializer = null) => {
+  const DATETIME_FIELDS = ['created', 'updated'];
+  const result = {};
+  if (!isEmpty(hit)) {
+    result.id = hit.id;
+
+    DATETIME_FIELDS.forEach(field => {
+      const datetimeStr = _get(hit, field);
+      if (datetimeStr) {
+        _set(result, field, fromISO(datetimeStr));
+      }
+    });
+
+    if (hit.links) {
+      result.links = hit.links;
+    }
+
+    if (!isEmpty(hit.metadata)) {
+      result.metadata = hit.metadata;
+      if (customSerializer) {
+        customSerializer(result.metadata);
+      }
+      result.pid = hit.metadata.pid;
+    }
+  }
+  return result;
 };

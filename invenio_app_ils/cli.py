@@ -783,6 +783,10 @@ class LibraryGenerator(Generator):
 class BorrowingRequestGenerator(Generator):
     """Borrowing requests generator."""
 
+    def random_document_pid(self):
+        """Get a random document PID."""
+        return random.choice(self.holder.pids("documents", "pid"))
+
     def random_library_pid(self):
         """Get a random library PID if the state is ACCEPTED."""
         return random.choice(self.holder.pids("libraries", "pid"))
@@ -796,10 +800,16 @@ class BorrowingRequestGenerator(Generator):
                 "pid": self.create_pid(),
                 "status": random.choice(BorrowingRequest.STATUSES),
                 "library_pid": self.random_library_pid(),
+                "document_pid": self.random_document_pid(),
+                "patron_pid": random.choice(self.holder.patrons_pids),
+                "type": "Hardcover",
                 "notes": lorem.sentence(),
             }
             if obj["status"] == "CANCELLED":
                 obj["cancel_reason"] = lorem.sentence()
+            if obj["status"] == ["ON_LOAN", "RETURNED"]:
+                # skip these statuses because they need a loan created
+                continue
             objs.append(obj)
 
         self.holder.borrowing_requests["objs"] = objs
@@ -913,7 +923,7 @@ class OrderGenerator(Generator):
                 "created_by_pid": self.holder.librarian_pid,
                 "vendor_pid": random.choice(self.holder.vendors["objs"])["pid"],
                 "status": status,
-                "order_date": order_date.isoformat(),
+                "order_date": order_date.date().isoformat(),
                 "notes": lorem.sentence(),
                 "grand_total": grand_total,
                 "grand_total_main_currency": grand_total_main_currency,
@@ -923,11 +933,11 @@ class OrderGenerator(Generator):
                 },
                 "order_lines": order_lines,
             }
-            obj["expected_delivery_date"] = self.random_date(now, now + timedelta(days=400)).isoformat()
+            obj["expected_delivery_date"] = self.random_date(now, now + timedelta(days=400)).date().isoformat()
             if obj["status"] == "CANCELLED":
                 obj["cancel_reason"] = lorem.sentence()
             elif obj["status"] == "RECEIVED":
-                obj["received_date"] = self.random_date(order_date, now).isoformat()
+                obj["received_date"] = self.random_date(order_date, now).date().isoformat()
             objs.append(obj)
 
         self.holder.orders["objs"] = objs

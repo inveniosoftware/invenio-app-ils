@@ -13,11 +13,8 @@ import { invenioConfig } from '@config';
 import { sessionManager } from '@authentication/services';
 import _has from 'lodash/has';
 
-const orderSubmitSerializer = (values, newRecord) => {
+const orderSubmitSerializer = values => {
   const submitValues = { ...values };
-  if (newRecord) {
-    submitValues.created_by_pid = sessionManager.user.id;
-  }
   submitValues.vendor_pid = values.vendor.pid;
   submitValues.order_lines = values.resolved_order_lines.map(line => {
     if (line.document) {

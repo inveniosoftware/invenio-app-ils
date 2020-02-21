@@ -40,7 +40,12 @@ export class OrderInfo extends Component {
         </GroupField>
 
         <GroupField widths="equal">
-          <DateInputField label="Order Date" fieldPath="order_date" optimized />
+          <DateInputField
+            label="Order Date"
+            fieldPath="order_date"
+            optimized
+            required
+          />
           <DateInputField
             label="Expected Delivery Date"
             fieldPath="expected_delivery_date"
@@ -52,14 +57,12 @@ export class OrderInfo extends Component {
           label="Grand Total"
           fieldPath="grand_total"
           currencies={currencies}
-          required
         />
         <PriceField
           label="Grand Total Main Currency"
           fieldPath="grand_total_main_currency"
           currencies={currencies}
           canSelectCurrency={false}
-          required
         />
         <DateInputField
           label="Received date"

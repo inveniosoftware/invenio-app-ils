@@ -3,16 +3,18 @@ import _set from 'lodash/set';
 import { fromISO, toISODate } from '../date';
 import { recordResponseSerializer } from '../utils';
 
-const OrderSerializers = {
+const BrwReqSeriaizers = {
   ORDER_DATE_FIELDS: [
     'expected_delivery_date',
-    'order_date',
+    'extension.request_date',
+    'loan_end_date',
     'payment.debit_date',
     'received_date',
+    'request_date',
   ],
   responseSerializer: function(hit) {
     const result = recordResponseSerializer(hit, function(metadata) {
-      OrderSerializers.ORDER_DATE_FIELDS.forEach(field => {
+      BrwReqSeriaizers.ORDER_DATE_FIELDS.forEach(field => {
         const dateStr = _get(metadata, field);
         if (dateStr) {
           _set(metadata, field, fromISO(dateStr));
@@ -22,7 +24,7 @@ const OrderSerializers = {
     return result;
   },
   requestSerializer: function(data) {
-    OrderSerializers.ORDER_DATE_FIELDS.forEach(field => {
+    BrwReqSeriaizers.ORDER_DATE_FIELDS.forEach(field => {
       const dateObj = _get(data, field);
       if (dateObj) {
         _set(data, field, toISODate(dateObj));
@@ -32,17 +34,17 @@ const OrderSerializers = {
   },
 };
 
-const VendorSerializers = {
+const LibrarySerializers = {
   responseSerializer: function(hit) {
     return recordResponseSerializer(hit);
   },
 };
 
-export const orderSerializer = {
-  fromJSON: OrderSerializers.responseSerializer,
-  toJSON: OrderSerializers.requestSerializer,
+export const brwReqSerializer = {
+  fromJSON: BrwReqSeriaizers.responseSerializer,
+  toJSON: BrwReqSeriaizers.requestSerializer,
 };
 
-export const vendorSerializer = {
-  fromJSON: VendorSerializers.responseSerializer,
+export const librarySerializer = {
+  fromJSON: LibrarySerializers.responseSerializer,
 };

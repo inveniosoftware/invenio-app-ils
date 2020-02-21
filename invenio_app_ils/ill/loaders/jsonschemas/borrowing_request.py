@@ -7,8 +7,54 @@
 
 """BorrowingRequest schema for marshmallow loader."""
 
+from flask_login import current_user
+from invenio_circulation.records.loaders.schemas.json import DateString
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
-from marshmallow import EXCLUDE, fields
+from marshmallow import EXCLUDE, Schema, fields, pre_load, validate
+
+from invenio_app_ils.ill.api import BorrowingRequest
+
+
+class PriceSchema(Schema):
+    """Price schema."""
+
+    class Meta:
+        """Meta attributes for the schema."""
+
+        unknown = EXCLUDE
+
+    currency = fields.Str(required=True)
+    value = fields.Number(required=True)
+
+
+class PaymentSchema(Schema):
+    """Payment schema."""
+
+    class Meta:
+        """Meta attributes for the schema."""
+
+        unknown = EXCLUDE
+
+    budget_code = fields.Str()
+    debit_cost = fields.Nested(PriceSchema)
+    debit_cost_main_currency = fields.Nested(PriceSchema)
+    debit_date = DateString()
+    debit_note = fields.Str()
+    internal_purchase_requisition_id = fields.Str()
+    mode = fields.Str(required=True)
+
+
+class ExtensionSchema(Schema):
+    """Extension schema."""
+
+    class Meta:
+        """Meta attributes for the schema."""
+
+        unknown = EXCLUDE
+
+    notes = fields.Str()
+    request_date = DateString()
+    status = fields.Str(required=True)  # TODO: validate
 
 
 class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
@@ -20,8 +66,28 @@ class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
         unknown = EXCLUDE
 
     cancel_reason = fields.Str()
+    created_by_pid = fields.Str()
     document_pid = fields.Str(required=True)
-    name = fields.Str(required=True)
-    notes = fields.Str()
+    expected_delivery_date = DateString()
+    extension = fields.Nested(ExtensionSchema)
     library_pid = fields.Str(required=True)  # TODO: validate
-    status = fields.Str(required=True)  # TODO: this should be an enum
+    loan_end_date = DateString()
+    notes = fields.Str()
+    patron_pid = fields.Str(required=True)
+    payment = fields.Nested(PaymentSchema)
+    received_date = DateString()
+    request_date = DateString()
+    status = fields.Str(
+        required=True, validate=validate.OneOf(BorrowingRequest.STATUSES)
+    )
+    total = fields.Nested(PriceSchema)
+    total_main_currency = fields.Nested(PriceSchema)
+    type = fields.Str(
+        required=True, validate=validate.OneOf(BorrowingRequest.TYPES)
+    )
+
+    @pre_load
+    def add_created_by(self, data, **kwargs):
+        """Automatically add the `created_by_pid`."""
+        data["created_by_pid"] = str(current_user.id)
+        return data
