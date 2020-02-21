@@ -1,14 +1,7 @@
 import { http, apiConfig } from '../base';
-import { serializer } from './serializer';
-import { generatePath } from 'react-router-dom';
+import { brwReqSerializer as serializer } from './serializers';
 
 const borrowingRequestUrl = '/ill/borrowing-requests/';
-const apiPaths = {
-  accept: `${borrowingRequestUrl}:borrowingRequestPid/accept`,
-  item: `${borrowingRequestUrl}:borrowingRequestPid`,
-  list: borrowingRequestUrl,
-  reject: `${borrowingRequestUrl}:borrowingRequestPid/reject`,
-};
 
 const get = async borrowingRequestPid => {
   const response = await http.get(
@@ -17,44 +10,21 @@ const get = async borrowingRequestPid => {
   return response;
 };
 
-const del = async borrowingRequestPid => {
-  const response = await http.delete(
-    `${borrowingRequestUrl}${borrowingRequestPid}`
-  );
-  return response;
-};
-
-const performAction = async (urlPath, data) => {
-  const response = await http.post(urlPath, data);
-  response.data = serializer.fromJSON(response.data);
-  return response;
-};
-
-const accept = async (borrowingRequestPid, data) => {
-  const urlPath = generatePath(apiPaths.accept, {
-    borrowingRequestPid: borrowingRequestPid,
-  });
-  return performAction(urlPath, data);
-};
-
-const reject = async (borrowingRequestPid, data) => {
-  const urlPath = generatePath(apiPaths.reject, {
-    borrowingRequestPid: borrowingRequestPid,
-  });
-  return performAction(urlPath, data);
-};
-
 const create = async data => {
-  const response = await http.post(`${borrowingRequestUrl}`, data);
-  return response;
+  const payload = serializer.toJSON(data);
+  const resp = await http.post(`${borrowingRequestUrl}`, payload);
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
 };
 
 const update = async (borrowingRequestPid, data) => {
-  const response = await http.put(
+  const payload = serializer.toJSON(data);
+  const resp = await http.put(
     `${borrowingRequestUrl}${borrowingRequestPid}`,
-    data
+    payload
   );
-  return response;
+  resp.data = serializer.fromJSON(resp.data);
+  return resp;
 };
 
 const list = async (query = '', size = 100) => {
@@ -70,10 +40,7 @@ const list = async (query = '', size = 100) => {
 
 export const borrowingRequest = {
   searchBaseURL: `${apiConfig.baseURL}${borrowingRequestUrl}`,
-  accept: accept,
-  reject: reject,
   create: create,
-  delete: del,
   get: get,
   list: list,
   update: update,

@@ -7,8 +7,10 @@
 
 """Order schema for marshmallow loader."""
 
+from flask_login import current_user
+from invenio_circulation.records.loaders.schemas.json import DateString
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
-from marshmallow import EXCLUDE, Schema, fields, validate
+from marshmallow import EXCLUDE, Schema, fields, pre_load, validate
 
 from invenio_app_ils.acquisition.api import Order
 
@@ -35,7 +37,7 @@ class OrderLineSchema(Schema):
 
     budget_code = fields.Str()
     copies_ordered = fields.Int(required=True)
-    copies_received = fields.Int(required=True)
+    copies_received = fields.Int()
     document_pid = fields.Str(required=True)  # TODO: validate
     inter_departmental_transaction_id = fields.Str()
     is_donation = fields.Bool()
@@ -60,7 +62,7 @@ class PaymentSchema(Schema):
 
     debit_cost = fields.Nested(PriceSchema)
     debit_cost_main_currency = fields.Nested(PriceSchema)
-    debit_date = fields.Str()
+    debit_date = DateString()
     debit_note = fields.Str()
     internal_purchase_requisition_id = fields.Str()
     mode = fields.Str(required=True)
@@ -75,15 +77,21 @@ class OrderSchemaV1(RecordMetadataSchemaJSONV1):
         unknown = EXCLUDE
 
     cancel_reason = fields.Str()
-    created_by_pid = fields.Str(required=True)
-    received_date = fields.Str()
-    expected_delivery_date = fields.Str(required=True)
+    created_by_pid = fields.Str()
+    received_date = DateString()
+    expected_delivery_date = DateString()
     funds = fields.List(fields.Str())
-    grand_total = fields.Nested(PriceSchema, required=True)
-    grand_total_main_currency = fields.Nested(PriceSchema, required=True)
+    grand_total = fields.Nested(PriceSchema)
+    grand_total_main_currency = fields.Nested(PriceSchema)
     notes = fields.Str()
-    order_date = fields.Str(requried=True)
+    order_date = DateString(required=True)
     order_lines = fields.List(fields.Nested(OrderLineSchema), required=True)
-    payment = fields.Nested(PaymentSchema, required=True)
+    payment = fields.Nested(PaymentSchema)
     status = fields.Str(required=True, validate=validate.OneOf(Order.STATUSES))
     vendor_pid = fields.Str(required=True)  # TODO: validate
+
+    @pre_load
+    def add_created_by(self, data, **kwargs):
+        """Automatically add the `created_by_pid`."""
+        data["created_by_pid"] = str(current_user.id)
+        return data

@@ -51,15 +51,15 @@ class OrderHeader extends React.Component {
       <>
         <label>Order</label> #{pid} <CopyButton text={pid} />
         <br />
-        <label>Ordered by </label>
+        <label>Created by </label>
         <Link
           to={BackOfficeRoutes.patronDetailsFor(data.metadata.created_by_pid)}
         >
           <PatronIcon />
-          patron {data.metadata.created_by_pid}
+          user {data.metadata.created_by_pid}
         </Link>
         <br />
-        <label>On</label> {toShortDate(data.metadata.order_date)}
+        <label>Order date</label> {toShortDate(data.metadata.order_date)}
       </>
     );
     return (

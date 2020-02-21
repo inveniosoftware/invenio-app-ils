@@ -37,6 +37,7 @@ export class Payment extends Component {
             fieldPath={'payment.mode'}
             label="Payment mode"
             placeholder="Select payment mode..."
+            required
           />
           <StringField
             label="Internal Purchase Requisition ID"

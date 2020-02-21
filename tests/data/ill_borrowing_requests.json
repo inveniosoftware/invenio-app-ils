@@ -1,0 +1,42 @@
+[
+  {
+    "document_pid": "docid-1",
+    "library_pid": "illlid-1",
+    "patron_pid": "1",
+    "pid": "illbid-1",
+    "status": "PENDING",
+    "type": "PHYSICAL"
+  },
+  {
+    "document_pid": "docid-2",
+    "library_pid": "illlid-1",
+    "patron_pid": "1",
+    "pid": "illbid-2",
+    "status": "REQUESTED",
+    "type": "ELECTRONIC"
+  },
+  {
+    "document_pid": "docid-3",
+    "library_pid": "illlid-2",
+    "patron_pid": "1",
+    "pid": "illbid-3",
+    "status": "ON_LOAN",
+    "type": "PHYSICAL"
+  },
+  {
+    "document_pid": "docid-4",
+    "library_pid": "illlid-2",
+    "patron_pid": "1",
+    "pid": "illbid-4",
+    "status": "RETURNED",
+    "type": "PHYSICAL"
+  },
+  {
+    "document_pid": "docid-5",
+    "library_pid": "illlid-2",
+    "patron_pid": "1",
+    "pid": "illbid-5",
+    "status": "CANCELLED",
+    "type": "ELECTRONIC"
+  }
+]

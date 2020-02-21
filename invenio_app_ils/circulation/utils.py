@@ -12,7 +12,8 @@ from __future__ import absolute_import, print_function
 from datetime import timedelta
 
 import arrow
-from flask import current_app, g
+from flask import current_app
+from flask_login import current_user
 
 from invenio_app_ils.errors import UnknownItemPidTypeError
 from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
@@ -104,7 +105,7 @@ def circulation_transaction_location_validator(transaction_location_pid):
 
 def circulation_transaction_user_validator(transaction_user_pid):
     """Validate that the given transaction user PID is valid."""
-    return transaction_user_pid == str(g.identity.id)
+    return transaction_user_pid == str(current_user.id)
 
 
 def resolve_item_from_loan(item_pid):

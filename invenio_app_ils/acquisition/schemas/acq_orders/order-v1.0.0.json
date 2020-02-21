@@ -192,12 +192,8 @@
   },
   "required": [
     "$schema",
-    "created_by_pid",
-    "grand_total_main_currency",
-    "grand_total",
     "order_date",
     "order_lines",
-    "payment",
     "pid",
     "status",
     "vendor_pid"

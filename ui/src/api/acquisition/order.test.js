@@ -1,4 +1,4 @@
-import { order as orderApi } from '../order';
+import { order as orderApi } from './order';
 
 describe('Order query builder tests', () => {
   it('should build the query string with patron', () => {

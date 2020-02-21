@@ -19,5 +19,8 @@ class LibrarySchemaV1(RecordMetadataSchemaJSONV1):
 
         unknown = EXCLUDE
 
+    address = fields.Str()
+    email = fields.Email()
     name = fields.Str(required=True)
     notes = fields.Str()
+    phone = fields.Str()

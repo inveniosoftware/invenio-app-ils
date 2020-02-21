@@ -11,13 +11,15 @@ const get = pid => {
 };
 
 const create = async data => {
-  const resp = await http.post(`${orderURL}`, data);
+  const payload = serializer.toJSON(data);
+  const resp = await http.post(`${orderURL}`, payload);
   resp.data = serializer.fromJSON(resp.data);
   return resp;
 };
 
 const update = async (pid, data) => {
-  const response = await http.put(`${orderURL}${pid}`, data);
+  const payload = serializer.toJSON(data);
+  const response = await http.put(`${orderURL}${pid}`, payload);
   response.data = serializer.fromJSON(response.data);
   return response;
 };

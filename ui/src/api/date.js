@@ -20,6 +20,15 @@ export const toISO = date => {
 };
 
 /**
+ *  Serializes date to ISO Date
+ *  @param {DateTime} date luxon DateTime
+ *  @returns {String}
+ */
+export const toISODate = date => {
+  return date.toISODate();
+};
+
+/**
  *  Serializes date for display in short format
  *  @param {DateTime} date luxon DateTime
  *  @returns {String}

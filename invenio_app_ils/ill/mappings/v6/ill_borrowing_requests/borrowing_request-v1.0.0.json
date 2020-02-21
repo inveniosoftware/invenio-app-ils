@@ -1,6 +1,6 @@
 {
   "mappings": {
-    "borrowing-request-v1.0.0": {
+    "borrowing_request-v1.0.0": {
       "date_detection": false,
       "numeric_detection": false,
       "properties": {
@@ -15,6 +15,9 @@
         },
         "cancel_reason": {
           "type": "text"
+        },
+        "created_by_pid": {
+          "type": "keyword"
         },
         "document_pid": {
           "type": "keyword"
@@ -52,6 +55,9 @@
         },
         "loan_end_date": {
           "type": "date"
+        },
+        "loan_pid": {
+          "type": "keyword"
         },
         "notes": {
           "type": "text"

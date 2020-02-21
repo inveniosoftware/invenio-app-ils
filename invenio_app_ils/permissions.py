@@ -124,6 +124,8 @@ def views_permissions_factory(action):
         return backoffice_permission()
     elif action == "bucket-create":
         return backoffice_permission()
+    elif action == "ill-create-loan":
+        return backoffice_permission()
     else:
         return deny_all()
 

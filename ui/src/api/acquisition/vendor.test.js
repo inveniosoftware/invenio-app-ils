@@ -1,4 +1,4 @@
-import { vendor as vendorApi } from '../vendor';
+import { vendor as vendorApi } from './vendor';
 
 describe('Document query builder tests', () => {
   it('should build the query string with address', () => {
