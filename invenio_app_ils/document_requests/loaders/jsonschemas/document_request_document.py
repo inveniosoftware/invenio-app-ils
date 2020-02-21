@@ -19,4 +19,4 @@ class DocumentRequestDocumentSchemaV1(RecordMetadataSchemaJSONV1):
 
         unknown = EXCLUDE
 
-    document_pid = fields.Str()
+    document_pid = fields.Str(required=True)

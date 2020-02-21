@@ -109,7 +109,9 @@ class ProviderSelection extends Component {
 class DocumentSelection extends Component {
   onRemoveDocument = async () => {
     const { pid } = this.props.data;
-    const resp = await documentRequestApi.removeDocument(pid);
+    const resp = await documentRequestApi.removeDocument(pid, {
+      document_pid: this.props.data.metadata.document_pid,
+    });
     if (resp.status === 202) {
       this.props.fetchDocumentRequestDetails(pid);
     }
