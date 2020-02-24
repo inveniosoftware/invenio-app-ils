@@ -44,7 +44,13 @@ export default class ILSMenu extends Component {
 
   renderRightMenuItem = (userMenuText = '') => {
     return this.props.isAnonymous ? (
-      <RedirectToLoginButton secondary size="small" />
+      <RedirectToLoginButton
+        renderClass={Menu.Item}
+        inverted
+        className={'ils-menu-login-button'}
+        icon={'sign in'}
+        content={'Sign in'}
+      />
     ) : (
       this.renderRightDropDown(userMenuText)
     );
@@ -82,7 +88,7 @@ export default class ILSMenu extends Component {
                 <Link to="/">ILS</Link>
               </Menu.Item>
               <Menu.Menu position="right">
-                <Menu.Item>{this.renderRightMenuItem()}</Menu.Item>
+                {this.renderRightMenuItem()}
               </Menu.Menu>
             </Container>
           </Menu>

@@ -92,6 +92,7 @@ export default class DocumentsDetails extends Component {
               <Grid.Column width={3} textAlign="right">
                 {!isEmpty(this.props.documentDetails.metadata) && (
                   <AuthenticationGuard
+                    silent={true}
                     authorizedComponent={() => (
                       <Link
                         to={BackOfficeRoutes.documentDetailsFor(

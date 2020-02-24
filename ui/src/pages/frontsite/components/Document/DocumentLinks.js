@@ -21,7 +21,7 @@ export class DocumentLinks extends Component {
 
   hasPermissions = eitem => {
     if (!eitem.open_access) {
-      return sessionManager.authenticated;
+      return sessionManager.isAuthenticated();
     }
     return eitem.open_access;
   };
@@ -58,7 +58,7 @@ export class DocumentLinks extends Component {
   renderEmptyMessage = () => {
     return (
       <p>
-        {sessionManager.authenticated
+        {sessionManager.isAuthenticated()
           ? 'No files available.'
           : 'Please login to see restricted files.'}
       </p>

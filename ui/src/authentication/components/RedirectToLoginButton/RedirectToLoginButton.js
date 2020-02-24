@@ -6,8 +6,21 @@ import { goTo } from '@history';
 
 export class RedirectToLoginButton extends Component {
   render() {
-    const { content, nextUrl, ...restProps } = this.props;
-    return (
+    const { content, nextUrl, renderClass, ...restProps } = this.props;
+    const RenderComponent = renderClass;
+    return renderClass ? (
+      <RenderComponent
+        fluid
+        {...this.props}
+        onClick={() => {
+          goTo(
+            AuthenticationRoutes.redirectAfterLogin(
+              nextUrl || window.location.pathname
+            )
+          );
+        }}
+      />
+    ) : (
       <Button
         fluid
         content={content}

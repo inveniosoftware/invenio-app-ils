@@ -8,6 +8,10 @@ class SessionManager {
     return this.user === null;
   }
 
+  isAuthenticated() {
+    return !this.isAnonymous();
+  }
+
   setAnonymous() {
     this.user = null;
   }

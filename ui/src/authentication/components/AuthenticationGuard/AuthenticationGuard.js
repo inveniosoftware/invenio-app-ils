@@ -14,6 +14,7 @@ export default class AuthenticationGuard extends Component {
       user,
       isAnonymous,
       isLoading,
+      silent,
       ...restParams
     } = this.props;
 
@@ -34,11 +35,12 @@ export default class AuthenticationGuard extends Component {
     }
 
     if (!isAnonymous && !authenticationService.hasRoles(user, roles)) {
-      this.props.sendErrorNotification(
-        'Unauthorized',
-        `You have no permission to access the page ${window.location.pathname}`
-      );
-
+      if (!silent) {
+        this.props.sendErrorNotification(
+          'Unauthorized',
+          `You have no permission to access the page ${window.location.pathname}`
+        );
+      }
       return UnAuthorized ? <UnAuthorized /> : null;
     }
     return <Authorized {...restParams} />;
