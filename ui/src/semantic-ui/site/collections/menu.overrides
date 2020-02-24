@@ -2,6 +2,20 @@
          Site Overrides
 *******************************/
 
+.ui.inverted.menu {
+ .item {
+   > a:not(.ui).ils-menu-login-button {
+     background: rgba(0, 0, 0, 0.3);
+     border-radius: @defaultBorderRadius !important;
+
+   }
+    i.icon {
+      height: unset;
+    }
+  }
+}
+
+
 .frontsite {
 
   .ui.menu {
@@ -79,8 +93,10 @@
           border-left-width: @secondaryPointingBorderWidth;
 
           border-right-width: 0 !important;
-          &.active{
-             border-color: @secondaryPointingActiveBorderColor;
+
+          &.active {
+            border-color: @secondaryPointingActiveBorderColor;
+
             &:hover {
               border-color: @secondaryPointingActiveHoverBorderColor;
               color: @secondaryPointingActiveHoverTextColor;

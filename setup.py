@@ -72,7 +72,6 @@ setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
 install_requires = [
     "arrow>=0.15.0",
     "Flask-BabelEx>=0.9.3",
-    "Flask-CeleryExt==0.3.3",
     "Flask-Debugtoolbar>=0.10.1",
     "Flask-Login==0.4.1",
     "invenio[base,auth]==3.2.0a9",
@@ -84,15 +83,14 @@ install_requires = [
     "invenio-records>=1.3.0,<1.4.0",
     # `files` bundle with only invenio-files-rest
     "invenio-files-rest>=1.0.6,<1.1.0",
-    # upgraded packages
     "invenio-app>=1.2.3,<1.3.0",
     "invenio-assets>=1.1.3,<1.2.0",
-    "invenio-celery==1.1.1",
+    "invenio-celery>=1.1.2",
     "invenio-i18n>=1.1.0,<1.2.0",
     "invenio-userprofiles>=1.0.1,<1.1.0",
     # extra
     "invenio-circulation>=1.0.0a21,<1.1.0",
-    "invenio-stats>=1.0.0a15",
+    "invenio-stats>=1.0.0a16",
     "invenio-pidrelations>=1.0.0a6,<1.1.0",
     "invenio-opendefinition>=1.0.0a9,<1.1.0",
     "sentry-sdk>=0.10.2",

@@ -17,6 +17,7 @@ import { DocumentAuthors, DocumentItemCover } from '@components/Document';
 import { toShortDate } from '@api/date';
 import { ILSItemPlaceholder } from '@components/ILSPlaceholder/ILSPlaceholder';
 import { NoResultsMessage } from '../../components/NoResultsMessage';
+import get from 'lodash/get';
 
 class LoanRequestListEntry extends Component {
   render() {
@@ -46,7 +47,11 @@ class LoanRequestListEntry extends Component {
                 Requested on {toShortDate(loan.metadata.request_start_date)}
               </Item.Meta>
               <Item.Description>
-                {loan.metadata.document.circulation.has_items_on_site > 0 ? (
+                {get(
+                  loan,
+                  'metadata.document.circulation.has_items_on_site',
+                  0
+                ) > 0 ? (
                   <>
                     You can also read it on-site only
                     <Popup
