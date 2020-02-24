@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
+import _has from 'lodash/has';
 import {
   Accordion,
   Checkbox,
@@ -218,7 +219,8 @@ export default class DocumentItems extends Component {
   };
 
   render() {
-    if (!isEmpty(this.props.documentDetails.metadata.items.on_shelf)) {
+    const { items } = this.props.documentDetails.metadata;
+    if (_has(items, 'on_shelf') && !isEmpty(items.on_shelf)) {
       return (
         <>
           <Divider horizontal>Where to find</Divider>

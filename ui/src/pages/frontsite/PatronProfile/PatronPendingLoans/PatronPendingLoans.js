@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error, Pagination } from '@components';
 import {
+  Button,
   Container,
   Grid,
   Header,
   Icon,
   Item,
+  Modal,
   Popup,
-  Button,
 } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 import { Link } from 'react-router-dom';
@@ -17,6 +18,8 @@ import { DocumentAuthors, DocumentItemCover } from '@components/Document';
 import { toShortDate } from '@api/date';
 import { ILSItemPlaceholder } from '@components/ILSPlaceholder/ILSPlaceholder';
 import { NoResultsMessage } from '../../components/NoResultsMessage';
+import { ES_DELAY } from '@config';
+import _get from 'lodash/get';
 
 class LoanRequestListEntry extends Component {
   render() {
@@ -73,7 +76,14 @@ class LoanRequestListEntry extends Component {
               computer={8}
             >
               <Item.Description>
-                <Button size="small">Cancel</Button>
+                {loan.availableActions.cancel && (
+                  <Button
+                    size="small"
+                    onClick={() => this.props.onCancelButton(loan)}
+                  >
+                    Cancel
+                  </Button>
+                )}
               </Item.Description>
             </Grid.Column>
           </Grid>
@@ -85,14 +95,19 @@ class LoanRequestListEntry extends Component {
 
 LoanRequestListEntry.propTypes = {
   loan: PropTypes.object.isRequired,
+  onCancelButton: PropTypes.func.isRequired,
 };
 
 export default class PatronPendingLoans extends Component {
   constructor(props) {
     super(props);
     this.fetchPatronPendingLoans = this.props.fetchPatronPendingLoans;
+    this.performLoanAction = this.props.performLoanAction;
     this.patronPid = this.props.patronPid;
-    this.state = { activePage: 1 };
+    this.state = {
+      activePage: 1,
+      cancelModal: { isOpen: false, data: null },
+    };
   }
 
   componentDidMount() {
@@ -104,28 +119,26 @@ export default class PatronPendingLoans extends Component {
     this.setState({ activePage: activePage });
   };
 
-  paginationComponent = () => {
-    return (
-      <Pagination
-        currentPage={this.state.activePage}
-        loading={this.props.isLoading}
-        totalResults={this.props.data.total}
-        onPageChange={this.onPageChange}
-      />
-    );
-  };
-
   renderList(data) {
     if (!isEmpty(data.hits)) {
       return (
         <>
           <Item.Group divided>
             {data.hits.map(entry => (
-              <LoanRequestListEntry key={entry.metadata.pid} loan={entry} />
+              <LoanRequestListEntry
+                key={entry.metadata.pid}
+                loan={entry}
+                onCancelButton={this.showCancelModal}
+              />
             ))}
           </Item.Group>
           <Container textAlign={'center'}>
-            {this.paginationComponent()}
+            <Pagination
+              currentPage={this.state.activePage}
+              loading={this.props.isLoading}
+              totalResults={this.props.data.total}
+              onPageChange={this.onPageChange}
+            />
           </Container>
         </>
       );
@@ -135,6 +148,60 @@ export default class PatronPendingLoans extends Component {
         messageHeader={'No loan requests'}
         messageContent={'Currently you do not have any loan requests'}
       />
+    );
+  }
+
+  showCancelModal = loan => {
+    this.setState({ cancelModal: { isOpen: true, data: loan } });
+  };
+
+  closeCancelModal = () => {
+    this.setState({ cancelModal: { isOpen: false, data: undefined } });
+  };
+
+  onCancelRequestClick = () => {
+    this.closeCancelModal();
+    const loan = this.state.cancelModal.data;
+    this.performLoanAction(
+      _get(loan, 'availableActions.cancel'),
+      _get(loan, 'metadata.document_pid'),
+      this.patronPid,
+      {
+        item_pid: _get(loan, 'metadata.item_pid'),
+        cancelReason: 'USER_CANCEL',
+      }
+    );
+    setTimeout(() => {
+      this.fetchPatronPendingLoans(this.patronPid, this.state.activePage, 5);
+    }, ES_DELAY);
+  };
+
+  renderCancelModal() {
+    return (
+      <Modal
+        open={this.state.cancelModal.isOpen}
+        onClose={this.closeCancelModal}
+        closeIcon
+        size="small"
+      >
+        <Header
+          icon="exclamation"
+          content="Are you sure you want to cancel your request?"
+        />
+        <Modal.Content>
+          Your loan request for "
+          <strong>
+            {_get(this.state.cancelModal.data, 'metadata.document.title')}
+          </strong>
+          " will be cancelled.
+        </Modal.Content>
+        <Modal.Actions>
+          <Button onClick={this.closeCancelModal}>No, take me back</Button>
+          <Button negative onClick={() => this.onCancelRequestClick()}>
+            Yes, I am sure
+          </Button>
+        </Modal.Actions>
+      </Modal>
     );
   }
 
@@ -160,7 +227,10 @@ export default class PatronPendingLoans extends Component {
           textAlign={'center'}
         />
         <Loader isLoading={isLoading} renderElement={this.renderLoader}>
-          <Error error={error}>{this.renderList(data)}</Error>
+          <Error error={error}>
+            {this.renderList(data)}
+            {this.renderCancelModal()}
+          </Error>
         </Loader>
       </Container>
     );
