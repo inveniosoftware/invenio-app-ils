@@ -72,7 +72,7 @@ exports[`SeriesDetails tests should load the details component 1`] = `
                           </div>
                         </AccordionContent>,
                         "key": "series-documents",
-                        "title": "Literature in this series",
+                        "title": "Literature in this series (0)",
                       },
                       Object {
                         "content": <AccordionContent>

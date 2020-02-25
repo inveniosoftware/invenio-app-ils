@@ -1,11 +1,11 @@
+import testData from '@testData/items.json';
+import { mount, shallow } from 'enzyme';
 import React from 'react';
-import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import ItemDetails from '../ItemDetails';
-import testData from '@testData/items.json';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -82,6 +82,7 @@ describe('ItemDetails tests', () => {
             match={routerUrlParams}
             fetchItemDetails={mockedFetchItemDetails}
             data={{ metadata: testData[0] }}
+            deleteItem={() => {}}
           />
         </Provider>
       </BrowserRouter>

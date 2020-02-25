@@ -1,10 +1,14 @@
-import { ItemActionMenu, ItemCirculation } from './components';
-import { ItemHeader } from './ItemHeader';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Divider, Grid, Ref, Sticky } from 'semantic-ui-react';
-import { Loader, Error } from '@components';
-import { ItemMetadata, ItemPastLoans } from './components';
+import { Error, Loader } from '@components';
+import {
+  ItemActionMenu,
+  ItemCirculation,
+  ItemMetadata,
+  ItemPastLoans,
+} from './components';
+import { ItemHeader } from './ItemHeader';
 
 export default class ItemDetails extends Component {
   constructor(props) {
