@@ -1,11 +1,11 @@
-import { InfoMessage } from '@pages/backoffice';
-import { SeriesSystemInfo } from '../../components/SeriesSystemInfo';
-import { SeriesIdentifiers } from '../../components/SeriesIdentifiers';
-import { SeriesMetadata } from './';
-import React, { Component } from 'react';
-import { Header, Tab } from 'semantic-ui-react';
+import { InfoMessage } from '@pages/backoffice/components';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import ShowMore from 'react-show-more';
+import { Header, Tab } from 'semantic-ui-react';
+import { SeriesIdentifiers } from '../../components/SeriesIdentifiers';
+import { SeriesSystemInfo } from '../../components/SeriesSystemInfo';
+import { SeriesMetadata } from './';
 
 export default class SeriesMetadataTabs extends Component {
   panes = () => {

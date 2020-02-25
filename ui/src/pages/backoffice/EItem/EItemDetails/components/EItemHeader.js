@@ -5,8 +5,8 @@ import {
   DetailsHeader,
   DocumentIcon,
   EItemIcon,
-  RestrictedLabel,
-} from '@pages/backoffice';
+  OpenAccessLabel,
+} from '@pages/backoffice/components';
 import { BackOfficeRoutes } from '@routes/urls';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -28,7 +28,7 @@ export class EItemHeader extends Component {
           see document <DocumentIcon />
         </Link>
         <br />
-        <RestrictedLabel openAccess={data.metadata.open_access} />
+        <OpenAccessLabel openAccess={data.metadata.open_access} />
       </>
     );
     return (

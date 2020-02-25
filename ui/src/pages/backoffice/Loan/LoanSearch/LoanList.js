@@ -1,14 +1,14 @@
-import { DocumentIcon, ItemIcon, LoanIcon } from '@pages/backoffice';
-import React, { Component } from 'react';
-import isEmpty from 'lodash/isEmpty';
-import { Grid, Header, Icon, Item, Label, List } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import { DocumentAuthors } from '@components/Document';
 import { SearchEmptyResults } from '@components/SearchControls';
-import { BackOfficeRoutes } from '@routes/urls';
-import { OverdueLoanSendMailModal } from '../../components/OverdueLoanSendMailModal';
 import { invenioConfig } from '@config';
+import { DocumentIcon, ItemIcon, LoanIcon } from '@pages/backoffice/components';
+import { BackOfficeRoutes } from '@routes/urls';
+import isEmpty from 'lodash/isEmpty';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Grid, Header, Icon, Item, Label, List } from 'semantic-ui-react';
 import { LoanLinkToItem } from '../../components/Loan';
+import { OverdueLoanSendMailModal } from '../../components/OverdueLoanSendMailModal';
 
 class LoanDates extends Component {
   render() {

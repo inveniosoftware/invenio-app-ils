@@ -1,12 +1,16 @@
 import { DocumentAuthors } from '@components';
 import { SearchEmptyResults } from '@components/SearchControls';
-import { DocumentIcon, EItemIcon } from '@pages/backoffice';
+import {
+  DocumentIcon,
+  EItemIcon,
+  OpenAccessLabel,
+} from '@pages/backoffice/components';
 import { BackOfficeRoutes } from '@routes/urls';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Grid, Icon, Item, Label, List } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Grid, Icon, Item, List } from 'semantic-ui-react';
 
 class EItemListEntry extends Component {
   render() {
@@ -65,13 +69,10 @@ class EItemListEntry extends Component {
               <List>
                 <List.Item>
                   <List.Content>
-                    {eitem.metadata.open_access && (
-                      <>
-                        <Label color="green" size="tiny">
-                          <Icon name="lock open" /> open access
-                        </Label>
-                      </>
-                    )}
+                    <OpenAccessLabel
+                      openAccess={eitem.metadata.open_access}
+                      size="tiny"
+                    />
                   </List.Content>
                 </List.Item>
               </List>

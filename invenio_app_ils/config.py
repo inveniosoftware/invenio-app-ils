@@ -57,18 +57,7 @@ from .facets import default_value_when_missing_filter, keyed_range_filter, \
     not_empty_object_or_list_filter, overdue_agg, overdue_loans_filter
 from .records.views import UserInfoResource
 
-from .api import (  # isort:skip
-    can_item_circulate,
-    document_exists,
-    get_document_pid_by_item_pid,
-    get_item_pids_by_document_pid,
-    get_location_pid_by_item_pid,
-    item_exists,
-    patron_exists,
-)
-
 from invenio_circulation.config import _LOANID_CONVERTER  # isort:skip
-
 from invenio_circulation.pidstore.pids import (  # isort:skip
     CIRCULATION_LOAN_FETCHER,
     CIRCULATION_LOAN_MINTER,
@@ -82,6 +71,15 @@ from invenio_circulation.transitions.transitions import (  # isort:skip
     ToCancelled,
 )
 
+from .api import (  # isort:skip
+    can_item_circulate,
+    document_exists,
+    get_document_pid_by_item_pid,
+    get_item_pids_by_document_pid,
+    get_location_pid_by_item_pid,
+    item_exists,
+    patron_exists,
+)
 from .circulation.utils import (  # isort:skip
     circulation_default_extension_duration,
     circulation_default_extension_max_count,
@@ -124,7 +122,6 @@ from .pidstore.pids import (  # isort:skip
     VOCABULARY_PID_MINTER,
     VOCABULARY_PID_TYPE,
 )
-
 from .records.api import (  # isort:skip
     EItem,
     InternalLocation,
@@ -1089,7 +1086,7 @@ FACET_VENDOR_LIMIT = 5
 RECORDS_REST_FACETS = dict(
     documents=dict(  # DocumentSearch.Meta.index
         aggs=dict(
-            access=dict(terms=dict(field="open_access")),
+            access=dict(terms=dict(field="restricted")),
             tag=dict(terms=dict(field="tags", size=FACET_TAG_LIMIT)),
             language=dict(terms=dict(field="languages")),
             doctype=dict(terms=dict(field="document_type")),
@@ -1105,7 +1102,7 @@ RECORDS_REST_FACETS = dict(
             medium=dict(terms=dict(field="stock.mediums")),
         ),
         post_filters=dict(
-            access=terms_filter("open_access"),
+            access=terms_filter("restricted"),
             doctype=terms_filter("document_type"),
             language=terms_filter("languages"),
             tag=terms_filter("tags"),

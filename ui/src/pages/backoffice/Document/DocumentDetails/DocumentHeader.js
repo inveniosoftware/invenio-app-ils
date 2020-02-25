@@ -5,7 +5,10 @@ import {
   DocumentTags,
   DocumentTitle,
 } from '@components/Document';
-import { DetailsHeader, RestrictedLabel } from '@pages/backoffice';
+import {
+  DetailsHeader,
+  RestrictedAccessLabel,
+} from '@pages/backoffice/components';
 import { DocumentCreatedBy } from '@pages/backoffice/Document/DocumentDetails/components';
 import { FrontSiteRoutes } from '@routes/urls';
 import React, { Component } from 'react';
@@ -29,7 +32,7 @@ export class DocumentHeader extends Component {
         <br />
         <label className="muted">Created on</label> {toShortDate(data.created)}
         <br />
-        <RestrictedLabel openAccess={data.metadata.open_access} />
+        <RestrictedAccessLabel isRestricted={data.metadata.restricted} />
         <Link to={FrontSiteRoutes.documentDetailsFor(data.metadata.pid)}>
           public view <Icon name="linkify" />
         </Link>

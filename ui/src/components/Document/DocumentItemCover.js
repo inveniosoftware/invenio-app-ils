@@ -6,16 +6,17 @@ import { Item } from 'semantic-ui-react';
 import _get from 'lodash/get';
 
 export default class DocumentItemCover extends Component {
-  getLabel = metadata => {
-    const hasOpenAccess = _get(metadata, 'open_access', false);
-    return hasOpenAccess
-      ? null
-      : {
+  getLabel = () => {
+    const { metadata } = this.props;
+    const isRestricted = _get(metadata, 'restricted', false);
+    return isRestricted
+      ? {
           corner: 'left',
           color: 'red',
           icon: 'lock',
           title: `This record is restricted`,
-        };
+        }
+      : null;
   };
 
   render() {
@@ -27,7 +28,7 @@ export default class DocumentItemCover extends Component {
         size={size}
         src={getCover(coverUrl)}
         onError={e => (e.target.style.display = 'none')}
-        label={this.getLabel(metadata)}
+        label={this.getLabel()}
         {...uiProps}
       />
     );

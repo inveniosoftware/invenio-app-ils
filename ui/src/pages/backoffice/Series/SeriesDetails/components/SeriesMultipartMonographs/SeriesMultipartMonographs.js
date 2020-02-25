@@ -1,13 +1,13 @@
-import { InfoMessage } from '@pages/backoffice';
+import { series as seriesApi } from '@api';
+import { Error, Loader, ResultsTable, SeriesAuthors } from '@components';
+import { InfoMessage } from '@pages/backoffice/components';
+import { SeeAllButton } from '@pages/backoffice/components/buttons';
+import { BackOfficeRoutes } from '@routes/urls';
+import _get from 'lodash/get';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
-import { Loader, Error, ResultsTable, SeriesAuthors } from '@components';
-import { series as seriesApi } from '@api';
-import { BackOfficeRoutes } from '@routes/urls';
-import { SeeAllButton } from '@pages/backoffice/components/buttons';
-import _get from 'lodash/get';
 
 export default class SeriesMultipartMonographs extends Component {
   constructor(props) {

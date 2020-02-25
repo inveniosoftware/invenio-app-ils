@@ -1,13 +1,13 @@
 import { toShortDate } from '@api/date';
 import { DocumentAuthors } from '@components';
 import { DocumentLanguages, DocumentTags } from '@components/Document';
-import { MetadataTable } from '@pages/backoffice';
+import { MetadataTable } from '@pages/backoffice/components';
 import { UrlList } from '@pages/backoffice/components/UrlList';
 import { BackOfficeRoutes } from '@routes/urls';
 import { isEmpty } from 'lodash';
 import get from 'lodash/get';
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Divider, Header } from 'semantic-ui-react';
 

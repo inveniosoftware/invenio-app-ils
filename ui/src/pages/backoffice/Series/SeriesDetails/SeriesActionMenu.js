@@ -1,7 +1,7 @@
+import { EditButton } from '@pages/backoffice/components';
 import { SeriesDeleteModal } from '@pages/backoffice/Series/SeriesDetails/components';
-import PropTypes from 'prop-types';
-import { EditButton } from '@pages/backoffice';
 import { BackOfficeRoutes } from '@routes/urls';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
 import { Divider, Menu } from 'semantic-ui-react';

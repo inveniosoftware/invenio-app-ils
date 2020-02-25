@@ -3,7 +3,11 @@ import { recordToPidType } from '@api/utils';
 import { ESSelectorModal } from '@components/ESSelector';
 import { serializePatron } from '@components/ESSelector/serializer';
 import { invenioConfig } from '@config';
-import { DeleteRecordModal, EditButton, LoanIcon } from '@pages/backoffice';
+import {
+  DeleteRecordModal,
+  EditButton,
+  LoanIcon,
+} from '@pages/backoffice/components';
 import {
   ScrollingMenu,
   ScrollingMenuItem,

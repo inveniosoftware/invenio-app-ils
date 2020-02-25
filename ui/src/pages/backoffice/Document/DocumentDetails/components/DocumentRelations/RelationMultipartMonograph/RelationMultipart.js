@@ -1,11 +1,11 @@
 import { Error, Loader, ResultsTable } from '@components';
-import { InfoMessage, SeriesDetailsLink } from '@pages/backoffice';
-import { RelationMultipartModal } from '../RelationMultipartMonograph';
+import { InfoMessage, SeriesDetailsLink } from '@pages/backoffice/components';
 import { RelationRemover } from '@pages/backoffice/components/Relations';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Icon, Popup } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Icon, Popup } from 'semantic-ui-react';
+import { RelationMultipartModal } from '../RelationMultipartMonograph';
 
 export default class RelationMultipart extends Component {
   constructor(props) {

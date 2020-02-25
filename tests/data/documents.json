@@ -185,7 +185,7 @@
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
     "abstract": "Just an abstract",
     "document_type": "BOOK",
-    "open_access": false,
+    "restricted": true,
     "publication_year": "1950"
   },
   {
@@ -195,7 +195,7 @@
     "authors": [{ "full_name": "Buhmann, Stefan Yoshi" }],
     "abstract": "Just an abstract",
     "document_type": "BOOK",
-    "open_access": true,
+    "restricted": false,
     "publication_year": "1950"
   }
 ]

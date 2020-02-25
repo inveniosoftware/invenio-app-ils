@@ -1,4 +1,4 @@
-import { DeleteRecordModal, EditButton } from '@pages/backoffice';
+import { DeleteRecordModal, EditButton } from '@pages/backoffice/components';
 import {
   ScrollingMenu,
   ScrollingMenuItem,

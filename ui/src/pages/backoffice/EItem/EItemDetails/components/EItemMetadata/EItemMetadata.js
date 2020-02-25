@@ -1,4 +1,4 @@
-import { MetadataTable } from '@pages/backoffice';
+import { MetadataTable } from '@pages/backoffice/components';
 import { UrlList } from '@pages/backoffice/components/UrlList';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';

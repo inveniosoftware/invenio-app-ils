@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Sidebar } from '@pages/backoffice';
-import BackOfficeRoutesSwitch from './BackOfficeRoutesSwitch';
 import { Notifications } from '@components/Notifications';
+import { Sidebar } from '@pages/backoffice/components/Sidebar';
+import React, { Component } from 'react';
+import BackOfficeRoutesSwitch from './BackOfficeRoutesSwitch';
 
 export class BackOffice extends Component {
   render() {

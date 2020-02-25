@@ -1,4 +1,3 @@
-export * from './components';
 export { Home } from './Home';
 export { DocumentDetails, DocumentSearch, DocumentEditor } from './Document';
 export {

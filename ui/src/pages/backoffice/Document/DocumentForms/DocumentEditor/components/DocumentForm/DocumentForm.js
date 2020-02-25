@@ -1,39 +1,39 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { getIn } from 'formik';
+import { documentRequest as documentRequestApi } from '@api/documentRequests/documentRequest';
+import { document as documentApi } from '@api/documents/document';
+import { invenioConfig } from '@config';
 import {
   BaseForm,
-  StringField,
-  TextField,
   BooleanField,
   GroupField,
   SelectField,
+  StringField,
+  TextField,
+  UrlsField,
 } from '@forms';
-import { document as documentApi } from '@api/documents/document';
-import { documentRequest as documentRequestApi } from '@api/documentRequests/documentRequest';
-import { BackOfficeRoutes } from '@routes/urls';
 import { goTo } from '@history';
-import { UrlsField } from '@forms';
+import { BackOfficeRoutes } from '@routes/urls';
+import { getIn } from 'formik';
+import _get from 'lodash/get';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {
   AlternativeAbstracts,
-  AuthorsField,
-  TableOfContent,
   AlternativeIdentifiers,
   AlternativeTitles,
-  Subjects,
-  LicensesField,
-  Identifiers,
+  AuthorsField,
   Copyrights,
+  Identifiers,
+  LicensesField,
   PublicationInfoField,
+  Subjects,
+  TableOfContent,
   TagsField,
 } from './components';
-import documentSubmitSerializer from './documentSubmitSerializer';
-import { InternalNotes } from './components/InternalNotes';
 import { ConferenceInfoField } from './components/ConferenceInfoField';
 import { Imprint } from './components/Imprint';
+import { InternalNotes } from './components/InternalNotes';
 import { Keywords } from './components/Keywords';
-import { invenioConfig } from '@config';
-import _get from 'lodash/get';
+import documentSubmitSerializer from './documentSubmitSerializer';
 
 export class DocumentForm extends Component {
   get buttons() {
@@ -133,7 +133,7 @@ export class DocumentForm extends Component {
         />
         <AuthorsField fieldPath="authors" />
         <BooleanField label="Other authors" fieldPath="other_authors" toggle />
-        <BooleanField label="Open access" fieldPath="open_access" toggle />
+        <BooleanField label="Restricted" fieldPath="restricted" toggle />
         <BooleanField label="Document is curated" fieldPath="curated" toggle />
         <TextField label="Abstract" fieldPath="abstract" rows={5} optimized />
         <TextField label="Notes" fieldPath="note" rows={5} optimized />

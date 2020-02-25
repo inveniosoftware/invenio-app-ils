@@ -1,9 +1,9 @@
-import { MetadataTable } from '@pages/backoffice';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Header, List } from 'semantic-ui-react';
+import { MetadataTable } from '@pages/backoffice/components';
 import capitalize from 'lodash/capitalize';
 import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Header, List } from 'semantic-ui-react';
 
 export class DocumentExtras extends Component {
   renderConferenceInfo = () => {

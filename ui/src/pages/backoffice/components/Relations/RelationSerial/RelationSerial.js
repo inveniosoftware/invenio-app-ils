@@ -1,13 +1,13 @@
 import { Error, Loader } from '@components';
-import { InfoMessage, SeriesDetailsLink } from '@pages/backoffice';
+import { InfoMessage, SeriesDetailsLink } from '@pages/backoffice/components';
 import {
-  RelationRemover,
   ExistingRelations,
+  RelationRemover,
 } from '@pages/backoffice/components/Relations';
-import { RelationSerialModal } from '../RelationSerial';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { RelationSerialModal } from '../RelationSerial';
 
 export default class RelationSerial extends Component {
   viewDetails = ({ row }) => {

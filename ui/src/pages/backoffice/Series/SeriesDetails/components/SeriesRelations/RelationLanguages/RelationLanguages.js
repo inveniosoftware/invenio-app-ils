@@ -1,14 +1,14 @@
 import { Error, Loader } from '@components';
 import { SeriesLanguages } from '@components/Series';
-import { InfoMessage, SeriesDetailsLink } from '@pages/backoffice';
-import { RelationLanguagesModal } from '../RelationLanguages';
+import { InfoMessage, SeriesDetailsLink } from '@pages/backoffice/components';
 import {
-  RelationRemover,
   ExistingRelations,
+  RelationRemover,
 } from '@pages/backoffice/components/Relations';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { RelationLanguagesModal } from '../RelationLanguages';
 
 export default class RelationLanguage extends Component {
   viewDetails = ({ row }) => {

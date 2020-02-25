@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Loader, Error, ResultsTable } from '@components';
 import { eitem as eItemApi } from '@api';
-import { BackOfficeRoutes } from '@routes/urls';
+import { Error, Loader, ResultsTable } from '@components';
+import { OpenAccessLabel } from '@pages/backoffice/components';
 import { SeeAllButton } from '@pages/backoffice/components/buttons';
-import { Label } from 'semantic-ui-react';
+import { BackOfficeRoutes } from '@routes/urls';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class DocumentEItems extends Component {
   componentDidMount() {
@@ -39,9 +39,7 @@ export default class DocumentEItems extends Component {
 
   accessFormatter = ({ row }) => {
     return (
-      row.metadata.open_access === true && (
-        <Label color="green">Open access</Label>
-      )
+      <OpenAccessLabel openAccess={row.metadata.open_access} size="tiny" />
     );
   };
 
@@ -58,7 +56,7 @@ export default class DocumentEItems extends Component {
         formatter: this.filesFieldFormatter,
       },
       {
-        title: 'Open access',
+        title: 'Access',
         field: 'metadata.open_access',
         formatter: this.accessFormatter,
       },

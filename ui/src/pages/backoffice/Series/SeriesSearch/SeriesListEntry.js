@@ -1,13 +1,13 @@
 import { SeriesAuthors } from '@components';
 import { DocumentLanguages, DocumentTags } from '@components/Document';
-import { DocumentIcon } from '@pages/backoffice';
+import { DocumentIcon } from '@pages/backoffice/components';
 import { BackOfficeRoutes } from '@routes/urls';
+import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
-import _get from 'lodash/get';
 
 export class SeriesListEntry extends Component {
   renderMiddleColumn = series => {
