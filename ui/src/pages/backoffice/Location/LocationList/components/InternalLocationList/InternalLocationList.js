@@ -19,8 +19,9 @@ export default class InternalLocationList extends Component {
     this.fetchInternalLocations();
   }
 
-  handleOnRefClick(ilocPid) {
-    // TODO: navigate to item edit form
+  handleOnRefClick(itemPid) {
+    const navUrl = BackOfficeRoutes.itemEditFor(itemPid);
+    window.open(navUrl, `_edit_item_${itemPid}`);
   }
 
   createRefProps(ilocPid) {

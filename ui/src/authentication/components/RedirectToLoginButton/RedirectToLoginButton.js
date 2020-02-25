@@ -10,7 +10,6 @@ export class RedirectToLoginButton extends Component {
     const RenderComponent = renderClass;
     return renderClass ? (
       <RenderComponent
-        fluid
         {...this.props}
         onClick={() => {
           goTo(

@@ -15,8 +15,8 @@ from datetime import timedelta
 
 import arrow
 from flask import url_for
-from invenio_accounts.models import User
-from invenio_accounts.testutils import login_user_via_session
+
+from .helpers import user_login, user_logout
 
 NEW_LOAN = {
     "document_pid": "CHANGE ME IN EACH TEST",
@@ -29,12 +29,6 @@ NEW_LOAN = {
 }
 
 
-def _login(client, user):
-    """Login user and return url."""
-    login_user_via_session(client, user=User.query.get(user.id))
-    return user
-
-
 def test_anonymous_cannot_request_loan(client, json_headers, testdata):
     """Test that anonymous users cannot request a loan."""
     url = url_for("invenio_app_ils_circulation.loan_request")
@@ -45,7 +39,7 @@ def test_anonymous_cannot_request_loan(client, json_headers, testdata):
 def test_patron_can_request_loan(client, json_headers, users, testdata):
     """Test that a patron can request a loan."""
     url = url_for("invenio_app_ils_circulation.loan_request")
-    user = _login(client, users["patron1"])
+    user = user_login("patron1", client, users)
     params = deepcopy(NEW_LOAN)
     params["document_pid"] = "docid-3"
     params["transaction_user_pid"] = str(user.id)
@@ -57,12 +51,58 @@ def test_patron_can_request_loan(client, json_headers, users, testdata):
     assert loan["transaction_date"]
 
 
+def test_patron_can_cancel_loan(
+    client, json_headers, users, testdata, app_config
+):
+    """Test that a patron can cancel its own loan."""
+    url = url_for("invenio_app_ils_circulation.loan_request")
+    user = user_login("patron3", client, users)
+    params = deepcopy(NEW_LOAN)
+    params["document_pid"] = "docid-3"
+    params["transaction_user_pid"] = str(user.id)
+
+    # Create a Loan
+    res = client.post(url, headers=json_headers, data=json.dumps(params))
+    loan = res.get_json()
+
+    cancel_url = loan["links"]["actions"]["cancel"]
+    meta = loan["metadata"]
+    payload = {
+        "document_pid": meta["document_pid"],
+        "patron_pid": meta["patron_pid"],
+        "transaction_location_pid": meta["transaction_location_pid"],
+        "transaction_user_pid": meta["transaction_user_pid"],
+        "cancel_reason": "USER_CANCEL"
+    }
+    assert res.status_code == 202
+
+    # Try to cancel a loan that belongs to patron3 as patron1
+    user_logout(client)
+    user_login("patron1", client, users)
+    cancel_res = client.post(
+        cancel_url,
+        headers=json_headers,
+        data=json.dumps(payload)
+    )
+    assert cancel_res.status_code == 403
+
+    # Try to cancel a loan that belongs to patron3 as patron3
+    user_logout(client)
+    user_login("patron3", client, users)
+    cancel_res = client.post(
+        cancel_url,
+        headers=json_headers,
+        data=json.dumps(payload)
+    )
+    assert cancel_res.status_code == 202
+
+
 def test_patron_can_request_loan_with_or_without_end_date(
     app, client, json_headers, users, testdata
 ):
     """Test that a patron can request a loan [with/withou] end date."""
     url = url_for("invenio_app_ils_circulation.loan_request")
-    user = _login(client, users["patron1"])
+    user = user_login("patron1", client, users)
 
     now = arrow.utcnow()
     start_date = (now + timedelta(days=3)).date().isoformat()
@@ -122,7 +162,7 @@ def test_request_loan_with_or_without_delivery(
 ):
     """Test that loan request with or without delivery."""
     url = url_for("invenio_app_ils_circulation.loan_request")
-    user = _login(client, users["patron1"])
+    user = user_login("patron1", client, users)
 
     previous_dev_methods = app.config["CIRCULATION_DELIVERY_METHODS"]
     app.config["CIRCULATION_DELIVERY_METHODS"] = {}

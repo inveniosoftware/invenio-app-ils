@@ -5,6 +5,8 @@ import { recordToPidType } from '@api/utils';
 import _get from 'lodash/get';
 
 export class DocumentStats extends Component {
+  _isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -14,7 +16,12 @@ export class DocumentStats extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.fetchStats();
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   fetchStats = async () => {
@@ -30,7 +37,9 @@ export class DocumentStats extends Component {
         count: '-',
         unique_count: '-',
       });
-      this.setState({ downloads: downloads, views: views });
+      if (this._isMounted) {
+        this.setState({ downloads: downloads, views: views });
+      }
     } catch (error) {
       console.warn(error);
     }

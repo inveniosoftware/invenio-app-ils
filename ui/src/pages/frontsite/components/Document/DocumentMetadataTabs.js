@@ -6,6 +6,7 @@ import { DocumentTableOfContent } from './DocumentTableOfContent';
 import { DocumentConference } from './DocumentConference';
 import { DocumentLinks } from './DocumentLinks';
 import { Notes } from '../Notes';
+import _get from 'lodash/get';
 
 export class DocumentMetadataTabs extends Component {
   constructor(props) {
@@ -65,8 +66,8 @@ export class DocumentMetadataTabs extends Component {
       },
     ];
 
-    const eitems = this.document.eitems;
-    if (eitems.total > 0) {
+    const { eitems } = this.document;
+    if (_get(eitems, 'total', 0) > 0) {
       panes.push({
         menuItem: 'Files',
         render: () => (
