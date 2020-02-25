@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Loader, Error, ResultsTable } from '@components';
+import { file as fileApi } from '@api';
+import { Error, Loader, ResultsTable } from '@components';
+import { invenioConfig } from '@config';
+import { InfoMessage } from '@pages/backoffice/components';
+import { DownloadButton } from '@pages/backoffice/components/buttons';
+import DeleteRecordModal from '@pages/backoffice/components/DeleteRecordModal/DeleteRecordModal';
 import _get from 'lodash/get';
 import prettyBytes from 'pretty-bytes';
-import { Icon, Message } from 'semantic-ui-react';
-import { file as fileApi } from '@api';
-import { DownloadButton } from '@pages/backoffice/components/buttons';
-import UploadButton from './UploadButton';
-import { invenioConfig } from '@config';
-import DeleteRecordModal from '@pages/backoffice/components/DeleteRecordModal/DeleteRecordModal';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Header, Icon, Segment } from 'semantic-ui-react';
 
 export default class EItemFiles extends Component {
   constructor(props) {
@@ -18,20 +18,6 @@ export default class EItemFiles extends Component {
 
   onDelete = row => {
     this.props.deleteFile(row.bucket, row.key);
-  };
-
-  onSelectFile = file => {
-    if (this.props.files.length >= this.maxFiles) {
-      this.props.sendErrorNotification(
-        'Failed to upload file',
-        `An e-item cannot have more than ${this.maxFiles} files.`
-      );
-    } else {
-      const { eitemDetails } = this.props;
-      const pid = eitemDetails.pid;
-      const bucket = eitemDetails.metadata.bucket_id;
-      this.props.uploadFile(pid, bucket, file);
-    }
   };
 
   actionsFormatter = ({ row }) => {
@@ -46,13 +32,6 @@ export default class EItemFiles extends Component {
       </>
     );
   };
-
-  prepareData(files) {
-    return files.map(file => ({
-      id: file.key,
-      ...file,
-    }));
-  }
 
   filenameFormatter = ({ row }) => {
     const filename = row.key;
@@ -78,19 +57,8 @@ export default class EItemFiles extends Component {
     );
   };
 
-  renderEmptyResults() {
-    return (
-      <Message info icon data-test="no-results">
-        <Message.Content>
-          <Message.Header>No attached files</Message.Header>
-          Upload a file to attach it to the E-Item.
-        </Message.Content>
-      </Message>
-    );
-  }
-
-  renderTable(data) {
-    const columns = [
+  tableColumns() {
+    return [
       {
         title: 'Filename',
         field: 'key',
@@ -110,27 +78,38 @@ export default class EItemFiles extends Component {
         formatter: this.actionsFormatter,
       },
     ];
-    return (
-      <ResultsTable
-        data={data}
-        columns={columns}
-        totalHitsCount={data.length}
-        title={'Attached files'}
-        showMaxRows={this.maxFiles}
-        renderEmptyResultsElement={this.renderEmptyResults}
-      />
-    );
   }
 
   render() {
     const { files, isFilesLoading, error } = this.props;
     return (
-      <Loader isLoading={isFilesLoading}>
-        <Error error={error}>
-          {this.renderTable(this.prepareData(files))}
-          <UploadButton onSelectFile={this.onSelectFile} />
-        </Error>
-      </Loader>
+      <>
+        <Header as="h3" attached="top">
+          Files
+        </Header>
+        <Segment
+          attached
+          className="bo-metadata-segment no-padding"
+          id="eitem-files"
+        >
+          <Loader isLoading={isFilesLoading}>
+            <Error error={error}>
+              <ResultsTable
+                data={files}
+                columns={this.tableColumns()}
+                totalHitsCount={files.length}
+                showMaxRows={this.maxFiles}
+                renderEmptyResultsElement={() => (
+                  <InfoMessage
+                    content="Upload a file to attach it to this electronic item"
+                    header="No uploaded files"
+                  />
+                )}
+              />
+            </Error>
+          </Loader>
+        </Segment>
+      </>
     );
   }
 }

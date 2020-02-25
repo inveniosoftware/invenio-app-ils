@@ -15,3 +15,4 @@ export { DetailsHeader } from './DetailsHeader';
 export { KeyValueTable } from './KeyValueTable';
 export { SeriesDetailsLink, DocumentDetailsLink } from './buttons';
 export { InfoMessage } from './InfoMessage';
+export { RestrictedLabel } from './RestrictedLabel';

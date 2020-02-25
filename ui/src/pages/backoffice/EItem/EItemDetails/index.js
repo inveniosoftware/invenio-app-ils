@@ -5,6 +5,7 @@ import EItemDetailsComponent from './EItemDetails';
 const mapStateToProps = state => ({
   isLoading: state.eitemDetails.isLoading,
   error: state.eitemDetails.error,
+  data: state.eitemDetails.data,
 });
 
 const mapDispatchToProps = dispatch => ({

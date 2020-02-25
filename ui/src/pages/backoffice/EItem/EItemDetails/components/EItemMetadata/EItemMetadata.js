@@ -1,10 +1,9 @@
-import React from 'react';
-import { Component } from 'react';
+import { MetadataTable } from '@pages/backoffice';
+import { UrlList } from '@pages/backoffice/components/UrlList';
 import PropTypes from 'prop-types';
-import { Grid, Segment, Container, Header, Table } from 'semantic-ui-react';
-import { EditButton } from '@pages/backoffice/components/buttons';
-import { DeleteRecordModal } from '@pages/backoffice/components/DeleteRecordModal';
-import { BackOfficeRoutes } from '@routes/urls';
+import React, { Component } from 'react';
+import ShowMore from 'react-show-more';
+import { Grid, Header, Segment } from 'semantic-ui-react';
 
 export default class EItemMetadata extends Component {
   constructor(props) {
@@ -12,82 +11,56 @@ export default class EItemMetadata extends Component {
     this.eitemPid = this.props.eitemDetails.metadata.pid;
   }
 
-  renderUrlLinks = urls =>
-    urls.map((url, index) => (
-      <a
-        href={url.value}
-        key={url.value}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Link {index + 1}
-      </a>
-    ));
-
-  renderHeader = () => (
-    <Grid.Row>
-      <Grid.Column width={10} verticalAlign={'middle'}>
-        <Header as="h1">EItem - {this.eitemPid}</Header>
-      </Grid.Column>
-      <Grid.Column width={6} textAlign={'right'}>
-        <EditButton to={BackOfficeRoutes.eitemEditFor(this.eitemPid)} />
-        <DeleteRecordModal
-          deleteHeader={`Are you sure you want to delete the EItem record
-            with ID ${this.eitemPid}?`}
-          onDelete={() => this.props.deleteEItem(this.eitemPid)}
-        />
-      </Grid.Column>
-    </Grid.Row>
-  );
-
   render() {
     const { eitemDetails } = this.props;
 
-    return (
-      <Segment className="eitem-metadata">
-        <Grid padded columns={2}>
-          {this.renderHeader()}
-          <Grid.Row>
-            <Grid.Column>
-              <Table basic="very" definition className="metadata-table">
-                <Table.Body>
-                  <Table.Row>
-                    <Table.Cell>Document</Table.Cell>
-                    <Table.Cell>
-                      {eitemDetails.metadata.document_pid}
-                    </Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Available urls</Table.Cell>
-                    <Table.Cell>
-                      {this.renderUrlLinks(eitemDetails.metadata.urls || [])}
-                    </Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Open access</Table.Cell>
-                    <Table.Cell>
-                      {eitemDetails.metadata.open_access ? 'Yes' : 'No'}
-                    </Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Internal notes</Table.Cell>
-                    <Table.Cell>
-                      {eitemDetails.metadata.internal_notes}
-                    </Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              </Table>
-            </Grid.Column>
+    const metadata = [
+      { name: 'Document PID', value: eitemDetails.metadata.document_pid },
+      {
+        name: 'Open access',
+        value: eitemDetails.metadata.open_access ? 'Yes' : 'No',
+      },
+      {
+        name: 'Available urls',
+        value: <UrlList urls={eitemDetails.metadata.urls} />,
+      },
+    ];
 
-            <Grid.Column>
-              <Container>
+    return (
+      <>
+        <Header as="h3" attached="top">
+          Metadata
+        </Header>
+        <Segment attached className="eitem-metadata" id="metadata">
+          <Grid padded columns={2}>
+            <Grid.Row>
+              <Grid.Column>
+                <MetadataTable rows={metadata} />
+              </Grid.Column>
+              <Grid.Column>
                 <Header as="h4">Description</Header>
-                <p>{eitemDetails.metadata.description}</p>
-              </Container>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
+                <ShowMore
+                  lines={5}
+                  more="Show more"
+                  less="Show less"
+                  anchorClass="button-show-more"
+                >
+                  {eitemDetails.metadata.description}
+                </ShowMore>
+                <Header as="h4">Internal notes</Header>
+                <ShowMore
+                  lines={5}
+                  more="Show more"
+                  less="Show less"
+                  anchorClass="button-show-more"
+                >
+                  {eitemDetails.metadata.internal_notes}
+                </ShowMore>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Segment>
+      </>
     );
   }
 }

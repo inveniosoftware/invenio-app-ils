@@ -4,8 +4,10 @@ import { ESSelectorModal } from '@components/ESSelector';
 import { serializePatron } from '@components/ESSelector/serializer';
 import { invenioConfig } from '@config';
 import { DeleteRecordModal, EditButton, LoanIcon } from '@pages/backoffice';
-import { ScrollingMenu } from '@pages/backoffice/components/buttons/ScrollingMenu';
-import { ScrollingMenuItem } from '@pages/backoffice/components/buttons/ScrollingMenu';
+import {
+  ScrollingMenu,
+  ScrollingMenuItem,
+} from '@pages/backoffice/components/buttons/ScrollingMenu';
 import { DeleteButton } from '@pages/backoffice/components/DeleteRecordModal/components/DeleteButton';
 import { BackOfficeRoutes } from '@routes/urls';
 import React, { Component } from 'react';

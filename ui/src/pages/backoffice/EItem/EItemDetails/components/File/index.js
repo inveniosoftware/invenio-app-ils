@@ -1,25 +1,23 @@
 import { addNotification } from '@components/Notifications';
 import { connect } from 'react-redux';
-import { deleteFile, uploadFile } from '../File/state/actions';
+import { uploadFile } from './state/actions';
 
-import EItemFilesComponent from './EItemFiles';
+import UploadButtonComponent from './UploadButton';
 
 const mapStateToProps = state => ({
-  eitemDetails: state.eitemDetails.data,
-  files: state.eitemDetails.files,
-  error: state.eitemDetails.error,
   isFilesLoading: state.eitemDetails.isFilesLoading,
+  files: state.eitemDetails.files,
+  eitem: state.eitemDetails.data,
 });
 
 const mapDispatchToProps = dispatch => ({
   sendErrorNotification: (title, message) =>
     dispatch(addNotification(title, message, 'error')),
-  deleteFile: (bucket, filename) => dispatch(deleteFile(bucket, filename)),
   uploadFile: (eitemPid, bucket, file) =>
     dispatch(uploadFile(eitemPid, bucket, file)),
 });
 
-export const EItemFiles = connect(
+export const UploadButton = connect(
   mapStateToProps,
   mapDispatchToProps
-)(EItemFilesComponent);
+)(UploadButtonComponent);
