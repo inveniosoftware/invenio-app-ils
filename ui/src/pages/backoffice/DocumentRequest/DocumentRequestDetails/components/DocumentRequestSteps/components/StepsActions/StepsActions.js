@@ -63,10 +63,10 @@ const ProviderHeader = ({ provider }) => {
 };
 
 class ProviderSelection extends Component {
-  onChangeProvider = async () => {
-    const { pid } = this.props.data;
-    const resp = await documentRequestApi.pending(pid, {
-      remove_fields: ['physical_item_provider'],
+  onRemoveProvider = async () => {
+    const { pid, metadata } = this.props.data;
+    const resp = await documentRequestApi.removeProvider(pid, {
+      physical_item_provider_pid: metadata.physical_item_provider.pid,
     });
     if (resp.status === 202) {
       this.props.fetchDocumentRequestDetails(pid);
@@ -86,9 +86,8 @@ class ProviderSelection extends Component {
             <Button
               fluid
               disabled={state !== 'PENDING'}
-              name="change-provider"
-              onClick={this.onChangeProvider}
-              content={`Change provider`}
+              onClick={this.onRemoveProvider}
+              content={`Remove provider`}
             />
           </Grid.Column>
         </Grid.Row>
@@ -108,10 +107,10 @@ class ProviderSelection extends Component {
 }
 
 class DocumentSelection extends Component {
-  onChangeDocument = async () => {
+  onRemoveDocument = async () => {
     const { pid } = this.props.data;
-    const resp = await documentRequestApi.pending(pid, {
-      remove_fields: ['document_pid'],
+    const resp = await documentRequestApi.removeDocument(pid, {
+      document_pid: this.props.data.metadata.document_pid,
     });
     if (resp.status === 202) {
       this.props.fetchDocumentRequestDetails(pid);
@@ -136,9 +135,8 @@ class DocumentSelection extends Component {
             <Button
               fluid
               disabled={state !== 'PENDING'}
-              name="change-document"
-              onClick={this.onChangeDocument}
-              content={'Change document'}
+              onClick={this.onRemoveDocument}
+              content={'Remove document'}
             />
           </Grid.Column>
         </Grid.Row>

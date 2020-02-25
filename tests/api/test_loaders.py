@@ -12,8 +12,7 @@ from __future__ import unicode_literals
 import json
 
 from flask import url_for
-from invenio_accounts.models import User
-from invenio_accounts.testutils import login_user_via_session
+from tests.api.helpers import user_login, validate_response
 
 NEW_INTERNAL_LOCATION = {
     "location_pid": "locid-1",
@@ -24,30 +23,11 @@ NEW_INTERNAL_LOCATION = {
 }
 
 
-def user_login(user_id, client, users):
-    """Util function log user in."""
-    login_user_via_session(
-        client, user=User.query.get(users[user_id].id)
-    )
-
-
-def _test_response(client, req_method, url, headers, data, expected_resp_code):
-    """Util function testing response code."""
-    if data:
-        res = getattr(client, req_method)(
-            url, headers=headers, data=json.dumps(data)
-        )
-    else:
-        res = getattr(client, req_method)(url, headers=headers)
-    assert expected_resp_code == res.status_code
-    return res
-
-
 def test_post_internal_location(client, json_headers, testdata, users):
     """Test POST of internal_location."""
     user_login("admin", client, users)
     url = url_for("invenio_records_rest.ilocid_list")
-    res = _test_response(
+    res = validate_response(
         client, "post", url, json_headers, NEW_INTERNAL_LOCATION, 201
     )
     data = json.loads(res.data.decode("utf-8"))["metadata"]
@@ -59,7 +39,7 @@ def test_post_partial_internal_location(client, json_headers, testdata, users):
     user_login("admin", client, users)
     del NEW_INTERNAL_LOCATION["location_pid"]
     url = url_for("invenio_records_rest.ilocid_list")
-    _test_response(
+    validate_response(
         client, "post", url, json_headers, NEW_INTERNAL_LOCATION, 400
     )
 
@@ -69,6 +49,7 @@ def test_post_item(client, json_headers, testdata, users, item_record):
     user_login("admin", client, users)
     url = url_for("invenio_records_rest.pitmid_list")
     del item_record["pid"]
-    res = _test_response(client, "post", url, json_headers, item_record, 201)
+    res = validate_response(
+        client, "post", url, json_headers, item_record, 201)
     data = json.loads(res.data.decode("utf-8"))["metadata"]
     assert "name" in data["internal_location"]

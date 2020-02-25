@@ -56,7 +56,7 @@ class AcqProvider extends Component {
   onSelectResult = async orderData => {
     const { pid } = this.props.data;
     const { acq } = invenioConfig.documentRequests.physicalItemProviders;
-    const resp = await documentRequestApi.accept(pid, {
+    const resp = await documentRequestApi.addProvider(pid, {
       physical_item_provider: {
         pid: orderData.pid,
         pid_type: acq.pid_type,

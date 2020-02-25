@@ -821,7 +821,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
             dest="CANCELLED",
             trigger="cancel",
             transition=ToCancelled,
-            permission_factory=backoffice_permission,
+            permission_factory=LoanOwnerPermission,
         ),
     ],
     "ITEM_ON_LOAN": [

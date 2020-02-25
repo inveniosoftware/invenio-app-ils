@@ -9,8 +9,9 @@ const apiPaths = {
   accept: `${documentRequestURL}:docReqPid/accept`,
   item: `${documentRequestURL}:docReqPid`,
   list: documentRequestURL,
-  pending: `${documentRequestURL}:docReqPid/pending`,
   reject: `${documentRequestURL}:docReqPid/reject`,
+  document: `${documentRequestURL}:docReqPid/document`,
+  provider: `${documentRequestURL}:docReqPid/provider`,
 };
 
 const create = async data => {
@@ -38,14 +39,34 @@ const performAction = async (urlPath, data) => {
   return response;
 };
 
-const accept = async (docRequestPid, data) => {
+const accept = async docRequestPid => {
   const urlPath = generatePath(apiPaths.accept, { docReqPid: docRequestPid });
-  return performAction(urlPath, data);
+  return performAction(urlPath);
 };
 
-const pending = async (docRequestPid, data) => {
-  const urlPath = generatePath(apiPaths.pending, { docReqPid: docRequestPid });
-  return performAction(urlPath, data);
+const addDocument = async (docReqPid, data) => {
+  const url = generatePath(apiPaths.document, { docReqPid: docReqPid });
+  const response = await http.post(url, data);
+  return response;
+};
+
+const removeDocument = async (docReqPid, data) => {
+  const url = generatePath(apiPaths.document, { docReqPid: docReqPid });
+  // https://github.com/axios/axios/issues/897#issuecomment-343715381
+  const response = await http.delete(url, { data: data });
+  return response;
+};
+
+const addProvider = async (docReqPid, data) => {
+  const url = generatePath(apiPaths.provider, { docReqPid: docReqPid });
+  const response = await http.post(url, data);
+  return response;
+};
+
+const removeProvider = async docReqPid => {
+  const url = generatePath(apiPaths.provider, { docReqPid: docReqPid });
+  const response = await http.delete(url);
+  return response;
 };
 
 const reject = async (docRequestPid, data) => {
@@ -132,15 +153,18 @@ const count = query => {
 };
 
 export const documentRequest = {
+  addDocument: addDocument,
+  addProvider: addProvider,
   accept: accept,
   count: count,
   create: create,
   delete: del,
   get: get,
   list: list,
-  pending: pending,
   query: queryBuilder,
   reject: reject,
+  removeDocument: removeDocument,
+  removeProvider: removeProvider,
   searchBaseURL: `${apiConfig.baseURL}${documentRequestURL}`,
   serializer: serializer,
 };

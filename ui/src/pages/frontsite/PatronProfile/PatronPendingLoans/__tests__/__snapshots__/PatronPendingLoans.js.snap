@@ -408,38 +408,9 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                         </DocumentAuthors>
                                         Requested on 
                                         2018-06-28
-                                      </div>
-                                    </ItemMeta>
-                                    <ItemDescription>
-                                      <div
-                                        className="description"
-                                      />
-                                    </ItemDescription>
-                                  </div>
-                                </GridColumn>
-                                <GridColumn
-                                  computer={8}
-                                  mobile={16}
-                                  tablet={8}
-                                  textAlign="right"
-                                >
-                                  <div
-                                    className="right aligned eight wide computer sixteen wide mobile eight wide tablet column"
-                                  >
-                                    <ItemDescription>
-                                      <div
-                                        className="description"
-                                      >
-                                        This request is valid until
-                                         
-                                        <Label>
-                                          <div
-                                            className="ui label"
-                                            onClick={[Function]}
-                                          >
-                                            2019-06-28
-                                          </div>
-                                        </Label>
+                                        <br />
+                                        Valid until 
+                                        2019-06-28
                                         <Popup
                                           content="If the request was not processed before this date it will be invalidated"
                                           disabled={false}
@@ -518,6 +489,63 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                             </Ref>
                                           </Portal>
                                         </Popup>
+                                      </div>
+                                    </ItemMeta>
+                                    <ItemDescription>
+                                      <div
+                                        className="description"
+                                      />
+                                    </ItemDescription>
+                                  </div>
+                                </GridColumn>
+                                <GridColumn
+                                  computer={8}
+                                  mobile={16}
+                                  tablet={8}
+                                  textAlign="right"
+                                >
+                                  <div
+                                    className="right aligned eight wide computer sixteen wide mobile eight wide tablet column"
+                                  >
+                                    <ItemDescription>
+                                      <div
+                                        className="description"
+                                      >
+                                        <Button
+                                          as="button"
+                                          size="small"
+                                        >
+                                          <Ref
+                                            innerRef={
+                                              Object {
+                                                "current": <button
+                                                  class="ui small button"
+                                                >
+                                                  Cancel
+                                                </button>,
+                                              }
+                                            }
+                                          >
+                                            <RefFindNode
+                                              innerRef={
+                                                Object {
+                                                  "current": <button
+                                                    class="ui small button"
+                                                  >
+                                                    Cancel
+                                                  </button>,
+                                                }
+                                              }
+                                            >
+                                              <button
+                                                className="ui small button"
+                                                onClick={[Function]}
+                                              >
+                                                Cancel
+                                              </button>
+                                            </RefFindNode>
+                                          </Ref>
+                                        </Button>
                                       </div>
                                     </ItemDescription>
                                   </div>
@@ -776,38 +804,9 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                         </DocumentAuthors>
                                         Requested on 
                                         2018-06-28
-                                      </div>
-                                    </ItemMeta>
-                                    <ItemDescription>
-                                      <div
-                                        className="description"
-                                      />
-                                    </ItemDescription>
-                                  </div>
-                                </GridColumn>
-                                <GridColumn
-                                  computer={8}
-                                  mobile={16}
-                                  tablet={8}
-                                  textAlign="right"
-                                >
-                                  <div
-                                    className="right aligned eight wide computer sixteen wide mobile eight wide tablet column"
-                                  >
-                                    <ItemDescription>
-                                      <div
-                                        className="description"
-                                      >
-                                        This request is valid until
-                                         
-                                        <Label>
-                                          <div
-                                            className="ui label"
-                                            onClick={[Function]}
-                                          >
-                                            2019-06-28
-                                          </div>
-                                        </Label>
+                                        <br />
+                                        Valid until 
+                                        2019-06-28
                                         <Popup
                                           content="If the request was not processed before this date it will be invalidated"
                                           disabled={false}
@@ -886,6 +885,63 @@ exports[`PatronLoans tests should render patron loans 1`] = `
                                             </Ref>
                                           </Portal>
                                         </Popup>
+                                      </div>
+                                    </ItemMeta>
+                                    <ItemDescription>
+                                      <div
+                                        className="description"
+                                      />
+                                    </ItemDescription>
+                                  </div>
+                                </GridColumn>
+                                <GridColumn
+                                  computer={8}
+                                  mobile={16}
+                                  tablet={8}
+                                  textAlign="right"
+                                >
+                                  <div
+                                    className="right aligned eight wide computer sixteen wide mobile eight wide tablet column"
+                                  >
+                                    <ItemDescription>
+                                      <div
+                                        className="description"
+                                      >
+                                        <Button
+                                          as="button"
+                                          size="small"
+                                        >
+                                          <Ref
+                                            innerRef={
+                                              Object {
+                                                "current": <button
+                                                  class="ui small button"
+                                                >
+                                                  Cancel
+                                                </button>,
+                                              }
+                                            }
+                                          >
+                                            <RefFindNode
+                                              innerRef={
+                                                Object {
+                                                  "current": <button
+                                                    class="ui small button"
+                                                  >
+                                                    Cancel
+                                                  </button>,
+                                                }
+                                              }
+                                            >
+                                              <button
+                                                className="ui small button"
+                                                onClick={[Function]}
+                                              >
+                                                Cancel
+                                              </button>
+                                            </RefFindNode>
+                                          </Ref>
+                                        </Button>
                                       </div>
                                     </ItemDescription>
                                   </div>
