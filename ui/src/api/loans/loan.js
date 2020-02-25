@@ -150,7 +150,7 @@ class QueryBuilder {
     if (!itemPid || (typeof itemPid != 'number' && isEmpty(itemPid))) {
       throw TypeError('itemPid argument missing');
     }
-    this.itemQuery.push(`item_pid:${prepareSumQuery(itemPid)}`);
+    this.itemQuery.push(`item_pid.value:${prepareSumQuery(itemPid)}`);
     return this;
   }
 

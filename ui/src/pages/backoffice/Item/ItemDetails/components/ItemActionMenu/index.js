@@ -1,20 +1,19 @@
 import { connect } from 'react-redux';
 
-import { deleteItem, fetchItemDetails } from './state/actions';
-import ItemDetailsComponent from './ItemDetails';
+import { deleteItem } from '../../state/actions';
+import ItemActionMenuComponent from './ItemActionMenu';
 
 const mapStateToProps = state => ({
   isLoading: state.itemDetails.isLoading,
   error: state.itemDetails.error,
-  data: state.itemDetails.data,
+  item: state.itemDetails.data,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchItemDetails: itemPid => dispatch(fetchItemDetails(itemPid)),
   deleteItem: itemPid => dispatch(deleteItem(itemPid)),
 });
 
-export const ItemDetails = connect(
+export const ItemActionMenu = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ItemDetailsComponent);
+)(ItemActionMenuComponent);

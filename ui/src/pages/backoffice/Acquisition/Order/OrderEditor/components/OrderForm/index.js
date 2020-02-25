@@ -7,7 +7,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(sendSuccessNotification(title, content)),
 });
 
-export const OrderForm = connect(
-  null,
-  mapDispatchToProps
-)(OrderFormComponent);
+export const OrderForm = connect(null, mapDispatchToProps)(OrderFormComponent);

@@ -1,12 +1,46 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import ItemDetails from '../ItemDetails';
+import testData from '@testData/items.json';
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 jest.mock('../components/', () => {
   return {
     ItemMetadata: () => null,
+    ItemCirculation: () => null,
     ItemPastLoans: () => null,
+    ItemActionMenu: () => null,
   };
+});
+
+jest.mock('../../ItemDetails/', () => {
+  return {
+    ItemHeader: () => null,
+  };
+});
+
+const data = {
+  hits: {
+    total: 2,
+    hits: [{ metadata: testData[0] }, { metadata: testData[1] }],
+  },
+};
+
+let store;
+beforeEach(() => {
+  store = mockStore({
+    isLoading: false,
+    data: data,
+    hasError: false,
+    itemDetails: data,
+  });
+  store.clearActions();
 });
 
 describe('ItemDetails tests', () => {
@@ -41,12 +75,16 @@ describe('ItemDetails tests', () => {
   it('should fetch item details on mount', () => {
     const mockedFetchItemDetails = jest.fn();
     component = mount(
-      <ItemDetails
-        history={routerHistory}
-        match={routerUrlParams}
-        fetchItemDetails={mockedFetchItemDetails}
-        deleteItem={() => {}}
-      />
+      <BrowserRouter>
+        <Provider store={store}>
+          <ItemDetails
+            history={routerHistory}
+            match={routerUrlParams}
+            fetchItemDetails={mockedFetchItemDetails}
+            data={{ metadata: testData[0] }}
+          />
+        </Provider>
+      </BrowserRouter>
     );
     expect(mockedFetchItemDetails).toHaveBeenCalledWith(
       routerUrlParams.params.itemPid

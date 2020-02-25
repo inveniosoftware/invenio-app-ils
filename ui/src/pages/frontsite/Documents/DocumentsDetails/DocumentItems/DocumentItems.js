@@ -32,10 +32,10 @@ class DocumentItem extends Component {
 
             <Grid.Column width={5}>
               <label>Status</label>{' '}
-              {invenioConfig.items.canCirculateStates.includes(item.status) &&
+              {invenioConfig.items.canCirculateStatuses.includes(item.status) &&
               !item.circulation ? (
                 <span className={'success'}>On shelf</span>
-              ) : invenioConfig.items.canCirculateStates.includes(
+              ) : invenioConfig.items.canCirculateStatuses.includes(
                   item.status
                 ) && item.circulation ? (
                 <span className={'danger'}> On loan </span>

@@ -151,7 +151,9 @@ exports[`DocumentDetails tests should load the details component 1`] = `
                   offset={200}
                   scrollContext={[Window]}
                 >
-                  <DocumentActionMenu />
+                  <DocumentActionMenu
+                    offset={-250}
+                  />
                 </Sticky>
               </GridColumn>
             </Grid>

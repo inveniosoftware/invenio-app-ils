@@ -3,12 +3,13 @@ import React from 'react';
 import Truncate from 'react-truncate';
 
 export const DocumentTitle = ({ document, short, truncate }) => {
+  const documentMetadata = document.metadata ? document.metadata : document;
   const title = short ? (
-    document.metadata.title
+    documentMetadata.title
   ) : (
     <>
-      {document.metadata.title} (<DocumentEdition document={document} />{' '}
-      {document.metadata.publication_year})
+      {documentMetadata.title} (<DocumentEdition document={document} />{' '}
+      {documentMetadata.publication_year})
     </>
   );
 

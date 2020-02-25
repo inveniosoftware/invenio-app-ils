@@ -57,7 +57,7 @@ export class ItemsResultsList extends Component {
 
     return !invenioConfig.circulation.loanActiveStates.includes(
       circulationStatus
-    ) && invenioConfig.items.canCirculateStates.includes(row.metadata.status)
+    ) && invenioConfig.items.canCirculateStatuses.includes(row.metadata.status)
       ? buttonCheckout
       : this.renderForceCheckoutModal(row);
   };

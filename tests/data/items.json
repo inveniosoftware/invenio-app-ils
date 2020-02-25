@@ -6,7 +6,8 @@
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "MISSING"
+    "status": "MISSING",
+    "document": {}
   },
   {
     "pid": "itemid-2",
@@ -15,7 +16,9 @@
     "internal_location_pid": "ilocid-2",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "CAN_CIRCULATE"
+    "status": "CAN_CIRCULATE",
+    "document": {}
+
   },
   {
     "pid": "itemid-3",
@@ -24,7 +27,8 @@
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "CAN_CIRCULATE"
+    "status": "CAN_CIRCULATE",
+    "document": {}
   },
   {
     "pid": "itemid-4",
@@ -33,7 +37,8 @@
     "internal_location_pid": "ilocid-2",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "CAN_CIRCULATE"
+    "status": "CAN_CIRCULATE",
+    "document": {}
   },
   {
     "pid": "itemid-5",
@@ -42,7 +47,8 @@
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "CAN_CIRCULATE"
+    "status": "CAN_CIRCULATE",
+    "document": {}
   },
   {
     "pid": "itemid-6",
@@ -51,7 +57,8 @@
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "CAN_CIRCULATE"
+    "status": "CAN_CIRCULATE",
+    "document": {}
   },
   {
     "pid": "itemid-7",
@@ -60,7 +67,8 @@
     "internal_location_pid": "ilocid-2",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "IN_BINDING"
+    "status": "IN_BINDING",
+    "document": {}
   },
   {
     "pid": "itemid-8",
@@ -69,7 +77,8 @@
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "MISSING"
+    "status": "MISSING",
+    "document": {}
   },
   {
     "pid": "itemid-9",
@@ -78,7 +87,8 @@
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "CAN_CIRCULATE"
+    "status": "CAN_CIRCULATE",
+    "document": {}
   },
   {
     "pid": "itemid-10",
@@ -87,7 +97,8 @@
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "CAN_CIRCULATE"
+    "status": "CAN_CIRCULATE",
+    "document": {}
   },
   {
     "pid": "itemid-50",
@@ -97,7 +108,8 @@
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
     "status": "CAN_CIRCULATE",
-    "_access": { "update": [1] }
+    "_access": { "update": [1] },
+    "document": {}
   },
   {
     "pid": "itemid-51",
@@ -107,7 +119,8 @@
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
     "status": "CAN_CIRCULATE",
-    "_access": { "delete": ["librarian"] }
+    "_access": { "delete": ["librarian"] },
+    "document": {}
   },
   {
     "pid": "itemid-52",
@@ -117,7 +130,8 @@
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
     "status": "CAN_CIRCULATE",
-    "_access": { "delete": ["1"] }
+    "_access": { "delete": ["1"] },
+    "document": {}
   },
   {
     "pid": "itemid-53",
@@ -127,7 +141,8 @@
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
     "status": "CAN_CIRCULATE",
-    "_access": { "update": ["1"] }
+    "_access": { "update": ["1"] },
+    "document": {}
   },
   {
     "pid": "itemid-54",
@@ -137,7 +152,8 @@
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
     "status": "CAN_CIRCULATE",
-    "_access": { "read": ["1"] }
+    "_access": { "read": ["1"] },
+    "document": {}
   },
   {
     "pid": "itemid-55",
@@ -146,7 +162,8 @@
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "MISSING"
+    "status": "MISSING",
+    "document": {}
   },
   {
     "pid": "itemid-56",
@@ -155,7 +172,8 @@
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "CAN_CIRCULATE"
+    "status": "CAN_CIRCULATE",
+    "document": {}
   },
   {
     "pid": "itemid-57",
@@ -164,7 +182,8 @@
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "CAN_CIRCULATE"
+    "status": "CAN_CIRCULATE",
+    "document": {}
   },
   {
     "pid": "itemid-MISSING",
@@ -173,7 +192,8 @@
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "MISSING"
+    "status": "MISSING",
+    "document": {}
   },
   {
     "pid": "itemid-60",
@@ -182,7 +202,8 @@
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "CAN_CIRCULATE"
+    "status": "CAN_CIRCULATE",
+    "document": {}
   },
   {
     "pid": "itemid-61",
@@ -191,7 +212,8 @@
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "CAN_CIRCULATE"
+    "status": "CAN_CIRCULATE",
+    "document": {}
   },
   {
     "pid": "itemid-62",
@@ -200,7 +222,8 @@
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "CAN_CIRCULATE"
+    "status": "CAN_CIRCULATE",
+    "document": {}
   },
   {
     "pid": "itemid-63",
@@ -209,6 +232,7 @@
     "internal_location_pid": "ilocid-1",
     "circulation_restriction": "NO_RESTRICTION",
     "medium": "NOT_SPECIFIED",
-    "status": "CAN_CIRCULATE"
+    "status": "CAN_CIRCULATE",
+    "document": {}
   }
 ]

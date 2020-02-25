@@ -2,7 +2,7 @@
          Site Overrides
 *******************************/
 
-.bo-relations-tab, .bo-metadata-tab {
+.bo-relations-tab, .bo-metadata-tab, .bo-metadata-segment {
 
   .ui.table {
     width: calc(~'100% + 2em');
@@ -25,6 +25,12 @@
         }
       }
     }
+  }
+}
+
+.bo-metadata-segment{
+  &.no-padding{
+    padding-top: 0;
   }
 }
 

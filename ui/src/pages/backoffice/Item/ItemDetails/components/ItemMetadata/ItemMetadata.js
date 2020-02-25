@@ -1,21 +1,8 @@
+import MetadataTable from '@pages/backoffice/components/MetadataTable/MetadataTable';
 import React from 'react';
 import { Component } from 'react';
-import {
-  Grid,
-  Segment,
-  Container,
-  Header,
-  Table,
-  Button,
-  List,
-} from 'semantic-ui-react';
-import { DeleteRecordModal, EditButton } from '@pages/backoffice/components';
-import { BackOfficeRoutes } from '@routes/urls';
-import { loan as loanApi, patron as patronApi } from '@api';
-import { invenioConfig } from '@config';
-import { ESSelectorModal } from '@components/ESSelector';
-import { serializePatron } from '@components/ESSelector/serializer';
-import { recordToPidType } from '@api/utils';
+import ShowMore from 'react-show-more';
+import { Grid, Segment, Header } from 'semantic-ui-react';
 
 export default class ItemMetadata extends Component {
   constructor(props) {
@@ -24,170 +11,59 @@ export default class ItemMetadata extends Component {
     this.itemPid = this.props.itemDetails.metadata.pid;
   }
 
-  handleOnRefClick(loanPid) {
-    const navUrl = BackOfficeRoutes.loanDetailsFor(loanPid);
-    window.open(navUrl, `_loan_${loanPid}`);
-  }
-
-  createRefProps(itemPid) {
-    return [
-      {
-        refType: 'Loan',
-        onRefClick: this.handleOnRefClick,
-        getRefData: () =>
-          loanApi.list(
-            loanApi
-              .query()
-              .withItemPid(itemPid)
-              .withState(invenioConfig.circulation.loanActiveStates)
-              .qs()
-          ),
-      },
-    ];
-  }
-
-  checkoutItemButton = (
-    <Button
-      positive
-      icon="add"
-      labelPosition="left"
-      size="small"
-      content="Checkout this item"
-      onClick={() => this.setState({ open: true })}
-      disabled={
-        invenioConfig.circulation.loanActiveStates.includes(
-          this.props.itemDetails.metadata.circulation.state
-        ) ||
-        !invenioConfig.items.canCirculateStates.includes(
-          this.props.itemDetails.metadata.status
-        )
-      }
-    />
-  );
-
-  checkoutItem = results => {
-    const documentPid = this.props.itemDetails.metadata.document_pid;
-    const itemPid = {
-      type: recordToPidType(this.props.itemDetails),
-      value: this.props.itemDetails.metadata.pid,
-    };
-    const patronPid = results[0].metadata.id.toString();
-    this.props.checkoutItem(documentPid, itemPid, patronPid);
-  };
-
   render() {
     const { itemDetails } = this.props;
-    const header = (
-      <Grid.Row>
-        <Grid.Column width={10} verticalAlign={'middle'}>
-          <Header as="h1">Item - {itemDetails.metadata.barcode}</Header>
-        </Grid.Column>
-        <Grid.Column width={6} textAlign={'right'}>
-          <ESSelectorModal
-            trigger={this.checkoutItemButton}
-            query={patronApi.list}
-            serializer={serializePatron}
-            title={`You are about to checkout the item with
-                    barcode ${itemDetails.metadata.barcode}.`}
-            content={
-              'Search for the patron to whom the loan should be created:'
-            }
-            selectionInfoText={
-              'The loan will be created for the following patron:'
-            }
-            emptySelectionInfoText={'No patron selected yet'}
-            onSave={this.checkoutItem}
-            saveButtonContent={'Checkout item'}
-          />
 
-          <EditButton to={BackOfficeRoutes.itemEditFor(this.itemPid)} />
-          <DeleteRecordModal
-            deleteHeader={`Are you sure you want to delete the Item
-            record with ID ${itemDetails.pid}?`}
-            onDelete={() => this.deleteItem(itemDetails.pid)}
-            refProps={this.createRefProps(itemDetails.pid)}
-          />
-        </Grid.Column>
-      </Grid.Row>
-    );
+    const metadata = [
+      { name: 'Barcode', value: itemDetails.metadata.barcode },
+      {
+        name: 'Loan restrictions',
+        value: itemDetails.metadata.circulation_restriction,
+      },
+      { name: 'Medium', value: itemDetails.metadata.medium },
+      { name: 'Status', value: itemDetails.metadata.status },
+      { name: 'Legacy ID', value: itemDetails.metadata.legacy_id },
+      {
+        name: 'Legacy library ID',
+        value: itemDetails.metadata.legacy_library_id,
+      },
+    ];
 
     return (
-      <Segment className="item-metadata">
-        <Grid padded columns={2}>
-          {header}
-          <Grid.Row>
-            <Grid.Column>
-              <Table basic="very" definition className="metadata-table">
-                <Table.Body>
-                  <Table.Row>
-                    <Table.Cell width={4}>Circulation Status</Table.Cell>
-                    <Table.Cell width={12}>
-                      {itemDetails.metadata.circulation.state}
-                    </Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell width={4}>Item Status</Table.Cell>
-                    <Table.Cell width={12}>
-                      {itemDetails.metadata.status}
-                    </Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Barcode</Table.Cell>
-                    <Table.Cell>{itemDetails.metadata.barcode}</Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Medium</Table.Cell>
-                    <Table.Cell>{itemDetails.metadata.medium}</Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Circulation Restriction</Table.Cell>
-                    <Table.Cell>
-                      {itemDetails.metadata.circulation_restriction}
-                    </Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Shelf</Table.Cell>
-                    <Table.Cell>{itemDetails.metadata.shelf}</Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Legacy ID</Table.Cell>
-                    <Table.Cell>{itemDetails.metadata.legacy_id}</Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Document</Table.Cell>
-                    <Table.Cell>
-                      <List horizontal>
-                        <List.Item>
-                          {itemDetails.metadata.document_pid}
-                        </List.Item>
-                      </List>
-                    </Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Library</Table.Cell>
-                    <Table.Cell>
-                      {itemDetails.metadata.internal_location.name}
-                    </Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Location</Table.Cell>
-                    <Table.Cell>
-                      {itemDetails.metadata.internal_location.location.name}
-                    </Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              </Table>
-            </Grid.Column>
-
-            <Grid.Column>
-              <Container>
+      <>
+        <Header as="h3" attached="top">
+          Metadata
+        </Header>
+        <Segment attached className="bo-metadata-segment" id="metadata">
+          <Grid padded columns={2}>
+            <Grid.Row>
+              <Grid.Column width={8}>
+                <MetadataTable rows={metadata} />
+              </Grid.Column>
+              <Grid.Column width={8}>
                 <Header as="h4">Description</Header>
-                <p>{itemDetails.metadata.description}</p>
-              </Container>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
+                <ShowMore
+                  lines={5}
+                  more="Show more"
+                  less="Show less"
+                  anchorClass="button-show-more"
+                >
+                  {itemDetails.metadata.description}
+                </ShowMore>
+                <Header as="h4">Internal notes</Header>
+                <ShowMore
+                  lines={5}
+                  more="Show more"
+                  less="Show less"
+                  anchorClass="button-show-more"
+                >
+                  {itemDetails.metadata.internal_notes}
+                </ShowMore>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Segment>
+      </>
     );
   }
 }

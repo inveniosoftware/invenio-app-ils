@@ -87,7 +87,7 @@ export class ResultsTable extends Component {
           >
             {header}
           </Grid.Column>
-          <Grid.Column width={8} textAlign={'right'}>
+          <Grid.Column width={8} textAlign="right">
             {headerActionComponent}
           </Grid.Column>
         </Grid.Row>

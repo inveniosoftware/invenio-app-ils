@@ -1,4 +1,4 @@
-import { EmailLink } from '@components/EmailLink/EmailLink';
+import { EmailLink, EmailCopyToClipboard } from '@components';
 import {
   SearchAggregationsCards,
   SearchControls,
@@ -7,7 +7,7 @@ import {
 } from '@components/SearchControls';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Icon, Container, Header } from 'semantic-ui-react';
+import { Grid, Container, Header } from 'semantic-ui-react';
 import {
   ReactSearchKit,
   SearchBar,
@@ -77,9 +77,8 @@ export class PatronSearch extends Component {
   mailTo = ({ row }) => {
     return (
       <>
-        <EmailLink email={row.metadata.email}>
-          <Icon name="envelope" /> {row.metadata.email}
-        </EmailLink>
+        <EmailLink email={row.metadata.email} />{' '}
+        <EmailCopyToClipboard email={row.metadata.email} />
       </>
     );
   };

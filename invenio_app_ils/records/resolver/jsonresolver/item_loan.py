@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-2019 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -29,15 +29,16 @@ def jsonresolver_loader(url_map):
             return {}
         else:
             return {
-                "loan_pid": loan.get("pid"),
-                "patron_pid": loan.get("patron_pid"),
-                "patron": loan.get("patron"),
-                "document_pid": loan.get("document_pid"),
+                "loan_pid": loan["pid"],
+                "patron_pid": loan["patron_pid"],
+                "patron": loan["patron"],
+                "document_pid": loan["document_pid"],
                 "item_pid": loan.get("item_pid"),
-                "state": loan.get("state"),
-                "start_date": loan.get("start_date"),
-                "end_date": loan.get("end_date"),
-                "extension_count": loan.get("extension_count"),
+                "state": loan["state"],
+                "start_date": loan["start_date"],
+                "end_date": loan["end_date"],
+                "extension_count": loan.get("extension_count", 0),
+                "is_overdue": loan.get("is_overdue", False),
             }
 
     url_map.add(

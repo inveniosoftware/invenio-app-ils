@@ -48,7 +48,6 @@ export const invenioConfig = {
     priceLocale: 'fr-CH',
   },
   items: {
-    canCirculateStates: ['CAN_CIRCULATE'],
     circulationRestrictions: [
       { value: 'NO_RESTRICTION', text: 'No restriction' },
       { value: 'ONE_WEEK', text: '1 week' },
@@ -71,10 +70,8 @@ export const invenioConfig = {
       { value: 'IN_BINDING', text: 'In binding' },
       { value: 'SCANNING', text: 'Scanning' },
     ],
-    circulationStates: [
-      { value: 'ITEM_ON_LOAN', text: 'On loan' },
-      { value: 'NOT_ON_LOAN', text: 'Not loaned' },
-    ],
+    canCirculateStatuses: ['CAN_CIRCULATE'],
+    referenceStatuses: ['FOR_REFERENCE_ONLY'],
   },
   loans: {
     maxExtensionsCount: 3,

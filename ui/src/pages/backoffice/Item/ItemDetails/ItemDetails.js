@@ -1,23 +1,25 @@
+import { ItemActionMenu, ItemCirculation } from './components';
+import { ItemHeader } from './ItemHeader';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container } from 'semantic-ui-react';
+import { Container, Divider, Grid, Ref, Sticky } from 'semantic-ui-react';
 import { Loader, Error } from '@components';
 import { ItemMetadata, ItemPastLoans } from './components';
 
 export default class ItemDetails extends Component {
   constructor(props) {
     super(props);
-    this.fetchItemDetails = this.props.fetchItemDetails;
-    this.deleteItem = this.props.deleteItem;
+    this.menuRef = React.createRef();
+    this.headerRef = React.createRef();
   }
 
   componentDidMount() {
     this.unlisten = this.props.history.listen(location => {
       if (location.state && location.state.itemPid) {
-        this.fetchItemDetails(location.state.itemPid);
+        this.props.fetchItemDetails(location.state.itemPid);
       }
     });
-    this.fetchItemDetails(this.props.match.params.itemPid);
+    this.props.fetchItemDetails(this.props.match.params.itemPid);
   }
 
   componentWillUnmount() {
@@ -25,16 +27,42 @@ export default class ItemDetails extends Component {
   }
 
   render() {
-    const { isLoading, error } = this.props;
+    const { isLoading, error, data } = this.props;
     return (
-      <Container>
-        <Loader isLoading={isLoading}>
-          <Error error={error}>
-            <ItemMetadata />
-            <ItemPastLoans />
-          </Error>
-        </Loader>
-      </Container>
+      <div ref={this.headerRef}>
+        <Container fluid>
+          <Loader isLoading={isLoading}>
+            <Error error={error}>
+              <Sticky context={this.headerRef} className="solid-background">
+                <Container fluid className="spaced">
+                  <ItemHeader data={data} />
+                </Container>
+                <Divider />
+              </Sticky>
+              <Container fluid>
+                <Ref innerRef={this.menuRef}>
+                  <Grid columns={2}>
+                    <Grid.Column width={13}>
+                      <Container className="spaced">
+                        <Container className="spaced">
+                          <ItemCirculation />
+                          <ItemMetadata />
+                          <ItemPastLoans />
+                        </Container>
+                      </Container>
+                    </Grid.Column>
+                    <Grid.Column width={3}>
+                      <Sticky context={this.menuRef} offset={180}>
+                        <ItemActionMenu offset={-180} />
+                      </Sticky>
+                    </Grid.Column>
+                  </Grid>
+                </Ref>
+              </Container>
+            </Error>
+          </Loader>
+        </Container>
+      </div>
     );
   }
 }

@@ -1,6 +1,6 @@
 export const invenioConfig = {
   items: {
-    canCirculateStates: ['CAN_CIRCULATE'],
+    canCirculateStatuses: ['CAN_CIRCULATE'],
   },
   circulation: {
     loanRequestStates: ['PENDING'],
