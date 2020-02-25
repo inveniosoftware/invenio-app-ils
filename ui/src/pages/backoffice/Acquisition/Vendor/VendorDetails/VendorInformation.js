@@ -1,14 +1,22 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { MetadataTable } from '@pages/backoffice/components';
-import { EmailLink } from '@components/EmailLink/EmailLink';
+import { MetadataTable } from '@pages/backoffice';
+import { EmailLink, EmailCopyToClipboard } from '@components';
 
 export class VendorInformation extends React.Component {
   render() {
     const vendor = this.props.vendor;
     const leftTable = [
       { name: 'Name', value: vendor.name },
-      { name: 'Email', value: <EmailLink email={vendor.email} /> },
+      {
+        name: 'Email',
+        value: (
+          <span>
+            <EmailLink email={vendor.email} />{' '}
+            <EmailCopyToClipboard email={vendor.email} />
+          </span>
+        ),
+      },
       { name: 'Phone', value: vendor.phone },
     ];
     const rightTable = [

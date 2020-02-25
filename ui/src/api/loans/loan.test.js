@@ -34,7 +34,7 @@ describe('Loan query builder tests', () => {
       .withItemPid(5)
       .withState('ON_LOAN')
       .qs();
-    expect(query).toEqual('(item_pid:5 AND state:ON_LOAN)');
+    expect(query).toEqual('(item_pid.value:5 AND state:ON_LOAN)');
   });
 
   it('should build query string with itemPid 10 and ITEM_RETURNED or CANCELLED state', () => {
@@ -44,7 +44,7 @@ describe('Loan query builder tests', () => {
       .withState(['ITEM_RETURNED', 'CANCELLED'])
       .qs();
     expect(query).toEqual(
-      '(item_pid:10 AND state:(ITEM_RETURNED OR CANCELLED))'
+      '(item_pid.value:10 AND state:(ITEM_RETURNED OR CANCELLED))'
     );
   });
 

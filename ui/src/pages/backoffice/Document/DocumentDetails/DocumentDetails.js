@@ -78,7 +78,7 @@ export default class DocumentDetails extends Component {
                     </Grid.Column>
                     <Grid.Column width={3}>
                       <Sticky context={this.menuRef} offset={200}>
-                        <DocumentActionMenu />
+                        <DocumentActionMenu offset={-250} />
                       </Sticky>
                     </Grid.Column>
                   </Grid>

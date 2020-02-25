@@ -18,7 +18,7 @@ export const fetchAvailableItems = documentPid => {
         itemApi
           .query()
           .withDocPid(documentPid)
-          .withStatus(invenioConfig.items.canCirculateStates)
+          .withStatus(invenioConfig.items.canCirculateStatuses)
           .availableForCheckout()
           .qs()
       )

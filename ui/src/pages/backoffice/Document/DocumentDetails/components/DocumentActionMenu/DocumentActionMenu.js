@@ -1,4 +1,8 @@
 import { patron as patronApi } from '@api';
+import {
+  ScrollingMenu,
+  ScrollingMenuItem,
+} from '@pages/backoffice/components/buttons/ScrollingMenu';
 import { DocumentDeleteModal } from '@pages/backoffice/Document/DocumentDetails/components/';
 import PropTypes from 'prop-types';
 import { ESSelectorLoanRequest } from '@components/ESSelector';
@@ -7,8 +11,7 @@ import { EditButton, LoanIcon, NewButton } from '@pages/backoffice';
 import { BackOfficeRoutes } from '@routes/urls';
 import { isEmpty } from 'lodash';
 import React, { Component } from 'react';
-import { Button, Divider, Menu } from 'semantic-ui-react';
-import { Link as ScrollLink } from 'react-scroll';
+import { Button, Divider } from 'semantic-ui-react';
 
 export default class DocumentActionMenu extends Component {
   constructor(props) {
@@ -46,8 +49,6 @@ export default class DocumentActionMenu extends Component {
 
   render() {
     const { document, relations } = this.props;
-    const { activeItem } = this.state;
-    const offset = -250;
     return (
       <div className={'bo-action-menu'}>
         <EditButton
@@ -87,98 +88,24 @@ export default class DocumentActionMenu extends Component {
           saveButtonContent={'Perform request'}
         />
         <Divider horizontal>Navigation</Divider>
-
-        <Menu pointing secondary vertical fluid className="left">
-          <Menu.Item
-            name="metadata"
-            active={activeItem === 'metadata'}
-            activeClass="active"
-            as={ScrollLink}
-            to={'metadata'}
-            spy={true}
-            onSetActive={() => this.setState({ activeItem: 'metadata' })}
-            offset={offset}
-          >
-            Metadata
-          </Menu.Item>
-
-          <Menu.Item
-            name="loan-requests"
-            active={activeItem === 'loan-requests'}
-            activeClass="active"
-            as={ScrollLink}
-            to={'loan-requests'}
-            spy={true}
-            onSetActive={() => this.setState({ activeItem: 'loan-requests' })}
-            offset={offset}
-          >
-            Loan requests
-          </Menu.Item>
-          <Menu.Item
-            name="document-items"
-            active={activeItem === 'document-items'}
-            activeClass="active"
-            as={ScrollLink}
-            to={'document-items'}
-            spy={true}
-            onSetActive={() => this.setState({ activeItem: 'document-items' })}
-            offset={offset}
-          >
-            Physical items
-          </Menu.Item>
-          <Menu.Item
-            name="document-eitems"
-            active={activeItem === 'document-eitems'}
-            activeClass="active"
-            as={ScrollLink}
-            to={'document-eitems'}
-            spy={true}
-            onSetActive={() => this.setState({ activeItem: 'document-eitems' })}
-            offset={offset}
-          >
-            Electronic items
-          </Menu.Item>
-          <Menu.Item
-            name="document-series"
-            active={activeItem === 'document-series'}
-            activeClass="active"
-            as={ScrollLink}
-            to={'document-series'}
-            spy={true}
-            onSetActive={() => this.setState({ activeItem: 'document-series' })}
-            offset={offset}
-          >
-            Series
-          </Menu.Item>
-          <Menu.Item
-            name="document-siblings"
-            active={activeItem === 'document-siblings'}
-            activeClass="active"
-            as={ScrollLink}
-            to={'document-siblings'}
-            spy={true}
-            onSetActive={() =>
-              this.setState({ activeItem: 'document-siblings' })
-            }
-            offset={offset}
-          >
-            Related
-          </Menu.Item>
-          <Menu.Item
-            name="document-statistics"
-            active={activeItem === 'document-statistics'}
-            activeClass="active"
-            as={ScrollLink}
-            to={'document-statistics'}
-            spy={true}
-            onSetActive={() =>
-              this.setState({ activeItem: 'document-statistics' })
-            }
-            offset={offset}
-          >
-            Statistics
-          </Menu.Item>
-        </Menu>
+        <ScrollingMenu offset={this.props.offset}>
+          <ScrollingMenuItem elementId="metadata" label="Metadata" />
+          <ScrollingMenuItem elementId="loan-requests" label="Loan requests" />
+          <ScrollingMenuItem
+            elementId="document-items"
+            label="Physical items"
+          />
+          <ScrollingMenuItem
+            elementId="document-eitems"
+            label="Electronic items"
+          />
+          <ScrollingMenuItem elementId="document-series" label="Series" />
+          <ScrollingMenuItem elementId="document-siblings" label="Related" />
+          <ScrollingMenuItem
+            elementId="document-statistics"
+            label="Statistics"
+          />
+        </ScrollingMenu>
       </div>
     );
   }

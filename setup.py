@@ -85,7 +85,6 @@ install_requires = [
     "invenio-files-rest>=1.0.6,<1.1.0",
     "invenio-app>=1.2.3,<1.3.0",
     "invenio-assets>=1.1.3,<1.2.0",
-    "invenio-celery>=1.1.2",
     "invenio-i18n>=1.1.0,<1.2.0",
     "invenio-userprofiles>=1.0.1,<1.1.0",
     # extra

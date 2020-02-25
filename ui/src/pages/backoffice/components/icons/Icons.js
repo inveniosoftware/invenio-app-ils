@@ -3,7 +3,7 @@ import { Icon } from 'semantic-ui-react';
 
 export class DocumentIcon extends Component {
   render() {
-    return <Icon name="book" />;
+    return <Icon {...this.props} name="book" />;
   }
 }
 

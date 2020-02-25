@@ -1,15 +1,7 @@
-import { EmailLink } from '@components/EmailLink/EmailLink';
 import { invenioConfig } from '@config';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Divider,
-  Grid,
-  Header,
-  Icon,
-  Message,
-  Segment,
-} from 'semantic-ui-react';
+import { Divider, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { ItemMetadata } from '../ItemMetadata';
 import { LoanActions } from '../LoanActions';
 import { AvailableItems } from '../AvailableItems';
@@ -61,17 +53,8 @@ export default class LoanMetadata extends Component {
         <Message
           warning
           icon="trash alternate"
-          header={`The Item ${data.metadata.item_pid.value} assigned to this loan has been deleted!`}
-          content={[
-            'If you need further assistance contact ',
-            <EmailLink
-              email={invenioConfig.support_email}
-              subject={`Deleted Item ${data.metadata.item_pid.value}`}
-              key="support-email"
-            >
-              <Icon name="mail" />
-            </EmailLink>,
-          ]}
+          header={`Item deleted`}
+          content={`The item ${data.metadata.item_pid.value} assigned to this loan has been deleted.`}
         />
       )
     );
