@@ -1,6 +1,6 @@
-import { EItemIcon, ItemIcon, LoanIcon } from '@pages/backoffice';
-import React, { Component } from 'react';
+import { EItemIcon, ItemIcon, LoanIcon } from '@pages/backoffice/components';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Icon, Statistic } from 'semantic-ui-react';
 
 export default class DocumentSummary extends Component {

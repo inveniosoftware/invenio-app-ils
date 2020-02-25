@@ -1,4 +1,4 @@
-import { DocumentRequestIcon } from '@pages/backoffice';
+import { DocumentRequestIcon } from '@pages/backoffice/components';
 import { BackOfficeRoutes } from '@routes/urls';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';

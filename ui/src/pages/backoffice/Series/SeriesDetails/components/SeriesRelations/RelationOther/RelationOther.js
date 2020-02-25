@@ -1,13 +1,13 @@
 import { Error, Loader } from '@components';
-import { InfoMessage, SeriesDetailsLink } from '@pages/backoffice';
-import { RelationOtherModal } from '../RelationOther';
+import { InfoMessage, SeriesDetailsLink } from '@pages/backoffice/components';
 import {
-  RelationRemover,
   ExistingRelations,
+  RelationRemover,
 } from '@pages/backoffice/components/Relations';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { RelationOtherModal } from '../RelationOther';
 
 export default class RelationOther extends Component {
   viewDetails = ({ row }) => {

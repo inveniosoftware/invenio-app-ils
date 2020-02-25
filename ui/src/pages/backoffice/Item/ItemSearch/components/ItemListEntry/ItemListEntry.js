@@ -1,11 +1,11 @@
+import { DocumentAuthors } from '@components/Document';
 import { getDisplayVal } from '@config/invenioConfig';
-import { DocumentIcon, ItemIcon } from '@pages/backoffice';
+import { DocumentIcon, ItemIcon } from '@pages/backoffice/components';
+import { BackOfficeRoutes } from '@routes/urls';
+import { isEmpty } from 'lodash';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Header, Item, List } from 'semantic-ui-react';
-import { BackOfficeRoutes } from '@routes/urls';
-import { DocumentAuthors } from '@components/Document';
-import { isEmpty } from 'lodash';
 
 class ItemCirculation extends Component {
   render() {

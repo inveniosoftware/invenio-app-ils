@@ -51,8 +51,8 @@ const searchConfig = {
         aggName: 'medium',
       },
       {
-        title: 'Open access',
-        field: 'open_access',
+        title: 'Restricted',
+        field: 'restricted',
         aggName: 'access',
       },
     ],

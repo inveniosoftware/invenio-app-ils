@@ -1,11 +1,11 @@
+import testData from '@testData/documents.json';
+import { mount, shallow } from 'enzyme';
 import React from 'react';
-import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import DocumentDetails from '../DocumentDetails';
-import testData from '@testData/documents.json';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

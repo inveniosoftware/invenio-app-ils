@@ -450,8 +450,8 @@
       "title": "Number of pages of the physical items",
       "type": "string"
     },
-    "open_access": {
-      "default": true,
+    "restricted": {
+      "default": false,
       "title": "Indicate if the access to this Document is open or not",
       "type": "boolean"
     },

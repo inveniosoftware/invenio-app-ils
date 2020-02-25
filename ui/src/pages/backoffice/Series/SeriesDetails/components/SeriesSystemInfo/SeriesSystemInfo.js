@@ -1,8 +1,8 @@
 import { toShortDateTime } from '@api/date';
-import { MetadataTable } from '@pages/backoffice';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { MetadataTable } from '@pages/backoffice/components';
 import _get from 'lodash/get';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 export class SeriesSystemInfo extends Component {
   prepareData = () => {

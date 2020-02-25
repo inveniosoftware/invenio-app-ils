@@ -175,7 +175,7 @@
       "languages": {
         "type": "keyword"
       },
-      "open_access": {
+      "restricted": {
         "type": "boolean"
       },
       "pid": {

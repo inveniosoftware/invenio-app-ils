@@ -63,9 +63,9 @@ def test_open_access_permissions(client, json_headers, testdata, users):
 
 def test_access_permissions(client, json_headers, testdata, users,
                             with_access):
-    """Test GET documents with `_access` ignoring `open_access`."""
+    """Test GET documents with `_access` ignoring `restricted`."""
     # set the documents to have read access only by patron2. `_access` should
-    # be taken into account and take precedence over `open_access`.
+    # be taken into account and take precedence over `restricted`.
     indexer = RecordIndexer()
     doc1 = Document.get_record_by_pid("docid-open-access")
     doc2 = Document.get_record_by_pid("docid-closed-access")

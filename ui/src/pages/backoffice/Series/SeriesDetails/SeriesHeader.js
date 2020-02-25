@@ -1,7 +1,7 @@
 import { toShortDate } from '@api/date';
 import { CopyButton, SeriesAuthors } from '@components';
 import { DocumentCover, DocumentTags } from '@components/Document';
-import { DetailsHeader, SeriesIcon } from '@pages/backoffice';
+import { DetailsHeader, SeriesIcon } from '@pages/backoffice/components';
 import { DocumentCreatedBy } from '@pages/backoffice/Document/DocumentDetails/components';
 import { FrontSiteRoutes } from '@routes/urls';
 import React, { Component } from 'react';

@@ -1,7 +1,7 @@
-import { InfoMessage, MetadataTable } from '@pages/backoffice';
+import { InfoMessage, MetadataTable } from '@pages/backoffice/components';
 import { groupedSchemeValueList } from '@pages/backoffice/utils';
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 export class DocumentIdentifiers extends Component {
   render() {

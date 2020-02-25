@@ -30,19 +30,19 @@ def _get_user_provides():
 
 
 def search_filter_record_permissions():
-    """Filter list of results by `_access` and `open_access` fields."""
+    """Filter list of results by `_access` and `restricted` fields."""
     if not has_request_context() or backoffice_permission().allows(g.identity):
         return Q()
 
-    # A record is public if `open_access` field True or missing
-    open_access_field_missing = ~Q("exists", field="open_access")
-    is_open_access = open_access_field_missing | Q("term", open_access=True)
+    # A record is public if `restricted` field False or missing
+    restricted_field_missing = ~Q("exists", field="restricted")
+    is_restricted = restricted_field_missing | Q("term", restricted=False)
 
-    combined_filter = is_open_access
+    combined_filter = is_restricted
 
     if current_app.config.get("ILS_RECORDS_EXPLICIT_PERMISSIONS_ENABLED"):
         # if `_access`, check `_access.read` against the user. It takes
-        # precedence over `open_access`.
+        # precedence over `restricted`.
         # if not `_access`, check if open access as before.
         _access_field_exists = Q("exists", field="_access.read")
         provides = _get_user_provides()
@@ -50,7 +50,7 @@ def search_filter_record_permissions():
             "terms", **{"_access.read": provides}
         )
         combined_filter = user_can_read | (
-            ~_access_field_exists & is_open_access
+            ~_access_field_exists & ~is_restricted
         )
 
     return Q("bool", filter=[combined_filter])

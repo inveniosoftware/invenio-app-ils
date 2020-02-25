@@ -1,15 +1,15 @@
 import { patron as patronApi } from '@api';
+import { ESSelectorLoanRequest } from '@components/ESSelector';
+import { serializePatron } from '@components/ESSelector/serializer';
+import { EditButton, LoanIcon, NewButton } from '@pages/backoffice/components';
 import {
   ScrollingMenu,
   ScrollingMenuItem,
 } from '@pages/backoffice/components/buttons/ScrollingMenu';
 import { DocumentDeleteModal } from '@pages/backoffice/Document/DocumentDetails/components/';
-import PropTypes from 'prop-types';
-import { ESSelectorLoanRequest } from '@components/ESSelector';
-import { serializePatron } from '@components/ESSelector/serializer';
-import { EditButton, LoanIcon, NewButton } from '@pages/backoffice';
 import { BackOfficeRoutes } from '@routes/urls';
 import { isEmpty } from 'lodash';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Button, Divider } from 'semantic-ui-react';
 

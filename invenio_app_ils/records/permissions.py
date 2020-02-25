@@ -92,15 +92,15 @@ class RecordPermission(Permission):
         """Check if the record is fully public.
 
         Explicit permission = `_access` field
-        Implicit permission = `open_access` field
+        Implicit permission = `restricted` field
         Explicit, when defined, takes precedence over implicit which is
         ignored.
         The record is public when `_access.read` is not defined and
-        `open_access` is True.
+        `restricted` is False.
         """
         has_explicit_perm = current_app.config.get(
             "ILS_RECORDS_EXPLICIT_PERMISSIONS_ENABLED"
         ) and self.record.get("_access", {}).get("read", [])
         if not has_explicit_perm:
-            return self.record.get("open_access", True)
+            return self.record.get("restricted", False) is False
         return False

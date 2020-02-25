@@ -1,4 +1,4 @@
-import { DeleteRecordModal } from '@pages/backoffice';
+import { DeleteRecordModal } from '@pages/backoffice/components';
 import { DeleteButton } from '@pages/backoffice/components/DeleteRecordModal/components/DeleteButton';
 import { formatPidTypeToName } from '@pages/backoffice/components/ManageRelationsButton/utils';
 import PropTypes from 'prop-types';

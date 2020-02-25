@@ -334,7 +334,7 @@ class DocumentGenerator(Generator):
                     "value": "http://random.url"
                 }
             ],
-            "open_access": True,
+            "restricted": False,
         }
         obj.update(**kwargs)
         return obj

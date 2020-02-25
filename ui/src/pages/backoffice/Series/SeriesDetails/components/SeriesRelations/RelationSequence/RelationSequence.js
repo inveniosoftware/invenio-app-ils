@@ -1,15 +1,15 @@
 import { Error, Loader } from '@components';
 import { SeriesLanguages } from '@components/Series';
-import { InfoMessage, SeriesDetailsLink } from '@pages/backoffice';
+import { InfoMessage, SeriesDetailsLink } from '@pages/backoffice/components';
+import {
+  ExistingRelations,
+  RelationRemover,
+} from '@pages/backoffice/components/Relations';
+import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Divider, Grid } from 'semantic-ui-react';
 import { RelationSequenceModal } from '../RelationSequence';
-import {
-  RelationRemover,
-  ExistingRelations,
-} from '@pages/backoffice/components/Relations';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
 
 export default class RelationSequence extends Component {
   viewDetails = ({ row }) => {

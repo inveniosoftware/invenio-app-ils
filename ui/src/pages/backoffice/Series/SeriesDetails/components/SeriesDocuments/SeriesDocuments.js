@@ -1,14 +1,14 @@
-import { InfoMessage } from '@pages/backoffice';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Loader, Error, ResultsTable, DocumentAuthors } from '@components';
 import { document as documentApi } from '@api';
-import { BackOfficeRoutes } from '@routes/urls';
+import { DocumentAuthors, Error, Loader, ResultsTable } from '@components';
+import { InfoMessage } from '@pages/backoffice/components';
 import {
   DocumentDetailsLink,
   SeeAllButton,
 } from '@pages/backoffice/components/buttons';
+import { BackOfficeRoutes } from '@routes/urls';
 import _get from 'lodash/get';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 export default class SeriesDocuments extends Component {
   constructor(props) {

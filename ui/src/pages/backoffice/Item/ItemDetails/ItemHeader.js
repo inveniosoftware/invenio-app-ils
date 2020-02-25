@@ -1,7 +1,11 @@
 import { toShortDate } from '@api/date';
 import { CopyButton, DocumentAuthors } from '@components';
 import { DocumentTitle } from '@components/Document';
-import { DetailsHeader, DocumentIcon, ItemIcon } from '@pages/backoffice';
+import {
+  DetailsHeader,
+  DocumentIcon,
+  ItemIcon,
+} from '@pages/backoffice/components';
 import { BackOfficeRoutes } from '@routes/urls';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';

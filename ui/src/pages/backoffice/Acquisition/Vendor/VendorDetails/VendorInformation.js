@@ -1,7 +1,7 @@
+import { EmailCopyToClipboard, EmailLink } from '@components';
+import { MetadataTable } from '@pages/backoffice/components';
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import { MetadataTable } from '@pages/backoffice';
-import { EmailLink, EmailCopyToClipboard } from '@components';
 
 export class VendorInformation extends React.Component {
   render() {
