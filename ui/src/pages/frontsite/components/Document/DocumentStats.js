@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Icon, Table, Message } from 'semantic-ui-react';
 import { stats } from '@api/stats';
-import { recordToPidType } from '@api/utils';
+import { recordToPidType, withCancel } from '@api/utils';
 import _get from 'lodash/get';
 
 export class DocumentStats extends Component {
-  _isMounted = false;
-
   constructor(props) {
     super(props);
     this.state = {
@@ -16,19 +14,21 @@ export class DocumentStats extends Component {
   }
 
   componentDidMount() {
-    this._isMounted = true;
     this.fetchStats();
   }
 
   componentWillUnmount() {
-    this._isMounted = false;
+    this.cancellableFetchStats && this.cancellableFetchStats.cancel();
   }
 
   fetchStats = async () => {
     const { document } = this.props;
     const pidType = recordToPidType(document);
     try {
-      const response = await stats.recordStats(pidType, document.pid);
+      this.cancellableFetchStats = withCancel(
+        stats.recordStats(pidType, document.pid)
+      );
+      const response = await this.cancellableFetchStats.promise;
       const views = _get(response.data, 'views', {
         count: '-',
         unique_count: '-',
@@ -41,7 +41,8 @@ export class DocumentStats extends Component {
         this.setState({ downloads: downloads, views: views });
       }
     } catch (error) {
-      console.warn(error);
+      // the promise might have been cancelled on Unmount
+      console.debug(error);
     }
   };
 
@@ -64,7 +65,7 @@ export class DocumentStats extends Component {
               </Table.Cell>
             </Table.Row>
 
-            {document.metadata.eitems.hits.length > 0 && (
+            {document.metadata.eitems.hits && (
               <Table.Row>
                 <Table.Cell>
                   <Icon name="download" />

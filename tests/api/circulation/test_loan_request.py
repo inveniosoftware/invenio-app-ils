@@ -16,7 +16,7 @@ from datetime import timedelta
 import arrow
 from flask import url_for
 
-from .helpers import user_login, user_logout
+from ..helpers import user_login, user_logout
 
 NEW_LOAN = {
     "document_pid": "CHANGE ME IN EACH TEST",
