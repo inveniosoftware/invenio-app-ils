@@ -15,7 +15,7 @@ from tests.api.helpers import user_login, validate_response
 
 
 @pytest.mark.parametrize(
-    "user_id,res_id,expected_resp_code",
+    "user,res_id,expected_resp_code",
     [
         ("patron1", "dreq-1", 200),
         ("librarian", "dreq-1", 200),
@@ -34,19 +34,19 @@ def test_get_document_request_endpoint(
     json_headers,
     testdata,
     users,
-    user_id,
+    user,
     res_id,
     expected_resp_code,
 ):
     """Test GET permissions."""
-    user_login(user_id, client, users)
+    user_login(client, user, users)
     url = url_for("invenio_records_rest.dreqid_item", pid_value=res_id)
     validate_response(
         client, "get", url, json_headers, None, expected_resp_code)
 
 
 @pytest.mark.parametrize(
-    "user_id,res_id,expected_resp_code",
+    "user,res_id,expected_resp_code",
     [
         ("patron1", "dreq-1", 403),
         ("librarian", "dreq-1", 202),
@@ -59,12 +59,12 @@ def test_document_request_add_document(
     json_headers,
     testdata,
     users,
-    user_id,
+    user,
     res_id,
     expected_resp_code,
 ):
     """Test add document to Document Request permissions."""
-    user_login(user_id, client, users)
+    user_login(client, user, users)
     url = url_for("ils_document_request.dreqid_document", pid_value=res_id)
     data = {"document_pid": "docid-1"}
     validate_response(
@@ -72,7 +72,7 @@ def test_document_request_add_document(
 
 
 @pytest.mark.parametrize(
-    "user_id,res_id,expected_resp_code",
+    "user,res_id,expected_resp_code",
     [
         ("patron1", "dreq-1", 403),
         ("librarian", "dreq-1", 202),
@@ -85,12 +85,12 @@ def test_document_request_remove_document(
     json_headers,
     testdata,
     users,
-    user_id,
+    user,
     res_id,
     expected_resp_code,
 ):
     """Test remove document from Document Request permissions."""
-    user_login(user_id, client, users)
+    user_login(client, user, users)
     url = url_for("ils_document_request.dreqid_document", pid_value=res_id)
     data = {"document_pid": "docid-1"}
     validate_response(
@@ -98,7 +98,7 @@ def test_document_request_remove_document(
 
 
 @pytest.mark.parametrize(
-    "user_id,res_id,expected_resp_code",
+    "user,res_id,expected_resp_code",
     [
         ("patron1", "dreq-1", 403),
         ("librarian", "dreq-1", 202),
@@ -111,12 +111,12 @@ def test_document_request_add_provider(
     json_headers,
     testdata,
     users,
-    user_id,
+    user,
     res_id,
     expected_resp_code,
 ):
     """Test add provider to Document Request permissions."""
-    user_login(user_id, client, users)
+    user_login(client, user, users)
     url = url_for("ils_document_request.dreqid_provider", pid_value=res_id)
     data = {
         "physical_item_provider": {
@@ -129,7 +129,7 @@ def test_document_request_add_provider(
 
 
 @pytest.mark.parametrize(
-    "user_id,res_id,expected_resp_code",
+    "user,res_id,expected_resp_code",
     [
         ("patron1", "dreq-1", 403),
         ("librarian", "dreq-1", 202),
@@ -142,19 +142,19 @@ def test_document_request_remove_provider(
     json_headers,
     testdata,
     users,
-    user_id,
+    user,
     res_id,
     expected_resp_code,
 ):
     """Test remove provider from Document Request permissions."""
-    user_login(user_id, client, users)
+    user_login(client, user, users)
     url = url_for("ils_document_request.dreqid_provider", pid_value=res_id)
     validate_response(
         client, "delete", url, json_headers, None, expected_resp_code)
 
 
 @pytest.mark.parametrize(
-    "user_id,res_id,expected_resp_code",
+    "user,res_id,expected_resp_code",
     [
         ("patron1", "dreq-1", 403),
         ("librarian", "dreq-1", 202),
@@ -168,12 +168,12 @@ def test_document_request_accept(
     json_headers,
     testdata,
     users,
-    user_id,
+    user,
     res_id,
     expected_resp_code,
 ):
     """Test Document Request permissions to accept request."""
-    user_login(user_id, client, users)
+    user_login(client, user, users)
     url = url_for("ils_document_request.dreqid_accept", pid_value=res_id)
     data = {"state": "ACCEPTED"}
     validate_response(
@@ -181,7 +181,7 @@ def test_document_request_accept(
 
 
 @pytest.mark.parametrize(
-    "user_id,res_id,expected_resp_code",
+    "user,res_id,expected_resp_code",
     [
         ("patron1", "dreq-1", 202),
         ("librarian", "dreq-1", 202),
@@ -195,12 +195,12 @@ def test_document_request_reject(
     json_headers,
     testdata,
     users,
-    user_id,
+    user,
     res_id,
     expected_resp_code,
 ):
     """Test Document Request permissions to reject request."""
-    user_login(user_id, client, users)
+    user_login(client, user, users)
     url = url_for("ils_document_request.dreqid_reject", pid_value=res_id)
     data = {"reject_reason": "USER_CANCEL"}
     validate_response(

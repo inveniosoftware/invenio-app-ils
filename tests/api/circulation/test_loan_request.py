@@ -39,7 +39,7 @@ def test_anonymous_cannot_request_loan(client, json_headers, testdata):
 def test_patron_can_request_loan(client, json_headers, users, testdata):
     """Test that a patron can request a loan."""
     url = url_for("invenio_app_ils_circulation.loan_request")
-    user = user_login("patron1", client, users)
+    user = user_login(client, "patron1", users)
     params = deepcopy(NEW_LOAN)
     params["document_pid"] = "docid-3"
     params["transaction_user_pid"] = str(user.id)
@@ -56,7 +56,7 @@ def test_patron_can_cancel_loan(
 ):
     """Test that a patron can cancel its own loan."""
     url = url_for("invenio_app_ils_circulation.loan_request")
-    user = user_login("patron3", client, users)
+    user = user_login(client, "patron3", users)
     params = deepcopy(NEW_LOAN)
     params["document_pid"] = "docid-3"
     params["transaction_user_pid"] = str(user.id)
@@ -77,8 +77,7 @@ def test_patron_can_cancel_loan(
     assert res.status_code == 202
 
     # Try to cancel a loan that belongs to patron3 as patron1
-    user_logout(client)
-    user_login("patron1", client, users)
+    user_login(client, "patron1", users)
     cancel_res = client.post(
         cancel_url,
         headers=json_headers,
@@ -87,8 +86,7 @@ def test_patron_can_cancel_loan(
     assert cancel_res.status_code == 403
 
     # Try to cancel a loan that belongs to patron3 as patron3
-    user_logout(client)
-    user_login("patron3", client, users)
+    user_login(client, "patron3", users)
     cancel_res = client.post(
         cancel_url,
         headers=json_headers,
@@ -102,7 +100,7 @@ def test_patron_can_request_loan_with_or_without_end_date(
 ):
     """Test that a patron can request a loan [with/withou] end date."""
     url = url_for("invenio_app_ils_circulation.loan_request")
-    user = user_login("patron1", client, users)
+    user = user_login(client, "patron1", users)
 
     now = arrow.utcnow()
     start_date = (now + timedelta(days=3)).date().isoformat()
@@ -162,7 +160,7 @@ def test_request_loan_with_or_without_delivery(
 ):
     """Test that loan request with or without delivery."""
     url = url_for("invenio_app_ils_circulation.loan_request")
-    user = user_login("patron1", client, users)
+    user = user_login(client, "patron1", users)
 
     previous_dev_methods = app.config["CIRCULATION_DELIVERY_METHODS"]
     app.config["CIRCULATION_DELIVERY_METHODS"] = {}

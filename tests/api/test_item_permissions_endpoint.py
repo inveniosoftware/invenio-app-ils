@@ -17,7 +17,7 @@ from tests.api.helpers import user_login, validate_data, validate_response
 
 
 @pytest.mark.parametrize(
-    "user_id,res_id,expected_resp_code",
+    "user,res_id,expected_resp_code",
     [
         ("patron1", "itemid-1", 200),
         ("librarian", "itemid-1", 200),
@@ -35,19 +35,19 @@ def test_get_item_endpoint(
     testdata,
     users,
     with_access,
-    user_id,
+    user,
     res_id,
     expected_resp_code,
 ):
     """Test GET permissions."""
-    user_login(user_id, client, users)
+    user_login(client, user, users)
     url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
     validate_response(
         client, "get", url, json_headers, None, expected_resp_code)
 
 
 @pytest.mark.parametrize(
-    "user_id,expected_resp_code",
+    "user,expected_resp_code",
     [("patron1", 403), ("librarian", 201), ("admin", 201), ("anonymous", 401)],
 )
 def test_post_item_endpoint(
@@ -55,12 +55,12 @@ def test_post_item_endpoint(
     json_headers,
     testdata,
     users,
-    user_id,
+    user,
     expected_resp_code,
     item_record,
 ):
     """Test POST permissions of an item."""
-    user_login(user_id, client, users)
+    user_login(client, user, users)
     url = url_for("invenio_records_rest.pitmid_list")
     ITEM = copy.deepcopy(item_record)
     if "pid" in ITEM:
@@ -72,7 +72,7 @@ def test_post_item_endpoint(
 
 
 @pytest.mark.parametrize(
-    "user_id,res_id,expected_resp_code",
+    "user,res_id,expected_resp_code",
     [
         ("patron1", "itemid-55", 403),
         ("librarian", "itemid-55", 200),
@@ -93,14 +93,14 @@ def test_put_item_endpoint(
     json_headers,
     testdata,
     users,
-    user_id,
+    user,
     res_id,
     expected_resp_code,
     item_record,
 ):
     """Test PUT permissions of an item."""
     url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
-    user_login(user_id, client, users)
+    user_login(client, user, users)
     ITEM = copy.deepcopy(item_record)
     res = validate_response(
         client, "put", url, json_headers, ITEM, expected_resp_code
@@ -109,7 +109,7 @@ def test_put_item_endpoint(
 
 
 @pytest.mark.parametrize(
-    "user_id,res_id,expected_resp_code",
+    "user,res_id,expected_resp_code",
     [
         ("patron1", "itemid-55", 403),
         ("librarian", "itemid-55", 204),
@@ -126,13 +126,13 @@ def test_delete_item_endpoint(
     json_headers,
     testdata,
     users,
-    user_id,
+    user,
     res_id,
     expected_resp_code,
     item_record,
 ):
     """Test DELETE permissions of an item."""
-    user_login(user_id, client, users)
+    user_login(client, user, users)
     url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
     validate_response(
         client,
@@ -145,7 +145,7 @@ def test_delete_item_endpoint(
 
 
 @pytest.mark.parametrize(
-    "user_id,res_id,expected_resp_code,filtered",
+    "user,res_id,expected_resp_code,filtered",
     [
         ("patron1", "itemid-56", 200, False),
         ("patron2", "itemid-56", 200, True),
@@ -160,13 +160,13 @@ def test_item_circulation(
     json_headers,
     testdata,
     users,
-    user_id,
+    user,
     res_id,
     expected_resp_code,
     filtered,
 ):
     """Test item circulation filtering."""
-    user_login(user_id, client, users)
+    user_login(client, user, users)
     url = url_for("invenio_records_rest.pitmid_item", pid_value=res_id)
     res = validate_response(
         client, "get", url, json_headers, None, expected_resp_code
