@@ -1490,3 +1490,6 @@ query and record fetch.
 
 ILS_DEFAULT_LOCATION_PID = "1"
 """Default ils library location pid."""
+
+CSRF_FORCE_SECURE_REFERRER = False
+SESSION_COOKIE_SECURE = False

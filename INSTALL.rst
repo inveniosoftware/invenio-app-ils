@@ -222,3 +222,15 @@ make the ui application work:
         OAUTH_REMOTE_APP["error_redirect_url"] = 'http://<hostname>.dyndns.cern.ch:3000/login'
 
 * Add your hostname in the `APP_ALLOWED_HOSTS` config variable
+
+
+CSRF ENABLE DEVELOPMENT SETUP (Without docker)
+----------------------------------------------
+If you have enabled the csrf check during development, you need to follow one of the below steps in order to be able to make it work:
+
+1) Run the ui app with `npm run start:secure`. This will run the react application over `https` and the csrf cookie will be corectly set.
+2) If you run the ui app over `http` then you need to add in the `config.py` file the following lines:
+
+.. code-block:: console
+    CSRF_FORCE_SECURE_REFERRER = False
+    SESSION_COOKIE_SECURE = False

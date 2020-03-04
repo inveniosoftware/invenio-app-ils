@@ -8,6 +8,8 @@ const apiConfig = {
       ? '/api'
       : `${process.env.REACT_APP_BACKEND_DEV_BASE_URL}/api`,
   withCredentials: true,
+  xsrfCookieName: '_csrftoken',
+  xsrfHeaderName: 'X-CSRF-Token',
 };
 
 const URLS_NOT_TO_REDIRECT_IF_UNAUTHORIZED = ['/me'];

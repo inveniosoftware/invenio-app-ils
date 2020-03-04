@@ -26,7 +26,7 @@ from invenio_app_ils.signals import record_viewed
 class UserInfoResource(UserInfoView):
     """Retrieve current user's information."""
 
-    def response(self, user):
+    def success_response(self, user):
         """Return response with current user's information."""
         user_payload = default_user_payload(user)
         user_payload["roles"] = [role.name for role in user.roles]
