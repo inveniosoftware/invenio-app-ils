@@ -7,3 +7,5 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 ils setup --verbose
+ils queues delete
+ils queues declare
