@@ -85,6 +85,17 @@
         },
         "type": "object"
       },
+      "created_by": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
       "document_type": {
         "type": "keyword"
       },
@@ -407,6 +418,17 @@
       },
       "title": {
         "type": "text"
+      },
+      "updated_by": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
       }
     }
   }

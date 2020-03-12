@@ -695,7 +695,7 @@
           "type": "string"
         }
       },
-      "title": "Last update user information",
+      "title": "Last update entity information",
       "type": "object"
     },
     "urls": {

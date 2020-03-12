@@ -55,6 +55,8 @@ def preserve_fields(fields):
 class IlsRecord(Record):
     """Ils record class."""
 
+    CURATOR_TYPES = ["user_id", "script"]
+
     _validator = RecordValidator()
 
     @cached_property
