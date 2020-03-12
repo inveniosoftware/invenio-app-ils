@@ -86,6 +86,17 @@
       "type": "array",
       "description": ""
     },
+    "created_by": {
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "edition": {
       "type": "string",
       "description": "Edition"
@@ -229,6 +240,18 @@
     },
     "title": {
       "type": "string"
+    },
+    "updated_by": {
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "Last update entity information",
+      "type": "object"
     },
     "urls": {
       "items": {

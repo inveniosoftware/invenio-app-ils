@@ -7,8 +7,11 @@
 
 """Document schema for marshmallow loader."""
 
+from flask_login import current_user
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
-from marshmallow import EXCLUDE, Schema, fields
+from marshmallow import EXCLUDE, Schema, fields, pre_load, validate
+
+from invenio_app_ils.documents.api import Document
 
 
 class IdentifierSchema(Schema):
@@ -187,7 +190,9 @@ class ChangeBySchema(Schema):
 
         unknown = EXCLUDE
 
-    type = fields.Str()
+    type = fields.Str(
+        required=True, validate=validate.OneOf(Document.CURATOR_TYPES)
+    )
     value = fields.Str()
 
 
@@ -229,3 +234,19 @@ class DocumentSchemaV1(RecordMetadataSchemaJSONV1):
     title = fields.Str(required=True)
     updated_by = fields.Nested(ChangeBySchema)
     urls = fields.List(fields.Nested(UrlSchema))
+
+    @pre_load
+    def add_created_by(self, data, **kwargs):
+        """Automatically add the `created_by`."""
+        record = self.context.get("record")
+
+        if record:
+            # updating
+            if "created_by" in record:
+                data["created_by"] = record["created_by"]
+            data["updated_by"] = {"type": "user_id", "value": str(current_user.id)}
+        else:
+            # creating
+            data["created_by"] = {"type": "user_id", "value": str(current_user.id)}
+
+        return data

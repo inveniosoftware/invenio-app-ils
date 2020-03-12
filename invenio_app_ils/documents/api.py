@@ -25,9 +25,9 @@ DOCUMENT_PID_MINTER = "docid"
 DOCUMENT_PID_FETCHER = "docid"
 
 DocumentIdProvider = type(
-    'DocumentIdProvider',
+    "DocumentIdProvider",
     (RecordIdProviderV2,),
-    dict(pid_type=DOCUMENT_PID_TYPE, default_status=PIDStatus.REGISTERED)
+    dict(pid_type=DOCUMENT_PID_TYPE, default_status=PIDStatus.REGISTERED),
 )
 document_pid_minter = partial(pid_minter, provider_cls=DocumentIdProvider)
 document_pid_fetcher = partial(pid_fetcher, provider_cls=DocumentIdProvider)

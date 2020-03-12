@@ -60,6 +60,17 @@
         },
         "type": "text"
       },
+      "created_by": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
       "edition": {
         "type": "keyword"
       },
@@ -163,6 +174,16 @@
       },
       "title": {
         "type": "text"
+      },
+      "updated_by": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "value": {
+            "type": "keyword"
+          }
+        }
       },
       "urls": {
         "properties": {

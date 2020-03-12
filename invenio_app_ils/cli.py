@@ -306,6 +306,7 @@ class DocumentGenerator(Generator):
             "authors": random.sample(self.AUTHORS, randint(1, 3)),
             "abstract": "{}".format(lorem.text()),
             "document_type": random.choice(Document.DOCUMENT_TYPES),
+            "created_by": {"type": "script", "value": "demo"},
             "languages": [
                 lang["key"]
                 for lang in random.sample(self.holder.languages, randint(1, 3))
@@ -597,6 +598,7 @@ class SeriesGenerator(Generator):
                     )
                 ],
                 "identifiers": [],
+                "created_by": {"type": "script", "value": "demo"},
             }
             if moi == "SERIAL":
                 self.random_serial(obj)
