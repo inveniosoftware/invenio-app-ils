@@ -41,10 +41,19 @@ export default class SeriesDetails extends Component {
 
   seriesPanels = () => {
     const { data } = this.props;
+    console.log("DATA: ", data)
+    let literatureNum = 0
+    if (data.metadata && data.metadata.relations_metadata) {
+      literatureNum = data.metadata.relations_metadata.serial ?
+        data.metadata.relations_metadata.serial.length :
+        data.metadata.relations_metadata.multipart_monograph.length
+    } else {
+      literatureNum = 0
+    }
     const panes = [
       {
         key: 'series-documents',
-        title: 'Literature in this series',
+        title: 'Literature in this series (' + literatureNum + ')',
         content: (
           <Accordion.Content>
             <div id="series-documents">

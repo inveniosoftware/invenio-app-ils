@@ -26,15 +26,16 @@ from invenio_app_ils.signals import record_viewed
 class UserInfoResource(UserInfoView):
     """Retrieve current user's information."""
 
-    def response(self, user):
+    def success_response(self, user):
         """Return response with current user's information."""
         user_payload = default_user_payload(user)
         user_payload["roles"] = [role.name for role in user.roles]
         user_payload.update(
             dict(
                 locationPid=current_app.config["ILS_DEFAULT_LOCATION_PID"],
-                username=user.email
-            ))
+                username=user.email,
+            )
+        )
         return jsonify(user_payload), 200
 
 

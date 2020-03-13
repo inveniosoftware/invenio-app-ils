@@ -49,6 +49,14 @@ export class SeriesLiteratureSearch extends React.Component {
 
   render() {
     const { metadata } = this.props;
+    let literatureNum
+    if (metadata.relations_metadata) {
+      literatureNum = metadata.relations_metadata.serial ?
+        metadata.relations_metadata.serial.length :
+        metadata.relations_metadata.multipart_monograph.length
+    } else {
+      literatureNum = 0
+    }
     const api = new InvenioSearchApi({
       invenio: {
         requestSerializer: literatureRequestSerializerCls(metadata),
@@ -58,7 +66,7 @@ export class SeriesLiteratureSearch extends React.Component {
     });
     return (
       <>
-        <Divider horizontal>Literature in this series</Divider>
+        <Divider horizontal>Literature in this series ({literatureNum})</Divider>
         <ReactSearchKit searchApi={api} history={history}>
           <Container className="series-details-search-container">
             <SearchBar renderElement={this.renderSearchBar} />
