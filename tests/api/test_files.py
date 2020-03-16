@@ -49,7 +49,7 @@ def test_create_bucket_endpoint(
     client, json_headers, location, testdata, users
 ):
     """Test GET permissions."""
-    user_login("admin", client, users)
+    user_login(client, "admin", users)
 
     url_with_bucket_id = url_for(
         "invenio_app_ils_files.eitmid_bucket", pid_value="eitemid-3"
@@ -80,8 +80,8 @@ def test_create_bucket_permissions(
         ("librarian", "eitemid-2", 201),
         ("patron1", "eitemid-2", 403),
     ]
-    for user_id, pid, status_code in test_data:
-        user_login(user_id, client, users)
+    for user, pid, status_code in test_data:
+        user_login(client, user, users)
         url = url_for("invenio_app_ils_files.eitmid_bucket", pid_value=pid)
         _test_response(client, "post", url, json_headers, None, status_code)
 
@@ -102,8 +102,8 @@ def test_upload_files_permissions(
         ("librarian", 200),
         ("patron1", 404),
     ]
-    for user_id, status_code in test_data:
-        user_login(user_id, client, users)
+    for user, status_code in test_data:
+        user_login(client, user, users)
         _test_response(
             client,
             "put",
@@ -143,7 +143,7 @@ def test_download_files_permissions(
 ):
     """Test download files permissions."""
     # Create e-item bucket
-    user_login("admin", client, users)
+    user_login(client, "admin", users)
     url = url_for("invenio_app_ils_files.eitmid_bucket", pid_value=pid)
     res = _test_response(client, "post", url, json_headers, None, 201)
     bucket_id = json.loads(res.data)["metadata"]["bucket_id"]
@@ -161,6 +161,6 @@ def test_download_files_permissions(
     current_search.flush_and_refresh(index="eitems")
 
     # Download file
-    for user_id, status_code in expected:
-        user_login(user_id, client, users)
+    for user, status_code in expected:
+        user_login(client, user, users)
         _test_response(client, "get", url, None, None, status_code)

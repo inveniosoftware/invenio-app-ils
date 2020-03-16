@@ -44,15 +44,15 @@ def test_open_access_permissions(client, json_headers, testdata, users):
         ("librarian", "docid-closed-access", 200, 1),
         ("admin", "docid-closed-access", 200, 1),
     ]
-    for user_id, pid, status_code, n_hits in test_data:
+    for user, pid, status_code, n_hits in test_data:
         # item endpoint
-        user_login(user_id, client, users)
+        user_login(client, user, users)
         url = url_for("invenio_records_rest.docid_item", pid_value=pid)
         res = client.get(url, headers=json_headers)
         assert res.status_code == status_code
 
         # list endpoint
-        user_login(user_id, client, users)
+        user_login(client, user, users)
         url = url_for(
             "invenio_records_rest.docid_list", q="pid:{}".format(pid)
         )
@@ -88,15 +88,15 @@ def test_access_permissions(client, json_headers, testdata, users,
         ("librarian", "docid-closed-access", 200, 1),
         ("admin", "docid-closed-access", 200, 1),
     ]
-    for user_id, pid, status_code, n_hits in test_data:
+    for user, pid, status_code, n_hits in test_data:
         # item endpoint
-        user_login(user_id, client, users)
+        user_login(client, user, users)
         url = url_for("invenio_records_rest.docid_item", pid_value=pid)
         res = client.get(url, headers=json_headers)
         assert res.status_code == status_code
 
         # list endpoint
-        user_login(user_id, client, users)
+        user_login(client, user, users)
         url = url_for(
             "invenio_records_rest.docid_list", q="pid:{}".format(pid)
         )

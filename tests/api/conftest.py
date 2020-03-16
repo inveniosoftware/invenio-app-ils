@@ -46,6 +46,7 @@ def app_config(app_config):
         "ACCOUNTS_SESSION_REDIS_URL": "",  # in-memory
         "RATELIMIT_GUEST_USER": "1000 per minute",
         "RATELIMIT_AUTHENTICATED_USER": "1000 per minute",
+        "CIRCULATION_TRANSACTION_USER_VALIDATOR": lambda x: True,
     }
     app_config.update(tests_config)
     return app_config

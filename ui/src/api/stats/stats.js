@@ -1,7 +1,7 @@
 import { http } from '../base';
 const statsURL = '/stats';
 
-const recordStats = async (pidType, pidValue) => {
+const recordStats = (pidType, pidValue) => {
   const data = {
     views: {
       stat: 'record-view',
@@ -17,7 +17,7 @@ const recordStats = async (pidType, pidValue) => {
       },
     },
   };
-  return await http.post(statsURL, data);
+  return http.post(statsURL, data);
 };
 
 export const stats = {

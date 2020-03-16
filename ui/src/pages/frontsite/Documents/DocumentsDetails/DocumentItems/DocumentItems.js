@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
+import _has from 'lodash/has';
 import {
   Accordion,
   Checkbox,
@@ -11,6 +12,7 @@ import {
   List,
   Menu,
   Segment,
+  Message,
 } from 'semantic-ui-react';
 import { getDisplayVal, invenioConfig } from '@config/invenioConfig';
 
@@ -218,33 +220,43 @@ export default class DocumentItems extends Component {
   };
 
   render() {
-    if (!isEmpty(this.props.documentDetails.metadata.items.on_shelf)) {
-      return (
-        <>
-          <Divider horizontal>Where to find</Divider>
-          <Grid stackable>
-            <Grid.Column computer={4} tablet={4} mobile={16}>
-              <Accordion
-                as={Menu}
-                vertical
-                fluid
-                className={'document-items-location-menu'}
-              >
-                {this.renderLibraries()}
-              </Accordion>
-            </Grid.Column>
-            <Grid.Column computer={12} tablet={12} mobile={16}>
-              <Segment>{this.renderItems()}</Segment>
-            </Grid.Column>
-          </Grid>
-        </>
-      );
-    }
+    const { items } = this.props.documentDetails.metadata;
+    const cmpItemsLocation = (
+      <>
+        <Grid stackable>
+          <Grid.Column computer={4} tablet={4} mobile={16}>
+            <Accordion
+              as={Menu}
+              vertical
+              fluid
+              className={'document-items-location-menu'}
+            >
+              {this.renderLibraries()}
+            </Accordion>
+          </Grid.Column>
+          <Grid.Column computer={12} tablet={12} mobile={16}>
+            <Segment>{this.renderItems()}</Segment>
+          </Grid.Column>
+        </Grid>
+      </>
+    );
+
+    const cmpNoItems = (
+      <Message>
+        <Message.Header>No copies</Message.Header>
+        <p>
+          There are no available copies in the library. Please, contact us for
+          more information.
+        </p>
+      </Message>
+    );
+
+    const hasCopies = _has(items, 'on_shelf') && !isEmpty(items.on_shelf);
+    const cmpItems = hasCopies ? cmpItemsLocation : cmpNoItems;
     return (
       <>
         <Divider horizontal>Where to find</Divider>
-        There is no available copies in the library. Check the availability
-        later or contact us.
+        {cmpItems}
       </>
     );
   }

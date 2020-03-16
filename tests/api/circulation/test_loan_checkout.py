@@ -17,10 +17,10 @@ import arrow
 from flask import url_for
 from flask_principal import UserNeed
 from invenio_access.permissions import Permission
-from invenio_accounts.models import User
-from invenio_accounts.testutils import login_user_via_session
 
 from invenio_app_ils.records.api import Item
+
+from ..helpers import user_login
 
 NEW_LOAN = {
     "item_pid": "CHANGE ME IN EACH TEST",
@@ -30,12 +30,6 @@ NEW_LOAN = {
     "pickup_location_pid": "locid-1",
     "delivery": {"method": "PICK_UP"},
 }
-
-
-def _login(client, user, users):
-    """Login user and return url."""
-    login_user_via_session(client, user=User.query.get(user.id))
-    return user
 
 
 def test_anonymous_cannot_request_loan_on_item(client, json_headers, testdata):
@@ -49,7 +43,7 @@ def test_librarian_can_checkout_item_for_user(
     client, json_headers, users, testdata
 ):
     """Test that librarian can checkout a loan on a item for a patron."""
-    _login(client, users["librarian"], users)
+    user_login(client, "librarian", users)
     url = url_for("invenio_app_ils_circulation.loan_checkout")
     params = deepcopy(NEW_LOAN)
     params["transaction_user_pid"] = str(users["librarian"].id)
@@ -91,12 +85,12 @@ def test_force_checkout_specific_permissions(
     params["transaction_user_pid"] = str(librarian2.id)
 
     # force-checkout as librarian should fail
-    _login(client, users["librarian"], users)
+    user_login(client, "librarian", users)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 403
 
     # force-checkout as librarian2 should succeed
-    _login(client, users["librarian2"], users)
+    user_login(client, "librarian2", users)
     res = client.post(url, headers=json_headers, data=json.dumps(params))
     assert res.status_code == 202
     loan = res.get_json()["metadata"]
@@ -112,7 +106,7 @@ def test_force_checkout_specific_permissions(
 def test_checkout_conditions_librarian(client, json_headers, users, testdata):
     """Test checkout conditions user."""
     librarian = users["librarian"]
-    _login(client, librarian, users)
+    user_login(client, "librarian", users)
     url = url_for("invenio_app_ils_circulation.loan_checkout")
 
     params = deepcopy(NEW_LOAN)
@@ -144,7 +138,7 @@ def test_checkout_loader_start_end_dates(
 ):
     """Test that start and end dates request parameters."""
     librarian = users["librarian"]
-    _login(client, librarian, users)
+    user_login(client, "librarian", users)
     url = url_for("invenio_app_ils_circulation.loan_checkout")
     loan_duration_timedelta = app.config["CIRCULATION_POLICIES"]["checkout"][
         "duration_default"
