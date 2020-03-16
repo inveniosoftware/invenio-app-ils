@@ -41,7 +41,6 @@ export default class SeriesDetails extends Component {
 
   seriesPanels = () => {
     const { data } = this.props;
-    console.log("DATA: ", data)
     let literatureNum = 0
     if (data.metadata && data.metadata.relations_metadata) {
       literatureNum = data.metadata.relations_metadata.serial ?

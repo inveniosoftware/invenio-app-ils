@@ -33,6 +33,17 @@ export class SeriesListEntry extends Component {
 
   renderRelations = () => {
     const { series } = this.props;
+    let literatureNum;
+    let searchStr;
+    if (series.metadata.relations_metadata) {
+      literatureNum = series.metadata.relations_metadata.serial ?
+        series.metadata.relations_metadata.serial.length :
+        series.metadata.relations_metadata.multipart_monograph.length
+      searchStr = series.metadata.relations_metadata.serial ?
+        'serial' : 'multipart_monograph'
+    } else {
+      literatureNum = 0
+    }
     return (
       <>
         <Item.Description>
@@ -83,6 +94,22 @@ export class SeriesListEntry extends Component {
                 )}
               </List.Item>
             )}
+
+            {!_isEmpty(series.metadata.relations_metadata) && (
+              <List.Item>
+                <List.Content>
+                  <Link
+                    to={BackOfficeRoutes.documentsListWithQuery(
+                      'relations.' + searchStr + '.pid:' + series.metadata.pid
+                    )}
+                  >
+                    See all volumes in this series ({literatureNum}){' '}
+                    <DocumentIcon />
+                  </Link>
+                </List.Content>
+              </List.Item>
+            )}
+
           </List>
         </Item.Description>
       </>
