@@ -228,7 +228,7 @@ ILS_MAIL_LOAN_MSG_LOADER = (
 ILS_MAIL_LOAN_OVERDUE_REMINDER_INTERVAL = 3
 
 # Upcoming return date range in days
-ILS_UPCOMING_RETURN_RANGE = 7
+ILS_LOAN_OVERDUE_DAYS_UPFRONT_NOTIFICATION = 7
 
 # Assets
 # ======
@@ -836,7 +836,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
             dest="ITEM_ON_LOAN",
             transition=ItemOnLoanToItemOnLoan,
             trigger="extend",
-            permission_factory=backoffice_permission,
+            permission_factory=LoanOwnerPermission,
         ),
         dict(
             dest="CANCELLED",

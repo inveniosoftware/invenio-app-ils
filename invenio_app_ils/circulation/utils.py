@@ -70,7 +70,7 @@ def circulation_default_extension_duration(loan):
 
 def circulation_default_extension_max_count(loan):
     """Return a default extensions max count."""
-    return float("inf")
+    return 3
 
 
 def circulation_is_loan_duration_valid(loan):
@@ -94,7 +94,7 @@ def circulation_overdue_loan_days(loan):
 def circulation_upcoming_return_range():
     """Return a default upcoming return range."""
     return arrow.utcnow() + timedelta(
-        days=current_app.config["ILS_UPCOMING_RETURN_RANGE"])
+        days=current_app.config["ILS_LOAN_OVERDUE_DAYS_UPFRONT_NOTIFICATION"])
 
 
 def circulation_transaction_location_validator(transaction_location_pid):

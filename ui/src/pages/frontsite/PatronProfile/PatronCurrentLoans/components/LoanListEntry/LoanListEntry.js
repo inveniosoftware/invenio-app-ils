@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Grid, Item, Label } from 'semantic-ui-react';
 import { toShortDate } from '@api/date';
 import { invenioConfig } from '@config';
 import { FrontSiteRoutes } from '@routes/urls';
 import { DocumentAuthors, DocumentItemCover } from '@components/Document';
+import { ExtendButton } from '../';
+
+const OverdueLabel = () => {
+  return (
+    <h4>Your loan is overdue. Please return the book as soon as possible!</h4>
+  );
+};
+
+const ReturnLabel = ({ endDate }) => {
+  return (
+    <h4>
+      Please return the literature before date{' '}
+      <Label className={'bkg-primary'}>{toShortDate(endDate)}</Label>
+    </h4>
+  );
+};
 
 export class LoanListEntry extends Component {
   render() {
-    const { loan } = this.props;
+    const { loan, extendLoan, onExtendSuccess } = this.props;
     const isLoanOverdue = loan.metadata.is_overdue;
     return (
       <Item
@@ -39,10 +56,8 @@ export class LoanListEntry extends Component {
                 Loaned on {toShortDate(loan.metadata.start_date)}
               </Item.Meta>
               <Item.Description>
-                {}
-                You have extended this loan {
-                  loan.metadata.extension_count
-                } of {invenioConfig.loans.maxExtensionsCount} times
+                You have extended this loan {loan.metadata.extension_count} of{' '}
+                {invenioConfig.circulation.extensionsMaxCount} times
               </Item.Description>
             </Grid.Column>
             <Grid.Column
@@ -52,15 +67,17 @@ export class LoanListEntry extends Component {
               computer={8}
             >
               <Item.Description>
-                Please return the literature before date{' '}
-                <Label className={'bkg-primary'}>
-                  {toShortDate(loan.metadata.end_date)}
-                </Label>
+                {isLoanOverdue ? (
+                  <OverdueLabel />
+                ) : (
+                  <ReturnLabel endDate={loan.metadata.end_date}></ReturnLabel>
+                )}
                 <br />
-                {isLoanOverdue
-                  ? 'Your loan is overdue. Please return the book ' +
-                    'as soon as possible'
-                  : null}
+                <ExtendButton
+                  loan={loan}
+                  extendLoan={extendLoan}
+                  onExtendSuccess={onExtendSuccess}
+                ></ExtendButton>
               </Item.Description>
             </Grid.Column>
           </Grid>
@@ -69,3 +86,9 @@ export class LoanListEntry extends Component {
     );
   }
 }
+
+LoanListEntry.propTypes = {
+  loan: PropTypes.object.isRequired,
+  extendLoan: PropTypes.func,
+  onExtendSuccess: PropTypes.func,
+};

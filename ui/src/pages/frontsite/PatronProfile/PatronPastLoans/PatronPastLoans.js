@@ -40,10 +40,8 @@ class PastLoanListEntry extends Component {
                 Loaned on {toShortDate(loan.metadata.start_date)}
               </Item.Meta>
               <Item.Description>
-                {}
-                You have extended this loan {
-                  loan.metadata.extension_count
-                } of {invenioConfig.loans.maxExtensionsCount} times
+                You have extended this loan {loan.metadata.extension_count} of{' '}
+                {invenioConfig.circulation.extensionsMaxCount} times
               </Item.Description>
             </Grid.Column>
             <Grid.Column

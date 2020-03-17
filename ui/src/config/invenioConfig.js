@@ -9,6 +9,8 @@ export const invenioConfig = {
       PICKUP: 'Pick it up at the library desk',
       DELIVERY: 'Have it delivered to my office',
     },
+    extensionsMaxCount: 3,
+    loanOverdueDaysUpfrontNotification: 7,
     loanActiveStates: [
       'ITEM_AT_DESK',
       'ITEM_ON_LOAN',
@@ -72,9 +74,6 @@ export const invenioConfig = {
     ],
     canCirculateStatuses: ['CAN_CIRCULATE'],
     referenceStatuses: ['FOR_REFERENCE_ONLY'],
-  },
-  loans: {
-    maxExtensionsCount: 3,
   },
   max_results_window: 10000,
   orders: {
