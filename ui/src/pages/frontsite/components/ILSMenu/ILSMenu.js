@@ -46,7 +46,6 @@ export default class ILSMenu extends Component {
     return this.props.isAnonymous ? (
       <RedirectToLoginButton
         renderClass={Menu.Item}
-        inverted
         className={'ils-menu-login-button'}
         icon={'sign in'}
         content={'Sign in'}

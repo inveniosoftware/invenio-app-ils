@@ -5,34 +5,19 @@ import { AuthenticationRoutes } from '@routes/urls';
 import { goTo } from '@history';
 
 export class RedirectToLoginButton extends Component {
-  render() {
-    const { content, nextUrl, renderClass, ...restProps } = this.props;
-    const RenderComponent = renderClass;
-    return renderClass ? (
-      <RenderComponent
-        {...this.props}
-        onClick={() => {
-          goTo(
-            AuthenticationRoutes.redirectAfterLogin(
-              nextUrl || window.location.pathname
-            )
-          );
-        }}
-      />
-    ) : (
-      <Button
-        fluid
-        content={content}
-        {...restProps}
-        onClick={() => {
-          goTo(
-            AuthenticationRoutes.redirectAfterLogin(
-              nextUrl || window.location.pathname
-            )
-          );
-        }}
-      />
+  onClick = () => {
+    const { nextUrl } = this.props;
+    return goTo(
+      AuthenticationRoutes.redirectAfterLogin(
+        nextUrl || window.location.pathname
+      )
     );
+  };
+
+  render() {
+    const { renderClass, ...restProps } = this.props;
+    const RenderComponent = renderClass || Button;
+    return <RenderComponent {...restProps} onClick={this.onClick} />;
   }
 }
 
