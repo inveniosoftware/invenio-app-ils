@@ -109,7 +109,7 @@ class BookAvailability extends Component {
 
 export default class DocumentCirculation extends Component {
   loginToLoan = () => {
-    return <RedirectToLoginButton content={'Login to loan'} positive />;
+    return <RedirectToLoginButton content={'Login to loan'} fluid positive />;
   };
 
   renderLoanRequestForm = () => {
