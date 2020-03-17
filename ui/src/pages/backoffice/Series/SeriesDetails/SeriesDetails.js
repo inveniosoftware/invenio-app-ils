@@ -5,6 +5,7 @@ import { SeriesActionMenu } from './';
 import { SeriesHeader } from './SeriesHeader';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _get from 'lodash/get';
 import {
   Accordion,
   Container,
@@ -41,18 +42,13 @@ export default class SeriesDetails extends Component {
 
   seriesPanels = () => {
     const { data } = this.props;
-    let literatureNum = 0
-    if (data.metadata && data.metadata.relations_metadata) {
-      literatureNum = data.metadata.relations_metadata.serial ?
-        data.metadata.relations_metadata.serial.length :
-        data.metadata.relations_metadata.multipart_monograph.length
-    } else {
-      literatureNum = 0
-    }
+    const serialsCount = _get(data, 'metadata.relations_metadata.serial', []).length
+    const monographsCount = _get(data, 'metadata.relations_metadata.multipart_monograph', []).length
+    const documentsCount = serialsCount + monographsCount
     const panes = [
       {
         key: 'series-documents',
-        title: 'Literature in this series (' + literatureNum + ')',
+        title: 'Literature in this series (' + documentsCount + ')',
         content: (
           <Accordion.Content>
             <div id="series-documents">
