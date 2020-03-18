@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
+import _get from 'lodash/get';
 
 export class SeriesListEntry extends Component {
   renderMiddleColumn = series => {
@@ -33,17 +34,19 @@ export class SeriesListEntry extends Component {
 
   renderRelations = () => {
     const { series } = this.props;
-    let literatureNum;
-    let searchStr;
-    if (series.metadata.relations_metadata) {
-      literatureNum = series.metadata.relations_metadata.serial ?
-        series.metadata.relations_metadata.serial.length :
-        series.metadata.relations_metadata.multipart_monograph.length
-      searchStr = series.metadata.relations_metadata.serial ?
-        'serial' : 'multipart_monograph'
-    } else {
-      literatureNum = 0
-    }
+    const serialsCount = _get(series, 'metadata.relations_metadata.serial', [])
+      .length;
+    const monographsCount = _get(
+      series,
+      'metadata.relations_metadata.multipart_monograph',
+      []
+    ).length;
+    const documentsCount = serialsCount + monographsCount;
+    const seriesType =
+      series.metadata.relations_metadata &&
+      series.metadata.relations_metadata.multipart_monograph
+        ? 'multipart_monograph'
+        : 'serial';
     return (
       <>
         <Item.Description>
@@ -100,16 +103,15 @@ export class SeriesListEntry extends Component {
                 <List.Content>
                   <Link
                     to={BackOfficeRoutes.documentsListWithQuery(
-                      'relations.' + searchStr + '.pid:' + series.metadata.pid
+                      `relations.${seriesType}.pid:${series.metadata.pid}`
                     )}
                   >
-                    See all volumes in this series ({literatureNum}){' '}
+                    See all volumes in this series ({documentsCount}){' '}
                     <DocumentIcon />
                   </Link>
                 </List.Content>
               </List.Item>
             )}
-
           </List>
         </Item.Description>
       </>

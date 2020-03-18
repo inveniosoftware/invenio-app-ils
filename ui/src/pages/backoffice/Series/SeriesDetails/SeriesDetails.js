@@ -42,13 +42,18 @@ export default class SeriesDetails extends Component {
 
   seriesPanels = () => {
     const { data } = this.props;
-    const serialsCount = _get(data, 'metadata.relations_metadata.serial', []).length
-    const monographsCount = _get(data, 'metadata.relations_metadata.multipart_monograph', []).length
-    const documentsCount = serialsCount + monographsCount
+    const serialsCount = _get(data, 'metadata.relations_metadata.serial', [])
+      .length;
+    const monographsCount = _get(
+      data,
+      'metadata.relations_metadata.multipart_monograph',
+      []
+    ).length;
+    const documentsCount = serialsCount + monographsCount;
     const panes = [
       {
         key: 'series-documents',
-        title: 'Literature in this series (' + documentsCount + ')',
+        title: `Literature in this series (${documentsCount})`,
         content: (
           <Accordion.Content>
             <div id="series-documents">
