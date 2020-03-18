@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
+import _get from 'lodash/get';
 
 export class SeriesListEntry extends Component {
   renderMiddleColumn = series => {
@@ -33,6 +34,19 @@ export class SeriesListEntry extends Component {
 
   renderRelations = () => {
     const { series } = this.props;
+    const serialsCount = _get(series, 'metadata.relations_metadata.serial', [])
+      .length;
+    const monographsCount = _get(
+      series,
+      'metadata.relations_metadata.multipart_monograph',
+      []
+    ).length;
+    const documentsCount = serialsCount + monographsCount;
+    const seriesType =
+      series.metadata.relations_metadata &&
+      series.metadata.relations_metadata.multipart_monograph
+        ? 'multipart_monograph'
+        : 'serial';
     return (
       <>
         <Item.Description>
@@ -81,6 +95,21 @@ export class SeriesListEntry extends Component {
                     <Icon name="languages" />
                   </List.Content>
                 )}
+              </List.Item>
+            )}
+
+            {!_isEmpty(series.metadata.relations_metadata) && (
+              <List.Item>
+                <List.Content>
+                  <Link
+                    to={BackOfficeRoutes.documentsListWithQuery(
+                      `relations.${seriesType}.pid:${series.metadata.pid}`
+                    )}
+                  >
+                    See all volumes in this series ({documentsCount}){' '}
+                    <DocumentIcon />
+                  </Link>
+                </List.Content>
               </List.Item>
             )}
           </List>

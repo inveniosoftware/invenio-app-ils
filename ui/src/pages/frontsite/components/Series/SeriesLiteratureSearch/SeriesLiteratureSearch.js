@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Divider, Loader, Responsive, Container } from 'semantic-ui-react';
+import _get from 'lodash/get';
 import {
   ReactSearchKit,
   InvenioSearchApi,
@@ -49,6 +50,13 @@ export class SeriesLiteratureSearch extends React.Component {
 
   render() {
     const { metadata } = this.props;
+    const serialsCount = _get(metadata, 'relations_metadata.serial', []).length;
+    const monographsCount = _get(
+      metadata,
+      'relations_metadata.multipart_monograph',
+      []
+    ).length;
+    const documentsCount = serialsCount + monographsCount;
     const api = new InvenioSearchApi({
       invenio: {
         requestSerializer: literatureRequestSerializerCls(metadata),
@@ -58,7 +66,9 @@ export class SeriesLiteratureSearch extends React.Component {
     });
     return (
       <>
-        <Divider horizontal>Literature in this series</Divider>
+        <Divider horizontal>
+          Literature in this series ({documentsCount})
+        </Divider>
         <ReactSearchKit searchApi={api} history={history}>
           <Container className="series-details-search-container">
             <SearchBar renderElement={this.renderSearchBar} />
