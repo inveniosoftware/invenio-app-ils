@@ -11,14 +11,22 @@ from __future__ import absolute_import, print_function
 
 from functools import wraps
 
+import arrow
 from flask import abort, current_app
 from flask_login import current_user
 from flask_principal import UserNeed
 from invenio_access import action_factory
 from invenio_access.permissions import Permission, authenticated_user
+from invenio_circulation.proxies import current_circulation
 from invenio_records_rest.utils import allow_all, deny_all
 
+from invenio_app_ils.errors import InvalidLoanExtendError
 from invenio_app_ils.proxies import current_app_ils
+
+from invenio_app_ils.circulation.utils import (  # isort:skip
+    circulation_default_extension_max_count,
+    circulation_overdue_loan_days
+)
 
 backoffice_access_action = action_factory("ils-backoffice-access")
 
@@ -87,6 +95,73 @@ class LoanOwnerPermission(Permission):
         super(LoanOwnerPermission, self).__init__(
             UserNeed(int(record["patron_pid"])), backoffice_access_action
         )
+
+
+class LoanExtendPermission(Permission):
+    """Return Permission to evaluate if the user can extend the loan."""
+
+    def __init__(self, record):
+        """Constructor."""
+        self.record = record
+
+        # NOTE: extra validation if the user is not librarian or admin
+        if current_user.id == int(record["patron_pid"]):
+            self.validate()
+
+        super().__init__(
+            UserNeed(int(record["patron_pid"])), backoffice_access_action
+        )
+
+    def validate(self):
+        """Validate if the loan can be extended."""
+        if not self.validate_extend_enabled():
+            raise InvalidLoanExtendError(
+                "You can extend this loan {} days before it "
+                "expires!".format(
+                    current_app.config["ILS_LOAN_WILL_EXPIRE_DAYS"])
+            )
+
+        if not self.validate_max_extensions():
+            raise InvalidLoanExtendError(
+                "You have reached the max number of extensions for THIS loan!"
+            )
+
+        if not self.validate_pending_loans():
+            raise InvalidLoanExtendError(
+                "There is a high demand for this literature!"
+            )
+
+        if self.validate_is_overdue():
+            raise InvalidLoanExtendError(
+                "This loan is overdue, its end date has passed!"
+            )
+
+    def validate_extend_enabled(self):
+        """Validate loan is in the period that can be extended."""
+        end_date = arrow.get(self.record["end_date"])
+        return (
+            (arrow.get().utcnow() - end_date).days <=
+            current_app.config["ILS_LOAN_WILL_EXPIRE_DAYS"]
+        )
+
+    def validate_max_extensions(self):
+        """Validate if we have reached the max extension count."""
+        return (
+            self.record["extension_count"] <=
+            circulation_default_extension_max_count(self.record)
+        )
+
+    def validate_pending_loans(self):
+        """Validate the loaned document has no pending loan requests."""
+        loan_search = current_circulation.loan_search_cls()
+        pending_loans_count = loan_search.get_pending_loans_by_doc_pid(
+            self.record["document_pid"]
+        ).count()
+        return pending_loans_count == 0
+
+    def validate_is_overdue(self):
+        """Validate if the loan is overdue."""
+        return circulation_overdue_loan_days(self.record) > 0
 
 
 class DocumentRequestOwnerPermission(Permission):

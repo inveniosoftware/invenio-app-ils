@@ -10,7 +10,7 @@ export const invenioConfig = {
     loanCancelledStates: ['CANCELLED'],
     deliveryMethods: { DELIVERY: '', 'PICK UP': '' },
     requestDuration: 60,
-    loanOverdueDaysUpfrontNotification: 7,
+    loanWillExpireDays: 7,
   },
   documentRequests: {
     physicalItemProviders: {

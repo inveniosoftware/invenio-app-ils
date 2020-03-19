@@ -253,3 +253,14 @@ class StatsError(IlsException):
     def __init__(self, description):
         """Initialize exception."""
         super().__init__(description=description)
+
+
+class InvalidLoanExtendError(IlsException):
+    """Raised when loan cannot be extended."""
+
+    description = "This loan cannot be extended. {}"
+
+    def __init__(self, msg, **kwargs):
+        """Initialize exception."""
+        super().__init__(**kwargs)
+        self.description = self.description.format(msg)

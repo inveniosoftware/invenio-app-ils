@@ -1,87 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { DateTime } from 'luxon';
 import { Button, Icon, Popup } from 'semantic-ui-react';
 import { invenioConfig, ES_DELAY } from '@config';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
+import _isEqual from 'lodash/isEqual';
 
-export const INFO_MESSAGES = {
-  hasMaxExtensions: 'You have reached the max number of extensions for a loan!',
-  hasExtendAction:
-    'Manually extending this loan, is not currently an available action!',
-  hasPendingLoans:
-    'Other users requested that book, therefore you cannot extend your loan.',
-  isOverdue: 'You loan is overdue, therefore you cannot extend the loan!',
-  isOwner: 'You are not the owner of this loan, so you cannot extend it!',
-};
+const expireDays = invenioConfig.circulation.loanWillExpireDays;
 
 export default class ExtendButton extends Component {
-  state = {
-    hasExtendAction: false,
-    hasMaxExtensions: false,
-    hasPendingLoans: false,
-    infoMessage: '',
-    isOverdue: false,
-    isOwner: false,
+  static INFO_MESSAGES = {
+    hasMaxExtensions:
+      'You have reached the max number of extensions for THIS loan!',
+    hasExtendAction: 'It is not possible to extend this loan!',
+    hasPendingLoans:
+      'Unfortunately it is not possible to extend this loan due to high demand for this literature!',
+    isOverdue:
+      'This loan is overdue, therefore it is not possible to extend it!',
+    isExtendEnabled: `You can extend this loan ${expireDays} days before it expires!`,
   };
-
-  componentDidMount = () => {
-    this.checkMaxExtensions();
-    this.checkPendingLoans();
-    this.checkIsOverdue();
-    this.checkHasExtendAction();
-    this.checkIsOwner();
-  };
-
-  checkMaxExtensions = () => {
-    const { extension_count: extensionCount } = this.props.loan.metadata;
-    const hasMaxExtensions =
-      invenioConfig.circulation.extensionsMaxCount <= extensionCount;
-    this.setState({ hasMaxExtensions: hasMaxExtensions });
-    if (hasMaxExtensions)
-      this.setState({ infoMessage: INFO_MESSAGES.hasMaxExtensions });
-  };
-
-  checkPendingLoans = () => {
-    const { document } = this.props.loan.metadata;
-    const hasPendingLoans = _get(document, 'circulation.pending_loans', 0) > 0;
-    this.setState({ hasPendingLoans: hasPendingLoans });
-    if (hasPendingLoans)
-      this.setState({ infoMessage: INFO_MESSAGES.hasPendingLoans });
-  };
-
-  checkIsOverdue = () => {
-    const { is_overdue: isOverdue } = this.props.loan.metadata;
-    this.setState({ isOverdue: isOverdue });
-    if (isOverdue) this.setState({ infoMessage: INFO_MESSAGES.isOverdue });
-  };
-
-  checkHasExtendAction = () => {
-    const hasExtendAction = _has(this.props.loan, 'availableActions.extend');
-    this.setState({ hasExtendAction: hasExtendAction });
-    if (!hasExtendAction)
-      this.setState({ infoMessage: INFO_MESSAGES.hasExtendAction });
-  };
-
-  checkIsOwner = () => {
-    const { id: userId } = this.props.user;
-    const { patron_pid: patronPid } = this.props.loan.metadata;
-
-    const isOwner = userId === patronPid;
-    this.setState({ isOwner: isOwner });
-    if (!isOwner) this.setState({ infoMessage: INFO_MESSAGES.isOwner });
-  };
-
-  get isDisabled() {
-    return (
-      this.state.hasMaxExtensions ||
-      this.state.hasPendingLoans ||
-      this.state.isOverdue ||
-      !this.state.hasExtendAction ||
-      !this.state.isOwner
-    );
-  }
 
   handleExtendRequest = async () => {
     const { loan, onExtendSuccess } = this.props;
@@ -94,31 +31,74 @@ export default class ExtendButton extends Component {
     }, ES_DELAY);
   };
 
+  get hasMaxExtensions() {
+    return (
+      invenioConfig.circulation.extensionsMaxCount <=
+      _get(this.props.loan, 'metadata.extension_count', 0)
+    );
+  }
+
+  get hasPendingLoans() {
+    return (
+      _get(this.props.loan, 'metadata.document.circulation.pending_loans', 0) >
+      0
+    );
+  }
+
+  get isOverdue() {
+    return _get(this.props.loan, 'metadata.is_overdue', false);
+  }
+
+  get hasExtendAction() {
+    return _has(this.props.loan, 'availableActions.extend');
+  }
+
+  get isExtendEnabled() {
+    return (
+      _get(this.props.loan, 'metadata.end_date').diffNow('days').days <=
+      expireDays
+    );
+  }
+
+  isDisabled = () =>
+    this.hasMaxExtensions ||
+    this.hasPendingLoans ||
+    this.isOverdue ||
+    !this.hasExtendAction ||
+    !this.isExtendEnabled;
+
+  infoMessage = () => {
+    if (_isEqual(this.hasMaxExtensions, true))
+      return _get(ExtendButton.INFO_MESSAGES, 'hasMaxExtensions');
+    if (_isEqual(this.hasPendingLoans, true))
+      return _get(ExtendButton.INFO_MESSAGES, 'hasPendingLoans');
+    if (_isEqual(this.isOverdue, true))
+      return _get(ExtendButton.INFO_MESSAGES, 'isOverdue');
+    if (_isEqual(this.hasExtendAction, false))
+      return _get(ExtendButton.INFO_MESSAGES, 'hasExtendAction');
+    if (_isEqual(this.isExtendEnabled, false))
+      return _get(ExtendButton.INFO_MESSAGES, 'isExtendEnabled');
+  };
+
   render() {
-    const { loan } = this.props;
-    const showExtendButton =
-      DateTime.fromISO(loan.metadata.end_date).diffNow('days').days <=
-      invenioConfig.circulation.loanOverdueDaysUpfrontNotification;
+    const isDisabled = this.isDisabled();
 
     return (
-      showExtendButton && (
-        <>
-          <Button
-            color="purple"
-            size="mini"
-            content="extend loan"
-            disabled={this.isDisabled}
-            onClick={this.handleExtendRequest}
+      <>
+        <Button
+          color="purple"
+          size="mini"
+          content="extend loan"
+          disabled={isDisabled}
+          onClick={this.handleExtendRequest}
+        />
+        {isDisabled && (
+          <Popup
+            content={this.infoMessage()}
+            trigger={<Icon name={'info'} />}
           />
-          {this.isDisabled && (
-            <Popup
-              content={this.state.infoMessage}
-              trigger={<Icon name={'info'} />}
-              position={'top left'}
-            />
-          )}
-        </>
-      )
+        )}
+      </>
     );
   }
 }

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Grid, Item, Label } from 'semantic-ui-react';
 import { toShortDate } from '@api/date';
-import { invenioConfig } from '@config';
 import { FrontSiteRoutes } from '@routes/urls';
 import { DocumentAuthors, DocumentItemCover } from '@components/Document';
 import { ExtendButton } from '../';
@@ -22,6 +21,13 @@ const ReturnLabel = ({ endDate }) => {
     </h4>
   );
 };
+
+const ExtensionCount = ({ count }) =>
+  count > 0 && (
+    <Item.Description>
+      You have extended this loan {count} times
+    </Item.Description>
+  );
 
 export class LoanListEntry extends Component {
   render() {
@@ -55,10 +61,7 @@ export class LoanListEntry extends Component {
                 <DocumentAuthors metadata={loan.metadata.document} />
                 Loaned on {toShortDate(loan.metadata.start_date)}
               </Item.Meta>
-              <Item.Description>
-                You have extended this loan {loan.metadata.extension_count} of{' '}
-                {invenioConfig.circulation.extensionsMaxCount} times
-              </Item.Description>
+              <ExtensionCount count={loan.metadata.extension_count} />
             </Grid.Column>
             <Grid.Column
               textAlign={'right'}

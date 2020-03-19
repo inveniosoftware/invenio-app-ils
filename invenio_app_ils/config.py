@@ -90,13 +90,14 @@ from .circulation.utils import (  # isort:skip
     circulation_build_item_ref,
     circulation_build_patron_ref,
     circulation_can_be_requested,
-    circulation_build_document_ref, circulation_upcoming_return_range,
+    circulation_build_document_ref, circulation_loan_will_expire_days,
     circulation_transaction_location_validator,
     circulation_transaction_user_validator)
 from .permissions import (  # isort:skip
     authenticated_user_permission,
     backoffice_permission,
     DocumentRequestOwnerPermission,
+    LoanExtendPermission,
     LoanOwnerPermission,
     views_permissions_factory,
 )
@@ -227,8 +228,8 @@ ILS_MAIL_LOAN_MSG_LOADER = (
 #: Notification email for overdue loan sent automatically every X days
 ILS_MAIL_LOAN_OVERDUE_REMINDER_INTERVAL = 3
 
-# Upcoming return date range in days
-ILS_LOAN_OVERDUE_DAYS_UPFRONT_NOTIFICATION = 7
+#: Period of time in days, before loans expire, for notifications etc.
+ILS_LOAN_WILL_EXPIRE_DAYS = 7
 
 # Assets
 # ======
@@ -767,7 +768,7 @@ CIRCULATION_POLICIES = dict(
         max_count=circulation_default_extension_max_count,
     ),
     request=dict(can_be_requested=circulation_can_be_requested),
-    upcoming_return_range=circulation_upcoming_return_range
+    upcoming_return_range=circulation_loan_will_expire_days
 )
 
 CIRCULATION_ITEM_REF_BUILDER = circulation_build_item_ref
@@ -836,7 +837,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
             dest="ITEM_ON_LOAN",
             transition=ItemOnLoanToItemOnLoan,
             trigger="extend",
-            permission_factory=LoanOwnerPermission,
+            permission_factory=LoanExtendPermission,
         ),
         dict(
             dest="CANCELLED",

@@ -91,10 +91,10 @@ def circulation_overdue_loan_days(loan):
     return (arrow.get().utcnow() - end_date).days
 
 
-def circulation_upcoming_return_range():
+def circulation_loan_will_expire_days():
     """Return a default upcoming return range."""
     return arrow.utcnow() + timedelta(
-        days=current_app.config["ILS_LOAN_OVERDUE_DAYS_UPFRONT_NOTIFICATION"])
+        days=current_app.config["ILS_LOAN_WILL_EXPIRE_DAYS"])
 
 
 def circulation_transaction_location_validator(transaction_location_pid):

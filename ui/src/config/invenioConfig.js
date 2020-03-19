@@ -10,7 +10,7 @@ export const invenioConfig = {
       DELIVERY: 'Have it delivered to my office',
     },
     extensionsMaxCount: 3,
-    loanOverdueDaysUpfrontNotification: 7,
+    loanWillExpireDays: 7,
     loanActiveStates: [
       'ITEM_AT_DESK',
       'ITEM_ON_LOAN',

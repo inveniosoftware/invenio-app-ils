@@ -1,8 +1,7 @@
 import React from 'react';
-import { DateTime } from 'luxon';
-import { mount } from 'enzyme';
-import ExtendButton, { INFO_MESSAGES } from '../ExtendButton';
 import { fromISO } from '@api/date';
+import { mount } from 'enzyme';
+import ExtendButton from '../ExtendButton';
 import testData from '@testData/loans.json';
 
 jest.mock('@config/invenioConfig');
@@ -24,6 +23,7 @@ describe('Extend loan button tests', () => {
       availableActions: { extend: 'url/extend' },
       metadata: {
         ...testData[0],
+        end_date: fromISO(testData.end_date),
         extension_count: 0,
       },
     };
@@ -44,6 +44,7 @@ describe('Extend loan button tests', () => {
       availableActions: { extend: 'url/extend' },
       metadata: {
         ...testData[0],
+        end_date: fromISO(testData.end_date),
         extension_count: 0,
         document: { circulation: { pending_loans: 2 } },
       },
@@ -57,9 +58,6 @@ describe('Extend loan button tests', () => {
         user={user}
       />
     );
-    expect(component.state().infoMessage).toEqual(
-      'Other users requested that book, therefore you cannot extend your loan.'
-    );
     const btn = component.find('Button');
     expect(btn.props().disabled).toBe(true);
   });
@@ -69,6 +67,7 @@ describe('Extend loan button tests', () => {
       availableActions: { extend: 'url/extend' },
       metadata: {
         ...testData[0],
+        end_date: fromISO(testData.end_date),
         extension_count: 0,
         is_overdue: true,
       },
@@ -82,7 +81,6 @@ describe('Extend loan button tests', () => {
         user={user}
       />
     );
-    expect(component.state().infoMessage).toEqual(INFO_MESSAGES.isOverdue);
     const btn = component.find('Button');
     expect(btn.props().disabled).toBe(true);
   });
@@ -92,6 +90,7 @@ describe('Extend loan button tests', () => {
       availableActions: { extend: 'url/extend' },
       metadata: {
         ...testData[0],
+        end_date: fromISO(testData.end_date),
         extension_count: 3,
       },
     };
@@ -104,41 +103,16 @@ describe('Extend loan button tests', () => {
         user={user}
       />
     );
-    expect(component.state().infoMessage).toEqual(
-      INFO_MESSAGES.hasMaxExtensions
-    );
     const btn = component.find('Button');
     expect(btn.props().disabled).toBe(true);
   });
 
-  it('should be disabled if patron is not the owner', () => {
-    const loan = {
-      availableActions: { extend: 'url/extend' },
-      metadata: {
-        ...testData[0],
-        extension_count: 3,
-      },
-    };
-    const otherUser = { id: 2 };
-
-    const component = mount(
-      <ExtendButton
-        extendLoan={() => {}}
-        onExtendSuccess={() => {}}
-        loan={loan}
-        user={otherUser}
-      />
-    );
-    expect(component.state().infoMessage).toEqual(INFO_MESSAGES.isOwner);
-    const btn = component.find('Button');
-    expect(btn.props().disabled).toBe(true);
-  });
-
-  it('should be disabled if extend action is in available actions', () => {
+  it('should be disabled if extend action is not in available actions', () => {
     const loan = {
       availableActions: {},
       metadata: {
         ...testData[0],
+        end_date: fromISO(testData.end_date),
         extension_count: 0,
       },
     };
@@ -151,9 +125,7 @@ describe('Extend loan button tests', () => {
         user={user}
       />
     );
-    expect(component.state().infoMessage).toEqual(
-      INFO_MESSAGES.hasExtendAction
-    );
+
     const btn = component.find('Button');
     expect(btn.props().disabled).toBe(true);
   });
