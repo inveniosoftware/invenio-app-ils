@@ -5,29 +5,19 @@ import { Grid, Item, Label } from 'semantic-ui-react';
 import { toShortDate } from '@api/date';
 import { FrontSiteRoutes } from '@routes/urls';
 import { DocumentAuthors, DocumentItemCover } from '@components/Document';
+import { ExtensionCount } from '@pages/frontsite/components/Loan';
 import { ExtendButton } from '../';
 
-const OverdueLabel = () => {
-  return (
-    <h4>Your loan is overdue. Please return the book as soon as possible!</h4>
-  );
-};
+const OverdueLabel = () => (
+  <h4>Your loan is overdue. Please return the book as soon as possible!</h4>
+);
 
-const ReturnLabel = ({ endDate }) => {
-  return (
-    <h4>
-      Please return the literature before date{' '}
-      <Label className={'bkg-primary'}>{toShortDate(endDate)}</Label>
-    </h4>
-  );
-};
-
-const ExtensionCount = ({ count }) =>
-  count > 0 && (
-    <Item.Description>
-      You have extended this loan {count} times
-    </Item.Description>
-  );
+const ReturnLabel = ({ endDate }) => (
+  <h4>
+    Please return the literature before date{' '}
+    <Label className={'bkg-primary'}>{toShortDate(endDate)}</Label>
+  </h4>
+);
 
 export class LoanListEntry extends Component {
   render() {

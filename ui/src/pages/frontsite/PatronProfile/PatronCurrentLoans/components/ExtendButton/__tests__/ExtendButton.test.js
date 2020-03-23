@@ -3,9 +3,11 @@ import { fromISO } from '@api/date';
 import { mount } from 'enzyme';
 import ExtendButton from '../ExtendButton';
 import testData from '@testData/loans.json';
+import { DateTime } from 'luxon';
 
 jest.mock('@config/invenioConfig');
 
+const end_date = DateTime.local(2032, 12, 13, 12, 13);
 const user = {
   id: testData[0].patron_pid,
 };
@@ -23,7 +25,7 @@ describe('Extend loan button tests', () => {
       availableActions: { extend: 'url/extend' },
       metadata: {
         ...testData[0],
-        end_date: fromISO(testData.end_date),
+        end_date: end_date,
         extension_count: 0,
       },
     };
@@ -39,37 +41,14 @@ describe('Extend loan button tests', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('should be disabled if it document has pending loans', () => {
+  it('should be disabled if the document is overbooked', () => {
     const loan = {
       availableActions: { extend: 'url/extend' },
       metadata: {
         ...testData[0],
-        end_date: fromISO(testData.end_date),
+        end_date: end_date,
         extension_count: 0,
-        document: { circulation: { pending_loans: 2 } },
-      },
-    };
-
-    const component = mount(
-      <ExtendButton
-        extendLoan={() => {}}
-        onExtendSuccess={() => {}}
-        loan={loan}
-        user={user}
-      />
-    );
-    const btn = component.find('Button');
-    expect(btn.props().disabled).toBe(true);
-  });
-
-  it('should be disabled if the loan is overdue', () => {
-    const loan = {
-      availableActions: { extend: 'url/extend' },
-      metadata: {
-        ...testData[0],
-        end_date: fromISO(testData.end_date),
-        extension_count: 0,
-        is_overdue: true,
+        document: { circulation: { overbooked: true } },
       },
     };
 
@@ -90,7 +69,7 @@ describe('Extend loan button tests', () => {
       availableActions: { extend: 'url/extend' },
       metadata: {
         ...testData[0],
-        end_date: fromISO(testData.end_date),
+        end_date: end_date,
         extension_count: 3,
       },
     };
@@ -112,7 +91,7 @@ describe('Extend loan button tests', () => {
       availableActions: {},
       metadata: {
         ...testData[0],
-        end_date: fromISO(testData.end_date),
+        end_date: end_date,
         extension_count: 0,
       },
     };

@@ -12,12 +12,13 @@ from __future__ import absolute_import, print_function
 from datetime import timedelta
 
 import arrow
-from flask import current_app
+from flask import current_app, g, has_request_context
 from flask_login import current_user
 
 from invenio_app_ils.errors import UnknownItemPidTypeError
 from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
 from invenio_app_ils.ill.proxies import current_ils_ill
+from invenio_app_ils.permissions import backoffice_permission
 from invenio_app_ils.pidstore.pids import ITEM_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
 
@@ -70,6 +71,9 @@ def circulation_default_extension_duration(loan):
 
 def circulation_default_extension_max_count(loan):
     """Return a default extensions max count."""
+    # NOTE: If user is admin or librarian always have 1 extra extension count.
+    if has_request_context() and backoffice_permission().allows(g.identity):
+        return loan.get("extension_count", 0) + 1
     return 3
 
 
@@ -92,7 +96,7 @@ def circulation_overdue_loan_days(loan):
 
 
 def circulation_loan_will_expire_days():
-    """Return a default upcoming return range."""
+    """Return a number of days before a loan expires."""
     return arrow.utcnow() + timedelta(
         days=current_app.config["ILS_LOAN_WILL_EXPIRE_DAYS"])
 

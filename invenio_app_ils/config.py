@@ -96,8 +96,8 @@ from .circulation.utils import (  # isort:skip
 from .permissions import (  # isort:skip
     authenticated_user_permission,
     backoffice_permission,
+    loan_extend_circulation_permission,
     DocumentRequestOwnerPermission,
-    LoanExtendPermission,
     LoanOwnerPermission,
     views_permissions_factory,
 )
@@ -837,7 +837,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
             dest="ITEM_ON_LOAN",
             transition=ItemOnLoanToItemOnLoan,
             trigger="extend",
-            permission_factory=LoanExtendPermission,
+            permission_factory=loan_extend_circulation_permission,
         ),
         dict(
             dest="CANCELLED",

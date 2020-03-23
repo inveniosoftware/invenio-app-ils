@@ -4,20 +4,21 @@ import { Button, Icon, Popup } from 'semantic-ui-react';
 import { invenioConfig, ES_DELAY } from '@config';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
-import _isEqual from 'lodash/isEqual';
 
 const expireDays = invenioConfig.circulation.loanWillExpireDays;
 
 export default class ExtendButton extends Component {
   static INFO_MESSAGES = {
-    hasMaxExtensions:
-      'You have reached the max number of extensions for THIS loan!',
-    hasExtendAction: 'It is not possible to extend this loan!',
-    hasPendingLoans:
-      'Unfortunately it is not possible to extend this loan due to high demand for this literature!',
-    isOverdue:
-      'This loan is overdue, therefore it is not possible to extend it!',
-    isExtendEnabled: `You can extend this loan ${expireDays} days before it expires!`,
+    extendUrl: 'It is not possible to extend this loan!',
+    extendAction: reqDate =>
+      `It is too early for extending the loan. You can request an extension from
+      ${reqDate
+        .minus({ days: expireDays })
+        .toLocaleString({ month: 'long', day: 'numeric' })}`,
+    maxExtensions:
+      'You have reached the max number of extensions for this loan!',
+    documentOverbook:
+      'There is a high demand for this literature, therefore is not possible to automatically extend the loan!',
   };
 
   handleExtendRequest = async () => {
@@ -31,71 +32,79 @@ export default class ExtendButton extends Component {
     }, ES_DELAY);
   };
 
-  get hasMaxExtensions() {
-    return (
-      invenioConfig.circulation.extensionsMaxCount <=
-      _get(this.props.loan, 'metadata.extension_count', 0)
-    );
-  }
-
-  get hasPendingLoans() {
-    return (
-      _get(this.props.loan, 'metadata.document.circulation.pending_loans', 0) >
-      0
-    );
-  }
-
-  get isOverdue() {
-    return _get(this.props.loan, 'metadata.is_overdue', false);
-  }
-
-  get hasExtendAction() {
+  validateExtendUrl() {
     return _has(this.props.loan, 'availableActions.extend');
   }
 
-  get isExtendEnabled() {
+  validateExtendAction() {
     return (
       _get(this.props.loan, 'metadata.end_date').diffNow('days').days <=
       expireDays
     );
   }
 
-  isDisabled = () =>
-    this.hasMaxExtensions ||
-    this.hasPendingLoans ||
-    this.isOverdue ||
-    !this.hasExtendAction ||
-    !this.isExtendEnabled;
+  validateMaxExtensions() {
+    return (
+      _get(this.props.loan, 'metadata.extension_count', 0) <=
+      invenioConfig.circulation.extensionsMaxCount
+    );
+  }
 
-  infoMessage = () => {
-    if (_isEqual(this.hasMaxExtensions, true))
-      return _get(ExtendButton.INFO_MESSAGES, 'hasMaxExtensions');
-    if (_isEqual(this.hasPendingLoans, true))
-      return _get(ExtendButton.INFO_MESSAGES, 'hasPendingLoans');
-    if (_isEqual(this.isOverdue, true))
-      return _get(ExtendButton.INFO_MESSAGES, 'isOverdue');
-    if (_isEqual(this.hasExtendAction, false))
-      return _get(ExtendButton.INFO_MESSAGES, 'hasExtendAction');
-    if (_isEqual(this.isExtendEnabled, false))
-      return _get(ExtendButton.INFO_MESSAGES, 'isExtendEnabled');
+  validateDocumentOverbook() {
+    const isOverbooked = _get(
+      this.props.loan,
+      'metadata.document.circulation.overbooked',
+      false
+    );
+    return !isOverbooked;
+  }
+
+  validate = () => {
+    if (!this.validateExtendUrl())
+      return { isValid: false, msg: ExtendButton.INFO_MESSAGES.extendUrl };
+
+    if (!this.validateExtendAction()) {
+      return {
+        isValid: false,
+        msg: ExtendButton.INFO_MESSAGES.extendAction(
+          _get(this.props.loan, 'metadata.end_date')
+        ),
+      };
+    }
+
+    if (!this.validateMaxExtensions())
+      return {
+        isValid: false,
+        msg: ExtendButton.INFO_MESSAGES.maxExtensions,
+      };
+
+    if (!this.validateDocumentOverbook())
+      return {
+        isValid: false,
+        msg: ExtendButton.INFO_MESSAGES.documentOverbook,
+      };
+
+    return { isValid: true, msg: '' };
   };
 
   render() {
-    const isDisabled = this.isDisabled();
+    const validation = this.validate();
+    const isDisabled = !validation.isValid;
 
     return (
       <>
         <Button
           color="purple"
           size="mini"
-          content="extend loan"
+          content="Request extension"
           disabled={isDisabled}
           onClick={this.handleExtendRequest}
         />
         {isDisabled && (
           <Popup
-            content={this.infoMessage()}
+            content={validation.msg}
             trigger={<Icon name={'info'} />}
+            position={'top right'}
           />
         )}
       </>
