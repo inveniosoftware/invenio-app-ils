@@ -1181,6 +1181,12 @@ RECORDS_REST_FACETS = dict(
             state=dict(terms=dict(field="state")),
             delivery=dict(terms=dict(field="delivery.method")),
             returns=overdue_agg,
+            availability=dict(
+                range=dict(
+                    field="document.circulation.has_items_for_loan",
+                    ranges=[{"key": "Available for loan", "from": 1}],
+                )
+            ),
         ),
         filters={
             "returns.end_date": overdue_loans_filter("end_date"),
@@ -1188,8 +1194,11 @@ RECORDS_REST_FACETS = dict(
         post_filters=dict(
             state=terms_filter("state"),
             delivery=terms_filter("delivery.method"),
-
-        )
+            availability=keyed_range_filter(
+                "document.circulation.has_items_for_loan",
+                {"Available for loan": {"gt": 0}},
+            ),
+        ),
     ),
     acq_orders=dict(  # OrderSearch.Meta.index
         aggs=dict(

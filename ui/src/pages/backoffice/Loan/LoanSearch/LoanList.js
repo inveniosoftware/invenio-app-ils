@@ -143,6 +143,12 @@ class LoanListEntry extends Component {
                   </List>
                 </>
               )}
+              {loan.metadata.circulation && (
+                <List.Content>
+                  <label>Physical copies available</label>{' '}
+                  {loan.metadata.document.circulation.has_items_for_loan}
+                </List.Content>
+              )}
             </Grid.Column>
             <Grid.Column computer={2} largeScreen={2} textAlign="right">
               <Link
