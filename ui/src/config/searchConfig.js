@@ -260,6 +260,11 @@ const searchConfig = {
         field: 'delivery.method',
         aggName: 'delivery',
       },
+      {
+        title: 'Availability',
+        field: 'document.circulation.has_items_for_loan',
+        aggName: 'availability',
+      },
     ],
     sortBy: {
       onEmptyQuery: 'end_date',

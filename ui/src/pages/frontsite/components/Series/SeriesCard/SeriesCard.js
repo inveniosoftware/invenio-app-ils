@@ -59,9 +59,7 @@ export class SeriesCard extends Component {
             {data.metadata.publisher && (
               <div>Publisher {data.metadata.publisher}</div>
             )}
-            {data.metadata.relations_metadata && (
-              <div>Volumes {documentsCount}</div>
-            )}
+            {documentsCount > 0 && <div>Volumes {documentsCount}</div>}
           </Card.Meta>
         </Card.Content>
       </Card>
