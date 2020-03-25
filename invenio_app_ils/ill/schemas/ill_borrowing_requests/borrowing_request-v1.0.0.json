@@ -33,7 +33,9 @@
           "type": "string"
         }
       },
-      "required": ["mode"],
+      "required": [
+        "mode"
+      ],
       "type": "object"
     },
     "price": {
@@ -48,7 +50,10 @@
           "type": "number"
         }
       },
-      "required": ["value", "currency"],
+      "required": [
+        "value",
+        "currency"
+      ],
       "type": "object"
     }
   },
@@ -61,9 +66,25 @@
       "title": "Reason for cancelling the ILL borrowing request",
       "type": "string"
     },
-    "created_by_pid": {
-      "title": "PID of the user who created the borrowing request",
-      "type": "string"
+    "created_by": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "document": {
+      "properties": {
+        "$ref": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "document_pid": {
       "title": "The persistent identifier of the Document",
@@ -159,9 +180,29 @@
     "type": {
       "title": "The type of the item requested, normally physical or electronic",
       "type": "string"
+    },
+    "updated_by": {
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "Last update entity information",
+      "type": "object"
     }
   },
-  "required": ["$schema", "pid", "status", "document_pid", "patron_pid", "library_pid", "type"],
+  "required": [
+    "$schema",
+    "pid",
+    "status",
+    "document_pid",
+    "patron_pid",
+    "library_pid",
+    "type"
+  ],
   "title": "Schema for the ILL borrowing request",
   "type": "object"
 }

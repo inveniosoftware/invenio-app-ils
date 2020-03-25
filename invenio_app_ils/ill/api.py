@@ -21,7 +21,7 @@ from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.ill.errors import ILLError
 from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.minters import pid_minter
-from invenio_app_ils.records.api import IlsRecord, preserve_fields
+from invenio_app_ils.records.api import IlsRecord
 
 LIBRARY_PID_TYPE = "illlid"
 LIBRARY_PID_MINTER = "illlid"
@@ -83,9 +83,17 @@ class BorrowingRequest(IlsRecord):
 
     _pid_type = BORROWING_REQUEST_PID_TYPE
     _schema = "ill_borrowing_requests/borrowing_request-v1.0.0.json"
+    _document_resolver_path = (
+        "{scheme}://{host}/api/resolver/ill/"
+        "borrowing-requests/{brw_req_pid}/document"
+    )
     _library_resolver_path = (
         "{scheme}://{host}/api/resolver/ill/"
-        "borrowing-requests/{request_pid}/library"
+        "borrowing-requests/{brw_req_pid}/library"
+    )
+    _patron_resolver_path = (
+        "{scheme}://{host}/api/resolver/ill/"
+        "borrowing-requests/{brw_req_pid}/patron"
     )
     STATUSES = ["PENDING", "REQUESTED", "ON_LOAN", "RETURNED", "CANCELLED"]
     TYPES = ["PHYSICAL", "ELECTRONIC"]
@@ -93,11 +101,25 @@ class BorrowingRequest(IlsRecord):
     @classmethod
     def build_resolver_fields(cls, data):
         """Build all resolver fields."""
+        data["document"] = {
+            "$ref": cls._document_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                brw_req_pid=data["pid"],
+            )
+        }
         data["library"] = {
             "$ref": cls._library_resolver_path.format(
                 scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
                 host=current_app.config["JSONSCHEMAS_HOST"],
-                request_pid=data["pid"],
+                brw_req_pid=data["pid"],
+            )
+        }
+        data["patron"] = {
+            "$ref": cls._patron_resolver_path.format(
+                scheme=current_app.config["JSONSCHEMAS_URL_SCHEME"],
+                host=current_app.config["JSONSCHEMAS_HOST"],
+                brw_req_pid=data["pid"],
             )
         }
 
@@ -107,7 +129,6 @@ class BorrowingRequest(IlsRecord):
         cls.build_resolver_fields(data)
         return super().create(data, id_=id_, **kwargs)
 
-    @preserve_fields(fields=["created_by_pid"])
     def update(self, *args, **kwargs):
         """Update record."""
         super().update(*args, **kwargs)

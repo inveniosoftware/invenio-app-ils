@@ -6,28 +6,39 @@
       "$schema": {
         "type": "keyword"
       },
-      "pid": {
-        "type": "keyword"
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
       },
       "bucket_id": {
         "type": "keyword"
       },
-      "document_pid": {
-        "type": "keyword"
-      },
-      "document": {
-        "type": "object",
-        "properties": {
-          "pid": {
-            "type": "keyword"
-          }
-        }
-      },
       "description": {
         "type": "text"
       },
+      "document": {
+        "properties": {
+          "edition": {
+            "type": "text"
+          },
+          "pid": {
+            "type": "keyword"
+          },
+          "publication_year": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "text"
+          }
+        },
+        "type": "object"
+      },
+      "document_pid": {
+        "type": "keyword"
+      },
       "files": {
-        "type": "object",
         "properties": {
           "bucket": {
             "type": "keyword"
@@ -47,7 +58,8 @@
           "version_id": {
             "type": "keyword"
           }
-        }
+        },
+        "type": "object"
       },
       "internal_notes": {
         "type": "text"
@@ -55,11 +67,8 @@
       "open_access": {
         "type": "boolean"
       },
-      "_created": {
-        "type": "date"
-      },
-      "_updated": {
-        "type": "date"
+      "pid": {
+        "type": "keyword"
       }
     }
   }

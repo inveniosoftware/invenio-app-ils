@@ -4,20 +4,45 @@
       "date_detection": false,
       "numeric_detection": false,
       "properties": {
+        "$schema": {
+          "type": "keyword"
+        },
         "_created": {
           "type": "date"
         },
         "_updated": {
           "type": "date"
         },
-        "$schema": {
-          "type": "keyword"
-        },
         "cancel_reason": {
           "type": "text"
         },
-        "created_by_pid": {
-          "type": "keyword"
+        "created_by": {
+          "properties": {
+            "type": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "keyword"
+            }
+          },
+          "type": "object"
+        },
+        "document": {
+          "properties": {
+            "edition": {
+              "type": "string"
+            },
+            "pid": {
+              "type": "keyword"
+            },
+            "publication_year": {
+              "type": "string"
+            },
+            "title": {
+              "type": "text"
+            }
+          },
+          "type": "object"
         },
         "document_pid": {
           "type": "keyword"
@@ -61,6 +86,20 @@
         },
         "notes": {
           "type": "text"
+        },
+        "patron": {
+          "properties": {
+            "email": {
+              "type": "text"
+            },
+            "id": {
+              "type": "keyword"
+            },
+            "name": {
+              "type": "text"
+            }
+          },
+          "type": "object"
         },
         "patron_pid": {
           "type": "keyword"
@@ -143,6 +182,17 @@
         },
         "type": {
           "type": "keyword"
+        },
+        "updated_by": {
+          "properties": {
+            "type": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "keyword"
+            }
+          },
+          "type": "object"
         }
       }
     }

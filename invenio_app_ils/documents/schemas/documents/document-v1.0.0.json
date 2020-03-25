@@ -525,6 +525,8 @@
       "uniqueItems": true
     },
     "publication_year": {
+      "format": "date",
+      "minLength": 1,
       "title": "Year of the publication of the record",
       "type": "string"
     },

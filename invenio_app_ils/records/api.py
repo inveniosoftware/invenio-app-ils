@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-2019 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -33,23 +33,6 @@ from ..pidstore.pids import EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, \
 from .validator import ItemValidator, RecordValidator
 
 lt_es7 = ES_VERSION[0] < 7
-
-
-def preserve_fields(fields):
-    """Decorator to save fields value and restore them after method exec.
-
-    :param fields: List of fields to preserve.
-    """
-    def decorator(f):
-        def wrapper(self, *args, **kwargs):
-            data = {field: self[field] for field in fields if field in self}
-            _result = f(self, *args, **kwargs)
-            result = _result if _result else self
-            for field in data:
-                result[field] = data[field]
-            return result
-        return wrapper
-    return decorator
 
 
 class IlsRecord(Record):
