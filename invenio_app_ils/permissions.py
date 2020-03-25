@@ -18,6 +18,7 @@ from invenio_access import action_factory
 from invenio_access.permissions import Permission, authenticated_user
 from invenio_records_rest.utils import allow_all, deny_all
 
+from invenio_app_ils.errors import InvalidLoanExtendError
 from invenio_app_ils.proxies import current_app_ils
 
 backoffice_access_action = action_factory("ils-backoffice-access")
@@ -52,9 +53,19 @@ def check_permission(permission):
         abort(403)
 
 
+def authenticated_user_permission(*args, **kwargs):
+    """Return an object that evaluates if the current user is authenticated."""
+    return Permission(authenticated_user)
+
+
 def backoffice_permission(*args, **kwargs):
     """Return permission to allow only librarians and admins."""
     return Permission(backoffice_access_action)
+
+
+def circulation_permission(patron_pid):
+    """Return circulation status permission for a patron."""
+    return Permission(UserNeed(int(patron_pid)), backoffice_access_action)
 
 
 def file_download_permission(obj):
@@ -79,6 +90,19 @@ def files_permission(obj, action=None):
     return backoffice_permission()
 
 
+def loan_extend_circulation_permission(loan):
+    """Return permission to allow only owner and librarians to extend loan."""
+    if not current_user or not current_user.id:
+        abort(401)
+
+    if current_user.id == int(loan["patron_pid"]):
+        loan = loan.replace_refs()
+        if loan.get("document").get("circulation").get("overbooked"):
+            raise InvalidLoanExtendError("This document is overbooked!")
+
+    return LoanOwnerPermission(loan)
+
+
 class LoanOwnerPermission(Permission):
     """Return Permission to evaluate if the current user owns the loan."""
 
@@ -97,11 +121,6 @@ class DocumentRequestOwnerPermission(Permission):
         super(DocumentRequestOwnerPermission, self).__init__(
             UserNeed(int(record["patron_pid"])), backoffice_access_action
         )
-
-
-def authenticated_user_permission(*args, **kwargs):
-    """Return an object that evaluates if the current user is authenticated."""
-    return Permission(authenticated_user)
 
 
 def views_permissions_factory(action):
@@ -126,10 +145,4 @@ def views_permissions_factory(action):
         return backoffice_permission()
     elif action == "ill-create-loan":
         return backoffice_permission()
-    else:
-        return deny_all()
-
-
-def circulation_permission(patron_pid):
-    """Return circulation status permission for a patron."""
-    return Permission(UserNeed(int(patron_pid)), backoffice_access_action)
+    return deny_all()

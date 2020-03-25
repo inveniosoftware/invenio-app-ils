@@ -5,7 +5,9 @@ exports[`SeriesLiteratureSearch tests should load the SeriesLiteratureSearch com
   <Divider
     horizontal={true}
   >
-    Literature in this series
+    Literature in this series (
+    0
+    )
   </Divider>
   <ReactSearchKit
     defaultSortByOnEmptyQuery={null}

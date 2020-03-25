@@ -3,12 +3,14 @@ export const invenioConfig = {
     canCirculateStatuses: ['CAN_CIRCULATE'],
   },
   circulation: {
+    extensionsMaxCount: 3,
     loanRequestStates: ['PENDING'],
     loanActiveStates: ['ITEM_ON_LOAN'],
     loanCompletedStates: ['ITEM_RETURNED'],
     loanCancelledStates: ['CANCELLED'],
     deliveryMethods: { DELIVERY: '', 'PICK UP': '' },
     requestDuration: 60,
+    loanWillExpireDays: 7,
   },
   documentRequests: {
     physicalItemProviders: {

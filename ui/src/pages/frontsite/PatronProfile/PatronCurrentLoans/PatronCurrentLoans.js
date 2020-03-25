@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Loader, Error, Pagination } from '@components';
 import { Container, Header, Item } from 'semantic-ui-react';
-import _isEmpty from 'lodash/isEmpty';
 import { ILSItemPlaceholder } from '@components/ILSPlaceholder/ILSPlaceholder';
 import { NoResultsMessage } from '../../components/NoResultsMessage';
-import { LoanListEntry } from './components/LoanListEntry';
+import { LoanListEntry } from './components';
+import _isEmpty from 'lodash/isEmpty';
 
 const PAGE_SIZE = 5;
 
 export default class PatronCurrentLoans extends Component {
   constructor(props) {
     super(props);
+    this.extendLoan = this.props.extendLoan;
     this.fetchPatronCurrentLoans = this.props.fetchPatronCurrentLoans;
     this.patronPid = this.props.patronPid;
     this.state = { activePage: 1 };
@@ -48,7 +49,18 @@ export default class PatronCurrentLoans extends Component {
         <>
           <Item.Group divided>
             {data.hits.map(entry => (
-              <LoanListEntry key={entry.metadata.pid} loan={entry} />
+              <LoanListEntry
+                key={entry.metadata.pid}
+                loan={entry}
+                extendLoan={this.extendLoan}
+                onExtendSuccess={() => {
+                  this.fetchPatronCurrentLoans(
+                    this.patronPid,
+                    this.state.activePage,
+                    PAGE_SIZE
+                  );
+                }}
+              />
             ))}
           </Item.Group>
           <Container textAlign={'center'}>
