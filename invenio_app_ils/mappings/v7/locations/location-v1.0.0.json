@@ -19,7 +19,7 @@
         "type": "text"
       },
       "email": {
-        "type": "keyword"
+        "type": "text"
       },
       "phone": {
         "type": "keyword"

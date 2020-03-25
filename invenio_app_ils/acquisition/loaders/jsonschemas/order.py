@@ -7,12 +7,13 @@
 
 """Order schema for marshmallow loader."""
 
-from flask_login import current_user
 from invenio_circulation.records.loaders.schemas.json import DateString
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import EXCLUDE, Schema, fields, pre_load, validate
 
 from invenio_app_ils.acquisition.api import Order
+from invenio_app_ils.records.loaders.schemas.changed_by import ChangedBySchema, \
+    set_changed_by
 
 
 class PriceSchema(Schema):
@@ -77,7 +78,7 @@ class OrderSchemaV1(RecordMetadataSchemaJSONV1):
         unknown = EXCLUDE
 
     cancel_reason = fields.Str()
-    created_by_pid = fields.Str()
+    created_by = fields.Nested(ChangedBySchema)
     received_date = DateString()
     expected_delivery_date = DateString()
     funds = fields.List(fields.Str())
@@ -89,9 +90,10 @@ class OrderSchemaV1(RecordMetadataSchemaJSONV1):
     payment = fields.Nested(PaymentSchema)
     status = fields.Str(required=True, validate=validate.OneOf(Order.STATUSES))
     vendor_pid = fields.Str(required=True)  # TODO: validate
+    updated_by = fields.Nested(ChangedBySchema)
 
     @pre_load
-    def add_created_by(self, data, **kwargs):
-        """Automatically add the `created_by_pid`."""
-        data["created_by_pid"] = str(current_user.id)
-        return data
+    def set_changed_by(self, data, **kwargs):
+        """Automatically set `created_by` and `updated_by`."""
+        record = self.context.get("record")
+        return set_changed_by(data, record)

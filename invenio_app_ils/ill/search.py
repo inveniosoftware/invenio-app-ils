@@ -31,6 +31,36 @@ class BorrowingRequestsSearch(RecordsSearch):
         index = "ill_borrowing_requests"
         doc_types = None
 
+    def search_by_document_pid(self, document_pid=None):
+        """Search by document pid."""
+        search = self
+
+        if document_pid:
+            search = search.filter(
+                "term",
+                document_pid=document_pid
+            )
+        else:
+            raise MissingRequiredParameterError(
+                description="document_pid is required"
+            )
+        return search
+
+    def search_by_patron_pid(self, patron_pid=None):
+        """Search by patron pid."""
+        search = self
+
+        if patron_pid:
+            search = search.filter(
+                "term",
+                patron_pid=patron_pid
+            )
+        else:
+            raise MissingRequiredParameterError(
+                description="patron_pid is required"
+            )
+        return search
+
     def search_by_library_pid(self, library_pid=None):
         """Retrieve BorrowingRequests with the given library_pid."""
         search = self

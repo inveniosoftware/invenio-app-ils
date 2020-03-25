@@ -17,7 +17,7 @@ from invenio_app_ils.acquisition.proxies import current_ils_acq
 from invenio_app_ils.errors import RecordHasReferencesError
 from invenio_app_ils.fetchers import pid_fetcher
 from invenio_app_ils.minters import pid_minter
-from invenio_app_ils.records.api import IlsRecord, preserve_fields
+from invenio_app_ils.records.api import IlsRecord
 
 VENDOR_PID_TYPE = "acqvid"
 VENDOR_PID_MINTER = "acqvid"
@@ -85,7 +85,6 @@ class Order(IlsRecord):
         cls.build_resolver_fields(data)
         return super().create(data, id_=id_, **kwargs)
 
-    @preserve_fields(fields=["created_by_pid"])
     def update(self, *args, **kwargs):
         """Update record."""
         super().update(*args, **kwargs)
