@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018-2019 CERN.
+# Copyright (C) 2018-2020 CERN.
 #
 # invenio-app-ils is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -33,23 +33,6 @@ from ..pidstore.pids import EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, \
 from .validator import ItemValidator, RecordValidator
 
 lt_es7 = ES_VERSION[0] < 7
-
-
-def preserve_fields(fields):
-    """Decorator to save fields value and restore them after method exec.
-
-    :param fields: List of fields to preserve.
-    """
-    def decorator(f):
-        def wrapper(self, *args, **kwargs):
-            data = {field: self[field] for field in fields if field in self}
-            _result = f(self, *args, **kwargs)
-            result = _result if _result else self
-            for field in data:
-                result[field] = data[field]
-            return result
-        return wrapper
-    return decorator
 
 
 class IlsRecord(Record):
@@ -407,12 +390,15 @@ class Patron(dict):
         self._profile = UserProfile.get_by_userid(id)
         self.name = self._profile.full_name if self._profile else ""
         self.email = self._user.email
+        # add all fields to the dict so they can be accessed as a dict too
+        super().__init__(self.dumps())
 
     def dumps(self):
         """Return python representation of Patron metadata."""
         return {
             "$schema": self._schema,
             "id": str(self.id),  # expose it as a string
+            "pid": str(self.id),
             "name": self.name,
             "email": self.email,
         }
@@ -421,6 +407,7 @@ class Patron(dict):
         """Return a simpler patron representation for loaders."""
         return {
             "id": str(self.id),
+            "pid": str(self.id),
             "name": self.name,
             "email": self.email,
         }

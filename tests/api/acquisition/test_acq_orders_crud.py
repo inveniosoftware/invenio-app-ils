@@ -38,7 +38,7 @@ def test_orders_crud(
         ("patron1", [403], dummy_acquisition_order),
     ]
 
-    def _test_create():
+    def _test_create(expected_status, data):
         """Test record creation."""
         url = url_for("invenio_records_rest.acqoid_list")
         res = client.post(url, headers=json_headers, data=json.dumps(data))
@@ -47,32 +47,41 @@ def test_orders_crud(
         if res.status_code < 400:
             ord = res.get_json()["metadata"]
             assert ord["status"] == "PENDING"
-            # logged in user is automatically injected
-            assert ord["created_by_pid"] == str(user.id)
+            expected_created_by = dict(type="user_id", value=str(user.id))
+            assert ord["created_by"] == expected_created_by
+            assert not ord.get("updated_by")
             return ord["pid"]
 
-    def _test_update():
+    def _test_update(expected_status, data, pid):
         """Test record update."""
-        url = url_for("invenio_records_rest.acqoid_item", pid_value="acqoid-1")
+        pid_value = pid or "acqoid-1"
+        url = url_for("invenio_records_rest.acqoid_item", pid_value=pid_value)
         res = client.put(url, headers=json_headers, data=json.dumps(data))
         assert res.status_code in expected_status
+        if res.status_code < 400:
+            expected_changed_by = dict(type="user_id", value=str(user.id))
+            ord = res.get_json()["metadata"]
+            assert ord["created_by"] == expected_changed_by
+            assert ord["updated_by"] == expected_changed_by
 
-    def _test_read():
+    def _test_read(expected_status, data, pid):
         """Test record read."""
-        url = url_for("invenio_records_rest.acqoid_item", pid_value="acqoid-1")
+        pid_value = pid or "acqoid-1"
+        url = url_for("invenio_records_rest.acqoid_item", pid_value=pid_value)
         res = client.get(url, headers=json_headers, data=json.dumps(data))
         assert res.status_code in expected_status
 
-    def _test_delete():
+    def _test_delete(expected_status, data, pid):
         """Test record delete."""
-        url = url_for("invenio_records_rest.acqoid_item", pid_value="acqoid-1")
+        pid_value = pid or "acqoid-1"
+        url = url_for("invenio_records_rest.acqoid_item", pid_value=pid_value)
         res = client.get(url, headers=json_headers, data=json.dumps(data))
         assert res.status_code in expected_status
 
     for username, expected_status, data in tests:
         user = users[username]
         login_user_via_session(client, user=user)
-        _test_create()
-        _test_update()
-        _test_read()
-        _test_delete()
+        pid = _test_create(expected_status, data)
+        _test_update(expected_status, data, pid)
+        _test_read(expected_status, data, pid)
+        _test_delete(expected_status, data, pid)

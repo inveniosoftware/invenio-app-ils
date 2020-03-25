@@ -39,8 +39,7 @@ from .ill.api import BORROWING_REQUEST_PID_TYPE, LIBRARY_PID_TYPE, \
     BorrowingRequest, Library
 from .pidstore.pids import EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, \
     ITEM_PID_TYPE, LOCATION_PID_TYPE, SERIES_PID_TYPE
-from .records.api import EItem, InternalLocation, Item, Location, Patron, \
-    Series
+from .records.api import EItem, InternalLocation, Item, Location, Series
 from .records_relations.api import RecordRelationsParentChild, \
     RecordRelationsSiblings
 from .relations.api import Relation
@@ -1195,18 +1194,16 @@ def patrons():
 @with_appcontext
 def index():
     """Index patrons."""
-    from flask import current_app
-    from invenio_app_ils.pidstore.pids import PATRON_PID_TYPE
+    from invenio_app_ils.proxies import current_app_ils
 
     patrons = User.query.all()
     indexer = PatronIndexer()
 
     click.secho("Now indexing {0} patrons".format(len(patrons)), fg="green")
 
-    rest_config = current_app.config["RECORDS_REST_ENDPOINTS"]
-    patron_cls = rest_config[PATRON_PID_TYPE]["record_class"] or Patron
+    Patron = current_app_ils.patron_cls
     for pat in patrons:
-        patron = patron_cls(pat.id)
+        patron = Patron(pat.id)
         indexer.index(patron)
 
 

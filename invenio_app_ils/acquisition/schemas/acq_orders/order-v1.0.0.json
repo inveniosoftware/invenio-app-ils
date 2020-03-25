@@ -64,7 +64,12 @@
           "title": "Price per unit for the order line"
         }
       },
-      "required": ["document_pid", "recipient", "medium", "copies_ordered"],
+      "required": [
+        "document_pid",
+        "recipient",
+        "medium",
+        "copies_ordered"
+      ],
       "type": "object"
     },
     "payment": {
@@ -95,7 +100,9 @@
           "type": "string"
         }
       },
-      "required": ["mode"],
+      "required": [
+        "mode"
+      ],
       "type": "object"
     },
     "price": {
@@ -110,7 +117,10 @@
           "type": "number"
         }
       },
-      "required": ["value", "currency"],
+      "required": [
+        "value",
+        "currency"
+      ],
       "type": "object"
     }
   },
@@ -123,9 +133,17 @@
       "title": "Reason for cancelling the request",
       "type": "string"
     },
-    "created_by_pid": {
-      "title": "PID of the user who created the order",
-      "type": "string"
+    "created_by": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "expected_delivery_date": {
       "format": "date",
@@ -184,6 +202,18 @@
     "status": {
       "title": "Status of Acquisition order",
       "type": "string"
+    },
+    "updated_by": {
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "Last update entity information",
+      "type": "object"
     },
     "vendor_pid": {
       "title": "The persistent identifier of its Vendor",

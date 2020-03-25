@@ -46,6 +46,21 @@ class OrderSearch(RecordsSearch):
             )
         return search
 
+    def search_by_patron_pid(self, patron_pid=None):
+        """Search by patron pid."""
+        search = self
+
+        if patron_pid:
+            search = search.filter(
+                "term",
+                order_lines__patron_pid=patron_pid
+            )
+        else:
+            raise MissingRequiredParameterError(
+                description="patron_pid is required"
+            )
+        return search
+
     def search_by_vendor_pid(self, vendor_pid=None):
         """Search by vendor pid."""
         search = self

@@ -215,7 +215,9 @@ setup(
             "invenio_app_ils.permissions:backoffice_access_action"
         ],
         "invenio_records.jsonresolver": [
-            "borrowing_request = invenio_app_ils.ill.jsonresolvers.borrowing_request",
+            "ill_brw_req = invenio_app_ils.ill.jsonresolvers.borrowing_request_document",
+            "ill_lib = invenio_app_ils.ill.jsonresolvers.borrowing_request_library",
+            "ill_patron = invenio_app_ils.ill.jsonresolvers.borrowing_request_patron",
             "document_circulation = invenio_app_ils.documents.jsonresolvers.document_circulation",
             "document_eitem = invenio_app_ils.documents.jsonresolvers.document_eitem",
             "document_item = invenio_app_ils.documents.jsonresolvers.document_item",

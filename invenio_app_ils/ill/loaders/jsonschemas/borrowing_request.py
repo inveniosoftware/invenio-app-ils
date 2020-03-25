@@ -7,12 +7,13 @@
 
 """BorrowingRequest schema for marshmallow loader."""
 
-from flask_login import current_user
 from invenio_circulation.records.loaders.schemas.json import DateString
 from invenio_records_rest.schemas import RecordMetadataSchemaJSONV1
 from marshmallow import EXCLUDE, Schema, fields, pre_load, validate
 
 from invenio_app_ils.ill.api import BorrowingRequest
+from invenio_app_ils.records.loaders.schemas.changed_by import ChangedBySchema, \
+    set_changed_by
 
 
 class PriceSchema(Schema):
@@ -66,7 +67,7 @@ class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
         unknown = EXCLUDE
 
     cancel_reason = fields.Str()
-    created_by_pid = fields.Str()
+    created_by = fields.Nested(ChangedBySchema)
     document_pid = fields.Str(required=True)
     expected_delivery_date = DateString()
     extension = fields.Nested(ExtensionSchema)
@@ -85,9 +86,10 @@ class BorrowingRequestSchemaV1(RecordMetadataSchemaJSONV1):
     type = fields.Str(
         required=True, validate=validate.OneOf(BorrowingRequest.TYPES)
     )
+    updated_by = fields.Nested(ChangedBySchema)
 
     @pre_load
-    def add_created_by(self, data, **kwargs):
-        """Automatically add the `created_by_pid`."""
-        data["created_by_pid"] = str(current_user.id)
-        return data
+    def set_changed_by(self, data, **kwargs):
+        """Automatically set `created_by` and `updated_by`."""
+        record = self.context.get("record")
+        return set_changed_by(data, record)

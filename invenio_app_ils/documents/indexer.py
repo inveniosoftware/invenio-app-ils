@@ -19,6 +19,8 @@ from invenio_app_ils.acquisition.api import ORDER_PID_TYPE
 from invenio_app_ils.acquisition.proxies import current_ils_acq
 from invenio_app_ils.document_requests.api import DOCUMENT_REQUEST_PID_TYPE
 from invenio_app_ils.documents.api import DOCUMENT_PID_TYPE
+from invenio_app_ils.ill.api import BORROWING_REQUEST_PID_TYPE
+from invenio_app_ils.ill.proxies import current_ils_ill
 from invenio_app_ils.indexer import ReferencedRecordsIndexer
 from invenio_app_ils.pidstore.pids import EITEM_PID_TYPE, ITEM_PID_TYPE
 from invenio_app_ils.proxies import current_app_ils
@@ -113,6 +115,20 @@ def get_acquisition_orders(document_pid):
     return referenced
 
 
+def get_ill_borrowing_requests(document_pid):
+    """Get referenced ILL borrowing requests."""
+    referenced = []
+    brw_req_record_cls = current_ils_ill.borrowing_request_record_cls
+    brw_req_search_cls = current_ils_ill.borrowing_request_search_cls
+    search = brw_req_search_cls().search_by_document_pid(document_pid)
+    for hit in search.scan():
+        brw_req = brw_req_record_cls.get_record_by_pid(hit["pid"])
+        referenced.append(
+            dict(pid_type=BORROWING_REQUEST_PID_TYPE, record=brw_req)
+        )
+    return referenced
+
+
 @shared_task(ignore_result=True)
 def index_referenced_records(document):
     """Index referenced records."""
@@ -131,6 +147,7 @@ def index_referenced_records(document):
     indexer.index(indexed, get_eitems(document_pid))
     indexer.index(indexed, get_related_records(document_pid))
     indexer.index(indexed, get_acquisition_orders(document_pid))
+    indexer.index(indexed, get_ill_borrowing_requests(document_pid))
 
 
 class DocumentIndexer(RecordIndexer):
