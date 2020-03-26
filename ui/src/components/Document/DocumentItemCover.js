@@ -6,8 +6,12 @@ import { Item } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
 
 export default class DocumentItemCover extends Component {
-  getRestrictions = meta => {
-    if (!isEmpty(meta) && meta.open_access) return null;
+  getRestrictions = document => {
+    if (
+      (!isEmpty(document) && document.open_access) ||
+      (!isEmpty(document.metadata) && document.metadata.open_access)
+    )
+      return null;
     return {
       corner: 'left',
       color: 'red',
@@ -24,7 +28,7 @@ export default class DocumentItemCover extends Component {
         size={size}
         src={getCover(coverUrl)}
         onError={e => (e.target.style.display = 'none')}
-        label={this.getRestrictions(document.metadata)}
+        label={this.getRestrictions(document)}
         {...uiProps}
       />
     );

@@ -76,9 +76,10 @@ def document_resolver(loan_pid):
             "circulation",
             "edition",
             "document_type",
+            "open_access",
             "pid",
+            "publication_year",
             "title",
-            # TODO: add the imprint year here
         )
 
     return obj
