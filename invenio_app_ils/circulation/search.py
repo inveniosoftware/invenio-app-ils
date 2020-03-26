@@ -111,6 +111,14 @@ class IlsLoansSearch(LoansSearch):
         ])
         return search
 
+    def get_loans_in_range(self, from_date=None, to_date=None):
+        """Return loans in the given date range."""
+        search_cls = current_circulation.loan_search_cls
+        search = search_cls().query("bool", must=[
+            Q("range", start_date=dict(gte=from_date, lte=to_date)),
+        ])
+        return search
+
     class Meta:
         """Define permissions filter."""
 

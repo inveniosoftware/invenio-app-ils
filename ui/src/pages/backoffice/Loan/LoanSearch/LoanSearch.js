@@ -23,6 +23,8 @@ import {
   SearchAggregationsCards,
 } from '@components/SearchControls';
 
+import { SearchDateRange } from '@components/SearchControls/components';
+
 export class LoanSearch extends Component {
   searchApi = new InvenioSearchApi({
     url: loanApi.searchBaseURL,
@@ -87,6 +89,7 @@ export class LoanSearch extends Component {
                 <Grid.Column width={3} className={'search-aggregations'}>
                   <Header content={'Filter by'} />
                   <SearchAggregationsCards modelName={'loans'} />
+                  <SearchDateRange />
                 </Grid.Column>
                 <Grid.Column width={13}>
                   <SearchEmptyResults extras={this.renderEmptyResultsExtra} />

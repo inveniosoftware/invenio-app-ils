@@ -131,6 +131,8 @@ def views_permissions_factory(action):
         return backoffice_permission()
     elif action == "circulation-loan-force-checkout":
         return backoffice_permission()
+    elif action == "circulation-loan-search":
+        return backoffice_permission()
     elif action == "circulation-overdue-loan-email":
         return backoffice_permission()
     elif action == "relations-create":

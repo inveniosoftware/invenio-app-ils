@@ -164,3 +164,11 @@ def checkout_loan(
     )
 
     return pid, loan
+
+
+def loans_in_date_range(from_date, to_date):
+    """Fetch the loans within the dates."""
+    search_cls = current_circulation.loan_search_cls
+    query = search_cls().get_loans_in_range(from_date, to_date)
+    result = query.execute()
+    return result

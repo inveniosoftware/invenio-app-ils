@@ -10,6 +10,7 @@ import { generatePath } from 'react-router-dom';
 const apiPaths = {
   checkout: '/circulation/loans/checkout',
   emailOverdue: '/circulation/loans/:loanPid/email-overdue',
+  inDateRange: '/circulation/loans/in-date-range',
   item: '/circulation/loans/:loanPid',
   list: '/circulation/loans/',
   request: '/circulation/loans/request',
@@ -266,10 +267,19 @@ const count = async query => {
   return response;
 };
 
+const inDateRange = async (fromDate, toDate) => {
+  const response = await http.get(`${apiPaths.inDateRange}`, {
+    from_date: fromDate,
+    to_date: toDate,
+  });
+  return response.data;
+};
+
 export const loan = {
   searchBaseURL: `${apiConfig.baseURL}${apiPaths.list}`,
   assignItemToLoan: assignItemToLoan,
   query: queryBuilder,
+  inDateRange: inDateRange,
   list: list,
   get: get,
   count: count,
