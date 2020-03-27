@@ -7,6 +7,8 @@ import {
   ResultsLoader,
   Error,
   InvenioSearchApi,
+  onQueryChanged,
+  withState,
 } from 'react-searchkit';
 import { responseRejectInterceptor } from '@api/base';
 import { getSearchConfig } from '@config';
@@ -25,7 +27,7 @@ import {
 
 import { SearchDateRange } from '@components/SearchControls/components';
 
-export class LoanSearch extends Component {
+class _LoanSearch extends Component {
   searchApi = new InvenioSearchApi({
     url: loanApi.searchBaseURL,
     withCredentials: true,
@@ -34,6 +36,14 @@ export class LoanSearch extends Component {
     },
   });
   searchConfig = getSearchConfig('loans');
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      fromDate: '',
+      toDate: '',
+    };
+  }
 
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
     const helperFields = [
@@ -74,12 +84,28 @@ export class LoanSearch extends Component {
     return <LoanList hits={results} />;
   };
 
+  onDateChange = updatedDate => {
+    this.setState(updatedDate, this.updateDateResults);
+  };
+
+  updateDateResults = () => {
+    const fromDate = this.state.fromDate || '*';
+    const toDate = this.state.toDate || '*';
+    onQueryChanged({
+      searchQuery: { queryString: `start_date:[${fromDate} TO ${toDate}]` },
+    });
+  };
+
   render() {
     return (
       <>
         <Header as="h2">Loans and requests</Header>
 
-        <ReactSearchKit searchApi={this.searchApi} history={history}>
+        <ReactSearchKit
+          searchApi={this.searchApi}
+          history={history}
+          eventListenerEnabled={true}
+        >
           <Container fluid className="spaced">
             <SearchBar renderElement={this.renderSearchBar} />
           </Container>
@@ -89,7 +115,11 @@ export class LoanSearch extends Component {
                 <Grid.Column width={3} className={'search-aggregations'}>
                   <Header content={'Filter by'} />
                   <SearchAggregationsCards modelName={'loans'} />
-                  <SearchDateRange />
+                  <SearchDateRange
+                    onDateChange={this.onDateChange}
+                    fromDate={this.state.fromDate}
+                    toDate={this.state.toDate}
+                  />
                 </Grid.Column>
                 <Grid.Column width={13}>
                   <SearchEmptyResults extras={this.renderEmptyResultsExtra} />
@@ -106,3 +136,5 @@ export class LoanSearch extends Component {
     );
   }
 }
+
+export const LoanSearch = withState(_LoanSearch);

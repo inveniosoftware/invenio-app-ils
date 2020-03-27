@@ -1,54 +1,40 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Card } from 'semantic-ui-react';
 import { DatePicker } from '@components';
-import { loan as loanApi } from '@api/loans/loan';
 
 export class SearchDateRange extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fromDate: '',
-      toDate: '',
-    };
-  }
-
-  async fetchLoans() {
-    const resp = await loanApi.inDateRange(
-      this.state.fromDate,
-      this.state.toDate
-    );
-    console.log('Resp', resp);
-  }
-
-  handleFromDateChange = value => {
-    this.setState({ fromDate: value }, this.fetchLoans);
-  };
-
-  handleToDateChange = value => {
-    this.setState({ toDate: value }, this.fetchLoans);
-  };
-
   render() {
+    const { fromDate, toDate, onDateChange } = this.props;
     return (
       <Card>
         <Card.Content>
           <Card.Header>Date</Card.Header>
+          <Card.Meta>
+            <span>*Loan start date</span>
+          </Card.Meta>
         </Card.Content>
         <Card.Content>
           <DatePicker
-            maxDate={this.state.toDate}
+            maxDate={toDate}
+            defaultValue={fromDate}
             placeholder="From"
-            handleDateChange={this.handleFromDateChange}
+            handleDateChange={value => onDateChange({ fromDate: value })}
           />
         </Card.Content>
         <Card.Content>
           <DatePicker
-            minDate={this.state.fromDate}
+            minDate={fromDate}
+            defaultValue={toDate}
             placeholder="To"
-            handleDateChange={this.handleToDateChange}
+            handleDateChange={value => onDateChange({ toDate: value })}
           />
         </Card.Content>
       </Card>
     );
   }
 }
+
+SearchDateRange.propTypes = {
+  onDateChange: PropTypes.func.isRequired,
+};
