@@ -7,8 +7,8 @@ import _get from 'lodash/get';
 
 export default class DocumentItemCover extends Component {
   getLabel = metadata => {
-    const isAccessed = _get(metadata, 'open_access', false);
-    return isAccessed
+    const hasOpenAccess = _get(metadata, 'open_access', false);
+    return hasOpenAccess
       ? null
       : {
           corner: 'left',
