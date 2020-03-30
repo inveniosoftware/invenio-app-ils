@@ -5,7 +5,8 @@ exports[`should render correctly 1`] = `
   <DocumentItemCover
     coverUrl="1"
     disabled={true}
-    document={
+    linkTo="/literature/13"
+    metadata={
       Object {
         "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
         "abstract": "This is an abstract",
@@ -35,7 +36,6 @@ exports[`should render correctly 1`] = `
         "title": "The Gulf: The Making of An American Sea",
       }
     }
-    linkTo="/literature/13"
     size="mini"
   />
   <ItemContent>

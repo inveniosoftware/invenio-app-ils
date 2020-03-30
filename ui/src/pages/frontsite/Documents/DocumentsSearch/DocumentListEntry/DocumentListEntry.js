@@ -67,7 +67,7 @@ export default class DocumentListEntry extends Component {
       <DocumentItemCover
         size="mini"
         coverUrl={this.metadata.edition}
-        document={this.metadata}
+        metadata={this.metadata}
         disabled
         linkTo={FrontSiteRoutes.documentDetailsFor(this.metadata.pid)}
       />
