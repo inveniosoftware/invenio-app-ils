@@ -1,7 +1,7 @@
-import { Header, Icon, Segment } from 'semantic-ui-react';
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { EmptyResults } from 'react-searchkit';
+import { Header, Icon, Segment } from 'semantic-ui-react';
 import { ClearButton } from '../ClearButton';
 
 export default class SearchEmptyResults extends Component {

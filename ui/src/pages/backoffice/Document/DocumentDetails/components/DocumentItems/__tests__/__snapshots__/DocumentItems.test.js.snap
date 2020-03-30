@@ -1442,7 +1442,9 @@ exports[`DocumentItems tests should render the see all button when showing only 
                               className="right aligned"
                               colSpan={8}
                             >
-                              <span>
+                              <span
+                                className="results-table-compact-summary"
+                              >
                                 Showing entries 
                                 1
                                 -

@@ -1,35 +1,23 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {
-  Container,
-  Grid,
-  Segment,
-  Icon,
-  Header,
-  Button,
-  Input,
-} from 'semantic-ui-react';
-import { Error, Loader } from '@components';
-import { ItemsResultsList } from './components';
-import isEmpty from 'lodash/isEmpty';
-import { ES_DELAY } from '@config';
 import { recordToPidType } from '@api/utils';
+import { Error, Loader, SearchBar } from '@components';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Container, Grid, Header, Icon, Segment } from 'semantic-ui-react';
+import { ItemsResultsList } from './components';
+import _isEmpty from 'lodash/isEmpty';
 
 export default class ItemsSearch extends Component {
   constructor(props) {
     super(props);
     this.fetchItems = this.props.fetchItems;
-    this.updateQueryString = this.props.updateQueryString;
     this.clearResults = this.props.clearResults;
     this.checkoutItem = this.props.checkoutItem;
-    this.fetchUpdatedCurrentLoans = this.props.fetchUpdatedCurrentLoans;
+    this.updateQueryString = this.props.updateQueryString;
+    // this state is needed for the paste action,
+    // because components gets updated via input change
+    // but we need altered behaviour for the paste action
+    // and in this way the state from before update is preserved
     this.state = { prevSearchQuery: '' };
-  }
-
-  componentDidMount() {
-    if (this.searchInput) {
-      this.searchInput.focus();
-    }
   }
 
   onInputChange = queryString => {
@@ -39,7 +27,6 @@ export default class ItemsSearch extends Component {
   executeSearch = queryString => {
     queryString = queryString || this.props.queryString;
     this.setState({ prevSearchQuery: queryString });
-
     return this.fetchItems(queryString);
   };
 
@@ -51,7 +38,7 @@ export default class ItemsSearch extends Component {
 
       const { hits } = this.props.items;
       const hasOneHit =
-        !isEmpty(hits) &&
+        !_isEmpty(hits) &&
         hits.length === 1 &&
         hits[0].metadata.status === 'CAN_CIRCULATE';
       if (hasOneHit) {
@@ -60,18 +47,14 @@ export default class ItemsSearch extends Component {
           type: recordToPidType(hits[0]),
           value: hits[0].metadata.pid,
         };
-        await this.checkoutItem(
+        this.checkoutItem(
           documentPid,
           itemPid,
           this.props.patronDetails.user_pid,
           true
         );
-        this.clearResults();
-        setTimeout(() => {
-          this.fetchUpdatedCurrentLoans(this.props.patronDetails.user_pid);
-        }, ES_DELAY);
-        this.setState({ prevSearchQuery: '' });
       }
+      this.setState({ prevSearchQuery: '' });
     }
   };
 
@@ -81,111 +64,81 @@ export default class ItemsSearch extends Component {
     }
   };
 
-  renderSearchBar = () => {
-    return (
-      <Input
-        action={{
-          content: 'Search',
-          onClick: () => {
-            this.executeSearch();
-          },
-        }}
-        fluid
-        focus
-        placeholder={'Search by barcode...'}
-        onChange={(e, { value }) => {
-          this.onInputChange(value);
-        }}
-        onPaste={e => {
-          this.onPasteHandler(e);
-        }}
-        value={this.props.queryString}
-        onKeyPress={event => {
-          this.onKeyPressHandler(event.target);
-        }}
-        ref={input => {
-          this.searchInput = input;
-        }}
-      />
-    );
-  };
+  onSearchClickHandler = event => this.executeSearch();
 
   renderResultsList = results => {
     return (
       <div className="results-list">
-        {this.renderHeader(results.hits.length)}
         <ItemsResultsList
           patronPid={this.props.patronDetails.user_pid}
           clearResults={this.clearResults}
           results={results}
-          checkoutItem={this.checkoutItem}
-          fetchPatronCurrentLoans={this.fetchUpdatedCurrentLoans}
+          clearSearchQuery={this.clearSearchQuery}
         />
       </div>
     );
   };
 
-  renderEmptyResults = (queryString, resetQuery) => {
+  clearSearchQuery = () => {
+    this.setState({ prevSearchQuery: '' });
+    this.clearResults();
+  };
+
+  renderSearchPrompt = () => {
     return (
       <Segment placeholder textAlign="center">
         <Header icon>
           <Icon name="search" />
-          Found no items matching this barcode.
+          No barcode provided.
         </Header>
         <div className="empty-results-current">
-          Current search phrase "{queryString}"
+          Type or paste the barcode to search for items
         </div>
-        <Segment.Inline>
-          <Button primary onClick={() => resetQuery('')}>
-            Clear query
-          </Button>
-        </Segment.Inline>
       </Segment>
     );
   };
 
-  renderHeader = totalResults => {
-    return <p>Found {totalResults} item(s).</p>;
-  };
-
   render() {
-    const { items, isLoading, error } = this.props;
-    const { prevSearchQuery } = this.state;
+    const { items, isLoading, error, queryString } = this.props;
     return (
-      <Segment className={'patron-items'}>
-        <Header as={'h3'}>Items</Header>
-        <Header.Subheader>Search items by barcode.</Header.Subheader>
-        <Container className={'search-bar'}>{this.renderSearchBar()}</Container>
+      <>
+        <Container className="search-bar spaced">
+          <SearchBar
+            action={{
+              icon: 'search',
+              onClick: this.onSearchClickHandler,
+            }}
+            currentQueryString={queryString}
+            onInputChange={this.onInputChange}
+            executeSearch={this.executeSearch}
+            placeholder={'Type or paste to search for physical copies...'}
+            onPaste={e => {
+              this.onPasteHandler(e);
+            }}
+          />
+        </Container>
         <Grid columns={1} stackable relaxed className="items-search-container">
           <Grid.Column width={16}>
             <Loader isLoading={isLoading}>
               <Error error={error}>
-                {!isEmpty(items.hits)
-                  ? this.renderResultsList(items)
-                  : this.renderEmptyResults(
-                      prevSearchQuery,
-                      this.updateQueryString
-                    )}
+                {_isEmpty(queryString) && _isEmpty(items)
+                  ? this.renderSearchPrompt()
+                  : this.renderResultsList(items)}
               </Error>
             </Loader>
           </Grid.Column>
         </Grid>
-      </Segment>
+      </>
     );
   }
 }
 
 ItemsSearch.propTypes = {
-  queryString: PropTypes.string,
   updateQueryString: PropTypes.func.isRequired,
+  queryString: PropTypes.string.isRequired,
   items: PropTypes.object,
   fetchItems: PropTypes.func.isRequired,
-  fetchUpdatedCurrentLoans: PropTypes.func.isRequired,
   clearResults: PropTypes.func.isRequired,
   checkoutItem: PropTypes.func.isRequired,
   patronDetails: PropTypes.object.isRequired,
-};
-
-ItemsSearch.defaultProps = {
-  queryString: '',
 };

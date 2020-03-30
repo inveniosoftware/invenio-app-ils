@@ -31,6 +31,7 @@
 .bo-metadata-segment{
   &.no-padding{
     padding-top: 0;
+    padding-bottom: 0;
   }
 }
 
@@ -38,6 +39,10 @@
 @{fs-parent-selector}, @{bo-parent-selector} {
   .ui.table {
     border: 0;
+
+    .results-table-compact-summary{
+     margin: 0.5em;
+    }
 
     tr {
       td {

@@ -1,9 +1,15 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Input } from 'semantic-ui-react';
 import { QueryBuildHelper } from './components/QueryBuildHelper/';
 
 export class SearchBar extends Component {
+  componentDidMount() {
+    if (this.searchInput) {
+      this.searchInput.focus();
+    }
+  }
+
   onChangeHandler = (e, { value }, onInputChange) => {
     onInputChange(value, e);
   };

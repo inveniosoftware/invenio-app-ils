@@ -1,65 +1,134 @@
-import React, { Component } from 'react';
+import { Error, Loader } from '@components';
 import PropTypes from 'prop-types';
-import { Container, Grid, Header } from 'semantic-ui-react';
-import { Loader, Error } from '@components';
+import React, { Component } from 'react';
+import {
+  Container,
+  Divider,
+  Grid,
+  Header,
+  Ref,
+  Segment,
+  Sticky,
+} from 'semantic-ui-react';
 import {
   ItemsCheckout,
   ItemsSearch,
   PatronCurrentLoans,
   PatronDocumentRequests,
-  PatronMetadata,
   PatronPendingLoans,
+  PatronActionMenu,
+  PatronHeader,
+  PatronPastLoans,
 } from './components';
 
 export default class PatronDetails extends Component {
   constructor(props) {
     super(props);
     this.fetchPatronDetails = this.props.fetchPatronDetails;
+    this.menuRef = React.createRef();
+    this.headerRef = React.createRef();
   }
 
   componentDidMount() {
-    this.unlisten = this.props.history.listen(location => {
-      if (location.state && location.state.patronPid) {
-        this.fetchPatronDetails(location.state.patronPid);
-      }
-    });
     this.fetchPatronDetails(this.props.match.params.patronPid);
   }
 
-  componentWillUnmount() {
-    this.unlisten();
+  componentDidUpdate(prevProps, prevState) {
+    const currentPatronPid = this.props.match.params.patronPid;
+    const samePatronPidFromRouter =
+      prevProps.match.params.patronPid === currentPatronPid;
+    if (!samePatronPidFromRouter) {
+      this.fetchPatronDetails(currentPatronPid);
+    }
   }
 
   render() {
-    const { isLoading, error } = this.props;
+    const { isLoading, error, data } = this.props;
     return (
-      <Container>
-        <Grid columns={2}>
-          <Grid.Column width={5}>
-            <Header as="h2">Patron's profile</Header>
-          </Grid.Column>
-          <Grid.Column width={11} />
-        </Grid>
-        <Loader isLoading={isLoading}>
-          <Error error={error}>
-            <Grid>
-              <Grid.Row columns={2}>
-                <Grid.Column>
-                  <PatronMetadata />
-                  <ItemsCheckout />
-                  <ItemsSearch />
-                </Grid.Column>
+      <div ref={this.headerRef}>
+        <Container fluid>
+          <Loader isLoading={isLoading}>
+            <Error error={error}>
+              <Sticky context={this.headerRef} className="solid-background">
+                <Container fluid className="spaced">
+                  <PatronHeader data={data} />
+                </Container>
+                <Divider />
+              </Sticky>
+              <Container fluid>
+                <Ref innerRef={this.menuRef}>
+                  <Grid columns={2}>
+                    <Grid.Column width={13}>
+                      <Container className="spaced">
+                        <Header attached="top" as={'h3'}>
+                          Checkout
+                        </Header>
+                        <Segment
+                          attached
+                          className="bo-metadata-segment"
+                          id="patron-checkout"
+                        >
+                          <ItemsCheckout />
+                          <ItemsSearch />
+                        </Segment>
 
-                <Grid.Column>
-                  <PatronCurrentLoans />
-                  <PatronPendingLoans />
-                  <PatronDocumentRequests />
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Error>
-        </Loader>
-      </Container>
+                        <Container className="spaced">
+                          <Header attached="top" as={'h3'}>
+                            Patron's current loans
+                          </Header>
+                          <Segment
+                            attached
+                            id="current-loans"
+                            className="bo-metadata-segment no-padding"
+                          >
+                            <PatronCurrentLoans />
+                          </Segment>
+                          <Header attached="top" as={'h3'}>
+                            Patron's loan requests
+                          </Header>
+                          <Segment
+                            attached
+                            id="loan-requests"
+                            className="bo-metadata-segment no-padding"
+                          >
+                            <PatronPendingLoans />
+                          </Segment>
+                          <Header attached="top" as={'h3'}>
+                            Patron's literature requests
+                          </Header>
+                          <Segment
+                            attached
+                            id="literature-requests"
+                            className="bo-metadata-segment no-padding"
+                          >
+                            <PatronDocumentRequests />
+                          </Segment>
+                          <Header attached="top" as={'h3'}>
+                            Patron's loans history
+                          </Header>
+                          <Segment
+                            attached
+                            id="loans-history"
+                            className="bo-metadata-segment no-padding"
+                          >
+                            <PatronPastLoans />
+                          </Segment>
+                        </Container>
+                      </Container>
+                    </Grid.Column>
+                    <Grid.Column width={3}>
+                      <Sticky context={this.menuRef} offset={150}>
+                        <Divider horizontal> Navigation </Divider>
+                        <PatronActionMenu offset={-150} />
+                      </Sticky>
+                    </Grid.Column>
+                  </Grid>
+                </Ref>
+              </Container>
+            </Error>
+          </Loader>
+        </Container>
+      </div>
     );
   }
 }

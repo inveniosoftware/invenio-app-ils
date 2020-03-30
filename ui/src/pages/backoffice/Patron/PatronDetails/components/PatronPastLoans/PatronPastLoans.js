@@ -1,20 +1,25 @@
 import { dateFormatter } from '@api/date';
 import { DocumentTitle } from '@components/Document';
+import {
+  ItemDetailsLink,
+  LoanDetailsLink,
+} from '@pages/backoffice/components/buttons/ViewDetailsButtons';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Loader, Error, ResultsTable } from '@components';
 import { loan as loanApi } from '@api';
 import { invenioConfig } from '@config';
 import { BackOfficeRoutes } from '@routes/urls';
-import { SeeAllButton } from '@pages/backoffice/components/buttons';
+import {
+  DocumentDetailsLink,
+  SeeAllButton,
+} from '@pages/backoffice/components/buttons';
+import _get from 'lodash/get';
 
-export default class PatronPendingLoans extends Component {
+export default class PatronPastLoans extends Component {
   componentDidMount() {
-    const patronPid = this.props.patronDetails.user_pid
-      ? this.props.patronDetails.user_pid
-      : null;
-    this.props.fetchPatronPendingLoans(patronPid);
+    const patronPid = _get(this.props, 'patronDetails.user_pid', null);
+    this.props.fetchPatronPastLoans(patronPid);
   }
 
   seeAllButton = () => {
@@ -31,23 +36,25 @@ export default class PatronPendingLoans extends Component {
 
   viewDetails = ({ row }) => {
     return (
-      <Link
-        to={BackOfficeRoutes.loanDetailsFor(row.metadata.pid)}
-        data-test={row.metadata.pid}
-      >
+      <LoanDetailsLink loanPid={row.metadata.pid}>
         {row.metadata.pid}
-      </Link>
+      </LoanDetailsLink>
     );
   };
 
   viewDocument = ({ row }) => {
     return (
-      <Link
-        to={BackOfficeRoutes.documentDetailsFor(row.metadata.document_pid)}
-        data-test={row.metadata.pid}
-      >
+      <DocumentDetailsLink documentPid={row.pid}>
         <DocumentTitle document={row.metadata.document} />
-      </Link>
+      </DocumentDetailsLink>
+    );
+  };
+
+  viewItem = ({ row }) => {
+    return (
+      <ItemDetailsLink itemPid={row.metadata.pid}>
+        {row.metadata.item.barcode}
+      </ItemDetailsLink>
     );
   };
 
@@ -62,13 +69,17 @@ export default class PatronPendingLoans extends Component {
         formatter: this.viewDocument,
       },
       {
-        title: 'Request interest from',
-        field: 'metadata.request_start_date',
+        title: 'Physical copy',
+        formatter: this.viewItem,
+      },
+      {
+        title: 'Start date',
+        field: 'metadata.start_date',
         formatter: dateFormatter,
       },
       {
-        title: 'Request expires on',
-        field: 'metadata.request_expire_date',
+        title: 'End date',
+        field: 'metadata.end_date',
         formatter: dateFormatter,
       },
     ];
@@ -95,13 +106,13 @@ export default class PatronPendingLoans extends Component {
   }
 }
 
-PatronPendingLoans.propTypes = {
+PatronPastLoans.propTypes = {
   patronDetails: PropTypes.object,
-  fetchPatronPendingLoans: PropTypes.func.isRequired,
+  fetchPatronPastLoans: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   showMaxLoans: PropTypes.number,
 };
 
-PatronPendingLoans.defaultProps = {
+PatronPastLoans.defaultProps = {
   showMaxLoans: 5,
 };

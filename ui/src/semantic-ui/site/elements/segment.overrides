@@ -2,6 +2,15 @@
          Site Overrides
 *******************************/
 
+.bo-patron-details-tab{
+  .ui.segment.active.tab{
+    border: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+
 /* frontsite */
 @{fs-parent-selector} {
   .ui.segment {

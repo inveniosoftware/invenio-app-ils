@@ -1151,7 +1151,9 @@ exports[`DocumentPendingLoans tests should render the see all button when showin
                               className="right aligned"
                               colSpan={5}
                             >
-                              <span>
+                              <span
+                                className="results-table-compact-summary"
+                              >
                                 Showing entries 
                                 1
                                 -
