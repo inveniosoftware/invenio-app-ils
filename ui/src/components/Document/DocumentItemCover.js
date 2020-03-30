@@ -3,20 +3,23 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Item } from 'semantic-ui-react';
-import isEmpty from 'lodash/isEmpty';
+import _get from 'lodash/get';
 
 export default class DocumentItemCover extends Component {
-  getRestrictions = meta => {
-    if (!isEmpty(meta) && meta.open_access) return null;
-    return {
-      corner: 'left',
-      color: 'red',
-      icon: 'lock',
-      title: `This record is restricted`,
-    };
+  getLabel = metadata => {
+    const hasOpenAccess = _get(metadata, 'open_access', false);
+    return hasOpenAccess
+      ? null
+      : {
+          corner: 'left',
+          color: 'red',
+          icon: 'lock',
+          title: `This record is restricted`,
+        };
   };
+
   render() {
-    const { linkTo, document, size, coverUrl, ...uiProps } = this.props;
+    const { linkTo, metadata, size, coverUrl, ...uiProps } = this.props;
     return (
       <Item.Image
         as={Link}
@@ -24,7 +27,7 @@ export default class DocumentItemCover extends Component {
         size={size}
         src={getCover(coverUrl)}
         onError={e => (e.target.style.display = 'none')}
-        label={this.getRestrictions(document.metadata)}
+        label={this.getLabel(metadata)}
         {...uiProps}
       />
     );
@@ -33,7 +36,7 @@ export default class DocumentItemCover extends Component {
 
 DocumentItemCover.propTypes = {
   linkTo: PropTypes.string.isRequired,
-  document: PropTypes.object.isRequired,
+  metadata: PropTypes.object.isRequired,
   coverUrl: PropTypes.string.isRequired,
 };
 

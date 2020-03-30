@@ -21,7 +21,7 @@ export class RelationListEntry extends Component {
         : BackOfficeRoutes.seriesDetailsFor(record.metadata.pid);
     const cover =
       recordType === 'docid' ? (
-        <DocumentItemCover document={record} linkTo={linkTo} />
+        <DocumentItemCover metadata={record.metadata} linkTo={linkTo} />
       ) : (
         <Icon name="clone outline" size="huge" color="grey" />
       );

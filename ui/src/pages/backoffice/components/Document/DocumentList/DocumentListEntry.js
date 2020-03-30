@@ -98,7 +98,7 @@ export default class DocumentListEntry extends Component {
         <div className={'item-image-wrapper'}>
           <DocumentItemCover
             linkTo={BackOfficeRoutes.documentDetailsFor(document.metadata.pid)}
-            document={document}
+            metadata={document.metadata}
             coverUrl={document.metadata.edition}
           />
           <Header disabled as="h6" className={'document-type tiny ellipsis'}>

@@ -19,7 +19,7 @@ class PastLoanListEntry extends Component {
         <DocumentItemCover
           size="mini"
           src={loan.metadata.document.edition}
-          document={loan.metadata.document}
+          metadata={loan.metadata.document}
           disabled
           linkTo={FrontSiteRoutes.documentDetailsFor(
             loan.metadata.document_pid
