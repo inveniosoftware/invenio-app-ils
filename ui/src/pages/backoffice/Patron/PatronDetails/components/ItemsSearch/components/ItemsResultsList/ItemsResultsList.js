@@ -1,17 +1,19 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { ResultsTable } from '@components';
-import { Button, Modal, Header, Icon } from 'semantic-ui-react';
-import { invenioConfig, ES_DELAY } from '@config';
-import isEmpty from 'lodash/isEmpty';
 import { recordToPidType } from '@api/utils';
+import { Loader, ResultsTable } from '@components';
+import { invenioConfig } from '@config';
+import { BackOfficeRoutes } from '@routes/urls';
+import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Header, Icon, Modal, Segment } from 'semantic-ui-react';
+import _isEmpty from 'lodash/isEmpty';
 
-export class ItemsResultsList extends Component {
+export default class ItemsResultsList extends Component {
   constructor(props) {
     super(props);
     this.clearResults = this.props.clearResults;
     this.checkoutItem = this.props.checkoutItem;
-    this.fetchPatronCurrentLoans = this.props.fetchPatronCurrentLoans;
   }
 
   state = { isModalOpen: false };
@@ -24,11 +26,7 @@ export class ItemsResultsList extends Component {
     patronPid,
     force = false
   ) => {
-    await this.checkoutItem(documentPid, itemPid, patronPid, force);
-    this.clearResults();
-    setTimeout(() => {
-      this.fetchPatronCurrentLoans(patronPid);
-    }, ES_DELAY);
+    this.checkoutItem(documentPid, itemPid, patronPid, force);
   };
 
   actions = ({ row }) => {
@@ -64,7 +62,10 @@ export class ItemsResultsList extends Component {
 
   renderForceCheckoutModal = item => {
     const { isModalOpen } = this.state;
-
+    const itemPid = {
+      type: recordToPidType(item),
+      value: item.metadata.pid,
+    };
     return (
       <Modal
         trigger={
@@ -93,7 +94,12 @@ export class ItemsResultsList extends Component {
           <Button
             color="green"
             onClick={() =>
-              this.onClickCheckoutHandler(item, this.props.patronPid, true)
+              this.onClickCheckoutHandler(
+                item.metadata.document_pid,
+                itemPid,
+                this.props.patronPid,
+                true
+              )
             }
           >
             <Icon name="checkmark" /> Yes
@@ -103,11 +109,25 @@ export class ItemsResultsList extends Component {
     );
   };
 
+  viewDetails = ({ row }) => {
+    return (
+      <Link
+        to={BackOfficeRoutes.itemDetailsFor(row.metadata.pid)}
+        data-test={row.metadata.pid}
+      >
+        {row.metadata.barcode}
+      </Link>
+    );
+  };
+
   render() {
-    const { results } = this.props;
+    const { results, checkoutIsLoading } = this.props;
     const columns = [
-      { title: '', field: '', formatter: this.viewDetails },
-      { title: 'ID', field: 'metadata.pid' },
+      {
+        title: 'Barcode',
+        field: 'metadata.barcode',
+        formatter: this.viewDetails,
+      },
       { title: 'Status', field: 'metadata.status' },
       { title: 'Medium', field: 'metadata.medium' },
       { title: 'Circulation status', field: 'metadata.circulation.state' },
@@ -118,14 +138,33 @@ export class ItemsResultsList extends Component {
       },
     ];
 
-    return results.hits.length ? (
-      <ResultsTable
-        data={results.hits}
-        columns={columns}
-        totalHitsCount={results.length}
-        name={'items'}
-      />
-    ) : null;
+    return !_isEmpty(results.hits) ? (
+      <Loader isLoading={checkoutIsLoading}>
+        <p>Found {results.hits.length} item(s).</p>
+        <ResultsTable
+          data={results.hits}
+          columns={columns}
+          totalHitsCount={results.length}
+          name={'items'}
+        />
+      </Loader>
+    ) : (
+      <Segment placeholder textAlign="center">
+        <Header icon>
+          <Icon name="search" />
+          Found no items matching this barcode.
+        </Header>
+        <p>
+          HINT: Check if the physical copy is not already on loan by someone
+          else.
+        </p>
+        <Segment.Inline>
+          <Button primary onClick={() => this.props.clearSearchQuery()}>
+            Clear search phrase
+          </Button>
+        </Segment.Inline>
+      </Segment>
+    );
   }
 }
 
@@ -134,5 +173,4 @@ ItemsResultsList.propTypes = {
   clearResults: PropTypes.func.isRequired,
   checkoutItem: PropTypes.func.isRequired,
   patronPid: PropTypes.string.isRequired,
-  fetchPatronCurrentLoans: PropTypes.func.isRequired,
 };

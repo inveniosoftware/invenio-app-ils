@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Loader, Error, ResultsTable } from '@components';
 import { documentRequest as documentRequestApi } from '@api/';
@@ -30,24 +29,23 @@ export default class PatronDocumentRequests extends Component {
 
   viewDetails = ({ row }) => {
     return (
-      <Button
-        as={Link}
+      <Link
         to={BackOfficeRoutes.documentRequestDetailsFor(row.metadata.pid)}
-        compact
-        icon="info"
         data-test={row.metadata.pid}
-      />
+      >
+        {row.metadata.pid}
+      </Link>
     );
   };
 
   render() {
     const { data, isLoading, error } = this.props;
     const columns = [
-      { title: '', field: '', formatter: this.viewDetails },
-      { title: 'ID', field: 'metadata.pid' },
+      { title: 'ID', formatter: this.viewDetails },
       { title: 'Document ID', field: 'metadata.document_pid' },
+      { title: 'Document title', field: 'metadata.title' },
       { title: 'State', field: 'metadata.state' },
-      { title: 'Created', field: 'created', formatter: dateFormatter },
+      { title: 'Created on ', field: 'created', formatter: dateFormatter },
     ];
     return (
       <Loader isLoading={isLoading}>
@@ -56,7 +54,6 @@ export default class PatronDocumentRequests extends Component {
             data={data.hits}
             columns={columns}
             totalHitsCount={data.total}
-            title={"Patron's new book requests"}
             name={'new book requests'}
             seeAllComponent={this.seeAllButton()}
             showMaxRows={this.props.showMaxDocumentRequests}

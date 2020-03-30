@@ -1,13 +1,15 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { BackOfficeRoutes } from '@routes/urls';
+import { BrowserRouter } from 'react-router-dom';
 import PatronPendingLoans from '../PatronPendingLoans';
 import testData from '@testData/loans.json';
+import documentTestData from '@testData/documents.json';
 import { Button } from 'semantic-ui-react';
 
-jest.mock('react-router-dom');
 jest.mock('@config/invenioConfig');
 BackOfficeRoutes.loanDetailsFor = jest.fn(pid => `url/${pid}`);
+BackOfficeRoutes.documentDetailsFor = jest.fn(pid => `url/${pid}`);
 let mockViewDetails = jest.fn();
 
 const data = {
@@ -15,12 +17,22 @@ const data = {
     {
       id: 1,
       pid: 'loan1',
-      metadata: testData[0],
+      metadata: {
+        ...testData[0],
+        document: {
+          ...documentTestData[0],
+        },
+      },
     },
     {
       id: 2,
       pid: 'loan2',
-      metadata: testData[1],
+      metadata: {
+        ...testData[1],
+        document: {
+          ...documentTestData[0],
+        },
+      },
     },
   ],
   total: 2,
@@ -56,12 +68,14 @@ describe('PatronLoans tests', () => {
   it('should render show a message with no user loans', () => {
     const mockedFetchPatronLoans = jest.fn();
     component = mount(
-      <PatronPendingLoans
-        patronDetails={patron}
-        data={{ hits: [], total: 0 }}
-        loanState=""
-        fetchPatronPendingLoans={mockedFetchPatronLoans}
-      />
+      <BrowserRouter>
+        <PatronPendingLoans
+          patronDetails={patron}
+          data={{ hits: [], total: 0 }}
+          loanState=""
+          fetchPatronPendingLoans={mockedFetchPatronLoans}
+        />
+      </BrowserRouter>
     );
 
     expect(component).toMatchSnapshot();
@@ -74,12 +88,14 @@ describe('PatronLoans tests', () => {
   it('should render patron loans', () => {
     const mockedFetchPatronLoans = jest.fn();
     component = mount(
-      <PatronPendingLoans
-        patronDetails={patron}
-        data={data}
-        loanState=""
-        fetchPatronPendingLoans={mockedFetchPatronLoans}
-      />
+      <BrowserRouter>
+        <PatronPendingLoans
+          patronDetails={patron}
+          data={data}
+          loanState=""
+          fetchPatronPendingLoans={mockedFetchPatronLoans}
+        />
+      </BrowserRouter>
     );
 
     expect(component).toMatchSnapshot();
@@ -101,12 +117,14 @@ describe('PatronLoans tests', () => {
   it('should render the see all button when showing only a few patron loans', () => {
     const mockedFetchPatronLoans = jest.fn();
     component = mount(
-      <PatronPendingLoans
-        patronDetails={patron}
-        data={data}
-        fetchPatronPendingLoans={mockedFetchPatronLoans}
-        showMaxLoans={1}
-      />
+      <BrowserRouter>
+        <PatronPendingLoans
+          patronDetails={patron}
+          data={data}
+          fetchPatronPendingLoans={mockedFetchPatronLoans}
+          showMaxLoans={1}
+        />
+      </BrowserRouter>
     );
 
     expect(component).toMatchSnapshot();
@@ -119,26 +137,23 @@ describe('PatronLoans tests', () => {
   it('should go to loan details when clicking on a patron loan', () => {
     const mockedFetchPatronLoans = jest.fn();
     component = mount(
-      <PatronPendingLoans
-        patronDetails={patron}
-        data={data}
-        loanState=""
-        fetchPatronPendingLoans={mockedFetchPatronLoans}
-        showMaxLoans={1}
-      />
+      <BrowserRouter>
+        <PatronPendingLoans
+          patronDetails={patron}
+          data={data}
+          loanState=""
+          fetchPatronPendingLoans={mockedFetchPatronLoans}
+          showMaxLoans={1}
+        />
+      </BrowserRouter>
     );
-
-    component.instance().viewDetails = jest.fn(() => (
-      <Button onClick={mockViewDetails} />
-    ));
-    component.instance().forceUpdate();
 
     const firstId = data.hits[0].pid;
     component
       .find('TableCell')
       .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
-      .find('Button')
+      .find('Link')
       .simulate('click');
-    expect(mockViewDetails).toHaveBeenCalled();
+    expect(BackOfficeRoutes.loanDetailsFor).toHaveBeenCalled();
   });
 });

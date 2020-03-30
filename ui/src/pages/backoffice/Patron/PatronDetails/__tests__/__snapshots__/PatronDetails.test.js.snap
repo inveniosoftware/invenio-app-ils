@@ -1,42 +1,152 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PatronDetails tests should load the details component 1`] = `
-<Container>
-  <Grid
-    columns={2}
+<div>
+  <Container
+    fluid={true}
   >
-    <GridColumn
-      width={5}
-    >
-      <Header
-        as="h2"
-      >
-        Patron's profile
-      </Header>
-    </GridColumn>
-    <GridColumn
-      width={11}
-    />
-  </Grid>
-  <Loader>
-    <Error>
-      <Grid>
-        <GridRow
-          columns={2}
+    <Loader>
+      <Error>
+        <Sticky
+          active={true}
+          bottomOffset={0}
+          className="solid-background"
+          context={
+            Object {
+              "current": null,
+            }
+          }
+          offset={0}
+          scrollContext={[Window]}
         >
-          <GridColumn>
-            <PatronMetadata />
-            <ItemsCheckout />
-            <ItemsSearch />
-          </GridColumn>
-          <GridColumn>
-            <PatronCurrentLoans />
-            <PatronPendingLoans />
-            <PatronDocumentRequests />
-          </GridColumn>
-        </GridRow>
-      </Grid>
-    </Error>
-  </Loader>
-</Container>
+          <Container
+            className="spaced"
+            fluid={true}
+          >
+            <PatronHeader />
+          </Container>
+          <Divider />
+        </Sticky>
+        <Container
+          fluid={true}
+        >
+          <Ref
+            innerRef={
+              Object {
+                "current": null,
+              }
+            }
+          >
+            <Grid
+              columns={2}
+            >
+              <GridColumn
+                width={13}
+              >
+                <Container
+                  className="spaced"
+                >
+                  <Header
+                    as="h3"
+                    attached="top"
+                  >
+                    Checkout
+                  </Header>
+                  <Segment
+                    attached={true}
+                    className="bo-metadata-segment"
+                    id="patron-checkout"
+                  >
+                    <ItemsCheckout />
+                    <ItemsSearch />
+                  </Segment>
+                  <Container
+                    className="spaced"
+                  >
+                    <Header
+                      as="h3"
+                      attached="top"
+                    >
+                      Patron's current loans
+                    </Header>
+                    <Segment
+                      attached={true}
+                      className="bo-metadata-segment no-padding"
+                      id="current-loans"
+                    >
+                      <PatronCurrentLoans />
+                    </Segment>
+                    <Header
+                      as="h3"
+                      attached="top"
+                    >
+                      Patron's loan requests
+                    </Header>
+                    <Segment
+                      attached={true}
+                      className="bo-metadata-segment no-padding"
+                      id="loan-requests"
+                    >
+                      <PatronPendingLoans />
+                    </Segment>
+                    <Header
+                      as="h3"
+                      attached="top"
+                    >
+                      Patron's literature requests
+                    </Header>
+                    <Segment
+                      attached={true}
+                      className="bo-metadata-segment no-padding"
+                      id="literature-requests"
+                    >
+                      <PatronDocumentRequests />
+                    </Segment>
+                    <Header
+                      as="h3"
+                      attached="top"
+                    >
+                      Patron's loans history
+                    </Header>
+                    <Segment
+                      attached={true}
+                      className="bo-metadata-segment no-padding"
+                      id="loans-history"
+                    >
+                      <PatronPastLoans />
+                    </Segment>
+                  </Container>
+                </Container>
+              </GridColumn>
+              <GridColumn
+                width={3}
+              >
+                <Sticky
+                  active={true}
+                  bottomOffset={0}
+                  context={
+                    Object {
+                      "current": null,
+                    }
+                  }
+                  offset={150}
+                  scrollContext={[Window]}
+                >
+                  <Divider
+                    horizontal={true}
+                  >
+                     Navigation 
+                  </Divider>
+                  <PatronActionMenu
+                    offset={-150}
+                  />
+                </Sticky>
+              </GridColumn>
+            </Grid>
+          </Ref>
+        </Container>
+      </Error>
+    </Loader>
+  </Container>
+</div>
 `;

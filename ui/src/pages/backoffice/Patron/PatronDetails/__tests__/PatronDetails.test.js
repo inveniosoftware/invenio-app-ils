@@ -7,11 +7,21 @@ jest.mock('../components/', () => {
     ItemsCheckout: () => null,
     ItemsSearch: () => null,
     PatronCurrentLoans: () => null,
+    PatronPastLoans: () => null,
     PatronDocumentRequests: () => null,
     PatronMetadata: () => null,
     PatronPendingLoans: () => null,
+    PatronHeader: () => null,
+    PatronActionMenu: () => null,
   };
 });
+
+const data = {
+  metadata: {
+    name: 'XYZ',
+    email: 'test@test.ch',
+  },
+};
 
 describe('PatronDetails tests', () => {
   let component;

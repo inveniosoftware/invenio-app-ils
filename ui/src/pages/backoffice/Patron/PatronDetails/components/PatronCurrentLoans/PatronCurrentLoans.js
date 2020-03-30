@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Loader, Error, ResultsTable } from '@components';
 import { loan as loanApi } from '@api';
@@ -32,21 +31,19 @@ export default class PatronCurrentLoans extends Component {
 
   viewDetails = ({ row }) => {
     return (
-      <Button
-        as={Link}
+      <Link
         to={BackOfficeRoutes.loanDetailsFor(row.metadata.pid)}
-        compact
-        icon="info"
         data-test={row.metadata.pid}
-      />
+      >
+        {row.metadata.pid}
+      </Link>
     );
   };
 
   render() {
     const { data, isLoading, error } = this.props;
     const columns = [
-      { title: '', field: '', formatter: this.viewDetails },
-      { title: 'ID', field: 'metadata.pid' },
+      { title: 'PID', formatter: this.viewDetails },
       { title: 'Item barcode', field: 'metadata.item.barcode' },
       {
         title: 'Start date',
@@ -67,7 +64,6 @@ export default class PatronCurrentLoans extends Component {
             data={data.hits}
             columns={columns}
             totalHitsCount={data.total}
-            title={"Patron's current loans"}
             name={'current loans'}
             seeAllComponent={this.seeAllButton()}
             showMaxRows={this.props.showMaxLoans}

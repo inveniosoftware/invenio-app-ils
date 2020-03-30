@@ -21,7 +21,7 @@ export default class ResultsTableFooter extends Component {
             colSpan={this.props.columnsNumber + 1}
             textAlign="right"
           >
-            <span>
+            <span className="results-table-compact-summary">
               Showing entries {start + 1}-{end} of {allRowsNumber}{' '}
             </span>
             <span>{this.props.seeAllComponent}</span>

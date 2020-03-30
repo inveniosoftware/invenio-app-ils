@@ -1,11 +1,9 @@
+import { Error, Loader } from '@components';
 import { RelationSerial } from '@pages/backoffice/components/Relations/RelationSerial';
-import SeriesMetadataTabs from './components/SeriesMetadata/SeriesMetadataTabs';
-import { SeriesSiblings } from './components/SeriesRelations/';
-import { SeriesActionMenu } from './';
-import { SeriesHeader } from './SeriesHeader';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import _get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {
   Accordion,
   Container,
@@ -15,26 +13,29 @@ import {
   Segment,
   Sticky,
 } from 'semantic-ui-react';
-import { Loader, Error } from '@components';
+import { SeriesActionMenu } from './';
 import { SeriesDocuments, SeriesMultipartMonographs } from './components';
-import isEmpty from 'lodash/isEmpty';
+import SeriesMetadataTabs from './components/SeriesMetadata/SeriesMetadataTabs';
+import { SeriesSiblings } from './components/SeriesRelations/';
+import { SeriesHeader } from './SeriesHeader';
 
 export default class SeriesDetails extends Component {
   constructor(props) {
     super(props);
     this.menuRef = React.createRef();
     this.headerRef = React.createRef();
+    this.fetchSeriesDetails = this.props.fetchSeriesDetails;
   }
 
   componentDidMount() {
     this.props.fetchSeriesDetails(this.props.match.params.seriesPid);
   }
 
-  componentDidUpdate(prevProps) {
-    const seriesPid = this.props.match.params.seriesPid;
-    const samePidFromRouter = prevProps.match.params.seriesPid === seriesPid;
-    if (!samePidFromRouter) {
-      this.props.fetchSeriesDetails(seriesPid);
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevProps.match.params.seriesPid !== this.props.match.params.seriesPid
+    ) {
+      this.props.fetchSeriesDetails(this.props.match.params.seriesPid);
     }
   }
 

@@ -1,17 +1,17 @@
 import { AuthenticationGuard } from '@authentication/components';
-import React from 'react';
+import { Error, SearchBar } from '@components';
+import { ILSParagraphPlaceholder } from '@components/ILSPlaceholder';
+import { goTo } from '@history';
+import { Breadcrumbs } from '@pages/frontsite/components';
+import { SeriesLiteratureSearch } from '@pages/frontsite/components/Series';
+import { BackOfficeRoutes, FrontSiteRoutes } from '@routes/urls';
+import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Grid, Icon, Responsive } from 'semantic-ui-react';
-import { Error, SearchBar } from '@components';
-import { goTo } from '@history';
-import { BackOfficeRoutes, FrontSiteRoutes } from '@routes/urls';
-import { ILSParagraphPlaceholder } from '@components/ILSPlaceholder';
-import { Breadcrumbs } from '@pages/frontsite/components';
-import { SeriesPanel } from './SeriesPanel';
-import { SeriesLiteratureSearch } from '@pages/frontsite/components/Series';
 import { SeriesMetadata } from './SeriesMetadata';
-import isEmpty from 'lodash/isEmpty';
+import { SeriesPanel } from './SeriesPanel';
 
 export default class SeriesDetails extends React.Component {
   constructor(props) {
@@ -22,15 +22,16 @@ export default class SeriesDetails extends React.Component {
   }
 
   componentDidMount() {
+    this.unlisten = this.props.history.listen(location => {
+      if (location.state && location.state.seriesPid) {
+        this.props.fetchSeriesDetails(location.state.seriesPid);
+      }
+    });
     this.props.fetchSeriesDetails(this.props.match.params.seriesPid);
   }
 
-  componentDidUpdate(prevProps) {
-    const seriesPid = this.props.match.params.seriesPid;
-    const samePidFromRouter = prevProps.match.params.seriesPid === seriesPid;
-    if (!samePidFromRouter) {
-      this.props.fetchSeriesDetails(seriesPid);
-    }
+  componentWillUnmount() {
+    this.unlisten();
   }
 
   breadcrumbs = () => [

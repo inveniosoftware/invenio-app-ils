@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Message } from 'semantic-ui-react';
 import { Error, Loader } from '@components';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Message } from 'semantic-ui-react';
 
 export default class ItemsCheckout extends Component {
   constructor(props) {
@@ -17,7 +17,8 @@ export default class ItemsCheckout extends Component {
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <Message color="blue">
-            Scan the barcode to perform a loan for this user.
+            Scan or type the barcode to checkout the physical copy for this
+            patron.
           </Message>
         </Error>
       </Loader>

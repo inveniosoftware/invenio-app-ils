@@ -3,14 +3,11 @@ import { shallow, mount } from 'enzyme';
 import { Settings } from 'luxon';
 import { fromISO } from '@api/date';
 import { BackOfficeRoutes } from '@routes/urls';
+import { BrowserRouter } from 'react-router-dom';
 import PatronDocumentRequests from '../PatronDocumentRequests';
-import { Button } from 'semantic-ui-react';
 
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
-
-jest.mock('react-router-dom');
-let mockViewDetails = jest.fn();
 
 BackOfficeRoutes.documentRequestDetailsFor = jest.fn(pid => `url/${pid}`);
 
@@ -44,11 +41,13 @@ describe('PatronDocumentRequests tests', () => {
   it('should render show a message with no user document requests', () => {
     const mockedFetchPatronDocumentRequests = jest.fn();
     component = mount(
-      <PatronDocumentRequests
-        patronDetails={patron}
-        data={{ hits: [], total: 0 }}
-        fetchPatronDocumentRequests={mockedFetchPatronDocumentRequests}
-      />
+      <BrowserRouter>
+        <PatronDocumentRequests
+          patronDetails={patron}
+          data={{ hits: [], total: 0 }}
+          fetchPatronDocumentRequests={mockedFetchPatronDocumentRequests}
+        />
+      </BrowserRouter>
     );
 
     expect(component).toMatchSnapshot();
@@ -101,11 +100,13 @@ describe('PatronDocumentRequests tests', () => {
     };
 
     component = mount(
-      <PatronDocumentRequests
-        patronDetails={patron}
-        data={data}
-        fetchPatronDocumentRequests={mockedFetchPatronDocumentRequests}
-      />
+      <BrowserRouter>
+        <PatronDocumentRequests
+          patronDetails={patron}
+          data={data}
+          fetchPatronDocumentRequests={mockedFetchPatronDocumentRequests}
+        />
+      </BrowserRouter>
     );
 
     expect(component).toMatchSnapshot();
@@ -166,12 +167,14 @@ describe('PatronDocumentRequests tests', () => {
       total: 2,
     };
     component = mount(
-      <PatronDocumentRequests
-        patronDetails={patron}
-        data={data}
-        fetchPatronDocumentRequests={mockedFetchPatronDocumentRequests}
-        showMaxDocumentRequests={1}
-      />
+      <BrowserRouter>
+        <PatronDocumentRequests
+          patronDetails={patron}
+          data={data}
+          fetchPatronDocumentRequests={mockedFetchPatronDocumentRequests}
+          showMaxDocumentRequests={1}
+        />
+      </BrowserRouter>
     );
 
     expect(component).toMatchSnapshot();
@@ -207,24 +210,22 @@ describe('PatronDocumentRequests tests', () => {
 
     const mockedFetchPatronDocumentRequests = jest.fn();
     component = mount(
-      <PatronDocumentRequests
-        patronDetails={patron}
-        data={data}
-        fetchPatronDocumentRequests={mockedFetchPatronDocumentRequests}
-        showMaxDocumentRequests={1}
-      />
+      <BrowserRouter>
+        <PatronDocumentRequests
+          patronDetails={patron}
+          data={data}
+          fetchPatronDocumentRequests={mockedFetchPatronDocumentRequests}
+          showMaxDocumentRequests={1}
+        />
+      </BrowserRouter>
     );
-    component.instance().viewDetails = jest.fn(() => (
-      <Button onClick={mockViewDetails}></Button>
-    ));
-    component.instance().forceUpdate();
 
     const firstId = data.hits[0].pid;
     component
       .find('TableCell')
       .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
-      .find('Button')
+      .find('Link')
       .simulate('click');
-    expect(mockViewDetails).toHaveBeenCalled();
+    expect(BackOfficeRoutes.documentRequestDetailsFor).toHaveBeenCalled();
   });
 });

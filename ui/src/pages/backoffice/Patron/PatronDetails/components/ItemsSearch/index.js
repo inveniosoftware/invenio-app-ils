@@ -1,12 +1,7 @@
 import { connect } from 'react-redux';
-import ItemsSearchComponent from './ItemsSearch';
-import {
-  clearResults,
-  fetchItems,
-  fetchUpdatedCurrentLoans,
-  updateQueryString,
-} from './state/actions';
 import { checkoutItem } from '../ItemsCheckout/state/actions';
+import ItemsSearchComponent from './ItemsSearch';
+import { clearResults, fetchItems, updateQueryString } from './state/actions';
 
 const mapDispatchToProps = dispatch => ({
   fetchItems: barcode => dispatch(fetchItems(barcode)),
@@ -14,17 +9,18 @@ const mapDispatchToProps = dispatch => ({
   clearResults: () => dispatch(clearResults()),
   checkoutItem: (documentPid, itemPid, patronPid, force = false) =>
     dispatch(checkoutItem(documentPid, itemPid, patronPid, force)),
-  fetchUpdatedCurrentLoans: patronPid =>
-    dispatch(fetchUpdatedCurrentLoans(patronPid)),
 });
 
 const mapStateToProps = state => ({
-  isLoading: state.patronDetails.isLoading,
-  items: state.itemsSearchInput.data,
+  checkoutData: state.patronItemsCheckout.data,
+  checkoutHasError: state.patronItemsCheckout.hasError,
+  checkoutLoading: state.patronItemsCheckout.isLoading,
   error: state.itemsSearchInput.error,
   hasError: state.itemsSearchInput.hasError,
-  queryString: state.itemsSearchInput.itemCheckoutQueryString,
+  isLoading: state.patronDetails.isLoading,
+  items: state.itemsSearchInput.data,
   patronDetails: state.patronDetails.data,
+  queryString: state.itemsSearchInput.itemCheckoutQueryString,
 });
 
 export const ItemsSearch = connect(

@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { BackOfficeRoutes } from '@routes/urls';
+import { BrowserRouter } from 'react-router-dom';
 import PatronCurrentLoans from '../PatronCurrentLoans';
 import testData from '@testData/loans.json';
-import { Button } from 'semantic-ui-react';
+import isEmpty from 'lodash/isEmpty';
 
-jest.mock('react-router-dom');
 jest.mock('@config/invenioConfig');
 BackOfficeRoutes.loanDetailsFor = jest.fn(pid => `url/${pid}`);
 let mockViewDetails = jest.fn();
@@ -30,7 +30,7 @@ describe('PatronCurrentLoans tests', () => {
   let component;
   afterEach(() => {
     mockViewDetails.mockClear();
-    if (component) {
+    if (!isEmpty(component)) {
       component.unmount();
     }
   });
@@ -74,12 +74,14 @@ describe('PatronCurrentLoans tests', () => {
   it('should render patron loans', () => {
     const mockedFetchPatronLoans = jest.fn();
     component = mount(
-      <PatronCurrentLoans
-        patronDetails={patron}
-        data={data}
-        loanState=""
-        fetchPatronCurrentLoans={mockedFetchPatronLoans}
-      />
+      <BrowserRouter>
+        <PatronCurrentLoans
+          patronDetails={patron}
+          data={data}
+          loanState=""
+          fetchPatronCurrentLoans={mockedFetchPatronLoans}
+        />
+      </BrowserRouter>
     );
 
     expect(component).toMatchSnapshot();
@@ -102,12 +104,14 @@ describe('PatronCurrentLoans tests', () => {
     const mockedFetchPatronLoans = jest.fn();
 
     component = mount(
-      <PatronCurrentLoans
-        patronDetails={patron}
-        data={data}
-        fetchPatronCurrentLoans={mockedFetchPatronLoans}
-        showMaxLoans={1}
-      />
+      <BrowserRouter>
+        <PatronCurrentLoans
+          patronDetails={patron}
+          data={data}
+          fetchPatronCurrentLoans={mockedFetchPatronLoans}
+          showMaxLoans={1}
+        />
+      </BrowserRouter>
     );
 
     expect(component).toMatchSnapshot();
@@ -120,25 +124,23 @@ describe('PatronCurrentLoans tests', () => {
   it('should go to loan details when clicking on a patron loan', () => {
     const mockedFetchPatronLoans = jest.fn();
     component = mount(
-      <PatronCurrentLoans
-        patronDetails={patron}
-        data={data}
-        loanState=""
-        fetchPatronCurrentLoans={mockedFetchPatronLoans}
-        showMaxLoans={1}
-      />
+      <BrowserRouter>
+        <PatronCurrentLoans
+          patronDetails={patron}
+          data={data}
+          loanState=""
+          fetchPatronCurrentLoans={mockedFetchPatronLoans}
+          showMaxLoans={1}
+        />
+      </BrowserRouter>
     );
-    component.instance().viewDetails = jest.fn(() => (
-      <Button onClick={mockViewDetails}></Button>
-    ));
-    component.instance().forceUpdate();
 
     const firstId = data.hits[0].pid;
     component
       .find('TableCell')
       .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
-      .find('Button')
+      .find('Link')
       .simulate('click');
-    expect(mockViewDetails).toHaveBeenCalled();
+    expect(BackOfficeRoutes.loanDetailsFor).toHaveBeenCalled();
   });
 });

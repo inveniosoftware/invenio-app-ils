@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
-import { fetchPatronDetails } from './state/actions';
 import PatronDetailsComponent from './PatronDetails';
+import { fetchPatronDetails } from './state/actions';
 
 const mapStateToProps = state => ({
   isLoading: state.patronDetails.isLoading,
   error: state.patronDetails.error,
   hasError: state.patronDetails.hasError,
+  data: state.patronDetails.data,
 });
 
 const mapDispatchToProps = dispatch => ({

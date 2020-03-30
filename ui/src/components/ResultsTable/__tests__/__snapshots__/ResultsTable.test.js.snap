@@ -643,7 +643,9 @@ exports[`ResultsTable tests should render the see all button when showing only a
                         className="right aligned"
                         colSpan={3}
                       >
-                        <span>
+                        <span
+                          className="results-table-compact-summary"
+                        >
                           Showing entries 
                           1
                           -

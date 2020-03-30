@@ -1,13 +1,12 @@
-import {
-  IS_LOADING,
-  SUCCESS,
-  HAS_ERROR,
-  QUERY_STRING_UPDATE,
-  CLEAR_SEARCH,
-} from './types';
 import { item as itemApi } from '@api';
-import { fetchPatronCurrentLoans } from '@state/PatronCurrentLoans/actions';
 import { sendErrorNotification } from '@components/Notifications';
+import {
+  CLEAR_SEARCH,
+  HAS_ERROR,
+  IS_LOADING,
+  QUERY_STRING_UPDATE,
+  SUCCESS,
+} from './types';
 
 export const fetchItems = barcode => {
   return async dispatch => {
@@ -52,8 +51,4 @@ export const clearResults = () => {
       type: CLEAR_SEARCH,
     });
   };
-};
-
-export const fetchUpdatedCurrentLoans = patronPid => {
-  return fetchPatronCurrentLoans(patronPid);
 };

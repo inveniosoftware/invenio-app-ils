@@ -6,7 +6,7 @@ exports[`PatronLoans tests should load the ItemsCheckout component 1`] = `
     <Message
       color="blue"
     >
-      Scan the barcode to perform a loan for this user.
+      Scan or type the barcode to checkout the physical copy for this patron.
     </Message>
   </Error>
 </Loader>
@@ -33,7 +33,7 @@ exports[`PatronLoans tests should render show a message with added loan 1`] = `
         <div
           className="ui blue message"
         >
-          Scan the barcode to perform a loan for this user.
+          Scan or type the barcode to checkout the physical copy for this patron.
         </div>
       </Message>
     </Error>
