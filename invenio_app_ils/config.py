@@ -53,8 +53,9 @@ from .document_requests.search import DocumentRequestSearch
 from .documents.api import DOCUMENT_PID_FETCHER, DOCUMENT_PID_MINTER, \
     DOCUMENT_PID_TYPE, Document
 from .documents.search import DocumentSearch
-from .facets import default_value_when_missing_filter, keyed_range_filter, \
-    not_empty_object_or_list_filter, overdue_agg, overdue_loans_filter
+from .facets import date_range_filter, default_value_when_missing_filter, \
+    keyed_range_filter, not_empty_object_or_list_filter, overdue_agg, \
+    overdue_loans_filter
 from .records.views import UserInfoResource
 
 from invenio_circulation.config import _LOANID_CONVERTER  # isort:skip
@@ -1188,6 +1189,8 @@ RECORDS_REST_FACETS = dict(
         ),
         filters={
             "returns.end_date": overdue_loans_filter("end_date"),
+            "loans_from_date": date_range_filter("start_date", "gte"),
+            "loans_to_date": date_range_filter("start_date", "lte"),
         },
         post_filters=dict(
             state=terms_filter("state"),

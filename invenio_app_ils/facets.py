@@ -6,7 +6,6 @@
 # it under the terms of the MIT License; see LICENSE file for more details.
 
 """Facets and factories for result filtering and aggregation."""
-from datetime import timedelta
 
 import arrow
 from elasticsearch_dsl.query import Bool, Q, Range
@@ -113,3 +112,14 @@ def overdue_agg():
             )
         )
     )
+
+
+def date_range_filter(field, comparator):
+    """Create a range filter.
+
+    :param field: Field name.
+    :param comparator: Comparison we want with the supplied date.
+    """
+    def inner(values):
+        return Range(**{field: {comparator: str(arrow.get(values[0]).date())}})
+    return inner
