@@ -24,7 +24,7 @@ def get_related_records(series_pid):
     referenced = []
     series_record_cls = current_app_ils.series_record_cls
     record = series_record_cls.get_record_by_pid(series_pid)
-    relations = record.relations.get()
+    relations = record.relations
     for relation_type, related_records in relations.items():
         for obj in related_records:
             rec = IlsRecord.get_record_by_pid(

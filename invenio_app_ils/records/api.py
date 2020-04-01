@@ -24,8 +24,8 @@ from werkzeug.utils import cached_property
 
 from invenio_app_ils.errors import IlsValidationError, PatronNotFoundError, \
     RecordHasReferencesError
-from invenio_app_ils.records_relations.api import RecordRelationsMetadata, \
-    RecordRelationsRetriever
+from invenio_app_ils.records_relations.api import RecordRelationsExtraMetadata
+from invenio_app_ils.records_relations.retriever import get_relations
 from invenio_app_ils.search.api import InternalLocationSearch, ItemSearch
 
 from ..pidstore.pids import EITEM_PID_TYPE, INTERNAL_LOCATION_PID_TYPE, \
@@ -56,18 +56,20 @@ class IlsRecord(Record):
         return endpoints_cfg[pid_type]["record_class"]
 
     @classmethod
-    def get_record_by_pid(cls, pid, with_deleted=False, pid_type=None):
+    def get_record_by_pid(cls, pid_value, with_deleted=False, pid_type=None):
         """Get ils record by pid value."""
         if pid_type is None:
             pid_type = cls._pid_type
         else:
             new_cls = cls.pid_type_to_record_class(pid_type)
-            return new_cls.get_record_by_pid(pid, with_deleted=with_deleted)
+            return new_cls.get_record_by_pid(
+                pid_value, with_deleted=with_deleted
+            )
 
         resolver = Resolver(
             pid_type=pid_type, object_type="rec", getter=cls.get_record
         )
-        _, record = resolver.resolve(str(pid))
+        _, record = resolver.resolve(str(pid_value))
         return record
 
     @classmethod
@@ -92,7 +94,7 @@ class IlsRecord(Record):
             raise IlsValidationError(
                 description="Record validation error",
                 errors=errors,
-                original_exception=jve
+                original_exception=jve,
             )
 
         # Custom record validation
@@ -103,30 +105,24 @@ class IlsRecord(Record):
 class IlsRecordWithRelations(IlsRecord):
     """Add relations functionalities to records."""
 
-    def __init__(self, data, model=None):
-        """Record with relations."""
-        super().__init__(data, model)
-        self._relations = RecordRelationsRetriever(self)
-
     @property
     def relations(self):
         """Get record relations."""
-        return self._relations
+        return get_relations(self)
 
     def clear(self):
         """Clear IlsRecordWithRelations record."""
-        relations_metadata_field_name = RecordRelationsMetadata.field_name()
-        relations_metadata = self.get(relations_metadata_field_name, {})
+        extra_metadata_field_name = RecordRelationsExtraMetadata.field_name()
+        extra_metadata = self.get(extra_metadata_field_name, {})
         super().clear()
-        self[relations_metadata_field_name] = relations_metadata
+        self[extra_metadata_field_name] = extra_metadata
 
     def delete(self, **kwargs):
         """Delete record with relations."""
         related_refs = set()
-        relations = self.relations.get()
-        for name, related_objects in relations.items():
+        for name, related_objects in self.relations.items():
             for obj in related_objects:
-                related_refs.add("{pid}:{pid_type}".format(**obj))
+                related_refs.add("{pid_value}:{pid_type}".format(**obj))
         if related_refs:
             raise RecordHasReferencesError(
                 record_type=self.__class__.__name__,
@@ -175,13 +171,7 @@ class Item(_Item):
         "THREE_WEEKS",
         "FOUR_WEEKS",
     ]
-    MEDIUMS = [
-        "NOT_SPECIFIED",
-        "PAPER",
-        "CDROM",
-        "DVD",
-        "VHS",
-    ]
+    MEDIUMS = ["NOT_SPECIFIED", "PAPER", "CDROM", "DVD", "VHS"]
 
     @classmethod
     def build_resolver_fields(cls, data):
@@ -489,9 +479,5 @@ class Vocabulary(dict):
     def __repr__(self):
         """Representation of a vocabulary."""
         return "Vocabulary(id={}, key={}, type={}, text={!r}, data={})".format(
-            self.id,
-            self.key,
-            self.type,
-            self.text,
-            self.data
+            self.id, self.key, self.type, self.text, self.data
         )

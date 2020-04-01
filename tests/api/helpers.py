@@ -85,3 +85,8 @@ def validate_response(client, req_method, url, headers, data,
         res = getattr(client, req_method)(url, headers=headers)
     assert expected_resp_code == res.status_code
     return res
+
+
+def get_test_record(testdata, type, pid_value):
+    """Fetch and return the record from the test data."""
+    return [rec for rec in testdata[type] if rec["pid"] == pid_value][0]
