@@ -7,7 +7,7 @@ import {
   ILSParagraphPlaceholder,
 } from '@components/ILSPlaceholder';
 import { SeriesTitle, SeriesAccess } from '@pages/frontsite/components/Series';
-import { SeriesPanelMobile } from './index';
+import { SeriesPanelMobile, SeriesSequences } from './index';
 import { SeriesAuthors, SeriesImage } from '@components/Series';
 import { Abstract } from '@components';
 
@@ -49,6 +49,7 @@ export default class SeriesPanel extends Component {
                 </Grid.Column>
                 <Grid.Column width={5}>
                   <SeriesAccess />
+                  <SeriesSequences relations={series.metadata.relations} />
                 </Grid.Column>
               </Grid.Row>
             </Grid>

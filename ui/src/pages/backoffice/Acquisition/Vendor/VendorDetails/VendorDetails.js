@@ -10,7 +10,6 @@ import {
   Icon,
   Grid,
 } from 'semantic-ui-react';
-import history from '@history';
 import { CopyButton, Loader, Error } from '@components';
 import { VendorInformation } from './VendorInformation';
 import {
@@ -150,16 +149,13 @@ export default class VendorDetails extends React.Component {
   }
 
   componentDidMount() {
-    this.unlisten = history.listen(loc => {
-      if (loc.state && loc.state.pid && loc.state.type === 'Vendor') {
-        this.props.fetchVendorDetails(loc.state.pid);
-      }
-    });
     this.props.fetchVendorDetails(this.props.match.params.vendorPid);
   }
 
-  componentWillUnmount() {
-    this.unlisten();
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.orderPid !== this.props.match.params.vendorPid) {
+      this.props.fetchVendorDetails(this.props.match.params.vendorPid);
+    }
   }
 
   render() {

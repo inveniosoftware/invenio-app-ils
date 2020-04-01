@@ -9,6 +9,12 @@ export default class EItemDetails extends Component {
     this.props.fetchEItemDetails(this.props.match.params.eitemPid);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.eitemPid !== this.props.match.params.eitemPid) {
+      this.props.fetchEItemDetails(this.props.match.params.eitemPid);
+    }
+  }
+
   render() {
     const { isLoading, error } = this.props;
     return (

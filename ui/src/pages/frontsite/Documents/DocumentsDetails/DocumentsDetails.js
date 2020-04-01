@@ -23,13 +23,16 @@ export default class DocumentsDetails extends Component {
   }
 
   componentDidMount() {
-    this.unlisten = this.props.history.listen(location => {
-      if (location.state && location.state.documentPid) {
-        this.fetchDocumentsDetails(location.state.documentPid);
-      }
-    });
-    this.fetchDocumentsDetails(this.props.match.params.documentPid);
+    this.props.fetchDocumentsDetails(this.props.match.params.documentPid);
     this.documentViewed();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.match.params.documentPid !== this.props.match.params.documentPid
+    ) {
+      this.props.fetchDocumentsDetails(this.props.match.params.documentPid);
+    }
   }
 
   documentViewed = async () => {
@@ -39,10 +42,6 @@ export default class DocumentsDetails extends Component {
       console.warn('Error sending record-view event', error);
     }
   };
-
-  componentWillUnmount() {
-    this.unlisten();
-  }
 
   onSearchClick = () => {
     const query = encodeURIComponent(this.state.searchQuery);

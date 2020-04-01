@@ -14,16 +14,13 @@ export default class ItemDetails extends Component {
   }
 
   componentDidMount() {
-    this.unlisten = this.props.history.listen(location => {
-      if (location.state && location.state.itemPid) {
-        this.props.fetchItemDetails(location.state.itemPid);
-      }
-    });
     this.props.fetchItemDetails(this.props.match.params.itemPid);
   }
 
-  componentWillUnmount() {
-    this.unlisten();
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.itemPid !== this.props.match.params.itemPid) {
+      this.props.fetchItemDetails(this.props.match.params.itemPid);
+    }
   }
 
   render() {

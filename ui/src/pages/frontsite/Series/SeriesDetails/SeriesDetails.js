@@ -1,5 +1,4 @@
 import { AuthenticationGuard } from '@authentication/components';
-import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -12,6 +11,7 @@ import { Breadcrumbs } from '@pages/frontsite/components';
 import { SeriesPanel } from './SeriesPanel';
 import { SeriesLiteratureSearch } from '@pages/frontsite/components/Series';
 import { SeriesMetadata } from './SeriesMetadata';
+import isEmpty from 'lodash/isEmpty';
 
 export default class SeriesDetails extends React.Component {
   constructor(props) {
@@ -22,16 +22,15 @@ export default class SeriesDetails extends React.Component {
   }
 
   componentDidMount() {
-    this.unlisten = this.props.history.listen(location => {
-      if (location.state && location.state.seriesPid) {
-        this.props.fetchSeriesDetails(location.state.seriesPid);
-      }
-    });
     this.props.fetchSeriesDetails(this.props.match.params.seriesPid);
   }
 
-  componentWillUnmount() {
-    this.unlisten();
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.match.params.seriesPid !== this.props.match.params.seriesPid
+    ) {
+      this.props.fetchSeriesDetails(this.props.match.params.seriesPid);
+    }
   }
 
   breadcrumbs = () => [

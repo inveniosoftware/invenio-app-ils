@@ -3,7 +3,6 @@ import { DocumentHeader } from './DocumentHeader';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Divider, Grid, Ref, Sticky } from 'semantic-ui-react';
-import history from '@history';
 import { Loader, Error } from '@components';
 import {
   DocumentMetadata,
@@ -31,16 +30,15 @@ export default class DocumentDetails extends Component {
   }
 
   componentDidMount() {
-    this.unlisten = history.listen(loc => {
-      if (loc.state && loc.state.pid && loc.state.type === 'Document') {
-        this.fetchDocumentDetails(loc.state.pid);
-      }
-    });
-    this.fetchDocumentDetails(this.props.match.params.documentPid);
+    this.props.fetchDocumentDetails(this.props.match.params.documentPid);
   }
 
-  componentWillUnmount() {
-    this.unlisten();
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.match.params.documentPid !== this.props.match.params.documentPid
+    ) {
+      this.props.fetchDocumentDetails(this.props.match.params.documentPid);
+    }
   }
 
   render() {

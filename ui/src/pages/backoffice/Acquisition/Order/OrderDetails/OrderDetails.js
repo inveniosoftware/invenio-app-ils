@@ -11,7 +11,6 @@ import {
   Sticky,
   Menu,
 } from 'semantic-ui-react';
-import history from '@history';
 import { CopyButton, Loader, Error } from '@components';
 import { OrderInformation } from './OrderInformation';
 import { OrderStatistics } from './OrderStatistics';
@@ -208,16 +207,13 @@ export default class OrderDetails extends React.Component {
   }
 
   componentDidMount() {
-    this.unlisten = history.listen(loc => {
-      if (loc.state && loc.state.pid && loc.state.type === 'Order') {
-        this.props.fetchOrderDetails(loc.state.pid);
-      }
-    });
     this.props.fetchOrderDetails(this.props.match.params.orderPid);
   }
 
-  componentWillUnmount() {
-    this.unlisten();
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.orderPid !== this.props.match.params.orderPid) {
+      this.props.fetchOrderDetails(this.props.match.params.orderPid);
+    }
   }
 
   render() {
