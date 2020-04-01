@@ -57,9 +57,7 @@ class Relation(object):
         for pid in pids:
             query = PIDRelation.query.filter_by(
                 relation_type=self.relation_type.id
-            ).filter(
-                or_(PIDRelation.parent == pid, PIDRelation.child == pid)
-            )
+            ).filter(or_(PIDRelation.parent == pid, PIDRelation.child == pid))
 
             results = query.all()
             if results:
@@ -90,18 +88,19 @@ class Relation(object):
                     ),
                 )
             )
-            .count() > 0
+            .count()
+            > 0
         )
 
 
 class ParentChildRelation(Relation):
     """Relation class for parent-child type."""
 
-    def children_of(self, pid):
+    def get_children_of(self, pid):
         """Get all children PID for relations where the given PID is parent."""
         return [r.child for r in self.get_relations_by_parent(pid)]
 
-    def parents_of(self, pid):
+    def get_parents_of(self, pid):
         """Get all parents PID for relations where the given PID is child."""
         return [r.parent for r in self.get_relations_by_child(pid)]
 
@@ -298,19 +297,19 @@ class SiblingsRelation(Relation):
 class SequenceRelation(Relation):
     """Relation class for sequence type."""
 
-    def next_relations(self, pid):
-        """Get all children PID for relations where the given PID is parent."""
+    def pid_is_previous(self, pid):
+        """Get rels with PID as parent: PID is the previous of children."""
         return [r.child for r in self.get_relations_by_parent(pid)]
 
-    def previous_relations(self, pid):
-        """Get all parents PID for relations where the given PID is child."""
+    def pid_is_next(self, pid):
+        """Get rels with PID as parent: PID is the next of children."""
         return [r.parent for r in self.get_relations_by_child(pid)]
 
     def add(self, previous_pid, next_pid):
         """Add a new relation between previous and next pid."""
         if self.relation_exists(previous_pid, next_pid):
             raise RecordRelationsError(
-                "The relation `{}` between parent PID `{}` and child PID `{}` "
+                "The relation `{}` between PID `{}` and PID `{}` "
                 "already exists".format(
                     self.relation_type.name,
                     previous_pid.pid_value,

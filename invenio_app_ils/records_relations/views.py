@@ -32,6 +32,7 @@ from invenio_app_ils.records_relations.api import (  # isort:skip
 
 def create_relations_blueprint(app):
     """Add relations views to the blueprint."""
+
     def _add_resource_view(blueprint, pid_type, view_class):
         """Add a resource view for a rest endpoint."""
         endpoints = app.config.get("RECORDS_REST_ENDPOINTS", [])
@@ -77,16 +78,22 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
     def _validate_parent_child_creation_payload(self, payload):
         """Validate the payload when creating a new parent-child relation."""
         try:
-            parent_pid = payload.pop("parent_pid")
+            parent_pid_value = payload.pop("parent_pid_value")
             parent_pid_type = payload.pop("parent_pid_type")
-            child_pid = payload.pop("child_pid")
+            child_pid_value = payload.pop("child_pid_value")
             child_pid_type = payload.pop("child_pid_type")
         except KeyError as key:
             raise RecordRelationsError(
                 "The `{}` is a required field".format(key)
             )
 
-        return parent_pid, parent_pid_type, child_pid, child_pid_type, payload
+        return (
+            parent_pid_value,
+            parent_pid_type,
+            child_pid_value,
+            child_pid_type,
+            payload,
+        )
 
     def _create_parent_child_relation(self, record, relation_type, payload):
         """Create a Parent-Child relation.
@@ -94,20 +101,21 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
         Expected payload:
 
             {
-                parent_pid: <pid_value>,
+                parent_pid_value: <pid_value>,
                 parent_pid_type: <pid_type>,
-                child_pid: <pid_value>,
+                child_pid_value: <pid_value>,
                 child_pid_type: <pid_type>,
                 relation_type: "<Relation name>",
                 [volume: "<vol name>"]
             }
         """
-        parent_pid, parent_pid_type, child_pid, child_pid_type, metadata = \
-            self._validate_parent_child_creation_payload(payload)
+        parent_pid_value, parent_pid_type, child_pid_value, child_pid_type, metadata = self._validate_parent_child_creation_payload(
+            payload
+        )
 
         # fetch parent and child. The passed record should be one of the two
-        parent = self._get_record(record, parent_pid, parent_pid_type)
-        child = self._get_record(record, child_pid, child_pid_type)
+        parent = self._get_record(record, parent_pid_value, parent_pid_type)
+        child = self._get_record(record, child_pid_value, child_pid_type)
 
         rr = RecordRelationsParentChild()
         modified_record = rr.add(
@@ -121,19 +129,20 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
         Expected payload:
 
             {
-                parent_pid: <pid_value>,
+                parent_pid_value: <pid_value>,
                 parent_pid_type: <pid_type>,
-                child_pid: <pid_value>,
+                child_pid_value: <pid_value>,
                 child_pid_type: <pid_type>,
                 relation_type: "<Relation name>"
             }
         """
-        parent_pid, parent_pid_type, child_pid, child_pid_type, _ = \
-            self._validate_parent_child_creation_payload(payload)
+        parent_pid_value, parent_pid_type, child_pid_value, child_pid_type, _ = self._validate_parent_child_creation_payload(
+            payload
+        )
 
         # fetch parent and child. The passed record should be one of the two
-        parent = self._get_record(record, parent_pid, parent_pid_type)
-        child = self._get_record(record, child_pid, child_pid_type)
+        parent = self._get_record(record, parent_pid_value, parent_pid_type)
+        child = self._get_record(record, child_pid_value, child_pid_type)
 
         rr = RecordRelationsParentChild()
         modified_record = rr.remove(
@@ -144,14 +153,14 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
     def _validate_siblings_creation_payload(self, payload):
         """Validate the payload when creating a new siblings relation."""
         try:
-            pid = payload.pop("pid")
+            pid_value = payload.pop("pid_value")
             pid_type = payload.pop("pid_type")
         except KeyError as key:
             raise RecordRelationsError(
                 "The `{}` is a required field".format(key)
             )
 
-        return pid, pid_type, payload
+        return pid_value, pid_type, payload
 
     def _create_sibling_relation(self, record, relation_type, payload):
         """Create a Siblings relation from current record to the given PID.
@@ -159,22 +168,24 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
         Expected payload:
 
             {
-                pid: <pid_value>,
+                pid_value: <pid_value>,
                 pid_type: <pid_type>,
-                relation_type: "<Relation name>",
+                relation_type: "<relation name>",
                 [note: "<note>"]
             }
         """
-        pid, pid_type, metadata = self._validate_siblings_creation_payload(
+        pid_value, pid_type, metadata = self._validate_siblings_creation_payload(
             payload
         )
 
-        if pid == record["pid"] and pid_type == record._pid_type:
+        if pid_value == record["pid"] and pid_type == record._pid_type:
             raise RecordRelationsError(
-                "Cannot create a relation for PID `{}` with itself".format(pid)
+                "Cannot create a relation for PID `{}` with itself".format(
+                    pid_value
+                )
             )
 
-        second = IlsRecord.get_record_by_pid(pid, pid_type=pid_type)
+        second = IlsRecord.get_record_by_pid(pid_value, pid_type=pid_type)
 
         rr = RecordRelationsSiblings()
         modified_record = rr.add(
@@ -191,21 +202,16 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
         Expected payload:
 
             {
-                pid: <pid_value>,
+                pid_value: <pid_value>,
                 pid_type: <pid_type>,
-                relation_type: "<Relation name>"
+                relation_type: "<relation name>"
             }
         """
-        pid, pid_type, metadata = self._validate_siblings_creation_payload(
+        pid_value, pid_type, _ = self._validate_siblings_creation_payload(
             payload
         )
 
-        if pid == record["pid"] and pid_type == record._pid_type:
-            raise RecordRelationsError(
-                "Cannot create a relation for PID `{}` with itself".format(pid)
-            )
-
-        second = IlsRecord.get_record_by_pid(pid, pid_type=pid_type)
+        second = IlsRecord.get_record_by_pid(pid_value, pid_type=pid_type)
 
         rr = RecordRelationsSiblings()
         modified_record, _ = rr.remove(
@@ -216,29 +222,39 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
     def _validate_sequence_creation_payload(self, record, payload):
         """Validate the payload when creating a new sequence relation."""
         try:
-            next_pid = payload.pop("next_pid")
+            next_pid_value = payload.pop("next_pid_value")
             next_pid_type = payload.pop("next_pid_type")
-            previous_pid = payload.pop("previous_pid")
+            previous_pid_value = payload.pop("previous_pid_value")
             previous_pid_type = payload.pop("previous_pid_type")
         except KeyError as key:
             raise RecordRelationsError(
                 "The `{}` is a required field".format(key)
             )
 
-        if record["pid"] != next_pid and record["pid"] != previous_pid:
+        if (
+            record["pid"] != next_pid_value
+            and record["pid"] != previous_pid_value
+        ):
             raise RecordRelationsError(
                 "Cannot create a relation for other record than one with PID "
                 "`{}`".format(record["pid"])
             )
 
-        if next_pid == previous_pid:
+        if next_pid_value == previous_pid_value:
             raise RecordRelationsError(
                 "Cannot create a sequence with the same next PID `{}`"
-                "and previous PID `{}`".format(next_pid, previous_pid)
+                "and previous PID `{}`".format(
+                    next_pid_value, previous_pid_value
+                )
             )
 
-        return next_pid, next_pid_type, previous_pid, previous_pid_type, \
-            payload
+        return (
+            next_pid_value,
+            next_pid_type,
+            previous_pid_value,
+            previous_pid_type,
+            payload,
+        )
 
     def _create_sequence_relation(self, record, relation_type, payload):
         """Create a Sequence relation.
@@ -246,30 +262,32 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
         Expected payload:
 
             {
-                next_pid: <pid_value>,
+                next_pid_value: <pid_value>,
                 next_pid_type: <pid_type>,
-                previous_pid: <pid_value>,
+                previous_pid_value: <pid_value>,
                 previous_pid_type: <pid_type>,
-                relation_type: "<Relation name>",
+                relation_type: "<relation name>",
             }
         """
-        next_pid, next_pid_type, previous_pid, previous_pid_type, metadata = \
-            self._validate_sequence_creation_payload(record, payload)
+        next_pid_value, next_pid_type, previous_pid_value, previous_pid_type, metadata = self._validate_sequence_creation_payload(
+            record, payload
+        )
 
         next_rec = IlsRecord.get_record_by_pid(
-            next_pid, pid_type=next_pid_type)
+            next_pid_value, pid_type=next_pid_type
+        )
 
         previous_rec = IlsRecord.get_record_by_pid(
-            previous_pid, pid_type=previous_pid_type)
+            previous_pid_value, pid_type=previous_pid_type
+        )
 
         relation_sequence = RecordRelationsSequence()
-        mod_prev, mod_next = relation_sequence.add(
+        relation_sequence.add(
             previous_rec=previous_rec,
             next_rec=next_rec,
-            relation_type=relation_type,
-            **metadata
+            relation_type=relation_type
         )
-        return [mod_prev, mod_next], previous_rec, next_rec
+        return previous_rec, next_rec
 
     def _delete_sequence_relation(self, record, relation_type, payload):
         """Delete sequence relation.
@@ -277,34 +295,38 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
         Expected payload:
 
             {
-                next_pid: <pid_value>,
+                next_pid_value: <pid_value>,
                 next_pid_type: <pid_type>,
-                previous_pid: <pid_value>,
+                previous_pid_value: <pid_value>,
                 previous_pid_type: <pid_type>,
                 relation_type: "<Relation name>",
             }
         """
-        next_pid, next_pid_type, prev_pid, prev_pid_type, metadata = \
-            self._validate_sequence_creation_payload(record, payload)
+        next_pid_value, next_pid_type, prev_pid_value, prev_pid_type, metadata = self._validate_sequence_creation_payload(
+            record, payload
+        )
 
         next_rec = IlsRecord.get_record_by_pid(
-            next_pid, pid_type=next_pid_type)
+            next_pid_value, pid_type=next_pid_type
+        )
 
         previous_rec = IlsRecord.get_record_by_pid(
-            prev_pid, pid_type=prev_pid_type)
+            prev_pid_value, pid_type=prev_pid_type
+        )
 
         relation_sequence = RecordRelationsSequence()
-        mod_prev, mod_next = relation_sequence.remove(
+        relation_sequence.remove(
             previous_rec=previous_rec,
             next_rec=next_rec,
-            relation_type=relation_type
+            relation_type=relation_type,
         )
-        return mod_prev, mod_prev, mod_next
+        return previous_rec, next_rec
 
     @pass_record
     @need_permissions("relations-create")
     def post(self, record, **kwargs):
         """Create a new relation."""
+
         def create(payload):
             try:
                 relation_type = payload.pop("relation_type")
@@ -321,9 +343,10 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                     record, rt, payload
                 )
             elif rt in current_app.config["SEQUENCE_RELATION_TYPES"]:
-                modified, first, second = self._create_sequence_relation(
+                first, second = self._create_sequence_relation(
                     record, rt, payload
                 )
+                modified = second
             else:
                 raise RecordRelationsError(
                     "Invalid relation type `{}`".format(rt.name)
@@ -335,7 +358,7 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
             records_to_index.append(second)
 
             def is_modified(x, r):
-                return (x.pid == r.pid and x._pid_type == r._pid_type)
+                return x.pid == r.pid and x._pid_type == r._pid_type
 
             # NOTE: modified can be a record or a list of records, if one
             # matches our record return the modified one.
@@ -364,6 +387,7 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
     @need_permissions("relations-delete")
     def delete(self, record, **kwargs):
         """Delete an existing relation."""
+
         def delete(payload):
             try:
                 relation_type = payload.pop("relation_type")
@@ -381,9 +405,10 @@ class RecordRelationsResource(ContentNegotiatedMethodView):
                     record, rt, payload
                 )
             elif rt in current_app.config["SEQUENCE_RELATION_TYPES"]:
-                modified, first, second = self._delete_sequence_relation(
+                first, second = self._delete_sequence_relation(
                     record, rt, payload
                 )
+                modified = first
             else:
                 raise RecordRelationsError(
                     "Invalid relation type `{}`".format(rt.name)

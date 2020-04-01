@@ -62,11 +62,11 @@ def get_related_records(document_pid):
     referenced = []
     doc_record_cls = current_app_ils.document_record_cls
     record = doc_record_cls.get_record_by_pid(document_pid)
-    relations = record.relations.get()
+    relations = record.relations
     for relation_type, related_records in relations.items():
         for obj in related_records:
             rec = IlsRecord.get_record_by_pid(
-                obj["pid"], pid_type=obj["pid_type"]
+                obj["pid_value"], pid_type=obj["pid_type"]
             )
             referenced.append(dict(pid_type=obj["pid_type"], record=rec))
     return referenced
