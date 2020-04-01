@@ -18,8 +18,10 @@ export default class ItemDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.match.params.itemPid !== this.props.match.params.itemPid) {
-      this.props.fetchItemDetails(this.props.match.params.itemPid);
+    const itemPid = this.props.match.params.itemPid;
+    const samePidFromRouter = prevProps.match.params.itemPid === itemPid;
+    if (!samePidFromRouter) {
+      this.props.fetchItemDetails(itemPid);
     }
   }
 

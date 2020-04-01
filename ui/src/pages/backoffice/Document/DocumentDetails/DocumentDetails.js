@@ -34,10 +34,11 @@ export default class DocumentDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      prevProps.match.params.documentPid !== this.props.match.params.documentPid
-    ) {
-      this.props.fetchDocumentDetails(this.props.match.params.documentPid);
+    const documentPid = this.props.match.params.documentPid;
+    const samePidFromRouter =
+      prevProps.match.params.documentPid === documentPid;
+    if (!samePidFromRouter) {
+      this.props.fetchDocumentsDetails(documentPid);
     }
   }
 

@@ -14,5 +14,5 @@
 # You can read more about pip-compile command here:
 # https://github.com/jazzband/pip-tools#example-usage-for-pip-compile
 
--e git+git://github.com/inveniosoftware/invenio-accounts.git@rest-api#egg=invenio-accounts
+-e git+git://github.com/inveniosoftware/invenio-accounts.git#egg=invenio-accounts
 -e git+git://github.com/inveniosoftware/invenio-oauthclient.git@rest-api#egg=invenio-oauthclient

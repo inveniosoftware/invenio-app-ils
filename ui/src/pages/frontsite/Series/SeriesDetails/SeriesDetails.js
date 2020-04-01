@@ -26,10 +26,10 @@ export default class SeriesDetails extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      prevProps.match.params.seriesPid !== this.props.match.params.seriesPid
-    ) {
-      this.props.fetchSeriesDetails(this.props.match.params.seriesPid);
+    const seriesPid = this.props.match.params.seriesPid;
+    const samePidFromRouter = prevProps.match.params.seriesPid === seriesPid;
+    if (!samePidFromRouter) {
+      this.props.fetchSeriesDetails(seriesPid);
     }
   }
 

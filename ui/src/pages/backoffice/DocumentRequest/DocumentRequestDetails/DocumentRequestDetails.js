@@ -17,13 +17,11 @@ export default class DocumentRequestDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      prevProps.match.params.documentRequestPid !==
-      this.props.match.params.documentRequestPid
-    ) {
-      this.props.fetchDocumentRequestDetails(
-        this.props.match.params.documentRequestPid
-      );
+    const documentRequestPid = this.props.match.params.documentRequestPid;
+    const samePidFromRouter =
+      prevProps.match.params.documentRequestPid === documentRequestPid;
+    if (!samePidFromRouter) {
+      this.props.fetchDocumentRequestDetails(documentRequestPid);
     }
   }
 

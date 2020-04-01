@@ -16,10 +16,10 @@ export default class LibraryDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      prevProps.match.params.libraryPid !== this.props.match.params.libraryPid
-    ) {
-      this.props.fetchLibraryDetails(this.props.match.params.libraryPid);
+    const libraryPid = this.props.match.params.libraryPid;
+    const samePidFromRouter = prevProps.match.params.libraryPid === libraryPid;
+    if (!samePidFromRouter) {
+      this.props.fetchLibraryDetails(libraryPid);
     }
   }
 

@@ -17,13 +17,11 @@ export default class BorrowingRequestDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      prevProps.match.params.borrowingRequestPid !==
-      this.props.match.params.borrowingRequestPid
-    ) {
-      this.props.fetchBorrowingRequestDetails(
-        this.props.match.params.borrowingRequestPid
-      );
+    const borrowingRequestPid = this.props.match.params.borrowingRequestPid;
+    const samePidFromRouter =
+      prevProps.match.params.borrowingRequestPid === borrowingRequestPid;
+    if (!samePidFromRouter) {
+      this.props.fetchBorrowingRequestDetails(borrowingRequestPid);
     }
   }
 

@@ -15,8 +15,10 @@ export default class LoanDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.match.params.loanPid !== this.props.match.params.loanPid) {
-      this.props.fetchLoanDetails(this.props.match.params.loanPid);
+    const loanPid = this.props.match.params.loanPid;
+    const samePidFromRouter = prevProps.match.params.loanPid === loanPid;
+    if (!samePidFromRouter) {
+      this.props.fetchLoanDetails(loanPid);
     }
   }
 

@@ -211,8 +211,10 @@ export default class OrderDetails extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.match.params.orderPid !== this.props.match.params.orderPid) {
-      this.props.fetchOrderDetails(this.props.match.params.orderPid);
+    const orderPid = this.props.match.params.orderPid;
+    const samePidFromRouter = prevProps.match.params.orderPid === orderPid;
+    if (!samePidFromRouter) {
+      this.props.fetchOrderDetails(orderPid);
     }
   }
 

@@ -153,8 +153,10 @@ export default class VendorDetails extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.match.params.orderPid !== this.props.match.params.vendorPid) {
-      this.props.fetchVendorDetails(this.props.match.params.vendorPid);
+    const vendorPid = this.props.match.params.vendorPid;
+    const samePidFromRouter = prevProps.match.params.vendorPid === vendorPid;
+    if (!samePidFromRouter) {
+      this.props.fetchVendorDetails(vendorPid);
     }
   }
 
