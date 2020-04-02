@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { FrontSiteRoutes } from '@routes/urls';
+import isEmpty from 'lodash/isEmpty';
 
 export class DocumentRelations extends Component {
   constructor(props) {
@@ -87,10 +88,16 @@ export class DocumentRelations extends Component {
       return (
         <>
           <Divider horizontal>Related</Divider>
-          {this.renderMultiparts()}
-          {this.renderSerials()}
-          {this.renderLanguages()}
-          {this.renderEditions()}
+          {isEmpty(this.relations) ? (
+            <> No related documents </>
+          ) : (
+            <>
+              {this.renderMultiparts()}
+              {this.renderSerials()}
+              {this.renderLanguages()}
+              {this.renderEditions()}
+            </>
+          )}
         </>
       );
     } else {

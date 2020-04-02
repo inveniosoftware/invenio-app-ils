@@ -7,6 +7,7 @@ import { DocumentConference } from './DocumentConference';
 import { DocumentLinks } from './DocumentLinks';
 import { Notes } from '../Notes';
 import _get from 'lodash/get';
+import { Identifiers } from '../Identifiers';
 
 export class DocumentMetadataTabs extends Component {
   constructor(props) {
@@ -25,6 +26,18 @@ export class DocumentMetadataTabs extends Component {
               documentType={this.document.document_type}
             />
             <DocumentInfo metadata={this.document} />
+          </Tab.Pane>
+        ),
+      },
+      {
+        menuItem: 'Identifiers',
+        render: () => (
+          <Tab.Pane attached={false}>
+            <Identifiers
+              identifiers={this.document.identifiers.concat(
+                this.document.alternative_identifiers
+              )}
+            />
           </Tab.Pane>
         ),
       },

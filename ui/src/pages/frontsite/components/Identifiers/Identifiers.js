@@ -31,7 +31,7 @@ export const IdentifierRows = ({ includeSchemes, identifiers }) => {
     // Only include whitelisted schemes if includeSchemes is set
     if (!includeSchemes || includeSchemes.includes(id.scheme)) {
       const value = { value: id.value, material: id.material };
-      if (id.scheme in identifiers) {
+      if (id.scheme in idsByScheme) {
         idsByScheme[id.scheme].push(value);
       } else {
         idsByScheme[id.scheme] = [value];
