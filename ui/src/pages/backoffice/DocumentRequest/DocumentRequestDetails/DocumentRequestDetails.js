@@ -11,20 +11,18 @@ import {
 
 export default class DocumentRequestDetails extends Component {
   componentDidMount() {
-    this.unlisten = this.props.history.listen(location => {
-      if (location.state && location.state.documentRequestPid) {
-        this.props.fetchDocumentRequestDetails(
-          location.state.documentRequestPid
-        );
-      }
-    });
     this.props.fetchDocumentRequestDetails(
       this.props.match.params.documentRequestPid
     );
   }
 
-  componentWillUnmount() {
-    this.unlisten();
+  componentDidUpdate(prevProps) {
+    const documentRequestPid = this.props.match.params.documentRequestPid;
+    const samePidFromRouter =
+      prevProps.match.params.documentRequestPid === documentRequestPid;
+    if (!samePidFromRouter) {
+      this.props.fetchDocumentRequestDetails(documentRequestPid);
+    }
   }
 
   render() {

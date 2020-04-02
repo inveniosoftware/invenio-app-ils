@@ -16,6 +16,14 @@ export default class EItemDetails extends Component {
     this.props.fetchEItemDetails(this.props.match.params.eitemPid);
   }
 
+  componentDidUpdate(prevProps) {
+    const eitemPid = this.props.match.params.eitemPid;
+    const samePidFromRouter = prevProps.match.params.eitemPid === eitemPid;
+    if (!samePidFromRouter) {
+      this.props.fetchEItemDetails(eitemPid);
+    }
+  }
+
   render() {
     const { isLoading, error, data } = this.props;
     return (

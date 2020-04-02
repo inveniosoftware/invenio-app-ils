@@ -11,18 +11,18 @@ export default class BorrowingRequestDetails extends Component {
   }
 
   componentDidMount() {
-    this.unlisten = this.props.history.listen(location => {
-      if (location.state && location.state.borrowingRequestPid) {
-        this.fetchBorrowingRequestDetails(location.state.borrowingRequestPid);
-      }
-    });
-    this.fetchBorrowingRequestDetails(
+    this.props.fetchBorrowingRequestDetails(
       this.props.match.params.borrowingRequestPid
     );
   }
 
-  componentWillUnmount() {
-    this.unlisten();
+  componentDidUpdate(prevProps) {
+    const borrowingRequestPid = this.props.match.params.borrowingRequestPid;
+    const samePidFromRouter =
+      prevProps.match.params.borrowingRequestPid === borrowingRequestPid;
+    if (!samePidFromRouter) {
+      this.props.fetchBorrowingRequestDetails(borrowingRequestPid);
+    }
   }
 
   render() {

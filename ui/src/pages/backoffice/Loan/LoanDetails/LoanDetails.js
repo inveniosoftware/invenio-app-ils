@@ -11,16 +11,15 @@ export default class LoanDetails extends Component {
   }
 
   componentDidMount() {
-    this.unlisten = this.props.history.listen(location => {
-      if (location.state && location.state.loanPid) {
-        this.fetchLoanDetails(location.state.loanPid);
-      }
-    });
-    this.fetchLoanDetails(this.props.match.params.loanPid);
+    this.props.fetchLoanDetails(this.props.match.params.loanPid);
   }
 
-  componentWillUnmount() {
-    this.unlisten();
+  componentDidUpdate(prevProps) {
+    const loanPid = this.props.match.params.loanPid;
+    const samePidFromRouter = prevProps.match.params.loanPid === loanPid;
+    if (!samePidFromRouter) {
+      this.props.fetchLoanDetails(loanPid);
+    }
   }
 
   render() {

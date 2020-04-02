@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
-import history from '@history';
 import { Loader, Error } from '@components';
 import { LibraryMetadata } from './components';
 
@@ -13,16 +12,15 @@ export default class LibraryDetails extends Component {
   }
 
   componentDidMount() {
-    this.unlisten = history.listen(loc => {
-      if (loc.state && loc.state.pid && loc.state.type === 'Library') {
-        this.fetchLibraryDetails(loc.state.pid);
-      }
-    });
-    this.fetchLibraryDetails(this.props.match.params.libraryPid);
+    this.props.fetchLibraryDetails(this.props.match.params.libraryPid);
   }
 
-  componentWillUnmount() {
-    this.unlisten();
+  componentDidUpdate(prevProps) {
+    const libraryPid = this.props.match.params.libraryPid;
+    const samePidFromRouter = prevProps.match.params.libraryPid === libraryPid;
+    if (!samePidFromRouter) {
+      this.props.fetchLibraryDetails(libraryPid);
+    }
   }
 
   render() {

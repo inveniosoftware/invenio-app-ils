@@ -17,7 +17,6 @@ import {
 } from 'semantic-ui-react';
 import { Loader, Error } from '@components';
 import { SeriesDocuments, SeriesMultipartMonographs } from './components';
-import history from '@history';
 import isEmpty from 'lodash/isEmpty';
 
 export default class SeriesDetails extends Component {
@@ -28,16 +27,15 @@ export default class SeriesDetails extends Component {
   }
 
   componentDidMount() {
-    this.unlisten = history.listen(loc => {
-      if (loc.state && loc.state.pid && loc.state.type === 'Series') {
-        this.props.fetchSeriesDetails(loc.state.pid);
-      }
-    });
     this.props.fetchSeriesDetails(this.props.match.params.seriesPid);
   }
 
-  componentWillUnmount() {
-    this.unlisten();
+  componentDidUpdate(prevProps) {
+    const seriesPid = this.props.match.params.seriesPid;
+    const samePidFromRouter = prevProps.match.params.seriesPid === seriesPid;
+    if (!samePidFromRouter) {
+      this.props.fetchSeriesDetails(seriesPid);
+    }
   }
 
   seriesPanels = () => {
