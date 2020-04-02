@@ -19,7 +19,7 @@ export default class EItemActionMenu extends Component {
     return (
       <DeleteButton
         fluid
-        content="Delete physical copy"
+        content="Delete electronic item"
         labelPosition="left"
         {...props}
       />

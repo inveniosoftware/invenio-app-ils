@@ -22,7 +22,7 @@ const deleteDocButton = props => {
   );
 };
 
-export class DocumentDeleteModal extends Component {
+export default class DocumentDeleteModal extends Component {
   async getRelationRefs() {
     const hits = [];
     for (const [relation, records] of Object.entries(this.props.relations)) {
@@ -119,7 +119,7 @@ export class DocumentDeleteModal extends Component {
         deleteHeader={`Are you sure you want to delete the Document
             record with ID ${document.metadata.pid}?`}
         refProps={this.createRefProps(document.metadata.pid)}
-        onDelete={() => this.deleteDocument(document.metadata.pid)}
+        onDelete={() => this.props.deleteDocument(document.metadata.pid)}
         trigger={deleteDocButton}
       />
     );
@@ -129,4 +129,5 @@ export class DocumentDeleteModal extends Component {
 DocumentDeleteModal.propTypes = {
   document: PropTypes.object.isRequired,
   relations: PropTypes.object.isRequired,
+  deleteDocument: PropTypes.func.isRequired,
 };
