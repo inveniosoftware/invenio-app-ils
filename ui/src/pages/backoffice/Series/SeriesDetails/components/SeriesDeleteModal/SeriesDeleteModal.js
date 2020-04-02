@@ -15,7 +15,7 @@ const deleteButton = props => {
   );
 };
 
-export class SeriesDeleteModal extends Component {
+export default class SeriesDeleteModal extends Component {
   async getRelationRefs() {
     const hits = [];
     for (const [relation, records] of Object.entries(this.props.relations)) {
@@ -63,4 +63,5 @@ export class SeriesDeleteModal extends Component {
 SeriesDeleteModal.propTypes = {
   series: PropTypes.object.isRequired,
   relations: PropTypes.object.isRequired,
+  deleteSeries: PropTypes.func.isRequired,
 };

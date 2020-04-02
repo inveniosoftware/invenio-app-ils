@@ -102,7 +102,7 @@ export default class ItemActionMenu extends Component {
           trigger={this.deleteDocButton}
           deleteHeader={`Are you sure you want to delete the physical copy
             record with ID ${item.pid}?`}
-          onDelete={() => this.deleteItem(item.pid)}
+          onDelete={() => this.props.deleteItem(item.pid)}
           refProps={this.createRefProps(item.pid)}
         />
         <Divider horizontal> Circulation </Divider>
