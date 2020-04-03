@@ -11,11 +11,6 @@
   },
   {
     "type": "alternative_identifier_scheme",
-    "key": "ISBN",
-    "text": "International Standard Book Number (ISBN)"
-  },
-  {
-    "type": "alternative_identifier_scheme",
     "key": "HDL",
     "text": "Handle.Net (HDL)"
   },
