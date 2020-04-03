@@ -1,7 +1,6 @@
 import { Error, Loader } from '@components';
 import { RelationSerial } from '@pages/backoffice/components/Relations/RelationSerial';
 import _get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
@@ -9,6 +8,8 @@ import {
   Container,
   Divider,
   Grid,
+  Icon,
+  Popup,
   Ref,
   Segment,
   Sticky,
@@ -16,7 +17,7 @@ import {
 import { SeriesActionMenu } from './';
 import { SeriesDocuments, SeriesMultipartMonographs } from './components';
 import SeriesMetadataTabs from './components/SeriesMetadata/SeriesMetadataTabs';
-import { SeriesSiblings } from './components/SeriesRelations/';
+import { SeriesRelations } from './components/SeriesRelations/';
 import { SeriesHeader } from './SeriesHeader';
 
 export default class SeriesDetails extends Component {
@@ -41,18 +42,35 @@ export default class SeriesDetails extends Component {
 
   seriesPanels = () => {
     const { data } = this.props;
-    const serialsCount = _get(data, 'metadata.relations_metadata.serial', [])
-      .length;
-    const monographsCount = _get(
-      data,
-      'metadata.relations_metadata.multipart_monograph',
-      []
-    ).length;
-    const documentsCount = serialsCount + monographsCount;
+
+    const isSerial =
+      _get(this.props.data, 'metadata.mode_of_issuance', '') === 'SERIAL';
+
+    const _docsInSeries = _get(this.props.documentsInSeries, 'total', -1);
+    const docsInSeries = _docsInSeries >= 0 ? ` (${_docsInSeries})` : '';
+    const _multiMonoInSeries = _get(
+      this.props.multipartMonographsInSeries,
+      'total',
+      -1
+    );
+    const multiMonoInSeries =
+      _multiMonoInSeries >= 0 ? ` (${_multiMonoInSeries})` : '';
+
+    const docsTitle = (
+      <Accordion.Title>
+        <Icon name="dropdown" />
+        Documents in this series{docsInSeries}
+        <Popup
+          trigger={<Icon name="help circle" style={{ float: 'right' }} />}
+          content="You can add/remove documents to this series by using the series panel in the document details"
+          position="top right"
+        />
+      </Accordion.Title>
+    );
     const panes = [
       {
         key: 'series-documents',
-        title: `Literature in this series (${documentsCount})`,
+        title: docsTitle,
         content: (
           <Accordion.Content>
             <div id="series-documents">
@@ -61,47 +79,64 @@ export default class SeriesDetails extends Component {
           </Accordion.Content>
         ),
       },
-      {
-        key: 'series-monographs',
-        title: 'Multipart monographs',
-        content: (
-          <Accordion.Content>
-            <div id="series-monographs">
-              <SeriesMultipartMonographs />
-            </div>
-          </Accordion.Content>
-        ),
-      },
-      {
-        key: 'series-serials',
-        title: 'Serials',
-        content: (
-          <Accordion.Content>
-            <div id="series-serials">
-              <Segment>
-                <RelationSerial recordDetails={data} />
-              </Segment>
-            </div>
-          </Accordion.Content>
-        ),
-      },
-      {
-        key: 'series-relations',
-        title: 'Related',
-        content: (
-          <Accordion.Content>
-            <div id="series-relations">
-              <SeriesSiblings />
-            </div>
-          </Accordion.Content>
-        ),
-      },
     ];
-    const isSerial =
-      !isEmpty(this.props.data) &&
-      this.props.data.metadata.mode_of_issuance === 'SERIAL';
-    if (isSerial) panes.splice(2, 1);
-    if (!isSerial) panes.splice(1, 1);
+
+    const mmTitle = (
+      <Accordion.Title>
+        <Icon name="dropdown" />
+        Multipart monographs in this series{multiMonoInSeries}
+        <Popup
+          trigger={<Icon name="help circle" style={{ float: 'right' }} />}
+          content="You can add/remove multipart monograph to this series by using the series panel in the document details"
+          position="top right"
+        />
+      </Accordion.Title>
+    );
+    const multiMonoInSeriesPane = {
+      key: 'series-monographs',
+      title: mmTitle,
+      content: (
+        <Accordion.Content>
+          <div id="series-monographs">
+            <SeriesMultipartMonographs />
+          </div>
+        </Accordion.Content>
+      ),
+    };
+    const serialParentsPane = {
+      key: 'series-serials',
+      title: 'Part of serials',
+      content: (
+        <Accordion.Content>
+          <div id="series-serials">
+            <Segment>
+              <RelationSerial recordDetails={data} />
+            </Segment>
+          </div>
+        </Accordion.Content>
+      ),
+    };
+
+    if (isSerial) {
+      // it is Serial, show children Multipart Monograph
+      panes.push(multiMonoInSeriesPane);
+    } else {
+      // it is Multipart Monograph, show parents serials pane
+      panes.push(serialParentsPane);
+    }
+
+    panes.push({
+      key: 'series-relations',
+      title: 'Relations',
+      content: (
+        <Accordion.Content>
+          <div id="series-relations">
+            <SeriesRelations />
+          </div>
+        </Accordion.Content>
+      ),
+    });
+
     return panes;
   };
 
@@ -122,17 +157,19 @@ export default class SeriesDetails extends Component {
                 <Ref innerRef={this.menuRef}>
                   <Grid columns={2}>
                     <Grid.Column width={13}>
-                      <div id="metadata">
-                        <SeriesMetadataTabs series={data} />
-                      </div>
-                      <Accordion
-                        fluid
-                        styled
-                        className="highlighted"
-                        panels={this.seriesPanels()}
-                        exclusive={false}
-                        defaultActiveIndex={[0, 1, 2]}
-                      />
+                      <Container className="spaced">
+                        <div id="metadata">
+                          <SeriesMetadataTabs series={data} />
+                        </div>
+                        <Accordion
+                          fluid
+                          styled
+                          className="highlighted"
+                          panels={this.seriesPanels()}
+                          exclusive={false}
+                          defaultActiveIndex={[0, 1, 2]}
+                        />
+                      </Container>
                     </Grid.Column>
                     <Grid.Column width={3}>
                       <Sticky context={this.menuRef} offset={150}>
@@ -159,4 +196,7 @@ SeriesDetails.propTypes = {
   data: PropTypes.object,
   relations: PropTypes.object,
   error: PropTypes.object,
+  // from redux state
+  documentsInSeries: PropTypes.object,
+  multipartMonographsInSeries: PropTypes.object,
 };

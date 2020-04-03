@@ -1,5 +1,5 @@
-import reducer, { initialState } from '../reducer';
-import * as types from '../types';
+import reducer, { initialState } from './reducer';
+import * as types from './types';
 
 describe('Fetch Series Document reducer', () => {
   it('should have initial state', () => {
@@ -17,15 +17,15 @@ describe('Fetch Series Document reducer', () => {
   });
 
   it('should change data state on success action', () => {
-    const SeriesMultipartMonographs = [{ field: '123' }, { field: '456' }];
+    const seriesDocuments = [{ field: '123' }, { field: '456' }];
     const action = {
       type: types.SUCCESS,
-      payload: SeriesMultipartMonographs,
+      payload: seriesDocuments,
     };
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
       isLoading: false,
-      data: SeriesMultipartMonographs,
+      data: seriesDocuments,
       hasError: false,
     });
   });

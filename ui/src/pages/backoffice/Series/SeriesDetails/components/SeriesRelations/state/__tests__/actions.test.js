@@ -109,8 +109,8 @@ describe('Series relations tests', () => {
 
       const payload = getPayload();
 
-      store.dispatch(actions.deleteRelations('123', [payload]));
-      expect(mockDeleteRelations).toHaveBeenCalledWith('123', [payload]);
+      store.dispatch(actions.deleteRelation('123', payload));
+      expect(mockDeleteRelations).toHaveBeenCalledWith('123', payload);
       expect(store.getActions()[0]).toEqual(expectedAction);
     });
 
@@ -123,8 +123,8 @@ describe('Series relations tests', () => {
       };
 
       const payload = getPayload();
-      await store.dispatch(actions.deleteRelations('123', [payload]));
-      expect(mockDeleteRelations).toHaveBeenCalledWith('123', [payload]);
+      await store.dispatch(actions.deleteRelation('123', payload));
+      expect(mockDeleteRelations).toHaveBeenCalledWith('123', payload);
       expect(store.getActions()[1]).toEqual(expectedAction);
     });
 
@@ -137,8 +137,8 @@ describe('Series relations tests', () => {
       };
 
       const payload = getPayload();
-      await store.dispatch(actions.deleteRelations('123', [payload]));
-      expect(mockDeleteRelations).toHaveBeenCalledWith('123', [payload]);
+      await store.dispatch(actions.deleteRelation('123', payload));
+      expect(mockDeleteRelations).toHaveBeenCalledWith('123', payload);
       expect(store.getActions()[1]).toEqual(expectedAction);
     });
   });

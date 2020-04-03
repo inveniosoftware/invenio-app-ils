@@ -41,7 +41,11 @@ export class RelationListEntry extends Component {
             to={BackOfficeRoutes.documentDetailsFor(record.metadata.pid)}
             data-test={`navigate-${record.metadata.pid}`}
           >
-            <DocumentTitle document={record} truncate={true} short={true} />
+            <DocumentTitle
+              metadata={record.metadata}
+              truncate={true}
+              titleOnly={true}
+            />
           </Item.Header>
           <Grid columns={2}>
             <Grid.Column width={10}>
@@ -51,8 +55,7 @@ export class RelationListEntry extends Component {
                 ) : (
                   <SeriesAuthors metadata={record.metadata} />
                 )}
-                <DocumentEdition document={record} label={true} />
-                <label>Published</label> {record.metadata.publication_year}
+                <DocumentEdition metadata={record.metadata} withLabel={true} />
               </Item.Meta>
             </Grid.Column>
             <Grid.Column width={6}>

@@ -1,13 +1,16 @@
+import { series as seriesApi } from '@api';
 import { SeriesLanguages } from '@components/Series';
 import {
   RelationModal,
+  RelationSelector,
   RelationSummary,
   SingleSelection,
-  RelationSelector,
 } from '@pages/backoffice/components/Relations';
 import SeriesSelectListEntry from '@pages/backoffice/components/Series/SeriesSelectListEntry/SeriesSelectListEntry';
-import React, { Component } from 'react';
+import _concat from 'lodash/concat';
+import _get from 'lodash/get';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {
   Container,
   Divider,
@@ -15,18 +18,24 @@ import {
   Icon,
   Label,
   Modal,
-  Popup,
 } from 'semantic-ui-react';
-import { series as seriesApi } from '@api';
-import concat from 'lodash/concat';
-import isEmpty from 'lodash/isEmpty';
 
 export default class RelationOtherModal extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      type: 'next',
+
+    this.ORDER_IS_CONTINUED_BY = {
+      order: 'is_continued_by',
       label: 'is continued by',
+    };
+
+    this.ORDER_CONTINUES = {
+      order: 'continues',
+      label: 'continues',
+    };
+
+    this.state = {
+      relationOrder: null,
       isLoading: false,
     };
   }
@@ -47,22 +56,59 @@ export default class RelationOtherModal extends Component {
     );
   };
 
+  getSummaryDescription = () => {
+    let iconName;
+    let label;
+    if (this.state.relationOrder === this.ORDER_CONTINUES.order) {
+      iconName = 'arrow left';
+      label = this.ORDER_CONTINUES.label;
+    } else if (this.state.relationOrder === this.ORDER_IS_CONTINUED_BY.order) {
+      iconName = 'arrow right';
+      label = this.ORDER_IS_CONTINUED_BY.label;
+    } else {
+      return <></>; // do not return null otherwise a default cmp will be rendered.
+    }
+
+    return (
+      <>
+        <Icon name={iconName} />
+        <br /> <Label color="blue">{label}</Label>
+      </>
+    );
+  };
+
   render() {
     const { disabled, seriesDetails, relations } = this.props;
 
-    const existingNext = relations['next'] || [];
-    const existingPrevious = relations['previous'] || [];
-    const existingRelations = concat(existingNext, existingPrevious);
+    const sequenceRelations = _get(relations, this.props.relationType, []);
+    const existingContinuations = sequenceRelations.filter(
+      rel => rel.relation_order === this.ORDER_CONTINUES.order
+    );
+    const existingPredecessors = sequenceRelations.filter(
+      rel => rel.relation_order === this.ORDER_IS_CONTINUED_BY.order
+    );
+
+    const existingRelations = _concat(
+      existingContinuations,
+      existingPredecessors
+    );
 
     return (
       <RelationModal
         disabled={disabled}
         triggerButtonContent={'Add sequence relation'}
-        modalHeader={'Create new sequence relation'}
+        modalHeader={'Add new sequence relation'}
         isLoading={this.state.isLoading}
         relationType={this.props.relationType}
         referrerRecord={seriesDetails}
-        extraRelationField={{ type: this.state.type, required: true }}
+        extraRelationField={{
+          field: {
+            relation_order: this.state.relationOrder,
+          },
+          options: {
+            isValid: this.state.relationOrder !== null,
+          },
+        }}
       >
         <Modal.Content>
           <Container textAlign="left">
@@ -71,48 +117,42 @@ export default class RelationOtherModal extends Component {
               <Form.Group>
                 <Container className="spaced">
                   <RelationSelector
-                    relations={existingRelations}
+                    existingRelations={existingRelations}
                     mode={'single'}
                     optionsQuery={seriesApi.serials}
                     resultRenderer={this.selectResultRender}
                     referrerRecordPid={seriesDetails.metadata.pid}
-                    relatioonType={this.props.relationType}
                   />
                 </Container>
               </Form.Group>
               <br /> <br />
               <Form.Group inline>
-                <label>Choose the sequence direction</label>
+                <label>Choose the sequence direction. This series:</label>
                 <Form.Radio
-                  label="is continued by"
-                  value="next"
-                  checked={this.state.type === 'next'}
+                  label={this.ORDER_IS_CONTINUED_BY.label}
+                  value={this.ORDER_IS_CONTINUED_BY.order}
+                  checked={
+                    this.state.relationOrder ===
+                    this.ORDER_IS_CONTINUED_BY.order
+                  }
                   onChange={(e, { value }) =>
-                    this.setState({ type: value, label: 'is continued by' })
+                    this.setState({
+                      relationOrder: value,
+                    })
                   }
                 />
                 <Form.Radio
-                  label="continues"
-                  value="previous"
-                  checked={this.state.type === 'previous'}
-                  disabled={!isEmpty(existingPrevious)}
+                  label={this.ORDER_CONTINUES.label}
+                  value={this.ORDER_CONTINUES.order}
+                  checked={
+                    this.state.relationOrder === this.ORDER_CONTINUES.order
+                  }
                   onChange={(e, { value }) =>
-                    this.setState({ type: value, label: 'continues' })
+                    this.setState({
+                      relationOrder: value,
+                    })
                   }
                 />
-                {!isEmpty(existingPrevious) && (
-                  <Popup
-                    content={
-                      'There is already existing predecessor. Only one can be added.'
-                    }
-                    trigger={
-                      <Icon
-                        name="question circle"
-                        className="bo-form-inline-icon"
-                      />
-                    }
-                  />
-                )}
               </Form.Group>
             </Form>
           </Container>
@@ -121,17 +161,7 @@ export default class RelationOtherModal extends Component {
             <RelationSummary
               currentReferrer={seriesDetails}
               renderSelections={() => <SingleSelection />}
-              relationDescription={
-                <>
-                  {this.state.type === 'next' ? (
-                    <Icon name="arrow right" />
-                  ) : (
-                    <Icon name="arrow left" />
-                  )}
-                  <br />{' '}
-                  <Label color="blue">{this.state.label || '...'} </Label>
-                </>
-              }
+              relationDescription={this.getSummaryDescription()}
             />
           </Container>
         </Modal.Content>

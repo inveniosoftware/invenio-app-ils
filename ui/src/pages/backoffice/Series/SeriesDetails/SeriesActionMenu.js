@@ -53,7 +53,7 @@ export default class SeriesActionMenu extends Component {
             }
             offset={offset}
           >
-            Literature of this series
+            Documents
           </Menu.Item>
           {series.metadata.mode_of_issuance === 'MULTIPART_MONOGRAPH' && (
             <Menu.Item
@@ -68,7 +68,7 @@ export default class SeriesActionMenu extends Component {
               }
               offset={offset}
             >
-              Serials
+              Part of serials
             </Menu.Item>
           )}
           {series.metadata.mode_of_issuance === 'SERIAL' && (
@@ -84,7 +84,7 @@ export default class SeriesActionMenu extends Component {
               }
               offset={offset}
             >
-              Multipart monograph
+              Multipart monographs
             </Menu.Item>
           )}
           <Menu.Item

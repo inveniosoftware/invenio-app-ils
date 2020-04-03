@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Card, Label } from 'semantic-ui-react';
+import { SeriesAuthors, SeriesImage } from '@components/Series';
 import { goTo } from '@history';
 import { FrontSiteRoutes } from '@routes/urls';
-import { SeriesImage, SeriesAuthors } from '@components/Series';
-import _get from 'lodash/get';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Card, Label } from 'semantic-ui-react';
 
 export class SeriesCard extends Component {
   renderImage = () => {
@@ -27,14 +26,6 @@ export class SeriesCard extends Component {
 
   render() {
     const { data } = this.props;
-    const serialsCount = _get(data, 'metadata.relations_metadata.serial', [])
-      .length;
-    const monographsCount = _get(
-      data,
-      'metadata.relations_metadata.multipart_monograph',
-      []
-    ).length;
-    const documentsCount = serialsCount + monographsCount;
     return (
       <Card
         link
@@ -59,7 +50,6 @@ export class SeriesCard extends Component {
             {data.metadata.publisher && (
               <div>Publisher {data.metadata.publisher}</div>
             )}
-            {documentsCount > 0 && <div>Volumes {documentsCount}</div>}
           </Card.Meta>
         </Card.Content>
       </Card>

@@ -1,14 +1,15 @@
-import { document as documentApi } from '@api';
-import { DocumentAuthors, Error, Loader, ResultsTable } from '@components';
 import { InfoMessage } from '@pages/backoffice/components';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Loader, Error, ResultsTable } from '@components';
+import { DocumentTitle } from '@components/Document';
+import { document as documentApi } from '@api';
 import {
   DocumentDetailsLink,
   SeeAllButton,
 } from '@pages/backoffice/components/buttons';
 import { BackOfficeRoutes } from '@routes/urls';
 import _get from 'lodash/get';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
 
 export default class SeriesDocuments extends Component {
   constructor(props) {
@@ -32,9 +33,11 @@ export default class SeriesDocuments extends Component {
   };
 
   viewDetails = ({ row }) => {
+    const recordMetadata = row.metadata;
+    const titleCmp = <DocumentTitle metadata={recordMetadata} />;
     return (
-      <DocumentDetailsLink documentPid={row.pid}>
-        {row.metadata.title}
+      <DocumentDetailsLink pidValue={recordMetadata.pid}>
+        {titleCmp}
       </DocumentDetailsLink>
     );
   };
@@ -47,21 +50,17 @@ export default class SeriesDocuments extends Component {
       []
     ).find(
       relation =>
-        relation.pid === this.seriesPid && relation.pid_type === 'serid'
+        relation.pid_value === this.seriesPid && relation.pid_type === 'serid'
     );
-    return relation ? relation.volume : '?';
+    return relation ? relation.volume : '-';
   };
 
   render() {
     const { showMaxDocuments, seriesDocuments, isLoading, error } = this.props;
     const columns = [
-      { title: 'Title', field: 'metadata.title', formatter: this.viewDetails },
-      {
-        title: 'Authors',
-        formatter: ({ row }) => <DocumentAuthors metadata={row.metadata} />,
-      },
+      { title: 'PID', field: 'metadata.pid' },
+      { title: 'Title', field: '', formatter: this.viewDetails },
       { title: 'Volume', formatter: this.volumeFormatter },
-      { title: 'ID', field: 'metadata.pid' },
     ];
     return (
       <Loader isLoading={isLoading}>
@@ -75,8 +74,8 @@ export default class SeriesDocuments extends Component {
             showMaxRows={showMaxDocuments}
             renderEmptyResultsElement={() => (
               <InfoMessage
-                header="No volumes in this series."
-                content="Start from a book/article to attach it to this series."
+                header="No documents in this series"
+                content="Start from the document details to attach it to this series"
                 data-test="no-results"
               />
             )}

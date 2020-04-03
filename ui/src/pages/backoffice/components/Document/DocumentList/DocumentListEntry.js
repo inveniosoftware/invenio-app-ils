@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Grid, Header, Icon, Item, List } from 'semantic-ui-react';
 import { BackOfficeRoutes } from '@routes/urls';
-import isEmpty from 'lodash/isEmpty';
 import DocumentCirculation from './DocumentCirculation';
 import {
   DocumentAuthors,
@@ -12,6 +11,7 @@ import {
   DocumentLanguages,
   DocumentTags,
 } from '@components/Document';
+import _get from 'lodash/get';
 
 export default class DocumentListEntry extends Component {
   renderMiddleColumn = document => {
@@ -30,42 +30,44 @@ export default class DocumentListEntry extends Component {
 
   renderRelations = () => {
     const { document } = this.props;
+    // create queryString to find all MM or Series related to this document
+    const partOfMMQuery = _get(
+      document,
+      'metadata.relations.multipart_monograph',
+      []
+    )
+      .map(rel => `pid:${rel.pid_value}`)
+      .join(' OR ');
+    const partOfSeriesQuery = _get(document, 'metadata.relations.serial', [])
+      .map(rel => `pid:${rel.pid_value}`)
+      .join(' OR ');
+
     return (
       <>
         <Item.Description>
           <List verticalAlign={'middle'} className={'document-relations'}>
-            {!isEmpty(document.metadata.relations.multipart_monograph) && (
+            {partOfMMQuery && (
               <List.Item>
                 <List.Content floated="right">
                   <Link
-                    to={BackOfficeRoutes.seriesDetailsFor(
-                      document.metadata.relations.multipart_monograph[0].pid
-                    )}
+                    to={BackOfficeRoutes.seriesListWithQuery(partOfMMQuery)}
                   >
                     <Icon name={'paperclip'} />
                   </Link>
                 </List.Content>
-                <List.Content>Multipart monograph</List.Content>
+                <List.Content>Part of multipart monograph</List.Content>
               </List.Item>
             )}
-            {!isEmpty(document.metadata.relations.serial) && (
+            {partOfSeriesQuery && (
               <List.Item>
                 <List.Content floated={'right'}>
                   <Link
-                    to={BackOfficeRoutes.seriesListWithQuery(
-                      document.metadata.relations.serial
-                        .map((entry, idx) =>
-                          idx === document.metadata.relations.serial.length - 1
-                            ? `pid: ${entry.pid}`
-                            : `pid: ${entry.pid} OR`
-                        )
-                        .join(' ')
-                    )}
+                    to={BackOfficeRoutes.seriesListWithQuery(partOfSeriesQuery)}
                   >
                     <Icon name="search plus" />
                   </Link>
                 </List.Content>
-                <List.Content>Serials</List.Content>
+                <List.Content>Part of serials</List.Content>
               </List.Item>
             )}
             {document.metadata.eitems.total > 0 ? (
@@ -73,7 +75,7 @@ export default class DocumentListEntry extends Component {
                 <List.Content floated="right">
                   <Icon name="desktop" />
                 </List.Content>
-                <List.Content>Electronic version </List.Content>
+                <List.Content>Has electronic items</List.Content>
               </List.Item>
             ) : null}
           </List>
@@ -123,7 +125,10 @@ export default class DocumentListEntry extends Component {
                 prefix={<label>languages </label>}
               />
               <Item.Description>
-                <DocumentEdition document={document} label={true} />
+                <DocumentEdition
+                  metadata={document.metadata}
+                  withLabel={true}
+                />
               </Item.Description>
               <label>Published</label> {document.metadata.publication_year}
             </Grid.Column>

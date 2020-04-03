@@ -19,7 +19,9 @@ describe('RequestSerializer tests', () => {
       sortBy: 'publication_year',
       sortOrder: 'asc',
     };
-    const query = encodeURIComponent(`relations.serial.pid:${series.pid}`);
+    const query = encodeURIComponent(
+      `relations.serial.pid_value:${series.pid}`
+    );
     expect(serializer.serialize(stateQuery)).toEqual(
       `q=${query}&sort=publication_year&page=1&size=15&include_all`
     );
@@ -35,7 +37,9 @@ describe('RequestSerializer tests', () => {
       sortBy: 'publication_year',
       sortOrder: 'asc',
     };
-    let query = encodeURIComponent(`relations.serial.pid:${series.pid} AND `);
+    let query = encodeURIComponent(
+      `relations.serial.pid_value:${series.pid} AND `
+    );
     query += '%28' + encodeURIComponent(queryString) + '%29';
     expect(serializer.serialize(stateQuery)).toEqual(
       `q=${query}&sort=publication_year&page=1&size=15&include_all`

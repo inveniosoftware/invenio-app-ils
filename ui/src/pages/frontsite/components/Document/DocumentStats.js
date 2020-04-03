@@ -42,7 +42,6 @@ export class DocumentStats extends Component {
       }
     } catch (error) {
       // the promise might have been cancelled on Unmount
-      console.debug(error);
     }
   };
 

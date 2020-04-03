@@ -1,11 +1,7 @@
-import { http, apiConfig } from '../base';
+import { http, apiConfig } from '@api/base';
 import { serializer } from './serializer';
-import {
-  parentChildRelationPayload,
-  prepareSumQuery,
-  recordToPidType,
-  siblingRelationPayload,
-} from '../utils';
+import { prepareSumQuery } from '@api/utils';
+import { add as addRelation, remove as removeRelation } from '@api/relations';
 
 const documentURL = '/documents/';
 
@@ -40,73 +36,20 @@ const viewEvent = async docPid => {
 
 const createRelation = async (
   referrer,
-  selectedRelatedList,
+  relatedList,
   relationType,
-  extraRelationField = {}
+  extra = {}
 ) => {
-  let newRelationsPayload = [];
-  if (relationType === 'serial' || relationType === 'multipart_monograph') {
-    const payload = parentChildRelationPayload(
-      relationType,
-      extraRelationField,
-      selectedRelatedList[0],
-      referrer
-    );
-    newRelationsPayload.push(payload);
-  } else {
-    if (relationType === 'other') {
-      newRelationsPayload.push(
-        siblingRelationPayload(
-          relationType,
-          extraRelationField,
-          selectedRelatedList[0]
-        )
-      );
-    } else {
-      selectedRelatedList.map(selection =>
-        newRelationsPayload.push(
-          siblingRelationPayload(relationType, extraRelationField, selection)
-        )
-      );
-    }
-  }
-
-  const resp = await http.post(
-    `${documentURL}${referrer.metadata.pid}/relations`,
-    newRelationsPayload
-  );
+  const url = `${documentURL}${referrer.metadata.pid}`;
+  const resp = addRelation(url, referrer, relatedList, relationType, extra);
   resp.data = serializer.fromJSON(resp.data);
-
   return resp;
 };
 
-const deleteRelation = async (referrer, related) => {
-  let deleteRequestPayload = {};
-  if (
-    related.relation_type === 'language' ||
-    related.relation_type === 'other' ||
-    related.relation_type === 'edition'
-  ) {
-    deleteRequestPayload = {
-      pid: related.pid,
-      pid_type: related.pid_type,
-      relation_type: related.relation_type,
-    };
-  } else {
-    deleteRequestPayload = {
-      parent_pid: related.pid,
-      parent_pid_type: related.pid_type,
-      child_pid: referrer.metadata.pid,
-      child_pid_type: recordToPidType(referrer),
-      relation_type: related.relation_type,
-    };
-  }
-  const resp = await http.delete(
-    `${documentURL}${referrer.metadata.pid}/relations`,
-    {
-      data: [deleteRequestPayload],
-    }
-  );
+const deleteRelation = async (referrer, relation) => {
+  const url = `${documentURL}${referrer.metadata.pid}`;
+  const relationType = relation.relation_type;
+  const resp = removeRelation(url, referrer, relation, relationType);
   resp.data = serializer.fromJSON(resp.data);
   return resp;
 };
@@ -172,11 +115,11 @@ class QueryBuilder {
     }
     if (moi === 'SERIAL') {
       this.withSeriesQuery.push(
-        `relations.serial.pid:${prepareSumQuery(seriesPid)}`
+        `relations.serial.pid_value:${prepareSumQuery(seriesPid)}`
       );
     } else {
       this.withSeriesQuery.push(
-        `relations.multipart_monograph.pid:${prepareSumQuery(seriesPid)}`
+        `relations.multipart_monograph.pid_value:${prepareSumQuery(seriesPid)}`
       );
     }
     return this;

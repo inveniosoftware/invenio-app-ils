@@ -1,14 +1,12 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { BackOfficeRoutes } from '@routes/urls';
-import SeriesMultipartMonographs from '../SeriesMultipartMonographs';
+import SeriesMultipartMonographs from './SeriesMultipartMonographs';
 import { Settings } from 'luxon';
 import { fromISO } from '@api/date';
-import { Button } from 'semantic-ui-react';
 
 jest.mock('react-router-dom');
 BackOfficeRoutes.seriesDetailsFor = jest.fn(pid => `url/${pid}`);
-let mockViewDetails = jest.fn();
 
 Settings.defaultZoneName = 'utc';
 const stringDate = fromISO('2018-01-01T11:05:00+01:00');
@@ -22,7 +20,6 @@ jest.mock('@pages/backoffice', () => {
 describe('SeriesMultipartMonographs tests', () => {
   let component;
   afterEach(() => {
-    mockViewDetails.mockClear();
     if (component) {
       component.unmount();
     }
@@ -173,46 +170,5 @@ describe('SeriesMultipartMonographs tests', () => {
       .find('TableFooter')
       .filterWhere(element => element.prop('data-test') === 'footer');
     expect(footer).toHaveLength(1);
-  });
-
-  it('should go to series details when clicking on a series row', () => {
-    const data = {
-      hits: [
-        {
-          ID: '1',
-          updated: stringDate,
-          created: stringDate,
-          pid: 'series1',
-          metadata: {
-            pid: 'series1',
-            title: 'Title',
-            mode_of_issuance: 'MULTIPART_MONOGRAPH',
-          },
-        },
-      ],
-      total: 2,
-    };
-
-    component = mount(
-      <SeriesMultipartMonographs
-        seriesDetails={series}
-        multipartMonographs={data}
-        fetchSeriesMultipartMonographs={() => {}}
-        showMaxItems={1}
-      />
-    );
-
-    component.instance().viewDetails = jest.fn(() => (
-      <Button onClick={mockViewDetails}></Button>
-    ));
-    component.instance().forceUpdate();
-
-    const firstId = data.hits[0].pid;
-    component
-      .find('TableCell')
-      .filterWhere(element => element.prop('data-test') === `0-${firstId}`)
-      .find('Button')
-      .simulate('click');
-    expect(mockViewDetails).toHaveBeenCalled();
   });
 });

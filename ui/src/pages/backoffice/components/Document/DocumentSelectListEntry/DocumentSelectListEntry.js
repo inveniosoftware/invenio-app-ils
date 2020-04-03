@@ -19,7 +19,7 @@ export default class DocumentSelectListEntry extends Component {
               trigger={<Icon name="info circle" />}
             />
           )}
-          <DocumentTitle document={document} />
+          <DocumentTitle metadata={document.metadata} />
         </div>
         <div className="description">
           {description ? (

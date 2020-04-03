@@ -43,7 +43,7 @@ export class DocumentHeader extends Component {
         title={
           <>
             <Header.Subheader>{data.metadata.document_type}</Header.Subheader>
-            <DocumentTitle document={data} />
+            <DocumentTitle metadata={data.metadata} />
           </>
         }
         subTitle={<DocumentAuthors metadata={data.metadata} prefix={'by '} />}

@@ -8,6 +8,8 @@ const mapStateToProps = state => ({
   error: state.seriesDetails.error,
   data: state.seriesDetails.data,
   relations: state.seriesRelations.data,
+  documentsInSeries: state.seriesDocuments.data,
+  multipartMonographsInSeries: state.seriesMultipartMonographs.data,
 });
 
 const mapDispatchToProps = dispatch => ({

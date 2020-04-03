@@ -99,8 +99,11 @@ export default class DocumentActionMenu extends Component {
             elementId="document-eitems"
             label="Electronic items"
           />
-          <ScrollingMenuItem elementId="document-series" label="Series" />
-          <ScrollingMenuItem elementId="document-siblings" label="Related" />
+          <ScrollingMenuItem
+            elementId="document-series"
+            label="Part of series"
+          />
+          <ScrollingMenuItem elementId="document-siblings" label="Relations" />
           <ScrollingMenuItem
             elementId="document-statistics"
             label="Statistics"

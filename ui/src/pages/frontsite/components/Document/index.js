@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { DocumentTags as DocumentTagsComponent } from '@components/Document';
-import { DocumentRelations as DocumentRelationsComponent } from './DocumentRelations';
 import { DocumentInfo as DocumentInfoComponent } from './DocumentInfo';
 import { DocumentTitle as DocumentTitleComponent } from './DocumentTitle';
 import { DocumentMetadataTabs as DocumentMetadataTabsComponent } from './DocumentMetadataTabs';
@@ -24,11 +23,6 @@ export const DocumentTags = connect(
   mapStateToProps,
   null
 )(DocumentTagsComponent);
-
-export const DocumentRelations = connect(
-  mapStateToProps,
-  null
-)(DocumentRelationsComponent);
 
 export const DocumentInfo = connect(
   mapStateToProps,

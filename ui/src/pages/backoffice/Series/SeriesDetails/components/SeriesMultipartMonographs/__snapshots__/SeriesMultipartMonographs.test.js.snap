@@ -1,41 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SeriesDocuments tests should load the SeriesDocuments component 1`] = `
+exports[`SeriesMultipartMonographs tests should load the SeriesMultipartMonographs component 1`] = `
 <Loader>
   <Error>
     <ResultsTable
       columns={
         Array [
           Object {
-            "field": "metadata.title",
+            "field": "metadata.pid",
+            "title": "PID",
+          },
+          Object {
+            "field": "",
             "formatter": [Function],
             "title": "Title",
           },
           Object {
             "formatter": [Function],
-            "title": "Authors",
-          },
-          Object {
-            "formatter": [Function],
             "title": "Volume",
-          },
-          Object {
-            "field": "metadata.pid",
-            "title": "ID",
           },
         ]
       }
       currentPage={1}
       data={Array []}
       headerActionComponent={null}
-      name="documents"
+      name="multipart monographs"
       paginationComponent={null}
       renderEmptyResultsElement={[Function]}
       seeAllComponent={
         <SeeAllButton
           disabled={false}
           fluid={false}
-          to="/backoffice/documents?q=relations.multipart_monograph.pid:serid-1"
+          to="/backoffice/series?q=relations.serial.pid_type:serid AND NOT (pid:111) AND relations.serial.pid_value:111"
         />
       }
       showAllResults={false}

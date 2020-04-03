@@ -64,7 +64,7 @@ export default class RelationLanguagesModal extends Component {
               <Form.Group>
                 <Container className="spaced">
                   <RelationSelector
-                    relations={this.props.relations.language}
+                    existingRelations={this.props.relations.language}
                     optionsQuery={documentApi.list}
                     resultRenderer={this.selectResultRender}
                     referrerRecordPid={documentDetails.metadata.pid}

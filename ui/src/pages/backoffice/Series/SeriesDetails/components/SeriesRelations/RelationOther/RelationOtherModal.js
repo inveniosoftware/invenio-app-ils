@@ -1,13 +1,15 @@
+import { series as seriesApi } from '@api';
 import { SeriesLanguages } from '@components/Series';
 import {
   RelationModal,
+  RelationSelector,
   RelationSummary,
   SingleSelection,
-  RelationSelector,
 } from '@pages/backoffice/components/Relations';
 import SeriesSelectListEntry from '@pages/backoffice/components/Series/SeriesSelectListEntry/SeriesSelectListEntry';
-import React, { Component } from 'react';
+import _isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {
   Container,
   Divider,
@@ -17,7 +19,6 @@ import {
   Label,
   Modal,
 } from 'semantic-ui-react';
-import { series as seriesApi } from '@api';
 
 export default class RelationOtherModal extends Component {
   constructor(props) {
@@ -58,7 +59,14 @@ export default class RelationOtherModal extends Component {
         isLoading={this.state.isLoading}
         relationType={this.props.relationType}
         referrerRecord={seriesDetails}
-        extraRelationField={{ note: this.state.note, required: true }}
+        extraRelationField={{
+          field: {
+            note: this.state.note,
+          },
+          options: {
+            isValid: !_isEmpty(this.state.note),
+          },
+        }}
       >
         <Modal.Content>
           <Container textAlign="left">
@@ -67,7 +75,7 @@ export default class RelationOtherModal extends Component {
               <Form.Group>
                 <Container className="spaced">
                   <RelationSelector
-                    relations={this.props.relations.other}
+                    existingRelations={this.props.relations.other}
                     mode={'single'}
                     optionsQuery={fetchOptionsQuery}
                     resultRenderer={this.selectResultRender}

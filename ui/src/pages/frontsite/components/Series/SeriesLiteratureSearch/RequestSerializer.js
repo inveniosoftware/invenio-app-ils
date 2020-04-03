@@ -95,7 +95,7 @@ export class InvenioRequestSerializer {
 export const literatureRequestSerializerCls = metadata => {
   return class LiteratureRequestSerializer extends InvenioRequestSerializer {
     serialize(stateQuery) {
-      const relationQuery = `relations.serial.pid:${metadata.pid}`;
+      const relationQuery = `relations.serial.pid_value:${metadata.pid}`;
       if (isEmpty(stateQuery.queryString)) {
         stateQuery.queryString = relationQuery;
       } else {

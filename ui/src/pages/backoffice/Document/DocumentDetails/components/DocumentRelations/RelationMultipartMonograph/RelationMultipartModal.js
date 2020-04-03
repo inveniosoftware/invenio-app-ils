@@ -48,7 +48,7 @@ export default class RelationMultipartModal extends Component {
         isLoading={this.state.isLoading}
         relationType={this.props.relationType}
         referrerRecord={documentDetails}
-        extraRelationField={{ volume: this.state.volume }}
+        extraRelationField={{ field: { volume: this.state.volume } }}
       >
         <Modal.Content>
           <Container textAlign="left">
@@ -58,7 +58,7 @@ export default class RelationMultipartModal extends Component {
                 <Container className="spaced">
                   <RelationSelector
                     mode={'single'}
-                    relations={this.props.relations.multipart_monograph}
+                    existingRelations={this.props.relations.multipart_monograph}
                     optionsQuery={seriesApi.multipartMonographs}
                     resultRenderer={this.selectResultRender}
                     referrerRecordPid={documentDetails.metadata.pid}

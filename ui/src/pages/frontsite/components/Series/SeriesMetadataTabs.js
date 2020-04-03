@@ -1,9 +1,10 @@
+import { LiteratureRelations } from '@pages/frontsite/components';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Tab } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
-import { SeriesAllTitles, SeriesInfo, SeriesLinks } from './';
 import { Identifiers } from '../Identifiers';
 import { Notes } from '../Notes';
+import { SeriesAllTitles, SeriesInfo, SeriesLinks } from './';
 
 export class SeriesMetadataTabs extends Component {
   renderTabPanes = () => {
@@ -13,6 +14,7 @@ export class SeriesMetadataTabs extends Component {
         menuItem: 'Details',
         render: () => (
           <Tab.Pane attached={false}>
+            <LiteratureRelations relations={metadata.relations} />
             <SeriesInfo />
           </Tab.Pane>
         ),

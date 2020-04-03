@@ -1,12 +1,11 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { BackOfficeRoutes } from '@routes/urls';
-import SeriesDocuments from '../SeriesDocuments';
+import SeriesDocuments from './SeriesDocuments';
 import { Settings } from 'luxon';
 import { fromISO } from '@api/date';
 import * as testData from '@testData/documents';
 import * as testSeries from '@testData/series';
-import { Button } from 'semantic-ui-react';
 
 jest.mock('react-router-dom');
 Settings.defaultZoneName = 'utc';

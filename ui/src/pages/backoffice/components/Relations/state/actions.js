@@ -5,7 +5,6 @@ import {
   sendErrorNotification,
   sendSuccessNotification,
 } from '@components/Notifications';
-import isEmpty from 'lodash/isEmpty';
 
 const getRecordApi = referrerRecord => {
   if (recordToPidType(referrerRecord) === 'docid') {
@@ -21,7 +20,7 @@ export const createRelations = (
   referrerRecord,
   selections,
   relationType,
-  extraRelationField
+  extra = {}
 ) => {
   return async dispatch => {
     if (selections.length) {
@@ -29,12 +28,7 @@ export const createRelations = (
         type: IS_LOADING,
       });
       await getRecordApi(referrerRecord)
-        .createRelation(
-          referrerRecord,
-          selections,
-          relationType,
-          extraRelationField
-        )
+        .createRelation(referrerRecord, selections, relationType, extra)
         .then(response => {
           dispatch({
             type: SUCCESS,
@@ -43,7 +37,7 @@ export const createRelations = (
           dispatch(
             sendSuccessNotification(
               'Success!',
-              'Relations were successfully created.'
+              'Relations were successfully added.'
             )
           );
         })
@@ -58,34 +52,29 @@ export const createRelations = (
   };
 };
 
-export const deleteRelations = (referrer, related) => {
+export const deleteRelation = (referrer, related) => {
   return async dispatch => {
-    if (!isEmpty(related)) {
-      dispatch({
-        type: IS_LOADING,
-      });
+    dispatch({
+      type: IS_LOADING,
+    });
 
-      await getRecordApi(referrer)
-        .deleteRelation(referrer, related)
-        .then(response => {
-          dispatch({
-            type: SUCCESS,
-            payload: response.data.metadata.relations,
-          });
-          dispatch(
-            sendSuccessNotification(
-              'Success!',
-              'Relations were successfully deleted.'
-            )
-          );
-        })
-        .catch(error => {
-          dispatch({
-            type: HAS_ERROR,
-            payload: error,
-          });
-          dispatch(sendErrorNotification(error));
+    await getRecordApi(referrer)
+      .deleteRelation(referrer, related)
+      .then(response => {
+        dispatch({
+          type: SUCCESS,
+          payload: response.data.metadata.relations,
         });
-    }
+        dispatch(
+          sendSuccessNotification('Success!', 'Relation successfully removed.')
+        );
+      })
+      .catch(error => {
+        dispatch({
+          type: HAS_ERROR,
+          payload: error,
+        });
+        dispatch(sendErrorNotification(error));
+      });
   };
 };

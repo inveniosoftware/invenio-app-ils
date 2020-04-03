@@ -1,6 +1,9 @@
 import { SeriesAuthors } from '@components';
-import { DocumentLanguages, DocumentTags } from '@components/Document';
-import { DocumentIcon } from '@pages/backoffice/components';
+import {
+  DocumentLanguages,
+  DocumentTags,
+  DocumentEdition,
+} from '@components/Document';
 import { BackOfficeRoutes } from '@routes/urls';
 import _get from 'lodash/get';
 import _isEmpty from 'lodash/isEmpty';
@@ -16,11 +19,9 @@ export class SeriesListEntry extends Component {
     }
     return (
       <>
-        <DocumentLanguages
-          metadata={series.metadata}
-          prefix={<label>languages </label>}
-        />
-        {this.renderEdition(series.metadata.edition)}
+        <DocumentLanguages metadata={series.metadata} withLabel={true} />
+        <br />
+        <DocumentEdition metadata={series.metadata} withLabel={true} />
       </>
     );
   };
@@ -34,96 +35,48 @@ export class SeriesListEntry extends Component {
 
   renderRelations = () => {
     const { series } = this.props;
-    const serialsCount = _get(series, 'metadata.relations_metadata.serial', [])
-      .length;
-    const monographsCount = _get(
+    // create queryString to find all MM or Series related to this series
+    const partOfMMQuery = _get(
       series,
-      'metadata.relations_metadata.multipart_monograph',
+      'metadata.relations.multipart_monograph',
       []
-    ).length;
-    const documentsCount = serialsCount + monographsCount;
-    const seriesType =
-      series.metadata.relations_metadata &&
-      series.metadata.relations_metadata.multipart_monograph
-        ? 'multipart_monograph'
-        : 'serial';
+    )
+      .map(rel => `pid:${rel.pid_value}`)
+      .join(' OR ');
+    const partOfSeriesQuery = _get(series, 'metadata.relations.serial', [])
+      .map(rel => `pid:${rel.pid_value}`)
+      .join(' OR ');
     return (
       <>
         <Item.Description>
           <List verticalAlign={'middle'} className={'series-relations'}>
-            {!_isEmpty(series.metadata.relations.serial) && (
+            {partOfMMQuery && (
               <List.Item>
-                <List.Content>
+                <List.Content floated="right">
                   <Link
-                    to={BackOfficeRoutes.seriesListWithQuery(
-                      series.metadata.relations.serial
-                        .map((entry, idx) =>
-                          idx === series.metadata.relations.serial.length - 1
-                            ? `pid: ${entry.pid}`
-                            : `pid: ${entry.pid} OR`
-                        )
-                        .join(' ')
-                    )}
+                    to={BackOfficeRoutes.seriesListWithQuery(partOfMMQuery)}
                   >
-                    Serials <Icon name="folder open outline" />
+                    <Icon name={'paperclip'} />
                   </Link>
                 </List.Content>
+                <List.Content>Part of multipart monograph</List.Content>
               </List.Item>
             )}
-            {!_isEmpty(series.metadata.relations.edition) && (
+            {partOfSeriesQuery && (
               <List.Item>
-                <List.Content>
+                <List.Content floated={'right'}>
                   <Link
-                    to={BackOfficeRoutes.documentsListWithQuery(
-                      series.metadata.relations.edition
-                        .map((entry, idx) =>
-                          idx === series.metadata.relations.edition.length - 1
-                            ? `pid: ${entry.pid}`
-                            : `pid: ${entry.pid} OR`
-                        )
-                        .join(' ')
-                    )}
+                    to={BackOfficeRoutes.seriesListWithQuery(partOfSeriesQuery)}
                   >
-                    {series.metadata.relations.edition.length} editions{' '}
-                    <DocumentIcon />
+                    <Icon name="search plus" />
                   </Link>
                 </List.Content>
-
-                {!_isEmpty(series.metadata.relations.languages) && (
-                  <List.Content>
-                    {series.metadata.relations.language.length} languages
-                    <Icon name="languages" />
-                  </List.Content>
-                )}
-              </List.Item>
-            )}
-
-            {!_isEmpty(series.metadata.relations_metadata) && (
-              <List.Item>
-                <List.Content>
-                  <Link
-                    to={BackOfficeRoutes.documentsListWithQuery(
-                      `relations.${seriesType}.pid:${series.metadata.pid}`
-                    )}
-                  >
-                    See all volumes in this series ({documentsCount}){' '}
-                    <DocumentIcon />
-                  </Link>
-                </List.Content>
+                <List.Content>Part of serials</List.Content>
               </List.Item>
             )}
           </List>
         </Item.Description>
       </>
-    );
-  };
-
-  renderEdition = edition => {
-    if (!edition) return null;
-    return (
-      <Item.Description>
-        <label>edition</label> {edition}
-      </Item.Description>
     );
   };
 

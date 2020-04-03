@@ -1,8 +1,8 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import * as actions from '../actions';
-import { initialState } from '../reducer';
-import * as types from '../types';
+import * as actions from './actions';
+import { initialState } from './reducer';
+import * as types from './types';
 import { document as documentApi } from '@api';
 
 const middlewares = [thunk];
@@ -38,7 +38,7 @@ describe('Series Document tests', () => {
 
       store.dispatch(actions.fetchSeriesDocuments('123', 'SERIAL'));
       expect(mockFetchSeriesDocuments).toHaveBeenCalledWith(
-        'relations.serial.pid:123'
+        'relations.serial.pid_value:123'
       );
       expect(store.getActions()[0]).toEqual(expectedAction);
     });
@@ -53,7 +53,7 @@ describe('Series Document tests', () => {
 
       await store.dispatch(actions.fetchSeriesDocuments('123', 'SERIAL'));
       expect(mockFetchSeriesDocuments).toHaveBeenCalledWith(
-        'relations.serial.pid:123'
+        'relations.serial.pid_value:123'
       );
       expect(store.getActions()[1]).toEqual(expectedAction);
     });
@@ -68,7 +68,7 @@ describe('Series Document tests', () => {
 
       await store.dispatch(actions.fetchSeriesDocuments('123', 'SERIAL'));
       expect(mockFetchSeriesDocuments).toHaveBeenCalledWith(
-        'relations.serial.pid:123'
+        'relations.serial.pid_value:123'
       );
       expect(store.getActions()[1]).toEqual(expectedAction);
     });

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Tab } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { DocumentRelations, DocumentInfo } from './index';
+import { DocumentInfo } from './index';
 import { DocumentTableOfContent } from './DocumentTableOfContent';
 import { DocumentConference } from './DocumentConference';
 import { DocumentLinks } from './DocumentLinks';
@@ -22,10 +22,7 @@ export class DocumentMetadataTabs extends Component {
         menuItem: 'Details',
         render: () => (
           <Tab.Pane attached={false}>
-            <DocumentRelations
-              relations={this.document.relations}
-              documentType={this.document.document_type}
-            />
+            <LiteratureRelations relations={this.document.relations} />
             <DocumentInfo metadata={this.document} />
           </Tab.Pane>
         ),

@@ -130,7 +130,7 @@ exports[`should render correctly 1`] = `
                   Languages: 
                 </span>
                 <DocumentLanguages
-                  delimiter=", "
+                  listItemAs=""
                   metadata={
                     Object {
                       "$schema": "https://127.0.0.1:5000/schemas/documents/document-v1.0.0.json",
@@ -161,6 +161,8 @@ exports[`should render correctly 1`] = `
                       "title": "The Gulf: The Making of An American Sea",
                     }
                   }
+                  separator=", "
+                  withLabel={false}
                 />
               </ListContent>
             </ListItem>

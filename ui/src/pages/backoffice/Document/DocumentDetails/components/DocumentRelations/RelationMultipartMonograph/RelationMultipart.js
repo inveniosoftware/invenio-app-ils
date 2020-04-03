@@ -1,6 +1,7 @@
 import { Error, Loader, ResultsTable } from '@components';
 import { InfoMessage, SeriesDetailsLink } from '@pages/backoffice/components';
 import { RelationRemover } from '@pages/backoffice/components/Relations';
+import { DocumentTitle } from '@components/Document';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -10,16 +11,16 @@ import { RelationMultipartModal } from '../RelationMultipartMonograph';
 export default class RelationMultipart extends Component {
   constructor(props) {
     super(props);
+    this.relationType = 'multipart_monograph';
     this.state = {
       activePage: 1,
     };
   }
 
   viewDetails = ({ row }) => {
+    const titleCmp = <DocumentTitle metadata={row.record_fields} />;
     return (
-      <SeriesDetailsLink seriesPid={row.pid} data-test={row.pid}>
-        {row.title}
-      </SeriesDetailsLink>
+      <SeriesDetailsLink pidValue={row.pid_value}>{titleCmp}</SeriesDetailsLink>
     );
   };
 
@@ -31,6 +32,7 @@ export default class RelationMultipart extends Component {
         <RelationRemover
           referrer={documentDetails}
           related={row}
+          relationType={row.relation_type}
           buttonContent={'Remove from this multipart'}
         />
       );
@@ -41,11 +43,11 @@ export default class RelationMultipart extends Component {
     const activePage = this.state.activePage;
     const { relations, showMaxRows, isLoading, error } = this.props;
     /* there will be always only one MM */
-    const multipartMonograph = relations['multipart_monograph'] || [];
+    const multipartMonograph = relations[this.relationType] || [];
 
     const columns = [
-      { title: 'Title', field: 'title', formatter: this.viewDetails },
-      { title: 'publisher', field: 'publisher' },
+      { title: 'PID', field: 'pid_value' },
+      { title: 'Title', field: '', formatter: this.viewDetails },
       { title: 'Volume', field: 'volume' },
       { title: 'Actions', field: '', formatter: this.removeHandler },
     ];
@@ -54,14 +56,14 @@ export default class RelationMultipart extends Component {
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <RelationMultipartModal
-            relationType={'multipart_monograph'}
+            relationType={this.relationType}
             disabled={!isEmpty(multipartMonograph)}
           />
 
           {!isEmpty(multipartMonograph) && (
             <Popup
               content={
-                'Unlink this document from the multipart monograph below to add another one. Only one allowed at a time.'
+                'A document can be attached only to one multipart monotgraph. Remove the existing relation to add a new one.'
               }
               trigger={<Icon name="question circle" />}
             />
@@ -91,6 +93,7 @@ RelationMultipart.propTypes = {
   relations: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
   documentDetails: PropTypes.object.isRequired,
+  showMaxRows: PropTypes.number,
 };
 
 RelationMultipart.defaultProps = {

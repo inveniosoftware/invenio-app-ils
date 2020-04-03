@@ -1,30 +1,29 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Divider, Loader, Responsive, Container } from 'semantic-ui-react';
-import _get from 'lodash/get';
-import {
-  ReactSearchKit,
-  InvenioSearchApi,
-  ResultsList,
-  SearchBar,
-  Error,
-  ResultsLoader,
-} from 'react-searchkit';
-import { literatureRequestSerializerCls } from './RequestSerializer';
 import { literature as literatureApi } from '@api';
 import {
   Error as IlsError,
   SearchBar as LiteratureSearchBar,
 } from '@components';
 import {
-  SearchFooter,
-  SearchEmptyResults,
   SearchControls,
+  SearchEmptyResults,
+  SearchFooter,
 } from '@components/SearchControls';
+import { SearchControlsMobile } from '@components/SearchControls/SearchControlsMobile';
 import history from '@history';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {
+  Error,
+  InvenioSearchApi,
+  ReactSearchKit,
+  ResultsList,
+  ResultsLoader,
+  SearchBar,
+} from 'react-searchkit';
+import { Container, Divider, Loader, Responsive } from 'semantic-ui-react';
+import { literatureRequestSerializerCls } from './RequestSerializer';
 import { SeriesLiteratureResultsList } from './SeriesLiteratureResultsList';
 import { SeriesLiteratureSearchMobile } from './SeriesLiteratureSearchMobile';
-import { SearchControlsMobile } from '@components/SearchControls/SearchControlsMobile';
 
 export class SeriesLiteratureSearch extends React.Component {
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {
@@ -50,13 +49,6 @@ export class SeriesLiteratureSearch extends React.Component {
 
   render() {
     const { metadata } = this.props;
-    const serialsCount = _get(metadata, 'relations_metadata.serial', []).length;
-    const monographsCount = _get(
-      metadata,
-      'relations_metadata.multipart_monograph',
-      []
-    ).length;
-    const documentsCount = serialsCount + monographsCount;
     const api = new InvenioSearchApi({
       axios: {
         url: literatureApi.searchBaseURL,
@@ -68,9 +60,7 @@ export class SeriesLiteratureSearch extends React.Component {
     });
     return (
       <>
-        <Divider horizontal>
-          Literature in this series ({documentsCount})
-        </Divider>
+        <Divider horizontal>Literatures in this series</Divider>
         <ReactSearchKit searchApi={api} history={history}>
           <Container className="series-details-search-container">
             <SearchBar renderElement={this.renderSearchBar} />

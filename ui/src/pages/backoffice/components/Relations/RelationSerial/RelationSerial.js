@@ -4,15 +4,22 @@ import {
   ExistingRelations,
   RelationRemover,
 } from '@pages/backoffice/components/Relations';
-import isEmpty from 'lodash/isEmpty';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import { DocumentTitle } from '@components/Document';
 import { RelationSerialModal } from '../RelationSerial';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 
 export default class RelationSerial extends Component {
+  constructor(props) {
+    super(props);
+    this.relationType = 'serial';
+  }
+
   viewDetails = ({ row }) => {
+    const titleCmp = <DocumentTitle metadata={row.record_fields} />;
     return (
-      <SeriesDetailsLink seriesPid={row.pid}>{row.title}</SeriesDetailsLink>
+      <SeriesDetailsLink pidValue={row.pid_value}>{titleCmp}</SeriesDetailsLink>
     );
   };
 
@@ -24,6 +31,7 @@ export default class RelationSerial extends Component {
         <RelationRemover
           referrer={recordDetails}
           related={row}
+          relationType={row.relation_type}
           buttonContent={'Remove from this serial'}
         />
       );
@@ -32,11 +40,11 @@ export default class RelationSerial extends Component {
 
   render() {
     const { relations, showMaxRows, isLoading, error } = this.props;
-    const serial = relations['serial'] || [];
+    const serial = relations[this.relationType] || [];
 
     const columns = [
-      { title: 'Title', field: 'title', formatter: this.viewDetails },
-      { title: 'publisher', field: 'publisher' },
+      { title: 'PID', field: 'pid_value' },
+      { title: 'Title', field: '', formatter: this.viewDetails },
       { title: 'Volume', field: 'volume' },
       { title: 'Actions', field: '', formatter: this.removeHandler },
     ];
@@ -45,7 +53,7 @@ export default class RelationSerial extends Component {
       <Loader isLoading={isLoading}>
         <Error error={error}>
           <RelationSerialModal
-            relationType={'serial'}
+            relationType={this.relationType}
             recordDetails={this.props.recordDetails}
           />
 
@@ -56,7 +64,9 @@ export default class RelationSerial extends Component {
             emptyMessage={
               <InfoMessage
                 header={'No serials'}
-                content={'Use the button above to add serial.'}
+                content={
+                  'Use the button above to add this literature to a serial.'
+                }
               />
             }
           />

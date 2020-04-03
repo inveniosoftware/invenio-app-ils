@@ -12,17 +12,24 @@ export default class RelationSelector extends Component {
   }
 
   disabledSelectionOption = result => {
+    const { existingRelations, referrerRecordPid } = this.props;
+
+    /* if itself, disable it */
+    const isReferrer = referrerRecordPid === result.metadata.pid;
+    if (isReferrer) {
+      return true;
+    }
+
     /* if relation already exists the option gets blocked */
-    const { relations, referrerRecordPid } = this.props;
-    const hasRelations = !isEmpty(relations);
+    const hasRelations = !isEmpty(existingRelations);
     if (!hasRelations) {
       return false;
     }
 
-    const relationExists = relations.find(o => o.pid === result.metadata.pid);
-    const isReferrer = referrerRecordPid === result.metadata.pid;
-
-    return relationExists || isReferrer;
+    const relationExists = existingRelations.find(
+      rel => rel.pid_value === result.metadata.pid
+    );
+    return relationExists;
   };
 
   isSelected = option => {
@@ -66,11 +73,16 @@ export default class RelationSelector extends Component {
   }
 }
 RelationSelector.propTypes = {
-  /* relations got from the current document, reducer */
-  relations: PropTypes.array.isRequired,
+  /* selections got from the current document, reducer */
+  selections: PropTypes.array.isRequired,
+  existingRelations: PropTypes.array,
   optionsQuery: PropTypes.func.isRequired,
-  relationType: PropTypes.string.isRequired,
   resultRenderer: PropTypes.func.isRequired,
   referrerRecordPid: PropTypes.string.isRequired,
   mode: PropTypes.oneOf(['single', 'multi']),
+  currentRecordType: PropTypes.string,
+};
+
+RelationSelector.defaultProps = {
+  existingRelations: [],
 };

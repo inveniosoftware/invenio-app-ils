@@ -44,7 +44,7 @@ export default class RelationEditionModal extends Component {
         key={option.metadata.pid}
         description={
           <>
-            {option.metadata.publisher} <DocumentEdition document={option} />
+            <DocumentEdition metadata={option.metadata} />
           </>
         }
         disabled={disabled}
@@ -99,7 +99,7 @@ export default class RelationEditionModal extends Component {
 
                 <Container className="spaced">
                   <RelationSelector
-                    relations={this.props.relations.edition}
+                    existingRelations={this.props.relations.edition}
                     optionsQuery={this.state.query}
                     currentRecordType={this.state.currentRecordType}
                     resultRenderer={this.selectResultRender}
