@@ -5,7 +5,7 @@ import seriesTestData from '@testData/series.json';
 
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import { SeriesLiteratureSearch } from '../../';
+import { SeriesLiteratureSearch } from '..';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

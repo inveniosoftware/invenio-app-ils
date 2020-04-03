@@ -4,12 +4,10 @@ import { Header } from 'semantic-ui-react';
 
 export class SeriesTitle extends Component {
   render() {
-    const {
-      metadata: { title },
-    } = this.props;
+    const { title, mode_of_issuance } = this.props.metadata;
     return (
       <>
-        SERIES
+        {mode_of_issuance.toUpperCase()}
         <Header as="h2">{title}</Header>
       </>
     );

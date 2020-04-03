@@ -6,19 +6,22 @@ import { ClearButton } from '../ClearButton';
 
 export default class SearchEmptyResults extends Component {
   renderEmptyResults = (queryString, resetQuery) => {
+    const currentSearch = `Current search "${queryString}"`;
     return (
       <Segment placeholder textAlign="center">
         <Header icon>
           <Icon name="search" />
           No results found!
         </Header>
-        <div className="empty-results-current">
-          Current search "{queryString}"
-        </div>
-        <Segment.Inline>
-          <ClearButton clickHandler={resetQuery} />
-          {this.props.extras ? this.props.extras() : null}
-        </Segment.Inline>
+        {queryString && (
+          <>
+            <div className="empty-results-current">{currentSearch}</div>
+            <Segment.Inline>
+              <ClearButton clickHandler={resetQuery} />
+              {this.props.extras ? this.props.extras() : null}
+            </Segment.Inline>
+          </>
+        )}
       </Segment>
     );
   };

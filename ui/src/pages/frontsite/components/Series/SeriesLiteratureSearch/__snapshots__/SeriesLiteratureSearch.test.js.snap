@@ -5,7 +5,8 @@ exports[`SeriesLiteratureSearch tests should load the SeriesLiteratureSearch com
   <Divider
     horizontal={true}
   >
-    Literatures in this series
+    Literatures in this 
+    MULTIPART_MONOGRAPH
   </Divider>
   <ReactSearchKit
     appName="RSK"

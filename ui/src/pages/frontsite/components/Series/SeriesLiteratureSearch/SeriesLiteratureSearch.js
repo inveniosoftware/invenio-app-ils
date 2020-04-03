@@ -21,7 +21,7 @@ import {
   SearchBar,
 } from 'react-searchkit';
 import { Container, Divider, Loader, Responsive } from 'semantic-ui-react';
-import { literatureRequestSerializerCls } from './RequestSerializer';
+import { qsBuilderForSeries } from './RequestSerializer';
 import { SeriesLiteratureResultsList } from './SeriesLiteratureResultsList';
 import { SeriesLiteratureSearchMobile } from './SeriesLiteratureSearchMobile';
 
@@ -55,12 +55,14 @@ export class SeriesLiteratureSearch extends React.Component {
         withCredentials: true,
       },
       invenio: {
-        requestSerializer: literatureRequestSerializerCls(metadata),
+        requestSerializer: qsBuilderForSeries(metadata),
       },
     });
     return (
       <>
-        <Divider horizontal>Literatures in this series</Divider>
+        <Divider horizontal>
+          Literatures in this {metadata.mode_of_issuance.toUpperCase()}
+        </Divider>
         <ReactSearchKit searchApi={api} history={history}>
           <Container className="series-details-search-container">
             <SearchBar renderElement={this.renderSearchBar} />
