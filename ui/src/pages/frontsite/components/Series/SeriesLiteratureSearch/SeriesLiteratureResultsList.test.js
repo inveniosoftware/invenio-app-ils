@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import documentsTestData from '@testData/documents.json';
 import seriesTestData from '@testData/series.json';
-import { SeriesLiteratureResultsList } from '../SeriesLiteratureResultsList';
+import { SeriesLiteratureResultsList } from './SeriesLiteratureResultsList';
 import { BrowserRouter } from 'react-router-dom';
 import { FrontSiteRoutes } from '@routes/urls';
 
