@@ -91,6 +91,7 @@ export class DocumentRelations extends Component {
           {this.renderSerials()}
           {this.renderLanguages()}
           {this.renderEditions()}
+          )}
         </>
       );
     } else {

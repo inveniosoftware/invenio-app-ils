@@ -6,10 +6,12 @@ import React, { Component } from 'react';
 export class DocumentIdentifiers extends Component {
   render() {
     const { document } = this.props;
+    const identifiers = groupedSchemeValueList(document.metadata.identifiers);
+    const alternative_identifiers = groupedSchemeValueList(
+      document.metadata.alternative_identifiers
+    );
     return document.metadata.identifiers ? (
-      <MetadataTable
-        rows={groupedSchemeValueList(document.metadata.identifiers)}
-      />
+      <MetadataTable rows={identifiers.concat(alternative_identifiers)} />
     ) : (
       <InfoMessage
         header={'No stored identifiers.'}

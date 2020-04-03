@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Divider, Table } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { DocumentAuthors } from '@components/Document';
+import isEmpty from 'lodash/isEmpty';
+import { IdentifierRows } from '../Identifiers';
 
 export class DocumentInfo extends Component {
   constructor(props) {
@@ -19,6 +21,19 @@ export class DocumentInfo extends Component {
           </Table.Cell>
         </Table.Row>
       );
+    }
+    return null;
+  }
+
+  renderSpecificIdentifiers(scheme) {
+    const identifiers = this.metadata.identifiers
+      ? this.metadata.identifiers.filter(
+          identifier => identifier.scheme === scheme
+        )
+      : null;
+
+    if (!isEmpty(identifiers)) {
+      return <IdentifierRows identifiers={identifiers} />;
     }
     return null;
   }
@@ -50,6 +65,8 @@ export class DocumentInfo extends Component {
                 {this.metadata.keywords.value} ({this.metadata.keywords.source})
               </Table.Cell>
             </Table.Row>
+            {this.renderSpecificIdentifiers('ISBN')}
+            {this.renderSpecificIdentifiers('DOI')}
           </Table.Body>
         </Table>
       </>

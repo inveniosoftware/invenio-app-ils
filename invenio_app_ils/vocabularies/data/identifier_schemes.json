@@ -8,5 +8,10 @@
     "type": "identifier_scheme",
     "key": "URN",
     "text": "Uniform Resource Name (URN)"
+  },
+  {
+    "type": "identifier_scheme",
+    "key": "ISBN",
+    "text": "International Standard Book Number (ISBN)"
   }
 ]
