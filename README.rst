@@ -1,5 +1,5 @@
 ..
-    Copyright (C) 2018 CERN.
+    Copyright (C) 2018-2020 CERN.
 
     invenio-app-ils is free software; you can redistribute it and/or modify it
     under the terms of the MIT License; see LICENSE file for more details.
@@ -19,10 +19,13 @@
 
 Invenio App ILS
 
-Further documentation is available on
-https://invenio_app_ils.readthedocs.io/
+Official documentation (under development) is available at
+https://invenioils.docs.cern.ch
+
+API devlopers documentation (under development) will be available at
+https://invenio-app-ils.readthedocs.io/
 
 Installation
 ============
-See INSTALL.rst
+See installation procedure in the official documentation.
 

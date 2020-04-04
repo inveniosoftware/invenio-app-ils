@@ -1029,6 +1029,11 @@ def data(
     intlocs_generator.generate()
     rec_intlocs = intlocs_generator.persist()
 
+    # ILS_DEFAULT_LOCATION_PID is used for the time being in the config.py
+    # to perform actions on loans
+    msg = "Locations created (ILS_DEFAULT_LOCATION_PID={0})".format(rec["pid"])
+    click.secho(msg)
+
     # Series
     click.echo("Creating series...")
     series_generator = SeriesGenerator(holder, minter)

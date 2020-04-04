@@ -1,13 +1,14 @@
-import React from 'react';
 import { fromISO } from '@api/date';
-import { mount } from 'enzyme';
-import ExtendButton from '../ExtendButton';
 import testData from '@testData/loans.json';
-import { DateTime } from 'luxon';
+import { mount } from 'enzyme';
+import { Settings } from 'luxon';
+import React from 'react';
+import ExtendButton from '../ExtendButton';
 
 jest.mock('@config/invenioConfig');
-
-const end_date = DateTime.local(2032, 12, 13, 12, 13);
+Settings.defaultZoneName = 'utc';
+const stringDate = fromISO('2020-01-01T11:05:00+01:00');
+const endDate = stringDate.plus({ months: 1 });
 const user = {
   id: testData[0].patron_pid,
 };
@@ -25,7 +26,7 @@ describe('Extend loan button tests', () => {
       availableActions: { extend: 'url/extend' },
       metadata: {
         ...testData[0],
-        end_date: end_date,
+        end_date: endDate,
         extension_count: 0,
       },
     };
@@ -46,7 +47,7 @@ describe('Extend loan button tests', () => {
       availableActions: { extend: 'url/extend' },
       metadata: {
         ...testData[0],
-        end_date: end_date,
+        end_date: endDate,
         extension_count: 0,
         document: { circulation: { overbooked: true } },
       },
@@ -69,7 +70,7 @@ describe('Extend loan button tests', () => {
       availableActions: { extend: 'url/extend' },
       metadata: {
         ...testData[0],
-        end_date: end_date,
+        end_date: endDate,
         extension_count: 3,
       },
     };
@@ -91,7 +92,7 @@ describe('Extend loan button tests', () => {
       availableActions: {},
       metadata: {
         ...testData[0],
-        end_date: end_date,
+        end_date: endDate,
         extension_count: 0,
       },
     };
