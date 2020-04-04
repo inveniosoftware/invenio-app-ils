@@ -2,9 +2,11 @@
 __pycache__/
 *.py[cod]
 
+# VS code
+.vscode/
+
 # Idea software family
 .idea/
-.vscode/
 
 # C extensions
 *.so

@@ -65,6 +65,8 @@ services:
       - "15672:15672"
       - "5672:5672"
   es:
+    # to use ES6: docker.elastic.co/elasticsearch/elasticsearch:6.8.8
+    # to use ES7: docker.elastic.co/elasticsearch/elasticsearch-oss:7.3.0
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.3.0
     restart: "always"
     environment:
@@ -80,6 +82,8 @@ services:
       - "9200:9200"
       - "9300:9300"
   kibana:
+    # to use ES6: docker.elastic.co/kibana/kibana-oss:6.8.8
+    # to use ES7: docker.elastic.co/kibana/kibana-oss:7.3.0
     image: docker.elastic.co/kibana/kibana-oss:7.3.0
     environment:
       - "ELASTICSEARCH_URL=http://es:9200"

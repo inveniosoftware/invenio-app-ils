@@ -30,13 +30,13 @@
         "document": {
           "properties": {
             "edition": {
-              "type": "string"
+              "type": "text"
             },
             "pid": {
               "type": "keyword"
             },
             "publication_year": {
-              "type": "string"
+              "type": "integer"
             },
             "title": {
               "type": "text"
