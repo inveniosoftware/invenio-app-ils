@@ -27,8 +27,10 @@ import { LibraryListEntry } from './components/LibraryListEntry';
 
 export class LibrarySearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: libraryApi.searchBaseURL,
-    withCredentials: true,
+    axios: {
+      url: libraryApi.searchBaseURL,
+      withCredentials: true,
+    },
   });
   searchConfig = getSearchConfig('libraries');
 

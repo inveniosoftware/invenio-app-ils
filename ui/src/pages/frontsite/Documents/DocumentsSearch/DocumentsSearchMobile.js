@@ -14,8 +14,10 @@ import { DocumentSearchResultsGrid } from './DocumentSearchResultsGrid';
 
 export class DocumentsSearchMobile extends Component {
   searchApi = new InvenioSearchApi({
-    url: documentApi.searchBaseURL,
-    withCredentials: true,
+    axios: {
+      url: documentApi.searchBaseURL,
+      withCredentials: true,
+    },
     interceptors: {
       response: { reject: responseRejectInterceptor },
     },

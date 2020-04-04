@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchDateRange tests should render the SearchDateRange 1`] = `
+<Card>
+  <CardContent>
+    <CardHeader>
+      Date
+    </CardHeader>
+    <CardMeta>
+      <span>
+        *Loan start date
+      </span>
+    </CardMeta>
+  </CardContent>
+  <CardContent>
+    <DatePicker
+      defaultValue=""
+      handleDateChange={[Function]}
+      maxDate=""
+      placeholder="From"
+    />
+  </CardContent>
+  <CardContent>
+    <DatePicker
+      defaultValue=""
+      handleDateChange={[Function]}
+      minDate=""
+      placeholder="To"
+    />
+  </CardContent>
+</Card>
+`;

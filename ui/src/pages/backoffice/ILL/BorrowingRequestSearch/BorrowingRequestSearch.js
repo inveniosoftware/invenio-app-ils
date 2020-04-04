@@ -29,8 +29,10 @@ import { BorrowingRequestListEntry } from './components';
 
 export class BorrowingRequestSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: borrowingRequestApi.searchBaseURL,
-    withCredentials: true,
+    axios: {
+      url: borrowingRequestApi.searchBaseURL,
+      withCredentials: true,
+    },
   });
 
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {

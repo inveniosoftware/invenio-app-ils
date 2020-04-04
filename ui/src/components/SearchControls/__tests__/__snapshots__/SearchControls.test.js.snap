@@ -101,16 +101,23 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
   }
 >
   <ReactSearchKit
+    appName="RSK"
     defaultSortByOnEmptyQuery={null}
-    history={null}
+    eventListenerEnabled={false}
     searchApi={
       InvenioSearchApi {
+        "axiosConfig": Object {
+          "url": "https://localhost:5000/api/documents/",
+          "withCredentials": true,
+        },
         "http": [Function],
+        "requestInterceptor": undefined,
         "requestSerializer": InvenioRequestSerializer {
           "_addFilter": [Function],
           "_addFilters": [Function],
           "serialize": [Function],
         },
+        "responseInterceptor": undefined,
         "responseSerializer": InvenioResponseSerializer {
           "serialize": [Function],
         },
@@ -139,15 +146,17 @@ exports[`SearchControls tests should mount SearchControls component 1`] = `
       }
     >
       <Connect(Bootstrap)
-        historyListen={null}
+        appName="RSK"
+        eventListenerEnabled={false}
         searchOnInit={true}
       >
         <Bootstrap
-          historyListen={null}
+          appName="RSK"
+          eventListenerEnabled={false}
           onAppInitialized={[Function]}
-          onBrowserHistoryExternallyChanged={[Function]}
           searchOnInit={true}
           searchOnUrlQueryStringChanged={[Function]}
+          updateQueryState={[Function]}
         >
           <SearchControls
             layoutToggle={

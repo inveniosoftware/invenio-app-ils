@@ -29,8 +29,10 @@ import { ExportReactSearchKitResults } from '../../components';
 
 export class PatronSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: patronApi.searchBaseURL,
-    withCredentials: true,
+    axios: {
+      url: patronApi.searchBaseURL,
+      withCredentials: true,
+    },
     interceptors: {
       response: { reject: responseRejectInterceptor },
     },
