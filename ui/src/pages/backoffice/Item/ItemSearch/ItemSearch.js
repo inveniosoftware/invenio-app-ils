@@ -25,8 +25,10 @@ import {
 
 export class ItemSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: itemApi.searchBaseURL,
-    withCredentials: true,
+    axios: {
+      url: itemApi.searchBaseURL,
+      withCredentials: true,
+    },
     interceptors: {
       response: { reject: responseRejectInterceptor },
     },

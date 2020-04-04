@@ -29,8 +29,10 @@ import { responseRejectInterceptor } from '@api/base';
 
 export class DocumentRequestSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: documentRequestApi.searchBaseURL,
-    withCredentials: true,
+    axios: {
+      url: documentRequestApi.searchBaseURL,
+      withCredentials: true,
+    },
     interceptors: {
       response: { reject: responseRejectInterceptor },
     },

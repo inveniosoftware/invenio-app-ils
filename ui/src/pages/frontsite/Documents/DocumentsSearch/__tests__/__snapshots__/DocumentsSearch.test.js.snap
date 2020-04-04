@@ -3,7 +3,9 @@
 exports[`DocumentsSearch tests should load the DocumentsSearch component 1`] = `
 <Fragment>
   <ReactSearchKit
+    appName="RSK"
     defaultSortByOnEmptyQuery={null}
+    eventListenerEnabled={false}
     history={
       Object {
         "action": "POP",
@@ -26,11 +28,19 @@ exports[`DocumentsSearch tests should load the DocumentsSearch component 1`] = `
     }
     searchApi={
       InvenioSearchApi {
+        "axiosConfig": Object {
+          "url": "https://localhost:5000/api/literature/",
+          "withCredentials": true,
+        },
         "http": [Function],
+        "requestInterceptor": undefined,
         "requestSerializer": InvenioRequestSerializer {
           "_addFilter": [Function],
           "_addFilters": [Function],
           "serialize": [Function],
+        },
+        "responseInterceptor": Object {
+          "reject": [Function],
         },
         "responseSerializer": InvenioResponseSerializer {
           "serialize": [Function],

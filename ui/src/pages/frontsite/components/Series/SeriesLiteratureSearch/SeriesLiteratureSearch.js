@@ -58,11 +58,13 @@ export class SeriesLiteratureSearch extends React.Component {
     ).length;
     const documentsCount = serialsCount + monographsCount;
     const api = new InvenioSearchApi({
+      axios: {
+        url: literatureApi.searchBaseURL,
+        withCredentials: true,
+      },
       invenio: {
         requestSerializer: literatureRequestSerializerCls(metadata),
       },
-      url: literatureApi.searchBaseURL,
-      withCredentials: true,
     });
     return (
       <>

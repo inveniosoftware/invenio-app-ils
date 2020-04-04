@@ -30,8 +30,10 @@ import history from '@history';
 
 export class DocumentSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: documentApi.searchBaseURL,
-    withCredentials: true,
+    axios: {
+      url: documentApi.searchBaseURL,
+      withCredentials: true,
+    },
   });
   searchConfig = getSearchConfig('documents');
 

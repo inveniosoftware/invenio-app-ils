@@ -29,8 +29,10 @@ import history from '@history';
 
 export class VendorSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: vendorApi.searchBaseURL,
-    withCredentials: true,
+    axios: {
+      url: vendorApi.searchBaseURL,
+      withCredentials: true,
+    },
   });
   searchConfig = getSearchConfig('vendors');
 

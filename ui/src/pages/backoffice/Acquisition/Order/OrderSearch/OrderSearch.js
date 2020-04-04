@@ -42,11 +42,13 @@ class OrderResponseSerializer {
 
 export class OrderSearch extends Component {
   searchApi = new InvenioSearchApi({
+    axios: {
+      url: orderApi.searchBaseURL,
+      withCredentials: true,
+    },
     invenio: {
       responseSerializer: OrderResponseSerializer,
     },
-    url: orderApi.searchBaseURL,
-    withCredentials: true,
   });
 
   renderSearchBar = (_, queryString, onInputChange, executeSearch) => {

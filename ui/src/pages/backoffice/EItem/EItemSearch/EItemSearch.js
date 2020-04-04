@@ -28,8 +28,10 @@ import history from '@history';
 
 export class EItemSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: eitemApi.searchBaseURL,
-    withCredentials: true,
+    axios: {
+      url: eitemApi.searchBaseURL,
+      withCredentials: true,
+    },
     interceptors: {
       response: { reject: responseRejectInterceptor },
     },

@@ -35,8 +35,10 @@ import history from '@history';
 
 export class DocumentsSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: literatureApi.searchBaseURL,
-    withCredentials: true,
+    axios: {
+      url: literatureApi.searchBaseURL,
+      withCredentials: true,
+    },
     interceptors: {
       response: { reject: responseRejectInterceptor },
     },

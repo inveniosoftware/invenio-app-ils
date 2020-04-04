@@ -30,8 +30,10 @@ beforeEach(() => {
 });
 
 const searchApi = new InvenioSearchApi({
-  url: documentApi.searchBaseURL,
-  withCredentials: true,
+  axios: {
+    url: documentApi.searchBaseURL,
+    withCredentials: true,
+  },
 });
 
 describe('SearchControls tests', () => {

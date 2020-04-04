@@ -31,8 +31,10 @@ import history from '@history';
 
 export class SeriesSearch extends Component {
   searchApi = new InvenioSearchApi({
-    url: seriesApi.searchBaseURL,
-    withCredentials: true,
+    axios: {
+      url: seriesApi.searchBaseURL,
+      withCredentials: true,
+    },
     interceptors: {
       response: { reject: responseRejectInterceptor },
     },

@@ -121,5 +121,9 @@ def date_range_filter(field, comparator):
     :param comparator: Comparison we want with the supplied date.
     """
     def inner(values):
-        return Range(**{field: {comparator: str(arrow.get(values[0]).date())}})
+        try:
+            input_date = str(arrow.get(values[0]).date())
+        except arrow.parser.ParserError as e:
+            raise ValueError("Input should be a date")
+        return Range(**{field: {comparator: input_date}})
     return inner

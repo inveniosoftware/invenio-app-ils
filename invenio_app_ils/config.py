@@ -1141,10 +1141,10 @@ RECORDS_REST_FACETS = dict(
             ),
         ),
         filters=dict(
-            circulation=default_value_when_missing_filter("circulation.state",
-                                                          "NOT_ON_LOAN"),
         ),
         post_filters=dict(
+            circulation=default_value_when_missing_filter(
+                "circulation.state", "NOT_ON_LOAN"),
             status=terms_filter("status"),
             medium=terms_filter("medium"),
             restrictions=terms_filter("circulation_restriction"),
@@ -1187,19 +1187,17 @@ RECORDS_REST_FACETS = dict(
                 )
             ),
         ),
-        filters={
+        post_filters={
+            "state": terms_filter("state"),
+            "delivery": terms_filter("delivery.method"),
+            "availability": keyed_range_filter(
+                "document.circulation.has_items_for_loan",
+                {"Available for loan": {"gt": 0}},
+            ),
             "returns.end_date": overdue_loans_filter("end_date"),
             "loans_from_date": date_range_filter("start_date", "gte"),
             "loans_to_date": date_range_filter("start_date", "lte"),
         },
-        post_filters=dict(
-            state=terms_filter("state"),
-            delivery=terms_filter("delivery.method"),
-            availability=keyed_range_filter(
-                "document.circulation.has_items_for_loan",
-                {"Available for loan": {"gt": 0}},
-            ),
-        ),
     ),
     acq_orders=dict(  # OrderSearch.Meta.index
         aggs=dict(

@@ -10,7 +10,9 @@ exports[`SeriesLiteratureSearch tests should load the SeriesLiteratureSearch com
     )
   </Divider>
   <ReactSearchKit
+    appName="RSK"
     defaultSortByOnEmptyQuery={null}
+    eventListenerEnabled={false}
     history={
       Object {
         "action": "POP",
@@ -33,12 +35,18 @@ exports[`SeriesLiteratureSearch tests should load the SeriesLiteratureSearch com
     }
     searchApi={
       InvenioSearchApi {
+        "axiosConfig": Object {
+          "url": "https://localhost:5000/api/literature/",
+          "withCredentials": true,
+        },
         "http": [Function],
+        "requestInterceptor": undefined,
         "requestSerializer": LiteratureRequestSerializer {
           "_addFilter": [Function],
           "_addFilters": [Function],
           "serialize": [Function],
         },
+        "responseInterceptor": undefined,
         "responseSerializer": InvenioResponseSerializer {
           "serialize": [Function],
         },
