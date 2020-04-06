@@ -9,9 +9,11 @@ import {
   Step,
 } from 'semantic-ui-react';
 import { AcquisitionRoutes, ILLRoutes } from '@routes/urls';
-import { documentRequest as documentRequestApi } from '@api';
-import { acqOrder as acqOrderApi } from '@api';
-import { borrowingRequest as borrowingRequestApi } from '@api';
+import {
+  documentRequest as documentRequestApi,
+  acqOrder as acqOrderApi,
+  illBorrowingRequest as illBrwReqApi,
+} from '@api';
 import { ESSelector } from '@components/ESSelector';
 import {
   serializeAcqOrder,
@@ -120,7 +122,7 @@ class IllProvider extends Component {
             <ESSelector
               disabled
               onSelectResult={this.onSelectResult}
-              query={borrowingRequestApi.list}
+              query={illBrwReqApi.list}
               serializer={serializeBorrowingRequest}
             />
           </Grid.Column>

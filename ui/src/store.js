@@ -60,8 +60,10 @@ import {
   loanRequestFormReducer,
 } from '@pages/frontsite/Documents/DocumentsDetails/reducer';
 import { documentRequestDetailsReducer } from '@pages/backoffice/DocumentRequest/DocumentRequestDetails/reducer';
-import { libraryDetailsReducer } from '@pages/backoffice/ILL/LibraryDetails/reducer';
-import { borrowingRequestDetailsReducer } from '@pages/backoffice/ILL/BorrowingRequestDetails/reducer';
+import {
+  borrowingRequestDetailsReducer,
+  libraryDetailsReducer,
+} from '@pages/backoffice/ILL';
 import {
   patronCurrentDocumentRequestsReducer,
   patronPastDocumentRequestsReducer,

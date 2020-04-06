@@ -82,6 +82,14 @@ class InvenioIlsIll(object):
         app.config.setdefault("RECORDS_REST_ENDPOINTS", {})
         app.config["RECORDS_REST_ENDPOINTS"].update(ill_endpoints)
 
+        acq_sort_options = getattr(config, "RECORDS_REST_SORT_OPTIONS")
+        app.config.setdefault("RECORDS_REST_SORT_OPTIONS", {})
+        app.config["RECORDS_REST_SORT_OPTIONS"].update(acq_sort_options)
+
+        acq_facets = getattr(config, "RECORDS_REST_FACETS")
+        app.config.setdefault("RECORDS_REST_FACETS", {})
+        app.config["RECORDS_REST_FACETS"].update(acq_facets)
+
         for k in dir(config):
             if k.startswith("ILS_ILL_"):
                 app.config.setdefault(k, getattr(config, k))

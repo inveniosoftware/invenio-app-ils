@@ -86,7 +86,7 @@ export const invenioConfig = {
       { value: 'PENDING', text: 'Pending' },
     ],
   },
-  borrowingRequests: {
+  illBorrowingRequests: {
     statuses: [
       { value: 'CANCELLED', text: 'Cancelled' },
       { value: 'PENDING', text: 'Pending' },
