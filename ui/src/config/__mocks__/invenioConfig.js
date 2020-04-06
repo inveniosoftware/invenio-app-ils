@@ -23,7 +23,7 @@ export const invenioConfig = {
       notFound: 'NOT_FOUND',
     },
   },
-  orders: {
+  acqOrders: {
     defaultCurrency: 'CHF',
     paymentModes: [
       { value: 'CREDIT_CARD', text: 'Credit Card' },
@@ -34,6 +34,15 @@ export const invenioConfig = {
       { value: 'RECEIVED', text: 'Received' },
       { value: 'ORDERED', text: 'Ordered' },
       { value: 'PENDING', text: 'Pending' },
+    ],
+  },
+  borrowingRequests: {
+    statuses: [
+      { value: 'CANCELLED', text: 'Cancelled' },
+      { value: 'PENDING', text: 'Pending' },
+      { value: 'REQUESTED', text: 'Requested' },
+      { value: 'ON_LOAN', text: 'On loan' },
+      { value: 'RETURNED', text: 'Returned' },
     ],
   },
   relationTypes: [

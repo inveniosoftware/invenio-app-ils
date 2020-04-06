@@ -76,7 +76,7 @@ export const invenioConfig = {
     referenceStatuses: ['FOR_REFERENCE_ONLY'],
   },
   max_results_window: 10000,
-  orders: {
+  acqOrders: {
     defaultCurrency: 'CHF',
     maxShowOrderLines: 3,
     statuses: [
@@ -84,6 +84,15 @@ export const invenioConfig = {
       { value: 'RECEIVED', text: 'Received' },
       { value: 'ORDERED', text: 'Ordered' },
       { value: 'PENDING', text: 'Pending' },
+    ],
+  },
+  borrowingRequests: {
+    statuses: [
+      { value: 'CANCELLED', text: 'Cancelled' },
+      { value: 'PENDING', text: 'Pending' },
+      { value: 'REQUESTED', text: 'Requested' },
+      { value: 'ON_LOAN', text: 'On loan' },
+      { value: 'RETURNED', text: 'Returned' },
     ],
   },
   relationTypes: [

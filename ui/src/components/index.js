@@ -1,9 +1,9 @@
 export { Abstract } from './Abstract';
+export { CreatedBy, UpdatedBy } from './ChangedBy';
 export { CopyButton } from './CopyButton';
 export { DatePicker } from './DatePicker';
 export { DateRangePicker } from './DateRangePicker';
 export { DocumentAuthors } from './Document';
-export { EmailCopyToClipboard } from './EmailCopyToClipboard';
 export { EmailLink } from './EmailLink';
 export { EmptyMessage } from './EmptyMessage';
 export { Error } from './Error';

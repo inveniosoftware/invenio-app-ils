@@ -160,8 +160,8 @@ export class OrderLines extends Component {
       <ArrayField
         fieldPath="resolved_order_lines"
         defaultNewValue={{
-          unit_price: { currency: invenioConfig.orders.defaultCurrency },
-          total_price: { currency: invenioConfig.orders.defaultCurrency },
+          unit_price: { currency: invenioConfig.acqOrders.defaultCurrency },
+          total_price: { currency: invenioConfig.acqOrders.defaultCurrency },
         }}
         renderArrayItem={this.renderArrayItem}
         addButtonLabel="Add new order line"

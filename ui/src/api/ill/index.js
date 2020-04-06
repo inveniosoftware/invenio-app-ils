@@ -1,2 +1,2 @@
-export { library } from './library';
-export { borrowingRequest } from './borrowingRequest';
+export { library as illLibrary } from './library';
+export { borrowingRequest as illBorrowingRequest } from './borrowingRequest';

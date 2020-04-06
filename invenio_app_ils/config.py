@@ -1027,52 +1027,6 @@ RECORDS_REST_SORT_OPTIONS = dict(
             order=2,
         ),
     ),
-    acq_orders=dict(  # OrderSearch.Meta.index
-        order_date=dict(
-            fields=["order_date"],
-            title="Order date",
-            default_order="desc",
-            order=1,
-        ),
-        grand_total=dict(
-            fields=["grand_total_main_currency.value"],
-            title="Total",
-            default_order="desc",
-            order=2,
-        ),
-        received_date=dict(
-            fields=["received_date"],
-            title="Received date",
-            default_order="desc",
-            order=3,
-        ),
-        expected_delivery_date=dict(
-            fields=["expected_delivery_date"],
-            title="Expected delivery date",
-            default_order="desc",
-            order=4,
-        ),
-        bestmatch=dict(
-            fields=["-_score"],
-            title="Best match",
-            default_order="asc",
-            order=5,
-        ),
-    ),
-    acq_vendors=dict(  # VendorSearch.Meta.index
-        name=dict(
-            fields=["name"],
-            title="Name",
-            default_order="asc",
-            order=1,
-        ),
-        bestmatch=dict(
-            fields=["-_score"],
-            title="Best match",
-            default_order="asc",
-            order=2,
-        ),
-    ),
 )
 
 # RECORDS REST facets
@@ -1082,7 +1036,6 @@ RECORDS_REST_DEFAULT_RESULTS_SIZE = 15
 
 #: Number of tags to display in the DocumentsSearch facet
 FACET_TAG_LIMIT = 5
-FACET_VENDOR_LIMIT = 5
 
 RECORDS_REST_FACETS = dict(
     documents=dict(  # DocumentSearch.Meta.index
@@ -1199,26 +1152,6 @@ RECORDS_REST_FACETS = dict(
             "loans_to_date": date_range_filter("start_date", "lte"),
         },
     ),
-    acq_orders=dict(  # OrderSearch.Meta.index
-        aggs=dict(
-            status=dict(terms=dict(field="status")),
-            vendor=dict(
-                terms=dict(
-                    field="vendor.name.keyword",
-                    size=FACET_VENDOR_LIMIT
-                )
-            ),
-            payment_mode=dict(
-                terms=dict(field="order_lines.payment_mode")),
-            medium=dict(terms=dict(field="order_lines.medium")),
-        ),
-        post_filters=dict(
-            status=terms_filter("status"),
-            vendor=terms_filter("vendor.name.keyword"),
-            payment_mode=terms_filter("order_lines.payment_mode"),
-            medium=terms_filter("order_lines.medium"),
-        ),
-    ),
     series=dict(  # SeriesSearch.Meta.index
         aggs=dict(
             moi=dict(terms=dict(field="mode_of_issuance")),
@@ -1232,7 +1165,6 @@ RECORDS_REST_FACETS = dict(
             language=terms_filter("languages"),
             relation=terms_filter("relation_types"),
         ),
-
     ),
 )
 

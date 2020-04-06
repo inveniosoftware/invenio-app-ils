@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Header, Segment, Grid } from 'semantic-ui-react';
 import { getIn } from 'formik';
 import { Loader } from '@components';
-import { order as orderApi } from '@api/acquisition';
+import { acqOrder as orderApi } from '@api';
 import { AcquisitionRoutes } from '@routes/urls';
 import { goTo } from '@history';
 import { BaseForm } from '@forms';
@@ -89,7 +89,7 @@ export class OrderForm extends Component {
   };
 
   getDefaultValues() {
-    const defaultCurrency = invenioConfig.orders.defaultCurrency;
+    const defaultCurrency = invenioConfig.acqOrders.defaultCurrency;
     return {
       create_by: sessionManager.user.id,
       grand_total: { currency: defaultCurrency },

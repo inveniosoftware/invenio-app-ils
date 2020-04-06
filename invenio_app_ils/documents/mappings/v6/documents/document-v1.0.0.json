@@ -183,7 +183,7 @@
           "type": "keyword"
         },
         "publication_year": {
-          "type": "integer"
+          "type": "keyword"
         },
         "relation_types": {
           "type": "keyword"

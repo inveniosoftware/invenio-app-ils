@@ -1,4 +1,11 @@
-import { IS_LOADING, SUCCESS, HAS_ERROR } from './types';
+import {
+  IS_LOADING,
+  SUCCESS,
+  HAS_ERROR,
+  DELETE_IS_LOADING,
+  DELETE_HAS_ERROR,
+  DELETE_SUCCESS,
+} from './types';
 
 export const initialState = {
   isLoading: true,
@@ -20,6 +27,22 @@ export default (state = initialState, action) => {
         hasError: false,
       };
     case HAS_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+        hasError: true,
+      };
+    case DELETE_IS_LOADING:
+      return { ...state, isLoading: true };
+    case DELETE_SUCCESS:
+      return {
+        ...state,
+        isLoading: true,
+        error: {},
+        hasError: false,
+      };
+    case DELETE_HAS_ERROR:
       return {
         ...state,
         isLoading: false,

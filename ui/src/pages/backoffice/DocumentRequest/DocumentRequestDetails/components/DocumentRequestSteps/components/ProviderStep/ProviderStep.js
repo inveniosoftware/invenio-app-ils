@@ -10,8 +10,8 @@ import {
 } from 'semantic-ui-react';
 import { AcquisitionRoutes, ILLRoutes } from '@routes/urls';
 import { documentRequest as documentRequestApi } from '@api';
-import { order as acqOrderApi } from '@api/acquisition';
-import { borrowingRequest as borrowingRequestApi } from '@api/ill';
+import { acqOrder as acqOrderApi } from '@api';
+import { borrowingRequest as borrowingRequestApi } from '@api';
 import { ESSelector } from '@components/ESSelector';
 import {
   serializeAcqOrder,

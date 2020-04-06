@@ -1,6 +1,6 @@
 import { toShortDateTime } from '@api/date';
+import { CreatedBy, UpdatedBy } from '@components';
 import { MetadataTable } from '@pages/backoffice/components';
-import _get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
@@ -18,24 +18,14 @@ export class SeriesSystemInfo extends Component {
       },
     ];
 
-    const created_by_type = _get(series, 'metadata.created_by.type');
-    const created_by_value = _get(series, 'metadata.created_by.value', '-');
-    const created_by = created_by_type
-      ? `${created_by_type}: ${created_by_value}`
-      : `${created_by_value}`;
     rows.push({
       name: 'Created by',
-      value: `${created_by}`,
+      value: <CreatedBy metadata={series.metadata} />,
     });
 
-    const updated_by_type = _get(series, 'metadata.updated_by.type');
-    const updated_by_value = _get(series, 'metadata.updated_by.value', '-');
-    const updated_by = updated_by_type
-      ? `${updated_by_type}: ${updated_by_value}`
-      : `${updated_by_value}`;
     rows.push({
       name: 'Updated by',
-      value: `${updated_by}`,
+      value: <UpdatedBy metadata={series.metadata} />,
     });
 
     return rows;

@@ -46,7 +46,10 @@ describe('Order request/response serializers tests', () => {
       metadata: {
         pid: '123',
         cancel_reason: 'abc',
-        created_by_pid: '1',
+        created_by: {
+          type: 'user_id',
+          value: '1',
+        },
         received_date: stringDate,
         expected_delivery_date: stringDate,
         funds: ['abc'],
@@ -69,7 +72,10 @@ describe('Order request/response serializers tests', () => {
       metadata: {
         pid: '123',
         cancel_reason: 'abc',
-        created_by_pid: '1',
+        created_by: {
+          type: 'user_id',
+          value: '1',
+        },
         received_date: objDate,
         expected_delivery_date: objDate,
         funds: ['abc'],
@@ -94,7 +100,10 @@ describe('Order request/response serializers tests', () => {
     const serialized = orderSerializer.toJSON({
       pid: '123',
       cancel_reason: 'abc',
-      created_by_pid: '1',
+      created_by: {
+        type: 'user_id',
+        value: '1',
+      },
       received_date: objDate,
       expected_delivery_date: objDate,
       funds: ['abc'],
@@ -114,7 +123,10 @@ describe('Order request/response serializers tests', () => {
     expect(serialized).toEqual({
       pid: '123',
       cancel_reason: 'abc',
-      created_by_pid: '1',
+      created_by: {
+        type: 'user_id',
+        value: '1',
+      },
       received_date: stringDate,
       expected_delivery_date: stringDate,
       funds: ['abc'],

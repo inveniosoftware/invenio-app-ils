@@ -18,8 +18,8 @@ import {
   DeleteRecordModal,
 } from '@pages/backoffice/components';
 import { AcquisitionRoutes } from '@routes/urls';
-import { order as orderApi } from '@api';
-import { VendorIcon } from '@pages/backoffice/components/icons';
+import { acqOrder as orderApi } from '@api';
+import { AcquisitionVendorIcon } from '@pages/backoffice/components/icons';
 import { DeleteButton } from '@pages/backoffice/components/DeleteRecordModal/components/DeleteButton';
 
 const DeleteVendorButton = props => {
@@ -65,7 +65,7 @@ class ActionMenu extends React.Component {
             deleteHeader={`Are you sure you want to delete the Vendor record
               with ID ${vendor.pid}?`}
             refProps={this.createRefProps(vendor.pid)}
-            onDelete={() => this.deleteVendor(vendor.pid)}
+            onDelete={() => this.props.deleteVendorHandler(vendor.pid)}
             trigger={DeleteVendorButton}
           />
 
@@ -95,7 +95,7 @@ class VendorHeader extends React.Component {
       <DetailsHeader
         title={data.metadata.name}
         pid={data.metadata.pid}
-        icon={<VendorIcon />}
+        icon={<AcquisitionVendorIcon />}
       >
         <label>Vendor</label> #{data.metadata.pid}
         <CopyButton text={data.metadata.pid} />
@@ -125,8 +125,6 @@ class VendorDetailsInner extends React.Component {
         ),
       },
     ];
-    const defaultIndexes =
-      data.metadata.status === 'CANCELLED' ? [0] : [0, 1, 2];
 
     return (
       <Accordion
@@ -135,7 +133,7 @@ class VendorDetailsInner extends React.Component {
         className="highlighted"
         panels={panels}
         exclusive={false}
-        defaultActiveIndex={defaultIndexes}
+        defaultActiveIndex={[0]}
       />
     );
   }
@@ -181,7 +179,10 @@ export default class VendorDetails extends React.Component {
                     </Grid.Column>
                     <Grid.Column width={3}>
                       <Sticky context={this.menuRef} offset={150}>
-                        <ActionMenu data={data} />
+                        <ActionMenu
+                          data={data}
+                          deleteVendorHandler={this.props.deleteVendor}
+                        />
                       </Sticky>
                     </Grid.Column>
                   </Grid>

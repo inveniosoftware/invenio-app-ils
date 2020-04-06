@@ -1,6 +1,6 @@
 import { HAS_ERROR, IS_LOADING, SUCCESS } from './types';
 import { sendErrorNotification } from '@components/Notifications';
-import { order as orderApi } from '@api';
+import { acqOrder as orderApi } from '@api';
 
 export const fetchOrderDetails = pid => {
   return async dispatch => {

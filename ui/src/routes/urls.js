@@ -190,8 +190,8 @@ const ILLRoutesGenerators = {
     generatePath(ILLRoutesList.libraryEdit, {
       libraryPid: libraryPid,
     }),
-  documentRequestsListWithQuery: qs =>
-    `${BackOfficeRoutesList.documentRequestsList}?q=${qs}`,
+  borrowingRequestListWithQuery: qs =>
+    `${ILLRoutesList.borrowingRequestList}?q=${qs}`,
   borrowingRequestDetailsFor: borrowingRequestPid =>
     generatePath(ILLRoutesList.borrowingRequestDetails, {
       borrowingRequestPid: borrowingRequestPid,

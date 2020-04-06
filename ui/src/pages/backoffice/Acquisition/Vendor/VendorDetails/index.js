@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { fetchVendorDetails } from './state/actions';
+import { fetchVendorDetails, deleteVendor } from './state/actions';
 import VendorDetailsComponent from './VendorDetails';
 
 const mapStateToProps = state => ({
@@ -12,6 +12,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchVendorDetails: vendorPid => dispatch(fetchVendorDetails(vendorPid)),
+  deleteVendor: vendorPid => dispatch(deleteVendor(vendorPid)),
 });
 
 export const VendorDetails = connect(

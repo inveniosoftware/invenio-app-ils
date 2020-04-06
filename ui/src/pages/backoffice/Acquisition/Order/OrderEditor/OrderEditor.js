@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Loader, Error } from '@components';
-import { order as orderApi } from '@api/acquisition/order';
+import { acqOrder as orderApi } from '@api';
 import { OrderForm } from './components';
 import _get from 'lodash/get';
 

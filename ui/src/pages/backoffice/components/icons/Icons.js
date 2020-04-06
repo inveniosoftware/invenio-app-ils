@@ -31,19 +31,19 @@ export class LoanIcon extends Component {
   }
 }
 
-export class OrderIcon extends Component {
-  render() {
-    return <Icon name="shopping cart" />;
-  }
-}
-
 export class PatronIcon extends Component {
   render() {
     return <Icon name="user" />;
   }
 }
 
-export class VendorIcon extends Component {
+export class AcquisitionOrderIcon extends Component {
+  render() {
+    return <Icon name="shopping cart" />;
+  }
+}
+
+export class AcquisitionVendorIcon extends Component {
   render() {
     return <Icon name="industry" />;
   }
@@ -52,5 +52,17 @@ export class VendorIcon extends Component {
 export class DocumentRequestIcon extends Component {
   render() {
     return <Icon name="comment outline" />;
+  }
+}
+
+export class ILLBorrowingRequestIcon extends Component {
+  render() {
+    return <Icon name="sync alternate" />;
+  }
+}
+
+export class ILLLibraryIcon extends Component {
+  render() {
+    return <Icon name="boxes" />;
   }
 }

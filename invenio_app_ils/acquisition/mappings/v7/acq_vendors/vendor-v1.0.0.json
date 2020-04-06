@@ -19,7 +19,7 @@
         "type": "text"
       },
       "name": {
-        "type": "keyword"
+        "type": "text"
       },
       "notes": {
         "type": "text"

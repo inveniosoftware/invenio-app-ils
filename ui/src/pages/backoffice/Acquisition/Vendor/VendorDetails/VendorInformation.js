@@ -1,4 +1,4 @@
-import { EmailCopyToClipboard, EmailLink } from '@components';
+import { CopyButton, EmailLink } from '@components';
 import { MetadataTable } from '@pages/backoffice/components';
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
@@ -13,7 +13,7 @@ export class VendorInformation extends React.Component {
         value: (
           <span>
             <EmailLink email={vendor.email} />{' '}
-            <EmailCopyToClipboard email={vendor.email} />
+            <CopyButton text={vendor.email} />
           </span>
         ),
       },

@@ -207,7 +207,7 @@ const searchConfig = {
   literature: {
     filters: [],
     sortBy: {
-      onEmptyQuery: 'publication_year',
+      onEmptyQuery: 'mostrecent',
       values: [
         {
           default_order: 'asc',
@@ -361,17 +361,17 @@ const searchConfig = {
     },
     sortOrder: ['asc', 'desc'],
   },
-  orders: {
+  acqOrders: {
     filters: [
       {
         title: 'Status',
         field: 'status',
         aggName: 'status',
-        labels: invenioConfig.orders.statuses,
+        labels: invenioConfig.acqOrders.statuses,
       },
       {
         title: 'Vendor',
-        field: 'vendor.name',
+        field: 'vendor.name.keyword',
         aggName: 'vendor',
       },
       {
@@ -392,43 +392,49 @@ const searchConfig = {
       },
     ],
     sortBy: {
-      onEmptyQuery: 'order_date',
+      onEmptyQuery: 'mostrecent',
       values: [
+        {
+          default_order: 'asc',
+          field: 'mostrecent',
+          order: 1,
+          title: 'Newest',
+        },
         {
           default_order: 'desc',
           field: 'order_date',
-          order: 1,
+          order: 2,
           title: 'Order date',
         },
         {
           default_order: 'desc',
           field: 'grand_total',
-          order: 2,
-          title: `Total (${invenioConfig.orders.defaultCurrency})`,
+          order: 3,
+          title: `Total (${invenioConfig.acqOrders.defaultCurrency})`,
         },
         {
           default_order: 'desc',
           field: 'received_date',
-          order: 3,
+          order: 4,
           title: 'Received date',
         },
         {
           default_order: 'desc',
           field: 'expected_delivery_date',
-          order: 4,
+          order: 5,
           title: 'Expected delivery date',
         },
         {
           default_order: 'asc',
           field: 'bestmatch',
-          order: 5,
+          order: 6,
           title: 'Best match',
         },
       ],
     },
     sortOrder: ['desc', 'asc'],
   },
-  vendors: {
+  acqVendors: {
     filters: [],
     sortBy: {
       onEmptyQuery: 'name',
@@ -449,22 +455,74 @@ const searchConfig = {
     },
     sortOrder: ['asc', 'desc'],
   },
-  libraries: {
-    filters: [],
+  borrowingRequests: {
+    filters: [
+      {
+        title: 'Status',
+        field: 'status',
+        aggName: 'status',
+        labels: invenioConfig.borrowingRequests.statuses,
+      },
+      {
+        title: 'Library',
+        field: 'library.name.keyword',
+        aggName: 'library',
+      },
+      {
+        title: 'Type',
+        field: 'type',
+        aggName: 'type',
+      },
+      {
+        title: 'Payment Mode',
+        field: 'payment.mode',
+        aggName: 'payment_mode',
+      },
+    ],
     sortBy: {
-      onEmptyQuery: 'bestmatch',
+      onEmptyQuery: 'mostrecent',
       values: [
         {
           default_order: 'asc',
-          field: 'bestmatch',
+          field: 'mostrecent',
           order: 1,
+          title: 'Newest',
+        },
+        {
+          default_order: 'desc',
+          field: 'request_date',
+          order: 2,
+          title: 'Request date',
+        },
+        {
+          default_order: 'desc',
+          field: 'received_date',
+          order: 3,
+          title: 'Received date',
+        },
+        {
+          default_order: 'desc',
+          field: 'expected_delivery_date',
+          order: 4,
+          title: 'Expected delivery date',
+        },
+        {
+          default_order: 'desc',
+          field: 'loan_end_date',
+          order: 5,
+          title: 'Loan end date',
+        },
+        {
+          default_order: 'asc',
+          field: 'bestmatch',
+          order: 6,
           title: 'Best match',
         },
       ],
     },
-    sortOrder: ['asc', 'desc'],
+    sortOrder: ['desc', 'asc'],
   },
-  borrowingRequests: {
+  libraries: {
     filters: [],
     sortBy: {
       onEmptyQuery: 'bestmatch',
