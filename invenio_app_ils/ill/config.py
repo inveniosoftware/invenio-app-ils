@@ -8,6 +8,7 @@
 """Configuration for Invenio ILS ILL module."""
 
 from invenio_indexer.api import RecordIndexer
+from invenio_records_rest.facets import terms_filter
 
 from invenio_app_ils.permissions import backoffice_permission
 
@@ -89,4 +90,77 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=backoffice_permission,
         delete_permission_factory_imp=backoffice_permission,
     ),
+)
+
+RECORDS_REST_SORT_OPTIONS = dict(
+    ill_borrowing_requests=dict(  # BorrowingRequestsSearch.Meta.index
+        mostrecent=dict(
+            fields=["_updated"],
+            title="Newest",
+            default_order="asc",
+            order=1,
+        ),
+        request_date=dict(
+            fields=["request_date"],
+            title="Request date",
+            default_order="desc",
+            order=2,
+        ),
+        received_date=dict(
+            fields=["received_date"],
+            title="Received date",
+            default_order="desc",
+            order=3,
+        ),
+        expected_delivery_date=dict(
+            fields=["expected_delivery_date"],
+            title="Expected delivery date",
+            default_order="desc",
+            order=4,
+        ),
+        loan_end_date=dict(
+            fields=["loan_end_date"],
+            title="Loan end date",
+            default_order="desc",
+            order=5,
+        ),
+        bestmatch=dict(
+            fields=["-_score"],
+            title="Best match",
+            default_order="asc",
+            order=6,
+        ),
+    ),
+    ill_libraries=dict(  # LibrarySearch.Meta.index
+        name=dict(fields=["name"], title="Name", default_order="asc", order=1),
+        bestmatch=dict(
+            fields=["-_score"],
+            title="Best match",
+            default_order="asc",
+            order=2,
+        ),
+    ),
+)
+
+FACET_LIBRARYLIMIT = 5
+
+RECORDS_REST_FACETS = dict(
+    ill_borrowing_requests=dict(  # BorrowingRequestsSearch.Meta.index
+        aggs=dict(
+            status=dict(terms=dict(field="status")),
+            library=dict(
+                terms=dict(
+                    field="library.name.keyword", size=FACET_LIBRARYLIMIT
+                )
+            ),
+            type=dict(terms=dict(field="type")),
+            payment_mode=dict(terms=dict(field="payment.mode")),
+        ),
+        post_filters=dict(
+            status=terms_filter("status"),
+            library=terms_filter("library.name.keyword"),
+            type=terms_filter("terms"),
+            payment_mode=terms_filter("payment.mode"),
+        ),
+    )
 )

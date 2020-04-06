@@ -1,6 +1,10 @@
 import { toShortDate } from '@api/date';
 import { CopyButton, CreatedBy, Error, Loader } from '@components';
 import { DetailsHeader, EditButton } from '@pages/backoffice/components';
+import {
+  ScrollingMenu,
+  ScrollingMenuItem,
+} from '@pages/backoffice/components/buttons/ScrollingMenu';
 import { AcquisitionOrderIcon } from '@pages/backoffice/components/icons';
 import { AcquisitionRoutes } from '@routes/urls';
 import PropTypes from 'prop-types';
@@ -12,7 +16,6 @@ import {
   Divider,
   Grid,
   Label,
-  Menu,
   Ref,
   Sticky,
 } from 'semantic-ui-react';
@@ -78,21 +81,8 @@ class OrderHeader extends React.Component {
 }
 
 class ActionMenu extends React.Component {
-  constructor(props) {
-    super(props);
-    this.orderTopRef = props.anchors.orderTopRef;
-    this.paymentInfoRef = props.anchors.paymentInfoRef;
-    this.orderLinesRef = props.anchors.orderLinesRef;
-    this.state = { activeItem: '' };
-  }
-
-  scrollTo(ref, menuItemName) {
-    ref.current.scrollIntoView(false, { behaviour: 'smooth' });
-    this.setState({ activeItem: menuItemName });
-  }
   render() {
     const order = this.props.data.metadata;
-    const { activeItem } = this.state;
 
     return (
       <div className={'bo-action-menu'}>
@@ -100,29 +90,14 @@ class ActionMenu extends React.Component {
 
         <Divider horizontal>Navigation</Divider>
 
-        <Menu pointing secondary vertical fluid className="left">
-          <Menu.Item
-            name="orderInfo"
-            active={activeItem === 'orderInfo'}
-            onClick={(e, { name }) => this.scrollTo(this.orderTopRef, name)}
-          >
-            Order information
-          </Menu.Item>
-          <Menu.Item
-            name="payment"
-            active={activeItem === 'payment'}
-            onClick={(e, { name }) => this.scrollTo(this.paymentInfoRef, name)}
-          >
-            Payment information
-          </Menu.Item>
-          <Menu.Item
-            name="details"
-            active={activeItem === 'details'}
-            onClick={(e, { name }) => this.scrollTo(this.orderLinesRef, name)}
-          >
-            Order details
-          </Menu.Item>
-        </Menu>
+        <ScrollingMenu offset={this.props.offset}>
+          <ScrollingMenuItem elementId="order-info" label="Order information" />
+          <ScrollingMenuItem
+            elementId="payment-info"
+            label="Payment information"
+          />
+          <ScrollingMenuItem elementId="order-lines" label="Order details" />
+        </ScrollingMenu>
       </div>
     );
   }
@@ -244,7 +219,7 @@ export default class OrderDetails extends React.Component {
                     </Grid.Column>
                     <Grid.Column width={3}>
                       <Sticky context={this.menuRef} offset={150}>
-                        <ActionMenu data={data} anchors={this.anchors} />
+                        <ActionMenu data={data} offset={-150} />
                       </Sticky>
                     </Grid.Column>
                   </Grid>

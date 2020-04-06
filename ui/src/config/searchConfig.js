@@ -450,13 +450,13 @@ const searchConfig = {
     },
     sortOrder: ['asc', 'desc'],
   },
-  borrowingRequests: {
+  illBorrowingRequests: {
     filters: [
       {
         title: 'Status',
         field: 'status',
         aggName: 'status',
-        labels: invenioConfig.borrowingRequests.statuses,
+        labels: invenioConfig.illBorrowingRequests.statuses,
       },
       {
         title: 'Library',
@@ -517,7 +517,7 @@ const searchConfig = {
     },
     sortOrder: ['desc', 'asc'],
   },
-  libraries: {
+  illLibraries: {
     filters: [],
     sortBy: {
       onEmptyQuery: 'bestmatch',

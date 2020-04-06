@@ -1,1 +1,0 @@
-export { BorrowingRequestListEntry } from './BorrowingRequestListEntry';

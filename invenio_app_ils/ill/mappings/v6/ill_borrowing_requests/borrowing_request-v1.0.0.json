@@ -36,7 +36,7 @@
               "type": "keyword"
             },
             "publication_year": {
-              "type": "integer"
+              "type": "keyword"
             },
             "title": {
               "type": "text"
@@ -67,7 +67,12 @@
         "library": {
           "properties": {
             "name": {
-              "type": "keyword"
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              },
+              "type": "text"
             },
             "pid": {
               "type": "keyword"

@@ -1,1 +1,0 @@
-export { LibraryMetadata } from './LibraryMetadata';

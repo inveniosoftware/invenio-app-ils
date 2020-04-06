@@ -2,59 +2,59 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Grid, Icon, Item, List } from 'semantic-ui-react';
-import { AcquisitionRoutes } from '@routes/urls';
-import { acqOrder as orderApi } from '@api';
-import { AcquisitionVendorIcon } from '@pages/backoffice/components/icons';
+import { ILLRoutes } from '@routes/urls';
+import { illBorrowingRequest as brwReqApi } from '@api';
+import { ILLLibraryIcon } from '@pages/backoffice/components/icons';
 
-const VendorListInfo = ({ vendor }) => (
+const LibraryListInfo = ({ libraryMetadata }) => (
   <List verticalAlign="middle" className={'document-circulation'}>
     <List.Item>
       <List.Content>
-        email <strong>{vendor.metadata.email}</strong>
+        email <strong>{libraryMetadata.email}</strong>
       </List.Content>
     </List.Item>
     <List.Item>
       <List.Content>
-        phone <strong>{vendor.metadata.phone}</strong>
+        phone <strong>{libraryMetadata.phone}</strong>
       </List.Content>
     </List.Item>
   </List>
 );
 
-const VendorOrderSearch = ({ vendor }) => {
-  const orderQuery = orderApi
+const LibraryOrderSearch = ({ libraryMetadata }) => {
+  const brwReqQuery = brwReqApi
     .query()
-    .withVendorPid(vendor.metadata.pid)
+    .withLibraryPid(libraryMetadata.pid)
     .qs();
   return (
     <List.Item>
       <List.Content>
-        <Link to={AcquisitionRoutes.ordersListWithQuery(orderQuery)}>
+        <Link to={ILLRoutes.borrowingRequestListWithQuery(brwReqQuery)}>
           <Icon name="search" />
-          See purchase orders
+          See borrowing requests
         </Link>
       </List.Content>
     </List.Item>
   );
 };
 
-export default class VendorListEntry extends Component {
-  renderMiddleColumn = vendor => {
+export default class LibraryListEntry extends Component {
+  renderMiddleColumn = libraryMetadata => {
     if (this.props.renderMiddleColumn) {
-      return this.props.renderMiddleColumn(vendor);
+      return this.props.renderMiddleColumn(libraryMetadata);
     }
-    return <VendorListInfo vendor={vendor} />;
+    return <LibraryListInfo libraryMetadata={libraryMetadata} />;
   };
 
-  renderRightColumn = vendor => {
+  renderRightColumn = libraryMetadata => {
     if (this.props.renderRightColumn) {
-      return this.props.renderRightColumn(vendor);
+      return this.props.renderRightColumn(libraryMetadata);
     }
-    return <VendorOrderSearch vendor={vendor} />;
+    return <LibraryOrderSearch libraryMetadata={libraryMetadata} />;
   };
 
   renderAddress = () => {
-    const address = this.props.vendor.metadata.address;
+    const address = this.props.libraryMetadata.address;
     if (!address) return null;
 
     return (
@@ -72,17 +72,17 @@ export default class VendorListEntry extends Component {
   };
 
   render() {
-    const { vendor } = this.props;
+    const { libraryMetadata } = this.props;
     return (
       <Item>
         <Item.Content>
           <Item.Header
             as={Link}
-            to={AcquisitionRoutes.vendorDetailsFor(vendor.metadata.pid)}
-            data-test={`navigate-${vendor.metadata.pid}`}
+            to={ILLRoutes.libraryDetailsFor(libraryMetadata.pid)}
+            data-test={`navigate-${libraryMetadata.pid}`}
           >
-            <AcquisitionVendorIcon />
-            {vendor.metadata.name}
+            <ILLLibraryIcon />
+            {libraryMetadata.name}
           </Item.Header>
           <Item.Meta>Address:</Item.Meta>
           <Grid highlight={3}>
@@ -90,22 +90,22 @@ export default class VendorListEntry extends Component {
               {this.renderAddress()}
             </Grid.Column>
             <Grid.Column computer={4} largeScreen={4}>
-              {this.renderMiddleColumn(vendor)}
+              {this.renderMiddleColumn(libraryMetadata)}
             </Grid.Column>
             <Grid.Column width={1} />
-            <Grid.Column computer={2} largeScreen={2}>
-              {this.renderRightColumn(vendor)}
+            <Grid.Column computer={3} largeScreen={3}>
+              {this.renderRightColumn(libraryMetadata)}
             </Grid.Column>
           </Grid>
         </Item.Content>
-        <div className={'pid-field'}>#{vendor.metadata.pid}</div>
+        <div className={'pid-field'}>#{libraryMetadata.pid}</div>
       </Item>
     );
   }
 }
 
-VendorListEntry.propTypes = {
-  vendor: PropTypes.object.isRequired,
+LibraryListEntry.propTypes = {
+  libraryMetadata: PropTypes.object.isRequired,
   renderMiddleColumn: PropTypes.func,
   renderRightColumn: PropTypes.func,
 };

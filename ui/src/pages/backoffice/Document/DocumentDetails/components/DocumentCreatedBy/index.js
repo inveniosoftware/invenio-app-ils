@@ -1,1 +1,0 @@
-export { DocumentCreatedBy } from './DocumentCreatedBy';

@@ -1,5 +1,5 @@
 import { toShortDate } from '@api/date';
-import { CopyButton, DocumentAuthors } from '@components';
+import { CopyButton, CreatedBy, DocumentAuthors } from '@components';
 import {
   DocumentCover,
   DocumentTags,
@@ -9,7 +9,6 @@ import {
   DetailsHeader,
   RestrictedAccessLabel,
 } from '@pages/backoffice/components';
-import { DocumentCreatedBy } from '@pages/backoffice/Document/DocumentDetails/components';
 import { FrontSiteRoutes } from '@routes/urls';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
@@ -26,7 +25,7 @@ export class DocumentHeader extends Component {
           <>
             <br />
             <label className="muted">Created by</label>{' '}
-            <DocumentCreatedBy metadata={data.metadata} />
+            <CreatedBy metadata={data.metadata} />
           </>
         )}
         <br />
